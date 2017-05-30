@@ -25,6 +25,43 @@ namespace kinetica
     public class FilterRequest : KineticaData
     {
 
+        /// <summary>Optional parameters.
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term>collection_name</term>
+        ///         <description>Name of a collection which is to contain the
+        /// newly created view, otherwise the view will be a top-level table.
+        /// If the collection does not allow duplicate types and it contains a
+        /// table of the same type as the given one, then this table creation
+        /// request will fail.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term>ttl</term>
+        ///         <description>Sets the TTL of the view specified in
+        /// <paramref cref="FilterRequest.view_name" />. The value must be the
+        /// desired TTL in minutes.</description>
+        ///     </item>
+        /// </list>
+        /// <br />
+        /// A set of string constants for the parameter <member name="options"
+        /// />.</summary>
+        public struct Options
+        {
+
+            /// <summary>Name of a collection which is to contain the newly
+            /// created view, otherwise the view will be a top-level table. If
+            /// the collection does not allow duplicate types and it contains a
+            /// table of the same type as the given one, then this table
+            /// creation request will fail.</summary>
+            public const string COLLECTION_NAME = "collection_name";
+
+            /// <summary>Sets the TTL of the view specified in <member
+            /// name="view_name" />. The value must be the desired TTL in
+            /// minutes.</summary>
+            public const string TTL = "ttl";
+        } // end struct Options
+
+
         /// <summary>Name of the table to filter.  This may be the ID of a
         /// collection, table or a result set (for chaining queries).
         /// Collections may be filtered only if all tables within the
@@ -42,7 +79,24 @@ namespace kinetica
         /// target="_top">concepts</a>.  </summary>
         public string expression { get; set; }
 
-        /// <summary>Optional parameters.  </summary>
+        /// <summary>Optional parameters.
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term>collection_name</term>
+        ///         <description>Name of a collection which is to contain the
+        /// newly created view, otherwise the view will be a top-level table.
+        /// If the collection does not allow duplicate types and it contains a
+        /// table of the same type as the given one, then this table creation
+        /// request will fail.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term>ttl</term>
+        ///         <description>Sets the TTL of the view specified in
+        /// <paramref cref="FilterRequest.view_name" />. The value must be the
+        /// desired TTL in minutes.</description>
+        ///     </item>
+        /// </list>
+        ///   </summary>
         public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
 
 
@@ -65,7 +119,24 @@ namespace kinetica
         /// specified table.  For details see <a
         /// href="../../../../concepts/expressions.html"
         /// target="_top">concepts</a>.  </param>
-        /// <param name="options">Optional parameters.  </param>
+        /// <param name="options">Optional parameters.
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term>collection_name</term>
+        ///         <description>Name of a collection which is to contain the
+        /// newly created view, otherwise the view will be a top-level table.
+        /// If the collection does not allow duplicate types and it contains a
+        /// table of the same type as the given one, then this table creation
+        /// request will fail.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term>ttl</term>
+        ///         <description>Sets the TTL of the view specified in
+        /// <paramref cref="FilterRequest.view_name" />. The value must be the
+        /// desired TTL in minutes.</description>
+        ///     </item>
+        /// </list>
+        ///   </param>
         /// 
         public FilterRequest( string table_name,
                               string view_name,

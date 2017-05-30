@@ -52,6 +52,12 @@ namespace kinetica
         /// full_refresh.
         /// </description>
         ///     </item>
+        ///     <item>
+        ///         <term>ttl</term>
+        ///         <description>Sets the TTL of the table specified in
+        /// <paramref cref="CreateJoinTableRequest.join_table_name" />. The
+        /// value must be the desired TTL in minutes.</description>
+        ///     </item>
         /// </list>
         /// <br />
         /// A set of string constants for the parameter <member name="options"
@@ -112,6 +118,11 @@ namespace kinetica
             /// all the records) if a delete or update has occurred since the
             /// last refresh.</summary>
             public const string FULL_REFRESH = "full_refresh";
+
+            /// <summary>Sets the TTL of the table specified in <member
+            /// name="join_table_name" />. The value must be the desired TTL in
+            /// minutes.</summary>
+            public const string TTL = "ttl";
         } // end struct Options
 
 
@@ -171,6 +182,12 @@ namespace kinetica
         /// exists - throws an error otherwise Values: no_refresh, refresh,
         /// full_refresh.
         /// </description>
+        ///     </item>
+        ///     <item>
+        ///         <term>ttl</term>
+        ///         <description>Sets the TTL of the table specified in
+        /// <paramref cref="CreateJoinTableRequest.join_table_name" />. The
+        /// value must be the desired TTL in minutes.</description>
         ///     </item>
         /// </list>
         ///   </summary>
@@ -234,6 +251,12 @@ namespace kinetica
         /// exists - throws an error otherwise Values: no_refresh, refresh,
         /// full_refresh.
         /// </description>
+        ///     </item>
+        ///     <item>
+        ///         <term>ttl</term>
+        ///         <description>Sets the TTL of the table specified in
+        /// <paramref cref="CreateJoinTableRequest.join_table_name" />. The
+        /// value must be the desired TTL in minutes.</description>
         ///     </item>
         /// </list>
         ///   </param>

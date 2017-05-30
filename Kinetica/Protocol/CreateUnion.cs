@@ -43,8 +43,10 @@ namespace kinetica
         /// </description>
         ///     </item>
         ///     <item>
-        ///         <term>chunk_size</term>
-        ///         <description>Chunk size for this union</description>
+        ///         <term>ttl</term>
+        ///         <description>Sets the TTL of the table specified in
+        /// <paramref cref="CreateUnionRequest.table_name" />. The value must
+        /// be the desired TTL in minutes.</description>
         ///     </item>
         /// </list>
         /// <br />
@@ -95,8 +97,10 @@ namespace kinetica
             /// into a new view.</summary>
             public const string MERGE_VIEWS = "merge_views";
 
-            /// <summary>Chunk size for this union</summary>
-            public const string CHUNK_SIZE = "chunk_size";
+            /// <summary>Sets the TTL of the table specified in <member
+            /// name="table_name" />. The value must be the desired TTL in
+            /// minutes.</summary>
+            public const string TTL = "ttl";
         } // end struct Options
 
 
@@ -140,8 +144,10 @@ namespace kinetica
         /// </description>
         ///     </item>
         ///     <item>
-        ///         <term>chunk_size</term>
-        ///         <description>Chunk size for this union</description>
+        ///         <term>ttl</term>
+        ///         <description>Sets the TTL of the table specified in
+        /// <paramref cref="CreateUnionRequest.table_name" />. The value must
+        /// be the desired TTL in minutes.</description>
         ///     </item>
         /// </list>
         ///   </summary>
@@ -189,8 +195,10 @@ namespace kinetica
         /// </description>
         ///     </item>
         ///     <item>
-        ///         <term>chunk_size</term>
-        ///         <description>Chunk size for this union</description>
+        ///         <term>ttl</term>
+        ///         <description>Sets the TTL of the table specified in
+        /// <paramref cref="CreateUnionRequest.table_name" />. The value must
+        /// be the desired TTL in minutes.</description>
         ///     </item>
         /// </list>
         ///   </param>

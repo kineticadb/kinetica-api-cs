@@ -245,6 +245,12 @@ namespace kinetica
             /// collections.</summary>
             public const string FOREIGN_KEYS = "foreign_keys";
 
+            /// <summary>Foreign shard key description of the format:
+            /// <fk_foreign_key> references <pk_column_name> from
+            /// <pk_table_name>(<pk_primary_key>). Not present for
+            /// collections.</summary>
+            public const string FOREIGN_SHARD_KEY = "foreign_shard_key";
+
             /// <summary>Semicolon-separated list of columns that have
             /// attribute indexes. Not present for collections.</summary>
             public const string ATTRIBUTE_INDEXES = "attribute_indexes";

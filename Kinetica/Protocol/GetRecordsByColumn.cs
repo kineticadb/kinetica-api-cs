@@ -65,6 +65,15 @@ namespace kinetica
         /// ascending, descending.
         /// </description>
         ///     </item>
+        ///     <item>
+        ///         <term>order_by</term>
+        ///         <description>Comma-separated list of the columns to be
+        /// sorted by; e.g. 'timestamp asc, x desc'.  The columns specified
+        /// must be present in <paramref
+        /// cref="GetRecordsByColumnRequest.column_names" />.  If any alias is
+        /// given for any column name, the alias must be used, rather than the
+        /// original column name.</description>
+        ///     </item>
         /// </list>
         /// <br />
         /// A set of string constants for the parameter <member name="options"
@@ -88,6 +97,13 @@ namespace kinetica
             public const string SORT_ORDER = "sort_order";
             public const string ASCENDING = "ascending";
             public const string DESCENDING = "descending";
+
+            /// <summary>Comma-separated list of the columns to be sorted by;
+            /// e.g. 'timestamp asc, x desc'.  The columns specified must be
+            /// present in <member name="column_names" />.  If any alias is
+            /// given for any column name, the alias must be used, rather than
+            /// the original column name.</summary>
+            public const string ORDER_BY = "order_by";
         } // end struct Options
 
 
@@ -135,6 +151,15 @@ namespace kinetica
         /// ascending, descending.
         /// </description>
         ///     </item>
+        ///     <item>
+        ///         <term>order_by</term>
+        ///         <description>Comma-separated list of the columns to be
+        /// sorted by; e.g. 'timestamp asc, x desc'.  The columns specified
+        /// must be present in <paramref
+        /// cref="GetRecordsByColumnRequest.column_names" />.  If any alias is
+        /// given for any column name, the alias must be used, rather than the
+        /// original column name.</description>
+        ///     </item>
         /// </list>
         ///   </summary>
         public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
@@ -178,6 +203,15 @@ namespace kinetica
         /// If sort_order is provided, sort_by has to be provided. Values:
         /// ascending, descending.
         /// </description>
+        ///     </item>
+        ///     <item>
+        ///         <term>order_by</term>
+        ///         <description>Comma-separated list of the columns to be
+        /// sorted by; e.g. 'timestamp asc, x desc'.  The columns specified
+        /// must be present in <paramref
+        /// cref="GetRecordsByColumnRequest.column_names" />.  If any alias is
+        /// given for any column name, the alias must be used, rather than the
+        /// original column name.</description>
         ///     </item>
         /// </list>
         ///   </param>
@@ -234,6 +268,15 @@ namespace kinetica
         /// If sort_order is provided, sort_by has to be provided. Values:
         /// ascending, descending.
         /// </description>
+        ///     </item>
+        ///     <item>
+        ///         <term>order_by</term>
+        ///         <description>Comma-separated list of the columns to be
+        /// sorted by; e.g. 'timestamp asc, x desc'.  The columns specified
+        /// must be present in <paramref
+        /// cref="GetRecordsByColumnRequest.column_names" />.  If any alias is
+        /// given for any column name, the alias must be used, rather than the
+        /// original column name.</description>
         ///     </item>
         /// </list>
         ///   </param>

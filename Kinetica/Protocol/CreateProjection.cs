@@ -13,7 +13,7 @@ namespace kinetica
 
     /// <summary>A set of parameters for /create/projection.
     /// <br />
-    /// Creates a new projection of an existing table. A projection represents
+    /// Creates a new projection of an existing table.  A projection represents
     /// a subset of the columns (potentially including derived columns) of a
     /// table.</summary>
     public class CreateProjectionRequest : KineticaData
@@ -38,7 +38,11 @@ namespace kinetica
         ///     <item>
         ///         <term>order_by</term>
         ///         <description>Comma-separated list of the columns to be
-        /// sorted by; i.e 'timestamp asc, x desc'.</description>
+        /// sorted by; e.g. 'timestamp asc, x desc'.  The columns specified
+        /// must be present in <paramref
+        /// cref="CreateProjectionRequest.column_names" />.  If any alias is
+        /// given for any column name, the alias must be used, rather than the
+        /// original column name.</description>
         ///     </item>
         ///     <item>
         ///         <term>materialize_on_gpu</term>
@@ -47,8 +51,10 @@ namespace kinetica
         /// </description>
         ///     </item>
         ///     <item>
-        ///         <term>chunk_size</term>
-        ///         <description>Chunk size for this projection</description>
+        ///         <term>ttl</term>
+        ///         <description>Sets the TTL of the table, view, or collection
+        /// specified in <paramref cref="CreateProjectionRequest.table_name"
+        /// />. The value must be the desired TTL in minutes.</description>
         ///     </item>
         /// </list>
         /// <br />
@@ -69,7 +75,10 @@ namespace kinetica
             public const string LIMIT = "limit";
 
             /// <summary>Comma-separated list of the columns to be sorted by;
-            /// i.e 'timestamp asc, x desc'.</summary>
+            /// e.g. 'timestamp asc, x desc'.  The columns specified must be
+            /// present in <member name="column_names" />.  If any alias is
+            /// given for any column name, the alias must be used, rather than
+            /// the original column name.</summary>
             public const string ORDER_BY = "order_by";
 
             /// <summary>If 'true' then the columns of the projection will be
@@ -79,8 +88,10 @@ namespace kinetica
             public const string TRUE = "true";
             public const string FALSE = "false";
 
-            /// <summary>Chunk size for this projection</summary>
-            public const string CHUNK_SIZE = "chunk_size";
+            /// <summary>Sets the TTL of the table, view, or collection
+            /// specified in <member name="table_name" />. The value must be
+            /// the desired TTL in minutes.</summary>
+            public const string TTL = "ttl";
         } // end struct Options
 
 
@@ -118,7 +129,11 @@ namespace kinetica
         ///     <item>
         ///         <term>order_by</term>
         ///         <description>Comma-separated list of the columns to be
-        /// sorted by; i.e 'timestamp asc, x desc'.</description>
+        /// sorted by; e.g. 'timestamp asc, x desc'.  The columns specified
+        /// must be present in <paramref
+        /// cref="CreateProjectionRequest.column_names" />.  If any alias is
+        /// given for any column name, the alias must be used, rather than the
+        /// original column name.</description>
         ///     </item>
         ///     <item>
         ///         <term>materialize_on_gpu</term>
@@ -127,8 +142,10 @@ namespace kinetica
         /// </description>
         ///     </item>
         ///     <item>
-        ///         <term>chunk_size</term>
-        ///         <description>Chunk size for this projection</description>
+        ///         <term>ttl</term>
+        ///         <description>Sets the TTL of the table, view, or collection
+        /// specified in <paramref cref="CreateProjectionRequest.table_name"
+        /// />. The value must be the desired TTL in minutes.</description>
         ///     </item>
         /// </list>
         ///   </summary>
@@ -171,7 +188,11 @@ namespace kinetica
         ///     <item>
         ///         <term>order_by</term>
         ///         <description>Comma-separated list of the columns to be
-        /// sorted by; i.e 'timestamp asc, x desc'.</description>
+        /// sorted by; e.g. 'timestamp asc, x desc'.  The columns specified
+        /// must be present in <paramref
+        /// cref="CreateProjectionRequest.column_names" />.  If any alias is
+        /// given for any column name, the alias must be used, rather than the
+        /// original column name.</description>
         ///     </item>
         ///     <item>
         ///         <term>materialize_on_gpu</term>
@@ -180,8 +201,10 @@ namespace kinetica
         /// </description>
         ///     </item>
         ///     <item>
-        ///         <term>chunk_size</term>
-        ///         <description>Chunk size for this projection</description>
+        ///         <term>ttl</term>
+        ///         <description>Sets the TTL of the table, view, or collection
+        /// specified in <paramref cref="CreateProjectionRequest.table_name"
+        /// />. The value must be the desired TTL in minutes.</description>
         ///     </item>
         /// </list>
         ///   </param>

@@ -56,6 +56,14 @@ namespace kinetica
         /// <summary>Optional parameters.
         /// <list type="bullet">
         ///     <item>
+        ///         <term>collection_name</term>
+        ///         <description>Name of a collection which is to contain the
+        /// table specified in 'result_table', otherwise the table will be a
+        /// top-level table. If the collection does not allow duplicate types
+        /// and it contains a table of the same type as the given one, then
+        /// this table creation request will fail.</description>
+        ///     </item>
+        ///     <item>
         ///         <term>expression</term>
         ///         <description>Optional filter expression to apply to the
         /// table.</description>
@@ -74,12 +82,25 @@ namespace kinetica
         /// href="../../../../concepts/tables.html"
         /// target="_top">tables</a>.</description>
         ///     </item>
+        ///     <item>
+        ///         <term>ttl</term>
+        ///         <description>Sets the TTL of the table specified in
+        /// 'result_table'. The value must be the desired TTL in
+        /// minutes.</description>
+        ///     </item>
         /// </list>
         /// <br />
         /// A set of string constants for the parameter <member name="options"
         /// />.</summary>
         public struct Options
         {
+
+            /// <summary>Name of a collection which is to contain the table
+            /// specified in 'result_table', otherwise the table will be a
+            /// top-level table. If the collection does not allow duplicate
+            /// types and it contains a table of the same type as the given
+            /// one, then this table creation request will fail.</summary>
+            public const string COLLECTION_NAME = "collection_name";
 
             /// <summary>Optional filter expression to apply to the
             /// table.</summary>
@@ -98,6 +119,10 @@ namespace kinetica
             /// href="../../../../../concepts/tables.html"
             /// target="_top">tables</a>.</summary>
             public const string RESULT_TABLE = "result_table";
+
+            /// <summary>Sets the TTL of the table specified in 'result_table'.
+            /// The value must be the desired TTL in minutes.</summary>
+            public const string TTL = "ttl";
         } // end struct Options
 
 
@@ -129,6 +154,14 @@ namespace kinetica
         /// <summary>Optional parameters.
         /// <list type="bullet">
         ///     <item>
+        ///         <term>collection_name</term>
+        ///         <description>Name of a collection which is to contain the
+        /// table specified in 'result_table', otherwise the table will be a
+        /// top-level table. If the collection does not allow duplicate types
+        /// and it contains a table of the same type as the given one, then
+        /// this table creation request will fail.</description>
+        ///     </item>
+        ///     <item>
         ///         <term>expression</term>
         ///         <description>Optional filter expression to apply to the
         /// table.</description>
@@ -146,6 +179,12 @@ namespace kinetica
         /// the same naming restrictions as <a
         /// href="../../../../concepts/tables.html"
         /// target="_top">tables</a>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term>ttl</term>
+        ///         <description>Sets the TTL of the table specified in
+        /// 'result_table'. The value must be the desired TTL in
+        /// minutes.</description>
         ///     </item>
         /// </list>
         ///   </summary>
@@ -174,6 +213,14 @@ namespace kinetica
         /// <param name="options">Optional parameters.
         /// <list type="bullet">
         ///     <item>
+        ///         <term>collection_name</term>
+        ///         <description>Name of a collection which is to contain the
+        /// table specified in 'result_table', otherwise the table will be a
+        /// top-level table. If the collection does not allow duplicate types
+        /// and it contains a table of the same type as the given one, then
+        /// this table creation request will fail.</description>
+        ///     </item>
+        ///     <item>
         ///         <term>expression</term>
         ///         <description>Optional filter expression to apply to the
         /// table.</description>
@@ -191,6 +238,12 @@ namespace kinetica
         /// the same naming restrictions as <a
         /// href="../../../../concepts/tables.html"
         /// target="_top">tables</a>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term>ttl</term>
+        ///         <description>Sets the TTL of the table specified in
+        /// 'result_table'. The value must be the desired TTL in
+        /// minutes.</description>
         ///     </item>
         /// </list>
         ///   </param>
@@ -231,6 +284,14 @@ namespace kinetica
         /// <param name="options">Optional parameters.
         /// <list type="bullet">
         ///     <item>
+        ///         <term>collection_name</term>
+        ///         <description>Name of a collection which is to contain the
+        /// table specified in 'result_table', otherwise the table will be a
+        /// top-level table. If the collection does not allow duplicate types
+        /// and it contains a table of the same type as the given one, then
+        /// this table creation request will fail.</description>
+        ///     </item>
+        ///     <item>
         ///         <term>expression</term>
         ///         <description>Optional filter expression to apply to the
         /// table.</description>
@@ -248,6 +309,12 @@ namespace kinetica
         /// the same naming restrictions as <a
         /// href="../../../../concepts/tables.html"
         /// target="_top">tables</a>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term>ttl</term>
+        ///         <description>Sets the TTL of the table specified in
+        /// 'result_table'. The value must be the desired TTL in
+        /// minutes.</description>
         ///     </item>
         /// </list>
         ///   </param>

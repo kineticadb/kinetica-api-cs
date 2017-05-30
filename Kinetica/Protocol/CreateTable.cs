@@ -71,6 +71,18 @@ namespace kinetica
         /// constraints, of the format 'source_column references
         /// target_table(primary_key_column)'.</description>
         ///     </item>
+        ///     <item>
+        ///         <term>foreign_shard_key</term>
+        ///         <description>Foreign shard key description of the format:
+        /// <fk_foreign_key> references <pk_column_name> from
+        /// <pk_table_name>(<pk_primary_key>)</description>
+        ///     </item>
+        ///     <item>
+        ///         <term>ttl</term>
+        ///         <description>Sets the TTL of the table or collection
+        /// specified in <paramref cref="CreateTableRequest.table_name" />. The
+        /// value must be the desired TTL in minutes.</description>
+        ///     </item>
         /// </list>
         /// <br />
         /// A set of string constants for the parameter <member name="options"
@@ -116,6 +128,16 @@ namespace kinetica
             /// of the format 'source_column references
             /// target_table(primary_key_column)'.</summary>
             public const string FOREIGN_KEYS = "foreign_keys";
+
+            /// <summary>Foreign shard key description of the format:
+            /// <fk_foreign_key> references <pk_column_name> from
+            /// <pk_table_name>(<pk_primary_key>)</summary>
+            public const string FOREIGN_SHARD_KEY = "foreign_shard_key";
+
+            /// <summary>Sets the TTL of the table or collection specified in
+            /// <member name="table_name" />. The value must be the desired TTL
+            /// in minutes.</summary>
+            public const string TTL = "ttl";
         } // end struct Options
 
 
@@ -175,6 +197,18 @@ namespace kinetica
         ///         <description>Semicolon-separated list of foreign key
         /// constraints, of the format 'source_column references
         /// target_table(primary_key_column)'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term>foreign_shard_key</term>
+        ///         <description>Foreign shard key description of the format:
+        /// <fk_foreign_key> references <pk_column_name> from
+        /// <pk_table_name>(<pk_primary_key>)</description>
+        ///     </item>
+        ///     <item>
+        ///         <term>ttl</term>
+        ///         <description>Sets the TTL of the table or collection
+        /// specified in <paramref cref="CreateTableRequest.table_name" />. The
+        /// value must be the desired TTL in minutes.</description>
         ///     </item>
         /// </list>
         ///   </summary>
@@ -240,6 +274,18 @@ namespace kinetica
         ///         <description>Semicolon-separated list of foreign key
         /// constraints, of the format 'source_column references
         /// target_table(primary_key_column)'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term>foreign_shard_key</term>
+        ///         <description>Foreign shard key description of the format:
+        /// <fk_foreign_key> references <pk_column_name> from
+        /// <pk_table_name>(<pk_primary_key>)</description>
+        ///     </item>
+        ///     <item>
+        ///         <term>ttl</term>
+        ///         <description>Sets the TTL of the table or collection
+        /// specified in <paramref cref="CreateTableRequest.table_name" />. The
+        /// value must be the desired TTL in minutes.</description>
         ///     </item>
         /// </list>
         ///   </param>

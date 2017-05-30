@@ -407,6 +407,15 @@ namespace kinetica
         /// <param name="options">Optional parameters.
         /// <list type="bullet">
         ///     <item>
+        ///         <term>collection_name</term>
+        ///         <description>Name of a collection which is to contain the
+        /// table specified in 'result_table', otherwise the table will be a
+        /// top-level table. If the collection does not allow duplicate types
+        /// and it contains a table of the same type as the given one, then
+        /// this table creation request will fail. Additionally this option is
+        /// invalid if @input{table_name} is a collection.</description>
+        ///     </item>
+        ///     <item>
         ///         <term>expression</term>
         ///         <description>Filter expression to apply to the table prior
         /// to computing the aggregate group by.</description>
@@ -439,6 +448,12 @@ namespace kinetica
         /// present, no results are returned in the response.  This option is
         /// not available if one of the grouping attributes is an unrestricted
         /// string (i.e.; not charN) type.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term>ttl</term>
+        ///         <description>Sets the TTL of the table specified in
+        /// 'result_table'. The value must be the desired TTL in
+        /// minutes.</description>
         ///     </item>
         /// </list>
         ///   </param>
@@ -980,6 +995,14 @@ namespace kinetica
         /// <param name="options">Optional parameters.
         /// <list type="bullet">
         ///     <item>
+        ///         <term>collection_name</term>
+        ///         <description>Name of a collection which is to contain the
+        /// table specified in 'result_table', otherwise the table will be a
+        /// top-level table. If the collection does not allow duplicate types
+        /// and it contains a table of the same type as the given one, then
+        /// this table creation request will fail.</description>
+        ///     </item>
+        ///     <item>
         ///         <term>expression</term>
         ///         <description>Optional filter expression to apply to the
         /// table.</description>
@@ -997,6 +1020,12 @@ namespace kinetica
         /// the same naming restrictions as <a
         /// href="../../../../concepts/tables.html"
         /// target="_top">tables</a>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term>ttl</term>
+        ///         <description>Sets the TTL of the table specified in
+        /// 'result_table'. The value must be the desired TTL in
+        /// minutes.</description>
         ///     </item>
         /// </list>
         ///   </param>
@@ -1550,6 +1579,12 @@ namespace kinetica
         /// full_refresh.
         /// </description>
         ///     </item>
+        ///     <item>
+        ///         <term>ttl</term>
+        ///         <description>Sets the TTL of the table specified in
+        /// <paramref cref="CreateJoinTableRequest.join_table_name" />. The
+        /// value must be the desired TTL in minutes.</description>
+        ///     </item>
         /// </list>
         ///   </param>
         /// 
@@ -1636,7 +1671,7 @@ namespace kinetica
         }
 
 
-        /// <summary>Creates a new projection of an existing table. A
+        /// <summary>Creates a new projection of an existing table.  A
         /// projection represents a subset of the columns (potentially
         /// including derived columns) of a table.</summary>
         /// 
@@ -1654,7 +1689,7 @@ namespace kinetica
         }
 
 
-        /// <summary>Creates a new projection of an existing table. A
+        /// <summary>Creates a new projection of an existing table.  A
         /// projection represents a subset of the columns (potentially
         /// including derived columns) of a table.</summary>
         /// 
@@ -1687,7 +1722,11 @@ namespace kinetica
         ///     <item>
         ///         <term>order_by</term>
         ///         <description>Comma-separated list of the columns to be
-        /// sorted by; i.e 'timestamp asc, x desc'.</description>
+        /// sorted by; e.g. 'timestamp asc, x desc'.  The columns specified
+        /// must be present in <paramref
+        /// cref="CreateProjectionRequest.column_names" />.  If any alias is
+        /// given for any column name, the alias must be used, rather than the
+        /// original column name.</description>
         ///     </item>
         ///     <item>
         ///         <term>materialize_on_gpu</term>
@@ -1696,8 +1735,10 @@ namespace kinetica
         /// </description>
         ///     </item>
         ///     <item>
-        ///         <term>chunk_size</term>
-        ///         <description>Chunk size for this projection</description>
+        ///         <term>ttl</term>
+        ///         <description>Sets the TTL of the table, view, or collection
+        /// specified in <paramref cref="CreateProjectionRequest.table_name"
+        /// />. The value must be the desired TTL in minutes.</description>
         ///     </item>
         /// </list>
         ///   </param>
@@ -1844,6 +1885,18 @@ namespace kinetica
         ///         <description>Semicolon-separated list of foreign key
         /// constraints, of the format 'source_column references
         /// target_table(primary_key_column)'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term>foreign_shard_key</term>
+        ///         <description>Foreign shard key description of the format:
+        /// <fk_foreign_key> references <pk_column_name> from
+        /// <pk_table_name>(<pk_primary_key>)</description>
+        ///     </item>
+        ///     <item>
+        ///         <term>ttl</term>
+        ///         <description>Sets the TTL of the table or collection
+        /// specified in <paramref cref="CreateTableRequest.table_name" />. The
+        /// value must be the desired TTL in minutes.</description>
         ///     </item>
         /// </list>
         ///   </param>
@@ -2264,8 +2317,10 @@ namespace kinetica
         /// </description>
         ///     </item>
         ///     <item>
-        ///         <term>chunk_size</term>
-        ///         <description>Chunk size for this union</description>
+        ///         <term>ttl</term>
+        ///         <description>Sets the TTL of the table specified in
+        /// <paramref cref="CreateUnionRequest.table_name" />. The value must
+        /// be the desired TTL in minutes.</description>
         ///     </item>
         /// </list>
         ///   </param>
@@ -2671,7 +2726,24 @@ namespace kinetica
         /// specified table.  For details see <a
         /// href="../../../../concepts/expressions.html"
         /// target="_top">concepts</a>.  </param>
-        /// <param name="options">Optional parameters.  </param>
+        /// <param name="options">Optional parameters.
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term>collection_name</term>
+        ///         <description>Name of a collection which is to contain the
+        /// newly created view, otherwise the view will be a top-level table.
+        /// If the collection does not allow duplicate types and it contains a
+        /// table of the same type as the given one, then this table creation
+        /// request will fail.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term>ttl</term>
+        ///         <description>Sets the TTL of the view specified in
+        /// <paramref cref="FilterRequest.view_name" />. The value must be the
+        /// desired TTL in minutes.</description>
+        ///     </item>
+        /// </list>
+        ///   </param>
         /// 
         /// <returns>Response object containing the result of the
         /// operation.</returns>
@@ -3808,6 +3880,15 @@ namespace kinetica
         /// If sort_order is provided, sort_by has to be provided. Values:
         /// ascending, descending.
         /// </description>
+        ///     </item>
+        ///     <item>
+        ///         <term>order_by</term>
+        ///         <description>Comma-separated list of the columns to be
+        /// sorted by; e.g. 'timestamp asc, x desc'.  The columns specified
+        /// must be present in <paramref
+        /// cref="GetRecordsByColumnRequest.column_names" />.  If any alias is
+        /// given for any column name, the alias must be used, rather than the
+        /// original column name.</description>
         ///     </item>
         /// </list>
         ///   </param>
