@@ -24,8 +24,9 @@ namespace kinetica
         ///     <item>
         ///         <term>collection_name</term>
         ///         <description>Name of a collection which is to contain the
-        /// join table. If empty, then the join table will be a top-level
-        /// table.</description>
+        /// join table. If the collection provided is non-existent, the
+        /// collection will be automatically created. If empty, then the join
+        /// table will be a top-level table.</description>
         ///     </item>
         ///     <item>
         ///         <term>max_query_dimensions</term>
@@ -66,8 +67,9 @@ namespace kinetica
         {
 
             /// <summary>Name of a collection which is to contain the join
-            /// table. If empty, then the join table will be a top-level
-            /// table.</summary>
+            /// table. If the collection provided is non-existent, the
+            /// collection will be automatically created. If empty, then the
+            /// join table will be a top-level table.</summary>
             public const string COLLECTION_NAME = "collection_name";
 
             /// <summary>The maximum number of tables in a joined table that
@@ -155,8 +157,9 @@ namespace kinetica
         ///     <item>
         ///         <term>collection_name</term>
         ///         <description>Name of a collection which is to contain the
-        /// join table. If empty, then the join table will be a top-level
-        /// table.</description>
+        /// join table. If the collection provided is non-existent, the
+        /// collection will be automatically created. If empty, then the join
+        /// table will be a top-level table.</description>
         ///     </item>
         ///     <item>
         ///         <term>max_query_dimensions</term>
@@ -224,8 +227,9 @@ namespace kinetica
         ///     <item>
         ///         <term>collection_name</term>
         ///         <description>Name of a collection which is to contain the
-        /// join table. If empty, then the join table will be a top-level
-        /// table.</description>
+        /// join table. If the collection provided is non-existent, the
+        /// collection will be automatically created. If empty, then the join
+        /// table will be a top-level table.</description>
         ///     </item>
         ///     <item>
         ///         <term>max_query_dimensions</term>

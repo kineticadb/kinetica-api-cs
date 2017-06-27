@@ -27,7 +27,9 @@ namespace kinetica
     public class CreateTriggerByRangeRequest : KineticaData
     {
 
-        /// <summary>ID for the trigger request.  </summary>
+        /// <summary>User-created ID for the trigger. The ID can be
+        /// alphanumeric, contain symbols, and must contain at least one
+        /// character.  </summary>
         public string request_id { get; set; }
 
         /// <summary>Tables on which the trigger will be active.  </summary>
@@ -56,7 +58,9 @@ namespace kinetica
         /// <summary>Constructs a CreateTriggerByRangeRequest object with the
         /// specified parameters.</summary>
         /// 
-        /// <param name="request_id">ID for the trigger request.  </param>
+        /// <param name="request_id">User-created ID for the trigger. The ID
+        /// can be alphanumeric, contain symbols, and must contain at least one
+        /// character.  </param>
         /// <param name="table_names">Tables on which the trigger will be
         /// active.  </param>
         /// <param name="column_name">Name of a numeric column_name on which

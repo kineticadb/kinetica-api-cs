@@ -25,8 +25,9 @@ namespace kinetica
         ///     <item>
         ///         <term>collection_name</term>
         ///         <description>Name of a collection which is to contain the
-        /// union. If empty, then the union will be a top-level
-        /// table.</description>
+        /// union. If the collection provided is non-existent, the collection
+        /// will be automatically created. If empty, then the union will be a
+        /// top-level table.</description>
         ///     </item>
         ///     <item>
         ///         <term>materialize_on_gpu</term>
@@ -56,7 +57,9 @@ namespace kinetica
         {
 
             /// <summary>Name of a collection which is to contain the union. If
-            /// empty, then the union will be a top-level table.</summary>
+            /// the collection provided is non-existent, the collection will be
+            /// automatically created. If empty, then the union will be a
+            /// top-level table.</summary>
             public const string COLLECTION_NAME = "collection_name";
 
             /// <summary>If 'true' then the columns of the union will be cached
@@ -126,8 +129,9 @@ namespace kinetica
         ///     <item>
         ///         <term>collection_name</term>
         ///         <description>Name of a collection which is to contain the
-        /// union. If empty, then the union will be a top-level
-        /// table.</description>
+        /// union. If the collection provided is non-existent, the collection
+        /// will be automatically created. If empty, then the union will be a
+        /// top-level table.</description>
         ///     </item>
         ///     <item>
         ///         <term>materialize_on_gpu</term>
@@ -177,8 +181,9 @@ namespace kinetica
         ///     <item>
         ///         <term>collection_name</term>
         ///         <description>Name of a collection which is to contain the
-        /// union. If empty, then the union will be a top-level
-        /// table.</description>
+        /// union. If the collection provided is non-existent, the collection
+        /// will be automatically created. If empty, then the union will be a
+        /// top-level table.</description>
         ///     </item>
         ///     <item>
         ///         <term>materialize_on_gpu</term>

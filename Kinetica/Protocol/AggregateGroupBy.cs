@@ -31,10 +31,10 @@ namespace kinetica
     /// 'var_samp', 'arg_min', 'arg_max' and 'count_distinct'. The response is
     /// returned as a dynamic schema. For details see: <a
     /// href="../../../../../concepts/dynamic_schemas.html"
-    /// target="_top">dynamic schemas documentation</a>. If the 'result_table'
-    /// option is provided then the results are stored in a table with the name
-    /// given in the option and the results are not returned in the
-    /// response.</summary>
+    /// target="_top">dynamic schemas documentation</a>. If the
+    /// <i>result_table</i> option is provided then the results are stored in a
+    /// table with the name given in the option and the results are not
+    /// returned in the response.</summary>
     public class AggregateGroupByRequest : KineticaData
     {
 
@@ -61,11 +61,12 @@ namespace kinetica
         ///     <item>
         ///         <term>collection_name</term>
         ///         <description>Name of a collection which is to contain the
-        /// table specified in 'result_table', otherwise the table will be a
-        /// top-level table. If the collection does not allow duplicate types
+        /// table specified in <i>result_table</i>, otherwise the table will be
+        /// a top-level table. If the collection does not allow duplicate types
         /// and it contains a table of the same type as the given one, then
         /// this table creation request will fail. Additionally this option is
-        /// invalid if @input{table_name} is a collection.</description>
+        /// invalid if <paramref cref="AggregateGroupByRequest.table_name" />
+        /// is a collection.</description>
         ///     </item>
         ///     <item>
         ///         <term>expression</term>
@@ -104,7 +105,7 @@ namespace kinetica
         ///     <item>
         ///         <term>ttl</term>
         ///         <description>Sets the TTL of the table specified in
-        /// 'result_table'. The value must be the desired TTL in
+        /// <i>result_table</i>. The value must be the desired TTL in
         /// minutes.</description>
         ///     </item>
         /// </list>
@@ -115,11 +116,11 @@ namespace kinetica
         {
 
             /// <summary>Name of a collection which is to contain the table
-            /// specified in 'result_table', otherwise the table will be a
+            /// specified in <i>result_table</i>, otherwise the table will be a
             /// top-level table. If the collection does not allow duplicate
             /// types and it contains a table of the same type as the given
             /// one, then this table creation request will fail. Additionally
-            /// this option is invalid if @input{table_name} is a
+            /// this option is invalid if <member name="table_name" /> is a
             /// collection.</summary>
             public const string COLLECTION_NAME = "collection_name";
 
@@ -169,8 +170,9 @@ namespace kinetica
             /// type.</summary>
             public const string RESULT_TABLE = "result_table";
 
-            /// <summary>Sets the TTL of the table specified in 'result_table'.
-            /// The value must be the desired TTL in minutes.</summary>
+            /// <summary>Sets the TTL of the table specified in
+            /// <i>result_table</i>. The value must be the desired TTL in
+            /// minutes.</summary>
             public const string TTL = "ttl";
         } // end struct Options
 
@@ -206,11 +208,12 @@ namespace kinetica
         ///     <item>
         ///         <term>collection_name</term>
         ///         <description>Name of a collection which is to contain the
-        /// table specified in 'result_table', otherwise the table will be a
-        /// top-level table. If the collection does not allow duplicate types
+        /// table specified in <i>result_table</i>, otherwise the table will be
+        /// a top-level table. If the collection does not allow duplicate types
         /// and it contains a table of the same type as the given one, then
         /// this table creation request will fail. Additionally this option is
-        /// invalid if @input{table_name} is a collection.</description>
+        /// invalid if <paramref cref="AggregateGroupByRequest.table_name" />
+        /// is a collection.</description>
         ///     </item>
         ///     <item>
         ///         <term>expression</term>
@@ -249,7 +252,7 @@ namespace kinetica
         ///     <item>
         ///         <term>ttl</term>
         ///         <description>Sets the TTL of the table specified in
-        /// 'result_table'. The value must be the desired TTL in
+        /// <i>result_table</i>. The value must be the desired TTL in
         /// minutes.</description>
         ///     </item>
         /// </list>
@@ -283,11 +286,12 @@ namespace kinetica
         ///     <item>
         ///         <term>collection_name</term>
         ///         <description>Name of a collection which is to contain the
-        /// table specified in 'result_table', otherwise the table will be a
-        /// top-level table. If the collection does not allow duplicate types
+        /// table specified in <i>result_table</i>, otherwise the table will be
+        /// a top-level table. If the collection does not allow duplicate types
         /// and it contains a table of the same type as the given one, then
         /// this table creation request will fail. Additionally this option is
-        /// invalid if @input{table_name} is a collection.</description>
+        /// invalid if <paramref cref="AggregateGroupByRequest.table_name" />
+        /// is a collection.</description>
         ///     </item>
         ///     <item>
         ///         <term>expression</term>
@@ -326,7 +330,7 @@ namespace kinetica
         ///     <item>
         ///         <term>ttl</term>
         ///         <description>Sets the TTL of the table specified in
-        /// 'result_table'. The value must be the desired TTL in
+        /// <i>result_table</i>. The value must be the desired TTL in
         /// minutes.</description>
         ///     </item>
         /// </list>
@@ -372,11 +376,12 @@ namespace kinetica
         ///     <item>
         ///         <term>collection_name</term>
         ///         <description>Name of a collection which is to contain the
-        /// table specified in 'result_table', otherwise the table will be a
-        /// top-level table. If the collection does not allow duplicate types
+        /// table specified in <i>result_table</i>, otherwise the table will be
+        /// a top-level table. If the collection does not allow duplicate types
         /// and it contains a table of the same type as the given one, then
         /// this table creation request will fail. Additionally this option is
-        /// invalid if @input{table_name} is a collection.</description>
+        /// invalid if <paramref cref="AggregateGroupByRequest.table_name" />
+        /// is a collection.</description>
         ///     </item>
         ///     <item>
         ///         <term>expression</term>
@@ -415,7 +420,7 @@ namespace kinetica
         ///     <item>
         ///         <term>ttl</term>
         ///         <description>Sets the TTL of the table specified in
-        /// 'result_table'. The value must be the desired TTL in
+        /// <i>result_table</i>. The value must be the desired TTL in
         /// minutes.</description>
         ///     </item>
         /// </list>

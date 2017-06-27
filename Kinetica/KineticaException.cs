@@ -6,7 +6,8 @@ using System.Threading.Tasks;
 
 namespace kinetica
 {
-    class KineticaException : System.Exception
+    [Serializable]
+    public class KineticaException : System.Exception
     {
         private string message;
 

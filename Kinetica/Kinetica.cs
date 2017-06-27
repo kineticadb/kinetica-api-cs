@@ -282,6 +282,45 @@ namespace kinetica
         /// Send request object to Kinetica server, and get response
         /// </summary>
         /// <typeparam name="TResponse">Kinetica Response Object Type</typeparam>
+        /// <param name="url">The specific URL to send the request to</param>
+        /// <param name="request">Kinetica Request Object</param>
+        /// <param name="enableCompression">Use Compression</param>
+        /// <param name="avroEncoding">Use Avro Encoding</param>
+        /// <returns>Response Object</returns>
+        internal TResponse SubmitRequest<TResponse>( Uri url, object request, bool enableCompression = false, bool avroEncoding = true ) where TResponse : new()
+        {
+            // Get the bytes to send, encoded in the requested way
+            byte[] requestBytes;
+            if ( avroEncoding )
+            {
+                requestBytes = AvroEncode( request );
+            }
+            else // JSON
+            {
+                string str = JsonConvert.SerializeObject(request);
+                requestBytes = Encoding.UTF8.GetBytes( str );
+            }
+
+            // Send request, and receive response
+            KineticaResponse kineticaResponse = SubmitRequestRaw( url.ToString(), requestBytes, enableCompression, avroEncoding, false);
+
+            // Decode response payload
+            if ( avroEncoding )
+            {
+                return AvroDecode<TResponse>( kineticaResponse.data );
+            }
+            else // JSON
+            {
+                kineticaResponse.data_str = kineticaResponse.data_str.Replace( "\\U", "\\u" );
+                return JsonConvert.DeserializeObject<TResponse>( kineticaResponse.data_str );
+            }
+        }  // end SubmitRequest( URL )
+
+
+        /// <summary>
+        /// Send request object to Kinetica server, and get response
+        /// </summary>
+        /// <typeparam name="TResponse">Kinetica Response Object Type</typeparam>
         /// <param name="endpoint">Kinetica Endpoint to call</param>
         /// <param name="request">Kinetica Request Object</param>
         /// <param name="enableCompression">Use Compression</param>
@@ -314,21 +353,27 @@ namespace kinetica
                 kineticaResponse.data_str = kineticaResponse.data_str.Replace("\\U", "\\u");
                 return JsonConvert.DeserializeObject<TResponse>(kineticaResponse.data_str);
             }
-        }
+        }  // end SubmitRequest( endpoint )
+
+
 
         /// <summary>
         /// Send encoded request to Kinetica server, and get Kinetica Response
         /// </summary>
-        /// <param name="endpoint">Kinetica Endpoint to call</param>
+        /// <param name="url">Kinetica Endpoint to call (with or without the full host path)</param>
         /// <param name="requestBytes">Binary data to send</param>
         /// <param name="enableCompression">Are we using compression?</param>
         /// <param name="avroEncoding">Use Avro encoding</param>
+        /// <param name="only_endpoint_given">If true, prefix the given url
+        /// with <member cref="Url" /></param>
         /// <returns>KineticaResponse Object</returns>
-        private KineticaResponse SubmitRequestRaw(string endpoint, byte[] requestBytes, bool enableCompression, bool avroEncoding)
+        private KineticaResponse SubmitRequestRaw(string url, byte[] requestBytes, bool enableCompression, bool avroEncoding, bool only_endpoint_given = true)
         {
             try
             {
-                var request = (HttpWebRequest)WebRequest.Create(Url + endpoint);
+                if ( only_endpoint_given )
+                    url = (Url + url);
+                var request = (HttpWebRequest)WebRequest.Create( url );
                 request.Method = "POST";
                 //request.UseDefaultCredentials = true;
                 request.ContentType = avroEncoding ? "application/octet-stream" : "application/json";
@@ -446,15 +491,14 @@ namespace kinetica
         /// </summary>
         /// <param name="obj">Object to encode</param>
         /// <returns>Byte array of binary Avro-encoded data</returns>
-        private byte[] AvroEncode(object obj)
+        internal byte[] AvroEncode(object obj)
         {
             // Create a stream that will allow us to view the underlying memory
-            using (var ms = new MemoryStream())
+            using ( var ms = new MemoryStream())
             {
                 // Write the object to the memory stream
-
                 // If obj is an ISpecificRecord, this is more efficient
-                if (obj is Avro.Specific.ISpecificRecord)
+                if ( obj is Avro.Specific.ISpecificRecord)
                 {
                     var schema = (obj as Avro.Specific.ISpecificRecord).Schema;
                     Avro.Specific.SpecificDefaultWriter writer = new Avro.Specific.SpecificDefaultWriter(schema);
@@ -496,7 +540,7 @@ namespace kinetica
             var recordToSend = new Avro.Generic.GenericRecord(schema);
 
             // Copy each field from obj to recordToSend
-            foreach (var field in schema.Fields)
+            foreach ( var field in schema.Fields)
             {
                 var property = obj.GetType()
                                 .GetProperties()

@@ -147,7 +147,13 @@ namespace kinetica
                     {
                         string fields = "";
                         // Create the avro string for each property of the class
-                        foreach (var prop in t.GetProperties())
+                        PropertyInfo[] type_properties = t.GetProperties( BindingFlags.DeclaredOnly |
+                                                                          BindingFlags.Instance |
+                                                                          BindingFlags.Public );
+                        Array.Sort( type_properties, delegate ( PropertyInfo p1, PropertyInfo p2 )
+                                                     { return p1.MetadataToken.CompareTo( p2.MetadataToken ); } );
+
+                        foreach ( var prop in type_properties )
                         {
                             bool is_nullable = false;
                             var prop_type = prop.PropertyType;

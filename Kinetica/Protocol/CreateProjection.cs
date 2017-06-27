@@ -24,7 +24,9 @@ namespace kinetica
         ///     <item>
         ///         <term>collection_name</term>
         ///         <description>Name of a collection to which the projection
-        /// is to be assigned as a child.</description>
+        /// is to be assigned as a child. If the collection provided is
+        /// non-existent, the collection will be automatically
+        /// created.</description>
         ///     </item>
         ///     <item>
         ///         <term>expression</term>
@@ -64,7 +66,9 @@ namespace kinetica
         {
 
             /// <summary>Name of a collection to which the projection is to be
-            /// assigned as a child.</summary>
+            /// assigned as a child. If the collection provided is
+            /// non-existent, the collection will be automatically
+            /// created.</summary>
             public const string COLLECTION_NAME = "collection_name";
 
             /// <summary>An optional filter expression to be applied to the
@@ -115,7 +119,9 @@ namespace kinetica
         ///     <item>
         ///         <term>collection_name</term>
         ///         <description>Name of a collection to which the projection
-        /// is to be assigned as a child.</description>
+        /// is to be assigned as a child. If the collection provided is
+        /// non-existent, the collection will be automatically
+        /// created.</description>
         ///     </item>
         ///     <item>
         ///         <term>expression</term>
@@ -174,7 +180,9 @@ namespace kinetica
         ///     <item>
         ///         <term>collection_name</term>
         ///         <description>Name of a collection to which the projection
-        /// is to be assigned as a child.</description>
+        /// is to be assigned as a child. If the collection provided is
+        /// non-existent, the collection will be automatically
+        /// created.</description>
         ///     </item>
         ///     <item>
         ///         <term>expression</term>

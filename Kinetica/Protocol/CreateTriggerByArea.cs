@@ -28,7 +28,9 @@ namespace kinetica
     public class CreateTriggerByAreaRequest : KineticaData
     {
 
-        /// <summary>ID for the trigger to be activated.  </summary>
+        /// <summary>User-created ID for the trigger. The ID can be
+        /// alphanumeric, contain symbols, and must contain at least one
+        /// character.  </summary>
         public string request_id { get; set; }
 
         /// <summary>Names of the tables on which the trigger will be activated
@@ -65,8 +67,9 @@ namespace kinetica
         /// <summary>Constructs a CreateTriggerByAreaRequest object with the
         /// specified parameters.</summary>
         /// 
-        /// <param name="request_id">ID for the trigger to be activated.
-        /// </param>
+        /// <param name="request_id">User-created ID for the trigger. The ID
+        /// can be alphanumeric, contain symbols, and must contain at least one
+        /// character.  </param>
         /// <param name="table_names">Names of the tables on which the trigger
         /// will be activated and maintained.  </param>
         /// <param name="x_column_name">Name of a numeric column on which the

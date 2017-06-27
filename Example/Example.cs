@@ -6,6 +6,21 @@ using kinetica;
 
 namespace Example
 {
+    /// <summary>
+    /// Extension to string that has a truncate function.
+    /// </summary>
+    public static class StringExt
+    {
+        public static string Truncate( this string value, int maxLength )
+        {
+            if ( string.IsNullOrEmpty( value ) )
+                return value;
+
+            return ( value.Length <= maxLength ) ? value : value.Substring( 0, maxLength );
+        }
+    }
+
+
     class Example
     {
         static void Main(string[] args)
@@ -26,8 +41,10 @@ namespace Example
                 Console.WriteLine( "URL: {0}", server_url );
                 Console.WriteLine();
 
+                // Run the various example functions
                 run_example( server_url );
                 run_series_example( server_url );
+                run_multihead_ingest_example( server_url );
             }
             catch (Exception ex)
             {
@@ -284,6 +301,94 @@ namespace Example
 
             Console.WriteLine();
         }  // end run_series_example()
+
+
+        /// <summary>
+        /// Shows an example of how to use the multi-head ingestion feature
+        /// of Kinetica.
+        /// </summary>
+        /// <param name="server_url">The URL for the Kinetica server.</param>
+        private static void run_multihead_ingest_example( string server_url )
+        {
+            // Establish a connection with Kinetica
+            Kinetica kdb = new Kinetica( server_url );
+
+            Console.WriteLine( "\n\n" );
+            Console.WriteLine( "Example showcasing multihead ingestion(one shard key, two primary keys)" );
+            Console.WriteLine( "=======================================================================" );
+            Console.WriteLine();
+
+            // Create a type for our record_type_1 class
+            // Add some interesting properties for some of the data types
+            IDictionary<string, IList<string>> column_properties = new Dictionary<string, IList<string>>();
+            // And two primary keys and one shard key
+            List<string> A_props = new List<string>();
+            A_props.Add( ColumnProperty.PRIMARY_KEY );
+            column_properties.Add( "A", A_props );
+            List<string> B_props = new List<string>();
+            B_props.Add( ColumnProperty.PRIMARY_KEY );
+            column_properties.Add( "B", B_props );
+            // And a shard key (must be one of the primary keys, if specified--which we have)
+            B_props.Add( ColumnProperty.SHARD_KEY );
+
+            // Create the KineticaType object which facilitates creating types in the database
+            KineticaType type1 = KineticaType.fromClass( typeof( record_type_1 ), column_properties );
+
+            // Create the type in the database
+            string type_id = type1.create( kdb );
+
+            string table_name = "csharp_example_table_01";
+            // Clear any previously made table with the same name
+            Console.WriteLine( "Clearing any existing table named '{0}'", table_name );
+            try { kdb.clearTable( table_name, null ); } catch ( Exception ex ) { /* I don't care if the table doesn't already exists! */ }
+            Console.WriteLine();
+
+            // Create a table of the given type
+            Console.WriteLine( $"Creating table named '{table_name}'" );
+            kdb.createTable( table_name, type_id );
+            Console.WriteLine();
+
+            // Create the ingestor (we're not giving any worker IP addresses; the ingestor class will figure it
+            // out by itself)
+            int batch_size = 100;
+            KineticaIngestor<record_type_1> ingestor = new KineticaIngestor<record_type_1>( kdb, table_name, batch_size, type1 );
+
+            // Generate data to be inserted
+            int num_records = batch_size * 5;
+            List<record_type_1> records = new List<record_type_1>();
+            Random rng = new Random();
+            double null_probability = 0.2;
+            for ( int i = 0; i < num_records; ++i )
+            {
+                // Restricting string length to 256
+                int max_str_len = rng.Next( 0, 256 );
+                record_type_1 record = new record_type_1()
+                {
+                    A = rng.Next(),
+                    B = rng.Next(),
+                    C = System.IO.Path.GetRandomFileName().Truncate( max_str_len ),
+                    D = System.IO.Path.GetRandomFileName().Truncate( max_str_len ),
+                    E  = (float)(rng.NextDouble() * rng.Next()),
+                    F  = ( rng.NextDouble() < null_probability ) ? null : ( double? ) ( rng.NextDouble() * rng.Next() ),
+                    TIMESTAMP = (long) rng.Next()
+                };
+
+                records.Add( record );
+            }  // end for loop
+
+            Console.WriteLine( $"Generated {num_records} records." );
+
+            // Insert the records into the ingestor
+            Console.WriteLine( $"Inserting {num_records} records..." );
+            ingestor.insert( records );
+
+            // Flush the ingestor (which actually inserts the records)
+            Console.WriteLine( "\nFlushing any remaining records." );
+            ingestor.flush();
+
+            Console.WriteLine();
+            Console.WriteLine();
+        }  // end run_multihead_ingest_example()
 
 
         private class record_type_1

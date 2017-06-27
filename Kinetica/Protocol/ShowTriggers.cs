@@ -18,9 +18,9 @@ namespace kinetica
     public class ShowTriggersRequest : KineticaData
     {
 
-        /// <summary>List of IDs of the triggers whose information to be
-        /// retrieved. Empty list means retrieve information on all active
-        /// triggers.  </summary>
+        /// <summary>List of IDs of the triggers whose information is to be
+        /// retrieved. An empty list means information will be retrieved on all
+        /// active triggers.  </summary>
         public IList<string> trigger_ids { get; set; } = new List<string>();
 
         /// <summary>Optional parameters.  </summary>
@@ -35,8 +35,8 @@ namespace kinetica
         /// parameters.</summary>
         /// 
         /// <param name="trigger_ids">List of IDs of the triggers whose
-        /// information to be retrieved. Empty list means retrieve information
-        /// on all active triggers.  </param>
+        /// information is to be retrieved. An empty list means information
+        /// will be retrieved on all active triggers.  </param>
         /// <param name="options">Optional parameters.  </param>
         /// 
         public ShowTriggersRequest( IList<string> trigger_ids,
