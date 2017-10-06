@@ -11,26 +11,56 @@ using System.Collections.Generic;
 namespace kinetica
 {
 
-    /// <summary>A set of parameters for /lock/table.
+    /// <summary>A set of parameters for <see
+    /// cref="Kinetica.lockTable(string,string,IDictionary{string, string})"
+    /// />.
     /// <br />
-    /// Manages global access to a table's data.  By default a table has a
-    /// <member name="lock_type" /> of <i>unlock</i>, indicating all operations
-    /// are permitted.  A user may request a <i>read-only</i> or a
+    /// Manages global access to a table's data.  By default a table has a <see
+    /// cref="lock_type" /> of <i>read-write</i>, indicating all operations are
+    /// permitted.  A user may request a <i>read-only</i> or a
     /// <i>write-only</i> lock, after which only read or write operations,
     /// respectively, are permitted on the table until the lock is removed.
-    /// When <member name="lock_type" /> is <i>disable</i> then no operations
+    /// When <see cref="lock_type" /> is <i>no-access</i> then no operations
     /// are permitted on the table.  The lock status can be queried by setting
-    /// <member name="lock_type" /> to <i>status</i>.</summary>
+    /// <see cref="lock_type" /> to <i>status</i>.</summary>
     public class LockTableRequest : KineticaData
     {
 
         /// <summary>The type of lock being applied to the table. Setting it to
         /// <i>status</i> will return the current lock status of the table
-        /// without changing it. Values: status, disable, read-only,
-        /// write-only, unlock.
-        /// <br />
-        /// A set of string constants for the parameter <member
-        /// name="lock_type" />.</summary>
+        /// without changing it.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="LockTableRequest.LockType.STATUS">STATUS</see>:</term>
+        ///         <description>Show locked status</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="LockTableRequest.LockType.NO_ACCESS">NO_ACCESS</see>:</term>
+        ///         <description>Allow no read/write operations</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="LockTableRequest.LockType.READ_ONLY">READ_ONLY</see>:</term>
+        ///         <description>Allow only read operations</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="LockTableRequest.LockType.WRITE_ONLY">WRITE_ONLY</see>:</term>
+        ///         <description>Allow only write operations</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="LockTableRequest.LockType.READ_WRITE">READ_WRITE</see>:</term>
+        ///         <description>Allow all read/write operations</description>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="LockTableRequest.LockType.STATUS">STATUS</see>.
+        /// A set of string constants for the parameter <see cref="lock_type"
+        /// />.</summary>
         public struct LockType
         {
 
@@ -38,7 +68,7 @@ namespace kinetica
             public const string STATUS = "status";
 
             /// <summary>Allow no read/write operations</summary>
-            public const string DISABLE = "disable";
+            public const string NO_ACCESS = "no-access";
 
             /// <summary>Allow only read operations</summary>
             public const string READ_ONLY = "read-only";
@@ -47,7 +77,7 @@ namespace kinetica
             public const string WRITE_ONLY = "write-only";
 
             /// <summary>Allow all read/write operations</summary>
-            public const string UNLOCK = "unlock";
+            public const string READ_WRITE = "read-write";
         } // end struct LockType
 
 
@@ -57,9 +87,37 @@ namespace kinetica
 
         /// <summary>The type of lock being applied to the table. Setting it to
         /// <i>status</i> will return the current lock status of the table
-        /// without changing it. Values: status, disable, read-only,
-        /// write-only, unlock.
-        ///   </summary>
+        /// without changing it.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="LockTableRequest.LockType.STATUS">STATUS</see>:</term>
+        ///         <description>Show locked status</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="LockTableRequest.LockType.NO_ACCESS">NO_ACCESS</see>:</term>
+        ///         <description>Allow no read/write operations</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="LockTableRequest.LockType.READ_ONLY">READ_ONLY</see>:</term>
+        ///         <description>Allow only read operations</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="LockTableRequest.LockType.WRITE_ONLY">WRITE_ONLY</see>:</term>
+        ///         <description>Allow only write operations</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="LockTableRequest.LockType.READ_WRITE">READ_WRITE</see>:</term>
+        ///         <description>Allow all read/write operations</description>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="LockTableRequest.LockType.STATUS">STATUS</see>.  </summary>
         public string lock_type { get; set; } = LockType.STATUS;
 
         /// <summary>Optional parameters.  </summary>
@@ -77,9 +135,37 @@ namespace kinetica
         /// a currently existing table, collection, or view.  </param>
         /// <param name="lock_type">The type of lock being applied to the
         /// table. Setting it to <i>status</i> will return the current lock
-        /// status of the table without changing it. Values: status, disable,
-        /// read-only, write-only, unlock.
-        ///   </param>
+        /// status of the table without changing it.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="LockTableRequest.LockType.STATUS">STATUS</see>:</term>
+        ///         <description>Show locked status</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="LockTableRequest.LockType.NO_ACCESS">NO_ACCESS</see>:</term>
+        ///         <description>Allow no read/write operations</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="LockTableRequest.LockType.READ_ONLY">READ_ONLY</see>:</term>
+        ///         <description>Allow only read operations</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="LockTableRequest.LockType.WRITE_ONLY">WRITE_ONLY</see>:</term>
+        ///         <description>Allow only write operations</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="LockTableRequest.LockType.READ_WRITE">READ_WRITE</see>:</term>
+        ///         <description>Allow all read/write operations</description>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="LockTableRequest.LockType.STATUS">STATUS</see>.  </param>
         /// <param name="options">Optional parameters.  </param>
         /// 
         public LockTableRequest( string table_name,
@@ -95,7 +181,9 @@ namespace kinetica
 
 
 
-    /// <summary>A set of results returned by /lock/table.</summary>
+    /// <summary>A set of results returned by <see
+    /// cref="Kinetica.lockTable(string,string,IDictionary{string, string})"
+    /// />.</summary>
     public class LockTableResponse : KineticaData
     {
 

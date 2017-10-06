@@ -11,7 +11,9 @@ using System.Collections.Generic;
 namespace kinetica
 {
 
-    /// <summary>A set of parameters for /grant/role.
+    /// <summary>A set of parameters for <see
+    /// cref="Kinetica.grantRole(string,string,IDictionary{string, string})"
+    /// />.
     /// <br />
     /// Grants membership in a role to a user or role.</summary>
     public class GrantRoleRequest : KineticaData
@@ -57,7 +59,9 @@ namespace kinetica
 
 
 
-    /// <summary>A set of results returned by /grant/role.</summary>
+    /// <summary>A set of results returned by <see
+    /// cref="Kinetica.grantRole(string,string,IDictionary{string, string})"
+    /// />.</summary>
     public class GrantRoleResponse : KineticaData
     {
 

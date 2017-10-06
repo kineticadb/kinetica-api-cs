@@ -11,15 +11,17 @@ using System.Collections.Generic;
 namespace kinetica
 {
 
-    /// <summary>A set of parameters for /filter/byarea.
+    /// <summary>A set of parameters for <see
+    /// cref="Kinetica.filterByArea(string,string,string,IList{double},string,IList{double},IDictionary{string, string})"
+    /// />.
     /// <br />
     /// Calculates which objects from a table are within a named area of
     /// interest (NAI/polygon). The operation is synchronous, meaning that a
     /// response will not be returned until all the matching objects are fully
     /// available. The response payload provides the count of the resulting
     /// set. A new resultant set (view) which satisfies the input NAI
-    /// restriction specification is created with the name <member
-    /// name="view_name" /> passed in as part of the input.</summary>
+    /// restriction specification is created with the name <see
+    /// cref="view_name" /> passed in as part of the input.</summary>
     public class FilterByAreaRequest : KineticaData
     {
 
@@ -101,7 +103,9 @@ namespace kinetica
 
 
 
-    /// <summary>A set of results returned by /filter/byarea.</summary>
+    /// <summary>A set of results returned by <see
+    /// cref="Kinetica.filterByArea(string,string,string,IList{double},string,IList{double},IDictionary{string, string})"
+    /// />.</summary>
     public class FilterByAreaResponse : KineticaData
     {
 

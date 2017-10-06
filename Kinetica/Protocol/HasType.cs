@@ -11,7 +11,8 @@ using System.Collections.Generic;
 namespace kinetica
 {
 
-    /// <summary>A set of parameters for /has/type.
+    /// <summary>A set of parameters for <see
+    /// cref="Kinetica.hasType(string,IDictionary{string, string})" />.
     /// <br />
     /// Check for the existence of a type.</summary>
     public class HasTypeRequest : KineticaData
@@ -47,13 +48,24 @@ namespace kinetica
 
 
 
-    /// <summary>A set of results returned by /has/type.</summary>
+    /// <summary>A set of results returned by <see
+    /// cref="Kinetica.hasType(string,IDictionary{string, string})"
+    /// />.</summary>
     public class HasTypeResponse : KineticaData
     {
 
-        /// <summary>Indicates whether the type exists or not. Values: true,
-        /// false.
-        /// <br />
+        /// <summary>Indicates whether the type exists or not.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="HasTypeResponse.TypeExists.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="HasTypeResponse.TypeExists.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
         /// A set of string constants for the parameter <member
         /// name="type_exists" />.</summary>
         public struct TypeExists
@@ -67,9 +79,18 @@ namespace kinetica
         /// </summary>
         public string type_id { get; set; }
 
-        /// <summary>Indicates whether the type exists or not. Values: true,
-        /// false.
-        ///   </summary>
+        /// <summary>Indicates whether the type exists or not.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="HasTypeResponse.TypeExists.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="HasTypeResponse.TypeExists.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>  </summary>
         public bool type_exists { get; set; }
 
     } // end class HasTypeResponse

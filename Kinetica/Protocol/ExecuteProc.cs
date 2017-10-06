@@ -11,7 +11,9 @@ using System.Collections.Generic;
 namespace kinetica
 {
 
-    /// <summary>A set of parameters for /execute/proc.
+    /// <summary>A set of parameters for <see
+    /// cref="Kinetica.executeProc(string,IDictionary{string, string},IDictionary{string, byte[]},IList{string},IDictionary{string, IList{string}},IList{string},IDictionary{string, string})"
+    /// />.
     /// <br />
     /// Executes a proc. This endpoint is asynchronous and does not wait for
     /// the proc to complete before returning.</summary>
@@ -21,7 +23,8 @@ namespace kinetica
         /// <summary>Optional parameters.
         /// <list type="bullet">
         ///     <item>
-        ///         <term>cache_input</term>
+        ///         <term><see
+        /// cref="ExecuteProcRequest.Options.CACHE_INPUT">CACHE_INPUT</see>:</term>
         ///         <description>A comma-delimited list of table names from
         /// <paramref cref="ExecuteProcRequest.input_table_names" /> from which
         /// input data will be cached for use in subsequent calls to
@@ -31,7 +34,8 @@ namespace kinetica
         /// instances using the cached data have completed.</description>
         ///     </item>
         ///     <item>
-        ///         <term>use_cached_input</term>
+        ///         <term><see
+        /// cref="ExecuteProcRequest.Options.USE_CACHED_INPUT">USE_CACHED_INPUT</see>:</term>
         ///         <description>A comma-delimited list of run IDs (as returned
         /// from prior calls to /execute/proc) of running or completed proc
         /// instances from which input data cached using the <i>cache_input</i>
@@ -45,30 +49,35 @@ namespace kinetica
         ///     </item>
         /// </list>
         /// <br />
-        /// A set of string constants for the parameter <member name="options"
+        /// A set of string constants for the parameter <see cref="options"
         /// />.</summary>
         public struct Options
         {
 
-            /// <summary>A comma-delimited list of table names from <member
-            /// name="input_table_names" /> from which input data will be
-            /// cached for use in subsequent calls to /execute/proc with the
-            /// <i>use_cached_input</i> option. Cached input data will be
-            /// retained until the proc status is cleared with the
-            /// /show/proc/status option of /show/proc/status and all proc
-            /// instances using the cached data have completed.</summary>
+            /// <summary>A comma-delimited list of table names from <see
+            /// cref="input_table_names" /> from which input data will be
+            /// cached for use in subsequent calls to <see
+            /// cref="Kinetica.executeProc(string,IDictionary{string, string},IDictionary{string, byte[]},IList{string},IDictionary{string, IList{string}},IList{string},IDictionary{string, string})"
+            /// /> with the <i>use_cached_input</i> option. Cached input data
+            /// will be retained until the proc status is cleared with the <see
+            /// cref="Kinetica.showProcStatus(string,IDictionary{string, string})">clear_complete</see>
+            /// option of <see
+            /// cref="Kinetica.showProcStatus(string,IDictionary{string, string})"
+            /// /> and all proc instances using the cached data have
+            /// completed.</summary>
             public const string CACHE_INPUT = "cache_input";
 
             /// <summary>A comma-delimited list of run IDs (as returned from
-            /// prior calls to /execute/proc) of running or completed proc
-            /// instances from which input data cached using the
-            /// <i>cache_input</i> option will be used. Cached input data will
-            /// not be used for any tables specified in <member
-            /// name="input_table_names" />, but data from all other tables
-            /// cached for the specified run IDs will be passed to the proc. If
-            /// the same table was cached for multiple specified run IDs, the
-            /// cached data from the first run ID specified in the list that
-            /// includes that table will be used.</summary>
+            /// prior calls to <see
+            /// cref="Kinetica.executeProc(string,IDictionary{string, string},IDictionary{string, byte[]},IList{string},IDictionary{string, IList{string}},IList{string},IDictionary{string, string})"
+            /// />) of running or completed proc instances from which input
+            /// data cached using the <i>cache_input</i> option will be used.
+            /// Cached input data will not be used for any tables specified in
+            /// <see cref="input_table_names" />, but data from all other
+            /// tables cached for the specified run IDs will be passed to the
+            /// proc. If the same table was cached for multiple specified run
+            /// IDs, the cached data from the first run ID specified in the
+            /// list that includes that table will be used.</summary>
             public const string USE_CACHED_INPUT = "use_cached_input";
         } // end struct Options
 
@@ -107,14 +116,17 @@ namespace kinetica
         /// automatically be created with the same schema as the corresponding
         /// table (by order) from <paramref
         /// cref="ExecuteProcRequest.input_table_names" />, excluding any
-        /// primary and shard keys. If no table names are specified, no output
-        /// data can be returned from the proc.  </summary>
+        /// primary and shard keys. If a specified table is a non-persistent
+        /// result table, it must not have primary or shard keys. If no table
+        /// names are specified, no output data can be returned from the proc.
+        /// </summary>
         public IList<string> output_table_names { get; set; } = new List<string>();
 
         /// <summary>Optional parameters.
         /// <list type="bullet">
         ///     <item>
-        ///         <term>cache_input</term>
+        ///         <term><see
+        /// cref="ExecuteProcRequest.Options.CACHE_INPUT">CACHE_INPUT</see>:</term>
         ///         <description>A comma-delimited list of table names from
         /// <paramref cref="ExecuteProcRequest.input_table_names" /> from which
         /// input data will be cached for use in subsequent calls to
@@ -124,7 +136,8 @@ namespace kinetica
         /// instances using the cached data have completed.</description>
         ///     </item>
         ///     <item>
-        ///         <term>use_cached_input</term>
+        ///         <term><see
+        /// cref="ExecuteProcRequest.Options.USE_CACHED_INPUT">USE_CACHED_INPUT</see>:</term>
         ///         <description>A comma-delimited list of run IDs (as returned
         /// from prior calls to /execute/proc) of running or completed proc
         /// instances from which input data cached using the <i>cache_input</i>
@@ -172,12 +185,15 @@ namespace kinetica
         /// does not exist, it will automatically be created with the same
         /// schema as the corresponding table (by order) from <paramref
         /// cref="ExecuteProcRequest.input_table_names" />, excluding any
-        /// primary and shard keys. If no table names are specified, no output
-        /// data can be returned from the proc.  </param>
+        /// primary and shard keys. If a specified table is a non-persistent
+        /// result table, it must not have primary or shard keys. If no table
+        /// names are specified, no output data can be returned from the proc.
+        /// </param>
         /// <param name="options">Optional parameters.
         /// <list type="bullet">
         ///     <item>
-        ///         <term>cache_input</term>
+        ///         <term><see
+        /// cref="ExecuteProcRequest.Options.CACHE_INPUT">CACHE_INPUT</see>:</term>
         ///         <description>A comma-delimited list of table names from
         /// <paramref cref="ExecuteProcRequest.input_table_names" /> from which
         /// input data will be cached for use in subsequent calls to
@@ -187,7 +203,8 @@ namespace kinetica
         /// instances using the cached data have completed.</description>
         ///     </item>
         ///     <item>
-        ///         <term>use_cached_input</term>
+        ///         <term><see
+        /// cref="ExecuteProcRequest.Options.USE_CACHED_INPUT">USE_CACHED_INPUT</see>:</term>
         ///         <description>A comma-delimited list of run IDs (as returned
         /// from prior calls to /execute/proc) of running or completed proc
         /// instances from which input data cached using the <i>cache_input</i>
@@ -223,7 +240,9 @@ namespace kinetica
 
 
 
-    /// <summary>A set of results returned by /execute/proc.</summary>
+    /// <summary>A set of results returned by <see
+    /// cref="Kinetica.executeProc(string,IDictionary{string, string},IDictionary{string, byte[]},IList{string},IDictionary{string, IList{string}},IList{string},IDictionary{string, string})"
+    /// />.</summary>
     public class ExecuteProcResponse : KineticaData
     {
 

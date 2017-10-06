@@ -11,47 +11,144 @@ using System.Collections.Generic;
 namespace kinetica
 {
 
-    /// <summary>A set of parameters for /create/union.
+    /// <summary>A set of parameters for <see
+    /// cref="Kinetica.createUnion(string,IList{string},IList{IList{string}},IList{string},IDictionary{string, string})"
+    /// />.
     /// <br />
-    /// Creates a table that is the concatenation of one or more existing
-    /// tables. It is equivalent to the SQL UNION ALL operator.  Non-charN
-    /// 'string' and 'bytes' column types cannot be included in a union,
-    /// neither can columns with the property 'store_only'.</summary>
+    /// Performs a <a href="../../../../../concepts/unions.html"
+    /// target="_top">union</a> (concatenation) of one or more existing tables
+    /// or views, the results of which are stored in a new view. It is
+    /// equivalent to the SQL UNION ALL operator.  Non-charN 'string' and
+    /// 'bytes' column types cannot be included in a union, neither can columns
+    /// with the property 'store_only'. Though not explicitly unions, <a
+    /// href="../../../../../concepts/intersect.html"
+    /// target="_top">intersect</a> and <a
+    /// href="../../../../../concepts/except.html" target="_top">except</a> are
+    /// also available from this endpoint.</summary>
     public class CreateUnionRequest : KineticaData
     {
 
         /// <summary>Optional parameters.
         /// <list type="bullet">
         ///     <item>
-        ///         <term>collection_name</term>
+        ///         <term><see
+        /// cref="CreateUnionRequest.Options.COLLECTION_NAME">COLLECTION_NAME</see>:</term>
         ///         <description>Name of a collection which is to contain the
         /// union. If the collection provided is non-existent, the collection
         /// will be automatically created. If empty, then the union will be a
         /// top-level table.</description>
         ///     </item>
         ///     <item>
-        ///         <term>materialize_on_gpu</term>
+        ///         <term><see
+        /// cref="CreateUnionRequest.Options.MATERIALIZE_ON_GPU">MATERIALIZE_ON_GPU</see>:</term>
         ///         <description>If 'true' then the columns of the union will
-        /// be cached on the GPU. Values: true, false.
-        /// </description>
+        /// be cached on the GPU.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateUnionRequest.Options.TRUE">TRUE</see></term>
         ///     </item>
         ///     <item>
-        ///         <term>mode</term>
+        ///         <term><see
+        /// cref="CreateUnionRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="CreateUnionRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateUnionRequest.Options.MODE">MODE</see>:</term>
         ///         <description>If 'merge_views' then this operation will
         /// merge (i.e. union) the provided views. All 'table_names' must be
-        /// views from the same underlying base table. Values: union_all,
-        /// union, union_distinct, except, intersect, merge_views.
-        /// </description>
+        /// views from the same underlying base table.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateUnionRequest.Options.UNION_ALL">UNION_ALL</see>:</term>
+        ///         <description>Retains all rows from the specified
+        /// tables.</description>
         ///     </item>
         ///     <item>
-        ///         <term>ttl</term>
+        ///         <term><see
+        /// cref="CreateUnionRequest.Options.UNION">UNION</see>:</term>
+        ///         <description>Retains all unique rows from the specified
+        /// tables (synonym for 'union_distinct').</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateUnionRequest.Options.UNION_DISTINCT">UNION_DISTINCT</see>:</term>
+        ///         <description>Retains all unique rows from the specified
+        /// tables.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateUnionRequest.Options.EXCEPT">EXCEPT</see>:</term>
+        ///         <description>Retains all unique rows from the first table
+        /// that do not appear in the second table (only works on 2
+        /// tables).</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateUnionRequest.Options.INTERSECT">INTERSECT</see>:</term>
+        ///         <description>Retains all unique rows that appear in both of
+        /// the specified tables (only works on 2 tables).</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateUnionRequest.Options.MERGE_VIEWS">MERGE_VIEWS</see>:</term>
+        ///         <description>Merge two or more views (or views of views) of
+        /// the same base data set into a new view. The resulting view would
+        /// match the results of a SQL OR operation, e.g., if filter 1 creates
+        /// a view using the expression 'x = 10' and filter 2 creates a view
+        /// using the expression 'x <= 10', then the merge views operation
+        /// creates a new view using the expression 'x = 10 OR x <=
+        /// 10'.</description>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="CreateUnionRequest.Options.UNION_ALL">UNION_ALL</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateUnionRequest.Options.CHUNK_SIZE">CHUNK_SIZE</see>:</term>
+        ///         <description>If provided this indicates the chunk size to
+        /// be used for this table.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateUnionRequest.Options.TTL">TTL</see>:</term>
         ///         <description>Sets the TTL of the table specified in
         /// <paramref cref="CreateUnionRequest.table_name" />. The value must
         /// be the desired TTL in minutes.</description>
         ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateUnionRequest.Options.PERSIST">PERSIST</see>:</term>
+        ///         <description>If <i>true</i> then the union will be
+        /// persisted as a regular table (it will not be automatically cleared
+        /// unless a <i>ttl</i> is provided, and the table data can be modified
+        /// in subsequent operations). If <i>false</i> (the default) then the
+        /// union will be a read-only, memory-only temporary table.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateUnionRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateUnionRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="CreateUnionRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
         /// </list>
         /// <br />
-        /// A set of string constants for the parameter <member name="options"
+        /// A set of string constants for the parameter <see cref="options"
         /// />.</summary>
         public struct Options
         {
@@ -63,17 +160,75 @@ namespace kinetica
             public const string COLLECTION_NAME = "collection_name";
 
             /// <summary>If 'true' then the columns of the union will be cached
-            /// on the GPU. Values: true, false.
-            /// </summary>
+            /// on the GPU.
+            /// Supported values:
+            /// <list type="bullet">
+            ///     <item>
+            ///         <term><see
+            /// cref="CreateUnionRequest.Options.TRUE">TRUE</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="CreateUnionRequest.Options.FALSE">FALSE</see></term>
+            ///     </item>
+            /// </list>
+            /// The default value is <see
+            /// cref="CreateUnionRequest.Options.FALSE">FALSE</see>.</summary>
             public const string MATERIALIZE_ON_GPU = "materialize_on_gpu";
             public const string TRUE = "true";
             public const string FALSE = "false";
 
             /// <summary>If 'merge_views' then this operation will merge (i.e.
             /// union) the provided views. All 'table_names' must be views from
-            /// the same underlying base table. Values: union_all, union,
-            /// union_distinct, except, intersect, merge_views.
-            /// </summary>
+            /// the same underlying base table.
+            /// Supported values:
+            /// <list type="bullet">
+            ///     <item>
+            ///         <term><see
+            /// cref="CreateUnionRequest.Options.UNION_ALL">UNION_ALL</see>:</term>
+            ///         <description>Retains all rows from the specified
+            /// tables.</description>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="CreateUnionRequest.Options.UNION">UNION</see>:</term>
+            ///         <description>Retains all unique rows from the specified
+            /// tables (synonym for 'union_distinct').</description>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="CreateUnionRequest.Options.UNION_DISTINCT">UNION_DISTINCT</see>:</term>
+            ///         <description>Retains all unique rows from the specified
+            /// tables.</description>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="CreateUnionRequest.Options.EXCEPT">EXCEPT</see>:</term>
+            ///         <description>Retains all unique rows from the first
+            /// table that do not appear in the second table (only works on 2
+            /// tables).</description>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="CreateUnionRequest.Options.INTERSECT">INTERSECT</see>:</term>
+            ///         <description>Retains all unique rows that appear in
+            /// both of the specified tables (only works on 2
+            /// tables).</description>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="CreateUnionRequest.Options.MERGE_VIEWS">MERGE_VIEWS</see>:</term>
+            ///         <description>Merge two or more views (or views of
+            /// views) of the same base data set into a new view. The resulting
+            /// view would match the results of a SQL OR operation, e.g., if
+            /// filter 1 creates a view using the expression 'x = 10' and
+            /// filter 2 creates a view using the expression 'x <= 10', then
+            /// the merge views operation creates a new view using the
+            /// expression 'x = 10 OR x <= 10'.</description>
+            ///     </item>
+            /// </list>
+            /// The default value is <see
+            /// cref="CreateUnionRequest.Options.UNION_ALL">UNION_ALL</see>.</summary>
             public const string MODE = "mode";
 
             /// <summary>Retains all rows from the specified tables.</summary>
@@ -96,14 +251,43 @@ namespace kinetica
             /// specified tables (only works on 2 tables).</summary>
             public const string INTERSECT = "intersect";
 
-            /// <summary>Merge (union) 2 or more views of the same base table
-            /// into a new view.</summary>
+            /// <summary>Merge two or more views (or views of views) of the
+            /// same base data set into a new view. The resulting view would
+            /// match the results of a SQL OR operation, e.g., if filter 1
+            /// creates a view using the expression 'x = 10' and filter 2
+            /// creates a view using the expression 'x <= 10', then the merge
+            /// views operation creates a new view using the expression 'x = 10
+            /// OR x <= 10'.</summary>
             public const string MERGE_VIEWS = "merge_views";
 
-            /// <summary>Sets the TTL of the table specified in <member
-            /// name="table_name" />. The value must be the desired TTL in
+            /// <summary>If provided this indicates the chunk size to be used
+            /// for this table.</summary>
+            public const string CHUNK_SIZE = "chunk_size";
+
+            /// <summary>Sets the TTL of the table specified in <see
+            /// cref="table_name" />. The value must be the desired TTL in
             /// minutes.</summary>
             public const string TTL = "ttl";
+
+            /// <summary>If <i>true</i> then the union will be persisted as a
+            /// regular table (it will not be automatically cleared unless a
+            /// <i>ttl</i> is provided, and the table data can be modified in
+            /// subsequent operations). If <i>false</i> (the default) then the
+            /// union will be a read-only, memory-only temporary table.
+            /// Supported values:
+            /// <list type="bullet">
+            ///     <item>
+            ///         <term><see
+            /// cref="CreateUnionRequest.Options.TRUE">TRUE</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="CreateUnionRequest.Options.FALSE">FALSE</see></term>
+            ///     </item>
+            /// </list>
+            /// The default value is <see
+            /// cref="CreateUnionRequest.Options.FALSE">FALSE</see>.</summary>
+            public const string PERSIST = "persist";
         } // end struct Options
 
 
@@ -127,31 +311,120 @@ namespace kinetica
         /// <summary>Optional parameters.
         /// <list type="bullet">
         ///     <item>
-        ///         <term>collection_name</term>
+        ///         <term><see
+        /// cref="CreateUnionRequest.Options.COLLECTION_NAME">COLLECTION_NAME</see>:</term>
         ///         <description>Name of a collection which is to contain the
         /// union. If the collection provided is non-existent, the collection
         /// will be automatically created. If empty, then the union will be a
         /// top-level table.</description>
         ///     </item>
         ///     <item>
-        ///         <term>materialize_on_gpu</term>
+        ///         <term><see
+        /// cref="CreateUnionRequest.Options.MATERIALIZE_ON_GPU">MATERIALIZE_ON_GPU</see>:</term>
         ///         <description>If 'true' then the columns of the union will
-        /// be cached on the GPU. Values: true, false.
-        /// </description>
+        /// be cached on the GPU.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateUnionRequest.Options.TRUE">TRUE</see></term>
         ///     </item>
         ///     <item>
-        ///         <term>mode</term>
+        ///         <term><see
+        /// cref="CreateUnionRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="CreateUnionRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateUnionRequest.Options.MODE">MODE</see>:</term>
         ///         <description>If 'merge_views' then this operation will
         /// merge (i.e. union) the provided views. All 'table_names' must be
-        /// views from the same underlying base table. Values: union_all,
-        /// union, union_distinct, except, intersect, merge_views.
-        /// </description>
+        /// views from the same underlying base table.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateUnionRequest.Options.UNION_ALL">UNION_ALL</see>:</term>
+        ///         <description>Retains all rows from the specified
+        /// tables.</description>
         ///     </item>
         ///     <item>
-        ///         <term>ttl</term>
+        ///         <term><see
+        /// cref="CreateUnionRequest.Options.UNION">UNION</see>:</term>
+        ///         <description>Retains all unique rows from the specified
+        /// tables (synonym for 'union_distinct').</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateUnionRequest.Options.UNION_DISTINCT">UNION_DISTINCT</see>:</term>
+        ///         <description>Retains all unique rows from the specified
+        /// tables.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateUnionRequest.Options.EXCEPT">EXCEPT</see>:</term>
+        ///         <description>Retains all unique rows from the first table
+        /// that do not appear in the second table (only works on 2
+        /// tables).</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateUnionRequest.Options.INTERSECT">INTERSECT</see>:</term>
+        ///         <description>Retains all unique rows that appear in both of
+        /// the specified tables (only works on 2 tables).</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateUnionRequest.Options.MERGE_VIEWS">MERGE_VIEWS</see>:</term>
+        ///         <description>Merge two or more views (or views of views) of
+        /// the same base data set into a new view. The resulting view would
+        /// match the results of a SQL OR operation, e.g., if filter 1 creates
+        /// a view using the expression 'x = 10' and filter 2 creates a view
+        /// using the expression 'x <= 10', then the merge views operation
+        /// creates a new view using the expression 'x = 10 OR x <=
+        /// 10'.</description>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="CreateUnionRequest.Options.UNION_ALL">UNION_ALL</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateUnionRequest.Options.CHUNK_SIZE">CHUNK_SIZE</see>:</term>
+        ///         <description>If provided this indicates the chunk size to
+        /// be used for this table.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateUnionRequest.Options.TTL">TTL</see>:</term>
         ///         <description>Sets the TTL of the table specified in
         /// <paramref cref="CreateUnionRequest.table_name" />. The value must
         /// be the desired TTL in minutes.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateUnionRequest.Options.PERSIST">PERSIST</see>:</term>
+        ///         <description>If <i>true</i> then the union will be
+        /// persisted as a regular table (it will not be automatically cleared
+        /// unless a <i>ttl</i> is provided, and the table data can be modified
+        /// in subsequent operations). If <i>false</i> (the default) then the
+        /// union will be a read-only, memory-only temporary table.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateUnionRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateUnionRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="CreateUnionRequest.Options.FALSE">FALSE</see>.</description>
         ///     </item>
         /// </list>
         ///   </summary>
@@ -179,31 +452,120 @@ namespace kinetica
         /// <param name="options">Optional parameters.
         /// <list type="bullet">
         ///     <item>
-        ///         <term>collection_name</term>
+        ///         <term><see
+        /// cref="CreateUnionRequest.Options.COLLECTION_NAME">COLLECTION_NAME</see>:</term>
         ///         <description>Name of a collection which is to contain the
         /// union. If the collection provided is non-existent, the collection
         /// will be automatically created. If empty, then the union will be a
         /// top-level table.</description>
         ///     </item>
         ///     <item>
-        ///         <term>materialize_on_gpu</term>
+        ///         <term><see
+        /// cref="CreateUnionRequest.Options.MATERIALIZE_ON_GPU">MATERIALIZE_ON_GPU</see>:</term>
         ///         <description>If 'true' then the columns of the union will
-        /// be cached on the GPU. Values: true, false.
-        /// </description>
+        /// be cached on the GPU.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateUnionRequest.Options.TRUE">TRUE</see></term>
         ///     </item>
         ///     <item>
-        ///         <term>mode</term>
+        ///         <term><see
+        /// cref="CreateUnionRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="CreateUnionRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateUnionRequest.Options.MODE">MODE</see>:</term>
         ///         <description>If 'merge_views' then this operation will
         /// merge (i.e. union) the provided views. All 'table_names' must be
-        /// views from the same underlying base table. Values: union_all,
-        /// union, union_distinct, except, intersect, merge_views.
-        /// </description>
+        /// views from the same underlying base table.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateUnionRequest.Options.UNION_ALL">UNION_ALL</see>:</term>
+        ///         <description>Retains all rows from the specified
+        /// tables.</description>
         ///     </item>
         ///     <item>
-        ///         <term>ttl</term>
+        ///         <term><see
+        /// cref="CreateUnionRequest.Options.UNION">UNION</see>:</term>
+        ///         <description>Retains all unique rows from the specified
+        /// tables (synonym for 'union_distinct').</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateUnionRequest.Options.UNION_DISTINCT">UNION_DISTINCT</see>:</term>
+        ///         <description>Retains all unique rows from the specified
+        /// tables.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateUnionRequest.Options.EXCEPT">EXCEPT</see>:</term>
+        ///         <description>Retains all unique rows from the first table
+        /// that do not appear in the second table (only works on 2
+        /// tables).</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateUnionRequest.Options.INTERSECT">INTERSECT</see>:</term>
+        ///         <description>Retains all unique rows that appear in both of
+        /// the specified tables (only works on 2 tables).</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateUnionRequest.Options.MERGE_VIEWS">MERGE_VIEWS</see>:</term>
+        ///         <description>Merge two or more views (or views of views) of
+        /// the same base data set into a new view. The resulting view would
+        /// match the results of a SQL OR operation, e.g., if filter 1 creates
+        /// a view using the expression 'x = 10' and filter 2 creates a view
+        /// using the expression 'x <= 10', then the merge views operation
+        /// creates a new view using the expression 'x = 10 OR x <=
+        /// 10'.</description>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="CreateUnionRequest.Options.UNION_ALL">UNION_ALL</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateUnionRequest.Options.CHUNK_SIZE">CHUNK_SIZE</see>:</term>
+        ///         <description>If provided this indicates the chunk size to
+        /// be used for this table.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateUnionRequest.Options.TTL">TTL</see>:</term>
         ///         <description>Sets the TTL of the table specified in
         /// <paramref cref="CreateUnionRequest.table_name" />. The value must
         /// be the desired TTL in minutes.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateUnionRequest.Options.PERSIST">PERSIST</see>:</term>
+        ///         <description>If <i>true</i> then the union will be
+        /// persisted as a regular table (it will not be automatically cleared
+        /// unless a <i>ttl</i> is provided, and the table data can be modified
+        /// in subsequent operations). If <i>false</i> (the default) then the
+        /// union will be a read-only, memory-only temporary table.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateUnionRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateUnionRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="CreateUnionRequest.Options.FALSE">FALSE</see>.</description>
         ///     </item>
         /// </list>
         ///   </param>
@@ -225,7 +587,9 @@ namespace kinetica
 
 
 
-    /// <summary>A set of results returned by /create/union.</summary>
+    /// <summary>A set of results returned by <see
+    /// cref="Kinetica.createUnion(string,IList{string},IList{IList{string}},IList{string},IDictionary{string, string})"
+    /// />.</summary>
     public class CreateUnionResponse : KineticaData
     {
 

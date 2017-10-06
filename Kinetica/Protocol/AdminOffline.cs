@@ -11,17 +11,27 @@ using System.Collections.Generic;
 namespace kinetica
 {
 
-    /// <summary>A set of parameters for /admin/offline.
+    /// <summary>A set of parameters for <see
+    /// cref="Kinetica.adminOffline(bool,IDictionary{string, string})" />.
     /// <br />
     /// Take the system offline. When the system is offline, no user operations
     /// can be performed with the exception of a system shutdown.</summary>
     public class AdminOfflineRequest : KineticaData
     {
 
-        /// <summary>Set to true if desired state is offline. Values: true,
-        /// false.
-        /// <br />
-        /// A set of string constants for the parameter <member name="offline"
+        /// <summary>Set to true if desired state is offline.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="AdminOfflineRequest.Offline.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AdminOfflineRequest.Offline.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// A set of string constants for the parameter <see cref="offline"
         /// />.</summary>
         public struct Offline
         {
@@ -30,9 +40,18 @@ namespace kinetica
         } // end struct Offline
 
 
-        /// <summary>Set to true if desired state is offline. Values: true,
-        /// false.
-        ///   </summary>
+        /// <summary>Set to true if desired state is offline.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="AdminOfflineRequest.Offline.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AdminOfflineRequest.Offline.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>  </summary>
         public bool offline { get; set; }
 
         /// <summary>Optional parameters.  </summary>
@@ -47,8 +66,17 @@ namespace kinetica
         /// specified parameters.</summary>
         /// 
         /// <param name="offline">Set to true if desired state is offline.
-        /// Values: true, false.
-        ///   </param>
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="AdminOfflineRequest.Offline.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AdminOfflineRequest.Offline.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>  </param>
         /// <param name="options">Optional parameters.  </param>
         /// 
         public AdminOfflineRequest( bool offline,
@@ -62,7 +90,9 @@ namespace kinetica
 
 
 
-    /// <summary>A set of results returned by /admin/offline.</summary>
+    /// <summary>A set of results returned by <see
+    /// cref="Kinetica.adminOffline(bool,IDictionary{string, string})"
+    /// />.</summary>
     public class AdminOfflineResponse : KineticaData
     {
 

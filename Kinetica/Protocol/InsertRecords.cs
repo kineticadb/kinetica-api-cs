@@ -11,7 +11,9 @@ using System.Collections.Generic;
 namespace kinetica
 {
 
-    /// <summary>A set of parameters for /insert/records.
+    /// <summary>A set of parameters for <see
+    /// cref="Kinetica.insertRecords{T}(string,IList{T},IDictionary{string, string})"
+    /// />.
     /// <br />
     /// Adds multiple records to the specified table. The operation is
     /// synchronous, meaning that a response will not be returned until all the
@@ -19,19 +21,13 @@ namespace kinetica
     /// the counts of the number of records actually inserted and/or updated,
     /// and can provide the unique identifier of each added record.
     /// <br />
-    /// The <member name="options" /> parameter can be used to customize this
-    /// function's behavior.  The <i>update_on_existing_pk</i> option specifies
-    /// the primary-key collision policy.  If the table has a /create/type and
-    /// if <i>update_on_existing_pk</i> is <i>true</i>, then if any of the
-    /// records being added have the same primary key as existing records, the
-    /// existing records are replaced (i.e. updated) with the given records.
-    /// If <i>update_on_existing_pk</i> is <i>false</i> and if the records
-    /// being added have the same primary key as existing records, they are
-    /// ignored (the existing records are left unchanged).  It is quite
-    /// possible that in this case some of the given records will be inserted
-    /// and some (those having existing primary keys) will be ignored (or
-    /// updated).  If the specified table does not have a primary key column,
-    /// then the <i>update_on_existing_pk</i> option is ignored.
+    /// The <see cref="options" /> parameter can be used to customize this
+    /// function's behavior.
+    /// <br />
+    /// The <i>update_on_existing_pk</i> option specifies the record collision
+    /// policy for inserting into a table with a <a
+    /// href="../../../../../concepts/tables.html#primary-keys"
+    /// target="_top">primary key</a>, but is ignored if no primary key exists.
     /// <br />
     /// The <i>return_record_ids</i> option indicates that the database should
     /// return the unique identifiers of inserted records.
@@ -41,11 +37,22 @@ namespace kinetica
     public class RawInsertRecordsRequest : KineticaData
     {
 
-        /// <summary>The encoding of the records to be inserted. Values:
-        /// binary, json.
-        /// <br />
-        /// A set of string constants for the parameter <member
-        /// name="list_encoding" />.</summary>
+        /// <summary>The encoding of the records to be inserted.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="RawInsertRecordsRequest.ListEncoding.BINARY">BINARY</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="RawInsertRecordsRequest.ListEncoding.JSON">JSON</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="RawInsertRecordsRequest.ListEncoding.BINARY">BINARY</see>.
+        /// A set of string constants for the parameter <see
+        /// cref="list_encoding" />.</summary>
         public struct ListEncoding
         {
             public const string BINARY = "binary";
@@ -56,57 +63,107 @@ namespace kinetica
         /// <summary>Optional parameters.
         /// <list type="bullet">
         ///     <item>
-        ///         <term>update_on_existing_pk</term>
-        ///         <description>If the table has a /create/type, then if the
-        /// value is <i>true</i> then if any of the records being added have
-        /// the same primary key as existing records, the existing records are
-        /// replaced (i.e. updated) with the given records. If <i>false</i>,
-        /// and if the records being added have the same primary key as
-        /// existing records, they are ignored (the existing records are left
-        /// unchanged).  It is quite possible that in this case some of the
-        /// given records will be inserted and some (those having existing
-        /// primary keys) will be ignored (or updated). If the specified table
-        /// does not have a primary key column then this optional parameter is
-        /// ignored. Values: true, false.
-        /// </description>
+        ///         <term><see
+        /// cref="RawInsertRecordsRequest.Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>:</term>
+        ///         <description>Specifies the record collision policy for
+        /// inserting into a table with a <a
+        /// href="../../../../concepts/tables.html#primary-keys"
+        /// target="_top">primary key</a>.  If set to <i>true</i>, any existing
+        /// table record with primary key values that match those of a record
+        /// being inserted will be replaced by that new record.  If set to
+        /// <i>false</i>, any existing table record with primary key values
+        /// that match those of a record being inserted will remain unchanged
+        /// and the new record discarded.  If the specified table does not have
+        /// a primary key, then this option is ignored.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="RawInsertRecordsRequest.Options.TRUE">TRUE</see></term>
         ///     </item>
         ///     <item>
-        ///         <term>return_record_ids</term>
+        ///         <term><see
+        /// cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="RawInsertRecordsRequest.Options.RETURN_RECORD_IDS">RETURN_RECORD_IDS</see>:</term>
         ///         <description>If <i>true</i> then return the internal record
-        /// id along for each inserted record. Values: true, false.
-        /// </description>
+        /// id along for each inserted record.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="RawInsertRecordsRequest.Options.TRUE">TRUE</see></term>
         ///     </item>
         ///     <item>
-        ///         <term>route_to_address</term>
+        ///         <term><see
+        /// cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="RawInsertRecordsRequest.Options.ROUTE_TO_ADDRESS">ROUTE_TO_ADDRESS</see>:</term>
         ///         <description>Route to a specific rank/tom. Option not
         /// suitable for tables using primary/shard keys</description>
         ///     </item>
         /// </list>
         /// <br />
-        /// A set of string constants for the parameter <member name="options"
+        /// A set of string constants for the parameter <see cref="options"
         /// />.</summary>
         public struct Options
         {
 
-            /// <summary>If the table has a /create/type, then if the value is
-            /// <i>true</i> then if any of the records being added have the
-            /// same primary key as existing records, the existing records are
-            /// replaced (i.e. updated) with the given records. If
-            /// <i>false</i>, and if the records being added have the same
-            /// primary key as existing records, they are ignored (the existing
-            /// records are left unchanged).  It is quite possible that in this
-            /// case some of the given records will be inserted and some (those
-            /// having existing primary keys) will be ignored (or updated). If
-            /// the specified table does not have a primary key column then
-            /// this optional parameter is ignored. Values: true, false.
-            /// </summary>
+            /// <summary>Specifies the record collision policy for inserting
+            /// into a table with a <a
+            /// href="../../../../../concepts/tables.html#primary-keys"
+            /// target="_top">primary key</a>.  If set to <i>true</i>, any
+            /// existing table record with primary key values that match those
+            /// of a record being inserted will be replaced by that new record.
+            /// If set to <i>false</i>, any existing table record with primary
+            /// key values that match those of a record being inserted will
+            /// remain unchanged and the new record discarded.  If the
+            /// specified table does not have a primary key, then this option
+            /// is ignored.
+            /// Supported values:
+            /// <list type="bullet">
+            ///     <item>
+            ///         <term><see
+            /// cref="RawInsertRecordsRequest.Options.TRUE">TRUE</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see></term>
+            ///     </item>
+            /// </list>
+            /// The default value is <see
+            /// cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see>.</summary>
             public const string UPDATE_ON_EXISTING_PK = "update_on_existing_pk";
             public const string TRUE = "true";
             public const string FALSE = "false";
 
             /// <summary>If <i>true</i> then return the internal record id
-            /// along for each inserted record. Values: true, false.
-            /// </summary>
+            /// along for each inserted record.
+            /// Supported values:
+            /// <list type="bullet">
+            ///     <item>
+            ///         <term><see
+            /// cref="RawInsertRecordsRequest.Options.TRUE">TRUE</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see></term>
+            ///     </item>
+            /// </list>
+            /// The default value is <see
+            /// cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see>.</summary>
             public const string RETURN_RECORD_IDS = "return_record_ids";
 
             /// <summary>Route to a specific rank/tom. Option not suitable for
@@ -132,36 +189,74 @@ namespace kinetica
         /// is <i>binary</i>.  </summary>
         public IList<string> list_str { get; set; } = new List<string>();
 
-        /// <summary>The encoding of the records to be inserted. Values:
-        /// binary, json.
-        ///   </summary>
+        /// <summary>The encoding of the records to be inserted.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="RawInsertRecordsRequest.ListEncoding.BINARY">BINARY</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="RawInsertRecordsRequest.ListEncoding.JSON">JSON</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="RawInsertRecordsRequest.ListEncoding.BINARY">BINARY</see>.
+        /// </summary>
         public string list_encoding { get; set; } = ListEncoding.BINARY;
 
         /// <summary>Optional parameters.
         /// <list type="bullet">
         ///     <item>
-        ///         <term>update_on_existing_pk</term>
-        ///         <description>If the table has a /create/type, then if the
-        /// value is <i>true</i> then if any of the records being added have
-        /// the same primary key as existing records, the existing records are
-        /// replaced (i.e. updated) with the given records. If <i>false</i>,
-        /// and if the records being added have the same primary key as
-        /// existing records, they are ignored (the existing records are left
-        /// unchanged).  It is quite possible that in this case some of the
-        /// given records will be inserted and some (those having existing
-        /// primary keys) will be ignored (or updated). If the specified table
-        /// does not have a primary key column then this optional parameter is
-        /// ignored. Values: true, false.
-        /// </description>
+        ///         <term><see
+        /// cref="RawInsertRecordsRequest.Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>:</term>
+        ///         <description>Specifies the record collision policy for
+        /// inserting into a table with a <a
+        /// href="../../../../concepts/tables.html#primary-keys"
+        /// target="_top">primary key</a>.  If set to <i>true</i>, any existing
+        /// table record with primary key values that match those of a record
+        /// being inserted will be replaced by that new record.  If set to
+        /// <i>false</i>, any existing table record with primary key values
+        /// that match those of a record being inserted will remain unchanged
+        /// and the new record discarded.  If the specified table does not have
+        /// a primary key, then this option is ignored.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="RawInsertRecordsRequest.Options.TRUE">TRUE</see></term>
         ///     </item>
         ///     <item>
-        ///         <term>return_record_ids</term>
+        ///         <term><see
+        /// cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="RawInsertRecordsRequest.Options.RETURN_RECORD_IDS">RETURN_RECORD_IDS</see>:</term>
         ///         <description>If <i>true</i> then return the internal record
-        /// id along for each inserted record. Values: true, false.
-        /// </description>
+        /// id along for each inserted record.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="RawInsertRecordsRequest.Options.TRUE">TRUE</see></term>
         ///     </item>
         ///     <item>
-        ///         <term>route_to_address</term>
+        ///         <term><see
+        /// cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="RawInsertRecordsRequest.Options.ROUTE_TO_ADDRESS">ROUTE_TO_ADDRESS</see>:</term>
         ///         <description>Route to a specific rank/tom. Option not
         /// suitable for tables using primary/shard keys</description>
         ///     </item>
@@ -187,28 +282,54 @@ namespace kinetica
         /// <param name="options">Optional parameters.
         /// <list type="bullet">
         ///     <item>
-        ///         <term>update_on_existing_pk</term>
-        ///         <description>If the table has a /create/type, then if the
-        /// value is <i>true</i> then if any of the records being added have
-        /// the same primary key as existing records, the existing records are
-        /// replaced (i.e. updated) with the given records. If <i>false</i>,
-        /// and if the records being added have the same primary key as
-        /// existing records, they are ignored (the existing records are left
-        /// unchanged).  It is quite possible that in this case some of the
-        /// given records will be inserted and some (those having existing
-        /// primary keys) will be ignored (or updated). If the specified table
-        /// does not have a primary key column then this optional parameter is
-        /// ignored. Values: true, false.
-        /// </description>
+        ///         <term><see
+        /// cref="RawInsertRecordsRequest.Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>:</term>
+        ///         <description>Specifies the record collision policy for
+        /// inserting into a table with a <a
+        /// href="../../../../concepts/tables.html#primary-keys"
+        /// target="_top">primary key</a>.  If set to <i>true</i>, any existing
+        /// table record with primary key values that match those of a record
+        /// being inserted will be replaced by that new record.  If set to
+        /// <i>false</i>, any existing table record with primary key values
+        /// that match those of a record being inserted will remain unchanged
+        /// and the new record discarded.  If the specified table does not have
+        /// a primary key, then this option is ignored.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="RawInsertRecordsRequest.Options.TRUE">TRUE</see></term>
         ///     </item>
         ///     <item>
-        ///         <term>return_record_ids</term>
+        ///         <term><see
+        /// cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="RawInsertRecordsRequest.Options.RETURN_RECORD_IDS">RETURN_RECORD_IDS</see>:</term>
         ///         <description>If <i>true</i> then return the internal record
-        /// id along for each inserted record. Values: true, false.
-        /// </description>
+        /// id along for each inserted record.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="RawInsertRecordsRequest.Options.TRUE">TRUE</see></term>
         ///     </item>
         ///     <item>
-        ///         <term>route_to_address</term>
+        ///         <term><see
+        /// cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="RawInsertRecordsRequest.Options.ROUTE_TO_ADDRESS">ROUTE_TO_ADDRESS</see>:</term>
         ///         <description>Route to a specific rank/tom. Option not
         /// suitable for tables using primary/shard keys</description>
         ///     </item>
@@ -243,33 +364,72 @@ namespace kinetica
         /// cref="RawInsertRecordsRequest.list_encoding" /> is <i>binary</i>.
         /// </param>
         /// <param name="list_encoding">The encoding of the records to be
-        /// inserted. Values: binary, json.
-        ///   </param>
+        /// inserted.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="RawInsertRecordsRequest.ListEncoding.BINARY">BINARY</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="RawInsertRecordsRequest.ListEncoding.JSON">JSON</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="RawInsertRecordsRequest.ListEncoding.BINARY">BINARY</see>.
+        /// </param>
         /// <param name="options">Optional parameters.
         /// <list type="bullet">
         ///     <item>
-        ///         <term>update_on_existing_pk</term>
-        ///         <description>If the table has a /create/type, then if the
-        /// value is <i>true</i> then if any of the records being added have
-        /// the same primary key as existing records, the existing records are
-        /// replaced (i.e. updated) with the given records. If <i>false</i>,
-        /// and if the records being added have the same primary key as
-        /// existing records, they are ignored (the existing records are left
-        /// unchanged).  It is quite possible that in this case some of the
-        /// given records will be inserted and some (those having existing
-        /// primary keys) will be ignored (or updated). If the specified table
-        /// does not have a primary key column then this optional parameter is
-        /// ignored. Values: true, false.
-        /// </description>
+        ///         <term><see
+        /// cref="RawInsertRecordsRequest.Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>:</term>
+        ///         <description>Specifies the record collision policy for
+        /// inserting into a table with a <a
+        /// href="../../../../concepts/tables.html#primary-keys"
+        /// target="_top">primary key</a>.  If set to <i>true</i>, any existing
+        /// table record with primary key values that match those of a record
+        /// being inserted will be replaced by that new record.  If set to
+        /// <i>false</i>, any existing table record with primary key values
+        /// that match those of a record being inserted will remain unchanged
+        /// and the new record discarded.  If the specified table does not have
+        /// a primary key, then this option is ignored.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="RawInsertRecordsRequest.Options.TRUE">TRUE</see></term>
         ///     </item>
         ///     <item>
-        ///         <term>return_record_ids</term>
+        ///         <term><see
+        /// cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="RawInsertRecordsRequest.Options.RETURN_RECORD_IDS">RETURN_RECORD_IDS</see>:</term>
         ///         <description>If <i>true</i> then return the internal record
-        /// id along for each inserted record. Values: true, false.
-        /// </description>
+        /// id along for each inserted record.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="RawInsertRecordsRequest.Options.TRUE">TRUE</see></term>
         ///     </item>
         ///     <item>
-        ///         <term>route_to_address</term>
+        ///         <term><see
+        /// cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="RawInsertRecordsRequest.Options.ROUTE_TO_ADDRESS">ROUTE_TO_ADDRESS</see>:</term>
         ///         <description>Route to a specific rank/tom. Option not
         /// suitable for tables using primary/shard keys</description>
         ///     </item>
@@ -293,7 +453,9 @@ namespace kinetica
 
 
 
-    /// <summary>A set of parameters for /insert/records.
+    /// <summary>A set of parameters for <see
+    /// cref="Kinetica.insertRecords{T}(string,IList{T},IDictionary{string, string})"
+    /// />.
     /// <br />
     /// Adds multiple records to the specified table. The operation is
     /// synchronous, meaning that a response will not be returned until all the
@@ -301,19 +463,13 @@ namespace kinetica
     /// the counts of the number of records actually inserted and/or updated,
     /// and can provide the unique identifier of each added record.
     /// <br />
-    /// The <member name="options" /> parameter can be used to customize this
-    /// function's behavior.  The <i>update_on_existing_pk</i> option specifies
-    /// the primary-key collision policy.  If the table has a /create/type and
-    /// if <i>update_on_existing_pk</i> is <i>true</i>, then if any of the
-    /// records being added have the same primary key as existing records, the
-    /// existing records are replaced (i.e. updated) with the given records.
-    /// If <i>update_on_existing_pk</i> is <i>false</i> and if the records
-    /// being added have the same primary key as existing records, they are
-    /// ignored (the existing records are left unchanged).  It is quite
-    /// possible that in this case some of the given records will be inserted
-    /// and some (those having existing primary keys) will be ignored (or
-    /// updated).  If the specified table does not have a primary key column,
-    /// then the <i>update_on_existing_pk</i> option is ignored.
+    /// The <see cref="options" /> parameter can be used to customize this
+    /// function's behavior.
+    /// <br />
+    /// The <i>update_on_existing_pk</i> option specifies the record collision
+    /// policy for inserting into a table with a <a
+    /// href="../../../../../concepts/tables.html#primary-keys"
+    /// target="_top">primary key</a>, but is ignored if no primary key exists.
     /// <br />
     /// The <i>return_record_ids</i> option indicates that the database should
     /// return the unique identifiers of inserted records.
@@ -329,57 +485,107 @@ namespace kinetica
         /// <summary>Optional parameters.
         /// <list type="bullet">
         ///     <item>
-        ///         <term>update_on_existing_pk</term>
-        ///         <description>If the table has a /create/type, then if the
-        /// value is <i>true</i> then if any of the records being added have
-        /// the same primary key as existing records, the existing records are
-        /// replaced (i.e. updated) with the given records. If <i>false</i>,
-        /// and if the records being added have the same primary key as
-        /// existing records, they are ignored (the existing records are left
-        /// unchanged).  It is quite possible that in this case some of the
-        /// given records will be inserted and some (those having existing
-        /// primary keys) will be ignored (or updated). If the specified table
-        /// does not have a primary key column then this optional parameter is
-        /// ignored. Values: true, false.
-        /// </description>
+        ///         <term><see
+        /// cref="RawInsertRecordsRequest.Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>:</term>
+        ///         <description>Specifies the record collision policy for
+        /// inserting into a table with a <a
+        /// href="../../../../concepts/tables.html#primary-keys"
+        /// target="_top">primary key</a>.  If set to <i>true</i>, any existing
+        /// table record with primary key values that match those of a record
+        /// being inserted will be replaced by that new record.  If set to
+        /// <i>false</i>, any existing table record with primary key values
+        /// that match those of a record being inserted will remain unchanged
+        /// and the new record discarded.  If the specified table does not have
+        /// a primary key, then this option is ignored.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="RawInsertRecordsRequest.Options.TRUE">TRUE</see></term>
         ///     </item>
         ///     <item>
-        ///         <term>return_record_ids</term>
+        ///         <term><see
+        /// cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="RawInsertRecordsRequest.Options.RETURN_RECORD_IDS">RETURN_RECORD_IDS</see>:</term>
         ///         <description>If <i>true</i> then return the internal record
-        /// id along for each inserted record. Values: true, false.
-        /// </description>
+        /// id along for each inserted record.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="RawInsertRecordsRequest.Options.TRUE">TRUE</see></term>
         ///     </item>
         ///     <item>
-        ///         <term>route_to_address</term>
+        ///         <term><see
+        /// cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="RawInsertRecordsRequest.Options.ROUTE_TO_ADDRESS">ROUTE_TO_ADDRESS</see>:</term>
         ///         <description>Route to a specific rank/tom. Option not
         /// suitable for tables using primary/shard keys</description>
         ///     </item>
         /// </list>
         /// <br />
-        /// A set of string constants for the parameter <member name="options"
+        /// A set of string constants for the parameter <see cref="options"
         /// />.</summary>
         public struct Options
         {
 
-            /// <summary>If the table has a /create/type, then if the value is
-            /// <i>true</i> then if any of the records being added have the
-            /// same primary key as existing records, the existing records are
-            /// replaced (i.e. updated) with the given records. If
-            /// <i>false</i>, and if the records being added have the same
-            /// primary key as existing records, they are ignored (the existing
-            /// records are left unchanged).  It is quite possible that in this
-            /// case some of the given records will be inserted and some (those
-            /// having existing primary keys) will be ignored (or updated). If
-            /// the specified table does not have a primary key column then
-            /// this optional parameter is ignored. Values: true, false.
-            /// </summary>
+            /// <summary>Specifies the record collision policy for inserting
+            /// into a table with a <a
+            /// href="../../../../../concepts/tables.html#primary-keys"
+            /// target="_top">primary key</a>.  If set to <i>true</i>, any
+            /// existing table record with primary key values that match those
+            /// of a record being inserted will be replaced by that new record.
+            /// If set to <i>false</i>, any existing table record with primary
+            /// key values that match those of a record being inserted will
+            /// remain unchanged and the new record discarded.  If the
+            /// specified table does not have a primary key, then this option
+            /// is ignored.
+            /// Supported values:
+            /// <list type="bullet">
+            ///     <item>
+            ///         <term><see
+            /// cref="RawInsertRecordsRequest.Options.TRUE">TRUE</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see></term>
+            ///     </item>
+            /// </list>
+            /// The default value is <see
+            /// cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see>.</summary>
             public const string UPDATE_ON_EXISTING_PK = "update_on_existing_pk";
             public const string TRUE = "true";
             public const string FALSE = "false";
 
             /// <summary>If <i>true</i> then return the internal record id
-            /// along for each inserted record. Values: true, false.
-            /// </summary>
+            /// along for each inserted record.
+            /// Supported values:
+            /// <list type="bullet">
+            ///     <item>
+            ///         <term><see
+            /// cref="RawInsertRecordsRequest.Options.TRUE">TRUE</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see></term>
+            ///     </item>
+            /// </list>
+            /// The default value is <see
+            /// cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see>.</summary>
             public const string RETURN_RECORD_IDS = "return_record_ids";
 
             /// <summary>Route to a specific rank/tom. Option not suitable for
@@ -402,28 +608,54 @@ namespace kinetica
         /// <summary>Optional parameters.
         /// <list type="bullet">
         ///     <item>
-        ///         <term>update_on_existing_pk</term>
-        ///         <description>If the table has a /create/type, then if the
-        /// value is <i>true</i> then if any of the records being added have
-        /// the same primary key as existing records, the existing records are
-        /// replaced (i.e. updated) with the given records. If <i>false</i>,
-        /// and if the records being added have the same primary key as
-        /// existing records, they are ignored (the existing records are left
-        /// unchanged).  It is quite possible that in this case some of the
-        /// given records will be inserted and some (those having existing
-        /// primary keys) will be ignored (or updated). If the specified table
-        /// does not have a primary key column then this optional parameter is
-        /// ignored. Values: true, false.
-        /// </description>
+        ///         <term><see
+        /// cref="RawInsertRecordsRequest.Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>:</term>
+        ///         <description>Specifies the record collision policy for
+        /// inserting into a table with a <a
+        /// href="../../../../concepts/tables.html#primary-keys"
+        /// target="_top">primary key</a>.  If set to <i>true</i>, any existing
+        /// table record with primary key values that match those of a record
+        /// being inserted will be replaced by that new record.  If set to
+        /// <i>false</i>, any existing table record with primary key values
+        /// that match those of a record being inserted will remain unchanged
+        /// and the new record discarded.  If the specified table does not have
+        /// a primary key, then this option is ignored.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="RawInsertRecordsRequest.Options.TRUE">TRUE</see></term>
         ///     </item>
         ///     <item>
-        ///         <term>return_record_ids</term>
+        ///         <term><see
+        /// cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="RawInsertRecordsRequest.Options.RETURN_RECORD_IDS">RETURN_RECORD_IDS</see>:</term>
         ///         <description>If <i>true</i> then return the internal record
-        /// id along for each inserted record. Values: true, false.
-        /// </description>
+        /// id along for each inserted record.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="RawInsertRecordsRequest.Options.TRUE">TRUE</see></term>
         ///     </item>
         ///     <item>
-        ///         <term>route_to_address</term>
+        ///         <term><see
+        /// cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="RawInsertRecordsRequest.Options.ROUTE_TO_ADDRESS">ROUTE_TO_ADDRESS</see>:</term>
         ///         <description>Route to a specific rank/tom. Option not
         /// suitable for tables using primary/shard keys</description>
         ///     </item>
@@ -449,28 +681,54 @@ namespace kinetica
         /// <param name="options">Optional parameters.
         /// <list type="bullet">
         ///     <item>
-        ///         <term>update_on_existing_pk</term>
-        ///         <description>If the table has a /create/type, then if the
-        /// value is <i>true</i> then if any of the records being added have
-        /// the same primary key as existing records, the existing records are
-        /// replaced (i.e. updated) with the given records. If <i>false</i>,
-        /// and if the records being added have the same primary key as
-        /// existing records, they are ignored (the existing records are left
-        /// unchanged).  It is quite possible that in this case some of the
-        /// given records will be inserted and some (those having existing
-        /// primary keys) will be ignored (or updated). If the specified table
-        /// does not have a primary key column then this optional parameter is
-        /// ignored. Values: true, false.
-        /// </description>
+        ///         <term><see
+        /// cref="RawInsertRecordsRequest.Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>:</term>
+        ///         <description>Specifies the record collision policy for
+        /// inserting into a table with a <a
+        /// href="../../../../concepts/tables.html#primary-keys"
+        /// target="_top">primary key</a>.  If set to <i>true</i>, any existing
+        /// table record with primary key values that match those of a record
+        /// being inserted will be replaced by that new record.  If set to
+        /// <i>false</i>, any existing table record with primary key values
+        /// that match those of a record being inserted will remain unchanged
+        /// and the new record discarded.  If the specified table does not have
+        /// a primary key, then this option is ignored.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="RawInsertRecordsRequest.Options.TRUE">TRUE</see></term>
         ///     </item>
         ///     <item>
-        ///         <term>return_record_ids</term>
+        ///         <term><see
+        /// cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="RawInsertRecordsRequest.Options.RETURN_RECORD_IDS">RETURN_RECORD_IDS</see>:</term>
         ///         <description>If <i>true</i> then return the internal record
-        /// id along for each inserted record. Values: true, false.
-        /// </description>
+        /// id along for each inserted record.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="RawInsertRecordsRequest.Options.TRUE">TRUE</see></term>
         ///     </item>
         ///     <item>
-        ///         <term>route_to_address</term>
+        ///         <term><see
+        /// cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="RawInsertRecordsRequest.Options.ROUTE_TO_ADDRESS">ROUTE_TO_ADDRESS</see>:</term>
         ///         <description>Route to a specific rank/tom. Option not
         /// suitable for tables using primary/shard keys</description>
         ///     </item>
@@ -490,7 +748,9 @@ namespace kinetica
 
 
 
-    /// <summary>A set of results returned by /insert/records.</summary>
+    /// <summary>A set of results returned by <see
+    /// cref="Kinetica.insertRecords{T}(string,IList{T},IDictionary{string, string})"
+    /// />.</summary>
     public class InsertRecordsResponse : KineticaData
     {
 

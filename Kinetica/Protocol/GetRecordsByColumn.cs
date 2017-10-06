@@ -11,7 +11,9 @@ using System.Collections.Generic;
 namespace kinetica
 {
 
-    /// <summary>A set of parameters for /get/records/bycolumn.
+    /// <summary>A set of parameters for <see
+    /// cref="Kinetica.getRecordsByColumn(string,IList{string},long,long,IDictionary{string, string})"
+    /// />.
     /// <br />
     /// For a given table, retrieves the values of the given columns within a
     /// given range. It returns maps of column name to the vector of values for
@@ -34,9 +36,21 @@ namespace kinetica
     {
 
         /// <summary>Specifies the encoding for returned records; either
-        /// 'binary' or 'json'. Values: binary, json.
-        /// <br />
-        /// A set of string constants for the parameter <member name="encoding"
+        /// 'binary' or 'json'.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="GetRecordsByColumnRequest.Encoding.BINARY">BINARY</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="GetRecordsByColumnRequest.Encoding.JSON">JSON</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="GetRecordsByColumnRequest.Encoding.BINARY">BINARY</see>.
+        /// A set of string constants for the parameter <see cref="encoding"
         /// />.</summary>
         public struct Encoding
         {
@@ -48,25 +62,40 @@ namespace kinetica
         /// <summary>
         /// <list type="bullet">
         ///     <item>
-        ///         <term>expression</term>
+        ///         <term><see
+        /// cref="GetRecordsByColumnRequest.Options.EXPRESSION">EXPRESSION</see>:</term>
         ///         <description>Optional filter expression to apply to the
         /// table.</description>
         ///     </item>
         ///     <item>
-        ///         <term>sort_by</term>
+        ///         <term><see
+        /// cref="GetRecordsByColumnRequest.Options.SORT_BY">SORT_BY</see>:</term>
         ///         <description>Optional column that the data should be sorted
         /// by. Empty by default (i.e. no sorting is applied).</description>
         ///     </item>
         ///     <item>
-        ///         <term>sort_order</term>
+        ///         <term><see
+        /// cref="GetRecordsByColumnRequest.Options.SORT_ORDER">SORT_ORDER</see>:</term>
         ///         <description>String indicating how the returned values
         /// should be sorted - ascending or descending. Default is 'ascending'.
-        /// If sort_order is provided, sort_by has to be provided. Values:
-        /// ascending, descending.
-        /// </description>
+        /// If sort_order is provided, sort_by has to be provided.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="GetRecordsByColumnRequest.Options.ASCENDING">ASCENDING</see></term>
         ///     </item>
         ///     <item>
-        ///         <term>order_by</term>
+        ///         <term><see
+        /// cref="GetRecordsByColumnRequest.Options.DESCENDING">DESCENDING</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="GetRecordsByColumnRequest.Options.ASCENDING">ASCENDING</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="GetRecordsByColumnRequest.Options.ORDER_BY">ORDER_BY</see>:</term>
         ///         <description>Comma-separated list of the columns to be
         /// sorted by; e.g. 'timestamp asc, x desc'.  The columns specified
         /// must be present in <paramref
@@ -76,7 +105,7 @@ namespace kinetica
         ///     </item>
         /// </list>
         /// <br />
-        /// A set of string constants for the parameter <member name="options"
+        /// A set of string constants for the parameter <see cref="options"
         /// />.</summary>
         public struct Options
         {
@@ -91,18 +120,29 @@ namespace kinetica
 
             /// <summary>String indicating how the returned values should be
             /// sorted - ascending or descending. Default is 'ascending'. If
-            /// sort_order is provided, sort_by has to be provided. Values:
-            /// ascending, descending.
-            /// </summary>
+            /// sort_order is provided, sort_by has to be provided.
+            /// Supported values:
+            /// <list type="bullet">
+            ///     <item>
+            ///         <term><see
+            /// cref="GetRecordsByColumnRequest.Options.ASCENDING">ASCENDING</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="GetRecordsByColumnRequest.Options.DESCENDING">DESCENDING</see></term>
+            ///     </item>
+            /// </list>
+            /// The default value is <see
+            /// cref="GetRecordsByColumnRequest.Options.ASCENDING">ASCENDING</see>.</summary>
             public const string SORT_ORDER = "sort_order";
             public const string ASCENDING = "ascending";
             public const string DESCENDING = "descending";
 
             /// <summary>Comma-separated list of the columns to be sorted by;
             /// e.g. 'timestamp asc, x desc'.  The columns specified must be
-            /// present in <member name="column_names" />.  If any alias is
-            /// given for any column name, the alias must be used, rather than
-            /// the original column name.</summary>
+            /// present in <see cref="column_names" />.  If any alias is given
+            /// for any column name, the alias must be used, rather than the
+            /// original column name.</summary>
             public const string ORDER_BY = "order_by";
         } // end struct Options
 
@@ -127,32 +167,60 @@ namespace kinetica
         public long limit { get; set; }
 
         /// <summary>Specifies the encoding for returned records; either
-        /// 'binary' or 'json'. Values: binary, json.
-        ///   </summary>
+        /// 'binary' or 'json'.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="GetRecordsByColumnRequest.Encoding.BINARY">BINARY</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="GetRecordsByColumnRequest.Encoding.JSON">JSON</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="GetRecordsByColumnRequest.Encoding.BINARY">BINARY</see>.
+        /// </summary>
         public string encoding { get; set; } = Encoding.BINARY;
 
         /// <summary>
         /// <list type="bullet">
         ///     <item>
-        ///         <term>expression</term>
+        ///         <term><see
+        /// cref="GetRecordsByColumnRequest.Options.EXPRESSION">EXPRESSION</see>:</term>
         ///         <description>Optional filter expression to apply to the
         /// table.</description>
         ///     </item>
         ///     <item>
-        ///         <term>sort_by</term>
+        ///         <term><see
+        /// cref="GetRecordsByColumnRequest.Options.SORT_BY">SORT_BY</see>:</term>
         ///         <description>Optional column that the data should be sorted
         /// by. Empty by default (i.e. no sorting is applied).</description>
         ///     </item>
         ///     <item>
-        ///         <term>sort_order</term>
+        ///         <term><see
+        /// cref="GetRecordsByColumnRequest.Options.SORT_ORDER">SORT_ORDER</see>:</term>
         ///         <description>String indicating how the returned values
         /// should be sorted - ascending or descending. Default is 'ascending'.
-        /// If sort_order is provided, sort_by has to be provided. Values:
-        /// ascending, descending.
-        /// </description>
+        /// If sort_order is provided, sort_by has to be provided.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="GetRecordsByColumnRequest.Options.ASCENDING">ASCENDING</see></term>
         ///     </item>
         ///     <item>
-        ///         <term>order_by</term>
+        ///         <term><see
+        /// cref="GetRecordsByColumnRequest.Options.DESCENDING">DESCENDING</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="GetRecordsByColumnRequest.Options.ASCENDING">ASCENDING</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="GetRecordsByColumnRequest.Options.ORDER_BY">ORDER_BY</see>:</term>
         ///         <description>Comma-separated list of the columns to be
         /// sorted by; e.g. 'timestamp asc, x desc'.  The columns specified
         /// must be present in <paramref
@@ -187,25 +255,40 @@ namespace kinetica
         /// <param name="options">
         /// <list type="bullet">
         ///     <item>
-        ///         <term>expression</term>
+        ///         <term><see
+        /// cref="GetRecordsByColumnRequest.Options.EXPRESSION">EXPRESSION</see>:</term>
         ///         <description>Optional filter expression to apply to the
         /// table.</description>
         ///     </item>
         ///     <item>
-        ///         <term>sort_by</term>
+        ///         <term><see
+        /// cref="GetRecordsByColumnRequest.Options.SORT_BY">SORT_BY</see>:</term>
         ///         <description>Optional column that the data should be sorted
         /// by. Empty by default (i.e. no sorting is applied).</description>
         ///     </item>
         ///     <item>
-        ///         <term>sort_order</term>
+        ///         <term><see
+        /// cref="GetRecordsByColumnRequest.Options.SORT_ORDER">SORT_ORDER</see>:</term>
         ///         <description>String indicating how the returned values
         /// should be sorted - ascending or descending. Default is 'ascending'.
-        /// If sort_order is provided, sort_by has to be provided. Values:
-        /// ascending, descending.
-        /// </description>
+        /// If sort_order is provided, sort_by has to be provided.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="GetRecordsByColumnRequest.Options.ASCENDING">ASCENDING</see></term>
         ///     </item>
         ///     <item>
-        ///         <term>order_by</term>
+        ///         <term><see
+        /// cref="GetRecordsByColumnRequest.Options.DESCENDING">DESCENDING</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="GetRecordsByColumnRequest.Options.ASCENDING">ASCENDING</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="GetRecordsByColumnRequest.Options.ORDER_BY">ORDER_BY</see>:</term>
         ///         <description>Comma-separated list of the columns to be
         /// sorted by; e.g. 'timestamp asc, x desc'.  The columns specified
         /// must be present in <paramref
@@ -247,30 +330,58 @@ namespace kinetica
         /// 10000), or END_OF_SET (-9999) to indicate that the maximum number
         /// of results allowed by the server should be returned.  </param>
         /// <param name="encoding">Specifies the encoding for returned records;
-        /// either 'binary' or 'json'. Values: binary, json.
-        ///   </param>
+        /// either 'binary' or 'json'.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="GetRecordsByColumnRequest.Encoding.BINARY">BINARY</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="GetRecordsByColumnRequest.Encoding.JSON">JSON</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="GetRecordsByColumnRequest.Encoding.BINARY">BINARY</see>.
+        /// </param>
         /// <param name="options">
         /// <list type="bullet">
         ///     <item>
-        ///         <term>expression</term>
+        ///         <term><see
+        /// cref="GetRecordsByColumnRequest.Options.EXPRESSION">EXPRESSION</see>:</term>
         ///         <description>Optional filter expression to apply to the
         /// table.</description>
         ///     </item>
         ///     <item>
-        ///         <term>sort_by</term>
+        ///         <term><see
+        /// cref="GetRecordsByColumnRequest.Options.SORT_BY">SORT_BY</see>:</term>
         ///         <description>Optional column that the data should be sorted
         /// by. Empty by default (i.e. no sorting is applied).</description>
         ///     </item>
         ///     <item>
-        ///         <term>sort_order</term>
+        ///         <term><see
+        /// cref="GetRecordsByColumnRequest.Options.SORT_ORDER">SORT_ORDER</see>:</term>
         ///         <description>String indicating how the returned values
         /// should be sorted - ascending or descending. Default is 'ascending'.
-        /// If sort_order is provided, sort_by has to be provided. Values:
-        /// ascending, descending.
-        /// </description>
+        /// If sort_order is provided, sort_by has to be provided.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="GetRecordsByColumnRequest.Options.ASCENDING">ASCENDING</see></term>
         ///     </item>
         ///     <item>
-        ///         <term>order_by</term>
+        ///         <term><see
+        /// cref="GetRecordsByColumnRequest.Options.DESCENDING">DESCENDING</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="GetRecordsByColumnRequest.Options.ASCENDING">ASCENDING</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="GetRecordsByColumnRequest.Options.ORDER_BY">ORDER_BY</see>:</term>
         ///         <description>Comma-separated list of the columns to be
         /// sorted by; e.g. 'timestamp asc, x desc'.  The columns specified
         /// must be present in <paramref
@@ -300,7 +411,9 @@ namespace kinetica
 
 
 
-    /// <summary>A set of results returned by /get/records/bycolumn.</summary>
+    /// <summary>A set of results returned by <see
+    /// cref="Kinetica.getRecordsByColumn(string,IList{string},long,long,IDictionary{string, string})"
+    /// />.</summary>
     public class RawGetRecordsByColumnResponse : KineticaData
     {
 
@@ -328,7 +441,9 @@ namespace kinetica
 
 
 
-    /// <summary>A set of results returned by /get/records/bycolumn.</summary>
+    /// <summary>A set of results returned by <see
+    /// cref="Kinetica.getRecordsByColumn(string,IList{string},long,long,IDictionary{string, string})"
+    /// />.</summary>
     public class GetRecordsByColumnResponse : KineticaData
     {
 

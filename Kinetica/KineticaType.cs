@@ -146,6 +146,7 @@ namespace kinetica
 
         private TypeData m_data = new TypeData();
         private IDictionary<string, IList<string>> m_properties = new Dictionary<string, IList<string>>();
+        private string m_type_id = null;
 
         /// <summary>
         /// Create a KineticaType object based on an existing table in the database.
@@ -163,20 +164,19 @@ namespace kinetica
                 throw new KineticaException("Table " + tableName + " does not exist.");
             }
 
+            string typeID = response.type_ids[0];
             if (typeIdCount > 1)
             {
-                string typeId = response.type_ids[0];
-
                 for (int i = 1; i < typeIdCount; ++i)
                 {
-                    if (response.type_ids[i] != typeId)
+                    if (response.type_ids[i] != typeID)
                     {
                         throw new KineticaException("Table " + tableName + " is not homogeneous.");
                     }
                 }
             }
 
-            return new KineticaType(response.type_labels[0], response.type_schemas[0], response.properties[0]);
+            return new KineticaType(response.type_labels[0], response.type_schemas[0], response.properties[0], typeID );
         }
 
         /// <summary>
@@ -569,9 +569,11 @@ namespace kinetica
         /// <param name="label">The label for the type.</param>
         /// <param name="typeSchema">The string-formatted schema for the type.</param>
         /// <param name="properties">A per-column based set of properties.</param>
-        public KineticaType(string label, string typeSchema, IDictionary<string, IList<string>> properties)
+        /// <param name="typeID">An optional ID for this type with which to identify it in the database.</param>
+        public KineticaType(string label, string typeSchema, IDictionary<string, IList<string>> properties, string typeID = null )
         {
             m_properties = properties;
+            m_type_id = typeID;
             m_data.label = label;
             m_data.schemaString = typeSchema;
             createSchemaFromString(typeSchema, properties);
@@ -587,6 +589,7 @@ namespace kinetica
         public bool hasColumn(string name) { return m_data.columnMap.ContainsKey(name); }
         public Schema getSchema() { return m_data.schema; }
         public string getSchemaString() { return m_data.schemaString; }
+        public string getTypeID() { return m_type_id;  }
 
         /// <summary>
         /// Saves the given type as this KineticaType's source type.

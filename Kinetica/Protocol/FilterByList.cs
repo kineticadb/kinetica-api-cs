@@ -11,46 +11,88 @@ using System.Collections.Generic;
 namespace kinetica
 {
 
-    /// <summary>A set of parameters for /filter/bylist.
+    /// <summary>A set of parameters for <see
+    /// cref="Kinetica.filterByList(string,string,IDictionary{string, IList{string}},IDictionary{string, string})"
+    /// />.
     /// <br />
     /// Calculates which records from a table have values in the given list for
     /// the corresponding column. The operation is synchronous, meaning that a
     /// response will not be returned until all the objects are fully
     /// available. The response payload provides the count of the resulting
     /// set. A new resultant set (view) which satisfies the input filter
-    /// specification is also created if a <member name="view_name" /> is
-    /// passed in as part of the request.
+    /// specification is also created if a <see cref="view_name" /> is passed
+    /// in as part of the request.
     /// <br />
     /// For example, if a type definition has the columns 'x' and 'y', then a
     /// filter by list query with the column map {"x":["10.1", "2.3"],
     /// "y":["0.0", "-31.5", "42.0"]} will return the count of all data points
-    /// whose x and y values match one of the values in the respective x- and
-    /// y-lists. If the filter_mode option is set to 'not_in_list' then the
-    /// filter will match all items that are not in the provided
-    /// list(s).</summary>
+    /// whose x and y values match both in the respective x- and y-lists, e.g.,
+    /// "x = 10.1 and y = 0.0", "x = 2.3 and y = -31.5", etc. However, a record
+    /// with "x = 10.1 and y = -31.5" or "x = 2.3 and y = 0.0" would not be
+    /// returned because the values in the given lists do not
+    /// correspond.</summary>
     public class FilterByListRequest : KineticaData
     {
 
         /// <summary>Optional parameters.
         /// <list type="bullet">
         ///     <item>
-        ///         <term>filter_mode</term>
+        ///         <term><see
+        /// cref="FilterByListRequest.Options.FILTER_MODE">FILTER_MODE</see>:</term>
         ///         <description>String indicating the filter mode, either
-        /// 'in_list' or 'not_in_list'. Values: in_list, not_in_list.
-        /// </description>
+        /// 'in_list' or 'not_in_list'.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="FilterByListRequest.Options.IN_LIST">IN_LIST</see>:</term>
+        ///         <description>The filter will match all items that are in
+        /// the provided list(s).</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="FilterByListRequest.Options.NOT_IN_LIST">NOT_IN_LIST</see>:</term>
+        ///         <description>The filter will match all items that are not
+        /// in the provided list(s).</description>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="FilterByListRequest.Options.IN_LIST">IN_LIST</see>.</description>
         ///     </item>
         /// </list>
         /// <br />
-        /// A set of string constants for the parameter <member name="options"
+        /// A set of string constants for the parameter <see cref="options"
         /// />.</summary>
         public struct Options
         {
 
             /// <summary>String indicating the filter mode, either 'in_list' or
-            /// 'not_in_list'. Values: in_list, not_in_list.
-            /// </summary>
+            /// 'not_in_list'.
+            /// Supported values:
+            /// <list type="bullet">
+            ///     <item>
+            ///         <term><see
+            /// cref="FilterByListRequest.Options.IN_LIST">IN_LIST</see>:</term>
+            ///         <description>The filter will match all items that are
+            /// in the provided list(s).</description>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="FilterByListRequest.Options.NOT_IN_LIST">NOT_IN_LIST</see>:</term>
+            ///         <description>The filter will match all items that are
+            /// not in the provided list(s).</description>
+            ///     </item>
+            /// </list>
+            /// The default value is <see
+            /// cref="FilterByListRequest.Options.IN_LIST">IN_LIST</see>.</summary>
             public const string FILTER_MODE = "filter_mode";
+
+            /// <summary>The filter will match all items that are in the
+            /// provided list(s).</summary>
             public const string IN_LIST = "in_list";
+
+            /// <summary>The filter will match all items that are not in the
+            /// provided list(s).</summary>
             public const string NOT_IN_LIST = "not_in_list";
         } // end struct Options
 
@@ -74,10 +116,27 @@ namespace kinetica
         /// <summary>Optional parameters.
         /// <list type="bullet">
         ///     <item>
-        ///         <term>filter_mode</term>
+        ///         <term><see
+        /// cref="FilterByListRequest.Options.FILTER_MODE">FILTER_MODE</see>:</term>
         ///         <description>String indicating the filter mode, either
-        /// 'in_list' or 'not_in_list'. Values: in_list, not_in_list.
-        /// </description>
+        /// 'in_list' or 'not_in_list'.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="FilterByListRequest.Options.IN_LIST">IN_LIST</see>:</term>
+        ///         <description>The filter will match all items that are in
+        /// the provided list(s).</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="FilterByListRequest.Options.NOT_IN_LIST">NOT_IN_LIST</see>:</term>
+        ///         <description>The filter will match all items that are not
+        /// in the provided list(s).</description>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="FilterByListRequest.Options.IN_LIST">IN_LIST</see>.</description>
         ///     </item>
         /// </list>
         ///   </summary>
@@ -104,10 +163,27 @@ namespace kinetica
         /// <param name="options">Optional parameters.
         /// <list type="bullet">
         ///     <item>
-        ///         <term>filter_mode</term>
+        ///         <term><see
+        /// cref="FilterByListRequest.Options.FILTER_MODE">FILTER_MODE</see>:</term>
         ///         <description>String indicating the filter mode, either
-        /// 'in_list' or 'not_in_list'. Values: in_list, not_in_list.
-        /// </description>
+        /// 'in_list' or 'not_in_list'.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="FilterByListRequest.Options.IN_LIST">IN_LIST</see>:</term>
+        ///         <description>The filter will match all items that are in
+        /// the provided list(s).</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="FilterByListRequest.Options.NOT_IN_LIST">NOT_IN_LIST</see>:</term>
+        ///         <description>The filter will match all items that are not
+        /// in the provided list(s).</description>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="FilterByListRequest.Options.IN_LIST">IN_LIST</see>.</description>
         ///     </item>
         /// </list>
         ///   </param>
@@ -127,7 +203,9 @@ namespace kinetica
 
 
 
-    /// <summary>A set of results returned by /filter/bylist.</summary>
+    /// <summary>A set of results returned by <see
+    /// cref="Kinetica.filterByList(string,string,IDictionary{string, IList{string}},IDictionary{string, string})"
+    /// />.</summary>
     public class FilterByListResponse : KineticaData
     {
 

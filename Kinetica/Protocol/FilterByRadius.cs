@@ -11,21 +11,21 @@ using System.Collections.Generic;
 namespace kinetica
 {
 
-    /// <summary>A set of parameters for /filter/byradius.
+    /// <summary>A set of parameters for <see
+    /// cref="Kinetica.filterByRadius(string,string,string,double,string,double,double,IDictionary{string, string})"
+    /// />.
     /// <br />
     /// Calculates which objects from a table lie within a circle with the
     /// given radius and center point (i.e. circular NAI). The operation is
     /// synchronous, meaning that a response will not be returned until all the
     /// objects are fully available. The response payload provides the count of
     /// the resulting set. A new resultant set (view) which satisfies the input
-    /// circular NAI restriction specification is also created if a <member
-    /// name="view_name" /> is passed in as part of the request.
+    /// circular NAI restriction specification is also created if a <see
+    /// cref="view_name" /> is passed in as part of the request.
     /// <br />
     /// For track data, all track points that lie within the circle plus one
     /// point on either side of the circle (if the track goes beyond the
-    /// circle) will be included in the result. For shapes, e.g. polygons, all
-    /// polygons that intersect the circle will be included (even if none of
-    /// the points of the polygon fall within the circle).</summary>
+    /// circle) will be included in the result.</summary>
     public class FilterByRadiusRequest : KineticaData
     {
 
@@ -121,7 +121,9 @@ namespace kinetica
 
 
 
-    /// <summary>A set of results returned by /filter/byradius.</summary>
+    /// <summary>A set of results returned by <see
+    /// cref="Kinetica.filterByRadius(string,string,string,double,string,double,double,IDictionary{string, string})"
+    /// />.</summary>
     public class FilterByRadiusResponse : KineticaData
     {
 

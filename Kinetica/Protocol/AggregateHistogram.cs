@@ -11,32 +11,35 @@ using System.Collections.Generic;
 namespace kinetica
 {
 
-    /// <summary>A set of parameters for /aggregate/histogram.
+    /// <summary>A set of parameters for <see
+    /// cref="Kinetica.aggregateHistogram(string,string,double,double,double,IDictionary{string, string})"
+    /// />.
     /// <br />
     /// Performs a histogram calculation given a table, a column, and an
-    /// interval function. The <member name="interval" /> is used to produce
-    /// bins of that size and the result, computed over the records falling
-    /// within each bin, is returned.  For each bin, the start value is
-    /// inclusive, but the end value is exclusive--except for the very last bin
-    /// for which the end value is also inclusive.  The value returned for each
-    /// bin is the number of records in it, except when a column name is
-    /// provided as a *value_column* in <member name="options" />.  In this
-    /// latter case the sum of the values corresponding to the *value_column*
-    /// is used as the result instead.</summary>
+    /// interval function. The <see cref="interval" /> is used to produce bins
+    /// of that size and the result, computed over the records falling within
+    /// each bin, is returned.  For each bin, the start value is inclusive, but
+    /// the end value is exclusive--except for the very last bin for which the
+    /// end value is also inclusive.  The value returned for each bin is the
+    /// number of records in it, except when a column name is provided as a
+    /// *value_column* in <see cref="options" />.  In this latter case the sum
+    /// of the values corresponding to the *value_column* is used as the result
+    /// instead.</summary>
     public class AggregateHistogramRequest : KineticaData
     {
 
         /// <summary>Optional parameters.
         /// <list type="bullet">
         ///     <item>
-        ///         <term>value_column</term>
+        ///         <term><see
+        /// cref="AggregateHistogramRequest.Options.VALUE_COLUMN">VALUE_COLUMN</see>:</term>
         ///         <description>The name of the column to use when calculating
         /// the bin values (values are summed).  The column must be a numerical
         /// type (int, double, long, float).</description>
         ///     </item>
         /// </list>
         /// <br />
-        /// A set of string constants for the parameter <member name="options"
+        /// A set of string constants for the parameter <see cref="options"
         /// />.</summary>
         public struct Options
         {
@@ -71,7 +74,8 @@ namespace kinetica
         /// <summary>Optional parameters.
         /// <list type="bullet">
         ///     <item>
-        ///         <term>value_column</term>
+        ///         <term><see
+        /// cref="AggregateHistogramRequest.Options.VALUE_COLUMN">VALUE_COLUMN</see>:</term>
         ///         <description>The name of the column to use when calculating
         /// the bin values (values are summed).  The column must be a numerical
         /// type (int, double, long, float).</description>
@@ -103,7 +107,8 @@ namespace kinetica
         /// <param name="options">Optional parameters.
         /// <list type="bullet">
         ///     <item>
-        ///         <term>value_column</term>
+        ///         <term><see
+        /// cref="AggregateHistogramRequest.Options.VALUE_COLUMN">VALUE_COLUMN</see>:</term>
         ///         <description>The name of the column to use when calculating
         /// the bin values (values are summed).  The column must be a numerical
         /// type (int, double, long, float).</description>
@@ -130,7 +135,9 @@ namespace kinetica
 
 
 
-    /// <summary>A set of results returned by /aggregate/histogram.</summary>
+    /// <summary>A set of results returned by <see
+    /// cref="Kinetica.aggregateHistogram(string,string,double,double,double,IDictionary{string, string})"
+    /// />.</summary>
     public class AggregateHistogramResponse : KineticaData
     {
 

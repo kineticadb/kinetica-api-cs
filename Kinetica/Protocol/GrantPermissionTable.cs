@@ -11,17 +11,46 @@ using System.Collections.Generic;
 namespace kinetica
 {
 
-    /// <summary>A set of parameters for /grant/permission/table.
+    /// <summary>A set of parameters for <see
+    /// cref="Kinetica.grantPermissionTable(string,string,string,string,IDictionary{string, string})"
+    /// />.
     /// <br />
     /// Grants a table-level permission to a user or role.</summary>
     public class GrantPermissionTableRequest : KineticaData
     {
 
-        /// <summary>Permission to grant to the user or role. Values:
-        /// table_admin, table_insert, table_update, table_delete, table_read.
-        /// <br />
-        /// A set of string constants for the parameter <member
-        /// name="permission" />.</summary>
+        /// <summary>Permission to grant to the user or role.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="GrantPermissionTableRequest.Permission.TABLE_ADMIN">TABLE_ADMIN</see>:</term>
+        ///         <description>Full read/write and administrative access to
+        /// the table.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="GrantPermissionTableRequest.Permission.TABLE_INSERT">TABLE_INSERT</see>:</term>
+        ///         <description>Insert access to the table.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="GrantPermissionTableRequest.Permission.TABLE_UPDATE">TABLE_UPDATE</see>:</term>
+        ///         <description>Update access to the table.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="GrantPermissionTableRequest.Permission.TABLE_DELETE">TABLE_DELETE</see>:</term>
+        ///         <description>Delete access to the table.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="GrantPermissionTableRequest.Permission.TABLE_READ">TABLE_READ</see>:</term>
+        ///         <description>Read access to the table.</description>
+        ///     </item>
+        /// </list>
+        /// A set of string constants for the parameter <see cref="permission"
+        /// />.</summary>
         public struct Permission
         {
 
@@ -47,9 +76,36 @@ namespace kinetica
         /// granted. Must be an existing user or role.  </summary>
         public string name { get; set; }
 
-        /// <summary>Permission to grant to the user or role. Values:
-        /// table_admin, table_insert, table_update, table_delete, table_read.
-        ///   </summary>
+        /// <summary>Permission to grant to the user or role.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="GrantPermissionTableRequest.Permission.TABLE_ADMIN">TABLE_ADMIN</see>:</term>
+        ///         <description>Full read/write and administrative access to
+        /// the table.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="GrantPermissionTableRequest.Permission.TABLE_INSERT">TABLE_INSERT</see>:</term>
+        ///         <description>Insert access to the table.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="GrantPermissionTableRequest.Permission.TABLE_UPDATE">TABLE_UPDATE</see>:</term>
+        ///         <description>Update access to the table.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="GrantPermissionTableRequest.Permission.TABLE_DELETE">TABLE_DELETE</see>:</term>
+        ///         <description>Delete access to the table.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="GrantPermissionTableRequest.Permission.TABLE_READ">TABLE_READ</see>:</term>
+        ///         <description>Read access to the table.</description>
+        ///     </item>
+        /// </list>  </summary>
         public string permission { get; set; }
 
         /// <summary>Name of the table to which the permission grants access.
@@ -75,9 +131,35 @@ namespace kinetica
         /// <param name="name">Name of the user or role to which the permission
         /// will be granted. Must be an existing user or role.  </param>
         /// <param name="permission">Permission to grant to the user or role.
-        /// Values: table_admin, table_insert, table_update, table_delete,
-        /// table_read.
-        ///   </param>
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="GrantPermissionTableRequest.Permission.TABLE_ADMIN">TABLE_ADMIN</see>:</term>
+        ///         <description>Full read/write and administrative access to
+        /// the table.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="GrantPermissionTableRequest.Permission.TABLE_INSERT">TABLE_INSERT</see>:</term>
+        ///         <description>Insert access to the table.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="GrantPermissionTableRequest.Permission.TABLE_UPDATE">TABLE_UPDATE</see>:</term>
+        ///         <description>Update access to the table.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="GrantPermissionTableRequest.Permission.TABLE_DELETE">TABLE_DELETE</see>:</term>
+        ///         <description>Delete access to the table.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="GrantPermissionTableRequest.Permission.TABLE_READ">TABLE_READ</see>:</term>
+        ///         <description>Read access to the table.</description>
+        ///     </item>
+        /// </list>  </param>
         /// <param name="table_name">Name of the table to which the permission
         /// grants access. Must be an existing table, collection, or view. If a
         /// collection, the permission also applies to tables and views in the
@@ -102,8 +184,9 @@ namespace kinetica
 
 
 
-    /// <summary>A set of results returned by
-    /// /grant/permission/table.</summary>
+    /// <summary>A set of results returned by <see
+    /// cref="Kinetica.grantPermissionTable(string,string,string,string,IDictionary{string, string})"
+    /// />.</summary>
     public class GrantPermissionTableResponse : KineticaData
     {
 

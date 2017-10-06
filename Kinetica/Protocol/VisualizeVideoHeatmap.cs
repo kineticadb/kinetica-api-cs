@@ -12,18 +12,59 @@ namespace kinetica
 {
 
     /// <summary>@private
-    /// A set of parameters for /visualize/video/heatmap.
+    /// A set of parameters for <see
+    /// cref="Kinetica.visualizeVideoHeatmap(IList{string},string,string,double,double,double,double,IList{IList{double}},int,int,string,string,string,IDictionary{string, string},IDictionary{string, string})"
+    /// />.
     /// <br />
     /// </summary>
     public class VisualizeVideoHeatmapRequest : KineticaData
     {
 
         /// <summary>@private
-        /// Values: EPSG:4326, PLATE_CARREE, 900913, EPSG:900913, 102100,
-        /// EPSG:102100, 3857, EPSG:3857, WEB_MERCATOR.
         /// <br />
-        /// A set of string constants for the parameter <member
-        /// name="projection" />.</summary>
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeVideoHeatmapRequest.Projection.EPSG_4326">EPSG_4326</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeVideoHeatmapRequest.Projection.PLATE_CARREE">PLATE_CARREE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeVideoHeatmapRequest.Projection._900913">_900913</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeVideoHeatmapRequest.Projection.EPSG_900913">EPSG_900913</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeVideoHeatmapRequest.Projection._102100">_102100</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeVideoHeatmapRequest.Projection.EPSG_102100">EPSG_102100</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeVideoHeatmapRequest.Projection._3857">_3857</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeVideoHeatmapRequest.Projection.EPSG_3857">EPSG_3857</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeVideoHeatmapRequest.Projection.WEB_MERCATOR">WEB_MERCATOR</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="VisualizeVideoHeatmapRequest.Projection.PLATE_CARREE">PLATE_CARREE</see>.
+        /// A set of string constants for the parameter <see cref="projection"
+        /// />.</summary>
         public struct Projection
         {
 
@@ -72,38 +113,129 @@ namespace kinetica
         /// <br />
         /// <list type="bullet">
         ///     <item>
-        ///         <term>colormap</term>
-        ///         <description>Values: jet, hot, hsv, gray, blues, greens,
-        /// greys, oranges, purples, reds.
-        /// </description>
+        ///         <term><see
+        /// cref="VisualizeVideoHeatmapRequest.StyleOptions.COLORMAP">COLORMAP</see>:</term>
+        ///         <description>
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeVideoHeatmapRequest.StyleOptions.JET">JET</see></term>
         ///     </item>
         ///     <item>
-        ///         <term>blur_radius</term>
+        ///         <term><see
+        /// cref="VisualizeVideoHeatmapRequest.StyleOptions.HOT">HOT</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeVideoHeatmapRequest.StyleOptions.HSV">HSV</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeVideoHeatmapRequest.StyleOptions.GRAY">GRAY</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeVideoHeatmapRequest.StyleOptions.BLUES">BLUES</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeVideoHeatmapRequest.StyleOptions.GREENS">GREENS</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeVideoHeatmapRequest.StyleOptions.GREYS">GREYS</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeVideoHeatmapRequest.StyleOptions.ORANGES">ORANGES</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeVideoHeatmapRequest.StyleOptions.PURPLES">PURPLES</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeVideoHeatmapRequest.StyleOptions.REDS">REDS</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="VisualizeVideoHeatmapRequest.StyleOptions.REDS">REDS</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeVideoHeatmapRequest.StyleOptions.BLUR_RADIUS">BLUR_RADIUS</see>:</term>
         ///         <description></description>
         ///     </item>
         ///     <item>
-        ///         <term>bg_color</term>
+        ///         <term><see
+        /// cref="VisualizeVideoHeatmapRequest.StyleOptions.BG_COLOR">BG_COLOR</see>:</term>
         ///         <description></description>
         ///     </item>
         ///     <item>
-        ///         <term>gradient_start_color</term>
+        ///         <term><see
+        /// cref="VisualizeVideoHeatmapRequest.StyleOptions.GRADIENT_START_COLOR">GRADIENT_START_COLOR</see>:</term>
         ///         <description></description>
         ///     </item>
         ///     <item>
-        ///         <term>gradient_end_color</term>
+        ///         <term><see
+        /// cref="VisualizeVideoHeatmapRequest.StyleOptions.GRADIENT_END_COLOR">GRADIENT_END_COLOR</see>:</term>
         ///         <description></description>
         ///     </item>
         /// </list>
         /// <br />
-        /// A set of string constants for the parameter <member
-        /// name="style_options" />.</summary>
+        /// A set of string constants for the parameter <see
+        /// cref="style_options" />.</summary>
         public struct StyleOptions
         {
 
             /// <summary>@private
-            /// Values: jet, hot, hsv, gray, blues, greens, greys, oranges,
-            /// purples, reds.
-            /// </summary>
+            /// <br />
+            /// Supported values:
+            /// <list type="bullet">
+            ///     <item>
+            ///         <term><see
+            /// cref="VisualizeVideoHeatmapRequest.StyleOptions.JET">JET</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="VisualizeVideoHeatmapRequest.StyleOptions.HOT">HOT</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="VisualizeVideoHeatmapRequest.StyleOptions.HSV">HSV</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="VisualizeVideoHeatmapRequest.StyleOptions.GRAY">GRAY</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="VisualizeVideoHeatmapRequest.StyleOptions.BLUES">BLUES</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="VisualizeVideoHeatmapRequest.StyleOptions.GREENS">GREENS</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="VisualizeVideoHeatmapRequest.StyleOptions.GREYS">GREYS</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="VisualizeVideoHeatmapRequest.StyleOptions.ORANGES">ORANGES</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="VisualizeVideoHeatmapRequest.StyleOptions.PURPLES">PURPLES</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="VisualizeVideoHeatmapRequest.StyleOptions.REDS">REDS</see></term>
+            ///     </item>
+            /// </list>
+            /// The default value is <see
+            /// cref="VisualizeVideoHeatmapRequest.StyleOptions.REDS">REDS</see>.</summary>
             public const string COLORMAP = "colormap";
 
             /// <summary>@private
@@ -211,9 +343,48 @@ namespace kinetica
         public int height { get; set; }
 
         /// <summary>@private
-        /// Values: EPSG:4326, PLATE_CARREE, 900913, EPSG:900913, 102100,
-        /// EPSG:102100, 3857, EPSG:3857, WEB_MERCATOR.
-        /// </summary>
+        /// <br />
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeVideoHeatmapRequest.Projection.EPSG_4326">EPSG_4326</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeVideoHeatmapRequest.Projection.PLATE_CARREE">PLATE_CARREE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeVideoHeatmapRequest.Projection._900913">_900913</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeVideoHeatmapRequest.Projection.EPSG_900913">EPSG_900913</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeVideoHeatmapRequest.Projection._102100">_102100</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeVideoHeatmapRequest.Projection.EPSG_102100">EPSG_102100</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeVideoHeatmapRequest.Projection._3857">_3857</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeVideoHeatmapRequest.Projection.EPSG_3857">EPSG_3857</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeVideoHeatmapRequest.Projection.WEB_MERCATOR">WEB_MERCATOR</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="VisualizeVideoHeatmapRequest.Projection.PLATE_CARREE">PLATE_CARREE</see>.</summary>
         public string projection { get; set; } = Projection.PLATE_CARREE;
 
         /// <summary>@private
@@ -228,25 +399,73 @@ namespace kinetica
         /// <br />
         /// <list type="bullet">
         ///     <item>
-        ///         <term>colormap</term>
-        ///         <description>Values: jet, hot, hsv, gray, blues, greens,
-        /// greys, oranges, purples, reds.
-        /// </description>
+        ///         <term><see
+        /// cref="VisualizeVideoHeatmapRequest.StyleOptions.COLORMAP">COLORMAP</see>:</term>
+        ///         <description>
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeVideoHeatmapRequest.StyleOptions.JET">JET</see></term>
         ///     </item>
         ///     <item>
-        ///         <term>blur_radius</term>
+        ///         <term><see
+        /// cref="VisualizeVideoHeatmapRequest.StyleOptions.HOT">HOT</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeVideoHeatmapRequest.StyleOptions.HSV">HSV</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeVideoHeatmapRequest.StyleOptions.GRAY">GRAY</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeVideoHeatmapRequest.StyleOptions.BLUES">BLUES</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeVideoHeatmapRequest.StyleOptions.GREENS">GREENS</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeVideoHeatmapRequest.StyleOptions.GREYS">GREYS</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeVideoHeatmapRequest.StyleOptions.ORANGES">ORANGES</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeVideoHeatmapRequest.StyleOptions.PURPLES">PURPLES</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeVideoHeatmapRequest.StyleOptions.REDS">REDS</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="VisualizeVideoHeatmapRequest.StyleOptions.REDS">REDS</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeVideoHeatmapRequest.StyleOptions.BLUR_RADIUS">BLUR_RADIUS</see>:</term>
         ///         <description></description>
         ///     </item>
         ///     <item>
-        ///         <term>bg_color</term>
+        ///         <term><see
+        /// cref="VisualizeVideoHeatmapRequest.StyleOptions.BG_COLOR">BG_COLOR</see>:</term>
         ///         <description></description>
         ///     </item>
         ///     <item>
-        ///         <term>gradient_start_color</term>
+        ///         <term><see
+        /// cref="VisualizeVideoHeatmapRequest.StyleOptions.GRADIENT_START_COLOR">GRADIENT_START_COLOR</see>:</term>
         ///         <description></description>
         ///     </item>
         ///     <item>
-        ///         <term>gradient_end_color</term>
+        ///         <term><see
+        /// cref="VisualizeVideoHeatmapRequest.StyleOptions.GRADIENT_END_COLOR">GRADIENT_END_COLOR</see>:</term>
         ///         <description></description>
         ///     </item>
         /// </list>
@@ -277,33 +496,120 @@ namespace kinetica
         /// <param name="time_intervals"></param>
         /// <param name="width"></param>
         /// <param name="height"></param>
-        /// <param name="projection">Values: EPSG:4326, PLATE_CARREE, 900913,
-        /// EPSG:900913, 102100, EPSG:102100, 3857, EPSG:3857, WEB_MERCATOR.
-        /// </param>
+        /// <param name="projection">
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeVideoHeatmapRequest.Projection.EPSG_4326">EPSG_4326</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeVideoHeatmapRequest.Projection.PLATE_CARREE">PLATE_CARREE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeVideoHeatmapRequest.Projection._900913">_900913</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeVideoHeatmapRequest.Projection.EPSG_900913">EPSG_900913</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeVideoHeatmapRequest.Projection._102100">_102100</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeVideoHeatmapRequest.Projection.EPSG_102100">EPSG_102100</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeVideoHeatmapRequest.Projection._3857">_3857</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeVideoHeatmapRequest.Projection.EPSG_3857">EPSG_3857</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeVideoHeatmapRequest.Projection.WEB_MERCATOR">WEB_MERCATOR</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="VisualizeVideoHeatmapRequest.Projection.PLATE_CARREE">PLATE_CARREE</see>.</param>
         /// <param name="video_style"></param>
         /// <param name="session_key"></param>
         /// <param name="style_options">
         /// <list type="bullet">
         ///     <item>
-        ///         <term>colormap</term>
-        ///         <description>Values: jet, hot, hsv, gray, blues, greens,
-        /// greys, oranges, purples, reds.
-        /// </description>
+        ///         <term><see
+        /// cref="VisualizeVideoHeatmapRequest.StyleOptions.COLORMAP">COLORMAP</see>:</term>
+        ///         <description>
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeVideoHeatmapRequest.StyleOptions.JET">JET</see></term>
         ///     </item>
         ///     <item>
-        ///         <term>blur_radius</term>
+        ///         <term><see
+        /// cref="VisualizeVideoHeatmapRequest.StyleOptions.HOT">HOT</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeVideoHeatmapRequest.StyleOptions.HSV">HSV</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeVideoHeatmapRequest.StyleOptions.GRAY">GRAY</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeVideoHeatmapRequest.StyleOptions.BLUES">BLUES</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeVideoHeatmapRequest.StyleOptions.GREENS">GREENS</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeVideoHeatmapRequest.StyleOptions.GREYS">GREYS</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeVideoHeatmapRequest.StyleOptions.ORANGES">ORANGES</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeVideoHeatmapRequest.StyleOptions.PURPLES">PURPLES</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeVideoHeatmapRequest.StyleOptions.REDS">REDS</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="VisualizeVideoHeatmapRequest.StyleOptions.REDS">REDS</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeVideoHeatmapRequest.StyleOptions.BLUR_RADIUS">BLUR_RADIUS</see>:</term>
         ///         <description></description>
         ///     </item>
         ///     <item>
-        ///         <term>bg_color</term>
+        ///         <term><see
+        /// cref="VisualizeVideoHeatmapRequest.StyleOptions.BG_COLOR">BG_COLOR</see>:</term>
         ///         <description></description>
         ///     </item>
         ///     <item>
-        ///         <term>gradient_start_color</term>
+        ///         <term><see
+        /// cref="VisualizeVideoHeatmapRequest.StyleOptions.GRADIENT_START_COLOR">GRADIENT_START_COLOR</see>:</term>
         ///         <description></description>
         ///     </item>
         ///     <item>
-        ///         <term>gradient_end_color</term>
+        ///         <term><see
+        /// cref="VisualizeVideoHeatmapRequest.StyleOptions.GRADIENT_END_COLOR">GRADIENT_END_COLOR</see>:</term>
         ///         <description></description>
         ///     </item>
         /// </list>
@@ -351,7 +657,9 @@ namespace kinetica
 
 
     /// <summary>@private
-    /// A set of results returned by /visualize/video/heatmap.</summary>
+    /// A set of results returned by <see
+    /// cref="Kinetica.visualizeVideoHeatmap(IList{string},string,string,double,double,double,double,IList{IList{double}},int,int,string,string,string,IDictionary{string, string},IDictionary{string, string})"
+    /// />.</summary>
     public class VisualizeVideoHeatmapResponse : KineticaData
     {
 

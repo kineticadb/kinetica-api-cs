@@ -11,70 +11,224 @@ using System.Collections.Generic;
 namespace kinetica
 {
 
-    /// <summary>@private
-    /// A set of parameters for /admin/rebalance.
+    /// <summary>A set of parameters for <see
+    /// cref="Kinetica.adminRebalance(IList{string},string,IDictionary{string, string})"
+    /// />.
     /// <br />
-    /// </summary>
+    /// Rebalance the cluster so that all the nodes contain approximately equal
+    /// number of records.  The rebalance will also cause the shards to be (as
+    /// much as possible) equally distributed across all the ranks. Note that
+    /// the system may move any shards that were moved by system administrator
+    /// using <see
+    /// cref="Kinetica.adminAlterShards(long,bool,IList{int},IList{int},IList{int},IList{int},IList{IList{int}},IDictionary{string, string})"
+    /// /></summary>
     public class AdminRebalanceRequest : KineticaData
     {
 
-        /// <summary>@private
-        /// </summary>
+        /// <summary>Specify 'start' to start rebalancing the cluster or 'stop'
+        /// to prematurely stop a previsouly issued rebalance request.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="AdminRebalanceRequest.Action.START">START</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AdminRebalanceRequest.Action.STOP">STOP</see></term>
+        ///     </item>
+        /// </list>
+        /// A set of string constants for the parameter <see cref="action"
+        /// />.</summary>
+        public struct Action
+        {
+            public const string START = "start";
+            public const string STOP = "stop";
+        } // end struct Action
 
-        /// <summary>@private
-        /// </summary>
+
+        /// <summary>Optional parameters.
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="AdminRebalanceRequest.Options.RESHARD">RESHARD</see>:</term>
+        ///         <description>If <i>true</i>, then all the nodes in the
+        /// cluster will be assigned approximately the same number of shards.
+        /// Note that for big clusters, this data transfer could be time
+        /// consuming and also result in delay in responding to queries for
+        /// busy clusters.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="AdminRebalanceRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AdminRebalanceRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="AdminRebalanceRequest.Options.TRUE">TRUE</see>.</description>
+        ///     </item>
+        /// </list>
+        /// <br />
+        /// A set of string constants for the parameter <see cref="options"
+        /// />.</summary>
+        public struct Options
+        {
+
+            /// <summary>If <i>true</i>, then all the nodes in the cluster will
+            /// be assigned approximately the same number of shards. Note that
+            /// for big clusters, this data transfer could be time consuming
+            /// and also result in delay in responding to queries for busy
+            /// clusters.
+            /// Supported values:
+            /// <list type="bullet">
+            ///     <item>
+            ///         <term><see
+            /// cref="AdminRebalanceRequest.Options.TRUE">TRUE</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="AdminRebalanceRequest.Options.FALSE">FALSE</see></term>
+            ///     </item>
+            /// </list>
+            /// The default value is <see
+            /// cref="AdminRebalanceRequest.Options.TRUE">TRUE</see>.</summary>
+            public const string RESHARD = "reshard";
+            public const string TRUE = "true";
+            public const string FALSE = "false";
+        } // end struct Options
+
+
+        /// <summary>Sepcify the tables here if only specific tables have to be
+        /// rebalanced.  Leave this empty to rebalance all the tables.  Note
+        /// that only the tables which have no primary or shard key can be
+        /// rebalanced.  </summary>
         public IList<string> table_names { get; set; } = new List<string>();
 
-        /// <summary>@private
-        /// </summary>
+        /// <summary>Specify 'start' to start rebalancing the cluster or 'stop'
+        /// to prematurely stop a previsouly issued rebalance request.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="AdminRebalanceRequest.Action.START">START</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AdminRebalanceRequest.Action.STOP">STOP</see></term>
+        ///     </item>
+        /// </list>  </summary>
+        public string action { get; set; }
+
+        /// <summary>Optional parameters.
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="AdminRebalanceRequest.Options.RESHARD">RESHARD</see>:</term>
+        ///         <description>If <i>true</i>, then all the nodes in the
+        /// cluster will be assigned approximately the same number of shards.
+        /// Note that for big clusters, this data transfer could be time
+        /// consuming and also result in delay in responding to queries for
+        /// busy clusters.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="AdminRebalanceRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AdminRebalanceRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="AdminRebalanceRequest.Options.TRUE">TRUE</see>.</description>
+        ///     </item>
+        /// </list>
+        ///   </summary>
         public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
 
 
-        /// <summary>@private
-        /// Constructs an AdminRebalanceRequest object with default
+        /// <summary>Constructs an AdminRebalanceRequest object with default
         /// parameters.</summary>
         public AdminRebalanceRequest() { }
 
-        /// <summary>@private
-        /// Constructs an AdminRebalanceRequest object with the specified
-        /// parameters.</summary>
+        /// <summary>Constructs an AdminRebalanceRequest object with the
+        /// specified parameters.</summary>
         /// 
-        /// <param name="table_names"></param>
-        /// <param name="options"></param>
+        /// <param name="table_names">Sepcify the tables here if only specific
+        /// tables have to be rebalanced.  Leave this empty to rebalance all
+        /// the tables.  Note that only the tables which have no primary or
+        /// shard key can be rebalanced.  </param>
+        /// <param name="action">Specify 'start' to start rebalancing the
+        /// cluster or 'stop' to prematurely stop a previsouly issued rebalance
+        /// request.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="AdminRebalanceRequest.Action.START">START</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AdminRebalanceRequest.Action.STOP">STOP</see></term>
+        ///     </item>
+        /// </list>  </param>
+        /// <param name="options">Optional parameters.
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="AdminRebalanceRequest.Options.RESHARD">RESHARD</see>:</term>
+        ///         <description>If <i>true</i>, then all the nodes in the
+        /// cluster will be assigned approximately the same number of shards.
+        /// Note that for big clusters, this data transfer could be time
+        /// consuming and also result in delay in responding to queries for
+        /// busy clusters.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="AdminRebalanceRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AdminRebalanceRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="AdminRebalanceRequest.Options.TRUE">TRUE</see>.</description>
+        ///     </item>
+        /// </list>
+        ///   </param>
         /// 
         public AdminRebalanceRequest( IList<string> table_names,
+                                      string action,
                                       IDictionary<string, string> options = null)
         {
             this.table_names = table_names ?? new List<string>();
+            this.action = action ?? "";
             this.options = options ?? new Dictionary<string, string>();
         } // end constructor
 
-
-    /// <summary>@private
-    /// </summary>
     } // end class AdminRebalanceRequest
 
 
 
-    /// <summary>@private
-    /// A set of results returned by /admin/rebalance.</summary>
+    /// <summary>A set of results returned by <see
+    /// cref="Kinetica.adminRebalance(IList{string},string,IDictionary{string, string})"
+    /// />.</summary>
     public class AdminRebalanceResponse : KineticaData
     {
 
-        /// <summary>@private
-        /// </summary>
-
-        /// <summary>@private
-        /// </summary>
+        /// <summary>Names of the rebalanced tables.  </summary>
         public IList<string> table_names { get; set; } = new List<string>();
 
-        /// <summary>@private
-        /// </summary>
+        /// <summary>Error Messages from rebalancing the tables.  </summary>
         public IList<string> message { get; set; } = new List<string>();
 
-
-    /// <summary>@private
-    /// </summary>
     } // end class AdminRebalanceResponse
 
 

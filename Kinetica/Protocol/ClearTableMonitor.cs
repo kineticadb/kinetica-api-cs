@@ -11,10 +11,13 @@ using System.Collections.Generic;
 namespace kinetica
 {
 
-    /// <summary>A set of parameters for /clear/tablemonitor.
+    /// <summary>A set of parameters for <see
+    /// cref="Kinetica.clearTableMonitor(string,IDictionary{string, string})"
+    /// />.
     /// <br />
-    /// Deactivates a table monitor previously created with
-    /// /create/tablemonitor.</summary>
+    /// Deactivates a table monitor previously created with <see
+    /// cref="Kinetica.createTableMonitor(string,IDictionary{string, string})"
+    /// />.</summary>
     public class ClearTableMonitorRequest : KineticaData
     {
 
@@ -47,7 +50,9 @@ namespace kinetica
 
 
 
-    /// <summary>A set of results returned by /clear/tablemonitor.</summary>
+    /// <summary>A set of results returned by <see
+    /// cref="Kinetica.clearTableMonitor(string,IDictionary{string, string})"
+    /// />.</summary>
     public class ClearTableMonitorResponse : KineticaData
     {
 

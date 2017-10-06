@@ -11,7 +11,9 @@ using System.Collections.Generic;
 namespace kinetica
 {
 
-    /// <summary>A set of parameters for /insert/records/random.
+    /// <summary>A set of parameters for <see
+    /// cref="Kinetica.insertRecordsRandom(string,long,IDictionary{string, IDictionary{string, double}})"
+    /// />.
     /// <br />
     /// Generates a specified number of random records and adds them to the
     /// given table. There is an optional parameter that allows the user to
@@ -31,13 +33,13 @@ namespace kinetica
         /// map of string to doubles, while most others are maps of string to
         /// string.  In this map, the top level keys represent which column's
         /// parameters are being specified, while the internal keys represents
-        /// which parameter is being specified.  The parameters that can be
-        /// specified are: *min*, *max*, and *interval*.  These parameters take
-        /// on different meanings depending on the type of the column.  Below
+        /// which parameter is being specified.  These parameters take on
+        /// different meanings depending on the type of the column.  Below
         /// follows a more detailed description of the map:
         /// <list type="bullet">
         ///     <item>
-        ///         <term>seed</term>
+        ///         <term><see
+        /// cref="InsertRecordsRandomRequest.Options.SEED">SEED</see>:</term>
         ///         <description>If provided, the internal random number
         /// generator will be initialized with the given value.  The minimum is
         /// 0.  This allows for the same set of random numbers to be generated
@@ -49,20 +51,23 @@ namespace kinetica
         /// something equivalent to: 'options' = {'seed': { 'value': 100 } }
         /// <list type="bullet">
         ///     <item>
-        ///         <term>value</term>
+        ///         <term><see
+        /// cref="InsertRecordsRandomRequest.Options.VALUE">VALUE</see>:</term>
         ///         <description>Pass the seed value here.</description>
         ///     </item>
         /// </list>
         /// </description>
         ///     </item>
         ///     <item>
-        ///         <term>all</term>
+        ///         <term><see
+        /// cref="InsertRecordsRandomRequest.Options.ALL">ALL</see>:</term>
         ///         <description>This key indicates that the specifications
         /// relayed in the internal map are to be applied to all columns of the
         /// records.
         /// <list type="bullet">
         ///     <item>
-        ///         <term>min</term>
+        ///         <term><see
+        /// cref="InsertRecordsRandomRequest.Options.MIN">MIN</see>:</term>
         ///         <description>For numerical columns, the minimum of the
         /// generated values is set to this value.  Default is -99999.  For
         /// point, shape, and track semantic types, min for numeric 'x' and 'y'
@@ -72,9 +77,9 @@ namespace kinetica
         /// minimum corresponds to Jan 1, 2010.
         /// <br />
         /// For string columns, the minimum length of the randomly generated
-        /// strings is set to this value (default is 1). If both minimum and
+        /// strings is set to this value (default is 0). If both minimum and
         /// maximum are provided, minimum must be less than or equal to max.
-        /// Value needs to be within [1, 200].
+        /// Value needs to be within [0, 200].
         /// <br />
         /// If the min is outside the accepted ranges for strings columns and
         /// 'x' and 'y' columns for point/shape/track types, then those
@@ -83,7 +88,8 @@ namespace kinetica
         /// <i>all</i> parameter judiciously.</description>
         ///     </item>
         ///     <item>
-        ///         <term>max</term>
+        ///         <term><see
+        /// cref="InsertRecordsRandomRequest.Options.MAX">MAX</see>:</term>
         ///         <description>For numerical columns, the maximum of the
         /// generated values is set to this value. Default is 99999. For point,
         /// shape, and track semantic types, max for numeric 'x' and 'y'
@@ -94,7 +100,7 @@ namespace kinetica
         /// For string columns, the maximum length of the randomly generated
         /// strings is set to this value (default is 200). If both minimum and
         /// maximum are provided, *max* must be greater than or equal to *min*.
-        /// Value needs to be within [1, 200].
+        /// Value needs to be within [0, 200].
         /// <br />
         /// If the *max* is outside the accepted ranges for strings columns and
         /// 'x' and 'y' columns for point/shape/track types, then those
@@ -103,36 +109,52 @@ namespace kinetica
         /// <i>all</i> parameter judiciously.</description>
         ///     </item>
         ///     <item>
-        ///         <term>interval</term>
-        ///         <description>If specified, then generate values for all
-        /// columns linearly and evenly spaced with the given interval value
-        /// starting at the minimum value (instead of generating random data).
-        /// *Any provided max value is disregarded.*  For string-type columns,
-        /// the interval value is ignored but the string values would be
-        /// generated following the pattern: 'attrname_creationIndex#', i.e.
-        /// the column name suffixed with an underscore and a running counter
-        /// (starting at 0).  No nulls would be generated for nullable
-        /// columns.</description>
+        ///         <term><see
+        /// cref="InsertRecordsRandomRequest.Options.INTERVAL">INTERVAL</see>:</term>
+        ///         <description>If specified, generate values for all columns
+        /// evenly spaced with the given interval value. If a max value is
+        /// specified for a given column the data is randomly generated between
+        /// min and max and decimated down to the interval. If no max is
+        /// provided the data is linerally generated starting at the minimum
+        /// value (instead of generating random data). For non-decimated
+        /// string-type columns the interval value is ignored. Instead the
+        /// values are generated following the pattern:
+        /// 'attrname_creationIndex#', i.e. the column name suffixed with an
+        /// underscore and a running counter (starting at 0). For string types
+        /// with limited size (eg char4) the prefix is dropped. No nulls will
+        /// be generated for nullable columns.</description>
         ///     </item>
         ///     <item>
-        ///         <term>null_percentage</term>
+        ///         <term><see
+        /// cref="InsertRecordsRandomRequest.Options.NULL_PERCENTAGE">NULL_PERCENTAGE</see>:</term>
         ///         <description>If specified, then generate the given
         /// percentage of the count as nulls for all nullable columns.  This
         /// option will be ignored for non-nullable columns.  The value must be
         /// within the range [0, 1.0].  The default value is 5%
         /// (0.05).</description>
         ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsRandomRequest.Options.CARDINALITY">CARDINALITY</see>:</term>
+        ///         <description>If specified, limit the randomly generated
+        /// values to a fixed set. Not allowed on a column with interval
+        /// specified, and is not applicable to WKT or Track-specific columns.
+        /// The value must be greater than 0. This option is disabled by
+        /// default.</description>
+        ///     </item>
         /// </list>
         /// </description>
         ///     </item>
         ///     <item>
-        ///         <term>attr_name</term>
+        ///         <term><see
+        /// cref="InsertRecordsRandomRequest.Options.ATTR_NAME">ATTR_NAME</see>:</term>
         ///         <description>Set the following parameters for the column
         /// specified by the key. This overrides any parameter set by
         /// <i>all</i>.
         /// <list type="bullet">
         ///     <item>
-        ///         <term>min</term>
+        ///         <term><see
+        /// cref="InsertRecordsRandomRequest.Options.MIN">MIN</see>:</term>
         ///         <description>For numerical columns, the minimum of the
         /// generated values is set to this value.  Default is -99999.  For
         /// point, shape, and track semantic types, min for numeric 'x' and 'y'
@@ -142,9 +164,9 @@ namespace kinetica
         /// minimum corresponds to Jan 1, 2010.
         /// <br />
         /// For string columns, the minimum length of the randomly generated
-        /// strings is set to this value (default is 1). If both minimum and
+        /// strings is set to this value (default is 0). If both minimum and
         /// maximum are provided, minimum must be less than or equal to max.
-        /// Value needs to be within [1, 200].
+        /// Value needs to be within [0, 200].
         /// <br />
         /// If the min is outside the accepted ranges for strings columns and
         /// 'x' and 'y' columns for point/shape/track types, then those
@@ -153,7 +175,8 @@ namespace kinetica
         /// <i>all</i> parameter judiciously.</description>
         ///     </item>
         ///     <item>
-        ///         <term>max</term>
+        ///         <term><see
+        /// cref="InsertRecordsRandomRequest.Options.MAX">MAX</see>:</term>
         ///         <description>For numerical columns, the maximum of the
         /// generated values is set to this value. Default is 99999. For point,
         /// shape, and track semantic types, max for numeric 'x' and 'y'
@@ -164,7 +187,7 @@ namespace kinetica
         /// For string columns, the maximum length of the randomly generated
         /// strings is set to this value (default is 200). If both minimum and
         /// maximum are provided, *max* must be greater than or equal to *min*.
-        /// Value needs to be within [1, 200].
+        /// Value needs to be within [0, 200].
         /// <br />
         /// If the *max* is outside the accepted ranges for strings columns and
         /// 'x' and 'y' columns for point/shape/track types, then those
@@ -173,43 +196,60 @@ namespace kinetica
         /// <i>all</i> parameter judiciously.</description>
         ///     </item>
         ///     <item>
-        ///         <term>interval</term>
-        ///         <description>If specified, then generate values for all
-        /// columns linearly and evenly spaced with the given interval value
-        /// starting at the minimum value (instead of generating random data).
-        /// *Any provided max value is disregarded.*  For string-type columns,
-        /// the interval value is ignored but the string values would be
-        /// generated following the pattern: 'attrname_creationIndex#', i.e.
-        /// the column name suffixed with an underscore and a running counter
-        /// (starting at 0).  No nulls would be generated for nullable
-        /// columns.</description>
+        ///         <term><see
+        /// cref="InsertRecordsRandomRequest.Options.INTERVAL">INTERVAL</see>:</term>
+        ///         <description>If specified, generate values for all columns
+        /// evenly spaced with the given interval value. If a max value is
+        /// specified for a given column the data is randomly generated between
+        /// min and max and decimated down to the interval. If no max is
+        /// provided the data is linerally generated starting at the minimum
+        /// value (instead of generating random data). For non-decimated
+        /// string-type columns the interval value is ignored. Instead the
+        /// values are generated following the pattern:
+        /// 'attrname_creationIndex#', i.e. the column name suffixed with an
+        /// underscore and a running counter (starting at 0). For string types
+        /// with limited size (eg char4) the prefix is dropped. No nulls will
+        /// be generated for nullable columns.</description>
         ///     </item>
         ///     <item>
-        ///         <term>null_percentage</term>
+        ///         <term><see
+        /// cref="InsertRecordsRandomRequest.Options.NULL_PERCENTAGE">NULL_PERCENTAGE</see>:</term>
         ///         <description>If specified and if this column is nullable,
         /// then generate the given percentage of the count as nulls.  This
         /// option will result in an error if the column is not nullable.  The
         /// value must be within the range [0, 1.0].  The default value is 5%
         /// (0.05).</description>
         ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsRandomRequest.Options.CARDINALITY">CARDINALITY</see>:</term>
+        ///         <description>If specified, limit the randomly generated
+        /// values to a fixed set. Not allowed on a column with interval
+        /// specified, and is not applicable to WKT or Track-specific columns.
+        /// The value must be greater than 0. This option is disabled by
+        /// default.</description>
+        ///     </item>
         /// </list>
         /// </description>
         ///     </item>
         ///     <item>
-        ///         <term>track_length</term>
+        ///         <term><see
+        /// cref="InsertRecordsRandomRequest.Options.TRACK_LENGTH">TRACK_LENGTH</see>:</term>
         ///         <description>This key-map pair is only valid for track type
         /// data sets (an error is thrown otherwise).  No nulls would be
         /// generated for nullable columns.
         /// <list type="bullet">
         ///     <item>
-        ///         <term>min</term>
+        ///         <term><see
+        /// cref="InsertRecordsRandomRequest.Options.MIN">MIN</see>:</term>
         ///         <description>Minimum possible length for generated series;
         /// default is 100 records per series. Must be an integral value within
         /// the range [1, 500]. If both min and max are specified, min must be
         /// less than or equal to max.</description>
         ///     </item>
         ///     <item>
-        ///         <term>max</term>
+        ///         <term><see
+        /// cref="InsertRecordsRandomRequest.Options.MAX">MAX</see>:</term>
         ///         <description>Maximum possible length for generated series;
         /// default is 500 records per series. Must be an integral value within
         /// the range [1, 500]. If both min and max are specified, max must be
@@ -220,7 +260,7 @@ namespace kinetica
         ///     </item>
         /// </list>
         /// <br />
-        /// A set of string constants for the parameter <member name="options"
+        /// A set of string constants for the parameter <see cref="options"
         /// />.</summary>
         public struct Options
         {
@@ -229,14 +269,15 @@ namespace kinetica
             /// be initialized with the given value.  The minimum is 0.  This
             /// allows for the same set of random numbers to be generated
             /// across invocation of this endpoint in case the user wants to
-            /// repeat the test.  Since <member name="options" />, is a map of
+            /// repeat the test.  Since <see cref="options" />, is a map of
             /// maps, we need an internal map to provide the seed value.  For
             /// example, to pass 100 as the seed value through this parameter,
             /// you need something equivalent to: 'options' = {'seed': {
             /// 'value': 100 } }
             /// <list type="bullet">
             ///     <item>
-            ///         <term>value</term>
+            ///         <term><see
+            /// cref="InsertRecordsRandomRequest.Options.VALUE">VALUE</see>:</term>
             ///         <description>Pass the seed value here.</description>
             ///     </item>
             /// </list>
@@ -251,7 +292,8 @@ namespace kinetica
             /// records.
             /// <list type="bullet">
             ///     <item>
-            ///         <term>min</term>
+            ///         <term><see
+            /// cref="InsertRecordsRandomRequest.Options.MIN">MIN</see>:</term>
             ///         <description>For numerical columns, the minimum of the
             /// generated values is set to this value.  Default is -99999.  For
             /// point, shape, and track semantic types, min for numeric 'x' and
@@ -261,9 +303,9 @@ namespace kinetica
             /// column, the default minimum corresponds to Jan 1, 2010.
             /// <br />
             /// For string columns, the minimum length of the randomly
-            /// generated strings is set to this value (default is 1). If both
+            /// generated strings is set to this value (default is 0). If both
             /// minimum and maximum are provided, minimum must be less than or
-            /// equal to max. Value needs to be within [1, 200].
+            /// equal to max. Value needs to be within [0, 200].
             /// <br />
             /// If the min is outside the accepted ranges for strings columns
             /// and 'x' and 'y' columns for point/shape/track types, then those
@@ -272,7 +314,8 @@ namespace kinetica
             /// use the <i>all</i> parameter judiciously.</description>
             ///     </item>
             ///     <item>
-            ///         <term>max</term>
+            ///         <term><see
+            /// cref="InsertRecordsRandomRequest.Options.MAX">MAX</see>:</term>
             ///         <description>For numerical columns, the maximum of the
             /// generated values is set to this value. Default is 99999. For
             /// point, shape, and track semantic types, max for numeric 'x' and
@@ -283,7 +326,7 @@ namespace kinetica
             /// For string columns, the maximum length of the randomly
             /// generated strings is set to this value (default is 200). If
             /// both minimum and maximum are provided, *max* must be greater
-            /// than or equal to *min*. Value needs to be within [1, 200].
+            /// than or equal to *min*. Value needs to be within [0, 200].
             /// <br />
             /// If the *max* is outside the accepted ranges for strings columns
             /// and 'x' and 'y' columns for point/shape/track types, then those
@@ -292,24 +335,39 @@ namespace kinetica
             /// use the <i>all</i> parameter judiciously.</description>
             ///     </item>
             ///     <item>
-            ///         <term>interval</term>
-            ///         <description>If specified, then generate values for all
-            /// columns linearly and evenly spaced with the given interval
-            /// value starting at the minimum value (instead of generating
-            /// random data). *Any provided max value is disregarded.*  For
-            /// string-type columns, the interval value is ignored but the
-            /// string values would be generated following the pattern:
-            /// 'attrname_creationIndex#', i.e. the column name suffixed with
-            /// an underscore and a running counter (starting at 0).  No nulls
-            /// would be generated for nullable columns.</description>
+            ///         <term><see
+            /// cref="InsertRecordsRandomRequest.Options.INTERVAL">INTERVAL</see>:</term>
+            ///         <description>If specified, generate values for all
+            /// columns evenly spaced with the given interval value. If a max
+            /// value is specified for a given column the data is randomly
+            /// generated between min and max and decimated down to the
+            /// interval. If no max is provided the data is linerally generated
+            /// starting at the minimum value (instead of generating random
+            /// data). For non-decimated string-type columns the interval value
+            /// is ignored. Instead the values are generated following the
+            /// pattern: 'attrname_creationIndex#', i.e. the column name
+            /// suffixed with an underscore and a running counter (starting at
+            /// 0). For string types with limited size (eg char4) the prefix is
+            /// dropped. No nulls will be generated for nullable
+            /// columns.</description>
             ///     </item>
             ///     <item>
-            ///         <term>null_percentage</term>
+            ///         <term><see
+            /// cref="InsertRecordsRandomRequest.Options.NULL_PERCENTAGE">NULL_PERCENTAGE</see>:</term>
             ///         <description>If specified, then generate the given
             /// percentage of the count as nulls for all nullable columns.
             /// This option will be ignored for non-nullable columns.  The
             /// value must be within the range [0, 1.0].  The default value is
             /// 5% (0.05).</description>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="InsertRecordsRandomRequest.Options.CARDINALITY">CARDINALITY</see>:</term>
+            ///         <description>If specified, limit the randomly generated
+            /// values to a fixed set. Not allowed on a column with interval
+            /// specified, and is not applicable to WKT or Track-specific
+            /// columns. The value must be greater than 0. This option is
+            /// disabled by default.</description>
             ///     </item>
             /// </list>
             /// </summary>
@@ -327,15 +385,19 @@ namespace kinetica
             /// greater than or equal to min.</summary>
             public const string MAX = "max";
 
-            /// <summary>If specified, then generate values for all columns
-            /// linearly and evenly spaced with the given interval value
-            /// starting at the minimum value (instead of generating random
-            /// data). *Any provided max value is disregarded.*  For
-            /// string-type columns, the interval value is ignored but the
-            /// string values would be generated following the pattern:
-            /// 'attrname_creationIndex#', i.e. the column name suffixed with
-            /// an underscore and a running counter (starting at 0).  No nulls
-            /// would be generated for nullable columns.</summary>
+            /// <summary>If specified, generate values for all columns evenly
+            /// spaced with the given interval value. If a max value is
+            /// specified for a given column the data is randomly generated
+            /// between min and max and decimated down to the interval. If no
+            /// max is provided the data is linerally generated starting at the
+            /// minimum value (instead of generating random data). For
+            /// non-decimated string-type columns the interval value is
+            /// ignored. Instead the values are generated following the
+            /// pattern: 'attrname_creationIndex#', i.e. the column name
+            /// suffixed with an underscore and a running counter (starting at
+            /// 0). For string types with limited size (eg char4) the prefix is
+            /// dropped. No nulls will be generated for nullable
+            /// columns.</summary>
             public const string INTERVAL = "interval";
 
             /// <summary>If specified and if this column is nullable, then
@@ -345,11 +407,19 @@ namespace kinetica
             /// is 5% (0.05).</summary>
             public const string NULL_PERCENTAGE = "null_percentage";
 
+            /// <summary>If specified, limit the randomly generated values to a
+            /// fixed set. Not allowed on a column with interval specified, and
+            /// is not applicable to WKT or Track-specific columns. The value
+            /// must be greater than 0. This option is disabled by
+            /// default.</summary>
+            public const string CARDINALITY = "cardinality";
+
             /// <summary>Set the following parameters for the column specified
             /// by the key. This overrides any parameter set by <i>all</i>.
             /// <list type="bullet">
             ///     <item>
-            ///         <term>min</term>
+            ///         <term><see
+            /// cref="InsertRecordsRandomRequest.Options.MIN">MIN</see>:</term>
             ///         <description>For numerical columns, the minimum of the
             /// generated values is set to this value.  Default is -99999.  For
             /// point, shape, and track semantic types, min for numeric 'x' and
@@ -359,9 +429,9 @@ namespace kinetica
             /// column, the default minimum corresponds to Jan 1, 2010.
             /// <br />
             /// For string columns, the minimum length of the randomly
-            /// generated strings is set to this value (default is 1). If both
+            /// generated strings is set to this value (default is 0). If both
             /// minimum and maximum are provided, minimum must be less than or
-            /// equal to max. Value needs to be within [1, 200].
+            /// equal to max. Value needs to be within [0, 200].
             /// <br />
             /// If the min is outside the accepted ranges for strings columns
             /// and 'x' and 'y' columns for point/shape/track types, then those
@@ -370,7 +440,8 @@ namespace kinetica
             /// use the <i>all</i> parameter judiciously.</description>
             ///     </item>
             ///     <item>
-            ///         <term>max</term>
+            ///         <term><see
+            /// cref="InsertRecordsRandomRequest.Options.MAX">MAX</see>:</term>
             ///         <description>For numerical columns, the maximum of the
             /// generated values is set to this value. Default is 99999. For
             /// point, shape, and track semantic types, max for numeric 'x' and
@@ -381,7 +452,7 @@ namespace kinetica
             /// For string columns, the maximum length of the randomly
             /// generated strings is set to this value (default is 200). If
             /// both minimum and maximum are provided, *max* must be greater
-            /// than or equal to *min*. Value needs to be within [1, 200].
+            /// than or equal to *min*. Value needs to be within [0, 200].
             /// <br />
             /// If the *max* is outside the accepted ranges for strings columns
             /// and 'x' and 'y' columns for point/shape/track types, then those
@@ -390,24 +461,39 @@ namespace kinetica
             /// use the <i>all</i> parameter judiciously.</description>
             ///     </item>
             ///     <item>
-            ///         <term>interval</term>
-            ///         <description>If specified, then generate values for all
-            /// columns linearly and evenly spaced with the given interval
-            /// value starting at the minimum value (instead of generating
-            /// random data). *Any provided max value is disregarded.*  For
-            /// string-type columns, the interval value is ignored but the
-            /// string values would be generated following the pattern:
-            /// 'attrname_creationIndex#', i.e. the column name suffixed with
-            /// an underscore and a running counter (starting at 0).  No nulls
-            /// would be generated for nullable columns.</description>
+            ///         <term><see
+            /// cref="InsertRecordsRandomRequest.Options.INTERVAL">INTERVAL</see>:</term>
+            ///         <description>If specified, generate values for all
+            /// columns evenly spaced with the given interval value. If a max
+            /// value is specified for a given column the data is randomly
+            /// generated between min and max and decimated down to the
+            /// interval. If no max is provided the data is linerally generated
+            /// starting at the minimum value (instead of generating random
+            /// data). For non-decimated string-type columns the interval value
+            /// is ignored. Instead the values are generated following the
+            /// pattern: 'attrname_creationIndex#', i.e. the column name
+            /// suffixed with an underscore and a running counter (starting at
+            /// 0). For string types with limited size (eg char4) the prefix is
+            /// dropped. No nulls will be generated for nullable
+            /// columns.</description>
             ///     </item>
             ///     <item>
-            ///         <term>null_percentage</term>
+            ///         <term><see
+            /// cref="InsertRecordsRandomRequest.Options.NULL_PERCENTAGE">NULL_PERCENTAGE</see>:</term>
             ///         <description>If specified and if this column is
             /// nullable, then generate the given percentage of the count as
             /// nulls.  This option will result in an error if the column is
             /// not nullable.  The value must be within the range [0, 1.0].
             /// The default value is 5% (0.05).</description>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="InsertRecordsRandomRequest.Options.CARDINALITY">CARDINALITY</see>:</term>
+            ///         <description>If specified, limit the randomly generated
+            /// values to a fixed set. Not allowed on a column with interval
+            /// specified, and is not applicable to WKT or Track-specific
+            /// columns. The value must be greater than 0. This option is
+            /// disabled by default.</description>
             ///     </item>
             /// </list>
             /// </summary>
@@ -418,14 +504,16 @@ namespace kinetica
             /// generated for nullable columns.
             /// <list type="bullet">
             ///     <item>
-            ///         <term>min</term>
+            ///         <term><see
+            /// cref="InsertRecordsRandomRequest.Options.MIN">MIN</see>:</term>
             ///         <description>Minimum possible length for generated
             /// series; default is 100 records per series. Must be an integral
             /// value within the range [1, 500]. If both min and max are
             /// specified, min must be less than or equal to max.</description>
             ///     </item>
             ///     <item>
-            ///         <term>max</term>
+            ///         <term><see
+            /// cref="InsertRecordsRandomRequest.Options.MAX">MAX</see>:</term>
             ///         <description>Maximum possible length for generated
             /// series; default is 500 records per series. Must be an integral
             /// value within the range [1, 500]. If both min and max are
@@ -452,13 +540,13 @@ namespace kinetica
         /// map of string to doubles, while most others are maps of string to
         /// string.  In this map, the top level keys represent which column's
         /// parameters are being specified, while the internal keys represents
-        /// which parameter is being specified.  The parameters that can be
-        /// specified are: *min*, *max*, and *interval*.  These parameters take
-        /// on different meanings depending on the type of the column.  Below
+        /// which parameter is being specified.  These parameters take on
+        /// different meanings depending on the type of the column.  Below
         /// follows a more detailed description of the map:
         /// <list type="bullet">
         ///     <item>
-        ///         <term>seed</term>
+        ///         <term><see
+        /// cref="InsertRecordsRandomRequest.Options.SEED">SEED</see>:</term>
         ///         <description>If provided, the internal random number
         /// generator will be initialized with the given value.  The minimum is
         /// 0.  This allows for the same set of random numbers to be generated
@@ -470,20 +558,23 @@ namespace kinetica
         /// something equivalent to: 'options' = {'seed': { 'value': 100 } }
         /// <list type="bullet">
         ///     <item>
-        ///         <term>value</term>
+        ///         <term><see
+        /// cref="InsertRecordsRandomRequest.Options.VALUE">VALUE</see>:</term>
         ///         <description>Pass the seed value here.</description>
         ///     </item>
         /// </list>
         /// </description>
         ///     </item>
         ///     <item>
-        ///         <term>all</term>
+        ///         <term><see
+        /// cref="InsertRecordsRandomRequest.Options.ALL">ALL</see>:</term>
         ///         <description>This key indicates that the specifications
         /// relayed in the internal map are to be applied to all columns of the
         /// records.
         /// <list type="bullet">
         ///     <item>
-        ///         <term>min</term>
+        ///         <term><see
+        /// cref="InsertRecordsRandomRequest.Options.MIN">MIN</see>:</term>
         ///         <description>For numerical columns, the minimum of the
         /// generated values is set to this value.  Default is -99999.  For
         /// point, shape, and track semantic types, min for numeric 'x' and 'y'
@@ -493,9 +584,9 @@ namespace kinetica
         /// minimum corresponds to Jan 1, 2010.
         /// <br />
         /// For string columns, the minimum length of the randomly generated
-        /// strings is set to this value (default is 1). If both minimum and
+        /// strings is set to this value (default is 0). If both minimum and
         /// maximum are provided, minimum must be less than or equal to max.
-        /// Value needs to be within [1, 200].
+        /// Value needs to be within [0, 200].
         /// <br />
         /// If the min is outside the accepted ranges for strings columns and
         /// 'x' and 'y' columns for point/shape/track types, then those
@@ -504,7 +595,8 @@ namespace kinetica
         /// <i>all</i> parameter judiciously.</description>
         ///     </item>
         ///     <item>
-        ///         <term>max</term>
+        ///         <term><see
+        /// cref="InsertRecordsRandomRequest.Options.MAX">MAX</see>:</term>
         ///         <description>For numerical columns, the maximum of the
         /// generated values is set to this value. Default is 99999. For point,
         /// shape, and track semantic types, max for numeric 'x' and 'y'
@@ -515,7 +607,7 @@ namespace kinetica
         /// For string columns, the maximum length of the randomly generated
         /// strings is set to this value (default is 200). If both minimum and
         /// maximum are provided, *max* must be greater than or equal to *min*.
-        /// Value needs to be within [1, 200].
+        /// Value needs to be within [0, 200].
         /// <br />
         /// If the *max* is outside the accepted ranges for strings columns and
         /// 'x' and 'y' columns for point/shape/track types, then those
@@ -524,36 +616,52 @@ namespace kinetica
         /// <i>all</i> parameter judiciously.</description>
         ///     </item>
         ///     <item>
-        ///         <term>interval</term>
-        ///         <description>If specified, then generate values for all
-        /// columns linearly and evenly spaced with the given interval value
-        /// starting at the minimum value (instead of generating random data).
-        /// *Any provided max value is disregarded.*  For string-type columns,
-        /// the interval value is ignored but the string values would be
-        /// generated following the pattern: 'attrname_creationIndex#', i.e.
-        /// the column name suffixed with an underscore and a running counter
-        /// (starting at 0).  No nulls would be generated for nullable
-        /// columns.</description>
+        ///         <term><see
+        /// cref="InsertRecordsRandomRequest.Options.INTERVAL">INTERVAL</see>:</term>
+        ///         <description>If specified, generate values for all columns
+        /// evenly spaced with the given interval value. If a max value is
+        /// specified for a given column the data is randomly generated between
+        /// min and max and decimated down to the interval. If no max is
+        /// provided the data is linerally generated starting at the minimum
+        /// value (instead of generating random data). For non-decimated
+        /// string-type columns the interval value is ignored. Instead the
+        /// values are generated following the pattern:
+        /// 'attrname_creationIndex#', i.e. the column name suffixed with an
+        /// underscore and a running counter (starting at 0). For string types
+        /// with limited size (eg char4) the prefix is dropped. No nulls will
+        /// be generated for nullable columns.</description>
         ///     </item>
         ///     <item>
-        ///         <term>null_percentage</term>
+        ///         <term><see
+        /// cref="InsertRecordsRandomRequest.Options.NULL_PERCENTAGE">NULL_PERCENTAGE</see>:</term>
         ///         <description>If specified, then generate the given
         /// percentage of the count as nulls for all nullable columns.  This
         /// option will be ignored for non-nullable columns.  The value must be
         /// within the range [0, 1.0].  The default value is 5%
         /// (0.05).</description>
         ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsRandomRequest.Options.CARDINALITY">CARDINALITY</see>:</term>
+        ///         <description>If specified, limit the randomly generated
+        /// values to a fixed set. Not allowed on a column with interval
+        /// specified, and is not applicable to WKT or Track-specific columns.
+        /// The value must be greater than 0. This option is disabled by
+        /// default.</description>
+        ///     </item>
         /// </list>
         /// </description>
         ///     </item>
         ///     <item>
-        ///         <term>attr_name</term>
+        ///         <term><see
+        /// cref="InsertRecordsRandomRequest.Options.ATTR_NAME">ATTR_NAME</see>:</term>
         ///         <description>Set the following parameters for the column
         /// specified by the key. This overrides any parameter set by
         /// <i>all</i>.
         /// <list type="bullet">
         ///     <item>
-        ///         <term>min</term>
+        ///         <term><see
+        /// cref="InsertRecordsRandomRequest.Options.MIN">MIN</see>:</term>
         ///         <description>For numerical columns, the minimum of the
         /// generated values is set to this value.  Default is -99999.  For
         /// point, shape, and track semantic types, min for numeric 'x' and 'y'
@@ -563,9 +671,9 @@ namespace kinetica
         /// minimum corresponds to Jan 1, 2010.
         /// <br />
         /// For string columns, the minimum length of the randomly generated
-        /// strings is set to this value (default is 1). If both minimum and
+        /// strings is set to this value (default is 0). If both minimum and
         /// maximum are provided, minimum must be less than or equal to max.
-        /// Value needs to be within [1, 200].
+        /// Value needs to be within [0, 200].
         /// <br />
         /// If the min is outside the accepted ranges for strings columns and
         /// 'x' and 'y' columns for point/shape/track types, then those
@@ -574,7 +682,8 @@ namespace kinetica
         /// <i>all</i> parameter judiciously.</description>
         ///     </item>
         ///     <item>
-        ///         <term>max</term>
+        ///         <term><see
+        /// cref="InsertRecordsRandomRequest.Options.MAX">MAX</see>:</term>
         ///         <description>For numerical columns, the maximum of the
         /// generated values is set to this value. Default is 99999. For point,
         /// shape, and track semantic types, max for numeric 'x' and 'y'
@@ -585,7 +694,7 @@ namespace kinetica
         /// For string columns, the maximum length of the randomly generated
         /// strings is set to this value (default is 200). If both minimum and
         /// maximum are provided, *max* must be greater than or equal to *min*.
-        /// Value needs to be within [1, 200].
+        /// Value needs to be within [0, 200].
         /// <br />
         /// If the *max* is outside the accepted ranges for strings columns and
         /// 'x' and 'y' columns for point/shape/track types, then those
@@ -594,43 +703,60 @@ namespace kinetica
         /// <i>all</i> parameter judiciously.</description>
         ///     </item>
         ///     <item>
-        ///         <term>interval</term>
-        ///         <description>If specified, then generate values for all
-        /// columns linearly and evenly spaced with the given interval value
-        /// starting at the minimum value (instead of generating random data).
-        /// *Any provided max value is disregarded.*  For string-type columns,
-        /// the interval value is ignored but the string values would be
-        /// generated following the pattern: 'attrname_creationIndex#', i.e.
-        /// the column name suffixed with an underscore and a running counter
-        /// (starting at 0).  No nulls would be generated for nullable
-        /// columns.</description>
+        ///         <term><see
+        /// cref="InsertRecordsRandomRequest.Options.INTERVAL">INTERVAL</see>:</term>
+        ///         <description>If specified, generate values for all columns
+        /// evenly spaced with the given interval value. If a max value is
+        /// specified for a given column the data is randomly generated between
+        /// min and max and decimated down to the interval. If no max is
+        /// provided the data is linerally generated starting at the minimum
+        /// value (instead of generating random data). For non-decimated
+        /// string-type columns the interval value is ignored. Instead the
+        /// values are generated following the pattern:
+        /// 'attrname_creationIndex#', i.e. the column name suffixed with an
+        /// underscore and a running counter (starting at 0). For string types
+        /// with limited size (eg char4) the prefix is dropped. No nulls will
+        /// be generated for nullable columns.</description>
         ///     </item>
         ///     <item>
-        ///         <term>null_percentage</term>
+        ///         <term><see
+        /// cref="InsertRecordsRandomRequest.Options.NULL_PERCENTAGE">NULL_PERCENTAGE</see>:</term>
         ///         <description>If specified and if this column is nullable,
         /// then generate the given percentage of the count as nulls.  This
         /// option will result in an error if the column is not nullable.  The
         /// value must be within the range [0, 1.0].  The default value is 5%
         /// (0.05).</description>
         ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsRandomRequest.Options.CARDINALITY">CARDINALITY</see>:</term>
+        ///         <description>If specified, limit the randomly generated
+        /// values to a fixed set. Not allowed on a column with interval
+        /// specified, and is not applicable to WKT or Track-specific columns.
+        /// The value must be greater than 0. This option is disabled by
+        /// default.</description>
+        ///     </item>
         /// </list>
         /// </description>
         ///     </item>
         ///     <item>
-        ///         <term>track_length</term>
+        ///         <term><see
+        /// cref="InsertRecordsRandomRequest.Options.TRACK_LENGTH">TRACK_LENGTH</see>:</term>
         ///         <description>This key-map pair is only valid for track type
         /// data sets (an error is thrown otherwise).  No nulls would be
         /// generated for nullable columns.
         /// <list type="bullet">
         ///     <item>
-        ///         <term>min</term>
+        ///         <term><see
+        /// cref="InsertRecordsRandomRequest.Options.MIN">MIN</see>:</term>
         ///         <description>Minimum possible length for generated series;
         /// default is 100 records per series. Must be an integral value within
         /// the range [1, 500]. If both min and max are specified, min must be
         /// less than or equal to max.</description>
         ///     </item>
         ///     <item>
-        ///         <term>max</term>
+        ///         <term><see
+        /// cref="InsertRecordsRandomRequest.Options.MAX">MAX</see>:</term>
         ///         <description>Maximum possible length for generated series;
         /// default is 500 records per series. Must be an integral value within
         /// the range [1, 500]. If both min and max are specified, max must be
@@ -661,13 +787,13 @@ namespace kinetica
         /// string to map of string to doubles, while most others are maps of
         /// string to string.  In this map, the top level keys represent which
         /// column's parameters are being specified, while the internal keys
-        /// represents which parameter is being specified.  The parameters that
-        /// can be specified are: *min*, *max*, and *interval*.  These
-        /// parameters take on different meanings depending on the type of the
-        /// column.  Below follows a more detailed description of the map:
+        /// represents which parameter is being specified.  These parameters
+        /// take on different meanings depending on the type of the column.
+        /// Below follows a more detailed description of the map:
         /// <list type="bullet">
         ///     <item>
-        ///         <term>seed</term>
+        ///         <term><see
+        /// cref="InsertRecordsRandomRequest.Options.SEED">SEED</see>:</term>
         ///         <description>If provided, the internal random number
         /// generator will be initialized with the given value.  The minimum is
         /// 0.  This allows for the same set of random numbers to be generated
@@ -679,20 +805,23 @@ namespace kinetica
         /// something equivalent to: 'options' = {'seed': { 'value': 100 } }
         /// <list type="bullet">
         ///     <item>
-        ///         <term>value</term>
+        ///         <term><see
+        /// cref="InsertRecordsRandomRequest.Options.VALUE">VALUE</see>:</term>
         ///         <description>Pass the seed value here.</description>
         ///     </item>
         /// </list>
         /// </description>
         ///     </item>
         ///     <item>
-        ///         <term>all</term>
+        ///         <term><see
+        /// cref="InsertRecordsRandomRequest.Options.ALL">ALL</see>:</term>
         ///         <description>This key indicates that the specifications
         /// relayed in the internal map are to be applied to all columns of the
         /// records.
         /// <list type="bullet">
         ///     <item>
-        ///         <term>min</term>
+        ///         <term><see
+        /// cref="InsertRecordsRandomRequest.Options.MIN">MIN</see>:</term>
         ///         <description>For numerical columns, the minimum of the
         /// generated values is set to this value.  Default is -99999.  For
         /// point, shape, and track semantic types, min for numeric 'x' and 'y'
@@ -701,9 +830,9 @@ namespace kinetica
         /// are -180.0 and -90.0. For the 'TIMESTAMP' column, the default
         /// minimum corresponds to Jan 1, 2010.
         /// For string columns, the minimum length of the randomly generated
-        /// strings is set to this value (default is 1). If both minimum and
+        /// strings is set to this value (default is 0). If both minimum and
         /// maximum are provided, minimum must be less than or equal to max.
-        /// Value needs to be within [1, 200].
+        /// Value needs to be within [0, 200].
         /// If the min is outside the accepted ranges for strings columns and
         /// 'x' and 'y' columns for point/shape/track types, then those
         /// parameters will not be set; however, an error will not be thrown in
@@ -711,7 +840,8 @@ namespace kinetica
         /// <i>all</i> parameter judiciously.</description>
         ///     </item>
         ///     <item>
-        ///         <term>max</term>
+        ///         <term><see
+        /// cref="InsertRecordsRandomRequest.Options.MAX">MAX</see>:</term>
         ///         <description>For numerical columns, the maximum of the
         /// generated values is set to this value. Default is 99999. For point,
         /// shape, and track semantic types, max for numeric 'x' and 'y'
@@ -721,7 +851,7 @@ namespace kinetica
         /// For string columns, the maximum length of the randomly generated
         /// strings is set to this value (default is 200). If both minimum and
         /// maximum are provided, *max* must be greater than or equal to *min*.
-        /// Value needs to be within [1, 200].
+        /// Value needs to be within [0, 200].
         /// If the *max* is outside the accepted ranges for strings columns and
         /// 'x' and 'y' columns for point/shape/track types, then those
         /// parameters will not be set; however, an error will not be thrown in
@@ -729,36 +859,52 @@ namespace kinetica
         /// <i>all</i> parameter judiciously.</description>
         ///     </item>
         ///     <item>
-        ///         <term>interval</term>
-        ///         <description>If specified, then generate values for all
-        /// columns linearly and evenly spaced with the given interval value
-        /// starting at the minimum value (instead of generating random data).
-        /// *Any provided max value is disregarded.*  For string-type columns,
-        /// the interval value is ignored but the string values would be
-        /// generated following the pattern: 'attrname_creationIndex#', i.e.
-        /// the column name suffixed with an underscore and a running counter
-        /// (starting at 0).  No nulls would be generated for nullable
-        /// columns.</description>
+        ///         <term><see
+        /// cref="InsertRecordsRandomRequest.Options.INTERVAL">INTERVAL</see>:</term>
+        ///         <description>If specified, generate values for all columns
+        /// evenly spaced with the given interval value. If a max value is
+        /// specified for a given column the data is randomly generated between
+        /// min and max and decimated down to the interval. If no max is
+        /// provided the data is linerally generated starting at the minimum
+        /// value (instead of generating random data). For non-decimated
+        /// string-type columns the interval value is ignored. Instead the
+        /// values are generated following the pattern:
+        /// 'attrname_creationIndex#', i.e. the column name suffixed with an
+        /// underscore and a running counter (starting at 0). For string types
+        /// with limited size (eg char4) the prefix is dropped. No nulls will
+        /// be generated for nullable columns.</description>
         ///     </item>
         ///     <item>
-        ///         <term>null_percentage</term>
+        ///         <term><see
+        /// cref="InsertRecordsRandomRequest.Options.NULL_PERCENTAGE">NULL_PERCENTAGE</see>:</term>
         ///         <description>If specified, then generate the given
         /// percentage of the count as nulls for all nullable columns.  This
         /// option will be ignored for non-nullable columns.  The value must be
         /// within the range [0, 1.0].  The default value is 5%
         /// (0.05).</description>
         ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsRandomRequest.Options.CARDINALITY">CARDINALITY</see>:</term>
+        ///         <description>If specified, limit the randomly generated
+        /// values to a fixed set. Not allowed on a column with interval
+        /// specified, and is not applicable to WKT or Track-specific columns.
+        /// The value must be greater than 0. This option is disabled by
+        /// default.</description>
+        ///     </item>
         /// </list>
         /// </description>
         ///     </item>
         ///     <item>
-        ///         <term>attr_name</term>
+        ///         <term><see
+        /// cref="InsertRecordsRandomRequest.Options.ATTR_NAME">ATTR_NAME</see>:</term>
         ///         <description>Set the following parameters for the column
         /// specified by the key. This overrides any parameter set by
         /// <i>all</i>.
         /// <list type="bullet">
         ///     <item>
-        ///         <term>min</term>
+        ///         <term><see
+        /// cref="InsertRecordsRandomRequest.Options.MIN">MIN</see>:</term>
         ///         <description>For numerical columns, the minimum of the
         /// generated values is set to this value.  Default is -99999.  For
         /// point, shape, and track semantic types, min for numeric 'x' and 'y'
@@ -767,9 +913,9 @@ namespace kinetica
         /// are -180.0 and -90.0. For the 'TIMESTAMP' column, the default
         /// minimum corresponds to Jan 1, 2010.
         /// For string columns, the minimum length of the randomly generated
-        /// strings is set to this value (default is 1). If both minimum and
+        /// strings is set to this value (default is 0). If both minimum and
         /// maximum are provided, minimum must be less than or equal to max.
-        /// Value needs to be within [1, 200].
+        /// Value needs to be within [0, 200].
         /// If the min is outside the accepted ranges for strings columns and
         /// 'x' and 'y' columns for point/shape/track types, then those
         /// parameters will not be set; however, an error will not be thrown in
@@ -777,7 +923,8 @@ namespace kinetica
         /// <i>all</i> parameter judiciously.</description>
         ///     </item>
         ///     <item>
-        ///         <term>max</term>
+        ///         <term><see
+        /// cref="InsertRecordsRandomRequest.Options.MAX">MAX</see>:</term>
         ///         <description>For numerical columns, the maximum of the
         /// generated values is set to this value. Default is 99999. For point,
         /// shape, and track semantic types, max for numeric 'x' and 'y'
@@ -787,7 +934,7 @@ namespace kinetica
         /// For string columns, the maximum length of the randomly generated
         /// strings is set to this value (default is 200). If both minimum and
         /// maximum are provided, *max* must be greater than or equal to *min*.
-        /// Value needs to be within [1, 200].
+        /// Value needs to be within [0, 200].
         /// If the *max* is outside the accepted ranges for strings columns and
         /// 'x' and 'y' columns for point/shape/track types, then those
         /// parameters will not be set; however, an error will not be thrown in
@@ -795,43 +942,60 @@ namespace kinetica
         /// <i>all</i> parameter judiciously.</description>
         ///     </item>
         ///     <item>
-        ///         <term>interval</term>
-        ///         <description>If specified, then generate values for all
-        /// columns linearly and evenly spaced with the given interval value
-        /// starting at the minimum value (instead of generating random data).
-        /// *Any provided max value is disregarded.*  For string-type columns,
-        /// the interval value is ignored but the string values would be
-        /// generated following the pattern: 'attrname_creationIndex#', i.e.
-        /// the column name suffixed with an underscore and a running counter
-        /// (starting at 0).  No nulls would be generated for nullable
-        /// columns.</description>
+        ///         <term><see
+        /// cref="InsertRecordsRandomRequest.Options.INTERVAL">INTERVAL</see>:</term>
+        ///         <description>If specified, generate values for all columns
+        /// evenly spaced with the given interval value. If a max value is
+        /// specified for a given column the data is randomly generated between
+        /// min and max and decimated down to the interval. If no max is
+        /// provided the data is linerally generated starting at the minimum
+        /// value (instead of generating random data). For non-decimated
+        /// string-type columns the interval value is ignored. Instead the
+        /// values are generated following the pattern:
+        /// 'attrname_creationIndex#', i.e. the column name suffixed with an
+        /// underscore and a running counter (starting at 0). For string types
+        /// with limited size (eg char4) the prefix is dropped. No nulls will
+        /// be generated for nullable columns.</description>
         ///     </item>
         ///     <item>
-        ///         <term>null_percentage</term>
+        ///         <term><see
+        /// cref="InsertRecordsRandomRequest.Options.NULL_PERCENTAGE">NULL_PERCENTAGE</see>:</term>
         ///         <description>If specified and if this column is nullable,
         /// then generate the given percentage of the count as nulls.  This
         /// option will result in an error if the column is not nullable.  The
         /// value must be within the range [0, 1.0].  The default value is 5%
         /// (0.05).</description>
         ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsRandomRequest.Options.CARDINALITY">CARDINALITY</see>:</term>
+        ///         <description>If specified, limit the randomly generated
+        /// values to a fixed set. Not allowed on a column with interval
+        /// specified, and is not applicable to WKT or Track-specific columns.
+        /// The value must be greater than 0. This option is disabled by
+        /// default.</description>
+        ///     </item>
         /// </list>
         /// </description>
         ///     </item>
         ///     <item>
-        ///         <term>track_length</term>
+        ///         <term><see
+        /// cref="InsertRecordsRandomRequest.Options.TRACK_LENGTH">TRACK_LENGTH</see>:</term>
         ///         <description>This key-map pair is only valid for track type
         /// data sets (an error is thrown otherwise).  No nulls would be
         /// generated for nullable columns.
         /// <list type="bullet">
         ///     <item>
-        ///         <term>min</term>
+        ///         <term><see
+        /// cref="InsertRecordsRandomRequest.Options.MIN">MIN</see>:</term>
         ///         <description>Minimum possible length for generated series;
         /// default is 100 records per series. Must be an integral value within
         /// the range [1, 500]. If both min and max are specified, min must be
         /// less than or equal to max.</description>
         ///     </item>
         ///     <item>
-        ///         <term>max</term>
+        ///         <term><see
+        /// cref="InsertRecordsRandomRequest.Options.MAX">MAX</see>:</term>
         ///         <description>Maximum possible length for generated series;
         /// default is 500 records per series. Must be an integral value within
         /// the range [1, 500]. If both min and max are specified, max must be
@@ -856,7 +1020,9 @@ namespace kinetica
 
 
 
-    /// <summary>A set of results returned by /insert/records/random.</summary>
+    /// <summary>A set of results returned by <see
+    /// cref="Kinetica.insertRecordsRandom(string,long,IDictionary{string, IDictionary{string, double}})"
+    /// />.</summary>
     public class InsertRecordsRandomResponse : KineticaData
     {
 

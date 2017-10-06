@@ -11,7 +11,8 @@ using System.Collections.Generic;
 namespace kinetica
 {
 
-    /// <summary>A set of parameters for /has/proc.
+    /// <summary>A set of parameters for <see
+    /// cref="Kinetica.hasProc(string,IDictionary{string, string})" />.
     /// <br />
     /// Checks the existence of a proc with the given name.</summary>
     public class HasProcRequest : KineticaData
@@ -46,13 +47,24 @@ namespace kinetica
 
 
 
-    /// <summary>A set of results returned by /has/proc.</summary>
+    /// <summary>A set of results returned by <see
+    /// cref="Kinetica.hasProc(string,IDictionary{string, string})"
+    /// />.</summary>
     public class HasProcResponse : KineticaData
     {
 
-        /// <summary>Indicates whether the proc exists or not. Values: true,
-        /// false.
-        /// <br />
+        /// <summary>Indicates whether the proc exists or not.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="HasProcResponse.ProcExists.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="HasProcResponse.ProcExists.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
         /// A set of string constants for the parameter <member
         /// name="proc_exists" />.</summary>
         public struct ProcExists
@@ -66,9 +78,18 @@ namespace kinetica
         /// </summary>
         public string proc_name { get; set; }
 
-        /// <summary>Indicates whether the proc exists or not. Values: true,
-        /// false.
-        ///   </summary>
+        /// <summary>Indicates whether the proc exists or not.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="HasProcResponse.ProcExists.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="HasProcResponse.ProcExists.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>  </summary>
         public bool proc_exists { get; set; }
 
     } // end class HasProcResponse

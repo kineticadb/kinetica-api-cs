@@ -11,7 +11,8 @@ using System.Collections.Generic;
 namespace kinetica
 {
 
-    /// <summary>A set of parameters for /delete/user.
+    /// <summary>A set of parameters for <see
+    /// cref="Kinetica.deleteUser(string,IDictionary{string, string})" />.
     /// <br />
     /// Deletes an existing user.</summary>
     public class DeleteUserRequest : KineticaData
@@ -47,7 +48,9 @@ namespace kinetica
 
 
 
-    /// <summary>A set of results returned by /delete/user.</summary>
+    /// <summary>A set of results returned by <see
+    /// cref="Kinetica.deleteUser(string,IDictionary{string, string})"
+    /// />.</summary>
     public class DeleteUserResponse : KineticaData
     {
 

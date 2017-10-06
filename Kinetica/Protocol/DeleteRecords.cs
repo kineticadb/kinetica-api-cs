@@ -11,11 +11,13 @@ using System.Collections.Generic;
 namespace kinetica
 {
 
-    /// <summary>A set of parameters for /delete/records.
+    /// <summary>A set of parameters for <see
+    /// cref="Kinetica.deleteRecords(string,IList{string},IDictionary{string, string})"
+    /// />.
     /// <br />
     /// Deletes record(s) matching the provided criteria from the given table.
-    /// The record selection criteria can either be one or more  <member
-    /// name="expressions" /> (matching multiple records) or a single record
+    /// The record selection criteria can either be one or more  <see
+    /// cref="expressions" /> (matching multiple records) or a single record
     /// identified by <i>record_id</i> options.  Note that the two selection
     /// criteria are mutually exclusive.  This operation cannot be run on a
     /// collection or a view.  The operation is synchronous meaning that a
@@ -27,13 +29,15 @@ namespace kinetica
         /// <summary>Optional parameters.
         /// <list type="bullet">
         ///     <item>
-        ///         <term>global_expression</term>
+        ///         <term><see
+        /// cref="DeleteRecordsRequest.Options.GLOBAL_EXPRESSION">GLOBAL_EXPRESSION</see>:</term>
         ///         <description>An optional global expression to reduce the
         /// search space of the <paramref
         /// cref="DeleteRecordsRequest.expressions" />.</description>
         ///     </item>
         ///     <item>
-        ///         <term>record_id</term>
+        ///         <term><see
+        /// cref="DeleteRecordsRequest.Options.RECORD_ID">RECORD_ID</see>:</term>
         ///         <description>A record id identifying a single record,
         /// obtained at the time of /insert/records or by calling
         /// /get/records/fromcollection with the *return_record_ids*
@@ -41,19 +45,21 @@ namespace kinetica
         ///     </item>
         /// </list>
         /// <br />
-        /// A set of string constants for the parameter <member name="options"
+        /// A set of string constants for the parameter <see cref="options"
         /// />.</summary>
         public struct Options
         {
 
             /// <summary>An optional global expression to reduce the search
-            /// space of the <member name="expressions" />.</summary>
+            /// space of the <see cref="expressions" />.</summary>
             public const string GLOBAL_EXPRESSION = "global_expression";
 
             /// <summary>A record id identifying a single record, obtained at
-            /// the time of /insert/records or by calling
-            /// /get/records/fromcollection with the *return_record_ids*
-            /// option.</summary>
+            /// the time of <see
+            /// cref="Kinetica.insertRecords{T}(string,IList{T},IDictionary{string, string})">insertion
+            /// of the record</see> or by calling <see
+            /// cref="Kinetica.getRecordsFromCollection{T}(string,long,long,IDictionary{string, string})"
+            /// /> with the *return_record_ids* option.</summary>
             public const string RECORD_ID = "record_id";
         } // end struct Options
 
@@ -73,13 +79,15 @@ namespace kinetica
         /// <summary>Optional parameters.
         /// <list type="bullet">
         ///     <item>
-        ///         <term>global_expression</term>
+        ///         <term><see
+        /// cref="DeleteRecordsRequest.Options.GLOBAL_EXPRESSION">GLOBAL_EXPRESSION</see>:</term>
         ///         <description>An optional global expression to reduce the
         /// search space of the <paramref
         /// cref="DeleteRecordsRequest.expressions" />.</description>
         ///     </item>
         ///     <item>
-        ///         <term>record_id</term>
+        ///         <term><see
+        /// cref="DeleteRecordsRequest.Options.RECORD_ID">RECORD_ID</see>:</term>
         ///         <description>A record id identifying a single record,
         /// obtained at the time of /insert/records or by calling
         /// /get/records/fromcollection with the *return_record_ids*
@@ -109,13 +117,15 @@ namespace kinetica
         /// <param name="options">Optional parameters.
         /// <list type="bullet">
         ///     <item>
-        ///         <term>global_expression</term>
+        ///         <term><see
+        /// cref="DeleteRecordsRequest.Options.GLOBAL_EXPRESSION">GLOBAL_EXPRESSION</see>:</term>
         ///         <description>An optional global expression to reduce the
         /// search space of the <paramref
         /// cref="DeleteRecordsRequest.expressions" />.</description>
         ///     </item>
         ///     <item>
-        ///         <term>record_id</term>
+        ///         <term><see
+        /// cref="DeleteRecordsRequest.Options.RECORD_ID">RECORD_ID</see>:</term>
         ///         <description>A record id identifying a single record,
         /// obtained at the time of /insert/records or by calling
         /// /get/records/fromcollection with the *return_record_ids*
@@ -137,7 +147,9 @@ namespace kinetica
 
 
 
-    /// <summary>A set of results returned by /delete/records.</summary>
+    /// <summary>A set of results returned by <see
+    /// cref="Kinetica.deleteRecords(string,IList{string},IDictionary{string, string})"
+    /// />.</summary>
     public class DeleteRecordsResponse : KineticaData
     {
 

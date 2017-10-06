@@ -18,12 +18,12 @@ using System.Text;
 ///
 /// </br>
 ///
-/// There are projects here: Kinetica and Example.
+/// There are two projects here: Kinetica and Example.
 /// </br>
 ///
 /// The Kinetica project contains the main client source code in the kinetica namespace.
 /// The <see cref="kinetica.Kinetica">Kinetica</see> class implements the interface for the API.  The Protocol
-/// subdirectory contains classes for each endpoint of database server.
+/// subdirectory contains classes for each endpoint of the database server.
 ///
 /// </br>
 ///
@@ -84,12 +84,17 @@ namespace kinetica
         /// <summary>
         /// Optional: User Name for Kinetica security
         /// </summary>
-        public string Username { get; private set; }
+        public string Username { get; private set; } = null;
 
         /// <summary>
         /// Optional: Password for user
         /// </summary>
-        private string Password { get; set; }
+        private string Password { get; set; } = null;
+
+        /// <summary>
+        /// Optional: Authorization for connections.
+        /// </summary>
+        private string Authorization { get; set; } = null;
 
         /// <summary>
         /// Use Snappy
@@ -122,13 +127,47 @@ namespace kinetica
             {
                 Username = options.Username;
                 Password = options.Password;
-                // TODO: authorization
+
+                // Handle authorization
+                if ( ( Username != null && ( Username.Length > 0 ) ) || ( Password != null && ( Password.Length > 0 ) ) )
+                {
+                    Authorization = ( "Basic " +
+                                      Convert.ToBase64String( Encoding.GetEncoding( "ISO-8859-1" ).GetBytes( Username + ":" + Password ) ) );
+                }
+
+
                 UseSnappy = options.UseSnappy;
                 ThreadCount = options.ThreadCount;
                 // TODO: executor?
             }
         }
 
+
+        /// <summary>
+        /// Given a table name, add its record type to enable proper encoding of records
+        /// for insertion or updates.
+        /// </summary>
+        /// <param name="table_name">Name of the table.</param>
+        /// <param name="obj_type">The type associated with the table.</param>
+        public void AddTableType( string table_name, Type obj_type )
+        {
+            try
+            {
+                // Get the type from the table
+                KineticaType ktype = KineticaType.fromTable( this, table_name );
+                if ( ktype.getTypeID() == null )
+                    throw new KineticaException( $"Could not get type ID for table '{table_name}'" );
+                this.knownTypes.TryAdd( ktype.getTypeID(), ktype );
+
+                // Save a mapping of the object to the KineticaType
+                if ( obj_type != null )
+                    this.SetKineticaSourceClassToTypeMapping( obj_type, ktype );
+
+            } catch ( KineticaException ex )
+            {
+                throw new KineticaException( "Error creating type from table", ex );
+            }
+        }  // end AddTableType
 
         /// <summary>
         /// Saves an object class type to a KineticaType association.  If the class type already exists
@@ -379,8 +418,15 @@ namespace kinetica
                 request.ContentType = avroEncoding ? "application/octet-stream" : "application/json";
                 request.ContentLength = requestBytes.Length;
 
+                // Handle the authorization
+                if ( this.Authorization != null )
+                {
+                    request.Headers.Add( "Authorization", Authorization );
+                }
+
+
                 // Write the binary request data
-                using (var dataStream = request.GetRequestStream())
+                using ( var dataStream = request.GetRequestStream())
                 {
                     dataStream.Write(requestBytes, 0, requestBytes.Length);
                 }
@@ -413,7 +459,7 @@ namespace kinetica
             {
                 // Skip trying parsing the message if not a protocol error
                 if ( ex.Status != WebExceptionStatus.ProtocolError )
-                    throw new KineticaException( ex.ToString() );
+                    throw new KineticaException( ex.ToString(), ex );
 
                 // Get the error message from the server response
                 var response = ex.Response;
@@ -438,7 +484,7 @@ namespace kinetica
             }
             catch (Exception ex)
             {
-                throw new KineticaException(ex.ToString());
+                throw new KineticaException(ex.ToString(), ex);
             }
 
             return null;
@@ -460,6 +506,12 @@ namespace kinetica
             typeNameLookup[label] = typeId;
         }
 
+
+        /// <summary>
+        /// Retrieve a KineticaType object by the type label.
+        /// </summary>
+        /// <param name="typeName">The label/name of the type.</param>
+        /// <returns></returns>
         private KineticaType GetType(string typeName)
         {
             KineticaType type = null;
@@ -471,6 +523,7 @@ namespace kinetica
 
             return type;
         }
+
 
         /// <summary>
         /// Given a class type, look up the associated KineticaType.  If none is found, return null.
@@ -507,10 +560,13 @@ namespace kinetica
                 else // Not an ISpecificRecord - this way is less efficient
                 {
                     // Get the KineticaType associated with the object to be encoded
-                    KineticaType ktype = lookupKineticaType( obj.GetType() );
+                    Type obj_type = obj.GetType();
+                    KineticaType ktype = lookupKineticaType( obj_type );
                     if ( ktype == null )
+                    {
                         throw new KineticaException( "No known KineticaType associated with the given object.  " +
                                                      "Need a known KineticaType to encode the object." );
+                    }
 
                     // Make a copy of the object to send as a GenericRecord, then write that to the memory stream
                     var schema = KineticaData.SchemaFromType( obj.GetType(), ktype );

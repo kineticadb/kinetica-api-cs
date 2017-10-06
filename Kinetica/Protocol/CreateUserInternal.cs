@@ -11,7 +11,9 @@ using System.Collections.Generic;
 namespace kinetica
 {
 
-    /// <summary>A set of parameters for /create/user/internal.
+    /// <summary>A set of parameters for <see
+    /// cref="Kinetica.createUserInternal(string,string,IDictionary{string, string})"
+    /// />.
     /// <br />
     /// Creates a new internal user (a user whose credentials are managed by
     /// the database system).</summary>
@@ -60,7 +62,9 @@ namespace kinetica
 
 
 
-    /// <summary>A set of results returned by /create/user/internal.</summary>
+    /// <summary>A set of results returned by <see
+    /// cref="Kinetica.createUserInternal(string,string,IDictionary{string, string})"
+    /// />.</summary>
     public class CreateUserInternalResponse : KineticaData
     {
 

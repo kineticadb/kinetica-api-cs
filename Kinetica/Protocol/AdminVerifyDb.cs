@@ -11,7 +11,8 @@ using System.Collections.Generic;
 namespace kinetica
 {
 
-    /// <summary>A set of parameters for /admin/verifydb.
+    /// <summary>A set of parameters for <see
+    /// cref="Kinetica.adminVerifyDb(IDictionary{string, string})" />.
     /// <br />
     /// Verify database is in a consistent state.  When inconsistencies or
     /// errors are found, the verified_ok flag in the response is set to false
@@ -19,7 +20,127 @@ namespace kinetica
     public class AdminVerifyDbRequest : KineticaData
     {
 
-        /// <summary>Optional parameters.  </summary>
+        /// <summary>Optional parameters.
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="AdminVerifyDbRequest.Options.REBUILD_ON_ERROR">REBUILD_ON_ERROR</see>:</term>
+        ///         <description>
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="AdminVerifyDbRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AdminVerifyDbRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="AdminVerifyDbRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AdminVerifyDbRequest.Options.VERIFY_PERSIST">VERIFY_PERSIST</see>:</term>
+        ///         <description>
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="AdminVerifyDbRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AdminVerifyDbRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="AdminVerifyDbRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        /// </list>
+        /// <br />
+        /// A set of string constants for the parameter <see cref="options"
+        /// />.</summary>
+        public struct Options
+        {
+
+            /// <summary>
+            /// Supported values:
+            /// <list type="bullet">
+            ///     <item>
+            ///         <term><see
+            /// cref="AdminVerifyDbRequest.Options.TRUE">TRUE</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="AdminVerifyDbRequest.Options.FALSE">FALSE</see></term>
+            ///     </item>
+            /// </list>
+            /// The default value is <see
+            /// cref="AdminVerifyDbRequest.Options.FALSE">FALSE</see>.</summary>
+            public const string REBUILD_ON_ERROR = "rebuild_on_error";
+            public const string TRUE = "true";
+            public const string FALSE = "false";
+
+            /// <summary>
+            /// Supported values:
+            /// <list type="bullet">
+            ///     <item>
+            ///         <term><see
+            /// cref="AdminVerifyDbRequest.Options.TRUE">TRUE</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="AdminVerifyDbRequest.Options.FALSE">FALSE</see></term>
+            ///     </item>
+            /// </list>
+            /// The default value is <see
+            /// cref="AdminVerifyDbRequest.Options.FALSE">FALSE</see>.</summary>
+            public const string VERIFY_PERSIST = "verify_persist";
+        } // end struct Options
+
+
+        /// <summary>Optional parameters.
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="AdminVerifyDbRequest.Options.REBUILD_ON_ERROR">REBUILD_ON_ERROR</see>:</term>
+        ///         <description>
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="AdminVerifyDbRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AdminVerifyDbRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="AdminVerifyDbRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AdminVerifyDbRequest.Options.VERIFY_PERSIST">VERIFY_PERSIST</see>:</term>
+        ///         <description>
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="AdminVerifyDbRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AdminVerifyDbRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="AdminVerifyDbRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        /// </list>
+        ///   </summary>
         public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
 
 
@@ -30,7 +151,46 @@ namespace kinetica
         /// <summary>Constructs an AdminVerifyDbRequest object with the
         /// specified parameters.</summary>
         /// 
-        /// <param name="options">Optional parameters.  </param>
+        /// <param name="options">Optional parameters.
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="AdminVerifyDbRequest.Options.REBUILD_ON_ERROR">REBUILD_ON_ERROR</see>:</term>
+        ///         <description>
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="AdminVerifyDbRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AdminVerifyDbRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="AdminVerifyDbRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AdminVerifyDbRequest.Options.VERIFY_PERSIST">VERIFY_PERSIST</see>:</term>
+        ///         <description>
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="AdminVerifyDbRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AdminVerifyDbRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="AdminVerifyDbRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        /// </list>
+        ///   </param>
         /// 
         public AdminVerifyDbRequest( IDictionary<string, string> options = null)
         {
@@ -41,7 +201,9 @@ namespace kinetica
 
 
 
-    /// <summary>A set of results returned by /admin/verifydb.</summary>
+    /// <summary>A set of results returned by <see
+    /// cref="Kinetica.adminVerifyDb(IDictionary{string, string})"
+    /// />.</summary>
     public class AdminVerifyDbResponse : KineticaData
     {
 

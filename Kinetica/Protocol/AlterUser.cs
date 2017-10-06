@@ -11,16 +11,25 @@ using System.Collections.Generic;
 namespace kinetica
 {
 
-    /// <summary>A set of parameters for /alter/user.
+    /// <summary>A set of parameters for <see
+    /// cref="Kinetica.alterUser(string,string,string,IDictionary{string, string})"
+    /// />.
     /// <br />
     /// Alters a user.</summary>
     public class AlterUserRequest : KineticaData
     {
 
-        /// <summary>Modification operation to be applied to the user. Values:
-        /// set_password.
-        /// <br />
-        /// A set of string constants for the parameter <member name="action"
+        /// <summary>Modification operation to be applied to the user.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterUserRequest.Action.SET_PASSWORD">SET_PASSWORD</see>:</term>
+        ///         <description>Sets the password of the user. The user must
+        /// be an internal user.</description>
+        ///     </item>
+        /// </list>
+        /// A set of string constants for the parameter <see cref="action"
         /// />.</summary>
         public struct Action
         {
@@ -35,9 +44,16 @@ namespace kinetica
         /// </summary>
         public string name { get; set; }
 
-        /// <summary>Modification operation to be applied to the user. Values:
-        /// set_password.
-        ///   </summary>
+        /// <summary>Modification operation to be applied to the user.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterUserRequest.Action.SET_PASSWORD">SET_PASSWORD</see>:</term>
+        ///         <description>Sets the password of the user. The user must
+        /// be an internal user.</description>
+        ///     </item>
+        /// </list>  </summary>
         public string action { get; set; }
 
         /// <summary>The value of the modification, depending on <paramref
@@ -58,8 +74,16 @@ namespace kinetica
         /// <param name="name">Name of the user to be altered. Must be an
         /// existing user.  </param>
         /// <param name="action">Modification operation to be applied to the
-        /// user. Values: set_password.
-        ///   </param>
+        /// user.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterUserRequest.Action.SET_PASSWORD">SET_PASSWORD</see>:</term>
+        ///         <description>Sets the password of the user. The user must
+        /// be an internal user.</description>
+        ///     </item>
+        /// </list>  </param>
         /// <param name="_value">The value of the modification, depending on
         /// <paramref cref="AlterUserRequest.action" />.  </param>
         /// <param name="options">Optional parameters.  </param>
@@ -79,7 +103,9 @@ namespace kinetica
 
 
 
-    /// <summary>A set of results returned by /alter/user.</summary>
+    /// <summary>A set of results returned by <see
+    /// cref="Kinetica.alterUser(string,string,string,IDictionary{string, string})"
+    /// />.</summary>
     public class AlterUserResponse : KineticaData
     {
 

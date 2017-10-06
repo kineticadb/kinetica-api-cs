@@ -11,10 +11,12 @@ using System.Collections.Generic;
 namespace kinetica
 {
 
-    /// <summary>A set of parameters for /filter.
+    /// <summary>A set of parameters for <see
+    /// cref="Kinetica.filter(string,string,string,IDictionary{string, string})"
+    /// />.
     /// <br />
     /// Filters data based on the specified expression.  The results are stored
-    /// in a result set with the given <member name="view_name" />.
+    /// in a result set with the given <see cref="view_name" />.
     /// <br />
     /// For details see <a href="../../../../../concepts/expressions.html"
     /// target="_top">concepts</a>.
@@ -28,7 +30,8 @@ namespace kinetica
         /// <summary>Optional parameters.
         /// <list type="bullet">
         ///     <item>
-        ///         <term>collection_name</term>
+        ///         <term><see
+        /// cref="FilterRequest.Options.COLLECTION_NAME">COLLECTION_NAME</see>:</term>
         ///         <description>Name of a collection which is to contain the
         /// newly created view, otherwise the view will be a top-level table.
         /// If the collection does not allow duplicate types and it contains a
@@ -36,14 +39,15 @@ namespace kinetica
         /// request will fail.</description>
         ///     </item>
         ///     <item>
-        ///         <term>ttl</term>
+        ///         <term><see
+        /// cref="FilterRequest.Options.TTL">TTL</see>:</term>
         ///         <description>Sets the TTL of the view specified in
         /// <paramref cref="FilterRequest.view_name" />. The value must be the
         /// desired TTL in minutes.</description>
         ///     </item>
         /// </list>
         /// <br />
-        /// A set of string constants for the parameter <member name="options"
+        /// A set of string constants for the parameter <see cref="options"
         /// />.</summary>
         public struct Options
         {
@@ -55,8 +59,8 @@ namespace kinetica
             /// creation request will fail.</summary>
             public const string COLLECTION_NAME = "collection_name";
 
-            /// <summary>Sets the TTL of the view specified in <member
-            /// name="view_name" />. The value must be the desired TTL in
+            /// <summary>Sets the TTL of the view specified in <see
+            /// cref="view_name" />. The value must be the desired TTL in
             /// minutes.</summary>
             public const string TTL = "ttl";
         } // end struct Options
@@ -82,7 +86,8 @@ namespace kinetica
         /// <summary>Optional parameters.
         /// <list type="bullet">
         ///     <item>
-        ///         <term>collection_name</term>
+        ///         <term><see
+        /// cref="FilterRequest.Options.COLLECTION_NAME">COLLECTION_NAME</see>:</term>
         ///         <description>Name of a collection which is to contain the
         /// newly created view, otherwise the view will be a top-level table.
         /// If the collection does not allow duplicate types and it contains a
@@ -90,7 +95,8 @@ namespace kinetica
         /// request will fail.</description>
         ///     </item>
         ///     <item>
-        ///         <term>ttl</term>
+        ///         <term><see
+        /// cref="FilterRequest.Options.TTL">TTL</see>:</term>
         ///         <description>Sets the TTL of the view specified in
         /// <paramref cref="FilterRequest.view_name" />. The value must be the
         /// desired TTL in minutes.</description>
@@ -122,7 +128,8 @@ namespace kinetica
         /// <param name="options">Optional parameters.
         /// <list type="bullet">
         ///     <item>
-        ///         <term>collection_name</term>
+        ///         <term><see
+        /// cref="FilterRequest.Options.COLLECTION_NAME">COLLECTION_NAME</see>:</term>
         ///         <description>Name of a collection which is to contain the
         /// newly created view, otherwise the view will be a top-level table.
         /// If the collection does not allow duplicate types and it contains a
@@ -130,7 +137,8 @@ namespace kinetica
         /// request will fail.</description>
         ///     </item>
         ///     <item>
-        ///         <term>ttl</term>
+        ///         <term><see
+        /// cref="FilterRequest.Options.TTL">TTL</see>:</term>
         ///         <description>Sets the TTL of the view specified in
         /// <paramref cref="FilterRequest.view_name" />. The value must be the
         /// desired TTL in minutes.</description>
@@ -153,7 +161,9 @@ namespace kinetica
 
 
 
-    /// <summary>A set of results returned by /filter.</summary>
+    /// <summary>A set of results returned by <see
+    /// cref="Kinetica.filter(string,string,string,IDictionary{string, string})"
+    /// />.</summary>
     public class FilterResponse : KineticaData
     {
 

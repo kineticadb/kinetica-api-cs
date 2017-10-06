@@ -11,7 +11,9 @@ using System.Collections.Generic;
 namespace kinetica
 {
 
-    /// <summary>A set of parameters for /create/user/external.
+    /// <summary>A set of parameters for <see
+    /// cref="Kinetica.createUserExternal(string,IDictionary{string, string})"
+    /// />.
     /// <br />
     /// Creates a new external user (a user whose credentials are managed by an
     /// external LDAP).</summary>
@@ -50,7 +52,9 @@ namespace kinetica
 
 
 
-    /// <summary>A set of results returned by /create/user/external.</summary>
+    /// <summary>A set of results returned by <see
+    /// cref="Kinetica.createUserExternal(string,IDictionary{string, string})"
+    /// />.</summary>
     public class CreateUserExternalResponse : KineticaData
     {
 

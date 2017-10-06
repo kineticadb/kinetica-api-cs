@@ -11,7 +11,9 @@ using System.Collections.Generic;
 namespace kinetica
 {
 
-    /// <summary>A set of parameters for /create/proc.
+    /// <summary>A set of parameters for <see
+    /// cref="Kinetica.createProc(string,string,IDictionary{string, byte[]},string,IList{string},IDictionary{string, string})"
+    /// />.
     /// <br />
     /// Creates an instance (proc) of the user-defined function (UDF) specified
     /// by the given command, options, and files, and makes it available for
@@ -21,11 +23,30 @@ namespace kinetica
     public class CreateProcRequest : KineticaData
     {
 
-        /// <summary>The execution mode of the proc. Values: distributed,
-        /// nondistributed.
-        /// <br />
-        /// A set of string constants for the parameter <member
-        /// name="execution_mode" />.</summary>
+        /// <summary>The execution mode of the proc.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateProcRequest.ExecutionMode.DISTRIBUTED">DISTRIBUTED</see>:</term>
+        ///         <description>Input table data will be divided into data
+        /// segments that are distributed across all nodes in the cluster, and
+        /// the proc command will be invoked once per data segment in parallel.
+        /// Output table data from each invocation will be saved to the same
+        /// node as the corresponding input data.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateProcRequest.ExecutionMode.NONDISTRIBUTED">NONDISTRIBUTED</see>:</term>
+        ///         <description>The proc command will be invoked only once per
+        /// execution, and will not have access to any input or output table
+        /// data.</description>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="CreateProcRequest.ExecutionMode.DISTRIBUTED">DISTRIBUTED</see>.
+        /// A set of string constants for the parameter <see
+        /// cref="execution_mode" />.</summary>
         public struct ExecutionMode
         {
 
@@ -47,9 +68,29 @@ namespace kinetica
         /// currently existing proc.  </summary>
         public string proc_name { get; set; }
 
-        /// <summary>The execution mode of the proc. Values: distributed,
-        /// nondistributed.
-        ///   </summary>
+        /// <summary>The execution mode of the proc.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateProcRequest.ExecutionMode.DISTRIBUTED">DISTRIBUTED</see>:</term>
+        ///         <description>Input table data will be divided into data
+        /// segments that are distributed across all nodes in the cluster, and
+        /// the proc command will be invoked once per data segment in parallel.
+        /// Output table data from each invocation will be saved to the same
+        /// node as the corresponding input data.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateProcRequest.ExecutionMode.NONDISTRIBUTED">NONDISTRIBUTED</see>:</term>
+        ///         <description>The proc command will be invoked only once per
+        /// execution, and will not have access to any input or output table
+        /// data.</description>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="CreateProcRequest.ExecutionMode.DISTRIBUTED">DISTRIBUTED</see>.
+        /// </summary>
         public string execution_mode { get; set; } = ExecutionMode.DISTRIBUTED;
 
         /// <summary>A map of the files that make up the proc. The keys of the
@@ -92,8 +133,28 @@ namespace kinetica
         /// <param name="proc_name">Name of the proc to be created. Must not be
         /// the name of a currently existing proc.  </param>
         /// <param name="execution_mode">The execution mode of the proc.
-        /// Values: distributed, nondistributed.
-        ///   </param>
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateProcRequest.ExecutionMode.DISTRIBUTED">DISTRIBUTED</see>:</term>
+        ///         <description>Input table data will be divided into data
+        /// segments that are distributed across all nodes in the cluster, and
+        /// the proc command will be invoked once per data segment in parallel.
+        /// Output table data from each invocation will be saved to the same
+        /// node as the corresponding input data.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateProcRequest.ExecutionMode.NONDISTRIBUTED">NONDISTRIBUTED</see>:</term>
+        ///         <description>The proc command will be invoked only once per
+        /// execution, and will not have access to any input or output table
+        /// data.</description>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="CreateProcRequest.ExecutionMode.DISTRIBUTED">DISTRIBUTED</see>.
+        /// </param>
         /// <param name="files">A map of the files that make up the proc. The
         /// keys of the map are file names, and the values are the binary
         /// contents of the files. The file names may include subdirectory
@@ -135,7 +196,9 @@ namespace kinetica
 
 
 
-    /// <summary>A set of results returned by /create/proc.</summary>
+    /// <summary>A set of results returned by <see
+    /// cref="Kinetica.createProc(string,string,IDictionary{string, byte[]},string,IList{string},IDictionary{string, string})"
+    /// />.</summary>
     public class CreateProcResponse : KineticaData
     {
 

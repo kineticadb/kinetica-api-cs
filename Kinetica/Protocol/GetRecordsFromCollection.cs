@@ -11,14 +11,17 @@ using System.Collections.Generic;
 namespace kinetica
 {
 
-    /// <summary>A set of parameters for /get/records/fromcollection.
+    /// <summary>A set of parameters for <see
+    /// cref="Kinetica.getRecordsFromCollection{T}(string,long,long,IDictionary{string, string})"
+    /// />.
     /// <br />
     /// Retrieves records from a collection. The operation can optionally
-    /// return the record IDs which can be used in certain queries such as
-    /// /delete/records.
+    /// return the record IDs which can be used in certain queries such as <see
+    /// cref="Kinetica.deleteRecords(string,IList{string},IDictionary{string, string})"
+    /// />.
     /// <br />
-    /// This operation supports paging through the data via the <member
-    /// name="offset" /> and <member name="limit" /> parameters.
+    /// This operation supports paging through the data via the <see
+    /// cref="offset" /> and <see cref="limit" /> parameters.
     /// <br />
     /// Note that when using the Java API, it is not possible to retrieve
     /// records from join tables using this operation.</summary>
@@ -26,9 +29,21 @@ namespace kinetica
     {
 
         /// <summary>Specifies the encoding for returned records; either
-        /// 'binary' or 'json'. Values: binary, json.
-        /// <br />
-        /// A set of string constants for the parameter <member name="encoding"
+        /// 'binary' or 'json'.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="GetRecordsFromCollectionRequest.Encoding.BINARY">BINARY</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="GetRecordsFromCollectionRequest.Encoding.JSON">JSON</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="GetRecordsFromCollectionRequest.Encoding.BINARY">BINARY</see>.
+        /// A set of string constants for the parameter <see cref="encoding"
         /// />.</summary>
         public struct Encoding
         {
@@ -40,23 +55,46 @@ namespace kinetica
         /// <summary>
         /// <list type="bullet">
         ///     <item>
-        ///         <term>return_record_ids</term>
+        ///         <term><see
+        /// cref="GetRecordsFromCollectionRequest.Options.RETURN_RECORD_IDS">RETURN_RECORD_IDS</see>:</term>
         ///         <description>If 'true' then return the internal record ID
-        /// along with each returned record. Default is 'false'. Values: true,
-        /// false.
-        /// </description>
+        /// along with each returned record. Default is 'false'.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="GetRecordsFromCollectionRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="GetRecordsFromCollectionRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="GetRecordsFromCollectionRequest.Options.FALSE">FALSE</see>.</description>
         ///     </item>
         /// </list>
         /// <br />
-        /// A set of string constants for the parameter <member name="options"
+        /// A set of string constants for the parameter <see cref="options"
         /// />.</summary>
         public struct Options
         {
 
             /// <summary>If 'true' then return the internal record ID along
-            /// with each returned record. Default is 'false'. Values: true,
-            /// false.
-            /// </summary>
+            /// with each returned record. Default is 'false'.
+            /// Supported values:
+            /// <list type="bullet">
+            ///     <item>
+            ///         <term><see
+            /// cref="GetRecordsFromCollectionRequest.Options.TRUE">TRUE</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="GetRecordsFromCollectionRequest.Options.FALSE">FALSE</see></term>
+            ///     </item>
+            /// </list>
+            /// The default value is <see
+            /// cref="GetRecordsFromCollectionRequest.Options.FALSE">FALSE</see>.</summary>
             public const string RETURN_RECORD_IDS = "return_record_ids";
             public const string TRUE = "true";
             public const string FALSE = "false";
@@ -79,18 +117,43 @@ namespace kinetica
         public long limit { get; set; } = 10000;
 
         /// <summary>Specifies the encoding for returned records; either
-        /// 'binary' or 'json'. Values: binary, json.
-        ///   </summary>
+        /// 'binary' or 'json'.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="GetRecordsFromCollectionRequest.Encoding.BINARY">BINARY</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="GetRecordsFromCollectionRequest.Encoding.JSON">JSON</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="GetRecordsFromCollectionRequest.Encoding.BINARY">BINARY</see>.
+        /// </summary>
         public string encoding { get; set; } = Encoding.BINARY;
 
         /// <summary>
         /// <list type="bullet">
         ///     <item>
-        ///         <term>return_record_ids</term>
+        ///         <term><see
+        /// cref="GetRecordsFromCollectionRequest.Options.RETURN_RECORD_IDS">RETURN_RECORD_IDS</see>:</term>
         ///         <description>If 'true' then return the internal record ID
-        /// along with each returned record. Default is 'false'. Values: true,
-        /// false.
-        /// </description>
+        /// along with each returned record. Default is 'false'.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="GetRecordsFromCollectionRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="GetRecordsFromCollectionRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="GetRecordsFromCollectionRequest.Options.FALSE">FALSE</see>.</description>
         ///     </item>
         /// </list>
         ///   </summary>
@@ -117,11 +180,23 @@ namespace kinetica
         /// <param name="options">
         /// <list type="bullet">
         ///     <item>
-        ///         <term>return_record_ids</term>
+        ///         <term><see
+        /// cref="GetRecordsFromCollectionRequest.Options.RETURN_RECORD_IDS">RETURN_RECORD_IDS</see>:</term>
         ///         <description>If 'true' then return the internal record ID
-        /// along with each returned record. Default is 'false'. Values: true,
-        /// false.
-        /// </description>
+        /// along with each returned record. Default is 'false'.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="GetRecordsFromCollectionRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="GetRecordsFromCollectionRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="GetRecordsFromCollectionRequest.Options.FALSE">FALSE</see>.</description>
         ///     </item>
         /// </list>
         ///   </param>
@@ -153,16 +228,41 @@ namespace kinetica
         /// number of results to be returned, or END_OF_SET (-9999) to indicate
         /// that the max number of results should be returned.  </param>
         /// <param name="encoding">Specifies the encoding for returned records;
-        /// either 'binary' or 'json'. Values: binary, json.
-        ///   </param>
+        /// either 'binary' or 'json'.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="GetRecordsFromCollectionRequest.Encoding.BINARY">BINARY</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="GetRecordsFromCollectionRequest.Encoding.JSON">JSON</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="GetRecordsFromCollectionRequest.Encoding.BINARY">BINARY</see>.
+        /// </param>
         /// <param name="options">
         /// <list type="bullet">
         ///     <item>
-        ///         <term>return_record_ids</term>
+        ///         <term><see
+        /// cref="GetRecordsFromCollectionRequest.Options.RETURN_RECORD_IDS">RETURN_RECORD_IDS</see>:</term>
         ///         <description>If 'true' then return the internal record ID
-        /// along with each returned record. Default is 'false'. Values: true,
-        /// false.
-        /// </description>
+        /// along with each returned record. Default is 'false'.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="GetRecordsFromCollectionRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="GetRecordsFromCollectionRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="GetRecordsFromCollectionRequest.Options.FALSE">FALSE</see>.</description>
         ///     </item>
         /// </list>
         ///   </param>
@@ -184,8 +284,9 @@ namespace kinetica
 
 
 
-    /// <summary>A set of results returned by
-    /// /get/records/fromcollection.</summary>
+    /// <summary>A set of results returned by <see
+    /// cref="Kinetica.getRecordsFromCollection{T}(string,long,long,IDictionary{string, string})"
+    /// />.</summary>
     public class RawGetRecordsFromCollectionResponse : KineticaData
     {
 
@@ -220,8 +321,9 @@ namespace kinetica
 
 
 
-    /// <summary>A set of results returned by
-    /// /get/records/fromcollection.</summary>
+    /// <summary>A set of results returned by <see
+    /// cref="Kinetica.getRecordsFromCollection{T}(string,long,long,IDictionary{string, string})"
+    /// />.</summary>
     /// 
     /// <typeparam name="T">The type of object being processed.</typeparam>
     /// 

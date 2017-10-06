@@ -11,7 +11,8 @@ using System.Collections.Generic;
 namespace kinetica
 {
 
-    /// <summary>A set of parameters for /delete/role.
+    /// <summary>A set of parameters for <see
+    /// cref="Kinetica.deleteRole(string,IDictionary{string, string})" />.
     /// <br />
     /// Deletes an existing role.</summary>
     public class DeleteRoleRequest : KineticaData
@@ -47,7 +48,9 @@ namespace kinetica
 
 
 
-    /// <summary>A set of results returned by /delete/role.</summary>
+    /// <summary>A set of results returned by <see
+    /// cref="Kinetica.deleteRole(string,IDictionary{string, string})"
+    /// />.</summary>
     public class DeleteRoleResponse : KineticaData
     {
 

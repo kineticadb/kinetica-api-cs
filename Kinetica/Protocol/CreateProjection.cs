@@ -11,34 +11,68 @@ using System.Collections.Generic;
 namespace kinetica
 {
 
-    /// <summary>A set of parameters for /create/projection.
+    /// <summary>A set of parameters for <see
+    /// cref="Kinetica.createProjection(string,string,IList{string},IDictionary{string, string})"
+    /// />.
     /// <br />
-    /// Creates a new projection of an existing table.  A projection represents
-    /// a subset of the columns (potentially including derived columns) of a
-    /// table.</summary>
+    /// Creates a new <a href="../../../../../concepts/projections.html"
+    /// target="_top">projection</a> of an existing table. A projection
+    /// represents a subset of the columns (potentially including derived
+    /// columns) of a table.
+    /// <br />
+    /// Notes:
+    /// <br />
+    /// A moving average can be calculated on a given column using the
+    /// following syntax in the <see cref="column_names" /> parameter:
+    /// <br />
+    /// 'moving_average(column_name,num_points_before,num_points_after) as
+    /// new_column_name'
+    /// <br />
+    /// For each record in the moving_average function's 'column_name'
+    /// parameter, it computes the average over the previous
+    /// 'num_points_before' records and the subsequent 'num_points_after'
+    /// records.
+    /// <br />
+    /// Note that moving average relies on <i>order_by</i>, and <i>order_by</i>
+    /// requires that all the data being ordered resides on the same processing
+    /// node, so it won't make sense to use <i>order_by</i> without moving
+    /// average.
+    /// <br />
+    /// Also, a projection can be created with a different shard key than the
+    /// source table.  By specifying <i>shard_key</i>, the projection will be
+    /// sharded according to the specified columns, regardless of how the
+    /// source table is sharded.  The source table can even be unsharded or
+    /// replicated.</summary>
     public class CreateProjectionRequest : KineticaData
     {
 
         /// <summary>Optional parameters.
         /// <list type="bullet">
         ///     <item>
-        ///         <term>collection_name</term>
-        ///         <description>Name of a collection to which the projection
-        /// is to be assigned as a child. If the collection provided is
-        /// non-existent, the collection will be automatically
-        /// created.</description>
+        ///         <term><see
+        /// cref="CreateProjectionRequest.Options.COLLECTION_NAME">COLLECTION_NAME</see>:</term>
+        ///         <description>Name of a <a
+        /// href="../../../../concepts/collections.html"
+        /// target="_top">collection</a> to which the projection is to be
+        /// assigned as a child. If the collection provided is non-existent,
+        /// the collection will be automatically created.</description>
         ///     </item>
         ///     <item>
-        ///         <term>expression</term>
-        ///         <description>An optional filter expression to be applied to
-        /// the source table prior to the projection.</description>
+        ///         <term><see
+        /// cref="CreateProjectionRequest.Options.EXPRESSION">EXPRESSION</see>:</term>
+        ///         <description>An optional filter <a
+        /// href="../../../../concepts/expressions.html"
+        /// target="_top">expression</a> to be applied to the source table
+        /// prior to the projection.</description>
         ///     </item>
         ///     <item>
-        ///         <term>limit</term>
+        ///         <term><see
+        /// cref="CreateProjectionRequest.Options.LIMIT">LIMIT</see>:</term>
         ///         <description>The number of records to keep.</description>
         ///     </item>
         ///     <item>
-        ///         <term>order_by</term>
+        ///         <term><see
+        /// cref="CreateProjectionRequest.Options.ORDER_BY">ORDER_BY</see>:</term>
         ///         <description>Comma-separated list of the columns to be
         /// sorted by; e.g. 'timestamp asc, x desc'.  The columns specified
         /// must be present in <paramref
@@ -47,32 +81,88 @@ namespace kinetica
         /// original column name.</description>
         ///     </item>
         ///     <item>
-        ///         <term>materialize_on_gpu</term>
-        ///         <description>If 'true' then the columns of the projection
-        /// will be cached on the GPU. Values: true, false.
-        /// </description>
+        ///         <term><see
+        /// cref="CreateProjectionRequest.Options.MATERIALIZE_ON_GPU">MATERIALIZE_ON_GPU</see>:</term>
+        ///         <description>If <i>true</i> then the columns of the
+        /// projection will be cached on the GPU.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateProjectionRequest.Options.TRUE">TRUE</see></term>
         ///     </item>
         ///     <item>
-        ///         <term>ttl</term>
+        ///         <term><see
+        /// cref="CreateProjectionRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="CreateProjectionRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateProjectionRequest.Options.CHUNK_SIZE">CHUNK_SIZE</see>:</term>
+        ///         <description>If provided this indicates the chunk size to
+        /// be used for this table.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateProjectionRequest.Options.TTL">TTL</see>:</term>
         ///         <description>Sets the TTL of the table, view, or collection
-        /// specified in <paramref cref="CreateProjectionRequest.table_name"
-        /// />. The value must be the desired TTL in minutes.</description>
+        /// specified in <paramref
+        /// cref="CreateProjectionRequest.projection_name" />. The value must
+        /// be the desired TTL in minutes.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateProjectionRequest.Options.SHARD_KEY">SHARD_KEY</see>:</term>
+        ///         <description>Comma-separated list of the columns to be
+        /// sharded on; e.g. 'column1, column2'.  The columns specified must be
+        /// present in <paramref cref="CreateProjectionRequest.column_names"
+        /// />.  If any alias is given for any column name, the alias must be
+        /// used, rather than the original column name.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateProjectionRequest.Options.PERSIST">PERSIST</see>:</term>
+        ///         <description>If <i>true</i> then the projection will be
+        /// persisted as a regular table (it will not be automatically cleared
+        /// unless a <i>ttl</i> is provided, and the table data can be modified
+        /// in subsequent operations). If <i>false</i> then the projection will
+        /// be a read-only, memory-only temporary table.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateProjectionRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateProjectionRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="CreateProjectionRequest.Options.FALSE">FALSE</see>.</description>
         ///     </item>
         /// </list>
         /// <br />
-        /// A set of string constants for the parameter <member name="options"
+        /// A set of string constants for the parameter <see cref="options"
         /// />.</summary>
         public struct Options
         {
 
-            /// <summary>Name of a collection to which the projection is to be
+            /// <summary>Name of a <a
+            /// href="../../../../../concepts/collections.html"
+            /// target="_top">collection</a> to which the projection is to be
             /// assigned as a child. If the collection provided is
             /// non-existent, the collection will be automatically
             /// created.</summary>
             public const string COLLECTION_NAME = "collection_name";
 
-            /// <summary>An optional filter expression to be applied to the
-            /// source table prior to the projection.</summary>
+            /// <summary>An optional filter <a
+            /// href="../../../../../concepts/expressions.html"
+            /// target="_top">expression</a> to be applied to the source table
+            /// prior to the projection.</summary>
             public const string EXPRESSION = "expression";
 
             /// <summary>The number of records to keep.</summary>
@@ -80,22 +170,65 @@ namespace kinetica
 
             /// <summary>Comma-separated list of the columns to be sorted by;
             /// e.g. 'timestamp asc, x desc'.  The columns specified must be
-            /// present in <member name="column_names" />.  If any alias is
-            /// given for any column name, the alias must be used, rather than
-            /// the original column name.</summary>
+            /// present in <see cref="column_names" />.  If any alias is given
+            /// for any column name, the alias must be used, rather than the
+            /// original column name.</summary>
             public const string ORDER_BY = "order_by";
 
-            /// <summary>If 'true' then the columns of the projection will be
-            /// cached on the GPU. Values: true, false.
-            /// </summary>
+            /// <summary>If <i>true</i> then the columns of the projection will
+            /// be cached on the GPU.
+            /// Supported values:
+            /// <list type="bullet">
+            ///     <item>
+            ///         <term><see
+            /// cref="CreateProjectionRequest.Options.TRUE">TRUE</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="CreateProjectionRequest.Options.FALSE">FALSE</see></term>
+            ///     </item>
+            /// </list>
+            /// The default value is <see
+            /// cref="CreateProjectionRequest.Options.FALSE">FALSE</see>.</summary>
             public const string MATERIALIZE_ON_GPU = "materialize_on_gpu";
             public const string TRUE = "true";
             public const string FALSE = "false";
 
+            /// <summary>If provided this indicates the chunk size to be used
+            /// for this table.</summary>
+            public const string CHUNK_SIZE = "chunk_size";
+
             /// <summary>Sets the TTL of the table, view, or collection
-            /// specified in <member name="table_name" />. The value must be
+            /// specified in <see cref="projection_name" />. The value must be
             /// the desired TTL in minutes.</summary>
             public const string TTL = "ttl";
+
+            /// <summary>Comma-separated list of the columns to be sharded on;
+            /// e.g. 'column1, column2'.  The columns specified must be present
+            /// in <see cref="column_names" />.  If any alias is given for any
+            /// column name, the alias must be used, rather than the original
+            /// column name.</summary>
+            public const string SHARD_KEY = "shard_key";
+
+            /// <summary>If <i>true</i> then the projection will be persisted
+            /// as a regular table (it will not be automatically cleared unless
+            /// a <i>ttl</i> is provided, and the table data can be modified in
+            /// subsequent operations). If <i>false</i> then the projection
+            /// will be a read-only, memory-only temporary table.
+            /// Supported values:
+            /// <list type="bullet">
+            ///     <item>
+            ///         <term><see
+            /// cref="CreateProjectionRequest.Options.TRUE">TRUE</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="CreateProjectionRequest.Options.FALSE">FALSE</see></term>
+            ///     </item>
+            /// </list>
+            /// The default value is <see
+            /// cref="CreateProjectionRequest.Options.FALSE">FALSE</see>.</summary>
+            public const string PERSIST = "persist";
         } // end struct Options
 
 
@@ -111,29 +244,36 @@ namespace kinetica
         /// <summary>List of columns from <paramref
         /// cref="CreateProjectionRequest.table_name" /> to be included in the
         /// projection. Can include derived columns. Can be specified as
-        /// aliased via the syntax '<column_name> as <alias>.  </summary>
+        /// aliased via the syntax 'column_name as alias'.  </summary>
         public IList<string> column_names { get; set; } = new List<string>();
 
         /// <summary>Optional parameters.
         /// <list type="bullet">
         ///     <item>
-        ///         <term>collection_name</term>
-        ///         <description>Name of a collection to which the projection
-        /// is to be assigned as a child. If the collection provided is
-        /// non-existent, the collection will be automatically
-        /// created.</description>
+        ///         <term><see
+        /// cref="CreateProjectionRequest.Options.COLLECTION_NAME">COLLECTION_NAME</see>:</term>
+        ///         <description>Name of a <a
+        /// href="../../../../concepts/collections.html"
+        /// target="_top">collection</a> to which the projection is to be
+        /// assigned as a child. If the collection provided is non-existent,
+        /// the collection will be automatically created.</description>
         ///     </item>
         ///     <item>
-        ///         <term>expression</term>
-        ///         <description>An optional filter expression to be applied to
-        /// the source table prior to the projection.</description>
+        ///         <term><see
+        /// cref="CreateProjectionRequest.Options.EXPRESSION">EXPRESSION</see>:</term>
+        ///         <description>An optional filter <a
+        /// href="../../../../concepts/expressions.html"
+        /// target="_top">expression</a> to be applied to the source table
+        /// prior to the projection.</description>
         ///     </item>
         ///     <item>
-        ///         <term>limit</term>
+        ///         <term><see
+        /// cref="CreateProjectionRequest.Options.LIMIT">LIMIT</see>:</term>
         ///         <description>The number of records to keep.</description>
         ///     </item>
         ///     <item>
-        ///         <term>order_by</term>
+        ///         <term><see
+        /// cref="CreateProjectionRequest.Options.ORDER_BY">ORDER_BY</see>:</term>
         ///         <description>Comma-separated list of the columns to be
         /// sorted by; e.g. 'timestamp asc, x desc'.  The columns specified
         /// must be present in <paramref
@@ -142,16 +282,68 @@ namespace kinetica
         /// original column name.</description>
         ///     </item>
         ///     <item>
-        ///         <term>materialize_on_gpu</term>
-        ///         <description>If 'true' then the columns of the projection
-        /// will be cached on the GPU. Values: true, false.
-        /// </description>
+        ///         <term><see
+        /// cref="CreateProjectionRequest.Options.MATERIALIZE_ON_GPU">MATERIALIZE_ON_GPU</see>:</term>
+        ///         <description>If <i>true</i> then the columns of the
+        /// projection will be cached on the GPU.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateProjectionRequest.Options.TRUE">TRUE</see></term>
         ///     </item>
         ///     <item>
-        ///         <term>ttl</term>
+        ///         <term><see
+        /// cref="CreateProjectionRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="CreateProjectionRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateProjectionRequest.Options.CHUNK_SIZE">CHUNK_SIZE</see>:</term>
+        ///         <description>If provided this indicates the chunk size to
+        /// be used for this table.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateProjectionRequest.Options.TTL">TTL</see>:</term>
         ///         <description>Sets the TTL of the table, view, or collection
-        /// specified in <paramref cref="CreateProjectionRequest.table_name"
-        /// />. The value must be the desired TTL in minutes.</description>
+        /// specified in <paramref
+        /// cref="CreateProjectionRequest.projection_name" />. The value must
+        /// be the desired TTL in minutes.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateProjectionRequest.Options.SHARD_KEY">SHARD_KEY</see>:</term>
+        ///         <description>Comma-separated list of the columns to be
+        /// sharded on; e.g. 'column1, column2'.  The columns specified must be
+        /// present in <paramref cref="CreateProjectionRequest.column_names"
+        /// />.  If any alias is given for any column name, the alias must be
+        /// used, rather than the original column name.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateProjectionRequest.Options.PERSIST">PERSIST</see>:</term>
+        ///         <description>If <i>true</i> then the projection will be
+        /// persisted as a regular table (it will not be automatically cleared
+        /// unless a <i>ttl</i> is provided, and the table data can be modified
+        /// in subsequent operations). If <i>false</i> then the projection will
+        /// be a read-only, memory-only temporary table.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateProjectionRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateProjectionRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="CreateProjectionRequest.Options.FALSE">FALSE</see>.</description>
         ///     </item>
         /// </list>
         ///   </summary>
@@ -174,27 +366,34 @@ namespace kinetica
         /// <param name="column_names">List of columns from <paramref
         /// cref="CreateProjectionRequest.table_name" /> to be included in the
         /// projection. Can include derived columns. Can be specified as
-        /// aliased via the syntax '<column_name> as <alias>.  </param>
+        /// aliased via the syntax 'column_name as alias'.  </param>
         /// <param name="options">Optional parameters.
         /// <list type="bullet">
         ///     <item>
-        ///         <term>collection_name</term>
-        ///         <description>Name of a collection to which the projection
-        /// is to be assigned as a child. If the collection provided is
-        /// non-existent, the collection will be automatically
-        /// created.</description>
+        ///         <term><see
+        /// cref="CreateProjectionRequest.Options.COLLECTION_NAME">COLLECTION_NAME</see>:</term>
+        ///         <description>Name of a <a
+        /// href="../../../../concepts/collections.html"
+        /// target="_top">collection</a> to which the projection is to be
+        /// assigned as a child. If the collection provided is non-existent,
+        /// the collection will be automatically created.</description>
         ///     </item>
         ///     <item>
-        ///         <term>expression</term>
-        ///         <description>An optional filter expression to be applied to
-        /// the source table prior to the projection.</description>
+        ///         <term><see
+        /// cref="CreateProjectionRequest.Options.EXPRESSION">EXPRESSION</see>:</term>
+        ///         <description>An optional filter <a
+        /// href="../../../../concepts/expressions.html"
+        /// target="_top">expression</a> to be applied to the source table
+        /// prior to the projection.</description>
         ///     </item>
         ///     <item>
-        ///         <term>limit</term>
+        ///         <term><see
+        /// cref="CreateProjectionRequest.Options.LIMIT">LIMIT</see>:</term>
         ///         <description>The number of records to keep.</description>
         ///     </item>
         ///     <item>
-        ///         <term>order_by</term>
+        ///         <term><see
+        /// cref="CreateProjectionRequest.Options.ORDER_BY">ORDER_BY</see>:</term>
         ///         <description>Comma-separated list of the columns to be
         /// sorted by; e.g. 'timestamp asc, x desc'.  The columns specified
         /// must be present in <paramref
@@ -203,16 +402,68 @@ namespace kinetica
         /// original column name.</description>
         ///     </item>
         ///     <item>
-        ///         <term>materialize_on_gpu</term>
-        ///         <description>If 'true' then the columns of the projection
-        /// will be cached on the GPU. Values: true, false.
-        /// </description>
+        ///         <term><see
+        /// cref="CreateProjectionRequest.Options.MATERIALIZE_ON_GPU">MATERIALIZE_ON_GPU</see>:</term>
+        ///         <description>If <i>true</i> then the columns of the
+        /// projection will be cached on the GPU.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateProjectionRequest.Options.TRUE">TRUE</see></term>
         ///     </item>
         ///     <item>
-        ///         <term>ttl</term>
+        ///         <term><see
+        /// cref="CreateProjectionRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="CreateProjectionRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateProjectionRequest.Options.CHUNK_SIZE">CHUNK_SIZE</see>:</term>
+        ///         <description>If provided this indicates the chunk size to
+        /// be used for this table.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateProjectionRequest.Options.TTL">TTL</see>:</term>
         ///         <description>Sets the TTL of the table, view, or collection
-        /// specified in <paramref cref="CreateProjectionRequest.table_name"
-        /// />. The value must be the desired TTL in minutes.</description>
+        /// specified in <paramref
+        /// cref="CreateProjectionRequest.projection_name" />. The value must
+        /// be the desired TTL in minutes.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateProjectionRequest.Options.SHARD_KEY">SHARD_KEY</see>:</term>
+        ///         <description>Comma-separated list of the columns to be
+        /// sharded on; e.g. 'column1, column2'.  The columns specified must be
+        /// present in <paramref cref="CreateProjectionRequest.column_names"
+        /// />.  If any alias is given for any column name, the alias must be
+        /// used, rather than the original column name.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateProjectionRequest.Options.PERSIST">PERSIST</see>:</term>
+        ///         <description>If <i>true</i> then the projection will be
+        /// persisted as a regular table (it will not be automatically cleared
+        /// unless a <i>ttl</i> is provided, and the table data can be modified
+        /// in subsequent operations). If <i>false</i> then the projection will
+        /// be a read-only, memory-only temporary table.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateProjectionRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateProjectionRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="CreateProjectionRequest.Options.FALSE">FALSE</see>.</description>
         ///     </item>
         /// </list>
         ///   </param>
@@ -232,7 +483,9 @@ namespace kinetica
 
 
 
-    /// <summary>A set of results returned by /create/projection.</summary>
+    /// <summary>A set of results returned by <see
+    /// cref="Kinetica.createProjection(string,string,IList{string},IDictionary{string, string})"
+    /// />.</summary>
     public class CreateProjectionResponse : KineticaData
     {
 

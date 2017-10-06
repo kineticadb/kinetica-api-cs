@@ -11,7 +11,9 @@ using System.Collections.Generic;
 namespace kinetica
 {
 
-    /// <summary>A set of parameters for /filter/byseries.
+    /// <summary>A set of parameters for <see
+    /// cref="Kinetica.filterBySeries(string,string,string,IList{string},IDictionary{string, string})"
+    /// />.
     /// <br />
     /// Filters objects matching all points of the given track (works only on
     /// track type data).  It allows users to specify a particular track to
@@ -34,30 +36,43 @@ namespace kinetica
         /// <summary>Optional parameters.
         /// <list type="bullet">
         ///     <item>
-        ///         <term>spatial_radius</term>
+        ///         <term><see
+        /// cref="FilterBySeriesRequest.Options.SPATIAL_RADIUS">SPATIAL_RADIUS</see>:</term>
         ///         <description>A positive number passed as a string
         /// representing the radius of the search area centered around each
         /// track point's geospatial coordinates. The value is interpreted in
         /// meters. Required parameter.</description>
         ///     </item>
         ///     <item>
-        ///         <term>time_radius</term>
+        ///         <term><see
+        /// cref="FilterBySeriesRequest.Options.TIME_RADIUS">TIME_RADIUS</see>:</term>
         ///         <description>A positive number passed as a string
         /// representing the maximum allowable time difference between the
         /// timestamps of a filtered object and the given track's points. The
         /// value is interpreted in seconds. Required parameter.</description>
         ///     </item>
         ///     <item>
-        ///         <term>spatial_distance_metric</term>
+        ///         <term><see
+        /// cref="FilterBySeriesRequest.Options.SPATIAL_DISTANCE_METRIC">SPATIAL_DISTANCE_METRIC</see>:</term>
         ///         <description>A string representing the coordinate system to
         /// use for the spatial search criteria. Acceptable values are
         /// 'euclidean' and 'great_circle'. Optional parameter; default is
-        /// 'euclidean'. Values: euclidean, great_circle.
-        /// </description>
+        /// 'euclidean'.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="FilterBySeriesRequest.Options.EUCLIDEAN">EUCLIDEAN</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="FilterBySeriesRequest.Options.GREAT_CIRCLE">GREAT_CIRCLE</see></term>
+        ///     </item>
+        /// </list></description>
         ///     </item>
         /// </list>
         /// <br />
-        /// A set of string constants for the parameter <member name="options"
+        /// A set of string constants for the parameter <see cref="options"
         /// />.</summary>
         public struct Options
         {
@@ -77,8 +92,17 @@ namespace kinetica
             /// <summary>A string representing the coordinate system to use for
             /// the spatial search criteria. Acceptable values are 'euclidean'
             /// and 'great_circle'. Optional parameter; default is 'euclidean'.
-            /// Values: euclidean, great_circle.
-            /// </summary>
+            /// Supported values:
+            /// <list type="bullet">
+            ///     <item>
+            ///         <term><see
+            /// cref="FilterBySeriesRequest.Options.EUCLIDEAN">EUCLIDEAN</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="FilterBySeriesRequest.Options.GREAT_CIRCLE">GREAT_CIRCLE</see></term>
+            ///     </item>
+            /// </list></summary>
             public const string SPATIAL_DISTANCE_METRIC = "spatial_distance_metric";
             public const string EUCLIDEAN = "euclidean";
             public const string GREAT_CIRCLE = "great_circle";
@@ -109,26 +133,39 @@ namespace kinetica
         /// <summary>Optional parameters.
         /// <list type="bullet">
         ///     <item>
-        ///         <term>spatial_radius</term>
+        ///         <term><see
+        /// cref="FilterBySeriesRequest.Options.SPATIAL_RADIUS">SPATIAL_RADIUS</see>:</term>
         ///         <description>A positive number passed as a string
         /// representing the radius of the search area centered around each
         /// track point's geospatial coordinates. The value is interpreted in
         /// meters. Required parameter.</description>
         ///     </item>
         ///     <item>
-        ///         <term>time_radius</term>
+        ///         <term><see
+        /// cref="FilterBySeriesRequest.Options.TIME_RADIUS">TIME_RADIUS</see>:</term>
         ///         <description>A positive number passed as a string
         /// representing the maximum allowable time difference between the
         /// timestamps of a filtered object and the given track's points. The
         /// value is interpreted in seconds. Required parameter.</description>
         ///     </item>
         ///     <item>
-        ///         <term>spatial_distance_metric</term>
+        ///         <term><see
+        /// cref="FilterBySeriesRequest.Options.SPATIAL_DISTANCE_METRIC">SPATIAL_DISTANCE_METRIC</see>:</term>
         ///         <description>A string representing the coordinate system to
         /// use for the spatial search criteria. Acceptable values are
         /// 'euclidean' and 'great_circle'. Optional parameter; default is
-        /// 'euclidean'. Values: euclidean, great_circle.
-        /// </description>
+        /// 'euclidean'.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="FilterBySeriesRequest.Options.EUCLIDEAN">EUCLIDEAN</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="FilterBySeriesRequest.Options.GREAT_CIRCLE">GREAT_CIRCLE</see></term>
+        ///     </item>
+        /// </list></description>
         ///     </item>
         /// </list>
         ///   </summary>
@@ -158,26 +195,39 @@ namespace kinetica
         /// <param name="options">Optional parameters.
         /// <list type="bullet">
         ///     <item>
-        ///         <term>spatial_radius</term>
+        ///         <term><see
+        /// cref="FilterBySeriesRequest.Options.SPATIAL_RADIUS">SPATIAL_RADIUS</see>:</term>
         ///         <description>A positive number passed as a string
         /// representing the radius of the search area centered around each
         /// track point's geospatial coordinates. The value is interpreted in
         /// meters. Required parameter.</description>
         ///     </item>
         ///     <item>
-        ///         <term>time_radius</term>
+        ///         <term><see
+        /// cref="FilterBySeriesRequest.Options.TIME_RADIUS">TIME_RADIUS</see>:</term>
         ///         <description>A positive number passed as a string
         /// representing the maximum allowable time difference between the
         /// timestamps of a filtered object and the given track's points. The
         /// value is interpreted in seconds. Required parameter.</description>
         ///     </item>
         ///     <item>
-        ///         <term>spatial_distance_metric</term>
+        ///         <term><see
+        /// cref="FilterBySeriesRequest.Options.SPATIAL_DISTANCE_METRIC">SPATIAL_DISTANCE_METRIC</see>:</term>
         ///         <description>A string representing the coordinate system to
         /// use for the spatial search criteria. Acceptable values are
         /// 'euclidean' and 'great_circle'. Optional parameter; default is
-        /// 'euclidean'. Values: euclidean, great_circle.
-        /// </description>
+        /// 'euclidean'.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="FilterBySeriesRequest.Options.EUCLIDEAN">EUCLIDEAN</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="FilterBySeriesRequest.Options.GREAT_CIRCLE">GREAT_CIRCLE</see></term>
+        ///     </item>
+        /// </list></description>
         ///     </item>
         /// </list>
         ///   </param>
@@ -199,7 +249,9 @@ namespace kinetica
 
 
 
-    /// <summary>A set of results returned by /filter/byseries.</summary>
+    /// <summary>A set of results returned by <see
+    /// cref="Kinetica.filterBySeries(string,string,string,IList{string},IDictionary{string, string})"
+    /// />.</summary>
     public class FilterBySeriesResponse : KineticaData
     {
 

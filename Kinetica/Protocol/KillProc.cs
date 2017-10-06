@@ -11,7 +11,8 @@ using System.Collections.Generic;
 namespace kinetica
 {
 
-    /// <summary>A set of parameters for /kill/proc.
+    /// <summary>A set of parameters for <see
+    /// cref="Kinetica.killProc(string,IDictionary{string, string})" />.
     /// <br />
     /// Kills a running proc instance.</summary>
     public class KillProcRequest : KineticaData
@@ -51,7 +52,9 @@ namespace kinetica
 
 
 
-    /// <summary>A set of results returned by /kill/proc.</summary>
+    /// <summary>A set of results returned by <see
+    /// cref="Kinetica.killProc(string,IDictionary{string, string})"
+    /// />.</summary>
     public class KillProcResponse : KineticaData
     {
 

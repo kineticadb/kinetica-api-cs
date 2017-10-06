@@ -11,33 +11,50 @@ using System.Collections.Generic;
 namespace kinetica
 {
 
-    /// <summary>A set of parameters for /create/table.
+    /// <summary>A set of parameters for <see
+    /// cref="Kinetica.createTable(string,string,IDictionary{string, string})"
+    /// />.
     /// <br />
     /// Creates a new table or collection. If a new table is being created, the
-    /// type of the table is given by <member name="type_id" />, which must the
-    /// be the ID of a currently registered type (i.e. one created via
-    /// /create/type). The table will be created inside a collection if the
-    /// option <i>collection_name</i> is specified. If that collection does not
+    /// type of the table is given by <see cref="type_id" />, which must the be
+    /// the ID of a currently registered type (i.e. one created via <see
+    /// cref="Kinetica.createType(string,string,IDictionary{string, IList{string}},IDictionary{string, string})"
+    /// />). The table will be created inside a collection if the option
+    /// <i>collection_name</i> is specified. If that collection does not
     /// already exist, it will be created.
     /// <br />
-    /// To create a new collection, specify the name of the collection in
-    /// <member name="table_name" /> and set the <i>is_collection</i> option to
-    /// <i>true</i>; <member name="type_id" /> will be ignored.</summary>
+    /// To create a new collection, specify the name of the collection in <see
+    /// cref="table_name" /> and set the <i>is_collection</i> option to
+    /// <i>true</i>; <see cref="type_id" /> will be ignored.</summary>
     public class CreateTableRequest : KineticaData
     {
 
         /// <summary>Optional parameters.
         /// <list type="bullet">
         ///     <item>
-        ///         <term>no_error_if_exists</term>
+        ///         <term><see
+        /// cref="CreateTableRequest.Options.NO_ERROR_IF_EXISTS">NO_ERROR_IF_EXISTS</see>:</term>
         ///         <description>If <i>true</i>, prevents an error from
         /// occurring if the table already exists and is of the given type.  If
         /// a table with the same ID but a different type exists, it is still
-        /// an error. Values: true, false.
-        /// </description>
+        /// an error.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableRequest.Options.TRUE">TRUE</see></term>
         ///     </item>
         ///     <item>
-        ///         <term>collection_name</term>
+        ///         <term><see
+        /// cref="CreateTableRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="CreateTableRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableRequest.Options.COLLECTION_NAME">COLLECTION_NAME</see>:</term>
         ///         <description>Name of a collection which is to contain the
         /// newly created table. If empty, then the newly created table will be
         /// a top-level table. If the collection does not allow duplicate types
@@ -45,47 +62,118 @@ namespace kinetica
         /// this table creation request will fail.</description>
         ///     </item>
         ///     <item>
-        ///         <term>is_collection</term>
+        ///         <term><see
+        /// cref="CreateTableRequest.Options.IS_COLLECTION">IS_COLLECTION</see>:</term>
         ///         <description>Indicates whether the new table to be created
-        /// will be a collection. Values: true, false.
-        /// </description>
+        /// will be a collection.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableRequest.Options.TRUE">TRUE</see></term>
         ///     </item>
         ///     <item>
-        ///         <term>disallow_homogeneous_tables</term>
+        ///         <term><see
+        /// cref="CreateTableRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="CreateTableRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableRequest.Options.DISALLOW_HOMOGENEOUS_TABLES">DISALLOW_HOMOGENEOUS_TABLES</see>:</term>
         ///         <description>For a collection, indicates whether the
         /// collection prohibits containment of multiple tables of exactly the
-        /// same data type. Values: true, false.
-        /// </description>
+        /// same data type.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableRequest.Options.TRUE">TRUE</see></term>
         ///     </item>
         ///     <item>
-        ///         <term>is_replicated</term>
+        ///         <term><see
+        /// cref="CreateTableRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="CreateTableRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableRequest.Options.IS_REPLICATED">IS_REPLICATED</see>:</term>
         ///         <description>For a table, indicates whether the table is to
         /// be replicated to all the database ranks. This may be necessary when
-        /// the table is to be joined with other tables in a query. Values:
-        /// true, false.
-        /// </description>
+        /// the table is to be joined with other tables in a query.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableRequest.Options.TRUE">TRUE</see></term>
         ///     </item>
         ///     <item>
-        ///         <term>foreign_keys</term>
+        ///         <term><see
+        /// cref="CreateTableRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="CreateTableRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableRequest.Options.FOREIGN_KEYS">FOREIGN_KEYS</see>:</term>
         ///         <description>Semicolon-separated list of foreign key
         /// constraints, of the format 'source_column references
-        /// target_table(primary_key_column)'.</description>
+        /// target_table(primary_key_column) [ as <foreign_key_name>
+        /// ]'.</description>
         ///     </item>
         ///     <item>
-        ///         <term>foreign_shard_key</term>
+        ///         <term><see
+        /// cref="CreateTableRequest.Options.FOREIGN_SHARD_KEY">FOREIGN_SHARD_KEY</see>:</term>
         ///         <description>Foreign shard key description of the format:
         /// <fk_foreign_key> references <pk_column_name> from
         /// <pk_table_name>(<pk_primary_key>)</description>
         ///     </item>
         ///     <item>
-        ///         <term>ttl</term>
+        ///         <term><see
+        /// cref="CreateTableRequest.Options.TTL">TTL</see>:</term>
         ///         <description>Sets the TTL of the table or collection
         /// specified in <paramref cref="CreateTableRequest.table_name" />. The
         /// value must be the desired TTL in minutes.</description>
         ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableRequest.Options.CHUNK_SIZE">CHUNK_SIZE</see>:</term>
+        ///         <description>If provided this indicates the chunk size to
+        /// be used for this table.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableRequest.Options.IS_RESULT_TABLE">IS_RESULT_TABLE</see>:</term>
+        ///         <description>For a table, indicates whether the table is a
+        /// non-persistent, memory-only table that will store the output of a
+        /// proc executed with /execute/proc. A result table cannot contain
+        /// store_only, text_search, or string columns (char columns are
+        /// acceptable), records cannot be inserted into it directly, and it
+        /// will not be retained if the server is restarted.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="CreateTableRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
         /// </list>
         /// <br />
-        /// A set of string constants for the parameter <member name="options"
+        /// A set of string constants for the parameter <see cref="options"
         /// />.</summary>
         public struct Options
         {
@@ -93,8 +181,20 @@ namespace kinetica
             /// <summary>If <i>true</i>, prevents an error from occurring if
             /// the table already exists and is of the given type.  If a table
             /// with the same ID but a different type exists, it is still an
-            /// error. Values: true, false.
-            /// </summary>
+            /// error.
+            /// Supported values:
+            /// <list type="bullet">
+            ///     <item>
+            ///         <term><see
+            /// cref="CreateTableRequest.Options.TRUE">TRUE</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="CreateTableRequest.Options.FALSE">FALSE</see></term>
+            ///     </item>
+            /// </list>
+            /// The default value is <see
+            /// cref="CreateTableRequest.Options.FALSE">FALSE</see>.</summary>
             public const string NO_ERROR_IF_EXISTS = "no_error_if_exists";
             public const string TRUE = "true";
             public const string FALSE = "false";
@@ -107,26 +207,62 @@ namespace kinetica
             public const string COLLECTION_NAME = "collection_name";
 
             /// <summary>Indicates whether the new table to be created will be
-            /// a collection. Values: true, false.
-            /// </summary>
+            /// a collection.
+            /// Supported values:
+            /// <list type="bullet">
+            ///     <item>
+            ///         <term><see
+            /// cref="CreateTableRequest.Options.TRUE">TRUE</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="CreateTableRequest.Options.FALSE">FALSE</see></term>
+            ///     </item>
+            /// </list>
+            /// The default value is <see
+            /// cref="CreateTableRequest.Options.FALSE">FALSE</see>.</summary>
             public const string IS_COLLECTION = "is_collection";
 
             /// <summary>For a collection, indicates whether the collection
             /// prohibits containment of multiple tables of exactly the same
-            /// data type. Values: true, false.
-            /// </summary>
+            /// data type.
+            /// Supported values:
+            /// <list type="bullet">
+            ///     <item>
+            ///         <term><see
+            /// cref="CreateTableRequest.Options.TRUE">TRUE</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="CreateTableRequest.Options.FALSE">FALSE</see></term>
+            ///     </item>
+            /// </list>
+            /// The default value is <see
+            /// cref="CreateTableRequest.Options.FALSE">FALSE</see>.</summary>
             public const string DISALLOW_HOMOGENEOUS_TABLES = "disallow_homogeneous_tables";
 
             /// <summary>For a table, indicates whether the table is to be
             /// replicated to all the database ranks. This may be necessary
             /// when the table is to be joined with other tables in a query.
-            /// Values: true, false.
-            /// </summary>
+            /// Supported values:
+            /// <list type="bullet">
+            ///     <item>
+            ///         <term><see
+            /// cref="CreateTableRequest.Options.TRUE">TRUE</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="CreateTableRequest.Options.FALSE">FALSE</see></term>
+            ///     </item>
+            /// </list>
+            /// The default value is <see
+            /// cref="CreateTableRequest.Options.FALSE">FALSE</see>.</summary>
             public const string IS_REPLICATED = "is_replicated";
 
             /// <summary>Semicolon-separated list of foreign key constraints,
             /// of the format 'source_column references
-            /// target_table(primary_key_column)'.</summary>
+            /// target_table(primary_key_column) [ as <foreign_key_name>
+            /// ]'.</summary>
             public const string FOREIGN_KEYS = "foreign_keys";
 
             /// <summary>Foreign shard key description of the format:
@@ -135,9 +271,36 @@ namespace kinetica
             public const string FOREIGN_SHARD_KEY = "foreign_shard_key";
 
             /// <summary>Sets the TTL of the table or collection specified in
-            /// <member name="table_name" />. The value must be the desired TTL
-            /// in minutes.</summary>
+            /// <see cref="table_name" />. The value must be the desired TTL in
+            /// minutes.</summary>
             public const string TTL = "ttl";
+
+            /// <summary>If provided this indicates the chunk size to be used
+            /// for this table.</summary>
+            public const string CHUNK_SIZE = "chunk_size";
+
+            /// <summary>For a table, indicates whether the table is a
+            /// non-persistent, memory-only table that will store the output of
+            /// a proc executed with <see
+            /// cref="Kinetica.executeProc(string,IDictionary{string, string},IDictionary{string, byte[]},IList{string},IDictionary{string, IList{string}},IList{string},IDictionary{string, string})"
+            /// />. A result table cannot contain store_only, text_search, or
+            /// string columns (char columns are acceptable), records cannot be
+            /// inserted into it directly, and it will not be retained if the
+            /// server is restarted.
+            /// Supported values:
+            /// <list type="bullet">
+            ///     <item>
+            ///         <term><see
+            /// cref="CreateTableRequest.Options.TRUE">TRUE</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="CreateTableRequest.Options.FALSE">FALSE</see></term>
+            ///     </item>
+            /// </list>
+            /// The default value is <see
+            /// cref="CreateTableRequest.Options.FALSE">FALSE</see>.</summary>
+            public const string IS_RESULT_TABLE = "is_result_table";
         } // end struct Options
 
 
@@ -156,15 +319,29 @@ namespace kinetica
         /// <summary>Optional parameters.
         /// <list type="bullet">
         ///     <item>
-        ///         <term>no_error_if_exists</term>
+        ///         <term><see
+        /// cref="CreateTableRequest.Options.NO_ERROR_IF_EXISTS">NO_ERROR_IF_EXISTS</see>:</term>
         ///         <description>If <i>true</i>, prevents an error from
         /// occurring if the table already exists and is of the given type.  If
         /// a table with the same ID but a different type exists, it is still
-        /// an error. Values: true, false.
-        /// </description>
+        /// an error.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableRequest.Options.TRUE">TRUE</see></term>
         ///     </item>
         ///     <item>
-        ///         <term>collection_name</term>
+        ///         <term><see
+        /// cref="CreateTableRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="CreateTableRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableRequest.Options.COLLECTION_NAME">COLLECTION_NAME</see>:</term>
         ///         <description>Name of a collection which is to contain the
         /// newly created table. If empty, then the newly created table will be
         /// a top-level table. If the collection does not allow duplicate types
@@ -172,43 +349,114 @@ namespace kinetica
         /// this table creation request will fail.</description>
         ///     </item>
         ///     <item>
-        ///         <term>is_collection</term>
+        ///         <term><see
+        /// cref="CreateTableRequest.Options.IS_COLLECTION">IS_COLLECTION</see>:</term>
         ///         <description>Indicates whether the new table to be created
-        /// will be a collection. Values: true, false.
-        /// </description>
+        /// will be a collection.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableRequest.Options.TRUE">TRUE</see></term>
         ///     </item>
         ///     <item>
-        ///         <term>disallow_homogeneous_tables</term>
+        ///         <term><see
+        /// cref="CreateTableRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="CreateTableRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableRequest.Options.DISALLOW_HOMOGENEOUS_TABLES">DISALLOW_HOMOGENEOUS_TABLES</see>:</term>
         ///         <description>For a collection, indicates whether the
         /// collection prohibits containment of multiple tables of exactly the
-        /// same data type. Values: true, false.
-        /// </description>
+        /// same data type.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableRequest.Options.TRUE">TRUE</see></term>
         ///     </item>
         ///     <item>
-        ///         <term>is_replicated</term>
+        ///         <term><see
+        /// cref="CreateTableRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="CreateTableRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableRequest.Options.IS_REPLICATED">IS_REPLICATED</see>:</term>
         ///         <description>For a table, indicates whether the table is to
         /// be replicated to all the database ranks. This may be necessary when
-        /// the table is to be joined with other tables in a query. Values:
-        /// true, false.
-        /// </description>
+        /// the table is to be joined with other tables in a query.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableRequest.Options.TRUE">TRUE</see></term>
         ///     </item>
         ///     <item>
-        ///         <term>foreign_keys</term>
+        ///         <term><see
+        /// cref="CreateTableRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="CreateTableRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableRequest.Options.FOREIGN_KEYS">FOREIGN_KEYS</see>:</term>
         ///         <description>Semicolon-separated list of foreign key
         /// constraints, of the format 'source_column references
-        /// target_table(primary_key_column)'.</description>
+        /// target_table(primary_key_column) [ as <foreign_key_name>
+        /// ]'.</description>
         ///     </item>
         ///     <item>
-        ///         <term>foreign_shard_key</term>
+        ///         <term><see
+        /// cref="CreateTableRequest.Options.FOREIGN_SHARD_KEY">FOREIGN_SHARD_KEY</see>:</term>
         ///         <description>Foreign shard key description of the format:
         /// <fk_foreign_key> references <pk_column_name> from
         /// <pk_table_name>(<pk_primary_key>)</description>
         ///     </item>
         ///     <item>
-        ///         <term>ttl</term>
+        ///         <term><see
+        /// cref="CreateTableRequest.Options.TTL">TTL</see>:</term>
         ///         <description>Sets the TTL of the table or collection
         /// specified in <paramref cref="CreateTableRequest.table_name" />. The
         /// value must be the desired TTL in minutes.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableRequest.Options.CHUNK_SIZE">CHUNK_SIZE</see>:</term>
+        ///         <description>If provided this indicates the chunk size to
+        /// be used for this table.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableRequest.Options.IS_RESULT_TABLE">IS_RESULT_TABLE</see>:</term>
+        ///         <description>For a table, indicates whether the table is a
+        /// non-persistent, memory-only table that will store the output of a
+        /// proc executed with /execute/proc. A result table cannot contain
+        /// store_only, text_search, or string columns (char columns are
+        /// acceptable), records cannot be inserted into it directly, and it
+        /// will not be retained if the server is restarted.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="CreateTableRequest.Options.FALSE">FALSE</see>.</description>
         ///     </item>
         /// </list>
         ///   </summary>
@@ -233,15 +481,29 @@ namespace kinetica
         /// <param name="options">Optional parameters.
         /// <list type="bullet">
         ///     <item>
-        ///         <term>no_error_if_exists</term>
+        ///         <term><see
+        /// cref="CreateTableRequest.Options.NO_ERROR_IF_EXISTS">NO_ERROR_IF_EXISTS</see>:</term>
         ///         <description>If <i>true</i>, prevents an error from
         /// occurring if the table already exists and is of the given type.  If
         /// a table with the same ID but a different type exists, it is still
-        /// an error. Values: true, false.
-        /// </description>
+        /// an error.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableRequest.Options.TRUE">TRUE</see></term>
         ///     </item>
         ///     <item>
-        ///         <term>collection_name</term>
+        ///         <term><see
+        /// cref="CreateTableRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="CreateTableRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableRequest.Options.COLLECTION_NAME">COLLECTION_NAME</see>:</term>
         ///         <description>Name of a collection which is to contain the
         /// newly created table. If empty, then the newly created table will be
         /// a top-level table. If the collection does not allow duplicate types
@@ -249,43 +511,114 @@ namespace kinetica
         /// this table creation request will fail.</description>
         ///     </item>
         ///     <item>
-        ///         <term>is_collection</term>
+        ///         <term><see
+        /// cref="CreateTableRequest.Options.IS_COLLECTION">IS_COLLECTION</see>:</term>
         ///         <description>Indicates whether the new table to be created
-        /// will be a collection. Values: true, false.
-        /// </description>
+        /// will be a collection.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableRequest.Options.TRUE">TRUE</see></term>
         ///     </item>
         ///     <item>
-        ///         <term>disallow_homogeneous_tables</term>
+        ///         <term><see
+        /// cref="CreateTableRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="CreateTableRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableRequest.Options.DISALLOW_HOMOGENEOUS_TABLES">DISALLOW_HOMOGENEOUS_TABLES</see>:</term>
         ///         <description>For a collection, indicates whether the
         /// collection prohibits containment of multiple tables of exactly the
-        /// same data type. Values: true, false.
-        /// </description>
+        /// same data type.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableRequest.Options.TRUE">TRUE</see></term>
         ///     </item>
         ///     <item>
-        ///         <term>is_replicated</term>
+        ///         <term><see
+        /// cref="CreateTableRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="CreateTableRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableRequest.Options.IS_REPLICATED">IS_REPLICATED</see>:</term>
         ///         <description>For a table, indicates whether the table is to
         /// be replicated to all the database ranks. This may be necessary when
-        /// the table is to be joined with other tables in a query. Values:
-        /// true, false.
-        /// </description>
+        /// the table is to be joined with other tables in a query.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableRequest.Options.TRUE">TRUE</see></term>
         ///     </item>
         ///     <item>
-        ///         <term>foreign_keys</term>
+        ///         <term><see
+        /// cref="CreateTableRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="CreateTableRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableRequest.Options.FOREIGN_KEYS">FOREIGN_KEYS</see>:</term>
         ///         <description>Semicolon-separated list of foreign key
         /// constraints, of the format 'source_column references
-        /// target_table(primary_key_column)'.</description>
+        /// target_table(primary_key_column) [ as <foreign_key_name>
+        /// ]'.</description>
         ///     </item>
         ///     <item>
-        ///         <term>foreign_shard_key</term>
+        ///         <term><see
+        /// cref="CreateTableRequest.Options.FOREIGN_SHARD_KEY">FOREIGN_SHARD_KEY</see>:</term>
         ///         <description>Foreign shard key description of the format:
         /// <fk_foreign_key> references <pk_column_name> from
         /// <pk_table_name>(<pk_primary_key>)</description>
         ///     </item>
         ///     <item>
-        ///         <term>ttl</term>
+        ///         <term><see
+        /// cref="CreateTableRequest.Options.TTL">TTL</see>:</term>
         ///         <description>Sets the TTL of the table or collection
         /// specified in <paramref cref="CreateTableRequest.table_name" />. The
         /// value must be the desired TTL in minutes.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableRequest.Options.CHUNK_SIZE">CHUNK_SIZE</see>:</term>
+        ///         <description>If provided this indicates the chunk size to
+        /// be used for this table.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableRequest.Options.IS_RESULT_TABLE">IS_RESULT_TABLE</see>:</term>
+        ///         <description>For a table, indicates whether the table is a
+        /// non-persistent, memory-only table that will store the output of a
+        /// proc executed with /execute/proc. A result table cannot contain
+        /// store_only, text_search, or string columns (char columns are
+        /// acceptable), records cannot be inserted into it directly, and it
+        /// will not be retained if the server is restarted.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="CreateTableRequest.Options.FALSE">FALSE</see>.</description>
         ///     </item>
         /// </list>
         ///   </param>
@@ -303,7 +636,9 @@ namespace kinetica
 
 
 
-    /// <summary>A set of results returned by /create/table.</summary>
+    /// <summary>A set of results returned by <see
+    /// cref="Kinetica.createTable(string,string,IDictionary{string, string})"
+    /// />.</summary>
     public class CreateTableResponse : KineticaData
     {
 

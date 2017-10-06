@@ -11,7 +11,8 @@ using System.Collections.Generic;
 namespace kinetica
 {
 
-    /// <summary>A set of parameters for /clear/trigger.
+    /// <summary>A set of parameters for <see
+    /// cref="Kinetica.clearTrigger(string,IDictionary{string, string})" />.
     /// <br />
     /// Clears or cancels the trigger identified by the specified handle. The
     /// output returns the handle of the trigger cleared as well as indicating
@@ -48,7 +49,9 @@ namespace kinetica
 
 
 
-    /// <summary>A set of results returned by /clear/trigger.</summary>
+    /// <summary>A set of results returned by <see
+    /// cref="Kinetica.clearTrigger(string,IDictionary{string, string})"
+    /// />.</summary>
     public class ClearTriggerResponse : KineticaData
     {
 

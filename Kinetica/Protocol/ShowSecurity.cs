@@ -11,7 +11,9 @@ using System.Collections.Generic;
 namespace kinetica
 {
 
-    /// <summary>A set of parameters for /show/security.
+    /// <summary>A set of parameters for <see
+    /// cref="Kinetica.showSecurity(IList{string},IDictionary{string, string})"
+    /// />.
     /// <br />
     /// Shows security information relating to users and/or roles. If the
     /// caller is not a system administrator, only information relating to the
@@ -51,11 +53,33 @@ namespace kinetica
 
 
 
-    /// <summary>A set of results returned by /show/security.</summary>
+    /// <summary>A set of results returned by <see
+    /// cref="Kinetica.showSecurity(IList{string},IDictionary{string, string})"
+    /// />.</summary>
     public class ShowSecurityResponse : KineticaData
     {
 
         /// <summary>Map of user/role name to the type of that user/role.
+        /// Valid values are:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="ShowSecurityResponse.Types.INTERNAL_USER">INTERNAL_USER</see>:</term>
+        ///         <description>A user whose credentials are managed by the
+        /// database system.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ShowSecurityResponse.Types.EXTERNAL_USER">EXTERNAL_USER</see>:</term>
+        ///         <description>A user whose credentials are managed by an
+        /// external LDAP.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ShowSecurityResponse.Types.ROLE">ROLE</see>:</term>
+        ///         <description>A role.</description>
+        ///     </item>
+        /// </list>
         /// A set of string constants for the parameter <member name="types"
         /// />.</summary>
         public struct Types
@@ -75,7 +99,26 @@ namespace kinetica
 
 
         /// <summary>Map of user/role name to the type of that user/role.
-        /// </summary>
+        /// Valid values are:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="ShowSecurityResponse.Types.INTERNAL_USER">INTERNAL_USER</see>:</term>
+        ///         <description>A user whose credentials are managed by the
+        /// database system.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ShowSecurityResponse.Types.EXTERNAL_USER">EXTERNAL_USER</see>:</term>
+        ///         <description>A user whose credentials are managed by an
+        /// external LDAP.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ShowSecurityResponse.Types.ROLE">ROLE</see>:</term>
+        ///         <description>A role.</description>
+        ///     </item>
+        /// </list>  </summary>
         public IDictionary<string, string> types { get; set; } = new Dictionary<string, string>();
 
         /// <summary>Map of user/role name to a list of names of roles of which

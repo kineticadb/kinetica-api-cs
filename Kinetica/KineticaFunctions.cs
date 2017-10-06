@@ -16,12 +16,14 @@ namespace kinetica
     {
 
         // Kinetica Version
-        public const string API_VERSION = "6.0.1.0";
+        public const string API_VERSION = "6.1.0.0";
 
 
 
-        /// <summary>@private
-        /// </summary>
+        /// <summary>Add a new node to the GPUdb cluster. By default this will
+        /// only add the node to the cluster, but will not be assigned any data
+        /// shards. Set the <i>reshard</i> option to <i>true</i> to move some
+        /// shards from the other nodes in the cluster to this node.</summary>
         /// 
         /// <param name="request_">Request object containing the parameters for
         /// the operation.</param>
@@ -29,35 +31,62 @@ namespace kinetica
         /// <returns>Response object containing the result of the
         /// operation.</returns>
         /// 
-        public AdminDeleteNodeResponse adminDeleteNode( AdminDeleteNodeRequest request_ )
+        public AdminAddNodeResponse adminAddNode( AdminAddNodeRequest request_ )
         {
-            AdminDeleteNodeResponse actualResponse_ = SubmitRequest<AdminDeleteNodeResponse>("/admin/delete/node", request_, false);
+            AdminAddNodeResponse actualResponse_ = SubmitRequest<AdminAddNodeResponse>("/admin/add/node", request_, false);
 
             return actualResponse_;
         }
 
 
-        /// <summary>@private
-        /// </summary>
+        /// <summary>Add a new node to the GPUdb cluster. By default this will
+        /// only add the node to the cluster, but will not be assigned any data
+        /// shards. Set the <i>reshard</i> option to <i>true</i> to move some
+        /// shards from the other nodes in the cluster to this node.</summary>
         /// 
-        /// <param name="rank"></param>
-        /// <param name="authorization"></param>
-        /// <param name="options"></param>
+        /// <param name="host_name">host name of the node being added to the
+        /// system.  </param>
+        /// <param name="gpu_index"></param>
+        /// <param name="options">Optional parameters.
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="AdminAddNodeRequest.Options.RESHARD">RESHARD</see>:</term>
+        ///         <description>If <i>true</i>, then some of the shards from
+        /// all the existing nodes will be moved to the new node being added.
+        /// Note that for big clusters, this data transfer could be time
+        /// consuming and also result in delay in responding to queries for
+        /// busy clusters.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="AdminAddNodeRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AdminAddNodeRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="AdminAddNodeRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        /// </list>
+        ///   </param>
         /// 
         /// <returns>Response object containing the result of the
         /// operation.</returns>
         /// 
-        public AdminDeleteNodeResponse adminDeleteNode( int rank,
-                                                        string authorization,
-                                                        IDictionary<string, string> options = null )
+        public AdminAddNodeResponse adminAddNode( string host_name,
+                                                  int gpu_index,
+                                                  IDictionary<string, string> options = null )
         {
-            return adminDeleteNode( new AdminDeleteNodeRequest( rank, authorization,
-                                                                options ) );
+            return adminAddNode( new AdminAddNodeRequest( host_name, gpu_index, options ) );
         }
 
 
-        /// <summary>@private
-        /// </summary>
+        /// <summary>Update the system config file.  Updates to the config file
+        /// are only permitted when the system is stopped.</summary>
         /// 
         /// <param name="request_">Request object containing the parameters for
         /// the operation.</param>
@@ -65,25 +94,150 @@ namespace kinetica
         /// <returns>Response object containing the result of the
         /// operation.</returns>
         /// 
-        public AdminGetShardAssignmentsResponse adminGetShardAssignments( AdminGetShardAssignmentsRequest request_ )
+        public AdminAlterConfigurationResponse adminAlterConfiguration( AdminAlterConfigurationRequest request_ )
         {
-            AdminGetShardAssignmentsResponse actualResponse_ = SubmitRequest<AdminGetShardAssignmentsResponse>("/admin/getshardassignments", request_, false);
+            AdminAlterConfigurationResponse actualResponse_ = SubmitRequest<AdminAlterConfigurationResponse>("/admin/alter/configuration", request_, false);
 
             return actualResponse_;
         }
 
 
-        /// <summary>@private
-        /// </summary>
+        /// <summary>Update the system config file.  Updates to the config file
+        /// are only permitted when the system is stopped.</summary>
         /// 
-        /// <param name="options"></param>
+        /// <param name="config_string">updated contents of the config file.
+        /// </param>
+        /// <param name="options">Optional parameters.  </param>
         /// 
         /// <returns>Response object containing the result of the
         /// operation.</returns>
         /// 
-        public AdminGetShardAssignmentsResponse adminGetShardAssignments( IDictionary<string, string> options = null )
+        public AdminAlterConfigurationResponse adminAlterConfiguration( string config_string,
+                                                                        IDictionary<string, string> options = null )
         {
-            return adminGetShardAssignments( new AdminGetShardAssignmentsRequest( options ) );
+            return adminAlterConfiguration( new AdminAlterConfigurationRequest(
+                                                                                config_string,
+                                                                                options ) );
+        }
+
+
+        /// <summary>Perform the requested action on a list of one or more
+        /// job(s) . Currently only cancelling filter, aggregate and get
+        /// records reqeusts are supported. Based on the type of job and the
+        /// current state of execution, the action may not be successfully
+        /// executed. The final result of the attempted actions for each
+        /// specified job is returned in the status array of the
+        /// response.</summary>
+        /// 
+        /// <param name="request_">Request object containing the parameters for
+        /// the operation.</param>
+        /// 
+        /// <returns>Response object containing the result of the
+        /// operation.</returns>
+        /// 
+        public AdminAlterJobsResponse adminAlterJobs( AdminAlterJobsRequest request_ )
+        {
+            AdminAlterJobsResponse actualResponse_ = SubmitRequest<AdminAlterJobsResponse>("/admin/alter/jobs", request_, false);
+
+            return actualResponse_;
+        }
+
+
+        /// <summary>Perform the requested action on a list of one or more
+        /// job(s) . Currently only cancelling filter, aggregate and get
+        /// records reqeusts are supported. Based on the type of job and the
+        /// current state of execution, the action may not be successfully
+        /// executed. The final result of the attempted actions for each
+        /// specified job is returned in the status array of the
+        /// response.</summary>
+        /// 
+        /// <param name="job_ids">Jobs to be modified.  </param>
+        /// <param name="action">Action to be performed on the jobs specified
+        /// by job_ids.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="AdminAlterJobsRequest.Action.CANCEL">CANCEL</see></term>
+        ///     </item>
+        /// </list>  </param>
+        /// <param name="options">Optional parameters.  </param>
+        /// 
+        /// <returns>Response object containing the result of the
+        /// operation.</returns>
+        /// 
+        public AdminAlterJobsResponse adminAlterJobs( IList<int> job_ids,
+                                                      string action,
+                                                      IDictionary<string, string> options = null )
+        {
+            return adminAlterJobs( new AdminAlterJobsRequest( job_ids, action, options ) );
+        }
+
+
+        /// <summary>Specify the mapping of the shards to the various ranks in
+        /// the cluster. In most cases, it should be sufficient to let the
+        /// system automatically distribute the shards evenly across the
+        /// available ranks. However, this endpoint can be used to move shards
+        /// for various administrative reasons, say in case of heterogeneous
+        /// node clusters.  It should be noted that the system may reassign the
+        /// shards the when the number of nodes in the cluster changes or the
+        /// cluster is rebalanced.</summary>
+        /// 
+        /// <param name="request_">Request object containing the parameters for
+        /// the operation.</param>
+        /// 
+        /// <returns>Response object containing the result of the
+        /// operation.</returns>
+        /// 
+        public AdminAlterShardsResponse adminAlterShards( AdminAlterShardsRequest request_ )
+        {
+            AdminAlterShardsResponse actualResponse_ = SubmitRequest<AdminAlterShardsResponse>("/admin/alter/shards", request_, false);
+
+            return actualResponse_;
+        }
+
+
+        /// <summary>Specify the mapping of the shards to the various ranks in
+        /// the cluster. In most cases, it should be sufficient to let the
+        /// system automatically distribute the shards evenly across the
+        /// available ranks. However, this endpoint can be used to move shards
+        /// for various administrative reasons, say in case of heterogeneous
+        /// node clusters.  It should be noted that the system may reassign the
+        /// shards the when the number of nodes in the cluster changes or the
+        /// cluster is rebalanced.</summary>
+        /// 
+        /// <param name="version"></param>
+        /// <param name="use_index">Set to true when only the shards being
+        /// moved are specified in the request.  The index must indicate the
+        /// shards being moved.  </param>
+        /// <param name="rank">node to which the shard will be moved.  </param>
+        /// <param name="tom">Toms to which the shard will be moved.   </param>
+        /// <param name="index">the shard which is being moved.  When use_index
+        /// is set to true, size of this array must equal the size of rank/tom
+        /// array.  </param>
+        /// <param name="backup_map_list">List of rank_tom integers, for which
+        /// backup toms are defined  </param>
+        /// <param name="backup_map_values">List of the backup rank_tom(s) for
+        /// each rank_tom in backup_map_list  </param>
+        /// <param name="options">Optional parameters.  </param>
+        /// 
+        /// <returns>Response object containing the result of the
+        /// operation.</returns>
+        /// 
+        public AdminAlterShardsResponse adminAlterShards( long version,
+                                                          bool use_index,
+                                                          IList<int> rank,
+                                                          IList<int> tom,
+                                                          IList<int> index,
+                                                          IList<int> backup_map_list,
+                                                          IList<IList<int>> backup_map_values,
+                                                          IDictionary<string, string> options = null )
+        {
+            return adminAlterShards( new AdminAlterShardsRequest( version, use_index,
+                                                                  rank, tom, index,
+                                                                  backup_map_list,
+                                                                  backup_map_values,
+                                                                  options ) );
         }
 
 
@@ -110,8 +264,17 @@ namespace kinetica
         /// shutdown.</summary>
         /// 
         /// <param name="offline">Set to true if desired state is offline.
-        /// Values: true, false.
-        ///   </param>
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="AdminOfflineRequest.Offline.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AdminOfflineRequest.Offline.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>  </param>
         /// <param name="options">Optional parameters.  </param>
         /// 
         /// <returns>Response object containing the result of the
@@ -124,8 +287,13 @@ namespace kinetica
         }
 
 
-        /// <summary>@private
-        /// </summary>
+        /// <summary>Rebalance the cluster so that all the nodes contain
+        /// approximately equal number of records.  The rebalance will also
+        /// cause the shards to be (as much as possible) equally distributed
+        /// across all the ranks. Note that the system may move any shards that
+        /// were moved by system administrator using <see
+        /// cref="Kinetica.adminAlterShards(long,bool,IList{int},IList{int},IList{int},IList{int},IList{IList{int}},IDictionary{string, string})"
+        /// /></summary>
         /// 
         /// <param name="request_">Request object containing the parameters for
         /// the operation.</param>
@@ -141,24 +309,74 @@ namespace kinetica
         }
 
 
-        /// <summary>@private
-        /// </summary>
+        /// <summary>Rebalance the cluster so that all the nodes contain
+        /// approximately equal number of records.  The rebalance will also
+        /// cause the shards to be (as much as possible) equally distributed
+        /// across all the ranks. Note that the system may move any shards that
+        /// were moved by system administrator using <see
+        /// cref="Kinetica.adminAlterShards(long,bool,IList{int},IList{int},IList{int},IList{int},IList{IList{int}},IDictionary{string, string})"
+        /// /></summary>
         /// 
-        /// <param name="table_names"></param>
-        /// <param name="options"></param>
+        /// <param name="table_names">Sepcify the tables here if only specific
+        /// tables have to be rebalanced.  Leave this empty to rebalance all
+        /// the tables.  Note that only the tables which have no primary or
+        /// shard key can be rebalanced.  </param>
+        /// <param name="action">Specify 'start' to start rebalancing the
+        /// cluster or 'stop' to prematurely stop a previsouly issued rebalance
+        /// request.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="AdminRebalanceRequest.Action.START">START</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AdminRebalanceRequest.Action.STOP">STOP</see></term>
+        ///     </item>
+        /// </list>  </param>
+        /// <param name="options">Optional parameters.
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="AdminRebalanceRequest.Options.RESHARD">RESHARD</see>:</term>
+        ///         <description>If <i>true</i>, then all the nodes in the
+        /// cluster will be assigned approximately the same number of shards.
+        /// Note that for big clusters, this data transfer could be time
+        /// consuming and also result in delay in responding to queries for
+        /// busy clusters.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="AdminRebalanceRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AdminRebalanceRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="AdminRebalanceRequest.Options.TRUE">TRUE</see>.</description>
+        ///     </item>
+        /// </list>
+        ///   </param>
         /// 
         /// <returns>Response object containing the result of the
         /// operation.</returns>
         /// 
         public AdminRebalanceResponse adminRebalance( IList<string> table_names,
+                                                      string action,
                                                       IDictionary<string, string> options = null )
         {
-            return adminRebalance( new AdminRebalanceRequest( table_names, options ) );
+            return adminRebalance( new AdminRebalanceRequest( table_names, action, options ) );
         }
 
 
-        /// <summary>@private
-        /// </summary>
+        /// <summary>Remove a node from the cluster.  Note that this operation
+        /// could take a long time to complete for big clusters.  The data is
+        /// transferred to other nodes in the cluster before the node is
+        /// removed.</summary>
         /// 
         /// <param name="request_">Request object containing the parameters for
         /// the operation.</param>
@@ -166,40 +384,188 @@ namespace kinetica
         /// <returns>Response object containing the result of the
         /// operation.</returns>
         /// 
-        public AdminSetShardAssignmentsResponse adminSetShardAssignments( AdminSetShardAssignmentsRequest request_ )
+        public AdminRemoveNodeResponse adminRemoveNode( AdminRemoveNodeRequest request_ )
         {
-            AdminSetShardAssignmentsResponse actualResponse_ = SubmitRequest<AdminSetShardAssignmentsResponse>("/admin/setshardassignments", request_, false);
+            AdminRemoveNodeResponse actualResponse_ = SubmitRequest<AdminRemoveNodeResponse>("/admin/remove/node", request_, false);
 
             return actualResponse_;
         }
 
 
-        /// <summary>@private
-        /// </summary>
+        /// <summary>Remove a node from the cluster.  Note that this operation
+        /// could take a long time to complete for big clusters.  The data is
+        /// transferred to other nodes in the cluster before the node is
+        /// removed.</summary>
         /// 
-        /// <param name="version"></param>
-        /// <param name="partial_reassignment"></param>
-        /// <param name="shard_assignments_rank"></param>
-        /// <param name="shard_assignments_tom"></param>
-        /// <param name="assignment_index"></param>
-        /// <param name="options"></param>
+        /// <param name="rank">Rank number of the node being removed from the
+        /// cluster.  </param>
+        /// <param name="options">Optional parameters.
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="AdminRemoveNodeRequest.Options.RESHARD">RESHARD</see>:</term>
+        ///         <description>When <i>true</i>, then the shards from nodes
+        /// will be moved to the other nodes in the cluster. When false, then
+        /// the node will only be removed from the cluster if the node does not
+        /// contain any data shards, otherwise an error is returned.  Note that
+        /// for big clusters, this data transfer could be time consuming and
+        /// also result in delay in responding to queries for busy clusters.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="AdminRemoveNodeRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AdminRemoveNodeRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="AdminRemoveNodeRequest.Options.TRUE">TRUE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AdminRemoveNodeRequest.Options.FORCE">FORCE</see>:</term>
+        ///         <description>When <i>true</i>, the rank is immediately
+        /// shutdown and removed from the cluster.  This will result in loss of
+        /// any data that is present in the node at the time of the request.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="AdminRemoveNodeRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AdminRemoveNodeRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="AdminRemoveNodeRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        /// </list>
+        ///   </param>
         /// 
         /// <returns>Response object containing the result of the
         /// operation.</returns>
         /// 
-        public AdminSetShardAssignmentsResponse adminSetShardAssignments( long version,
-                                                                          bool partial_reassignment,
-                                                                          IList<int> shard_assignments_rank,
-                                                                          IList<int> shard_assignments_tom,
-                                                                          IList<int> assignment_index,
-                                                                          IDictionary<string, string> options = null )
+        public AdminRemoveNodeResponse adminRemoveNode( int rank,
+                                                        IDictionary<string, string> options = null )
         {
-            return adminSetShardAssignments( new AdminSetShardAssignmentsRequest( version,
-                                                                                  partial_reassignment,
-                                                                                  shard_assignments_rank,
-                                                                                  shard_assignments_tom,
-                                                                                  assignment_index,
-                                                                                  options ) );
+            return adminRemoveNode( new AdminRemoveNodeRequest( rank, options ) );
+        }
+
+
+        /// <summary>Show the current system configuration file.</summary>
+        /// 
+        /// <param name="request_">Request object containing the parameters for
+        /// the operation.</param>
+        /// 
+        /// <returns>Response object containing the result of the
+        /// operation.</returns>
+        /// 
+        public AdminShowConfigurationResponse adminShowConfiguration( AdminShowConfigurationRequest request_ )
+        {
+            AdminShowConfigurationResponse actualResponse_ = SubmitRequest<AdminShowConfigurationResponse>("/admin/show/configuration", request_, false);
+
+            return actualResponse_;
+        }
+
+
+        /// <summary>Show the current system configuration file.</summary>
+        /// 
+        /// <param name="options">Optional parameters.  </param>
+        /// 
+        /// <returns>Response object containing the result of the
+        /// operation.</returns>
+        /// 
+        public AdminShowConfigurationResponse adminShowConfiguration( IDictionary<string, string> options = null )
+        {
+            return adminShowConfiguration( new AdminShowConfigurationRequest( options ) );
+        }
+
+
+        /// <summary>Get a list of the current jobs in GPUdb.</summary>
+        /// 
+        /// <param name="request_">Request object containing the parameters for
+        /// the operation.</param>
+        /// 
+        /// <returns>Response object containing the result of the
+        /// operation.</returns>
+        /// 
+        public AdminShowJobsResponse adminShowJobs( AdminShowJobsRequest request_ )
+        {
+            AdminShowJobsResponse actualResponse_ = SubmitRequest<AdminShowJobsResponse>("/admin/show/jobs", request_, false);
+
+            return actualResponse_;
+        }
+
+
+        /// <summary>Get a list of the current jobs in GPUdb.</summary>
+        /// 
+        /// <param name="options">Optional parameters.
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="AdminShowJobsRequest.Options.SHOW_DETAILS">SHOW_DETAILS</see>:</term>
+        ///         <description>
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="AdminShowJobsRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AdminShowJobsRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list></description>
+        ///     </item>
+        /// </list>
+        ///   </param>
+        /// 
+        /// <returns>Response object containing the result of the
+        /// operation.</returns>
+        /// 
+        public AdminShowJobsResponse adminShowJobs( IDictionary<string, string> options = null )
+        {
+            return adminShowJobs( new AdminShowJobsRequest( options ) );
+        }
+
+
+        /// <summary>Show the mapping of shards to the corresponding rank and
+        /// tom.  The response message contains list of 16384 (total number of
+        /// shards in the system) Rank and TOM numbers corresponding to each
+        /// shard.</summary>
+        /// 
+        /// <param name="request_">Request object containing the parameters for
+        /// the operation.</param>
+        /// 
+        /// <returns>Response object containing the result of the
+        /// operation.</returns>
+        /// 
+        public AdminShowShardsResponse adminShowShards( AdminShowShardsRequest request_ )
+        {
+            AdminShowShardsResponse actualResponse_ = SubmitRequest<AdminShowShardsResponse>("/admin/show/shards", request_, false);
+
+            return actualResponse_;
+        }
+
+
+        /// <summary>Show the mapping of shards to the corresponding rank and
+        /// tom.  The response message contains list of 16384 (total number of
+        /// shards in the system) Rank and TOM numbers corresponding to each
+        /// shard.</summary>
+        /// 
+        /// <param name="options">Optional parameters.  </param>
+        /// 
+        /// <returns>Response object containing the result of the
+        /// operation.</returns>
+        /// 
+        public AdminShowShardsResponse adminShowShards( IDictionary<string, string> options = null )
+        {
+            return adminShowShards( new AdminShowShardsRequest( options ) );
         }
 
 
@@ -263,7 +629,46 @@ namespace kinetica
         /// response is set to false and the list of errors found is provided
         /// in the error_list.</summary>
         /// 
-        /// <param name="options">Optional parameters.  </param>
+        /// <param name="options">Optional parameters.
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="AdminVerifyDbRequest.Options.REBUILD_ON_ERROR">REBUILD_ON_ERROR</see>:</term>
+        ///         <description>
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="AdminVerifyDbRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AdminVerifyDbRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="AdminVerifyDbRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AdminVerifyDbRequest.Options.VERIFY_PERSIST">VERIFY_PERSIST</see>:</term>
+        ///         <description>
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="AdminVerifyDbRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AdminVerifyDbRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="AdminVerifyDbRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        /// </list>
+        ///   </param>
         /// 
         /// <returns>Response object containing the result of the
         /// operation.</returns>
@@ -324,28 +729,47 @@ namespace kinetica
         /// <summary>Calculates unique combinations (groups) of values for the
         /// given columns in a given table/view/collection and computes
         /// aggregates on each unique combination. This is somewhat analogous
-        /// to an SQL-style SELECT...GROUP BY. Any column(s) can be grouped on,
-        /// but only non-string (i.e. numeric) columns may be used for
-        /// computing aggregates. The results can be paged via the <paramref
+        /// to an SQL-style SELECT...GROUP BY.
+        /// <br />
+        /// Any column(s) can be grouped on, and all column types except
+        /// unrestricted-length strings may be used for computing applicable
+        /// aggregates.
+        /// <br />
+        /// The results can be paged via the <paramref
         /// cref="AggregateGroupByRequest.offset" /> and <paramref
         /// cref="AggregateGroupByRequest.limit" /> parameters. For example, to
         /// get 10 groups with the largest counts the inputs would be:
         /// limit=10, options={"sort_order":"descending", "sort_by":"value"}.
+        /// <br />
         /// <paramref cref="AggregateGroupByRequest.options" /> can be used to
         /// customize behavior of this call e.g. filtering or sorting the
-        /// results. To group by 'x' and 'y' and compute the number of objects
-        /// within each group, use column_names=['x','y','count(*)'].  To also
-        /// compute the sum of 'z' over each group, use
-        /// column_names=['x','y','count(*)','sum(z)']. Available aggregation
-        /// functions are: 'count(*)', 'sum', 'min', 'max', 'avg', 'mean',
-        /// 'stddev', 'stddev_pop', 'stddev_samp', 'var', 'var_pop',
-        /// 'var_samp', 'arg_min', 'arg_max' and 'count_distinct'. The response
-        /// is returned as a dynamic schema. For details see: <a
+        /// results.
+        /// <br />
+        /// To group by columns 'x' and 'y' and compute the number of objects
+        /// within each group, use:  column_names=['x','y','count(*)'].
+        /// <br />
+        /// To also compute the sum of 'z' over each group, use:
+        /// column_names=['x','y','count(*)','sum(z)'].
+        /// <br />
+        /// Available <a
+        /// href="../../../../concepts/expressions.html#aggregate-expressions"
+        /// target="_top">aggregation functions</a> are: count(*), sum, min,
+        /// max, avg, mean, stddev, stddev_pop, stddev_samp, var, var_pop,
+        /// var_samp, arg_min, arg_max and count_distinct.
+        /// <br />
+        /// The response is returned as a dynamic schema. For details see: <a
         /// href="../../../../concepts/dynamic_schemas.html"
-        /// target="_top">dynamic schemas documentation</a>. If the
-        /// <i>result_table</i> option is provided then the results are stored
-        /// in a table with the name given in the option and the results are
-        /// not returned in the response.</summary>
+        /// target="_top">dynamic schemas documentation</a>.
+        /// <br />
+        /// If a <i>result_table</i> name is specified in the options, the
+        /// results are stored in a new table with that name.  No results are
+        /// returned in the response.  If the source table's <a
+        /// href="../../../../concepts/tables.html#shard-keys"
+        /// target="_top">shard key</a> is used as the grouping column(s), the
+        /// result table will be sharded, in all other cases it will be
+        /// replicated.  Sorting will properly function only if the result
+        /// table is replicated or if there is only one processing node and
+        /// should not be relied upon in other cases.</summary>
         /// 
         /// <param name="request_">Request object containing the parameters for
         /// the operation.</param>
@@ -368,27 +792,45 @@ namespace kinetica
         /// <summary>Calculates unique combinations (groups) of values for the
         /// given columns in a given table/view/collection and computes
         /// aggregates on each unique combination. This is somewhat analogous
-        /// to an SQL-style SELECT...GROUP BY. Any column(s) can be grouped on,
-        /// but only non-string (i.e. numeric) columns may be used for
-        /// computing aggregates. The results can be paged via the <paramref
-        /// name="offset" /> and <paramref name="limit" /> parameters. For
-        /// example, to get 10 groups with the largest counts the inputs would
-        /// be: limit=10, options={"sort_order":"descending",
-        /// "sort_by":"value"}. <paramref name="options" /> can be used to
-        /// customize behavior of this call e.g. filtering or sorting the
-        /// results. To group by 'x' and 'y' and compute the number of objects
-        /// within each group, use column_names=['x','y','count(*)'].  To also
-        /// compute the sum of 'z' over each group, use
-        /// column_names=['x','y','count(*)','sum(z)']. Available aggregation
-        /// functions are: 'count(*)', 'sum', 'min', 'max', 'avg', 'mean',
-        /// 'stddev', 'stddev_pop', 'stddev_samp', 'var', 'var_pop',
-        /// 'var_samp', 'arg_min', 'arg_max' and 'count_distinct'. The response
-        /// is returned as a dynamic schema. For details see: <a
+        /// to an SQL-style SELECT...GROUP BY.
+        /// <br />
+        /// Any column(s) can be grouped on, and all column types except
+        /// unrestricted-length strings may be used for computing applicable
+        /// aggregates.
+        /// <br />
+        /// The results can be paged via the <paramref name="offset" /> and
+        /// <paramref name="limit" /> parameters. For example, to get 10 groups
+        /// with the largest counts the inputs would be: limit=10,
+        /// options={"sort_order":"descending", "sort_by":"value"}.
+        /// <br />
+        /// <paramref name="options" /> can be used to customize behavior of
+        /// this call e.g. filtering or sorting the results.
+        /// <br />
+        /// To group by columns 'x' and 'y' and compute the number of objects
+        /// within each group, use:  column_names=['x','y','count(*)'].
+        /// <br />
+        /// To also compute the sum of 'z' over each group, use:
+        /// column_names=['x','y','count(*)','sum(z)'].
+        /// <br />
+        /// Available <a
+        /// href="../../../../concepts/expressions.html#aggregate-expressions"
+        /// target="_top">aggregation functions</a> are: count(*), sum, min,
+        /// max, avg, mean, stddev, stddev_pop, stddev_samp, var, var_pop,
+        /// var_samp, arg_min, arg_max and count_distinct.
+        /// <br />
+        /// The response is returned as a dynamic schema. For details see: <a
         /// href="../../../../concepts/dynamic_schemas.html"
-        /// target="_top">dynamic schemas documentation</a>. If the
-        /// <i>result_table</i> option is provided then the results are stored
-        /// in a table with the name given in the option and the results are
-        /// not returned in the response.</summary>
+        /// target="_top">dynamic schemas documentation</a>.
+        /// <br />
+        /// If a <i>result_table</i> name is specified in the options, the
+        /// results are stored in a new table with that name.  No results are
+        /// returned in the response.  If the source table's <a
+        /// href="../../../../concepts/tables.html#shard-keys"
+        /// target="_top">shard key</a> is used as the grouping column(s), the
+        /// result table will be sharded, in all other cases it will be
+        /// replicated.  Sorting will properly function only if the result
+        /// table is replicated or if there is only one processing node and
+        /// should not be relied upon in other cases.</summary>
         /// 
         /// <param name="table_name">Name of the table on which the operation
         /// will be performed. Must be an existing table/view/collection.
@@ -407,7 +849,8 @@ namespace kinetica
         /// <param name="options">Optional parameters.
         /// <list type="bullet">
         ///     <item>
-        ///         <term>collection_name</term>
+        ///         <term><see
+        /// cref="AggregateGroupByRequest.Options.COLLECTION_NAME">COLLECTION_NAME</see>:</term>
         ///         <description>Name of a collection which is to contain the
         /// table specified in <i>result_table</i>, otherwise the table will be
         /// a top-level table. If the collection does not allow duplicate types
@@ -417,30 +860,71 @@ namespace kinetica
         /// is a collection.</description>
         ///     </item>
         ///     <item>
-        ///         <term>expression</term>
+        ///         <term><see
+        /// cref="AggregateGroupByRequest.Options.EXPRESSION">EXPRESSION</see>:</term>
         ///         <description>Filter expression to apply to the table prior
         /// to computing the aggregate group by.</description>
         ///     </item>
         ///     <item>
-        ///         <term>having</term>
+        ///         <term><see
+        /// cref="AggregateGroupByRequest.Options.HAVING">HAVING</see>:</term>
         ///         <description>Filter expression to apply to the aggregated
         /// results.</description>
         ///     </item>
         ///     <item>
-        ///         <term>sort_order</term>
+        ///         <term><see
+        /// cref="AggregateGroupByRequest.Options.SORT_ORDER">SORT_ORDER</see>:</term>
         ///         <description>String indicating how the returned values
-        /// should be sorted - ascending or descending. Values: ascending,
-        /// descending.
-        /// </description>
+        /// should be sorted - ascending or descending.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="AggregateGroupByRequest.Options.ASCENDING">ASCENDING</see>:</term>
+        ///         <description>Indicates that the returned values should be
+        /// sorted in ascending order.</description>
         ///     </item>
         ///     <item>
-        ///         <term>sort_by</term>
+        ///         <term><see
+        /// cref="AggregateGroupByRequest.Options.DESCENDING">DESCENDING</see>:</term>
+        ///         <description>Indicates that the returned values should be
+        /// sorted in descending order.</description>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="AggregateGroupByRequest.Options.ASCENDING">ASCENDING</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AggregateGroupByRequest.Options.SORT_BY">SORT_BY</see>:</term>
         ///         <description>String determining how the results are sorted.
-        /// Values: key, value.
-        /// </description>
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="AggregateGroupByRequest.Options.KEY">KEY</see>:</term>
+        ///         <description>Indicates that the returned values should be
+        /// sorted by key, which corresponds to the grouping columns. If you
+        /// have multiple grouping columns (and are sorting by key), it will
+        /// first sort the first grouping column, then the second grouping
+        /// column, etc.</description>
         ///     </item>
         ///     <item>
-        ///         <term>result_table</term>
+        ///         <term><see
+        /// cref="AggregateGroupByRequest.Options.VALUE">VALUE</see>:</term>
+        ///         <description>Indicates that the returned values should be
+        /// sorted by value, which corresponds to the aggregates. If you have
+        /// multiple aggregates (and are sorting by value), it will first sort
+        /// by the first aggregate, then the second aggregate,
+        /// etc.</description>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="AggregateGroupByRequest.Options.KEY">KEY</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AggregateGroupByRequest.Options.RESULT_TABLE">RESULT_TABLE</see>:</term>
         ///         <description>The name of the table used to store the
         /// results. Has the same naming restrictions as <a
         /// href="../../../../concepts/tables.html" target="_top">tables</a>.
@@ -451,10 +935,55 @@ namespace kinetica
         /// string (i.e.; not charN) type.</description>
         ///     </item>
         ///     <item>
-        ///         <term>ttl</term>
+        ///         <term><see
+        /// cref="AggregateGroupByRequest.Options.RESULT_TABLE_PERSIST">RESULT_TABLE_PERSIST</see>:</term>
+        ///         <description>If <i>true</i> then the result table specified
+        /// in {result_table}@{key of input.options} will be persisted as a
+        /// regular table (it will not be automatically cleared unless a
+        /// <i>ttl</i> is provided, and the table data can be modified in
+        /// subsequent operations). If <i>false</i> (the default) then the
+        /// result table will be a read-only, memory-only temporary table.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="AggregateGroupByRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AggregateGroupByRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="AggregateGroupByRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AggregateGroupByRequest.Options.RESULT_TABLE_FORCE_REPLICATED">RESULT_TABLE_FORCE_REPLICATED</see>:</term>
+        ///         <description>Force the result table to be replicated
+        /// (ignores any sharding). Must be used in combination with the
+        /// <i>result_table</i> option.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AggregateGroupByRequest.Options.RESULT_TABLE_GENERATE_PK">RESULT_TABLE_GENERATE_PK</see>:</term>
+        ///         <description>If 'true' then set a primary key for the
+        /// result table. Must be used in combination with the
+        /// <i>result_table</i> option.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AggregateGroupByRequest.Options.TTL">TTL</see>:</term>
         ///         <description>Sets the TTL of the table specified in
         /// <i>result_table</i>. The value must be the desired TTL in
         /// minutes.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AggregateGroupByRequest.Options.CHUNK_SIZE">CHUNK_SIZE</see>:</term>
+        ///         <description>If provided this indicates the chunk size to
+        /// be used for the result table. Must be used in combination with the
+        /// <i>result_table</i> option.</description>
         ///     </item>
         /// </list>
         ///   </param>
@@ -528,7 +1057,8 @@ namespace kinetica
         /// <param name="options">Optional parameters.
         /// <list type="bullet">
         ///     <item>
-        ///         <term>value_column</term>
+        ///         <term><see
+        /// cref="AggregateHistogramRequest.Options.VALUE_COLUMN">VALUE_COLUMN</see>:</term>
         ///         <description>The name of the column to use when calculating
         /// the bin values (values are summed).  The column must be a numerical
         /// type (int, double, long, float).</description>
@@ -603,17 +1133,20 @@ namespace kinetica
         /// <param name="options">Optional parameters.
         /// <list type="bullet">
         ///     <item>
-        ///         <term>whiten</term>
+        ///         <term><see
+        /// cref="AggregateKMeansRequest.Options.WHITEN">WHITEN</see>:</term>
         ///         <description>When set to 1 each of the columns is first
         /// normalized by its stdv - default is not to whiten.</description>
         ///     </item>
         ///     <item>
-        ///         <term>max_iters</term>
+        ///         <term><see
+        /// cref="AggregateKMeansRequest.Options.MAX_ITERS">MAX_ITERS</see>:</term>
         ///         <description>Number of times to try to hit the tolerance
         /// limit before giving up - default is 10.</description>
         ///     </item>
         ///     <item>
-        ///         <term>num_tries</term>
+        ///         <term><see
+        /// cref="AggregateKMeansRequest.Options.NUM_TRIES">NUM_TRIES</see>:</term>
         ///         <description>Number of times to run the k-means algorithm
         /// with a different randomly selected starting points - helps avoid
         /// local minimum. Default is 1.</description>
@@ -673,13 +1206,55 @@ namespace kinetica
         }
 
 
+        /// <summary>Calculates and returns the minimum and maximum x- and
+        /// y-coordinates of a particular geospatial geometry column in a
+        /// table.</summary>
+        /// 
+        /// <param name="request_">Request object containing the parameters for
+        /// the operation.</param>
+        /// 
+        /// <returns>Response object containing the result of the
+        /// operation.</returns>
+        /// 
+        public AggregateMinMaxGeometryResponse aggregateMinMaxGeometry( AggregateMinMaxGeometryRequest request_ )
+        {
+            AggregateMinMaxGeometryResponse actualResponse_ = SubmitRequest<AggregateMinMaxGeometryResponse>("/aggregate/minmax/geometry", request_, false);
+
+            return actualResponse_;
+        }
+
+
+        /// <summary>Calculates and returns the minimum and maximum x- and
+        /// y-coordinates of a particular geospatial geometry column in a
+        /// table.</summary>
+        /// 
+        /// <param name="table_name">Name of the table on which the operation
+        /// will be performed. Must be an existing table.  </param>
+        /// <param name="column_name">Name of a geospatial geometry column on
+        /// which the min-max will be calculated.  </param>
+        /// <param name="options">Optional parameters.  </param>
+        /// 
+        /// <returns>Response object containing the result of the
+        /// operation.</returns>
+        /// 
+        public AggregateMinMaxGeometryResponse aggregateMinMaxGeometry( string table_name,
+                                                                        string column_name,
+                                                                        IDictionary<string, string> options = null )
+        {
+            return aggregateMinMaxGeometry( new AggregateMinMaxGeometryRequest(
+                                                                                table_name,
+                                                                                column_name,
+                                                                                options ) );
+        }
+
+
         /// <summary>Calculates the requested statistics of a given column in a
         /// given table.
         /// <br />
         /// The available statistics are count (number of total objects), mean,
-        /// stdv (standard deviation), variance, skew, kurtosis, sum, min, max,
-        /// weighted_average, cardinality (unique count), estimated
-        /// cardinality, percentile and percentile_rank.
+        /// stdv (standard deviation), variance, skew, kurtosis, sum,
+        /// sum_of_squares, min, max, weighted_average, cardinality (unique
+        /// count), estimated cardinality, percentile and percentile_rank.
         /// <br />
         /// Estimated cardinality is calculated by using the hyperloglog
         /// approximation technique.
@@ -717,9 +1292,9 @@ namespace kinetica
         /// given table.
         /// <br />
         /// The available statistics are count (number of total objects), mean,
-        /// stdv (standard deviation), variance, skew, kurtosis, sum, min, max,
-        /// weighted_average, cardinality (unique count), estimated
-        /// cardinality, percentile and percentile_rank.
+        /// stdv (standard deviation), variance, skew, kurtosis, sum,
+        /// sum_of_squares, min, max, weighted_average, cardinality (unique
+        /// count), estimated cardinality, percentile and percentile_rank.
         /// <br />
         /// Estimated cardinality is calculated by using the hyperloglog
         /// approximation technique.
@@ -744,20 +1319,112 @@ namespace kinetica
         /// <param name="column_name">Name of the column for which the
         /// statistics are to be calculated.  </param>
         /// <param name="stats">Comma separated list of the statistics to
-        /// calculate, e.g. "sum,mean". Values: count, mean, stdv, variance,
-        /// skew, kurtosis, sum, min, max, weighted_average, cardinality,
-        /// estimated_cardinality, percentile, percentile_rank.
-        ///   </param>
+        /// calculate, e.g. "sum,mean".
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="AggregateStatisticsRequest.Stats.COUNT">COUNT</see>:</term>
+        ///         <description>Number of objects (independent of the given
+        /// column).</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AggregateStatisticsRequest.Stats.MEAN">MEAN</see>:</term>
+        ///         <description>Arithmetic mean (average), equivalent to
+        /// sum/count.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AggregateStatisticsRequest.Stats.STDV">STDV</see>:</term>
+        ///         <description>Sample standard deviation (denominator is
+        /// count-1).</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AggregateStatisticsRequest.Stats.VARIANCE">VARIANCE</see>:</term>
+        ///         <description>Unbiased sample variance (denominator is
+        /// count-1).</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AggregateStatisticsRequest.Stats.SKEW">SKEW</see>:</term>
+        ///         <description>Skewness (third standardized
+        /// moment).</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AggregateStatisticsRequest.Stats.KURTOSIS">KURTOSIS</see>:</term>
+        ///         <description>Kurtosis (fourth standardized
+        /// moment).</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AggregateStatisticsRequest.Stats.SUM">SUM</see>:</term>
+        ///         <description>Sum of all values in the column.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AggregateStatisticsRequest.Stats.SUM_OF_SQUARES">SUM_OF_SQUARES</see>:</term>
+        ///         <description>Sum of the squares of all values in the
+        /// column.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AggregateStatisticsRequest.Stats.MIN">MIN</see>:</term>
+        ///         <description>Minimum value of the column.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AggregateStatisticsRequest.Stats.MAX">MAX</see>:</term>
+        ///         <description>Maximum value of the column.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AggregateStatisticsRequest.Stats.WEIGHTED_AVERAGE">WEIGHTED_AVERAGE</see>:</term>
+        ///         <description>Weighted arithmetic mean (using the option
+        /// 'weight_column_name' as the weighting column).</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AggregateStatisticsRequest.Stats.CARDINALITY">CARDINALITY</see>:</term>
+        ///         <description>Number of unique values in the
+        /// column.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AggregateStatisticsRequest.Stats.ESTIMATED_CARDINALITY">ESTIMATED_CARDINALITY</see>:</term>
+        ///         <description>Estimate (via hyperloglog technique) of the
+        /// number of unique values in the column.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AggregateStatisticsRequest.Stats.PERCENTILE">PERCENTILE</see>:</term>
+        ///         <description>Estimate (via t-digest) of the given
+        /// percentile of the column (percentile(50.0) will be an approximation
+        /// of the median).</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AggregateStatisticsRequest.Stats.PERCENTILE_RANK">PERCENTILE_RANK</see>:</term>
+        ///         <description>Estimate (via t-digest) of the percentile rank
+        /// of the given value in the column (if the given value is the median
+        /// of the column, percentile_rank([median]) will return approximately
+        /// 50.0).</description>
+        ///     </item>
+        /// </list>  </param>
         /// <param name="options">Optional parameters.
         /// <list type="bullet">
         ///     <item>
-        ///         <term>additional_column_names</term>
+        ///         <term><see
+        /// cref="AggregateStatisticsRequest.Options.ADDITIONAL_COLUMN_NAMES">ADDITIONAL_COLUMN_NAMES</see>:</term>
         ///         <description>A list of comma separated column names over
         /// which statistics can be accumulated along with the primary
         /// column.</description>
         ///     </item>
         ///     <item>
-        ///         <term>weight_column_name</term>
+        ///         <term><see
+        /// cref="AggregateStatisticsRequest.Options.WEIGHT_COLUMN_NAME">WEIGHT_COLUMN_NAME</see>:</term>
         ///         <description>Name of column used as weighting attribute for
         /// the weighted average statistic.</description>
         ///     </item>
@@ -866,24 +1533,28 @@ namespace kinetica
         /// <param name="options">Map of optional parameters:
         /// <list type="bullet">
         ///     <item>
-        ///         <term>additional_column_names</term>
+        ///         <term><see
+        /// cref="AggregateStatisticsByRangeRequest.Options.ADDITIONAL_COLUMN_NAMES">ADDITIONAL_COLUMN_NAMES</see>:</term>
         ///         <description>A list of comma separated value-column names
         /// over which statistics can be accumulated along with the primary
         /// value_column.</description>
         ///     </item>
         ///     <item>
-        ///         <term>bin_values</term>
+        ///         <term><see
+        /// cref="AggregateStatisticsByRangeRequest.Options.BIN_VALUES">BIN_VALUES</see>:</term>
         ///         <description>A list of comma separated binning-column
         /// values. Values that match the nth bin_values value are placed in
         /// the nth bin.</description>
         ///     </item>
         ///     <item>
-        ///         <term>weight_column_name</term>
+        ///         <term><see
+        /// cref="AggregateStatisticsByRangeRequest.Options.WEIGHT_COLUMN_NAME">WEIGHT_COLUMN_NAME</see>:</term>
         ///         <description>Name of the column used as weighting column
         /// for the weighted_average statistic.</description>
         ///     </item>
         ///     <item>
-        ///         <term>order_column_name</term>
+        ///         <term><see
+        /// cref="AggregateStatisticsByRangeRequest.Options.ORDER_COLUMN_NAME">ORDER_COLUMN_NAME</see>:</term>
         ///         <description>Name of the column used for candlestick
         /// charting techniques.</description>
         ///     </item>
@@ -936,10 +1607,18 @@ namespace kinetica
         /// <br />
         /// The response is returned as a dynamic schema. For details see: <a
         /// href="../../../../concepts/dynamic_schemas.html"
-        /// target="_top">dynamic schemas documentation</a>. If the
-        /// 'result_table' option is provided then the results are stored in a
-        /// table with the name given in the option and the results are not
-        /// returned in the response.</summary>
+        /// target="_top">dynamic schemas documentation</a>.
+        /// <br />
+        /// If a <i>result_table</i> name is specified in the options, the
+        /// results are stored in a new table with that name.  No results are
+        /// returned in the response.  If the source table's <a
+        /// href="../../../../concepts/tables.html#shard-keys"
+        /// target="_top">shard key</a> is used as the <paramref
+        /// cref="AggregateUniqueRequest.column_name" />, the result table will
+        /// be sharded, in all other cases it will be replicated.  Sorting will
+        /// properly function only if the result table is replicated or if
+        /// there is only one processing node and should not be relied upon in
+        /// other cases.</summary>
         /// 
         /// <param name="request_">Request object containing the parameters for
         /// the operation.</param>
@@ -976,10 +1655,18 @@ namespace kinetica
         /// <br />
         /// The response is returned as a dynamic schema. For details see: <a
         /// href="../../../../concepts/dynamic_schemas.html"
-        /// target="_top">dynamic schemas documentation</a>. If the
-        /// 'result_table' option is provided then the results are stored in a
-        /// table with the name given in the option and the results are not
-        /// returned in the response.</summary>
+        /// target="_top">dynamic schemas documentation</a>.
+        /// <br />
+        /// If a <i>result_table</i> name is specified in the options, the
+        /// results are stored in a new table with that name.  No results are
+        /// returned in the response.  If the source table's <a
+        /// href="../../../../concepts/tables.html#shard-keys"
+        /// target="_top">shard key</a> is used as the <paramref
+        /// name="column_name" />, the result table will be sharded, in all
+        /// other cases it will be replicated.  Sorting will properly function
+        /// only if the result table is replicated or if there is only one
+        /// processing node and should not be relied upon in other
+        /// cases.</summary>
         /// 
         /// <param name="table_name">Name of the table on which the operation
         /// will be performed. Must be an existing table.  </param>
@@ -996,7 +1683,8 @@ namespace kinetica
         /// <param name="options">Optional parameters.
         /// <list type="bullet">
         ///     <item>
-        ///         <term>collection_name</term>
+        ///         <term><see
+        /// cref="AggregateUniqueRequest.Options.COLLECTION_NAME">COLLECTION_NAME</see>:</term>
         ///         <description>Name of a collection which is to contain the
         /// table specified in 'result_table', otherwise the table will be a
         /// top-level table. If the collection does not allow duplicate types
@@ -1004,18 +1692,33 @@ namespace kinetica
         /// this table creation request will fail.</description>
         ///     </item>
         ///     <item>
-        ///         <term>expression</term>
+        ///         <term><see
+        /// cref="AggregateUniqueRequest.Options.EXPRESSION">EXPRESSION</see>:</term>
         ///         <description>Optional filter expression to apply to the
         /// table.</description>
         ///     </item>
         ///     <item>
-        ///         <term>sort_order</term>
+        ///         <term><see
+        /// cref="AggregateUniqueRequest.Options.SORT_ORDER">SORT_ORDER</see>:</term>
         ///         <description>String indicating how the returned values
-        /// should be sorted. Values: ascending, descending.
-        /// </description>
+        /// should be sorted.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="AggregateUniqueRequest.Options.ASCENDING">ASCENDING</see></term>
         ///     </item>
         ///     <item>
-        ///         <term>result_table</term>
+        ///         <term><see
+        /// cref="AggregateUniqueRequest.Options.DESCENDING">DESCENDING</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="AggregateUniqueRequest.Options.ASCENDING">ASCENDING</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AggregateUniqueRequest.Options.RESULT_TABLE">RESULT_TABLE</see>:</term>
         ///         <description>The name of the table used to store the
         /// results. If present no results are returned in the response. Has
         /// the same naming restrictions as <a
@@ -1023,10 +1726,55 @@ namespace kinetica
         /// target="_top">tables</a>.</description>
         ///     </item>
         ///     <item>
-        ///         <term>ttl</term>
+        ///         <term><see
+        /// cref="AggregateUniqueRequest.Options.RESULT_TABLE_PERSIST">RESULT_TABLE_PERSIST</see>:</term>
+        ///         <description>If <i>true</i> then the result table specified
+        /// in <i>result_table</i> will be persisted as a regular table (it
+        /// will not be automatically cleared unless a <i>ttl</i> is provided,
+        /// and the table data can be modified in subsequent operations). If
+        /// <i>false</i> (the default) then the result table will be a
+        /// read-only, memory-only temporary table.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="AggregateUniqueRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AggregateUniqueRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="AggregateUniqueRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AggregateUniqueRequest.Options.RESULT_TABLE_FORCE_REPLICATED">RESULT_TABLE_FORCE_REPLICATED</see>:</term>
+        ///         <description>Force the result table to be replicated
+        /// (ignores any sharding). Must be used in combination with the
+        /// 'result_table' option.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AggregateUniqueRequest.Options.RESULT_TABLE_GENERATE_PK">RESULT_TABLE_GENERATE_PK</see>:</term>
+        ///         <description>If 'true' then set a primary key for the
+        /// result table. Must be used in combination with the 'result_table'
+        /// option.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AggregateUniqueRequest.Options.TTL">TTL</see>:</term>
         ///         <description>Sets the TTL of the table specified in
         /// 'result_table'. The value must be the desired TTL in
         /// minutes.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AggregateUniqueRequest.Options.CHUNK_SIZE">CHUNK_SIZE</see>:</term>
+        ///         <description>If provided this indicates the chunk size to
+        /// be used for the result table. Must be used in combination with the
+        /// <i>result_table</i> option.</description>
         ///     </item>
         /// </list>
         ///   </param>
@@ -1045,8 +1793,161 @@ namespace kinetica
         }
 
 
+        /// <summary>Rotate the column values into rows values.
+        /// <br />
+        /// The aggregate unpivot is used to normalize tables that are built
+        /// for cross tabular reporting purposes. The unpivot operator rotates
+        /// the column values for all the pivoted columns. A variable column,
+        /// value column and all columns from the source table except the
+        /// unpivot columns are projected into the result table. The variable
+        /// column and value columns in the result table indicate the pivoted
+        /// column name and values respectively.
+        /// <br />
+        /// The response is returned as a dynamic schema. For details see: <a
+        /// href="../../../../concepts/dynamic_schemas.html"
+        /// target="_top">dynamic schemas documentation</a>.</summary>
+        /// 
+        /// <param name="request_">Request object containing the parameters for
+        /// the operation.</param>
+        /// 
+        /// <returns>Response object containing the result of the
+        /// operation.</returns>
+        /// 
+        public AggregateUnpivotResponse aggregateUnpivot( AggregateUnpivotRequest request_ )
+        {
+            RawAggregateUnpivotResponse actualResponse_ = SubmitRequest<RawAggregateUnpivotResponse>("/aggregate/unpivot", request_, false);
+
+            AggregateUnpivotResponse response_ = new AggregateUnpivotResponse();
+            response_.table_name = actualResponse_.table_name;
+            response_.data = KineticaRecord.DecodeDynamicTableRecords( actualResponse_.response_schema_str, actualResponse_.binary_encoded_response );
+            response_.total_number_of_records = actualResponse_.total_number_of_records;
+            response_.has_more_records = actualResponse_.has_more_records;
+            return response_;
+        }
+
+
+        /// <summary>Rotate the column values into rows values.
+        /// <br />
+        /// The aggregate unpivot is used to normalize tables that are built
+        /// for cross tabular reporting purposes. The unpivot operator rotates
+        /// the column values for all the pivoted columns. A variable column,
+        /// value column and all columns from the source table except the
+        /// unpivot columns are projected into the result table. The variable
+        /// column and value columns in the result table indicate the pivoted
+        /// column name and values respectively.
+        /// <br />
+        /// The response is returned as a dynamic schema. For details see: <a
+        /// href="../../../../concepts/dynamic_schemas.html"
+        /// target="_top">dynamic schemas documentation</a>.</summary>
+        /// 
+        /// <param name="table_name">Name of the table on which the operation
+        /// will be performed. Must be an existing table/view.  </param>
+        /// <param name="variable_column_name">Specifies the variable/parameter
+        /// column name.  </param>
+        /// <param name="value_column_name">Specifies the value column name.
+        /// </param>
+        /// <param name="pivoted_columns">List of one or more values typically
+        /// the column names of the input table. All the columns in the source
+        /// table must have the same data type.  </param>
+        /// <param name="options">Optional parameters.
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="AggregateUnpivotRequest.Options.COLLECTION_NAME">COLLECTION_NAME</see>:</term>
+        ///         <description>Name of a collection which is to contain the
+        /// table specified in <i>result_table</i>, otherwise the table will be
+        /// a top-level table. If the collection does not allow duplicate types
+        /// and it contains a table of the same type as the given one, then
+        /// this table creation request will fail. Additionally this option is
+        /// invalid if <paramref cref="AggregateUnpivotRequest.table_name" />
+        /// is a collection.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AggregateUnpivotRequest.Options.RESULT_TABLE">RESULT_TABLE</see>:</term>
+        ///         <description>The name of the table used to store the
+        /// results. Has the same naming restrictions as <a
+        /// href="../../../../concepts/tables.html" target="_top">tables</a>.
+        /// If present, no results are returned in the response.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AggregateUnpivotRequest.Options.RESULT_TABLE_PERSIST">RESULT_TABLE_PERSIST</see>:</term>
+        ///         <description>If <i>true</i> then the result table specified
+        /// in {result_table}@{key of input.options} will be persisted as a
+        /// regular table (it will not be automatically cleared unless a
+        /// <i>ttl</i> is provided, and the table data can be modified in
+        /// subsequent operations). If <i>false</i> (the default) then the
+        /// result table will be a read-only, memory-only temporary table.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="AggregateUnpivotRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AggregateUnpivotRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="AggregateUnpivotRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AggregateUnpivotRequest.Options.EXPRESSION">EXPRESSION</see>:</term>
+        ///         <description>Filter expression to apply to the table prior
+        /// to unpivot processing.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AggregateUnpivotRequest.Options.ORDER_BY">ORDER_BY</see>:</term>
+        ///         <description>Comma-separated list of the columns to be
+        /// sorted by; e.g. 'timestamp asc, x desc'.  The columns specified
+        /// must be present in input table.  If any alias is given for any
+        /// column name, the alias must be used, rather than the original
+        /// column name.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AggregateUnpivotRequest.Options.CHUNK_SIZE">CHUNK_SIZE</see>:</term>
+        ///         <description>If provided this indicates the chunk size to
+        /// be used for the result table. Must be used in combination with the
+        /// <i>result_table</i> option.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AggregateUnpivotRequest.Options.LIMIT">LIMIT</see>:</term>
+        ///         <description>The number of records to keep.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AggregateUnpivotRequest.Options.TTL">TTL</see>:</term>
+        ///         <description>Sets the TTL of the table specified in
+        /// <i>result_table</i>. The value must be the desired TTL in
+        /// minutes.</description>
+        ///     </item>
+        /// </list>
+        ///   </param>
+        /// 
+        /// <returns>Response object containing the result of the
+        /// operation.</returns>
+        /// 
+        public AggregateUnpivotResponse aggregateUnpivot( string table_name,
+                                                          string variable_column_name,
+                                                          string value_column_name,
+                                                          IList<string> pivoted_columns,
+                                                          IDictionary<string, string> options = null )
+        {
+            return aggregateUnpivot( new AggregateUnpivotRequest( table_name,
+                                                                  variable_column_name,
+                                                                  value_column_name,
+                                                                  pivoted_columns, options ) );
+        }
+
+
         /// <summary>The <see
-        /// cref="Kinetica.alterSystemProperties(AlterSystemPropertiesRequest)"
+        /// cref="Kinetica.alterSystemProperties(IDictionary{string, string},IDictionary{string, string})"
         /// /> endpoint is primarily used to simplify the testing of the system
         /// and is not expected to be used during normal execution.  Commands
         /// are given through the <paramref
@@ -1082,42 +1983,66 @@ namespace kinetica
         /// the system to be updated. Error if empty.
         /// <list type="bullet">
         ///     <item>
-        ///         <term>sm_omp_threads</term>
+        ///         <term><see
+        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.SM_OMP_THREADS">SM_OMP_THREADS</see>:</term>
         ///         <description>Set the number of OpenMP threads that will be
         /// used to service filter & aggregation requests against collections
         /// to the specified integer value.</description>
         ///     </item>
         ///     <item>
-        ///         <term>kernel_omp_threads</term>
+        ///         <term><see
+        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.KERNEL_OMP_THREADS">KERNEL_OMP_THREADS</see>:</term>
         ///         <description>Set the number of kernel OpenMP threads to the
         /// specified integer value.</description>
         ///     </item>
         ///     <item>
-        ///         <term>concurrent_kernel_execution</term>
+        ///         <term><see
+        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.CONCURRENT_KERNEL_EXECUTION">CONCURRENT_KERNEL_EXECUTION</see>:</term>
         ///         <description>Enables concurrent kernel execution if the
         /// value is <i>true</i> and disables it if the value is <i>false</i>.
-        /// Values: true, false.
-        /// </description>
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.TRUE">TRUE</see></term>
         ///     </item>
         ///     <item>
-        ///         <term>chunk_size</term>
+        ///         <term><see
+        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list></description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.CHUNK_SIZE">CHUNK_SIZE</see>:</term>
         ///         <description>Sets the chunk size of all new sets to the
         /// specified integer value.</description>
         ///     </item>
         ///     <item>
-        ///         <term>flush_to_disk</term>
+        ///         <term><see
+        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.EXECUTION_MODE">EXECUTION_MODE</see>:</term>
+        ///         <description>Sets the execution_mode for kernel executions
+        /// to the specified string value. Possible values are host, device,
+        /// default (engine decides) or an integer value that indicates max
+        /// chunk size to exec on host</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.FLUSH_TO_DISK">FLUSH_TO_DISK</see>:</term>
         ///         <description>Flushes any changes to any tables to the
         /// persistent store.  These changes include updates to the vector
         /// store, object store, and text search store, Value string is
         /// ignored</description>
         ///     </item>
         ///     <item>
-        ///         <term>clear_cache</term>
+        ///         <term><see
+        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.CLEAR_CACHE">CLEAR_CACHE</see>:</term>
         ///         <description>Clears cached results.  Useful to allow
         /// repeated timing of endpoints. Value string is ignored</description>
         ///     </item>
         ///     <item>
-        ///         <term>communicator_test</term>
+        ///         <term><see
+        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.COMMUNICATOR_TEST">COMMUNICATOR_TEST</see>:</term>
         ///         <description>Invoke the communicator test and report timing
         /// results. Value string is is a comma separated list of <key>=<value>
         /// expressions.  Expressions are: num_transactions=<num> where num is
@@ -1127,20 +2052,32 @@ namespace kinetica
         /// value of the messages received are verified.</description>
         ///     </item>
         ///     <item>
-        ///         <term>set_message_timers_enabled</term>
+        ///         <term><see
+        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.SET_MESSAGE_TIMERS_ENABLED">SET_MESSAGE_TIMERS_ENABLED</see>:</term>
         ///         <description>Enables the communicator test to collect
         /// additional timing statistics when the value string is <i>true</i>.
         /// Disables the collection when the value string is <i>false</i>
-        /// Values: true, false.
-        /// </description>
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.TRUE">TRUE</see></term>
         ///     </item>
         ///     <item>
-        ///         <term>bulk_add_test</term>
+        ///         <term><see
+        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list></description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.BULK_ADD_TEST">BULK_ADD_TEST</see>:</term>
         ///         <description>Invoke the bulk add test and report timing
         /// results. Value string is ignored.</description>
         ///     </item>
         ///     <item>
-        ///         <term>network_speed</term>
+        ///         <term><see
+        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.NETWORK_SPEED">NETWORK_SPEED</see>:</term>
         ///         <description>Invoke the network speed test and report
         /// timing results. Value string is a semicolon-separated list of
         /// <key>=<value> expressions.  Valid expressions are: seconds=<time>
@@ -1152,15 +2089,53 @@ namespace kinetica
         /// worker ranks are used.</description>
         ///     </item>
         ///     <item>
-        ///         <term>request_timeout</term>
+        ///         <term><see
+        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.REQUEST_TIMEOUT">REQUEST_TIMEOUT</see>:</term>
         ///         <description>Number of minutes after which filtering (e.g.,
         /// /filter) and aggregating (e.g., /aggregate/groupby) queries will
         /// timeout.</description>
         ///     </item>
         ///     <item>
-        ///         <term>max_get_records_size</term>
+        ///         <term><see
+        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.MAX_GET_RECORDS_SIZE">MAX_GET_RECORDS_SIZE</see>:</term>
         ///         <description>The maximum number of records the database
         /// will serve for a given data retrieval call</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.MEMORY_ALLOCATION_LIMIT_MB">MEMORY_ALLOCATION_LIMIT_MB</see>:</term>
+        ///         <description>Set the memory allocation limit for all rank
+        /// processes in megabytes, 0 means no limit. Overrides any individual
+        /// rank memory allocation limits.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.ENABLE_AUDIT">ENABLE_AUDIT</see>:</term>
+        ///         <description>Enable or disable auditing.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.AUDIT_HEADERS">AUDIT_HEADERS</see>:</term>
+        ///         <description>Enable or disable auditing of request
+        /// headers.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.AUDIT_BODY">AUDIT_BODY</see>:</term>
+        ///         <description>Enable or disable auditing of request
+        /// bodies.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.AUDIT_DATA">AUDIT_DATA</see>:</term>
+        ///         <description>Enable or disable auditing of request
+        /// data.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.ENABLE_JOB_MANAGER">ENABLE_JOB_MANAGER</see>:</term>
+        ///         <description>Enable JobManager to enforce processing of
+        /// requests in the order received.</description>
         ///     </item>
         /// </list>
         ///   </param>
@@ -1178,27 +2153,45 @@ namespace kinetica
         }
 
 
-        /// <summary>Apply various modifications to a table or collection.
-        /// Available modifications include:
+        /// <summary>Apply various modifications to a table, view, or
+        /// collection.  The availble
+        /// modifications include the following:
         /// <br />
-        ///      Creating or deleting an index on a particular column. This can
-        /// speed up certain search queries (such as <see
-        /// cref="Kinetica.getRecords{T}(GetRecordsRequest)" />, <see
-        /// cref="Kinetica.deleteRecords(DeleteRecordsRequest)" />, <see
-        /// cref="Kinetica.updateRecordsRaw(RawUpdateRecordsRequest)" />) when
-        /// using expressions containing equality or relational operators on
-        /// indexed columns. This only applies to tables.
+        /// Create or delete an index on a particular column. This can speed up
+        /// certain search queries
+        /// (such as <see
+        /// cref="Kinetica.getRecords{T}(string,long,long,IDictionary{string, string})"
+        /// />, <see
+        /// cref="Kinetica.deleteRecords(string,IList{string},IDictionary{string, string})"
+        /// />, <see
+        /// cref="Kinetica.updateRecords{T}(string,IList{string},IList{IDictionary{string, string}},IList{T},IDictionary{string, string})"
+        /// />)
+        /// when using expressions containing equality or relational operators
+        /// on indexed columns. This
+        /// only applies to tables.
         /// <br />
-        ///      Setting the time-to-live (TTL). This can be applied to tables,
-        /// views, or collections.  When applied to collections, every table &
-        /// view within the collection will have its TTL set to the given
-        /// value.
+        /// Set the time-to-live (TTL). This can be applied to tables, views,
+        /// or collections.  When
+        /// applied to collections, every table & view within the collection
+        /// will have its TTL set to the
+        /// given value.
         /// <br />
-        ///      Making a table protected or not. Protected tables have their
-        /// TTLs set to not automatically expire. This can be applied to
-        /// tables, views, and collections.
+        /// Set the global access mode (i.e. locking) for a table. The mode can
+        /// be set to 'no-access', 'read-only',
+        /// 'write-only' or 'read-write'.
         /// <br />
-        ///      Allowing homogeneous tables within a collection.</summary>
+        /// Make a table protected or not. Protected tables have their TTLs set
+        /// to not automatically
+        /// expire. This can be applied to tables, views, and collections.
+        /// <br />
+        /// Allow homogeneous tables within a collection.
+        /// <br />
+        /// Manage a table's columns--a column can be added, removed, or have
+        /// its
+        /// <a href="../../../../concepts/types.html" target="_top">type and
+        /// properties</a> modified.
+        /// <br />
+        /// Set or unset compression for a column.</summary>
         /// 
         /// <param name="request_">Request object containing the parameters for
         /// the operation.</param>
@@ -1214,77 +2207,255 @@ namespace kinetica
         }
 
 
-        /// <summary>Apply various modifications to a table or collection.
-        /// Available modifications include:
+        /// <summary>Apply various modifications to a table, view, or
+        /// collection.  The availble
+        /// modifications include the following:
         /// <br />
-        ///      Creating or deleting an index on a particular column. This can
-        /// speed up certain search queries (such as <see
+        /// Create or delete an index on a particular column. This can speed up
+        /// certain search queries
+        /// (such as <see
         /// cref="Kinetica.getRecords{T}(string,long,long,IDictionary{string, string})"
         /// />, <see
         /// cref="Kinetica.deleteRecords(string,IList{string},IDictionary{string, string})"
         /// />, <see
         /// cref="Kinetica.updateRecords{T}(string,IList{string},IList{IDictionary{string, string}},IList{T},IDictionary{string, string})"
-        /// />) when using expressions containing equality or relational
-        /// operators on indexed columns. This only applies to tables.
+        /// />)
+        /// when using expressions containing equality or relational operators
+        /// on indexed columns. This
+        /// only applies to tables.
         /// <br />
-        ///      Setting the time-to-live (TTL). This can be applied to tables,
-        /// views, or collections.  When applied to collections, every table &
-        /// view within the collection will have its TTL set to the given
-        /// value.
+        /// Set the time-to-live (TTL). This can be applied to tables, views,
+        /// or collections.  When
+        /// applied to collections, every table & view within the collection
+        /// will have its TTL set to the
+        /// given value.
         /// <br />
-        ///      Making a table protected or not. Protected tables have their
-        /// TTLs set to not automatically expire. This can be applied to
-        /// tables, views, and collections.
+        /// Set the global access mode (i.e. locking) for a table. The mode can
+        /// be set to 'no-access', 'read-only',
+        /// 'write-only' or 'read-write'.
         /// <br />
-        ///      Allowing homogeneous tables within a collection.</summary>
+        /// Make a table protected or not. Protected tables have their TTLs set
+        /// to not automatically
+        /// expire. This can be applied to tables, views, and collections.
+        /// <br />
+        /// Allow homogeneous tables within a collection.
+        /// <br />
+        /// Manage a table's columns--a column can be added, removed, or have
+        /// its
+        /// <a href="../../../../concepts/types.html" target="_top">type and
+        /// properties</a> modified.
+        /// <br />
+        /// Set or unset compression for a column.</summary>
         /// 
         /// <param name="table_name">Table on which the operation will be
         /// performed. Must be an existing table, view, or collection.
         /// </param>
-        /// <param name="action">Modification operation to be applied Values:
-        /// create_index, delete_index, allow_homogeneous_tables, protected,
-        /// ttl, add_column, delete_column, change_column, rename_table.
-        ///   </param>
+        /// <param name="action">Modification operation to be applied
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterTableRequest.Action.ALLOW_HOMOGENEOUS_TABLES">ALLOW_HOMOGENEOUS_TABLES</see>:</term>
+        ///         <description>Sets whether homogeneous tables are allowed in
+        /// the given collection. This action is only valid if <paramref
+        /// cref="AlterTableRequest.table_name" /> is a collection. The
+        /// <paramref cref="AlterTableRequest._value" /> must be either 'true'
+        /// or 'false'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterTableRequest.Action.CREATE_INDEX">CREATE_INDEX</see>:</term>
+        ///         <description>Creates an index on the column name specified
+        /// in <paramref cref="AlterTableRequest._value" />. If this column is
+        /// already indexed, an error will be returned.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterTableRequest.Action.DELETE_INDEX">DELETE_INDEX</see>:</term>
+        ///         <description>Deletes an existing index on the column name
+        /// specified in <paramref cref="AlterTableRequest._value" />. If this
+        /// column does not have indexing turned on, an error will be
+        /// returned.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterTableRequest.Action.MOVE_TO_COLLECTION">MOVE_TO_COLLECTION</see>:</term>
+        ///         <description>Move a table into a collection <paramref
+        /// cref="AlterTableRequest._value" />. </description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterTableRequest.Action.PROTECTED">PROTECTED</see>:</term>
+        ///         <description>Sets whether the given <paramref
+        /// cref="AlterTableRequest.table_name" /> should be protected or not.
+        /// The <paramref cref="AlterTableRequest._value" /> must be either
+        /// 'true' or 'false'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterTableRequest.Action.RENAME_TABLE">RENAME_TABLE</see>:</term>
+        ///         <description>Rename a table, view or collection to
+        /// <paramref cref="AlterTableRequest._value" />. Has the same naming
+        /// restrictions as <a href="../../../../concepts/tables.html"
+        /// target="_top">tables</a>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterTableRequest.Action.TTL">TTL</see>:</term>
+        ///         <description>Sets the TTL of the table, view, or collection
+        /// specified in <paramref cref="AlterTableRequest.table_name" />. The
+        /// <paramref cref="AlterTableRequest._value" /> must be the desired
+        /// TTL in minutes.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterTableRequest.Action.ADD_COLUMN">ADD_COLUMN</see>:</term>
+        ///         <description>Add the column specified in <paramref
+        /// cref="AlterTableRequest._value" /> to the table specified in
+        /// <paramref cref="AlterTableRequest.table_name" />.  Use
+        /// <i>column_type</i> and <i>column_properties</i> in <paramref
+        /// cref="AlterTableRequest.options" /> to set the column's type and
+        /// properties, respectively.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterTableRequest.Action.CHANGE_COLUMN">CHANGE_COLUMN</see>:</term>
+        ///         <description>Change type and properties of the column
+        /// specified in <paramref cref="AlterTableRequest._value" />.  Use
+        /// <i>column_type</i> and <i>column_properties</i> in <paramref
+        /// cref="AlterTableRequest.options" /> to set the column's type and
+        /// properties, respectively.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterTableRequest.Action.SET_COLUMN_COMPRESSION">SET_COLUMN_COMPRESSION</see>:</term>
+        ///         <description>Modify the compression setting on the column
+        /// specified in <paramref cref="AlterTableRequest._value" />.
+        /// </description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterTableRequest.Action.DELETE_COLUMN">DELETE_COLUMN</see>:</term>
+        ///         <description>Delete the column specified in <paramref
+        /// cref="AlterTableRequest._value" /> from the table specified in
+        /// <paramref cref="AlterTableRequest.table_name" />.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterTableRequest.Action.CREATE_FOREIGN_KEY">CREATE_FOREIGN_KEY</see>:</term>
+        ///         <description>Create a foreign key using the format
+        /// 'source_column references target_table(primary_key_column) [ as
+        /// <foreign_key_name> ]'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterTableRequest.Action.DELETE_FOREIGN_KEY">DELETE_FOREIGN_KEY</see>:</term>
+        ///         <description>Delete a foreign key.  The <paramref
+        /// cref="AlterTableRequest._value" /> should be the <foreign_key_name>
+        /// or the string used to define the foreign key.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterTableRequest.Action.SET_GLOBAL_ACCESS_MODE">SET_GLOBAL_ACCESS_MODE</see>:</term>
+        ///         <description>Set the global access mode (i.e. locking) for
+        /// the table specified in <paramref
+        /// cref="AlterTableRequest.table_name" />. Specify the access mode in
+        /// <paramref cref="AlterTableRequest._value" />. Valid modes are
+        /// 'no-access', 'read-only', 'write-only' and
+        /// 'read-write'.</description>
+        ///     </item>
+        /// </list>  </param>
         /// <param name="_value">The value of the modification. May be a column
-        /// name, 'true' or 'false', or a TTL depending on <paramref
-        /// cref="AlterTableRequest.action" />.  </param>
+        /// name, 'true' or 'false', a TTL, or the global access mode depending
+        /// on <paramref cref="AlterTableRequest.action" />.  </param>
         /// <param name="options">Optional parameters.
         /// <list type="bullet">
         ///     <item>
-        ///         <term>column_default_value</term>
-        ///         <description>when adding a column: set a default value, for
-        /// existing data.</description>
+        ///         <term><see
+        /// cref="AlterTableRequest.Options.COLUMN_DEFAULT_VALUE">COLUMN_DEFAULT_VALUE</see>:</term>
+        ///         <description>When adding a column, set a default value for
+        /// existing records.</description>
         ///     </item>
         ///     <item>
-        ///         <term>column_properties</term>
-        ///         <description>when adding or changing a column: set the
+        ///         <term><see
+        /// cref="AlterTableRequest.Options.COLUMN_PROPERTIES">COLUMN_PROPERTIES</see>:</term>
+        ///         <description>When adding or changing a column, set the
         /// column properties (strings, separated by a comma: data, store_only,
         /// text_search, char8, int8 etc).</description>
         ///     </item>
         ///     <item>
-        ///         <term>column_type</term>
-        ///         <description>when adding or changing a column: set the
+        ///         <term><see
+        /// cref="AlterTableRequest.Options.COLUMN_TYPE">COLUMN_TYPE</see>:</term>
+        ///         <description>When adding or changing a column, set the
         /// column type (strings, separated by a comma: int, double, string,
         /// null etc).</description>
         ///     </item>
         ///     <item>
-        ///         <term>validate_change_column</term>
-        ///         <description>Validate the type change before applying
-        /// column_change request. Default is true (if option is missing). If
-        /// True, then validate all values. A value too large (or too long) for
-        /// the new type will prevent any change. If False, then when a value
-        /// is too large or long, it will be truncated. Values: true, false.
-        /// </description>
+        ///         <term><see
+        /// cref="AlterTableRequest.Options.COMPRESSION_TYPE">COMPRESSION_TYPE</see>:</term>
+        ///         <description>When setting column compression
+        /// (<i>set_column_compression</i> for <paramref
+        /// cref="AlterTableRequest.action" />), compression type to use:
+        /// <i>none</i> (to use no compression) or a valid compression type.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterTableRequest.Options.NONE">NONE</see></term>
         ///     </item>
         ///     <item>
-        ///         <term>copy_values_from_column</term>
-        ///         <description>when adding or changing a column: enter column
-        /// name - from where to copy values.</description>
+        ///         <term><see
+        /// cref="AlterTableRequest.Options.SNAPPY">SNAPPY</see></term>
         ///     </item>
         ///     <item>
-        ///         <term>rename_column</term>
-        ///         <description>new column name (using
-        /// change_column).</description>
+        ///         <term><see
+        /// cref="AlterTableRequest.Options.LZ4">LZ4</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterTableRequest.Options.LZ4HC">LZ4HC</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="AlterTableRequest.Options.SNAPPY">SNAPPY</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterTableRequest.Options.COPY_VALUES_FROM_COLUMN">COPY_VALUES_FROM_COLUMN</see>:</term>
+        ///         <description>When adding or changing a column, enter a
+        /// column name from the same table being altered to use as a source
+        /// for the column being added/changed; values will be copied from this
+        /// source column into the new/modified column.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterTableRequest.Options.RENAME_COLUMN">RENAME_COLUMN</see>:</term>
+        ///         <description>When changing a column, specify new column
+        /// name.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterTableRequest.Options.VALIDATE_CHANGE_COLUMN">VALIDATE_CHANGE_COLUMN</see>:</term>
+        ///         <description>When changing a column, validate the change
+        /// before applying it. If <i>true</i>, then validate all values. A
+        /// value too large (or too long) for the new type will prevent any
+        /// change. If <i>false</i>, then when a value is too large or long, it
+        /// will be truncated.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterTableRequest.Options.TRUE">TRUE</see>:</term>
+        ///         <description>true</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterTableRequest.Options.FALSE">FALSE</see>:</term>
+        ///         <description>false</description>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="AlterTableRequest.Options.TRUE">TRUE</see>.</description>
         ///     </item>
         /// </list>
         ///   </param>
@@ -1371,8 +2542,16 @@ namespace kinetica
         /// <param name="name">Name of the user to be altered. Must be an
         /// existing user.  </param>
         /// <param name="action">Modification operation to be applied to the
-        /// user. Values: set_password.
-        ///   </param>
+        /// user.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterUserRequest.Action.SET_PASSWORD">SET_PASSWORD</see>:</term>
+        ///         <description>Sets the password of the user. The user must
+        /// be an internal user.</description>
+        ///     </item>
+        /// </list>  </param>
         /// <param name="_value">The value of the modification, depending on
         /// <paramref cref="AlterUserRequest.action" />.  </param>
         /// <param name="options">Optional parameters.  </param>
@@ -1386,6 +2565,134 @@ namespace kinetica
                                             IDictionary<string, string> options )
         {
             return alterUser( new AlterUserRequest( name, action, _value, options ) );
+        }
+
+
+        /// <summary>Append (or insert) all records from a source table
+        /// (specified by <paramref
+        /// cref="AppendRecordsRequest.source_table_name" />) to a particular
+        /// target table (specified by <paramref
+        /// cref="AppendRecordsRequest.table_name" />). The field map
+        /// (specified by <paramref cref="AppendRecordsRequest.field_map" />)
+        /// holds the user specified map of target table column names with
+        /// their mapped source column names.</summary>
+        /// 
+        /// <param name="request_">Request object containing the parameters for
+        /// the operation.</param>
+        /// 
+        /// <returns>Response object containing the result of the
+        /// operation.</returns>
+        /// 
+        public AppendRecordsResponse appendRecords( AppendRecordsRequest request_ )
+        {
+            AppendRecordsResponse actualResponse_ = SubmitRequest<AppendRecordsResponse>("/append/records", request_, false);
+
+            return actualResponse_;
+        }
+
+
+        /// <summary>Append (or insert) all records from a source table
+        /// (specified by <paramref name="source_table_name" />) to a
+        /// particular target table (specified by <paramref name="table_name"
+        /// />). The field map (specified by <paramref name="field_map" />)
+        /// holds the user specified map of target table column names with
+        /// their mapped source column names.</summary>
+        /// 
+        /// <param name="table_name">The table name for the records to be
+        /// appended. Must be an existing table.  </param>
+        /// <param name="source_table_name">The source table name to get
+        /// records from. Must be an existing table name.  </param>
+        /// <param name="field_map">Contains the mapping of column names from
+        /// the target table (specified by <paramref
+        /// cref="AppendRecordsRequest.table_name" />) as the keys, and
+        /// corresponding column names from the source table (specified by
+        /// <paramref cref="AppendRecordsRequest.source_table_name" />). Must
+        /// be existing column names in source table and target table, and
+        /// their types must be matched.  </param>
+        /// <param name="options">Optional parameters.
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="AppendRecordsRequest.Options.OFFSET">OFFSET</see>:</term>
+        ///         <description>A positive integer indicating the number of
+        /// initial results to skip from source table (specified by <paramref
+        /// cref="AppendRecordsRequest.source_table_name" />). Default is 0.
+        /// The minimum allowed value is 0. The maximum allowed value is
+        /// MAX_INT.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AppendRecordsRequest.Options.LIMIT">LIMIT</see>:</term>
+        ///         <description>A positive integer indicating the maximum
+        /// number of results to be returned from source table (specified by
+        /// <paramref cref="AppendRecordsRequest.source_table_name" />). Or
+        /// END_OF_SET (-9999) to indicate that the max number of results
+        /// should be returned. Default value is END_OF_SET
+        /// (-9999).</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AppendRecordsRequest.Options.EXPRESSION">EXPRESSION</see>:</term>
+        ///         <description>Optional filter expression to apply to the
+        /// source table (specified by <paramref
+        /// cref="AppendRecordsRequest.source_table_name" />). Empty by
+        /// default.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AppendRecordsRequest.Options.ORDER_BY">ORDER_BY</see>:</term>
+        ///         <description>Comma-separated list of the columns to be
+        /// sorted from source table (specified by <paramref
+        /// cref="AppendRecordsRequest.source_table_name" />) by; e.g.
+        /// 'timestamp asc, x desc'.  The columns specified must be present in
+        /// <paramref cref="AppendRecordsRequest.field_map" />.  If any alias
+        /// is given for any column name, the alias must be used, rather than
+        /// the original column name.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AppendRecordsRequest.Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>:</term>
+        ///         <description>Specifies the record collision policy for
+        /// inserting the source table records (specified by <paramref
+        /// cref="AppendRecordsRequest.source_table_name" />) into the target
+        /// table (specified by <paramref
+        /// cref="AppendRecordsRequest.table_name" />) table with a <a
+        /// href="../../../../concepts/tables.html#primary-keys"
+        /// target="_top">primary key</a>.  If set to <i>true</i>, any existing
+        /// target table record with primary key values that match those of a
+        /// source table record being inserted will be replaced by that new
+        /// record.  If set to <i>false</i>, any existing target table record
+        /// with primary key values that match those of a source table record
+        /// being inserted will remain unchanged and the new record discarded.
+        /// If the specified table does not have a primary key, then this
+        /// option is ignored.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="AppendRecordsRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AppendRecordsRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="AppendRecordsRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        /// </list>
+        ///   </param>
+        /// 
+        /// <returns>Response object containing the result of the
+        /// operation.</returns>
+        /// 
+        public AppendRecordsResponse appendRecords( string table_name,
+                                                    string source_table_name,
+                                                    IDictionary<string, string> field_map,
+                                                    IDictionary<string, string> options = null )
+        {
+            return appendRecords( new AppendRecordsRequest( table_name, source_table_name,
+                                                            field_map, options ) );
         }
 
 
@@ -1420,7 +2727,32 @@ namespace kinetica
         /// </param>
         /// <param name="authorization">No longer used. User can pass an empty
         /// string.  </param>
-        /// <param name="options">Optional parameters.  </param>
+        /// <param name="options">Optional parameters.
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="ClearTableRequest.Options.NO_ERROR_IF_NOT_EXISTS">NO_ERROR_IF_NOT_EXISTS</see>:</term>
+        ///         <description>If <i>true</i> and if the table specified in
+        /// <paramref cref="ClearTableRequest.table_name" /> does not exist no
+        /// error is returned. If <i>false</i> and if the table specified in
+        /// <paramref cref="ClearTableRequest.table_name" /> does not exist
+        /// then an error is returned.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="ClearTableRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ClearTableRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="ClearTableRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        /// </list>
+        ///   </param>
         /// 
         /// <returns>Response object containing the result of the
         /// operation.</returns>
@@ -1434,7 +2766,7 @@ namespace kinetica
 
 
         /// <summary>Deactivates a table monitor previously created with <see
-        /// cref="Kinetica.createTableMonitor(CreateTableMonitorRequest)"
+        /// cref="Kinetica.createTableMonitor(string,IDictionary{string, string})"
         /// />.</summary>
         /// 
         /// <param name="request_">Request object containing the parameters for
@@ -1533,56 +2865,129 @@ namespace kinetica
         /// Has the same naming restrictions as <a
         /// href="../../../../concepts/tables.html" target="_top">tables</a>.
         /// </param>
-        /// <param name="table_names">The list of table names making up the
-        /// joined set.  Corresponds to a SQL statement FROM clause  </param>
-        /// <param name="column_names">List of columns to be included in the
-        /// join table. Can be the column_names from the member sets if unique
-        /// or can be prefixed by the table id as <id>.<column_name> where <id>
-        /// is the table name or alias. Can be specified as aliased via the
-        /// syntax '<column_name> as <alias>. Can use wild cards as '*'
-        /// (include all columns), or <id>.* (include all columns from table
-        /// with name or alias <id>)  </param>
+        /// <param name="table_names">The list of table names composing the
+        /// join.  Corresponds to a SQL statement FROM clause  </param>
+        /// <param name="column_names">List of member table columns or column
+        /// expressions to be included in the join. Columns can be prefixed
+        /// with 'table_id.column_name', where 'table_id' is the table name or
+        /// alias.  Columns can be aliased via the syntax 'column_name as
+        /// alias'. Wild cards '*' can be used to include all columns across
+        /// member tables or 'table_id.*' for all of a single table's columns.
+        /// Columns and column expressions comprising the join must be uniquely
+        /// named or aliased--therefore, the '*' wild card cannot be used if
+        /// column names aren't unique across all tables.  </param>
         /// <param name="expressions">An optional list of expressions to
-        /// combine and filter the joined set.  Corresponds to a SQL statement
-        /// WHERE clause. For details see: <a
+        /// combine and filter the joined tables.  Corresponds to a SQL
+        /// statement WHERE clause. For details see: <a
         /// href="../../../../concepts/expressions.html"
         /// target="_top">expressions</a>.  </param>
         /// <param name="options">Optional parameters.
         /// <list type="bullet">
         ///     <item>
-        ///         <term>collection_name</term>
+        ///         <term><see
+        /// cref="CreateJoinTableRequest.Options.COLLECTION_NAME">COLLECTION_NAME</see>:</term>
         ///         <description>Name of a collection which is to contain the
-        /// join table. If the collection provided is non-existent, the
-        /// collection will be automatically created. If empty, then the join
-        /// table will be a top-level table.</description>
+        /// join. If the collection provided is non-existent, the collection
+        /// will be automatically created. If empty, then the join will be at
+        /// the top level.</description>
         ///     </item>
         ///     <item>
-        ///         <term>max_query_dimensions</term>
-        ///         <description>The maximum number of tables in a joined table
-        /// that can be accessed by a query and are not equated by a
-        /// foreign-key to primary-key equality predicate</description>
+        ///         <term><see
+        /// cref="CreateJoinTableRequest.Options.MAX_QUERY_DIMENSIONS">MAX_QUERY_DIMENSIONS</see>:</term>
+        ///         <description>The maximum number of tables in a join that
+        /// can be accessed by a query and are not equated by a foreign-key to
+        /// primary-key equality predicate</description>
         ///     </item>
         ///     <item>
-        ///         <term>optimize_lookups</term>
-        ///         <description>Use the applied filters to precalculate the
-        /// lookup table to get data from the primary key sets</description>
+        ///         <term><see
+        /// cref="CreateJoinTableRequest.Options.OPTIMIZE_LOOKUPS">OPTIMIZE_LOOKUPS</see>:</term>
+        ///         <description>Use more memory to speed up the joining of
+        /// tables.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateJoinTableRequest.Options.TRUE">TRUE</see></term>
         ///     </item>
         ///     <item>
-        ///         <term>refresh_method</term>
-        ///         <description>Method by which the join table can be
-        /// refreshed when underlying member tables have changed. Values:
-        /// manual, on_query, on_insert.
-        /// </description>
+        ///         <term><see
+        /// cref="CreateJoinTableRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="CreateJoinTableRequest.Options.FALSE">FALSE</see>.</description>
         ///     </item>
         ///     <item>
-        ///         <term>refresh</term>
-        ///         <description>Do a manual refresh of the join table if it
-        /// exists - throws an error otherwise Values: no_refresh, refresh,
-        /// full_refresh.
-        /// </description>
+        ///         <term><see
+        /// cref="CreateJoinTableRequest.Options.REFRESH_METHOD">REFRESH_METHOD</see>:</term>
+        ///         <description>Method by which the join can be refreshed when
+        /// the data in underlying member tables have changed.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateJoinTableRequest.Options.MANUAL">MANUAL</see>:</term>
+        ///         <description>refresh only occurs when manually requested by
+        /// calling this endpoint with refresh option set to <i>refresh</i> or
+        /// <i>full_refresh</i></description>
         ///     </item>
         ///     <item>
-        ///         <term>ttl</term>
+        ///         <term><see
+        /// cref="CreateJoinTableRequest.Options.ON_QUERY">ON_QUERY</see>:</term>
+        ///         <description>incrementally refresh (refresh just those
+        /// records added) whenever a new query is issued and new data is
+        /// inserted into the base table.  A full refresh of all the records
+        /// occurs when a new query is issued and there have been inserts to
+        /// any non-base-tables since the last query</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateJoinTableRequest.Options.ON_INSERT">ON_INSERT</see>:</term>
+        ///         <description>incrementally refresh (refresh just those
+        /// records added) whenever new data is inserted into a base table.  A
+        /// full refresh of all the records occurs when a new query is issued
+        /// and there have been inserts to any non-base-tables since the last
+        /// query</description>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="CreateJoinTableRequest.Options.MANUAL">MANUAL</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateJoinTableRequest.Options.REFRESH">REFRESH</see>:</term>
+        ///         <description>Do a manual refresh of the join if it exists -
+        /// throws an error otherwise
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateJoinTableRequest.Options.NO_REFRESH">NO_REFRESH</see>:</term>
+        ///         <description>don't refresh</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateJoinTableRequest.Options.REFRESH">REFRESH</see>:</term>
+        ///         <description>incrementally refresh (refresh just those
+        /// records added) if new data has been inserted into the base table.
+        /// A full refresh of all the records occurs if there have been inserts
+        /// to any non-base-tables since the last refresh</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateJoinTableRequest.Options.FULL_REFRESH">FULL_REFRESH</see>:</term>
+        ///         <description>always refresh even if no new records have
+        /// been added.  Only refresh method guaranteed to do a full refresh
+        /// (refresh all the records) if a delete or update has occurred since
+        /// the last refresh.</description>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="CreateJoinTableRequest.Options.NO_REFRESH">NO_REFRESH</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateJoinTableRequest.Options.TTL">TTL</see>:</term>
         ///         <description>Sets the TTL of the table specified in
         /// <paramref cref="CreateJoinTableRequest.join_table_name" />. The
         /// value must be the desired TTL in minutes.</description>
@@ -1634,8 +3039,28 @@ namespace kinetica
         /// <param name="proc_name">Name of the proc to be created. Must not be
         /// the name of a currently existing proc.  </param>
         /// <param name="execution_mode">The execution mode of the proc.
-        /// Values: distributed, nondistributed.
-        ///   </param>
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateProcRequest.ExecutionMode.DISTRIBUTED">DISTRIBUTED</see>:</term>
+        ///         <description>Input table data will be divided into data
+        /// segments that are distributed across all nodes in the cluster, and
+        /// the proc command will be invoked once per data segment in parallel.
+        /// Output table data from each invocation will be saved to the same
+        /// node as the corresponding input data.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateProcRequest.ExecutionMode.NONDISTRIBUTED">NONDISTRIBUTED</see>:</term>
+        ///         <description>The proc command will be invoked only once per
+        /// execution, and will not have access to any input or output table
+        /// data.</description>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="CreateProcRequest.ExecutionMode.DISTRIBUTED">DISTRIBUTED</see>.
+        /// </param>
         /// <param name="files">A map of the files that make up the proc. The
         /// keys of the map are file names, and the values are the binary
         /// contents of the files. The file names may include subdirectory
@@ -1673,9 +3098,36 @@ namespace kinetica
         }
 
 
-        /// <summary>Creates a new projection of an existing table.  A
-        /// projection represents a subset of the columns (potentially
-        /// including derived columns) of a table.</summary>
+        /// <summary>Creates a new <a
+        /// href="../../../../concepts/projections.html"
+        /// target="_top">projection</a> of an existing table. A projection
+        /// represents a subset of the columns (potentially including derived
+        /// columns) of a table.
+        /// <br />
+        /// Notes:
+        /// <br />
+        /// A moving average can be calculated on a given column using the
+        /// following syntax in the <paramref
+        /// cref="CreateProjectionRequest.column_names" /> parameter:
+        /// <br />
+        /// 'moving_average(column_name,num_points_before,num_points_after) as
+        /// new_column_name'
+        /// <br />
+        /// For each record in the moving_average function's 'column_name'
+        /// parameter, it computes the average over the previous
+        /// 'num_points_before' records and the subsequent 'num_points_after'
+        /// records.
+        /// <br />
+        /// Note that moving average relies on <i>order_by</i>, and
+        /// <i>order_by</i> requires that all the data being ordered resides on
+        /// the same processing node, so it won't make sense to use
+        /// <i>order_by</i> without moving average.
+        /// <br />
+        /// Also, a projection can be created with a different shard key than
+        /// the source table.  By specifying <i>shard_key</i>, the projection
+        /// will be sharded according to the specified columns, regardless of
+        /// how the source table is sharded.  The source table can even be
+        /// unsharded or replicated.</summary>
         /// 
         /// <param name="request_">Request object containing the parameters for
         /// the operation.</param>
@@ -1691,9 +3143,35 @@ namespace kinetica
         }
 
 
-        /// <summary>Creates a new projection of an existing table.  A
-        /// projection represents a subset of the columns (potentially
-        /// including derived columns) of a table.</summary>
+        /// <summary>Creates a new <a
+        /// href="../../../../concepts/projections.html"
+        /// target="_top">projection</a> of an existing table. A projection
+        /// represents a subset of the columns (potentially including derived
+        /// columns) of a table.
+        /// <br />
+        /// Notes:
+        /// <br />
+        /// A moving average can be calculated on a given column using the
+        /// following syntax in the <paramref name="column_names" /> parameter:
+        /// <br />
+        /// 'moving_average(column_name,num_points_before,num_points_after) as
+        /// new_column_name'
+        /// <br />
+        /// For each record in the moving_average function's 'column_name'
+        /// parameter, it computes the average over the previous
+        /// 'num_points_before' records and the subsequent 'num_points_after'
+        /// records.
+        /// <br />
+        /// Note that moving average relies on <i>order_by</i>, and
+        /// <i>order_by</i> requires that all the data being ordered resides on
+        /// the same processing node, so it won't make sense to use
+        /// <i>order_by</i> without moving average.
+        /// <br />
+        /// Also, a projection can be created with a different shard key than
+        /// the source table.  By specifying <i>shard_key</i>, the projection
+        /// will be sharded according to the specified columns, regardless of
+        /// how the source table is sharded.  The source table can even be
+        /// unsharded or replicated.</summary>
         /// 
         /// <param name="table_name">Name of the existing table on which the
         /// projection is to be applied.  </param>
@@ -1704,27 +3182,34 @@ namespace kinetica
         /// <param name="column_names">List of columns from <paramref
         /// cref="CreateProjectionRequest.table_name" /> to be included in the
         /// projection. Can include derived columns. Can be specified as
-        /// aliased via the syntax '<column_name> as <alias>.  </param>
+        /// aliased via the syntax 'column_name as alias'.  </param>
         /// <param name="options">Optional parameters.
         /// <list type="bullet">
         ///     <item>
-        ///         <term>collection_name</term>
-        ///         <description>Name of a collection to which the projection
-        /// is to be assigned as a child. If the collection provided is
-        /// non-existent, the collection will be automatically
-        /// created.</description>
+        ///         <term><see
+        /// cref="CreateProjectionRequest.Options.COLLECTION_NAME">COLLECTION_NAME</see>:</term>
+        ///         <description>Name of a <a
+        /// href="../../../../concepts/collections.html"
+        /// target="_top">collection</a> to which the projection is to be
+        /// assigned as a child. If the collection provided is non-existent,
+        /// the collection will be automatically created.</description>
         ///     </item>
         ///     <item>
-        ///         <term>expression</term>
-        ///         <description>An optional filter expression to be applied to
-        /// the source table prior to the projection.</description>
+        ///         <term><see
+        /// cref="CreateProjectionRequest.Options.EXPRESSION">EXPRESSION</see>:</term>
+        ///         <description>An optional filter <a
+        /// href="../../../../concepts/expressions.html"
+        /// target="_top">expression</a> to be applied to the source table
+        /// prior to the projection.</description>
         ///     </item>
         ///     <item>
-        ///         <term>limit</term>
+        ///         <term><see
+        /// cref="CreateProjectionRequest.Options.LIMIT">LIMIT</see>:</term>
         ///         <description>The number of records to keep.</description>
         ///     </item>
         ///     <item>
-        ///         <term>order_by</term>
+        ///         <term><see
+        /// cref="CreateProjectionRequest.Options.ORDER_BY">ORDER_BY</see>:</term>
         ///         <description>Comma-separated list of the columns to be
         /// sorted by; e.g. 'timestamp asc, x desc'.  The columns specified
         /// must be present in <paramref
@@ -1733,16 +3218,68 @@ namespace kinetica
         /// original column name.</description>
         ///     </item>
         ///     <item>
-        ///         <term>materialize_on_gpu</term>
-        ///         <description>If 'true' then the columns of the projection
-        /// will be cached on the GPU. Values: true, false.
-        /// </description>
+        ///         <term><see
+        /// cref="CreateProjectionRequest.Options.MATERIALIZE_ON_GPU">MATERIALIZE_ON_GPU</see>:</term>
+        ///         <description>If <i>true</i> then the columns of the
+        /// projection will be cached on the GPU.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateProjectionRequest.Options.TRUE">TRUE</see></term>
         ///     </item>
         ///     <item>
-        ///         <term>ttl</term>
+        ///         <term><see
+        /// cref="CreateProjectionRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="CreateProjectionRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateProjectionRequest.Options.CHUNK_SIZE">CHUNK_SIZE</see>:</term>
+        ///         <description>If provided this indicates the chunk size to
+        /// be used for this table.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateProjectionRequest.Options.TTL">TTL</see>:</term>
         ///         <description>Sets the TTL of the table, view, or collection
-        /// specified in <paramref cref="CreateProjectionRequest.table_name"
-        /// />. The value must be the desired TTL in minutes.</description>
+        /// specified in <paramref
+        /// cref="CreateProjectionRequest.projection_name" />. The value must
+        /// be the desired TTL in minutes.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateProjectionRequest.Options.SHARD_KEY">SHARD_KEY</see>:</term>
+        ///         <description>Comma-separated list of the columns to be
+        /// sharded on; e.g. 'column1, column2'.  The columns specified must be
+        /// present in <paramref cref="CreateProjectionRequest.column_names"
+        /// />.  If any alias is given for any column name, the alias must be
+        /// used, rather than the original column name.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateProjectionRequest.Options.PERSIST">PERSIST</see>:</term>
+        ///         <description>If <i>true</i> then the projection will be
+        /// persisted as a regular table (it will not be automatically cleared
+        /// unless a <i>ttl</i> is provided, and the table data can be modified
+        /// in subsequent operations). If <i>false</i> then the projection will
+        /// be a read-only, memory-only temporary table.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateProjectionRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateProjectionRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="CreateProjectionRequest.Options.FALSE">FALSE</see>.</description>
         ///     </item>
         /// </list>
         ///   </param>
@@ -1799,10 +3336,10 @@ namespace kinetica
         /// created, the type of the table is given by <paramref
         /// cref="CreateTableRequest.type_id" />, which must the be the ID of a
         /// currently registered type (i.e. one created via <see
-        /// cref="Kinetica.createType(CreateTypeRequest)" />). The table will
-        /// be created inside a collection if the option <i>collection_name</i>
-        /// is specified. If that collection does not already exist, it will be
-        /// created.
+        /// cref="Kinetica.createType(string,string,IDictionary{string, IList{string}},IDictionary{string, string})"
+        /// />). The table will be created inside a collection if the option
+        /// <i>collection_name</i> is specified. If that collection does not
+        /// already exist, it will be created.
         /// <br />
         /// To create a new collection, specify the name of the collection in
         /// <paramref cref="CreateTableRequest.table_name" /> and set the
@@ -1848,15 +3385,29 @@ namespace kinetica
         /// <param name="options">Optional parameters.
         /// <list type="bullet">
         ///     <item>
-        ///         <term>no_error_if_exists</term>
+        ///         <term><see
+        /// cref="CreateTableRequest.Options.NO_ERROR_IF_EXISTS">NO_ERROR_IF_EXISTS</see>:</term>
         ///         <description>If <i>true</i>, prevents an error from
         /// occurring if the table already exists and is of the given type.  If
         /// a table with the same ID but a different type exists, it is still
-        /// an error. Values: true, false.
-        /// </description>
+        /// an error.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableRequest.Options.TRUE">TRUE</see></term>
         ///     </item>
         ///     <item>
-        ///         <term>collection_name</term>
+        ///         <term><see
+        /// cref="CreateTableRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="CreateTableRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableRequest.Options.COLLECTION_NAME">COLLECTION_NAME</see>:</term>
         ///         <description>Name of a collection which is to contain the
         /// newly created table. If empty, then the newly created table will be
         /// a top-level table. If the collection does not allow duplicate types
@@ -1864,43 +3415,114 @@ namespace kinetica
         /// this table creation request will fail.</description>
         ///     </item>
         ///     <item>
-        ///         <term>is_collection</term>
+        ///         <term><see
+        /// cref="CreateTableRequest.Options.IS_COLLECTION">IS_COLLECTION</see>:</term>
         ///         <description>Indicates whether the new table to be created
-        /// will be a collection. Values: true, false.
-        /// </description>
+        /// will be a collection.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableRequest.Options.TRUE">TRUE</see></term>
         ///     </item>
         ///     <item>
-        ///         <term>disallow_homogeneous_tables</term>
+        ///         <term><see
+        /// cref="CreateTableRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="CreateTableRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableRequest.Options.DISALLOW_HOMOGENEOUS_TABLES">DISALLOW_HOMOGENEOUS_TABLES</see>:</term>
         ///         <description>For a collection, indicates whether the
         /// collection prohibits containment of multiple tables of exactly the
-        /// same data type. Values: true, false.
-        /// </description>
+        /// same data type.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableRequest.Options.TRUE">TRUE</see></term>
         ///     </item>
         ///     <item>
-        ///         <term>is_replicated</term>
+        ///         <term><see
+        /// cref="CreateTableRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="CreateTableRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableRequest.Options.IS_REPLICATED">IS_REPLICATED</see>:</term>
         ///         <description>For a table, indicates whether the table is to
         /// be replicated to all the database ranks. This may be necessary when
-        /// the table is to be joined with other tables in a query. Values:
-        /// true, false.
-        /// </description>
+        /// the table is to be joined with other tables in a query.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableRequest.Options.TRUE">TRUE</see></term>
         ///     </item>
         ///     <item>
-        ///         <term>foreign_keys</term>
+        ///         <term><see
+        /// cref="CreateTableRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="CreateTableRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableRequest.Options.FOREIGN_KEYS">FOREIGN_KEYS</see>:</term>
         ///         <description>Semicolon-separated list of foreign key
         /// constraints, of the format 'source_column references
-        /// target_table(primary_key_column)'.</description>
+        /// target_table(primary_key_column) [ as <foreign_key_name>
+        /// ]'.</description>
         ///     </item>
         ///     <item>
-        ///         <term>foreign_shard_key</term>
+        ///         <term><see
+        /// cref="CreateTableRequest.Options.FOREIGN_SHARD_KEY">FOREIGN_SHARD_KEY</see>:</term>
         ///         <description>Foreign shard key description of the format:
         /// <fk_foreign_key> references <pk_column_name> from
         /// <pk_table_name>(<pk_primary_key>)</description>
         ///     </item>
         ///     <item>
-        ///         <term>ttl</term>
+        ///         <term><see
+        /// cref="CreateTableRequest.Options.TTL">TTL</see>:</term>
         ///         <description>Sets the TTL of the table or collection
         /// specified in <paramref cref="CreateTableRequest.table_name" />. The
         /// value must be the desired TTL in minutes.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableRequest.Options.CHUNK_SIZE">CHUNK_SIZE</see>:</term>
+        ///         <description>If provided this indicates the chunk size to
+        /// be used for this table.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableRequest.Options.IS_RESULT_TABLE">IS_RESULT_TABLE</see>:</term>
+        ///         <description>For a table, indicates whether the table is a
+        /// non-persistent, memory-only table that will store the output of a
+        /// proc executed with /execute/proc. A result table cannot contain
+        /// store_only, text_search, or string columns (char columns are
+        /// acceptable), records cannot be inserted into it directly, and it
+        /// will not be retained if the server is restarted.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="CreateTableRequest.Options.FALSE">FALSE</see>.</description>
         ///     </item>
         /// </list>
         ///   </param>
@@ -1927,7 +3549,7 @@ namespace kinetica
         /// subsequent part contains one binary-encoded Avro object that was
         /// inserted. The monitor will continue to run (regardless of whether
         /// or not there are any subscribers) until deactivated with <see
-        /// cref="Kinetica.clearTableMonitor(ClearTableMonitorRequest)"
+        /// cref="Kinetica.clearTableMonitor(string,IDictionary{string, string})"
         /// />.</summary>
         /// 
         /// <param name="request_">Request object containing the parameters for
@@ -1975,16 +3597,18 @@ namespace kinetica
         /// <summary>Sets up an area trigger mechanism for two column_names for
         /// one or more tables. (This function is essentially the
         /// two-dimensional version of <see
-        /// cref="Kinetica.createTriggerByRange(CreateTriggerByRangeRequest)"
+        /// cref="Kinetica.createTriggerByRange(string,IList{string},string,double,double,IDictionary{string, string})"
         /// />.) Once the trigger has been activated, any record added to the
         /// listed tables(s) via <see
-        /// cref="Kinetica.insertRecordsRaw(RawInsertRecordsRequest)" /> with
-        /// the chosen columns' values falling within the specified region will
-        /// trip the trigger. All such records will be queued at the trigger
-        /// port (by default '9001', but able to be retrieved via <see
-        /// cref="Kinetica.showSystemStatus(ShowSystemStatusRequest)" />) for
-        /// any listening client to collect. Active triggers can be cancelled
-        /// by using the <see cref="Kinetica.clearTrigger(ClearTriggerRequest)"
+        /// cref="Kinetica.insertRecords{T}(string,IList{T},IDictionary{string, string})"
+        /// /> with the chosen columns' values falling within the specified
+        /// region will trip the trigger. All such records will be queued at
+        /// the trigger port (by default '9001', but able to be retrieved via
+        /// <see
+        /// cref="Kinetica.showSystemStatus(IDictionary{string, string})" />)
+        /// for any listening client to collect. Active triggers can be
+        /// cancelled by using the <see
+        /// cref="Kinetica.clearTrigger(string,IDictionary{string, string})"
         /// /> endpoint or by clearing all relevant tables.
         /// <br />
         /// The output returns the trigger handle as well as indicating success
@@ -2067,13 +3691,14 @@ namespace kinetica
         /// <summary>Sets up a simple range trigger for a column_name for one
         /// or more tables. Once the trigger has been activated, any record
         /// added to the listed tables(s) via <see
-        /// cref="Kinetica.insertRecordsRaw(RawInsertRecordsRequest)" /> with
-        /// the chosen column_name's value falling within the specified range
-        /// will trip the trigger. All such records will be queued at the
+        /// cref="Kinetica.insertRecords{T}(string,IList{T},IDictionary{string, string})"
+        /// /> with the chosen column_name's value falling within the specified
+        /// range will trip the trigger. All such records will be queued at the
         /// trigger port (by default '9001', but able to be retrieved via <see
-        /// cref="Kinetica.showSystemStatus(ShowSystemStatusRequest)" />) for
-        /// any listening client to collect. Active triggers can be cancelled
-        /// by using the <see cref="Kinetica.clearTrigger(ClearTriggerRequest)"
+        /// cref="Kinetica.showSystemStatus(IDictionary{string, string})" />)
+        /// for any listening client to collect. Active triggers can be
+        /// cancelled by using the <see
+        /// cref="Kinetica.clearTrigger(string,IDictionary{string, string})"
         /// /> endpoint or by clearing all relevant tables.
         /// <br />
         /// The output returns the trigger handle as well as indicating success
@@ -2155,7 +3780,7 @@ namespace kinetica
         /// 'primary_key' on the desired column_names. If a primary key is
         /// specified, then a uniqueness constraint is enforced, in that only a
         /// single object can exist with a given primary key. When <see
-        /// cref="Kinetica.insertRecordsRaw(RawInsertRecordsRequest)">inserting</see>
+        /// cref="Kinetica.insertRecords{T}(string,IList{T},IDictionary{string, string})">inserting</see>
         /// data into a table with a primary key, depending on the parameters
         /// in the request, incoming objects with primary keys that match
         /// existing objects will either overwrite (i.e. update) the existing
@@ -2248,7 +3873,230 @@ namespace kinetica
         /// name.  All keys used must be relevant column names for the given
         /// table.  Specifying any property overrides the default properties
         /// for that column (which is based on the column's data type).
-        /// </param>
+        /// Valid values are:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTypeRequest.Properties.DATA">DATA</see>:</term>
+        ///         <description>Default property for all numeric and string
+        /// type columns; makes the column available for GPU
+        /// queries.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTypeRequest.Properties.TEXT_SEARCH">TEXT_SEARCH</see>:</term>
+        ///         <description>Valid only for 'string' columns. Enables full
+        /// text search for string columns. Can be set independently of *data*
+        /// and *store_only*.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTypeRequest.Properties.STORE_ONLY">STORE_ONLY</see>:</term>
+        ///         <description>Persist the column value but do not make it
+        /// available to queries (e.g. /filter/bybox)-i.e. it is mutually
+        /// exclusive to the 'data' property. Any 'bytes' type column must have
+        /// a 'store_only' property. This property reduces system memory
+        /// usage.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTypeRequest.Properties.DISK_OPTIMIZED">DISK_OPTIMIZED</see>:</term>
+        ///         <description>Works in conjunction with the 'data' property
+        /// for string columns. This property reduces system disk usage by
+        /// disabling reverse string lookups. Queries like /filter,
+        /// /filter/bylist, and /filter/byvalue work as usual but
+        /// /aggregate/unique, /aggregate/groupby and /get/records/bycolumn are
+        /// not allowed on columns with this property.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTypeRequest.Properties.TIMESTAMP">TIMESTAMP</see>:</term>
+        ///         <description>Valid only for 'long' columns. Indicates that
+        /// this field represents a timestamp and will be provided in
+        /// milliseconds since the Unix epoch: 00:00:00 Jan 1 1970.  Dates
+        /// represented by a timestamp must fall between the year 1000 and the
+        /// year 2900.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTypeRequest.Properties.DECIMAL">DECIMAL</see>:</term>
+        ///         <description>Valid only for 'string' columns.  It
+        /// represents a SQL type NUMERIC(19, 4) data type.  There can be up to
+        /// 15 digits before the decimal point and up to four digits in the
+        /// fractional part.  The value can be positive or negative (indicated
+        /// by a minus sign at the beginning).  This property is mutually
+        /// exclusive with the 'text_search' property.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTypeRequest.Properties.DATE">DATE</see>:</term>
+        ///         <description>Valid only for 'string' columns.  Indicates
+        /// that this field represents a date and will be provided in the
+        /// format 'YYYY-MM-DD'.  The allowable range is 1000-01-01 through
+        /// 2900-01-01.  This property is mutually exclusive with the
+        /// *text_search* property.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTypeRequest.Properties.TIME">TIME</see>:</term>
+        ///         <description>Valid only for 'string' columns.  Indicates
+        /// that this field represents a time-of-day and will be provided in
+        /// the format 'HH:MM:SS.mmm'.  The allowable range is 00:00:00.000
+        /// through 23:59:59.999.  This property is mutually exclusive with the
+        /// *text_search* property.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTypeRequest.Properties.DATETIME">DATETIME</see>:</term>
+        ///         <description>Valid only for 'string' columns.  Indicates
+        /// that this field represents a datetime and will be provided in the
+        /// format 'YYYY-MM-DD HH:MM:SS.mmm'.  The allowable range is
+        /// 1000-01-01 00:00:00.000 through 2900-01-01 23:59:59.999.  This
+        /// property is mutually exclusive with the *text_search*
+        /// property.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTypeRequest.Properties.CHAR1">CHAR1</see>:</term>
+        ///         <description>This property provides optimized memory, disk
+        /// and query performance for string columns. Strings with this
+        /// property must be no longer than 1 character. This property cannot
+        /// be combined with *text_search*</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTypeRequest.Properties.CHAR2">CHAR2</see>:</term>
+        ///         <description>This property provides optimized memory, disk
+        /// and query performance for string columns. Strings with this
+        /// property must be no longer than 2 characters. This property cannot
+        /// be combined with *text_search*</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTypeRequest.Properties.CHAR4">CHAR4</see>:</term>
+        ///         <description>This property provides optimized memory, disk
+        /// and query performance for string columns. Strings with this
+        /// property must be no longer than 4 characters. This property cannot
+        /// be combined with *text_search*</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTypeRequest.Properties.CHAR8">CHAR8</see>:</term>
+        ///         <description>This property provides optimized memory, disk
+        /// and query performance for string columns. Strings with this
+        /// property must be no longer than 8 characters. This property cannot
+        /// be combined with *text_search*</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTypeRequest.Properties.CHAR16">CHAR16</see>:</term>
+        ///         <description>This property provides optimized memory, disk
+        /// and query performance for string columns. Strings with this
+        /// property must be no longer than 16 characters. This property cannot
+        /// be combined with *text_search*</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTypeRequest.Properties.CHAR32">CHAR32</see>:</term>
+        ///         <description>This property provides optimized memory, disk
+        /// and query performance for string columns. Strings with this
+        /// property must be no longer than 32 characters. This property cannot
+        /// be combined with *text_search*</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTypeRequest.Properties.CHAR64">CHAR64</see>:</term>
+        ///         <description>This property provides optimized memory, disk
+        /// and query performance for string columns. Strings with this
+        /// property must be no longer than 64 characters. This property cannot
+        /// be combined with *text_search*</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTypeRequest.Properties.CHAR128">CHAR128</see>:</term>
+        ///         <description>This property provides optimized memory, disk
+        /// and query performance for string columns. Strings with this
+        /// property must be no longer than 128 characters. This property
+        /// cannot be combined with *text_search*</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTypeRequest.Properties.CHAR256">CHAR256</see>:</term>
+        ///         <description>This property provides optimized memory, disk
+        /// and query performance for string columns. Strings with this
+        /// property must be no longer than 256 characters. This property
+        /// cannot be combined with *text_search*</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTypeRequest.Properties.INT8">INT8</see>:</term>
+        ///         <description>This property provides optimized memory and
+        /// query performance for int columns. Ints with this property must be
+        /// between -128 and +127 (inclusive)</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTypeRequest.Properties.INT16">INT16</see>:</term>
+        ///         <description>This property provides optimized memory and
+        /// query performance for int columns. Ints with this property must be
+        /// between -32768 and +32767 (inclusive)</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTypeRequest.Properties.IPV4">IPV4</see>:</term>
+        ///         <description>This property provides optimized memory, disk
+        /// and query performance for string columns representing IPv4
+        /// addresses (i.e. 192.168.1.1). Strings with this property must be of
+        /// the form: A.B.C.D where A, B, C and D are in the range of
+        /// 0-255.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTypeRequest.Properties.WKT">WKT</see>:</term>
+        ///         <description>Valid only for 'string' and 'bytes' columns.
+        /// Indicates that this field contains geospatial geometry objects in
+        /// Well-Known Text (WKT) or Well-Known Binary (WKB)
+        /// format.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTypeRequest.Properties.PRIMARY_KEY">PRIMARY_KEY</see>:</term>
+        ///         <description>This property indicates that this column will
+        /// be part of (or the entire) primary key.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTypeRequest.Properties.SHARD_KEY">SHARD_KEY</see>:</term>
+        ///         <description>This property indicates that this column will
+        /// be part of (or the entire) shard key.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTypeRequest.Properties.NULLABLE">NULLABLE</see>:</term>
+        ///         <description>This property indicates that this column is
+        /// nullable.  However, setting this property is insufficient for
+        /// making the column nullable.  The user must declare the type of the
+        /// column as a union between its regular type and 'null' in the avro
+        /// schema for the record type in <paramref
+        /// cref="CreateTypeRequest.type_definition" />.  For example, if a
+        /// column is of type integer and is nullable, then the entry for the
+        /// column in the avro schema must be: ['int', 'null'].
+        /// The C++, C#, Java, and Python APIs have built-in convenience for
+        /// bypassing setting the avro schema by hand.  For those two
+        /// languages, one can use this property as usual and not have to worry
+        /// about the avro schema for the record.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTypeRequest.Properties.DICT">DICT</see>:</term>
+        ///         <description>This property indicates that this column
+        /// should be dictionary encoded. It can only be used in conjunction
+        /// with string columns marked with a charN property. This property is
+        /// appropriate for columns where the cardinality (the number of unique
+        /// values) is expected to be low, and can save a large amount of
+        /// memory.</description>
+        ///     </item>
+        /// </list>  </param>
         /// <param name="options">Optional parameters.  </param>
         /// 
         /// <returns>Response object containing the result of the
@@ -2264,11 +4112,16 @@ namespace kinetica
         }
 
 
-        /// <summary>Creates a table that is the concatenation of one or more
-        /// existing tables. It is equivalent to the SQL UNION ALL operator.
-        /// Non-charN 'string' and 'bytes' column types cannot be included in a
-        /// union, neither can columns with the property
-        /// 'store_only'.</summary>
+        /// <summary>Performs a <a href="../../../../concepts/unions.html"
+        /// target="_top">union</a> (concatenation) of one or more existing
+        /// tables or views, the results of which are stored in a new view. It
+        /// is equivalent to the SQL UNION ALL operator.  Non-charN 'string'
+        /// and 'bytes' column types cannot be included in a union, neither can
+        /// columns with the property 'store_only'. Though not explicitly
+        /// unions, <a href="../../../../concepts/intersect.html"
+        /// target="_top">intersect</a> and <a
+        /// href="../../../../concepts/except.html" target="_top">except</a>
+        /// are also available from this endpoint.</summary>
         /// 
         /// <param name="request_">Request object containing the parameters for
         /// the operation.</param>
@@ -2284,11 +4137,16 @@ namespace kinetica
         }
 
 
-        /// <summary>Creates a table that is the concatenation of one or more
-        /// existing tables. It is equivalent to the SQL UNION ALL operator.
-        /// Non-charN 'string' and 'bytes' column types cannot be included in a
-        /// union, neither can columns with the property
-        /// 'store_only'.</summary>
+        /// <summary>Performs a <a href="../../../../concepts/unions.html"
+        /// target="_top">union</a> (concatenation) of one or more existing
+        /// tables or views, the results of which are stored in a new view. It
+        /// is equivalent to the SQL UNION ALL operator.  Non-charN 'string'
+        /// and 'bytes' column types cannot be included in a union, neither can
+        /// columns with the property 'store_only'. Though not explicitly
+        /// unions, <a href="../../../../concepts/intersect.html"
+        /// target="_top">intersect</a> and <a
+        /// href="../../../../concepts/except.html" target="_top">except</a>
+        /// are also available from this endpoint.</summary>
         /// 
         /// <param name="table_name">Name of the table to be created. Has the
         /// same naming restrictions as <a
@@ -2304,31 +4162,120 @@ namespace kinetica
         /// <param name="options">Optional parameters.
         /// <list type="bullet">
         ///     <item>
-        ///         <term>collection_name</term>
+        ///         <term><see
+        /// cref="CreateUnionRequest.Options.COLLECTION_NAME">COLLECTION_NAME</see>:</term>
         ///         <description>Name of a collection which is to contain the
         /// union. If the collection provided is non-existent, the collection
         /// will be automatically created. If empty, then the union will be a
         /// top-level table.</description>
         ///     </item>
         ///     <item>
-        ///         <term>materialize_on_gpu</term>
+        ///         <term><see
+        /// cref="CreateUnionRequest.Options.MATERIALIZE_ON_GPU">MATERIALIZE_ON_GPU</see>:</term>
         ///         <description>If 'true' then the columns of the union will
-        /// be cached on the GPU. Values: true, false.
-        /// </description>
+        /// be cached on the GPU.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateUnionRequest.Options.TRUE">TRUE</see></term>
         ///     </item>
         ///     <item>
-        ///         <term>mode</term>
+        ///         <term><see
+        /// cref="CreateUnionRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="CreateUnionRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateUnionRequest.Options.MODE">MODE</see>:</term>
         ///         <description>If 'merge_views' then this operation will
         /// merge (i.e. union) the provided views. All 'table_names' must be
-        /// views from the same underlying base table. Values: union_all,
-        /// union, union_distinct, except, intersect, merge_views.
-        /// </description>
+        /// views from the same underlying base table.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateUnionRequest.Options.UNION_ALL">UNION_ALL</see>:</term>
+        ///         <description>Retains all rows from the specified
+        /// tables.</description>
         ///     </item>
         ///     <item>
-        ///         <term>ttl</term>
+        ///         <term><see
+        /// cref="CreateUnionRequest.Options.UNION">UNION</see>:</term>
+        ///         <description>Retains all unique rows from the specified
+        /// tables (synonym for 'union_distinct').</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateUnionRequest.Options.UNION_DISTINCT">UNION_DISTINCT</see>:</term>
+        ///         <description>Retains all unique rows from the specified
+        /// tables.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateUnionRequest.Options.EXCEPT">EXCEPT</see>:</term>
+        ///         <description>Retains all unique rows from the first table
+        /// that do not appear in the second table (only works on 2
+        /// tables).</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateUnionRequest.Options.INTERSECT">INTERSECT</see>:</term>
+        ///         <description>Retains all unique rows that appear in both of
+        /// the specified tables (only works on 2 tables).</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateUnionRequest.Options.MERGE_VIEWS">MERGE_VIEWS</see>:</term>
+        ///         <description>Merge two or more views (or views of views) of
+        /// the same base data set into a new view. The resulting view would
+        /// match the results of a SQL OR operation, e.g., if filter 1 creates
+        /// a view using the expression 'x = 10' and filter 2 creates a view
+        /// using the expression 'x <= 10', then the merge views operation
+        /// creates a new view using the expression 'x = 10 OR x <=
+        /// 10'.</description>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="CreateUnionRequest.Options.UNION_ALL">UNION_ALL</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateUnionRequest.Options.CHUNK_SIZE">CHUNK_SIZE</see>:</term>
+        ///         <description>If provided this indicates the chunk size to
+        /// be used for this table.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateUnionRequest.Options.TTL">TTL</see>:</term>
         ///         <description>Sets the TTL of the table specified in
         /// <paramref cref="CreateUnionRequest.table_name" />. The value must
         /// be the desired TTL in minutes.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateUnionRequest.Options.PERSIST">PERSIST</see>:</term>
+        ///         <description>If <i>true</i> then the union will be
+        /// persisted as a regular table (it will not be automatically cleared
+        /// unless a <i>ttl</i> is provided, and the table data can be modified
+        /// in subsequent operations). If <i>false</i> (the default) then the
+        /// union will be a read-only, memory-only temporary table.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateUnionRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateUnionRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="CreateUnionRequest.Options.FALSE">FALSE</see>.</description>
         ///     </item>
         /// </list>
         ///   </param>
@@ -2503,13 +4450,15 @@ namespace kinetica
         /// <param name="options">Optional parameters.
         /// <list type="bullet">
         ///     <item>
-        ///         <term>global_expression</term>
+        ///         <term><see
+        /// cref="DeleteRecordsRequest.Options.GLOBAL_EXPRESSION">GLOBAL_EXPRESSION</see>:</term>
         ///         <description>An optional global expression to reduce the
         /// search space of the <paramref
         /// cref="DeleteRecordsRequest.expressions" />.</description>
         ///     </item>
         ///     <item>
-        ///         <term>record_id</term>
+        ///         <term><see
+        /// cref="DeleteRecordsRequest.Options.RECORD_ID">RECORD_ID</see>:</term>
         ///         <description>A record id identifying a single record,
         /// obtained at the time of /insert/records or by calling
         /// /get/records/fromcollection with the *return_record_ids*
@@ -2638,12 +4587,15 @@ namespace kinetica
         /// does not exist, it will automatically be created with the same
         /// schema as the corresponding table (by order) from <paramref
         /// cref="ExecuteProcRequest.input_table_names" />, excluding any
-        /// primary and shard keys. If no table names are specified, no output
-        /// data can be returned from the proc.  </param>
+        /// primary and shard keys. If a specified table is a non-persistent
+        /// result table, it must not have primary or shard keys. If no table
+        /// names are specified, no output data can be returned from the proc.
+        /// </param>
         /// <param name="options">Optional parameters.
         /// <list type="bullet">
         ///     <item>
-        ///         <term>cache_input</term>
+        ///         <term><see
+        /// cref="ExecuteProcRequest.Options.CACHE_INPUT">CACHE_INPUT</see>:</term>
         ///         <description>A comma-delimited list of table names from
         /// <paramref cref="ExecuteProcRequest.input_table_names" /> from which
         /// input data will be cached for use in subsequent calls to
@@ -2653,7 +4605,8 @@ namespace kinetica
         /// instances using the cached data have completed.</description>
         ///     </item>
         ///     <item>
-        ///         <term>use_cached_input</term>
+        ///         <term><see
+        /// cref="ExecuteProcRequest.Options.USE_CACHED_INPUT">USE_CACHED_INPUT</see>:</term>
         ///         <description>A comma-delimited list of run IDs (as returned
         /// from prior calls to /execute/proc) of running or completed proc
         /// instances from which input data cached using the <i>cache_input</i>
@@ -2737,7 +4690,8 @@ namespace kinetica
         /// <param name="options">Optional parameters.
         /// <list type="bullet">
         ///     <item>
-        ///         <term>collection_name</term>
+        ///         <term><see
+        /// cref="FilterRequest.Options.COLLECTION_NAME">COLLECTION_NAME</see>:</term>
         ///         <description>Name of a collection which is to contain the
         /// newly created view, otherwise the view will be a top-level table.
         /// If the collection does not allow duplicate types and it contains a
@@ -2745,7 +4699,8 @@ namespace kinetica
         /// request will fail.</description>
         ///     </item>
         ///     <item>
-        ///         <term>ttl</term>
+        ///         <term><see
+        /// cref="FilterRequest.Options.TTL">TTL</see>:</term>
         ///         <description>Sets the TTL of the view specified in
         /// <paramref cref="FilterRequest.view_name" />. The value must be the
         /// desired TTL in minutes.</description>
@@ -2832,6 +4787,73 @@ namespace kinetica
         }
 
 
+        /// <summary>Calculates which geospatial geometry objects from a table
+        /// intersect a named area of interest (NAI/polygon). The operation is
+        /// synchronous, meaning that a response will not be returned until all
+        /// the matching objects are fully available. The response payload
+        /// provides the count of the resulting set. A new resultant set (view)
+        /// which satisfies the input NAI restriction specification is created
+        /// with the name <paramref
+        /// cref="FilterByAreaGeometryRequest.view_name" /> passed in as part
+        /// of the input.</summary>
+        /// 
+        /// <param name="request_">Request object containing the parameters for
+        /// the operation.</param>
+        /// 
+        /// <returns>Response object containing the result of the
+        /// operation.</returns>
+        /// 
+        public FilterByAreaGeometryResponse filterByAreaGeometry( FilterByAreaGeometryRequest request_ )
+        {
+            FilterByAreaGeometryResponse actualResponse_ = SubmitRequest<FilterByAreaGeometryResponse>("/filter/byarea/geometry", request_, false);
+
+            return actualResponse_;
+        }
+
+
+        /// <summary>Calculates which geospatial geometry objects from a table
+        /// intersect a named area of interest (NAI/polygon). The operation is
+        /// synchronous, meaning that a response will not be returned until all
+        /// the matching objects are fully available. The response payload
+        /// provides the count of the resulting set. A new resultant set (view)
+        /// which satisfies the input NAI restriction specification is created
+        /// with the name <paramref name="view_name" /> passed in as part of
+        /// the input.</summary>
+        /// 
+        /// <param name="table_name">Name of the table to filter.  This may be
+        /// the name of a collection, a table or a view (when chaining
+        /// queries).  Collections may be filtered only if all tables within
+        /// the collection have the same type ID.  </param>
+        /// <param name="view_name">If provided, then this will be the name of
+        /// the view containing the results. Must not be an already existing
+        /// collection, table or view.  </param>
+        /// <param name="column_name">Name of the geospatial geometry column to
+        /// be filtered.  </param>
+        /// <param name="x_vector">List of x coordinates of the vertices of the
+        /// polygon representing the area to be filtered.  </param>
+        /// <param name="y_vector">List of y coordinates of the vertices of the
+        /// polygon representing the area to be filtered.  </param>
+        /// <param name="options">Optional parameters.  </param>
+        /// 
+        /// <returns>Response object containing the result of the
+        /// operation.</returns>
+        /// 
+        public FilterByAreaGeometryResponse filterByAreaGeometry( string table_name,
+                                                                  string view_name,
+                                                                  string column_name,
+                                                                  IList<double> x_vector,
+                                                                  IList<double> y_vector,
+                                                                  IDictionary<string, string> options = null )
+        {
+            return filterByAreaGeometry( new FilterByAreaGeometryRequest( table_name,
+                                                                          view_name,
+                                                                          column_name,
+                                                                          x_vector,
+                                                                          y_vector,
+                                                                          options ) );
+        }
+
+
         /// <summary>Calculates how many objects within the given table lie in
         /// a rectangular box. The operation is synchronous, meaning that a
         /// response will not be returned until all the objects are fully
@@ -2871,8 +4893,7 @@ namespace kinetica
         /// restrictions as <a href="../../../../concepts/tables.html"
         /// target="_top">tables</a>.  </param>
         /// <param name="x_column_name">Name of the column on which to perform
-        /// the bounding box query. If the table's data type is not a shape
-        /// type, must be a valid numeric column.  </param>
+        /// the bounding box query. Must be a valid numeric column.  </param>
         /// <param name="min_x">Lower bound for the column chosen by <paramref
         /// cref="FilterByBoxRequest.x_column_name" />.  Must be less than or
         /// equal to <paramref cref="FilterByBoxRequest.max_x" />.  </param>
@@ -2880,8 +4901,7 @@ namespace kinetica
         /// cref="FilterByBoxRequest.x_column_name" />.  Must be greater than
         /// or equal to <paramref cref="FilterByBoxRequest.min_x" />.  </param>
         /// <param name="y_column_name">Name of a column on which to perform
-        /// the bounding box query. If the table's data type is not a shape
-        /// type, must be a valid numeric column.  </param>
+        /// the bounding box query. Must be a valid numeric column.  </param>
         /// <param name="min_y">Lower bound for <paramref
         /// cref="FilterByBoxRequest.y_column_name" />. Must be less than or
         /// equal to <paramref cref="FilterByBoxRequest.max_y" />.  </param>
@@ -2910,9 +4930,84 @@ namespace kinetica
         }
 
 
-        /// <summary>Applies a geometry filter against a spatial column named
-        /// WKT in a given table, collection or view. The filtering geometry is
-        /// provided by <paramref cref="FilterByGeometryRequest.input_wkt"
+        /// <summary>Calculates which geospatial geometry objects from a table
+        /// intersect a rectangular box. The operation is synchronous, meaning
+        /// that a response will not be returned until all the objects are
+        /// fully available. The response payload provides the count of the
+        /// resulting set. A new resultant set which satisfies the input NAI
+        /// restriction specification is also created when a <paramref
+        /// cref="FilterByBoxGeometryRequest.view_name" /> is passed in as part
+        /// of the input payload.</summary>
+        /// 
+        /// <param name="request_">Request object containing the parameters for
+        /// the operation.</param>
+        /// 
+        /// <returns>Response object containing the result of the
+        /// operation.</returns>
+        /// 
+        public FilterByBoxGeometryResponse filterByBoxGeometry( FilterByBoxGeometryRequest request_ )
+        {
+            FilterByBoxGeometryResponse actualResponse_ = SubmitRequest<FilterByBoxGeometryResponse>("/filter/bybox/geometry", request_, false);
+
+            return actualResponse_;
+        }
+
+
+        /// <summary>Calculates which geospatial geometry objects from a table
+        /// intersect a rectangular box. The operation is synchronous, meaning
+        /// that a response will not be returned until all the objects are
+        /// fully available. The response payload provides the count of the
+        /// resulting set. A new resultant set which satisfies the input NAI
+        /// restriction specification is also created when a <paramref
+        /// name="view_name" /> is passed in as part of the input
+        /// payload.</summary>
+        /// 
+        /// <param name="table_name">Name of the table on which the bounding
+        /// box operation will be performed. Must be an existing table.
+        /// </param>
+        /// <param name="view_name">Optional name of the result view that will
+        /// be created containing the results of the query. Must not be an
+        /// already existing collection, table or view.  </param>
+        /// <param name="column_name">Name of the geospatial geometry column to
+        /// be filtered.  </param>
+        /// <param name="min_x">Lower bound for the x-coordinate of the
+        /// rectangular box.  Must be less than or equal to <paramref
+        /// cref="FilterByBoxGeometryRequest.max_x" />.  </param>
+        /// <param name="max_x">Upper bound for the x-coordinate of the
+        /// rectangular box.  Must be greater than or equal to <paramref
+        /// cref="FilterByBoxGeometryRequest.min_x" />.  </param>
+        /// <param name="min_y">Lower bound for the y-coordinate of the
+        /// rectangular box. Must be less than or equal to <paramref
+        /// cref="FilterByBoxGeometryRequest.max_y" />.  </param>
+        /// <param name="max_y">Upper bound for the y-coordinate of the
+        /// rectangular box. Must be greater than or equal to <paramref
+        /// cref="FilterByBoxGeometryRequest.min_y" />.  </param>
+        /// <param name="options">Optional parameters.  </param>
+        /// 
+        /// <returns>Response object containing the result of the
+        /// operation.</returns>
+        /// 
+        public FilterByBoxGeometryResponse filterByBoxGeometry( string table_name,
+                                                                string view_name,
+                                                                string column_name,
+                                                                double min_x,
+                                                                double max_x,
+                                                                double min_y,
+                                                                double max_y,
+                                                                IDictionary<string, string> options = null )
+        {
+            return filterByBoxGeometry( new FilterByBoxGeometryRequest( table_name,
+                                                                        view_name,
+                                                                        column_name,
+                                                                        min_x, max_x,
+                                                                        min_y, max_y,
+                                                                        options ) );
+        }
+
+
+        /// <summary>Applies a geometry filter against a geospatial geometry
+        /// column in a given table, collection or view. The filtering geometry
+        /// is provided by <paramref cref="FilterByGeometryRequest.input_wkt"
         /// />.</summary>
         /// 
         /// <param name="request_">Request object containing the parameters for
@@ -2929,26 +5024,77 @@ namespace kinetica
         }
 
 
-        /// <summary>Applies a geometry filter against a spatial column named
-        /// WKT in a given table, collection or view. The filtering geometry is
-        /// provided by <paramref name="input_wkt" />.</summary>
+        /// <summary>Applies a geometry filter against a geospatial geometry
+        /// column in a given table, collection or view. The filtering geometry
+        /// is provided by <paramref name="input_wkt" />.</summary>
         /// 
         /// <param name="table_name">Name of the table on which the filter by
         /// geometry will be performed.  Must be an existing table, collection
-        /// or view containing a column named WKT.  </param>
+        /// or view containing a geospatial geometry column.  </param>
         /// <param name="view_name">If provided, then this will be the name of
         /// the view containing the results. Has the same naming restrictions
         /// as <a href="../../../../concepts/tables.html"
         /// target="_top">tables</a>.  </param>
         /// <param name="column_name">Name of the column to be used in the
-        /// filter. Must be 'WKT'  </param>
+        /// filter. Must be a geospatial geometry column.  </param>
         /// <param name="input_wkt">A geometry in WKT format that will be used
         /// to filter the objects in <paramref
         /// cref="FilterByGeometryRequest.table_name" />.  </param>
         /// <param name="operation">The geometric filtering operation to
-        /// perform Values: contains, crosses, disjoint, equals, intersects,
-        /// overlaps, touches, within.
-        ///   </param>
+        /// perform
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="FilterByGeometryRequest.Operation.CONTAINS">CONTAINS</see>:</term>
+        ///         <description>Matches records that contain the given WKT in
+        /// <paramref cref="FilterByGeometryRequest.input_wkt" />, i.e. the
+        /// given WKT is within the bounds of a record's
+        /// geometry.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="FilterByGeometryRequest.Operation.CROSSES">CROSSES</see>:</term>
+        ///         <description>Matches records that cross the given
+        /// WKT.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="FilterByGeometryRequest.Operation.DISJOINT">DISJOINT</see>:</term>
+        ///         <description>Matches records that are disjoint from the
+        /// given WKT.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="FilterByGeometryRequest.Operation.EQUALS">EQUALS</see>:</term>
+        ///         <description>Matches records that are the same as the given
+        /// WKT.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="FilterByGeometryRequest.Operation.INTERSECTS">INTERSECTS</see>:</term>
+        ///         <description>Matches records that intersect the given
+        /// WKT.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="FilterByGeometryRequest.Operation.OVERLAPS">OVERLAPS</see>:</term>
+        ///         <description>Matches records that overlap the given
+        /// WKT.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="FilterByGeometryRequest.Operation.TOUCHES">TOUCHES</see>:</term>
+        ///         <description>Matches records that touch the given
+        /// WKT.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="FilterByGeometryRequest.Operation.WITHIN">WITHIN</see>:</term>
+        ///         <description>Matches records that are within the given
+        /// WKT.</description>
+        ///     </item>
+        /// </list>  </param>
         /// <param name="options">Optional parameters.  </param>
         /// 
         /// <returns>Response object containing the result of the
@@ -2979,10 +5125,11 @@ namespace kinetica
         /// For example, if a type definition has the columns 'x' and 'y', then
         /// a filter by list query with the column map {"x":["10.1", "2.3"],
         /// "y":["0.0", "-31.5", "42.0"]} will return the count of all data
-        /// points whose x and y values match one of the values in the
-        /// respective x- and y-lists. If the filter_mode option is set to
-        /// 'not_in_list' then the filter will match all items that are not in
-        /// the provided list(s).</summary>
+        /// points whose x and y values match both in the respective x- and
+        /// y-lists, e.g., "x = 10.1 and y = 0.0", "x = 2.3 and y = -31.5",
+        /// etc. However, a record with "x = 10.1 and y = -31.5" or "x = 2.3
+        /// and y = 0.0" would not be returned because the values in the given
+        /// lists do not correspond.</summary>
         /// 
         /// <param name="request_">Request object containing the parameters for
         /// the operation.</param>
@@ -3009,10 +5156,11 @@ namespace kinetica
         /// For example, if a type definition has the columns 'x' and 'y', then
         /// a filter by list query with the column map {"x":["10.1", "2.3"],
         /// "y":["0.0", "-31.5", "42.0"]} will return the count of all data
-        /// points whose x and y values match one of the values in the
-        /// respective x- and y-lists. If the filter_mode option is set to
-        /// 'not_in_list' then the filter will match all items that are not in
-        /// the provided list(s).</summary>
+        /// points whose x and y values match both in the respective x- and
+        /// y-lists, e.g., "x = 10.1 and y = 0.0", "x = 2.3 and y = -31.5",
+        /// etc. However, a record with "x = 10.1 and y = -31.5" or "x = 2.3
+        /// and y = 0.0" would not be returned because the values in the given
+        /// lists do not correspond.</summary>
         /// 
         /// <param name="table_name">Name of the table to filter.  This may be
         /// the ID of a collection, table or a result set (for chaining
@@ -3027,10 +5175,27 @@ namespace kinetica
         /// <param name="options">Optional parameters.
         /// <list type="bullet">
         ///     <item>
-        ///         <term>filter_mode</term>
+        ///         <term><see
+        /// cref="FilterByListRequest.Options.FILTER_MODE">FILTER_MODE</see>:</term>
         ///         <description>String indicating the filter mode, either
-        /// 'in_list' or 'not_in_list'. Values: in_list, not_in_list.
-        /// </description>
+        /// 'in_list' or 'not_in_list'.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="FilterByListRequest.Options.IN_LIST">IN_LIST</see>:</term>
+        ///         <description>The filter will match all items that are in
+        /// the provided list(s).</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="FilterByListRequest.Options.NOT_IN_LIST">NOT_IN_LIST</see>:</term>
+        ///         <description>The filter will match all items that are not
+        /// in the provided list(s).</description>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="FilterByListRequest.Options.IN_LIST">IN_LIST</see>.</description>
         ///     </item>
         /// </list>
         ///   </param>
@@ -3060,10 +5225,7 @@ namespace kinetica
         /// <br />
         /// For track data, all track points that lie within the circle plus
         /// one point on either side of the circle (if the track goes beyond
-        /// the circle) will be included in the result. For shapes, e.g.
-        /// polygons, all polygons that intersect the circle will be included
-        /// (even if none of the points of the polygon fall within the
-        /// circle).</summary>
+        /// the circle) will be included in the result.</summary>
         /// 
         /// <param name="request_">Request object containing the parameters for
         /// the operation.</param>
@@ -3090,10 +5252,7 @@ namespace kinetica
         /// <br />
         /// For track data, all track points that lie within the circle plus
         /// one point on either side of the circle (if the track goes beyond
-        /// the circle) will be included in the result. For shapes, e.g.
-        /// polygons, all polygons that intersect the circle will be included
-        /// (even if none of the points of the polygon fall within the
-        /// circle).</summary>
+        /// the circle) will be included in the result.</summary>
         /// 
         /// <param name="table_name">Name of the table on which the filter by
         /// radius operation will be performed.  Must be an existing table.
@@ -3135,6 +5294,81 @@ namespace kinetica
                                                               x_column_name, x_center,
                                                               y_column_name, y_center,
                                                               radius, options ) );
+        }
+
+
+        /// <summary>Calculates which geospatial geometry objects from a table
+        /// intersect a circle with the given radius and center point (i.e.
+        /// circular NAI). The operation is synchronous, meaning that a
+        /// response will not be returned until all the objects are fully
+        /// available. The response payload provides the count of the resulting
+        /// set. A new resultant set (view) which satisfies the input circular
+        /// NAI restriction specification is also created if a <paramref
+        /// cref="FilterByRadiusGeometryRequest.view_name" /> is passed in as
+        /// part of the request.</summary>
+        /// 
+        /// <param name="request_">Request object containing the parameters for
+        /// the operation.</param>
+        /// 
+        /// <returns>Response object containing the result of the
+        /// operation.</returns>
+        /// 
+        public FilterByRadiusGeometryResponse filterByRadiusGeometry( FilterByRadiusGeometryRequest request_ )
+        {
+            FilterByRadiusGeometryResponse actualResponse_ = SubmitRequest<FilterByRadiusGeometryResponse>("/filter/byradius/geometry", request_, false);
+
+            return actualResponse_;
+        }
+
+
+        /// <summary>Calculates which geospatial geometry objects from a table
+        /// intersect a circle with the given radius and center point (i.e.
+        /// circular NAI). The operation is synchronous, meaning that a
+        /// response will not be returned until all the objects are fully
+        /// available. The response payload provides the count of the resulting
+        /// set. A new resultant set (view) which satisfies the input circular
+        /// NAI restriction specification is also created if a <paramref
+        /// name="view_name" /> is passed in as part of the request.</summary>
+        /// 
+        /// <param name="table_name">Name of the table on which the filter by
+        /// radius operation will be performed.  Must be an existing table.
+        /// </param>
+        /// <param name="view_name">If provided, then this will be the name of
+        /// the view containing the results. Must not be an already existing
+        /// collection, table or view.  </param>
+        /// <param name="column_name">Name of the geospatial geometry column to
+        /// be filtered.  </param>
+        /// <param name="x_center">Value of the longitude of the center. Must
+        /// be within [-180.0, 180.0].  The minimum allowed value is -180. The
+        /// maximum allowed value is 180. </param>
+        /// <param name="y_center">Value of the latitude of the center. Must be
+        /// within [-90.0, 90.0].  The minimum allowed value is -90. The
+        /// maximum allowed value is 90. </param>
+        /// <param name="radius">The radius of the circle within which the
+        /// search will be performed. Must be a non-zero positive value. It is
+        /// in meters; so, for example, a value of '42000' means 42 km.  The
+        /// minimum allowed value is 0. The maximum allowed value is MAX_INT.
+        /// </param>
+        /// <param name="options">Optional parameters.  </param>
+        /// 
+        /// <returns>Response object containing the result of the
+        /// operation.</returns>
+        /// 
+        public FilterByRadiusGeometryResponse filterByRadiusGeometry( string table_name,
+                                                                      string view_name,
+                                                                      string column_name,
+                                                                      double x_center,
+                                                                      double y_center,
+                                                                      double radius,
+                                                                      IDictionary<string, string> options = null )
+        {
+            return filterByRadiusGeometry( new FilterByRadiusGeometryRequest( table_name,
+                                                                              view_name,
+                                                                              column_name,
+                                                                              x_center,
+                                                                              y_center,
+                                                                              radius,
+                                                                              options ) );
         }
 
 
@@ -3274,26 +5508,39 @@ namespace kinetica
         /// <param name="options">Optional parameters.
         /// <list type="bullet">
         ///     <item>
-        ///         <term>spatial_radius</term>
+        ///         <term><see
+        /// cref="FilterBySeriesRequest.Options.SPATIAL_RADIUS">SPATIAL_RADIUS</see>:</term>
         ///         <description>A positive number passed as a string
         /// representing the radius of the search area centered around each
         /// track point's geospatial coordinates. The value is interpreted in
         /// meters. Required parameter.</description>
         ///     </item>
         ///     <item>
-        ///         <term>time_radius</term>
+        ///         <term><see
+        /// cref="FilterBySeriesRequest.Options.TIME_RADIUS">TIME_RADIUS</see>:</term>
         ///         <description>A positive number passed as a string
         /// representing the maximum allowable time difference between the
         /// timestamps of a filtered object and the given track's points. The
         /// value is interpreted in seconds. Required parameter.</description>
         ///     </item>
         ///     <item>
-        ///         <term>spatial_distance_metric</term>
+        ///         <term><see
+        /// cref="FilterBySeriesRequest.Options.SPATIAL_DISTANCE_METRIC">SPATIAL_DISTANCE_METRIC</see>:</term>
         ///         <description>A string representing the coordinate system to
         /// use for the spatial search criteria. Acceptable values are
         /// 'euclidean' and 'great_circle'. Optional parameter; default is
-        /// 'euclidean'. Values: euclidean, great_circle.
-        /// </description>
+        /// 'euclidean'.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="FilterBySeriesRequest.Options.EUCLIDEAN">EUCLIDEAN</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="FilterBySeriesRequest.Options.GREAT_CIRCLE">GREAT_CIRCLE</see></term>
+        ///     </item>
+        /// </list></description>
         ///     </item>
         /// </list>
         ///   </param>
@@ -3351,17 +5598,68 @@ namespace kinetica
         /// <param name="expression">The expression with which to filter the
         /// table.  </param>
         /// <param name="mode">The string filtering mode to apply. See below
-        /// for details. Values: search, equals, contains, starts_with, regex.
-        ///   </param>
+        /// for details.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="FilterByStringRequest.Mode.SEARCH">SEARCH</see>:</term>
+        ///         <description>Full text search query with wildcards and
+        /// boolean operators. Note that for this mode, no column can be
+        /// specified in <paramref cref="FilterByStringRequest.column_names"
+        /// />; all string columns of the table that have text search enabled
+        /// will be searched.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="FilterByStringRequest.Mode.EQUALS">EQUALS</see>:</term>
+        ///         <description>Exact whole-string match
+        /// (accelerated).</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="FilterByStringRequest.Mode.CONTAINS">CONTAINS</see>:</term>
+        ///         <description>Partial substring match (not accelerated).  If
+        /// the column is a string type (non-charN) and the number of records
+        /// is too large, it will return 0.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="FilterByStringRequest.Mode.STARTS_WITH">STARTS_WITH</see>:</term>
+        ///         <description>Strings that start with the given expression
+        /// (not accelerated). If the column is a string type (non-charN) and
+        /// the number of records is too large, it will return 0.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="FilterByStringRequest.Mode.REGEX">REGEX</see>:</term>
+        ///         <description>Full regular expression search (not
+        /// accelerated). If the column is a string type (non-charN) and the
+        /// number of records is too large, it will return 0.</description>
+        ///     </item>
+        /// </list>  </param>
         /// <param name="column_names">List of columns on which to apply the
         /// filter. Ignored for 'search' mode.  </param>
         /// <param name="options">Optional parameters.
         /// <list type="bullet">
         ///     <item>
-        ///         <term>case_sensitive</term>
+        ///         <term><see
+        /// cref="FilterByStringRequest.Options.CASE_SENSITIVE">CASE_SENSITIVE</see>:</term>
         ///         <description>If 'false' then string filtering will ignore
-        /// case. Does not apply to 'search' mode. Values: true, false.
-        /// </description>
+        /// case. Does not apply to 'search' mode.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="FilterByStringRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="FilterByStringRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="FilterByStringRequest.Options.TRUE">TRUE</see>.</description>
         ///     </item>
         /// </list>
         ///   </param>
@@ -3435,51 +5733,98 @@ namespace kinetica
         /// <param name="source_table_column_name">Name of the column in the
         /// <paramref cref="FilterByTableRequest.source_table_name" /> whose
         /// values will be used as the filter for table <paramref
-        /// cref="FilterByTableRequest.table_name" />. Must match the type of
-        /// the <paramref cref="FilterByTableRequest.column_name" />.  </param>
+        /// cref="FilterByTableRequest.table_name" />. Must be a geospatial
+        /// geometry column if in 'spatial' mode; otherwise, Must match the
+        /// type of the <paramref cref="FilterByTableRequest.column_name" />.
+        /// </param>
         /// <param name="options">Optional parameters.
         /// <list type="bullet">
         ///     <item>
-        ///         <term>filter_mode</term>
+        ///         <term><see
+        /// cref="FilterByTableRequest.Options.FILTER_MODE">FILTER_MODE</see>:</term>
         ///         <description>String indicating the filter mode, either
-        /// <i>in_table</i> or <i>not_in_table</i>. Values: in_table,
-        /// not_in_table.
-        /// </description>
+        /// <i>in_table</i> or <i>not_in_table</i>.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="FilterByTableRequest.Options.IN_TABLE">IN_TABLE</see></term>
         ///     </item>
         ///     <item>
-        ///         <term>mode</term>
+        ///         <term><see
+        /// cref="FilterByTableRequest.Options.NOT_IN_TABLE">NOT_IN_TABLE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="FilterByTableRequest.Options.IN_TABLE">IN_TABLE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="FilterByTableRequest.Options.MODE">MODE</see>:</term>
         ///         <description>Mode - should be either <i>spatial</i> or
-        /// <i>normal</i>. Values: normal, spatial.
-        /// </description>
+        /// <i>normal</i>.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="FilterByTableRequest.Options.NORMAL">NORMAL</see></term>
         ///     </item>
         ///     <item>
-        ///         <term>buffer</term>
+        ///         <term><see
+        /// cref="FilterByTableRequest.Options.SPATIAL">SPATIAL</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="FilterByTableRequest.Options.NORMAL">NORMAL</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="FilterByTableRequest.Options.BUFFER">BUFFER</see>:</term>
         ///         <description>Buffer size, in meters. Only relevant for
         /// <i>spatial</i> mode.</description>
         ///     </item>
         ///     <item>
-        ///         <term>buffer_method</term>
+        ///         <term><see
+        /// cref="FilterByTableRequest.Options.BUFFER_METHOD">BUFFER_METHOD</see>:</term>
         ///         <description>Method used to buffer polygons.  Only relevant
-        /// for <i>spatial</i> mode. Values: normal, geos.
-        /// </description>
+        /// for <i>spatial</i> mode.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="FilterByTableRequest.Options.NORMAL">NORMAL</see></term>
         ///     </item>
         ///     <item>
-        ///         <term>max_partition_size</term>
+        ///         <term><see
+        /// cref="FilterByTableRequest.Options.GEOS">GEOS</see>:</term>
+        ///         <description>Use geos 1 edge per corner
+        /// algorithm</description>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="FilterByTableRequest.Options.NORMAL">NORMAL</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="FilterByTableRequest.Options.MAX_PARTITION_SIZE">MAX_PARTITION_SIZE</see>:</term>
         ///         <description>Maximum number of points in a partition. Only
         /// relevant for <i>spatial</i> mode.</description>
         ///     </item>
         ///     <item>
-        ///         <term>max_partition_score</term>
+        ///         <term><see
+        /// cref="FilterByTableRequest.Options.MAX_PARTITION_SCORE">MAX_PARTITION_SCORE</see>:</term>
         ///         <description>Maximum number of points * edges in a
         /// partition. Only relevant for <i>spatial</i> mode.</description>
         ///     </item>
         ///     <item>
-        ///         <term>x_column_name</term>
+        ///         <term><see
+        /// cref="FilterByTableRequest.Options.X_COLUMN_NAME">X_COLUMN_NAME</see>:</term>
         ///         <description>Name of column containing x value of point
         /// being filtered in <i>spatial</i> mode.</description>
         ///     </item>
         ///     <item>
-        ///         <term>y_column_name</term>
+        ///         <term><see
+        /// cref="FilterByTableRequest.Options.Y_COLUMN_NAME">Y_COLUMN_NAME</see>:</term>
         ///         <description>Name of column containing y value of point
         /// being filtered in <i>spatial</i> mode.</description>
         ///     </item>
@@ -3639,31 +5984,58 @@ namespace kinetica
         /// <param name="options">
         /// <list type="bullet">
         ///     <item>
-        ///         <term>expression</term>
+        ///         <term><see
+        /// cref="GetRecordsRequest.Options.EXPRESSION">EXPRESSION</see>:</term>
         ///         <description>Optional filter expression to apply to the
         /// table.</description>
         ///     </item>
         ///     <item>
-        ///         <term>fast_index_lookup</term>
+        ///         <term><see
+        /// cref="GetRecordsRequest.Options.FAST_INDEX_LOOKUP">FAST_INDEX_LOOKUP</see>:</term>
         ///         <description>Indicates if indexes should be used to perform
         /// the lookup for a given expression if possible. Only applicable if
         /// there is no sorting, the expression contains only equivalence
         /// comparisons based on existing tables indexes and the range of
-        /// requested values is from [0 to END_OF_SET]. The default value is
-        /// true.</description>
+        /// requested values is from [0 to END_OF_SET].
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="GetRecordsRequest.Options.TRUE">TRUE</see></term>
         ///     </item>
         ///     <item>
-        ///         <term>sort_by</term>
+        ///         <term><see
+        /// cref="GetRecordsRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="GetRecordsRequest.Options.TRUE">TRUE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="GetRecordsRequest.Options.SORT_BY">SORT_BY</see>:</term>
         ///         <description>Optional column that the data should be sorted
         /// by. Empty by default (i.e. no sorting is applied).</description>
         ///     </item>
         ///     <item>
-        ///         <term>sort_order</term>
+        ///         <term><see
+        /// cref="GetRecordsRequest.Options.SORT_ORDER">SORT_ORDER</see>:</term>
         ///         <description>String indicating how the returned values
         /// should be sorted - ascending or descending. If sort_order is
-        /// provided, sort_by has to be provided. Values: ascending,
-        /// descending.
-        /// </description>
+        /// provided, sort_by has to be provided.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="GetRecordsRequest.Options.ASCENDING">ASCENDING</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="GetRecordsRequest.Options.DESCENDING">DESCENDING</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="GetRecordsRequest.Options.ASCENDING">ASCENDING</see>.</description>
         ///     </item>
         /// </list>
         ///   </param>
@@ -3755,25 +6127,40 @@ namespace kinetica
         /// <param name="options">
         /// <list type="bullet">
         ///     <item>
-        ///         <term>expression</term>
+        ///         <term><see
+        /// cref="GetRecordsByColumnRequest.Options.EXPRESSION">EXPRESSION</see>:</term>
         ///         <description>Optional filter expression to apply to the
         /// table.</description>
         ///     </item>
         ///     <item>
-        ///         <term>sort_by</term>
+        ///         <term><see
+        /// cref="GetRecordsByColumnRequest.Options.SORT_BY">SORT_BY</see>:</term>
         ///         <description>Optional column that the data should be sorted
         /// by. Empty by default (i.e. no sorting is applied).</description>
         ///     </item>
         ///     <item>
-        ///         <term>sort_order</term>
+        ///         <term><see
+        /// cref="GetRecordsByColumnRequest.Options.SORT_ORDER">SORT_ORDER</see>:</term>
         ///         <description>String indicating how the returned values
         /// should be sorted - ascending or descending. Default is 'ascending'.
-        /// If sort_order is provided, sort_by has to be provided. Values:
-        /// ascending, descending.
-        /// </description>
+        /// If sort_order is provided, sort_by has to be provided.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="GetRecordsByColumnRequest.Options.ASCENDING">ASCENDING</see></term>
         ///     </item>
         ///     <item>
-        ///         <term>order_by</term>
+        ///         <term><see
+        /// cref="GetRecordsByColumnRequest.Options.DESCENDING">DESCENDING</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="GetRecordsByColumnRequest.Options.ASCENDING">ASCENDING</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="GetRecordsByColumnRequest.Options.ORDER_BY">ORDER_BY</see>:</term>
         ///         <description>Comma-separated list of the columns to be
         /// sorted by; e.g. 'timestamp asc, x desc'.  The columns specified
         /// must be present in <paramref
@@ -3810,8 +6197,8 @@ namespace kinetica
         /// cref="GetRecordsBySeriesRequest.limit" /> parameters.
         /// <br />
         /// In contrast to <see
-        /// cref="Kinetica.getRecords{T}(GetRecordsRequest)" /> this returns
-        /// records grouped by series/track. So if <paramref
+        /// cref="Kinetica.getRecords{T}(string,long,long,IDictionary{string, string})"
+        /// /> this returns records grouped by series/track. So if <paramref
         /// cref="GetRecordsBySeriesRequest.offset" /> is 0 and <paramref
         /// cref="GetRecordsBySeriesRequest.limit" /> is 5 this operation would
         /// return the first 5 series/tracks in <paramref
@@ -3882,7 +6269,7 @@ namespace kinetica
         public GetRecordsBySeriesResponse<T> getRecordsBySeries<T>( string table_name,
                                                                     string world_table_name,
                                                                     int offset = 0,
-                                                                    int limit = 10000,
+                                                                    int limit = 250,
                                                                     IDictionary<string, string> options = null ) where T : new()
         {
             return getRecordsBySeries<T>( new GetRecordsBySeriesRequest( table_name,
@@ -3895,7 +6282,8 @@ namespace kinetica
         /// <summary>Retrieves records from a collection. The operation can
         /// optionally return the record IDs which can be used in certain
         /// queries such as <see
-        /// cref="Kinetica.deleteRecords(DeleteRecordsRequest)" />.
+        /// cref="Kinetica.deleteRecords(string,IList{string},IDictionary{string, string})"
+        /// />.
         /// <br />
         /// This operation supports paging through the data via the <paramref
         /// cref="GetRecordsFromCollectionRequest.offset" /> and <paramref
@@ -3953,11 +6341,23 @@ namespace kinetica
         /// <param name="options">
         /// <list type="bullet">
         ///     <item>
-        ///         <term>return_record_ids</term>
+        ///         <term><see
+        /// cref="GetRecordsFromCollectionRequest.Options.RETURN_RECORD_IDS">RETURN_RECORD_IDS</see>:</term>
         ///         <description>If 'true' then return the internal record ID
-        /// along with each returned record. Default is 'false'. Values: true,
-        /// false.
-        /// </description>
+        /// along with each returned record. Default is 'false'.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="GetRecordsFromCollectionRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="GetRecordsFromCollectionRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="GetRecordsFromCollectionRequest.Options.FALSE">FALSE</see>.</description>
         ///     </item>
         /// </list>
         ///   </param>
@@ -4001,8 +6401,26 @@ namespace kinetica
         /// <param name="name">Name of the user or role to which the permission
         /// will be granted. Must be an existing user or role.  </param>
         /// <param name="permission">Permission to grant to the user or role.
-        /// Values: system_admin, system_write, system_read.
-        ///   </param>
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="GrantPermissionSystemRequest.Permission.SYSTEM_ADMIN">SYSTEM_ADMIN</see>:</term>
+        ///         <description>Full access to all data and system
+        /// functions.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="GrantPermissionSystemRequest.Permission.SYSTEM_WRITE">SYSTEM_WRITE</see>:</term>
+        ///         <description>Read and write access to all
+        /// tables.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="GrantPermissionSystemRequest.Permission.SYSTEM_READ">SYSTEM_READ</see>:</term>
+        ///         <description>Read-only access to all tables.</description>
+        ///     </item>
+        /// </list>  </param>
         /// <param name="options">Optional parameters.  </param>
         /// 
         /// <returns>Response object containing the result of the
@@ -4041,9 +6459,35 @@ namespace kinetica
         /// <param name="name">Name of the user or role to which the permission
         /// will be granted. Must be an existing user or role.  </param>
         /// <param name="permission">Permission to grant to the user or role.
-        /// Values: table_admin, table_insert, table_update, table_delete,
-        /// table_read.
-        ///   </param>
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="GrantPermissionTableRequest.Permission.TABLE_ADMIN">TABLE_ADMIN</see>:</term>
+        ///         <description>Full read/write and administrative access to
+        /// the table.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="GrantPermissionTableRequest.Permission.TABLE_INSERT">TABLE_INSERT</see>:</term>
+        ///         <description>Insert access to the table.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="GrantPermissionTableRequest.Permission.TABLE_UPDATE">TABLE_UPDATE</see>:</term>
+        ///         <description>Update access to the table.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="GrantPermissionTableRequest.Permission.TABLE_DELETE">TABLE_DELETE</see>:</term>
+        ///         <description>Delete access to the table.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="GrantPermissionTableRequest.Permission.TABLE_READ">TABLE_READ</see>:</term>
+        ///         <description>Read access to the table.</description>
+        ///     </item>
+        /// </list>  </param>
         /// <param name="table_name">Name of the table to which the permission
         /// grants access. Must be an existing table, collection, or view. If a
         /// collection, the permission also applies to tables and views in the
@@ -4212,21 +6656,13 @@ namespace kinetica
         /// identifier of each added record.
         /// <br />
         /// The <paramref cref="RawInsertRecordsRequest.options" /> parameter
-        /// can be used to customize this function's behavior.  The
-        /// <i>update_on_existing_pk</i> option specifies the primary-key
-        /// collision policy.  If the table has a <see
-        /// cref="Kinetica.createType(CreateTypeRequest)">primary key</see> and
-        /// if <i>update_on_existing_pk</i> is <i>true</i>, then if any of the
-        /// records being added have the same primary key as existing records,
-        /// the existing records are replaced (i.e. updated) with the given
-        /// records.  If <i>update_on_existing_pk</i> is <i>false</i> and if
-        /// the records being added have the same primary key as existing
-        /// records, they are ignored (the existing records are left
-        /// unchanged).  It is quite possible that in this case some of the
-        /// given records will be inserted and some (those having existing
-        /// primary keys) will be ignored (or updated).  If the specified table
-        /// does not have a primary key column, then the
-        /// <i>update_on_existing_pk</i> option is ignored.
+        /// can be used to customize this function's behavior.
+        /// <br />
+        /// The <i>update_on_existing_pk</i> option specifies the record
+        /// collision policy for inserting into a table with a <a
+        /// href="../../../../concepts/tables.html#primary-keys"
+        /// target="_top">primary key</a>, but is ignored if no primary key
+        /// exists.
         /// <br />
         /// The <i>return_record_ids</i> option indicates that the database
         /// should return the unique identifiers of inserted records.
@@ -4256,21 +6692,13 @@ namespace kinetica
         /// identifier of each added record.
         /// <br />
         /// The <paramref cref="RawInsertRecordsRequest.options" /> parameter
-        /// can be used to customize this function's behavior.  The
-        /// <i>update_on_existing_pk</i> option specifies the primary-key
-        /// collision policy.  If the table has a <see
-        /// cref="Kinetica.createType(CreateTypeRequest)">primary key</see> and
-        /// if <i>update_on_existing_pk</i> is <i>true</i>, then if any of the
-        /// records being added have the same primary key as existing records,
-        /// the existing records are replaced (i.e. updated) with the given
-        /// records.  If <i>update_on_existing_pk</i> is <i>false</i> and if
-        /// the records being added have the same primary key as existing
-        /// records, they are ignored (the existing records are left
-        /// unchanged).  It is quite possible that in this case some of the
-        /// given records will be inserted and some (those having existing
-        /// primary keys) will be ignored (or updated).  If the specified table
-        /// does not have a primary key column, then the
-        /// <i>update_on_existing_pk</i> option is ignored.
+        /// can be used to customize this function's behavior.
+        /// <br />
+        /// The <i>update_on_existing_pk</i> option specifies the record
+        /// collision policy for inserting into a table with a <a
+        /// href="../../../../concepts/tables.html#primary-keys"
+        /// target="_top">primary key</a>, but is ignored if no primary key
+        /// exists.
         /// <br />
         /// The <i>return_record_ids</i> option indicates that the database
         /// should return the unique identifiers of inserted records.
@@ -4306,21 +6734,13 @@ namespace kinetica
         /// identifier of each added record.
         /// <br />
         /// The <paramref name="options" /> parameter can be used to customize
-        /// this function's behavior.  The <i>update_on_existing_pk</i> option
-        /// specifies the primary-key collision policy.  If the table has a
-        /// <see
-        /// cref="Kinetica.createType(string,string,IDictionary{string, IList{string}},IDictionary{string, string})">primary
-        /// key</see> and if <i>update_on_existing_pk</i> is <i>true</i>, then
-        /// if any of the records being added have the same primary key as
-        /// existing records, the existing records are replaced (i.e. updated)
-        /// with the given records.  If <i>update_on_existing_pk</i> is
-        /// <i>false</i> and if the records being added have the same primary
-        /// key as existing records, they are ignored (the existing records are
-        /// left unchanged).  It is quite possible that in this case some of
-        /// the given records will be inserted and some (those having existing
-        /// primary keys) will be ignored (or updated).  If the specified table
-        /// does not have a primary key column, then the
-        /// <i>update_on_existing_pk</i> option is ignored.
+        /// this function's behavior.
+        /// <br />
+        /// The <i>update_on_existing_pk</i> option specifies the record
+        /// collision policy for inserting into a table with a <a
+        /// href="../../../../concepts/tables.html#primary-keys"
+        /// target="_top">primary key</a>, but is ignored if no primary key
+        /// exists.
         /// <br />
         /// The <i>return_record_ids</i> option indicates that the database
         /// should return the unique identifiers of inserted records.
@@ -4340,28 +6760,54 @@ namespace kinetica
         /// <param name="options">Optional parameters.
         /// <list type="bullet">
         ///     <item>
-        ///         <term>update_on_existing_pk</term>
-        ///         <description>If the table has a /create/type, then if the
-        /// value is <i>true</i> then if any of the records being added have
-        /// the same primary key as existing records, the existing records are
-        /// replaced (i.e. updated) with the given records. If <i>false</i>,
-        /// and if the records being added have the same primary key as
-        /// existing records, they are ignored (the existing records are left
-        /// unchanged).  It is quite possible that in this case some of the
-        /// given records will be inserted and some (those having existing
-        /// primary keys) will be ignored (or updated). If the specified table
-        /// does not have a primary key column then this optional parameter is
-        /// ignored. Values: true, false.
-        /// </description>
+        ///         <term><see
+        /// cref="RawInsertRecordsRequest.Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>:</term>
+        ///         <description>Specifies the record collision policy for
+        /// inserting into a table with a <a
+        /// href="../../../../concepts/tables.html#primary-keys"
+        /// target="_top">primary key</a>.  If set to <i>true</i>, any existing
+        /// table record with primary key values that match those of a record
+        /// being inserted will be replaced by that new record.  If set to
+        /// <i>false</i>, any existing table record with primary key values
+        /// that match those of a record being inserted will remain unchanged
+        /// and the new record discarded.  If the specified table does not have
+        /// a primary key, then this option is ignored.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="RawInsertRecordsRequest.Options.TRUE">TRUE</see></term>
         ///     </item>
         ///     <item>
-        ///         <term>return_record_ids</term>
+        ///         <term><see
+        /// cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="RawInsertRecordsRequest.Options.RETURN_RECORD_IDS">RETURN_RECORD_IDS</see>:</term>
         ///         <description>If <i>true</i> then return the internal record
-        /// id along for each inserted record. Values: true, false.
-        /// </description>
+        /// id along for each inserted record.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="RawInsertRecordsRequest.Options.TRUE">TRUE</see></term>
         ///     </item>
         ///     <item>
-        ///         <term>route_to_address</term>
+        ///         <term><see
+        /// cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="RawInsertRecordsRequest.Options.ROUTE_TO_ADDRESS">ROUTE_TO_ADDRESS</see>:</term>
         ///         <description>Route to a specific rank/tom. Option not
         /// suitable for tables using primary/shard keys</description>
         ///     </item>
@@ -4424,13 +6870,13 @@ namespace kinetica
         /// string to map of string to doubles, while most others are maps of
         /// string to string.  In this map, the top level keys represent which
         /// column's parameters are being specified, while the internal keys
-        /// represents which parameter is being specified.  The parameters that
-        /// can be specified are: *min*, *max*, and *interval*.  These
-        /// parameters take on different meanings depending on the type of the
-        /// column.  Below follows a more detailed description of the map:
+        /// represents which parameter is being specified.  These parameters
+        /// take on different meanings depending on the type of the column.
+        /// Below follows a more detailed description of the map:
         /// <list type="bullet">
         ///     <item>
-        ///         <term>seed</term>
+        ///         <term><see
+        /// cref="InsertRecordsRandomRequest.Options.SEED">SEED</see>:</term>
         ///         <description>If provided, the internal random number
         /// generator will be initialized with the given value.  The minimum is
         /// 0.  This allows for the same set of random numbers to be generated
@@ -4442,20 +6888,23 @@ namespace kinetica
         /// something equivalent to: 'options' = {'seed': { 'value': 100 } }
         /// <list type="bullet">
         ///     <item>
-        ///         <term>value</term>
+        ///         <term><see
+        /// cref="InsertRecordsRandomRequest.Options.VALUE">VALUE</see>:</term>
         ///         <description>Pass the seed value here.</description>
         ///     </item>
         /// </list>
         /// </description>
         ///     </item>
         ///     <item>
-        ///         <term>all</term>
+        ///         <term><see
+        /// cref="InsertRecordsRandomRequest.Options.ALL">ALL</see>:</term>
         ///         <description>This key indicates that the specifications
         /// relayed in the internal map are to be applied to all columns of the
         /// records.
         /// <list type="bullet">
         ///     <item>
-        ///         <term>min</term>
+        ///         <term><see
+        /// cref="InsertRecordsRandomRequest.Options.MIN">MIN</see>:</term>
         ///         <description>For numerical columns, the minimum of the
         /// generated values is set to this value.  Default is -99999.  For
         /// point, shape, and track semantic types, min for numeric 'x' and 'y'
@@ -4464,9 +6913,9 @@ namespace kinetica
         /// are -180.0 and -90.0. For the 'TIMESTAMP' column, the default
         /// minimum corresponds to Jan 1, 2010.
         /// For string columns, the minimum length of the randomly generated
-        /// strings is set to this value (default is 1). If both minimum and
+        /// strings is set to this value (default is 0). If both minimum and
         /// maximum are provided, minimum must be less than or equal to max.
-        /// Value needs to be within [1, 200].
+        /// Value needs to be within [0, 200].
         /// If the min is outside the accepted ranges for strings columns and
         /// 'x' and 'y' columns for point/shape/track types, then those
         /// parameters will not be set; however, an error will not be thrown in
@@ -4474,7 +6923,8 @@ namespace kinetica
         /// <i>all</i> parameter judiciously.</description>
         ///     </item>
         ///     <item>
-        ///         <term>max</term>
+        ///         <term><see
+        /// cref="InsertRecordsRandomRequest.Options.MAX">MAX</see>:</term>
         ///         <description>For numerical columns, the maximum of the
         /// generated values is set to this value. Default is 99999. For point,
         /// shape, and track semantic types, max for numeric 'x' and 'y'
@@ -4484,7 +6934,7 @@ namespace kinetica
         /// For string columns, the maximum length of the randomly generated
         /// strings is set to this value (default is 200). If both minimum and
         /// maximum are provided, *max* must be greater than or equal to *min*.
-        /// Value needs to be within [1, 200].
+        /// Value needs to be within [0, 200].
         /// If the *max* is outside the accepted ranges for strings columns and
         /// 'x' and 'y' columns for point/shape/track types, then those
         /// parameters will not be set; however, an error will not be thrown in
@@ -4492,36 +6942,52 @@ namespace kinetica
         /// <i>all</i> parameter judiciously.</description>
         ///     </item>
         ///     <item>
-        ///         <term>interval</term>
-        ///         <description>If specified, then generate values for all
-        /// columns linearly and evenly spaced with the given interval value
-        /// starting at the minimum value (instead of generating random data).
-        /// *Any provided max value is disregarded.*  For string-type columns,
-        /// the interval value is ignored but the string values would be
-        /// generated following the pattern: 'attrname_creationIndex#', i.e.
-        /// the column name suffixed with an underscore and a running counter
-        /// (starting at 0).  No nulls would be generated for nullable
-        /// columns.</description>
+        ///         <term><see
+        /// cref="InsertRecordsRandomRequest.Options.INTERVAL">INTERVAL</see>:</term>
+        ///         <description>If specified, generate values for all columns
+        /// evenly spaced with the given interval value. If a max value is
+        /// specified for a given column the data is randomly generated between
+        /// min and max and decimated down to the interval. If no max is
+        /// provided the data is linerally generated starting at the minimum
+        /// value (instead of generating random data). For non-decimated
+        /// string-type columns the interval value is ignored. Instead the
+        /// values are generated following the pattern:
+        /// 'attrname_creationIndex#', i.e. the column name suffixed with an
+        /// underscore and a running counter (starting at 0). For string types
+        /// with limited size (eg char4) the prefix is dropped. No nulls will
+        /// be generated for nullable columns.</description>
         ///     </item>
         ///     <item>
-        ///         <term>null_percentage</term>
+        ///         <term><see
+        /// cref="InsertRecordsRandomRequest.Options.NULL_PERCENTAGE">NULL_PERCENTAGE</see>:</term>
         ///         <description>If specified, then generate the given
         /// percentage of the count as nulls for all nullable columns.  This
         /// option will be ignored for non-nullable columns.  The value must be
         /// within the range [0, 1.0].  The default value is 5%
         /// (0.05).</description>
         ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsRandomRequest.Options.CARDINALITY">CARDINALITY</see>:</term>
+        ///         <description>If specified, limit the randomly generated
+        /// values to a fixed set. Not allowed on a column with interval
+        /// specified, and is not applicable to WKT or Track-specific columns.
+        /// The value must be greater than 0. This option is disabled by
+        /// default.</description>
+        ///     </item>
         /// </list>
         /// </description>
         ///     </item>
         ///     <item>
-        ///         <term>attr_name</term>
+        ///         <term><see
+        /// cref="InsertRecordsRandomRequest.Options.ATTR_NAME">ATTR_NAME</see>:</term>
         ///         <description>Set the following parameters for the column
         /// specified by the key. This overrides any parameter set by
         /// <i>all</i>.
         /// <list type="bullet">
         ///     <item>
-        ///         <term>min</term>
+        ///         <term><see
+        /// cref="InsertRecordsRandomRequest.Options.MIN">MIN</see>:</term>
         ///         <description>For numerical columns, the minimum of the
         /// generated values is set to this value.  Default is -99999.  For
         /// point, shape, and track semantic types, min for numeric 'x' and 'y'
@@ -4530,9 +6996,9 @@ namespace kinetica
         /// are -180.0 and -90.0. For the 'TIMESTAMP' column, the default
         /// minimum corresponds to Jan 1, 2010.
         /// For string columns, the minimum length of the randomly generated
-        /// strings is set to this value (default is 1). If both minimum and
+        /// strings is set to this value (default is 0). If both minimum and
         /// maximum are provided, minimum must be less than or equal to max.
-        /// Value needs to be within [1, 200].
+        /// Value needs to be within [0, 200].
         /// If the min is outside the accepted ranges for strings columns and
         /// 'x' and 'y' columns for point/shape/track types, then those
         /// parameters will not be set; however, an error will not be thrown in
@@ -4540,7 +7006,8 @@ namespace kinetica
         /// <i>all</i> parameter judiciously.</description>
         ///     </item>
         ///     <item>
-        ///         <term>max</term>
+        ///         <term><see
+        /// cref="InsertRecordsRandomRequest.Options.MAX">MAX</see>:</term>
         ///         <description>For numerical columns, the maximum of the
         /// generated values is set to this value. Default is 99999. For point,
         /// shape, and track semantic types, max for numeric 'x' and 'y'
@@ -4550,7 +7017,7 @@ namespace kinetica
         /// For string columns, the maximum length of the randomly generated
         /// strings is set to this value (default is 200). If both minimum and
         /// maximum are provided, *max* must be greater than or equal to *min*.
-        /// Value needs to be within [1, 200].
+        /// Value needs to be within [0, 200].
         /// If the *max* is outside the accepted ranges for strings columns and
         /// 'x' and 'y' columns for point/shape/track types, then those
         /// parameters will not be set; however, an error will not be thrown in
@@ -4558,43 +7025,60 @@ namespace kinetica
         /// <i>all</i> parameter judiciously.</description>
         ///     </item>
         ///     <item>
-        ///         <term>interval</term>
-        ///         <description>If specified, then generate values for all
-        /// columns linearly and evenly spaced with the given interval value
-        /// starting at the minimum value (instead of generating random data).
-        /// *Any provided max value is disregarded.*  For string-type columns,
-        /// the interval value is ignored but the string values would be
-        /// generated following the pattern: 'attrname_creationIndex#', i.e.
-        /// the column name suffixed with an underscore and a running counter
-        /// (starting at 0).  No nulls would be generated for nullable
-        /// columns.</description>
+        ///         <term><see
+        /// cref="InsertRecordsRandomRequest.Options.INTERVAL">INTERVAL</see>:</term>
+        ///         <description>If specified, generate values for all columns
+        /// evenly spaced with the given interval value. If a max value is
+        /// specified for a given column the data is randomly generated between
+        /// min and max and decimated down to the interval. If no max is
+        /// provided the data is linerally generated starting at the minimum
+        /// value (instead of generating random data). For non-decimated
+        /// string-type columns the interval value is ignored. Instead the
+        /// values are generated following the pattern:
+        /// 'attrname_creationIndex#', i.e. the column name suffixed with an
+        /// underscore and a running counter (starting at 0). For string types
+        /// with limited size (eg char4) the prefix is dropped. No nulls will
+        /// be generated for nullable columns.</description>
         ///     </item>
         ///     <item>
-        ///         <term>null_percentage</term>
+        ///         <term><see
+        /// cref="InsertRecordsRandomRequest.Options.NULL_PERCENTAGE">NULL_PERCENTAGE</see>:</term>
         ///         <description>If specified and if this column is nullable,
         /// then generate the given percentage of the count as nulls.  This
         /// option will result in an error if the column is not nullable.  The
         /// value must be within the range [0, 1.0].  The default value is 5%
         /// (0.05).</description>
         ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsRandomRequest.Options.CARDINALITY">CARDINALITY</see>:</term>
+        ///         <description>If specified, limit the randomly generated
+        /// values to a fixed set. Not allowed on a column with interval
+        /// specified, and is not applicable to WKT or Track-specific columns.
+        /// The value must be greater than 0. This option is disabled by
+        /// default.</description>
+        ///     </item>
         /// </list>
         /// </description>
         ///     </item>
         ///     <item>
-        ///         <term>track_length</term>
+        ///         <term><see
+        /// cref="InsertRecordsRandomRequest.Options.TRACK_LENGTH">TRACK_LENGTH</see>:</term>
         ///         <description>This key-map pair is only valid for track type
         /// data sets (an error is thrown otherwise).  No nulls would be
         /// generated for nullable columns.
         /// <list type="bullet">
         ///     <item>
-        ///         <term>min</term>
+        ///         <term><see
+        /// cref="InsertRecordsRandomRequest.Options.MIN">MIN</see>:</term>
         ///         <description>Minimum possible length for generated series;
         /// default is 100 records per series. Must be an integral value within
         /// the range [1, 500]. If both min and max are specified, min must be
         /// less than or equal to max.</description>
         ///     </item>
         ///     <item>
-        ///         <term>max</term>
+        ///         <term><see
+        /// cref="InsertRecordsRandomRequest.Options.MAX">MAX</see>:</term>
         ///         <description>Maximum possible length for generated series;
         /// default is 500 records per series. Must be an integral value within
         /// the range [1, 500]. If both min and max are specified, max must be
@@ -4660,8 +7144,18 @@ namespace kinetica
         /// the same id that should be in the 'SYMBOLCODE' column for objects
         /// using this symbol  </param>
         /// <param name="symbol_format">Specifies the symbol format. Must be
-        /// either 'svg' or 'svg_path'. Values: svg, svg_path.
-        ///   </param>
+        /// either 'svg' or 'svg_path'.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertSymbolRequest.SymbolFormat.SVG">SVG</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertSymbolRequest.SymbolFormat.SVG_PATH">SVG_PATH</see></term>
+        ///     </item>
+        /// </list>  </param>
         /// <param name="symbol_data">The actual symbol data. If <paramref
         /// cref="InsertSymbolRequest.symbol_format" /> is 'svg' then this
         /// should be the raw bytes representing an svg file. If <paramref
@@ -4671,7 +7165,8 @@ namespace kinetica
         /// <param name="options">Optional parameters.
         /// <list type="bullet">
         ///     <item>
-        ///         <term>color</term>
+        ///         <term><see
+        /// cref="InsertSymbolRequest.Options.COLOR">COLOR</see>:</term>
         ///         <description>If <paramref
         /// cref="InsertSymbolRequest.symbol_format" /> is 'svg' this is
         /// ignored. If <paramref cref="InsertSymbolRequest.symbol_format" />
@@ -4732,11 +7227,11 @@ namespace kinetica
 
         /// <summary>Manages global access to a table's data.  By default a
         /// table has a <paramref cref="LockTableRequest.lock_type" /> of
-        /// <i>unlock</i>, indicating all operations are permitted.  A user may
-        /// request a <i>read-only</i> or a <i>write-only</i> lock, after which
-        /// only read or write operations, respectively, are permitted on the
-        /// table until the lock is removed.  When <paramref
-        /// cref="LockTableRequest.lock_type" /> is <i>disable</i> then no
+        /// <i>read-write</i>, indicating all operations are permitted.  A user
+        /// may request a <i>read-only</i> or a <i>write-only</i> lock, after
+        /// which only read or write operations, respectively, are permitted on
+        /// the table until the lock is removed.  When <paramref
+        /// cref="LockTableRequest.lock_type" /> is <i>no-access</i> then no
         /// operations are permitted on the table.  The lock status can be
         /// queried by setting <paramref cref="LockTableRequest.lock_type" />
         /// to <i>status</i>.</summary>
@@ -4756,22 +7251,50 @@ namespace kinetica
 
 
         /// <summary>Manages global access to a table's data.  By default a
-        /// table has a <paramref name="lock_type" /> of <i>unlock</i>,
+        /// table has a <paramref name="lock_type" /> of <i>read-write</i>,
         /// indicating all operations are permitted.  A user may request a
         /// <i>read-only</i> or a <i>write-only</i> lock, after which only read
         /// or write operations, respectively, are permitted on the table until
         /// the lock is removed.  When <paramref name="lock_type" /> is
-        /// <i>disable</i> then no operations are permitted on the table.  The
-        /// lock status can be queried by setting <paramref name="lock_type" />
-        /// to <i>status</i>.</summary>
+        /// <i>no-access</i> then no operations are permitted on the table.
+        /// The lock status can be queried by setting <paramref
+        /// name="lock_type" /> to <i>status</i>.</summary>
         /// 
         /// <param name="table_name">Name of the table to be locked. It must be
         /// a currently existing table, collection, or view.  </param>
         /// <param name="lock_type">The type of lock being applied to the
         /// table. Setting it to <i>status</i> will return the current lock
-        /// status of the table without changing it. Values: status, disable,
-        /// read-only, write-only, unlock.
-        ///   </param>
+        /// status of the table without changing it.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="LockTableRequest.LockType.STATUS">STATUS</see>:</term>
+        ///         <description>Show locked status</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="LockTableRequest.LockType.NO_ACCESS">NO_ACCESS</see>:</term>
+        ///         <description>Allow no read/write operations</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="LockTableRequest.LockType.READ_ONLY">READ_ONLY</see>:</term>
+        ///         <description>Allow only read operations</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="LockTableRequest.LockType.WRITE_ONLY">WRITE_ONLY</see>:</term>
+        ///         <description>Allow only write operations</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="LockTableRequest.LockType.READ_WRITE">READ_WRITE</see>:</term>
+        ///         <description>Allow all read/write operations</description>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="LockTableRequest.LockType.STATUS">STATUS</see>.  </param>
         /// <param name="options">Optional parameters.  </param>
         /// 
         /// <returns>Response object containing the result of the
@@ -4782,6 +7305,147 @@ namespace kinetica
                                             IDictionary<string, string> options = null )
         {
             return lockTable( new LockTableRequest( table_name, lock_type, options ) );
+        }
+
+
+        /// <summary>Create a new empty result table (specified by <paramref
+        /// cref="MergeRecordsRequest.table_name" />), and insert all records
+        /// from source tables (specified by <paramref
+        /// cref="MergeRecordsRequest.source_table_names" />) based on the
+        /// field mapping information (specified by <paramref
+        /// cref="MergeRecordsRequest.field_maps" />). The field map (specified
+        /// by <paramref cref="MergeRecordsRequest.field_maps" />) holds the
+        /// user specified maps of target table column names to source table
+        /// columns.</summary>
+        /// 
+        /// <param name="request_">Request object containing the parameters for
+        /// the operation.</param>
+        /// 
+        /// <returns>Response object containing the result of the
+        /// operation.</returns>
+        /// 
+        public MergeRecordsResponse mergeRecords( MergeRecordsRequest request_ )
+        {
+            MergeRecordsResponse actualResponse_ = SubmitRequest<MergeRecordsResponse>("/merge/records", request_, false);
+
+            return actualResponse_;
+        }
+
+
+        /// <summary>Create a new empty result table (specified by <paramref
+        /// name="table_name" />), and insert all records from source tables
+        /// (specified by <paramref name="source_table_names" />) based on the
+        /// field mapping information (specified by <paramref name="field_maps"
+        /// />). The field map (specified by <paramref name="field_maps" />)
+        /// holds the user specified maps of target table column names to
+        /// source table columns.</summary>
+        /// 
+        /// <param name="table_name">The new result table name for the records
+        /// to be merged.  Must NOT be an existing table.  </param>
+        /// <param name="source_table_names">The list of source table names to
+        /// get the records from. Must be existing table names.  </param>
+        /// <param name="field_maps">Contains the mapping of column names from
+        /// result table (specified by <paramref
+        /// cref="MergeRecordsRequest.table_name" />) as the keys, and
+        /// corresponding column names from a table from source tables
+        /// (specified by <paramref
+        /// cref="MergeRecordsRequest.source_table_names" />). Must be existing
+        /// column names in source table and target table, and their types must
+        /// be matched.  </param>
+        /// <param name="options">Optional parameters.
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="MergeRecordsRequest.Options.COLLECTION_NAME">COLLECTION_NAME</see>:</term>
+        ///         <description>Name of a collection which is to contain the
+        /// newly created merged table (specified by <paramref
+        /// cref="MergeRecordsRequest.table_name" />). If empty, then the newly
+        /// created merged table will be a top-level table. If the collection
+        /// does not allow duplicate types and it contains a table of the same
+        /// type as the given one, then this table creation request will
+        /// fail.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="MergeRecordsRequest.Options.IS_REPLICATED">IS_REPLICATED</see>:</term>
+        ///         <description>For a merged table (specified by <paramref
+        /// cref="MergeRecordsRequest.table_name" />), indicates whether the
+        /// table is to be replicated to all the database ranks. This may be
+        /// necessary when the table is to be joined with other tables in a
+        /// query.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="MergeRecordsRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="MergeRecordsRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="MergeRecordsRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="MergeRecordsRequest.Options.TTL">TTL</see>:</term>
+        ///         <description>Sets the TTL of the merged table or collection
+        /// (specified by <paramref cref="MergeRecordsRequest.table_name" />).
+        /// The value must be the desired TTL in minutes.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="MergeRecordsRequest.Options.CHUNK_SIZE">CHUNK_SIZE</see>:</term>
+        ///         <description>If provided this indicates the chunk size to
+        /// be used for the merged table.</description>
+        ///     </item>
+        /// </list>
+        ///   </param>
+        /// 
+        /// <returns>Response object containing the result of the
+        /// operation.</returns>
+        /// 
+        public MergeRecordsResponse mergeRecords( string table_name,
+                                                  IList<string> source_table_names,
+                                                  IList<IDictionary<string, string>> field_maps,
+                                                  IDictionary<string, string> options = null )
+        {
+            return mergeRecords( new MergeRecordsRequest( table_name, source_table_names,
+                                                          field_maps, options ) );
+        }
+
+
+        /// <summary>@private
+        /// </summary>
+        /// 
+        /// <param name="request_">Request object containing the parameters for
+        /// the operation.</param>
+        /// 
+        /// <returns>Response object containing the result of the
+        /// operation.</returns>
+        /// 
+        public AdminReplaceTomResponse adminReplaceTom( AdminReplaceTomRequest request_ )
+        {
+            AdminReplaceTomResponse actualResponse_ = SubmitRequest<AdminReplaceTomResponse>("/replace/tom", request_, false);
+
+            return actualResponse_;
+        }
+
+
+        /// <summary>@private
+        /// </summary>
+        /// 
+        /// <param name="old_rank_tom"></param>
+        /// <param name="new_rank_tom"></param>
+        /// 
+        /// <returns>Response object containing the result of the
+        /// operation.</returns>
+        /// 
+        public AdminReplaceTomResponse adminReplaceTom( long old_rank_tom,
+                                                        long new_rank_tom )
+        {
+            return adminReplaceTom( new AdminReplaceTomRequest( old_rank_tom, new_rank_tom ) );
         }
 
 
@@ -4809,8 +7473,27 @@ namespace kinetica
         /// permission will be revoked. Must be an existing user or role.
         /// </param>
         /// <param name="permission">Permission to revoke from the user or
-        /// role. Values: system_admin, system_write, system_read.
-        ///   </param>
+        /// role.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="RevokePermissionSystemRequest.Permission.SYSTEM_ADMIN">SYSTEM_ADMIN</see>:</term>
+        ///         <description>Full access to all data and system
+        /// functions.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="RevokePermissionSystemRequest.Permission.SYSTEM_WRITE">SYSTEM_WRITE</see>:</term>
+        ///         <description>Read and write access to all
+        /// tables.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="RevokePermissionSystemRequest.Permission.SYSTEM_READ">SYSTEM_READ</see>:</term>
+        ///         <description>Read-only access to all tables.</description>
+        ///     </item>
+        /// </list>  </param>
         /// <param name="options">Optional parameters.  </param>
         /// 
         /// <returns>Response object containing the result of the
@@ -4850,9 +7533,36 @@ namespace kinetica
         /// permission will be revoked. Must be an existing user or role.
         /// </param>
         /// <param name="permission">Permission to revoke from the user or
-        /// role. Values: table_admin, table_insert, table_update,
-        /// table_delete, table_read.
-        ///   </param>
+        /// role.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="RevokePermissionTableRequest.Permission.TABLE_ADMIN">TABLE_ADMIN</see>:</term>
+        ///         <description>Full read/write and administrative access to
+        /// the table.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="RevokePermissionTableRequest.Permission.TABLE_INSERT">TABLE_INSERT</see>:</term>
+        ///         <description>Insert access to the table.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="RevokePermissionTableRequest.Permission.TABLE_UPDATE">TABLE_UPDATE</see>:</term>
+        ///         <description>Update access to the table.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="RevokePermissionTableRequest.Permission.TABLE_DELETE">TABLE_DELETE</see>:</term>
+        ///         <description>Delete access to the table.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="RevokePermissionTableRequest.Permission.TABLE_READ">TABLE_READ</see>:</term>
+        ///         <description>Read access to the table.</description>
+        ///     </item>
+        /// </list>  </param>
         /// <param name="table_name">Name of the table to which the permission
         /// grants access. Must be an existing table, collection, or view.
         /// </param>
@@ -4935,11 +7645,24 @@ namespace kinetica
         /// <param name="options">Optional parameters.
         /// <list type="bullet">
         ///     <item>
-        ///         <term>include_files</term>
+        ///         <term><see
+        /// cref="ShowProcRequest.Options.INCLUDE_FILES">INCLUDE_FILES</see>:</term>
         ///         <description>If set to <i>true</i>, the files that make up
         /// the proc will be returned. If set to <i>false</i>, the files will
-        /// not be returned. Values: true, false.
-        /// </description>
+        /// not be returned.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="ShowProcRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ShowProcRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="ShowProcRequest.Options.FALSE">FALSE</see>.</description>
         ///     </item>
         /// </list>
         ///   </param>
@@ -4956,9 +7679,9 @@ namespace kinetica
 
         /// <summary>Shows the statuses of running or completed proc instances.
         /// Results are grouped by run ID (as returned from <see
-        /// cref="Kinetica.executeProc(ExecuteProcRequest)" />) and data
-        /// segment ID (each invocation of the proc command on a data segment
-        /// is assigned a data segment ID).</summary>
+        /// cref="Kinetica.executeProc(string,IDictionary{string, string},IDictionary{string, byte[]},IList{string},IDictionary{string, IList{string}},IList{string},IDictionary{string, string})"
+        /// />) and data segment ID (each invocation of the proc command on a
+        /// data segment is assigned a data segment ID).</summary>
         /// 
         /// <param name="request_">Request object containing the parameters for
         /// the operation.</param>
@@ -4988,12 +7711,24 @@ namespace kinetica
         /// <param name="options">Optional parameters.
         /// <list type="bullet">
         ///     <item>
-        ///         <term>clear_complete</term>
+        ///         <term><see
+        /// cref="ShowProcStatusRequest.Options.CLEAR_COMPLETE">CLEAR_COMPLETE</see>:</term>
         ///         <description>If set to <i>true</i>, if a proc instance has
         /// completed (either successfully or unsuccessfully) then its status
-        /// will be cleared and no longer returned in subsequent calls. Values:
-        /// true, false.
-        /// </description>
+        /// will be cleared and no longer returned in subsequent calls.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="ShowProcStatusRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ShowProcStatusRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="ShowProcStatusRequest.Options.FALSE">FALSE</see>.</description>
         ///     </item>
         /// </list>
         ///   </param>
@@ -5070,7 +7805,8 @@ namespace kinetica
         /// <param name="options">Optional parameters.
         /// <list type="bullet">
         ///     <item>
-        ///         <term>properties</term>
+        ///         <term><see
+        /// cref="ShowSystemPropertiesRequest.Options.PROPERTIES">PROPERTIES</see>:</term>
         ///         <description>A list of comma separated names of properties
         /// requested. If not specified, all properties will be
         /// returned.</description>
@@ -5231,13 +7967,27 @@ namespace kinetica
         /// <param name="options">Optional parameters.
         /// <list type="bullet">
         ///     <item>
-        ///         <term>get_sizes</term>
+        ///         <term><see
+        /// cref="ShowTableRequest.Options.GET_SIZES">GET_SIZES</see>:</term>
         ///         <description>If <i>true</i> then the table sizes will be
-        /// returned; blank, otherwise. Values: true, false.
-        /// </description>
+        /// returned; blank, otherwise.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="ShowTableRequest.Options.TRUE">TRUE</see></term>
         ///     </item>
         ///     <item>
-        ///         <term>show_children</term>
+        ///         <term><see
+        /// cref="ShowTableRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="ShowTableRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ShowTableRequest.Options.SHOW_CHILDREN">SHOW_CHILDREN</see>:</term>
         ///         <description>If <paramref
         /// cref="ShowTableRequest.table_name" /> is a collection, then
         /// <i>true</i> will return information about the children of the
@@ -5245,16 +7995,59 @@ namespace kinetica
         /// collection itself. If <paramref cref="ShowTableRequest.table_name"
         /// /> is a table or view, <i>show_children</i> must be <i>false</i>.
         /// If <paramref cref="ShowTableRequest.table_name" /> is empty, then
-        /// <i>show_children</i> must be <i>true</i>. Values: true, false.
-        /// </description>
+        /// <i>show_children</i> must be <i>true</i>.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="ShowTableRequest.Options.TRUE">TRUE</see></term>
         ///     </item>
         ///     <item>
-        ///         <term>no_error_if_not_exists</term>
+        ///         <term><see
+        /// cref="ShowTableRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="ShowTableRequest.Options.TRUE">TRUE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ShowTableRequest.Options.NO_ERROR_IF_NOT_EXISTS">NO_ERROR_IF_NOT_EXISTS</see>:</term>
         ///         <description>If <i>false</i> will return an error if the
         /// provided <paramref cref="ShowTableRequest.table_name" /> does not
-        /// exist. If <i>true</i> then it will return an empty result. Values:
-        /// true, false.
-        /// </description>
+        /// exist. If <i>true</i> then it will return an empty result.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="ShowTableRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ShowTableRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="ShowTableRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ShowTableRequest.Options.GET_COLUMN_INFO">GET_COLUMN_INFO</see>:</term>
+        ///         <description>If <i>true</i> then column info (memory usage,
+        /// etc) will be returned.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="ShowTableRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ShowTableRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="ShowTableRequest.Options.FALSE">FALSE</see>.</description>
         ///     </item>
         /// </list>
         ///   </param>
@@ -5567,31 +8360,59 @@ namespace kinetica
         /// <param name="options">Optional parameters.
         /// <list type="bullet">
         ///     <item>
-        ///         <term>global_expression</term>
+        ///         <term><see
+        /// cref="RawUpdateRecordsRequest.Options.GLOBAL_EXPRESSION">GLOBAL_EXPRESSION</see>:</term>
         ///         <description>An optional global expression to reduce the
         /// search space of the predicates listed in <paramref
         /// cref="RawUpdateRecordsRequest.expressions" />.</description>
         ///     </item>
         ///     <item>
-        ///         <term>bypass_safety_checks</term>
+        ///         <term><see
+        /// cref="RawUpdateRecordsRequest.Options.BYPASS_SAFETY_CHECKS">BYPASS_SAFETY_CHECKS</see>:</term>
         ///         <description>When set to 'true', all predicates are
         /// available for primary key updates.  Keep in mind that it is
         /// possible to destroy data in this case, since a single predicate may
         /// match multiple objects (potentially all of records of a table), and
         /// then updating all of those records to have the same primary key
         /// will, due to the primary key uniqueness constraints, effectively
-        /// delete all but one of those updated records. Values: true, false.
-        /// </description>
+        /// delete all but one of those updated records.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="RawUpdateRecordsRequest.Options.TRUE">TRUE</see></term>
         ///     </item>
         ///     <item>
-        ///         <term>update_on_existing_pk</term>
+        ///         <term><see
+        /// cref="RawUpdateRecordsRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="RawUpdateRecordsRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="RawUpdateRecordsRequest.Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>:</term>
         ///         <description>Can be used to customize behavior when the
         /// updated primary key value already exists, as described in
-        /// /insert/records. Values: true, false.
-        /// </description>
+        /// /insert/records.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="RawUpdateRecordsRequest.Options.TRUE">TRUE</see></term>
         ///     </item>
         ///     <item>
-        ///         <term>record_id</term>
+        ///         <term><see
+        /// cref="RawUpdateRecordsRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="RawUpdateRecordsRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="RawUpdateRecordsRequest.Options.RECORD_ID">RECORD_ID</see>:</term>
         ///         <description>ID of a single record to be updated (returned
         /// in the call to /insert/records or
         /// /get/records/fromcollection).</description>
@@ -5690,6 +8511,7 @@ namespace kinetica
         /// <param name="world_table_names"></param>
         /// <param name="x_column_name"></param>
         /// <param name="y_column_name"></param>
+        /// <param name="geometry_column_name"></param>
         /// <param name="track_ids"></param>
         /// <param name="min_x"></param>
         /// <param name="max_x"></param>
@@ -5697,93 +8519,311 @@ namespace kinetica
         /// <param name="max_y"></param>
         /// <param name="width"></param>
         /// <param name="height"></param>
-        /// <param name="projection">Values: EPSG:4326, PLATE_CARREE, 900913,
-        /// EPSG:900913, 102100, EPSG:102100, 3857, EPSG:3857, WEB_MERCATOR.
-        /// </param>
+        /// <param name="projection">
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageRequest.Projection.EPSG_4326">EPSG_4326</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageRequest.Projection.PLATE_CARREE">PLATE_CARREE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageRequest.Projection._900913">_900913</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageRequest.Projection.EPSG_900913">EPSG_900913</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageRequest.Projection._102100">_102100</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageRequest.Projection.EPSG_102100">EPSG_102100</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageRequest.Projection._3857">_3857</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageRequest.Projection.EPSG_3857">EPSG_3857</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageRequest.Projection.WEB_MERCATOR">WEB_MERCATOR</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="VisualizeImageRequest.Projection.PLATE_CARREE">PLATE_CARREE</see>.</param>
         /// <param name="bg_color"></param>
         /// <param name="style_options">
         /// <list type="bullet">
         ///     <item>
-        ///         <term>do_points</term>
-        ///         <description>Values: true, false.
-        /// </description>
+        ///         <term><see
+        /// cref="VisualizeImageRequest.StyleOptions.DO_POINTS">DO_POINTS</see>:</term>
+        ///         <description>
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageRequest.StyleOptions.TRUE">TRUE</see></term>
         ///     </item>
         ///     <item>
-        ///         <term>do_shapes</term>
-        ///         <description>Values: true, false.
-        /// </description>
+        ///         <term><see
+        /// cref="VisualizeImageRequest.StyleOptions.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="VisualizeImageRequest.StyleOptions.TRUE">TRUE</see>.</description>
         ///     </item>
         ///     <item>
-        ///         <term>do_tracks</term>
-        ///         <description>Values: true, false.
-        /// </description>
+        ///         <term><see
+        /// cref="VisualizeImageRequest.StyleOptions.DO_SHAPES">DO_SHAPES</see>:</term>
+        ///         <description>
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageRequest.StyleOptions.TRUE">TRUE</see></term>
         ///     </item>
         ///     <item>
-        ///         <term>do_symbology</term>
-        ///         <description>Values: true, false.
-        /// </description>
+        ///         <term><see
+        /// cref="VisualizeImageRequest.StyleOptions.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="VisualizeImageRequest.StyleOptions.TRUE">TRUE</see>.</description>
         ///     </item>
         ///     <item>
-        ///         <term>pointcolors</term>
+        ///         <term><see
+        /// cref="VisualizeImageRequest.StyleOptions.DO_TRACKS">DO_TRACKS</see>:</term>
+        ///         <description>
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageRequest.StyleOptions.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageRequest.StyleOptions.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="VisualizeImageRequest.StyleOptions.TRUE">TRUE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageRequest.StyleOptions.DO_SYMBOLOGY">DO_SYMBOLOGY</see>:</term>
+        ///         <description>
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageRequest.StyleOptions.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageRequest.StyleOptions.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="VisualizeImageRequest.StyleOptions.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageRequest.StyleOptions.POINTCOLORS">POINTCOLORS</see>:</term>
         ///         <description></description>
         ///     </item>
         ///     <item>
-        ///         <term>pointsizes</term>
+        ///         <term><see
+        /// cref="VisualizeImageRequest.StyleOptions.POINTSIZES">POINTSIZES</see>:</term>
         ///         <description></description>
         ///     </item>
         ///     <item>
-        ///         <term>pointshapes</term>
-        ///         <description>Values: none, circle, square, diamond,
-        /// hollowcircle, hollowsquare, hollowdiamond, SYMBOLCODE.
-        /// </description>
+        ///         <term><see
+        /// cref="VisualizeImageRequest.StyleOptions.POINTSHAPES">POINTSHAPES</see>:</term>
+        ///         <description>
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageRequest.StyleOptions.NONE">NONE</see></term>
         ///     </item>
         ///     <item>
-        ///         <term>shapelinewidths</term>
+        ///         <term><see
+        /// cref="VisualizeImageRequest.StyleOptions.CIRCLE">CIRCLE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageRequest.StyleOptions.SQUARE">SQUARE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageRequest.StyleOptions.DIAMOND">DIAMOND</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageRequest.StyleOptions.HOLLOWCIRCLE">HOLLOWCIRCLE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageRequest.StyleOptions.HOLLOWSQUARE">HOLLOWSQUARE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageRequest.StyleOptions.HOLLOWDIAMOND">HOLLOWDIAMOND</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageRequest.StyleOptions.SYMBOLCODE">SYMBOLCODE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="VisualizeImageRequest.StyleOptions.SQUARE">SQUARE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageRequest.StyleOptions.SHAPELINEWIDTHS">SHAPELINEWIDTHS</see>:</term>
         ///         <description></description>
         ///     </item>
         ///     <item>
-        ///         <term>shapelinecolors</term>
+        ///         <term><see
+        /// cref="VisualizeImageRequest.StyleOptions.SHAPELINECOLORS">SHAPELINECOLORS</see>:</term>
         ///         <description></description>
         ///     </item>
         ///     <item>
-        ///         <term>shapefillcolors</term>
+        ///         <term><see
+        /// cref="VisualizeImageRequest.StyleOptions.SHAPEFILLCOLORS">SHAPEFILLCOLORS</see>:</term>
         ///         <description></description>
         ///     </item>
         ///     <item>
-        ///         <term>tracklinewidths</term>
+        ///         <term><see
+        /// cref="VisualizeImageRequest.StyleOptions.TRACKLINEWIDTHS">TRACKLINEWIDTHS</see>:</term>
         ///         <description></description>
         ///     </item>
         ///     <item>
-        ///         <term>tracklinecolors</term>
+        ///         <term><see
+        /// cref="VisualizeImageRequest.StyleOptions.TRACKLINECOLORS">TRACKLINECOLORS</see>:</term>
         ///         <description></description>
         ///     </item>
         ///     <item>
-        ///         <term>trackmarkersizes</term>
+        ///         <term><see
+        /// cref="VisualizeImageRequest.StyleOptions.TRACKMARKERSIZES">TRACKMARKERSIZES</see>:</term>
         ///         <description></description>
         ///     </item>
         ///     <item>
-        ///         <term>trackmarkercolors</term>
+        ///         <term><see
+        /// cref="VisualizeImageRequest.StyleOptions.TRACKMARKERCOLORS">TRACKMARKERCOLORS</see>:</term>
         ///         <description></description>
         ///     </item>
         ///     <item>
-        ///         <term>trackmarkershapes</term>
-        ///         <description>Values: none, circle, square, diamond,
-        /// hollowcircle, hollowsquare, hollowdiamond, SYMBOLCODE.
-        /// </description>
+        ///         <term><see
+        /// cref="VisualizeImageRequest.StyleOptions.TRACKMARKERSHAPES">TRACKMARKERSHAPES</see>:</term>
+        ///         <description>
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageRequest.StyleOptions.NONE">NONE</see></term>
         ///     </item>
         ///     <item>
-        ///         <term>trackheadcolors</term>
+        ///         <term><see
+        /// cref="VisualizeImageRequest.StyleOptions.CIRCLE">CIRCLE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageRequest.StyleOptions.SQUARE">SQUARE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageRequest.StyleOptions.DIAMOND">DIAMOND</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageRequest.StyleOptions.HOLLOWCIRCLE">HOLLOWCIRCLE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageRequest.StyleOptions.HOLLOWSQUARE">HOLLOWSQUARE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageRequest.StyleOptions.HOLLOWDIAMOND">HOLLOWDIAMOND</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageRequest.StyleOptions.ORIENTED_ARROW">ORIENTED_ARROW</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageRequest.StyleOptions.ORIENTED_TRIANGLE">ORIENTED_TRIANGLE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageRequest.StyleOptions.SYMBOLCODE">SYMBOLCODE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="VisualizeImageRequest.StyleOptions.CIRCLE">CIRCLE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageRequest.StyleOptions.TRACKHEADCOLORS">TRACKHEADCOLORS</see>:</term>
         ///         <description></description>
         ///     </item>
         ///     <item>
-        ///         <term>trackheadsizes</term>
+        ///         <term><see
+        /// cref="VisualizeImageRequest.StyleOptions.TRACKHEADSIZES">TRACKHEADSIZES</see>:</term>
         ///         <description></description>
         ///     </item>
         ///     <item>
-        ///         <term>trackheadshapes</term>
-        ///         <description>Values: none, circle, square, diamond,
-        /// hollowcircle, hollowsquare, hollowdiamond, SYMBOLCODE.
-        /// </description>
+        ///         <term><see
+        /// cref="VisualizeImageRequest.StyleOptions.TRACKHEADSHAPES">TRACKHEADSHAPES</see>:</term>
+        ///         <description>
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageRequest.StyleOptions.NONE">NONE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageRequest.StyleOptions.CIRCLE">CIRCLE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageRequest.StyleOptions.SQUARE">SQUARE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageRequest.StyleOptions.DIAMOND">DIAMOND</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageRequest.StyleOptions.HOLLOWCIRCLE">HOLLOWCIRCLE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageRequest.StyleOptions.HOLLOWSQUARE">HOLLOWSQUARE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageRequest.StyleOptions.HOLLOWDIAMOND">HOLLOWDIAMOND</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageRequest.StyleOptions.SYMBOLCODE">SYMBOLCODE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="VisualizeImageRequest.StyleOptions.HOLLOWDIAMOND">HOLLOWDIAMOND</see>.</description>
         ///     </item>
         /// </list>
         /// </param>
@@ -5796,6 +8836,7 @@ namespace kinetica
                                                       IList<string> world_table_names,
                                                       string x_column_name,
                                                       string y_column_name,
+                                                      string geometry_column_name,
                                                       IList<IList<string>> track_ids,
                                                       double min_x,
                                                       double max_x,
@@ -5811,11 +8852,223 @@ namespace kinetica
             return visualizeImage( new VisualizeImageRequest( table_names,
                                                               world_table_names,
                                                               x_column_name,
-                                                              y_column_name, track_ids,
-                                                              min_x, max_x, min_y, max_y,
-                                                              width, height, projection,
-                                                              bg_color, style_options,
-                                                              options ) );
+                                                              y_column_name,
+                                                              geometry_column_name,
+                                                              track_ids, min_x, max_x,
+                                                              min_y, max_y, width, height,
+                                                              projection, bg_color,
+                                                              style_options, options ) );
+        }
+
+
+        /// <summary>Scatter plot is the only plot type currently supported. A
+        /// non-numeric column can be specified as x or y column and jitters
+        /// can be added to them to avoid excessive overlapping. All color
+        /// values must be in the format RRGGBB or AARRGGBB (to specify the
+        /// alpha value).
+        /// The image is contained in the <paramref
+        /// cref="VisualizeImageChartResponse.image_data" /> field.</summary>
+        /// 
+        /// <param name="request_">Request object containing the parameters for
+        /// the operation.</param>
+        /// 
+        /// <returns>Response object containing the result of the
+        /// operation.</returns>
+        /// 
+        public VisualizeImageChartResponse visualizeImageChart( VisualizeImageChartRequest request_ )
+        {
+            VisualizeImageChartResponse actualResponse_ = SubmitRequest<VisualizeImageChartResponse>("/visualize/image/chart", request_, false);
+
+            return actualResponse_;
+        }
+
+
+        /// <summary>Scatter plot is the only plot type currently supported. A
+        /// non-numeric column can be specified as x or y column and jitters
+        /// can be added to them to avoid excessive overlapping. All color
+        /// values must be in the format RRGGBB or AARRGGBB (to specify the
+        /// alpha value).
+        /// The image is contained in the <paramref
+        /// cref="VisualizeImageChartResponse.image_data" /> field.</summary>
+        /// 
+        /// <param name="table_name">Name of the table containing the data to
+        /// be drawn as a chart.  </param>
+        /// <param name="x_column_name">Name of the column containing the data
+        /// mapped to the x axis of a chart.  </param>
+        /// <param name="y_column_name">Name of the column containing the data
+        /// mapped to the y axis of a chart.  </param>
+        /// <param name="min_x">Lower bound for the x column values. For
+        /// non-numeric x column, each x column item is mapped to an integral
+        /// value starting from 0.  </param>
+        /// <param name="max_x">Upper bound for the x column values. For
+        /// non-numeric x column, each x column item is mapped to an integral
+        /// value starting from 0.  </param>
+        /// <param name="min_y">Lower bound for the y column values. For
+        /// non-numeric y column, each y column item is mapped to an integral
+        /// value starting from 0.  </param>
+        /// <param name="max_y">Upper bound for the y column values. For
+        /// non-numeric y column, each y column item is mapped to an integral
+        /// value starting from 0.  </param>
+        /// <param name="width">Width of the generated image in pixels.
+        /// </param>
+        /// <param name="height">Height of the generated image in pixels.
+        /// </param>
+        /// <param name="bg_color">Background color of the generated image.
+        /// </param>
+        /// <param name="style_options">Rendering style options for a chart.
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageChartRequest.StyleOptions.POINTCOLOR">POINTCOLOR</see>:</term>
+        ///         <description>The color of points in the plot represented as
+        /// a hexadecimal number.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageChartRequest.StyleOptions.POINTSIZE">POINTSIZE</see>:</term>
+        ///         <description>The size of points in the plot represented as
+        /// number of pixels.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageChartRequest.StyleOptions.POINTSHAPE">POINTSHAPE</see>:</term>
+        ///         <description>The shape of points in the plot.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageChartRequest.StyleOptions.NONE">NONE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageChartRequest.StyleOptions.CIRCLE">CIRCLE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageChartRequest.StyleOptions.SQUARE">SQUARE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageChartRequest.StyleOptions.DIAMOND">DIAMOND</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageChartRequest.StyleOptions.HOLLOWCIRCLE">HOLLOWCIRCLE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageChartRequest.StyleOptions.HOLLOWSQUARE">HOLLOWSQUARE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageChartRequest.StyleOptions.HOLLOWDIAMOND">HOLLOWDIAMOND</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="VisualizeImageChartRequest.StyleOptions.SQUARE">SQUARE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageChartRequest.StyleOptions.CB_POINTCOLORS">CB_POINTCOLORS</see>:</term>
+        ///         <description>Point color class break information consisting
+        /// of three entries: class-break attribute, class-break values/ranges,
+        /// and point color values. This option overrides the pointcolor option
+        /// if both are provided. Class-break ranges are represented in the
+        /// form of "min:max". Class-break values/ranges and point color values
+        /// are separated by cb_delimiter, e.g. {"price", "20:30;30:40;40:50",
+        /// "0xFF0000;0x00FF00;0x0000FF"}.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageChartRequest.StyleOptions.CB_POINTSIZES">CB_POINTSIZES</see>:</term>
+        ///         <description>Point size class break information consisting
+        /// of three entries: class-break attribute, class-break values/ranges,
+        /// and point size values. This option overrides the pointsize option
+        /// if both are provided. Class-break ranges are represented in the
+        /// form of "min:max". Class-break values/ranges and point size values
+        /// are separated by cb_delimiter, e.g. {"states", "NY;TX;CA",
+        /// "3;5;7"}.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageChartRequest.StyleOptions.CB_POINTSHAPES">CB_POINTSHAPES</see>:</term>
+        ///         <description>Point shape class break information consisting
+        /// of three entries: class-break attribute, class-break values/ranges,
+        /// and point shape names. This option overrides the pointshape option
+        /// if both are provided. Class-break ranges are represented in the
+        /// form of "min:max". Class-break values/ranges and point shape names
+        /// are separated by cb_delimiter, e.g. {"states", "NY;TX;CA",
+        /// "circle;square;diamond"}.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageChartRequest.StyleOptions.CB_DELIMITER">CB_DELIMITER</see>:</term>
+        ///         <description>A character or string which separates
+        /// per-class values in a class-break style option
+        /// string.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageChartRequest.StyleOptions.X_ORDER_BY">X_ORDER_BY</see>:</term>
+        ///         <description>An expression or aggregate expression by which
+        /// non-numeric x column values are sorted, e.g.
+        /// avg(price).</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageChartRequest.StyleOptions.Y_ORDER_BY">Y_ORDER_BY</see>:</term>
+        ///         <description>An expression or aggregate expression by which
+        /// non-numeric y column values are sorted, e.g.
+        /// avg(price).</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageChartRequest.StyleOptions.JITTER_X">JITTER_X</see>:</term>
+        ///         <description>Amplitude of horizontal jitter applied to
+        /// non-numaric x column values.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageChartRequest.StyleOptions.JITTER_Y">JITTER_Y</see>:</term>
+        ///         <description>Amplitude of vertical jitter applied to
+        /// non-numaric y column values.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageChartRequest.StyleOptions.PLOT_ALL">PLOT_ALL</see>:</term>
+        ///         <description>If this options is set to "true", all
+        /// non-numeric column values are plotted ignoring min_x, max_x, min_y
+        /// and max_y parameters.</description>
+        ///     </item>
+        /// </list>
+        ///   </param>
+        /// <param name="options">Optional parameters.  </param>
+        /// 
+        /// <returns>Response object containing the result of the
+        /// operation.</returns>
+        /// 
+        public VisualizeImageChartResponse visualizeImageChart( string table_name,
+                                                                string x_column_name,
+                                                                string y_column_name,
+                                                                double min_x,
+                                                                double max_x,
+                                                                double min_y,
+                                                                double max_y,
+                                                                int width,
+                                                                int height,
+                                                                string bg_color,
+                                                                IDictionary<string, IList<string>> style_options,
+                                                                IDictionary<string, string> options = null )
+        {
+            return visualizeImageChart( new VisualizeImageChartRequest( table_name,
+                                                                        x_column_name,
+                                                                        y_column_name,
+                                                                        min_x, max_x,
+                                                                        min_y, max_y,
+                                                                        width, height,
+                                                                        bg_color,
+                                                                        style_options,
+                                                                        options ) );
         }
 
 
@@ -5843,6 +9096,7 @@ namespace kinetica
         /// <param name="world_table_names"></param>
         /// <param name="x_column_name"></param>
         /// <param name="y_column_name"></param>
+        /// <param name="geometry_column_name"></param>
         /// <param name="track_ids"></param>
         /// <param name="cb_column_name1"></param>
         /// <param name="cb_vals1"></param>
@@ -5854,93 +9108,303 @@ namespace kinetica
         /// <param name="max_y"></param>
         /// <param name="width"></param>
         /// <param name="height"></param>
-        /// <param name="projection">Values: EPSG:4326, PLATE_CARREE, 900913,
-        /// EPSG:900913, 102100, EPSG:102100, 3857, EPSG:3857, WEB_MERCATOR.
-        /// </param>
+        /// <param name="projection">
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageClassbreakRequest.Projection.EPSG_4326">EPSG_4326</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageClassbreakRequest.Projection.PLATE_CARREE">PLATE_CARREE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageClassbreakRequest.Projection._900913">_900913</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageClassbreakRequest.Projection.EPSG_900913">EPSG_900913</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageClassbreakRequest.Projection._102100">_102100</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageClassbreakRequest.Projection.EPSG_102100">EPSG_102100</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageClassbreakRequest.Projection._3857">_3857</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageClassbreakRequest.Projection.EPSG_3857">EPSG_3857</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageClassbreakRequest.Projection.WEB_MERCATOR">WEB_MERCATOR</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="VisualizeImageClassbreakRequest.Projection.PLATE_CARREE">PLATE_CARREE</see>.</param>
         /// <param name="bg_color"></param>
         /// <param name="style_options">
         /// <list type="bullet">
         ///     <item>
-        ///         <term>do_points</term>
-        ///         <description>Values: true, false.
-        /// </description>
+        ///         <term><see
+        /// cref="VisualizeImageClassbreakRequest.StyleOptions.DO_POINTS">DO_POINTS</see>:</term>
+        ///         <description>
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageClassbreakRequest.StyleOptions.TRUE">TRUE</see></term>
         ///     </item>
         ///     <item>
-        ///         <term>do_shapes</term>
-        ///         <description>Values: true, false.
-        /// </description>
+        ///         <term><see
+        /// cref="VisualizeImageClassbreakRequest.StyleOptions.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="VisualizeImageClassbreakRequest.StyleOptions.TRUE">TRUE</see>.</description>
         ///     </item>
         ///     <item>
-        ///         <term>do_tracks</term>
-        ///         <description>Values: true, false.
-        /// </description>
+        ///         <term><see
+        /// cref="VisualizeImageClassbreakRequest.StyleOptions.DO_SHAPES">DO_SHAPES</see>:</term>
+        ///         <description>
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageClassbreakRequest.StyleOptions.TRUE">TRUE</see></term>
         ///     </item>
         ///     <item>
-        ///         <term>do_symbology</term>
-        ///         <description>Values: true, false.
-        /// </description>
+        ///         <term><see
+        /// cref="VisualizeImageClassbreakRequest.StyleOptions.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="VisualizeImageClassbreakRequest.StyleOptions.TRUE">TRUE</see>.</description>
         ///     </item>
         ///     <item>
-        ///         <term>pointcolors</term>
+        ///         <term><see
+        /// cref="VisualizeImageClassbreakRequest.StyleOptions.DO_TRACKS">DO_TRACKS</see>:</term>
+        ///         <description>
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageClassbreakRequest.StyleOptions.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageClassbreakRequest.StyleOptions.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="VisualizeImageClassbreakRequest.StyleOptions.TRUE">TRUE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageClassbreakRequest.StyleOptions.DO_SYMBOLOGY">DO_SYMBOLOGY</see>:</term>
+        ///         <description>
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageClassbreakRequest.StyleOptions.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageClassbreakRequest.StyleOptions.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="VisualizeImageClassbreakRequest.StyleOptions.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageClassbreakRequest.StyleOptions.POINTCOLORS">POINTCOLORS</see>:</term>
         ///         <description></description>
         ///     </item>
         ///     <item>
-        ///         <term>pointsizes</term>
+        ///         <term><see
+        /// cref="VisualizeImageClassbreakRequest.StyleOptions.POINTSIZES">POINTSIZES</see>:</term>
         ///         <description></description>
         ///     </item>
         ///     <item>
-        ///         <term>pointshapes</term>
-        ///         <description>Values: none, circle, square, diamond,
-        /// hollowcircle, hollowsquare, hollowdiamond, SYMBOLCODE.
-        /// </description>
+        ///         <term><see
+        /// cref="VisualizeImageClassbreakRequest.StyleOptions.POINTSHAPES">POINTSHAPES</see>:</term>
+        ///         <description>
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageClassbreakRequest.StyleOptions.NONE">NONE</see></term>
         ///     </item>
         ///     <item>
-        ///         <term>shapelinewidths</term>
+        ///         <term><see
+        /// cref="VisualizeImageClassbreakRequest.StyleOptions.CIRCLE">CIRCLE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageClassbreakRequest.StyleOptions.SQUARE">SQUARE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageClassbreakRequest.StyleOptions.DIAMOND">DIAMOND</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageClassbreakRequest.StyleOptions.HOLLOWCIRCLE">HOLLOWCIRCLE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageClassbreakRequest.StyleOptions.HOLLOWSQUARE">HOLLOWSQUARE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageClassbreakRequest.StyleOptions.HOLLOWDIAMOND">HOLLOWDIAMOND</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageClassbreakRequest.StyleOptions.SYMBOLCODE">SYMBOLCODE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="VisualizeImageClassbreakRequest.StyleOptions.NONE">NONE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageClassbreakRequest.StyleOptions.SHAPELINEWIDTHS">SHAPELINEWIDTHS</see>:</term>
         ///         <description></description>
         ///     </item>
         ///     <item>
-        ///         <term>shapelinecolors</term>
+        ///         <term><see
+        /// cref="VisualizeImageClassbreakRequest.StyleOptions.SHAPELINECOLORS">SHAPELINECOLORS</see>:</term>
         ///         <description></description>
         ///     </item>
         ///     <item>
-        ///         <term>shapefillcolors</term>
+        ///         <term><see
+        /// cref="VisualizeImageClassbreakRequest.StyleOptions.SHAPEFILLCOLORS">SHAPEFILLCOLORS</see>:</term>
         ///         <description></description>
         ///     </item>
         ///     <item>
-        ///         <term>tracklinewidths</term>
+        ///         <term><see
+        /// cref="VisualizeImageClassbreakRequest.StyleOptions.TRACKLINEWIDTHS">TRACKLINEWIDTHS</see>:</term>
         ///         <description></description>
         ///     </item>
         ///     <item>
-        ///         <term>tracklinecolors</term>
+        ///         <term><see
+        /// cref="VisualizeImageClassbreakRequest.StyleOptions.TRACKLINECOLORS">TRACKLINECOLORS</see>:</term>
         ///         <description></description>
         ///     </item>
         ///     <item>
-        ///         <term>trackmarkersizes</term>
+        ///         <term><see
+        /// cref="VisualizeImageClassbreakRequest.StyleOptions.TRACKMARKERSIZES">TRACKMARKERSIZES</see>:</term>
         ///         <description></description>
         ///     </item>
         ///     <item>
-        ///         <term>trackmarkercolors</term>
+        ///         <term><see
+        /// cref="VisualizeImageClassbreakRequest.StyleOptions.TRACKMARKERCOLORS">TRACKMARKERCOLORS</see>:</term>
         ///         <description></description>
         ///     </item>
         ///     <item>
-        ///         <term>trackmarkershapes</term>
-        ///         <description>Values: none, circle, square, diamond,
-        /// hollowcircle, hollowsquare, hollowdiamond, SYMBOLCODE.
-        /// </description>
+        ///         <term><see
+        /// cref="VisualizeImageClassbreakRequest.StyleOptions.TRACKMARKERSHAPES">TRACKMARKERSHAPES</see>:</term>
+        ///         <description>
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageClassbreakRequest.StyleOptions.NONE">NONE</see></term>
         ///     </item>
         ///     <item>
-        ///         <term>trackheadcolors</term>
+        ///         <term><see
+        /// cref="VisualizeImageClassbreakRequest.StyleOptions.CIRCLE">CIRCLE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageClassbreakRequest.StyleOptions.SQUARE">SQUARE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageClassbreakRequest.StyleOptions.DIAMOND">DIAMOND</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageClassbreakRequest.StyleOptions.HOLLOWCIRCLE">HOLLOWCIRCLE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageClassbreakRequest.StyleOptions.HOLLOWSQUARE">HOLLOWSQUARE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageClassbreakRequest.StyleOptions.HOLLOWDIAMOND">HOLLOWDIAMOND</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageClassbreakRequest.StyleOptions.SYMBOLCODE">SYMBOLCODE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="VisualizeImageClassbreakRequest.StyleOptions.NONE">NONE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageClassbreakRequest.StyleOptions.TRACKHEADCOLORS">TRACKHEADCOLORS</see>:</term>
         ///         <description></description>
         ///     </item>
         ///     <item>
-        ///         <term>trackheadsizes</term>
+        ///         <term><see
+        /// cref="VisualizeImageClassbreakRequest.StyleOptions.TRACKHEADSIZES">TRACKHEADSIZES</see>:</term>
         ///         <description></description>
         ///     </item>
         ///     <item>
-        ///         <term>trackheadshapes</term>
-        ///         <description>Values: none, circle, square, diamond,
-        /// hollowcircle, hollowsquare, hollowdiamond, SYMBOLCODE.
-        /// </description>
+        ///         <term><see
+        /// cref="VisualizeImageClassbreakRequest.StyleOptions.TRACKHEADSHAPES">TRACKHEADSHAPES</see>:</term>
+        ///         <description>
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageClassbreakRequest.StyleOptions.NONE">NONE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageClassbreakRequest.StyleOptions.CIRCLE">CIRCLE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageClassbreakRequest.StyleOptions.SQUARE">SQUARE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageClassbreakRequest.StyleOptions.DIAMOND">DIAMOND</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageClassbreakRequest.StyleOptions.HOLLOWCIRCLE">HOLLOWCIRCLE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageClassbreakRequest.StyleOptions.HOLLOWSQUARE">HOLLOWSQUARE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageClassbreakRequest.StyleOptions.HOLLOWDIAMOND">HOLLOWDIAMOND</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageClassbreakRequest.StyleOptions.SYMBOLCODE">SYMBOLCODE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="VisualizeImageClassbreakRequest.StyleOptions.CIRCLE">CIRCLE</see>.</description>
         ///     </item>
         /// </list>
         /// </param>
@@ -5953,6 +9417,7 @@ namespace kinetica
                                                                           IList<string> world_table_names,
                                                                           string x_column_name,
                                                                           string y_column_name,
+                                                                          string geometry_column_name,
                                                                           IList<IList<string>> track_ids,
                                                                           string cb_column_name1,
                                                                           IList<string> cb_vals1,
@@ -5974,6 +9439,7 @@ namespace kinetica
                                                                                   world_table_names,
                                                                                   x_column_name,
                                                                                   y_column_name,
+                                                                                  geometry_column_name,
                                                                                   track_ids,
                                                                                   cb_column_name1,
                                                                                   cb_vals1,
@@ -6022,31 +9488,122 @@ namespace kinetica
         /// <param name="max_y"></param>
         /// <param name="width"></param>
         /// <param name="height"></param>
-        /// <param name="projection">Values: EPSG:4326, PLATE_CARREE, 900913,
-        /// EPSG:900913, 102100, EPSG:102100, 3857, EPSG:3857, WEB_MERCATOR.
-        /// </param>
+        /// <param name="projection">
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageHeatmapRequest.Projection.EPSG_4326">EPSG_4326</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageHeatmapRequest.Projection.PLATE_CARREE">PLATE_CARREE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageHeatmapRequest.Projection._900913">_900913</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageHeatmapRequest.Projection.EPSG_900913">EPSG_900913</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageHeatmapRequest.Projection._102100">_102100</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageHeatmapRequest.Projection.EPSG_102100">EPSG_102100</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageHeatmapRequest.Projection._3857">_3857</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageHeatmapRequest.Projection.EPSG_3857">EPSG_3857</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageHeatmapRequest.Projection.WEB_MERCATOR">WEB_MERCATOR</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="VisualizeImageHeatmapRequest.Projection.PLATE_CARREE">PLATE_CARREE</see>.</param>
         /// <param name="style_options">
         /// <list type="bullet">
         ///     <item>
-        ///         <term>colormap</term>
-        ///         <description>Values: jet, hot, hsv, gray, blues, greens,
-        /// greys, oranges, purples, reds, viridis.
-        /// </description>
+        ///         <term><see
+        /// cref="VisualizeImageHeatmapRequest.StyleOptions.COLORMAP">COLORMAP</see>:</term>
+        ///         <description>
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageHeatmapRequest.StyleOptions.JET">JET</see></term>
         ///     </item>
         ///     <item>
-        ///         <term>blur_radius</term>
+        ///         <term><see
+        /// cref="VisualizeImageHeatmapRequest.StyleOptions.HOT">HOT</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageHeatmapRequest.StyleOptions.HSV">HSV</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageHeatmapRequest.StyleOptions.GRAY">GRAY</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageHeatmapRequest.StyleOptions.BLUES">BLUES</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageHeatmapRequest.StyleOptions.GREENS">GREENS</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageHeatmapRequest.StyleOptions.GREYS">GREYS</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageHeatmapRequest.StyleOptions.ORANGES">ORANGES</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageHeatmapRequest.StyleOptions.PURPLES">PURPLES</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageHeatmapRequest.StyleOptions.REDS">REDS</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageHeatmapRequest.StyleOptions.VIRIDIS">VIRIDIS</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="VisualizeImageHeatmapRequest.StyleOptions.JET">JET</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageHeatmapRequest.StyleOptions.BLUR_RADIUS">BLUR_RADIUS</see>:</term>
         ///         <description></description>
         ///     </item>
         ///     <item>
-        ///         <term>bg_color</term>
+        ///         <term><see
+        /// cref="VisualizeImageHeatmapRequest.StyleOptions.BG_COLOR">BG_COLOR</see>:</term>
         ///         <description></description>
         ///     </item>
         ///     <item>
-        ///         <term>gradient_start_color</term>
+        ///         <term><see
+        /// cref="VisualizeImageHeatmapRequest.StyleOptions.GRADIENT_START_COLOR">GRADIENT_START_COLOR</see>:</term>
         ///         <description></description>
         ///     </item>
         ///     <item>
-        ///         <term>gradient_end_color</term>
+        ///         <term><see
+        /// cref="VisualizeImageHeatmapRequest.StyleOptions.GRADIENT_END_COLOR">GRADIENT_END_COLOR</see>:</term>
         ///         <description></description>
         ///     </item>
         /// </list>
@@ -6120,15 +9677,55 @@ namespace kinetica
         /// <param name="fill_color"></param>
         /// <param name="leader_x_column_name"></param>
         /// <param name="leader_y_column_name"></param>
+        /// <param name="filter"></param>
         /// <param name="min_x"></param>
         /// <param name="max_x"></param>
         /// <param name="min_y"></param>
         /// <param name="max_y"></param>
         /// <param name="width"></param>
         /// <param name="height"></param>
-        /// <param name="projection">Values: EPSG:4326, PLATE_CARREE, 900913,
-        /// EPSG:900913, 102100, EPSG:102100, 3857, EPSG:3857, WEB_MERCATOR.
-        /// </param>
+        /// <param name="projection">
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageLabelsRequest.Projection.EPSG_4326">EPSG_4326</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageLabelsRequest.Projection.PLATE_CARREE">PLATE_CARREE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageLabelsRequest.Projection._900913">_900913</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageLabelsRequest.Projection.EPSG_900913">EPSG_900913</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageLabelsRequest.Projection._102100">_102100</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageLabelsRequest.Projection.EPSG_102100">EPSG_102100</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageLabelsRequest.Projection._3857">_3857</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageLabelsRequest.Projection.EPSG_3857">EPSG_3857</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageLabelsRequest.Projection.WEB_MERCATOR">WEB_MERCATOR</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="VisualizeImageLabelsRequest.Projection.PLATE_CARREE">PLATE_CARREE</see>.</param>
         /// <param name="options"></param>
         /// 
         /// <returns>Response object containing the result of the
@@ -6151,6 +9748,7 @@ namespace kinetica
                                                                   string fill_color,
                                                                   string leader_x_column_name,
                                                                   string leader_y_column_name,
+                                                                  string filter,
                                                                   double min_x,
                                                                   double max_x,
                                                                   double min_y,
@@ -6177,50 +9775,17 @@ namespace kinetica
                                                                           fill_color,
                                                                           leader_x_column_name,
                                                                           leader_y_column_name,
-                                                                          min_x, max_x,
-                                                                          min_y, max_y,
-                                                                          width, height,
+                                                                          filter, min_x,
+                                                                          max_x, min_y,
+                                                                          max_y, width,
+                                                                          height,
                                                                           projection,
                                                                           options ) );
         }
 
 
-        /// <summary>Creates raster images of data in the given table based on
-        /// provided input parameters. Numerous parameters are required to call
-        /// this function. Some of the important parameters are the attributes
-        /// of the generated images (<paramref
-        /// cref="VisualizeVideoRequest.bg_color" />, <paramref
-        /// cref="VisualizeVideoRequest.width" />, <paramref
-        /// cref="VisualizeVideoRequest.height" />), the collection of table
-        /// names on which this function is to be applied, for which shapes
-        /// (point, polygon, tracks) the images are to be created and a user
-        /// specified session key. This session key is later used to fetch the
-        /// generated images. The operation is synchronous, meaning that a
-        /// response will not be returned until the images for all the frames
-        /// of the video are fully available.
-        /// <br />
-        /// Once the request has been processed then the generated video frames
-        /// are available for download via WMS using STYLES=cached. In this
-        /// request the LAYERS parameter should be populated with the session
-        /// key passed in <paramref cref="VisualizeVideoRequest.session_key" />
-        /// of the visualize video request and the FRAME parameter indicates
-        /// which 0-based frame of the video should be returned. All other WMS
-        /// parameters are ignored for this mode.
-        /// <br />
-        /// For instance, if a 20 frame video with the session key
-        /// 'MY-SESSION-KEY' was generated, the first frame could be retrieved
-        /// with the URL:
-        /// <br />
-        ///     <a href="../../../rest/wms_rest.html"
-        /// target="_top">http://<hostname/ipAddress>:9191/wms?REQUEST=GetMap&STYLES=cached&LAYERS=MY-SESSION-KEY&FRAME=0</a>
-        /// <br />
-        /// and the last frame could be retrieved with:
-        /// <br />
-        ///     <a href="../../../rest/wms_rest.html"
-        /// target="_top">http://<hostname/ipAddress>:9191/wms?REQUEST=GetMap&STYLES=cached&LAYERS=MY-SESSION-KEY&FRAME=19</a>
-        /// <br />
-        /// The response payload provides, among other things, the number of
-        /// frames which were created.</summary>
+        /// <summary>@private
+        /// </summary>
         /// 
         /// <param name="request_">Request object containing the parameters for
         /// the operation.</param>
@@ -6236,164 +9801,305 @@ namespace kinetica
         }
 
 
-        /// <summary>Creates raster images of data in the given table based on
-        /// provided input parameters. Numerous parameters are required to call
-        /// this function. Some of the important parameters are the attributes
-        /// of the generated images (<paramref name="bg_color" />, <paramref
-        /// name="width" />, <paramref name="height" />), the collection of
-        /// table names on which this function is to be applied, for which
-        /// shapes (point, polygon, tracks) the images are to be created and a
-        /// user specified session key. This session key is later used to fetch
-        /// the generated images. The operation is synchronous, meaning that a
-        /// response will not be returned until the images for all the frames
-        /// of the video are fully available.
-        /// <br />
-        /// Once the request has been processed then the generated video frames
-        /// are available for download via WMS using STYLES=cached. In this
-        /// request the LAYERS parameter should be populated with the session
-        /// key passed in <paramref name="session_key" /> of the visualize
-        /// video request and the FRAME parameter indicates which 0-based frame
-        /// of the video should be returned. All other WMS parameters are
-        /// ignored for this mode.
-        /// <br />
-        /// For instance, if a 20 frame video with the session key
-        /// 'MY-SESSION-KEY' was generated, the first frame could be retrieved
-        /// with the URL:
-        /// <br />
-        ///     <a href="../../../rest/wms_rest.html"
-        /// target="_top">http://<hostname/ipAddress>:9191/wms?REQUEST=GetMap&STYLES=cached&LAYERS=MY-SESSION-KEY&FRAME=0</a>
-        /// <br />
-        /// and the last frame could be retrieved with:
-        /// <br />
-        ///     <a href="../../../rest/wms_rest.html"
-        /// target="_top">http://<hostname/ipAddress>:9191/wms?REQUEST=GetMap&STYLES=cached&LAYERS=MY-SESSION-KEY&FRAME=19</a>
-        /// <br />
-        /// The response payload provides, among other things, the number of
-        /// frames which were created.</summary>
+        /// <summary>@private
+        /// </summary>
         /// 
-        /// <param name="table_names">Names of the tables containing the data
-        /// for various layers of the resulting video.  </param>
-        /// <param name="world_table_names">Optional name of the tables
-        /// containing the data for the entire track when the <paramref
-        /// cref="VisualizeVideoRequest.table_names" /> contains only part of
-        /// the track data, but the entire track has to be rendered. The number
-        /// of tables should match the number of tables in the <paramref
-        /// cref="VisualizeVideoRequest.table_names" />  </param>
-        /// <param name="track_ids">Tracks from the <paramref
-        /// cref="VisualizeVideoRequest.table_names" /> to be rendered.
-        /// </param>
-        /// <param name="x_column_name">Name of the column containing the x
-        /// coordinates.  </param>
-        /// <param name="y_column_name">Name of the column containing the y
-        /// coordinates.  </param>
-        /// <param name="min_x">Lower bound for the x values.  </param>
-        /// <param name="max_x">Upper bound for the x values.  </param>
-        /// <param name="min_y">Lower bound for the y values.  </param>
-        /// <param name="max_y">Upper bound for the y values.  </param>
-        /// <param name="width">Width of the generated image.  </param>
-        /// <param name="height">Height of the generated image.  </param>
-        /// <param name="projection">Spatial Reference System (i.e. EPSG Code).
-        /// Values: EPSG:4326, PLATE_CARREE, 900913, EPSG:900913, 102100,
-        /// EPSG:102100, 3857, EPSG:3857, WEB_MERCATOR.
-        ///   </param>
-        /// <param name="bg_color">Background color of the generated image.
-        /// </param>
-        /// <param name="time_intervals"></param>
-        /// <param name="video_style"></param>
-        /// <param name="session_key">User Provided session key that is later
-        /// used to retrieve the generated video from the WMS.  </param>
-        /// <param name="style_options">Styling options for the image.
+        /// <param name="table_names"></param>
+        /// <param name="world_table_names"></param>
+        /// <param name="track_ids"></param>
+        /// <param name="x_column_name"></param>
+        /// <param name="y_column_name"></param>
+        /// <param name="geometry_column_name"></param>
+        /// <param name="min_x"></param>
+        /// <param name="max_x"></param>
+        /// <param name="min_y"></param>
+        /// <param name="max_y"></param>
+        /// <param name="width"></param>
+        /// <param name="height"></param>
+        /// <param name="projection">
+        /// Supported values:
         /// <list type="bullet">
         ///     <item>
-        ///         <term>do_points</term>
-        ///         <description>Rasterize point data toggle. Values: true,
-        /// false.
-        /// </description>
+        ///         <term><see
+        /// cref="VisualizeVideoRequest.Projection.EPSG_4326">EPSG_4326</see></term>
         ///     </item>
         ///     <item>
-        ///         <term>do_shapes</term>
-        ///         <description>Rasterize shapes toggle. Values: true, false.
-        /// </description>
+        ///         <term><see
+        /// cref="VisualizeVideoRequest.Projection.PLATE_CARREE">PLATE_CARREE</see></term>
         ///     </item>
         ///     <item>
-        ///         <term>do_tracks</term>
-        ///         <description>Rasterize tracks toggle. Values: true, false.
-        /// </description>
+        ///         <term><see
+        /// cref="VisualizeVideoRequest.Projection._900913">_900913</see></term>
         ///     </item>
         ///     <item>
-        ///         <term>pointcolors</term>
-        ///         <description>RGB color value in hex for the
-        /// points.</description>
+        ///         <term><see
+        /// cref="VisualizeVideoRequest.Projection.EPSG_900913">EPSG_900913</see></term>
         ///     </item>
         ///     <item>
-        ///         <term>pointsizes</term>
-        ///         <description>Size of points.</description>
+        ///         <term><see
+        /// cref="VisualizeVideoRequest.Projection._102100">_102100</see></term>
         ///     </item>
         ///     <item>
-        ///         <term>pointshapes</term>
-        ///         <description>Shape of the point. Values: none, circle,
-        /// square, diamond, hollowcircle, hollowsquare, hollowdiamond,
-        /// SYMBOLCODE.
-        /// </description>
+        ///         <term><see
+        /// cref="VisualizeVideoRequest.Projection.EPSG_102100">EPSG_102100</see></term>
         ///     </item>
         ///     <item>
-        ///         <term>shapelinewidths</term>
-        ///         <description>Width of the lines.</description>
+        ///         <term><see
+        /// cref="VisualizeVideoRequest.Projection._3857">_3857</see></term>
         ///     </item>
         ///     <item>
-        ///         <term>shapelinecolors</term>
-        ///         <description>RGB color values in hex for the
-        /// line.</description>
+        ///         <term><see
+        /// cref="VisualizeVideoRequest.Projection.EPSG_3857">EPSG_3857</see></term>
         ///     </item>
         ///     <item>
-        ///         <term>shapefillcolors</term>
-        ///         <description>RGB color values in hex for the fill color of
-        /// the shapes. Use '-1' for no fill.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term>tracklinewidths</term>
-        ///         <description>Width of the track lines. '0' implies do not
-        /// draw track lines.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term>tracklinecolors</term>
-        ///         <description>RGB color values for the track
-        /// lines.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term>trackmarkersizes</term>
-        ///         <description>Size of the track point markers.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term>trackmarkercolors</term>
-        ///         <description>Color of the track point
-        /// markers.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term>trackmarkershapes</term>
-        ///         <description>Shape of track point markers. Values: none,
-        /// circle, square, diamond, hollowcircle, hollowsquare, hollowdiamond,
-        /// SYMBOLCODE.
-        /// </description>
-        ///     </item>
-        ///     <item>
-        ///         <term>trackheadcolors</term>
-        ///         <description>Color of track head markers.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term>trackheadsizes</term>
-        ///         <description>Size of track head markers.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term>trackheadshapes</term>
-        ///         <description>Shape of track head markers. Values: none,
-        /// circle, square, diamond, hollowcircle, hollowsquare, hollowdiamond,
-        /// SYMBOLCODE.
-        /// </description>
+        ///         <term><see
+        /// cref="VisualizeVideoRequest.Projection.WEB_MERCATOR">WEB_MERCATOR</see></term>
         ///     </item>
         /// </list>
-        ///   </param>
-        /// <param name="options">Optional parameters.  </param>
+        /// The default value is <see
+        /// cref="VisualizeVideoRequest.Projection.PLATE_CARREE">PLATE_CARREE</see>.</param>
+        /// <param name="bg_color"></param>
+        /// <param name="time_intervals"></param>
+        /// <param name="video_style"></param>
+        /// <param name="session_key"></param>
+        /// <param name="style_options">
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeVideoRequest.StyleOptions.DO_POINTS">DO_POINTS</see>:</term>
+        ///         <description>
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeVideoRequest.StyleOptions.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeVideoRequest.StyleOptions.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="VisualizeVideoRequest.StyleOptions.TRUE">TRUE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeVideoRequest.StyleOptions.DO_SHAPES">DO_SHAPES</see>:</term>
+        ///         <description>
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeVideoRequest.StyleOptions.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeVideoRequest.StyleOptions.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="VisualizeVideoRequest.StyleOptions.TRUE">TRUE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeVideoRequest.StyleOptions.DO_TRACKS">DO_TRACKS</see>:</term>
+        ///         <description>
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeVideoRequest.StyleOptions.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeVideoRequest.StyleOptions.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="VisualizeVideoRequest.StyleOptions.TRUE">TRUE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeVideoRequest.StyleOptions.POINTCOLORS">POINTCOLORS</see>:</term>
+        ///         <description></description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeVideoRequest.StyleOptions.POINTSIZES">POINTSIZES</see>:</term>
+        ///         <description></description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeVideoRequest.StyleOptions.POINTSHAPES">POINTSHAPES</see>:</term>
+        ///         <description>
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeVideoRequest.StyleOptions.NONE">NONE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeVideoRequest.StyleOptions.CIRCLE">CIRCLE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeVideoRequest.StyleOptions.SQUARE">SQUARE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeVideoRequest.StyleOptions.DIAMOND">DIAMOND</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeVideoRequest.StyleOptions.HOLLOWCIRCLE">HOLLOWCIRCLE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeVideoRequest.StyleOptions.HOLLOWSQUARE">HOLLOWSQUARE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeVideoRequest.StyleOptions.HOLLOWDIAMOND">HOLLOWDIAMOND</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeVideoRequest.StyleOptions.SYMBOLCODE">SYMBOLCODE</see></term>
+        ///     </item>
+        /// </list></description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeVideoRequest.StyleOptions.SHAPELINEWIDTHS">SHAPELINEWIDTHS</see>:</term>
+        ///         <description></description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeVideoRequest.StyleOptions.SHAPELINECOLORS">SHAPELINECOLORS</see>:</term>
+        ///         <description></description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeVideoRequest.StyleOptions.SHAPEFILLCOLORS">SHAPEFILLCOLORS</see>:</term>
+        ///         <description></description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeVideoRequest.StyleOptions.TRACKLINEWIDTHS">TRACKLINEWIDTHS</see>:</term>
+        ///         <description></description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeVideoRequest.StyleOptions.TRACKLINECOLORS">TRACKLINECOLORS</see>:</term>
+        ///         <description></description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeVideoRequest.StyleOptions.TRACKMARKERSIZES">TRACKMARKERSIZES</see>:</term>
+        ///         <description></description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeVideoRequest.StyleOptions.TRACKMARKERCOLORS">TRACKMARKERCOLORS</see>:</term>
+        ///         <description></description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeVideoRequest.StyleOptions.TRACKMARKERSHAPES">TRACKMARKERSHAPES</see>:</term>
+        ///         <description>
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeVideoRequest.StyleOptions.NONE">NONE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeVideoRequest.StyleOptions.CIRCLE">CIRCLE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeVideoRequest.StyleOptions.SQUARE">SQUARE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeVideoRequest.StyleOptions.DIAMOND">DIAMOND</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeVideoRequest.StyleOptions.HOLLOWCIRCLE">HOLLOWCIRCLE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeVideoRequest.StyleOptions.HOLLOWSQUARE">HOLLOWSQUARE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeVideoRequest.StyleOptions.HOLLOWDIAMOND">HOLLOWDIAMOND</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeVideoRequest.StyleOptions.SYMBOLCODE">SYMBOLCODE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="VisualizeVideoRequest.StyleOptions.NONE">NONE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeVideoRequest.StyleOptions.TRACKHEADCOLORS">TRACKHEADCOLORS</see>:</term>
+        ///         <description></description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeVideoRequest.StyleOptions.TRACKHEADSIZES">TRACKHEADSIZES</see>:</term>
+        ///         <description></description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeVideoRequest.StyleOptions.TRACKHEADSHAPES">TRACKHEADSHAPES</see>:</term>
+        ///         <description>
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeVideoRequest.StyleOptions.NONE">NONE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeVideoRequest.StyleOptions.CIRCLE">CIRCLE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeVideoRequest.StyleOptions.SQUARE">SQUARE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeVideoRequest.StyleOptions.DIAMOND">DIAMOND</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeVideoRequest.StyleOptions.HOLLOWCIRCLE">HOLLOWCIRCLE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeVideoRequest.StyleOptions.HOLLOWSQUARE">HOLLOWSQUARE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeVideoRequest.StyleOptions.HOLLOWDIAMOND">HOLLOWDIAMOND</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeVideoRequest.StyleOptions.SYMBOLCODE">SYMBOLCODE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="VisualizeVideoRequest.StyleOptions.CIRCLE">CIRCLE</see>.</description>
+        ///     </item>
+        /// </list>
+        /// </param>
+        /// <param name="options"></param>
         /// 
         /// <returns>Response object containing the result of the
         /// operation.</returns>
@@ -6403,6 +10109,7 @@ namespace kinetica
                                                       IList<IList<string>> track_ids,
                                                       string x_column_name,
                                                       string y_column_name,
+                                                      string geometry_column_name,
                                                       double min_x,
                                                       double max_x,
                                                       double min_y,
@@ -6420,12 +10127,13 @@ namespace kinetica
             return visualizeVideo( new VisualizeVideoRequest( table_names,
                                                               world_table_names,
                                                               track_ids, x_column_name,
-                                                              y_column_name, min_x, max_x,
-                                                              min_y, max_y, width, height,
-                                                              projection, bg_color,
-                                                              time_intervals, video_style,
-                                                              session_key, style_options,
-                                                              options ) );
+                                                              y_column_name,
+                                                              geometry_column_name, min_x,
+                                                              max_x, min_y, max_y, width,
+                                                              height, projection,
+                                                              bg_color, time_intervals,
+                                                              video_style, session_key,
+                                                              style_options, options ) );
         }
 
 
@@ -6459,33 +10167,120 @@ namespace kinetica
         /// <param name="time_intervals"></param>
         /// <param name="width"></param>
         /// <param name="height"></param>
-        /// <param name="projection">Values: EPSG:4326, PLATE_CARREE, 900913,
-        /// EPSG:900913, 102100, EPSG:102100, 3857, EPSG:3857, WEB_MERCATOR.
-        /// </param>
+        /// <param name="projection">
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeVideoHeatmapRequest.Projection.EPSG_4326">EPSG_4326</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeVideoHeatmapRequest.Projection.PLATE_CARREE">PLATE_CARREE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeVideoHeatmapRequest.Projection._900913">_900913</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeVideoHeatmapRequest.Projection.EPSG_900913">EPSG_900913</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeVideoHeatmapRequest.Projection._102100">_102100</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeVideoHeatmapRequest.Projection.EPSG_102100">EPSG_102100</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeVideoHeatmapRequest.Projection._3857">_3857</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeVideoHeatmapRequest.Projection.EPSG_3857">EPSG_3857</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeVideoHeatmapRequest.Projection.WEB_MERCATOR">WEB_MERCATOR</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="VisualizeVideoHeatmapRequest.Projection.PLATE_CARREE">PLATE_CARREE</see>.</param>
         /// <param name="video_style"></param>
         /// <param name="session_key"></param>
         /// <param name="style_options">
         /// <list type="bullet">
         ///     <item>
-        ///         <term>colormap</term>
-        ///         <description>Values: jet, hot, hsv, gray, blues, greens,
-        /// greys, oranges, purples, reds.
-        /// </description>
+        ///         <term><see
+        /// cref="VisualizeVideoHeatmapRequest.StyleOptions.COLORMAP">COLORMAP</see>:</term>
+        ///         <description>
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeVideoHeatmapRequest.StyleOptions.JET">JET</see></term>
         ///     </item>
         ///     <item>
-        ///         <term>blur_radius</term>
+        ///         <term><see
+        /// cref="VisualizeVideoHeatmapRequest.StyleOptions.HOT">HOT</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeVideoHeatmapRequest.StyleOptions.HSV">HSV</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeVideoHeatmapRequest.StyleOptions.GRAY">GRAY</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeVideoHeatmapRequest.StyleOptions.BLUES">BLUES</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeVideoHeatmapRequest.StyleOptions.GREENS">GREENS</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeVideoHeatmapRequest.StyleOptions.GREYS">GREYS</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeVideoHeatmapRequest.StyleOptions.ORANGES">ORANGES</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeVideoHeatmapRequest.StyleOptions.PURPLES">PURPLES</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeVideoHeatmapRequest.StyleOptions.REDS">REDS</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="VisualizeVideoHeatmapRequest.StyleOptions.REDS">REDS</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeVideoHeatmapRequest.StyleOptions.BLUR_RADIUS">BLUR_RADIUS</see>:</term>
         ///         <description></description>
         ///     </item>
         ///     <item>
-        ///         <term>bg_color</term>
+        ///         <term><see
+        /// cref="VisualizeVideoHeatmapRequest.StyleOptions.BG_COLOR">BG_COLOR</see>:</term>
         ///         <description></description>
         ///     </item>
         ///     <item>
-        ///         <term>gradient_start_color</term>
+        ///         <term><see
+        /// cref="VisualizeVideoHeatmapRequest.StyleOptions.GRADIENT_START_COLOR">GRADIENT_START_COLOR</see>:</term>
         ///         <description></description>
         ///     </item>
         ///     <item>
-        ///         <term>gradient_end_color</term>
+        ///         <term><see
+        /// cref="VisualizeVideoHeatmapRequest.StyleOptions.GRADIENT_END_COLOR">GRADIENT_END_COLOR</see>:</term>
         ///         <description></description>
         ///     </item>
         /// </list>

@@ -11,7 +11,8 @@ using System.Collections.Generic;
 namespace kinetica
 {
 
-    /// <summary>A set of parameters for /show/system/timing.
+    /// <summary>A set of parameters for <see
+    /// cref="Kinetica.showSystemTiming(IDictionary{string, string})" />.
     /// <br />
     /// Returns the last 100 database requests along with the request timing
     /// and internal job id. The admin tool uses it to present request timing
@@ -42,7 +43,9 @@ namespace kinetica
 
 
 
-    /// <summary>A set of results returned by /show/system/timing.</summary>
+    /// <summary>A set of results returned by <see
+    /// cref="Kinetica.showSystemTiming(IDictionary{string, string})"
+    /// />.</summary>
     public class ShowSystemTimingResponse : KineticaData
     {
 

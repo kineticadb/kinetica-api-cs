@@ -11,14 +11,16 @@ using System.Collections.Generic;
 namespace kinetica
 {
 
-    /// <summary>A set of parameters for /filter/bybox.
+    /// <summary>A set of parameters for <see
+    /// cref="Kinetica.filterByBox(string,string,string,double,double,string,double,double,IDictionary{string, string})"
+    /// />.
     /// <br />
     /// Calculates how many objects within the given table lie in a rectangular
     /// box. The operation is synchronous, meaning that a response will not be
     /// returned until all the objects are fully available. The response
     /// payload provides the count of the resulting set. A new resultant set
     /// which satisfies the input NAI restriction specification is also created
-    /// when a <member name="view_name" /> is passed in as part of the input
+    /// when a <see cref="view_name" /> is passed in as part of the input
     /// payload.</summary>
     public class FilterByBoxRequest : KineticaData
     {
@@ -34,8 +36,7 @@ namespace kinetica
         public string view_name { get; set; } = "";
 
         /// <summary>Name of the column on which to perform the bounding box
-        /// query. If the table's data type is not a shape type, must be a
-        /// valid numeric column.  </summary>
+        /// query. Must be a valid numeric column.  </summary>
         public string x_column_name { get; set; }
 
         /// <summary>Lower bound for the column chosen by <paramref
@@ -50,8 +51,7 @@ namespace kinetica
         public double max_x { get; set; }
 
         /// <summary>Name of a column on which to perform the bounding box
-        /// query. If the table's data type is not a shape type, must be a
-        /// valid numeric column.  </summary>
+        /// query. Must be a valid numeric column.  </summary>
         public string y_column_name { get; set; }
 
         /// <summary>Lower bound for <paramref
@@ -83,8 +83,7 @@ namespace kinetica
         /// restrictions as <a href="../../../../concepts/tables.html"
         /// target="_top">tables</a>.  </param>
         /// <param name="x_column_name">Name of the column on which to perform
-        /// the bounding box query. If the table's data type is not a shape
-        /// type, must be a valid numeric column.  </param>
+        /// the bounding box query. Must be a valid numeric column.  </param>
         /// <param name="min_x">Lower bound for the column chosen by <paramref
         /// cref="FilterByBoxRequest.x_column_name" />.  Must be less than or
         /// equal to <paramref cref="FilterByBoxRequest.max_x" />.  </param>
@@ -92,8 +91,7 @@ namespace kinetica
         /// cref="FilterByBoxRequest.x_column_name" />.  Must be greater than
         /// or equal to <paramref cref="FilterByBoxRequest.min_x" />.  </param>
         /// <param name="y_column_name">Name of a column on which to perform
-        /// the bounding box query. If the table's data type is not a shape
-        /// type, must be a valid numeric column.  </param>
+        /// the bounding box query. Must be a valid numeric column.  </param>
         /// <param name="min_y">Lower bound for <paramref
         /// cref="FilterByBoxRequest.y_column_name" />. Must be less than or
         /// equal to <paramref cref="FilterByBoxRequest.max_y" />.  </param>
@@ -127,7 +125,9 @@ namespace kinetica
 
 
 
-    /// <summary>A set of results returned by /filter/bybox.</summary>
+    /// <summary>A set of results returned by <see
+    /// cref="Kinetica.filterByBox(string,string,string,double,double,string,double,double,IDictionary{string, string})"
+    /// />.</summary>
     public class FilterByBoxResponse : KineticaData
     {
 

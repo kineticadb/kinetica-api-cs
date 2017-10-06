@@ -11,7 +11,9 @@ using System.Collections.Generic;
 namespace kinetica
 {
 
-    /// <summary>A set of parameters for /aggregate/statistics/byrange.
+    /// <summary>A set of parameters for <see
+    /// cref="Kinetica.aggregateStatisticsByRange(string,string,string,string,string,double,double,double,IDictionary{string, string})"
+    /// />.
     /// <br />
     /// Divides the given set into bins and calculates statistics of the values
     /// of a value-column in each bin.  The bins are based on the values of a
@@ -21,10 +23,9 @@ namespace kinetica
     /// statistics the count of total samples in each bin is returned. This
     /// counts vector is just the histogram of the column used to divide the
     /// set members into bins. The weighted average statistic requires a
-    /// weight_column to be specified in <member name="options" />. The
-    /// weighted average is then defined as the sum of the products of the
-    /// value column times the weight column divided by the sum of the weight
-    /// column.
+    /// weight_column to be specified in <see cref="options" />. The weighted
+    /// average is then defined as the sum of the products of the value column
+    /// times the weight column divided by the sum of the weight column.
     /// <br />
     /// There are two methods for binning the set members. In the first, which
     /// can be used for numeric valued binning-columns, a min, max and interval
@@ -32,7 +33,7 @@ namespace kinetica
     /// (max-min)/interval. Values that fall in the range
     /// [min+n\*interval,min+(n+1)\*interval) are placed in the nth bin where n
     /// ranges from 0..nbin-2. The final bin is [min+(nbin-1)\*interval,max].
-    /// In the second method, <member name="options" /> bin_values specifies a
+    /// In the second method, <see cref="options" /> bin_values specifies a
     /// list of binning column values. Binning-columns whose value matches the
     /// nth member of the bin_values list are placed in the nth bin. When a
     /// list is provided the binning-column must be of type string or
@@ -43,30 +44,34 @@ namespace kinetica
         /// <summary>Map of optional parameters:
         /// <list type="bullet">
         ///     <item>
-        ///         <term>additional_column_names</term>
+        ///         <term><see
+        /// cref="AggregateStatisticsByRangeRequest.Options.ADDITIONAL_COLUMN_NAMES">ADDITIONAL_COLUMN_NAMES</see>:</term>
         ///         <description>A list of comma separated value-column names
         /// over which statistics can be accumulated along with the primary
         /// value_column.</description>
         ///     </item>
         ///     <item>
-        ///         <term>bin_values</term>
+        ///         <term><see
+        /// cref="AggregateStatisticsByRangeRequest.Options.BIN_VALUES">BIN_VALUES</see>:</term>
         ///         <description>A list of comma separated binning-column
         /// values. Values that match the nth bin_values value are placed in
         /// the nth bin.</description>
         ///     </item>
         ///     <item>
-        ///         <term>weight_column_name</term>
+        ///         <term><see
+        /// cref="AggregateStatisticsByRangeRequest.Options.WEIGHT_COLUMN_NAME">WEIGHT_COLUMN_NAME</see>:</term>
         ///         <description>Name of the column used as weighting column
         /// for the weighted_average statistic.</description>
         ///     </item>
         ///     <item>
-        ///         <term>order_column_name</term>
+        ///         <term><see
+        /// cref="AggregateStatisticsByRangeRequest.Options.ORDER_COLUMN_NAME">ORDER_COLUMN_NAME</see>:</term>
         ///         <description>Name of the column used for candlestick
         /// charting techniques.</description>
         ///     </item>
         /// </list>
         /// <br />
-        /// A set of string constants for the parameter <member name="options"
+        /// A set of string constants for the parameter <see cref="options"
         /// />.</summary>
         public struct Options
         {
@@ -126,24 +131,28 @@ namespace kinetica
         /// <summary>Map of optional parameters:
         /// <list type="bullet">
         ///     <item>
-        ///         <term>additional_column_names</term>
+        ///         <term><see
+        /// cref="AggregateStatisticsByRangeRequest.Options.ADDITIONAL_COLUMN_NAMES">ADDITIONAL_COLUMN_NAMES</see>:</term>
         ///         <description>A list of comma separated value-column names
         /// over which statistics can be accumulated along with the primary
         /// value_column.</description>
         ///     </item>
         ///     <item>
-        ///         <term>bin_values</term>
+        ///         <term><see
+        /// cref="AggregateStatisticsByRangeRequest.Options.BIN_VALUES">BIN_VALUES</see>:</term>
         ///         <description>A list of comma separated binning-column
         /// values. Values that match the nth bin_values value are placed in
         /// the nth bin.</description>
         ///     </item>
         ///     <item>
-        ///         <term>weight_column_name</term>
+        ///         <term><see
+        /// cref="AggregateStatisticsByRangeRequest.Options.WEIGHT_COLUMN_NAME">WEIGHT_COLUMN_NAME</see>:</term>
         ///         <description>Name of the column used as weighting column
         /// for the weighted_average statistic.</description>
         ///     </item>
         ///     <item>
-        ///         <term>order_column_name</term>
+        ///         <term><see
+        /// cref="AggregateStatisticsByRangeRequest.Options.ORDER_COLUMN_NAME">ORDER_COLUMN_NAME</see>:</term>
         ///         <description>Name of the column used for candlestick
         /// charting techniques.</description>
         ///     </item>
@@ -181,24 +190,28 @@ namespace kinetica
         /// <param name="options">Map of optional parameters:
         /// <list type="bullet">
         ///     <item>
-        ///         <term>additional_column_names</term>
+        ///         <term><see
+        /// cref="AggregateStatisticsByRangeRequest.Options.ADDITIONAL_COLUMN_NAMES">ADDITIONAL_COLUMN_NAMES</see>:</term>
         ///         <description>A list of comma separated value-column names
         /// over which statistics can be accumulated along with the primary
         /// value_column.</description>
         ///     </item>
         ///     <item>
-        ///         <term>bin_values</term>
+        ///         <term><see
+        /// cref="AggregateStatisticsByRangeRequest.Options.BIN_VALUES">BIN_VALUES</see>:</term>
         ///         <description>A list of comma separated binning-column
         /// values. Values that match the nth bin_values value are placed in
         /// the nth bin.</description>
         ///     </item>
         ///     <item>
-        ///         <term>weight_column_name</term>
+        ///         <term><see
+        /// cref="AggregateStatisticsByRangeRequest.Options.WEIGHT_COLUMN_NAME">WEIGHT_COLUMN_NAME</see>:</term>
         ///         <description>Name of the column used as weighting column
         /// for the weighted_average statistic.</description>
         ///     </item>
         ///     <item>
-        ///         <term>order_column_name</term>
+        ///         <term><see
+        /// cref="AggregateStatisticsByRangeRequest.Options.ORDER_COLUMN_NAME">ORDER_COLUMN_NAME</see>:</term>
         ///         <description>Name of the column used for candlestick
         /// charting techniques.</description>
         ///     </item>
@@ -230,8 +243,9 @@ namespace kinetica
 
 
 
-    /// <summary>A set of results returned by
-    /// /aggregate/statistics/byrange.</summary>
+    /// <summary>A set of results returned by <see
+    /// cref="Kinetica.aggregateStatisticsByRange(string,string,string,string,string,double,double,double,IDictionary{string, string})"
+    /// />.</summary>
     public class AggregateStatisticsByRangeResponse : KineticaData
     {
 

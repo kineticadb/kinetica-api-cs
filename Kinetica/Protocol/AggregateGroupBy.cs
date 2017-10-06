@@ -11,37 +11,74 @@ using System.Collections.Generic;
 namespace kinetica
 {
 
-    /// <summary>A set of parameters for /aggregate/groupby.
+    /// <summary>A set of parameters for <see
+    /// cref="Kinetica.aggregateGroupBy(string,IList{string},long,long,IDictionary{string, string})"
+    /// />.
     /// <br />
     /// Calculates unique combinations (groups) of values for the given columns
     /// in a given table/view/collection and computes aggregates on each unique
     /// combination. This is somewhat analogous to an SQL-style SELECT...GROUP
-    /// BY. Any column(s) can be grouped on, but only non-string (i.e. numeric)
-    /// columns may be used for computing aggregates. The results can be paged
-    /// via the <member name="offset" /> and <member name="limit" />
-    /// parameters. For example, to get 10 groups with the largest counts the
-    /// inputs would be: limit=10, options={"sort_order":"descending",
-    /// "sort_by":"value"}. <member name="options" /> can be used to customize
-    /// behavior of this call e.g. filtering or sorting the results. To group
-    /// by 'x' and 'y' and compute the number of objects within each group, use
-    /// column_names=['x','y','count(*)'].  To also compute the sum of 'z' over
-    /// each group, use column_names=['x','y','count(*)','sum(z)']. Available
-    /// aggregation functions are: 'count(*)', 'sum', 'min', 'max', 'avg',
-    /// 'mean', 'stddev', 'stddev_pop', 'stddev_samp', 'var', 'var_pop',
-    /// 'var_samp', 'arg_min', 'arg_max' and 'count_distinct'. The response is
-    /// returned as a dynamic schema. For details see: <a
+    /// BY.
+    /// <br />
+    /// Any column(s) can be grouped on, and all column types except
+    /// unrestricted-length strings may be used for computing applicable
+    /// aggregates.
+    /// <br />
+    /// The results can be paged via the <see cref="offset" /> and <see
+    /// cref="limit" /> parameters. For example, to get 10 groups with the
+    /// largest counts the inputs would be: limit=10,
+    /// options={"sort_order":"descending", "sort_by":"value"}.
+    /// <br />
+    /// <see cref="options" /> can be used to customize behavior of this call
+    /// e.g. filtering or sorting the results.
+    /// <br />
+    /// To group by columns 'x' and 'y' and compute the number of objects
+    /// within each group, use:  column_names=['x','y','count(*)'].
+    /// <br />
+    /// To also compute the sum of 'z' over each group, use:
+    /// column_names=['x','y','count(*)','sum(z)'].
+    /// <br />
+    /// Available <a
+    /// href="../../../../../concepts/expressions.html#aggregate-expressions"
+    /// target="_top">aggregation functions</a> are: count(*), sum, min, max,
+    /// avg, mean, stddev, stddev_pop, stddev_samp, var, var_pop, var_samp,
+    /// arg_min, arg_max and count_distinct.
+    /// <br />
+    /// The response is returned as a dynamic schema. For details see: <a
     /// href="../../../../../concepts/dynamic_schemas.html"
-    /// target="_top">dynamic schemas documentation</a>. If the
-    /// <i>result_table</i> option is provided then the results are stored in a
-    /// table with the name given in the option and the results are not
-    /// returned in the response.</summary>
+    /// target="_top">dynamic schemas documentation</a>.
+    /// <br />
+    /// If a <i>result_table</i> name is specified in the options, the results
+    /// are stored in a new table with that name.  No results are returned in
+    /// the response.  If the source table's <a
+    /// href="../../../../../concepts/tables.html#shard-keys"
+    /// target="_top">shard key</a> is used as the grouping column(s), the
+    /// result table will be sharded, in all other cases it will be replicated.
+    /// Sorting will properly function only if the result table is replicated
+    /// or if there is only one processing node and should not be relied upon
+    /// in other cases.</summary>
     public class AggregateGroupByRequest : KineticaData
     {
 
-        /// <summary>Specifies the encoding for returned records. Values:
-        /// binary, json.
-        /// <br />
-        /// A set of string constants for the parameter <member name="encoding"
+        /// <summary>Specifies the encoding for returned records.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="AggregateGroupByRequest.Encoding.BINARY">BINARY</see>:</term>
+        ///         <description>Indicates that the returned records should be
+        /// binary encoded.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AggregateGroupByRequest.Encoding.JSON">JSON</see>:</term>
+        ///         <description>Indicates that the returned records should be
+        /// json encoded.</description>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="AggregateGroupByRequest.Encoding.BINARY">BINARY</see>.
+        /// A set of string constants for the parameter <see cref="encoding"
         /// />.</summary>
         public struct Encoding
         {
@@ -59,7 +96,8 @@ namespace kinetica
         /// <summary>Optional parameters.
         /// <list type="bullet">
         ///     <item>
-        ///         <term>collection_name</term>
+        ///         <term><see
+        /// cref="AggregateGroupByRequest.Options.COLLECTION_NAME">COLLECTION_NAME</see>:</term>
         ///         <description>Name of a collection which is to contain the
         /// table specified in <i>result_table</i>, otherwise the table will be
         /// a top-level table. If the collection does not allow duplicate types
@@ -69,30 +107,71 @@ namespace kinetica
         /// is a collection.</description>
         ///     </item>
         ///     <item>
-        ///         <term>expression</term>
+        ///         <term><see
+        /// cref="AggregateGroupByRequest.Options.EXPRESSION">EXPRESSION</see>:</term>
         ///         <description>Filter expression to apply to the table prior
         /// to computing the aggregate group by.</description>
         ///     </item>
         ///     <item>
-        ///         <term>having</term>
+        ///         <term><see
+        /// cref="AggregateGroupByRequest.Options.HAVING">HAVING</see>:</term>
         ///         <description>Filter expression to apply to the aggregated
         /// results.</description>
         ///     </item>
         ///     <item>
-        ///         <term>sort_order</term>
+        ///         <term><see
+        /// cref="AggregateGroupByRequest.Options.SORT_ORDER">SORT_ORDER</see>:</term>
         ///         <description>String indicating how the returned values
-        /// should be sorted - ascending or descending. Values: ascending,
-        /// descending.
-        /// </description>
+        /// should be sorted - ascending or descending.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="AggregateGroupByRequest.Options.ASCENDING">ASCENDING</see>:</term>
+        ///         <description>Indicates that the returned values should be
+        /// sorted in ascending order.</description>
         ///     </item>
         ///     <item>
-        ///         <term>sort_by</term>
+        ///         <term><see
+        /// cref="AggregateGroupByRequest.Options.DESCENDING">DESCENDING</see>:</term>
+        ///         <description>Indicates that the returned values should be
+        /// sorted in descending order.</description>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="AggregateGroupByRequest.Options.ASCENDING">ASCENDING</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AggregateGroupByRequest.Options.SORT_BY">SORT_BY</see>:</term>
         ///         <description>String determining how the results are sorted.
-        /// Values: key, value.
-        /// </description>
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="AggregateGroupByRequest.Options.KEY">KEY</see>:</term>
+        ///         <description>Indicates that the returned values should be
+        /// sorted by key, which corresponds to the grouping columns. If you
+        /// have multiple grouping columns (and are sorting by key), it will
+        /// first sort the first grouping column, then the second grouping
+        /// column, etc.</description>
         ///     </item>
         ///     <item>
-        ///         <term>result_table</term>
+        ///         <term><see
+        /// cref="AggregateGroupByRequest.Options.VALUE">VALUE</see>:</term>
+        ///         <description>Indicates that the returned values should be
+        /// sorted by value, which corresponds to the aggregates. If you have
+        /// multiple aggregates (and are sorting by value), it will first sort
+        /// by the first aggregate, then the second aggregate,
+        /// etc.</description>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="AggregateGroupByRequest.Options.KEY">KEY</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AggregateGroupByRequest.Options.RESULT_TABLE">RESULT_TABLE</see>:</term>
         ///         <description>The name of the table used to store the
         /// results. Has the same naming restrictions as <a
         /// href="../../../../concepts/tables.html" target="_top">tables</a>.
@@ -103,14 +182,59 @@ namespace kinetica
         /// string (i.e.; not charN) type.</description>
         ///     </item>
         ///     <item>
-        ///         <term>ttl</term>
+        ///         <term><see
+        /// cref="AggregateGroupByRequest.Options.RESULT_TABLE_PERSIST">RESULT_TABLE_PERSIST</see>:</term>
+        ///         <description>If <i>true</i> then the result table specified
+        /// in {result_table}@{key of input.options} will be persisted as a
+        /// regular table (it will not be automatically cleared unless a
+        /// <i>ttl</i> is provided, and the table data can be modified in
+        /// subsequent operations). If <i>false</i> (the default) then the
+        /// result table will be a read-only, memory-only temporary table.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="AggregateGroupByRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AggregateGroupByRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="AggregateGroupByRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AggregateGroupByRequest.Options.RESULT_TABLE_FORCE_REPLICATED">RESULT_TABLE_FORCE_REPLICATED</see>:</term>
+        ///         <description>Force the result table to be replicated
+        /// (ignores any sharding). Must be used in combination with the
+        /// <i>result_table</i> option.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AggregateGroupByRequest.Options.RESULT_TABLE_GENERATE_PK">RESULT_TABLE_GENERATE_PK</see>:</term>
+        ///         <description>If 'true' then set a primary key for the
+        /// result table. Must be used in combination with the
+        /// <i>result_table</i> option.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AggregateGroupByRequest.Options.TTL">TTL</see>:</term>
         ///         <description>Sets the TTL of the table specified in
         /// <i>result_table</i>. The value must be the desired TTL in
         /// minutes.</description>
         ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AggregateGroupByRequest.Options.CHUNK_SIZE">CHUNK_SIZE</see>:</term>
+        ///         <description>If provided this indicates the chunk size to
+        /// be used for the result table. Must be used in combination with the
+        /// <i>result_table</i> option.</description>
+        ///     </item>
         /// </list>
         /// <br />
-        /// A set of string constants for the parameter <member name="options"
+        /// A set of string constants for the parameter <see cref="options"
         /// />.</summary>
         public struct Options
         {
@@ -120,7 +244,7 @@ namespace kinetica
             /// top-level table. If the collection does not allow duplicate
             /// types and it contains a table of the same type as the given
             /// one, then this table creation request will fail. Additionally
-            /// this option is invalid if <member name="table_name" /> is a
+            /// this option is invalid if <see cref="table_name" /> is a
             /// collection.</summary>
             public const string COLLECTION_NAME = "collection_name";
 
@@ -133,9 +257,24 @@ namespace kinetica
             public const string HAVING = "having";
 
             /// <summary>String indicating how the returned values should be
-            /// sorted - ascending or descending. Values: ascending,
-            /// descending.
-            /// </summary>
+            /// sorted - ascending or descending.
+            /// Supported values:
+            /// <list type="bullet">
+            ///     <item>
+            ///         <term><see
+            /// cref="AggregateGroupByRequest.Options.ASCENDING">ASCENDING</see>:</term>
+            ///         <description>Indicates that the returned values should
+            /// be sorted in ascending order.</description>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="AggregateGroupByRequest.Options.DESCENDING">DESCENDING</see>:</term>
+            ///         <description>Indicates that the returned values should
+            /// be sorted in descending order.</description>
+            ///     </item>
+            /// </list>
+            /// The default value is <see
+            /// cref="AggregateGroupByRequest.Options.ASCENDING">ASCENDING</see>.</summary>
             public const string SORT_ORDER = "sort_order";
 
             /// <summary>Indicates that the returned values should be sorted in
@@ -146,17 +285,44 @@ namespace kinetica
             /// descending order.</summary>
             public const string DESCENDING = "descending";
 
-            /// <summary>String determining how the results are sorted. Values:
-            /// key, value.
-            /// </summary>
+            /// <summary>String determining how the results are sorted.
+            /// Supported values:
+            /// <list type="bullet">
+            ///     <item>
+            ///         <term><see
+            /// cref="AggregateGroupByRequest.Options.KEY">KEY</see>:</term>
+            ///         <description>Indicates that the returned values should
+            /// be sorted by key, which corresponds to the grouping columns. If
+            /// you have multiple grouping columns (and are sorting by key), it
+            /// will first sort the first grouping column, then the second
+            /// grouping column, etc.</description>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="AggregateGroupByRequest.Options.VALUE">VALUE</see>:</term>
+            ///         <description>Indicates that the returned values should
+            /// be sorted by value, which corresponds to the aggregates. If you
+            /// have multiple aggregates (and are sorting by value), it will
+            /// first sort by the first aggregate, then the second aggregate,
+            /// etc.</description>
+            ///     </item>
+            /// </list>
+            /// The default value is <see
+            /// cref="AggregateGroupByRequest.Options.KEY">KEY</see>.</summary>
             public const string SORT_BY = "sort_by";
 
             /// <summary>Indicates that the returned values should be sorted by
-            /// key</summary>
+            /// key, which corresponds to the grouping columns. If you have
+            /// multiple grouping columns (and are sorting by key), it will
+            /// first sort the first grouping column, then the second grouping
+            /// column, etc.</summary>
             public const string KEY = "key";
 
             /// <summary>Indicates that the returned values should be sorted by
-            /// value</summary>
+            /// value, which corresponds to the aggregates. If you have
+            /// multiple aggregates (and are sorting by value), it will first
+            /// sort by the first aggregate, then the second aggregate,
+            /// etc.</summary>
             public const string VALUE = "value";
 
             /// <summary>The name of the table used to store the results. Has
@@ -170,10 +336,48 @@ namespace kinetica
             /// type.</summary>
             public const string RESULT_TABLE = "result_table";
 
+            /// <summary>If <i>true</i> then the result table specified in
+            /// {result_table}@{key of input.options} will be persisted as a
+            /// regular table (it will not be automatically cleared unless a
+            /// <i>ttl</i> is provided, and the table data can be modified in
+            /// subsequent operations). If <i>false</i> (the default) then the
+            /// result table will be a read-only, memory-only temporary table.
+            /// Supported values:
+            /// <list type="bullet">
+            ///     <item>
+            ///         <term><see
+            /// cref="AggregateGroupByRequest.Options.TRUE">TRUE</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="AggregateGroupByRequest.Options.FALSE">FALSE</see></term>
+            ///     </item>
+            /// </list>
+            /// The default value is <see
+            /// cref="AggregateGroupByRequest.Options.FALSE">FALSE</see>.</summary>
+            public const string RESULT_TABLE_PERSIST = "result_table_persist";
+            public const string TRUE = "true";
+            public const string FALSE = "false";
+
+            /// <summary>Force the result table to be replicated (ignores any
+            /// sharding). Must be used in combination with the
+            /// <i>result_table</i> option.</summary>
+            public const string RESULT_TABLE_FORCE_REPLICATED = "result_table_force_replicated";
+
+            /// <summary>If 'true' then set a primary key for the result table.
+            /// Must be used in combination with the <i>result_table</i>
+            /// option.</summary>
+            public const string RESULT_TABLE_GENERATE_PK = "result_table_generate_pk";
+
             /// <summary>Sets the TTL of the table specified in
             /// <i>result_table</i>. The value must be the desired TTL in
             /// minutes.</summary>
             public const string TTL = "ttl";
+
+            /// <summary>If provided this indicates the chunk size to be used
+            /// for the result table. Must be used in combination with the
+            /// <i>result_table</i> option.</summary>
+            public const string CHUNK_SIZE = "chunk_size";
         } // end struct Options
 
 
@@ -198,15 +402,32 @@ namespace kinetica
         /// max number of results should be returned.  </summary>
         public long limit { get; set; } = 1000;
 
-        /// <summary>Specifies the encoding for returned records. Values:
-        /// binary, json.
-        ///   </summary>
+        /// <summary>Specifies the encoding for returned records.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="AggregateGroupByRequest.Encoding.BINARY">BINARY</see>:</term>
+        ///         <description>Indicates that the returned records should be
+        /// binary encoded.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AggregateGroupByRequest.Encoding.JSON">JSON</see>:</term>
+        ///         <description>Indicates that the returned records should be
+        /// json encoded.</description>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="AggregateGroupByRequest.Encoding.BINARY">BINARY</see>.
+        /// </summary>
         public string encoding { get; set; } = Encoding.BINARY;
 
         /// <summary>Optional parameters.
         /// <list type="bullet">
         ///     <item>
-        ///         <term>collection_name</term>
+        ///         <term><see
+        /// cref="AggregateGroupByRequest.Options.COLLECTION_NAME">COLLECTION_NAME</see>:</term>
         ///         <description>Name of a collection which is to contain the
         /// table specified in <i>result_table</i>, otherwise the table will be
         /// a top-level table. If the collection does not allow duplicate types
@@ -216,30 +437,71 @@ namespace kinetica
         /// is a collection.</description>
         ///     </item>
         ///     <item>
-        ///         <term>expression</term>
+        ///         <term><see
+        /// cref="AggregateGroupByRequest.Options.EXPRESSION">EXPRESSION</see>:</term>
         ///         <description>Filter expression to apply to the table prior
         /// to computing the aggregate group by.</description>
         ///     </item>
         ///     <item>
-        ///         <term>having</term>
+        ///         <term><see
+        /// cref="AggregateGroupByRequest.Options.HAVING">HAVING</see>:</term>
         ///         <description>Filter expression to apply to the aggregated
         /// results.</description>
         ///     </item>
         ///     <item>
-        ///         <term>sort_order</term>
+        ///         <term><see
+        /// cref="AggregateGroupByRequest.Options.SORT_ORDER">SORT_ORDER</see>:</term>
         ///         <description>String indicating how the returned values
-        /// should be sorted - ascending or descending. Values: ascending,
-        /// descending.
-        /// </description>
+        /// should be sorted - ascending or descending.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="AggregateGroupByRequest.Options.ASCENDING">ASCENDING</see>:</term>
+        ///         <description>Indicates that the returned values should be
+        /// sorted in ascending order.</description>
         ///     </item>
         ///     <item>
-        ///         <term>sort_by</term>
+        ///         <term><see
+        /// cref="AggregateGroupByRequest.Options.DESCENDING">DESCENDING</see>:</term>
+        ///         <description>Indicates that the returned values should be
+        /// sorted in descending order.</description>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="AggregateGroupByRequest.Options.ASCENDING">ASCENDING</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AggregateGroupByRequest.Options.SORT_BY">SORT_BY</see>:</term>
         ///         <description>String determining how the results are sorted.
-        /// Values: key, value.
-        /// </description>
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="AggregateGroupByRequest.Options.KEY">KEY</see>:</term>
+        ///         <description>Indicates that the returned values should be
+        /// sorted by key, which corresponds to the grouping columns. If you
+        /// have multiple grouping columns (and are sorting by key), it will
+        /// first sort the first grouping column, then the second grouping
+        /// column, etc.</description>
         ///     </item>
         ///     <item>
-        ///         <term>result_table</term>
+        ///         <term><see
+        /// cref="AggregateGroupByRequest.Options.VALUE">VALUE</see>:</term>
+        ///         <description>Indicates that the returned values should be
+        /// sorted by value, which corresponds to the aggregates. If you have
+        /// multiple aggregates (and are sorting by value), it will first sort
+        /// by the first aggregate, then the second aggregate,
+        /// etc.</description>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="AggregateGroupByRequest.Options.KEY">KEY</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AggregateGroupByRequest.Options.RESULT_TABLE">RESULT_TABLE</see>:</term>
         ///         <description>The name of the table used to store the
         /// results. Has the same naming restrictions as <a
         /// href="../../../../concepts/tables.html" target="_top">tables</a>.
@@ -250,10 +512,55 @@ namespace kinetica
         /// string (i.e.; not charN) type.</description>
         ///     </item>
         ///     <item>
-        ///         <term>ttl</term>
+        ///         <term><see
+        /// cref="AggregateGroupByRequest.Options.RESULT_TABLE_PERSIST">RESULT_TABLE_PERSIST</see>:</term>
+        ///         <description>If <i>true</i> then the result table specified
+        /// in {result_table}@{key of input.options} will be persisted as a
+        /// regular table (it will not be automatically cleared unless a
+        /// <i>ttl</i> is provided, and the table data can be modified in
+        /// subsequent operations). If <i>false</i> (the default) then the
+        /// result table will be a read-only, memory-only temporary table.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="AggregateGroupByRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AggregateGroupByRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="AggregateGroupByRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AggregateGroupByRequest.Options.RESULT_TABLE_FORCE_REPLICATED">RESULT_TABLE_FORCE_REPLICATED</see>:</term>
+        ///         <description>Force the result table to be replicated
+        /// (ignores any sharding). Must be used in combination with the
+        /// <i>result_table</i> option.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AggregateGroupByRequest.Options.RESULT_TABLE_GENERATE_PK">RESULT_TABLE_GENERATE_PK</see>:</term>
+        ///         <description>If 'true' then set a primary key for the
+        /// result table. Must be used in combination with the
+        /// <i>result_table</i> option.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AggregateGroupByRequest.Options.TTL">TTL</see>:</term>
         ///         <description>Sets the TTL of the table specified in
         /// <i>result_table</i>. The value must be the desired TTL in
         /// minutes.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AggregateGroupByRequest.Options.CHUNK_SIZE">CHUNK_SIZE</see>:</term>
+        ///         <description>If provided this indicates the chunk size to
+        /// be used for the result table. Must be used in combination with the
+        /// <i>result_table</i> option.</description>
         ///     </item>
         /// </list>
         ///   </summary>
@@ -284,7 +591,8 @@ namespace kinetica
         /// <param name="options">Optional parameters.
         /// <list type="bullet">
         ///     <item>
-        ///         <term>collection_name</term>
+        ///         <term><see
+        /// cref="AggregateGroupByRequest.Options.COLLECTION_NAME">COLLECTION_NAME</see>:</term>
         ///         <description>Name of a collection which is to contain the
         /// table specified in <i>result_table</i>, otherwise the table will be
         /// a top-level table. If the collection does not allow duplicate types
@@ -294,30 +602,71 @@ namespace kinetica
         /// is a collection.</description>
         ///     </item>
         ///     <item>
-        ///         <term>expression</term>
+        ///         <term><see
+        /// cref="AggregateGroupByRequest.Options.EXPRESSION">EXPRESSION</see>:</term>
         ///         <description>Filter expression to apply to the table prior
         /// to computing the aggregate group by.</description>
         ///     </item>
         ///     <item>
-        ///         <term>having</term>
+        ///         <term><see
+        /// cref="AggregateGroupByRequest.Options.HAVING">HAVING</see>:</term>
         ///         <description>Filter expression to apply to the aggregated
         /// results.</description>
         ///     </item>
         ///     <item>
-        ///         <term>sort_order</term>
+        ///         <term><see
+        /// cref="AggregateGroupByRequest.Options.SORT_ORDER">SORT_ORDER</see>:</term>
         ///         <description>String indicating how the returned values
-        /// should be sorted - ascending or descending. Values: ascending,
-        /// descending.
-        /// </description>
+        /// should be sorted - ascending or descending.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="AggregateGroupByRequest.Options.ASCENDING">ASCENDING</see>:</term>
+        ///         <description>Indicates that the returned values should be
+        /// sorted in ascending order.</description>
         ///     </item>
         ///     <item>
-        ///         <term>sort_by</term>
+        ///         <term><see
+        /// cref="AggregateGroupByRequest.Options.DESCENDING">DESCENDING</see>:</term>
+        ///         <description>Indicates that the returned values should be
+        /// sorted in descending order.</description>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="AggregateGroupByRequest.Options.ASCENDING">ASCENDING</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AggregateGroupByRequest.Options.SORT_BY">SORT_BY</see>:</term>
         ///         <description>String determining how the results are sorted.
-        /// Values: key, value.
-        /// </description>
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="AggregateGroupByRequest.Options.KEY">KEY</see>:</term>
+        ///         <description>Indicates that the returned values should be
+        /// sorted by key, which corresponds to the grouping columns. If you
+        /// have multiple grouping columns (and are sorting by key), it will
+        /// first sort the first grouping column, then the second grouping
+        /// column, etc.</description>
         ///     </item>
         ///     <item>
-        ///         <term>result_table</term>
+        ///         <term><see
+        /// cref="AggregateGroupByRequest.Options.VALUE">VALUE</see>:</term>
+        ///         <description>Indicates that the returned values should be
+        /// sorted by value, which corresponds to the aggregates. If you have
+        /// multiple aggregates (and are sorting by value), it will first sort
+        /// by the first aggregate, then the second aggregate,
+        /// etc.</description>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="AggregateGroupByRequest.Options.KEY">KEY</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AggregateGroupByRequest.Options.RESULT_TABLE">RESULT_TABLE</see>:</term>
         ///         <description>The name of the table used to store the
         /// results. Has the same naming restrictions as <a
         /// href="../../../../concepts/tables.html" target="_top">tables</a>.
@@ -328,10 +677,55 @@ namespace kinetica
         /// string (i.e.; not charN) type.</description>
         ///     </item>
         ///     <item>
-        ///         <term>ttl</term>
+        ///         <term><see
+        /// cref="AggregateGroupByRequest.Options.RESULT_TABLE_PERSIST">RESULT_TABLE_PERSIST</see>:</term>
+        ///         <description>If <i>true</i> then the result table specified
+        /// in {result_table}@{key of input.options} will be persisted as a
+        /// regular table (it will not be automatically cleared unless a
+        /// <i>ttl</i> is provided, and the table data can be modified in
+        /// subsequent operations). If <i>false</i> (the default) then the
+        /// result table will be a read-only, memory-only temporary table.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="AggregateGroupByRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AggregateGroupByRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="AggregateGroupByRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AggregateGroupByRequest.Options.RESULT_TABLE_FORCE_REPLICATED">RESULT_TABLE_FORCE_REPLICATED</see>:</term>
+        ///         <description>Force the result table to be replicated
+        /// (ignores any sharding). Must be used in combination with the
+        /// <i>result_table</i> option.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AggregateGroupByRequest.Options.RESULT_TABLE_GENERATE_PK">RESULT_TABLE_GENERATE_PK</see>:</term>
+        ///         <description>If 'true' then set a primary key for the
+        /// result table. Must be used in combination with the
+        /// <i>result_table</i> option.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AggregateGroupByRequest.Options.TTL">TTL</see>:</term>
         ///         <description>Sets the TTL of the table specified in
         /// <i>result_table</i>. The value must be the desired TTL in
         /// minutes.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AggregateGroupByRequest.Options.CHUNK_SIZE">CHUNK_SIZE</see>:</term>
+        ///         <description>If provided this indicates the chunk size to
+        /// be used for the result table. Must be used in combination with the
+        /// <i>result_table</i> option.</description>
         ///     </item>
         /// </list>
         ///   </param>
@@ -369,12 +763,29 @@ namespace kinetica
         /// number of results to be returned Or END_OF_SET (-9999) to indicate
         /// that the max number of results should be returned.  </param>
         /// <param name="encoding">Specifies the encoding for returned records.
-        /// Values: binary, json.
-        ///   </param>
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="AggregateGroupByRequest.Encoding.BINARY">BINARY</see>:</term>
+        ///         <description>Indicates that the returned records should be
+        /// binary encoded.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AggregateGroupByRequest.Encoding.JSON">JSON</see>:</term>
+        ///         <description>Indicates that the returned records should be
+        /// json encoded.</description>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="AggregateGroupByRequest.Encoding.BINARY">BINARY</see>.
+        /// </param>
         /// <param name="options">Optional parameters.
         /// <list type="bullet">
         ///     <item>
-        ///         <term>collection_name</term>
+        ///         <term><see
+        /// cref="AggregateGroupByRequest.Options.COLLECTION_NAME">COLLECTION_NAME</see>:</term>
         ///         <description>Name of a collection which is to contain the
         /// table specified in <i>result_table</i>, otherwise the table will be
         /// a top-level table. If the collection does not allow duplicate types
@@ -384,30 +795,71 @@ namespace kinetica
         /// is a collection.</description>
         ///     </item>
         ///     <item>
-        ///         <term>expression</term>
+        ///         <term><see
+        /// cref="AggregateGroupByRequest.Options.EXPRESSION">EXPRESSION</see>:</term>
         ///         <description>Filter expression to apply to the table prior
         /// to computing the aggregate group by.</description>
         ///     </item>
         ///     <item>
-        ///         <term>having</term>
+        ///         <term><see
+        /// cref="AggregateGroupByRequest.Options.HAVING">HAVING</see>:</term>
         ///         <description>Filter expression to apply to the aggregated
         /// results.</description>
         ///     </item>
         ///     <item>
-        ///         <term>sort_order</term>
+        ///         <term><see
+        /// cref="AggregateGroupByRequest.Options.SORT_ORDER">SORT_ORDER</see>:</term>
         ///         <description>String indicating how the returned values
-        /// should be sorted - ascending or descending. Values: ascending,
-        /// descending.
-        /// </description>
+        /// should be sorted - ascending or descending.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="AggregateGroupByRequest.Options.ASCENDING">ASCENDING</see>:</term>
+        ///         <description>Indicates that the returned values should be
+        /// sorted in ascending order.</description>
         ///     </item>
         ///     <item>
-        ///         <term>sort_by</term>
+        ///         <term><see
+        /// cref="AggregateGroupByRequest.Options.DESCENDING">DESCENDING</see>:</term>
+        ///         <description>Indicates that the returned values should be
+        /// sorted in descending order.</description>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="AggregateGroupByRequest.Options.ASCENDING">ASCENDING</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AggregateGroupByRequest.Options.SORT_BY">SORT_BY</see>:</term>
         ///         <description>String determining how the results are sorted.
-        /// Values: key, value.
-        /// </description>
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="AggregateGroupByRequest.Options.KEY">KEY</see>:</term>
+        ///         <description>Indicates that the returned values should be
+        /// sorted by key, which corresponds to the grouping columns. If you
+        /// have multiple grouping columns (and are sorting by key), it will
+        /// first sort the first grouping column, then the second grouping
+        /// column, etc.</description>
         ///     </item>
         ///     <item>
-        ///         <term>result_table</term>
+        ///         <term><see
+        /// cref="AggregateGroupByRequest.Options.VALUE">VALUE</see>:</term>
+        ///         <description>Indicates that the returned values should be
+        /// sorted by value, which corresponds to the aggregates. If you have
+        /// multiple aggregates (and are sorting by value), it will first sort
+        /// by the first aggregate, then the second aggregate,
+        /// etc.</description>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="AggregateGroupByRequest.Options.KEY">KEY</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AggregateGroupByRequest.Options.RESULT_TABLE">RESULT_TABLE</see>:</term>
         ///         <description>The name of the table used to store the
         /// results. Has the same naming restrictions as <a
         /// href="../../../../concepts/tables.html" target="_top">tables</a>.
@@ -418,10 +870,55 @@ namespace kinetica
         /// string (i.e.; not charN) type.</description>
         ///     </item>
         ///     <item>
-        ///         <term>ttl</term>
+        ///         <term><see
+        /// cref="AggregateGroupByRequest.Options.RESULT_TABLE_PERSIST">RESULT_TABLE_PERSIST</see>:</term>
+        ///         <description>If <i>true</i> then the result table specified
+        /// in {result_table}@{key of input.options} will be persisted as a
+        /// regular table (it will not be automatically cleared unless a
+        /// <i>ttl</i> is provided, and the table data can be modified in
+        /// subsequent operations). If <i>false</i> (the default) then the
+        /// result table will be a read-only, memory-only temporary table.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="AggregateGroupByRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AggregateGroupByRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="AggregateGroupByRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AggregateGroupByRequest.Options.RESULT_TABLE_FORCE_REPLICATED">RESULT_TABLE_FORCE_REPLICATED</see>:</term>
+        ///         <description>Force the result table to be replicated
+        /// (ignores any sharding). Must be used in combination with the
+        /// <i>result_table</i> option.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AggregateGroupByRequest.Options.RESULT_TABLE_GENERATE_PK">RESULT_TABLE_GENERATE_PK</see>:</term>
+        ///         <description>If 'true' then set a primary key for the
+        /// result table. Must be used in combination with the
+        /// <i>result_table</i> option.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AggregateGroupByRequest.Options.TTL">TTL</see>:</term>
         ///         <description>Sets the TTL of the table specified in
         /// <i>result_table</i>. The value must be the desired TTL in
         /// minutes.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AggregateGroupByRequest.Options.CHUNK_SIZE">CHUNK_SIZE</see>:</term>
+        ///         <description>If provided this indicates the chunk size to
+        /// be used for the result table. Must be used in combination with the
+        /// <i>result_table</i> option.</description>
         ///     </item>
         /// </list>
         ///   </param>
@@ -445,7 +942,9 @@ namespace kinetica
 
 
 
-    /// <summary>A set of results returned by /aggregate/groupby.</summary>
+    /// <summary>A set of results returned by <see
+    /// cref="Kinetica.aggregateGroupBy(string,IList{string},long,long,IDictionary{string, string})"
+    /// />.</summary>
     public class RawAggregateGroupByResponse : KineticaData
     {
 
@@ -469,7 +968,9 @@ namespace kinetica
 
 
 
-    /// <summary>A set of results returned by /aggregate/groupby.</summary>
+    /// <summary>A set of results returned by <see
+    /// cref="Kinetica.aggregateGroupBy(string,IList{string},long,long,IDictionary{string, string})"
+    /// />.</summary>
     public class AggregateGroupByResponse : KineticaData
     {
 

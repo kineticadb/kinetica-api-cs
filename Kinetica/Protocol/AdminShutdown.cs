@@ -11,7 +11,9 @@ using System.Collections.Generic;
 namespace kinetica
 {
 
-    /// <summary>A set of parameters for /admin/shutdown.
+    /// <summary>A set of parameters for <see
+    /// cref="Kinetica.adminShutdown(string,string,IDictionary{string, string})"
+    /// />.
     /// <br />
     /// Exits the database server application.</summary>
     public class AdminShutdownRequest : KineticaData
@@ -54,7 +56,9 @@ namespace kinetica
 
 
 
-    /// <summary>A set of results returned by /admin/shutdown.</summary>
+    /// <summary>A set of results returned by <see
+    /// cref="Kinetica.adminShutdown(string,string,IDictionary{string, string})"
+    /// />.</summary>
     public class AdminShutdownResponse : KineticaData
     {
 

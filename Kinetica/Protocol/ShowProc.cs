@@ -11,7 +11,8 @@ using System.Collections.Generic;
 namespace kinetica
 {
 
-    /// <summary>A set of parameters for /show/proc.
+    /// <summary>A set of parameters for <see
+    /// cref="Kinetica.showProc(string,IDictionary{string, string})" />.
     /// <br />
     /// Shows information about a proc.</summary>
     public class ShowProcRequest : KineticaData
@@ -20,23 +21,48 @@ namespace kinetica
         /// <summary>Optional parameters.
         /// <list type="bullet">
         ///     <item>
-        ///         <term>include_files</term>
+        ///         <term><see
+        /// cref="ShowProcRequest.Options.INCLUDE_FILES">INCLUDE_FILES</see>:</term>
         ///         <description>If set to <i>true</i>, the files that make up
         /// the proc will be returned. If set to <i>false</i>, the files will
-        /// not be returned. Values: true, false.
-        /// </description>
+        /// not be returned.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="ShowProcRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ShowProcRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="ShowProcRequest.Options.FALSE">FALSE</see>.</description>
         ///     </item>
         /// </list>
         /// <br />
-        /// A set of string constants for the parameter <member name="options"
+        /// A set of string constants for the parameter <see cref="options"
         /// />.</summary>
         public struct Options
         {
 
             /// <summary>If set to <i>true</i>, the files that make up the proc
             /// will be returned. If set to <i>false</i>, the files will not be
-            /// returned. Values: true, false.
-            /// </summary>
+            /// returned.
+            /// Supported values:
+            /// <list type="bullet">
+            ///     <item>
+            ///         <term><see
+            /// cref="ShowProcRequest.Options.TRUE">TRUE</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="ShowProcRequest.Options.FALSE">FALSE</see></term>
+            ///     </item>
+            /// </list>
+            /// The default value is <see
+            /// cref="ShowProcRequest.Options.FALSE">FALSE</see>.</summary>
             public const string INCLUDE_FILES = "include_files";
             public const string TRUE = "true";
             public const string FALSE = "false";
@@ -51,11 +77,24 @@ namespace kinetica
         /// <summary>Optional parameters.
         /// <list type="bullet">
         ///     <item>
-        ///         <term>include_files</term>
+        ///         <term><see
+        /// cref="ShowProcRequest.Options.INCLUDE_FILES">INCLUDE_FILES</see>:</term>
         ///         <description>If set to <i>true</i>, the files that make up
         /// the proc will be returned. If set to <i>false</i>, the files will
-        /// not be returned. Values: true, false.
-        /// </description>
+        /// not be returned.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="ShowProcRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ShowProcRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="ShowProcRequest.Options.FALSE">FALSE</see>.</description>
         ///     </item>
         /// </list>
         ///   </summary>
@@ -75,11 +114,24 @@ namespace kinetica
         /// <param name="options">Optional parameters.
         /// <list type="bullet">
         ///     <item>
-        ///         <term>include_files</term>
+        ///         <term><see
+        /// cref="ShowProcRequest.Options.INCLUDE_FILES">INCLUDE_FILES</see>:</term>
         ///         <description>If set to <i>true</i>, the files that make up
         /// the proc will be returned. If set to <i>false</i>, the files will
-        /// not be returned. Values: true, false.
-        /// </description>
+        /// not be returned.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="ShowProcRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ShowProcRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="ShowProcRequest.Options.FALSE">FALSE</see>.</description>
         ///     </item>
         /// </list>
         ///   </param>
@@ -95,13 +147,17 @@ namespace kinetica
 
 
 
-    /// <summary>A set of results returned by /show/proc.</summary>
+    /// <summary>A set of results returned by <see
+    /// cref="Kinetica.showProc(string,IDictionary{string, string})"
+    /// />.</summary>
     public class ShowProcResponse : KineticaData
     {
 
         /// <summary>The execution modes of the procs named in <member
-        /// name="proc_names" />. Values: .
-        /// <br />
+        /// name="proc_names" />.
+        /// Supported values:
+        /// <list type="bullet">
+        /// </list>
         /// A set of string constants for the parameter <member
         /// name="execution_modes" />.</summary>
         public struct ExecutionModes
@@ -119,8 +175,10 @@ namespace kinetica
         public IList<string> proc_names { get; set; } = new List<string>();
 
         /// <summary>The execution modes of the procs named in <member
-        /// name="proc_names" />. Values: .
-        ///   </summary>
+        /// name="proc_names" />.
+        /// Supported values:
+        /// <list type="bullet">
+        /// </list>  </summary>
         public IList<string> execution_modes { get; set; } = new List<string>();
 
         /// <summary>Maps of the files that make up the procs named in <member

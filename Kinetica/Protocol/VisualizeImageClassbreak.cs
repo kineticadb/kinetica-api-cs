@@ -12,18 +12,59 @@ namespace kinetica
 {
 
     /// <summary>@private
-    /// A set of parameters for /visualize/image/classbreak.
+    /// A set of parameters for <see
+    /// cref="Kinetica.visualizeImageClassbreak(IList{string},IList{string},string,string,string,IList{IList{string}},string,IList{string},IList{string},IList{IList{string}},double,double,double,double,int,int,string,long,IDictionary{string, IList{string}},IDictionary{string, string})"
+    /// />.
     /// <br />
     /// </summary>
     public class VisualizeImageClassbreakRequest : KineticaData
     {
 
         /// <summary>@private
-        /// Values: EPSG:4326, PLATE_CARREE, 900913, EPSG:900913, 102100,
-        /// EPSG:102100, 3857, EPSG:3857, WEB_MERCATOR.
         /// <br />
-        /// A set of string constants for the parameter <member
-        /// name="projection" />.</summary>
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageClassbreakRequest.Projection.EPSG_4326">EPSG_4326</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageClassbreakRequest.Projection.PLATE_CARREE">PLATE_CARREE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageClassbreakRequest.Projection._900913">_900913</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageClassbreakRequest.Projection.EPSG_900913">EPSG_900913</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageClassbreakRequest.Projection._102100">_102100</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageClassbreakRequest.Projection.EPSG_102100">EPSG_102100</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageClassbreakRequest.Projection._3857">_3857</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageClassbreakRequest.Projection.EPSG_3857">EPSG_3857</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageClassbreakRequest.Projection.WEB_MERCATOR">WEB_MERCATOR</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="VisualizeImageClassbreakRequest.Projection.PLATE_CARREE">PLATE_CARREE</see>.
+        /// A set of string constants for the parameter <see cref="projection"
+        /// />.</summary>
         public struct Projection
         {
 
@@ -72,97 +113,280 @@ namespace kinetica
         /// <br />
         /// <list type="bullet">
         ///     <item>
-        ///         <term>do_points</term>
-        ///         <description>Values: true, false.
-        /// </description>
+        ///         <term><see
+        /// cref="VisualizeImageClassbreakRequest.StyleOptions.DO_POINTS">DO_POINTS</see>:</term>
+        ///         <description>
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageClassbreakRequest.StyleOptions.TRUE">TRUE</see></term>
         ///     </item>
         ///     <item>
-        ///         <term>do_shapes</term>
-        ///         <description>Values: true, false.
-        /// </description>
+        ///         <term><see
+        /// cref="VisualizeImageClassbreakRequest.StyleOptions.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="VisualizeImageClassbreakRequest.StyleOptions.TRUE">TRUE</see>.</description>
         ///     </item>
         ///     <item>
-        ///         <term>do_tracks</term>
-        ///         <description>Values: true, false.
-        /// </description>
+        ///         <term><see
+        /// cref="VisualizeImageClassbreakRequest.StyleOptions.DO_SHAPES">DO_SHAPES</see>:</term>
+        ///         <description>
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageClassbreakRequest.StyleOptions.TRUE">TRUE</see></term>
         ///     </item>
         ///     <item>
-        ///         <term>do_symbology</term>
-        ///         <description>Values: true, false.
-        /// </description>
+        ///         <term><see
+        /// cref="VisualizeImageClassbreakRequest.StyleOptions.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="VisualizeImageClassbreakRequest.StyleOptions.TRUE">TRUE</see>.</description>
         ///     </item>
         ///     <item>
-        ///         <term>pointcolors</term>
+        ///         <term><see
+        /// cref="VisualizeImageClassbreakRequest.StyleOptions.DO_TRACKS">DO_TRACKS</see>:</term>
+        ///         <description>
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageClassbreakRequest.StyleOptions.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageClassbreakRequest.StyleOptions.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="VisualizeImageClassbreakRequest.StyleOptions.TRUE">TRUE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageClassbreakRequest.StyleOptions.DO_SYMBOLOGY">DO_SYMBOLOGY</see>:</term>
+        ///         <description>
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageClassbreakRequest.StyleOptions.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageClassbreakRequest.StyleOptions.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="VisualizeImageClassbreakRequest.StyleOptions.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageClassbreakRequest.StyleOptions.POINTCOLORS">POINTCOLORS</see>:</term>
         ///         <description></description>
         ///     </item>
         ///     <item>
-        ///         <term>pointsizes</term>
+        ///         <term><see
+        /// cref="VisualizeImageClassbreakRequest.StyleOptions.POINTSIZES">POINTSIZES</see>:</term>
         ///         <description></description>
         ///     </item>
         ///     <item>
-        ///         <term>pointshapes</term>
-        ///         <description>Values: none, circle, square, diamond,
-        /// hollowcircle, hollowsquare, hollowdiamond, SYMBOLCODE.
-        /// </description>
+        ///         <term><see
+        /// cref="VisualizeImageClassbreakRequest.StyleOptions.POINTSHAPES">POINTSHAPES</see>:</term>
+        ///         <description>
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageClassbreakRequest.StyleOptions.NONE">NONE</see></term>
         ///     </item>
         ///     <item>
-        ///         <term>shapelinewidths</term>
+        ///         <term><see
+        /// cref="VisualizeImageClassbreakRequest.StyleOptions.CIRCLE">CIRCLE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageClassbreakRequest.StyleOptions.SQUARE">SQUARE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageClassbreakRequest.StyleOptions.DIAMOND">DIAMOND</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageClassbreakRequest.StyleOptions.HOLLOWCIRCLE">HOLLOWCIRCLE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageClassbreakRequest.StyleOptions.HOLLOWSQUARE">HOLLOWSQUARE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageClassbreakRequest.StyleOptions.HOLLOWDIAMOND">HOLLOWDIAMOND</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageClassbreakRequest.StyleOptions.SYMBOLCODE">SYMBOLCODE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="VisualizeImageClassbreakRequest.StyleOptions.NONE">NONE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageClassbreakRequest.StyleOptions.SHAPELINEWIDTHS">SHAPELINEWIDTHS</see>:</term>
         ///         <description></description>
         ///     </item>
         ///     <item>
-        ///         <term>shapelinecolors</term>
+        ///         <term><see
+        /// cref="VisualizeImageClassbreakRequest.StyleOptions.SHAPELINECOLORS">SHAPELINECOLORS</see>:</term>
         ///         <description></description>
         ///     </item>
         ///     <item>
-        ///         <term>shapefillcolors</term>
+        ///         <term><see
+        /// cref="VisualizeImageClassbreakRequest.StyleOptions.SHAPEFILLCOLORS">SHAPEFILLCOLORS</see>:</term>
         ///         <description></description>
         ///     </item>
         ///     <item>
-        ///         <term>tracklinewidths</term>
+        ///         <term><see
+        /// cref="VisualizeImageClassbreakRequest.StyleOptions.TRACKLINEWIDTHS">TRACKLINEWIDTHS</see>:</term>
         ///         <description></description>
         ///     </item>
         ///     <item>
-        ///         <term>tracklinecolors</term>
+        ///         <term><see
+        /// cref="VisualizeImageClassbreakRequest.StyleOptions.TRACKLINECOLORS">TRACKLINECOLORS</see>:</term>
         ///         <description></description>
         ///     </item>
         ///     <item>
-        ///         <term>trackmarkersizes</term>
+        ///         <term><see
+        /// cref="VisualizeImageClassbreakRequest.StyleOptions.TRACKMARKERSIZES">TRACKMARKERSIZES</see>:</term>
         ///         <description></description>
         ///     </item>
         ///     <item>
-        ///         <term>trackmarkercolors</term>
+        ///         <term><see
+        /// cref="VisualizeImageClassbreakRequest.StyleOptions.TRACKMARKERCOLORS">TRACKMARKERCOLORS</see>:</term>
         ///         <description></description>
         ///     </item>
         ///     <item>
-        ///         <term>trackmarkershapes</term>
-        ///         <description>Values: none, circle, square, diamond,
-        /// hollowcircle, hollowsquare, hollowdiamond, SYMBOLCODE.
-        /// </description>
+        ///         <term><see
+        /// cref="VisualizeImageClassbreakRequest.StyleOptions.TRACKMARKERSHAPES">TRACKMARKERSHAPES</see>:</term>
+        ///         <description>
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageClassbreakRequest.StyleOptions.NONE">NONE</see></term>
         ///     </item>
         ///     <item>
-        ///         <term>trackheadcolors</term>
+        ///         <term><see
+        /// cref="VisualizeImageClassbreakRequest.StyleOptions.CIRCLE">CIRCLE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageClassbreakRequest.StyleOptions.SQUARE">SQUARE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageClassbreakRequest.StyleOptions.DIAMOND">DIAMOND</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageClassbreakRequest.StyleOptions.HOLLOWCIRCLE">HOLLOWCIRCLE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageClassbreakRequest.StyleOptions.HOLLOWSQUARE">HOLLOWSQUARE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageClassbreakRequest.StyleOptions.HOLLOWDIAMOND">HOLLOWDIAMOND</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageClassbreakRequest.StyleOptions.SYMBOLCODE">SYMBOLCODE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="VisualizeImageClassbreakRequest.StyleOptions.NONE">NONE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageClassbreakRequest.StyleOptions.TRACKHEADCOLORS">TRACKHEADCOLORS</see>:</term>
         ///         <description></description>
         ///     </item>
         ///     <item>
-        ///         <term>trackheadsizes</term>
+        ///         <term><see
+        /// cref="VisualizeImageClassbreakRequest.StyleOptions.TRACKHEADSIZES">TRACKHEADSIZES</see>:</term>
         ///         <description></description>
         ///     </item>
         ///     <item>
-        ///         <term>trackheadshapes</term>
-        ///         <description>Values: none, circle, square, diamond,
-        /// hollowcircle, hollowsquare, hollowdiamond, SYMBOLCODE.
-        /// </description>
+        ///         <term><see
+        /// cref="VisualizeImageClassbreakRequest.StyleOptions.TRACKHEADSHAPES">TRACKHEADSHAPES</see>:</term>
+        ///         <description>
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageClassbreakRequest.StyleOptions.NONE">NONE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageClassbreakRequest.StyleOptions.CIRCLE">CIRCLE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageClassbreakRequest.StyleOptions.SQUARE">SQUARE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageClassbreakRequest.StyleOptions.DIAMOND">DIAMOND</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageClassbreakRequest.StyleOptions.HOLLOWCIRCLE">HOLLOWCIRCLE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageClassbreakRequest.StyleOptions.HOLLOWSQUARE">HOLLOWSQUARE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageClassbreakRequest.StyleOptions.HOLLOWDIAMOND">HOLLOWDIAMOND</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageClassbreakRequest.StyleOptions.SYMBOLCODE">SYMBOLCODE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="VisualizeImageClassbreakRequest.StyleOptions.CIRCLE">CIRCLE</see>.</description>
         ///     </item>
         /// </list>
         /// <br />
-        /// A set of string constants for the parameter <member
-        /// name="style_options" />.</summary>
+        /// A set of string constants for the parameter <see
+        /// cref="style_options" />.</summary>
         public struct StyleOptions
         {
 
             /// <summary>@private
-            /// Values: true, false.
-            /// </summary>
+            /// <br />
+            /// Supported values:
+            /// <list type="bullet">
+            ///     <item>
+            ///         <term><see
+            /// cref="VisualizeImageClassbreakRequest.StyleOptions.TRUE">TRUE</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="VisualizeImageClassbreakRequest.StyleOptions.FALSE">FALSE</see></term>
+            ///     </item>
+            /// </list>
+            /// The default value is <see
+            /// cref="VisualizeImageClassbreakRequest.StyleOptions.TRUE">TRUE</see>.</summary>
             public const string DO_POINTS = "do_points";
 
             /// <summary>@private
@@ -174,18 +398,54 @@ namespace kinetica
             public const string FALSE = "false";
 
             /// <summary>@private
-            /// Values: true, false.
-            /// </summary>
+            /// <br />
+            /// Supported values:
+            /// <list type="bullet">
+            ///     <item>
+            ///         <term><see
+            /// cref="VisualizeImageClassbreakRequest.StyleOptions.TRUE">TRUE</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="VisualizeImageClassbreakRequest.StyleOptions.FALSE">FALSE</see></term>
+            ///     </item>
+            /// </list>
+            /// The default value is <see
+            /// cref="VisualizeImageClassbreakRequest.StyleOptions.TRUE">TRUE</see>.</summary>
             public const string DO_SHAPES = "do_shapes";
 
             /// <summary>@private
-            /// Values: true, false.
-            /// </summary>
+            /// <br />
+            /// Supported values:
+            /// <list type="bullet">
+            ///     <item>
+            ///         <term><see
+            /// cref="VisualizeImageClassbreakRequest.StyleOptions.TRUE">TRUE</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="VisualizeImageClassbreakRequest.StyleOptions.FALSE">FALSE</see></term>
+            ///     </item>
+            /// </list>
+            /// The default value is <see
+            /// cref="VisualizeImageClassbreakRequest.StyleOptions.TRUE">TRUE</see>.</summary>
             public const string DO_TRACKS = "do_tracks";
 
             /// <summary>@private
-            /// Values: true, false.
-            /// </summary>
+            /// <br />
+            /// Supported values:
+            /// <list type="bullet">
+            ///     <item>
+            ///         <term><see
+            /// cref="VisualizeImageClassbreakRequest.StyleOptions.TRUE">TRUE</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="VisualizeImageClassbreakRequest.StyleOptions.FALSE">FALSE</see></term>
+            ///     </item>
+            /// </list>
+            /// The default value is <see
+            /// cref="VisualizeImageClassbreakRequest.StyleOptions.FALSE">FALSE</see>.</summary>
             public const string DO_SYMBOLOGY = "do_symbology";
 
             /// <summary>@private
@@ -197,9 +457,44 @@ namespace kinetica
             public const string POINTSIZES = "pointsizes";
 
             /// <summary>@private
-            /// Values: none, circle, square, diamond, hollowcircle,
-            /// hollowsquare, hollowdiamond, SYMBOLCODE.
-            /// </summary>
+            /// <br />
+            /// Supported values:
+            /// <list type="bullet">
+            ///     <item>
+            ///         <term><see
+            /// cref="VisualizeImageClassbreakRequest.StyleOptions.NONE">NONE</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="VisualizeImageClassbreakRequest.StyleOptions.CIRCLE">CIRCLE</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="VisualizeImageClassbreakRequest.StyleOptions.SQUARE">SQUARE</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="VisualizeImageClassbreakRequest.StyleOptions.DIAMOND">DIAMOND</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="VisualizeImageClassbreakRequest.StyleOptions.HOLLOWCIRCLE">HOLLOWCIRCLE</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="VisualizeImageClassbreakRequest.StyleOptions.HOLLOWSQUARE">HOLLOWSQUARE</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="VisualizeImageClassbreakRequest.StyleOptions.HOLLOWDIAMOND">HOLLOWDIAMOND</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="VisualizeImageClassbreakRequest.StyleOptions.SYMBOLCODE">SYMBOLCODE</see></term>
+            ///     </item>
+            /// </list>
+            /// The default value is <see
+            /// cref="VisualizeImageClassbreakRequest.StyleOptions.NONE">NONE</see>.</summary>
             public const string POINTSHAPES = "pointshapes";
 
             /// <summary>@private
@@ -263,9 +558,44 @@ namespace kinetica
             public const string TRACKMARKERCOLORS = "trackmarkercolors";
 
             /// <summary>@private
-            /// Values: none, circle, square, diamond, hollowcircle,
-            /// hollowsquare, hollowdiamond, SYMBOLCODE.
-            /// </summary>
+            /// <br />
+            /// Supported values:
+            /// <list type="bullet">
+            ///     <item>
+            ///         <term><see
+            /// cref="VisualizeImageClassbreakRequest.StyleOptions.NONE">NONE</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="VisualizeImageClassbreakRequest.StyleOptions.CIRCLE">CIRCLE</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="VisualizeImageClassbreakRequest.StyleOptions.SQUARE">SQUARE</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="VisualizeImageClassbreakRequest.StyleOptions.DIAMOND">DIAMOND</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="VisualizeImageClassbreakRequest.StyleOptions.HOLLOWCIRCLE">HOLLOWCIRCLE</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="VisualizeImageClassbreakRequest.StyleOptions.HOLLOWSQUARE">HOLLOWSQUARE</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="VisualizeImageClassbreakRequest.StyleOptions.HOLLOWDIAMOND">HOLLOWDIAMOND</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="VisualizeImageClassbreakRequest.StyleOptions.SYMBOLCODE">SYMBOLCODE</see></term>
+            ///     </item>
+            /// </list>
+            /// The default value is <see
+            /// cref="VisualizeImageClassbreakRequest.StyleOptions.NONE">NONE</see>.</summary>
             public const string TRACKMARKERSHAPES = "trackmarkershapes";
 
             /// <summary>@private
@@ -277,9 +607,44 @@ namespace kinetica
             public const string TRACKHEADSIZES = "trackheadsizes";
 
             /// <summary>@private
-            /// Values: none, circle, square, diamond, hollowcircle,
-            /// hollowsquare, hollowdiamond, SYMBOLCODE.
-            /// </summary>
+            /// <br />
+            /// Supported values:
+            /// <list type="bullet">
+            ///     <item>
+            ///         <term><see
+            /// cref="VisualizeImageClassbreakRequest.StyleOptions.NONE">NONE</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="VisualizeImageClassbreakRequest.StyleOptions.CIRCLE">CIRCLE</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="VisualizeImageClassbreakRequest.StyleOptions.SQUARE">SQUARE</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="VisualizeImageClassbreakRequest.StyleOptions.DIAMOND">DIAMOND</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="VisualizeImageClassbreakRequest.StyleOptions.HOLLOWCIRCLE">HOLLOWCIRCLE</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="VisualizeImageClassbreakRequest.StyleOptions.HOLLOWSQUARE">HOLLOWSQUARE</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="VisualizeImageClassbreakRequest.StyleOptions.HOLLOWDIAMOND">HOLLOWDIAMOND</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="VisualizeImageClassbreakRequest.StyleOptions.SYMBOLCODE">SYMBOLCODE</see></term>
+            ///     </item>
+            /// </list>
+            /// The default value is <see
+            /// cref="VisualizeImageClassbreakRequest.StyleOptions.CIRCLE">CIRCLE</see>.</summary>
             public const string TRACKHEADSHAPES = "trackheadshapes";
 
     /// <summary>@private
@@ -305,6 +670,10 @@ namespace kinetica
         /// <summary>@private
         /// </summary>
         public string y_column_name { get; set; }
+
+        /// <summary>@private
+        /// </summary>
+        public string geometry_column_name { get; set; }
 
         /// <summary>@private
         /// </summary>
@@ -351,9 +720,48 @@ namespace kinetica
         public int height { get; set; }
 
         /// <summary>@private
-        /// Values: EPSG:4326, PLATE_CARREE, 900913, EPSG:900913, 102100,
-        /// EPSG:102100, 3857, EPSG:3857, WEB_MERCATOR.
-        /// </summary>
+        /// <br />
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageClassbreakRequest.Projection.EPSG_4326">EPSG_4326</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageClassbreakRequest.Projection.PLATE_CARREE">PLATE_CARREE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageClassbreakRequest.Projection._900913">_900913</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageClassbreakRequest.Projection.EPSG_900913">EPSG_900913</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageClassbreakRequest.Projection._102100">_102100</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageClassbreakRequest.Projection.EPSG_102100">EPSG_102100</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageClassbreakRequest.Projection._3857">_3857</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageClassbreakRequest.Projection.EPSG_3857">EPSG_3857</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageClassbreakRequest.Projection.WEB_MERCATOR">WEB_MERCATOR</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="VisualizeImageClassbreakRequest.Projection.PLATE_CARREE">PLATE_CARREE</see>.</summary>
         public string projection { get; set; } = Projection.PLATE_CARREE;
 
         /// <summary>@private
@@ -364,86 +772,257 @@ namespace kinetica
         /// <br />
         /// <list type="bullet">
         ///     <item>
-        ///         <term>do_points</term>
-        ///         <description>Values: true, false.
-        /// </description>
+        ///         <term><see
+        /// cref="VisualizeImageClassbreakRequest.StyleOptions.DO_POINTS">DO_POINTS</see>:</term>
+        ///         <description>
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageClassbreakRequest.StyleOptions.TRUE">TRUE</see></term>
         ///     </item>
         ///     <item>
-        ///         <term>do_shapes</term>
-        ///         <description>Values: true, false.
-        /// </description>
+        ///         <term><see
+        /// cref="VisualizeImageClassbreakRequest.StyleOptions.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="VisualizeImageClassbreakRequest.StyleOptions.TRUE">TRUE</see>.</description>
         ///     </item>
         ///     <item>
-        ///         <term>do_tracks</term>
-        ///         <description>Values: true, false.
-        /// </description>
+        ///         <term><see
+        /// cref="VisualizeImageClassbreakRequest.StyleOptions.DO_SHAPES">DO_SHAPES</see>:</term>
+        ///         <description>
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageClassbreakRequest.StyleOptions.TRUE">TRUE</see></term>
         ///     </item>
         ///     <item>
-        ///         <term>do_symbology</term>
-        ///         <description>Values: true, false.
-        /// </description>
+        ///         <term><see
+        /// cref="VisualizeImageClassbreakRequest.StyleOptions.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="VisualizeImageClassbreakRequest.StyleOptions.TRUE">TRUE</see>.</description>
         ///     </item>
         ///     <item>
-        ///         <term>pointcolors</term>
+        ///         <term><see
+        /// cref="VisualizeImageClassbreakRequest.StyleOptions.DO_TRACKS">DO_TRACKS</see>:</term>
+        ///         <description>
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageClassbreakRequest.StyleOptions.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageClassbreakRequest.StyleOptions.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="VisualizeImageClassbreakRequest.StyleOptions.TRUE">TRUE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageClassbreakRequest.StyleOptions.DO_SYMBOLOGY">DO_SYMBOLOGY</see>:</term>
+        ///         <description>
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageClassbreakRequest.StyleOptions.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageClassbreakRequest.StyleOptions.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="VisualizeImageClassbreakRequest.StyleOptions.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageClassbreakRequest.StyleOptions.POINTCOLORS">POINTCOLORS</see>:</term>
         ///         <description></description>
         ///     </item>
         ///     <item>
-        ///         <term>pointsizes</term>
+        ///         <term><see
+        /// cref="VisualizeImageClassbreakRequest.StyleOptions.POINTSIZES">POINTSIZES</see>:</term>
         ///         <description></description>
         ///     </item>
         ///     <item>
-        ///         <term>pointshapes</term>
-        ///         <description>Values: none, circle, square, diamond,
-        /// hollowcircle, hollowsquare, hollowdiamond, SYMBOLCODE.
-        /// </description>
+        ///         <term><see
+        /// cref="VisualizeImageClassbreakRequest.StyleOptions.POINTSHAPES">POINTSHAPES</see>:</term>
+        ///         <description>
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageClassbreakRequest.StyleOptions.NONE">NONE</see></term>
         ///     </item>
         ///     <item>
-        ///         <term>shapelinewidths</term>
+        ///         <term><see
+        /// cref="VisualizeImageClassbreakRequest.StyleOptions.CIRCLE">CIRCLE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageClassbreakRequest.StyleOptions.SQUARE">SQUARE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageClassbreakRequest.StyleOptions.DIAMOND">DIAMOND</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageClassbreakRequest.StyleOptions.HOLLOWCIRCLE">HOLLOWCIRCLE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageClassbreakRequest.StyleOptions.HOLLOWSQUARE">HOLLOWSQUARE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageClassbreakRequest.StyleOptions.HOLLOWDIAMOND">HOLLOWDIAMOND</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageClassbreakRequest.StyleOptions.SYMBOLCODE">SYMBOLCODE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="VisualizeImageClassbreakRequest.StyleOptions.NONE">NONE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageClassbreakRequest.StyleOptions.SHAPELINEWIDTHS">SHAPELINEWIDTHS</see>:</term>
         ///         <description></description>
         ///     </item>
         ///     <item>
-        ///         <term>shapelinecolors</term>
+        ///         <term><see
+        /// cref="VisualizeImageClassbreakRequest.StyleOptions.SHAPELINECOLORS">SHAPELINECOLORS</see>:</term>
         ///         <description></description>
         ///     </item>
         ///     <item>
-        ///         <term>shapefillcolors</term>
+        ///         <term><see
+        /// cref="VisualizeImageClassbreakRequest.StyleOptions.SHAPEFILLCOLORS">SHAPEFILLCOLORS</see>:</term>
         ///         <description></description>
         ///     </item>
         ///     <item>
-        ///         <term>tracklinewidths</term>
+        ///         <term><see
+        /// cref="VisualizeImageClassbreakRequest.StyleOptions.TRACKLINEWIDTHS">TRACKLINEWIDTHS</see>:</term>
         ///         <description></description>
         ///     </item>
         ///     <item>
-        ///         <term>tracklinecolors</term>
+        ///         <term><see
+        /// cref="VisualizeImageClassbreakRequest.StyleOptions.TRACKLINECOLORS">TRACKLINECOLORS</see>:</term>
         ///         <description></description>
         ///     </item>
         ///     <item>
-        ///         <term>trackmarkersizes</term>
+        ///         <term><see
+        /// cref="VisualizeImageClassbreakRequest.StyleOptions.TRACKMARKERSIZES">TRACKMARKERSIZES</see>:</term>
         ///         <description></description>
         ///     </item>
         ///     <item>
-        ///         <term>trackmarkercolors</term>
+        ///         <term><see
+        /// cref="VisualizeImageClassbreakRequest.StyleOptions.TRACKMARKERCOLORS">TRACKMARKERCOLORS</see>:</term>
         ///         <description></description>
         ///     </item>
         ///     <item>
-        ///         <term>trackmarkershapes</term>
-        ///         <description>Values: none, circle, square, diamond,
-        /// hollowcircle, hollowsquare, hollowdiamond, SYMBOLCODE.
-        /// </description>
+        ///         <term><see
+        /// cref="VisualizeImageClassbreakRequest.StyleOptions.TRACKMARKERSHAPES">TRACKMARKERSHAPES</see>:</term>
+        ///         <description>
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageClassbreakRequest.StyleOptions.NONE">NONE</see></term>
         ///     </item>
         ///     <item>
-        ///         <term>trackheadcolors</term>
+        ///         <term><see
+        /// cref="VisualizeImageClassbreakRequest.StyleOptions.CIRCLE">CIRCLE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageClassbreakRequest.StyleOptions.SQUARE">SQUARE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageClassbreakRequest.StyleOptions.DIAMOND">DIAMOND</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageClassbreakRequest.StyleOptions.HOLLOWCIRCLE">HOLLOWCIRCLE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageClassbreakRequest.StyleOptions.HOLLOWSQUARE">HOLLOWSQUARE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageClassbreakRequest.StyleOptions.HOLLOWDIAMOND">HOLLOWDIAMOND</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageClassbreakRequest.StyleOptions.SYMBOLCODE">SYMBOLCODE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="VisualizeImageClassbreakRequest.StyleOptions.NONE">NONE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageClassbreakRequest.StyleOptions.TRACKHEADCOLORS">TRACKHEADCOLORS</see>:</term>
         ///         <description></description>
         ///     </item>
         ///     <item>
-        ///         <term>trackheadsizes</term>
+        ///         <term><see
+        /// cref="VisualizeImageClassbreakRequest.StyleOptions.TRACKHEADSIZES">TRACKHEADSIZES</see>:</term>
         ///         <description></description>
         ///     </item>
         ///     <item>
-        ///         <term>trackheadshapes</term>
-        ///         <description>Values: none, circle, square, diamond,
-        /// hollowcircle, hollowsquare, hollowdiamond, SYMBOLCODE.
-        /// </description>
+        ///         <term><see
+        /// cref="VisualizeImageClassbreakRequest.StyleOptions.TRACKHEADSHAPES">TRACKHEADSHAPES</see>:</term>
+        ///         <description>
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageClassbreakRequest.StyleOptions.NONE">NONE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageClassbreakRequest.StyleOptions.CIRCLE">CIRCLE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageClassbreakRequest.StyleOptions.SQUARE">SQUARE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageClassbreakRequest.StyleOptions.DIAMOND">DIAMOND</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageClassbreakRequest.StyleOptions.HOLLOWCIRCLE">HOLLOWCIRCLE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageClassbreakRequest.StyleOptions.HOLLOWSQUARE">HOLLOWSQUARE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageClassbreakRequest.StyleOptions.HOLLOWDIAMOND">HOLLOWDIAMOND</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageClassbreakRequest.StyleOptions.SYMBOLCODE">SYMBOLCODE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="VisualizeImageClassbreakRequest.StyleOptions.CIRCLE">CIRCLE</see>.</description>
         ///     </item>
         /// </list>
         /// </summary>
@@ -467,6 +1046,7 @@ namespace kinetica
         /// <param name="world_table_names"></param>
         /// <param name="x_column_name"></param>
         /// <param name="y_column_name"></param>
+        /// <param name="geometry_column_name"></param>
         /// <param name="track_ids"></param>
         /// <param name="cb_column_name1"></param>
         /// <param name="cb_vals1"></param>
@@ -478,93 +1058,303 @@ namespace kinetica
         /// <param name="max_y"></param>
         /// <param name="width"></param>
         /// <param name="height"></param>
-        /// <param name="projection">Values: EPSG:4326, PLATE_CARREE, 900913,
-        /// EPSG:900913, 102100, EPSG:102100, 3857, EPSG:3857, WEB_MERCATOR.
-        /// </param>
+        /// <param name="projection">
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageClassbreakRequest.Projection.EPSG_4326">EPSG_4326</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageClassbreakRequest.Projection.PLATE_CARREE">PLATE_CARREE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageClassbreakRequest.Projection._900913">_900913</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageClassbreakRequest.Projection.EPSG_900913">EPSG_900913</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageClassbreakRequest.Projection._102100">_102100</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageClassbreakRequest.Projection.EPSG_102100">EPSG_102100</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageClassbreakRequest.Projection._3857">_3857</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageClassbreakRequest.Projection.EPSG_3857">EPSG_3857</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageClassbreakRequest.Projection.WEB_MERCATOR">WEB_MERCATOR</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="VisualizeImageClassbreakRequest.Projection.PLATE_CARREE">PLATE_CARREE</see>.</param>
         /// <param name="bg_color"></param>
         /// <param name="style_options">
         /// <list type="bullet">
         ///     <item>
-        ///         <term>do_points</term>
-        ///         <description>Values: true, false.
-        /// </description>
+        ///         <term><see
+        /// cref="VisualizeImageClassbreakRequest.StyleOptions.DO_POINTS">DO_POINTS</see>:</term>
+        ///         <description>
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageClassbreakRequest.StyleOptions.TRUE">TRUE</see></term>
         ///     </item>
         ///     <item>
-        ///         <term>do_shapes</term>
-        ///         <description>Values: true, false.
-        /// </description>
+        ///         <term><see
+        /// cref="VisualizeImageClassbreakRequest.StyleOptions.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="VisualizeImageClassbreakRequest.StyleOptions.TRUE">TRUE</see>.</description>
         ///     </item>
         ///     <item>
-        ///         <term>do_tracks</term>
-        ///         <description>Values: true, false.
-        /// </description>
+        ///         <term><see
+        /// cref="VisualizeImageClassbreakRequest.StyleOptions.DO_SHAPES">DO_SHAPES</see>:</term>
+        ///         <description>
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageClassbreakRequest.StyleOptions.TRUE">TRUE</see></term>
         ///     </item>
         ///     <item>
-        ///         <term>do_symbology</term>
-        ///         <description>Values: true, false.
-        /// </description>
+        ///         <term><see
+        /// cref="VisualizeImageClassbreakRequest.StyleOptions.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="VisualizeImageClassbreakRequest.StyleOptions.TRUE">TRUE</see>.</description>
         ///     </item>
         ///     <item>
-        ///         <term>pointcolors</term>
+        ///         <term><see
+        /// cref="VisualizeImageClassbreakRequest.StyleOptions.DO_TRACKS">DO_TRACKS</see>:</term>
+        ///         <description>
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageClassbreakRequest.StyleOptions.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageClassbreakRequest.StyleOptions.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="VisualizeImageClassbreakRequest.StyleOptions.TRUE">TRUE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageClassbreakRequest.StyleOptions.DO_SYMBOLOGY">DO_SYMBOLOGY</see>:</term>
+        ///         <description>
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageClassbreakRequest.StyleOptions.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageClassbreakRequest.StyleOptions.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="VisualizeImageClassbreakRequest.StyleOptions.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageClassbreakRequest.StyleOptions.POINTCOLORS">POINTCOLORS</see>:</term>
         ///         <description></description>
         ///     </item>
         ///     <item>
-        ///         <term>pointsizes</term>
+        ///         <term><see
+        /// cref="VisualizeImageClassbreakRequest.StyleOptions.POINTSIZES">POINTSIZES</see>:</term>
         ///         <description></description>
         ///     </item>
         ///     <item>
-        ///         <term>pointshapes</term>
-        ///         <description>Values: none, circle, square, diamond,
-        /// hollowcircle, hollowsquare, hollowdiamond, SYMBOLCODE.
-        /// </description>
+        ///         <term><see
+        /// cref="VisualizeImageClassbreakRequest.StyleOptions.POINTSHAPES">POINTSHAPES</see>:</term>
+        ///         <description>
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageClassbreakRequest.StyleOptions.NONE">NONE</see></term>
         ///     </item>
         ///     <item>
-        ///         <term>shapelinewidths</term>
+        ///         <term><see
+        /// cref="VisualizeImageClassbreakRequest.StyleOptions.CIRCLE">CIRCLE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageClassbreakRequest.StyleOptions.SQUARE">SQUARE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageClassbreakRequest.StyleOptions.DIAMOND">DIAMOND</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageClassbreakRequest.StyleOptions.HOLLOWCIRCLE">HOLLOWCIRCLE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageClassbreakRequest.StyleOptions.HOLLOWSQUARE">HOLLOWSQUARE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageClassbreakRequest.StyleOptions.HOLLOWDIAMOND">HOLLOWDIAMOND</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageClassbreakRequest.StyleOptions.SYMBOLCODE">SYMBOLCODE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="VisualizeImageClassbreakRequest.StyleOptions.NONE">NONE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageClassbreakRequest.StyleOptions.SHAPELINEWIDTHS">SHAPELINEWIDTHS</see>:</term>
         ///         <description></description>
         ///     </item>
         ///     <item>
-        ///         <term>shapelinecolors</term>
+        ///         <term><see
+        /// cref="VisualizeImageClassbreakRequest.StyleOptions.SHAPELINECOLORS">SHAPELINECOLORS</see>:</term>
         ///         <description></description>
         ///     </item>
         ///     <item>
-        ///         <term>shapefillcolors</term>
+        ///         <term><see
+        /// cref="VisualizeImageClassbreakRequest.StyleOptions.SHAPEFILLCOLORS">SHAPEFILLCOLORS</see>:</term>
         ///         <description></description>
         ///     </item>
         ///     <item>
-        ///         <term>tracklinewidths</term>
+        ///         <term><see
+        /// cref="VisualizeImageClassbreakRequest.StyleOptions.TRACKLINEWIDTHS">TRACKLINEWIDTHS</see>:</term>
         ///         <description></description>
         ///     </item>
         ///     <item>
-        ///         <term>tracklinecolors</term>
+        ///         <term><see
+        /// cref="VisualizeImageClassbreakRequest.StyleOptions.TRACKLINECOLORS">TRACKLINECOLORS</see>:</term>
         ///         <description></description>
         ///     </item>
         ///     <item>
-        ///         <term>trackmarkersizes</term>
+        ///         <term><see
+        /// cref="VisualizeImageClassbreakRequest.StyleOptions.TRACKMARKERSIZES">TRACKMARKERSIZES</see>:</term>
         ///         <description></description>
         ///     </item>
         ///     <item>
-        ///         <term>trackmarkercolors</term>
+        ///         <term><see
+        /// cref="VisualizeImageClassbreakRequest.StyleOptions.TRACKMARKERCOLORS">TRACKMARKERCOLORS</see>:</term>
         ///         <description></description>
         ///     </item>
         ///     <item>
-        ///         <term>trackmarkershapes</term>
-        ///         <description>Values: none, circle, square, diamond,
-        /// hollowcircle, hollowsquare, hollowdiamond, SYMBOLCODE.
-        /// </description>
+        ///         <term><see
+        /// cref="VisualizeImageClassbreakRequest.StyleOptions.TRACKMARKERSHAPES">TRACKMARKERSHAPES</see>:</term>
+        ///         <description>
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageClassbreakRequest.StyleOptions.NONE">NONE</see></term>
         ///     </item>
         ///     <item>
-        ///         <term>trackheadcolors</term>
+        ///         <term><see
+        /// cref="VisualizeImageClassbreakRequest.StyleOptions.CIRCLE">CIRCLE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageClassbreakRequest.StyleOptions.SQUARE">SQUARE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageClassbreakRequest.StyleOptions.DIAMOND">DIAMOND</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageClassbreakRequest.StyleOptions.HOLLOWCIRCLE">HOLLOWCIRCLE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageClassbreakRequest.StyleOptions.HOLLOWSQUARE">HOLLOWSQUARE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageClassbreakRequest.StyleOptions.HOLLOWDIAMOND">HOLLOWDIAMOND</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageClassbreakRequest.StyleOptions.SYMBOLCODE">SYMBOLCODE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="VisualizeImageClassbreakRequest.StyleOptions.NONE">NONE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageClassbreakRequest.StyleOptions.TRACKHEADCOLORS">TRACKHEADCOLORS</see>:</term>
         ///         <description></description>
         ///     </item>
         ///     <item>
-        ///         <term>trackheadsizes</term>
+        ///         <term><see
+        /// cref="VisualizeImageClassbreakRequest.StyleOptions.TRACKHEADSIZES">TRACKHEADSIZES</see>:</term>
         ///         <description></description>
         ///     </item>
         ///     <item>
-        ///         <term>trackheadshapes</term>
-        ///         <description>Values: none, circle, square, diamond,
-        /// hollowcircle, hollowsquare, hollowdiamond, SYMBOLCODE.
-        /// </description>
+        ///         <term><see
+        /// cref="VisualizeImageClassbreakRequest.StyleOptions.TRACKHEADSHAPES">TRACKHEADSHAPES</see>:</term>
+        ///         <description>
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageClassbreakRequest.StyleOptions.NONE">NONE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageClassbreakRequest.StyleOptions.CIRCLE">CIRCLE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageClassbreakRequest.StyleOptions.SQUARE">SQUARE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageClassbreakRequest.StyleOptions.DIAMOND">DIAMOND</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageClassbreakRequest.StyleOptions.HOLLOWCIRCLE">HOLLOWCIRCLE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageClassbreakRequest.StyleOptions.HOLLOWSQUARE">HOLLOWSQUARE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageClassbreakRequest.StyleOptions.HOLLOWDIAMOND">HOLLOWDIAMOND</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageClassbreakRequest.StyleOptions.SYMBOLCODE">SYMBOLCODE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="VisualizeImageClassbreakRequest.StyleOptions.CIRCLE">CIRCLE</see>.</description>
         ///     </item>
         /// </list>
         /// </param>
@@ -574,6 +1364,7 @@ namespace kinetica
                                                 IList<string> world_table_names,
                                                 string x_column_name,
                                                 string y_column_name,
+                                                string geometry_column_name,
                                                 IList<IList<string>> track_ids,
                                                 string cb_column_name1,
                                                 IList<string> cb_vals1,
@@ -594,6 +1385,7 @@ namespace kinetica
             this.world_table_names = world_table_names ?? new List<string>();
             this.x_column_name = x_column_name ?? "";
             this.y_column_name = y_column_name ?? "";
+            this.geometry_column_name = geometry_column_name ?? "";
             this.track_ids = track_ids ?? new List<IList<string>>();
             this.cb_column_name1 = cb_column_name1 ?? "";
             this.cb_vals1 = cb_vals1 ?? new List<string>();
@@ -619,7 +1411,9 @@ namespace kinetica
 
 
     /// <summary>@private
-    /// A set of results returned by /visualize/image/classbreak.</summary>
+    /// A set of results returned by <see
+    /// cref="Kinetica.visualizeImageClassbreak(IList{string},IList{string},string,string,string,IList{IList{string}},string,IList{string},IList{string},IList{IList{string}},double,double,double,double,int,int,string,long,IDictionary{string, IList{string}},IDictionary{string, string})"
+    /// />.</summary>
     public class VisualizeImageClassbreakResponse : KineticaData
     {
 

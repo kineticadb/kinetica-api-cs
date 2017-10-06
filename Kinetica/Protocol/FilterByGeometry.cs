@@ -11,25 +11,77 @@ using System.Collections.Generic;
 namespace kinetica
 {
 
-    /// <summary>A set of parameters for /filter/bygeometry.
+    /// <summary>A set of parameters for <see
+    /// cref="Kinetica.filterByGeometry(string,string,string,string,string,IDictionary{string, string})"
+    /// />.
     /// <br />
-    /// Applies a geometry filter against a spatial column named WKT in a given
-    /// table, collection or view. The filtering geometry is provided by
-    /// <member name="input_wkt" />.</summary>
+    /// Applies a geometry filter against a geospatial geometry column in a
+    /// given table, collection or view. The filtering geometry is provided by
+    /// <see cref="input_wkt" />.</summary>
     public class FilterByGeometryRequest : KineticaData
     {
 
-        /// <summary>The geometric filtering operation to perform Values:
-        /// contains, crosses, disjoint, equals, intersects, overlaps, touches,
-        /// within.
-        /// <br />
-        /// A set of string constants for the parameter <member
-        /// name="operation" />.</summary>
+        /// <summary>The geometric filtering operation to perform
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="FilterByGeometryRequest.Operation.CONTAINS">CONTAINS</see>:</term>
+        ///         <description>Matches records that contain the given WKT in
+        /// <paramref cref="FilterByGeometryRequest.input_wkt" />, i.e. the
+        /// given WKT is within the bounds of a record's
+        /// geometry.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="FilterByGeometryRequest.Operation.CROSSES">CROSSES</see>:</term>
+        ///         <description>Matches records that cross the given
+        /// WKT.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="FilterByGeometryRequest.Operation.DISJOINT">DISJOINT</see>:</term>
+        ///         <description>Matches records that are disjoint from the
+        /// given WKT.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="FilterByGeometryRequest.Operation.EQUALS">EQUALS</see>:</term>
+        ///         <description>Matches records that are the same as the given
+        /// WKT.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="FilterByGeometryRequest.Operation.INTERSECTS">INTERSECTS</see>:</term>
+        ///         <description>Matches records that intersect the given
+        /// WKT.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="FilterByGeometryRequest.Operation.OVERLAPS">OVERLAPS</see>:</term>
+        ///         <description>Matches records that overlap the given
+        /// WKT.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="FilterByGeometryRequest.Operation.TOUCHES">TOUCHES</see>:</term>
+        ///         <description>Matches records that touch the given
+        /// WKT.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="FilterByGeometryRequest.Operation.WITHIN">WITHIN</see>:</term>
+        ///         <description>Matches records that are within the given
+        /// WKT.</description>
+        ///     </item>
+        /// </list>
+        /// A set of string constants for the parameter <see cref="operation"
+        /// />.</summary>
         public struct Operation
         {
 
-            /// <summary>Matches records that contain the given WKT in <member
-            /// name="input_wkt" />, i.e. the given WKT is within the bounds of
+            /// <summary>Matches records that contain the given WKT in <see
+            /// cref="input_wkt" />, i.e. the given WKT is within the bounds of
             /// a record's geometry.</summary>
             public const string CONTAINS = "contains";
 
@@ -62,7 +114,7 @@ namespace kinetica
 
         /// <summary>Name of the table on which the filter by geometry will be
         /// performed.  Must be an existing table, collection or view
-        /// containing a column named WKT.  </summary>
+        /// containing a geospatial geometry column.  </summary>
         public string table_name { get; set; }
 
         /// <summary>If provided, then this will be the name of the view
@@ -71,8 +123,8 @@ namespace kinetica
         /// </summary>
         public string view_name { get; set; } = "";
 
-        /// <summary>Name of the column to be used in the filter. Must be 'WKT'
-        /// </summary>
+        /// <summary>Name of the column to be used in the filter. Must be a
+        /// geospatial geometry column.  </summary>
         public string column_name { get; set; }
 
         /// <summary>A geometry in WKT format that will be used to filter the
@@ -80,10 +132,60 @@ namespace kinetica
         /// </summary>
         public string input_wkt { get; set; } = "";
 
-        /// <summary>The geometric filtering operation to perform Values:
-        /// contains, crosses, disjoint, equals, intersects, overlaps, touches,
-        /// within.
-        ///   </summary>
+        /// <summary>The geometric filtering operation to perform
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="FilterByGeometryRequest.Operation.CONTAINS">CONTAINS</see>:</term>
+        ///         <description>Matches records that contain the given WKT in
+        /// <paramref cref="FilterByGeometryRequest.input_wkt" />, i.e. the
+        /// given WKT is within the bounds of a record's
+        /// geometry.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="FilterByGeometryRequest.Operation.CROSSES">CROSSES</see>:</term>
+        ///         <description>Matches records that cross the given
+        /// WKT.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="FilterByGeometryRequest.Operation.DISJOINT">DISJOINT</see>:</term>
+        ///         <description>Matches records that are disjoint from the
+        /// given WKT.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="FilterByGeometryRequest.Operation.EQUALS">EQUALS</see>:</term>
+        ///         <description>Matches records that are the same as the given
+        /// WKT.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="FilterByGeometryRequest.Operation.INTERSECTS">INTERSECTS</see>:</term>
+        ///         <description>Matches records that intersect the given
+        /// WKT.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="FilterByGeometryRequest.Operation.OVERLAPS">OVERLAPS</see>:</term>
+        ///         <description>Matches records that overlap the given
+        /// WKT.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="FilterByGeometryRequest.Operation.TOUCHES">TOUCHES</see>:</term>
+        ///         <description>Matches records that touch the given
+        /// WKT.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="FilterByGeometryRequest.Operation.WITHIN">WITHIN</see>:</term>
+        ///         <description>Matches records that are within the given
+        /// WKT.</description>
+        ///     </item>
+        /// </list>  </summary>
         public string operation { get; set; }
 
         /// <summary>Optional parameters.  </summary>
@@ -99,20 +201,71 @@ namespace kinetica
         /// 
         /// <param name="table_name">Name of the table on which the filter by
         /// geometry will be performed.  Must be an existing table, collection
-        /// or view containing a column named WKT.  </param>
+        /// or view containing a geospatial geometry column.  </param>
         /// <param name="view_name">If provided, then this will be the name of
         /// the view containing the results. Has the same naming restrictions
         /// as <a href="../../../../concepts/tables.html"
         /// target="_top">tables</a>.  </param>
         /// <param name="column_name">Name of the column to be used in the
-        /// filter. Must be 'WKT'  </param>
+        /// filter. Must be a geospatial geometry column.  </param>
         /// <param name="input_wkt">A geometry in WKT format that will be used
         /// to filter the objects in <paramref
         /// cref="FilterByGeometryRequest.table_name" />.  </param>
         /// <param name="operation">The geometric filtering operation to
-        /// perform Values: contains, crosses, disjoint, equals, intersects,
-        /// overlaps, touches, within.
-        ///   </param>
+        /// perform
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="FilterByGeometryRequest.Operation.CONTAINS">CONTAINS</see>:</term>
+        ///         <description>Matches records that contain the given WKT in
+        /// <paramref cref="FilterByGeometryRequest.input_wkt" />, i.e. the
+        /// given WKT is within the bounds of a record's
+        /// geometry.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="FilterByGeometryRequest.Operation.CROSSES">CROSSES</see>:</term>
+        ///         <description>Matches records that cross the given
+        /// WKT.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="FilterByGeometryRequest.Operation.DISJOINT">DISJOINT</see>:</term>
+        ///         <description>Matches records that are disjoint from the
+        /// given WKT.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="FilterByGeometryRequest.Operation.EQUALS">EQUALS</see>:</term>
+        ///         <description>Matches records that are the same as the given
+        /// WKT.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="FilterByGeometryRequest.Operation.INTERSECTS">INTERSECTS</see>:</term>
+        ///         <description>Matches records that intersect the given
+        /// WKT.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="FilterByGeometryRequest.Operation.OVERLAPS">OVERLAPS</see>:</term>
+        ///         <description>Matches records that overlap the given
+        /// WKT.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="FilterByGeometryRequest.Operation.TOUCHES">TOUCHES</see>:</term>
+        ///         <description>Matches records that touch the given
+        /// WKT.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="FilterByGeometryRequest.Operation.WITHIN">WITHIN</see>:</term>
+        ///         <description>Matches records that are within the given
+        /// WKT.</description>
+        ///     </item>
+        /// </list>  </param>
         /// <param name="options">Optional parameters.  </param>
         /// 
         public FilterByGeometryRequest( string table_name,
@@ -134,7 +287,9 @@ namespace kinetica
 
 
 
-    /// <summary>A set of results returned by /filter/bygeometry.</summary>
+    /// <summary>A set of results returned by <see
+    /// cref="Kinetica.filterByGeometry(string,string,string,string,string,IDictionary{string, string})"
+    /// />.</summary>
     public class FilterByGeometryResponse : KineticaData
     {
 

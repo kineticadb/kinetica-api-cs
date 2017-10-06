@@ -11,7 +11,9 @@ using System.Collections.Generic;
 namespace kinetica
 {
 
-    /// <summary>A set of parameters for /insert/symbol.
+    /// <summary>A set of parameters for <see
+    /// cref="Kinetica.insertSymbol(string,string,byte[],IDictionary{string, string})"
+    /// />.
     /// <br />
     /// Adds a symbol or icon (i.e. an image) to represent data points when
     /// data is rendered visually. Users must provide the symbol identifier
@@ -28,10 +30,20 @@ namespace kinetica
     {
 
         /// <summary>Specifies the symbol format. Must be either 'svg' or
-        /// 'svg_path'. Values: svg, svg_path.
-        /// <br />
-        /// A set of string constants for the parameter <member
-        /// name="symbol_format" />.</summary>
+        /// 'svg_path'.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertSymbolRequest.SymbolFormat.SVG">SVG</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertSymbolRequest.SymbolFormat.SVG_PATH">SVG_PATH</see></term>
+        ///     </item>
+        /// </list>
+        /// A set of string constants for the parameter <see
+        /// cref="symbol_format" />.</summary>
         public struct SymbolFormat
         {
             public const string SVG = "svg";
@@ -42,7 +54,8 @@ namespace kinetica
         /// <summary>Optional parameters.
         /// <list type="bullet">
         ///     <item>
-        ///         <term>color</term>
+        ///         <term><see
+        /// cref="InsertSymbolRequest.Options.COLOR">COLOR</see>:</term>
         ///         <description>If <paramref
         /// cref="InsertSymbolRequest.symbol_format" /> is 'svg' this is
         /// ignored. If <paramref cref="InsertSymbolRequest.symbol_format" />
@@ -53,13 +66,13 @@ namespace kinetica
         ///     </item>
         /// </list>
         /// <br />
-        /// A set of string constants for the parameter <member name="options"
+        /// A set of string constants for the parameter <see cref="options"
         /// />.</summary>
         public struct Options
         {
 
-            /// <summary>If <member name="symbol_format" /> is 'svg' this is
-            /// ignored. If <member name="symbol_format" /> is 'svg_path' then
+            /// <summary>If <see cref="symbol_format" /> is 'svg' this is
+            /// ignored. If <see cref="symbol_format" /> is 'svg_path' then
             /// this option specifies the color (in RRGGBB hex format) of the
             /// path. For example, to have the path rendered in red, used
             /// 'FF0000'. If 'color' is not provided then '00FF00' (i.e. green)
@@ -74,8 +87,18 @@ namespace kinetica
         public string symbol_id { get; set; }
 
         /// <summary>Specifies the symbol format. Must be either 'svg' or
-        /// 'svg_path'. Values: svg, svg_path.
-        ///   </summary>
+        /// 'svg_path'.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertSymbolRequest.SymbolFormat.SVG">SVG</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertSymbolRequest.SymbolFormat.SVG_PATH">SVG_PATH</see></term>
+        ///     </item>
+        /// </list>  </summary>
         public string symbol_format { get; set; }
 
         /// <summary>The actual symbol data. If <paramref
@@ -90,7 +113,8 @@ namespace kinetica
         /// <summary>Optional parameters.
         /// <list type="bullet">
         ///     <item>
-        ///         <term>color</term>
+        ///         <term><see
+        /// cref="InsertSymbolRequest.Options.COLOR">COLOR</see>:</term>
         ///         <description>If <paramref
         /// cref="InsertSymbolRequest.symbol_format" /> is 'svg' this is
         /// ignored. If <paramref cref="InsertSymbolRequest.symbol_format" />
@@ -115,8 +139,18 @@ namespace kinetica
         /// the same id that should be in the 'SYMBOLCODE' column for objects
         /// using this symbol  </param>
         /// <param name="symbol_format">Specifies the symbol format. Must be
-        /// either 'svg' or 'svg_path'. Values: svg, svg_path.
-        ///   </param>
+        /// either 'svg' or 'svg_path'.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertSymbolRequest.SymbolFormat.SVG">SVG</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertSymbolRequest.SymbolFormat.SVG_PATH">SVG_PATH</see></term>
+        ///     </item>
+        /// </list>  </param>
         /// <param name="symbol_data">The actual symbol data. If <paramref
         /// cref="InsertSymbolRequest.symbol_format" /> is 'svg' then this
         /// should be the raw bytes representing an svg file. If <paramref
@@ -126,7 +160,8 @@ namespace kinetica
         /// <param name="options">Optional parameters.
         /// <list type="bullet">
         ///     <item>
-        ///         <term>color</term>
+        ///         <term><see
+        /// cref="InsertSymbolRequest.Options.COLOR">COLOR</see>:</term>
         ///         <description>If <paramref
         /// cref="InsertSymbolRequest.symbol_format" /> is 'svg' this is
         /// ignored. If <paramref cref="InsertSymbolRequest.symbol_format" />
@@ -153,7 +188,9 @@ namespace kinetica
 
 
 
-    /// <summary>A set of results returned by /insert/symbol.</summary>
+    /// <summary>A set of results returned by <see
+    /// cref="Kinetica.insertSymbol(string,string,byte[],IDictionary{string, string})"
+    /// />.</summary>
     public class InsertSymbolResponse : KineticaData
     {
 

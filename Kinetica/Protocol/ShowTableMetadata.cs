@@ -11,7 +11,9 @@ using System.Collections.Generic;
 namespace kinetica
 {
 
-    /// <summary>A set of parameters for /show/table/metadata.
+    /// <summary>A set of parameters for <see
+    /// cref="Kinetica.showTableMetadata(IList{string},IDictionary{string, string})"
+    /// />.
     /// <br />
     /// Retrieves the user provided metadata for the specified
     /// tables.</summary>
@@ -48,7 +50,9 @@ namespace kinetica
 
 
 
-    /// <summary>A set of results returned by /show/table/metadata.</summary>
+    /// <summary>A set of results returned by <see
+    /// cref="Kinetica.showTableMetadata(IList{string},IDictionary{string, string})"
+    /// />.</summary>
     public class ShowTableMetadataResponse : KineticaData
     {
 

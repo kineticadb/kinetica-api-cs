@@ -11,7 +11,9 @@ using System.Collections.Generic;
 namespace kinetica
 {
 
-    /// <summary>A set of parameters for /filter/byvalue.
+    /// <summary>A set of parameters for <see
+    /// cref="Kinetica.filterByValue(string,string,bool,double,string,string,IDictionary{string, string})"
+    /// />.
     /// <br />
     /// Calculates which objects from a table has a particular value for a
     /// particular column. The input parameters provide a way to specify either
@@ -96,7 +98,9 @@ namespace kinetica
 
 
 
-    /// <summary>A set of results returned by /filter/byvalue.</summary>
+    /// <summary>A set of results returned by <see
+    /// cref="Kinetica.filterByValue(string,string,bool,double,string,string,IDictionary{string, string})"
+    /// />.</summary>
     public class FilterByValueResponse : KineticaData
     {
 

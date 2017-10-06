@@ -11,16 +11,22 @@ using System.Collections.Generic;
 namespace kinetica
 {
 
-    /// <summary>A set of parameters for /create/trigger/byrange.
+    /// <summary>A set of parameters for <see
+    /// cref="Kinetica.createTriggerByRange(string,IList{string},string,double,double,IDictionary{string, string})"
+    /// />.
     /// <br />
     /// Sets up a simple range trigger for a column_name for one or more
     /// tables. Once the trigger has been activated, any record added to the
-    /// listed tables(s) via /insert/records with the chosen column_name's
-    /// value falling within the specified range will trip the trigger. All
-    /// such records will be queued at the trigger port (by default '9001', but
-    /// able to be retrieved via /show/system/status) for any listening client
-    /// to collect. Active triggers can be cancelled by using the
-    /// /clear/trigger endpoint or by clearing all relevant tables.
+    /// listed tables(s) via <see
+    /// cref="Kinetica.insertRecords{T}(string,IList{T},IDictionary{string, string})"
+    /// /> with the chosen column_name's value falling within the specified
+    /// range will trip the trigger. All such records will be queued at the
+    /// trigger port (by default '9001', but able to be retrieved via <see
+    /// cref="Kinetica.showSystemStatus(IDictionary{string, string})" />) for
+    /// any listening client to collect. Active triggers can be cancelled by
+    /// using the <see
+    /// cref="Kinetica.clearTrigger(string,IDictionary{string, string})" />
+    /// endpoint or by clearing all relevant tables.
     /// <br />
     /// The output returns the trigger handle as well as indicating success or
     /// failure of the trigger activation.</summary>
@@ -90,8 +96,9 @@ namespace kinetica
 
 
 
-    /// <summary>A set of results returned by
-    /// /create/trigger/byrange.</summary>
+    /// <summary>A set of results returned by <see
+    /// cref="Kinetica.createTriggerByRange(string,IList{string},string,double,double,IDictionary{string, string})"
+    /// />.</summary>
     public class CreateTriggerByRangeResponse : KineticaData
     {
 

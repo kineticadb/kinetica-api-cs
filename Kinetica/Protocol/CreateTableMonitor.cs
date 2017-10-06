@@ -11,18 +11,22 @@ using System.Collections.Generic;
 namespace kinetica
 {
 
-    /// <summary>A set of parameters for /create/tablemonitor.
+    /// <summary>A set of parameters for <see
+    /// cref="Kinetica.createTableMonitor(string,IDictionary{string, string})"
+    /// />.
     /// <br />
     /// Creates a monitor that watches for new records inserted into a
-    /// particular table (identified by <member name="table_name" />) and
-    /// forwards copies to subscribers via ZMQ. After this call completes,
-    /// subscribe to the returned <member name="topic_id" /> on the ZMQ table
-    /// monitor port (default 9002). Each time an insert operation on the table
-    /// completes, a multipart message is published for that topic; the first
-    /// part contains only the topic ID, and each subsequent part contains one
-    /// binary-encoded Avro object that was inserted. The monitor will continue
-    /// to run (regardless of whether or not there are any subscribers) until
-    /// deactivated with /clear/tablemonitor.</summary>
+    /// particular table (identified by <see cref="table_name" />) and forwards
+    /// copies to subscribers via ZMQ. After this call completes, subscribe to
+    /// the returned <member name="topic_id" /> on the ZMQ table monitor port
+    /// (default 9002). Each time an insert operation on the table completes, a
+    /// multipart message is published for that topic; the first part contains
+    /// only the topic ID, and each subsequent part contains one binary-encoded
+    /// Avro object that was inserted. The monitor will continue to run
+    /// (regardless of whether or not there are any subscribers) until
+    /// deactivated with <see
+    /// cref="Kinetica.clearTableMonitor(string,IDictionary{string, string})"
+    /// />.</summary>
     public class CreateTableMonitorRequest : KineticaData
     {
 
@@ -56,7 +60,9 @@ namespace kinetica
 
 
 
-    /// <summary>A set of results returned by /create/tablemonitor.</summary>
+    /// <summary>A set of results returned by <see
+    /// cref="Kinetica.createTableMonitor(string,IDictionary{string, string})"
+    /// />.</summary>
     public class CreateTableMonitorResponse : KineticaData
     {
 

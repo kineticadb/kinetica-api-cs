@@ -11,7 +11,9 @@ using System.Collections.Generic;
 namespace kinetica
 {
 
-    /// <summary>A set of parameters for /revoke/role.
+    /// <summary>A set of parameters for <see
+    /// cref="Kinetica.revokeRole(string,string,IDictionary{string, string})"
+    /// />.
     /// <br />
     /// Revokes membership in a role from a user or role.</summary>
     public class RevokeRoleRequest : KineticaData
@@ -57,7 +59,9 @@ namespace kinetica
 
 
 
-    /// <summary>A set of results returned by /revoke/role.</summary>
+    /// <summary>A set of results returned by <see
+    /// cref="Kinetica.revokeRole(string,string,IDictionary{string, string})"
+    /// />.</summary>
     public class RevokeRoleResponse : KineticaData
     {
 

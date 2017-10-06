@@ -11,7 +11,8 @@ using System.Collections.Generic;
 namespace kinetica
 {
 
-    /// <summary>A set of parameters for /show/system/status.
+    /// <summary>A set of parameters for <see
+    /// cref="Kinetica.showSystemStatus(IDictionary{string, string})" />.
     /// <br />
     /// Provides server configuration and health related status to the caller.
     /// The admin tool uses it to present server related information to the
@@ -42,7 +43,9 @@ namespace kinetica
 
 
 
-    /// <summary>A set of results returned by /show/system/status.</summary>
+    /// <summary>A set of results returned by <see
+    /// cref="Kinetica.showSystemStatus(IDictionary{string, string})"
+    /// />.</summary>
     public class ShowSystemStatusResponse : KineticaData
     {
 

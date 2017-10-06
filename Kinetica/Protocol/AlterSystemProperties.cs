@@ -11,14 +11,17 @@ using System.Collections.Generic;
 namespace kinetica
 {
 
-    /// <summary>A set of parameters for /alter/system/properties.
+    /// <summary>A set of parameters for <see
+    /// cref="Kinetica.alterSystemProperties(IDictionary{string, string},IDictionary{string, string})"
+    /// />.
     /// <br />
-    /// The /alter/system/properties endpoint is primarily used to simplify the
-    /// testing of the system and is not expected to be used during normal
-    /// execution.  Commands are given through the <member
-    /// name="property_updates_map" /> whose keys are commands and values are
-    /// strings representing integer values (for example '8000') or boolean
-    /// values ('true' or 'false').</summary>
+    /// The <see
+    /// cref="Kinetica.alterSystemProperties(IDictionary{string, string},IDictionary{string, string})"
+    /// /> endpoint is primarily used to simplify the testing of the system and
+    /// is not expected to be used during normal execution.  Commands are given
+    /// through the <see cref="property_updates_map" /> whose keys are commands
+    /// and values are strings representing integer values (for example '8000')
+    /// or boolean values ('true' or 'false').</summary>
     public class AlterSystemPropertiesRequest : KineticaData
     {
 
@@ -26,42 +29,66 @@ namespace kinetica
         /// Error if empty.
         /// <list type="bullet">
         ///     <item>
-        ///         <term>sm_omp_threads</term>
+        ///         <term><see
+        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.SM_OMP_THREADS">SM_OMP_THREADS</see>:</term>
         ///         <description>Set the number of OpenMP threads that will be
         /// used to service filter & aggregation requests against collections
         /// to the specified integer value.</description>
         ///     </item>
         ///     <item>
-        ///         <term>kernel_omp_threads</term>
+        ///         <term><see
+        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.KERNEL_OMP_THREADS">KERNEL_OMP_THREADS</see>:</term>
         ///         <description>Set the number of kernel OpenMP threads to the
         /// specified integer value.</description>
         ///     </item>
         ///     <item>
-        ///         <term>concurrent_kernel_execution</term>
+        ///         <term><see
+        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.CONCURRENT_KERNEL_EXECUTION">CONCURRENT_KERNEL_EXECUTION</see>:</term>
         ///         <description>Enables concurrent kernel execution if the
         /// value is <i>true</i> and disables it if the value is <i>false</i>.
-        /// Values: true, false.
-        /// </description>
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.TRUE">TRUE</see></term>
         ///     </item>
         ///     <item>
-        ///         <term>chunk_size</term>
+        ///         <term><see
+        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list></description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.CHUNK_SIZE">CHUNK_SIZE</see>:</term>
         ///         <description>Sets the chunk size of all new sets to the
         /// specified integer value.</description>
         ///     </item>
         ///     <item>
-        ///         <term>flush_to_disk</term>
+        ///         <term><see
+        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.EXECUTION_MODE">EXECUTION_MODE</see>:</term>
+        ///         <description>Sets the execution_mode for kernel executions
+        /// to the specified string value. Possible values are host, device,
+        /// default (engine decides) or an integer value that indicates max
+        /// chunk size to exec on host</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.FLUSH_TO_DISK">FLUSH_TO_DISK</see>:</term>
         ///         <description>Flushes any changes to any tables to the
         /// persistent store.  These changes include updates to the vector
         /// store, object store, and text search store, Value string is
         /// ignored</description>
         ///     </item>
         ///     <item>
-        ///         <term>clear_cache</term>
+        ///         <term><see
+        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.CLEAR_CACHE">CLEAR_CACHE</see>:</term>
         ///         <description>Clears cached results.  Useful to allow
         /// repeated timing of endpoints. Value string is ignored</description>
         ///     </item>
         ///     <item>
-        ///         <term>communicator_test</term>
+        ///         <term><see
+        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.COMMUNICATOR_TEST">COMMUNICATOR_TEST</see>:</term>
         ///         <description>Invoke the communicator test and report timing
         /// results. Value string is is a comma separated list of <key>=<value>
         /// expressions.  Expressions are: num_transactions=<num> where num is
@@ -71,20 +98,32 @@ namespace kinetica
         /// value of the messages received are verified.</description>
         ///     </item>
         ///     <item>
-        ///         <term>set_message_timers_enabled</term>
+        ///         <term><see
+        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.SET_MESSAGE_TIMERS_ENABLED">SET_MESSAGE_TIMERS_ENABLED</see>:</term>
         ///         <description>Enables the communicator test to collect
         /// additional timing statistics when the value string is <i>true</i>.
         /// Disables the collection when the value string is <i>false</i>
-        /// Values: true, false.
-        /// </description>
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.TRUE">TRUE</see></term>
         ///     </item>
         ///     <item>
-        ///         <term>bulk_add_test</term>
+        ///         <term><see
+        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list></description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.BULK_ADD_TEST">BULK_ADD_TEST</see>:</term>
         ///         <description>Invoke the bulk add test and report timing
         /// results. Value string is ignored.</description>
         ///     </item>
         ///     <item>
-        ///         <term>network_speed</term>
+        ///         <term><see
+        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.NETWORK_SPEED">NETWORK_SPEED</see>:</term>
         ///         <description>Invoke the network speed test and report
         /// timing results. Value string is a semicolon-separated list of
         /// <key>=<value> expressions.  Valid expressions are: seconds=<time>
@@ -96,20 +135,58 @@ namespace kinetica
         /// worker ranks are used.</description>
         ///     </item>
         ///     <item>
-        ///         <term>request_timeout</term>
+        ///         <term><see
+        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.REQUEST_TIMEOUT">REQUEST_TIMEOUT</see>:</term>
         ///         <description>Number of minutes after which filtering (e.g.,
         /// /filter) and aggregating (e.g., /aggregate/groupby) queries will
         /// timeout.</description>
         ///     </item>
         ///     <item>
-        ///         <term>max_get_records_size</term>
+        ///         <term><see
+        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.MAX_GET_RECORDS_SIZE">MAX_GET_RECORDS_SIZE</see>:</term>
         ///         <description>The maximum number of records the database
         /// will serve for a given data retrieval call</description>
         ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.MEMORY_ALLOCATION_LIMIT_MB">MEMORY_ALLOCATION_LIMIT_MB</see>:</term>
+        ///         <description>Set the memory allocation limit for all rank
+        /// processes in megabytes, 0 means no limit. Overrides any individual
+        /// rank memory allocation limits.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.ENABLE_AUDIT">ENABLE_AUDIT</see>:</term>
+        ///         <description>Enable or disable auditing.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.AUDIT_HEADERS">AUDIT_HEADERS</see>:</term>
+        ///         <description>Enable or disable auditing of request
+        /// headers.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.AUDIT_BODY">AUDIT_BODY</see>:</term>
+        ///         <description>Enable or disable auditing of request
+        /// bodies.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.AUDIT_DATA">AUDIT_DATA</see>:</term>
+        ///         <description>Enable or disable auditing of request
+        /// data.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.ENABLE_JOB_MANAGER">ENABLE_JOB_MANAGER</see>:</term>
+        ///         <description>Enable JobManager to enforce processing of
+        /// requests in the order received.</description>
+        ///     </item>
         /// </list>
         /// <br />
-        /// A set of string constants for the parameter <member
-        /// name="property_updates_map" />.</summary>
+        /// A set of string constants for the parameter <see
+        /// cref="property_updates_map" />.</summary>
         public struct PropertyUpdatesMap
         {
 
@@ -124,8 +201,17 @@ namespace kinetica
 
             /// <summary>Enables concurrent kernel execution if the value is
             /// <i>true</i> and disables it if the value is <i>false</i>.
-            /// Values: true, false.
-            /// </summary>
+            /// Supported values:
+            /// <list type="bullet">
+            ///     <item>
+            ///         <term><see
+            /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.TRUE">TRUE</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.FALSE">FALSE</see></term>
+            ///     </item>
+            /// </list></summary>
             public const string CONCURRENT_KERNEL_EXECUTION = "concurrent_kernel_execution";
             public const string TRUE = "true";
             public const string FALSE = "false";
@@ -133,6 +219,12 @@ namespace kinetica
             /// <summary>Sets the chunk size of all new sets to the specified
             /// integer value.</summary>
             public const string CHUNK_SIZE = "chunk_size";
+
+            /// <summary>Sets the execution_mode for kernel executions to the
+            /// specified string value. Possible values are host, device,
+            /// default (engine decides) or an integer value that indicates max
+            /// chunk size to exec on host</summary>
+            public const string EXECUTION_MODE = "execution_mode";
 
             /// <summary>Flushes any changes to any tables to the persistent
             /// store.  These changes include updates to the vector store,
@@ -157,8 +249,17 @@ namespace kinetica
             /// <summary>Enables the communicator test to collect additional
             /// timing statistics when the value string is <i>true</i>.
             /// Disables the collection when the value string is <i>false</i>
-            /// Values: true, false.
-            /// </summary>
+            /// Supported values:
+            /// <list type="bullet">
+            ///     <item>
+            ///         <term><see
+            /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.TRUE">TRUE</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.FALSE">FALSE</see></term>
+            ///     </item>
+            /// </list></summary>
             public const string SET_MESSAGE_TIMERS_ENABLED = "set_message_timers_enabled";
 
             /// <summary>Invoke the bulk add test and report timing results.
@@ -177,14 +278,39 @@ namespace kinetica
             /// used.</summary>
             public const string NETWORK_SPEED = "network_speed";
 
-            /// <summary>Number of minutes after which filtering (e.g.,
-            /// /filter) and aggregating (e.g., /aggregate/groupby) queries
-            /// will timeout.</summary>
+            /// <summary>Number of minutes after which filtering (e.g., <see
+            /// cref="Kinetica.filter(string,string,string,IDictionary{string, string})"
+            /// />) and aggregating (e.g., <see
+            /// cref="Kinetica.aggregateGroupBy(string,IList{string},long,long,IDictionary{string, string})"
+            /// />) queries will timeout.</summary>
             public const string REQUEST_TIMEOUT = "request_timeout";
 
             /// <summary>The maximum number of records the database will serve
             /// for a given data retrieval call</summary>
             public const string MAX_GET_RECORDS_SIZE = "max_get_records_size";
+
+            /// <summary>Set the memory allocation limit for all rank processes
+            /// in megabytes, 0 means no limit. Overrides any individual rank
+            /// memory allocation limits.</summary>
+            public const string MEMORY_ALLOCATION_LIMIT_MB = "memory_allocation_limit_mb";
+
+            /// <summary>Enable or disable auditing.</summary>
+            public const string ENABLE_AUDIT = "enable_audit";
+
+            /// <summary>Enable or disable auditing of request
+            /// headers.</summary>
+            public const string AUDIT_HEADERS = "audit_headers";
+
+            /// <summary>Enable or disable auditing of request
+            /// bodies.</summary>
+            public const string AUDIT_BODY = "audit_body";
+
+            /// <summary>Enable or disable auditing of request data.</summary>
+            public const string AUDIT_DATA = "audit_data";
+
+            /// <summary>Enable JobManager to enforce processing of requests in
+            /// the order received.</summary>
+            public const string ENABLE_JOB_MANAGER = "enable_job_manager";
         } // end struct PropertyUpdatesMap
 
 
@@ -192,42 +318,66 @@ namespace kinetica
         /// Error if empty.
         /// <list type="bullet">
         ///     <item>
-        ///         <term>sm_omp_threads</term>
+        ///         <term><see
+        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.SM_OMP_THREADS">SM_OMP_THREADS</see>:</term>
         ///         <description>Set the number of OpenMP threads that will be
         /// used to service filter & aggregation requests against collections
         /// to the specified integer value.</description>
         ///     </item>
         ///     <item>
-        ///         <term>kernel_omp_threads</term>
+        ///         <term><see
+        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.KERNEL_OMP_THREADS">KERNEL_OMP_THREADS</see>:</term>
         ///         <description>Set the number of kernel OpenMP threads to the
         /// specified integer value.</description>
         ///     </item>
         ///     <item>
-        ///         <term>concurrent_kernel_execution</term>
+        ///         <term><see
+        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.CONCURRENT_KERNEL_EXECUTION">CONCURRENT_KERNEL_EXECUTION</see>:</term>
         ///         <description>Enables concurrent kernel execution if the
         /// value is <i>true</i> and disables it if the value is <i>false</i>.
-        /// Values: true, false.
-        /// </description>
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.TRUE">TRUE</see></term>
         ///     </item>
         ///     <item>
-        ///         <term>chunk_size</term>
+        ///         <term><see
+        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list></description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.CHUNK_SIZE">CHUNK_SIZE</see>:</term>
         ///         <description>Sets the chunk size of all new sets to the
         /// specified integer value.</description>
         ///     </item>
         ///     <item>
-        ///         <term>flush_to_disk</term>
+        ///         <term><see
+        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.EXECUTION_MODE">EXECUTION_MODE</see>:</term>
+        ///         <description>Sets the execution_mode for kernel executions
+        /// to the specified string value. Possible values are host, device,
+        /// default (engine decides) or an integer value that indicates max
+        /// chunk size to exec on host</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.FLUSH_TO_DISK">FLUSH_TO_DISK</see>:</term>
         ///         <description>Flushes any changes to any tables to the
         /// persistent store.  These changes include updates to the vector
         /// store, object store, and text search store, Value string is
         /// ignored</description>
         ///     </item>
         ///     <item>
-        ///         <term>clear_cache</term>
+        ///         <term><see
+        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.CLEAR_CACHE">CLEAR_CACHE</see>:</term>
         ///         <description>Clears cached results.  Useful to allow
         /// repeated timing of endpoints. Value string is ignored</description>
         ///     </item>
         ///     <item>
-        ///         <term>communicator_test</term>
+        ///         <term><see
+        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.COMMUNICATOR_TEST">COMMUNICATOR_TEST</see>:</term>
         ///         <description>Invoke the communicator test and report timing
         /// results. Value string is is a comma separated list of <key>=<value>
         /// expressions.  Expressions are: num_transactions=<num> where num is
@@ -237,20 +387,32 @@ namespace kinetica
         /// value of the messages received are verified.</description>
         ///     </item>
         ///     <item>
-        ///         <term>set_message_timers_enabled</term>
+        ///         <term><see
+        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.SET_MESSAGE_TIMERS_ENABLED">SET_MESSAGE_TIMERS_ENABLED</see>:</term>
         ///         <description>Enables the communicator test to collect
         /// additional timing statistics when the value string is <i>true</i>.
         /// Disables the collection when the value string is <i>false</i>
-        /// Values: true, false.
-        /// </description>
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.TRUE">TRUE</see></term>
         ///     </item>
         ///     <item>
-        ///         <term>bulk_add_test</term>
+        ///         <term><see
+        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list></description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.BULK_ADD_TEST">BULK_ADD_TEST</see>:</term>
         ///         <description>Invoke the bulk add test and report timing
         /// results. Value string is ignored.</description>
         ///     </item>
         ///     <item>
-        ///         <term>network_speed</term>
+        ///         <term><see
+        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.NETWORK_SPEED">NETWORK_SPEED</see>:</term>
         ///         <description>Invoke the network speed test and report
         /// timing results. Value string is a semicolon-separated list of
         /// <key>=<value> expressions.  Valid expressions are: seconds=<time>
@@ -262,15 +424,53 @@ namespace kinetica
         /// worker ranks are used.</description>
         ///     </item>
         ///     <item>
-        ///         <term>request_timeout</term>
+        ///         <term><see
+        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.REQUEST_TIMEOUT">REQUEST_TIMEOUT</see>:</term>
         ///         <description>Number of minutes after which filtering (e.g.,
         /// /filter) and aggregating (e.g., /aggregate/groupby) queries will
         /// timeout.</description>
         ///     </item>
         ///     <item>
-        ///         <term>max_get_records_size</term>
+        ///         <term><see
+        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.MAX_GET_RECORDS_SIZE">MAX_GET_RECORDS_SIZE</see>:</term>
         ///         <description>The maximum number of records the database
         /// will serve for a given data retrieval call</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.MEMORY_ALLOCATION_LIMIT_MB">MEMORY_ALLOCATION_LIMIT_MB</see>:</term>
+        ///         <description>Set the memory allocation limit for all rank
+        /// processes in megabytes, 0 means no limit. Overrides any individual
+        /// rank memory allocation limits.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.ENABLE_AUDIT">ENABLE_AUDIT</see>:</term>
+        ///         <description>Enable or disable auditing.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.AUDIT_HEADERS">AUDIT_HEADERS</see>:</term>
+        ///         <description>Enable or disable auditing of request
+        /// headers.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.AUDIT_BODY">AUDIT_BODY</see>:</term>
+        ///         <description>Enable or disable auditing of request
+        /// bodies.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.AUDIT_DATA">AUDIT_DATA</see>:</term>
+        ///         <description>Enable or disable auditing of request
+        /// data.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.ENABLE_JOB_MANAGER">ENABLE_JOB_MANAGER</see>:</term>
+        ///         <description>Enable JobManager to enforce processing of
+        /// requests in the order received.</description>
         ///     </item>
         /// </list>
         ///   </summary>
@@ -291,42 +491,66 @@ namespace kinetica
         /// the system to be updated. Error if empty.
         /// <list type="bullet">
         ///     <item>
-        ///         <term>sm_omp_threads</term>
+        ///         <term><see
+        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.SM_OMP_THREADS">SM_OMP_THREADS</see>:</term>
         ///         <description>Set the number of OpenMP threads that will be
         /// used to service filter & aggregation requests against collections
         /// to the specified integer value.</description>
         ///     </item>
         ///     <item>
-        ///         <term>kernel_omp_threads</term>
+        ///         <term><see
+        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.KERNEL_OMP_THREADS">KERNEL_OMP_THREADS</see>:</term>
         ///         <description>Set the number of kernel OpenMP threads to the
         /// specified integer value.</description>
         ///     </item>
         ///     <item>
-        ///         <term>concurrent_kernel_execution</term>
+        ///         <term><see
+        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.CONCURRENT_KERNEL_EXECUTION">CONCURRENT_KERNEL_EXECUTION</see>:</term>
         ///         <description>Enables concurrent kernel execution if the
         /// value is <i>true</i> and disables it if the value is <i>false</i>.
-        /// Values: true, false.
-        /// </description>
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.TRUE">TRUE</see></term>
         ///     </item>
         ///     <item>
-        ///         <term>chunk_size</term>
+        ///         <term><see
+        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list></description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.CHUNK_SIZE">CHUNK_SIZE</see>:</term>
         ///         <description>Sets the chunk size of all new sets to the
         /// specified integer value.</description>
         ///     </item>
         ///     <item>
-        ///         <term>flush_to_disk</term>
+        ///         <term><see
+        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.EXECUTION_MODE">EXECUTION_MODE</see>:</term>
+        ///         <description>Sets the execution_mode for kernel executions
+        /// to the specified string value. Possible values are host, device,
+        /// default (engine decides) or an integer value that indicates max
+        /// chunk size to exec on host</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.FLUSH_TO_DISK">FLUSH_TO_DISK</see>:</term>
         ///         <description>Flushes any changes to any tables to the
         /// persistent store.  These changes include updates to the vector
         /// store, object store, and text search store, Value string is
         /// ignored</description>
         ///     </item>
         ///     <item>
-        ///         <term>clear_cache</term>
+        ///         <term><see
+        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.CLEAR_CACHE">CLEAR_CACHE</see>:</term>
         ///         <description>Clears cached results.  Useful to allow
         /// repeated timing of endpoints. Value string is ignored</description>
         ///     </item>
         ///     <item>
-        ///         <term>communicator_test</term>
+        ///         <term><see
+        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.COMMUNICATOR_TEST">COMMUNICATOR_TEST</see>:</term>
         ///         <description>Invoke the communicator test and report timing
         /// results. Value string is is a comma separated list of <key>=<value>
         /// expressions.  Expressions are: num_transactions=<num> where num is
@@ -336,20 +560,32 @@ namespace kinetica
         /// value of the messages received are verified.</description>
         ///     </item>
         ///     <item>
-        ///         <term>set_message_timers_enabled</term>
+        ///         <term><see
+        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.SET_MESSAGE_TIMERS_ENABLED">SET_MESSAGE_TIMERS_ENABLED</see>:</term>
         ///         <description>Enables the communicator test to collect
         /// additional timing statistics when the value string is <i>true</i>.
         /// Disables the collection when the value string is <i>false</i>
-        /// Values: true, false.
-        /// </description>
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.TRUE">TRUE</see></term>
         ///     </item>
         ///     <item>
-        ///         <term>bulk_add_test</term>
+        ///         <term><see
+        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list></description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.BULK_ADD_TEST">BULK_ADD_TEST</see>:</term>
         ///         <description>Invoke the bulk add test and report timing
         /// results. Value string is ignored.</description>
         ///     </item>
         ///     <item>
-        ///         <term>network_speed</term>
+        ///         <term><see
+        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.NETWORK_SPEED">NETWORK_SPEED</see>:</term>
         ///         <description>Invoke the network speed test and report
         /// timing results. Value string is a semicolon-separated list of
         /// <key>=<value> expressions.  Valid expressions are: seconds=<time>
@@ -361,15 +597,53 @@ namespace kinetica
         /// worker ranks are used.</description>
         ///     </item>
         ///     <item>
-        ///         <term>request_timeout</term>
+        ///         <term><see
+        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.REQUEST_TIMEOUT">REQUEST_TIMEOUT</see>:</term>
         ///         <description>Number of minutes after which filtering (e.g.,
         /// /filter) and aggregating (e.g., /aggregate/groupby) queries will
         /// timeout.</description>
         ///     </item>
         ///     <item>
-        ///         <term>max_get_records_size</term>
+        ///         <term><see
+        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.MAX_GET_RECORDS_SIZE">MAX_GET_RECORDS_SIZE</see>:</term>
         ///         <description>The maximum number of records the database
         /// will serve for a given data retrieval call</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.MEMORY_ALLOCATION_LIMIT_MB">MEMORY_ALLOCATION_LIMIT_MB</see>:</term>
+        ///         <description>Set the memory allocation limit for all rank
+        /// processes in megabytes, 0 means no limit. Overrides any individual
+        /// rank memory allocation limits.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.ENABLE_AUDIT">ENABLE_AUDIT</see>:</term>
+        ///         <description>Enable or disable auditing.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.AUDIT_HEADERS">AUDIT_HEADERS</see>:</term>
+        ///         <description>Enable or disable auditing of request
+        /// headers.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.AUDIT_BODY">AUDIT_BODY</see>:</term>
+        ///         <description>Enable or disable auditing of request
+        /// bodies.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.AUDIT_DATA">AUDIT_DATA</see>:</term>
+        ///         <description>Enable or disable auditing of request
+        /// data.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.ENABLE_JOB_MANAGER">ENABLE_JOB_MANAGER</see>:</term>
+        ///         <description>Enable JobManager to enforce processing of
+        /// requests in the order received.</description>
         ///     </item>
         /// </list>
         ///   </param>
@@ -386,8 +660,9 @@ namespace kinetica
 
 
 
-    /// <summary>A set of results returned by
-    /// /alter/system/properties.</summary>
+    /// <summary>A set of results returned by <see
+    /// cref="Kinetica.alterSystemProperties(IDictionary{string, string},IDictionary{string, string})"
+    /// />.</summary>
     public class AlterSystemPropertiesResponse : KineticaData
     {
 

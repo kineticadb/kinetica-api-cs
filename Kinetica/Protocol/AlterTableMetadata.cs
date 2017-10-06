@@ -11,7 +11,9 @@ using System.Collections.Generic;
 namespace kinetica
 {
 
-    /// <summary>A set of parameters for /alter/table/metadata.
+    /// <summary>A set of parameters for <see
+    /// cref="Kinetica.alterTableMetadata(IList{string},IDictionary{string, string},IDictionary{string, string})"
+    /// />.
     /// <br />
     /// Updates (adds or changes) metadata for tables. The metadata key and
     /// values must both be strings. This is an easy way to annotate whole
@@ -67,7 +69,9 @@ namespace kinetica
 
 
 
-    /// <summary>A set of results returned by /alter/table/metadata.</summary>
+    /// <summary>A set of results returned by <see
+    /// cref="Kinetica.alterTableMetadata(IList{string},IDictionary{string, string},IDictionary{string, string})"
+    /// />.</summary>
     public class AlterTableMetadataResponse : KineticaData
     {
 

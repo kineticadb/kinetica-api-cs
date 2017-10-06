@@ -11,10 +11,12 @@ using System.Collections.Generic;
 namespace kinetica
 {
 
-    /// <summary>A set of parameters for /aggregate/convexhull.
+    /// <summary>A set of parameters for <see
+    /// cref="Kinetica.aggregateConvexHull(string,string,string,IDictionary{string, string})"
+    /// />.
     /// <br />
     /// Calculates and returns the convex hull for the values in a table
-    /// specified by <member name="table_name" />.</summary>
+    /// specified by <see cref="table_name" />.</summary>
     public class AggregateConvexHullRequest : KineticaData
     {
 
@@ -67,7 +69,9 @@ namespace kinetica
 
 
 
-    /// <summary>A set of results returned by /aggregate/convexhull.</summary>
+    /// <summary>A set of results returned by <see
+    /// cref="Kinetica.aggregateConvexHull(string,string,string,IDictionary{string, string})"
+    /// />.</summary>
     public class AggregateConvexHullResponse : KineticaData
     {
 

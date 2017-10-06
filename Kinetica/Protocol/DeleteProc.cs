@@ -11,7 +11,8 @@ using System.Collections.Generic;
 namespace kinetica
 {
 
-    /// <summary>A set of parameters for /delete/proc.
+    /// <summary>A set of parameters for <see
+    /// cref="Kinetica.deleteProc(string,IDictionary{string, string})" />.
     /// <br />
     /// Deletes a proc. Any currently running instances of the proc will be
     /// killed.</summary>
@@ -48,7 +49,9 @@ namespace kinetica
 
 
 
-    /// <summary>A set of results returned by /delete/proc.</summary>
+    /// <summary>A set of results returned by <see
+    /// cref="Kinetica.deleteProc(string,IDictionary{string, string})"
+    /// />.</summary>
     public class DeleteProcResponse : KineticaData
     {
 

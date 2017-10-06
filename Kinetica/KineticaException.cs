@@ -1,20 +1,23 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using System.Runtime.Serialization;
+
 
 namespace kinetica
 {
-    [Serializable]
+    [Serializable()]
     public class KineticaException : System.Exception
     {
         private string message;
 
-        public KineticaException(string msg)
-        {
-            message = msg;
-        }
+        public KineticaException() { }
+
+        public KineticaException(string msg) : base ( msg ) { }
+
+        public KineticaException( string msg, Exception innerException ) :
+            base( msg, innerException ) { }
+
+        protected KineticaException( SerializationInfo info, StreamingContext context )
+            : base ( info, context ) { }
 
         public string what() { return message; }
 

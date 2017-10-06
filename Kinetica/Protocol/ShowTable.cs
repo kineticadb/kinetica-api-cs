@@ -11,13 +11,14 @@ using System.Collections.Generic;
 namespace kinetica
 {
 
-    /// <summary>A set of parameters for /show/table.
+    /// <summary>A set of parameters for <see
+    /// cref="Kinetica.showTable(string,IDictionary{string, string})" />.
     /// <br />
     /// Retrieves detailed information about a table, view, or collection,
-    /// specified in <member name="table_name" />. If the supplied <member
-    /// name="table_name" /> is a collection, the call can return information
+    /// specified in <see cref="table_name" />. If the supplied <see
+    /// cref="table_name" /> is a collection, the call can return information
     /// about either the collection itself or the tables and views it contains.
-    /// If <member name="table_name" /> is empty, information about all
+    /// If <see cref="table_name" /> is empty, information about all
     /// collections and top-level tables and views can be returned.
     /// <br />
     /// If the option <i>get_sizes</i> is set to <i>true</i>, then the sizes
@@ -38,13 +39,27 @@ namespace kinetica
         /// <summary>Optional parameters.
         /// <list type="bullet">
         ///     <item>
-        ///         <term>get_sizes</term>
+        ///         <term><see
+        /// cref="ShowTableRequest.Options.GET_SIZES">GET_SIZES</see>:</term>
         ///         <description>If <i>true</i> then the table sizes will be
-        /// returned; blank, otherwise. Values: true, false.
-        /// </description>
+        /// returned; blank, otherwise.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="ShowTableRequest.Options.TRUE">TRUE</see></term>
         ///     </item>
         ///     <item>
-        ///         <term>show_children</term>
+        ///         <term><see
+        /// cref="ShowTableRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="ShowTableRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ShowTableRequest.Options.SHOW_CHILDREN">SHOW_CHILDREN</see>:</term>
         ///         <description>If <paramref
         /// cref="ShowTableRequest.table_name" /> is a collection, then
         /// <i>true</i> will return information about the children of the
@@ -52,46 +67,142 @@ namespace kinetica
         /// collection itself. If <paramref cref="ShowTableRequest.table_name"
         /// /> is a table or view, <i>show_children</i> must be <i>false</i>.
         /// If <paramref cref="ShowTableRequest.table_name" /> is empty, then
-        /// <i>show_children</i> must be <i>true</i>. Values: true, false.
-        /// </description>
+        /// <i>show_children</i> must be <i>true</i>.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="ShowTableRequest.Options.TRUE">TRUE</see></term>
         ///     </item>
         ///     <item>
-        ///         <term>no_error_if_not_exists</term>
+        ///         <term><see
+        /// cref="ShowTableRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="ShowTableRequest.Options.TRUE">TRUE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ShowTableRequest.Options.NO_ERROR_IF_NOT_EXISTS">NO_ERROR_IF_NOT_EXISTS</see>:</term>
         ///         <description>If <i>false</i> will return an error if the
         /// provided <paramref cref="ShowTableRequest.table_name" /> does not
-        /// exist. If <i>true</i> then it will return an empty result. Values:
-        /// true, false.
-        /// </description>
+        /// exist. If <i>true</i> then it will return an empty result.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="ShowTableRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ShowTableRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="ShowTableRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ShowTableRequest.Options.GET_COLUMN_INFO">GET_COLUMN_INFO</see>:</term>
+        ///         <description>If <i>true</i> then column info (memory usage,
+        /// etc) will be returned.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="ShowTableRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ShowTableRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="ShowTableRequest.Options.FALSE">FALSE</see>.</description>
         ///     </item>
         /// </list>
         /// <br />
-        /// A set of string constants for the parameter <member name="options"
+        /// A set of string constants for the parameter <see cref="options"
         /// />.</summary>
         public struct Options
         {
 
             /// <summary>If <i>true</i> then the table sizes will be returned;
-            /// blank, otherwise. Values: true, false.
-            /// </summary>
+            /// blank, otherwise.
+            /// Supported values:
+            /// <list type="bullet">
+            ///     <item>
+            ///         <term><see
+            /// cref="ShowTableRequest.Options.TRUE">TRUE</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="ShowTableRequest.Options.FALSE">FALSE</see></term>
+            ///     </item>
+            /// </list>
+            /// The default value is <see
+            /// cref="ShowTableRequest.Options.FALSE">FALSE</see>.</summary>
             public const string GET_SIZES = "get_sizes";
             public const string TRUE = "true";
             public const string FALSE = "false";
 
-            /// <summary>If <member name="table_name" /> is a collection, then
+            /// <summary>If <see cref="table_name" /> is a collection, then
             /// <i>true</i> will return information about the children of the
             /// collection, and <i>false</i> will return information about the
-            /// collection itself. If <member name="table_name" /> is a table
-            /// or view, <i>show_children</i> must be <i>false</i>. If <member
-            /// name="table_name" /> is empty, then <i>show_children</i> must
-            /// be <i>true</i>. Values: true, false.
-            /// </summary>
+            /// collection itself. If <see cref="table_name" /> is a table or
+            /// view, <i>show_children</i> must be <i>false</i>. If <see
+            /// cref="table_name" /> is empty, then <i>show_children</i> must
+            /// be <i>true</i>.
+            /// Supported values:
+            /// <list type="bullet">
+            ///     <item>
+            ///         <term><see
+            /// cref="ShowTableRequest.Options.TRUE">TRUE</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="ShowTableRequest.Options.FALSE">FALSE</see></term>
+            ///     </item>
+            /// </list>
+            /// The default value is <see
+            /// cref="ShowTableRequest.Options.TRUE">TRUE</see>.</summary>
             public const string SHOW_CHILDREN = "show_children";
 
             /// <summary>If <i>false</i> will return an error if the provided
-            /// <member name="table_name" /> does not exist. If <i>true</i>
-            /// then it will return an empty result. Values: true, false.
-            /// </summary>
+            /// <see cref="table_name" /> does not exist. If <i>true</i> then
+            /// it will return an empty result.
+            /// Supported values:
+            /// <list type="bullet">
+            ///     <item>
+            ///         <term><see
+            /// cref="ShowTableRequest.Options.TRUE">TRUE</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="ShowTableRequest.Options.FALSE">FALSE</see></term>
+            ///     </item>
+            /// </list>
+            /// The default value is <see
+            /// cref="ShowTableRequest.Options.FALSE">FALSE</see>.</summary>
             public const string NO_ERROR_IF_NOT_EXISTS = "no_error_if_not_exists";
+
+            /// <summary>If <i>true</i> then column info (memory usage, etc)
+            /// will be returned.
+            /// Supported values:
+            /// <list type="bullet">
+            ///     <item>
+            ///         <term><see
+            /// cref="ShowTableRequest.Options.TRUE">TRUE</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="ShowTableRequest.Options.FALSE">FALSE</see></term>
+            ///     </item>
+            /// </list>
+            /// The default value is <see
+            /// cref="ShowTableRequest.Options.FALSE">FALSE</see>.</summary>
+            public const string GET_COLUMN_INFO = "get_column_info";
         } // end struct Options
 
 
@@ -103,13 +214,27 @@ namespace kinetica
         /// <summary>Optional parameters.
         /// <list type="bullet">
         ///     <item>
-        ///         <term>get_sizes</term>
+        ///         <term><see
+        /// cref="ShowTableRequest.Options.GET_SIZES">GET_SIZES</see>:</term>
         ///         <description>If <i>true</i> then the table sizes will be
-        /// returned; blank, otherwise. Values: true, false.
-        /// </description>
+        /// returned; blank, otherwise.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="ShowTableRequest.Options.TRUE">TRUE</see></term>
         ///     </item>
         ///     <item>
-        ///         <term>show_children</term>
+        ///         <term><see
+        /// cref="ShowTableRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="ShowTableRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ShowTableRequest.Options.SHOW_CHILDREN">SHOW_CHILDREN</see>:</term>
         ///         <description>If <paramref
         /// cref="ShowTableRequest.table_name" /> is a collection, then
         /// <i>true</i> will return information about the children of the
@@ -117,16 +242,59 @@ namespace kinetica
         /// collection itself. If <paramref cref="ShowTableRequest.table_name"
         /// /> is a table or view, <i>show_children</i> must be <i>false</i>.
         /// If <paramref cref="ShowTableRequest.table_name" /> is empty, then
-        /// <i>show_children</i> must be <i>true</i>. Values: true, false.
-        /// </description>
+        /// <i>show_children</i> must be <i>true</i>.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="ShowTableRequest.Options.TRUE">TRUE</see></term>
         ///     </item>
         ///     <item>
-        ///         <term>no_error_if_not_exists</term>
+        ///         <term><see
+        /// cref="ShowTableRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="ShowTableRequest.Options.TRUE">TRUE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ShowTableRequest.Options.NO_ERROR_IF_NOT_EXISTS">NO_ERROR_IF_NOT_EXISTS</see>:</term>
         ///         <description>If <i>false</i> will return an error if the
         /// provided <paramref cref="ShowTableRequest.table_name" /> does not
-        /// exist. If <i>true</i> then it will return an empty result. Values:
-        /// true, false.
-        /// </description>
+        /// exist. If <i>true</i> then it will return an empty result.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="ShowTableRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ShowTableRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="ShowTableRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ShowTableRequest.Options.GET_COLUMN_INFO">GET_COLUMN_INFO</see>:</term>
+        ///         <description>If <i>true</i> then column info (memory usage,
+        /// etc) will be returned.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="ShowTableRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ShowTableRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="ShowTableRequest.Options.FALSE">FALSE</see>.</description>
         ///     </item>
         /// </list>
         ///   </summary>
@@ -146,13 +314,27 @@ namespace kinetica
         /// <param name="options">Optional parameters.
         /// <list type="bullet">
         ///     <item>
-        ///         <term>get_sizes</term>
+        ///         <term><see
+        /// cref="ShowTableRequest.Options.GET_SIZES">GET_SIZES</see>:</term>
         ///         <description>If <i>true</i> then the table sizes will be
-        /// returned; blank, otherwise. Values: true, false.
-        /// </description>
+        /// returned; blank, otherwise.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="ShowTableRequest.Options.TRUE">TRUE</see></term>
         ///     </item>
         ///     <item>
-        ///         <term>show_children</term>
+        ///         <term><see
+        /// cref="ShowTableRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="ShowTableRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ShowTableRequest.Options.SHOW_CHILDREN">SHOW_CHILDREN</see>:</term>
         ///         <description>If <paramref
         /// cref="ShowTableRequest.table_name" /> is a collection, then
         /// <i>true</i> will return information about the children of the
@@ -160,16 +342,59 @@ namespace kinetica
         /// collection itself. If <paramref cref="ShowTableRequest.table_name"
         /// /> is a table or view, <i>show_children</i> must be <i>false</i>.
         /// If <paramref cref="ShowTableRequest.table_name" /> is empty, then
-        /// <i>show_children</i> must be <i>true</i>. Values: true, false.
-        /// </description>
+        /// <i>show_children</i> must be <i>true</i>.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="ShowTableRequest.Options.TRUE">TRUE</see></term>
         ///     </item>
         ///     <item>
-        ///         <term>no_error_if_not_exists</term>
+        ///         <term><see
+        /// cref="ShowTableRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="ShowTableRequest.Options.TRUE">TRUE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ShowTableRequest.Options.NO_ERROR_IF_NOT_EXISTS">NO_ERROR_IF_NOT_EXISTS</see>:</term>
         ///         <description>If <i>false</i> will return an error if the
         /// provided <paramref cref="ShowTableRequest.table_name" /> does not
-        /// exist. If <i>true</i> then it will return an empty result. Values:
-        /// true, false.
-        /// </description>
+        /// exist. If <i>true</i> then it will return an empty result.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="ShowTableRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ShowTableRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="ShowTableRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ShowTableRequest.Options.GET_COLUMN_INFO">GET_COLUMN_INFO</see>:</term>
+        ///         <description>If <i>true</i> then column info (memory usage,
+        /// etc) will be returned.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="ShowTableRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ShowTableRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="ShowTableRequest.Options.FALSE">FALSE</see>.</description>
         ///     </item>
         /// </list>
         ///   </param>
@@ -185,14 +410,37 @@ namespace kinetica
 
 
 
-    /// <summary>A set of results returned by /show/table.</summary>
+    /// <summary>A set of results returned by <see
+    /// cref="Kinetica.showTable(string,IDictionary{string, string})"
+    /// />.</summary>
     public class ShowTableResponse : KineticaData
     {
 
         /// <summary>List of descriptions for the respective tables in <member
-        /// name="table_names" />. Values: COLLECTION, VIEW, REPLICATED, JOIN,
-        /// RESULT_TABLE.
-        /// <br />
+        /// name="table_names" />.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="ShowTableResponse.TableDescriptions.COLLECTION">COLLECTION</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ShowTableResponse.TableDescriptions.VIEW">VIEW</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ShowTableResponse.TableDescriptions.REPLICATED">REPLICATED</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ShowTableResponse.TableDescriptions.JOIN">JOIN</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ShowTableResponse.TableDescriptions.RESULT_TABLE">RESULT_TABLE</see></term>
+        ///     </item>
+        /// </list>
         /// A set of string constants for the parameter <member
         /// name="table_descriptions" />.</summary>
         public struct TableDescriptions
@@ -206,8 +454,10 @@ namespace kinetica
 
 
         /// <summary>Additional information about the respective tables in
-        /// <member name="table_names" />. Values: .
-        /// <br />
+        /// <member name="table_names" />.
+        /// Supported values:
+        /// <list type="bullet">
+        /// </list>
         /// A set of string constants for the parameter <member
         /// name="additional_info" />.</summary>
         public struct AdditionalInfo
@@ -216,16 +466,40 @@ namespace kinetica
             /// <summary>Only present if the respective table is a collection.
             /// The value indicates whether the collection is allowed to
             /// contain multiple tables or views of the same type or not.
-            /// Values: true, false.
-            /// </summary>
+            /// Supported values:
+            /// <list type="bullet">
+            ///     <item>
+            ///         <term><see
+            /// cref="ShowTableResponse.AdditionalInfo.TRUE">TRUE</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="ShowTableResponse.AdditionalInfo.FALSE">FALSE</see></term>
+            ///     </item>
+            /// </list></summary>
             public const string ALLOW_HOMOGENEOUS_TABLES = "allow_homogeneous_tables";
-            public const string FALSE = "false";
             public const string TRUE = "true";
+            public const string FALSE = "false";
 
             /// <summary>Indicates whether the respective table is protected or
-            /// not. Values: true, false.
-            /// </summary>
+            /// not.
+            /// Supported values:
+            /// <list type="bullet">
+            ///     <item>
+            ///         <term><see
+            /// cref="ShowTableResponse.AdditionalInfo.TRUE">TRUE</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="ShowTableResponse.AdditionalInfo.FALSE">FALSE</see></term>
+            ///     </item>
+            /// </list></summary>
             public const string PROTECTED = "protected";
+
+            /// <summary>The number of in-memory bytes per record which is the
+            /// sum of the byte sizes of all columns with property
+            /// 'data'.</summary>
+            public const string RECORD_BYTES = "record_bytes";
 
             /// <summary>The value of TTL setting, in minutes, for the
             /// respective table (-1 if it will never expire).  This is not the
@@ -254,6 +528,62 @@ namespace kinetica
             /// <summary>Semicolon-separated list of columns that have
             /// attribute indexes. Not present for collections.</summary>
             public const string ATTRIBUTE_INDEXES = "attribute_indexes";
+
+            /// <summary>Semicolon-separated list of - compressed_columns:
+            /// {I1,snappy};{L1,lz4hc}. Not present for collections.</summary>
+            public const string COMPRESSED_COLUMNS = "compressed_columns";
+
+            /// <summary>JSON-encoded string representing a map of column name
+            /// to information including memory usage if if the
+            /// <i>get_column_info</i> option is <i>true</i>.</summary>
+            public const string COLUMN_INFO = "column_info";
+
+            /// <summary>Returns the global access mode (i.e. lock status) for
+            /// the table.
+            /// Supported values:
+            /// <list type="bullet">
+            ///     <item>
+            ///         <term><see
+            /// cref="ShowTableResponse.AdditionalInfo.NO_ACCESS">NO_ACCESS</see>:</term>
+            ///         <description>No read/write operations are allowed on
+            /// this table.</description>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="ShowTableResponse.AdditionalInfo.READ_ONLY">READ_ONLY</see>:</term>
+            ///         <description>Only read operations are allowed on this
+            /// table.</description>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="ShowTableResponse.AdditionalInfo.WRITE_ONLY">WRITE_ONLY</see>:</term>
+            ///         <description>Only write operations are allowed on this
+            /// table.</description>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="ShowTableResponse.AdditionalInfo.READ_WRITE">READ_WRITE</see>:</term>
+            ///         <description>All read/write operations are allowed on
+            /// this table.</description>
+            ///     </item>
+            /// </list></summary>
+            public const string GLOBAL_ACCESS_MODE = "global_access_mode";
+
+            /// <summary>No read/write operations are allowed on this
+            /// table.</summary>
+            public const string NO_ACCESS = "no-access";
+
+            /// <summary>Only read operations are allowed on this
+            /// table.</summary>
+            public const string READ_ONLY = "read-only";
+
+            /// <summary>Only write operations are allowed on this
+            /// table.</summary>
+            public const string WRITE_ONLY = "write-only";
+
+            /// <summary>All read/write operations are allowed on this
+            /// table.</summary>
+            public const string READ_WRITE = "read-write";
         } // end struct AdditionalInfo
 
 
@@ -275,9 +605,30 @@ namespace kinetica
         public IList<string> table_names { get; set; } = new List<string>();
 
         /// <summary>List of descriptions for the respective tables in <member
-        /// name="table_names" />. Values: COLLECTION, VIEW, REPLICATED, JOIN,
-        /// RESULT_TABLE.
-        ///   </summary>
+        /// name="table_names" />.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="ShowTableResponse.TableDescriptions.COLLECTION">COLLECTION</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ShowTableResponse.TableDescriptions.VIEW">VIEW</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ShowTableResponse.TableDescriptions.REPLICATED">REPLICATED</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ShowTableResponse.TableDescriptions.JOIN">JOIN</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ShowTableResponse.TableDescriptions.RESULT_TABLE">RESULT_TABLE</see></term>
+        ///     </item>
+        /// </list>  </summary>
         public IList<IList<string>> table_descriptions { get; set; } = new List<IList<string>>();
 
         /// <summary>Type ids of the respective tables in <member
@@ -297,8 +648,10 @@ namespace kinetica
         public IList<IDictionary<string, IList<string>>> properties { get; set; } = new List<IDictionary<string, IList<string>>>();
 
         /// <summary>Additional information about the respective tables in
-        /// <member name="table_names" />. Values: .
-        ///   </summary>
+        /// <member name="table_names" />.
+        /// Supported values:
+        /// <list type="bullet">
+        /// </list>  </summary>
         public IList<IDictionary<string, string>> additional_info { get; set; } = new List<IDictionary<string, string>>();
 
         /// <summary>Empty array if the <i>get_sizes</i> option is

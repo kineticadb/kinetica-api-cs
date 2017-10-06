@@ -11,27 +11,43 @@ using System.Collections.Generic;
 namespace kinetica
 {
 
-    /// <summary>A set of parameters for /get/records/byseries.
+    /// <summary>A set of parameters for <see
+    /// cref="Kinetica.getRecordsBySeries{T}(string,string,int,int,IDictionary{string, string})"
+    /// />.
     /// <br />
-    /// Retrieves the complete series/track records from the given <member
-    /// name="world_table_name" /> based on the partial track information
-    /// contained in the <member name="table_name" />.
+    /// Retrieves the complete series/track records from the given <see
+    /// cref="world_table_name" /> based on the partial track information
+    /// contained in the <see cref="table_name" />.
     /// <br />
-    /// This operation supports paging through the data via the <member
-    /// name="offset" /> and <member name="limit" /> parameters.
+    /// This operation supports paging through the data via the <see
+    /// cref="offset" /> and <see cref="limit" /> parameters.
     /// <br />
-    /// In contrast to /get/records this returns records grouped by
-    /// series/track. So if <member name="offset" /> is 0 and <member
-    /// name="limit" /> is 5 this operation would return the first 5
-    /// series/tracks in <member name="table_name" />. Each series/track will
-    /// be returned sorted by their TIMESTAMP column.</summary>
+    /// In contrast to <see
+    /// cref="Kinetica.getRecords{T}(string,long,long,IDictionary{string, string})"
+    /// /> this returns records grouped by series/track. So if <see
+    /// cref="offset" /> is 0 and <see cref="limit" /> is 5 this operation
+    /// would return the first 5 series/tracks in <see cref="table_name" />.
+    /// Each series/track will be returned sorted by their TIMESTAMP
+    /// column.</summary>
     public class GetRecordsBySeriesRequest : KineticaData
     {
 
         /// <summary>Specifies the encoding for returned records; either
-        /// 'binary' or 'json'. Values: binary, json.
-        /// <br />
-        /// A set of string constants for the parameter <member name="encoding"
+        /// 'binary' or 'json'.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="GetRecordsBySeriesRequest.Encoding.BINARY">BINARY</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="GetRecordsBySeriesRequest.Encoding.JSON">JSON</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="GetRecordsBySeriesRequest.Encoding.BINARY">BINARY</see>.
+        /// A set of string constants for the parameter <see cref="encoding"
         /// />.</summary>
         public struct Encoding
         {
@@ -61,11 +77,24 @@ namespace kinetica
         /// <summary>A positive integer indicating the maximum number of
         /// series/tracks to be returned. Or END_OF_SET (-9999) to indicate
         /// that the max number of results should be returned.  </summary>
-        public int limit { get; set; } = 10000;
+        public int limit { get; set; } = 250;
 
         /// <summary>Specifies the encoding for returned records; either
-        /// 'binary' or 'json'. Values: binary, json.
-        ///   </summary>
+        /// 'binary' or 'json'.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="GetRecordsBySeriesRequest.Encoding.BINARY">BINARY</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="GetRecordsBySeriesRequest.Encoding.JSON">JSON</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="GetRecordsBySeriesRequest.Encoding.BINARY">BINARY</see>.
+        /// </summary>
         public string encoding { get; set; } = Encoding.BINARY;
 
         /// <summary>Optional parameters.  </summary>
@@ -101,7 +130,7 @@ namespace kinetica
         public GetRecordsBySeriesRequest( string table_name,
                                           string world_table_name,
                                           int offset = 0,
-                                          int limit = 10000,
+                                          int limit = 250,
                                           IDictionary<string, string> options = null)
         {
             this.table_name = table_name ?? "";
@@ -134,14 +163,27 @@ namespace kinetica
         /// indicate that the max number of results should be returned.
         /// </param>
         /// <param name="encoding">Specifies the encoding for returned records;
-        /// either 'binary' or 'json'. Values: binary, json.
-        ///   </param>
+        /// either 'binary' or 'json'.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="GetRecordsBySeriesRequest.Encoding.BINARY">BINARY</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="GetRecordsBySeriesRequest.Encoding.JSON">JSON</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="GetRecordsBySeriesRequest.Encoding.BINARY">BINARY</see>.
+        /// </param>
         /// <param name="options">Optional parameters.  </param>
         /// 
         public GetRecordsBySeriesRequest( string table_name,
                                           string world_table_name,
                                           int offset = 0,
-                                          int limit = 10000,
+                                          int limit = 250,
                                           string encoding = null,
                                           IDictionary<string, string> options = null)
         {
@@ -157,7 +199,9 @@ namespace kinetica
 
 
 
-    /// <summary>A set of results returned by /get/records/byseries.</summary>
+    /// <summary>A set of results returned by <see
+    /// cref="Kinetica.getRecordsBySeries{T}(string,string,int,int,IDictionary{string, string})"
+    /// />.</summary>
     public class RawGetRecordsBySeriesResponse : KineticaData
     {
 
@@ -192,7 +236,9 @@ namespace kinetica
 
 
 
-    /// <summary>A set of results returned by /get/records/byseries.</summary>
+    /// <summary>A set of results returned by <see
+    /// cref="Kinetica.getRecordsBySeries{T}(string,string,int,int,IDictionary{string, string})"
+    /// />.</summary>
     /// 
     /// <typeparam name="T">The type of object being processed.</typeparam>
     /// 

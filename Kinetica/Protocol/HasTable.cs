@@ -11,7 +11,8 @@ using System.Collections.Generic;
 namespace kinetica
 {
 
-    /// <summary>A set of parameters for /has/table.
+    /// <summary>A set of parameters for <see
+    /// cref="Kinetica.hasTable(string,IDictionary{string, string})" />.
     /// <br />
     /// Checks for the existence of a table with the given name.</summary>
     public class HasTableRequest : KineticaData
@@ -46,13 +47,24 @@ namespace kinetica
 
 
 
-    /// <summary>A set of results returned by /has/table.</summary>
+    /// <summary>A set of results returned by <see
+    /// cref="Kinetica.hasTable(string,IDictionary{string, string})"
+    /// />.</summary>
     public class HasTableResponse : KineticaData
     {
 
-        /// <summary>Indicates whether the table exists or not. Values: true,
-        /// false.
-        /// <br />
+        /// <summary>Indicates whether the table exists or not.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="HasTableResponse.TableExists.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="HasTableResponse.TableExists.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
         /// A set of string constants for the parameter <member
         /// name="table_exists" />.</summary>
         public struct TableExists
@@ -66,9 +78,18 @@ namespace kinetica
         /// </summary>
         public string table_name { get; set; }
 
-        /// <summary>Indicates whether the table exists or not. Values: true,
-        /// false.
-        ///   </summary>
+        /// <summary>Indicates whether the table exists or not.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="HasTableResponse.TableExists.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="HasTableResponse.TableExists.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>  </summary>
         public bool table_exists { get; set; }
 
     } // end class HasTableResponse

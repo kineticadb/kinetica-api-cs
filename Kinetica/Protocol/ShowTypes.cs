@@ -11,7 +11,9 @@ using System.Collections.Generic;
 namespace kinetica
 {
 
-    /// <summary>A set of parameters for /show/types.
+    /// <summary>A set of parameters for <see
+    /// cref="Kinetica.showTypes(string,string,IDictionary{string, string})"
+    /// />.
     /// <br />
     /// Retrieves information for the specified data type. Given a type ID, the
     /// database returns the data type schema, the label, and the semantic type
@@ -59,7 +61,9 @@ namespace kinetica
 
 
 
-    /// <summary>A set of results returned by /show/types.</summary>
+    /// <summary>A set of results returned by <see
+    /// cref="Kinetica.showTypes(string,string,IDictionary{string, string})"
+    /// />.</summary>
     public class ShowTypesResponse : KineticaData
     {
         public IList<string> type_ids { get; set; } = new List<string>();

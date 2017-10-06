@@ -11,7 +11,9 @@ using System.Collections.Generic;
 namespace kinetica
 {
 
-    /// <summary>A set of parameters for /create/type.
+    /// <summary>A set of parameters for <see
+    /// cref="Kinetica.createType(string,string,IDictionary{string, IList{string}},IDictionary{string, string})"
+    /// />.
     /// <br />
     /// Creates a new type describing the layout or schema of a table. The type
     /// definition is a JSON string describing the fields (i.e. columns) of the
@@ -26,7 +28,8 @@ namespace kinetica
     /// To set a *primary key* on one or more columns include the property
     /// 'primary_key' on the desired column_names. If a primary key is
     /// specified, then a uniqueness constraint is enforced, in that only a
-    /// single object can exist with a given primary key. When /insert/records
+    /// single object can exist with a given primary key. When <see
+    /// cref="Kinetica.insertRecords{T}(string,IList{T},IDictionary{string, string})">inserting</see>
     /// data into a table with a primary key, depending on the parameters in
     /// the request, incoming objects with primary keys that match existing
     /// objects will either overwrite (i.e. update) the existing object or will
@@ -58,8 +61,233 @@ namespace kinetica
         /// be relevant column names for the given table.  Specifying any
         /// property overrides the default properties for that column (which is
         /// based on the column's data type).
-        /// A set of string constants for the parameter <member
-        /// name="properties" />.</summary>
+        /// Valid values are:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTypeRequest.Properties.DATA">DATA</see>:</term>
+        ///         <description>Default property for all numeric and string
+        /// type columns; makes the column available for GPU
+        /// queries.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTypeRequest.Properties.TEXT_SEARCH">TEXT_SEARCH</see>:</term>
+        ///         <description>Valid only for 'string' columns. Enables full
+        /// text search for string columns. Can be set independently of *data*
+        /// and *store_only*.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTypeRequest.Properties.STORE_ONLY">STORE_ONLY</see>:</term>
+        ///         <description>Persist the column value but do not make it
+        /// available to queries (e.g. /filter/bybox)-i.e. it is mutually
+        /// exclusive to the 'data' property. Any 'bytes' type column must have
+        /// a 'store_only' property. This property reduces system memory
+        /// usage.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTypeRequest.Properties.DISK_OPTIMIZED">DISK_OPTIMIZED</see>:</term>
+        ///         <description>Works in conjunction with the 'data' property
+        /// for string columns. This property reduces system disk usage by
+        /// disabling reverse string lookups. Queries like /filter,
+        /// /filter/bylist, and /filter/byvalue work as usual but
+        /// /aggregate/unique, /aggregate/groupby and /get/records/bycolumn are
+        /// not allowed on columns with this property.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTypeRequest.Properties.TIMESTAMP">TIMESTAMP</see>:</term>
+        ///         <description>Valid only for 'long' columns. Indicates that
+        /// this field represents a timestamp and will be provided in
+        /// milliseconds since the Unix epoch: 00:00:00 Jan 1 1970.  Dates
+        /// represented by a timestamp must fall between the year 1000 and the
+        /// year 2900.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTypeRequest.Properties.DECIMAL">DECIMAL</see>:</term>
+        ///         <description>Valid only for 'string' columns.  It
+        /// represents a SQL type NUMERIC(19, 4) data type.  There can be up to
+        /// 15 digits before the decimal point and up to four digits in the
+        /// fractional part.  The value can be positive or negative (indicated
+        /// by a minus sign at the beginning).  This property is mutually
+        /// exclusive with the 'text_search' property.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTypeRequest.Properties.DATE">DATE</see>:</term>
+        ///         <description>Valid only for 'string' columns.  Indicates
+        /// that this field represents a date and will be provided in the
+        /// format 'YYYY-MM-DD'.  The allowable range is 1000-01-01 through
+        /// 2900-01-01.  This property is mutually exclusive with the
+        /// *text_search* property.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTypeRequest.Properties.TIME">TIME</see>:</term>
+        ///         <description>Valid only for 'string' columns.  Indicates
+        /// that this field represents a time-of-day and will be provided in
+        /// the format 'HH:MM:SS.mmm'.  The allowable range is 00:00:00.000
+        /// through 23:59:59.999.  This property is mutually exclusive with the
+        /// *text_search* property.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTypeRequest.Properties.DATETIME">DATETIME</see>:</term>
+        ///         <description>Valid only for 'string' columns.  Indicates
+        /// that this field represents a datetime and will be provided in the
+        /// format 'YYYY-MM-DD HH:MM:SS.mmm'.  The allowable range is
+        /// 1000-01-01 00:00:00.000 through 2900-01-01 23:59:59.999.  This
+        /// property is mutually exclusive with the *text_search*
+        /// property.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTypeRequest.Properties.CHAR1">CHAR1</see>:</term>
+        ///         <description>This property provides optimized memory, disk
+        /// and query performance for string columns. Strings with this
+        /// property must be no longer than 1 character. This property cannot
+        /// be combined with *text_search*</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTypeRequest.Properties.CHAR2">CHAR2</see>:</term>
+        ///         <description>This property provides optimized memory, disk
+        /// and query performance for string columns. Strings with this
+        /// property must be no longer than 2 characters. This property cannot
+        /// be combined with *text_search*</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTypeRequest.Properties.CHAR4">CHAR4</see>:</term>
+        ///         <description>This property provides optimized memory, disk
+        /// and query performance for string columns. Strings with this
+        /// property must be no longer than 4 characters. This property cannot
+        /// be combined with *text_search*</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTypeRequest.Properties.CHAR8">CHAR8</see>:</term>
+        ///         <description>This property provides optimized memory, disk
+        /// and query performance for string columns. Strings with this
+        /// property must be no longer than 8 characters. This property cannot
+        /// be combined with *text_search*</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTypeRequest.Properties.CHAR16">CHAR16</see>:</term>
+        ///         <description>This property provides optimized memory, disk
+        /// and query performance for string columns. Strings with this
+        /// property must be no longer than 16 characters. This property cannot
+        /// be combined with *text_search*</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTypeRequest.Properties.CHAR32">CHAR32</see>:</term>
+        ///         <description>This property provides optimized memory, disk
+        /// and query performance for string columns. Strings with this
+        /// property must be no longer than 32 characters. This property cannot
+        /// be combined with *text_search*</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTypeRequest.Properties.CHAR64">CHAR64</see>:</term>
+        ///         <description>This property provides optimized memory, disk
+        /// and query performance for string columns. Strings with this
+        /// property must be no longer than 64 characters. This property cannot
+        /// be combined with *text_search*</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTypeRequest.Properties.CHAR128">CHAR128</see>:</term>
+        ///         <description>This property provides optimized memory, disk
+        /// and query performance for string columns. Strings with this
+        /// property must be no longer than 128 characters. This property
+        /// cannot be combined with *text_search*</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTypeRequest.Properties.CHAR256">CHAR256</see>:</term>
+        ///         <description>This property provides optimized memory, disk
+        /// and query performance for string columns. Strings with this
+        /// property must be no longer than 256 characters. This property
+        /// cannot be combined with *text_search*</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTypeRequest.Properties.INT8">INT8</see>:</term>
+        ///         <description>This property provides optimized memory and
+        /// query performance for int columns. Ints with this property must be
+        /// between -128 and +127 (inclusive)</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTypeRequest.Properties.INT16">INT16</see>:</term>
+        ///         <description>This property provides optimized memory and
+        /// query performance for int columns. Ints with this property must be
+        /// between -32768 and +32767 (inclusive)</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTypeRequest.Properties.IPV4">IPV4</see>:</term>
+        ///         <description>This property provides optimized memory, disk
+        /// and query performance for string columns representing IPv4
+        /// addresses (i.e. 192.168.1.1). Strings with this property must be of
+        /// the form: A.B.C.D where A, B, C and D are in the range of
+        /// 0-255.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTypeRequest.Properties.WKT">WKT</see>:</term>
+        ///         <description>Valid only for 'string' and 'bytes' columns.
+        /// Indicates that this field contains geospatial geometry objects in
+        /// Well-Known Text (WKT) or Well-Known Binary (WKB)
+        /// format.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTypeRequest.Properties.PRIMARY_KEY">PRIMARY_KEY</see>:</term>
+        ///         <description>This property indicates that this column will
+        /// be part of (or the entire) primary key.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTypeRequest.Properties.SHARD_KEY">SHARD_KEY</see>:</term>
+        ///         <description>This property indicates that this column will
+        /// be part of (or the entire) shard key.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTypeRequest.Properties.NULLABLE">NULLABLE</see>:</term>
+        ///         <description>This property indicates that this column is
+        /// nullable.  However, setting this property is insufficient for
+        /// making the column nullable.  The user must declare the type of the
+        /// column as a union between its regular type and 'null' in the avro
+        /// schema for the record type in <paramref
+        /// cref="CreateTypeRequest.type_definition" />.  For example, if a
+        /// column is of type integer and is nullable, then the entry for the
+        /// column in the avro schema must be: ['int', 'null'].
+        /// <br />
+        /// The C++, C#, Java, and Python APIs have built-in convenience for
+        /// bypassing setting the avro schema by hand.  For those two
+        /// languages, one can use this property as usual and not have to worry
+        /// about the avro schema for the record.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTypeRequest.Properties.DICT">DICT</see>:</term>
+        ///         <description>This property indicates that this column
+        /// should be dictionary encoded. It can only be used in conjunction
+        /// with string columns marked with a charN property. This property is
+        /// appropriate for columns where the cardinality (the number of unique
+        /// values) is expected to be low, and can save a large amount of
+        /// memory.</description>
+        ///     </item>
+        /// </list>
+        /// A set of string constants for the parameter <see cref="properties"
+        /// />.</summary>
         public struct Properties
         {
 
@@ -73,18 +301,28 @@ namespace kinetica
             public const string TEXT_SEARCH = "text_search";
 
             /// <summary>Persist the column value but do not make it available
-            /// to queries (e.g. /filter/bybox)-i.e. it is mutually exclusive
-            /// to the 'data' property. Any 'bytes' type column must have a
-            /// 'store_only' property. This property reduces system memory
-            /// usage.</summary>
+            /// to queries (e.g. <see
+            /// cref="Kinetica.filterByBox(string,string,string,double,double,string,double,double,IDictionary{string, string})"
+            /// />)-i.e. it is mutually exclusive to the 'data' property. Any
+            /// 'bytes' type column must have a 'store_only' property. This
+            /// property reduces system memory usage.</summary>
             public const string STORE_ONLY = "store_only";
 
             /// <summary>Works in conjunction with the 'data' property for
             /// string columns. This property reduces system disk usage by
-            /// disabling reverse string lookups. Queries like /filter,
-            /// /filter/bylist, and /filter/byvalue work as usual but
-            /// /aggregate/unique, /aggregate/groupby and /get/records/bycolumn
-            /// are not allowed on columns with this property.</summary>
+            /// disabling reverse string lookups. Queries like <see
+            /// cref="Kinetica.filter(string,string,string,IDictionary{string, string})"
+            /// />, <see
+            /// cref="Kinetica.filterByList(string,string,IDictionary{string, IList{string}},IDictionary{string, string})"
+            /// />, and <see
+            /// cref="Kinetica.filterByValue(string,string,bool,double,string,string,IDictionary{string, string})"
+            /// /> work as usual but <see
+            /// cref="Kinetica.aggregateUnique(string,string,long,long,IDictionary{string, string})"
+            /// />, <see
+            /// cref="Kinetica.aggregateGroupBy(string,IList{string},long,long,IDictionary{string, string})"
+            /// /> and <see
+            /// cref="Kinetica.getRecordsByColumn(string,IList{string},long,long,IDictionary{string, string})"
+            /// /> are not allowed on columns with this property.</summary>
             public const string DISK_OPTIMIZED = "disk_optimized";
 
             /// <summary>Valid only for 'long' columns. Indicates that this
@@ -105,14 +343,23 @@ namespace kinetica
             /// <summary>Valid only for 'string' columns.  Indicates that this
             /// field represents a date and will be provided in the format
             /// 'YYYY-MM-DD'.  The allowable range is 1000-01-01 through
-            /// 2900-01-01.</summary>
+            /// 2900-01-01.  This property is mutually exclusive with the
+            /// *text_search* property.</summary>
             public const string DATE = "date";
 
             /// <summary>Valid only for 'string' columns.  Indicates that this
             /// field represents a time-of-day and will be provided in the
             /// format 'HH:MM:SS.mmm'.  The allowable range is 00:00:00.000
-            /// through 23:59:59.999.</summary>
+            /// through 23:59:59.999.  This property is mutually exclusive with
+            /// the *text_search* property.</summary>
             public const string TIME = "time";
+
+            /// <summary>Valid only for 'string' columns.  Indicates that this
+            /// field represents a datetime and will be provided in the format
+            /// 'YYYY-MM-DD HH:MM:SS.mmm'.  The allowable range is 1000-01-01
+            /// 00:00:00.000 through 2900-01-01 23:59:59.999.  This property is
+            /// mutually exclusive with the *text_search* property.</summary>
+            public const string DATETIME = "datetime";
 
             /// <summary>This property provides optimized memory, disk and
             /// query performance for string columns. Strings with this
@@ -185,6 +432,12 @@ namespace kinetica
             /// 0-255.</summary>
             public const string IPV4 = "ipv4";
 
+            /// <summary>Valid only for 'string' and 'bytes' columns. Indicates
+            /// that this field contains geospatial geometry objects in
+            /// Well-Known Text (WKT) or Well-Known Binary (WKB)
+            /// format.</summary>
+            public const string WKT = "wkt";
+
             /// <summary>This property indicates that this column will be part
             /// of (or the entire) primary key.</summary>
             public const string PRIMARY_KEY = "primary_key";
@@ -197,16 +450,24 @@ namespace kinetica
             /// However, setting this property is insufficient for making the
             /// column nullable.  The user must declare the type of the column
             /// as a union between its regular type and 'null' in the avro
-            /// schema for the record type in <member name="type_definition"
-            /// />.  For example, if a column is of type integer and is
-            /// nullable, then the entry for the column in the avro schema must
-            /// be: ['int', 'null'].
+            /// schema for the record type in <see cref="type_definition" />.
+            /// For example, if a column is of type integer and is nullable,
+            /// then the entry for the column in the avro schema must be:
+            /// ['int', 'null'].
             /// <br />
-            /// The Java and C++ APIs have built-in convenience for bypassing
-            /// setting the avro schema by hand.  For those two languages, one
-            /// can use this property as usual and not have to worry about the
-            /// avro schema for the record.</summary>
+            /// The C++, C#, Java, and Python APIs have built-in convenience
+            /// for bypassing setting the avro schema by hand.  For those two
+            /// languages, one can use this property as usual and not have to
+            /// worry about the avro schema for the record.</summary>
             public const string NULLABLE = "nullable";
+
+            /// <summary>This property indicates that this column should be
+            /// dictionary encoded. It can only be used in conjunction with
+            /// string columns marked with a charN property. This property is
+            /// appropriate for columns where the cardinality (the number of
+            /// unique values) is expected to be low, and can save a large
+            /// amount of memory.</summary>
+            public const string DICT = "dict";
         } // end struct Properties
 
 
@@ -223,7 +484,232 @@ namespace kinetica
         /// given column where the key is the column name.  All keys used must
         /// be relevant column names for the given table.  Specifying any
         /// property overrides the default properties for that column (which is
-        /// based on the column's data type).  </summary>
+        /// based on the column's data type).
+        /// Valid values are:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTypeRequest.Properties.DATA">DATA</see>:</term>
+        ///         <description>Default property for all numeric and string
+        /// type columns; makes the column available for GPU
+        /// queries.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTypeRequest.Properties.TEXT_SEARCH">TEXT_SEARCH</see>:</term>
+        ///         <description>Valid only for 'string' columns. Enables full
+        /// text search for string columns. Can be set independently of *data*
+        /// and *store_only*.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTypeRequest.Properties.STORE_ONLY">STORE_ONLY</see>:</term>
+        ///         <description>Persist the column value but do not make it
+        /// available to queries (e.g. /filter/bybox)-i.e. it is mutually
+        /// exclusive to the 'data' property. Any 'bytes' type column must have
+        /// a 'store_only' property. This property reduces system memory
+        /// usage.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTypeRequest.Properties.DISK_OPTIMIZED">DISK_OPTIMIZED</see>:</term>
+        ///         <description>Works in conjunction with the 'data' property
+        /// for string columns. This property reduces system disk usage by
+        /// disabling reverse string lookups. Queries like /filter,
+        /// /filter/bylist, and /filter/byvalue work as usual but
+        /// /aggregate/unique, /aggregate/groupby and /get/records/bycolumn are
+        /// not allowed on columns with this property.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTypeRequest.Properties.TIMESTAMP">TIMESTAMP</see>:</term>
+        ///         <description>Valid only for 'long' columns. Indicates that
+        /// this field represents a timestamp and will be provided in
+        /// milliseconds since the Unix epoch: 00:00:00 Jan 1 1970.  Dates
+        /// represented by a timestamp must fall between the year 1000 and the
+        /// year 2900.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTypeRequest.Properties.DECIMAL">DECIMAL</see>:</term>
+        ///         <description>Valid only for 'string' columns.  It
+        /// represents a SQL type NUMERIC(19, 4) data type.  There can be up to
+        /// 15 digits before the decimal point and up to four digits in the
+        /// fractional part.  The value can be positive or negative (indicated
+        /// by a minus sign at the beginning).  This property is mutually
+        /// exclusive with the 'text_search' property.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTypeRequest.Properties.DATE">DATE</see>:</term>
+        ///         <description>Valid only for 'string' columns.  Indicates
+        /// that this field represents a date and will be provided in the
+        /// format 'YYYY-MM-DD'.  The allowable range is 1000-01-01 through
+        /// 2900-01-01.  This property is mutually exclusive with the
+        /// *text_search* property.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTypeRequest.Properties.TIME">TIME</see>:</term>
+        ///         <description>Valid only for 'string' columns.  Indicates
+        /// that this field represents a time-of-day and will be provided in
+        /// the format 'HH:MM:SS.mmm'.  The allowable range is 00:00:00.000
+        /// through 23:59:59.999.  This property is mutually exclusive with the
+        /// *text_search* property.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTypeRequest.Properties.DATETIME">DATETIME</see>:</term>
+        ///         <description>Valid only for 'string' columns.  Indicates
+        /// that this field represents a datetime and will be provided in the
+        /// format 'YYYY-MM-DD HH:MM:SS.mmm'.  The allowable range is
+        /// 1000-01-01 00:00:00.000 through 2900-01-01 23:59:59.999.  This
+        /// property is mutually exclusive with the *text_search*
+        /// property.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTypeRequest.Properties.CHAR1">CHAR1</see>:</term>
+        ///         <description>This property provides optimized memory, disk
+        /// and query performance for string columns. Strings with this
+        /// property must be no longer than 1 character. This property cannot
+        /// be combined with *text_search*</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTypeRequest.Properties.CHAR2">CHAR2</see>:</term>
+        ///         <description>This property provides optimized memory, disk
+        /// and query performance for string columns. Strings with this
+        /// property must be no longer than 2 characters. This property cannot
+        /// be combined with *text_search*</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTypeRequest.Properties.CHAR4">CHAR4</see>:</term>
+        ///         <description>This property provides optimized memory, disk
+        /// and query performance for string columns. Strings with this
+        /// property must be no longer than 4 characters. This property cannot
+        /// be combined with *text_search*</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTypeRequest.Properties.CHAR8">CHAR8</see>:</term>
+        ///         <description>This property provides optimized memory, disk
+        /// and query performance for string columns. Strings with this
+        /// property must be no longer than 8 characters. This property cannot
+        /// be combined with *text_search*</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTypeRequest.Properties.CHAR16">CHAR16</see>:</term>
+        ///         <description>This property provides optimized memory, disk
+        /// and query performance for string columns. Strings with this
+        /// property must be no longer than 16 characters. This property cannot
+        /// be combined with *text_search*</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTypeRequest.Properties.CHAR32">CHAR32</see>:</term>
+        ///         <description>This property provides optimized memory, disk
+        /// and query performance for string columns. Strings with this
+        /// property must be no longer than 32 characters. This property cannot
+        /// be combined with *text_search*</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTypeRequest.Properties.CHAR64">CHAR64</see>:</term>
+        ///         <description>This property provides optimized memory, disk
+        /// and query performance for string columns. Strings with this
+        /// property must be no longer than 64 characters. This property cannot
+        /// be combined with *text_search*</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTypeRequest.Properties.CHAR128">CHAR128</see>:</term>
+        ///         <description>This property provides optimized memory, disk
+        /// and query performance for string columns. Strings with this
+        /// property must be no longer than 128 characters. This property
+        /// cannot be combined with *text_search*</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTypeRequest.Properties.CHAR256">CHAR256</see>:</term>
+        ///         <description>This property provides optimized memory, disk
+        /// and query performance for string columns. Strings with this
+        /// property must be no longer than 256 characters. This property
+        /// cannot be combined with *text_search*</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTypeRequest.Properties.INT8">INT8</see>:</term>
+        ///         <description>This property provides optimized memory and
+        /// query performance for int columns. Ints with this property must be
+        /// between -128 and +127 (inclusive)</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTypeRequest.Properties.INT16">INT16</see>:</term>
+        ///         <description>This property provides optimized memory and
+        /// query performance for int columns. Ints with this property must be
+        /// between -32768 and +32767 (inclusive)</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTypeRequest.Properties.IPV4">IPV4</see>:</term>
+        ///         <description>This property provides optimized memory, disk
+        /// and query performance for string columns representing IPv4
+        /// addresses (i.e. 192.168.1.1). Strings with this property must be of
+        /// the form: A.B.C.D where A, B, C and D are in the range of
+        /// 0-255.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTypeRequest.Properties.WKT">WKT</see>:</term>
+        ///         <description>Valid only for 'string' and 'bytes' columns.
+        /// Indicates that this field contains geospatial geometry objects in
+        /// Well-Known Text (WKT) or Well-Known Binary (WKB)
+        /// format.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTypeRequest.Properties.PRIMARY_KEY">PRIMARY_KEY</see>:</term>
+        ///         <description>This property indicates that this column will
+        /// be part of (or the entire) primary key.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTypeRequest.Properties.SHARD_KEY">SHARD_KEY</see>:</term>
+        ///         <description>This property indicates that this column will
+        /// be part of (or the entire) shard key.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTypeRequest.Properties.NULLABLE">NULLABLE</see>:</term>
+        ///         <description>This property indicates that this column is
+        /// nullable.  However, setting this property is insufficient for
+        /// making the column nullable.  The user must declare the type of the
+        /// column as a union between its regular type and 'null' in the avro
+        /// schema for the record type in <paramref
+        /// cref="CreateTypeRequest.type_definition" />.  For example, if a
+        /// column is of type integer and is nullable, then the entry for the
+        /// column in the avro schema must be: ['int', 'null'].
+        /// <br />
+        /// The C++, C#, Java, and Python APIs have built-in convenience for
+        /// bypassing setting the avro schema by hand.  For those two
+        /// languages, one can use this property as usual and not have to worry
+        /// about the avro schema for the record.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTypeRequest.Properties.DICT">DICT</see>:</term>
+        ///         <description>This property indicates that this column
+        /// should be dictionary encoded. It can only be used in conjunction
+        /// with string columns marked with a charN property. This property is
+        /// appropriate for columns where the cardinality (the number of unique
+        /// values) is expected to be low, and can save a large amount of
+        /// memory.</description>
+        ///     </item>
+        /// </list>  </summary>
         public IDictionary<string, IList<string>> properties { get; set; } = new Dictionary<string, IList<string>>();
 
         /// <summary>Optional parameters.  </summary>
@@ -247,7 +733,230 @@ namespace kinetica
         /// name.  All keys used must be relevant column names for the given
         /// table.  Specifying any property overrides the default properties
         /// for that column (which is based on the column's data type).
-        /// </param>
+        /// Valid values are:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTypeRequest.Properties.DATA">DATA</see>:</term>
+        ///         <description>Default property for all numeric and string
+        /// type columns; makes the column available for GPU
+        /// queries.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTypeRequest.Properties.TEXT_SEARCH">TEXT_SEARCH</see>:</term>
+        ///         <description>Valid only for 'string' columns. Enables full
+        /// text search for string columns. Can be set independently of *data*
+        /// and *store_only*.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTypeRequest.Properties.STORE_ONLY">STORE_ONLY</see>:</term>
+        ///         <description>Persist the column value but do not make it
+        /// available to queries (e.g. /filter/bybox)-i.e. it is mutually
+        /// exclusive to the 'data' property. Any 'bytes' type column must have
+        /// a 'store_only' property. This property reduces system memory
+        /// usage.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTypeRequest.Properties.DISK_OPTIMIZED">DISK_OPTIMIZED</see>:</term>
+        ///         <description>Works in conjunction with the 'data' property
+        /// for string columns. This property reduces system disk usage by
+        /// disabling reverse string lookups. Queries like /filter,
+        /// /filter/bylist, and /filter/byvalue work as usual but
+        /// /aggregate/unique, /aggregate/groupby and /get/records/bycolumn are
+        /// not allowed on columns with this property.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTypeRequest.Properties.TIMESTAMP">TIMESTAMP</see>:</term>
+        ///         <description>Valid only for 'long' columns. Indicates that
+        /// this field represents a timestamp and will be provided in
+        /// milliseconds since the Unix epoch: 00:00:00 Jan 1 1970.  Dates
+        /// represented by a timestamp must fall between the year 1000 and the
+        /// year 2900.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTypeRequest.Properties.DECIMAL">DECIMAL</see>:</term>
+        ///         <description>Valid only for 'string' columns.  It
+        /// represents a SQL type NUMERIC(19, 4) data type.  There can be up to
+        /// 15 digits before the decimal point and up to four digits in the
+        /// fractional part.  The value can be positive or negative (indicated
+        /// by a minus sign at the beginning).  This property is mutually
+        /// exclusive with the 'text_search' property.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTypeRequest.Properties.DATE">DATE</see>:</term>
+        ///         <description>Valid only for 'string' columns.  Indicates
+        /// that this field represents a date and will be provided in the
+        /// format 'YYYY-MM-DD'.  The allowable range is 1000-01-01 through
+        /// 2900-01-01.  This property is mutually exclusive with the
+        /// *text_search* property.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTypeRequest.Properties.TIME">TIME</see>:</term>
+        ///         <description>Valid only for 'string' columns.  Indicates
+        /// that this field represents a time-of-day and will be provided in
+        /// the format 'HH:MM:SS.mmm'.  The allowable range is 00:00:00.000
+        /// through 23:59:59.999.  This property is mutually exclusive with the
+        /// *text_search* property.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTypeRequest.Properties.DATETIME">DATETIME</see>:</term>
+        ///         <description>Valid only for 'string' columns.  Indicates
+        /// that this field represents a datetime and will be provided in the
+        /// format 'YYYY-MM-DD HH:MM:SS.mmm'.  The allowable range is
+        /// 1000-01-01 00:00:00.000 through 2900-01-01 23:59:59.999.  This
+        /// property is mutually exclusive with the *text_search*
+        /// property.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTypeRequest.Properties.CHAR1">CHAR1</see>:</term>
+        ///         <description>This property provides optimized memory, disk
+        /// and query performance for string columns. Strings with this
+        /// property must be no longer than 1 character. This property cannot
+        /// be combined with *text_search*</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTypeRequest.Properties.CHAR2">CHAR2</see>:</term>
+        ///         <description>This property provides optimized memory, disk
+        /// and query performance for string columns. Strings with this
+        /// property must be no longer than 2 characters. This property cannot
+        /// be combined with *text_search*</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTypeRequest.Properties.CHAR4">CHAR4</see>:</term>
+        ///         <description>This property provides optimized memory, disk
+        /// and query performance for string columns. Strings with this
+        /// property must be no longer than 4 characters. This property cannot
+        /// be combined with *text_search*</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTypeRequest.Properties.CHAR8">CHAR8</see>:</term>
+        ///         <description>This property provides optimized memory, disk
+        /// and query performance for string columns. Strings with this
+        /// property must be no longer than 8 characters. This property cannot
+        /// be combined with *text_search*</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTypeRequest.Properties.CHAR16">CHAR16</see>:</term>
+        ///         <description>This property provides optimized memory, disk
+        /// and query performance for string columns. Strings with this
+        /// property must be no longer than 16 characters. This property cannot
+        /// be combined with *text_search*</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTypeRequest.Properties.CHAR32">CHAR32</see>:</term>
+        ///         <description>This property provides optimized memory, disk
+        /// and query performance for string columns. Strings with this
+        /// property must be no longer than 32 characters. This property cannot
+        /// be combined with *text_search*</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTypeRequest.Properties.CHAR64">CHAR64</see>:</term>
+        ///         <description>This property provides optimized memory, disk
+        /// and query performance for string columns. Strings with this
+        /// property must be no longer than 64 characters. This property cannot
+        /// be combined with *text_search*</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTypeRequest.Properties.CHAR128">CHAR128</see>:</term>
+        ///         <description>This property provides optimized memory, disk
+        /// and query performance for string columns. Strings with this
+        /// property must be no longer than 128 characters. This property
+        /// cannot be combined with *text_search*</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTypeRequest.Properties.CHAR256">CHAR256</see>:</term>
+        ///         <description>This property provides optimized memory, disk
+        /// and query performance for string columns. Strings with this
+        /// property must be no longer than 256 characters. This property
+        /// cannot be combined with *text_search*</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTypeRequest.Properties.INT8">INT8</see>:</term>
+        ///         <description>This property provides optimized memory and
+        /// query performance for int columns. Ints with this property must be
+        /// between -128 and +127 (inclusive)</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTypeRequest.Properties.INT16">INT16</see>:</term>
+        ///         <description>This property provides optimized memory and
+        /// query performance for int columns. Ints with this property must be
+        /// between -32768 and +32767 (inclusive)</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTypeRequest.Properties.IPV4">IPV4</see>:</term>
+        ///         <description>This property provides optimized memory, disk
+        /// and query performance for string columns representing IPv4
+        /// addresses (i.e. 192.168.1.1). Strings with this property must be of
+        /// the form: A.B.C.D where A, B, C and D are in the range of
+        /// 0-255.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTypeRequest.Properties.WKT">WKT</see>:</term>
+        ///         <description>Valid only for 'string' and 'bytes' columns.
+        /// Indicates that this field contains geospatial geometry objects in
+        /// Well-Known Text (WKT) or Well-Known Binary (WKB)
+        /// format.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTypeRequest.Properties.PRIMARY_KEY">PRIMARY_KEY</see>:</term>
+        ///         <description>This property indicates that this column will
+        /// be part of (or the entire) primary key.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTypeRequest.Properties.SHARD_KEY">SHARD_KEY</see>:</term>
+        ///         <description>This property indicates that this column will
+        /// be part of (or the entire) shard key.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTypeRequest.Properties.NULLABLE">NULLABLE</see>:</term>
+        ///         <description>This property indicates that this column is
+        /// nullable.  However, setting this property is insufficient for
+        /// making the column nullable.  The user must declare the type of the
+        /// column as a union between its regular type and 'null' in the avro
+        /// schema for the record type in <paramref
+        /// cref="CreateTypeRequest.type_definition" />.  For example, if a
+        /// column is of type integer and is nullable, then the entry for the
+        /// column in the avro schema must be: ['int', 'null'].
+        /// The C++, C#, Java, and Python APIs have built-in convenience for
+        /// bypassing setting the avro schema by hand.  For those two
+        /// languages, one can use this property as usual and not have to worry
+        /// about the avro schema for the record.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTypeRequest.Properties.DICT">DICT</see>:</term>
+        ///         <description>This property indicates that this column
+        /// should be dictionary encoded. It can only be used in conjunction
+        /// with string columns marked with a charN property. This property is
+        /// appropriate for columns where the cardinality (the number of unique
+        /// values) is expected to be low, and can save a large amount of
+        /// memory.</description>
+        ///     </item>
+        /// </list>  </param>
         /// <param name="options">Optional parameters.  </param>
         /// 
         public CreateTypeRequest( string type_definition,
@@ -265,7 +974,9 @@ namespace kinetica
 
 
 
-    /// <summary>A set of results returned by /create/type.</summary>
+    /// <summary>A set of results returned by <see
+    /// cref="Kinetica.createType(string,string,IDictionary{string, IList{string}},IDictionary{string, string})"
+    /// />.</summary>
     public class CreateTypeResponse : KineticaData
     {
 

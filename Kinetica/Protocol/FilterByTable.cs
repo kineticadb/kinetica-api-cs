@@ -11,13 +11,15 @@ using System.Collections.Generic;
 namespace kinetica
 {
 
-    /// <summary>A set of parameters for /filter/bytable.
+    /// <summary>A set of parameters for <see
+    /// cref="Kinetica.filterByTable(string,string,string,string,string,IDictionary{string, string})"
+    /// />.
     /// <br />
     /// Filters objects in one table based on objects in another table. The
     /// user must specify matching column types from the two tables (i.e. the
     /// target table from which objects will be filtered and the source table
     /// based on which the filter will be created); the column names need not
-    /// be the same. If a <member name="view_name" /> is specified, then the
+    /// be the same. If a <see cref="view_name" /> is specified, then the
     /// filtered objects will then be put in a newly created view. The
     /// operation is synchronous, meaning that a response will not be returned
     /// until all objects are fully available in the result view. The return
@@ -29,67 +31,135 @@ namespace kinetica
         /// <summary>Optional parameters.
         /// <list type="bullet">
         ///     <item>
-        ///         <term>filter_mode</term>
+        ///         <term><see
+        /// cref="FilterByTableRequest.Options.FILTER_MODE">FILTER_MODE</see>:</term>
         ///         <description>String indicating the filter mode, either
-        /// <i>in_table</i> or <i>not_in_table</i>. Values: in_table,
-        /// not_in_table.
-        /// </description>
+        /// <i>in_table</i> or <i>not_in_table</i>.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="FilterByTableRequest.Options.IN_TABLE">IN_TABLE</see></term>
         ///     </item>
         ///     <item>
-        ///         <term>mode</term>
+        ///         <term><see
+        /// cref="FilterByTableRequest.Options.NOT_IN_TABLE">NOT_IN_TABLE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="FilterByTableRequest.Options.IN_TABLE">IN_TABLE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="FilterByTableRequest.Options.MODE">MODE</see>:</term>
         ///         <description>Mode - should be either <i>spatial</i> or
-        /// <i>normal</i>. Values: normal, spatial.
-        /// </description>
+        /// <i>normal</i>.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="FilterByTableRequest.Options.NORMAL">NORMAL</see></term>
         ///     </item>
         ///     <item>
-        ///         <term>buffer</term>
+        ///         <term><see
+        /// cref="FilterByTableRequest.Options.SPATIAL">SPATIAL</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="FilterByTableRequest.Options.NORMAL">NORMAL</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="FilterByTableRequest.Options.BUFFER">BUFFER</see>:</term>
         ///         <description>Buffer size, in meters. Only relevant for
         /// <i>spatial</i> mode.</description>
         ///     </item>
         ///     <item>
-        ///         <term>buffer_method</term>
+        ///         <term><see
+        /// cref="FilterByTableRequest.Options.BUFFER_METHOD">BUFFER_METHOD</see>:</term>
         ///         <description>Method used to buffer polygons.  Only relevant
-        /// for <i>spatial</i> mode. Values: normal, geos.
-        /// </description>
+        /// for <i>spatial</i> mode.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="FilterByTableRequest.Options.NORMAL">NORMAL</see></term>
         ///     </item>
         ///     <item>
-        ///         <term>max_partition_size</term>
+        ///         <term><see
+        /// cref="FilterByTableRequest.Options.GEOS">GEOS</see>:</term>
+        ///         <description>Use geos 1 edge per corner
+        /// algorithm</description>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="FilterByTableRequest.Options.NORMAL">NORMAL</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="FilterByTableRequest.Options.MAX_PARTITION_SIZE">MAX_PARTITION_SIZE</see>:</term>
         ///         <description>Maximum number of points in a partition. Only
         /// relevant for <i>spatial</i> mode.</description>
         ///     </item>
         ///     <item>
-        ///         <term>max_partition_score</term>
+        ///         <term><see
+        /// cref="FilterByTableRequest.Options.MAX_PARTITION_SCORE">MAX_PARTITION_SCORE</see>:</term>
         ///         <description>Maximum number of points * edges in a
         /// partition. Only relevant for <i>spatial</i> mode.</description>
         ///     </item>
         ///     <item>
-        ///         <term>x_column_name</term>
+        ///         <term><see
+        /// cref="FilterByTableRequest.Options.X_COLUMN_NAME">X_COLUMN_NAME</see>:</term>
         ///         <description>Name of column containing x value of point
         /// being filtered in <i>spatial</i> mode.</description>
         ///     </item>
         ///     <item>
-        ///         <term>y_column_name</term>
+        ///         <term><see
+        /// cref="FilterByTableRequest.Options.Y_COLUMN_NAME">Y_COLUMN_NAME</see>:</term>
         ///         <description>Name of column containing y value of point
         /// being filtered in <i>spatial</i> mode.</description>
         ///     </item>
         /// </list>
         /// <br />
-        /// A set of string constants for the parameter <member name="options"
+        /// A set of string constants for the parameter <see cref="options"
         /// />.</summary>
         public struct Options
         {
 
             /// <summary>String indicating the filter mode, either
-            /// <i>in_table</i> or <i>not_in_table</i>. Values: in_table,
-            /// not_in_table.
-            /// </summary>
+            /// <i>in_table</i> or <i>not_in_table</i>.
+            /// Supported values:
+            /// <list type="bullet">
+            ///     <item>
+            ///         <term><see
+            /// cref="FilterByTableRequest.Options.IN_TABLE">IN_TABLE</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="FilterByTableRequest.Options.NOT_IN_TABLE">NOT_IN_TABLE</see></term>
+            ///     </item>
+            /// </list>
+            /// The default value is <see
+            /// cref="FilterByTableRequest.Options.IN_TABLE">IN_TABLE</see>.</summary>
             public const string FILTER_MODE = "filter_mode";
             public const string IN_TABLE = "in_table";
             public const string NOT_IN_TABLE = "not_in_table";
 
             /// <summary>Mode - should be either <i>spatial</i> or
-            /// <i>normal</i>. Values: normal, spatial.
-            /// </summary>
+            /// <i>normal</i>.
+            /// Supported values:
+            /// <list type="bullet">
+            ///     <item>
+            ///         <term><see
+            /// cref="FilterByTableRequest.Options.NORMAL">NORMAL</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="FilterByTableRequest.Options.SPATIAL">SPATIAL</see></term>
+            ///     </item>
+            /// </list>
+            /// The default value is <see
+            /// cref="FilterByTableRequest.Options.NORMAL">NORMAL</see>.</summary>
             public const string MODE = "mode";
             public const string NORMAL = "normal";
             public const string SPATIAL = "spatial";
@@ -99,8 +169,22 @@ namespace kinetica
             public const string BUFFER = "buffer";
 
             /// <summary>Method used to buffer polygons.  Only relevant for
-            /// <i>spatial</i> mode. Values: normal, geos.
-            /// </summary>
+            /// <i>spatial</i> mode.
+            /// Supported values:
+            /// <list type="bullet">
+            ///     <item>
+            ///         <term><see
+            /// cref="FilterByTableRequest.Options.NORMAL">NORMAL</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="FilterByTableRequest.Options.GEOS">GEOS</see>:</term>
+            ///         <description>Use geos 1 edge per corner
+            /// algorithm</description>
+            ///     </item>
+            /// </list>
+            /// The default value is <see
+            /// cref="FilterByTableRequest.Options.NORMAL">NORMAL</see>.</summary>
             public const string BUFFER_METHOD = "buffer_method";
 
             /// <summary>Use geos 1 edge per corner algorithm</summary>
@@ -147,54 +231,100 @@ namespace kinetica
         /// <summary>Name of the column in the <paramref
         /// cref="FilterByTableRequest.source_table_name" /> whose values will
         /// be used as the filter for table <paramref
-        /// cref="FilterByTableRequest.table_name" />. Must match the type of
-        /// the <paramref cref="FilterByTableRequest.column_name" />.
+        /// cref="FilterByTableRequest.table_name" />. Must be a geospatial
+        /// geometry column if in 'spatial' mode; otherwise, Must match the
+        /// type of the <paramref cref="FilterByTableRequest.column_name" />.
         /// </summary>
         public string source_table_column_name { get; set; }
 
         /// <summary>Optional parameters.
         /// <list type="bullet">
         ///     <item>
-        ///         <term>filter_mode</term>
+        ///         <term><see
+        /// cref="FilterByTableRequest.Options.FILTER_MODE">FILTER_MODE</see>:</term>
         ///         <description>String indicating the filter mode, either
-        /// <i>in_table</i> or <i>not_in_table</i>. Values: in_table,
-        /// not_in_table.
-        /// </description>
+        /// <i>in_table</i> or <i>not_in_table</i>.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="FilterByTableRequest.Options.IN_TABLE">IN_TABLE</see></term>
         ///     </item>
         ///     <item>
-        ///         <term>mode</term>
+        ///         <term><see
+        /// cref="FilterByTableRequest.Options.NOT_IN_TABLE">NOT_IN_TABLE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="FilterByTableRequest.Options.IN_TABLE">IN_TABLE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="FilterByTableRequest.Options.MODE">MODE</see>:</term>
         ///         <description>Mode - should be either <i>spatial</i> or
-        /// <i>normal</i>. Values: normal, spatial.
-        /// </description>
+        /// <i>normal</i>.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="FilterByTableRequest.Options.NORMAL">NORMAL</see></term>
         ///     </item>
         ///     <item>
-        ///         <term>buffer</term>
+        ///         <term><see
+        /// cref="FilterByTableRequest.Options.SPATIAL">SPATIAL</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="FilterByTableRequest.Options.NORMAL">NORMAL</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="FilterByTableRequest.Options.BUFFER">BUFFER</see>:</term>
         ///         <description>Buffer size, in meters. Only relevant for
         /// <i>spatial</i> mode.</description>
         ///     </item>
         ///     <item>
-        ///         <term>buffer_method</term>
+        ///         <term><see
+        /// cref="FilterByTableRequest.Options.BUFFER_METHOD">BUFFER_METHOD</see>:</term>
         ///         <description>Method used to buffer polygons.  Only relevant
-        /// for <i>spatial</i> mode. Values: normal, geos.
-        /// </description>
+        /// for <i>spatial</i> mode.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="FilterByTableRequest.Options.NORMAL">NORMAL</see></term>
         ///     </item>
         ///     <item>
-        ///         <term>max_partition_size</term>
+        ///         <term><see
+        /// cref="FilterByTableRequest.Options.GEOS">GEOS</see>:</term>
+        ///         <description>Use geos 1 edge per corner
+        /// algorithm</description>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="FilterByTableRequest.Options.NORMAL">NORMAL</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="FilterByTableRequest.Options.MAX_PARTITION_SIZE">MAX_PARTITION_SIZE</see>:</term>
         ///         <description>Maximum number of points in a partition. Only
         /// relevant for <i>spatial</i> mode.</description>
         ///     </item>
         ///     <item>
-        ///         <term>max_partition_score</term>
+        ///         <term><see
+        /// cref="FilterByTableRequest.Options.MAX_PARTITION_SCORE">MAX_PARTITION_SCORE</see>:</term>
         ///         <description>Maximum number of points * edges in a
         /// partition. Only relevant for <i>spatial</i> mode.</description>
         ///     </item>
         ///     <item>
-        ///         <term>x_column_name</term>
+        ///         <term><see
+        /// cref="FilterByTableRequest.Options.X_COLUMN_NAME">X_COLUMN_NAME</see>:</term>
         ///         <description>Name of column containing x value of point
         /// being filtered in <i>spatial</i> mode.</description>
         ///     </item>
         ///     <item>
-        ///         <term>y_column_name</term>
+        ///         <term><see
+        /// cref="FilterByTableRequest.Options.Y_COLUMN_NAME">Y_COLUMN_NAME</see>:</term>
         ///         <description>Name of column containing y value of point
         /// being filtered in <i>spatial</i> mode.</description>
         ///     </item>
@@ -226,51 +356,98 @@ namespace kinetica
         /// <param name="source_table_column_name">Name of the column in the
         /// <paramref cref="FilterByTableRequest.source_table_name" /> whose
         /// values will be used as the filter for table <paramref
-        /// cref="FilterByTableRequest.table_name" />. Must match the type of
-        /// the <paramref cref="FilterByTableRequest.column_name" />.  </param>
+        /// cref="FilterByTableRequest.table_name" />. Must be a geospatial
+        /// geometry column if in 'spatial' mode; otherwise, Must match the
+        /// type of the <paramref cref="FilterByTableRequest.column_name" />.
+        /// </param>
         /// <param name="options">Optional parameters.
         /// <list type="bullet">
         ///     <item>
-        ///         <term>filter_mode</term>
+        ///         <term><see
+        /// cref="FilterByTableRequest.Options.FILTER_MODE">FILTER_MODE</see>:</term>
         ///         <description>String indicating the filter mode, either
-        /// <i>in_table</i> or <i>not_in_table</i>. Values: in_table,
-        /// not_in_table.
-        /// </description>
+        /// <i>in_table</i> or <i>not_in_table</i>.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="FilterByTableRequest.Options.IN_TABLE">IN_TABLE</see></term>
         ///     </item>
         ///     <item>
-        ///         <term>mode</term>
+        ///         <term><see
+        /// cref="FilterByTableRequest.Options.NOT_IN_TABLE">NOT_IN_TABLE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="FilterByTableRequest.Options.IN_TABLE">IN_TABLE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="FilterByTableRequest.Options.MODE">MODE</see>:</term>
         ///         <description>Mode - should be either <i>spatial</i> or
-        /// <i>normal</i>. Values: normal, spatial.
-        /// </description>
+        /// <i>normal</i>.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="FilterByTableRequest.Options.NORMAL">NORMAL</see></term>
         ///     </item>
         ///     <item>
-        ///         <term>buffer</term>
+        ///         <term><see
+        /// cref="FilterByTableRequest.Options.SPATIAL">SPATIAL</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="FilterByTableRequest.Options.NORMAL">NORMAL</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="FilterByTableRequest.Options.BUFFER">BUFFER</see>:</term>
         ///         <description>Buffer size, in meters. Only relevant for
         /// <i>spatial</i> mode.</description>
         ///     </item>
         ///     <item>
-        ///         <term>buffer_method</term>
+        ///         <term><see
+        /// cref="FilterByTableRequest.Options.BUFFER_METHOD">BUFFER_METHOD</see>:</term>
         ///         <description>Method used to buffer polygons.  Only relevant
-        /// for <i>spatial</i> mode. Values: normal, geos.
-        /// </description>
+        /// for <i>spatial</i> mode.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="FilterByTableRequest.Options.NORMAL">NORMAL</see></term>
         ///     </item>
         ///     <item>
-        ///         <term>max_partition_size</term>
+        ///         <term><see
+        /// cref="FilterByTableRequest.Options.GEOS">GEOS</see>:</term>
+        ///         <description>Use geos 1 edge per corner
+        /// algorithm</description>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="FilterByTableRequest.Options.NORMAL">NORMAL</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="FilterByTableRequest.Options.MAX_PARTITION_SIZE">MAX_PARTITION_SIZE</see>:</term>
         ///         <description>Maximum number of points in a partition. Only
         /// relevant for <i>spatial</i> mode.</description>
         ///     </item>
         ///     <item>
-        ///         <term>max_partition_score</term>
+        ///         <term><see
+        /// cref="FilterByTableRequest.Options.MAX_PARTITION_SCORE">MAX_PARTITION_SCORE</see>:</term>
         ///         <description>Maximum number of points * edges in a
         /// partition. Only relevant for <i>spatial</i> mode.</description>
         ///     </item>
         ///     <item>
-        ///         <term>x_column_name</term>
+        ///         <term><see
+        /// cref="FilterByTableRequest.Options.X_COLUMN_NAME">X_COLUMN_NAME</see>:</term>
         ///         <description>Name of column containing x value of point
         /// being filtered in <i>spatial</i> mode.</description>
         ///     </item>
         ///     <item>
-        ///         <term>y_column_name</term>
+        ///         <term><see
+        /// cref="FilterByTableRequest.Options.Y_COLUMN_NAME">Y_COLUMN_NAME</see>:</term>
         ///         <description>Name of column containing y value of point
         /// being filtered in <i>spatial</i> mode.</description>
         ///     </item>
@@ -296,7 +473,9 @@ namespace kinetica
 
 
 
-    /// <summary>A set of results returned by /filter/bytable.</summary>
+    /// <summary>A set of results returned by <see
+    /// cref="Kinetica.filterByTable(string,string,string,string,string,IDictionary{string, string})"
+    /// />.</summary>
     public class FilterByTableResponse : KineticaData
     {
 

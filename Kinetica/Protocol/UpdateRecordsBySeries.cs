@@ -11,12 +11,13 @@ using System.Collections.Generic;
 namespace kinetica
 {
 
-    /// <summary>A set of parameters for /update/records/byseries.
+    /// <summary>A set of parameters for <see
+    /// cref="Kinetica.updateRecordsBySeries(string,string,string,IList{string},IDictionary{string, string})"
+    /// />.
     /// <br />
-    /// Updates the view specified by <member name="table_name" /> to include
-    /// full series (track) information from the <member
-    /// name="world_table_name" /> for the series (tracks) present in the
-    /// <member name="view_name" />.</summary>
+    /// Updates the view specified by <see cref="table_name" /> to include full
+    /// series (track) information from the <see cref="world_table_name" /> for
+    /// the series (tracks) present in the <see cref="view_name" />.</summary>
     public class UpdateRecordsBySeriesRequest : KineticaData
     {
 
@@ -70,8 +71,9 @@ namespace kinetica
 
 
 
-    /// <summary>A set of results returned by
-    /// /update/records/byseries.</summary>
+    /// <summary>A set of results returned by <see
+    /// cref="Kinetica.updateRecordsBySeries(string,string,string,IList{string},IDictionary{string, string})"
+    /// />.</summary>
     public class UpdateRecordsBySeriesResponse : KineticaData
     {
         public int count { get; set; }

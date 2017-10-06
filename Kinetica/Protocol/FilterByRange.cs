@@ -11,13 +11,15 @@ using System.Collections.Generic;
 namespace kinetica
 {
 
-    /// <summary>A set of parameters for /filter/byrange.
+    /// <summary>A set of parameters for <see
+    /// cref="Kinetica.filterByRange(string,string,string,double,double,IDictionary{string, string})"
+    /// />.
     /// <br />
     /// Calculates which objects from a table have a column that is within the
-    /// given bounds. An object from the table identified by <member
-    /// name="table_name" /> is added to the view <member name="view_name" />
-    /// if its column is within [<member name="lower_bound" />, <member
-    /// name="upper_bound" />] (inclusive). The operation is synchronous. The
+    /// given bounds. An object from the table identified by <see
+    /// cref="table_name" /> is added to the view <see cref="view_name" /> if
+    /// its column is within [<see cref="lower_bound" />, <see
+    /// cref="upper_bound" />] (inclusive). The operation is synchronous. The
     /// response provides a count of the number of objects which passed the
     /// bound filter.  Although this functionality can also be accomplished
     /// with the standard filter function, it is more efficient.
@@ -93,7 +95,9 @@ namespace kinetica
 
 
 
-    /// <summary>A set of results returned by /filter/byrange.</summary>
+    /// <summary>A set of results returned by <see
+    /// cref="Kinetica.filterByRange(string,string,string,double,double,IDictionary{string, string})"
+    /// />.</summary>
     public class FilterByRangeResponse : KineticaData
     {
 

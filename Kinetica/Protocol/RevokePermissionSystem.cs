@@ -11,17 +11,37 @@ using System.Collections.Generic;
 namespace kinetica
 {
 
-    /// <summary>A set of parameters for /revoke/permission/system.
+    /// <summary>A set of parameters for <see
+    /// cref="Kinetica.revokePermissionSystem(string,string,IDictionary{string, string})"
+    /// />.
     /// <br />
     /// Revokes a system-level permission from a user or role.</summary>
     public class RevokePermissionSystemRequest : KineticaData
     {
 
-        /// <summary>Permission to revoke from the user or role. Values:
-        /// system_admin, system_write, system_read.
-        /// <br />
-        /// A set of string constants for the parameter <member
-        /// name="permission" />.</summary>
+        /// <summary>Permission to revoke from the user or role.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="RevokePermissionSystemRequest.Permission.SYSTEM_ADMIN">SYSTEM_ADMIN</see>:</term>
+        ///         <description>Full access to all data and system
+        /// functions.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="RevokePermissionSystemRequest.Permission.SYSTEM_WRITE">SYSTEM_WRITE</see>:</term>
+        ///         <description>Read and write access to all
+        /// tables.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="RevokePermissionSystemRequest.Permission.SYSTEM_READ">SYSTEM_READ</see>:</term>
+        ///         <description>Read-only access to all tables.</description>
+        ///     </item>
+        /// </list>
+        /// A set of string constants for the parameter <see cref="permission"
+        /// />.</summary>
         public struct Permission
         {
 
@@ -41,9 +61,27 @@ namespace kinetica
         /// revoked. Must be an existing user or role.  </summary>
         public string name { get; set; }
 
-        /// <summary>Permission to revoke from the user or role. Values:
-        /// system_admin, system_write, system_read.
-        ///   </summary>
+        /// <summary>Permission to revoke from the user or role.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="RevokePermissionSystemRequest.Permission.SYSTEM_ADMIN">SYSTEM_ADMIN</see>:</term>
+        ///         <description>Full access to all data and system
+        /// functions.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="RevokePermissionSystemRequest.Permission.SYSTEM_WRITE">SYSTEM_WRITE</see>:</term>
+        ///         <description>Read and write access to all
+        /// tables.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="RevokePermissionSystemRequest.Permission.SYSTEM_READ">SYSTEM_READ</see>:</term>
+        ///         <description>Read-only access to all tables.</description>
+        ///     </item>
+        /// </list>  </summary>
         public string permission { get; set; }
 
         /// <summary>Optional parameters.  </summary>
@@ -61,8 +99,27 @@ namespace kinetica
         /// permission will be revoked. Must be an existing user or role.
         /// </param>
         /// <param name="permission">Permission to revoke from the user or
-        /// role. Values: system_admin, system_write, system_read.
-        ///   </param>
+        /// role.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="RevokePermissionSystemRequest.Permission.SYSTEM_ADMIN">SYSTEM_ADMIN</see>:</term>
+        ///         <description>Full access to all data and system
+        /// functions.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="RevokePermissionSystemRequest.Permission.SYSTEM_WRITE">SYSTEM_WRITE</see>:</term>
+        ///         <description>Read and write access to all
+        /// tables.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="RevokePermissionSystemRequest.Permission.SYSTEM_READ">SYSTEM_READ</see>:</term>
+        ///         <description>Read-only access to all tables.</description>
+        ///     </item>
+        /// </list>  </param>
         /// <param name="options">Optional parameters.  </param>
         /// 
         public RevokePermissionSystemRequest( string name,
@@ -78,8 +135,9 @@ namespace kinetica
 
 
 
-    /// <summary>A set of results returned by
-    /// /revoke/permission/system.</summary>
+    /// <summary>A set of results returned by <see
+    /// cref="Kinetica.revokePermissionSystem(string,string,IDictionary{string, string})"
+    /// />.</summary>
     public class RevokePermissionSystemResponse : KineticaData
     {
 

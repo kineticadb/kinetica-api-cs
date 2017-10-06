@@ -11,7 +11,9 @@ using System.Collections.Generic;
 namespace kinetica
 {
 
-    /// <summary>A set of parameters for /filter/bystring.
+    /// <summary>A set of parameters for <see
+    /// cref="Kinetica.filterByString(string,string,string,string,IList{string},IDictionary{string, string})"
+    /// />.
     /// <br />
     /// Calculates which objects from a table, collection, or view match a
     /// string expression for the given string columns. The options
@@ -23,17 +25,54 @@ namespace kinetica
     {
 
         /// <summary>The string filtering mode to apply. See below for details.
-        /// Values: search, equals, contains, starts_with, regex.
-        /// <br />
-        /// A set of string constants for the parameter <member name="mode"
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="FilterByStringRequest.Mode.SEARCH">SEARCH</see>:</term>
+        ///         <description>Full text search query with wildcards and
+        /// boolean operators. Note that for this mode, no column can be
+        /// specified in <paramref cref="FilterByStringRequest.column_names"
+        /// />; all string columns of the table that have text search enabled
+        /// will be searched.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="FilterByStringRequest.Mode.EQUALS">EQUALS</see>:</term>
+        ///         <description>Exact whole-string match
+        /// (accelerated).</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="FilterByStringRequest.Mode.CONTAINS">CONTAINS</see>:</term>
+        ///         <description>Partial substring match (not accelerated).  If
+        /// the column is a string type (non-charN) and the number of records
+        /// is too large, it will return 0.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="FilterByStringRequest.Mode.STARTS_WITH">STARTS_WITH</see>:</term>
+        ///         <description>Strings that start with the given expression
+        /// (not accelerated). If the column is a string type (non-charN) and
+        /// the number of records is too large, it will return 0.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="FilterByStringRequest.Mode.REGEX">REGEX</see>:</term>
+        ///         <description>Full regular expression search (not
+        /// accelerated). If the column is a string type (non-charN) and the
+        /// number of records is too large, it will return 0.</description>
+        ///     </item>
+        /// </list>
+        /// A set of string constants for the parameter <see cref="mode"
         /// />.</summary>
         public struct Mode
         {
 
             /// <summary>Full text search query with wildcards and boolean
             /// operators. Note that for this mode, no column can be specified
-            /// in <member name="column_names" />; all string columns of the
-            /// table that have text search enabled will be searched.</summary>
+            /// in <see cref="column_names" />; all string columns of the table
+            /// that have text search enabled will be searched.</summary>
             public const string SEARCH = "search";
 
             /// <summary>Exact whole-string match (accelerated).</summary>
@@ -59,21 +98,46 @@ namespace kinetica
         /// <summary>Optional parameters.
         /// <list type="bullet">
         ///     <item>
-        ///         <term>case_sensitive</term>
+        ///         <term><see
+        /// cref="FilterByStringRequest.Options.CASE_SENSITIVE">CASE_SENSITIVE</see>:</term>
         ///         <description>If 'false' then string filtering will ignore
-        /// case. Does not apply to 'search' mode. Values: true, false.
-        /// </description>
+        /// case. Does not apply to 'search' mode.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="FilterByStringRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="FilterByStringRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="FilterByStringRequest.Options.TRUE">TRUE</see>.</description>
         ///     </item>
         /// </list>
         /// <br />
-        /// A set of string constants for the parameter <member name="options"
+        /// A set of string constants for the parameter <see cref="options"
         /// />.</summary>
         public struct Options
         {
 
             /// <summary>If 'false' then string filtering will ignore case.
-            /// Does not apply to 'search' mode. Values: true, false.
-            /// </summary>
+            /// Does not apply to 'search' mode.
+            /// Supported values:
+            /// <list type="bullet">
+            ///     <item>
+            ///         <term><see
+            /// cref="FilterByStringRequest.Options.TRUE">TRUE</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="FilterByStringRequest.Options.FALSE">FALSE</see></term>
+            ///     </item>
+            /// </list>
+            /// The default value is <see
+            /// cref="FilterByStringRequest.Options.TRUE">TRUE</see>.</summary>
             public const string CASE_SENSITIVE = "case_sensitive";
             public const string TRUE = "true";
             public const string FALSE = "false";
@@ -95,8 +159,45 @@ namespace kinetica
         public string expression { get; set; }
 
         /// <summary>The string filtering mode to apply. See below for details.
-        /// Values: search, equals, contains, starts_with, regex.
-        ///   </summary>
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="FilterByStringRequest.Mode.SEARCH">SEARCH</see>:</term>
+        ///         <description>Full text search query with wildcards and
+        /// boolean operators. Note that for this mode, no column can be
+        /// specified in <paramref cref="FilterByStringRequest.column_names"
+        /// />; all string columns of the table that have text search enabled
+        /// will be searched.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="FilterByStringRequest.Mode.EQUALS">EQUALS</see>:</term>
+        ///         <description>Exact whole-string match
+        /// (accelerated).</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="FilterByStringRequest.Mode.CONTAINS">CONTAINS</see>:</term>
+        ///         <description>Partial substring match (not accelerated).  If
+        /// the column is a string type (non-charN) and the number of records
+        /// is too large, it will return 0.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="FilterByStringRequest.Mode.STARTS_WITH">STARTS_WITH</see>:</term>
+        ///         <description>Strings that start with the given expression
+        /// (not accelerated). If the column is a string type (non-charN) and
+        /// the number of records is too large, it will return 0.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="FilterByStringRequest.Mode.REGEX">REGEX</see>:</term>
+        ///         <description>Full regular expression search (not
+        /// accelerated). If the column is a string type (non-charN) and the
+        /// number of records is too large, it will return 0.</description>
+        ///     </item>
+        /// </list>  </summary>
         public string mode { get; set; }
 
         /// <summary>List of columns on which to apply the filter. Ignored for
@@ -106,10 +207,23 @@ namespace kinetica
         /// <summary>Optional parameters.
         /// <list type="bullet">
         ///     <item>
-        ///         <term>case_sensitive</term>
+        ///         <term><see
+        /// cref="FilterByStringRequest.Options.CASE_SENSITIVE">CASE_SENSITIVE</see>:</term>
         ///         <description>If 'false' then string filtering will ignore
-        /// case. Does not apply to 'search' mode. Values: true, false.
-        /// </description>
+        /// case. Does not apply to 'search' mode.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="FilterByStringRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="FilterByStringRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="FilterByStringRequest.Options.TRUE">TRUE</see>.</description>
         ///     </item>
         /// </list>
         ///   </summary>
@@ -133,17 +247,68 @@ namespace kinetica
         /// <param name="expression">The expression with which to filter the
         /// table.  </param>
         /// <param name="mode">The string filtering mode to apply. See below
-        /// for details. Values: search, equals, contains, starts_with, regex.
-        ///   </param>
+        /// for details.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="FilterByStringRequest.Mode.SEARCH">SEARCH</see>:</term>
+        ///         <description>Full text search query with wildcards and
+        /// boolean operators. Note that for this mode, no column can be
+        /// specified in <paramref cref="FilterByStringRequest.column_names"
+        /// />; all string columns of the table that have text search enabled
+        /// will be searched.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="FilterByStringRequest.Mode.EQUALS">EQUALS</see>:</term>
+        ///         <description>Exact whole-string match
+        /// (accelerated).</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="FilterByStringRequest.Mode.CONTAINS">CONTAINS</see>:</term>
+        ///         <description>Partial substring match (not accelerated).  If
+        /// the column is a string type (non-charN) and the number of records
+        /// is too large, it will return 0.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="FilterByStringRequest.Mode.STARTS_WITH">STARTS_WITH</see>:</term>
+        ///         <description>Strings that start with the given expression
+        /// (not accelerated). If the column is a string type (non-charN) and
+        /// the number of records is too large, it will return 0.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="FilterByStringRequest.Mode.REGEX">REGEX</see>:</term>
+        ///         <description>Full regular expression search (not
+        /// accelerated). If the column is a string type (non-charN) and the
+        /// number of records is too large, it will return 0.</description>
+        ///     </item>
+        /// </list>  </param>
         /// <param name="column_names">List of columns on which to apply the
         /// filter. Ignored for 'search' mode.  </param>
         /// <param name="options">Optional parameters.
         /// <list type="bullet">
         ///     <item>
-        ///         <term>case_sensitive</term>
+        ///         <term><see
+        /// cref="FilterByStringRequest.Options.CASE_SENSITIVE">CASE_SENSITIVE</see>:</term>
         ///         <description>If 'false' then string filtering will ignore
-        /// case. Does not apply to 'search' mode. Values: true, false.
-        /// </description>
+        /// case. Does not apply to 'search' mode.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="FilterByStringRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="FilterByStringRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="FilterByStringRequest.Options.TRUE">TRUE</see>.</description>
         ///     </item>
         /// </list>
         ///   </param>
@@ -167,7 +332,9 @@ namespace kinetica
 
 
 
-    /// <summary>A set of results returned by /filter/bystring.</summary>
+    /// <summary>A set of results returned by <see
+    /// cref="Kinetica.filterByString(string,string,string,string,IList{string},IDictionary{string, string})"
+    /// />.</summary>
     public class FilterByStringResponse : KineticaData
     {
 

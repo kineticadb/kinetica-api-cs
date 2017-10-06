@@ -11,7 +11,9 @@ using System.Collections.Generic;
 namespace kinetica
 {
 
-    /// <summary>A set of parameters for /show/triggers.
+    /// <summary>A set of parameters for <see
+    /// cref="Kinetica.showTriggers(IList{string},IDictionary{string, string})"
+    /// />.
     /// <br />
     /// Retrieves information regarding the specified triggers or all existing
     /// triggers currently active.</summary>
@@ -50,7 +52,9 @@ namespace kinetica
 
 
 
-    /// <summary>A set of results returned by /show/triggers.</summary>
+    /// <summary>A set of results returned by <see
+    /// cref="Kinetica.showTriggers(IList{string},IDictionary{string, string})"
+    /// />.</summary>
     public class ShowTriggersResponse : KineticaData
     {
 

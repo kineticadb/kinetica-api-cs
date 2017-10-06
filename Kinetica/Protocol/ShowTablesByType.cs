@@ -11,7 +11,9 @@ using System.Collections.Generic;
 namespace kinetica
 {
 
-    /// <summary>A set of parameters for /show/tables/bytype.
+    /// <summary>A set of parameters for <see
+    /// cref="Kinetica.showTablesByType(string,string,IDictionary{string, string})"
+    /// />.
     /// <br />
     /// Gets names of the tables whose type matches the given criteria. Each
     /// table has a particular type. This type is made out of the type label,
@@ -60,7 +62,9 @@ namespace kinetica
 
 
 
-    /// <summary>A set of results returned by /show/tables/bytype.</summary>
+    /// <summary>A set of results returned by <see
+    /// cref="Kinetica.showTablesByType(string,string,IDictionary{string, string})"
+    /// />.</summary>
     public class ShowTablesByTypeResponse : KineticaData
     {
 

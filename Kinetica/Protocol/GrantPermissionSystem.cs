@@ -11,17 +11,37 @@ using System.Collections.Generic;
 namespace kinetica
 {
 
-    /// <summary>A set of parameters for /grant/permission/system.
+    /// <summary>A set of parameters for <see
+    /// cref="Kinetica.grantPermissionSystem(string,string,IDictionary{string, string})"
+    /// />.
     /// <br />
     /// Grants a system-level permission to a user or role.</summary>
     public class GrantPermissionSystemRequest : KineticaData
     {
 
-        /// <summary>Permission to grant to the user or role. Values:
-        /// system_admin, system_write, system_read.
-        /// <br />
-        /// A set of string constants for the parameter <member
-        /// name="permission" />.</summary>
+        /// <summary>Permission to grant to the user or role.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="GrantPermissionSystemRequest.Permission.SYSTEM_ADMIN">SYSTEM_ADMIN</see>:</term>
+        ///         <description>Full access to all data and system
+        /// functions.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="GrantPermissionSystemRequest.Permission.SYSTEM_WRITE">SYSTEM_WRITE</see>:</term>
+        ///         <description>Read and write access to all
+        /// tables.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="GrantPermissionSystemRequest.Permission.SYSTEM_READ">SYSTEM_READ</see>:</term>
+        ///         <description>Read-only access to all tables.</description>
+        ///     </item>
+        /// </list>
+        /// A set of string constants for the parameter <see cref="permission"
+        /// />.</summary>
         public struct Permission
         {
 
@@ -41,9 +61,27 @@ namespace kinetica
         /// granted. Must be an existing user or role.  </summary>
         public string name { get; set; }
 
-        /// <summary>Permission to grant to the user or role. Values:
-        /// system_admin, system_write, system_read.
-        ///   </summary>
+        /// <summary>Permission to grant to the user or role.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="GrantPermissionSystemRequest.Permission.SYSTEM_ADMIN">SYSTEM_ADMIN</see>:</term>
+        ///         <description>Full access to all data and system
+        /// functions.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="GrantPermissionSystemRequest.Permission.SYSTEM_WRITE">SYSTEM_WRITE</see>:</term>
+        ///         <description>Read and write access to all
+        /// tables.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="GrantPermissionSystemRequest.Permission.SYSTEM_READ">SYSTEM_READ</see>:</term>
+        ///         <description>Read-only access to all tables.</description>
+        ///     </item>
+        /// </list>  </summary>
         public string permission { get; set; }
 
         /// <summary>Optional parameters.  </summary>
@@ -60,8 +98,26 @@ namespace kinetica
         /// <param name="name">Name of the user or role to which the permission
         /// will be granted. Must be an existing user or role.  </param>
         /// <param name="permission">Permission to grant to the user or role.
-        /// Values: system_admin, system_write, system_read.
-        ///   </param>
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="GrantPermissionSystemRequest.Permission.SYSTEM_ADMIN">SYSTEM_ADMIN</see>:</term>
+        ///         <description>Full access to all data and system
+        /// functions.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="GrantPermissionSystemRequest.Permission.SYSTEM_WRITE">SYSTEM_WRITE</see>:</term>
+        ///         <description>Read and write access to all
+        /// tables.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="GrantPermissionSystemRequest.Permission.SYSTEM_READ">SYSTEM_READ</see>:</term>
+        ///         <description>Read-only access to all tables.</description>
+        ///     </item>
+        /// </list>  </param>
         /// <param name="options">Optional parameters.  </param>
         /// 
         public GrantPermissionSystemRequest( string name,
@@ -77,8 +133,9 @@ namespace kinetica
 
 
 
-    /// <summary>A set of results returned by
-    /// /grant/permission/system.</summary>
+    /// <summary>A set of results returned by <see
+    /// cref="Kinetica.grantPermissionSystem(string,string,IDictionary{string, string})"
+    /// />.</summary>
     public class GrantPermissionSystemResponse : KineticaData
     {
 

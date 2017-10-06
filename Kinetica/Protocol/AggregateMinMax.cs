@@ -11,7 +11,9 @@ using System.Collections.Generic;
 namespace kinetica
 {
 
-    /// <summary>A set of parameters for /aggregate/minmax.
+    /// <summary>A set of parameters for <see
+    /// cref="Kinetica.aggregateMinMax(string,string,IDictionary{string, string})"
+    /// />.
     /// <br />
     /// Calculates and returns the minimum and maximum values of a particular
     /// column in a table.</summary>
@@ -56,7 +58,9 @@ namespace kinetica
 
 
 
-    /// <summary>A set of results returned by /aggregate/minmax.</summary>
+    /// <summary>A set of results returned by <see
+    /// cref="Kinetica.aggregateMinMax(string,string,IDictionary{string, string})"
+    /// />.</summary>
     public class AggregateMinMaxResponse : KineticaData
     {
 

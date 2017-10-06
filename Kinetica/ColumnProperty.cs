@@ -22,7 +22,8 @@ namespace kinetica
         public const string TEXT_SEARCH = "text_search";
 
         /// <summary>Persist the column value but do not make it available to
-        /// queries (e.g. <see cref="Kinetica.filterByBox(FilterByBoxRequest)"
+        /// queries (e.g. <see
+        /// cref="Kinetica.filterByBox(string,string,string,double,double,string,double,double,IDictionary{string, string})"
         /// />)-i.e. it is mutually exclusive to the 'data' property. Any
         /// 'bytes' type column must have a 'store_only' property. This
         /// property reduces system memory usage.</summary>
@@ -31,13 +32,17 @@ namespace kinetica
         /// <summary>Works in conjunction with the 'data' property for string
         /// columns. This property reduces system disk usage by disabling
         /// reverse string lookups. Queries like <see
-        /// cref="Kinetica.filter(FilterRequest)" />, <see
-        /// cref="Kinetica.filterByList(FilterByListRequest)" />, and <see
-        /// cref="Kinetica.filterByValue(FilterByValueRequest)" /> work as
-        /// usual but <see
-        /// cref="Kinetica.aggregateUnique(AggregateUniqueRequest)" />, <see
-        /// cref="Kinetica.aggregateGroupBy(AggregateGroupByRequest)" /> and
-        /// <see cref="Kinetica.getRecordsByColumn(GetRecordsByColumnRequest)"
+        /// cref="Kinetica.filter(string,string,string,IDictionary{string, string})"
+        /// />, <see
+        /// cref="Kinetica.filterByList(string,string,IDictionary{string, IList{string}},IDictionary{string, string})"
+        /// />, and <see
+        /// cref="Kinetica.filterByValue(string,string,bool,double,string,string,IDictionary{string, string})"
+        /// /> work as usual but <see
+        /// cref="Kinetica.aggregateUnique(string,string,long,long,IDictionary{string, string})"
+        /// />, <see
+        /// cref="Kinetica.aggregateGroupBy(string,IList{string},long,long,IDictionary{string, string})"
+        /// /> and <see
+        /// cref="Kinetica.getRecordsByColumn(string,IList{string},long,long,IDictionary{string, string})"
         /// /> are not allowed on columns with this property.</summary>
         public const string DISK_OPTIMIZED = "disk_optimized";
 
@@ -59,14 +64,23 @@ namespace kinetica
         /// <summary>Valid only for 'string' columns.  Indicates that this
         /// field represents a date and will be provided in the format
         /// 'YYYY-MM-DD'.  The allowable range is 1000-01-01 through
-        /// 2900-01-01.</summary>
+        /// 2900-01-01.  This property is mutually exclusive with the
+        /// *text_search* property.</summary>
         public const string DATE = "date";
 
         /// <summary>Valid only for 'string' columns.  Indicates that this
         /// field represents a time-of-day and will be provided in the format
         /// 'HH:MM:SS.mmm'.  The allowable range is 00:00:00.000 through
-        /// 23:59:59.999.</summary>
+        /// 23:59:59.999.  This property is mutually exclusive with the
+        /// *text_search* property.</summary>
         public const string TIME = "time";
+
+        /// <summary>Valid only for 'string' columns.  Indicates that this
+        /// field represents a datetime and will be provided in the format
+        /// 'YYYY-MM-DD HH:MM:SS.mmm'.  The allowable range is 1000-01-01
+        /// 00:00:00.000 through 2900-01-01 23:59:59.999.  This property is
+        /// mutually exclusive with the *text_search* property.</summary>
+        public const string DATETIME = "datetime";
 
         /// <summary>This property provides optimized memory, disk and query
         /// performance for string columns. Strings with this property must be
@@ -138,6 +152,11 @@ namespace kinetica
         /// A.B.C.D where A, B, C and D are in the range of 0-255.</summary>
         public const string IPV4 = "ipv4";
 
+        /// <summary>Valid only for 'string' and 'bytes' columns. Indicates
+        /// that this field contains geospatial geometry objects in Well-Known
+        /// Text (WKT) or Well-Known Binary (WKB) format.</summary>
+        public const string WKT = "wkt";
+
         /// <summary>This property indicates that this column will be part of
         /// (or the entire) primary key.</summary>
         public const string PRIMARY_KEY = "primary_key";
@@ -150,15 +169,23 @@ namespace kinetica
         /// However, setting this property is insufficient for making the
         /// column nullable.  The user must declare the type of the column as a
         /// union between its regular type and 'null' in the avro schema for
-        /// the record type in <member name="type_definition" />.  For example,
-        /// if a column is of type integer and is nullable, then the entry for
-        /// the column in the avro schema must be: ['int', 'null'].
+        /// the record type in <see cref="type_definition" />.  For example, if
+        /// a column is of type integer and is nullable, then the entry for the
+        /// column in the avro schema must be: ['int', 'null'].
         /// <br />
-        /// The Java and C++ APIs have built-in convenience for bypassing
-        /// setting the avro schema by hand.  For those two languages, one can
-        /// use this property as usual and not have to worry about the avro
-        /// schema for the record.</summary>
+        /// The C++, C#, Java, and Python APIs have built-in convenience for
+        /// bypassing setting the avro schema by hand.  For those two
+        /// languages, one can use this property as usual and not have to worry
+        /// about the avro schema for the record.</summary>
         public const string NULLABLE = "nullable";
+
+        /// <summary>This property indicates that this column should be
+        /// dictionary encoded. It can only be used in conjunction with string
+        /// columns marked with a charN property. This property is appropriate
+        /// for columns where the cardinality (the number of unique values) is
+        /// expected to be low, and can save a large amount of
+        /// memory.</summary>
+        public const string DICT = "dict";
     } // end struct ColumnProperty
 
 

@@ -11,525 +11,1277 @@ using System.Collections.Generic;
 namespace kinetica
 {
 
-    /// <summary>A set of parameters for /visualize/video.
+    /// <summary>@private
+    /// A set of parameters for <see
+    /// cref="Kinetica.visualizeVideo(IList{string},IList{string},IList{IList{string}},string,string,string,double,double,double,double,int,int,string,long,IList{IList{double}},string,string,IDictionary{string, IList{string}},IDictionary{string, string})"
+    /// />.
     /// <br />
-    /// Creates raster images of data in the given table based on provided
-    /// input parameters. Numerous parameters are required to call this
-    /// function. Some of the important parameters are the attributes of the
-    /// generated images (<member name="bg_color" />, <member name="width" />,
-    /// <member name="height" />), the collection of table names on which this
-    /// function is to be applied, for which shapes (point, polygon, tracks)
-    /// the images are to be created and a user specified session key. This
-    /// session key is later used to fetch the generated images. The operation
-    /// is synchronous, meaning that a response will not be returned until the
-    /// images for all the frames of the video are fully available.
-    /// <br />
-    /// Once the request has been processed then the generated video frames are
-    /// available for download via WMS using STYLES=cached. In this request the
-    /// LAYERS parameter should be populated with the session key passed in
-    /// <member name="session_key" /> of the visualize video request and the
-    /// FRAME parameter indicates which 0-based frame of the video should be
-    /// returned. All other WMS parameters are ignored for this mode.
-    /// <br />
-    /// For instance, if a 20 frame video with the session key 'MY-SESSION-KEY'
-    /// was generated, the first frame could be retrieved with the URL:
-    /// <br />
-    ///     <a href="../../../../rest/wms_rest.html"
-    /// target="_top">http://<hostname/ipAddress>:9191/wms?REQUEST=GetMap&STYLES=cached&LAYERS=MY-SESSION-KEY&FRAME=0</a>
-    /// <br />
-    /// and the last frame could be retrieved with:
-    /// <br />
-    ///     <a href="../../../../rest/wms_rest.html"
-    /// target="_top">http://<hostname/ipAddress>:9191/wms?REQUEST=GetMap&STYLES=cached&LAYERS=MY-SESSION-KEY&FRAME=19</a>
-    /// <br />
-    /// The response payload provides, among other things, the number of frames
-    /// which were created.</summary>
+    /// </summary>
     public class VisualizeVideoRequest : KineticaData
     {
 
-        /// <summary>Spatial Reference System (i.e. EPSG Code). Values:
-        /// EPSG:4326, PLATE_CARREE, 900913, EPSG:900913, 102100, EPSG:102100,
-        /// 3857, EPSG:3857, WEB_MERCATOR.
+        /// <summary>@private
         /// <br />
-        /// A set of string constants for the parameter <member
-        /// name="projection" />.</summary>
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeVideoRequest.Projection.EPSG_4326">EPSG_4326</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeVideoRequest.Projection.PLATE_CARREE">PLATE_CARREE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeVideoRequest.Projection._900913">_900913</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeVideoRequest.Projection.EPSG_900913">EPSG_900913</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeVideoRequest.Projection._102100">_102100</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeVideoRequest.Projection.EPSG_102100">EPSG_102100</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeVideoRequest.Projection._3857">_3857</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeVideoRequest.Projection.EPSG_3857">EPSG_3857</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeVideoRequest.Projection.WEB_MERCATOR">WEB_MERCATOR</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="VisualizeVideoRequest.Projection.PLATE_CARREE">PLATE_CARREE</see>.
+        /// A set of string constants for the parameter <see cref="projection"
+        /// />.</summary>
         public struct Projection
         {
+
+            /// <summary>@private
+            /// </summary>
             public const string EPSG_4326 = "EPSG:4326";
+
+            /// <summary>@private
+            /// </summary>
             public const string PLATE_CARREE = "PLATE_CARREE";
+
+            /// <summary>@private
+            /// </summary>
             public const string _900913 = "900913";
+
+            /// <summary>@private
+            /// </summary>
             public const string EPSG_900913 = "EPSG:900913";
+
+            /// <summary>@private
+            /// </summary>
             public const string _102100 = "102100";
+
+            /// <summary>@private
+            /// </summary>
             public const string EPSG_102100 = "EPSG:102100";
+
+            /// <summary>@private
+            /// </summary>
             public const string _3857 = "3857";
+
+            /// <summary>@private
+            /// </summary>
             public const string EPSG_3857 = "EPSG:3857";
+
+            /// <summary>@private
+            /// </summary>
             public const string WEB_MERCATOR = "WEB_MERCATOR";
+
+    /// <summary>@private
+    /// </summary>
         } // end struct Projection
 
 
-        /// <summary>Styling options for the image.
+        /// <summary>@private
+        /// <br />
         /// <list type="bullet">
         ///     <item>
-        ///         <term>do_points</term>
-        ///         <description>Rasterize point data toggle. Values: true,
-        /// false.
-        /// </description>
+        ///         <term><see
+        /// cref="VisualizeVideoRequest.StyleOptions.DO_POINTS">DO_POINTS</see>:</term>
+        ///         <description>
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeVideoRequest.StyleOptions.TRUE">TRUE</see></term>
         ///     </item>
         ///     <item>
-        ///         <term>do_shapes</term>
-        ///         <description>Rasterize shapes toggle. Values: true, false.
-        /// </description>
+        ///         <term><see
+        /// cref="VisualizeVideoRequest.StyleOptions.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="VisualizeVideoRequest.StyleOptions.TRUE">TRUE</see>.</description>
         ///     </item>
         ///     <item>
-        ///         <term>do_tracks</term>
-        ///         <description>Rasterize tracks toggle. Values: true, false.
-        /// </description>
+        ///         <term><see
+        /// cref="VisualizeVideoRequest.StyleOptions.DO_SHAPES">DO_SHAPES</see>:</term>
+        ///         <description>
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeVideoRequest.StyleOptions.TRUE">TRUE</see></term>
         ///     </item>
         ///     <item>
-        ///         <term>pointcolors</term>
-        ///         <description>RGB color value in hex for the
-        /// points.</description>
+        ///         <term><see
+        /// cref="VisualizeVideoRequest.StyleOptions.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="VisualizeVideoRequest.StyleOptions.TRUE">TRUE</see>.</description>
         ///     </item>
         ///     <item>
-        ///         <term>pointsizes</term>
-        ///         <description>Size of points.</description>
+        ///         <term><see
+        /// cref="VisualizeVideoRequest.StyleOptions.DO_TRACKS">DO_TRACKS</see>:</term>
+        ///         <description>
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeVideoRequest.StyleOptions.TRUE">TRUE</see></term>
         ///     </item>
         ///     <item>
-        ///         <term>pointshapes</term>
-        ///         <description>Shape of the point. Values: none, circle,
-        /// square, diamond, hollowcircle, hollowsquare, hollowdiamond,
-        /// SYMBOLCODE.
-        /// </description>
+        ///         <term><see
+        /// cref="VisualizeVideoRequest.StyleOptions.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="VisualizeVideoRequest.StyleOptions.TRUE">TRUE</see>.</description>
         ///     </item>
         ///     <item>
-        ///         <term>shapelinewidths</term>
-        ///         <description>Width of the lines.</description>
+        ///         <term><see
+        /// cref="VisualizeVideoRequest.StyleOptions.POINTCOLORS">POINTCOLORS</see>:</term>
+        ///         <description></description>
         ///     </item>
         ///     <item>
-        ///         <term>shapelinecolors</term>
-        ///         <description>RGB color values in hex for the
-        /// line.</description>
+        ///         <term><see
+        /// cref="VisualizeVideoRequest.StyleOptions.POINTSIZES">POINTSIZES</see>:</term>
+        ///         <description></description>
         ///     </item>
         ///     <item>
-        ///         <term>shapefillcolors</term>
-        ///         <description>RGB color values in hex for the fill color of
-        /// the shapes. Use '-1' for no fill.</description>
+        ///         <term><see
+        /// cref="VisualizeVideoRequest.StyleOptions.POINTSHAPES">POINTSHAPES</see>:</term>
+        ///         <description>
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeVideoRequest.StyleOptions.NONE">NONE</see></term>
         ///     </item>
         ///     <item>
-        ///         <term>tracklinewidths</term>
-        ///         <description>Width of the track lines. '0' implies do not
-        /// draw track lines.</description>
+        ///         <term><see
+        /// cref="VisualizeVideoRequest.StyleOptions.CIRCLE">CIRCLE</see></term>
         ///     </item>
         ///     <item>
-        ///         <term>tracklinecolors</term>
-        ///         <description>RGB color values for the track
-        /// lines.</description>
+        ///         <term><see
+        /// cref="VisualizeVideoRequest.StyleOptions.SQUARE">SQUARE</see></term>
         ///     </item>
         ///     <item>
-        ///         <term>trackmarkersizes</term>
-        ///         <description>Size of the track point markers.</description>
+        ///         <term><see
+        /// cref="VisualizeVideoRequest.StyleOptions.DIAMOND">DIAMOND</see></term>
         ///     </item>
         ///     <item>
-        ///         <term>trackmarkercolors</term>
-        ///         <description>Color of the track point
-        /// markers.</description>
+        ///         <term><see
+        /// cref="VisualizeVideoRequest.StyleOptions.HOLLOWCIRCLE">HOLLOWCIRCLE</see></term>
         ///     </item>
         ///     <item>
-        ///         <term>trackmarkershapes</term>
-        ///         <description>Shape of track point markers. Values: none,
-        /// circle, square, diamond, hollowcircle, hollowsquare, hollowdiamond,
-        /// SYMBOLCODE.
-        /// </description>
+        ///         <term><see
+        /// cref="VisualizeVideoRequest.StyleOptions.HOLLOWSQUARE">HOLLOWSQUARE</see></term>
         ///     </item>
         ///     <item>
-        ///         <term>trackheadcolors</term>
-        ///         <description>Color of track head markers.</description>
+        ///         <term><see
+        /// cref="VisualizeVideoRequest.StyleOptions.HOLLOWDIAMOND">HOLLOWDIAMOND</see></term>
         ///     </item>
         ///     <item>
-        ///         <term>trackheadsizes</term>
-        ///         <description>Size of track head markers.</description>
+        ///         <term><see
+        /// cref="VisualizeVideoRequest.StyleOptions.SYMBOLCODE">SYMBOLCODE</see></term>
+        ///     </item>
+        /// </list></description>
         ///     </item>
         ///     <item>
-        ///         <term>trackheadshapes</term>
-        ///         <description>Shape of track head markers. Values: none,
-        /// circle, square, diamond, hollowcircle, hollowsquare, hollowdiamond,
-        /// SYMBOLCODE.
-        /// </description>
+        ///         <term><see
+        /// cref="VisualizeVideoRequest.StyleOptions.SHAPELINEWIDTHS">SHAPELINEWIDTHS</see>:</term>
+        ///         <description></description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeVideoRequest.StyleOptions.SHAPELINECOLORS">SHAPELINECOLORS</see>:</term>
+        ///         <description></description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeVideoRequest.StyleOptions.SHAPEFILLCOLORS">SHAPEFILLCOLORS</see>:</term>
+        ///         <description></description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeVideoRequest.StyleOptions.TRACKLINEWIDTHS">TRACKLINEWIDTHS</see>:</term>
+        ///         <description></description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeVideoRequest.StyleOptions.TRACKLINECOLORS">TRACKLINECOLORS</see>:</term>
+        ///         <description></description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeVideoRequest.StyleOptions.TRACKMARKERSIZES">TRACKMARKERSIZES</see>:</term>
+        ///         <description></description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeVideoRequest.StyleOptions.TRACKMARKERCOLORS">TRACKMARKERCOLORS</see>:</term>
+        ///         <description></description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeVideoRequest.StyleOptions.TRACKMARKERSHAPES">TRACKMARKERSHAPES</see>:</term>
+        ///         <description>
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeVideoRequest.StyleOptions.NONE">NONE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeVideoRequest.StyleOptions.CIRCLE">CIRCLE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeVideoRequest.StyleOptions.SQUARE">SQUARE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeVideoRequest.StyleOptions.DIAMOND">DIAMOND</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeVideoRequest.StyleOptions.HOLLOWCIRCLE">HOLLOWCIRCLE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeVideoRequest.StyleOptions.HOLLOWSQUARE">HOLLOWSQUARE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeVideoRequest.StyleOptions.HOLLOWDIAMOND">HOLLOWDIAMOND</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeVideoRequest.StyleOptions.SYMBOLCODE">SYMBOLCODE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="VisualizeVideoRequest.StyleOptions.NONE">NONE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeVideoRequest.StyleOptions.TRACKHEADCOLORS">TRACKHEADCOLORS</see>:</term>
+        ///         <description></description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeVideoRequest.StyleOptions.TRACKHEADSIZES">TRACKHEADSIZES</see>:</term>
+        ///         <description></description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeVideoRequest.StyleOptions.TRACKHEADSHAPES">TRACKHEADSHAPES</see>:</term>
+        ///         <description>
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeVideoRequest.StyleOptions.NONE">NONE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeVideoRequest.StyleOptions.CIRCLE">CIRCLE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeVideoRequest.StyleOptions.SQUARE">SQUARE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeVideoRequest.StyleOptions.DIAMOND">DIAMOND</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeVideoRequest.StyleOptions.HOLLOWCIRCLE">HOLLOWCIRCLE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeVideoRequest.StyleOptions.HOLLOWSQUARE">HOLLOWSQUARE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeVideoRequest.StyleOptions.HOLLOWDIAMOND">HOLLOWDIAMOND</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeVideoRequest.StyleOptions.SYMBOLCODE">SYMBOLCODE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="VisualizeVideoRequest.StyleOptions.CIRCLE">CIRCLE</see>.</description>
         ///     </item>
         /// </list>
         /// <br />
-        /// A set of string constants for the parameter <member
-        /// name="style_options" />.</summary>
+        /// A set of string constants for the parameter <see
+        /// cref="style_options" />.</summary>
         public struct StyleOptions
         {
 
-            /// <summary>Rasterize point data toggle. Values: true, false.
-            /// </summary>
+            /// <summary>@private
+            /// <br />
+            /// Supported values:
+            /// <list type="bullet">
+            ///     <item>
+            ///         <term><see
+            /// cref="VisualizeVideoRequest.StyleOptions.TRUE">TRUE</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="VisualizeVideoRequest.StyleOptions.FALSE">FALSE</see></term>
+            ///     </item>
+            /// </list>
+            /// The default value is <see
+            /// cref="VisualizeVideoRequest.StyleOptions.TRUE">TRUE</see>.</summary>
             public const string DO_POINTS = "do_points";
+
+            /// <summary>@private
+            /// </summary>
             public const string TRUE = "true";
+
+            /// <summary>@private
+            /// </summary>
             public const string FALSE = "false";
 
-            /// <summary>Rasterize shapes toggle. Values: true, false.
-            /// </summary>
+            /// <summary>@private
+            /// <br />
+            /// Supported values:
+            /// <list type="bullet">
+            ///     <item>
+            ///         <term><see
+            /// cref="VisualizeVideoRequest.StyleOptions.TRUE">TRUE</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="VisualizeVideoRequest.StyleOptions.FALSE">FALSE</see></term>
+            ///     </item>
+            /// </list>
+            /// The default value is <see
+            /// cref="VisualizeVideoRequest.StyleOptions.TRUE">TRUE</see>.</summary>
             public const string DO_SHAPES = "do_shapes";
 
-            /// <summary>Rasterize tracks toggle. Values: true, false.
-            /// </summary>
+            /// <summary>@private
+            /// <br />
+            /// Supported values:
+            /// <list type="bullet">
+            ///     <item>
+            ///         <term><see
+            /// cref="VisualizeVideoRequest.StyleOptions.TRUE">TRUE</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="VisualizeVideoRequest.StyleOptions.FALSE">FALSE</see></term>
+            ///     </item>
+            /// </list>
+            /// The default value is <see
+            /// cref="VisualizeVideoRequest.StyleOptions.TRUE">TRUE</see>.</summary>
             public const string DO_TRACKS = "do_tracks";
 
-            /// <summary>RGB color value in hex for the points.</summary>
+            /// <summary>@private
+            /// </summary>
             public const string POINTCOLORS = "pointcolors";
 
-            /// <summary>Size of points.</summary>
+            /// <summary>@private
+            /// </summary>
             public const string POINTSIZES = "pointsizes";
 
-            /// <summary>Shape of the point. Values: none, circle, square,
-            /// diamond, hollowcircle, hollowsquare, hollowdiamond, SYMBOLCODE.
-            /// </summary>
+            /// <summary>@private
+            /// <br />
+            /// Supported values:
+            /// <list type="bullet">
+            ///     <item>
+            ///         <term><see
+            /// cref="VisualizeVideoRequest.StyleOptions.NONE">NONE</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="VisualizeVideoRequest.StyleOptions.CIRCLE">CIRCLE</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="VisualizeVideoRequest.StyleOptions.SQUARE">SQUARE</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="VisualizeVideoRequest.StyleOptions.DIAMOND">DIAMOND</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="VisualizeVideoRequest.StyleOptions.HOLLOWCIRCLE">HOLLOWCIRCLE</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="VisualizeVideoRequest.StyleOptions.HOLLOWSQUARE">HOLLOWSQUARE</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="VisualizeVideoRequest.StyleOptions.HOLLOWDIAMOND">HOLLOWDIAMOND</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="VisualizeVideoRequest.StyleOptions.SYMBOLCODE">SYMBOLCODE</see></term>
+            ///     </item>
+            /// </list></summary>
             public const string POINTSHAPES = "pointshapes";
+
+            /// <summary>@private
+            /// </summary>
             public const string NONE = "none";
+
+            /// <summary>@private
+            /// </summary>
             public const string CIRCLE = "circle";
+
+            /// <summary>@private
+            /// </summary>
             public const string SQUARE = "square";
+
+            /// <summary>@private
+            /// </summary>
             public const string DIAMOND = "diamond";
+
+            /// <summary>@private
+            /// </summary>
             public const string HOLLOWCIRCLE = "hollowcircle";
+
+            /// <summary>@private
+            /// </summary>
             public const string HOLLOWSQUARE = "hollowsquare";
+
+            /// <summary>@private
+            /// </summary>
             public const string HOLLOWDIAMOND = "hollowdiamond";
+
+            /// <summary>@private
+            /// </summary>
             public const string SYMBOLCODE = "SYMBOLCODE";
 
-            /// <summary>Width of the lines.</summary>
+            /// <summary>@private
+            /// </summary>
             public const string SHAPELINEWIDTHS = "shapelinewidths";
 
-            /// <summary>RGB color values in hex for the line.</summary>
+            /// <summary>@private
+            /// </summary>
             public const string SHAPELINECOLORS = "shapelinecolors";
 
-            /// <summary>RGB color values in hex for the fill color of the
-            /// shapes. Use '-1' for no fill.</summary>
+            /// <summary>@private
+            /// </summary>
             public const string SHAPEFILLCOLORS = "shapefillcolors";
 
-            /// <summary>Width of the track lines. '0' implies do not draw
-            /// track lines.</summary>
+            /// <summary>@private
+            /// </summary>
             public const string TRACKLINEWIDTHS = "tracklinewidths";
 
-            /// <summary>RGB color values for the track lines.</summary>
+            /// <summary>@private
+            /// </summary>
             public const string TRACKLINECOLORS = "tracklinecolors";
 
-            /// <summary>Size of the track point markers.</summary>
+            /// <summary>@private
+            /// </summary>
             public const string TRACKMARKERSIZES = "trackmarkersizes";
 
-            /// <summary>Color of the track point markers.</summary>
+            /// <summary>@private
+            /// </summary>
             public const string TRACKMARKERCOLORS = "trackmarkercolors";
 
-            /// <summary>Shape of track point markers. Values: none, circle,
-            /// square, diamond, hollowcircle, hollowsquare, hollowdiamond,
-            /// SYMBOLCODE.
-            /// </summary>
+            /// <summary>@private
+            /// <br />
+            /// Supported values:
+            /// <list type="bullet">
+            ///     <item>
+            ///         <term><see
+            /// cref="VisualizeVideoRequest.StyleOptions.NONE">NONE</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="VisualizeVideoRequest.StyleOptions.CIRCLE">CIRCLE</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="VisualizeVideoRequest.StyleOptions.SQUARE">SQUARE</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="VisualizeVideoRequest.StyleOptions.DIAMOND">DIAMOND</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="VisualizeVideoRequest.StyleOptions.HOLLOWCIRCLE">HOLLOWCIRCLE</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="VisualizeVideoRequest.StyleOptions.HOLLOWSQUARE">HOLLOWSQUARE</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="VisualizeVideoRequest.StyleOptions.HOLLOWDIAMOND">HOLLOWDIAMOND</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="VisualizeVideoRequest.StyleOptions.SYMBOLCODE">SYMBOLCODE</see></term>
+            ///     </item>
+            /// </list>
+            /// The default value is <see
+            /// cref="VisualizeVideoRequest.StyleOptions.NONE">NONE</see>.</summary>
             public const string TRACKMARKERSHAPES = "trackmarkershapes";
 
-            /// <summary>Color of track head markers.</summary>
+            /// <summary>@private
+            /// </summary>
             public const string TRACKHEADCOLORS = "trackheadcolors";
 
-            /// <summary>Size of track head markers.</summary>
+            /// <summary>@private
+            /// </summary>
             public const string TRACKHEADSIZES = "trackheadsizes";
 
-            /// <summary>Shape of track head markers. Values: none, circle,
-            /// square, diamond, hollowcircle, hollowsquare, hollowdiamond,
-            /// SYMBOLCODE.
-            /// </summary>
+            /// <summary>@private
+            /// <br />
+            /// Supported values:
+            /// <list type="bullet">
+            ///     <item>
+            ///         <term><see
+            /// cref="VisualizeVideoRequest.StyleOptions.NONE">NONE</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="VisualizeVideoRequest.StyleOptions.CIRCLE">CIRCLE</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="VisualizeVideoRequest.StyleOptions.SQUARE">SQUARE</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="VisualizeVideoRequest.StyleOptions.DIAMOND">DIAMOND</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="VisualizeVideoRequest.StyleOptions.HOLLOWCIRCLE">HOLLOWCIRCLE</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="VisualizeVideoRequest.StyleOptions.HOLLOWSQUARE">HOLLOWSQUARE</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="VisualizeVideoRequest.StyleOptions.HOLLOWDIAMOND">HOLLOWDIAMOND</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="VisualizeVideoRequest.StyleOptions.SYMBOLCODE">SYMBOLCODE</see></term>
+            ///     </item>
+            /// </list>
+            /// The default value is <see
+            /// cref="VisualizeVideoRequest.StyleOptions.CIRCLE">CIRCLE</see>.</summary>
             public const string TRACKHEADSHAPES = "trackheadshapes";
+
+    /// <summary>@private
+    /// </summary>
         } // end struct StyleOptions
 
 
-        /// <summary>Names of the tables containing the data for various layers
-        /// of the resulting video.  </summary>
+        /// <summary>@private
+        /// </summary>
+
+        /// <summary>@private
+        /// </summary>
         public IList<string> table_names { get; set; } = new List<string>();
 
-        /// <summary>Optional name of the tables containing the data for the
-        /// entire track when the <paramref
-        /// cref="VisualizeVideoRequest.table_names" /> contains only part of
-        /// the track data, but the entire track has to be rendered. The number
-        /// of tables should match the number of tables in the <paramref
-        /// cref="VisualizeVideoRequest.table_names" />  </summary>
+        /// <summary>@private
+        /// </summary>
         public IList<string> world_table_names { get; set; } = new List<string>();
 
-        /// <summary>Tracks from the <paramref
-        /// cref="VisualizeVideoRequest.table_names" /> to be rendered.
+        /// <summary>@private
         /// </summary>
         public IList<IList<string>> track_ids { get; set; } = new List<IList<string>>();
 
-        /// <summary>Name of the column containing the x coordinates.
+        /// <summary>@private
         /// </summary>
         public string x_column_name { get; set; }
 
-        /// <summary>Name of the column containing the y coordinates.
+        /// <summary>@private
         /// </summary>
         public string y_column_name { get; set; }
 
-        /// <summary>Lower bound for the x values.  </summary>
+        /// <summary>@private
+        /// </summary>
+        public string geometry_column_name { get; set; }
+
+        /// <summary>@private
+        /// </summary>
         public double min_x { get; set; }
 
-        /// <summary>Upper bound for the x values.  </summary>
+        /// <summary>@private
+        /// </summary>
         public double max_x { get; set; }
 
-        /// <summary>Lower bound for the y values.  </summary>
+        /// <summary>@private
+        /// </summary>
         public double min_y { get; set; }
 
-        /// <summary>Upper bound for the y values.  </summary>
+        /// <summary>@private
+        /// </summary>
         public double max_y { get; set; }
 
-        /// <summary>Width of the generated image.  </summary>
+        /// <summary>@private
+        /// </summary>
         public int width { get; set; }
 
-        /// <summary>Height of the generated image.  </summary>
+        /// <summary>@private
+        /// </summary>
         public int height { get; set; }
 
-        /// <summary>Spatial Reference System (i.e. EPSG Code). Values:
-        /// EPSG:4326, PLATE_CARREE, 900913, EPSG:900913, 102100, EPSG:102100,
-        /// 3857, EPSG:3857, WEB_MERCATOR.
-        ///   </summary>
-        public string projection { get; set; } = Projection.PLATE_CARREE;
-
-        /// <summary>Background color of the generated image.  </summary>
-        public long bg_color { get; set; }
-        public IList<IList<double>> time_intervals { get; set; } = new List<IList<double>>();
-        public string video_style { get; set; }
-
-        /// <summary>User Provided session key that is later used to retrieve
-        /// the generated video from the WMS.  </summary>
-        public string session_key { get; set; }
-
-        /// <summary>Styling options for the image.
+        /// <summary>@private
+        /// <br />
+        /// Supported values:
         /// <list type="bullet">
         ///     <item>
-        ///         <term>do_points</term>
-        ///         <description>Rasterize point data toggle. Values: true,
-        /// false.
-        /// </description>
+        ///         <term><see
+        /// cref="VisualizeVideoRequest.Projection.EPSG_4326">EPSG_4326</see></term>
         ///     </item>
         ///     <item>
-        ///         <term>do_shapes</term>
-        ///         <description>Rasterize shapes toggle. Values: true, false.
-        /// </description>
+        ///         <term><see
+        /// cref="VisualizeVideoRequest.Projection.PLATE_CARREE">PLATE_CARREE</see></term>
         ///     </item>
         ///     <item>
-        ///         <term>do_tracks</term>
-        ///         <description>Rasterize tracks toggle. Values: true, false.
-        /// </description>
+        ///         <term><see
+        /// cref="VisualizeVideoRequest.Projection._900913">_900913</see></term>
         ///     </item>
         ///     <item>
-        ///         <term>pointcolors</term>
-        ///         <description>RGB color value in hex for the
-        /// points.</description>
+        ///         <term><see
+        /// cref="VisualizeVideoRequest.Projection.EPSG_900913">EPSG_900913</see></term>
         ///     </item>
         ///     <item>
-        ///         <term>pointsizes</term>
-        ///         <description>Size of points.</description>
+        ///         <term><see
+        /// cref="VisualizeVideoRequest.Projection._102100">_102100</see></term>
         ///     </item>
         ///     <item>
-        ///         <term>pointshapes</term>
-        ///         <description>Shape of the point. Values: none, circle,
-        /// square, diamond, hollowcircle, hollowsquare, hollowdiamond,
-        /// SYMBOLCODE.
-        /// </description>
+        ///         <term><see
+        /// cref="VisualizeVideoRequest.Projection.EPSG_102100">EPSG_102100</see></term>
         ///     </item>
         ///     <item>
-        ///         <term>shapelinewidths</term>
-        ///         <description>Width of the lines.</description>
+        ///         <term><see
+        /// cref="VisualizeVideoRequest.Projection._3857">_3857</see></term>
         ///     </item>
         ///     <item>
-        ///         <term>shapelinecolors</term>
-        ///         <description>RGB color values in hex for the
-        /// line.</description>
+        ///         <term><see
+        /// cref="VisualizeVideoRequest.Projection.EPSG_3857">EPSG_3857</see></term>
         ///     </item>
         ///     <item>
-        ///         <term>shapefillcolors</term>
-        ///         <description>RGB color values in hex for the fill color of
-        /// the shapes. Use '-1' for no fill.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term>tracklinewidths</term>
-        ///         <description>Width of the track lines. '0' implies do not
-        /// draw track lines.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term>tracklinecolors</term>
-        ///         <description>RGB color values for the track
-        /// lines.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term>trackmarkersizes</term>
-        ///         <description>Size of the track point markers.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term>trackmarkercolors</term>
-        ///         <description>Color of the track point
-        /// markers.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term>trackmarkershapes</term>
-        ///         <description>Shape of track point markers. Values: none,
-        /// circle, square, diamond, hollowcircle, hollowsquare, hollowdiamond,
-        /// SYMBOLCODE.
-        /// </description>
-        ///     </item>
-        ///     <item>
-        ///         <term>trackheadcolors</term>
-        ///         <description>Color of track head markers.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term>trackheadsizes</term>
-        ///         <description>Size of track head markers.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term>trackheadshapes</term>
-        ///         <description>Shape of track head markers. Values: none,
-        /// circle, square, diamond, hollowcircle, hollowsquare, hollowdiamond,
-        /// SYMBOLCODE.
-        /// </description>
+        ///         <term><see
+        /// cref="VisualizeVideoRequest.Projection.WEB_MERCATOR">WEB_MERCATOR</see></term>
         ///     </item>
         /// </list>
-        ///   </summary>
+        /// The default value is <see
+        /// cref="VisualizeVideoRequest.Projection.PLATE_CARREE">PLATE_CARREE</see>.</summary>
+        public string projection { get; set; } = Projection.PLATE_CARREE;
+
+        /// <summary>@private
+        /// </summary>
+        public long bg_color { get; set; }
+
+        /// <summary>@private
+        /// </summary>
+        public IList<IList<double>> time_intervals { get; set; } = new List<IList<double>>();
+
+        /// <summary>@private
+        /// </summary>
+        public string video_style { get; set; }
+
+        /// <summary>@private
+        /// </summary>
+        public string session_key { get; set; }
+
+        /// <summary>@private
+        /// <br />
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeVideoRequest.StyleOptions.DO_POINTS">DO_POINTS</see>:</term>
+        ///         <description>
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeVideoRequest.StyleOptions.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeVideoRequest.StyleOptions.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="VisualizeVideoRequest.StyleOptions.TRUE">TRUE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeVideoRequest.StyleOptions.DO_SHAPES">DO_SHAPES</see>:</term>
+        ///         <description>
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeVideoRequest.StyleOptions.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeVideoRequest.StyleOptions.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="VisualizeVideoRequest.StyleOptions.TRUE">TRUE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeVideoRequest.StyleOptions.DO_TRACKS">DO_TRACKS</see>:</term>
+        ///         <description>
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeVideoRequest.StyleOptions.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeVideoRequest.StyleOptions.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="VisualizeVideoRequest.StyleOptions.TRUE">TRUE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeVideoRequest.StyleOptions.POINTCOLORS">POINTCOLORS</see>:</term>
+        ///         <description></description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeVideoRequest.StyleOptions.POINTSIZES">POINTSIZES</see>:</term>
+        ///         <description></description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeVideoRequest.StyleOptions.POINTSHAPES">POINTSHAPES</see>:</term>
+        ///         <description>
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeVideoRequest.StyleOptions.NONE">NONE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeVideoRequest.StyleOptions.CIRCLE">CIRCLE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeVideoRequest.StyleOptions.SQUARE">SQUARE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeVideoRequest.StyleOptions.DIAMOND">DIAMOND</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeVideoRequest.StyleOptions.HOLLOWCIRCLE">HOLLOWCIRCLE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeVideoRequest.StyleOptions.HOLLOWSQUARE">HOLLOWSQUARE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeVideoRequest.StyleOptions.HOLLOWDIAMOND">HOLLOWDIAMOND</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeVideoRequest.StyleOptions.SYMBOLCODE">SYMBOLCODE</see></term>
+        ///     </item>
+        /// </list></description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeVideoRequest.StyleOptions.SHAPELINEWIDTHS">SHAPELINEWIDTHS</see>:</term>
+        ///         <description></description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeVideoRequest.StyleOptions.SHAPELINECOLORS">SHAPELINECOLORS</see>:</term>
+        ///         <description></description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeVideoRequest.StyleOptions.SHAPEFILLCOLORS">SHAPEFILLCOLORS</see>:</term>
+        ///         <description></description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeVideoRequest.StyleOptions.TRACKLINEWIDTHS">TRACKLINEWIDTHS</see>:</term>
+        ///         <description></description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeVideoRequest.StyleOptions.TRACKLINECOLORS">TRACKLINECOLORS</see>:</term>
+        ///         <description></description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeVideoRequest.StyleOptions.TRACKMARKERSIZES">TRACKMARKERSIZES</see>:</term>
+        ///         <description></description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeVideoRequest.StyleOptions.TRACKMARKERCOLORS">TRACKMARKERCOLORS</see>:</term>
+        ///         <description></description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeVideoRequest.StyleOptions.TRACKMARKERSHAPES">TRACKMARKERSHAPES</see>:</term>
+        ///         <description>
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeVideoRequest.StyleOptions.NONE">NONE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeVideoRequest.StyleOptions.CIRCLE">CIRCLE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeVideoRequest.StyleOptions.SQUARE">SQUARE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeVideoRequest.StyleOptions.DIAMOND">DIAMOND</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeVideoRequest.StyleOptions.HOLLOWCIRCLE">HOLLOWCIRCLE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeVideoRequest.StyleOptions.HOLLOWSQUARE">HOLLOWSQUARE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeVideoRequest.StyleOptions.HOLLOWDIAMOND">HOLLOWDIAMOND</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeVideoRequest.StyleOptions.SYMBOLCODE">SYMBOLCODE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="VisualizeVideoRequest.StyleOptions.NONE">NONE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeVideoRequest.StyleOptions.TRACKHEADCOLORS">TRACKHEADCOLORS</see>:</term>
+        ///         <description></description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeVideoRequest.StyleOptions.TRACKHEADSIZES">TRACKHEADSIZES</see>:</term>
+        ///         <description></description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeVideoRequest.StyleOptions.TRACKHEADSHAPES">TRACKHEADSHAPES</see>:</term>
+        ///         <description>
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeVideoRequest.StyleOptions.NONE">NONE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeVideoRequest.StyleOptions.CIRCLE">CIRCLE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeVideoRequest.StyleOptions.SQUARE">SQUARE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeVideoRequest.StyleOptions.DIAMOND">DIAMOND</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeVideoRequest.StyleOptions.HOLLOWCIRCLE">HOLLOWCIRCLE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeVideoRequest.StyleOptions.HOLLOWSQUARE">HOLLOWSQUARE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeVideoRequest.StyleOptions.HOLLOWDIAMOND">HOLLOWDIAMOND</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeVideoRequest.StyleOptions.SYMBOLCODE">SYMBOLCODE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="VisualizeVideoRequest.StyleOptions.CIRCLE">CIRCLE</see>.</description>
+        ///     </item>
+        /// </list>
+        /// </summary>
         public IDictionary<string, IList<string>> style_options { get; set; } = new Dictionary<string, IList<string>>();
 
-        /// <summary>Optional parameters.  </summary>
+        /// <summary>@private
+        /// </summary>
         public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
 
 
-        /// <summary>Constructs a VisualizeVideoRequest object with default
+        /// <summary>@private
+        /// Constructs a VisualizeVideoRequest object with default
         /// parameters.</summary>
         public VisualizeVideoRequest() { }
 
-        /// <summary>Constructs a VisualizeVideoRequest object with the
-        /// specified parameters.</summary>
+        /// <summary>@private
+        /// Constructs a VisualizeVideoRequest object with the specified
+        /// parameters.</summary>
         /// 
-        /// <param name="table_names">Names of the tables containing the data
-        /// for various layers of the resulting video.  </param>
-        /// <param name="world_table_names">Optional name of the tables
-        /// containing the data for the entire track when the <paramref
-        /// cref="VisualizeVideoRequest.table_names" /> contains only part of
-        /// the track data, but the entire track has to be rendered. The number
-        /// of tables should match the number of tables in the <paramref
-        /// cref="VisualizeVideoRequest.table_names" />  </param>
-        /// <param name="track_ids">Tracks from the <paramref
-        /// cref="VisualizeVideoRequest.table_names" /> to be rendered.
-        /// </param>
-        /// <param name="x_column_name">Name of the column containing the x
-        /// coordinates.  </param>
-        /// <param name="y_column_name">Name of the column containing the y
-        /// coordinates.  </param>
-        /// <param name="min_x">Lower bound for the x values.  </param>
-        /// <param name="max_x">Upper bound for the x values.  </param>
-        /// <param name="min_y">Lower bound for the y values.  </param>
-        /// <param name="max_y">Upper bound for the y values.  </param>
-        /// <param name="width">Width of the generated image.  </param>
-        /// <param name="height">Height of the generated image.  </param>
-        /// <param name="projection">Spatial Reference System (i.e. EPSG Code).
-        /// Values: EPSG:4326, PLATE_CARREE, 900913, EPSG:900913, 102100,
-        /// EPSG:102100, 3857, EPSG:3857, WEB_MERCATOR.
-        ///   </param>
-        /// <param name="bg_color">Background color of the generated image.
-        /// </param>
-        /// <param name="time_intervals"></param>
-        /// <param name="video_style"></param>
-        /// <param name="session_key">User Provided session key that is later
-        /// used to retrieve the generated video from the WMS.  </param>
-        /// <param name="style_options">Styling options for the image.
+        /// <param name="table_names"></param>
+        /// <param name="world_table_names"></param>
+        /// <param name="track_ids"></param>
+        /// <param name="x_column_name"></param>
+        /// <param name="y_column_name"></param>
+        /// <param name="geometry_column_name"></param>
+        /// <param name="min_x"></param>
+        /// <param name="max_x"></param>
+        /// <param name="min_y"></param>
+        /// <param name="max_y"></param>
+        /// <param name="width"></param>
+        /// <param name="height"></param>
+        /// <param name="projection">
+        /// Supported values:
         /// <list type="bullet">
         ///     <item>
-        ///         <term>do_points</term>
-        ///         <description>Rasterize point data toggle. Values: true,
-        /// false.
-        /// </description>
+        ///         <term><see
+        /// cref="VisualizeVideoRequest.Projection.EPSG_4326">EPSG_4326</see></term>
         ///     </item>
         ///     <item>
-        ///         <term>do_shapes</term>
-        ///         <description>Rasterize shapes toggle. Values: true, false.
-        /// </description>
+        ///         <term><see
+        /// cref="VisualizeVideoRequest.Projection.PLATE_CARREE">PLATE_CARREE</see></term>
         ///     </item>
         ///     <item>
-        ///         <term>do_tracks</term>
-        ///         <description>Rasterize tracks toggle. Values: true, false.
-        /// </description>
+        ///         <term><see
+        /// cref="VisualizeVideoRequest.Projection._900913">_900913</see></term>
         ///     </item>
         ///     <item>
-        ///         <term>pointcolors</term>
-        ///         <description>RGB color value in hex for the
-        /// points.</description>
+        ///         <term><see
+        /// cref="VisualizeVideoRequest.Projection.EPSG_900913">EPSG_900913</see></term>
         ///     </item>
         ///     <item>
-        ///         <term>pointsizes</term>
-        ///         <description>Size of points.</description>
+        ///         <term><see
+        /// cref="VisualizeVideoRequest.Projection._102100">_102100</see></term>
         ///     </item>
         ///     <item>
-        ///         <term>pointshapes</term>
-        ///         <description>Shape of the point. Values: none, circle,
-        /// square, diamond, hollowcircle, hollowsquare, hollowdiamond,
-        /// SYMBOLCODE.
-        /// </description>
+        ///         <term><see
+        /// cref="VisualizeVideoRequest.Projection.EPSG_102100">EPSG_102100</see></term>
         ///     </item>
         ///     <item>
-        ///         <term>shapelinewidths</term>
-        ///         <description>Width of the lines.</description>
+        ///         <term><see
+        /// cref="VisualizeVideoRequest.Projection._3857">_3857</see></term>
         ///     </item>
         ///     <item>
-        ///         <term>shapelinecolors</term>
-        ///         <description>RGB color values in hex for the
-        /// line.</description>
+        ///         <term><see
+        /// cref="VisualizeVideoRequest.Projection.EPSG_3857">EPSG_3857</see></term>
         ///     </item>
         ///     <item>
-        ///         <term>shapefillcolors</term>
-        ///         <description>RGB color values in hex for the fill color of
-        /// the shapes. Use '-1' for no fill.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term>tracklinewidths</term>
-        ///         <description>Width of the track lines. '0' implies do not
-        /// draw track lines.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term>tracklinecolors</term>
-        ///         <description>RGB color values for the track
-        /// lines.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term>trackmarkersizes</term>
-        ///         <description>Size of the track point markers.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term>trackmarkercolors</term>
-        ///         <description>Color of the track point
-        /// markers.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term>trackmarkershapes</term>
-        ///         <description>Shape of track point markers. Values: none,
-        /// circle, square, diamond, hollowcircle, hollowsquare, hollowdiamond,
-        /// SYMBOLCODE.
-        /// </description>
-        ///     </item>
-        ///     <item>
-        ///         <term>trackheadcolors</term>
-        ///         <description>Color of track head markers.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term>trackheadsizes</term>
-        ///         <description>Size of track head markers.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term>trackheadshapes</term>
-        ///         <description>Shape of track head markers. Values: none,
-        /// circle, square, diamond, hollowcircle, hollowsquare, hollowdiamond,
-        /// SYMBOLCODE.
-        /// </description>
+        ///         <term><see
+        /// cref="VisualizeVideoRequest.Projection.WEB_MERCATOR">WEB_MERCATOR</see></term>
         ///     </item>
         /// </list>
-        ///   </param>
-        /// <param name="options">Optional parameters.  </param>
+        /// The default value is <see
+        /// cref="VisualizeVideoRequest.Projection.PLATE_CARREE">PLATE_CARREE</see>.</param>
+        /// <param name="bg_color"></param>
+        /// <param name="time_intervals"></param>
+        /// <param name="video_style"></param>
+        /// <param name="session_key"></param>
+        /// <param name="style_options">
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeVideoRequest.StyleOptions.DO_POINTS">DO_POINTS</see>:</term>
+        ///         <description>
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeVideoRequest.StyleOptions.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeVideoRequest.StyleOptions.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="VisualizeVideoRequest.StyleOptions.TRUE">TRUE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeVideoRequest.StyleOptions.DO_SHAPES">DO_SHAPES</see>:</term>
+        ///         <description>
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeVideoRequest.StyleOptions.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeVideoRequest.StyleOptions.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="VisualizeVideoRequest.StyleOptions.TRUE">TRUE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeVideoRequest.StyleOptions.DO_TRACKS">DO_TRACKS</see>:</term>
+        ///         <description>
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeVideoRequest.StyleOptions.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeVideoRequest.StyleOptions.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="VisualizeVideoRequest.StyleOptions.TRUE">TRUE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeVideoRequest.StyleOptions.POINTCOLORS">POINTCOLORS</see>:</term>
+        ///         <description></description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeVideoRequest.StyleOptions.POINTSIZES">POINTSIZES</see>:</term>
+        ///         <description></description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeVideoRequest.StyleOptions.POINTSHAPES">POINTSHAPES</see>:</term>
+        ///         <description>
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeVideoRequest.StyleOptions.NONE">NONE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeVideoRequest.StyleOptions.CIRCLE">CIRCLE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeVideoRequest.StyleOptions.SQUARE">SQUARE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeVideoRequest.StyleOptions.DIAMOND">DIAMOND</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeVideoRequest.StyleOptions.HOLLOWCIRCLE">HOLLOWCIRCLE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeVideoRequest.StyleOptions.HOLLOWSQUARE">HOLLOWSQUARE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeVideoRequest.StyleOptions.HOLLOWDIAMOND">HOLLOWDIAMOND</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeVideoRequest.StyleOptions.SYMBOLCODE">SYMBOLCODE</see></term>
+        ///     </item>
+        /// </list></description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeVideoRequest.StyleOptions.SHAPELINEWIDTHS">SHAPELINEWIDTHS</see>:</term>
+        ///         <description></description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeVideoRequest.StyleOptions.SHAPELINECOLORS">SHAPELINECOLORS</see>:</term>
+        ///         <description></description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeVideoRequest.StyleOptions.SHAPEFILLCOLORS">SHAPEFILLCOLORS</see>:</term>
+        ///         <description></description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeVideoRequest.StyleOptions.TRACKLINEWIDTHS">TRACKLINEWIDTHS</see>:</term>
+        ///         <description></description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeVideoRequest.StyleOptions.TRACKLINECOLORS">TRACKLINECOLORS</see>:</term>
+        ///         <description></description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeVideoRequest.StyleOptions.TRACKMARKERSIZES">TRACKMARKERSIZES</see>:</term>
+        ///         <description></description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeVideoRequest.StyleOptions.TRACKMARKERCOLORS">TRACKMARKERCOLORS</see>:</term>
+        ///         <description></description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeVideoRequest.StyleOptions.TRACKMARKERSHAPES">TRACKMARKERSHAPES</see>:</term>
+        ///         <description>
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeVideoRequest.StyleOptions.NONE">NONE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeVideoRequest.StyleOptions.CIRCLE">CIRCLE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeVideoRequest.StyleOptions.SQUARE">SQUARE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeVideoRequest.StyleOptions.DIAMOND">DIAMOND</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeVideoRequest.StyleOptions.HOLLOWCIRCLE">HOLLOWCIRCLE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeVideoRequest.StyleOptions.HOLLOWSQUARE">HOLLOWSQUARE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeVideoRequest.StyleOptions.HOLLOWDIAMOND">HOLLOWDIAMOND</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeVideoRequest.StyleOptions.SYMBOLCODE">SYMBOLCODE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="VisualizeVideoRequest.StyleOptions.NONE">NONE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeVideoRequest.StyleOptions.TRACKHEADCOLORS">TRACKHEADCOLORS</see>:</term>
+        ///         <description></description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeVideoRequest.StyleOptions.TRACKHEADSIZES">TRACKHEADSIZES</see>:</term>
+        ///         <description></description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeVideoRequest.StyleOptions.TRACKHEADSHAPES">TRACKHEADSHAPES</see>:</term>
+        ///         <description>
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeVideoRequest.StyleOptions.NONE">NONE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeVideoRequest.StyleOptions.CIRCLE">CIRCLE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeVideoRequest.StyleOptions.SQUARE">SQUARE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeVideoRequest.StyleOptions.DIAMOND">DIAMOND</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeVideoRequest.StyleOptions.HOLLOWCIRCLE">HOLLOWCIRCLE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeVideoRequest.StyleOptions.HOLLOWSQUARE">HOLLOWSQUARE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeVideoRequest.StyleOptions.HOLLOWDIAMOND">HOLLOWDIAMOND</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeVideoRequest.StyleOptions.SYMBOLCODE">SYMBOLCODE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="VisualizeVideoRequest.StyleOptions.CIRCLE">CIRCLE</see>.</description>
+        ///     </item>
+        /// </list>
+        /// </param>
+        /// <param name="options"></param>
         /// 
         public VisualizeVideoRequest( IList<string> table_names,
                                       IList<string> world_table_names,
                                       IList<IList<string>> track_ids,
                                       string x_column_name,
                                       string y_column_name,
+                                      string geometry_column_name,
                                       double min_x,
                                       double max_x,
                                       double min_y,
@@ -549,6 +1301,7 @@ namespace kinetica
             this.track_ids = track_ids ?? new List<IList<string>>();
             this.x_column_name = x_column_name ?? "";
             this.y_column_name = y_column_name ?? "";
+            this.geometry_column_name = geometry_column_name ?? "";
             this.min_x = min_x;
             this.max_x = max_x;
             this.min_y = min_y;
@@ -564,36 +1317,50 @@ namespace kinetica
             this.options = options ?? new Dictionary<string, string>();
         } // end constructor
 
+
+    /// <summary>@private
+    /// </summary>
     } // end class VisualizeVideoRequest
 
 
 
-    /// <summary>A set of results returned by /visualize/video.</summary>
+    /// <summary>@private
+    /// A set of results returned by <see
+    /// cref="Kinetica.visualizeVideo(IList{string},IList{string},IList{IList{string}},string,string,string,double,double,double,double,int,int,string,long,IList{IList{double}},string,string,IDictionary{string, IList{string}},IDictionary{string, string})"
+    /// />.</summary>
     public class VisualizeVideoResponse : KineticaData
     {
 
-        /// <summary>Value of <paramref cref="VisualizeVideoRequest.width" />.
+        /// <summary>@private
+        /// </summary>
+
+        /// <summary>@private
         /// </summary>
         public double width { get; set; }
 
-        /// <summary>Value of <paramref cref="VisualizeVideoRequest.height" />.
+        /// <summary>@private
         /// </summary>
         public double height { get; set; }
 
-        /// <summary>Value of <paramref cref="VisualizeVideoRequest.bg_color"
-        /// />.  </summary>
+        /// <summary>@private
+        /// </summary>
         public long bg_color { get; set; }
 
-        /// <summary>Number of frames created.  </summary>
+        /// <summary>@private
+        /// </summary>
         public int num_frames { get; set; }
 
-        /// <summary>Value of <paramref
-        /// cref="VisualizeVideoRequest.session_key" />.  </summary>
+        /// <summary>@private
+        /// </summary>
         public string session_key { get; set; }
 
-        /// <summary>Empty string.  </summary>
+        /// <summary>@private
+        /// </summary>
         public IList<byte[]> data { get; set; } = new List<byte[]>();
 
+
+    /// <summary>@private
+    /// </summary>
     } // end class VisualizeVideoResponse
 
 

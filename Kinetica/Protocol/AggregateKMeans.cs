@@ -11,7 +11,9 @@ using System.Collections.Generic;
 namespace kinetica
 {
 
-    /// <summary>A set of parameters for /aggregate/kmeans.
+    /// <summary>A set of parameters for <see
+    /// cref="Kinetica.aggregateKMeans(string,IList{string},int,double,IDictionary{string, string})"
+    /// />.
     /// <br />
     /// This endpoint runs the k-means algorithm - a heuristic algorithm that
     /// attempts to do k-means clustering.  An ideal k-means clustering
@@ -28,24 +30,27 @@ namespace kinetica
         /// <summary>Optional parameters.
         /// <list type="bullet">
         ///     <item>
-        ///         <term>whiten</term>
+        ///         <term><see
+        /// cref="AggregateKMeansRequest.Options.WHITEN">WHITEN</see>:</term>
         ///         <description>When set to 1 each of the columns is first
         /// normalized by its stdv - default is not to whiten.</description>
         ///     </item>
         ///     <item>
-        ///         <term>max_iters</term>
+        ///         <term><see
+        /// cref="AggregateKMeansRequest.Options.MAX_ITERS">MAX_ITERS</see>:</term>
         ///         <description>Number of times to try to hit the tolerance
         /// limit before giving up - default is 10.</description>
         ///     </item>
         ///     <item>
-        ///         <term>num_tries</term>
+        ///         <term><see
+        /// cref="AggregateKMeansRequest.Options.NUM_TRIES">NUM_TRIES</see>:</term>
         ///         <description>Number of times to run the k-means algorithm
         /// with a different randomly selected starting points - helps avoid
         /// local minimum. Default is 1.</description>
         ///     </item>
         /// </list>
         /// <br />
-        /// A set of string constants for the parameter <member name="options"
+        /// A set of string constants for the parameter <see cref="options"
         /// />.</summary>
         public struct Options
         {
@@ -86,17 +91,20 @@ namespace kinetica
         /// <summary>Optional parameters.
         /// <list type="bullet">
         ///     <item>
-        ///         <term>whiten</term>
+        ///         <term><see
+        /// cref="AggregateKMeansRequest.Options.WHITEN">WHITEN</see>:</term>
         ///         <description>When set to 1 each of the columns is first
         /// normalized by its stdv - default is not to whiten.</description>
         ///     </item>
         ///     <item>
-        ///         <term>max_iters</term>
+        ///         <term><see
+        /// cref="AggregateKMeansRequest.Options.MAX_ITERS">MAX_ITERS</see>:</term>
         ///         <description>Number of times to try to hit the tolerance
         /// limit before giving up - default is 10.</description>
         ///     </item>
         ///     <item>
-        ///         <term>num_tries</term>
+        ///         <term><see
+        /// cref="AggregateKMeansRequest.Options.NUM_TRIES">NUM_TRIES</see>:</term>
         ///         <description>Number of times to run the k-means algorithm
         /// with a different randomly selected starting points - helps avoid
         /// local minimum. Default is 1.</description>
@@ -127,17 +135,20 @@ namespace kinetica
         /// <param name="options">Optional parameters.
         /// <list type="bullet">
         ///     <item>
-        ///         <term>whiten</term>
+        ///         <term><see
+        /// cref="AggregateKMeansRequest.Options.WHITEN">WHITEN</see>:</term>
         ///         <description>When set to 1 each of the columns is first
         /// normalized by its stdv - default is not to whiten.</description>
         ///     </item>
         ///     <item>
-        ///         <term>max_iters</term>
+        ///         <term><see
+        /// cref="AggregateKMeansRequest.Options.MAX_ITERS">MAX_ITERS</see>:</term>
         ///         <description>Number of times to try to hit the tolerance
         /// limit before giving up - default is 10.</description>
         ///     </item>
         ///     <item>
-        ///         <term>num_tries</term>
+        ///         <term><see
+        /// cref="AggregateKMeansRequest.Options.NUM_TRIES">NUM_TRIES</see>:</term>
         ///         <description>Number of times to run the k-means algorithm
         /// with a different randomly selected starting points - helps avoid
         /// local minimum. Default is 1.</description>
@@ -162,7 +173,9 @@ namespace kinetica
 
 
 
-    /// <summary>A set of results returned by /aggregate/kmeans.</summary>
+    /// <summary>A set of results returned by <see
+    /// cref="Kinetica.aggregateKMeans(string,IList{string},int,double,IDictionary{string, string})"
+    /// />.</summary>
     public class AggregateKMeansResponse : KineticaData
     {
 

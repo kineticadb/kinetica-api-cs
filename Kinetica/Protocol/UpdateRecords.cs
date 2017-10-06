@@ -11,13 +11,15 @@ using System.Collections.Generic;
 namespace kinetica
 {
 
-    /// <summary>A set of parameters for /update/records.
+    /// <summary>A set of parameters for <see
+    /// cref="Kinetica.updateRecords{T}(string,IList{string},IList{IDictionary{string, string}},IList{T},IDictionary{string, string})"
+    /// />.
     /// <br />
     /// Runs multiple predicate-based updates in a single call.  With the list
     /// of given expressions, any matching record's column values will be
-    /// updated as provided in <member name="new_values_maps" />.  There is
-    /// also an optional 'upsert' capability where if a particular predicate
-    /// doesn't match any existing record, then a new record can be inserted.
+    /// updated as provided in <see cref="new_values_maps" />.  There is also
+    /// an optional 'upsert' capability where if a particular predicate doesn't
+    /// match any existing record, then a new record can be inserted.
     /// <br />
     /// Note that this operation can only be run on an original table and not
     /// on a collection or a result view.
@@ -32,7 +34,7 @@ namespace kinetica
     /// Meaning, all primary key columns must appear in an equality predicate
     /// in the expressions.  Furthermore each 'pure primary key' predicate must
     /// be unique within a given request.  These restrictions can be removed by
-    /// utilizing some available options through <member name="options"
+    /// utilizing some available options through <see cref="options"
     /// />.</summary>
     public class RawUpdateRecordsRequest : KineticaData
     {
@@ -40,10 +42,22 @@ namespace kinetica
         /// <summary>Identifies which of <paramref
         /// cref="RawUpdateRecordsRequest.records_to_insert" /> and <paramref
         /// cref="RawUpdateRecordsRequest.records_to_insert_str" /> should be
-        /// used. Values: binary, json.
-        /// <br />
-        /// A set of string constants for the parameter <member
-        /// name="record_encoding" />.</summary>
+        /// used.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="RawUpdateRecordsRequest.RecordEncoding.BINARY">BINARY</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="RawUpdateRecordsRequest.RecordEncoding.JSON">JSON</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="RawUpdateRecordsRequest.RecordEncoding.BINARY">BINARY</see>.
+        /// A set of string constants for the parameter <see
+        /// cref="record_encoding" />.</summary>
         public struct RecordEncoding
         {
             public const string BINARY = "binary";
@@ -54,44 +68,72 @@ namespace kinetica
         /// <summary>Optional parameters.
         /// <list type="bullet">
         ///     <item>
-        ///         <term>global_expression</term>
+        ///         <term><see
+        /// cref="RawUpdateRecordsRequest.Options.GLOBAL_EXPRESSION">GLOBAL_EXPRESSION</see>:</term>
         ///         <description>An optional global expression to reduce the
         /// search space of the predicates listed in <paramref
         /// cref="RawUpdateRecordsRequest.expressions" />.</description>
         ///     </item>
         ///     <item>
-        ///         <term>bypass_safety_checks</term>
+        ///         <term><see
+        /// cref="RawUpdateRecordsRequest.Options.BYPASS_SAFETY_CHECKS">BYPASS_SAFETY_CHECKS</see>:</term>
         ///         <description>When set to 'true', all predicates are
         /// available for primary key updates.  Keep in mind that it is
         /// possible to destroy data in this case, since a single predicate may
         /// match multiple objects (potentially all of records of a table), and
         /// then updating all of those records to have the same primary key
         /// will, due to the primary key uniqueness constraints, effectively
-        /// delete all but one of those updated records. Values: true, false.
-        /// </description>
+        /// delete all but one of those updated records.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="RawUpdateRecordsRequest.Options.TRUE">TRUE</see></term>
         ///     </item>
         ///     <item>
-        ///         <term>update_on_existing_pk</term>
+        ///         <term><see
+        /// cref="RawUpdateRecordsRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="RawUpdateRecordsRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="RawUpdateRecordsRequest.Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>:</term>
         ///         <description>Can be used to customize behavior when the
         /// updated primary key value already exists, as described in
-        /// /insert/records. Values: true, false.
-        /// </description>
+        /// /insert/records.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="RawUpdateRecordsRequest.Options.TRUE">TRUE</see></term>
         ///     </item>
         ///     <item>
-        ///         <term>record_id</term>
+        ///         <term><see
+        /// cref="RawUpdateRecordsRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="RawUpdateRecordsRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="RawUpdateRecordsRequest.Options.RECORD_ID">RECORD_ID</see>:</term>
         ///         <description>ID of a single record to be updated (returned
         /// in the call to /insert/records or
         /// /get/records/fromcollection).</description>
         ///     </item>
         /// </list>
         /// <br />
-        /// A set of string constants for the parameter <member name="options"
+        /// A set of string constants for the parameter <see cref="options"
         /// />.</summary>
         public struct Options
         {
 
             /// <summary>An optional global expression to reduce the search
-            /// space of the predicates listed in <member name="expressions"
+            /// space of the predicates listed in <see cref="expressions"
             /// />.</summary>
             public const string GLOBAL_EXPRESSION = "global_expression";
 
@@ -102,21 +144,48 @@ namespace kinetica
             /// then updating all of those records to have the same primary key
             /// will, due to the primary key uniqueness constraints,
             /// effectively delete all but one of those updated records.
-            /// Values: true, false.
-            /// </summary>
+            /// Supported values:
+            /// <list type="bullet">
+            ///     <item>
+            ///         <term><see
+            /// cref="RawUpdateRecordsRequest.Options.TRUE">TRUE</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="RawUpdateRecordsRequest.Options.FALSE">FALSE</see></term>
+            ///     </item>
+            /// </list>
+            /// The default value is <see
+            /// cref="RawUpdateRecordsRequest.Options.FALSE">FALSE</see>.</summary>
             public const string BYPASS_SAFETY_CHECKS = "bypass_safety_checks";
             public const string TRUE = "true";
             public const string FALSE = "false";
 
             /// <summary>Can be used to customize behavior when the updated
-            /// primary key value already exists, as described in
-            /// /insert/records. Values: true, false.
-            /// </summary>
+            /// primary key value already exists, as described in <see
+            /// cref="Kinetica.insertRecords{T}(string,IList{T},IDictionary{string, string})"
+            /// />.
+            /// Supported values:
+            /// <list type="bullet">
+            ///     <item>
+            ///         <term><see
+            /// cref="RawUpdateRecordsRequest.Options.TRUE">TRUE</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="RawUpdateRecordsRequest.Options.FALSE">FALSE</see></term>
+            ///     </item>
+            /// </list>
+            /// The default value is <see
+            /// cref="RawUpdateRecordsRequest.Options.FALSE">FALSE</see>.</summary>
             public const string UPDATE_ON_EXISTING_PK = "update_on_existing_pk";
 
             /// <summary>ID of a single record to be updated (returned in the
-            /// call to /insert/records or
-            /// /get/records/fromcollection).</summary>
+            /// call to <see
+            /// cref="Kinetica.insertRecords{T}(string,IList{T},IDictionary{string, string})"
+            /// /> or <see
+            /// cref="Kinetica.getRecordsFromCollection{T}(string,long,long,IDictionary{string, string})"
+            /// />).</summary>
             public const string RECORD_ID = "record_id";
         } // end struct Options
 
@@ -152,38 +221,79 @@ namespace kinetica
         /// <summary>Identifies which of <paramref
         /// cref="RawUpdateRecordsRequest.records_to_insert" /> and <paramref
         /// cref="RawUpdateRecordsRequest.records_to_insert_str" /> should be
-        /// used. Values: binary, json.
-        ///   </summary>
+        /// used.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="RawUpdateRecordsRequest.RecordEncoding.BINARY">BINARY</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="RawUpdateRecordsRequest.RecordEncoding.JSON">JSON</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="RawUpdateRecordsRequest.RecordEncoding.BINARY">BINARY</see>.
+        /// </summary>
         public string record_encoding { get; set; } = RecordEncoding.BINARY;
 
         /// <summary>Optional parameters.
         /// <list type="bullet">
         ///     <item>
-        ///         <term>global_expression</term>
+        ///         <term><see
+        /// cref="RawUpdateRecordsRequest.Options.GLOBAL_EXPRESSION">GLOBAL_EXPRESSION</see>:</term>
         ///         <description>An optional global expression to reduce the
         /// search space of the predicates listed in <paramref
         /// cref="RawUpdateRecordsRequest.expressions" />.</description>
         ///     </item>
         ///     <item>
-        ///         <term>bypass_safety_checks</term>
+        ///         <term><see
+        /// cref="RawUpdateRecordsRequest.Options.BYPASS_SAFETY_CHECKS">BYPASS_SAFETY_CHECKS</see>:</term>
         ///         <description>When set to 'true', all predicates are
         /// available for primary key updates.  Keep in mind that it is
         /// possible to destroy data in this case, since a single predicate may
         /// match multiple objects (potentially all of records of a table), and
         /// then updating all of those records to have the same primary key
         /// will, due to the primary key uniqueness constraints, effectively
-        /// delete all but one of those updated records. Values: true, false.
-        /// </description>
+        /// delete all but one of those updated records.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="RawUpdateRecordsRequest.Options.TRUE">TRUE</see></term>
         ///     </item>
         ///     <item>
-        ///         <term>update_on_existing_pk</term>
+        ///         <term><see
+        /// cref="RawUpdateRecordsRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="RawUpdateRecordsRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="RawUpdateRecordsRequest.Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>:</term>
         ///         <description>Can be used to customize behavior when the
         /// updated primary key value already exists, as described in
-        /// /insert/records. Values: true, false.
-        /// </description>
+        /// /insert/records.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="RawUpdateRecordsRequest.Options.TRUE">TRUE</see></term>
         ///     </item>
         ///     <item>
-        ///         <term>record_id</term>
+        ///         <term><see
+        /// cref="RawUpdateRecordsRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="RawUpdateRecordsRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="RawUpdateRecordsRequest.Options.RECORD_ID">RECORD_ID</see>:</term>
         ///         <description>ID of a single record to be updated (returned
         /// in the call to /insert/records or
         /// /get/records/fromcollection).</description>
@@ -218,31 +328,59 @@ namespace kinetica
         /// <param name="options">Optional parameters.
         /// <list type="bullet">
         ///     <item>
-        ///         <term>global_expression</term>
+        ///         <term><see
+        /// cref="RawUpdateRecordsRequest.Options.GLOBAL_EXPRESSION">GLOBAL_EXPRESSION</see>:</term>
         ///         <description>An optional global expression to reduce the
         /// search space of the predicates listed in <paramref
         /// cref="RawUpdateRecordsRequest.expressions" />.</description>
         ///     </item>
         ///     <item>
-        ///         <term>bypass_safety_checks</term>
+        ///         <term><see
+        /// cref="RawUpdateRecordsRequest.Options.BYPASS_SAFETY_CHECKS">BYPASS_SAFETY_CHECKS</see>:</term>
         ///         <description>When set to 'true', all predicates are
         /// available for primary key updates.  Keep in mind that it is
         /// possible to destroy data in this case, since a single predicate may
         /// match multiple objects (potentially all of records of a table), and
         /// then updating all of those records to have the same primary key
         /// will, due to the primary key uniqueness constraints, effectively
-        /// delete all but one of those updated records. Values: true, false.
-        /// </description>
+        /// delete all but one of those updated records.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="RawUpdateRecordsRequest.Options.TRUE">TRUE</see></term>
         ///     </item>
         ///     <item>
-        ///         <term>update_on_existing_pk</term>
+        ///         <term><see
+        /// cref="RawUpdateRecordsRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="RawUpdateRecordsRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="RawUpdateRecordsRequest.Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>:</term>
         ///         <description>Can be used to customize behavior when the
         /// updated primary key value already exists, as described in
-        /// /insert/records. Values: true, false.
-        /// </description>
+        /// /insert/records.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="RawUpdateRecordsRequest.Options.TRUE">TRUE</see></term>
         ///     </item>
         ///     <item>
-        ///         <term>record_id</term>
+        ///         <term><see
+        /// cref="RawUpdateRecordsRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="RawUpdateRecordsRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="RawUpdateRecordsRequest.Options.RECORD_ID">RECORD_ID</see>:</term>
         ///         <description>ID of a single record to be updated (returned
         /// in the call to /insert/records or
         /// /get/records/fromcollection).</description>
@@ -291,36 +429,77 @@ namespace kinetica
         /// <param name="record_encoding">Identifies which of <paramref
         /// cref="RawUpdateRecordsRequest.records_to_insert" /> and <paramref
         /// cref="RawUpdateRecordsRequest.records_to_insert_str" /> should be
-        /// used. Values: binary, json.
-        ///   </param>
+        /// used.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="RawUpdateRecordsRequest.RecordEncoding.BINARY">BINARY</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="RawUpdateRecordsRequest.RecordEncoding.JSON">JSON</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="RawUpdateRecordsRequest.RecordEncoding.BINARY">BINARY</see>.
+        /// </param>
         /// <param name="options">Optional parameters.
         /// <list type="bullet">
         ///     <item>
-        ///         <term>global_expression</term>
+        ///         <term><see
+        /// cref="RawUpdateRecordsRequest.Options.GLOBAL_EXPRESSION">GLOBAL_EXPRESSION</see>:</term>
         ///         <description>An optional global expression to reduce the
         /// search space of the predicates listed in <paramref
         /// cref="RawUpdateRecordsRequest.expressions" />.</description>
         ///     </item>
         ///     <item>
-        ///         <term>bypass_safety_checks</term>
+        ///         <term><see
+        /// cref="RawUpdateRecordsRequest.Options.BYPASS_SAFETY_CHECKS">BYPASS_SAFETY_CHECKS</see>:</term>
         ///         <description>When set to 'true', all predicates are
         /// available for primary key updates.  Keep in mind that it is
         /// possible to destroy data in this case, since a single predicate may
         /// match multiple objects (potentially all of records of a table), and
         /// then updating all of those records to have the same primary key
         /// will, due to the primary key uniqueness constraints, effectively
-        /// delete all but one of those updated records. Values: true, false.
-        /// </description>
+        /// delete all but one of those updated records.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="RawUpdateRecordsRequest.Options.TRUE">TRUE</see></term>
         ///     </item>
         ///     <item>
-        ///         <term>update_on_existing_pk</term>
+        ///         <term><see
+        /// cref="RawUpdateRecordsRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="RawUpdateRecordsRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="RawUpdateRecordsRequest.Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>:</term>
         ///         <description>Can be used to customize behavior when the
         /// updated primary key value already exists, as described in
-        /// /insert/records. Values: true, false.
-        /// </description>
+        /// /insert/records.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="RawUpdateRecordsRequest.Options.TRUE">TRUE</see></term>
         ///     </item>
         ///     <item>
-        ///         <term>record_id</term>
+        ///         <term><see
+        /// cref="RawUpdateRecordsRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="RawUpdateRecordsRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="RawUpdateRecordsRequest.Options.RECORD_ID">RECORD_ID</see>:</term>
         ///         <description>ID of a single record to be updated (returned
         /// in the call to /insert/records or
         /// /get/records/fromcollection).</description>
@@ -349,13 +528,15 @@ namespace kinetica
 
 
 
-    /// <summary>A set of parameters for /update/records.
+    /// <summary>A set of parameters for <see
+    /// cref="Kinetica.updateRecords{T}(string,IList{string},IList{IDictionary{string, string}},IList{T},IDictionary{string, string})"
+    /// />.
     /// <br />
     /// Runs multiple predicate-based updates in a single call.  With the list
     /// of given expressions, any matching record's column values will be
-    /// updated as provided in <member name="new_values_maps" />.  There is
-    /// also an optional 'upsert' capability where if a particular predicate
-    /// doesn't match any existing record, then a new record can be inserted.
+    /// updated as provided in <see cref="new_values_maps" />.  There is also
+    /// an optional 'upsert' capability where if a particular predicate doesn't
+    /// match any existing record, then a new record can be inserted.
     /// <br />
     /// Note that this operation can only be run on an original table and not
     /// on a collection or a result view.
@@ -370,7 +551,7 @@ namespace kinetica
     /// Meaning, all primary key columns must appear in an equality predicate
     /// in the expressions.  Furthermore each 'pure primary key' predicate must
     /// be unique within a given request.  These restrictions can be removed by
-    /// utilizing some available options through <member name="options"
+    /// utilizing some available options through <see cref="options"
     /// />.</summary>
     /// 
     /// <typeparam name="T">The type of object being processed.</typeparam>
@@ -381,44 +562,72 @@ namespace kinetica
         /// <summary>Optional parameters.
         /// <list type="bullet">
         ///     <item>
-        ///         <term>global_expression</term>
+        ///         <term><see
+        /// cref="RawUpdateRecordsRequest.Options.GLOBAL_EXPRESSION">GLOBAL_EXPRESSION</see>:</term>
         ///         <description>An optional global expression to reduce the
         /// search space of the predicates listed in <paramref
         /// cref="RawUpdateRecordsRequest.expressions" />.</description>
         ///     </item>
         ///     <item>
-        ///         <term>bypass_safety_checks</term>
+        ///         <term><see
+        /// cref="RawUpdateRecordsRequest.Options.BYPASS_SAFETY_CHECKS">BYPASS_SAFETY_CHECKS</see>:</term>
         ///         <description>When set to 'true', all predicates are
         /// available for primary key updates.  Keep in mind that it is
         /// possible to destroy data in this case, since a single predicate may
         /// match multiple objects (potentially all of records of a table), and
         /// then updating all of those records to have the same primary key
         /// will, due to the primary key uniqueness constraints, effectively
-        /// delete all but one of those updated records. Values: true, false.
-        /// </description>
+        /// delete all but one of those updated records.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="RawUpdateRecordsRequest.Options.TRUE">TRUE</see></term>
         ///     </item>
         ///     <item>
-        ///         <term>update_on_existing_pk</term>
+        ///         <term><see
+        /// cref="RawUpdateRecordsRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="RawUpdateRecordsRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="RawUpdateRecordsRequest.Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>:</term>
         ///         <description>Can be used to customize behavior when the
         /// updated primary key value already exists, as described in
-        /// /insert/records. Values: true, false.
-        /// </description>
+        /// /insert/records.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="RawUpdateRecordsRequest.Options.TRUE">TRUE</see></term>
         ///     </item>
         ///     <item>
-        ///         <term>record_id</term>
+        ///         <term><see
+        /// cref="RawUpdateRecordsRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="RawUpdateRecordsRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="RawUpdateRecordsRequest.Options.RECORD_ID">RECORD_ID</see>:</term>
         ///         <description>ID of a single record to be updated (returned
         /// in the call to /insert/records or
         /// /get/records/fromcollection).</description>
         ///     </item>
         /// </list>
         /// <br />
-        /// A set of string constants for the parameter <member name="options"
+        /// A set of string constants for the parameter <see cref="options"
         /// />.</summary>
         public struct Options
         {
 
             /// <summary>An optional global expression to reduce the search
-            /// space of the predicates listed in <member name="expressions"
+            /// space of the predicates listed in <see cref="expressions"
             /// />.</summary>
             public const string GLOBAL_EXPRESSION = "global_expression";
 
@@ -429,21 +638,48 @@ namespace kinetica
             /// then updating all of those records to have the same primary key
             /// will, due to the primary key uniqueness constraints,
             /// effectively delete all but one of those updated records.
-            /// Values: true, false.
-            /// </summary>
+            /// Supported values:
+            /// <list type="bullet">
+            ///     <item>
+            ///         <term><see
+            /// cref="RawUpdateRecordsRequest.Options.TRUE">TRUE</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="RawUpdateRecordsRequest.Options.FALSE">FALSE</see></term>
+            ///     </item>
+            /// </list>
+            /// The default value is <see
+            /// cref="RawUpdateRecordsRequest.Options.FALSE">FALSE</see>.</summary>
             public const string BYPASS_SAFETY_CHECKS = "bypass_safety_checks";
             public const string TRUE = "true";
             public const string FALSE = "false";
 
             /// <summary>Can be used to customize behavior when the updated
-            /// primary key value already exists, as described in
-            /// /insert/records. Values: true, false.
-            /// </summary>
+            /// primary key value already exists, as described in <see
+            /// cref="Kinetica.insertRecords{T}(string,IList{T},IDictionary{string, string})"
+            /// />.
+            /// Supported values:
+            /// <list type="bullet">
+            ///     <item>
+            ///         <term><see
+            /// cref="RawUpdateRecordsRequest.Options.TRUE">TRUE</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="RawUpdateRecordsRequest.Options.FALSE">FALSE</see></term>
+            ///     </item>
+            /// </list>
+            /// The default value is <see
+            /// cref="RawUpdateRecordsRequest.Options.FALSE">FALSE</see>.</summary>
             public const string UPDATE_ON_EXISTING_PK = "update_on_existing_pk";
 
             /// <summary>ID of a single record to be updated (returned in the
-            /// call to /insert/records or
-            /// /get/records/fromcollection).</summary>
+            /// call to <see
+            /// cref="Kinetica.insertRecords{T}(string,IList{T},IDictionary{string, string})"
+            /// /> or <see
+            /// cref="Kinetica.getRecordsFromCollection{T}(string,long,long,IDictionary{string, string})"
+            /// />).</summary>
             public const string RECORD_ID = "record_id";
         } // end struct Options
 
@@ -474,31 +710,59 @@ namespace kinetica
         /// <summary>Optional parameters.
         /// <list type="bullet">
         ///     <item>
-        ///         <term>global_expression</term>
+        ///         <term><see
+        /// cref="RawUpdateRecordsRequest.Options.GLOBAL_EXPRESSION">GLOBAL_EXPRESSION</see>:</term>
         ///         <description>An optional global expression to reduce the
         /// search space of the predicates listed in <paramref
         /// cref="RawUpdateRecordsRequest.expressions" />.</description>
         ///     </item>
         ///     <item>
-        ///         <term>bypass_safety_checks</term>
+        ///         <term><see
+        /// cref="RawUpdateRecordsRequest.Options.BYPASS_SAFETY_CHECKS">BYPASS_SAFETY_CHECKS</see>:</term>
         ///         <description>When set to 'true', all predicates are
         /// available for primary key updates.  Keep in mind that it is
         /// possible to destroy data in this case, since a single predicate may
         /// match multiple objects (potentially all of records of a table), and
         /// then updating all of those records to have the same primary key
         /// will, due to the primary key uniqueness constraints, effectively
-        /// delete all but one of those updated records. Values: true, false.
-        /// </description>
+        /// delete all but one of those updated records.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="RawUpdateRecordsRequest.Options.TRUE">TRUE</see></term>
         ///     </item>
         ///     <item>
-        ///         <term>update_on_existing_pk</term>
+        ///         <term><see
+        /// cref="RawUpdateRecordsRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="RawUpdateRecordsRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="RawUpdateRecordsRequest.Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>:</term>
         ///         <description>Can be used to customize behavior when the
         /// updated primary key value already exists, as described in
-        /// /insert/records. Values: true, false.
-        /// </description>
+        /// /insert/records.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="RawUpdateRecordsRequest.Options.TRUE">TRUE</see></term>
         ///     </item>
         ///     <item>
-        ///         <term>record_id</term>
+        ///         <term><see
+        /// cref="RawUpdateRecordsRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="RawUpdateRecordsRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="RawUpdateRecordsRequest.Options.RECORD_ID">RECORD_ID</see>:</term>
         ///         <description>ID of a single record to be updated (returned
         /// in the call to /insert/records or
         /// /get/records/fromcollection).</description>
@@ -533,31 +797,59 @@ namespace kinetica
         /// <param name="options">Optional parameters.
         /// <list type="bullet">
         ///     <item>
-        ///         <term>global_expression</term>
+        ///         <term><see
+        /// cref="RawUpdateRecordsRequest.Options.GLOBAL_EXPRESSION">GLOBAL_EXPRESSION</see>:</term>
         ///         <description>An optional global expression to reduce the
         /// search space of the predicates listed in <paramref
         /// cref="RawUpdateRecordsRequest.expressions" />.</description>
         ///     </item>
         ///     <item>
-        ///         <term>bypass_safety_checks</term>
+        ///         <term><see
+        /// cref="RawUpdateRecordsRequest.Options.BYPASS_SAFETY_CHECKS">BYPASS_SAFETY_CHECKS</see>:</term>
         ///         <description>When set to 'true', all predicates are
         /// available for primary key updates.  Keep in mind that it is
         /// possible to destroy data in this case, since a single predicate may
         /// match multiple objects (potentially all of records of a table), and
         /// then updating all of those records to have the same primary key
         /// will, due to the primary key uniqueness constraints, effectively
-        /// delete all but one of those updated records. Values: true, false.
-        /// </description>
+        /// delete all but one of those updated records.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="RawUpdateRecordsRequest.Options.TRUE">TRUE</see></term>
         ///     </item>
         ///     <item>
-        ///         <term>update_on_existing_pk</term>
+        ///         <term><see
+        /// cref="RawUpdateRecordsRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="RawUpdateRecordsRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="RawUpdateRecordsRequest.Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>:</term>
         ///         <description>Can be used to customize behavior when the
         /// updated primary key value already exists, as described in
-        /// /insert/records. Values: true, false.
-        /// </description>
+        /// /insert/records.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="RawUpdateRecordsRequest.Options.TRUE">TRUE</see></term>
         ///     </item>
         ///     <item>
-        ///         <term>record_id</term>
+        ///         <term><see
+        /// cref="RawUpdateRecordsRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="RawUpdateRecordsRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="RawUpdateRecordsRequest.Options.RECORD_ID">RECORD_ID</see>:</term>
         ///         <description>ID of a single record to be updated (returned
         /// in the call to /insert/records or
         /// /get/records/fromcollection).</description>
@@ -582,7 +874,9 @@ namespace kinetica
 
 
 
-    /// <summary>A set of results returned by /update/records.</summary>
+    /// <summary>A set of results returned by <see
+    /// cref="Kinetica.updateRecords{T}(string,IList{string},IList{IDictionary{string, string}},IList{T},IDictionary{string, string})"
+    /// />.</summary>
     public class UpdateRecordsResponse : KineticaData
     {
 

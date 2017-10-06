@@ -11,28 +11,43 @@ using System.Collections.Generic;
 namespace kinetica
 {
 
-    /// <summary>A set of parameters for /show/proc/status.
+    /// <summary>A set of parameters for <see
+    /// cref="Kinetica.showProcStatus(string,IDictionary{string, string})"
+    /// />.
     /// <br />
     /// Shows the statuses of running or completed proc instances. Results are
-    /// grouped by run ID (as returned from /execute/proc) and data segment ID
-    /// (each invocation of the proc command on a data segment is assigned a
-    /// data segment ID).</summary>
+    /// grouped by run ID (as returned from <see
+    /// cref="Kinetica.executeProc(string,IDictionary{string, string},IDictionary{string, byte[]},IList{string},IDictionary{string, IList{string}},IList{string},IDictionary{string, string})"
+    /// />) and data segment ID (each invocation of the proc command on a data
+    /// segment is assigned a data segment ID).</summary>
     public class ShowProcStatusRequest : KineticaData
     {
 
         /// <summary>Optional parameters.
         /// <list type="bullet">
         ///     <item>
-        ///         <term>clear_complete</term>
+        ///         <term><see
+        /// cref="ShowProcStatusRequest.Options.CLEAR_COMPLETE">CLEAR_COMPLETE</see>:</term>
         ///         <description>If set to <i>true</i>, if a proc instance has
         /// completed (either successfully or unsuccessfully) then its status
-        /// will be cleared and no longer returned in subsequent calls. Values:
-        /// true, false.
-        /// </description>
+        /// will be cleared and no longer returned in subsequent calls.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="ShowProcStatusRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ShowProcStatusRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="ShowProcStatusRequest.Options.FALSE">FALSE</see>.</description>
         ///     </item>
         /// </list>
         /// <br />
-        /// A set of string constants for the parameter <member name="options"
+        /// A set of string constants for the parameter <see cref="options"
         /// />.</summary>
         public struct Options
         {
@@ -40,8 +55,20 @@ namespace kinetica
             /// <summary>If set to <i>true</i>, if a proc instance has
             /// completed (either successfully or unsuccessfully) then its
             /// status will be cleared and no longer returned in subsequent
-            /// calls. Values: true, false.
-            /// </summary>
+            /// calls.
+            /// Supported values:
+            /// <list type="bullet">
+            ///     <item>
+            ///         <term><see
+            /// cref="ShowProcStatusRequest.Options.TRUE">TRUE</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="ShowProcStatusRequest.Options.FALSE">FALSE</see></term>
+            ///     </item>
+            /// </list>
+            /// The default value is <see
+            /// cref="ShowProcStatusRequest.Options.FALSE">FALSE</see>.</summary>
             public const string CLEAR_COMPLETE = "clear_complete";
             public const string TRUE = "true";
             public const string FALSE = "false";
@@ -58,12 +85,24 @@ namespace kinetica
         /// <summary>Optional parameters.
         /// <list type="bullet">
         ///     <item>
-        ///         <term>clear_complete</term>
+        ///         <term><see
+        /// cref="ShowProcStatusRequest.Options.CLEAR_COMPLETE">CLEAR_COMPLETE</see>:</term>
         ///         <description>If set to <i>true</i>, if a proc instance has
         /// completed (either successfully or unsuccessfully) then its status
-        /// will be cleared and no longer returned in subsequent calls. Values:
-        /// true, false.
-        /// </description>
+        /// will be cleared and no longer returned in subsequent calls.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="ShowProcStatusRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ShowProcStatusRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="ShowProcStatusRequest.Options.FALSE">FALSE</see>.</description>
         ///     </item>
         /// </list>
         ///   </summary>
@@ -85,12 +124,24 @@ namespace kinetica
         /// <param name="options">Optional parameters.
         /// <list type="bullet">
         ///     <item>
-        ///         <term>clear_complete</term>
+        ///         <term><see
+        /// cref="ShowProcStatusRequest.Options.CLEAR_COMPLETE">CLEAR_COMPLETE</see>:</term>
         ///         <description>If set to <i>true</i>, if a proc instance has
         /// completed (either successfully or unsuccessfully) then its status
-        /// will be cleared and no longer returned in subsequent calls. Values:
-        /// true, false.
-        /// </description>
+        /// will be cleared and no longer returned in subsequent calls.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="ShowProcStatusRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ShowProcStatusRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="ShowProcStatusRequest.Options.FALSE">FALSE</see>.</description>
         ///     </item>
         /// </list>
         ///   </param>
@@ -106,7 +157,9 @@ namespace kinetica
 
 
 
-    /// <summary>A set of results returned by /show/proc/status.</summary>
+    /// <summary>A set of results returned by <see
+    /// cref="Kinetica.showProcStatus(string,IDictionary{string, string})"
+    /// />.</summary>
     public class ShowProcStatusResponse : KineticaData
     {
 
@@ -115,6 +168,33 @@ namespace kinetica
         /// segments for the same run ID; see <member name="statuses" /> and
         /// <member name="messages" /> for statuses from individual data
         /// segments.
+        /// Valid values are:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="ShowProcStatusResponse.OverallStatuses.RUNNING">RUNNING</see>:</term>
+        ///         <description>The proc instance is currently
+        /// running.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ShowProcStatusResponse.OverallStatuses.COMPLETE">COMPLETE</see>:</term>
+        ///         <description>The proc instance completed with no
+        /// errors.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ShowProcStatusResponse.OverallStatuses.KILLED">KILLED</see>:</term>
+        ///         <description>The proc instance was killed before
+        /// completion.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ShowProcStatusResponse.OverallStatuses.ERROR">ERROR</see>:</term>
+        ///         <description>The proc instance failed with an
+        /// error.</description>
+        ///     </item>
+        /// </list>
         /// A set of string constants for the parameter <member
         /// name="overall_statuses" />.</summary>
         public struct OverallStatuses
@@ -137,6 +217,9 @@ namespace kinetica
 
         /// <summary>Statuses for the returned run IDs, grouped by data segment
         /// ID.
+        /// Valid values are:
+        /// <list type="bullet">
+        /// </list>
         /// A set of string constants for the parameter <member name="statuses"
         /// />.</summary>
         public struct Statuses
@@ -190,11 +273,41 @@ namespace kinetica
         /// are rollups and individual statuses may differ between data
         /// segments for the same run ID; see <member name="statuses" /> and
         /// <member name="messages" /> for statuses from individual data
-        /// segments.  </summary>
+        /// segments.
+        /// Valid values are:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="ShowProcStatusResponse.OverallStatuses.RUNNING">RUNNING</see>:</term>
+        ///         <description>The proc instance is currently
+        /// running.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ShowProcStatusResponse.OverallStatuses.COMPLETE">COMPLETE</see>:</term>
+        ///         <description>The proc instance completed with no
+        /// errors.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ShowProcStatusResponse.OverallStatuses.KILLED">KILLED</see>:</term>
+        ///         <description>The proc instance was killed before
+        /// completion.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ShowProcStatusResponse.OverallStatuses.ERROR">ERROR</see>:</term>
+        ///         <description>The proc instance failed with an
+        /// error.</description>
+        ///     </item>
+        /// </list>  </summary>
         public IDictionary<string, string> overall_statuses { get; set; } = new Dictionary<string, string>();
 
         /// <summary>Statuses for the returned run IDs, grouped by data segment
-        /// ID.  </summary>
+        /// ID.
+        /// Valid values are:
+        /// <list type="bullet">
+        /// </list>  </summary>
         public IDictionary<string, IDictionary<string, string>> statuses { get; set; } = new Dictionary<string, IDictionary<string, string>>();
 
         /// <summary>Messages containing additional status information for the

@@ -11,149 +11,419 @@ using System.Collections.Generic;
 namespace kinetica
 {
 
-    /// <summary>A set of parameters for /alter/table.
+    /// <summary>A set of parameters for <see
+    /// cref="Kinetica.alterTable(string,string,string,IDictionary{string, string})"
+    /// />.
     /// <br />
-    /// Apply various modifications to a table or collection. Available
-    /// modifications include:
+    /// Apply various modifications to a table, view, or collection.  The
+    /// availble
+    /// modifications include the following:
     /// <br />
-    ///      Creating or deleting an index on a particular column. This can
-    /// speed up certain search queries (such as /get/records, /delete/records,
-    /// /update/records) when using expressions containing equality or
-    /// relational operators on indexed columns. This only applies to tables.
+    /// Create or delete an index on a particular column. This can speed up
+    /// certain search queries
+    /// (such as <see
+    /// cref="Kinetica.getRecords{T}(string,long,long,IDictionary{string, string})"
+    /// />, <see
+    /// cref="Kinetica.deleteRecords(string,IList{string},IDictionary{string, string})"
+    /// />, <see
+    /// cref="Kinetica.updateRecords{T}(string,IList{string},IList{IDictionary{string, string}},IList{T},IDictionary{string, string})"
+    /// />)
+    /// when using expressions containing equality or relational operators on
+    /// indexed columns. This
+    /// only applies to tables.
     /// <br />
-    ///      Setting the time-to-live (TTL). This can be applied to tables,
-    /// views, or collections.  When applied to collections, every table & view
-    /// within the collection will have its TTL set to the given value.
+    /// Set the time-to-live (TTL). This can be applied to tables, views, or
+    /// collections.  When
+    /// applied to collections, every table & view within the collection will
+    /// have its TTL set to the
+    /// given value.
     /// <br />
-    ///      Making a table protected or not. Protected tables have their TTLs
-    /// set to not automatically expire. This can be applied to tables, views,
-    /// and collections.
+    /// Set the global access mode (i.e. locking) for a table. The mode can be
+    /// set to 'no-access', 'read-only',
+    /// 'write-only' or 'read-write'.
     /// <br />
-    ///      Allowing homogeneous tables within a collection.</summary>
+    /// Make a table protected or not. Protected tables have their TTLs set to
+    /// not automatically
+    /// expire. This can be applied to tables, views, and collections.
+    /// <br />
+    /// Allow homogeneous tables within a collection.
+    /// <br />
+    /// Manage a table's columns--a column can be added, removed, or have its
+    /// <a href="../../../../../concepts/types.html" target="_top">type and
+    /// properties</a> modified.
+    /// <br />
+    /// Set or unset compression for a column.</summary>
     public class AlterTableRequest : KineticaData
     {
 
-        /// <summary>Modification operation to be applied Values: create_index,
-        /// delete_index, allow_homogeneous_tables, protected, ttl, add_column,
-        /// delete_column, change_column, rename_table.
-        /// <br />
-        /// A set of string constants for the parameter <member name="action"
+        /// <summary>Modification operation to be applied
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterTableRequest.Action.ALLOW_HOMOGENEOUS_TABLES">ALLOW_HOMOGENEOUS_TABLES</see>:</term>
+        ///         <description>Sets whether homogeneous tables are allowed in
+        /// the given collection. This action is only valid if <paramref
+        /// cref="AlterTableRequest.table_name" /> is a collection. The
+        /// <paramref cref="AlterTableRequest._value" /> must be either 'true'
+        /// or 'false'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterTableRequest.Action.CREATE_INDEX">CREATE_INDEX</see>:</term>
+        ///         <description>Creates an index on the column name specified
+        /// in <paramref cref="AlterTableRequest._value" />. If this column is
+        /// already indexed, an error will be returned.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterTableRequest.Action.DELETE_INDEX">DELETE_INDEX</see>:</term>
+        ///         <description>Deletes an existing index on the column name
+        /// specified in <paramref cref="AlterTableRequest._value" />. If this
+        /// column does not have indexing turned on, an error will be
+        /// returned.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterTableRequest.Action.MOVE_TO_COLLECTION">MOVE_TO_COLLECTION</see>:</term>
+        ///         <description>Move a table into a collection <paramref
+        /// cref="AlterTableRequest._value" />. </description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterTableRequest.Action.PROTECTED">PROTECTED</see>:</term>
+        ///         <description>Sets whether the given <paramref
+        /// cref="AlterTableRequest.table_name" /> should be protected or not.
+        /// The <paramref cref="AlterTableRequest._value" /> must be either
+        /// 'true' or 'false'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterTableRequest.Action.RENAME_TABLE">RENAME_TABLE</see>:</term>
+        ///         <description>Rename a table, view or collection to
+        /// <paramref cref="AlterTableRequest._value" />. Has the same naming
+        /// restrictions as <a href="../../../../concepts/tables.html"
+        /// target="_top">tables</a>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterTableRequest.Action.TTL">TTL</see>:</term>
+        ///         <description>Sets the TTL of the table, view, or collection
+        /// specified in <paramref cref="AlterTableRequest.table_name" />. The
+        /// <paramref cref="AlterTableRequest._value" /> must be the desired
+        /// TTL in minutes.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterTableRequest.Action.ADD_COLUMN">ADD_COLUMN</see>:</term>
+        ///         <description>Add the column specified in <paramref
+        /// cref="AlterTableRequest._value" /> to the table specified in
+        /// <paramref cref="AlterTableRequest.table_name" />.  Use
+        /// <i>column_type</i> and <i>column_properties</i> in <paramref
+        /// cref="AlterTableRequest.options" /> to set the column's type and
+        /// properties, respectively.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterTableRequest.Action.CHANGE_COLUMN">CHANGE_COLUMN</see>:</term>
+        ///         <description>Change type and properties of the column
+        /// specified in <paramref cref="AlterTableRequest._value" />.  Use
+        /// <i>column_type</i> and <i>column_properties</i> in <paramref
+        /// cref="AlterTableRequest.options" /> to set the column's type and
+        /// properties, respectively.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterTableRequest.Action.SET_COLUMN_COMPRESSION">SET_COLUMN_COMPRESSION</see>:</term>
+        ///         <description>Modify the compression setting on the column
+        /// specified in <paramref cref="AlterTableRequest._value" />.
+        /// </description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterTableRequest.Action.DELETE_COLUMN">DELETE_COLUMN</see>:</term>
+        ///         <description>Delete the column specified in <paramref
+        /// cref="AlterTableRequest._value" /> from the table specified in
+        /// <paramref cref="AlterTableRequest.table_name" />.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterTableRequest.Action.CREATE_FOREIGN_KEY">CREATE_FOREIGN_KEY</see>:</term>
+        ///         <description>Create a foreign key using the format
+        /// 'source_column references target_table(primary_key_column) [ as
+        /// <foreign_key_name> ]'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterTableRequest.Action.DELETE_FOREIGN_KEY">DELETE_FOREIGN_KEY</see>:</term>
+        ///         <description>Delete a foreign key.  The <paramref
+        /// cref="AlterTableRequest._value" /> should be the <foreign_key_name>
+        /// or the string used to define the foreign key.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterTableRequest.Action.SET_GLOBAL_ACCESS_MODE">SET_GLOBAL_ACCESS_MODE</see>:</term>
+        ///         <description>Set the global access mode (i.e. locking) for
+        /// the table specified in <paramref
+        /// cref="AlterTableRequest.table_name" />. Specify the access mode in
+        /// <paramref cref="AlterTableRequest._value" />. Valid modes are
+        /// 'no-access', 'read-only', 'write-only' and
+        /// 'read-write'.</description>
+        ///     </item>
+        /// </list>
+        /// A set of string constants for the parameter <see cref="action"
         /// />.</summary>
         public struct Action
         {
 
-            /// <summary>Creates an index on the column name specified in
-            /// <member name="_value" />. If this column is already indexed, an
-            /// error will be returned.</summary>
+            /// <summary>Sets whether homogeneous tables are allowed in the
+            /// given collection. This action is only valid if <see
+            /// cref="table_name" /> is a collection. The <see cref="_value" />
+            /// must be either 'true' or 'false'.</summary>
+            public const string ALLOW_HOMOGENEOUS_TABLES = "allow_homogeneous_tables";
+
+            /// <summary>Creates an index on the column name specified in <see
+            /// cref="_value" />. If this column is already indexed, an error
+            /// will be returned.</summary>
             public const string CREATE_INDEX = "create_index";
 
             /// <summary>Deletes an existing index on the column name specified
-            /// in <member name="_value" />. If this column does not have
-            /// indexing turned on, an error will be returned.</summary>
+            /// in <see cref="_value" />. If this column does not have indexing
+            /// turned on, an error will be returned.</summary>
             public const string DELETE_INDEX = "delete_index";
 
-            /// <summary>Sets whether homogeneous tables are allowed in the
-            /// given collection. This action is only valid if <member
-            /// name="table_name" /> is a collection. The <member name="_value"
-            /// /> must be either 'true' or 'false'.</summary>
-            public const string ALLOW_HOMOGENEOUS_TABLES = "allow_homogeneous_tables";
+            /// <summary>Move a table into a collection <see cref="_value" />.
+            /// </summary>
+            public const string MOVE_TO_COLLECTION = "move_to_collection";
 
-            /// <summary>Sets whether the given <member name="table_name" />
-            /// should be protected or not. The <member name="_value" /> must
-            /// be either 'true' or 'false'.</summary>
+            /// <summary>Sets whether the given <see cref="table_name" />
+            /// should be protected or not. The <see cref="_value" /> must be
+            /// either 'true' or 'false'.</summary>
             public const string PROTECTED = "protected";
 
-            /// <summary>Sets the TTL of the table, view, or collection
-            /// specified in <member name="table_name" />. The <member
-            /// name="_value" /> must be the desired TTL in minutes.</summary>
-            public const string TTL = "ttl";
-
-            /// <summary>Add a column <member name="_value" /> to the table.
-            /// set the column properties in options</summary>
-            public const string ADD_COLUMN = "add_column";
-
-            /// <summary>Delete a column <member name="_value" /> from the
-            /// table</summary>
-            public const string DELETE_COLUMN = "delete_column";
-
-            /// <summary>Change properties of a column <member name="_value" />
-            /// in the table. set the column properties in options</summary>
-            public const string CHANGE_COLUMN = "change_column";
-
-            /// <summary>Rename a table, view or collection to <member
-            /// name="_value" />. Has the same naming restrictions as <a
+            /// <summary>Rename a table, view or collection to <see
+            /// cref="_value" />. Has the same naming restrictions as <a
             /// href="../../../../../concepts/tables.html"
             /// target="_top">tables</a>.</summary>
             public const string RENAME_TABLE = "rename_table";
+
+            /// <summary>Sets the TTL of the table, view, or collection
+            /// specified in <see cref="table_name" />. The <see cref="_value"
+            /// /> must be the desired TTL in minutes.</summary>
+            public const string TTL = "ttl";
+
+            /// <summary>Add the column specified in <see cref="_value" /> to
+            /// the table specified in <see cref="table_name" />.  Use
+            /// <i>column_type</i> and <i>column_properties</i> in <see
+            /// cref="options" /> to set the column's type and properties,
+            /// respectively.</summary>
+            public const string ADD_COLUMN = "add_column";
+
+            /// <summary>Change type and properties of the column specified in
+            /// <see cref="_value" />.  Use <i>column_type</i> and
+            /// <i>column_properties</i> in <see cref="options" /> to set the
+            /// column's type and properties, respectively.</summary>
+            public const string CHANGE_COLUMN = "change_column";
+
+            /// <summary>Modify the compression setting on the column specified
+            /// in <see cref="_value" />. </summary>
+            public const string SET_COLUMN_COMPRESSION = "set_column_compression";
+
+            /// <summary>Delete the column specified in <see cref="_value" />
+            /// from the table specified in <see cref="table_name"
+            /// />.</summary>
+            public const string DELETE_COLUMN = "delete_column";
+
+            /// <summary>Create a foreign key using the format 'source_column
+            /// references target_table(primary_key_column) [ as
+            /// <foreign_key_name> ]'.</summary>
+            public const string CREATE_FOREIGN_KEY = "create_foreign_key";
+
+            /// <summary>Delete a foreign key.  The <see cref="_value" />
+            /// should be the <foreign_key_name> or the string used to define
+            /// the foreign key.</summary>
+            public const string DELETE_FOREIGN_KEY = "delete_foreign_key";
+
+            /// <summary>Set the global access mode (i.e. locking) for the
+            /// table specified in <see cref="table_name" />. Specify the
+            /// access mode in <see cref="_value" />. Valid modes are
+            /// 'no-access', 'read-only', 'write-only' and
+            /// 'read-write'.</summary>
+            public const string SET_GLOBAL_ACCESS_MODE = "set_global_access_mode";
         } // end struct Action
 
 
         /// <summary>Optional parameters.
         /// <list type="bullet">
         ///     <item>
-        ///         <term>column_default_value</term>
-        ///         <description>when adding a column: set a default value, for
-        /// existing data.</description>
+        ///         <term><see
+        /// cref="AlterTableRequest.Options.COLUMN_DEFAULT_VALUE">COLUMN_DEFAULT_VALUE</see>:</term>
+        ///         <description>When adding a column, set a default value for
+        /// existing records.</description>
         ///     </item>
         ///     <item>
-        ///         <term>column_properties</term>
-        ///         <description>when adding or changing a column: set the
+        ///         <term><see
+        /// cref="AlterTableRequest.Options.COLUMN_PROPERTIES">COLUMN_PROPERTIES</see>:</term>
+        ///         <description>When adding or changing a column, set the
         /// column properties (strings, separated by a comma: data, store_only,
         /// text_search, char8, int8 etc).</description>
         ///     </item>
         ///     <item>
-        ///         <term>column_type</term>
-        ///         <description>when adding or changing a column: set the
+        ///         <term><see
+        /// cref="AlterTableRequest.Options.COLUMN_TYPE">COLUMN_TYPE</see>:</term>
+        ///         <description>When adding or changing a column, set the
         /// column type (strings, separated by a comma: int, double, string,
         /// null etc).</description>
         ///     </item>
         ///     <item>
-        ///         <term>validate_change_column</term>
-        ///         <description>Validate the type change before applying
-        /// column_change request. Default is true (if option is missing). If
-        /// True, then validate all values. A value too large (or too long) for
-        /// the new type will prevent any change. If False, then when a value
-        /// is too large or long, it will be truncated. Values: true, false.
-        /// </description>
+        ///         <term><see
+        /// cref="AlterTableRequest.Options.COMPRESSION_TYPE">COMPRESSION_TYPE</see>:</term>
+        ///         <description>When setting column compression
+        /// (<i>set_column_compression</i> for <paramref
+        /// cref="AlterTableRequest.action" />), compression type to use:
+        /// <i>none</i> (to use no compression) or a valid compression type.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterTableRequest.Options.NONE">NONE</see></term>
         ///     </item>
         ///     <item>
-        ///         <term>copy_values_from_column</term>
-        ///         <description>when adding or changing a column: enter column
-        /// name - from where to copy values.</description>
+        ///         <term><see
+        /// cref="AlterTableRequest.Options.SNAPPY">SNAPPY</see></term>
         ///     </item>
         ///     <item>
-        ///         <term>rename_column</term>
-        ///         <description>new column name (using
-        /// change_column).</description>
+        ///         <term><see
+        /// cref="AlterTableRequest.Options.LZ4">LZ4</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterTableRequest.Options.LZ4HC">LZ4HC</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="AlterTableRequest.Options.SNAPPY">SNAPPY</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterTableRequest.Options.COPY_VALUES_FROM_COLUMN">COPY_VALUES_FROM_COLUMN</see>:</term>
+        ///         <description>When adding or changing a column, enter a
+        /// column name from the same table being altered to use as a source
+        /// for the column being added/changed; values will be copied from this
+        /// source column into the new/modified column.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterTableRequest.Options.RENAME_COLUMN">RENAME_COLUMN</see>:</term>
+        ///         <description>When changing a column, specify new column
+        /// name.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterTableRequest.Options.VALIDATE_CHANGE_COLUMN">VALIDATE_CHANGE_COLUMN</see>:</term>
+        ///         <description>When changing a column, validate the change
+        /// before applying it. If <i>true</i>, then validate all values. A
+        /// value too large (or too long) for the new type will prevent any
+        /// change. If <i>false</i>, then when a value is too large or long, it
+        /// will be truncated.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterTableRequest.Options.TRUE">TRUE</see>:</term>
+        ///         <description>true</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterTableRequest.Options.FALSE">FALSE</see>:</term>
+        ///         <description>false</description>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="AlterTableRequest.Options.TRUE">TRUE</see>.</description>
         ///     </item>
         /// </list>
         /// <br />
-        /// A set of string constants for the parameter <member name="options"
+        /// A set of string constants for the parameter <see cref="options"
         /// />.</summary>
         public struct Options
         {
 
-            /// <summary>when adding a column: set a default value, for
-            /// existing data.</summary>
+            /// <summary>When adding a column, set a default value for existing
+            /// records.</summary>
             public const string COLUMN_DEFAULT_VALUE = "column_default_value";
 
-            /// <summary>when adding or changing a column: set the column
+            /// <summary>When adding or changing a column, set the column
             /// properties (strings, separated by a comma: data, store_only,
             /// text_search, char8, int8 etc).</summary>
             public const string COLUMN_PROPERTIES = "column_properties";
 
-            /// <summary>when adding or changing a column: set the column type
+            /// <summary>When adding or changing a column, set the column type
             /// (strings, separated by a comma: int, double, string, null
             /// etc).</summary>
             public const string COLUMN_TYPE = "column_type";
 
-            /// <summary>Validate the type change before applying column_change
-            /// request. Default is true (if option is missing). If True, then
-            /// validate all values. A value too large (or too long) for the
-            /// new type will prevent any change. If False, then when a value
-            /// is too large or long, it will be truncated. Values: true,
-            /// false.
-            /// </summary>
+            /// <summary>When setting column compression
+            /// (<i>set_column_compression</i> for <see cref="action" />),
+            /// compression type to use: <i>none</i> (to use no compression) or
+            /// a valid compression type.
+            /// Supported values:
+            /// <list type="bullet">
+            ///     <item>
+            ///         <term><see
+            /// cref="AlterTableRequest.Options.NONE">NONE</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="AlterTableRequest.Options.SNAPPY">SNAPPY</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="AlterTableRequest.Options.LZ4">LZ4</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="AlterTableRequest.Options.LZ4HC">LZ4HC</see></term>
+            ///     </item>
+            /// </list>
+            /// The default value is <see
+            /// cref="AlterTableRequest.Options.SNAPPY">SNAPPY</see>.</summary>
+            public const string COMPRESSION_TYPE = "compression_type";
+            public const string NONE = "none";
+            public const string SNAPPY = "snappy";
+            public const string LZ4 = "lz4";
+            public const string LZ4HC = "lz4hc";
+
+            /// <summary>When adding or changing a column, enter a column name
+            /// from the same table being altered to use as a source for the
+            /// column being added/changed; values will be copied from this
+            /// source column into the new/modified column.</summary>
+            public const string COPY_VALUES_FROM_COLUMN = "copy_values_from_column";
+
+            /// <summary>When changing a column, specify new column
+            /// name.</summary>
+            public const string RENAME_COLUMN = "rename_column";
+
+            /// <summary>When changing a column, validate the change before
+            /// applying it. If <i>true</i>, then validate all values. A value
+            /// too large (or too long) for the new type will prevent any
+            /// change. If <i>false</i>, then when a value is too large or
+            /// long, it will be truncated.
+            /// Supported values:
+            /// <list type="bullet">
+            ///     <item>
+            ///         <term><see
+            /// cref="AlterTableRequest.Options.TRUE">TRUE</see>:</term>
+            ///         <description>true</description>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="AlterTableRequest.Options.FALSE">FALSE</see>:</term>
+            ///         <description>false</description>
+            ///     </item>
+            /// </list>
+            /// The default value is <see
+            /// cref="AlterTableRequest.Options.TRUE">TRUE</see>.</summary>
             public const string VALIDATE_CHANGE_COLUMN = "validate_change_column";
 
             /// <summary>true</summary>
@@ -161,13 +431,6 @@ namespace kinetica
 
             /// <summary>false</summary>
             public const string FALSE = "false";
-
-            /// <summary>when adding or changing a column: enter column name -
-            /// from where to copy values.</summary>
-            public const string COPY_VALUES_FROM_COLUMN = "copy_values_from_column";
-
-            /// <summary>new column name (using change_column).</summary>
-            public const string RENAME_COLUMN = "rename_column";
         } // end struct Options
 
 
@@ -175,54 +438,216 @@ namespace kinetica
         /// existing table, view, or collection.  </summary>
         public string table_name { get; set; }
 
-        /// <summary>Modification operation to be applied Values: create_index,
-        /// delete_index, allow_homogeneous_tables, protected, ttl, add_column,
-        /// delete_column, change_column, rename_table.
-        ///   </summary>
+        /// <summary>Modification operation to be applied
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterTableRequest.Action.ALLOW_HOMOGENEOUS_TABLES">ALLOW_HOMOGENEOUS_TABLES</see>:</term>
+        ///         <description>Sets whether homogeneous tables are allowed in
+        /// the given collection. This action is only valid if <paramref
+        /// cref="AlterTableRequest.table_name" /> is a collection. The
+        /// <paramref cref="AlterTableRequest._value" /> must be either 'true'
+        /// or 'false'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterTableRequest.Action.CREATE_INDEX">CREATE_INDEX</see>:</term>
+        ///         <description>Creates an index on the column name specified
+        /// in <paramref cref="AlterTableRequest._value" />. If this column is
+        /// already indexed, an error will be returned.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterTableRequest.Action.DELETE_INDEX">DELETE_INDEX</see>:</term>
+        ///         <description>Deletes an existing index on the column name
+        /// specified in <paramref cref="AlterTableRequest._value" />. If this
+        /// column does not have indexing turned on, an error will be
+        /// returned.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterTableRequest.Action.MOVE_TO_COLLECTION">MOVE_TO_COLLECTION</see>:</term>
+        ///         <description>Move a table into a collection <paramref
+        /// cref="AlterTableRequest._value" />. </description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterTableRequest.Action.PROTECTED">PROTECTED</see>:</term>
+        ///         <description>Sets whether the given <paramref
+        /// cref="AlterTableRequest.table_name" /> should be protected or not.
+        /// The <paramref cref="AlterTableRequest._value" /> must be either
+        /// 'true' or 'false'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterTableRequest.Action.RENAME_TABLE">RENAME_TABLE</see>:</term>
+        ///         <description>Rename a table, view or collection to
+        /// <paramref cref="AlterTableRequest._value" />. Has the same naming
+        /// restrictions as <a href="../../../../concepts/tables.html"
+        /// target="_top">tables</a>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterTableRequest.Action.TTL">TTL</see>:</term>
+        ///         <description>Sets the TTL of the table, view, or collection
+        /// specified in <paramref cref="AlterTableRequest.table_name" />. The
+        /// <paramref cref="AlterTableRequest._value" /> must be the desired
+        /// TTL in minutes.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterTableRequest.Action.ADD_COLUMN">ADD_COLUMN</see>:</term>
+        ///         <description>Add the column specified in <paramref
+        /// cref="AlterTableRequest._value" /> to the table specified in
+        /// <paramref cref="AlterTableRequest.table_name" />.  Use
+        /// <i>column_type</i> and <i>column_properties</i> in <paramref
+        /// cref="AlterTableRequest.options" /> to set the column's type and
+        /// properties, respectively.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterTableRequest.Action.CHANGE_COLUMN">CHANGE_COLUMN</see>:</term>
+        ///         <description>Change type and properties of the column
+        /// specified in <paramref cref="AlterTableRequest._value" />.  Use
+        /// <i>column_type</i> and <i>column_properties</i> in <paramref
+        /// cref="AlterTableRequest.options" /> to set the column's type and
+        /// properties, respectively.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterTableRequest.Action.SET_COLUMN_COMPRESSION">SET_COLUMN_COMPRESSION</see>:</term>
+        ///         <description>Modify the compression setting on the column
+        /// specified in <paramref cref="AlterTableRequest._value" />.
+        /// </description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterTableRequest.Action.DELETE_COLUMN">DELETE_COLUMN</see>:</term>
+        ///         <description>Delete the column specified in <paramref
+        /// cref="AlterTableRequest._value" /> from the table specified in
+        /// <paramref cref="AlterTableRequest.table_name" />.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterTableRequest.Action.CREATE_FOREIGN_KEY">CREATE_FOREIGN_KEY</see>:</term>
+        ///         <description>Create a foreign key using the format
+        /// 'source_column references target_table(primary_key_column) [ as
+        /// <foreign_key_name> ]'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterTableRequest.Action.DELETE_FOREIGN_KEY">DELETE_FOREIGN_KEY</see>:</term>
+        ///         <description>Delete a foreign key.  The <paramref
+        /// cref="AlterTableRequest._value" /> should be the <foreign_key_name>
+        /// or the string used to define the foreign key.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterTableRequest.Action.SET_GLOBAL_ACCESS_MODE">SET_GLOBAL_ACCESS_MODE</see>:</term>
+        ///         <description>Set the global access mode (i.e. locking) for
+        /// the table specified in <paramref
+        /// cref="AlterTableRequest.table_name" />. Specify the access mode in
+        /// <paramref cref="AlterTableRequest._value" />. Valid modes are
+        /// 'no-access', 'read-only', 'write-only' and
+        /// 'read-write'.</description>
+        ///     </item>
+        /// </list>  </summary>
         public string action { get; set; }
 
         /// <summary>The value of the modification. May be a column name,
-        /// 'true' or 'false', or a TTL depending on <paramref
-        /// cref="AlterTableRequest.action" />.  </summary>
+        /// 'true' or 'false', a TTL, or the global access mode depending on
+        /// <paramref cref="AlterTableRequest.action" />.  </summary>
         public string _value { get; set; }
 
         /// <summary>Optional parameters.
         /// <list type="bullet">
         ///     <item>
-        ///         <term>column_default_value</term>
-        ///         <description>when adding a column: set a default value, for
-        /// existing data.</description>
+        ///         <term><see
+        /// cref="AlterTableRequest.Options.COLUMN_DEFAULT_VALUE">COLUMN_DEFAULT_VALUE</see>:</term>
+        ///         <description>When adding a column, set a default value for
+        /// existing records.</description>
         ///     </item>
         ///     <item>
-        ///         <term>column_properties</term>
-        ///         <description>when adding or changing a column: set the
+        ///         <term><see
+        /// cref="AlterTableRequest.Options.COLUMN_PROPERTIES">COLUMN_PROPERTIES</see>:</term>
+        ///         <description>When adding or changing a column, set the
         /// column properties (strings, separated by a comma: data, store_only,
         /// text_search, char8, int8 etc).</description>
         ///     </item>
         ///     <item>
-        ///         <term>column_type</term>
-        ///         <description>when adding or changing a column: set the
+        ///         <term><see
+        /// cref="AlterTableRequest.Options.COLUMN_TYPE">COLUMN_TYPE</see>:</term>
+        ///         <description>When adding or changing a column, set the
         /// column type (strings, separated by a comma: int, double, string,
         /// null etc).</description>
         ///     </item>
         ///     <item>
-        ///         <term>validate_change_column</term>
-        ///         <description>Validate the type change before applying
-        /// column_change request. Default is true (if option is missing). If
-        /// True, then validate all values. A value too large (or too long) for
-        /// the new type will prevent any change. If False, then when a value
-        /// is too large or long, it will be truncated. Values: true, false.
-        /// </description>
+        ///         <term><see
+        /// cref="AlterTableRequest.Options.COMPRESSION_TYPE">COMPRESSION_TYPE</see>:</term>
+        ///         <description>When setting column compression
+        /// (<i>set_column_compression</i> for <paramref
+        /// cref="AlterTableRequest.action" />), compression type to use:
+        /// <i>none</i> (to use no compression) or a valid compression type.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterTableRequest.Options.NONE">NONE</see></term>
         ///     </item>
         ///     <item>
-        ///         <term>copy_values_from_column</term>
-        ///         <description>when adding or changing a column: enter column
-        /// name - from where to copy values.</description>
+        ///         <term><see
+        /// cref="AlterTableRequest.Options.SNAPPY">SNAPPY</see></term>
         ///     </item>
         ///     <item>
-        ///         <term>rename_column</term>
-        ///         <description>new column name (using
-        /// change_column).</description>
+        ///         <term><see
+        /// cref="AlterTableRequest.Options.LZ4">LZ4</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterTableRequest.Options.LZ4HC">LZ4HC</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="AlterTableRequest.Options.SNAPPY">SNAPPY</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterTableRequest.Options.COPY_VALUES_FROM_COLUMN">COPY_VALUES_FROM_COLUMN</see>:</term>
+        ///         <description>When adding or changing a column, enter a
+        /// column name from the same table being altered to use as a source
+        /// for the column being added/changed; values will be copied from this
+        /// source column into the new/modified column.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterTableRequest.Options.RENAME_COLUMN">RENAME_COLUMN</see>:</term>
+        ///         <description>When changing a column, specify new column
+        /// name.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterTableRequest.Options.VALIDATE_CHANGE_COLUMN">VALIDATE_CHANGE_COLUMN</see>:</term>
+        ///         <description>When changing a column, validate the change
+        /// before applying it. If <i>true</i>, then validate all values. A
+        /// value too large (or too long) for the new type will prevent any
+        /// change. If <i>false</i>, then when a value is too large or long, it
+        /// will be truncated.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterTableRequest.Options.TRUE">TRUE</see>:</term>
+        ///         <description>true</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterTableRequest.Options.FALSE">FALSE</see>:</term>
+        ///         <description>false</description>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="AlterTableRequest.Options.TRUE">TRUE</see>.</description>
         ///     </item>
         /// </list>
         ///   </summary>
@@ -239,50 +664,212 @@ namespace kinetica
         /// <param name="table_name">Table on which the operation will be
         /// performed. Must be an existing table, view, or collection.
         /// </param>
-        /// <param name="action">Modification operation to be applied Values:
-        /// create_index, delete_index, allow_homogeneous_tables, protected,
-        /// ttl, add_column, delete_column, change_column, rename_table.
-        ///   </param>
+        /// <param name="action">Modification operation to be applied
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterTableRequest.Action.ALLOW_HOMOGENEOUS_TABLES">ALLOW_HOMOGENEOUS_TABLES</see>:</term>
+        ///         <description>Sets whether homogeneous tables are allowed in
+        /// the given collection. This action is only valid if <paramref
+        /// cref="AlterTableRequest.table_name" /> is a collection. The
+        /// <paramref cref="AlterTableRequest._value" /> must be either 'true'
+        /// or 'false'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterTableRequest.Action.CREATE_INDEX">CREATE_INDEX</see>:</term>
+        ///         <description>Creates an index on the column name specified
+        /// in <paramref cref="AlterTableRequest._value" />. If this column is
+        /// already indexed, an error will be returned.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterTableRequest.Action.DELETE_INDEX">DELETE_INDEX</see>:</term>
+        ///         <description>Deletes an existing index on the column name
+        /// specified in <paramref cref="AlterTableRequest._value" />. If this
+        /// column does not have indexing turned on, an error will be
+        /// returned.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterTableRequest.Action.MOVE_TO_COLLECTION">MOVE_TO_COLLECTION</see>:</term>
+        ///         <description>Move a table into a collection <paramref
+        /// cref="AlterTableRequest._value" />. </description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterTableRequest.Action.PROTECTED">PROTECTED</see>:</term>
+        ///         <description>Sets whether the given <paramref
+        /// cref="AlterTableRequest.table_name" /> should be protected or not.
+        /// The <paramref cref="AlterTableRequest._value" /> must be either
+        /// 'true' or 'false'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterTableRequest.Action.RENAME_TABLE">RENAME_TABLE</see>:</term>
+        ///         <description>Rename a table, view or collection to
+        /// <paramref cref="AlterTableRequest._value" />. Has the same naming
+        /// restrictions as <a href="../../../../concepts/tables.html"
+        /// target="_top">tables</a>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterTableRequest.Action.TTL">TTL</see>:</term>
+        ///         <description>Sets the TTL of the table, view, or collection
+        /// specified in <paramref cref="AlterTableRequest.table_name" />. The
+        /// <paramref cref="AlterTableRequest._value" /> must be the desired
+        /// TTL in minutes.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterTableRequest.Action.ADD_COLUMN">ADD_COLUMN</see>:</term>
+        ///         <description>Add the column specified in <paramref
+        /// cref="AlterTableRequest._value" /> to the table specified in
+        /// <paramref cref="AlterTableRequest.table_name" />.  Use
+        /// <i>column_type</i> and <i>column_properties</i> in <paramref
+        /// cref="AlterTableRequest.options" /> to set the column's type and
+        /// properties, respectively.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterTableRequest.Action.CHANGE_COLUMN">CHANGE_COLUMN</see>:</term>
+        ///         <description>Change type and properties of the column
+        /// specified in <paramref cref="AlterTableRequest._value" />.  Use
+        /// <i>column_type</i> and <i>column_properties</i> in <paramref
+        /// cref="AlterTableRequest.options" /> to set the column's type and
+        /// properties, respectively.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterTableRequest.Action.SET_COLUMN_COMPRESSION">SET_COLUMN_COMPRESSION</see>:</term>
+        ///         <description>Modify the compression setting on the column
+        /// specified in <paramref cref="AlterTableRequest._value" />.
+        /// </description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterTableRequest.Action.DELETE_COLUMN">DELETE_COLUMN</see>:</term>
+        ///         <description>Delete the column specified in <paramref
+        /// cref="AlterTableRequest._value" /> from the table specified in
+        /// <paramref cref="AlterTableRequest.table_name" />.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterTableRequest.Action.CREATE_FOREIGN_KEY">CREATE_FOREIGN_KEY</see>:</term>
+        ///         <description>Create a foreign key using the format
+        /// 'source_column references target_table(primary_key_column) [ as
+        /// <foreign_key_name> ]'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterTableRequest.Action.DELETE_FOREIGN_KEY">DELETE_FOREIGN_KEY</see>:</term>
+        ///         <description>Delete a foreign key.  The <paramref
+        /// cref="AlterTableRequest._value" /> should be the <foreign_key_name>
+        /// or the string used to define the foreign key.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterTableRequest.Action.SET_GLOBAL_ACCESS_MODE">SET_GLOBAL_ACCESS_MODE</see>:</term>
+        ///         <description>Set the global access mode (i.e. locking) for
+        /// the table specified in <paramref
+        /// cref="AlterTableRequest.table_name" />. Specify the access mode in
+        /// <paramref cref="AlterTableRequest._value" />. Valid modes are
+        /// 'no-access', 'read-only', 'write-only' and
+        /// 'read-write'.</description>
+        ///     </item>
+        /// </list>  </param>
         /// <param name="_value">The value of the modification. May be a column
-        /// name, 'true' or 'false', or a TTL depending on <paramref
-        /// cref="AlterTableRequest.action" />.  </param>
+        /// name, 'true' or 'false', a TTL, or the global access mode depending
+        /// on <paramref cref="AlterTableRequest.action" />.  </param>
         /// <param name="options">Optional parameters.
         /// <list type="bullet">
         ///     <item>
-        ///         <term>column_default_value</term>
-        ///         <description>when adding a column: set a default value, for
-        /// existing data.</description>
+        ///         <term><see
+        /// cref="AlterTableRequest.Options.COLUMN_DEFAULT_VALUE">COLUMN_DEFAULT_VALUE</see>:</term>
+        ///         <description>When adding a column, set a default value for
+        /// existing records.</description>
         ///     </item>
         ///     <item>
-        ///         <term>column_properties</term>
-        ///         <description>when adding or changing a column: set the
+        ///         <term><see
+        /// cref="AlterTableRequest.Options.COLUMN_PROPERTIES">COLUMN_PROPERTIES</see>:</term>
+        ///         <description>When adding or changing a column, set the
         /// column properties (strings, separated by a comma: data, store_only,
         /// text_search, char8, int8 etc).</description>
         ///     </item>
         ///     <item>
-        ///         <term>column_type</term>
-        ///         <description>when adding or changing a column: set the
+        ///         <term><see
+        /// cref="AlterTableRequest.Options.COLUMN_TYPE">COLUMN_TYPE</see>:</term>
+        ///         <description>When adding or changing a column, set the
         /// column type (strings, separated by a comma: int, double, string,
         /// null etc).</description>
         ///     </item>
         ///     <item>
-        ///         <term>validate_change_column</term>
-        ///         <description>Validate the type change before applying
-        /// column_change request. Default is true (if option is missing). If
-        /// True, then validate all values. A value too large (or too long) for
-        /// the new type will prevent any change. If False, then when a value
-        /// is too large or long, it will be truncated. Values: true, false.
-        /// </description>
+        ///         <term><see
+        /// cref="AlterTableRequest.Options.COMPRESSION_TYPE">COMPRESSION_TYPE</see>:</term>
+        ///         <description>When setting column compression
+        /// (<i>set_column_compression</i> for <paramref
+        /// cref="AlterTableRequest.action" />), compression type to use:
+        /// <i>none</i> (to use no compression) or a valid compression type.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterTableRequest.Options.NONE">NONE</see></term>
         ///     </item>
         ///     <item>
-        ///         <term>copy_values_from_column</term>
-        ///         <description>when adding or changing a column: enter column
-        /// name - from where to copy values.</description>
+        ///         <term><see
+        /// cref="AlterTableRequest.Options.SNAPPY">SNAPPY</see></term>
         ///     </item>
         ///     <item>
-        ///         <term>rename_column</term>
-        ///         <description>new column name (using
-        /// change_column).</description>
+        ///         <term><see
+        /// cref="AlterTableRequest.Options.LZ4">LZ4</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterTableRequest.Options.LZ4HC">LZ4HC</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="AlterTableRequest.Options.SNAPPY">SNAPPY</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterTableRequest.Options.COPY_VALUES_FROM_COLUMN">COPY_VALUES_FROM_COLUMN</see>:</term>
+        ///         <description>When adding or changing a column, enter a
+        /// column name from the same table being altered to use as a source
+        /// for the column being added/changed; values will be copied from this
+        /// source column into the new/modified column.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterTableRequest.Options.RENAME_COLUMN">RENAME_COLUMN</see>:</term>
+        ///         <description>When changing a column, specify new column
+        /// name.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterTableRequest.Options.VALIDATE_CHANGE_COLUMN">VALIDATE_CHANGE_COLUMN</see>:</term>
+        ///         <description>When changing a column, validate the change
+        /// before applying it. If <i>true</i>, then validate all values. A
+        /// value too large (or too long) for the new type will prevent any
+        /// change. If <i>false</i>, then when a value is too large or long, it
+        /// will be truncated.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterTableRequest.Options.TRUE">TRUE</see>:</term>
+        ///         <description>true</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterTableRequest.Options.FALSE">FALSE</see>:</term>
+        ///         <description>false</description>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="AlterTableRequest.Options.TRUE">TRUE</see>.</description>
         ///     </item>
         /// </list>
         ///   </param>
@@ -302,7 +889,9 @@ namespace kinetica
 
 
 
-    /// <summary>A set of results returned by /alter/table.</summary>
+    /// <summary>A set of results returned by <see
+    /// cref="Kinetica.alterTable(string,string,string,IDictionary{string, string})"
+    /// />.</summary>
     public class AlterTableResponse : KineticaData
     {
 
@@ -315,6 +904,22 @@ namespace kinetica
         /// <summary>The value of the modification that was performed.
         /// </summary>
         public string _value { get; set; }
+
+        /// <summary>return the type_id (when changing a table, a new type may
+        /// be created)  </summary>
+        public string type_id { get; set; }
+
+        /// <summary>return the type_definition  (when changing a table, a new
+        /// type may be created)  </summary>
+        public string type_definition { get; set; }
+
+        /// <summary>return the type properties  (when changing a table, a new
+        /// type may be created)  </summary>
+        public IDictionary<string, IList<string>> properties { get; set; } = new Dictionary<string, IList<string>>();
+
+        /// <summary>return the type label  (when changing a table, a new type
+        /// may be created)  </summary>
+        public string label { get; set; }
 
     } // end class AlterTableResponse
 
