@@ -290,7 +290,8 @@ namespace kinetica
                     case ColumnProperty.CHAR128:
                     case ColumnProperty.CHAR256:
                     case ColumnProperty.DATE:
-                    case ColumnProperty.DECIMAL:
+                    case ColumnProperty.DATETIME:
+                    case ColumnProperty.DECIMAL: 
                     case ColumnProperty.IPV4:
                     case ColumnProperty.TIME:
                         column_type = Column.ColumnType.STRING;
@@ -363,6 +364,13 @@ namespace kinetica
         /// Create a KineticaType object from properties of a record class and Kinetica column properties.
         /// It ignores any properties inherited from base classes, and also ignores any member fields of
         /// the class.
+        /// 
+        /// For integer, long, float, and double column types, the user can use the nullable type (e.g. int?)
+        /// to declare the column to be nullable.  The <paramref name="properties"/> does not need to contain
+        /// the <see cref="ColumnProperty.NULLABLE"/> property.  However, for string type columns, instead of
+        /// using nullable type, use the regular string type; additionally, add the
+        /// <see cref="ColumnProperty.NULLABLE"/> in <paramref name="properties"/>.
+        /// 
         /// </summary>
         /// <param name="recordClass">A class type.</param>
         /// <param name="properties">Properties for the columns.</param>

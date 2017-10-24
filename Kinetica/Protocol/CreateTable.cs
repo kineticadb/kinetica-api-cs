@@ -123,17 +123,17 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="CreateTableRequest.Options.FOREIGN_KEYS">FOREIGN_KEYS</see>:</term>
-        ///         <description>Semicolon-separated list of foreign key
-        /// constraints, of the format 'source_column references
+        ///         <description>Semicolon-separated list of foreign keys, of
+        /// the format 'source_column references
         /// target_table(primary_key_column) [ as <foreign_key_name>
         /// ]'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="CreateTableRequest.Options.FOREIGN_SHARD_KEY">FOREIGN_SHARD_KEY</see>:</term>
-        ///         <description>Foreign shard key description of the format:
-        /// <fk_foreign_key> references <pk_column_name> from
-        /// <pk_table_name>(<pk_primary_key>)</description>
+        ///         <description>Foreign shard key of the format 'source_column
+        /// references shard_by_column from
+        /// target_table(primary_key_column)'</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -259,15 +259,15 @@ namespace kinetica
             /// cref="CreateTableRequest.Options.FALSE">FALSE</see>.</summary>
             public const string IS_REPLICATED = "is_replicated";
 
-            /// <summary>Semicolon-separated list of foreign key constraints,
-            /// of the format 'source_column references
+            /// <summary>Semicolon-separated list of foreign keys, of the
+            /// format 'source_column references
             /// target_table(primary_key_column) [ as <foreign_key_name>
             /// ]'.</summary>
             public const string FOREIGN_KEYS = "foreign_keys";
 
-            /// <summary>Foreign shard key description of the format:
-            /// <fk_foreign_key> references <pk_column_name> from
-            /// <pk_table_name>(<pk_primary_key>)</summary>
+            /// <summary>Foreign shard key of the format 'source_column
+            /// references shard_by_column from
+            /// target_table(primary_key_column)'</summary>
             public const string FOREIGN_SHARD_KEY = "foreign_shard_key";
 
             /// <summary>Sets the TTL of the table or collection specified in
@@ -410,17 +410,17 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="CreateTableRequest.Options.FOREIGN_KEYS">FOREIGN_KEYS</see>:</term>
-        ///         <description>Semicolon-separated list of foreign key
-        /// constraints, of the format 'source_column references
+        ///         <description>Semicolon-separated list of foreign keys, of
+        /// the format 'source_column references
         /// target_table(primary_key_column) [ as <foreign_key_name>
         /// ]'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="CreateTableRequest.Options.FOREIGN_SHARD_KEY">FOREIGN_SHARD_KEY</see>:</term>
-        ///         <description>Foreign shard key description of the format:
-        /// <fk_foreign_key> references <pk_column_name> from
-        /// <pk_table_name>(<pk_primary_key>)</description>
+        ///         <description>Foreign shard key of the format 'source_column
+        /// references shard_by_column from
+        /// target_table(primary_key_column)'</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -572,17 +572,17 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="CreateTableRequest.Options.FOREIGN_KEYS">FOREIGN_KEYS</see>:</term>
-        ///         <description>Semicolon-separated list of foreign key
-        /// constraints, of the format 'source_column references
+        ///         <description>Semicolon-separated list of foreign keys, of
+        /// the format 'source_column references
         /// target_table(primary_key_column) [ as <foreign_key_name>
         /// ]'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="CreateTableRequest.Options.FOREIGN_SHARD_KEY">FOREIGN_SHARD_KEY</see>:</term>
-        ///         <description>Foreign shard key description of the format:
-        /// <fk_foreign_key> references <pk_column_name> from
-        /// <pk_table_name>(<pk_primary_key>)</description>
+        ///         <description>Foreign shard key of the format 'source_column
+        /// references shard_by_column from
+        /// target_table(primary_key_column)'</description>
         ///     </item>
         ///     <item>
         ///         <term><see

@@ -48,7 +48,7 @@ namespace Example
             }
             catch (Exception ex)
             {
-                Console.WriteLine("Caught Exception: {0}", ex.ToString());
+                Console.WriteLine("Caught Exception: {0}", ex.Message );
             }
 
             // We're done
@@ -321,15 +321,18 @@ namespace Example
             // Create a type for our record_type_1 class
             // Add some interesting properties for some of the data types
             IDictionary<string, IList<string>> column_properties = new Dictionary<string, IList<string>>();
-            // And two primary keys and one shard key
+
+            // Add a primary key
             List<string> A_props = new List<string>();
             A_props.Add( ColumnProperty.PRIMARY_KEY );
             column_properties.Add( "A", A_props );
-            List<string> B_props = new List<string>();
-            B_props.Add( ColumnProperty.PRIMARY_KEY );
-            column_properties.Add( "B", B_props );
-            // And a shard key (must be one of the primary keys, if specified--which we have)
-            B_props.Add( ColumnProperty.SHARD_KEY );
+
+            // And a shard key (must be part of the primary keys, if specified--which we have)
+            List<string> ts_props = new List<string>();
+            ts_props.Add( ColumnProperty.PRIMARY_KEY );
+            ts_props.Add( ColumnProperty.SHARD_KEY );
+            ts_props.Add( ColumnProperty.TIMESTAMP );
+            column_properties.Add( "TIMESTAMP", ts_props );
 
             // Create the KineticaType object which facilitates creating types in the database
             KineticaType type1 = KineticaType.fromClass( typeof( record_type_1 ), column_properties );
@@ -370,7 +373,7 @@ namespace Example
                     D = System.IO.Path.GetRandomFileName().Truncate( max_str_len ),
                     E  = (float)(rng.NextDouble() * rng.Next()),
                     F  = ( rng.NextDouble() < null_probability ) ? null : ( double? ) ( rng.NextDouble() * rng.Next() ),
-                    TIMESTAMP = (long) rng.Next()
+                    TIMESTAMP = (long)rng.Next( -306102240, 293795424 ) * rng.Next( 100000 )
                 };
 
                 records.Add( record );

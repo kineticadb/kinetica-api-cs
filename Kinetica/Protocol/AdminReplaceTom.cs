@@ -9,35 +9,23 @@
 
 namespace kinetica
 {
-
-    /// <summary>@private
-    /// A set of parameters for <see cref="Kinetica.adminReplaceTom(long,long)"
-    /// />.
+    /// @cond NO_DOCS
+    /// <summary>A set of parameters for <see
+    /// cref="Kinetica.adminReplaceTom(long,long)" />.
     /// <br />
     /// </summary>
     public class AdminReplaceTomRequest : KineticaData
     {
-
-        /// <summary>@private
-        /// </summary>
-
-        /// <summary>@private
-        /// </summary>
         public long old_rank_tom { get; set; }
-
-        /// <summary>@private
-        /// </summary>
         public long new_rank_tom { get; set; }
 
 
-        /// <summary>@private
-        /// Constructs an AdminReplaceTomRequest object with default
+        /// <summary>Constructs an AdminReplaceTomRequest object with default
         /// parameters.</summary>
         public AdminReplaceTomRequest() { }
 
-        /// <summary>@private
-        /// Constructs an AdminReplaceTomRequest object with the specified
-        /// parameters.</summary>
+        /// <summary>Constructs an AdminReplaceTomRequest object with the
+        /// specified parameters.</summary>
         /// 
         /// <param name="old_rank_tom"></param>
         /// <param name="new_rank_tom"></param>
@@ -49,34 +37,22 @@ namespace kinetica
             this.new_rank_tom = new_rank_tom;
         } // end constructor
 
-
-    /// <summary>@private
-    /// </summary>
     } // end class AdminReplaceTomRequest
+    /// @endcond
 
 
 
-    /// <summary>@private
-    /// A set of results returned by <see
+    /// @cond NO_DOCS
+    /// <summary>A set of results returned by <see
     /// cref="Kinetica.adminReplaceTom(long,long)" />.</summary>
     public class AdminReplaceTomResponse : KineticaData
     {
-
-        /// <summary>@private
-        /// </summary>
-
-        /// <summary>@private
-        /// </summary>
         public long old_rank_tom { get; set; }
-
-        /// <summary>@private
-        /// </summary>
         public long new_rank_tom { get; set; }
 
-
-    /// <summary>@private
-    /// </summary>
     } // end class AdminReplaceTomResponse
+    /// @endcond
+
 
 
 

@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Collections.Immutable;
-using System.IO;
 using System.Text.RegularExpressions;
 
 
@@ -166,31 +164,47 @@ namespace kinetica
             /// YYYY-MM-DD
             /// </summary>
             private static readonly Regex DATE_REGEX = new Regex( "\\A(\\d{4})-(\\d{2})-(\\d{2})$" );
+
+            /// <summary>
+            /// YYYY-MM-DD [HH:MM:SS[.mmm]]
+            /// </summary>
+            private static readonly Regex DATETIME_REGEX = new Regex( "\\A(?<year>\\d{4})-(?<month>\\d{2})-(?<day>\\d{2})(?<time>\\s+(?<hour>\\d{1,2}):(?<min>\\d{2}):(?<sec>\\d{2})(?:\\.(?<ms>\\d{1,6}))?)?$" );
+
             /// <summary>
             /// Decimal number with upto 19 digits of precision and 4 digits of scale
             /// </summary>
-            private static readonly Regex DECIMAL_REGEX = new Regex( "\\A\\s*[+-]?((?<int>\\d+)(\\.(?<frac>\\d{0,4}))?|\\.(?<frac>\\d{1,4}))\\s*\\z" );
+            private static readonly Regex DECIMAL_REGEX = new Regex( "\\A\\s*(?<sign>[+-]?)((?<int>\\d+)(\\.(?<intfrac>\\d{0,4}))?|\\.(?<onlyfrac>\\d{1,4}))\\s*\\z" );
+
             /// <summary>
             /// xxx.xxx.xxx.xxx (where xxx is in the range [0, 255])
             /// </summary>
             private static readonly Regex IPV4_REGEX = new Regex( "\\A(?<a>\\d{1,3})\\.(?<b>\\d{1,3})\\.(?<c>\\d{1,3})\\.(?<d>\\d{1,3})$" );
+
             /// <summary>
             /// HH:MM:SS[.mmm]
             /// </summary>
-            private static readonly Regex TIME_REGEX = new Regex( "\\A(?<hour>\\d{1,2}):(?<minute>\\d{2}):(?<seconds>\\d{2})(\\.(?<milliseconds>\\d{3}))?$" );
+            private static readonly Regex TIME_REGEX = new Regex( "\\A(?<hour>\\d{1,2}):(?<minute>\\d{2}):(?<seconds>\\d{2})(\\.(?<milliseconds>\\d{1,3}))?$" );
+
             /// <summary>
-            /// The day farthest back into the past from the unix epoch (1970-01-01)
+            /// The day of the unix epoch (1970-01-01)
             /// </summary>
-            private static readonly DateTime MIN_DATE = (new System.Globalization.GregorianCalendar()).MinSupportedDateTime;
-            //private readonly DateTime MIN_DATE = DateTime.MinValue;
+            private static readonly DateTime EPOCH_DATE = new DateTime( 1970, 1, 1 );
+
             /// <summary>
             /// Minimum supported year by Kinetica is 1000
             /// </summary>
             private static readonly int MIN_SUPPORTED_YEAR = 1000;
+
             /// <summary>
             /// Maximum supported year by Kinetica is 2900
             /// </summary>
             private static readonly int MAX_SUPPORTED_YEAR = 2900;
+
+            /// <summary>
+            /// 1900
+            /// </summary>
+            private static readonly int YEAR_1900 = 1900;
+
             /// <summary>
             /// The UTC timezone
             /// </summary>
@@ -604,14 +618,127 @@ namespace kinetica
                     return;
                 }
 
+                int fixed_day_of_week = ( ( int ) calendar.GetDayOfWeek( date ) + 1 );
+
                 // Deduce the integer representing the date
-                int date_integer = ( ((year - MIN_SUPPORTED_YEAR) << 21)
+                int date_integer = ( ((year - YEAR_1900) << 21)
                                      | (month << 17)
                                      | (day << 12)
                                      | (calendar.GetDayOfYear( date ) << 3)
-                                     | (int)calendar.GetDayOfWeek( date ) );
+                                     |  fixed_day_of_week );
                 this.addInt( date_integer );
             }  // end addDate()
+
+
+            /// <summary>
+            /// Adds a string to the buffer that has the 'datetime' property.
+            /// Internally, the date is stored as a long.
+            /// </summary>
+            /// <param name="value">The datetime string to be added.  Must have
+            /// the YYYY-MM-DD HH:MM:SS.mmm format.</param>
+            public void addDateTime( string value )
+            {
+                // Check and throw if the buffer is already full
+                this.isBufferFull( true );
+
+                // Handle nulls
+                if ( value == null )
+                {
+                    this.addLong( 0 );
+                    return;
+                }
+
+                // Check that the given value matches the YYYY-MM-DD HH:MM:SS.mmm pattern
+                Match match = DATETIME_REGEX.Match( value );
+                if ( !match.Success )
+                {
+                    // No match, so the key is invalid
+                    this.is_valid = false;
+                    this.addLong( 0 );
+                    return;
+                }
+
+                // We'll need to parse the string into year, month, day, hour,
+                // minute, second, and millisecond
+                int year, month, day;
+                int hour    = 0;
+                int minute  = 0;
+                int second  = 0;
+                int msecond = 0;
+                DateTime date;
+                System.Globalization.GregorianCalendar calendar = new System.Globalization.GregorianCalendar();
+
+                // Parse the string value
+                try
+                {
+                    year  = int.Parse( match.Groups[ "year"  ].Value );
+                    month = int.Parse( match.Groups[ "month" ].Value );
+                    day   = int.Parse( match.Groups[ "day"   ].Value );
+
+                    // Handle the optional time part
+                    Group time_group = match.Groups[ "time" ];
+                    if ( time_group.Success )
+                    {
+                        hour   = int.Parse( match.Groups["hour"].Value );
+                        minute = int.Parse( match.Groups["min"].Value );
+                        second = int.Parse( match.Groups["sec"].Value );
+
+                        // Handle the further optional milliseconds
+                        Group ms_group = match.Groups["ms"];
+                        if (ms_group.Success)
+                        {
+                            msecond = int.Parse(match.Groups["ms"].Value);
+                            // Need to have the milliseconds be milliseconds (three digits)
+                            switch (ms_group.Value.Length)
+                            {
+                                case 1:
+                                    msecond *= 100; break;
+                                case 2:
+                                    msecond *= 10; break;
+                                // No need for case 3
+                                case 4:
+                                    msecond /= 10; break;
+                                case 5:
+                                    msecond /= 100; break;
+                                case 6:
+                                    msecond /= 1000; break;
+                            }
+                        }
+                    }  // end parsing the time component
+
+                    // Now put it all together
+                    date = new DateTime( year, month, day, hour, minute, second, msecond, calendar );
+                }
+                catch ( Exception ex )
+                {
+                    // Upon any error, set this key to be invalid
+                    this.addLong( 0 );
+                    this.is_valid = false;
+                    return;
+                }
+
+                // Kinetica does not support years outside the range [1000, 2900]
+                if ( ( year < MIN_SUPPORTED_YEAR ) || ( year > MAX_SUPPORTED_YEAR ) )
+                {
+                    this.addLong( 0 );
+                    this.is_valid = false;
+                    return;
+                }
+
+                int fixed_day_of_week = ( ( int ) calendar.GetDayOfWeek( date ) + 1 );
+
+                // Deduce the integer representing the date
+                long datetime_long = (long) ( (((long)(year - YEAR_1900)) << 53)
+                                              | (((long)month)    << 49)
+                                              | (((long)day)     << 44)
+                                              | (((long)hour)    << 39)
+                                              | (((long)minute)  << 33)
+                                              | (((long)second)  << 27)
+                                              | (((long)msecond) << 17)
+                                              | (((long)calendar.GetDayOfYear( date )) << 8)
+                                              | (((long)fixed_day_of_week) << 5) );
+                this.addLong( datetime_long );
+            }  // end addDateTime()
 
 
             /// <summary>
@@ -647,17 +774,63 @@ namespace kinetica
                 try
                 {
                     // Extract the integral and fractional parts
-                    string integral_part_str   = match.Groups[ "int"  ].Value;
-                    string fractional_part_str = match.Groups[ "frac" ].Value;
-                    long integral_part;
-                    long fractional_part;
-                    bool has_integral_part   = long.TryParse( integral_part_str,   out integral_part   );
-                    bool has_fractional_part = long.TryParse( fractional_part_str, out fractional_part );
-                    // Shift the integral part to the left, if there is any fractional part
-                    int fractional_part_len = fractional_part_str.Length;
-                    integral_part = integral_part * (long)Math.Pow(10, fractional_part_len );
-                    // Put the two parts together to create a long form of the decimal value
-                    decimal_value = integral_part + fractional_part;
+                    Group integral_group = match.Groups[ "int" ];
+                    Group fraction_with_integral_group = match.Groups[ "intfrac" ];
+                    Group frac_only_group = match.Groups[ "onlyfrac" ];
+
+                    if ( integral_group.Success )
+                    {   // Has an integral part to the decimal
+                        decimal_value = long.Parse( integral_group.Value );
+
+                        if ( fraction_with_integral_group.Success )
+                        {   // Also have a fractional part
+                            long fraction = 0;
+                            // The fraction could be zero in length (i.e. the string ends with the decimal point)
+                            if (fraction_with_integral_group.Value.Length > 0 )
+                                fraction = long.Parse( fraction_with_integral_group.Value );
+
+                            // We need to shift the integral part to the left appropriately
+                            // before adding the fraction
+                            long integral_part = decimal_value * (long)Math.Pow(10, fraction_with_integral_group.Value.Length );
+                            decimal_value = integral_part + fraction;
+
+                            // Shift it further to the left if the fraction is less than 1000
+                            switch ( fraction_with_integral_group.Value.Length )
+                            {
+                                case 1:
+                                    decimal_value *= 1000; break;
+                                case 2:
+                                    decimal_value *= 100; break;
+                                case 3:
+                                    decimal_value *= 10; break;
+                            }
+                        }
+                    }
+                    else if ( frac_only_group.Success )
+                    {  // Only the fractional part is given
+                        decimal_value = long.Parse( frac_only_group.Value );
+
+                        // Adjust the value so that it is always four digits long
+                        switch ( frac_only_group.Value.Length )
+                        {
+                            case 1:
+                                decimal_value *= 1000; break;
+                            case 2:
+                                decimal_value *= 100; break;
+                            case 3:
+                                decimal_value *= 10; break;
+                        }
+                    }
+                    else
+                        throw new KineticaException( "No match for decimal!" );
+
+                    // Now handle the sign
+                    Group sign_group = match.Groups[ "sign" ];
+                    if ( sign_group.Success )
+                    {   // Needs action only if negative
+                        if ( sign_group.Value == "-" )
+                            decimal_value = ( -1 ) * decimal_value;
+                    }
                 }
                 catch ( Exception ex )
                 {
@@ -739,7 +912,8 @@ namespace kinetica
             /// Internally, the time is stored as an integer.
             /// </summary>
             /// <param name="value">The time string to be added.  Must have
-            /// the HH:MM:SS[.mmm] format.</param>
+            /// the HH:MM:SS[.mmm] format.  Milliseconds can have one to three
+            /// digits.  HH can be one or two digits.</param>
             public void addTime( string value )
             {
                 // Check and throw if the buffer is already full
@@ -768,14 +942,26 @@ namespace kinetica
                 // Parse the string value
                 try
                 {
-                    hour   = uint.Parse( match.Groups["hour"].Value );
+                    hour = uint.Parse( match.Groups["hour"].Value );
                     minute = uint.Parse( match.Groups["minute"].Value );
                     second = uint.Parse( match.Groups["seconds"].Value );
                     Group msec_group = match.Groups["milliseconds"];
-                    if ( msec_group.Success )
-                        milliseconds = uint.Parse( msec_group.Value );
-                    else
-                        milliseconds = 0;
+
+                    // Milliseconds are optional
+                    milliseconds = 0;
+                    if (msec_group.Success)
+                    {
+                        milliseconds = uint.Parse(msec_group.Value);
+
+                        // Handle single and double digits for milliseconds
+                        switch ( msec_group.Value.Length )
+                        {
+                            case 1:
+                                milliseconds *= 100; break;
+                            case 2:
+                                milliseconds *= 10; break;
+                        }
+                    }
                 }
                 catch ( Exception ex )
                 {
@@ -808,22 +994,23 @@ namespace kinetica
                 // Handle nulls
                 if ( value == null )
                 {
-                    this.addInt( 0 );
+                    this.addLong( 0 );
                     return;
                 }
 
-                // 
-                System.Globalization.GregorianCalendar calendar = new System.Globalization.GregorianCalendar();
-                DateTime time = MIN_DATE.AddMilliseconds( (double) value );
-                long timestamp = (long) ( ((time.Year - 1900) << 53)
-                                          | ((time.Month + 1) << 49)
-                                          | (time.Day << 44)
-                                          | (time.Hour << 39)
-                                          | (time.Minute << 33)
-                                          | (time.Second << 27)
-                                          | (time.Millisecond << 17)
-                                          | (time.DayOfYear << 8)
-                                          | ((int)time.DayOfWeek << 5) );
+                // Encode the timestamp the way the database server does it
+                DateTime time = EPOCH_DATE.AddMilliseconds( (double) value );
+                long fixed_day_of_week = ( ( long ) time.DayOfWeek + 1 );
+
+                long timestamp = (long) ( (((long)(time.Year - YEAR_1900)) << 53)
+                                          | (((long)(time.Month))     << 49)
+                                          | (((long)time.Day)         << 44)
+                                          | (((long)time.Hour)        << 39)
+                                          | (((long)time.Minute)      << 33)
+                                          | (((long)time.Second)      << 27)
+                                          | (((long)time.Millisecond) << 17)
+                                          | (((long)time.DayOfYear)   << 8)
+                                          | ( fixed_day_of_week       << 5) );
                 this.addLong( timestamp );
             }  // end addTimeStamp()
 
@@ -890,6 +1077,7 @@ namespace kinetica
                 CHAR128,
                 CHAR256,
                 DATE,
+                DATETIME,
                 DECIMAL,
                 DOUBLE,
                 FLOAT,
@@ -1094,6 +1282,11 @@ namespace kinetica
                                 column_types.Add( ColumnType.DATE );
                                 this.buffer_size += 4;
                             }
+                            else if ( column.getProperties().Contains( ColumnProperty.DATETIME ) )
+                            {
+                                column_types.Add( ColumnType.DATETIME );
+                                this.buffer_size += 8;
+                            }
                             else if ( column.getProperties().Contains( ColumnProperty.DECIMAL ) )
                             {
                                 column_types.Add( ColumnType.DECIMAL );
@@ -1191,6 +1384,10 @@ namespace kinetica
 
                         case ColumnType.DATE:
                             key.addDate( (string) value );
+                            break;
+
+                        case ColumnType.DATETIME:
+                            key.addDateTime( ( string ) value );
                             break;
 
                         case ColumnType.DECIMAL:
@@ -1589,7 +1786,7 @@ namespace kinetica
             }
             catch ( Exception ex )
             {
-                throw new InsertException<T>( url, queue, ex.ToString() );
+                throw new InsertException<T>( url, queue, ex.Message );
             }
         }  // end private flush()
 

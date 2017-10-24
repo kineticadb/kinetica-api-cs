@@ -10,9 +10,8 @@ using System.Collections.Generic;
 
 namespace kinetica
 {
-
-    /// <summary>@private
-    /// A set of parameters for <see
+    /// @cond NO_DOCS
+    /// <summary>A set of parameters for <see
     /// cref="Kinetica.visualizeVideo(IList{string},IList{string},IList{IList{string}},string,string,string,double,double,double,double,int,int,string,long,IList{IList{double}},string,string,IDictionary{string, IList{string}},IDictionary{string, string})"
     /// />.
     /// <br />
@@ -20,8 +19,7 @@ namespace kinetica
     public class VisualizeVideoRequest : KineticaData
     {
 
-        /// <summary>@private
-        /// <br />
+        /// <summary>
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -67,50 +65,19 @@ namespace kinetica
         /// />.</summary>
         public struct Projection
         {
-
-            /// <summary>@private
-            /// </summary>
             public const string EPSG_4326 = "EPSG:4326";
-
-            /// <summary>@private
-            /// </summary>
             public const string PLATE_CARREE = "PLATE_CARREE";
-
-            /// <summary>@private
-            /// </summary>
             public const string _900913 = "900913";
-
-            /// <summary>@private
-            /// </summary>
             public const string EPSG_900913 = "EPSG:900913";
-
-            /// <summary>@private
-            /// </summary>
             public const string _102100 = "102100";
-
-            /// <summary>@private
-            /// </summary>
             public const string EPSG_102100 = "EPSG:102100";
-
-            /// <summary>@private
-            /// </summary>
             public const string _3857 = "3857";
-
-            /// <summary>@private
-            /// </summary>
             public const string EPSG_3857 = "EPSG:3857";
-
-            /// <summary>@private
-            /// </summary>
             public const string WEB_MERCATOR = "WEB_MERCATOR";
-
-    /// <summary>@private
-    /// </summary>
         } // end struct Projection
 
 
-        /// <summary>@private
-        /// <br />
+        /// <summary>
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
@@ -352,8 +319,7 @@ namespace kinetica
         public struct StyleOptions
         {
 
-            /// <summary>@private
-            /// <br />
+            /// <summary>
             /// Supported values:
             /// <list type="bullet">
             ///     <item>
@@ -368,17 +334,10 @@ namespace kinetica
             /// The default value is <see
             /// cref="VisualizeVideoRequest.StyleOptions.TRUE">TRUE</see>.</summary>
             public const string DO_POINTS = "do_points";
-
-            /// <summary>@private
-            /// </summary>
             public const string TRUE = "true";
-
-            /// <summary>@private
-            /// </summary>
             public const string FALSE = "false";
 
-            /// <summary>@private
-            /// <br />
+            /// <summary>
             /// Supported values:
             /// <list type="bullet">
             ///     <item>
@@ -394,8 +353,7 @@ namespace kinetica
             /// cref="VisualizeVideoRequest.StyleOptions.TRUE">TRUE</see>.</summary>
             public const string DO_SHAPES = "do_shapes";
 
-            /// <summary>@private
-            /// <br />
+            /// <summary>
             /// Supported values:
             /// <list type="bullet">
             ///     <item>
@@ -410,17 +368,10 @@ namespace kinetica
             /// The default value is <see
             /// cref="VisualizeVideoRequest.StyleOptions.TRUE">TRUE</see>.</summary>
             public const string DO_TRACKS = "do_tracks";
-
-            /// <summary>@private
-            /// </summary>
             public const string POINTCOLORS = "pointcolors";
-
-            /// <summary>@private
-            /// </summary>
             public const string POINTSIZES = "pointsizes";
 
-            /// <summary>@private
-            /// <br />
+            /// <summary>
             /// Supported values:
             /// <list type="bullet">
             ///     <item>
@@ -457,69 +408,23 @@ namespace kinetica
             ///     </item>
             /// </list></summary>
             public const string POINTSHAPES = "pointshapes";
-
-            /// <summary>@private
-            /// </summary>
             public const string NONE = "none";
-
-            /// <summary>@private
-            /// </summary>
             public const string CIRCLE = "circle";
-
-            /// <summary>@private
-            /// </summary>
             public const string SQUARE = "square";
-
-            /// <summary>@private
-            /// </summary>
             public const string DIAMOND = "diamond";
-
-            /// <summary>@private
-            /// </summary>
             public const string HOLLOWCIRCLE = "hollowcircle";
-
-            /// <summary>@private
-            /// </summary>
             public const string HOLLOWSQUARE = "hollowsquare";
-
-            /// <summary>@private
-            /// </summary>
             public const string HOLLOWDIAMOND = "hollowdiamond";
-
-            /// <summary>@private
-            /// </summary>
             public const string SYMBOLCODE = "SYMBOLCODE";
-
-            /// <summary>@private
-            /// </summary>
             public const string SHAPELINEWIDTHS = "shapelinewidths";
-
-            /// <summary>@private
-            /// </summary>
             public const string SHAPELINECOLORS = "shapelinecolors";
-
-            /// <summary>@private
-            /// </summary>
             public const string SHAPEFILLCOLORS = "shapefillcolors";
-
-            /// <summary>@private
-            /// </summary>
             public const string TRACKLINEWIDTHS = "tracklinewidths";
-
-            /// <summary>@private
-            /// </summary>
             public const string TRACKLINECOLORS = "tracklinecolors";
-
-            /// <summary>@private
-            /// </summary>
             public const string TRACKMARKERSIZES = "trackmarkersizes";
-
-            /// <summary>@private
-            /// </summary>
             public const string TRACKMARKERCOLORS = "trackmarkercolors";
 
-            /// <summary>@private
-            /// <br />
+            /// <summary>
             /// Supported values:
             /// <list type="bullet">
             ///     <item>
@@ -558,17 +463,10 @@ namespace kinetica
             /// The default value is <see
             /// cref="VisualizeVideoRequest.StyleOptions.NONE">NONE</see>.</summary>
             public const string TRACKMARKERSHAPES = "trackmarkershapes";
-
-            /// <summary>@private
-            /// </summary>
             public const string TRACKHEADCOLORS = "trackheadcolors";
-
-            /// <summary>@private
-            /// </summary>
             public const string TRACKHEADSIZES = "trackheadsizes";
 
-            /// <summary>@private
-            /// <br />
+            /// <summary>
             /// Supported values:
             /// <list type="bullet">
             ///     <item>
@@ -607,65 +505,22 @@ namespace kinetica
             /// The default value is <see
             /// cref="VisualizeVideoRequest.StyleOptions.CIRCLE">CIRCLE</see>.</summary>
             public const string TRACKHEADSHAPES = "trackheadshapes";
-
-    /// <summary>@private
-    /// </summary>
         } // end struct StyleOptions
 
-
-        /// <summary>@private
-        /// </summary>
-
-        /// <summary>@private
-        /// </summary>
         public IList<string> table_names { get; set; } = new List<string>();
-
-        /// <summary>@private
-        /// </summary>
         public IList<string> world_table_names { get; set; } = new List<string>();
-
-        /// <summary>@private
-        /// </summary>
         public IList<IList<string>> track_ids { get; set; } = new List<IList<string>>();
-
-        /// <summary>@private
-        /// </summary>
         public string x_column_name { get; set; }
-
-        /// <summary>@private
-        /// </summary>
         public string y_column_name { get; set; }
-
-        /// <summary>@private
-        /// </summary>
         public string geometry_column_name { get; set; }
-
-        /// <summary>@private
-        /// </summary>
         public double min_x { get; set; }
-
-        /// <summary>@private
-        /// </summary>
         public double max_x { get; set; }
-
-        /// <summary>@private
-        /// </summary>
         public double min_y { get; set; }
-
-        /// <summary>@private
-        /// </summary>
         public double max_y { get; set; }
-
-        /// <summary>@private
-        /// </summary>
         public int width { get; set; }
-
-        /// <summary>@private
-        /// </summary>
         public int height { get; set; }
 
-        /// <summary>@private
-        /// <br />
+        /// <summary>
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -708,25 +563,12 @@ namespace kinetica
         /// The default value is <see
         /// cref="VisualizeVideoRequest.Projection.PLATE_CARREE">PLATE_CARREE</see>.</summary>
         public string projection { get; set; } = Projection.PLATE_CARREE;
-
-        /// <summary>@private
-        /// </summary>
         public long bg_color { get; set; }
-
-        /// <summary>@private
-        /// </summary>
         public IList<IList<double>> time_intervals { get; set; } = new List<IList<double>>();
-
-        /// <summary>@private
-        /// </summary>
         public string video_style { get; set; }
-
-        /// <summary>@private
-        /// </summary>
         public string session_key { get; set; }
 
-        /// <summary>@private
-        /// <br />
+        /// <summary>
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
@@ -964,20 +806,15 @@ namespace kinetica
         /// </list>
         /// </summary>
         public IDictionary<string, IList<string>> style_options { get; set; } = new Dictionary<string, IList<string>>();
-
-        /// <summary>@private
-        /// </summary>
         public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
 
 
-        /// <summary>@private
-        /// Constructs a VisualizeVideoRequest object with default
+        /// <summary>Constructs a VisualizeVideoRequest object with default
         /// parameters.</summary>
         public VisualizeVideoRequest() { }
 
-        /// <summary>@private
-        /// Constructs a VisualizeVideoRequest object with the specified
-        /// parameters.</summary>
+        /// <summary>Constructs a VisualizeVideoRequest object with the
+        /// specified parameters.</summary>
         /// 
         /// <param name="table_names"></param>
         /// <param name="world_table_names"></param>
@@ -1317,51 +1154,27 @@ namespace kinetica
             this.options = options ?? new Dictionary<string, string>();
         } // end constructor
 
-
-    /// <summary>@private
-    /// </summary>
     } // end class VisualizeVideoRequest
+    /// @endcond
 
 
 
-    /// <summary>@private
-    /// A set of results returned by <see
+    /// @cond NO_DOCS
+    /// <summary>A set of results returned by <see
     /// cref="Kinetica.visualizeVideo(IList{string},IList{string},IList{IList{string}},string,string,string,double,double,double,double,int,int,string,long,IList{IList{double}},string,string,IDictionary{string, IList{string}},IDictionary{string, string})"
     /// />.</summary>
     public class VisualizeVideoResponse : KineticaData
     {
-
-        /// <summary>@private
-        /// </summary>
-
-        /// <summary>@private
-        /// </summary>
         public double width { get; set; }
-
-        /// <summary>@private
-        /// </summary>
         public double height { get; set; }
-
-        /// <summary>@private
-        /// </summary>
         public long bg_color { get; set; }
-
-        /// <summary>@private
-        /// </summary>
         public int num_frames { get; set; }
-
-        /// <summary>@private
-        /// </summary>
         public string session_key { get; set; }
-
-        /// <summary>@private
-        /// </summary>
         public IList<byte[]> data { get; set; } = new List<byte[]>();
 
-
-    /// <summary>@private
-    /// </summary>
     } // end class VisualizeVideoResponse
+    /// @endcond
+
 
 
 

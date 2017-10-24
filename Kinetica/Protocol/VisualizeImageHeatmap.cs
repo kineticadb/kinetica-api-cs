@@ -10,18 +10,16 @@ using System.Collections.Generic;
 
 namespace kinetica
 {
-
-    /// <summary>@private
-    /// A set of parameters for <see
-    /// cref="Kinetica.visualizeImageHeatmap(IList{string},string,string,string,double,double,double,double,int,int,string,IDictionary{string, string},IDictionary{string, string})"
+    /// @cond NO_DOCS
+    /// <summary>A set of parameters for <see
+    /// cref="Kinetica.visualizeImageHeatmap(IList{string},string,string,string,string,double,double,double,double,int,int,string,IDictionary{string, string},IDictionary{string, string})"
     /// />.
     /// <br />
     /// </summary>
     public class VisualizeImageHeatmapRequest : KineticaData
     {
 
-        /// <summary>@private
-        /// <br />
+        /// <summary>
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -67,50 +65,19 @@ namespace kinetica
         /// />.</summary>
         public struct Projection
         {
-
-            /// <summary>@private
-            /// </summary>
             public const string EPSG_4326 = "EPSG:4326";
-
-            /// <summary>@private
-            /// </summary>
             public const string PLATE_CARREE = "PLATE_CARREE";
-
-            /// <summary>@private
-            /// </summary>
             public const string _900913 = "900913";
-
-            /// <summary>@private
-            /// </summary>
             public const string EPSG_900913 = "EPSG:900913";
-
-            /// <summary>@private
-            /// </summary>
             public const string _102100 = "102100";
-
-            /// <summary>@private
-            /// </summary>
             public const string EPSG_102100 = "EPSG:102100";
-
-            /// <summary>@private
-            /// </summary>
             public const string _3857 = "3857";
-
-            /// <summary>@private
-            /// </summary>
             public const string EPSG_3857 = "EPSG:3857";
-
-            /// <summary>@private
-            /// </summary>
             public const string WEB_MERCATOR = "WEB_MERCATOR";
-
-    /// <summary>@private
-    /// </summary>
         } // end struct Projection
 
 
-        /// <summary>@private
-        /// <br />
+        /// <summary>
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
@@ -193,8 +160,7 @@ namespace kinetica
         public struct StyleOptions
         {
 
-            /// <summary>@private
-            /// <br />
+            /// <summary>
             /// Supported values:
             /// <list type="bullet">
             ///     <item>
@@ -245,117 +211,36 @@ namespace kinetica
             /// The default value is <see
             /// cref="VisualizeImageHeatmapRequest.StyleOptions.JET">JET</see>.</summary>
             public const string COLORMAP = "colormap";
-
-            /// <summary>@private
-            /// </summary>
             public const string JET = "jet";
-
-            /// <summary>@private
-            /// </summary>
             public const string HOT = "hot";
-
-            /// <summary>@private
-            /// </summary>
             public const string HSV = "hsv";
-
-            /// <summary>@private
-            /// </summary>
             public const string GRAY = "gray";
-
-            /// <summary>@private
-            /// </summary>
             public const string BLUES = "blues";
-
-            /// <summary>@private
-            /// </summary>
             public const string GREENS = "greens";
-
-            /// <summary>@private
-            /// </summary>
             public const string GREYS = "greys";
-
-            /// <summary>@private
-            /// </summary>
             public const string ORANGES = "oranges";
-
-            /// <summary>@private
-            /// </summary>
             public const string PURPLES = "purples";
-
-            /// <summary>@private
-            /// </summary>
             public const string REDS = "reds";
-
-            /// <summary>@private
-            /// </summary>
             public const string VIRIDIS = "viridis";
-
-            /// <summary>@private
-            /// </summary>
             public const string BLUR_RADIUS = "blur_radius";
-
-            /// <summary>@private
-            /// </summary>
             public const string BG_COLOR = "bg_color";
-
-            /// <summary>@private
-            /// </summary>
             public const string GRADIENT_START_COLOR = "gradient_start_color";
-
-            /// <summary>@private
-            /// </summary>
             public const string GRADIENT_END_COLOR = "gradient_end_color";
-
-    /// <summary>@private
-    /// </summary>
         } // end struct StyleOptions
 
-
-        /// <summary>@private
-        /// </summary>
-
-        /// <summary>@private
-        /// </summary>
         public IList<string> table_names { get; set; } = new List<string>();
-
-        /// <summary>@private
-        /// </summary>
         public string x_column_name { get; set; }
-
-        /// <summary>@private
-        /// </summary>
         public string y_column_name { get; set; }
-
-        /// <summary>@private
-        /// </summary>
         public string value_column_name { get; set; }
-
-        /// <summary>@private
-        /// </summary>
+        public string geometry_column_name { get; set; }
         public double min_x { get; set; }
-
-        /// <summary>@private
-        /// </summary>
         public double max_x { get; set; }
-
-        /// <summary>@private
-        /// </summary>
         public double min_y { get; set; }
-
-        /// <summary>@private
-        /// </summary>
         public double max_y { get; set; }
-
-        /// <summary>@private
-        /// </summary>
         public int width { get; set; }
-
-        /// <summary>@private
-        /// </summary>
         public int height { get; set; }
 
-        /// <summary>@private
-        /// <br />
+        /// <summary>
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -399,8 +284,7 @@ namespace kinetica
         /// cref="VisualizeImageHeatmapRequest.Projection.PLATE_CARREE">PLATE_CARREE</see>.</summary>
         public string projection { get; set; } = Projection.PLATE_CARREE;
 
-        /// <summary>@private
-        /// <br />
+        /// <summary>
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
@@ -479,25 +363,21 @@ namespace kinetica
         /// </list>
         /// </summary>
         public IDictionary<string, string> style_options { get; set; } = new Dictionary<string, string>();
-
-        /// <summary>@private
-        /// </summary>
         public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
 
 
-        /// <summary>@private
-        /// Constructs a VisualizeImageHeatmapRequest object with default
-        /// parameters.</summary>
+        /// <summary>Constructs a VisualizeImageHeatmapRequest object with
+        /// default parameters.</summary>
         public VisualizeImageHeatmapRequest() { }
 
-        /// <summary>@private
-        /// Constructs a VisualizeImageHeatmapRequest object with the specified
-        /// parameters.</summary>
+        /// <summary>Constructs a VisualizeImageHeatmapRequest object with the
+        /// specified parameters.</summary>
         /// 
         /// <param name="table_names"></param>
         /// <param name="x_column_name"></param>
         /// <param name="y_column_name"></param>
         /// <param name="value_column_name"></param>
+        /// <param name="geometry_column_name"></param>
         /// <param name="min_x"></param>
         /// <param name="max_x"></param>
         /// <param name="min_y"></param>
@@ -630,6 +510,7 @@ namespace kinetica
                                              string x_column_name,
                                              string y_column_name,
                                              string value_column_name,
+                                             string geometry_column_name,
                                              double min_x,
                                              double max_x,
                                              double min_y,
@@ -644,6 +525,7 @@ namespace kinetica
             this.x_column_name = x_column_name ?? "";
             this.y_column_name = y_column_name ?? "";
             this.value_column_name = value_column_name ?? "";
+            this.geometry_column_name = geometry_column_name ?? "";
             this.min_x = min_x;
             this.max_x = max_x;
             this.min_y = min_y;
@@ -655,43 +537,25 @@ namespace kinetica
             this.options = options ?? new Dictionary<string, string>();
         } // end constructor
 
-
-    /// <summary>@private
-    /// </summary>
     } // end class VisualizeImageHeatmapRequest
+    /// @endcond
 
 
 
-    /// <summary>@private
-    /// A set of results returned by <see
-    /// cref="Kinetica.visualizeImageHeatmap(IList{string},string,string,string,double,double,double,double,int,int,string,IDictionary{string, string},IDictionary{string, string})"
+    /// @cond NO_DOCS
+    /// <summary>A set of results returned by <see
+    /// cref="Kinetica.visualizeImageHeatmap(IList{string},string,string,string,string,double,double,double,double,int,int,string,IDictionary{string, string},IDictionary{string, string})"
     /// />.</summary>
     public class VisualizeImageHeatmapResponse : KineticaData
     {
-
-        /// <summary>@private
-        /// </summary>
-
-        /// <summary>@private
-        /// </summary>
         public int width { get; set; }
-
-        /// <summary>@private
-        /// </summary>
         public int height { get; set; }
-
-        /// <summary>@private
-        /// </summary>
         public long bg_color { get; set; }
-
-        /// <summary>@private
-        /// </summary>
         public byte[] image_data { get; set; }
 
-
-    /// <summary>@private
-    /// </summary>
     } // end class VisualizeImageHeatmapResponse
+    /// @endcond
+
 
 
 

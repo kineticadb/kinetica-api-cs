@@ -10,9 +10,8 @@ using System.Collections.Generic;
 
 namespace kinetica
 {
-
-    /// <summary>@private
-    /// A set of parameters for <see
+    /// @cond NO_DOCS
+    /// <summary>A set of parameters for <see
     /// cref="Kinetica.visualizeImageLabels(string,string,string,string,string,string,string,string,string,string,string,string,string,string,string,string,string,string,double,double,double,double,int,int,string,IDictionary{string, string})"
     /// />.
     /// <br />
@@ -20,8 +19,7 @@ namespace kinetica
     public class VisualizeImageLabelsRequest : KineticaData
     {
 
-        /// <summary>@private
-        /// <br />
+        /// <summary>
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -67,149 +65,43 @@ namespace kinetica
         /// />.</summary>
         public struct Projection
         {
-
-            /// <summary>@private
-            /// </summary>
             public const string EPSG_4326 = "EPSG:4326";
-
-            /// <summary>@private
-            /// </summary>
             public const string PLATE_CARREE = "PLATE_CARREE";
-
-            /// <summary>@private
-            /// </summary>
             public const string _900913 = "900913";
-
-            /// <summary>@private
-            /// </summary>
             public const string EPSG_900913 = "EPSG:900913";
-
-            /// <summary>@private
-            /// </summary>
             public const string _102100 = "102100";
-
-            /// <summary>@private
-            /// </summary>
             public const string EPSG_102100 = "EPSG:102100";
-
-            /// <summary>@private
-            /// </summary>
             public const string _3857 = "3857";
-
-            /// <summary>@private
-            /// </summary>
             public const string EPSG_3857 = "EPSG:3857";
-
-            /// <summary>@private
-            /// </summary>
             public const string WEB_MERCATOR = "WEB_MERCATOR";
-
-    /// <summary>@private
-    /// </summary>
         } // end struct Projection
 
-
-        /// <summary>@private
-        /// </summary>
-
-        /// <summary>@private
-        /// </summary>
         public string table_name { get; set; }
-
-        /// <summary>@private
-        /// </summary>
         public string x_column_name { get; set; }
-
-        /// <summary>@private
-        /// </summary>
         public string y_column_name { get; set; }
-
-        /// <summary>@private
-        /// </summary>
         public string x_offset { get; set; } = "";
-
-        /// <summary>@private
-        /// </summary>
         public string y_offset { get; set; } = "";
-
-        /// <summary>@private
-        /// </summary>
         public string text_string { get; set; }
-
-        /// <summary>@private
-        /// </summary>
         public string font { get; set; } = "";
-
-        /// <summary>@private
-        /// </summary>
         public string text_color { get; set; } = "";
-
-        /// <summary>@private
-        /// </summary>
         public string text_angle { get; set; } = "";
-
-        /// <summary>@private
-        /// </summary>
         public string text_scale { get; set; } = "";
-
-        /// <summary>@private
-        /// </summary>
         public string draw_box { get; set; } = "";
-
-        /// <summary>@private
-        /// </summary>
         public string draw_leader { get; set; } = "";
-
-        /// <summary>@private
-        /// </summary>
         public string line_width { get; set; } = "";
-
-        /// <summary>@private
-        /// </summary>
         public string line_color { get; set; } = "";
-
-        /// <summary>@private
-        /// </summary>
         public string fill_color { get; set; } = "";
-
-        /// <summary>@private
-        /// </summary>
         public string leader_x_column_name { get; set; } = "";
-
-        /// <summary>@private
-        /// </summary>
         public string leader_y_column_name { get; set; } = "";
-
-        /// <summary>@private
-        /// </summary>
         public string filter { get; set; } = "";
-
-        /// <summary>@private
-        /// </summary>
         public double min_x { get; set; }
-
-        /// <summary>@private
-        /// </summary>
         public double max_x { get; set; }
-
-        /// <summary>@private
-        /// </summary>
         public double min_y { get; set; }
-
-        /// <summary>@private
-        /// </summary>
         public double max_y { get; set; }
-
-        /// <summary>@private
-        /// </summary>
         public int width { get; set; }
-
-        /// <summary>@private
-        /// </summary>
         public int height { get; set; }
 
-        /// <summary>@private
-        /// <br />
+        /// <summary>
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -252,20 +144,15 @@ namespace kinetica
         /// The default value is <see
         /// cref="VisualizeImageLabelsRequest.Projection.PLATE_CARREE">PLATE_CARREE</see>.</summary>
         public string projection { get; set; } = Projection.PLATE_CARREE;
-
-        /// <summary>@private
-        /// </summary>
         public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
 
 
-        /// <summary>@private
-        /// Constructs a VisualizeImageLabelsRequest object with default
-        /// parameters.</summary>
+        /// <summary>Constructs a VisualizeImageLabelsRequest object with
+        /// default parameters.</summary>
         public VisualizeImageLabelsRequest() { }
 
-        /// <summary>@private
-        /// Constructs a VisualizeImageLabelsRequest object with the specified
-        /// parameters.</summary>
+        /// <summary>Constructs a VisualizeImageLabelsRequest object with the
+        /// specified parameters.</summary>
         /// 
         /// <param name="table_name"></param>
         /// <param name="x_column_name"></param>
@@ -390,43 +277,25 @@ namespace kinetica
             this.options = options ?? new Dictionary<string, string>();
         } // end constructor
 
-
-    /// <summary>@private
-    /// </summary>
     } // end class VisualizeImageLabelsRequest
+    /// @endcond
 
 
 
-    /// <summary>@private
-    /// A set of results returned by <see
+    /// @cond NO_DOCS
+    /// <summary>A set of results returned by <see
     /// cref="Kinetica.visualizeImageLabels(string,string,string,string,string,string,string,string,string,string,string,string,string,string,string,string,string,string,double,double,double,double,int,int,string,IDictionary{string, string})"
     /// />.</summary>
     public class VisualizeImageLabelsResponse : KineticaData
     {
-
-        /// <summary>@private
-        /// </summary>
-
-        /// <summary>@private
-        /// </summary>
         public double width { get; set; }
-
-        /// <summary>@private
-        /// </summary>
         public double height { get; set; }
-
-        /// <summary>@private
-        /// </summary>
         public long bg_color { get; set; }
-
-        /// <summary>@private
-        /// </summary>
         public byte[] image_data { get; set; }
 
-
-    /// <summary>@private
-    /// </summary>
     } // end class VisualizeImageLabelsResponse
+    /// @endcond
+
 
 
 

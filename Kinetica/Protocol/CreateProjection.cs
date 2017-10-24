@@ -38,11 +38,12 @@ namespace kinetica
     /// node, so it won't make sense to use <i>order_by</i> without moving
     /// average.
     /// <br />
-    /// Also, a projection can be created with a different shard key than the
-    /// source table.  By specifying <i>shard_key</i>, the projection will be
-    /// sharded according to the specified columns, regardless of how the
-    /// source table is sharded.  The source table can even be unsharded or
-    /// replicated.</summary>
+    /// Also, a projection can be created with a different <a
+    /// href="../../../../../concepts/tables.html#shard-keys"
+    /// target="_top">shard key</a> than the source table.  By specifying
+    /// <i>shard_key</i>, the projection will be sharded according to the
+    /// specified columns, regardless of how the source table is sharded.  The
+    /// source table can even be unsharded or replicated.</summary>
     public class CreateProjectionRequest : KineticaData
     {
 

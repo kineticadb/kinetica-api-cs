@@ -20,10 +20,16 @@ namespace kinetica
     /// cref="table_name" />). If <see cref="column_name" /> is a numeric
     /// column the values will be in <member name="binary_encoded_response" />.
     /// Otherwise if <see cref="column_name" /> is a string column the values
-    /// will be in <member name="json_encoded_response" />.  <see cref="offset"
-    /// /> and <see cref="limit" /> are used to page through the results if
-    /// there are large numbers of unique values. To get the first 10 unique
-    /// values sorted in descending order <see cref="options" /> would be::
+    /// will be in <member name="json_encoded_response" />.  The results can be
+    /// paged via the <see cref="offset" /> and <see cref="limit" />
+    /// parameters.
+    /// <br />
+    /// Columns marked as <a
+    /// href="../../../../../concepts/types.html#data-handling"
+    /// target="_top">store-only</a> are unable to be used with this function.
+    /// <br />
+    /// To get the first 10 unique values sorted in descending order <see
+    /// cref="options" /> would be::
     /// <br />
     /// {"limit":"10","sort_order":"descending"}.
     /// <br />
@@ -31,15 +37,19 @@ namespace kinetica
     /// href="../../../../../concepts/dynamic_schemas.html"
     /// target="_top">dynamic schemas documentation</a>.
     /// <br />
-    /// If a <i>result_table</i> name is specified in the options, the results
-    /// are stored in a new table with that name.  No results are returned in
-    /// the response.  If the source table's <a
+    /// If a <i>result_table</i> name is specified in the <see cref="options"
+    /// />, the results are stored in a new table with that name--no results
+    /// are returned in the response.  Both the table name and resulting column
+    /// name must adhere to <a href="../../../../../concepts/tables.html#table"
+    /// target="_top">standard naming conventions</a>; any column expression
+    /// will need to be aliased.  If the source table's <a
     /// href="../../../../../concepts/tables.html#shard-keys"
     /// target="_top">shard key</a> is used as the <see cref="column_name" />,
     /// the result table will be sharded, in all other cases it will be
     /// replicated.  Sorting will properly function only if the result table is
     /// replicated or if there is only one processing node and should not be
-    /// relied upon in other cases.</summary>
+    /// relied upon in other cases.  Not available when the value of <see
+    /// cref="column_name" /> is an unrestricted-length string.</summary>
     public class AggregateUniqueRequest : KineticaData
     {
 
@@ -116,7 +126,7 @@ namespace kinetica
         ///         <term><see
         /// cref="AggregateUniqueRequest.Options.RESULT_TABLE">RESULT_TABLE</see>:</term>
         ///         <description>The name of the table used to store the
-        /// results. If present no results are returned in the response. Has
+        /// results. If present, no results are returned in the response. Has
         /// the same naming restrictions as <a
         /// href="../../../../concepts/tables.html"
         /// target="_top">tables</a>.</description>
@@ -210,7 +220,7 @@ namespace kinetica
             public const string DESCENDING = "descending";
 
             /// <summary>The name of the table used to store the results. If
-            /// present no results are returned in the response. Has the same
+            /// present, no results are returned in the response. Has the same
             /// naming restrictions as <a
             /// href="../../../../../concepts/tables.html"
             /// target="_top">tables</a>.</summary>
@@ -341,7 +351,7 @@ namespace kinetica
         ///         <term><see
         /// cref="AggregateUniqueRequest.Options.RESULT_TABLE">RESULT_TABLE</see>:</term>
         ///         <description>The name of the table used to store the
-        /// results. If present no results are returned in the response. Has
+        /// results. If present, no results are returned in the response. Has
         /// the same naming restrictions as <a
         /// href="../../../../concepts/tables.html"
         /// target="_top">tables</a>.</description>
@@ -461,7 +471,7 @@ namespace kinetica
         ///         <term><see
         /// cref="AggregateUniqueRequest.Options.RESULT_TABLE">RESULT_TABLE</see>:</term>
         ///         <description>The name of the table used to store the
-        /// results. If present no results are returned in the response. Has
+        /// results. If present, no results are returned in the response. Has
         /// the same naming restrictions as <a
         /// href="../../../../concepts/tables.html"
         /// target="_top">tables</a>.</description>
@@ -609,7 +619,7 @@ namespace kinetica
         ///         <term><see
         /// cref="AggregateUniqueRequest.Options.RESULT_TABLE">RESULT_TABLE</see>:</term>
         ///         <description>The name of the table used to store the
-        /// results. If present no results are returned in the response. Has
+        /// results. If present, no results are returned in the response. Has
         /// the same naming restrictions as <a
         /// href="../../../../concepts/tables.html"
         /// target="_top">tables</a>.</description>

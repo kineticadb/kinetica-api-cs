@@ -733,7 +733,10 @@ namespace kinetica
         /// <br />
         /// Any column(s) can be grouped on, and all column types except
         /// unrestricted-length strings may be used for computing applicable
-        /// aggregates.
+        /// aggregates; columns marked as <a
+        /// href="../../../../concepts/types.html#data-handling"
+        /// target="_top">store-only</a> are unable to be used in grouping or
+        /// aggregation.
         /// <br />
         /// The results can be paged via the <paramref
         /// cref="AggregateGroupByRequest.offset" /> and <paramref
@@ -761,15 +764,22 @@ namespace kinetica
         /// href="../../../../concepts/dynamic_schemas.html"
         /// target="_top">dynamic schemas documentation</a>.
         /// <br />
-        /// If a <i>result_table</i> name is specified in the options, the
-        /// results are stored in a new table with that name.  No results are
-        /// returned in the response.  If the source table's <a
+        /// If a <i>result_table</i> name is specified in the <paramref
+        /// cref="AggregateGroupByRequest.options" />, the results are stored
+        /// in a new table with that name--no results are returned in the
+        /// response.  Both the table name and resulting column names must
+        /// adhere to <a href="../../../../concepts/tables.html#table"
+        /// target="_top">standard naming conventions</a>; column/aggregation
+        /// expressions will need to be aliased.  If the source table's <a
         /// href="../../../../concepts/tables.html#shard-keys"
         /// target="_top">shard key</a> is used as the grouping column(s), the
         /// result table will be sharded, in all other cases it will be
         /// replicated.  Sorting will properly function only if the result
         /// table is replicated or if there is only one processing node and
-        /// should not be relied upon in other cases.</summary>
+        /// should not be relied upon in other cases.  Not available when any
+        /// of the values of <paramref
+        /// cref="AggregateGroupByRequest.column_names" /> is an
+        /// unrestricted-length string.</summary>
         /// 
         /// <param name="request_">Request object containing the parameters for
         /// the operation.</param>
@@ -796,7 +806,10 @@ namespace kinetica
         /// <br />
         /// Any column(s) can be grouped on, and all column types except
         /// unrestricted-length strings may be used for computing applicable
-        /// aggregates.
+        /// aggregates; columns marked as <a
+        /// href="../../../../concepts/types.html#data-handling"
+        /// target="_top">store-only</a> are unable to be used in grouping or
+        /// aggregation.
         /// <br />
         /// The results can be paged via the <paramref name="offset" /> and
         /// <paramref name="limit" /> parameters. For example, to get 10 groups
@@ -822,23 +835,27 @@ namespace kinetica
         /// href="../../../../concepts/dynamic_schemas.html"
         /// target="_top">dynamic schemas documentation</a>.
         /// <br />
-        /// If a <i>result_table</i> name is specified in the options, the
-        /// results are stored in a new table with that name.  No results are
-        /// returned in the response.  If the source table's <a
+        /// If a <i>result_table</i> name is specified in the <paramref
+        /// name="options" />, the results are stored in a new table with that
+        /// name--no results are returned in the response.  Both the table name
+        /// and resulting column names must adhere to <a
+        /// href="../../../../concepts/tables.html#table"
+        /// target="_top">standard naming conventions</a>; column/aggregation
+        /// expressions will need to be aliased.  If the source table's <a
         /// href="../../../../concepts/tables.html#shard-keys"
         /// target="_top">shard key</a> is used as the grouping column(s), the
         /// result table will be sharded, in all other cases it will be
         /// replicated.  Sorting will properly function only if the result
         /// table is replicated or if there is only one processing node and
-        /// should not be relied upon in other cases.</summary>
+        /// should not be relied upon in other cases.  Not available when any
+        /// of the values of <paramref name="column_names" /> is an
+        /// unrestricted-length string.</summary>
         /// 
         /// <param name="table_name">Name of the table on which the operation
         /// will be performed. Must be an existing table/view/collection.
         /// </param>
         /// <param name="column_names">List of one or more column names,
-        /// expressions, and aggregate expressions. Must include at least one
-        /// 'grouping' column or expression.  If no aggregate is included,
-        /// count(*) will be computed as a default.  </param>
+        /// expressions, and aggregate expressions.  </param>
         /// <param name="offset">A positive integer indicating the number of
         /// initial results to skip (this can be useful for paging through the
         /// results).  The minimum allowed value is 0. The maximum allowed
@@ -938,11 +955,11 @@ namespace kinetica
         ///         <term><see
         /// cref="AggregateGroupByRequest.Options.RESULT_TABLE_PERSIST">RESULT_TABLE_PERSIST</see>:</term>
         ///         <description>If <i>true</i> then the result table specified
-        /// in {result_table}@{key of input.options} will be persisted as a
-        /// regular table (it will not be automatically cleared unless a
-        /// <i>ttl</i> is provided, and the table data can be modified in
-        /// subsequent operations). If <i>false</i> (the default) then the
-        /// result table will be a read-only, memory-only temporary table.
+        /// in <i>result_table</i> will be persisted as a regular table (it
+        /// will not be automatically cleared unless a <i>ttl</i> is provided,
+        /// and the table data can be modified in subsequent operations). If
+        /// <i>false</i> (the default) then the result table will be a
+        /// read-only, memory-only temporary table.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -1248,31 +1265,46 @@ namespace kinetica
         }
 
 
-        /// <summary>Calculates the requested statistics of a given column in a
-        /// given table.
+        /// <summary>Calculates the requested statistics of the given column(s)
+        /// in a given table.
         /// <br />
-        /// The available statistics are count (number of total objects), mean,
-        /// stdv (standard deviation), variance, skew, kurtosis, sum,
-        /// sum_of_squares, min, max, weighted_average, cardinality (unique
-        /// count), estimated cardinality, percentile and percentile_rank.
+        /// The available statistics are <i>count</i> (number of total
+        /// objects), <i>mean</i>, <i>stdv</i> (standard deviation),
+        /// <i>variance</i>, <i>skew</i>, <i>kurtosis</i>, <i>sum</i>,
+        /// <i>min</i>, <i>max</i>, <i>weighted_average</i>, <i>cardinality</i>
+        /// (unique count), <i>estimated_cardinality</i>, <i>percentile</i> and
+        /// <i>percentile_rank</i>.
         /// <br />
         /// Estimated cardinality is calculated by using the hyperloglog
         /// approximation technique.
         /// <br />
-        /// Percentiles and percentile_ranks are approximate and are calculated
+        /// Percentiles and percentile ranks are approximate and are calculated
         /// using the t-digest algorithm. They must include the desired
-        /// percentile/percentile_rank. To compute multiple percentiles each
-        /// value must be specified separately (i.e.
+        /// <i>percentile</i>/<i>percentile_rank</i>. To compute multiple
+        /// percentiles each value must be specified separately (i.e.
         /// 'percentile(75.0),percentile(99.0),percentile_rank(1234.56),percentile_rank(-5)').
         /// <br />
-        /// The weighted average statistic requires a weight_attribute to be
-        /// specified in <paramref cref="AggregateStatisticsRequest.options"
-        /// />. The weighted average is then defined as the sum of the products
-        /// of <paramref cref="AggregateStatisticsRequest.column_name" /> times
-        /// the weight attribute divided by the sum of the weight attribute.
+        /// The weighted average statistic requires a <i>weight_column_name</i>
+        /// to be specified in <paramref
+        /// cref="AggregateStatisticsRequest.options" />. The weighted average
+        /// is then defined as the sum of the products of <paramref
+        /// cref="AggregateStatisticsRequest.column_name" /> times the
+        /// <i>weight_column_name</i> values divided by the sum of the
+        /// <i>weight_column_name</i> values.
         /// <br />
-        /// The response includes a list of the statistics requested along with
-        /// the count of the number of items in the given set.</summary>
+        /// Additional columns can be used in the calculation of statistics via
+        /// the <i>additional_column_names</i> option.  Values in these columns
+        /// will be included in the overall aggregate calculation--individual
+        /// aggregates will not be calculated per additional column.  For
+        /// instance, requesting the <i>count</i> & <i>mean</i> of <paramref
+        /// cref="AggregateStatisticsRequest.column_name" /> x and
+        /// <i>additional_column_names</i> y & z, where x holds the numbers
+        /// 1-10, y holds 11-20, and z holds 21-30, would return the total
+        /// number of x, y, & z values (30), and the single average value
+        /// across all x, y, & z values (15.5).
+        /// <br />
+        /// The response includes a list of key/value pairs of each statistic
+        /// requested and its corresponding value.</summary>
         /// 
         /// <param name="request_">Request object containing the parameters for
         /// the operation.</param>
@@ -1288,35 +1320,47 @@ namespace kinetica
         }
 
 
-        /// <summary>Calculates the requested statistics of a given column in a
-        /// given table.
+        /// <summary>Calculates the requested statistics of the given column(s)
+        /// in a given table.
         /// <br />
-        /// The available statistics are count (number of total objects), mean,
-        /// stdv (standard deviation), variance, skew, kurtosis, sum,
-        /// sum_of_squares, min, max, weighted_average, cardinality (unique
-        /// count), estimated cardinality, percentile and percentile_rank.
+        /// The available statistics are <i>count</i> (number of total
+        /// objects), <i>mean</i>, <i>stdv</i> (standard deviation),
+        /// <i>variance</i>, <i>skew</i>, <i>kurtosis</i>, <i>sum</i>,
+        /// <i>min</i>, <i>max</i>, <i>weighted_average</i>, <i>cardinality</i>
+        /// (unique count), <i>estimated_cardinality</i>, <i>percentile</i> and
+        /// <i>percentile_rank</i>.
         /// <br />
         /// Estimated cardinality is calculated by using the hyperloglog
         /// approximation technique.
         /// <br />
-        /// Percentiles and percentile_ranks are approximate and are calculated
+        /// Percentiles and percentile ranks are approximate and are calculated
         /// using the t-digest algorithm. They must include the desired
-        /// percentile/percentile_rank. To compute multiple percentiles each
-        /// value must be specified separately (i.e.
+        /// <i>percentile</i>/<i>percentile_rank</i>. To compute multiple
+        /// percentiles each value must be specified separately (i.e.
         /// 'percentile(75.0),percentile(99.0),percentile_rank(1234.56),percentile_rank(-5)').
         /// <br />
-        /// The weighted average statistic requires a weight_attribute to be
-        /// specified in <paramref name="options" />. The weighted average is
-        /// then defined as the sum of the products of <paramref
-        /// name="column_name" /> times the weight attribute divided by the sum
-        /// of the weight attribute.
+        /// The weighted average statistic requires a <i>weight_column_name</i>
+        /// to be specified in <paramref name="options" />. The weighted
+        /// average is then defined as the sum of the products of <paramref
+        /// name="column_name" /> times the <i>weight_column_name</i> values
+        /// divided by the sum of the <i>weight_column_name</i> values.
         /// <br />
-        /// The response includes a list of the statistics requested along with
-        /// the count of the number of items in the given set.</summary>
+        /// Additional columns can be used in the calculation of statistics via
+        /// the <i>additional_column_names</i> option.  Values in these columns
+        /// will be included in the overall aggregate calculation--individual
+        /// aggregates will not be calculated per additional column.  For
+        /// instance, requesting the <i>count</i> & <i>mean</i> of <paramref
+        /// name="column_name" /> x and <i>additional_column_names</i> y & z,
+        /// where x holds the numbers 1-10, y holds 11-20, and z holds 21-30,
+        /// would return the total number of x, y, & z values (30), and the
+        /// single average value across all x, y, & z values (15.5).
+        /// <br />
+        /// The response includes a list of key/value pairs of each statistic
+        /// requested and its corresponding value.</summary>
         /// 
         /// <param name="table_name">Name of the table on which the statistics
         /// operation will be performed.  </param>
-        /// <param name="column_name">Name of the column for which the
+        /// <param name="column_name">Name of the primary column for which the
         /// statistics are to be calculated.  </param>
         /// <param name="stats">Comma separated list of the statistics to
         /// calculate, e.g. "sum,mean".
@@ -1326,7 +1370,7 @@ namespace kinetica
         ///         <term><see
         /// cref="AggregateStatisticsRequest.Stats.COUNT">COUNT</see>:</term>
         ///         <description>Number of objects (independent of the given
-        /// column).</description>
+        /// column(s)).</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -1361,56 +1405,51 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="AggregateStatisticsRequest.Stats.SUM">SUM</see>:</term>
-        ///         <description>Sum of all values in the column.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AggregateStatisticsRequest.Stats.SUM_OF_SQUARES">SUM_OF_SQUARES</see>:</term>
-        ///         <description>Sum of the squares of all values in the
-        /// column.</description>
+        ///         <description>Sum of all values in the
+        /// column(s).</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="AggregateStatisticsRequest.Stats.MIN">MIN</see>:</term>
-        ///         <description>Minimum value of the column.</description>
+        ///         <description>Minimum value of the column(s).</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="AggregateStatisticsRequest.Stats.MAX">MAX</see>:</term>
-        ///         <description>Maximum value of the column.</description>
+        ///         <description>Maximum value of the column(s).</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="AggregateStatisticsRequest.Stats.WEIGHTED_AVERAGE">WEIGHTED_AVERAGE</see>:</term>
         ///         <description>Weighted arithmetic mean (using the option
-        /// 'weight_column_name' as the weighting column).</description>
+        /// <i>weight_column_name</i> as the weighting column).</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="AggregateStatisticsRequest.Stats.CARDINALITY">CARDINALITY</see>:</term>
         ///         <description>Number of unique values in the
-        /// column.</description>
+        /// column(s).</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="AggregateStatisticsRequest.Stats.ESTIMATED_CARDINALITY">ESTIMATED_CARDINALITY</see>:</term>
         ///         <description>Estimate (via hyperloglog technique) of the
-        /// number of unique values in the column.</description>
+        /// number of unique values in the column(s).</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="AggregateStatisticsRequest.Stats.PERCENTILE">PERCENTILE</see>:</term>
         ///         <description>Estimate (via t-digest) of the given
-        /// percentile of the column (percentile(50.0) will be an approximation
-        /// of the median).</description>
+        /// percentile of the column(s) (percentile(50.0) will be an
+        /// approximation of the median).</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="AggregateStatisticsRequest.Stats.PERCENTILE_RANK">PERCENTILE_RANK</see>:</term>
         ///         <description>Estimate (via t-digest) of the percentile rank
-        /// of the given value in the column (if the given value is the median
-        /// of the column, percentile_rank([median]) will return approximately
-        /// 50.0).</description>
+        /// of the given value in the column(s) (if the given value is the
+        /// median of the column(s), percentile_rank(<median>) will return
+        /// approximately 50.0).</description>
         ///     </item>
         /// </list>  </param>
         /// <param name="options">Optional parameters.
@@ -1419,8 +1458,12 @@ namespace kinetica
         ///         <term><see
         /// cref="AggregateStatisticsRequest.Options.ADDITIONAL_COLUMN_NAMES">ADDITIONAL_COLUMN_NAMES</see>:</term>
         ///         <description>A list of comma separated column names over
-        /// which statistics can be accumulated along with the primary
-        /// column.</description>
+        /// which statistics can be accumulated along with the primary column.
+        /// All columns listed and <paramref
+        /// cref="AggregateStatisticsRequest.column_name" /> must be of the
+        /// same type.  Must not include the column specified in <paramref
+        /// cref="AggregateStatisticsRequest.column_name" /> and no column can
+        /// be listed twice.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -1596,12 +1639,18 @@ namespace kinetica
         /// cref="RawAggregateUniqueResponse.binary_encoded_response" />.
         /// Otherwise if <paramref cref="AggregateUniqueRequest.column_name" />
         /// is a string column the values will be in <paramref
-        /// cref="RawAggregateUniqueResponse.json_encoded_response" />.
-        /// <paramref cref="AggregateUniqueRequest.offset" /> and <paramref
-        /// cref="AggregateUniqueRequest.limit" /> are used to page through the
-        /// results if there are large numbers of unique values. To get the
-        /// first 10 unique values sorted in descending order <paramref
-        /// cref="AggregateUniqueRequest.options" /> would be::
+        /// cref="RawAggregateUniqueResponse.json_encoded_response" />.  The
+        /// results can be paged via the <paramref
+        /// cref="AggregateUniqueRequest.offset" /> and <paramref
+        /// cref="AggregateUniqueRequest.limit" /> parameters.
+        /// <br />
+        /// Columns marked as <a
+        /// href="../../../../concepts/types.html#data-handling"
+        /// target="_top">store-only</a> are unable to be used with this
+        /// function.
+        /// <br />
+        /// To get the first 10 unique values sorted in descending order
+        /// <paramref cref="AggregateUniqueRequest.options" /> would be::
         /// <br />
         /// {"limit":"10","sort_order":"descending"}.
         /// <br />
@@ -1609,16 +1658,22 @@ namespace kinetica
         /// href="../../../../concepts/dynamic_schemas.html"
         /// target="_top">dynamic schemas documentation</a>.
         /// <br />
-        /// If a <i>result_table</i> name is specified in the options, the
-        /// results are stored in a new table with that name.  No results are
-        /// returned in the response.  If the source table's <a
+        /// If a <i>result_table</i> name is specified in the <paramref
+        /// cref="AggregateUniqueRequest.options" />, the results are stored in
+        /// a new table with that name--no results are returned in the
+        /// response.  Both the table name and resulting column name must
+        /// adhere to <a href="../../../../concepts/tables.html#table"
+        /// target="_top">standard naming conventions</a>; any column
+        /// expression will need to be aliased.  If the source table's <a
         /// href="../../../../concepts/tables.html#shard-keys"
         /// target="_top">shard key</a> is used as the <paramref
         /// cref="AggregateUniqueRequest.column_name" />, the result table will
         /// be sharded, in all other cases it will be replicated.  Sorting will
         /// properly function only if the result table is replicated or if
         /// there is only one processing node and should not be relied upon in
-        /// other cases.</summary>
+        /// other cases.  Not available when the value of <paramref
+        /// cref="AggregateUniqueRequest.column_name" /> is an
+        /// unrestricted-length string.</summary>
         /// 
         /// <param name="request_">Request object containing the parameters for
         /// the operation.</param>
@@ -1645,11 +1700,17 @@ namespace kinetica
         /// <paramref cref="RawAggregateUniqueResponse.binary_encoded_response"
         /// />. Otherwise if <paramref name="column_name" /> is a string column
         /// the values will be in <paramref
-        /// cref="RawAggregateUniqueResponse.json_encoded_response" />.
-        /// <paramref name="offset" /> and <paramref name="limit" /> are used
-        /// to page through the results if there are large numbers of unique
-        /// values. To get the first 10 unique values sorted in descending
-        /// order <paramref name="options" /> would be::
+        /// cref="RawAggregateUniqueResponse.json_encoded_response" />.  The
+        /// results can be paged via the <paramref name="offset" /> and
+        /// <paramref name="limit" /> parameters.
+        /// <br />
+        /// Columns marked as <a
+        /// href="../../../../concepts/types.html#data-handling"
+        /// target="_top">store-only</a> are unable to be used with this
+        /// function.
+        /// <br />
+        /// To get the first 10 unique values sorted in descending order
+        /// <paramref name="options" /> would be::
         /// <br />
         /// {"limit":"10","sort_order":"descending"}.
         /// <br />
@@ -1657,16 +1718,21 @@ namespace kinetica
         /// href="../../../../concepts/dynamic_schemas.html"
         /// target="_top">dynamic schemas documentation</a>.
         /// <br />
-        /// If a <i>result_table</i> name is specified in the options, the
-        /// results are stored in a new table with that name.  No results are
-        /// returned in the response.  If the source table's <a
+        /// If a <i>result_table</i> name is specified in the <paramref
+        /// name="options" />, the results are stored in a new table with that
+        /// name--no results are returned in the response.  Both the table name
+        /// and resulting column name must adhere to <a
+        /// href="../../../../concepts/tables.html#table"
+        /// target="_top">standard naming conventions</a>; any column
+        /// expression will need to be aliased.  If the source table's <a
         /// href="../../../../concepts/tables.html#shard-keys"
         /// target="_top">shard key</a> is used as the <paramref
         /// name="column_name" />, the result table will be sharded, in all
         /// other cases it will be replicated.  Sorting will properly function
         /// only if the result table is replicated or if there is only one
-        /// processing node and should not be relied upon in other
-        /// cases.</summary>
+        /// processing node and should not be relied upon in other cases.  Not
+        /// available when the value of <paramref name="column_name" /> is an
+        /// unrestricted-length string.</summary>
         /// 
         /// <param name="table_name">Name of the table on which the operation
         /// will be performed. Must be an existing table.  </param>
@@ -1720,7 +1786,7 @@ namespace kinetica
         ///         <term><see
         /// cref="AggregateUniqueRequest.Options.RESULT_TABLE">RESULT_TABLE</see>:</term>
         ///         <description>The name of the table used to store the
-        /// results. If present no results are returned in the response. Has
+        /// results. If present, no results are returned in the response. Has
         /// the same naming restrictions as <a
         /// href="../../../../concepts/tables.html"
         /// target="_top">tables</a>.</description>
@@ -2154,7 +2220,7 @@ namespace kinetica
 
 
         /// <summary>Apply various modifications to a table, view, or
-        /// collection.  The availble
+        /// collection.  The available
         /// modifications include the following:
         /// <br />
         /// Create or delete an index on a particular column. This can speed up
@@ -2208,7 +2274,7 @@ namespace kinetica
 
 
         /// <summary>Apply various modifications to a table, view, or
-        /// collection.  The availble
+        /// collection.  The available
         /// modifications include the following:
         /// <br />
         /// Create or delete an index on a particular column. This can speed up
@@ -3123,11 +3189,12 @@ namespace kinetica
         /// the same processing node, so it won't make sense to use
         /// <i>order_by</i> without moving average.
         /// <br />
-        /// Also, a projection can be created with a different shard key than
-        /// the source table.  By specifying <i>shard_key</i>, the projection
-        /// will be sharded according to the specified columns, regardless of
-        /// how the source table is sharded.  The source table can even be
-        /// unsharded or replicated.</summary>
+        /// Also, a projection can be created with a different <a
+        /// href="../../../../concepts/tables.html#shard-keys"
+        /// target="_top">shard key</a> than the source table.  By specifying
+        /// <i>shard_key</i>, the projection will be sharded according to the
+        /// specified columns, regardless of how the source table is sharded.
+        /// The source table can even be unsharded or replicated.</summary>
         /// 
         /// <param name="request_">Request object containing the parameters for
         /// the operation.</param>
@@ -3167,11 +3234,12 @@ namespace kinetica
         /// the same processing node, so it won't make sense to use
         /// <i>order_by</i> without moving average.
         /// <br />
-        /// Also, a projection can be created with a different shard key than
-        /// the source table.  By specifying <i>shard_key</i>, the projection
-        /// will be sharded according to the specified columns, regardless of
-        /// how the source table is sharded.  The source table can even be
-        /// unsharded or replicated.</summary>
+        /// Also, a projection can be created with a different <a
+        /// href="../../../../concepts/tables.html#shard-keys"
+        /// target="_top">shard key</a> than the source table.  By specifying
+        /// <i>shard_key</i>, the projection will be sharded according to the
+        /// specified columns, regardless of how the source table is sharded.
+        /// The source table can even be unsharded or replicated.</summary>
         /// 
         /// <param name="table_name">Name of the existing table on which the
         /// projection is to be applied.  </param>
@@ -3476,17 +3544,17 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="CreateTableRequest.Options.FOREIGN_KEYS">FOREIGN_KEYS</see>:</term>
-        ///         <description>Semicolon-separated list of foreign key
-        /// constraints, of the format 'source_column references
+        ///         <description>Semicolon-separated list of foreign keys, of
+        /// the format 'source_column references
         /// target_table(primary_key_column) [ as <foreign_key_name>
         /// ]'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="CreateTableRequest.Options.FOREIGN_SHARD_KEY">FOREIGN_SHARD_KEY</see>:</term>
-        ///         <description>Foreign shard key description of the format:
-        /// <fk_foreign_key> references <pk_column_name> from
-        /// <pk_table_name>(<pk_primary_key>)</description>
+        ///         <description>Foreign shard key of the format 'source_column
+        /// references shard_by_column from
+        /// target_table(primary_key_column)'</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -7415,9 +7483,7 @@ namespace kinetica
                                                           field_maps, options ) );
         }
 
-
-        /// <summary>@private
-        /// </summary>
+        /// @cond NO_DOCS
         /// 
         /// <param name="request_">Request object containing the parameters for
         /// the operation.</param>
@@ -7431,10 +7497,9 @@ namespace kinetica
 
             return actualResponse_;
         }
+        /// @endcond
 
-
-        /// <summary>@private
-        /// </summary>
+        /// @cond NO_DOCS
         /// 
         /// <param name="old_rank_tom"></param>
         /// <param name="new_rank_tom"></param>
@@ -7447,6 +7512,7 @@ namespace kinetica
         {
             return adminReplaceTom( new AdminReplaceTomRequest( old_rank_tom, new_rank_tom ) );
         }
+        /// @endcond
 
 
         /// <summary>Revokes a system-level permission from a user or
@@ -8486,9 +8552,7 @@ namespace kinetica
                                                                             options ) );
         }
 
-
-        /// <summary>@private
-        /// </summary>
+        /// @cond NO_DOCS
         /// 
         /// <param name="request_">Request object containing the parameters for
         /// the operation.</param>
@@ -8502,10 +8566,9 @@ namespace kinetica
 
             return actualResponse_;
         }
+        /// @endcond
 
-
-        /// <summary>@private
-        /// </summary>
+        /// @cond NO_DOCS
         /// 
         /// <param name="table_names"></param>
         /// <param name="world_table_names"></param>
@@ -8859,6 +8922,7 @@ namespace kinetica
                                                               projection, bg_color,
                                                               style_options, options ) );
         }
+        /// @endcond
 
 
         /// <summary>Scatter plot is the only plot type currently supported. A
@@ -9071,9 +9135,7 @@ namespace kinetica
                                                                         options ) );
         }
 
-
-        /// <summary>@private
-        /// </summary>
+        /// @cond NO_DOCS
         /// 
         /// <param name="request_">Request object containing the parameters for
         /// the operation.</param>
@@ -9087,10 +9149,9 @@ namespace kinetica
 
             return actualResponse_;
         }
+        /// @endcond
 
-
-        /// <summary>@private
-        /// </summary>
+        /// @cond NO_DOCS
         /// 
         /// <param name="table_names"></param>
         /// <param name="world_table_names"></param>
@@ -9456,10 +9517,9 @@ namespace kinetica
                                                                                   style_options,
                                                                                   options ) );
         }
+        /// @endcond
 
-
-        /// <summary>@private
-        /// </summary>
+        /// @cond NO_DOCS
         /// 
         /// <param name="request_">Request object containing the parameters for
         /// the operation.</param>
@@ -9473,15 +9533,15 @@ namespace kinetica
 
             return actualResponse_;
         }
+        /// @endcond
 
-
-        /// <summary>@private
-        /// </summary>
+        /// @cond NO_DOCS
         /// 
         /// <param name="table_names"></param>
         /// <param name="x_column_name"></param>
         /// <param name="y_column_name"></param>
         /// <param name="value_column_name"></param>
+        /// <param name="geometry_column_name"></param>
         /// <param name="min_x"></param>
         /// <param name="max_x"></param>
         /// <param name="min_y"></param>
@@ -9617,6 +9677,7 @@ namespace kinetica
                                                                     string x_column_name,
                                                                     string y_column_name,
                                                                     string value_column_name,
+                                                                    string geometry_column_name,
                                                                     double min_x,
                                                                     double max_x,
                                                                     double min_y,
@@ -9631,6 +9692,7 @@ namespace kinetica
                                                                             x_column_name,
                                                                             y_column_name,
                                                                             value_column_name,
+                                                                            geometry_column_name,
                                                                             min_x, max_x,
                                                                             min_y, max_y,
                                                                             width, height,
@@ -9638,10 +9700,9 @@ namespace kinetica
                                                                             style_options,
                                                                             options ) );
         }
+        /// @endcond
 
-
-        /// <summary>@private
-        /// </summary>
+        /// @cond NO_DOCS
         /// 
         /// <param name="request_">Request object containing the parameters for
         /// the operation.</param>
@@ -9655,10 +9716,9 @@ namespace kinetica
 
             return actualResponse_;
         }
+        /// @endcond
 
-
-        /// <summary>@private
-        /// </summary>
+        /// @cond NO_DOCS
         /// 
         /// <param name="table_name"></param>
         /// <param name="x_column_name"></param>
@@ -9782,10 +9842,9 @@ namespace kinetica
                                                                           projection,
                                                                           options ) );
         }
+        /// @endcond
 
-
-        /// <summary>@private
-        /// </summary>
+        /// @cond NO_DOCS
         /// 
         /// <param name="request_">Request object containing the parameters for
         /// the operation.</param>
@@ -9799,10 +9858,9 @@ namespace kinetica
 
             return actualResponse_;
         }
+        /// @endcond
 
-
-        /// <summary>@private
-        /// </summary>
+        /// @cond NO_DOCS
         /// 
         /// <param name="table_names"></param>
         /// <param name="world_table_names"></param>
@@ -10135,10 +10193,9 @@ namespace kinetica
                                                               video_style, session_key,
                                                               style_options, options ) );
         }
+        /// @endcond
 
-
-        /// <summary>@private
-        /// </summary>
+        /// @cond NO_DOCS
         /// 
         /// <param name="request_">Request object containing the parameters for
         /// the operation.</param>
@@ -10152,10 +10209,9 @@ namespace kinetica
 
             return actualResponse_;
         }
+        /// @endcond
 
-
-        /// <summary>@private
-        /// </summary>
+        /// @cond NO_DOCS
         /// 
         /// <param name="table_names"></param>
         /// <param name="x_column_name"></param>
@@ -10319,6 +10375,7 @@ namespace kinetica
                                                                             style_options,
                                                                             options ) );
         }
+        /// @endcond
 
 
     }  // end class Kinetica

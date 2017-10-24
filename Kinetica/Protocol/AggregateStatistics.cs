@@ -15,29 +15,43 @@ namespace kinetica
     /// cref="Kinetica.aggregateStatistics(string,string,string,IDictionary{string, string})"
     /// />.
     /// <br />
-    /// Calculates the requested statistics of a given column in a given table.
+    /// Calculates the requested statistics of the given column(s) in a given
+    /// table.
     /// <br />
-    /// The available statistics are count (number of total objects), mean,
-    /// stdv (standard deviation), variance, skew, kurtosis, sum,
-    /// sum_of_squares, min, max, weighted_average, cardinality (unique count),
-    /// estimated cardinality, percentile and percentile_rank.
+    /// The available statistics are <i>count</i> (number of total objects),
+    /// <i>mean</i>, <i>stdv</i> (standard deviation), <i>variance</i>,
+    /// <i>skew</i>, <i>kurtosis</i>, <i>sum</i>, <i>min</i>, <i>max</i>,
+    /// <i>weighted_average</i>, <i>cardinality</i> (unique count),
+    /// <i>estimated_cardinality</i>, <i>percentile</i> and
+    /// <i>percentile_rank</i>.
     /// <br />
     /// Estimated cardinality is calculated by using the hyperloglog
     /// approximation technique.
     /// <br />
-    /// Percentiles and percentile_ranks are approximate and are calculated
+    /// Percentiles and percentile ranks are approximate and are calculated
     /// using the t-digest algorithm. They must include the desired
-    /// percentile/percentile_rank. To compute multiple percentiles each value
-    /// must be specified separately (i.e.
+    /// <i>percentile</i>/<i>percentile_rank</i>. To compute multiple
+    /// percentiles each value must be specified separately (i.e.
     /// 'percentile(75.0),percentile(99.0),percentile_rank(1234.56),percentile_rank(-5)').
     /// <br />
-    /// The weighted average statistic requires a weight_attribute to be
-    /// specified in <see cref="options" />. The weighted average is then
+    /// The weighted average statistic requires a <i>weight_column_name</i> to
+    /// be specified in <see cref="options" />. The weighted average is then
     /// defined as the sum of the products of <see cref="column_name" /> times
-    /// the weight attribute divided by the sum of the weight attribute.
+    /// the <i>weight_column_name</i> values divided by the sum of the
+    /// <i>weight_column_name</i> values.
     /// <br />
-    /// The response includes a list of the statistics requested along with the
-    /// count of the number of items in the given set.</summary>
+    /// Additional columns can be used in the calculation of statistics via the
+    /// <i>additional_column_names</i> option.  Values in these columns will be
+    /// included in the overall aggregate calculation--individual aggregates
+    /// will not be calculated per additional column.  For instance, requesting
+    /// the <i>count</i> & <i>mean</i> of <see cref="column_name" /> x and
+    /// <i>additional_column_names</i> y & z, where x holds the numbers 1-10, y
+    /// holds 11-20, and z holds 21-30, would return the total number of x, y,
+    /// & z values (30), and the single average value across all x, y, & z
+    /// values (15.5).
+    /// <br />
+    /// The response includes a list of key/value pairs of each statistic
+    /// requested and its corresponding value.</summary>
     public class AggregateStatisticsRequest : KineticaData
     {
 
@@ -49,7 +63,7 @@ namespace kinetica
         ///         <term><see
         /// cref="AggregateStatisticsRequest.Stats.COUNT">COUNT</see>:</term>
         ///         <description>Number of objects (independent of the given
-        /// column).</description>
+        /// column(s)).</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -84,56 +98,51 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="AggregateStatisticsRequest.Stats.SUM">SUM</see>:</term>
-        ///         <description>Sum of all values in the column.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AggregateStatisticsRequest.Stats.SUM_OF_SQUARES">SUM_OF_SQUARES</see>:</term>
-        ///         <description>Sum of the squares of all values in the
-        /// column.</description>
+        ///         <description>Sum of all values in the
+        /// column(s).</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="AggregateStatisticsRequest.Stats.MIN">MIN</see>:</term>
-        ///         <description>Minimum value of the column.</description>
+        ///         <description>Minimum value of the column(s).</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="AggregateStatisticsRequest.Stats.MAX">MAX</see>:</term>
-        ///         <description>Maximum value of the column.</description>
+        ///         <description>Maximum value of the column(s).</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="AggregateStatisticsRequest.Stats.WEIGHTED_AVERAGE">WEIGHTED_AVERAGE</see>:</term>
         ///         <description>Weighted arithmetic mean (using the option
-        /// 'weight_column_name' as the weighting column).</description>
+        /// <i>weight_column_name</i> as the weighting column).</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="AggregateStatisticsRequest.Stats.CARDINALITY">CARDINALITY</see>:</term>
         ///         <description>Number of unique values in the
-        /// column.</description>
+        /// column(s).</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="AggregateStatisticsRequest.Stats.ESTIMATED_CARDINALITY">ESTIMATED_CARDINALITY</see>:</term>
         ///         <description>Estimate (via hyperloglog technique) of the
-        /// number of unique values in the column.</description>
+        /// number of unique values in the column(s).</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="AggregateStatisticsRequest.Stats.PERCENTILE">PERCENTILE</see>:</term>
         ///         <description>Estimate (via t-digest) of the given
-        /// percentile of the column (percentile(50.0) will be an approximation
-        /// of the median).</description>
+        /// percentile of the column(s) (percentile(50.0) will be an
+        /// approximation of the median).</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="AggregateStatisticsRequest.Stats.PERCENTILE_RANK">PERCENTILE_RANK</see>:</term>
         ///         <description>Estimate (via t-digest) of the percentile rank
-        /// of the given value in the column (if the given value is the median
-        /// of the column, percentile_rank([median]) will return approximately
-        /// 50.0).</description>
+        /// of the given value in the column(s) (if the given value is the
+        /// median of the column(s), percentile_rank(<median>) will return
+        /// approximately 50.0).</description>
         ///     </item>
         /// </list>
         /// A set of string constants for the parameter <see cref="stats"
@@ -142,7 +151,7 @@ namespace kinetica
         {
 
             /// <summary>Number of objects (independent of the given
-            /// column).</summary>
+            /// column(s)).</summary>
             public const string COUNT = "count";
 
             /// <summary>Arithmetic mean (average), equivalent to
@@ -163,39 +172,35 @@ namespace kinetica
             /// <summary>Kurtosis (fourth standardized moment).</summary>
             public const string KURTOSIS = "kurtosis";
 
-            /// <summary>Sum of all values in the column.</summary>
+            /// <summary>Sum of all values in the column(s).</summary>
             public const string SUM = "sum";
 
-            /// <summary>Sum of the squares of all values in the
-            /// column.</summary>
-            public const string SUM_OF_SQUARES = "sum_of_squares";
-
-            /// <summary>Minimum value of the column.</summary>
+            /// <summary>Minimum value of the column(s).</summary>
             public const string MIN = "min";
 
-            /// <summary>Maximum value of the column.</summary>
+            /// <summary>Maximum value of the column(s).</summary>
             public const string MAX = "max";
 
             /// <summary>Weighted arithmetic mean (using the option
-            /// 'weight_column_name' as the weighting column).</summary>
+            /// <i>weight_column_name</i> as the weighting column).</summary>
             public const string WEIGHTED_AVERAGE = "weighted_average";
 
-            /// <summary>Number of unique values in the column.</summary>
+            /// <summary>Number of unique values in the column(s).</summary>
             public const string CARDINALITY = "cardinality";
 
             /// <summary>Estimate (via hyperloglog technique) of the number of
-            /// unique values in the column.</summary>
+            /// unique values in the column(s).</summary>
             public const string ESTIMATED_CARDINALITY = "estimated_cardinality";
 
             /// <summary>Estimate (via t-digest) of the given percentile of the
-            /// column (percentile(50.0) will be an approximation of the
+            /// column(s) (percentile(50.0) will be an approximation of the
             /// median).</summary>
             public const string PERCENTILE = "percentile";
 
             /// <summary>Estimate (via t-digest) of the percentile rank of the
-            /// given value in the column (if the given value is the median of
-            /// the column, percentile_rank([median]) will return approximately
-            /// 50.0).</summary>
+            /// given value in the column(s) (if the given value is the median
+            /// of the column(s), percentile_rank(<median>) will return
+            /// approximately 50.0).</summary>
             public const string PERCENTILE_RANK = "percentile_rank";
         } // end struct Stats
 
@@ -206,8 +211,12 @@ namespace kinetica
         ///         <term><see
         /// cref="AggregateStatisticsRequest.Options.ADDITIONAL_COLUMN_NAMES">ADDITIONAL_COLUMN_NAMES</see>:</term>
         ///         <description>A list of comma separated column names over
-        /// which statistics can be accumulated along with the primary
-        /// column.</description>
+        /// which statistics can be accumulated along with the primary column.
+        /// All columns listed and <paramref
+        /// cref="AggregateStatisticsRequest.column_name" /> must be of the
+        /// same type.  Must not include the column specified in <paramref
+        /// cref="AggregateStatisticsRequest.column_name" /> and no column can
+        /// be listed twice.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -223,8 +232,11 @@ namespace kinetica
         {
 
             /// <summary>A list of comma separated column names over which
-            /// statistics can be accumulated along with the primary
-            /// column.</summary>
+            /// statistics can be accumulated along with the primary column.
+            /// All columns listed and <see cref="column_name" /> must be of
+            /// the same type.  Must not include the column specified in <see
+            /// cref="column_name" /> and no column can be listed
+            /// twice.</summary>
             public const string ADDITIONAL_COLUMN_NAMES = "additional_column_names";
 
             /// <summary>Name of column used as weighting attribute for the
@@ -237,8 +249,8 @@ namespace kinetica
         /// be performed.  </summary>
         public string table_name { get; set; }
 
-        /// <summary>Name of the column for which the statistics are to be
-        /// calculated.  </summary>
+        /// <summary>Name of the primary column for which the statistics are to
+        /// be calculated.  </summary>
         public string column_name { get; set; }
 
         /// <summary>Comma separated list of the statistics to calculate, e.g.
@@ -249,7 +261,7 @@ namespace kinetica
         ///         <term><see
         /// cref="AggregateStatisticsRequest.Stats.COUNT">COUNT</see>:</term>
         ///         <description>Number of objects (independent of the given
-        /// column).</description>
+        /// column(s)).</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -284,56 +296,51 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="AggregateStatisticsRequest.Stats.SUM">SUM</see>:</term>
-        ///         <description>Sum of all values in the column.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AggregateStatisticsRequest.Stats.SUM_OF_SQUARES">SUM_OF_SQUARES</see>:</term>
-        ///         <description>Sum of the squares of all values in the
-        /// column.</description>
+        ///         <description>Sum of all values in the
+        /// column(s).</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="AggregateStatisticsRequest.Stats.MIN">MIN</see>:</term>
-        ///         <description>Minimum value of the column.</description>
+        ///         <description>Minimum value of the column(s).</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="AggregateStatisticsRequest.Stats.MAX">MAX</see>:</term>
-        ///         <description>Maximum value of the column.</description>
+        ///         <description>Maximum value of the column(s).</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="AggregateStatisticsRequest.Stats.WEIGHTED_AVERAGE">WEIGHTED_AVERAGE</see>:</term>
         ///         <description>Weighted arithmetic mean (using the option
-        /// 'weight_column_name' as the weighting column).</description>
+        /// <i>weight_column_name</i> as the weighting column).</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="AggregateStatisticsRequest.Stats.CARDINALITY">CARDINALITY</see>:</term>
         ///         <description>Number of unique values in the
-        /// column.</description>
+        /// column(s).</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="AggregateStatisticsRequest.Stats.ESTIMATED_CARDINALITY">ESTIMATED_CARDINALITY</see>:</term>
         ///         <description>Estimate (via hyperloglog technique) of the
-        /// number of unique values in the column.</description>
+        /// number of unique values in the column(s).</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="AggregateStatisticsRequest.Stats.PERCENTILE">PERCENTILE</see>:</term>
         ///         <description>Estimate (via t-digest) of the given
-        /// percentile of the column (percentile(50.0) will be an approximation
-        /// of the median).</description>
+        /// percentile of the column(s) (percentile(50.0) will be an
+        /// approximation of the median).</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="AggregateStatisticsRequest.Stats.PERCENTILE_RANK">PERCENTILE_RANK</see>:</term>
         ///         <description>Estimate (via t-digest) of the percentile rank
-        /// of the given value in the column (if the given value is the median
-        /// of the column, percentile_rank([median]) will return approximately
-        /// 50.0).</description>
+        /// of the given value in the column(s) (if the given value is the
+        /// median of the column(s), percentile_rank(<median>) will return
+        /// approximately 50.0).</description>
         ///     </item>
         /// </list>  </summary>
         public string stats { get; set; }
@@ -344,8 +351,12 @@ namespace kinetica
         ///         <term><see
         /// cref="AggregateStatisticsRequest.Options.ADDITIONAL_COLUMN_NAMES">ADDITIONAL_COLUMN_NAMES</see>:</term>
         ///         <description>A list of comma separated column names over
-        /// which statistics can be accumulated along with the primary
-        /// column.</description>
+        /// which statistics can be accumulated along with the primary column.
+        /// All columns listed and <paramref
+        /// cref="AggregateStatisticsRequest.column_name" /> must be of the
+        /// same type.  Must not include the column specified in <paramref
+        /// cref="AggregateStatisticsRequest.column_name" /> and no column can
+        /// be listed twice.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -367,7 +378,7 @@ namespace kinetica
         /// 
         /// <param name="table_name">Name of the table on which the statistics
         /// operation will be performed.  </param>
-        /// <param name="column_name">Name of the column for which the
+        /// <param name="column_name">Name of the primary column for which the
         /// statistics are to be calculated.  </param>
         /// <param name="stats">Comma separated list of the statistics to
         /// calculate, e.g. "sum,mean".
@@ -377,7 +388,7 @@ namespace kinetica
         ///         <term><see
         /// cref="AggregateStatisticsRequest.Stats.COUNT">COUNT</see>:</term>
         ///         <description>Number of objects (independent of the given
-        /// column).</description>
+        /// column(s)).</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -412,56 +423,51 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="AggregateStatisticsRequest.Stats.SUM">SUM</see>:</term>
-        ///         <description>Sum of all values in the column.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AggregateStatisticsRequest.Stats.SUM_OF_SQUARES">SUM_OF_SQUARES</see>:</term>
-        ///         <description>Sum of the squares of all values in the
-        /// column.</description>
+        ///         <description>Sum of all values in the
+        /// column(s).</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="AggregateStatisticsRequest.Stats.MIN">MIN</see>:</term>
-        ///         <description>Minimum value of the column.</description>
+        ///         <description>Minimum value of the column(s).</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="AggregateStatisticsRequest.Stats.MAX">MAX</see>:</term>
-        ///         <description>Maximum value of the column.</description>
+        ///         <description>Maximum value of the column(s).</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="AggregateStatisticsRequest.Stats.WEIGHTED_AVERAGE">WEIGHTED_AVERAGE</see>:</term>
         ///         <description>Weighted arithmetic mean (using the option
-        /// 'weight_column_name' as the weighting column).</description>
+        /// <i>weight_column_name</i> as the weighting column).</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="AggregateStatisticsRequest.Stats.CARDINALITY">CARDINALITY</see>:</term>
         ///         <description>Number of unique values in the
-        /// column.</description>
+        /// column(s).</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="AggregateStatisticsRequest.Stats.ESTIMATED_CARDINALITY">ESTIMATED_CARDINALITY</see>:</term>
         ///         <description>Estimate (via hyperloglog technique) of the
-        /// number of unique values in the column.</description>
+        /// number of unique values in the column(s).</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="AggregateStatisticsRequest.Stats.PERCENTILE">PERCENTILE</see>:</term>
         ///         <description>Estimate (via t-digest) of the given
-        /// percentile of the column (percentile(50.0) will be an approximation
-        /// of the median).</description>
+        /// percentile of the column(s) (percentile(50.0) will be an
+        /// approximation of the median).</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="AggregateStatisticsRequest.Stats.PERCENTILE_RANK">PERCENTILE_RANK</see>:</term>
         ///         <description>Estimate (via t-digest) of the percentile rank
-        /// of the given value in the column (if the given value is the median
-        /// of the column, percentile_rank([median]) will return approximately
-        /// 50.0).</description>
+        /// of the given value in the column(s) (if the given value is the
+        /// median of the column(s), percentile_rank(<median>) will return
+        /// approximately 50.0).</description>
         ///     </item>
         /// </list>  </param>
         /// <param name="options">Optional parameters.
@@ -470,8 +476,12 @@ namespace kinetica
         ///         <term><see
         /// cref="AggregateStatisticsRequest.Options.ADDITIONAL_COLUMN_NAMES">ADDITIONAL_COLUMN_NAMES</see>:</term>
         ///         <description>A list of comma separated column names over
-        /// which statistics can be accumulated along with the primary
-        /// column.</description>
+        /// which statistics can be accumulated along with the primary column.
+        /// All columns listed and <paramref
+        /// cref="AggregateStatisticsRequest.column_name" /> must be of the
+        /// same type.  Must not include the column specified in <paramref
+        /// cref="AggregateStatisticsRequest.column_name" /> and no column can
+        /// be listed twice.</description>
         ///     </item>
         ///     <item>
         ///         <term><see

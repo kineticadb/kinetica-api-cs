@@ -10,9 +10,8 @@ using System.Collections.Generic;
 
 namespace kinetica
 {
-
-    /// <summary>@private
-    /// A set of parameters for <see
+    /// @cond NO_DOCS
+    /// <summary>A set of parameters for <see
     /// cref="Kinetica.visualizeVideoHeatmap(IList{string},string,string,double,double,double,double,IList{IList{double}},int,int,string,string,string,IDictionary{string, string},IDictionary{string, string})"
     /// />.
     /// <br />
@@ -20,8 +19,7 @@ namespace kinetica
     public class VisualizeVideoHeatmapRequest : KineticaData
     {
 
-        /// <summary>@private
-        /// <br />
+        /// <summary>
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -67,50 +65,19 @@ namespace kinetica
         /// />.</summary>
         public struct Projection
         {
-
-            /// <summary>@private
-            /// </summary>
             public const string EPSG_4326 = "EPSG:4326";
-
-            /// <summary>@private
-            /// </summary>
             public const string PLATE_CARREE = "PLATE_CARREE";
-
-            /// <summary>@private
-            /// </summary>
             public const string _900913 = "900913";
-
-            /// <summary>@private
-            /// </summary>
             public const string EPSG_900913 = "EPSG:900913";
-
-            /// <summary>@private
-            /// </summary>
             public const string _102100 = "102100";
-
-            /// <summary>@private
-            /// </summary>
             public const string EPSG_102100 = "EPSG:102100";
-
-            /// <summary>@private
-            /// </summary>
             public const string _3857 = "3857";
-
-            /// <summary>@private
-            /// </summary>
             public const string EPSG_3857 = "EPSG:3857";
-
-            /// <summary>@private
-            /// </summary>
             public const string WEB_MERCATOR = "WEB_MERCATOR";
-
-    /// <summary>@private
-    /// </summary>
         } // end struct Projection
 
 
-        /// <summary>@private
-        /// <br />
+        /// <summary>
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
@@ -189,8 +156,7 @@ namespace kinetica
         public struct StyleOptions
         {
 
-            /// <summary>@private
-            /// <br />
+            /// <summary>
             /// Supported values:
             /// <list type="bullet">
             ///     <item>
@@ -237,113 +203,34 @@ namespace kinetica
             /// The default value is <see
             /// cref="VisualizeVideoHeatmapRequest.StyleOptions.REDS">REDS</see>.</summary>
             public const string COLORMAP = "colormap";
-
-            /// <summary>@private
-            /// </summary>
             public const string JET = "jet";
-
-            /// <summary>@private
-            /// </summary>
             public const string HOT = "hot";
-
-            /// <summary>@private
-            /// </summary>
             public const string HSV = "hsv";
-
-            /// <summary>@private
-            /// </summary>
             public const string GRAY = "gray";
-
-            /// <summary>@private
-            /// </summary>
             public const string BLUES = "blues";
-
-            /// <summary>@private
-            /// </summary>
             public const string GREENS = "greens";
-
-            /// <summary>@private
-            /// </summary>
             public const string GREYS = "greys";
-
-            /// <summary>@private
-            /// </summary>
             public const string ORANGES = "oranges";
-
-            /// <summary>@private
-            /// </summary>
             public const string PURPLES = "purples";
-
-            /// <summary>@private
-            /// </summary>
             public const string REDS = "reds";
-
-            /// <summary>@private
-            /// </summary>
             public const string BLUR_RADIUS = "blur_radius";
-
-            /// <summary>@private
-            /// </summary>
             public const string BG_COLOR = "bg_color";
-
-            /// <summary>@private
-            /// </summary>
             public const string GRADIENT_START_COLOR = "gradient_start_color";
-
-            /// <summary>@private
-            /// </summary>
             public const string GRADIENT_END_COLOR = "gradient_end_color";
-
-    /// <summary>@private
-    /// </summary>
         } // end struct StyleOptions
 
-
-        /// <summary>@private
-        /// </summary>
-
-        /// <summary>@private
-        /// </summary>
         public IList<string> table_names { get; set; } = new List<string>();
-
-        /// <summary>@private
-        /// </summary>
         public string x_column_name { get; set; }
-
-        /// <summary>@private
-        /// </summary>
         public string y_column_name { get; set; }
-
-        /// <summary>@private
-        /// </summary>
         public double min_x { get; set; }
-
-        /// <summary>@private
-        /// </summary>
         public double max_x { get; set; }
-
-        /// <summary>@private
-        /// </summary>
         public double min_y { get; set; }
-
-        /// <summary>@private
-        /// </summary>
         public double max_y { get; set; }
-
-        /// <summary>@private
-        /// </summary>
         public IList<IList<double>> time_intervals { get; set; } = new List<IList<double>>();
-
-        /// <summary>@private
-        /// </summary>
         public int width { get; set; }
-
-        /// <summary>@private
-        /// </summary>
         public int height { get; set; }
 
-        /// <summary>@private
-        /// <br />
+        /// <summary>
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -386,17 +273,10 @@ namespace kinetica
         /// The default value is <see
         /// cref="VisualizeVideoHeatmapRequest.Projection.PLATE_CARREE">PLATE_CARREE</see>.</summary>
         public string projection { get; set; } = Projection.PLATE_CARREE;
-
-        /// <summary>@private
-        /// </summary>
         public string video_style { get; set; }
-
-        /// <summary>@private
-        /// </summary>
         public string session_key { get; set; }
 
-        /// <summary>@private
-        /// <br />
+        /// <summary>
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
@@ -471,20 +351,15 @@ namespace kinetica
         /// </list>
         /// </summary>
         public IDictionary<string, string> style_options { get; set; } = new Dictionary<string, string>();
-
-        /// <summary>@private
-        /// </summary>
         public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
 
 
-        /// <summary>@private
-        /// Constructs a VisualizeVideoHeatmapRequest object with default
-        /// parameters.</summary>
+        /// <summary>Constructs a VisualizeVideoHeatmapRequest object with
+        /// default parameters.</summary>
         public VisualizeVideoHeatmapRequest() { }
 
-        /// <summary>@private
-        /// Constructs a VisualizeVideoHeatmapRequest object with the specified
-        /// parameters.</summary>
+        /// <summary>Constructs a VisualizeVideoHeatmapRequest object with the
+        /// specified parameters.</summary>
         /// 
         /// <param name="table_names"></param>
         /// <param name="x_column_name"></param>
@@ -649,51 +524,27 @@ namespace kinetica
             this.options = options ?? new Dictionary<string, string>();
         } // end constructor
 
-
-    /// <summary>@private
-    /// </summary>
     } // end class VisualizeVideoHeatmapRequest
+    /// @endcond
 
 
 
-    /// <summary>@private
-    /// A set of results returned by <see
+    /// @cond NO_DOCS
+    /// <summary>A set of results returned by <see
     /// cref="Kinetica.visualizeVideoHeatmap(IList{string},string,string,double,double,double,double,IList{IList{double}},int,int,string,string,string,IDictionary{string, string},IDictionary{string, string})"
     /// />.</summary>
     public class VisualizeVideoHeatmapResponse : KineticaData
     {
-
-        /// <summary>@private
-        /// </summary>
-
-        /// <summary>@private
-        /// </summary>
         public double width { get; set; }
-
-        /// <summary>@private
-        /// </summary>
         public double height { get; set; }
-
-        /// <summary>@private
-        /// </summary>
         public long bg_color { get; set; }
-
-        /// <summary>@private
-        /// </summary>
         public int num_frames { get; set; }
-
-        /// <summary>@private
-        /// </summary>
         public string session_key { get; set; }
-
-        /// <summary>@private
-        /// </summary>
         public IList<byte[]> data { get; set; } = new List<byte[]>();
 
-
-    /// <summary>@private
-    /// </summary>
     } // end class VisualizeVideoHeatmapResponse
+    /// @endcond
+
 
 
 

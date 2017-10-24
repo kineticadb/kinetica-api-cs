@@ -16,7 +16,7 @@ namespace kinetica
     /// />.
     /// <br />
     /// Apply various modifications to a table, view, or collection.  The
-    /// availble
+    /// available
     /// modifications include the following:
     /// <br />
     /// Create or delete an index on a particular column. This can speed up

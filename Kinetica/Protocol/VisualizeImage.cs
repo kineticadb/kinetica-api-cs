@@ -10,9 +10,8 @@ using System.Collections.Generic;
 
 namespace kinetica
 {
-
-    /// <summary>@private
-    /// A set of parameters for <see
+    /// @cond NO_DOCS
+    /// <summary>A set of parameters for <see
     /// cref="Kinetica.visualizeImage(IList{string},IList{string},string,string,string,IList{IList{string}},double,double,double,double,int,int,string,long,IDictionary{string, IList{string}},IDictionary{string, string})"
     /// />.
     /// <br />
@@ -20,8 +19,7 @@ namespace kinetica
     public class VisualizeImageRequest : KineticaData
     {
 
-        /// <summary>@private
-        /// <br />
+        /// <summary>
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -67,50 +65,19 @@ namespace kinetica
         /// />.</summary>
         public struct Projection
         {
-
-            /// <summary>@private
-            /// </summary>
             public const string EPSG_4326 = "EPSG:4326";
-
-            /// <summary>@private
-            /// </summary>
             public const string PLATE_CARREE = "PLATE_CARREE";
-
-            /// <summary>@private
-            /// </summary>
             public const string _900913 = "900913";
-
-            /// <summary>@private
-            /// </summary>
             public const string EPSG_900913 = "EPSG:900913";
-
-            /// <summary>@private
-            /// </summary>
             public const string _102100 = "102100";
-
-            /// <summary>@private
-            /// </summary>
             public const string EPSG_102100 = "EPSG:102100";
-
-            /// <summary>@private
-            /// </summary>
             public const string _3857 = "3857";
-
-            /// <summary>@private
-            /// </summary>
             public const string EPSG_3857 = "EPSG:3857";
-
-            /// <summary>@private
-            /// </summary>
             public const string WEB_MERCATOR = "WEB_MERCATOR";
-
-    /// <summary>@private
-    /// </summary>
         } // end struct Projection
 
 
-        /// <summary>@private
-        /// <br />
+        /// <summary>
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
@@ -380,8 +347,7 @@ namespace kinetica
         public struct StyleOptions
         {
 
-            /// <summary>@private
-            /// <br />
+            /// <summary>
             /// Supported values:
             /// <list type="bullet">
             ///     <item>
@@ -396,17 +362,10 @@ namespace kinetica
             /// The default value is <see
             /// cref="VisualizeImageRequest.StyleOptions.TRUE">TRUE</see>.</summary>
             public const string DO_POINTS = "do_points";
-
-            /// <summary>@private
-            /// </summary>
             public const string TRUE = "true";
-
-            /// <summary>@private
-            /// </summary>
             public const string FALSE = "false";
 
-            /// <summary>@private
-            /// <br />
+            /// <summary>
             /// Supported values:
             /// <list type="bullet">
             ///     <item>
@@ -422,8 +381,7 @@ namespace kinetica
             /// cref="VisualizeImageRequest.StyleOptions.TRUE">TRUE</see>.</summary>
             public const string DO_SHAPES = "do_shapes";
 
-            /// <summary>@private
-            /// <br />
+            /// <summary>
             /// Supported values:
             /// <list type="bullet">
             ///     <item>
@@ -439,8 +397,7 @@ namespace kinetica
             /// cref="VisualizeImageRequest.StyleOptions.TRUE">TRUE</see>.</summary>
             public const string DO_TRACKS = "do_tracks";
 
-            /// <summary>@private
-            /// <br />
+            /// <summary>
             /// Supported values:
             /// <list type="bullet">
             ///     <item>
@@ -455,17 +412,10 @@ namespace kinetica
             /// The default value is <see
             /// cref="VisualizeImageRequest.StyleOptions.FALSE">FALSE</see>.</summary>
             public const string DO_SYMBOLOGY = "do_symbology";
-
-            /// <summary>@private
-            /// </summary>
             public const string POINTCOLORS = "pointcolors";
-
-            /// <summary>@private
-            /// </summary>
             public const string POINTSIZES = "pointsizes";
 
-            /// <summary>@private
-            /// <br />
+            /// <summary>
             /// Supported values:
             /// <list type="bullet">
             ///     <item>
@@ -504,69 +454,23 @@ namespace kinetica
             /// The default value is <see
             /// cref="VisualizeImageRequest.StyleOptions.SQUARE">SQUARE</see>.</summary>
             public const string POINTSHAPES = "pointshapes";
-
-            /// <summary>@private
-            /// </summary>
             public const string NONE = "none";
-
-            /// <summary>@private
-            /// </summary>
             public const string CIRCLE = "circle";
-
-            /// <summary>@private
-            /// </summary>
             public const string SQUARE = "square";
-
-            /// <summary>@private
-            /// </summary>
             public const string DIAMOND = "diamond";
-
-            /// <summary>@private
-            /// </summary>
             public const string HOLLOWCIRCLE = "hollowcircle";
-
-            /// <summary>@private
-            /// </summary>
             public const string HOLLOWSQUARE = "hollowsquare";
-
-            /// <summary>@private
-            /// </summary>
             public const string HOLLOWDIAMOND = "hollowdiamond";
-
-            /// <summary>@private
-            /// </summary>
             public const string SYMBOLCODE = "SYMBOLCODE";
-
-            /// <summary>@private
-            /// </summary>
             public const string SHAPELINEWIDTHS = "shapelinewidths";
-
-            /// <summary>@private
-            /// </summary>
             public const string SHAPELINECOLORS = "shapelinecolors";
-
-            /// <summary>@private
-            /// </summary>
             public const string SHAPEFILLCOLORS = "shapefillcolors";
-
-            /// <summary>@private
-            /// </summary>
             public const string TRACKLINEWIDTHS = "tracklinewidths";
-
-            /// <summary>@private
-            /// </summary>
             public const string TRACKLINECOLORS = "tracklinecolors";
-
-            /// <summary>@private
-            /// </summary>
             public const string TRACKMARKERSIZES = "trackmarkersizes";
-
-            /// <summary>@private
-            /// </summary>
             public const string TRACKMARKERCOLORS = "trackmarkercolors";
 
-            /// <summary>@private
-            /// <br />
+            /// <summary>
             /// Supported values:
             /// <list type="bullet">
             ///     <item>
@@ -613,25 +517,12 @@ namespace kinetica
             /// The default value is <see
             /// cref="VisualizeImageRequest.StyleOptions.CIRCLE">CIRCLE</see>.</summary>
             public const string TRACKMARKERSHAPES = "trackmarkershapes";
-
-            /// <summary>@private
-            /// </summary>
             public const string ORIENTED_ARROW = "oriented_arrow";
-
-            /// <summary>@private
-            /// </summary>
             public const string ORIENTED_TRIANGLE = "oriented_triangle";
-
-            /// <summary>@private
-            /// </summary>
             public const string TRACKHEADCOLORS = "trackheadcolors";
-
-            /// <summary>@private
-            /// </summary>
             public const string TRACKHEADSIZES = "trackheadsizes";
 
-            /// <summary>@private
-            /// <br />
+            /// <summary>
             /// Supported values:
             /// <list type="bullet">
             ///     <item>
@@ -670,65 +561,22 @@ namespace kinetica
             /// The default value is <see
             /// cref="VisualizeImageRequest.StyleOptions.HOLLOWDIAMOND">HOLLOWDIAMOND</see>.</summary>
             public const string TRACKHEADSHAPES = "trackheadshapes";
-
-    /// <summary>@private
-    /// </summary>
         } // end struct StyleOptions
 
-
-        /// <summary>@private
-        /// </summary>
-
-        /// <summary>@private
-        /// </summary>
         public IList<string> table_names { get; set; } = new List<string>();
-
-        /// <summary>@private
-        /// </summary>
         public IList<string> world_table_names { get; set; } = new List<string>();
-
-        /// <summary>@private
-        /// </summary>
         public string x_column_name { get; set; }
-
-        /// <summary>@private
-        /// </summary>
         public string y_column_name { get; set; }
-
-        /// <summary>@private
-        /// </summary>
         public string geometry_column_name { get; set; }
-
-        /// <summary>@private
-        /// </summary>
         public IList<IList<string>> track_ids { get; set; } = new List<IList<string>>();
-
-        /// <summary>@private
-        /// </summary>
         public double min_x { get; set; }
-
-        /// <summary>@private
-        /// </summary>
         public double max_x { get; set; }
-
-        /// <summary>@private
-        /// </summary>
         public double min_y { get; set; }
-
-        /// <summary>@private
-        /// </summary>
         public double max_y { get; set; }
-
-        /// <summary>@private
-        /// </summary>
         public int width { get; set; }
-
-        /// <summary>@private
-        /// </summary>
         public int height { get; set; }
 
-        /// <summary>@private
-        /// <br />
+        /// <summary>
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -771,13 +619,9 @@ namespace kinetica
         /// The default value is <see
         /// cref="VisualizeImageRequest.Projection.PLATE_CARREE">PLATE_CARREE</see>.</summary>
         public string projection { get; set; } = Projection.PLATE_CARREE;
-
-        /// <summary>@private
-        /// </summary>
         public long bg_color { get; set; }
 
-        /// <summary>@private
-        /// <br />
+        /// <summary>
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
@@ -1043,20 +887,15 @@ namespace kinetica
         /// </list>
         /// </summary>
         public IDictionary<string, IList<string>> style_options { get; set; } = new Dictionary<string, IList<string>>();
-
-        /// <summary>@private
-        /// </summary>
         public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
 
 
-        /// <summary>@private
-        /// Constructs a VisualizeImageRequest object with default
+        /// <summary>Constructs a VisualizeImageRequest object with default
         /// parameters.</summary>
         public VisualizeImageRequest() { }
 
-        /// <summary>@private
-        /// Constructs a VisualizeImageRequest object with the specified
-        /// parameters.</summary>
+        /// <summary>Constructs a VisualizeImageRequest object with the
+        /// specified parameters.</summary>
         /// 
         /// <param name="table_names"></param>
         /// <param name="world_table_names"></param>
@@ -1415,43 +1254,25 @@ namespace kinetica
             this.options = options ?? new Dictionary<string, string>();
         } // end constructor
 
-
-    /// <summary>@private
-    /// </summary>
     } // end class VisualizeImageRequest
+    /// @endcond
 
 
 
-    /// <summary>@private
-    /// A set of results returned by <see
+    /// @cond NO_DOCS
+    /// <summary>A set of results returned by <see
     /// cref="Kinetica.visualizeImage(IList{string},IList{string},string,string,string,IList{IList{string}},double,double,double,double,int,int,string,long,IDictionary{string, IList{string}},IDictionary{string, string})"
     /// />.</summary>
     public class VisualizeImageResponse : KineticaData
     {
-
-        /// <summary>@private
-        /// </summary>
-
-        /// <summary>@private
-        /// </summary>
         public double width { get; set; }
-
-        /// <summary>@private
-        /// </summary>
         public double height { get; set; }
-
-        /// <summary>@private
-        /// </summary>
         public long bg_color { get; set; }
-
-        /// <summary>@private
-        /// </summary>
         public byte[] image_data { get; set; }
 
-
-    /// <summary>@private
-    /// </summary>
     } // end class VisualizeImageResponse
+    /// @endcond
+
 
 
 

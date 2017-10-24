@@ -22,7 +22,10 @@ namespace kinetica
     /// <br />
     /// Any column(s) can be grouped on, and all column types except
     /// unrestricted-length strings may be used for computing applicable
-    /// aggregates.
+    /// aggregates; columns marked as <a
+    /// href="../../../../../concepts/types.html#data-handling"
+    /// target="_top">store-only</a> are unable to be used in grouping or
+    /// aggregation.
     /// <br />
     /// The results can be paged via the <see cref="offset" /> and <see
     /// cref="limit" /> parameters. For example, to get 10 groups with the
@@ -48,15 +51,20 @@ namespace kinetica
     /// href="../../../../../concepts/dynamic_schemas.html"
     /// target="_top">dynamic schemas documentation</a>.
     /// <br />
-    /// If a <i>result_table</i> name is specified in the options, the results
-    /// are stored in a new table with that name.  No results are returned in
-    /// the response.  If the source table's <a
+    /// If a <i>result_table</i> name is specified in the <see cref="options"
+    /// />, the results are stored in a new table with that name--no results
+    /// are returned in the response.  Both the table name and resulting column
+    /// names must adhere to <a
+    /// href="../../../../../concepts/tables.html#table" target="_top">standard
+    /// naming conventions</a>; column/aggregation expressions will need to be
+    /// aliased.  If the source table's <a
     /// href="../../../../../concepts/tables.html#shard-keys"
     /// target="_top">shard key</a> is used as the grouping column(s), the
     /// result table will be sharded, in all other cases it will be replicated.
     /// Sorting will properly function only if the result table is replicated
     /// or if there is only one processing node and should not be relied upon
-    /// in other cases.</summary>
+    /// in other cases.  Not available when any of the values of <see
+    /// cref="column_names" /> is an unrestricted-length string.</summary>
     public class AggregateGroupByRequest : KineticaData
     {
 
@@ -185,11 +193,11 @@ namespace kinetica
         ///         <term><see
         /// cref="AggregateGroupByRequest.Options.RESULT_TABLE_PERSIST">RESULT_TABLE_PERSIST</see>:</term>
         ///         <description>If <i>true</i> then the result table specified
-        /// in {result_table}@{key of input.options} will be persisted as a
-        /// regular table (it will not be automatically cleared unless a
-        /// <i>ttl</i> is provided, and the table data can be modified in
-        /// subsequent operations). If <i>false</i> (the default) then the
-        /// result table will be a read-only, memory-only temporary table.
+        /// in <i>result_table</i> will be persisted as a regular table (it
+        /// will not be automatically cleared unless a <i>ttl</i> is provided,
+        /// and the table data can be modified in subsequent operations). If
+        /// <i>false</i> (the default) then the result table will be a
+        /// read-only, memory-only temporary table.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -337,11 +345,11 @@ namespace kinetica
             public const string RESULT_TABLE = "result_table";
 
             /// <summary>If <i>true</i> then the result table specified in
-            /// {result_table}@{key of input.options} will be persisted as a
-            /// regular table (it will not be automatically cleared unless a
-            /// <i>ttl</i> is provided, and the table data can be modified in
-            /// subsequent operations). If <i>false</i> (the default) then the
-            /// result table will be a read-only, memory-only temporary table.
+            /// <i>result_table</i> will be persisted as a regular table (it
+            /// will not be automatically cleared unless a <i>ttl</i> is
+            /// provided, and the table data can be modified in subsequent
+            /// operations). If <i>false</i> (the default) then the result
+            /// table will be a read-only, memory-only temporary table.
             /// Supported values:
             /// <list type="bullet">
             ///     <item>
@@ -386,9 +394,7 @@ namespace kinetica
         public string table_name { get; set; }
 
         /// <summary>List of one or more column names, expressions, and
-        /// aggregate expressions. Must include at least one 'grouping' column
-        /// or expression.  If no aggregate is included, count(*) will be
-        /// computed as a default.  </summary>
+        /// aggregate expressions.  </summary>
         public IList<string> column_names { get; set; } = new List<string>();
 
         /// <summary>A positive integer indicating the number of initial
@@ -515,11 +521,11 @@ namespace kinetica
         ///         <term><see
         /// cref="AggregateGroupByRequest.Options.RESULT_TABLE_PERSIST">RESULT_TABLE_PERSIST</see>:</term>
         ///         <description>If <i>true</i> then the result table specified
-        /// in {result_table}@{key of input.options} will be persisted as a
-        /// regular table (it will not be automatically cleared unless a
-        /// <i>ttl</i> is provided, and the table data can be modified in
-        /// subsequent operations). If <i>false</i> (the default) then the
-        /// result table will be a read-only, memory-only temporary table.
+        /// in <i>result_table</i> will be persisted as a regular table (it
+        /// will not be automatically cleared unless a <i>ttl</i> is provided,
+        /// and the table data can be modified in subsequent operations). If
+        /// <i>false</i> (the default) then the result table will be a
+        /// read-only, memory-only temporary table.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -578,9 +584,7 @@ namespace kinetica
         /// will be performed. Must be an existing table/view/collection.
         /// </param>
         /// <param name="column_names">List of one or more column names,
-        /// expressions, and aggregate expressions. Must include at least one
-        /// 'grouping' column or expression.  If no aggregate is included,
-        /// count(*) will be computed as a default.  </param>
+        /// expressions, and aggregate expressions.  </param>
         /// <param name="offset">A positive integer indicating the number of
         /// initial results to skip (this can be useful for paging through the
         /// results).  The minimum allowed value is 0. The maximum allowed
@@ -680,11 +684,11 @@ namespace kinetica
         ///         <term><see
         /// cref="AggregateGroupByRequest.Options.RESULT_TABLE_PERSIST">RESULT_TABLE_PERSIST</see>:</term>
         ///         <description>If <i>true</i> then the result table specified
-        /// in {result_table}@{key of input.options} will be persisted as a
-        /// regular table (it will not be automatically cleared unless a
-        /// <i>ttl</i> is provided, and the table data can be modified in
-        /// subsequent operations). If <i>false</i> (the default) then the
-        /// result table will be a read-only, memory-only temporary table.
+        /// in <i>result_table</i> will be persisted as a regular table (it
+        /// will not be automatically cleared unless a <i>ttl</i> is provided,
+        /// and the table data can be modified in subsequent operations). If
+        /// <i>false</i> (the default) then the result table will be a
+        /// read-only, memory-only temporary table.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -752,9 +756,7 @@ namespace kinetica
         /// will be performed. Must be an existing table/view/collection.
         /// </param>
         /// <param name="column_names">List of one or more column names,
-        /// expressions, and aggregate expressions. Must include at least one
-        /// 'grouping' column or expression.  If no aggregate is included,
-        /// count(*) will be computed as a default.  </param>
+        /// expressions, and aggregate expressions.  </param>
         /// <param name="offset">A positive integer indicating the number of
         /// initial results to skip (this can be useful for paging through the
         /// results).  The minimum allowed value is 0. The maximum allowed
@@ -873,11 +875,11 @@ namespace kinetica
         ///         <term><see
         /// cref="AggregateGroupByRequest.Options.RESULT_TABLE_PERSIST">RESULT_TABLE_PERSIST</see>:</term>
         ///         <description>If <i>true</i> then the result table specified
-        /// in {result_table}@{key of input.options} will be persisted as a
-        /// regular table (it will not be automatically cleared unless a
-        /// <i>ttl</i> is provided, and the table data can be modified in
-        /// subsequent operations). If <i>false</i> (the default) then the
-        /// result table will be a read-only, memory-only temporary table.
+        /// in <i>result_table</i> will be persisted as a regular table (it
+        /// will not be automatically cleared unless a <i>ttl</i> is provided,
+        /// and the table data can be modified in subsequent operations). If
+        /// <i>false</i> (the default) then the result table will be a
+        /// read-only, memory-only temporary table.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
