@@ -40,6 +40,49 @@ namespace kinetica
         } // end struct Offline
 
 
+        /// <summary>Optional parameters.
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="AdminOfflineRequest.Options.FLUSH_TO_DISK">FLUSH_TO_DISK</see>:</term>
+        ///         <description>Flush to disk when going offline
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="AdminOfflineRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AdminOfflineRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list></description>
+        ///     </item>
+        /// </list>
+        /// <br />
+        /// A set of string constants for the parameter <see cref="options"
+        /// />.</summary>
+        public struct Options
+        {
+
+            /// <summary>Flush to disk when going offline
+            /// Supported values:
+            /// <list type="bullet">
+            ///     <item>
+            ///         <term><see
+            /// cref="AdminOfflineRequest.Options.TRUE">TRUE</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="AdminOfflineRequest.Options.FALSE">FALSE</see></term>
+            ///     </item>
+            /// </list></summary>
+            public const string FLUSH_TO_DISK = "flush_to_disk";
+            public const string TRUE = "true";
+            public const string FALSE = "false";
+        } // end struct Options
+
+
         /// <summary>Set to true if desired state is offline.
         /// Supported values:
         /// <list type="bullet">
@@ -54,7 +97,26 @@ namespace kinetica
         /// </list>  </summary>
         public bool offline { get; set; }
 
-        /// <summary>Optional parameters.  </summary>
+        /// <summary>Optional parameters.
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="AdminOfflineRequest.Options.FLUSH_TO_DISK">FLUSH_TO_DISK</see>:</term>
+        ///         <description>Flush to disk when going offline
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="AdminOfflineRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AdminOfflineRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list></description>
+        ///     </item>
+        /// </list>
+        ///   </summary>
         public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
 
 
@@ -77,7 +139,26 @@ namespace kinetica
         /// cref="AdminOfflineRequest.Offline.FALSE">FALSE</see></term>
         ///     </item>
         /// </list>  </param>
-        /// <param name="options">Optional parameters.  </param>
+        /// <param name="options">Optional parameters.
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="AdminOfflineRequest.Options.FLUSH_TO_DISK">FLUSH_TO_DISK</see>:</term>
+        ///         <description>Flush to disk when going offline
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="AdminOfflineRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AdminOfflineRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list></description>
+        ///     </item>
+        /// </list>
+        ///   </param>
         /// 
         public AdminOfflineRequest( bool offline,
                                     IDictionary<string, string> options = null)

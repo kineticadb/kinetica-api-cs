@@ -30,9 +30,8 @@ namespace kinetica
     /// For a collection, setting the <i>show_children</i> option to
     /// <i>false</i> returns only information about the collection itself;
     /// setting <i>show_children</i> to <i>true</i> returns a list of tables
-    /// and views contained in the collection, along with their description,
-    /// type id, schema, type label, type properties, and additional
-    /// information including TTL.</summary>
+    /// and views contained in the collection, along with their corresponding
+    /// detail.</summary>
     public class ShowTableRequest : KineticaData
     {
 
@@ -481,8 +480,9 @@ namespace kinetica
             public const string TRUE = "true";
             public const string FALSE = "false";
 
-            /// <summary>Indicates whether the respective table is protected or
-            /// not.
+            /// <summary>Indicates whether the respective table is <a
+            /// href="../../../../../concepts/protection.html"
+            /// target="_top">protected</a> or not.
             /// Supported values:
             /// <list type="bullet">
             ///     <item>
@@ -501,21 +501,23 @@ namespace kinetica
             /// 'data'.</summary>
             public const string RECORD_BYTES = "record_bytes";
 
-            /// <summary>The value of TTL setting, in minutes, for the
-            /// respective table (-1 if it will never expire).  This is not the
-            /// remaining amount of time before the table expires. Not present
-            /// for collections.</summary>
+            /// <summary>The value of the <a
+            /// href="../../../../../concepts/ttl.html"
+            /// target="_top">time-to-live</a> setting.  Not present for
+            /// collections.</summary>
             public const string TABLE_TTL = "table_ttl";
 
-            /// <summary>The remaining amount of minutes before the respective
-            /// table expires (-1 if it will never expire).  This value may be
-            /// different from the table's TTL setting. Not present for
-            /// collections.</summary>
+            /// <summary>The remaining <a
+            /// href="../../../../../concepts/ttl.html"
+            /// target="_top">time-to-live</a>, in minutes, before the
+            /// respective table expires (-1 if it will never expire).  Not
+            /// present for collections.</summary>
             public const string REMAINING_TABLE_TTL = "remaining_table_ttl";
 
-            /// <summary>Semicolon-separated list of foreign key constraints,
-            /// of the format 'source_column references
-            /// target_table(primary_key_column)'. Not present for
+            /// <summary>Semicolon-separated list of <a
+            /// href="../../../../../concepts/tables.html#foreign-key"
+            /// target="_top">foreign keys</a>, of the format 'source_column
+            /// references target_table(primary_key_column)'. Not present for
             /// collections.</summary>
             public const string FOREIGN_KEYS = "foreign_keys";
 
@@ -525,12 +527,18 @@ namespace kinetica
             /// collections.</summary>
             public const string FOREIGN_SHARD_KEY = "foreign_shard_key";
 
-            /// <summary>Semicolon-separated list of columns that have
-            /// attribute indexes. Not present for collections.</summary>
+            /// <summary>Semicolon-separated list of columns that have <a
+            /// href="../../../../../concepts/indexes.html#column-index"
+            /// target="_top">indexes</a>. Not present for
+            /// collections.</summary>
             public const string ATTRIBUTE_INDEXES = "attribute_indexes";
 
-            /// <summary>Semicolon-separated list of - compressed_columns:
-            /// {I1,snappy};{L1,lz4hc}. Not present for collections.</summary>
+            /// <summary>Semicolon-separated list of <a
+            /// href="../../../../../concepts/compression.html"
+            /// target="_top">compressed</a> columns with the corresponding
+            /// compression type for each; e.g.:
+            /// {first_name,snappy};{last_name,lz4hc}. Not present for
+            /// collections.</summary>
             public const string COMPRESSED_COLUMNS = "compressed_columns";
 
             /// <summary>JSON-encoded string representing a map of column name
@@ -571,19 +579,19 @@ namespace kinetica
 
             /// <summary>No read/write operations are allowed on this
             /// table.</summary>
-            public const string NO_ACCESS = "no-access";
+            public const string NO_ACCESS = "no_access";
 
             /// <summary>Only read operations are allowed on this
             /// table.</summary>
-            public const string READ_ONLY = "read-only";
+            public const string READ_ONLY = "read_only";
 
             /// <summary>Only write operations are allowed on this
             /// table.</summary>
-            public const string WRITE_ONLY = "write-only";
+            public const string WRITE_ONLY = "write_only";
 
             /// <summary>All read/write operations are allowed on this
             /// table.</summary>
-            public const string READ_WRITE = "read-write";
+            public const string READ_WRITE = "read_write";
         } // end struct AdditionalInfo
 
 

@@ -92,10 +92,12 @@ namespace kinetica
         ///         <term><see
         /// cref="AggregateUniqueRequest.Options.COLLECTION_NAME">COLLECTION_NAME</see>:</term>
         ///         <description>Name of a collection which is to contain the
-        /// table specified in 'result_table', otherwise the table will be a
-        /// top-level table. If the collection does not allow duplicate types
-        /// and it contains a table of the same type as the given one, then
-        /// this table creation request will fail.</description>
+        /// table specified in <i>result_table</i>. If the collection provided
+        /// is non-existent, the collection will be automatically created. If
+        /// empty, then the table will be a top-level table.  Additionally this
+        /// option is invalid if <paramref
+        /// cref="AggregateUniqueRequest.table_name" /> is a
+        /// collection.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -134,12 +136,11 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="AggregateUniqueRequest.Options.RESULT_TABLE_PERSIST">RESULT_TABLE_PERSIST</see>:</term>
-        ///         <description>If <i>true</i> then the result table specified
-        /// in <i>result_table</i> will be persisted as a regular table (it
-        /// will not be automatically cleared unless a <i>ttl</i> is provided,
-        /// and the table data can be modified in subsequent operations). If
-        /// <i>false</i> (the default) then the result table will be a
-        /// read-only, memory-only temporary table.
+        ///         <description>If <i>true</i>, then the result table
+        /// specified in <i>result_table</i> will be persisted and will not
+        /// expire unless a <i>ttl</i> is specified.   If <i>false</i>, then
+        /// the result table will be an in-memory table and will expire unless
+        /// a <i>ttl</i> is specified otherwise.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -159,27 +160,27 @@ namespace kinetica
         /// cref="AggregateUniqueRequest.Options.RESULT_TABLE_FORCE_REPLICATED">RESULT_TABLE_FORCE_REPLICATED</see>:</term>
         ///         <description>Force the result table to be replicated
         /// (ignores any sharding). Must be used in combination with the
-        /// 'result_table' option.</description>
+        /// <i>result_table</i> option.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="AggregateUniqueRequest.Options.RESULT_TABLE_GENERATE_PK">RESULT_TABLE_GENERATE_PK</see>:</term>
         ///         <description>If 'true' then set a primary key for the
-        /// result table. Must be used in combination with the 'result_table'
-        /// option.</description>
+        /// result table. Must be used in combination with the
+        /// <i>result_table</i> option.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="AggregateUniqueRequest.Options.TTL">TTL</see>:</term>
-        ///         <description>Sets the TTL of the table specified in
-        /// 'result_table'. The value must be the desired TTL in
-        /// minutes.</description>
+        ///         <description>Sets the <a
+        /// href="../../../../concepts/ttl.html" target="_top">TTL</a> of the
+        /// table specified in <i>result_table</i>.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="AggregateUniqueRequest.Options.CHUNK_SIZE">CHUNK_SIZE</see>:</term>
-        ///         <description>If provided this indicates the chunk size to
-        /// be used for the result table. Must be used in combination with the
+        ///         <description>Indicates the chunk size to be used for the
+        /// result table. Must be used in combination with the
         /// <i>result_table</i> option.</description>
         ///     </item>
         /// </list>
@@ -190,10 +191,11 @@ namespace kinetica
         {
 
             /// <summary>Name of a collection which is to contain the table
-            /// specified in 'result_table', otherwise the table will be a
-            /// top-level table. If the collection does not allow duplicate
-            /// types and it contains a table of the same type as the given
-            /// one, then this table creation request will fail.</summary>
+            /// specified in <i>result_table</i>. If the collection provided is
+            /// non-existent, the collection will be automatically created. If
+            /// empty, then the table will be a top-level table.  Additionally
+            /// this option is invalid if <see cref="table_name" /> is a
+            /// collection.</summary>
             public const string COLLECTION_NAME = "collection_name";
 
             /// <summary>Optional filter expression to apply to the
@@ -226,12 +228,11 @@ namespace kinetica
             /// target="_top">tables</a>.</summary>
             public const string RESULT_TABLE = "result_table";
 
-            /// <summary>If <i>true</i> then the result table specified in
-            /// <i>result_table</i> will be persisted as a regular table (it
-            /// will not be automatically cleared unless a <i>ttl</i> is
-            /// provided, and the table data can be modified in subsequent
-            /// operations). If <i>false</i> (the default) then the result
-            /// table will be a read-only, memory-only temporary table.
+            /// <summary>If <i>true</i>, then the result table specified in
+            /// <i>result_table</i> will be persisted and will not expire
+            /// unless a <i>ttl</i> is specified.   If <i>false</i>, then the
+            /// result table will be an in-memory table and will expire unless
+            /// a <i>ttl</i> is specified otherwise.
             /// Supported values:
             /// <list type="bullet">
             ///     <item>
@@ -250,22 +251,23 @@ namespace kinetica
             public const string FALSE = "false";
 
             /// <summary>Force the result table to be replicated (ignores any
-            /// sharding). Must be used in combination with the 'result_table'
-            /// option.</summary>
+            /// sharding). Must be used in combination with the
+            /// <i>result_table</i> option.</summary>
             public const string RESULT_TABLE_FORCE_REPLICATED = "result_table_force_replicated";
 
             /// <summary>If 'true' then set a primary key for the result table.
-            /// Must be used in combination with the 'result_table'
+            /// Must be used in combination with the <i>result_table</i>
             /// option.</summary>
             public const string RESULT_TABLE_GENERATE_PK = "result_table_generate_pk";
 
-            /// <summary>Sets the TTL of the table specified in 'result_table'.
-            /// The value must be the desired TTL in minutes.</summary>
+            /// <summary>Sets the <a href="../../../../../concepts/ttl.html"
+            /// target="_top">TTL</a> of the table specified in
+            /// <i>result_table</i>.</summary>
             public const string TTL = "ttl";
 
-            /// <summary>If provided this indicates the chunk size to be used
-            /// for the result table. Must be used in combination with the
-            /// <i>result_table</i> option.</summary>
+            /// <summary>Indicates the chunk size to be used for the result
+            /// table. Must be used in combination with the <i>result_table</i>
+            /// option.</summary>
             public const string CHUNK_SIZE = "chunk_size";
         } // end struct Options
 
@@ -317,10 +319,12 @@ namespace kinetica
         ///         <term><see
         /// cref="AggregateUniqueRequest.Options.COLLECTION_NAME">COLLECTION_NAME</see>:</term>
         ///         <description>Name of a collection which is to contain the
-        /// table specified in 'result_table', otherwise the table will be a
-        /// top-level table. If the collection does not allow duplicate types
-        /// and it contains a table of the same type as the given one, then
-        /// this table creation request will fail.</description>
+        /// table specified in <i>result_table</i>. If the collection provided
+        /// is non-existent, the collection will be automatically created. If
+        /// empty, then the table will be a top-level table.  Additionally this
+        /// option is invalid if <paramref
+        /// cref="AggregateUniqueRequest.table_name" /> is a
+        /// collection.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -359,12 +363,11 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="AggregateUniqueRequest.Options.RESULT_TABLE_PERSIST">RESULT_TABLE_PERSIST</see>:</term>
-        ///         <description>If <i>true</i> then the result table specified
-        /// in <i>result_table</i> will be persisted as a regular table (it
-        /// will not be automatically cleared unless a <i>ttl</i> is provided,
-        /// and the table data can be modified in subsequent operations). If
-        /// <i>false</i> (the default) then the result table will be a
-        /// read-only, memory-only temporary table.
+        ///         <description>If <i>true</i>, then the result table
+        /// specified in <i>result_table</i> will be persisted and will not
+        /// expire unless a <i>ttl</i> is specified.   If <i>false</i>, then
+        /// the result table will be an in-memory table and will expire unless
+        /// a <i>ttl</i> is specified otherwise.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -384,27 +387,27 @@ namespace kinetica
         /// cref="AggregateUniqueRequest.Options.RESULT_TABLE_FORCE_REPLICATED">RESULT_TABLE_FORCE_REPLICATED</see>:</term>
         ///         <description>Force the result table to be replicated
         /// (ignores any sharding). Must be used in combination with the
-        /// 'result_table' option.</description>
+        /// <i>result_table</i> option.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="AggregateUniqueRequest.Options.RESULT_TABLE_GENERATE_PK">RESULT_TABLE_GENERATE_PK</see>:</term>
         ///         <description>If 'true' then set a primary key for the
-        /// result table. Must be used in combination with the 'result_table'
-        /// option.</description>
+        /// result table. Must be used in combination with the
+        /// <i>result_table</i> option.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="AggregateUniqueRequest.Options.TTL">TTL</see>:</term>
-        ///         <description>Sets the TTL of the table specified in
-        /// 'result_table'. The value must be the desired TTL in
-        /// minutes.</description>
+        ///         <description>Sets the <a
+        /// href="../../../../concepts/ttl.html" target="_top">TTL</a> of the
+        /// table specified in <i>result_table</i>.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="AggregateUniqueRequest.Options.CHUNK_SIZE">CHUNK_SIZE</see>:</term>
-        ///         <description>If provided this indicates the chunk size to
-        /// be used for the result table. Must be used in combination with the
+        ///         <description>Indicates the chunk size to be used for the
+        /// result table. Must be used in combination with the
         /// <i>result_table</i> option.</description>
         ///     </item>
         /// </list>
@@ -437,10 +440,12 @@ namespace kinetica
         ///         <term><see
         /// cref="AggregateUniqueRequest.Options.COLLECTION_NAME">COLLECTION_NAME</see>:</term>
         ///         <description>Name of a collection which is to contain the
-        /// table specified in 'result_table', otherwise the table will be a
-        /// top-level table. If the collection does not allow duplicate types
-        /// and it contains a table of the same type as the given one, then
-        /// this table creation request will fail.</description>
+        /// table specified in <i>result_table</i>. If the collection provided
+        /// is non-existent, the collection will be automatically created. If
+        /// empty, then the table will be a top-level table.  Additionally this
+        /// option is invalid if <paramref
+        /// cref="AggregateUniqueRequest.table_name" /> is a
+        /// collection.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -479,12 +484,11 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="AggregateUniqueRequest.Options.RESULT_TABLE_PERSIST">RESULT_TABLE_PERSIST</see>:</term>
-        ///         <description>If <i>true</i> then the result table specified
-        /// in <i>result_table</i> will be persisted as a regular table (it
-        /// will not be automatically cleared unless a <i>ttl</i> is provided,
-        /// and the table data can be modified in subsequent operations). If
-        /// <i>false</i> (the default) then the result table will be a
-        /// read-only, memory-only temporary table.
+        ///         <description>If <i>true</i>, then the result table
+        /// specified in <i>result_table</i> will be persisted and will not
+        /// expire unless a <i>ttl</i> is specified.   If <i>false</i>, then
+        /// the result table will be an in-memory table and will expire unless
+        /// a <i>ttl</i> is specified otherwise.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -504,27 +508,27 @@ namespace kinetica
         /// cref="AggregateUniqueRequest.Options.RESULT_TABLE_FORCE_REPLICATED">RESULT_TABLE_FORCE_REPLICATED</see>:</term>
         ///         <description>Force the result table to be replicated
         /// (ignores any sharding). Must be used in combination with the
-        /// 'result_table' option.</description>
+        /// <i>result_table</i> option.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="AggregateUniqueRequest.Options.RESULT_TABLE_GENERATE_PK">RESULT_TABLE_GENERATE_PK</see>:</term>
         ///         <description>If 'true' then set a primary key for the
-        /// result table. Must be used in combination with the 'result_table'
-        /// option.</description>
+        /// result table. Must be used in combination with the
+        /// <i>result_table</i> option.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="AggregateUniqueRequest.Options.TTL">TTL</see>:</term>
-        ///         <description>Sets the TTL of the table specified in
-        /// 'result_table'. The value must be the desired TTL in
-        /// minutes.</description>
+        ///         <description>Sets the <a
+        /// href="../../../../concepts/ttl.html" target="_top">TTL</a> of the
+        /// table specified in <i>result_table</i>.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="AggregateUniqueRequest.Options.CHUNK_SIZE">CHUNK_SIZE</see>:</term>
-        ///         <description>If provided this indicates the chunk size to
-        /// be used for the result table. Must be used in combination with the
+        ///         <description>Indicates the chunk size to be used for the
+        /// result table. Must be used in combination with the
         /// <i>result_table</i> option.</description>
         ///     </item>
         /// </list>
@@ -585,10 +589,12 @@ namespace kinetica
         ///         <term><see
         /// cref="AggregateUniqueRequest.Options.COLLECTION_NAME">COLLECTION_NAME</see>:</term>
         ///         <description>Name of a collection which is to contain the
-        /// table specified in 'result_table', otherwise the table will be a
-        /// top-level table. If the collection does not allow duplicate types
-        /// and it contains a table of the same type as the given one, then
-        /// this table creation request will fail.</description>
+        /// table specified in <i>result_table</i>. If the collection provided
+        /// is non-existent, the collection will be automatically created. If
+        /// empty, then the table will be a top-level table.  Additionally this
+        /// option is invalid if <paramref
+        /// cref="AggregateUniqueRequest.table_name" /> is a
+        /// collection.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -627,12 +633,11 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="AggregateUniqueRequest.Options.RESULT_TABLE_PERSIST">RESULT_TABLE_PERSIST</see>:</term>
-        ///         <description>If <i>true</i> then the result table specified
-        /// in <i>result_table</i> will be persisted as a regular table (it
-        /// will not be automatically cleared unless a <i>ttl</i> is provided,
-        /// and the table data can be modified in subsequent operations). If
-        /// <i>false</i> (the default) then the result table will be a
-        /// read-only, memory-only temporary table.
+        ///         <description>If <i>true</i>, then the result table
+        /// specified in <i>result_table</i> will be persisted and will not
+        /// expire unless a <i>ttl</i> is specified.   If <i>false</i>, then
+        /// the result table will be an in-memory table and will expire unless
+        /// a <i>ttl</i> is specified otherwise.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -652,27 +657,27 @@ namespace kinetica
         /// cref="AggregateUniqueRequest.Options.RESULT_TABLE_FORCE_REPLICATED">RESULT_TABLE_FORCE_REPLICATED</see>:</term>
         ///         <description>Force the result table to be replicated
         /// (ignores any sharding). Must be used in combination with the
-        /// 'result_table' option.</description>
+        /// <i>result_table</i> option.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="AggregateUniqueRequest.Options.RESULT_TABLE_GENERATE_PK">RESULT_TABLE_GENERATE_PK</see>:</term>
         ///         <description>If 'true' then set a primary key for the
-        /// result table. Must be used in combination with the 'result_table'
-        /// option.</description>
+        /// result table. Must be used in combination with the
+        /// <i>result_table</i> option.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="AggregateUniqueRequest.Options.TTL">TTL</see>:</term>
-        ///         <description>Sets the TTL of the table specified in
-        /// 'result_table'. The value must be the desired TTL in
-        /// minutes.</description>
+        ///         <description>Sets the <a
+        /// href="../../../../concepts/ttl.html" target="_top">TTL</a> of the
+        /// table specified in <i>result_table</i>.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="AggregateUniqueRequest.Options.CHUNK_SIZE">CHUNK_SIZE</see>:</term>
-        ///         <description>If provided this indicates the chunk size to
-        /// be used for the result table. Must be used in combination with the
+        ///         <description>Indicates the chunk size to be used for the
+        /// result table. Must be used in combination with the
         /// <i>result_table</i> option.</description>
         ///     </item>
         /// </list>

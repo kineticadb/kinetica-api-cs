@@ -275,7 +275,26 @@ namespace kinetica
         /// cref="AdminOfflineRequest.Offline.FALSE">FALSE</see></term>
         ///     </item>
         /// </list>  </param>
-        /// <param name="options">Optional parameters.  </param>
+        /// <param name="options">Optional parameters.
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="AdminOfflineRequest.Options.FLUSH_TO_DISK">FLUSH_TO_DISK</see>:</term>
+        ///         <description>Flush to disk when going offline
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="AdminOfflineRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AdminOfflineRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list></description>
+        ///     </item>
+        /// </list>
+        ///   </param>
         /// 
         /// <returns>Response object containing the result of the
         /// operation.</returns>
@@ -869,12 +888,12 @@ namespace kinetica
         ///         <term><see
         /// cref="AggregateGroupByRequest.Options.COLLECTION_NAME">COLLECTION_NAME</see>:</term>
         ///         <description>Name of a collection which is to contain the
-        /// table specified in <i>result_table</i>, otherwise the table will be
-        /// a top-level table. If the collection does not allow duplicate types
-        /// and it contains a table of the same type as the given one, then
-        /// this table creation request will fail. Additionally this option is
-        /// invalid if <paramref cref="AggregateGroupByRequest.table_name" />
-        /// is a collection.</description>
+        /// table specified in <i>result_table</i>. If the collection provided
+        /// is non-existent, the collection will be automatically created. If
+        /// empty, then the table will be a top-level table.  Additionally this
+        /// option is invalid if <paramref
+        /// cref="AggregateGroupByRequest.table_name" /> is a
+        /// collection.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -954,12 +973,11 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="AggregateGroupByRequest.Options.RESULT_TABLE_PERSIST">RESULT_TABLE_PERSIST</see>:</term>
-        ///         <description>If <i>true</i> then the result table specified
-        /// in <i>result_table</i> will be persisted as a regular table (it
-        /// will not be automatically cleared unless a <i>ttl</i> is provided,
-        /// and the table data can be modified in subsequent operations). If
-        /// <i>false</i> (the default) then the result table will be a
-        /// read-only, memory-only temporary table.
+        ///         <description>If <i>true</i>, then the result table
+        /// specified in <i>result_table</i> will be persisted and will not
+        /// expire unless a <i>ttl</i> is specified.   If <i>false</i>, then
+        /// the result table will be an in-memory table and will expire unless
+        /// a <i>ttl</i> is specified otherwise.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -991,16 +1009,36 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="AggregateGroupByRequest.Options.TTL">TTL</see>:</term>
-        ///         <description>Sets the TTL of the table specified in
-        /// <i>result_table</i>. The value must be the desired TTL in
-        /// minutes.</description>
+        ///         <description>Sets the <a
+        /// href="../../../../concepts/ttl.html" target="_top">TTL</a> of the
+        /// table specified in <i>result_table</i>.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="AggregateGroupByRequest.Options.CHUNK_SIZE">CHUNK_SIZE</see>:</term>
-        ///         <description>If provided this indicates the chunk size to
-        /// be used for the result table. Must be used in combination with the
+        ///         <description>Indicates the chunk size to be used for the
+        /// result table. Must be used in combination with the
         /// <i>result_table</i> option.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AggregateGroupByRequest.Options.MATERIALIZE_ON_GPU">MATERIALIZE_ON_GPU</see>:</term>
+        ///         <description>If <i>true</i> then the columns of the groupby
+        /// result table will be cached on the GPU. Must be used in combination
+        /// with the <i>result_table</i> option.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="AggregateGroupByRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AggregateGroupByRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="AggregateGroupByRequest.Options.FALSE">FALSE</see>.</description>
         ///     </item>
         /// </list>
         ///   </param>
@@ -1752,10 +1790,12 @@ namespace kinetica
         ///         <term><see
         /// cref="AggregateUniqueRequest.Options.COLLECTION_NAME">COLLECTION_NAME</see>:</term>
         ///         <description>Name of a collection which is to contain the
-        /// table specified in 'result_table', otherwise the table will be a
-        /// top-level table. If the collection does not allow duplicate types
-        /// and it contains a table of the same type as the given one, then
-        /// this table creation request will fail.</description>
+        /// table specified in <i>result_table</i>. If the collection provided
+        /// is non-existent, the collection will be automatically created. If
+        /// empty, then the table will be a top-level table.  Additionally this
+        /// option is invalid if <paramref
+        /// cref="AggregateUniqueRequest.table_name" /> is a
+        /// collection.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -1794,12 +1834,11 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="AggregateUniqueRequest.Options.RESULT_TABLE_PERSIST">RESULT_TABLE_PERSIST</see>:</term>
-        ///         <description>If <i>true</i> then the result table specified
-        /// in <i>result_table</i> will be persisted as a regular table (it
-        /// will not be automatically cleared unless a <i>ttl</i> is provided,
-        /// and the table data can be modified in subsequent operations). If
-        /// <i>false</i> (the default) then the result table will be a
-        /// read-only, memory-only temporary table.
+        ///         <description>If <i>true</i>, then the result table
+        /// specified in <i>result_table</i> will be persisted and will not
+        /// expire unless a <i>ttl</i> is specified.   If <i>false</i>, then
+        /// the result table will be an in-memory table and will expire unless
+        /// a <i>ttl</i> is specified otherwise.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -1819,27 +1858,27 @@ namespace kinetica
         /// cref="AggregateUniqueRequest.Options.RESULT_TABLE_FORCE_REPLICATED">RESULT_TABLE_FORCE_REPLICATED</see>:</term>
         ///         <description>Force the result table to be replicated
         /// (ignores any sharding). Must be used in combination with the
-        /// 'result_table' option.</description>
+        /// <i>result_table</i> option.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="AggregateUniqueRequest.Options.RESULT_TABLE_GENERATE_PK">RESULT_TABLE_GENERATE_PK</see>:</term>
         ///         <description>If 'true' then set a primary key for the
-        /// result table. Must be used in combination with the 'result_table'
-        /// option.</description>
+        /// result table. Must be used in combination with the
+        /// <i>result_table</i> option.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="AggregateUniqueRequest.Options.TTL">TTL</see>:</term>
-        ///         <description>Sets the TTL of the table specified in
-        /// 'result_table'. The value must be the desired TTL in
-        /// minutes.</description>
+        ///         <description>Sets the <a
+        /// href="../../../../concepts/ttl.html" target="_top">TTL</a> of the
+        /// table specified in <i>result_table</i>.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="AggregateUniqueRequest.Options.CHUNK_SIZE">CHUNK_SIZE</see>:</term>
-        ///         <description>If provided this indicates the chunk size to
-        /// be used for the result table. Must be used in combination with the
+        ///         <description>Indicates the chunk size to be used for the
+        /// result table. Must be used in combination with the
         /// <i>result_table</i> option.</description>
         ///     </item>
         /// </list>
@@ -1921,12 +1960,9 @@ namespace kinetica
         ///         <term><see
         /// cref="AggregateUnpivotRequest.Options.COLLECTION_NAME">COLLECTION_NAME</see>:</term>
         ///         <description>Name of a collection which is to contain the
-        /// table specified in <i>result_table</i>, otherwise the table will be
-        /// a top-level table. If the collection does not allow duplicate types
-        /// and it contains a table of the same type as the given one, then
-        /// this table creation request will fail. Additionally this option is
-        /// invalid if <paramref cref="AggregateUnpivotRequest.table_name" />
-        /// is a collection.</description>
+        /// table specified in <i>result_table</i>. If the collection provided
+        /// is non-existent, the collection will be automatically created. If
+        /// empty, then the table will be a top-level table.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -1939,12 +1975,11 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="AggregateUnpivotRequest.Options.RESULT_TABLE_PERSIST">RESULT_TABLE_PERSIST</see>:</term>
-        ///         <description>If <i>true</i> then the result table specified
-        /// in {result_table}@{key of input.options} will be persisted as a
-        /// regular table (it will not be automatically cleared unless a
-        /// <i>ttl</i> is provided, and the table data can be modified in
-        /// subsequent operations). If <i>false</i> (the default) then the
-        /// result table will be a read-only, memory-only temporary table.
+        ///         <description>If <i>true</i>, then the result table
+        /// specified in <i>result_table</i> will be persisted and will not
+        /// expire unless a <i>ttl</i> is specified.   If <i>false</i>, then
+        /// the result table will be an in-memory table and will expire unless
+        /// a <i>ttl</i> is specified otherwise.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -1977,8 +2012,8 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="AggregateUnpivotRequest.Options.CHUNK_SIZE">CHUNK_SIZE</see>:</term>
-        ///         <description>If provided this indicates the chunk size to
-        /// be used for the result table. Must be used in combination with the
+        ///         <description>Indicates the chunk size to be used for the
+        /// result table. Must be used in combination with the
         /// <i>result_table</i> option.</description>
         ///     </item>
         ///     <item>
@@ -1989,9 +2024,9 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="AggregateUnpivotRequest.Options.TTL">TTL</see>:</term>
-        ///         <description>Sets the TTL of the table specified in
-        /// <i>result_table</i>. The value must be the desired TTL in
-        /// minutes.</description>
+        ///         <description>Sets the <a
+        /// href="../../../../concepts/ttl.html" target="_top">TTL</a> of the
+        /// table specified in <i>result_table</i>.</description>
         ///     </item>
         /// </list>
         ///   </param>
@@ -2223,32 +2258,31 @@ namespace kinetica
         /// collection.  The available
         /// modifications include the following:
         /// <br />
-        /// Create or delete an index on a particular column. This can speed up
-        /// certain search queries
-        /// (such as <see
-        /// cref="Kinetica.getRecords{T}(string,long,long,IDictionary{string, string})"
-        /// />, <see
-        /// cref="Kinetica.deleteRecords(string,IList{string},IDictionary{string, string})"
-        /// />, <see
-        /// cref="Kinetica.updateRecords{T}(string,IList{string},IList{IDictionary{string, string}},IList{T},IDictionary{string, string})"
-        /// />)
-        /// when using expressions containing equality or relational operators
-        /// on indexed columns. This
-        /// only applies to tables.
+        /// Create or delete an <a
+        /// href="../../../../concepts/indexes.html#column-index"
+        /// target="_top">index</a> on a
+        /// particular column. This can speed up certain operations when using
+        /// expressions
+        /// containing equality or relational operators on indexed columns.
+        /// This only
+        /// applies to tables.
         /// <br />
-        /// Set the time-to-live (TTL). This can be applied to tables, views,
-        /// or collections.  When
-        /// applied to collections, every table & view within the collection
-        /// will have its TTL set to the
+        /// Set the <a href="../../../../concepts/ttl.html"
+        /// target="_top">time-to-live (TTL)</a>. This can be applied
+        /// to tables, views, or collections.  When applied to collections,
+        /// every contained
+        /// table & view that is not protected will have its TTL set to the
         /// given value.
         /// <br />
         /// Set the global access mode (i.e. locking) for a table. The mode can
-        /// be set to 'no-access', 'read-only',
-        /// 'write-only' or 'read-write'.
+        /// be set to
+        /// 'no_access', 'read_only', 'write_only' or 'read_write'.
         /// <br />
-        /// Make a table protected or not. Protected tables have their TTLs set
-        /// to not automatically
-        /// expire. This can be applied to tables, views, and collections.
+        /// Change the <a href="../../../../concepts/protection.html"
+        /// target="_top">protection</a> mode to prevent or
+        /// allow automatic expiration. This can be applied to tables, views,
+        /// and
+        /// collections.
         /// <br />
         /// Allow homogeneous tables within a collection.
         /// <br />
@@ -2257,7 +2291,8 @@ namespace kinetica
         /// <a href="../../../../concepts/types.html" target="_top">type and
         /// properties</a> modified.
         /// <br />
-        /// Set or unset compression for a column.</summary>
+        /// Set or unset <a href="../../../../concepts/compression.html"
+        /// target="_top">compression</a> for a column.</summary>
         /// 
         /// <param name="request_">Request object containing the parameters for
         /// the operation.</param>
@@ -2277,32 +2312,31 @@ namespace kinetica
         /// collection.  The available
         /// modifications include the following:
         /// <br />
-        /// Create or delete an index on a particular column. This can speed up
-        /// certain search queries
-        /// (such as <see
-        /// cref="Kinetica.getRecords{T}(string,long,long,IDictionary{string, string})"
-        /// />, <see
-        /// cref="Kinetica.deleteRecords(string,IList{string},IDictionary{string, string})"
-        /// />, <see
-        /// cref="Kinetica.updateRecords{T}(string,IList{string},IList{IDictionary{string, string}},IList{T},IDictionary{string, string})"
-        /// />)
-        /// when using expressions containing equality or relational operators
-        /// on indexed columns. This
-        /// only applies to tables.
+        /// Create or delete an <a
+        /// href="../../../../concepts/indexes.html#column-index"
+        /// target="_top">index</a> on a
+        /// particular column. This can speed up certain operations when using
+        /// expressions
+        /// containing equality or relational operators on indexed columns.
+        /// This only
+        /// applies to tables.
         /// <br />
-        /// Set the time-to-live (TTL). This can be applied to tables, views,
-        /// or collections.  When
-        /// applied to collections, every table & view within the collection
-        /// will have its TTL set to the
+        /// Set the <a href="../../../../concepts/ttl.html"
+        /// target="_top">time-to-live (TTL)</a>. This can be applied
+        /// to tables, views, or collections.  When applied to collections,
+        /// every contained
+        /// table & view that is not protected will have its TTL set to the
         /// given value.
         /// <br />
         /// Set the global access mode (i.e. locking) for a table. The mode can
-        /// be set to 'no-access', 'read-only',
-        /// 'write-only' or 'read-write'.
+        /// be set to
+        /// 'no_access', 'read_only', 'write_only' or 'read_write'.
         /// <br />
-        /// Make a table protected or not. Protected tables have their TTLs set
-        /// to not automatically
-        /// expire. This can be applied to tables, views, and collections.
+        /// Change the <a href="../../../../concepts/protection.html"
+        /// target="_top">protection</a> mode to prevent or
+        /// allow automatic expiration. This can be applied to tables, views,
+        /// and
+        /// collections.
         /// <br />
         /// Allow homogeneous tables within a collection.
         /// <br />
@@ -2311,7 +2345,8 @@ namespace kinetica
         /// <a href="../../../../concepts/types.html" target="_top">type and
         /// properties</a> modified.
         /// <br />
-        /// Set or unset compression for a column.</summary>
+        /// Set or unset <a href="../../../../concepts/compression.html"
+        /// target="_top">compression</a> for a column.</summary>
         /// 
         /// <param name="table_name">Table on which the operation will be
         /// performed. Must be an existing table, view, or collection.
@@ -2331,36 +2366,41 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="AlterTableRequest.Action.CREATE_INDEX">CREATE_INDEX</see>:</term>
-        ///         <description>Creates an index on the column name specified
-        /// in <paramref cref="AlterTableRequest._value" />. If this column is
-        /// already indexed, an error will be returned.</description>
+        ///         <description>Creates an <a
+        /// href="../../../../concepts/indexes.html#column-index"
+        /// target="_top">index</a> on the column name specified in <paramref
+        /// cref="AlterTableRequest._value" />. If this column is already
+        /// indexed, an error will be returned.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="AlterTableRequest.Action.DELETE_INDEX">DELETE_INDEX</see>:</term>
-        ///         <description>Deletes an existing index on the column name
-        /// specified in <paramref cref="AlterTableRequest._value" />. If this
-        /// column does not have indexing turned on, an error will be
-        /// returned.</description>
+        ///         <description>Deletes an existing <a
+        /// href="../../../../concepts/indexes.html#column-index"
+        /// target="_top">index</a> on the column name specified in <paramref
+        /// cref="AlterTableRequest._value" />. If this column does not have
+        /// indexing turned on, an error will be returned.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="AlterTableRequest.Action.MOVE_TO_COLLECTION">MOVE_TO_COLLECTION</see>:</term>
-        ///         <description>Move a table into a collection <paramref
+        ///         <description>Moves a table into a collection <paramref
         /// cref="AlterTableRequest._value" />. </description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="AlterTableRequest.Action.PROTECTED">PROTECTED</see>:</term>
         ///         <description>Sets whether the given <paramref
-        /// cref="AlterTableRequest.table_name" /> should be protected or not.
-        /// The <paramref cref="AlterTableRequest._value" /> must be either
-        /// 'true' or 'false'.</description>
+        /// cref="AlterTableRequest.table_name" /> should be <a
+        /// href="../../../../concepts/protection.html"
+        /// target="_top">protected</a> or not. The <paramref
+        /// cref="AlterTableRequest._value" /> must be either 'true' or
+        /// 'false'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="AlterTableRequest.Action.RENAME_TABLE">RENAME_TABLE</see>:</term>
-        ///         <description>Rename a table, view or collection to
+        ///         <description>Renames a table, view or collection to
         /// <paramref cref="AlterTableRequest._value" />. Has the same naming
         /// restrictions as <a href="../../../../concepts/tables.html"
         /// target="_top">tables</a>.</description>
@@ -2368,15 +2408,15 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="AlterTableRequest.Action.TTL">TTL</see>:</term>
-        ///         <description>Sets the TTL of the table, view, or collection
-        /// specified in <paramref cref="AlterTableRequest.table_name" />. The
-        /// <paramref cref="AlterTableRequest._value" /> must be the desired
-        /// TTL in minutes.</description>
+        ///         <description>Sets the <a
+        /// href="../../../../concepts/ttl.html" target="_top">TTL</a> of the
+        /// table, view, or collection specified in <paramref
+        /// cref="AlterTableRequest.table_name" />.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="AlterTableRequest.Action.ADD_COLUMN">ADD_COLUMN</see>:</term>
-        ///         <description>Add the column specified in <paramref
+        ///         <description>Adds the column specified in <paramref
         /// cref="AlterTableRequest._value" /> to the table specified in
         /// <paramref cref="AlterTableRequest.table_name" />.  Use
         /// <i>column_type</i> and <i>column_properties</i> in <paramref
@@ -2386,7 +2426,7 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="AlterTableRequest.Action.CHANGE_COLUMN">CHANGE_COLUMN</see>:</term>
-        ///         <description>Change type and properties of the column
+        ///         <description>Changes type and properties of the column
         /// specified in <paramref cref="AlterTableRequest._value" />.  Use
         /// <i>column_type</i> and <i>column_properties</i> in <paramref
         /// cref="AlterTableRequest.options" /> to set the column's type and
@@ -2395,40 +2435,46 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="AlterTableRequest.Action.SET_COLUMN_COMPRESSION">SET_COLUMN_COMPRESSION</see>:</term>
-        ///         <description>Modify the compression setting on the column
-        /// specified in <paramref cref="AlterTableRequest._value" />.
-        /// </description>
+        ///         <description>Modifies the <a
+        /// href="../../../../concepts/compression.html"
+        /// target="_top">compression</a> setting on the column specified in
+        /// <paramref cref="AlterTableRequest._value" />. </description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="AlterTableRequest.Action.DELETE_COLUMN">DELETE_COLUMN</see>:</term>
-        ///         <description>Delete the column specified in <paramref
+        ///         <description>Deletes the column specified in <paramref
         /// cref="AlterTableRequest._value" /> from the table specified in
         /// <paramref cref="AlterTableRequest.table_name" />.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="AlterTableRequest.Action.CREATE_FOREIGN_KEY">CREATE_FOREIGN_KEY</see>:</term>
-        ///         <description>Create a foreign key using the format
-        /// 'source_column references target_table(primary_key_column) [ as
-        /// <foreign_key_name> ]'.</description>
+        ///         <description>Creates a <a
+        /// href="../../../../concepts/tables.html#foreign-key"
+        /// target="_top">foreign key</a> using the format 'source_column
+        /// references target_table(primary_key_column) [ as <foreign_key_name>
+        /// ]'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="AlterTableRequest.Action.DELETE_FOREIGN_KEY">DELETE_FOREIGN_KEY</see>:</term>
-        ///         <description>Delete a foreign key.  The <paramref
+        ///         <description>Deletes a <a
+        /// href="../../../../concepts/tables.html#foreign-key"
+        /// target="_top">foreign key</a>.  The <paramref
         /// cref="AlterTableRequest._value" /> should be the <foreign_key_name>
-        /// or the string used to define the foreign key.</description>
+        /// specified when creating the key or the complete string used to
+        /// define it.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="AlterTableRequest.Action.SET_GLOBAL_ACCESS_MODE">SET_GLOBAL_ACCESS_MODE</see>:</term>
-        ///         <description>Set the global access mode (i.e. locking) for
+        ///         <description>Sets the global access mode (i.e. locking) for
         /// the table specified in <paramref
         /// cref="AlterTableRequest.table_name" />. Specify the access mode in
         /// <paramref cref="AlterTableRequest._value" />. Valid modes are
-        /// 'no-access', 'read-only', 'write-only' and
-        /// 'read-write'.</description>
+        /// 'no_access', 'read_only', 'write_only' and
+        /// 'read_write'.</description>
         ///     </item>
         /// </list>  </param>
         /// <param name="_value">The value of the modification. May be a column
@@ -2693,8 +2739,7 @@ namespace kinetica
         /// number of results to be returned from source table (specified by
         /// <paramref cref="AppendRecordsRequest.source_table_name" />). Or
         /// END_OF_SET (-9999) to indicate that the max number of results
-        /// should be returned. Default value is END_OF_SET
-        /// (-9999).</description>
+        /// should be returned.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -2932,7 +2977,7 @@ namespace kinetica
         /// href="../../../../concepts/tables.html" target="_top">tables</a>.
         /// </param>
         /// <param name="table_names">The list of table names composing the
-        /// join.  Corresponds to a SQL statement FROM clause  </param>
+        /// join.  Corresponds to a SQL statement FROM clause.  </param>
         /// <param name="column_names">List of member table columns or column
         /// expressions to be included in the join. Columns can be prefixed
         /// with 'table_id.column_name', where 'table_id' is the table name or
@@ -3054,9 +3099,10 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="CreateJoinTableRequest.Options.TTL">TTL</see>:</term>
-        ///         <description>Sets the TTL of the table specified in
-        /// <paramref cref="CreateJoinTableRequest.join_table_name" />. The
-        /// value must be the desired TTL in minutes.</description>
+        ///         <description>Sets the <a
+        /// href="../../../../concepts/ttl.html" target="_top">TTL</a> of the
+        /// join table specified in <paramref
+        /// cref="CreateJoinTableRequest.join_table_name" />.</description>
         ///     </item>
         /// </list>
         ///   </param>
@@ -3260,7 +3306,8 @@ namespace kinetica
         /// href="../../../../concepts/collections.html"
         /// target="_top">collection</a> to which the projection is to be
         /// assigned as a child. If the collection provided is non-existent,
-        /// the collection will be automatically created.</description>
+        /// the collection will be automatically created. If empty, then the
+        /// projection will be at the top level.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -3307,16 +3354,16 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="CreateProjectionRequest.Options.CHUNK_SIZE">CHUNK_SIZE</see>:</term>
-        ///         <description>If provided this indicates the chunk size to
-        /// be used for this table.</description>
+        ///         <description>Indicates the chunk size to be used for this
+        /// table.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="CreateProjectionRequest.Options.TTL">TTL</see>:</term>
-        ///         <description>Sets the TTL of the table, view, or collection
-        /// specified in <paramref
-        /// cref="CreateProjectionRequest.projection_name" />. The value must
-        /// be the desired TTL in minutes.</description>
+        ///         <description>Sets the <a
+        /// href="../../../../concepts/ttl.html" target="_top">TTL</a> of the
+        /// projection specified in <paramref
+        /// cref="CreateProjectionRequest.projection_name" />.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -3330,11 +3377,11 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="CreateProjectionRequest.Options.PERSIST">PERSIST</see>:</term>
-        ///         <description>If <i>true</i> then the projection will be
-        /// persisted as a regular table (it will not be automatically cleared
-        /// unless a <i>ttl</i> is provided, and the table data can be modified
-        /// in subsequent operations). If <i>false</i> then the projection will
-        /// be a read-only, memory-only temporary table.
+        ///         <description>If <i>true</i>, then the projection specified
+        /// in <paramref cref="CreateProjectionRequest.projection_name" /> will
+        /// be persisted and will not expire unless a <i>ttl</i> is specified.
+        /// If <i>false</i>, then the projection will be an in-memory table and
+        /// will expire unless a <i>ttl</i> is specified otherwise.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -3477,10 +3524,9 @@ namespace kinetica
         ///         <term><see
         /// cref="CreateTableRequest.Options.COLLECTION_NAME">COLLECTION_NAME</see>:</term>
         ///         <description>Name of a collection which is to contain the
-        /// newly created table. If empty, then the newly created table will be
-        /// a top-level table. If the collection does not allow duplicate types
-        /// and it contains a table of the same type as the given one, then
-        /// this table creation request will fail.</description>
+        /// newly created table. If the collection provided is non-existent,
+        /// the collection will be automatically created. If empty, then the
+        /// newly created table will be a top-level table.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -3524,9 +3570,19 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="CreateTableRequest.Options.IS_REPLICATED">IS_REPLICATED</see>:</term>
-        ///         <description>For a table, indicates whether the table is to
-        /// be replicated to all the database ranks. This may be necessary when
-        /// the table is to be joined with other tables in a query.
+        ///         <description>For a table, indicates the <a
+        /// href="../../../../concepts/tables.html#distribution"
+        /// target="_top">distribution scheme</a> for the table's data.  If
+        /// true, the table will be <a
+        /// href="../../../../concepts/tables.html#replication"
+        /// target="_top">replicated</a>.  If false, the table will be <a
+        /// href="../../../../concepts/tables.html#sharding"
+        /// target="_top">sharded</a> according to the <a
+        /// href="../../../../concepts/tables.html#shard-keys"
+        /// target="_top">shard key</a> specified in the given <paramref
+        /// cref="CreateTableRequest.type_id" />, or <a
+        /// href="../../../../concepts/tables.html#random-sharding"
+        /// target="_top">randomly sharded</a>, if no shard key is specified.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -3544,9 +3600,10 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="CreateTableRequest.Options.FOREIGN_KEYS">FOREIGN_KEYS</see>:</term>
-        ///         <description>Semicolon-separated list of foreign keys, of
-        /// the format 'source_column references
-        /// target_table(primary_key_column) [ as <foreign_key_name>
+        ///         <description>Semicolon-separated list of <a
+        /// href="../../../../concepts/tables.html#foreign-keys"
+        /// target="_top">foreign keys</a>, of the format 'source_column
+        /// references target_table(primary_key_column) [ as <foreign_key_name>
         /// ]'.</description>
         ///     </item>
         ///     <item>
@@ -3559,25 +3616,24 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="CreateTableRequest.Options.TTL">TTL</see>:</term>
-        ///         <description>Sets the TTL of the table or collection
-        /// specified in <paramref cref="CreateTableRequest.table_name" />. The
-        /// value must be the desired TTL in minutes.</description>
+        ///         <description>For a table, sets the <a
+        /// href="../../../../concepts/ttl.html" target="_top">TTL</a> of the
+        /// table specified in <paramref cref="CreateTableRequest.table_name"
+        /// />.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="CreateTableRequest.Options.CHUNK_SIZE">CHUNK_SIZE</see>:</term>
-        ///         <description>If provided this indicates the chunk size to
-        /// be used for this table.</description>
+        ///         <description>Indicates the chunk size to be used for this
+        /// table.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="CreateTableRequest.Options.IS_RESULT_TABLE">IS_RESULT_TABLE</see>:</term>
-        ///         <description>For a table, indicates whether the table is a
-        /// non-persistent, memory-only table that will store the output of a
-        /// proc executed with /execute/proc. A result table cannot contain
-        /// store_only, text_search, or string columns (char columns are
-        /// acceptable), records cannot be inserted into it directly, and it
-        /// will not be retained if the server is restarted.
+        ///         <description>For a table, indicates whether the table is an
+        /// in-memory table. A result table cannot contain store_only,
+        /// text_search, or string columns (charN columns are acceptable), and
+        /// it will not be retained if the server is restarted.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -4182,7 +4238,7 @@ namespace kinetica
 
         /// <summary>Performs a <a href="../../../../concepts/unions.html"
         /// target="_top">union</a> (concatenation) of one or more existing
-        /// tables or views, the results of which are stored in a new view. It
+        /// tables or views, the results of which are stored in a new table. It
         /// is equivalent to the SQL UNION ALL operator.  Non-charN 'string'
         /// and 'bytes' column types cannot be included in a union, neither can
         /// columns with the property 'store_only'. Though not explicitly
@@ -4207,7 +4263,7 @@ namespace kinetica
 
         /// <summary>Performs a <a href="../../../../concepts/unions.html"
         /// target="_top">union</a> (concatenation) of one or more existing
-        /// tables or views, the results of which are stored in a new view. It
+        /// tables or views, the results of which are stored in a new table. It
         /// is equivalent to the SQL UNION ALL operator.  Non-charN 'string'
         /// and 'bytes' column types cannot be included in a union, neither can
         /// columns with the property 'store_only'. Though not explicitly
@@ -4299,12 +4355,15 @@ namespace kinetica
         ///         <term><see
         /// cref="CreateUnionRequest.Options.MERGE_VIEWS">MERGE_VIEWS</see>:</term>
         ///         <description>Merge two or more views (or views of views) of
-        /// the same base data set into a new view. The resulting view would
-        /// match the results of a SQL OR operation, e.g., if filter 1 creates
-        /// a view using the expression 'x = 10' and filter 2 creates a view
-        /// using the expression 'x <= 10', then the merge views operation
-        /// creates a new view using the expression 'x = 10 OR x <=
-        /// 10'.</description>
+        /// the same base data set into a new view. If this mode is selected
+        ///                                       <paramref
+        /// cref="CreateUnionRequest.input_column_names" /> AND <paramref
+        /// cref="CreateUnionRequest.output_column_names" /> are ignored The
+        /// resulting view would match the results of a SQL OR operation, e.g.,
+        /// if filter 1 creates a view using the expression 'x = 10' and filter
+        /// 2 creates a view using the expression 'x <= 10', then the merge
+        /// views operation creates a new view using the expression 'x = 10 OR
+        /// x <= 10'.</description>
         ///     </item>
         /// </list>
         /// The default value is <see
@@ -4313,24 +4372,25 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="CreateUnionRequest.Options.CHUNK_SIZE">CHUNK_SIZE</see>:</term>
-        ///         <description>If provided this indicates the chunk size to
-        /// be used for this table.</description>
+        ///         <description>Indicates the chunk size to be used for this
+        /// table.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="CreateUnionRequest.Options.TTL">TTL</see>:</term>
-        ///         <description>Sets the TTL of the table specified in
-        /// <paramref cref="CreateUnionRequest.table_name" />. The value must
-        /// be the desired TTL in minutes.</description>
+        ///         <description>Sets the <a
+        /// href="../../../../concepts/ttl.html" target="_top">TTL</a> of the
+        /// table specified in <paramref cref="CreateUnionRequest.table_name"
+        /// />.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="CreateUnionRequest.Options.PERSIST">PERSIST</see>:</term>
-        ///         <description>If <i>true</i> then the union will be
-        /// persisted as a regular table (it will not be automatically cleared
-        /// unless a <i>ttl</i> is provided, and the table data can be modified
-        /// in subsequent operations). If <i>false</i> (the default) then the
-        /// union will be a read-only, memory-only temporary table.
+        ///         <description>If <i>true</i>, then the union specified in
+        /// <paramref cref="CreateUnionRequest.table_name" /> will be persisted
+        /// and will not expire unless a <i>ttl</i> is specified.   If
+        /// <i>false</i>, then the union will be an in-memory table and will
+        /// expire unless a <i>ttl</i> is specified otherwise.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -4761,17 +4821,17 @@ namespace kinetica
         ///         <term><see
         /// cref="FilterRequest.Options.COLLECTION_NAME">COLLECTION_NAME</see>:</term>
         ///         <description>Name of a collection which is to contain the
-        /// newly created view, otherwise the view will be a top-level table.
-        /// If the collection does not allow duplicate types and it contains a
-        /// table of the same type as the given one, then this table creation
-        /// request will fail.</description>
+        /// newly created view. If the collection provided is non-existent, the
+        /// collection will be automatically created. If empty, then the newly
+        /// created view will be top-level.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="FilterRequest.Options.TTL">TTL</see>:</term>
-        ///         <description>Sets the TTL of the view specified in
-        /// <paramref cref="FilterRequest.view_name" />. The value must be the
-        /// desired TTL in minutes.</description>
+        ///         <description>Sets the <a
+        /// href="../../../../concepts/ttl.html" target="_top">TTL</a> of the
+        /// view specified in <paramref cref="FilterRequest.view_name"
+        /// />.</description>
         ///     </item>
         /// </list>
         ///   </param>
@@ -6121,21 +6181,18 @@ namespace kinetica
         }
 
 
-        /// <summary>For a given table, retrieves the values of the given
-        /// columns within a given range. It returns maps of column name to the
-        /// vector of values for each supported data type (double, float, long,
-        /// int and string). This operation supports pagination feature, i.e.
-        /// values that are retrieved are those associated with the indices
-        /// between the start (offset) and end value (offset + limit)
-        /// parameters (inclusive). If there are num_points values in the table
-        /// then each of the indices between 0 and num_points-1 retrieves a
-        /// unique value.
+        /// <summary>For a given table, retrieves the values from the requested
+        /// column(s). Maps of column name to the array of values as well as
+        /// the column data type are returned. This endpoint supports
+        /// pagination with the <paramref
+        /// cref="GetRecordsByColumnRequest.offset" /> and <paramref
+        /// cref="GetRecordsByColumnRequest.limit" /> parameters.
         /// <br />
-        /// Note that when using the pagination feature, if the table (or the
-        /// underlying table in case of a view) is updated (records are
-        /// inserted, deleted or modified) the records or values retrieved may
-        /// differ between calls (discontiguous or overlap) based on the type
-        /// of the update.
+        /// When using pagination, if the table (or the underlying table in the
+        /// case of a view) is modified (records are inserted, updated, or
+        /// deleted) during a call to the endpoint, the records or values
+        /// retrieved may differ between calls based on the type of the update,
+        /// e.g., the contiguity across pages cannot be relied upon.
         /// <br />
         /// The response is returned as a dynamic schema. For details see: <a
         /// href="../../../../concepts/dynamic_schemas.html"
@@ -6160,21 +6217,17 @@ namespace kinetica
         }
 
 
-        /// <summary>For a given table, retrieves the values of the given
-        /// columns within a given range. It returns maps of column name to the
-        /// vector of values for each supported data type (double, float, long,
-        /// int and string). This operation supports pagination feature, i.e.
-        /// values that are retrieved are those associated with the indices
-        /// between the start (offset) and end value (offset + limit)
-        /// parameters (inclusive). If there are num_points values in the table
-        /// then each of the indices between 0 and num_points-1 retrieves a
-        /// unique value.
+        /// <summary>For a given table, retrieves the values from the requested
+        /// column(s). Maps of column name to the array of values as well as
+        /// the column data type are returned. This endpoint supports
+        /// pagination with the <paramref name="offset" /> and <paramref
+        /// name="limit" /> parameters.
         /// <br />
-        /// Note that when using the pagination feature, if the table (or the
-        /// underlying table in case of a view) is updated (records are
-        /// inserted, deleted or modified) the records or values retrieved may
-        /// differ between calls (discontiguous or overlap) based on the type
-        /// of the update.
+        /// When using pagination, if the table (or the underlying table in the
+        /// case of a view) is modified (records are inserted, updated, or
+        /// deleted) during a call to the endpoint, the records or values
+        /// retrieved may differ between calls based on the type of the update,
+        /// e.g., the contiguity across pages cannot be relied upon.
         /// <br />
         /// The response is returned as a dynamic schema. For details see: <a
         /// href="../../../../concepts/dynamic_schemas.html"
@@ -7049,9 +7102,9 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="InsertRecordsRandomRequest.Options.ATTR_NAME">ATTR_NAME</see>:</term>
-        ///         <description>Set the following parameters for the column
-        /// specified by the key. This overrides any parameter set by
-        /// <i>all</i>.
+        ///         <description>Use the desired column name in place of
+        /// <i>attr_name</i>, and set the following parameters for the column
+        /// specified. This overrides any parameter set by <i>all</i>.
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
@@ -7295,11 +7348,11 @@ namespace kinetica
 
         /// <summary>Manages global access to a table's data.  By default a
         /// table has a <paramref cref="LockTableRequest.lock_type" /> of
-        /// <i>read-write</i>, indicating all operations are permitted.  A user
-        /// may request a <i>read-only</i> or a <i>write-only</i> lock, after
+        /// <i>read_write</i>, indicating all operations are permitted.  A user
+        /// may request a <i>read_only</i> or a <i>write_only</i> lock, after
         /// which only read or write operations, respectively, are permitted on
         /// the table until the lock is removed.  When <paramref
-        /// cref="LockTableRequest.lock_type" /> is <i>no-access</i> then no
+        /// cref="LockTableRequest.lock_type" /> is <i>no_access</i> then no
         /// operations are permitted on the table.  The lock status can be
         /// queried by setting <paramref cref="LockTableRequest.lock_type" />
         /// to <i>status</i>.</summary>
@@ -7319,12 +7372,12 @@ namespace kinetica
 
 
         /// <summary>Manages global access to a table's data.  By default a
-        /// table has a <paramref name="lock_type" /> of <i>read-write</i>,
+        /// table has a <paramref name="lock_type" /> of <i>read_write</i>,
         /// indicating all operations are permitted.  A user may request a
-        /// <i>read-only</i> or a <i>write-only</i> lock, after which only read
+        /// <i>read_only</i> or a <i>write_only</i> lock, after which only read
         /// or write operations, respectively, are permitted on the table until
         /// the lock is removed.  When <paramref name="lock_type" /> is
-        /// <i>no-access</i> then no operations are permitted on the table.
+        /// <i>no_access</i> then no operations are permitted on the table.
         /// The lock status can be queried by setting <paramref
         /// name="lock_type" /> to <i>status</i>.</summary>
         /// 
@@ -7384,7 +7437,15 @@ namespace kinetica
         /// cref="MergeRecordsRequest.field_maps" />). The field map (specified
         /// by <paramref cref="MergeRecordsRequest.field_maps" />) holds the
         /// user specified maps of target table column names to source table
-        /// columns.</summary>
+        /// columns. The array of <paramref
+        /// cref="MergeRecordsRequest.field_maps" /> must match one-to-one with
+        /// the <paramref cref="MergeRecordsRequest.source_table_names" />,
+        /// e.g., there's a map present in <paramref
+        /// cref="MergeRecordsRequest.field_maps" /> for each table listed in
+        /// <paramref cref="MergeRecordsRequest.source_table_names" />. Read
+        /// more about Merge Records <a
+        /// href="../../../../concepts/merge_records.html"
+        /// target="_top">here</a>.</summary>
         /// 
         /// <param name="request_">Request object containing the parameters for
         /// the operation.</param>
@@ -7406,41 +7467,52 @@ namespace kinetica
         /// field mapping information (specified by <paramref name="field_maps"
         /// />). The field map (specified by <paramref name="field_maps" />)
         /// holds the user specified maps of target table column names to
-        /// source table columns.</summary>
+        /// source table columns. The array of <paramref name="field_maps" />
+        /// must match one-to-one with the <paramref name="source_table_names"
+        /// />, e.g., there's a map present in <paramref name="field_maps" />
+        /// for each table listed in <paramref name="source_table_names" />.
+        /// Read more about Merge Records <a
+        /// href="../../../../concepts/merge_records.html"
+        /// target="_top">here</a>.</summary>
         /// 
         /// <param name="table_name">The new result table name for the records
         /// to be merged.  Must NOT be an existing table.  </param>
         /// <param name="source_table_names">The list of source table names to
         /// get the records from. Must be existing table names.  </param>
-        /// <param name="field_maps">Contains the mapping of column names from
-        /// result table (specified by <paramref
-        /// cref="MergeRecordsRequest.table_name" />) as the keys, and
-        /// corresponding column names from a table from source tables
-        /// (specified by <paramref
-        /// cref="MergeRecordsRequest.source_table_names" />). Must be existing
-        /// column names in source table and target table, and their types must
-        /// be matched.  </param>
+        /// <param name="field_maps">Contains a list of source/target column
+        /// mappings, one mapping for each source table listed in <paramref
+        /// cref="MergeRecordsRequest.source_table_names" /> being merged into
+        /// the target table specified by <paramref
+        /// cref="MergeRecordsRequest.table_name" />.  Each mapping contains
+        /// the target column names (as keys) that the data in the mapped
+        /// source columns (as values) will be merged into.  All of the source
+        /// columns being merged into a given target column must match in type,
+        /// as that type will determine the type of the new target column.
+        /// </param>
         /// <param name="options">Optional parameters.
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
         /// cref="MergeRecordsRequest.Options.COLLECTION_NAME">COLLECTION_NAME</see>:</term>
         ///         <description>Name of a collection which is to contain the
-        /// newly created merged table (specified by <paramref
-        /// cref="MergeRecordsRequest.table_name" />). If empty, then the newly
-        /// created merged table will be a top-level table. If the collection
-        /// does not allow duplicate types and it contains a table of the same
-        /// type as the given one, then this table creation request will
-        /// fail.</description>
+        /// newly created merged table specified by <paramref
+        /// cref="MergeRecordsRequest.table_name" />. If the collection
+        /// provided is non-existent, the collection will be automatically
+        /// created. If empty, then the newly created merged table will be a
+        /// top-level table.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="MergeRecordsRequest.Options.IS_REPLICATED">IS_REPLICATED</see>:</term>
-        ///         <description>For a merged table (specified by <paramref
-        /// cref="MergeRecordsRequest.table_name" />), indicates whether the
-        /// table is to be replicated to all the database ranks. This may be
-        /// necessary when the table is to be joined with other tables in a
-        /// query.
+        ///         <description>Indicates the <a
+        /// href="../../../../concepts/tables.html#distribution"
+        /// target="_top">distribution scheme</a> for the data of the merged
+        /// table specified in <paramref cref="MergeRecordsRequest.table_name"
+        /// />.  If true, the table will be <a
+        /// href="../../../../concepts/tables.html#replication"
+        /// target="_top">replicated</a>.  If false, the table will be <a
+        /// href="../../../../concepts/tables.html#random-sharding"
+        /// target="_top">randomly sharded</a>.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -7458,15 +7530,17 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="MergeRecordsRequest.Options.TTL">TTL</see>:</term>
-        ///         <description>Sets the TTL of the merged table or collection
-        /// (specified by <paramref cref="MergeRecordsRequest.table_name" />).
-        /// The value must be the desired TTL in minutes.</description>
+        ///         <description>Sets the <a
+        /// href="../../../../concepts/ttl.html" target="_top">TTL</a> of the
+        /// merged table specified in <paramref
+        /// cref="MergeRecordsRequest.table_name" />.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="MergeRecordsRequest.Options.CHUNK_SIZE">CHUNK_SIZE</see>:</term>
-        ///         <description>If provided this indicates the chunk size to
-        /// be used for the merged table.</description>
+        ///         <description>Indicates the chunk size to be used for the
+        /// merged table specified in <paramref
+        /// cref="MergeRecordsRequest.table_name" />.</description>
         ///     </item>
         /// </list>
         ///   </param>
@@ -7978,8 +8052,7 @@ namespace kinetica
         /// <i>false</i> returns only information about the collection itself;
         /// setting <i>show_children</i> to <i>true</i> returns a list of
         /// tables and views contained in the collection, along with their
-        /// description, type id, schema, type label, type properties, and
-        /// additional information including TTL.</summary>
+        /// corresponding detail.</summary>
         /// 
         /// <param name="request_">Request object containing the parameters for
         /// the operation.</param>
@@ -8024,8 +8097,7 @@ namespace kinetica
         /// <i>false</i> returns only information about the collection itself;
         /// setting <i>show_children</i> to <i>true</i> returns a list of
         /// tables and views contained in the collection, along with their
-        /// description, type id, schema, type label, type properties, and
-        /// additional information including TTL.</summary>
+        /// corresponding detail.</summary>
         /// 
         /// <param name="table_name">Name of the table for which to retrieve
         /// the information. If blank, then information about all collections
@@ -8711,6 +8783,16 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
+        /// cref="VisualizeImageRequest.StyleOptions.POINTOFFSET_X">POINTOFFSET_X</see>:</term>
+        ///         <description></description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageRequest.StyleOptions.POINTOFFSET_Y">POINTOFFSET_Y</see>:</term>
+        ///         <description></description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="VisualizeImageRequest.StyleOptions.POINTSHAPES">POINTSHAPES</see>:</term>
         ///         <description>
         /// Supported values:
@@ -8753,12 +8835,27 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
+        /// cref="VisualizeImageRequest.StyleOptions.SYMBOLROTATIONS">SYMBOLROTATIONS</see>:</term>
+        ///         <description></description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="VisualizeImageRequest.StyleOptions.SHAPELINEWIDTHS">SHAPELINEWIDTHS</see>:</term>
         ///         <description></description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="VisualizeImageRequest.StyleOptions.SHAPELINECOLORS">SHAPELINECOLORS</see>:</term>
+        ///         <description></description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageRequest.StyleOptions.SHAPELINEPATTERNS">SHAPELINEPATTERNS</see>:</term>
+        ///         <description></description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageRequest.StyleOptions.SHAPELINEPATTERNLEN">SHAPELINEPATTERNLEN</see>:</term>
         ///         <description></description>
         ///     </item>
         ///     <item>
@@ -9159,10 +9256,8 @@ namespace kinetica
         /// <param name="y_column_name"></param>
         /// <param name="geometry_column_name"></param>
         /// <param name="track_ids"></param>
-        /// <param name="cb_column_name1"></param>
-        /// <param name="cb_vals1"></param>
-        /// <param name="cb_column_name2"></param>
-        /// <param name="cb_vals2"></param>
+        /// <param name="cb_column_name"></param>
+        /// <param name="cb_vals"></param>
         /// <param name="min_x"></param>
         /// <param name="max_x"></param>
         /// <param name="min_y"></param>
@@ -9298,6 +9393,16 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
+        /// cref="VisualizeImageClassbreakRequest.StyleOptions.POINTOFFSET_X">POINTOFFSET_X</see>:</term>
+        ///         <description></description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageClassbreakRequest.StyleOptions.POINTOFFSET_Y">POINTOFFSET_Y</see>:</term>
+        ///         <description></description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="VisualizeImageClassbreakRequest.StyleOptions.POINTSHAPES">POINTSHAPES</see>:</term>
         ///         <description>
         /// Supported values:
@@ -9346,6 +9451,16 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="VisualizeImageClassbreakRequest.StyleOptions.SHAPELINECOLORS">SHAPELINECOLORS</see>:</term>
+        ///         <description></description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageClassbreakRequest.StyleOptions.SHAPELINEPATTERNS">SHAPELINEPATTERNS</see>:</term>
+        ///         <description></description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageClassbreakRequest.StyleOptions.SHAPELINEPATTERNLEN">SHAPELINEPATTERNLEN</see>:</term>
         ///         <description></description>
         ///     </item>
         ///     <item>
@@ -9480,10 +9595,8 @@ namespace kinetica
                                                                           string y_column_name,
                                                                           string geometry_column_name,
                                                                           IList<IList<string>> track_ids,
-                                                                          string cb_column_name1,
-                                                                          IList<string> cb_vals1,
-                                                                          IList<string> cb_column_name2,
-                                                                          IList<IList<string>> cb_vals2,
+                                                                          string cb_column_name,
+                                                                          IList<string> cb_vals,
                                                                           double min_x,
                                                                           double max_x,
                                                                           double min_y,
@@ -9502,10 +9615,8 @@ namespace kinetica
                                                                                   y_column_name,
                                                                                   geometry_column_name,
                                                                                   track_ids,
-                                                                                  cb_column_name1,
-                                                                                  cb_vals1,
-                                                                                  cb_column_name2,
-                                                                                  cb_vals2,
+                                                                                  cb_column_name,
+                                                                                  cb_vals,
                                                                                   min_x,
                                                                                   max_x,
                                                                                   min_y,

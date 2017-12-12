@@ -17,7 +17,7 @@ namespace kinetica
     /// <br />
     /// Performs a <a href="../../../../../concepts/unions.html"
     /// target="_top">union</a> (concatenation) of one or more existing tables
-    /// or views, the results of which are stored in a new view. It is
+    /// or views, the results of which are stored in a new table. It is
     /// equivalent to the SQL UNION ALL operator.  Non-charN 'string' and
     /// 'bytes' column types cannot be included in a union, neither can columns
     /// with the property 'store_only'. Though not explicitly unions, <a
@@ -100,12 +100,15 @@ namespace kinetica
         ///         <term><see
         /// cref="CreateUnionRequest.Options.MERGE_VIEWS">MERGE_VIEWS</see>:</term>
         ///         <description>Merge two or more views (or views of views) of
-        /// the same base data set into a new view. The resulting view would
-        /// match the results of a SQL OR operation, e.g., if filter 1 creates
-        /// a view using the expression 'x = 10' and filter 2 creates a view
-        /// using the expression 'x <= 10', then the merge views operation
-        /// creates a new view using the expression 'x = 10 OR x <=
-        /// 10'.</description>
+        /// the same base data set into a new view. If this mode is selected
+        ///                                       <paramref
+        /// cref="CreateUnionRequest.input_column_names" /> AND <paramref
+        /// cref="CreateUnionRequest.output_column_names" /> are ignored The
+        /// resulting view would match the results of a SQL OR operation, e.g.,
+        /// if filter 1 creates a view using the expression 'x = 10' and filter
+        /// 2 creates a view using the expression 'x <= 10', then the merge
+        /// views operation creates a new view using the expression 'x = 10 OR
+        /// x <= 10'.</description>
         ///     </item>
         /// </list>
         /// The default value is <see
@@ -114,24 +117,25 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="CreateUnionRequest.Options.CHUNK_SIZE">CHUNK_SIZE</see>:</term>
-        ///         <description>If provided this indicates the chunk size to
-        /// be used for this table.</description>
+        ///         <description>Indicates the chunk size to be used for this
+        /// table.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="CreateUnionRequest.Options.TTL">TTL</see>:</term>
-        ///         <description>Sets the TTL of the table specified in
-        /// <paramref cref="CreateUnionRequest.table_name" />. The value must
-        /// be the desired TTL in minutes.</description>
+        ///         <description>Sets the <a
+        /// href="../../../../concepts/ttl.html" target="_top">TTL</a> of the
+        /// table specified in <paramref cref="CreateUnionRequest.table_name"
+        /// />.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="CreateUnionRequest.Options.PERSIST">PERSIST</see>:</term>
-        ///         <description>If <i>true</i> then the union will be
-        /// persisted as a regular table (it will not be automatically cleared
-        /// unless a <i>ttl</i> is provided, and the table data can be modified
-        /// in subsequent operations). If <i>false</i> (the default) then the
-        /// union will be a read-only, memory-only temporary table.
+        ///         <description>If <i>true</i>, then the union specified in
+        /// <paramref cref="CreateUnionRequest.table_name" /> will be persisted
+        /// and will not expire unless a <i>ttl</i> is specified.   If
+        /// <i>false</i>, then the union will be an in-memory table and will
+        /// expire unless a <i>ttl</i> is specified otherwise.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -219,12 +223,16 @@ namespace kinetica
             ///         <term><see
             /// cref="CreateUnionRequest.Options.MERGE_VIEWS">MERGE_VIEWS</see>:</term>
             ///         <description>Merge two or more views (or views of
-            /// views) of the same base data set into a new view. The resulting
-            /// view would match the results of a SQL OR operation, e.g., if
-            /// filter 1 creates a view using the expression 'x = 10' and
-            /// filter 2 creates a view using the expression 'x <= 10', then
-            /// the merge views operation creates a new view using the
-            /// expression 'x = 10 OR x <= 10'.</description>
+            /// views) of the same base data set into a new view. If this mode
+            /// is selected
+            ///                                       <see
+            /// cref="input_column_names" /> AND <see
+            /// cref="output_column_names" /> are ignored The resulting view
+            /// would match the results of a SQL OR operation, e.g., if filter
+            /// 1 creates a view using the expression 'x = 10' and filter 2
+            /// creates a view using the expression 'x <= 10', then the merge
+            /// views operation creates a new view using the expression 'x = 10
+            /// OR x <= 10'.</description>
             ///     </item>
             /// </list>
             /// The default value is <see
@@ -252,28 +260,31 @@ namespace kinetica
             public const string INTERSECT = "intersect";
 
             /// <summary>Merge two or more views (or views of views) of the
-            /// same base data set into a new view. The resulting view would
-            /// match the results of a SQL OR operation, e.g., if filter 1
-            /// creates a view using the expression 'x = 10' and filter 2
+            /// same base data set into a new view. If this mode is selected
+            ///                                       <see
+            /// cref="input_column_names" /> AND <see
+            /// cref="output_column_names" /> are ignored The resulting view
+            /// would match the results of a SQL OR operation, e.g., if filter
+            /// 1 creates a view using the expression 'x = 10' and filter 2
             /// creates a view using the expression 'x <= 10', then the merge
             /// views operation creates a new view using the expression 'x = 10
             /// OR x <= 10'.</summary>
             public const string MERGE_VIEWS = "merge_views";
 
-            /// <summary>If provided this indicates the chunk size to be used
-            /// for this table.</summary>
+            /// <summary>Indicates the chunk size to be used for this
+            /// table.</summary>
             public const string CHUNK_SIZE = "chunk_size";
 
-            /// <summary>Sets the TTL of the table specified in <see
-            /// cref="table_name" />. The value must be the desired TTL in
-            /// minutes.</summary>
+            /// <summary>Sets the <a href="../../../../../concepts/ttl.html"
+            /// target="_top">TTL</a> of the table specified in <see
+            /// cref="table_name" />.</summary>
             public const string TTL = "ttl";
 
-            /// <summary>If <i>true</i> then the union will be persisted as a
-            /// regular table (it will not be automatically cleared unless a
-            /// <i>ttl</i> is provided, and the table data can be modified in
-            /// subsequent operations). If <i>false</i> (the default) then the
-            /// union will be a read-only, memory-only temporary table.
+            /// <summary>If <i>true</i>, then the union specified in <see
+            /// cref="table_name" /> will be persisted and will not expire
+            /// unless a <i>ttl</i> is specified.   If <i>false</i>, then the
+            /// union will be an in-memory table and will expire unless a
+            /// <i>ttl</i> is specified otherwise.
             /// Supported values:
             /// <list type="bullet">
             ///     <item>
@@ -380,12 +391,15 @@ namespace kinetica
         ///         <term><see
         /// cref="CreateUnionRequest.Options.MERGE_VIEWS">MERGE_VIEWS</see>:</term>
         ///         <description>Merge two or more views (or views of views) of
-        /// the same base data set into a new view. The resulting view would
-        /// match the results of a SQL OR operation, e.g., if filter 1 creates
-        /// a view using the expression 'x = 10' and filter 2 creates a view
-        /// using the expression 'x <= 10', then the merge views operation
-        /// creates a new view using the expression 'x = 10 OR x <=
-        /// 10'.</description>
+        /// the same base data set into a new view. If this mode is selected
+        ///                                       <paramref
+        /// cref="CreateUnionRequest.input_column_names" /> AND <paramref
+        /// cref="CreateUnionRequest.output_column_names" /> are ignored The
+        /// resulting view would match the results of a SQL OR operation, e.g.,
+        /// if filter 1 creates a view using the expression 'x = 10' and filter
+        /// 2 creates a view using the expression 'x <= 10', then the merge
+        /// views operation creates a new view using the expression 'x = 10 OR
+        /// x <= 10'.</description>
         ///     </item>
         /// </list>
         /// The default value is <see
@@ -394,24 +408,25 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="CreateUnionRequest.Options.CHUNK_SIZE">CHUNK_SIZE</see>:</term>
-        ///         <description>If provided this indicates the chunk size to
-        /// be used for this table.</description>
+        ///         <description>Indicates the chunk size to be used for this
+        /// table.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="CreateUnionRequest.Options.TTL">TTL</see>:</term>
-        ///         <description>Sets the TTL of the table specified in
-        /// <paramref cref="CreateUnionRequest.table_name" />. The value must
-        /// be the desired TTL in minutes.</description>
+        ///         <description>Sets the <a
+        /// href="../../../../concepts/ttl.html" target="_top">TTL</a> of the
+        /// table specified in <paramref cref="CreateUnionRequest.table_name"
+        /// />.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="CreateUnionRequest.Options.PERSIST">PERSIST</see>:</term>
-        ///         <description>If <i>true</i> then the union will be
-        /// persisted as a regular table (it will not be automatically cleared
-        /// unless a <i>ttl</i> is provided, and the table data can be modified
-        /// in subsequent operations). If <i>false</i> (the default) then the
-        /// union will be a read-only, memory-only temporary table.
+        ///         <description>If <i>true</i>, then the union specified in
+        /// <paramref cref="CreateUnionRequest.table_name" /> will be persisted
+        /// and will not expire unless a <i>ttl</i> is specified.   If
+        /// <i>false</i>, then the union will be an in-memory table and will
+        /// expire unless a <i>ttl</i> is specified otherwise.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -521,12 +536,15 @@ namespace kinetica
         ///         <term><see
         /// cref="CreateUnionRequest.Options.MERGE_VIEWS">MERGE_VIEWS</see>:</term>
         ///         <description>Merge two or more views (or views of views) of
-        /// the same base data set into a new view. The resulting view would
-        /// match the results of a SQL OR operation, e.g., if filter 1 creates
-        /// a view using the expression 'x = 10' and filter 2 creates a view
-        /// using the expression 'x <= 10', then the merge views operation
-        /// creates a new view using the expression 'x = 10 OR x <=
-        /// 10'.</description>
+        /// the same base data set into a new view. If this mode is selected
+        ///                                       <paramref
+        /// cref="CreateUnionRequest.input_column_names" /> AND <paramref
+        /// cref="CreateUnionRequest.output_column_names" /> are ignored The
+        /// resulting view would match the results of a SQL OR operation, e.g.,
+        /// if filter 1 creates a view using the expression 'x = 10' and filter
+        /// 2 creates a view using the expression 'x <= 10', then the merge
+        /// views operation creates a new view using the expression 'x = 10 OR
+        /// x <= 10'.</description>
         ///     </item>
         /// </list>
         /// The default value is <see
@@ -535,24 +553,25 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="CreateUnionRequest.Options.CHUNK_SIZE">CHUNK_SIZE</see>:</term>
-        ///         <description>If provided this indicates the chunk size to
-        /// be used for this table.</description>
+        ///         <description>Indicates the chunk size to be used for this
+        /// table.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="CreateUnionRequest.Options.TTL">TTL</see>:</term>
-        ///         <description>Sets the TTL of the table specified in
-        /// <paramref cref="CreateUnionRequest.table_name" />. The value must
-        /// be the desired TTL in minutes.</description>
+        ///         <description>Sets the <a
+        /// href="../../../../concepts/ttl.html" target="_top">TTL</a> of the
+        /// table specified in <paramref cref="CreateUnionRequest.table_name"
+        /// />.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="CreateUnionRequest.Options.PERSIST">PERSIST</see>:</term>
-        ///         <description>If <i>true</i> then the union will be
-        /// persisted as a regular table (it will not be automatically cleared
-        /// unless a <i>ttl</i> is provided, and the table data can be modified
-        /// in subsequent operations). If <i>false</i> (the default) then the
-        /// union will be a read-only, memory-only temporary table.
+        ///         <description>If <i>true</i>, then the union specified in
+        /// <paramref cref="CreateUnionRequest.table_name" /> will be persisted
+        /// and will not expire unless a <i>ttl</i> is specified.   If
+        /// <i>false</i>, then the union will be an in-memory table and will
+        /// expire unless a <i>ttl</i> is specified otherwise.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>

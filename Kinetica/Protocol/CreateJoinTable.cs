@@ -128,9 +128,10 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="CreateJoinTableRequest.Options.TTL">TTL</see>:</term>
-        ///         <description>Sets the TTL of the table specified in
-        /// <paramref cref="CreateJoinTableRequest.join_table_name" />. The
-        /// value must be the desired TTL in minutes.</description>
+        ///         <description>Sets the <a
+        /// href="../../../../concepts/ttl.html" target="_top">TTL</a> of the
+        /// join table specified in <paramref
+        /// cref="CreateJoinTableRequest.join_table_name" />.</description>
         ///     </item>
         /// </list>
         /// <br />
@@ -237,9 +238,9 @@ namespace kinetica
             /// last refresh.</summary>
             public const string FULL_REFRESH = "full_refresh";
 
-            /// <summary>Sets the TTL of the table specified in <see
-            /// cref="join_table_name" />. The value must be the desired TTL in
-            /// minutes.</summary>
+            /// <summary>Sets the <a href="../../../../../concepts/ttl.html"
+            /// target="_top">TTL</a> of the join table specified in <see
+            /// cref="join_table_name" />.</summary>
             public const string TTL = "ttl";
         } // end struct Options
 
@@ -250,7 +251,7 @@ namespace kinetica
         public string join_table_name { get; set; }
 
         /// <summary>The list of table names composing the join.  Corresponds
-        /// to a SQL statement FROM clause  </summary>
+        /// to a SQL statement FROM clause.  </summary>
         public IList<string> table_names { get; set; } = new List<string>();
 
         /// <summary>List of member table columns or column expressions to be
@@ -377,9 +378,10 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="CreateJoinTableRequest.Options.TTL">TTL</see>:</term>
-        ///         <description>Sets the TTL of the table specified in
-        /// <paramref cref="CreateJoinTableRequest.join_table_name" />. The
-        /// value must be the desired TTL in minutes.</description>
+        ///         <description>Sets the <a
+        /// href="../../../../concepts/ttl.html" target="_top">TTL</a> of the
+        /// join table specified in <paramref
+        /// cref="CreateJoinTableRequest.join_table_name" />.</description>
         ///     </item>
         /// </list>
         ///   </summary>
@@ -398,7 +400,7 @@ namespace kinetica
         /// href="../../../../concepts/tables.html" target="_top">tables</a>.
         /// </param>
         /// <param name="table_names">The list of table names composing the
-        /// join.  Corresponds to a SQL statement FROM clause  </param>
+        /// join.  Corresponds to a SQL statement FROM clause.  </param>
         /// <param name="column_names">List of member table columns or column
         /// expressions to be included in the join. Columns can be prefixed
         /// with 'table_id.column_name', where 'table_id' is the table name or
@@ -520,9 +522,10 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="CreateJoinTableRequest.Options.TTL">TTL</see>:</term>
-        ///         <description>Sets the TTL of the table specified in
-        /// <paramref cref="CreateJoinTableRequest.join_table_name" />. The
-        /// value must be the desired TTL in minutes.</description>
+        ///         <description>Sets the <a
+        /// href="../../../../concepts/ttl.html" target="_top">TTL</a> of the
+        /// join table specified in <paramref
+        /// cref="CreateJoinTableRequest.join_table_name" />.</description>
         ///     </item>
         /// </list>
         ///   </param>

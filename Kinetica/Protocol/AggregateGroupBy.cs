@@ -107,12 +107,12 @@ namespace kinetica
         ///         <term><see
         /// cref="AggregateGroupByRequest.Options.COLLECTION_NAME">COLLECTION_NAME</see>:</term>
         ///         <description>Name of a collection which is to contain the
-        /// table specified in <i>result_table</i>, otherwise the table will be
-        /// a top-level table. If the collection does not allow duplicate types
-        /// and it contains a table of the same type as the given one, then
-        /// this table creation request will fail. Additionally this option is
-        /// invalid if <paramref cref="AggregateGroupByRequest.table_name" />
-        /// is a collection.</description>
+        /// table specified in <i>result_table</i>. If the collection provided
+        /// is non-existent, the collection will be automatically created. If
+        /// empty, then the table will be a top-level table.  Additionally this
+        /// option is invalid if <paramref
+        /// cref="AggregateGroupByRequest.table_name" /> is a
+        /// collection.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -192,12 +192,11 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="AggregateGroupByRequest.Options.RESULT_TABLE_PERSIST">RESULT_TABLE_PERSIST</see>:</term>
-        ///         <description>If <i>true</i> then the result table specified
-        /// in <i>result_table</i> will be persisted as a regular table (it
-        /// will not be automatically cleared unless a <i>ttl</i> is provided,
-        /// and the table data can be modified in subsequent operations). If
-        /// <i>false</i> (the default) then the result table will be a
-        /// read-only, memory-only temporary table.
+        ///         <description>If <i>true</i>, then the result table
+        /// specified in <i>result_table</i> will be persisted and will not
+        /// expire unless a <i>ttl</i> is specified.   If <i>false</i>, then
+        /// the result table will be an in-memory table and will expire unless
+        /// a <i>ttl</i> is specified otherwise.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -229,16 +228,36 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="AggregateGroupByRequest.Options.TTL">TTL</see>:</term>
-        ///         <description>Sets the TTL of the table specified in
-        /// <i>result_table</i>. The value must be the desired TTL in
-        /// minutes.</description>
+        ///         <description>Sets the <a
+        /// href="../../../../concepts/ttl.html" target="_top">TTL</a> of the
+        /// table specified in <i>result_table</i>.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="AggregateGroupByRequest.Options.CHUNK_SIZE">CHUNK_SIZE</see>:</term>
-        ///         <description>If provided this indicates the chunk size to
-        /// be used for the result table. Must be used in combination with the
+        ///         <description>Indicates the chunk size to be used for the
+        /// result table. Must be used in combination with the
         /// <i>result_table</i> option.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AggregateGroupByRequest.Options.MATERIALIZE_ON_GPU">MATERIALIZE_ON_GPU</see>:</term>
+        ///         <description>If <i>true</i> then the columns of the groupby
+        /// result table will be cached on the GPU. Must be used in combination
+        /// with the <i>result_table</i> option.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="AggregateGroupByRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AggregateGroupByRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="AggregateGroupByRequest.Options.FALSE">FALSE</see>.</description>
         ///     </item>
         /// </list>
         /// <br />
@@ -248,10 +267,9 @@ namespace kinetica
         {
 
             /// <summary>Name of a collection which is to contain the table
-            /// specified in <i>result_table</i>, otherwise the table will be a
-            /// top-level table. If the collection does not allow duplicate
-            /// types and it contains a table of the same type as the given
-            /// one, then this table creation request will fail. Additionally
+            /// specified in <i>result_table</i>. If the collection provided is
+            /// non-existent, the collection will be automatically created. If
+            /// empty, then the table will be a top-level table.  Additionally
             /// this option is invalid if <see cref="table_name" /> is a
             /// collection.</summary>
             public const string COLLECTION_NAME = "collection_name";
@@ -344,12 +362,11 @@ namespace kinetica
             /// type.</summary>
             public const string RESULT_TABLE = "result_table";
 
-            /// <summary>If <i>true</i> then the result table specified in
-            /// <i>result_table</i> will be persisted as a regular table (it
-            /// will not be automatically cleared unless a <i>ttl</i> is
-            /// provided, and the table data can be modified in subsequent
-            /// operations). If <i>false</i> (the default) then the result
-            /// table will be a read-only, memory-only temporary table.
+            /// <summary>If <i>true</i>, then the result table specified in
+            /// <i>result_table</i> will be persisted and will not expire
+            /// unless a <i>ttl</i> is specified.   If <i>false</i>, then the
+            /// result table will be an in-memory table and will expire unless
+            /// a <i>ttl</i> is specified otherwise.
             /// Supported values:
             /// <list type="bullet">
             ///     <item>
@@ -377,15 +394,33 @@ namespace kinetica
             /// option.</summary>
             public const string RESULT_TABLE_GENERATE_PK = "result_table_generate_pk";
 
-            /// <summary>Sets the TTL of the table specified in
-            /// <i>result_table</i>. The value must be the desired TTL in
-            /// minutes.</summary>
+            /// <summary>Sets the <a href="../../../../../concepts/ttl.html"
+            /// target="_top">TTL</a> of the table specified in
+            /// <i>result_table</i>.</summary>
             public const string TTL = "ttl";
 
-            /// <summary>If provided this indicates the chunk size to be used
-            /// for the result table. Must be used in combination with the
-            /// <i>result_table</i> option.</summary>
+            /// <summary>Indicates the chunk size to be used for the result
+            /// table. Must be used in combination with the <i>result_table</i>
+            /// option.</summary>
             public const string CHUNK_SIZE = "chunk_size";
+
+            /// <summary>If <i>true</i> then the columns of the groupby result
+            /// table will be cached on the GPU. Must be used in combination
+            /// with the <i>result_table</i> option.
+            /// Supported values:
+            /// <list type="bullet">
+            ///     <item>
+            ///         <term><see
+            /// cref="AggregateGroupByRequest.Options.TRUE">TRUE</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="AggregateGroupByRequest.Options.FALSE">FALSE</see></term>
+            ///     </item>
+            /// </list>
+            /// The default value is <see
+            /// cref="AggregateGroupByRequest.Options.FALSE">FALSE</see>.</summary>
+            public const string MATERIALIZE_ON_GPU = "materialize_on_gpu";
         } // end struct Options
 
 
@@ -435,12 +470,12 @@ namespace kinetica
         ///         <term><see
         /// cref="AggregateGroupByRequest.Options.COLLECTION_NAME">COLLECTION_NAME</see>:</term>
         ///         <description>Name of a collection which is to contain the
-        /// table specified in <i>result_table</i>, otherwise the table will be
-        /// a top-level table. If the collection does not allow duplicate types
-        /// and it contains a table of the same type as the given one, then
-        /// this table creation request will fail. Additionally this option is
-        /// invalid if <paramref cref="AggregateGroupByRequest.table_name" />
-        /// is a collection.</description>
+        /// table specified in <i>result_table</i>. If the collection provided
+        /// is non-existent, the collection will be automatically created. If
+        /// empty, then the table will be a top-level table.  Additionally this
+        /// option is invalid if <paramref
+        /// cref="AggregateGroupByRequest.table_name" /> is a
+        /// collection.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -520,12 +555,11 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="AggregateGroupByRequest.Options.RESULT_TABLE_PERSIST">RESULT_TABLE_PERSIST</see>:</term>
-        ///         <description>If <i>true</i> then the result table specified
-        /// in <i>result_table</i> will be persisted as a regular table (it
-        /// will not be automatically cleared unless a <i>ttl</i> is provided,
-        /// and the table data can be modified in subsequent operations). If
-        /// <i>false</i> (the default) then the result table will be a
-        /// read-only, memory-only temporary table.
+        ///         <description>If <i>true</i>, then the result table
+        /// specified in <i>result_table</i> will be persisted and will not
+        /// expire unless a <i>ttl</i> is specified.   If <i>false</i>, then
+        /// the result table will be an in-memory table and will expire unless
+        /// a <i>ttl</i> is specified otherwise.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -557,16 +591,36 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="AggregateGroupByRequest.Options.TTL">TTL</see>:</term>
-        ///         <description>Sets the TTL of the table specified in
-        /// <i>result_table</i>. The value must be the desired TTL in
-        /// minutes.</description>
+        ///         <description>Sets the <a
+        /// href="../../../../concepts/ttl.html" target="_top">TTL</a> of the
+        /// table specified in <i>result_table</i>.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="AggregateGroupByRequest.Options.CHUNK_SIZE">CHUNK_SIZE</see>:</term>
-        ///         <description>If provided this indicates the chunk size to
-        /// be used for the result table. Must be used in combination with the
+        ///         <description>Indicates the chunk size to be used for the
+        /// result table. Must be used in combination with the
         /// <i>result_table</i> option.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AggregateGroupByRequest.Options.MATERIALIZE_ON_GPU">MATERIALIZE_ON_GPU</see>:</term>
+        ///         <description>If <i>true</i> then the columns of the groupby
+        /// result table will be cached on the GPU. Must be used in combination
+        /// with the <i>result_table</i> option.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="AggregateGroupByRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AggregateGroupByRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="AggregateGroupByRequest.Options.FALSE">FALSE</see>.</description>
         ///     </item>
         /// </list>
         ///   </summary>
@@ -598,12 +652,12 @@ namespace kinetica
         ///         <term><see
         /// cref="AggregateGroupByRequest.Options.COLLECTION_NAME">COLLECTION_NAME</see>:</term>
         ///         <description>Name of a collection which is to contain the
-        /// table specified in <i>result_table</i>, otherwise the table will be
-        /// a top-level table. If the collection does not allow duplicate types
-        /// and it contains a table of the same type as the given one, then
-        /// this table creation request will fail. Additionally this option is
-        /// invalid if <paramref cref="AggregateGroupByRequest.table_name" />
-        /// is a collection.</description>
+        /// table specified in <i>result_table</i>. If the collection provided
+        /// is non-existent, the collection will be automatically created. If
+        /// empty, then the table will be a top-level table.  Additionally this
+        /// option is invalid if <paramref
+        /// cref="AggregateGroupByRequest.table_name" /> is a
+        /// collection.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -683,12 +737,11 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="AggregateGroupByRequest.Options.RESULT_TABLE_PERSIST">RESULT_TABLE_PERSIST</see>:</term>
-        ///         <description>If <i>true</i> then the result table specified
-        /// in <i>result_table</i> will be persisted as a regular table (it
-        /// will not be automatically cleared unless a <i>ttl</i> is provided,
-        /// and the table data can be modified in subsequent operations). If
-        /// <i>false</i> (the default) then the result table will be a
-        /// read-only, memory-only temporary table.
+        ///         <description>If <i>true</i>, then the result table
+        /// specified in <i>result_table</i> will be persisted and will not
+        /// expire unless a <i>ttl</i> is specified.   If <i>false</i>, then
+        /// the result table will be an in-memory table and will expire unless
+        /// a <i>ttl</i> is specified otherwise.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -720,16 +773,36 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="AggregateGroupByRequest.Options.TTL">TTL</see>:</term>
-        ///         <description>Sets the TTL of the table specified in
-        /// <i>result_table</i>. The value must be the desired TTL in
-        /// minutes.</description>
+        ///         <description>Sets the <a
+        /// href="../../../../concepts/ttl.html" target="_top">TTL</a> of the
+        /// table specified in <i>result_table</i>.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="AggregateGroupByRequest.Options.CHUNK_SIZE">CHUNK_SIZE</see>:</term>
-        ///         <description>If provided this indicates the chunk size to
-        /// be used for the result table. Must be used in combination with the
+        ///         <description>Indicates the chunk size to be used for the
+        /// result table. Must be used in combination with the
         /// <i>result_table</i> option.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AggregateGroupByRequest.Options.MATERIALIZE_ON_GPU">MATERIALIZE_ON_GPU</see>:</term>
+        ///         <description>If <i>true</i> then the columns of the groupby
+        /// result table will be cached on the GPU. Must be used in combination
+        /// with the <i>result_table</i> option.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="AggregateGroupByRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AggregateGroupByRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="AggregateGroupByRequest.Options.FALSE">FALSE</see>.</description>
         ///     </item>
         /// </list>
         ///   </param>
@@ -789,12 +862,12 @@ namespace kinetica
         ///         <term><see
         /// cref="AggregateGroupByRequest.Options.COLLECTION_NAME">COLLECTION_NAME</see>:</term>
         ///         <description>Name of a collection which is to contain the
-        /// table specified in <i>result_table</i>, otherwise the table will be
-        /// a top-level table. If the collection does not allow duplicate types
-        /// and it contains a table of the same type as the given one, then
-        /// this table creation request will fail. Additionally this option is
-        /// invalid if <paramref cref="AggregateGroupByRequest.table_name" />
-        /// is a collection.</description>
+        /// table specified in <i>result_table</i>. If the collection provided
+        /// is non-existent, the collection will be automatically created. If
+        /// empty, then the table will be a top-level table.  Additionally this
+        /// option is invalid if <paramref
+        /// cref="AggregateGroupByRequest.table_name" /> is a
+        /// collection.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -874,12 +947,11 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="AggregateGroupByRequest.Options.RESULT_TABLE_PERSIST">RESULT_TABLE_PERSIST</see>:</term>
-        ///         <description>If <i>true</i> then the result table specified
-        /// in <i>result_table</i> will be persisted as a regular table (it
-        /// will not be automatically cleared unless a <i>ttl</i> is provided,
-        /// and the table data can be modified in subsequent operations). If
-        /// <i>false</i> (the default) then the result table will be a
-        /// read-only, memory-only temporary table.
+        ///         <description>If <i>true</i>, then the result table
+        /// specified in <i>result_table</i> will be persisted and will not
+        /// expire unless a <i>ttl</i> is specified.   If <i>false</i>, then
+        /// the result table will be an in-memory table and will expire unless
+        /// a <i>ttl</i> is specified otherwise.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -911,16 +983,36 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="AggregateGroupByRequest.Options.TTL">TTL</see>:</term>
-        ///         <description>Sets the TTL of the table specified in
-        /// <i>result_table</i>. The value must be the desired TTL in
-        /// minutes.</description>
+        ///         <description>Sets the <a
+        /// href="../../../../concepts/ttl.html" target="_top">TTL</a> of the
+        /// table specified in <i>result_table</i>.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="AggregateGroupByRequest.Options.CHUNK_SIZE">CHUNK_SIZE</see>:</term>
-        ///         <description>If provided this indicates the chunk size to
-        /// be used for the result table. Must be used in combination with the
+        ///         <description>Indicates the chunk size to be used for the
+        /// result table. Must be used in combination with the
         /// <i>result_table</i> option.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AggregateGroupByRequest.Options.MATERIALIZE_ON_GPU">MATERIALIZE_ON_GPU</see>:</term>
+        ///         <description>If <i>true</i> then the columns of the groupby
+        /// result table will be cached on the GPU. Must be used in combination
+        /// with the <i>result_table</i> option.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="AggregateGroupByRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AggregateGroupByRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="AggregateGroupByRequest.Options.FALSE">FALSE</see>.</description>
         ///     </item>
         /// </list>
         ///   </param>

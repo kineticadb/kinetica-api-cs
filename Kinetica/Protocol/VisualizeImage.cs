@@ -163,6 +163,16 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
+        /// cref="VisualizeImageRequest.StyleOptions.POINTOFFSET_X">POINTOFFSET_X</see>:</term>
+        ///         <description></description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageRequest.StyleOptions.POINTOFFSET_Y">POINTOFFSET_Y</see>:</term>
+        ///         <description></description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="VisualizeImageRequest.StyleOptions.POINTSHAPES">POINTSHAPES</see>:</term>
         ///         <description>
         /// Supported values:
@@ -205,12 +215,27 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
+        /// cref="VisualizeImageRequest.StyleOptions.SYMBOLROTATIONS">SYMBOLROTATIONS</see>:</term>
+        ///         <description></description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="VisualizeImageRequest.StyleOptions.SHAPELINEWIDTHS">SHAPELINEWIDTHS</see>:</term>
         ///         <description></description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="VisualizeImageRequest.StyleOptions.SHAPELINECOLORS">SHAPELINECOLORS</see>:</term>
+        ///         <description></description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageRequest.StyleOptions.SHAPELINEPATTERNS">SHAPELINEPATTERNS</see>:</term>
+        ///         <description></description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageRequest.StyleOptions.SHAPELINEPATTERNLEN">SHAPELINEPATTERNLEN</see>:</term>
         ///         <description></description>
         ///     </item>
         ///     <item>
@@ -414,6 +439,8 @@ namespace kinetica
             public const string DO_SYMBOLOGY = "do_symbology";
             public const string POINTCOLORS = "pointcolors";
             public const string POINTSIZES = "pointsizes";
+            public const string POINTOFFSET_X = "pointoffset_x";
+            public const string POINTOFFSET_Y = "pointoffset_y";
 
             /// <summary>
             /// Supported values:
@@ -462,8 +489,11 @@ namespace kinetica
             public const string HOLLOWSQUARE = "hollowsquare";
             public const string HOLLOWDIAMOND = "hollowdiamond";
             public const string SYMBOLCODE = "SYMBOLCODE";
+            public const string SYMBOLROTATIONS = "symbolrotations";
             public const string SHAPELINEWIDTHS = "shapelinewidths";
             public const string SHAPELINECOLORS = "shapelinecolors";
+            public const string SHAPELINEPATTERNS = "shapelinepatterns";
+            public const string SHAPELINEPATTERNLEN = "shapelinepatternlen";
             public const string SHAPEFILLCOLORS = "shapefillcolors";
             public const string TRACKLINEWIDTHS = "tracklinewidths";
             public const string TRACKLINECOLORS = "tracklinecolors";
@@ -707,6 +737,16 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
+        /// cref="VisualizeImageRequest.StyleOptions.POINTOFFSET_X">POINTOFFSET_X</see>:</term>
+        ///         <description></description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageRequest.StyleOptions.POINTOFFSET_Y">POINTOFFSET_Y</see>:</term>
+        ///         <description></description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="VisualizeImageRequest.StyleOptions.POINTSHAPES">POINTSHAPES</see>:</term>
         ///         <description>
         /// Supported values:
@@ -749,12 +789,27 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
+        /// cref="VisualizeImageRequest.StyleOptions.SYMBOLROTATIONS">SYMBOLROTATIONS</see>:</term>
+        ///         <description></description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="VisualizeImageRequest.StyleOptions.SHAPELINEWIDTHS">SHAPELINEWIDTHS</see>:</term>
         ///         <description></description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="VisualizeImageRequest.StyleOptions.SHAPELINECOLORS">SHAPELINECOLORS</see>:</term>
+        ///         <description></description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageRequest.StyleOptions.SHAPELINEPATTERNS">SHAPELINEPATTERNS</see>:</term>
+        ///         <description></description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageRequest.StyleOptions.SHAPELINEPATTERNLEN">SHAPELINEPATTERNLEN</see>:</term>
         ///         <description></description>
         ///     </item>
         ///     <item>
@@ -1038,6 +1093,16 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
+        /// cref="VisualizeImageRequest.StyleOptions.POINTOFFSET_X">POINTOFFSET_X</see>:</term>
+        ///         <description></description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageRequest.StyleOptions.POINTOFFSET_Y">POINTOFFSET_Y</see>:</term>
+        ///         <description></description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="VisualizeImageRequest.StyleOptions.POINTSHAPES">POINTSHAPES</see>:</term>
         ///         <description>
         /// Supported values:
@@ -1080,12 +1145,27 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
+        /// cref="VisualizeImageRequest.StyleOptions.SYMBOLROTATIONS">SYMBOLROTATIONS</see>:</term>
+        ///         <description></description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="VisualizeImageRequest.StyleOptions.SHAPELINEWIDTHS">SHAPELINEWIDTHS</see>:</term>
         ///         <description></description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="VisualizeImageRequest.StyleOptions.SHAPELINECOLORS">SHAPELINECOLORS</see>:</term>
+        ///         <description></description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageRequest.StyleOptions.SHAPELINEPATTERNS">SHAPELINEPATTERNS</see>:</term>
+        ///         <description></description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageRequest.StyleOptions.SHAPELINEPATTERNLEN">SHAPELINEPATTERNLEN</see>:</term>
         ///         <description></description>
         ///     </item>
         ///     <item>

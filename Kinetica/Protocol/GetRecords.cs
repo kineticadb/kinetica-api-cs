@@ -468,7 +468,7 @@ namespace kinetica
         public string type_schema { get; set; }
 
         /// <summary>If the <paramref cref="GetRecordsRequest.encoding" /> was
-        /// 'binary', then this list contains the JSON encoded records
+        /// 'binary', then this list contains the binary encoded records
         /// retrieved from the set, otherwise not populated.  </summary>
         public IList<byte[]> records_binary { get; set; } = new List<byte[]>();
 
@@ -506,7 +506,7 @@ namespace kinetica
         public string type_schema { get; set; }
 
         /// <summary>If the <paramref cref="GetRecordsRequest.encoding" /> was
-        /// 'binary', then this list contains the JSON encoded records
+        /// 'binary', then this list contains the binary encoded records
         /// retrieved from the set, otherwise not populated.  </summary>
         public IList<T> data { get; set; } = new List<T>();
 

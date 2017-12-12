@@ -20,7 +20,13 @@ namespace kinetica
     /// cref="source_table_names" />) based on the field mapping information
     /// (specified by <see cref="field_maps" />). The field map (specified by
     /// <see cref="field_maps" />) holds the user specified maps of target
-    /// table column names to source table columns.</summary>
+    /// table column names to source table columns. The array of <see
+    /// cref="field_maps" /> must match one-to-one with the <see
+    /// cref="source_table_names" />, e.g., there's a map present in <see
+    /// cref="field_maps" /> for each table listed in <see
+    /// cref="source_table_names" />. Read more about Merge Records <a
+    /// href="../../../../../concepts/merge_records.html"
+    /// target="_top">here</a>.</summary>
     public class MergeRecordsRequest : KineticaData
     {
 
@@ -30,21 +36,24 @@ namespace kinetica
         ///         <term><see
         /// cref="MergeRecordsRequest.Options.COLLECTION_NAME">COLLECTION_NAME</see>:</term>
         ///         <description>Name of a collection which is to contain the
-        /// newly created merged table (specified by <paramref
-        /// cref="MergeRecordsRequest.table_name" />). If empty, then the newly
-        /// created merged table will be a top-level table. If the collection
-        /// does not allow duplicate types and it contains a table of the same
-        /// type as the given one, then this table creation request will
-        /// fail.</description>
+        /// newly created merged table specified by <paramref
+        /// cref="MergeRecordsRequest.table_name" />. If the collection
+        /// provided is non-existent, the collection will be automatically
+        /// created. If empty, then the newly created merged table will be a
+        /// top-level table.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="MergeRecordsRequest.Options.IS_REPLICATED">IS_REPLICATED</see>:</term>
-        ///         <description>For a merged table (specified by <paramref
-        /// cref="MergeRecordsRequest.table_name" />), indicates whether the
-        /// table is to be replicated to all the database ranks. This may be
-        /// necessary when the table is to be joined with other tables in a
-        /// query.
+        ///         <description>Indicates the <a
+        /// href="../../../../concepts/tables.html#distribution"
+        /// target="_top">distribution scheme</a> for the data of the merged
+        /// table specified in <paramref cref="MergeRecordsRequest.table_name"
+        /// />.  If true, the table will be <a
+        /// href="../../../../concepts/tables.html#replication"
+        /// target="_top">replicated</a>.  If false, the table will be <a
+        /// href="../../../../concepts/tables.html#random-sharding"
+        /// target="_top">randomly sharded</a>.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -62,15 +71,17 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="MergeRecordsRequest.Options.TTL">TTL</see>:</term>
-        ///         <description>Sets the TTL of the merged table or collection
-        /// (specified by <paramref cref="MergeRecordsRequest.table_name" />).
-        /// The value must be the desired TTL in minutes.</description>
+        ///         <description>Sets the <a
+        /// href="../../../../concepts/ttl.html" target="_top">TTL</a> of the
+        /// merged table specified in <paramref
+        /// cref="MergeRecordsRequest.table_name" />.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="MergeRecordsRequest.Options.CHUNK_SIZE">CHUNK_SIZE</see>:</term>
-        ///         <description>If provided this indicates the chunk size to
-        /// be used for the merged table.</description>
+        ///         <description>Indicates the chunk size to be used for the
+        /// merged table specified in <paramref
+        /// cref="MergeRecordsRequest.table_name" />.</description>
         ///     </item>
         /// </list>
         /// <br />
@@ -80,17 +91,21 @@ namespace kinetica
         {
 
             /// <summary>Name of a collection which is to contain the newly
-            /// created merged table (specified by <see cref="table_name" />).
-            /// If empty, then the newly created merged table will be a
-            /// top-level table. If the collection does not allow duplicate
-            /// types and it contains a table of the same type as the given
-            /// one, then this table creation request will fail.</summary>
+            /// created merged table specified by <see cref="table_name" />. If
+            /// the collection provided is non-existent, the collection will be
+            /// automatically created. If empty, then the newly created merged
+            /// table will be a top-level table.</summary>
             public const string COLLECTION_NAME = "collection_name";
 
-            /// <summary>For a merged table (specified by <see
-            /// cref="table_name" />), indicates whether the table is to be
-            /// replicated to all the database ranks. This may be necessary
-            /// when the table is to be joined with other tables in a query.
+            /// <summary>Indicates the <a
+            /// href="../../../../../concepts/tables.html#distribution"
+            /// target="_top">distribution scheme</a> for the data of the
+            /// merged table specified in <see cref="table_name" />.  If true,
+            /// the table will be <a
+            /// href="../../../../../concepts/tables.html#replication"
+            /// target="_top">replicated</a>.  If false, the table will be <a
+            /// href="../../../../../concepts/tables.html#random-sharding"
+            /// target="_top">randomly sharded</a>.
             /// Supported values:
             /// <list type="bullet">
             ///     <item>
@@ -108,13 +123,13 @@ namespace kinetica
             public const string TRUE = "true";
             public const string FALSE = "false";
 
-            /// <summary>Sets the TTL of the merged table or collection
-            /// (specified by <see cref="table_name" />). The value must be the
-            /// desired TTL in minutes.</summary>
+            /// <summary>Sets the <a href="../../../../../concepts/ttl.html"
+            /// target="_top">TTL</a> of the merged table specified in <see
+            /// cref="table_name" />.</summary>
             public const string TTL = "ttl";
 
-            /// <summary>If provided this indicates the chunk size to be used
-            /// for the merged table.</summary>
+            /// <summary>Indicates the chunk size to be used for the merged
+            /// table specified in <see cref="table_name" />.</summary>
             public const string CHUNK_SIZE = "chunk_size";
         } // end struct Options
 
@@ -127,13 +142,16 @@ namespace kinetica
         /// Must be existing table names.  </summary>
         public IList<string> source_table_names { get; set; } = new List<string>();
 
-        /// <summary>Contains the mapping of column names from result table
-        /// (specified by <paramref cref="MergeRecordsRequest.table_name" />)
-        /// as the keys, and corresponding column names from a table from
-        /// source tables (specified by <paramref
-        /// cref="MergeRecordsRequest.source_table_names" />). Must be existing
-        /// column names in source table and target table, and their types must
-        /// be matched.  </summary>
+        /// <summary>Contains a list of source/target column mappings, one
+        /// mapping for each source table listed in <paramref
+        /// cref="MergeRecordsRequest.source_table_names" /> being merged into
+        /// the target table specified by <paramref
+        /// cref="MergeRecordsRequest.table_name" />.  Each mapping contains
+        /// the target column names (as keys) that the data in the mapped
+        /// source columns (as values) will be merged into.  All of the source
+        /// columns being merged into a given target column must match in type,
+        /// as that type will determine the type of the new target column.
+        /// </summary>
         public IList<IDictionary<string, string>> field_maps { get; set; } = new List<IDictionary<string, string>>();
 
         /// <summary>Optional parameters.
@@ -142,21 +160,24 @@ namespace kinetica
         ///         <term><see
         /// cref="MergeRecordsRequest.Options.COLLECTION_NAME">COLLECTION_NAME</see>:</term>
         ///         <description>Name of a collection which is to contain the
-        /// newly created merged table (specified by <paramref
-        /// cref="MergeRecordsRequest.table_name" />). If empty, then the newly
-        /// created merged table will be a top-level table. If the collection
-        /// does not allow duplicate types and it contains a table of the same
-        /// type as the given one, then this table creation request will
-        /// fail.</description>
+        /// newly created merged table specified by <paramref
+        /// cref="MergeRecordsRequest.table_name" />. If the collection
+        /// provided is non-existent, the collection will be automatically
+        /// created. If empty, then the newly created merged table will be a
+        /// top-level table.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="MergeRecordsRequest.Options.IS_REPLICATED">IS_REPLICATED</see>:</term>
-        ///         <description>For a merged table (specified by <paramref
-        /// cref="MergeRecordsRequest.table_name" />), indicates whether the
-        /// table is to be replicated to all the database ranks. This may be
-        /// necessary when the table is to be joined with other tables in a
-        /// query.
+        ///         <description>Indicates the <a
+        /// href="../../../../concepts/tables.html#distribution"
+        /// target="_top">distribution scheme</a> for the data of the merged
+        /// table specified in <paramref cref="MergeRecordsRequest.table_name"
+        /// />.  If true, the table will be <a
+        /// href="../../../../concepts/tables.html#replication"
+        /// target="_top">replicated</a>.  If false, the table will be <a
+        /// href="../../../../concepts/tables.html#random-sharding"
+        /// target="_top">randomly sharded</a>.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -174,15 +195,17 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="MergeRecordsRequest.Options.TTL">TTL</see>:</term>
-        ///         <description>Sets the TTL of the merged table or collection
-        /// (specified by <paramref cref="MergeRecordsRequest.table_name" />).
-        /// The value must be the desired TTL in minutes.</description>
+        ///         <description>Sets the <a
+        /// href="../../../../concepts/ttl.html" target="_top">TTL</a> of the
+        /// merged table specified in <paramref
+        /// cref="MergeRecordsRequest.table_name" />.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="MergeRecordsRequest.Options.CHUNK_SIZE">CHUNK_SIZE</see>:</term>
-        ///         <description>If provided this indicates the chunk size to
-        /// be used for the merged table.</description>
+        ///         <description>Indicates the chunk size to be used for the
+        /// merged table specified in <paramref
+        /// cref="MergeRecordsRequest.table_name" />.</description>
         ///     </item>
         /// </list>
         ///   </summary>
@@ -200,35 +223,40 @@ namespace kinetica
         /// to be merged.  Must NOT be an existing table.  </param>
         /// <param name="source_table_names">The list of source table names to
         /// get the records from. Must be existing table names.  </param>
-        /// <param name="field_maps">Contains the mapping of column names from
-        /// result table (specified by <paramref
-        /// cref="MergeRecordsRequest.table_name" />) as the keys, and
-        /// corresponding column names from a table from source tables
-        /// (specified by <paramref
-        /// cref="MergeRecordsRequest.source_table_names" />). Must be existing
-        /// column names in source table and target table, and their types must
-        /// be matched.  </param>
+        /// <param name="field_maps">Contains a list of source/target column
+        /// mappings, one mapping for each source table listed in <paramref
+        /// cref="MergeRecordsRequest.source_table_names" /> being merged into
+        /// the target table specified by <paramref
+        /// cref="MergeRecordsRequest.table_name" />.  Each mapping contains
+        /// the target column names (as keys) that the data in the mapped
+        /// source columns (as values) will be merged into.  All of the source
+        /// columns being merged into a given target column must match in type,
+        /// as that type will determine the type of the new target column.
+        /// </param>
         /// <param name="options">Optional parameters.
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
         /// cref="MergeRecordsRequest.Options.COLLECTION_NAME">COLLECTION_NAME</see>:</term>
         ///         <description>Name of a collection which is to contain the
-        /// newly created merged table (specified by <paramref
-        /// cref="MergeRecordsRequest.table_name" />). If empty, then the newly
-        /// created merged table will be a top-level table. If the collection
-        /// does not allow duplicate types and it contains a table of the same
-        /// type as the given one, then this table creation request will
-        /// fail.</description>
+        /// newly created merged table specified by <paramref
+        /// cref="MergeRecordsRequest.table_name" />. If the collection
+        /// provided is non-existent, the collection will be automatically
+        /// created. If empty, then the newly created merged table will be a
+        /// top-level table.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="MergeRecordsRequest.Options.IS_REPLICATED">IS_REPLICATED</see>:</term>
-        ///         <description>For a merged table (specified by <paramref
-        /// cref="MergeRecordsRequest.table_name" />), indicates whether the
-        /// table is to be replicated to all the database ranks. This may be
-        /// necessary when the table is to be joined with other tables in a
-        /// query.
+        ///         <description>Indicates the <a
+        /// href="../../../../concepts/tables.html#distribution"
+        /// target="_top">distribution scheme</a> for the data of the merged
+        /// table specified in <paramref cref="MergeRecordsRequest.table_name"
+        /// />.  If true, the table will be <a
+        /// href="../../../../concepts/tables.html#replication"
+        /// target="_top">replicated</a>.  If false, the table will be <a
+        /// href="../../../../concepts/tables.html#random-sharding"
+        /// target="_top">randomly sharded</a>.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -246,15 +274,17 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="MergeRecordsRequest.Options.TTL">TTL</see>:</term>
-        ///         <description>Sets the TTL of the merged table or collection
-        /// (specified by <paramref cref="MergeRecordsRequest.table_name" />).
-        /// The value must be the desired TTL in minutes.</description>
+        ///         <description>Sets the <a
+        /// href="../../../../concepts/ttl.html" target="_top">TTL</a> of the
+        /// merged table specified in <paramref
+        /// cref="MergeRecordsRequest.table_name" />.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="MergeRecordsRequest.Options.CHUNK_SIZE">CHUNK_SIZE</see>:</term>
-        ///         <description>If provided this indicates the chunk size to
-        /// be used for the merged table.</description>
+        ///         <description>Indicates the chunk size to be used for the
+        /// merged table specified in <paramref
+        /// cref="MergeRecordsRequest.table_name" />.</description>
         ///     </item>
         /// </list>
         ///   </param>

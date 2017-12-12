@@ -19,32 +19,30 @@ namespace kinetica
     /// available
     /// modifications include the following:
     /// <br />
-    /// Create or delete an index on a particular column. This can speed up
-    /// certain search queries
-    /// (such as <see
-    /// cref="Kinetica.getRecords{T}(string,long,long,IDictionary{string, string})"
-    /// />, <see
-    /// cref="Kinetica.deleteRecords(string,IList{string},IDictionary{string, string})"
-    /// />, <see
-    /// cref="Kinetica.updateRecords{T}(string,IList{string},IList{IDictionary{string, string}},IList{T},IDictionary{string, string})"
-    /// />)
-    /// when using expressions containing equality or relational operators on
-    /// indexed columns. This
-    /// only applies to tables.
+    /// Create or delete an <a
+    /// href="../../../../../concepts/indexes.html#column-index"
+    /// target="_top">index</a> on a
+    /// particular column. This can speed up certain operations when using
+    /// expressions
+    /// containing equality or relational operators on indexed columns. This
+    /// only
+    /// applies to tables.
     /// <br />
-    /// Set the time-to-live (TTL). This can be applied to tables, views, or
-    /// collections.  When
-    /// applied to collections, every table & view within the collection will
-    /// have its TTL set to the
-    /// given value.
+    /// Set the <a href="../../../../../concepts/ttl.html"
+    /// target="_top">time-to-live (TTL)</a>. This can be applied
+    /// to tables, views, or collections.  When applied to collections, every
+    /// contained
+    /// table & view that is not protected will have its TTL set to the given
+    /// value.
     /// <br />
     /// Set the global access mode (i.e. locking) for a table. The mode can be
-    /// set to 'no-access', 'read-only',
-    /// 'write-only' or 'read-write'.
+    /// set to
+    /// 'no_access', 'read_only', 'write_only' or 'read_write'.
     /// <br />
-    /// Make a table protected or not. Protected tables have their TTLs set to
-    /// not automatically
-    /// expire. This can be applied to tables, views, and collections.
+    /// Change the <a href="../../../../../concepts/protection.html"
+    /// target="_top">protection</a> mode to prevent or
+    /// allow automatic expiration. This can be applied to tables, views, and
+    /// collections.
     /// <br />
     /// Allow homogeneous tables within a collection.
     /// <br />
@@ -52,7 +50,8 @@ namespace kinetica
     /// <a href="../../../../../concepts/types.html" target="_top">type and
     /// properties</a> modified.
     /// <br />
-    /// Set or unset compression for a column.</summary>
+    /// Set or unset <a href="../../../../../concepts/compression.html"
+    /// target="_top">compression</a> for a column.</summary>
     public class AlterTableRequest : KineticaData
     {
 
@@ -71,36 +70,41 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="AlterTableRequest.Action.CREATE_INDEX">CREATE_INDEX</see>:</term>
-        ///         <description>Creates an index on the column name specified
-        /// in <paramref cref="AlterTableRequest._value" />. If this column is
-        /// already indexed, an error will be returned.</description>
+        ///         <description>Creates an <a
+        /// href="../../../../concepts/indexes.html#column-index"
+        /// target="_top">index</a> on the column name specified in <paramref
+        /// cref="AlterTableRequest._value" />. If this column is already
+        /// indexed, an error will be returned.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="AlterTableRequest.Action.DELETE_INDEX">DELETE_INDEX</see>:</term>
-        ///         <description>Deletes an existing index on the column name
-        /// specified in <paramref cref="AlterTableRequest._value" />. If this
-        /// column does not have indexing turned on, an error will be
-        /// returned.</description>
+        ///         <description>Deletes an existing <a
+        /// href="../../../../concepts/indexes.html#column-index"
+        /// target="_top">index</a> on the column name specified in <paramref
+        /// cref="AlterTableRequest._value" />. If this column does not have
+        /// indexing turned on, an error will be returned.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="AlterTableRequest.Action.MOVE_TO_COLLECTION">MOVE_TO_COLLECTION</see>:</term>
-        ///         <description>Move a table into a collection <paramref
+        ///         <description>Moves a table into a collection <paramref
         /// cref="AlterTableRequest._value" />. </description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="AlterTableRequest.Action.PROTECTED">PROTECTED</see>:</term>
         ///         <description>Sets whether the given <paramref
-        /// cref="AlterTableRequest.table_name" /> should be protected or not.
-        /// The <paramref cref="AlterTableRequest._value" /> must be either
-        /// 'true' or 'false'.</description>
+        /// cref="AlterTableRequest.table_name" /> should be <a
+        /// href="../../../../concepts/protection.html"
+        /// target="_top">protected</a> or not. The <paramref
+        /// cref="AlterTableRequest._value" /> must be either 'true' or
+        /// 'false'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="AlterTableRequest.Action.RENAME_TABLE">RENAME_TABLE</see>:</term>
-        ///         <description>Rename a table, view or collection to
+        ///         <description>Renames a table, view or collection to
         /// <paramref cref="AlterTableRequest._value" />. Has the same naming
         /// restrictions as <a href="../../../../concepts/tables.html"
         /// target="_top">tables</a>.</description>
@@ -108,15 +112,15 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="AlterTableRequest.Action.TTL">TTL</see>:</term>
-        ///         <description>Sets the TTL of the table, view, or collection
-        /// specified in <paramref cref="AlterTableRequest.table_name" />. The
-        /// <paramref cref="AlterTableRequest._value" /> must be the desired
-        /// TTL in minutes.</description>
+        ///         <description>Sets the <a
+        /// href="../../../../concepts/ttl.html" target="_top">TTL</a> of the
+        /// table, view, or collection specified in <paramref
+        /// cref="AlterTableRequest.table_name" />.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="AlterTableRequest.Action.ADD_COLUMN">ADD_COLUMN</see>:</term>
-        ///         <description>Add the column specified in <paramref
+        ///         <description>Adds the column specified in <paramref
         /// cref="AlterTableRequest._value" /> to the table specified in
         /// <paramref cref="AlterTableRequest.table_name" />.  Use
         /// <i>column_type</i> and <i>column_properties</i> in <paramref
@@ -126,7 +130,7 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="AlterTableRequest.Action.CHANGE_COLUMN">CHANGE_COLUMN</see>:</term>
-        ///         <description>Change type and properties of the column
+        ///         <description>Changes type and properties of the column
         /// specified in <paramref cref="AlterTableRequest._value" />.  Use
         /// <i>column_type</i> and <i>column_properties</i> in <paramref
         /// cref="AlterTableRequest.options" /> to set the column's type and
@@ -135,40 +139,46 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="AlterTableRequest.Action.SET_COLUMN_COMPRESSION">SET_COLUMN_COMPRESSION</see>:</term>
-        ///         <description>Modify the compression setting on the column
-        /// specified in <paramref cref="AlterTableRequest._value" />.
-        /// </description>
+        ///         <description>Modifies the <a
+        /// href="../../../../concepts/compression.html"
+        /// target="_top">compression</a> setting on the column specified in
+        /// <paramref cref="AlterTableRequest._value" />. </description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="AlterTableRequest.Action.DELETE_COLUMN">DELETE_COLUMN</see>:</term>
-        ///         <description>Delete the column specified in <paramref
+        ///         <description>Deletes the column specified in <paramref
         /// cref="AlterTableRequest._value" /> from the table specified in
         /// <paramref cref="AlterTableRequest.table_name" />.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="AlterTableRequest.Action.CREATE_FOREIGN_KEY">CREATE_FOREIGN_KEY</see>:</term>
-        ///         <description>Create a foreign key using the format
-        /// 'source_column references target_table(primary_key_column) [ as
-        /// <foreign_key_name> ]'.</description>
+        ///         <description>Creates a <a
+        /// href="../../../../concepts/tables.html#foreign-key"
+        /// target="_top">foreign key</a> using the format 'source_column
+        /// references target_table(primary_key_column) [ as <foreign_key_name>
+        /// ]'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="AlterTableRequest.Action.DELETE_FOREIGN_KEY">DELETE_FOREIGN_KEY</see>:</term>
-        ///         <description>Delete a foreign key.  The <paramref
+        ///         <description>Deletes a <a
+        /// href="../../../../concepts/tables.html#foreign-key"
+        /// target="_top">foreign key</a>.  The <paramref
         /// cref="AlterTableRequest._value" /> should be the <foreign_key_name>
-        /// or the string used to define the foreign key.</description>
+        /// specified when creating the key or the complete string used to
+        /// define it.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="AlterTableRequest.Action.SET_GLOBAL_ACCESS_MODE">SET_GLOBAL_ACCESS_MODE</see>:</term>
-        ///         <description>Set the global access mode (i.e. locking) for
+        ///         <description>Sets the global access mode (i.e. locking) for
         /// the table specified in <paramref
         /// cref="AlterTableRequest.table_name" />. Specify the access mode in
         /// <paramref cref="AlterTableRequest._value" />. Valid modes are
-        /// 'no-access', 'read-only', 'write-only' and
-        /// 'read-write'.</description>
+        /// 'no_access', 'read_only', 'write_only' and
+        /// 'read_write'.</description>
         ///     </item>
         /// </list>
         /// A set of string constants for the parameter <see cref="action"
@@ -182,73 +192,84 @@ namespace kinetica
             /// must be either 'true' or 'false'.</summary>
             public const string ALLOW_HOMOGENEOUS_TABLES = "allow_homogeneous_tables";
 
-            /// <summary>Creates an index on the column name specified in <see
+            /// <summary>Creates an <a
+            /// href="../../../../../concepts/indexes.html#column-index"
+            /// target="_top">index</a> on the column name specified in <see
             /// cref="_value" />. If this column is already indexed, an error
             /// will be returned.</summary>
             public const string CREATE_INDEX = "create_index";
 
-            /// <summary>Deletes an existing index on the column name specified
-            /// in <see cref="_value" />. If this column does not have indexing
-            /// turned on, an error will be returned.</summary>
+            /// <summary>Deletes an existing <a
+            /// href="../../../../../concepts/indexes.html#column-index"
+            /// target="_top">index</a> on the column name specified in <see
+            /// cref="_value" />. If this column does not have indexing turned
+            /// on, an error will be returned.</summary>
             public const string DELETE_INDEX = "delete_index";
 
-            /// <summary>Move a table into a collection <see cref="_value" />.
+            /// <summary>Moves a table into a collection <see cref="_value" />.
             /// </summary>
             public const string MOVE_TO_COLLECTION = "move_to_collection";
 
             /// <summary>Sets whether the given <see cref="table_name" />
-            /// should be protected or not. The <see cref="_value" /> must be
-            /// either 'true' or 'false'.</summary>
+            /// should be <a href="../../../../../concepts/protection.html"
+            /// target="_top">protected</a> or not. The <see cref="_value" />
+            /// must be either 'true' or 'false'.</summary>
             public const string PROTECTED = "protected";
 
-            /// <summary>Rename a table, view or collection to <see
+            /// <summary>Renames a table, view or collection to <see
             /// cref="_value" />. Has the same naming restrictions as <a
             /// href="../../../../../concepts/tables.html"
             /// target="_top">tables</a>.</summary>
             public const string RENAME_TABLE = "rename_table";
 
-            /// <summary>Sets the TTL of the table, view, or collection
-            /// specified in <see cref="table_name" />. The <see cref="_value"
-            /// /> must be the desired TTL in minutes.</summary>
+            /// <summary>Sets the <a href="../../../../../concepts/ttl.html"
+            /// target="_top">TTL</a> of the table, view, or collection
+            /// specified in <see cref="table_name" />.</summary>
             public const string TTL = "ttl";
 
-            /// <summary>Add the column specified in <see cref="_value" /> to
+            /// <summary>Adds the column specified in <see cref="_value" /> to
             /// the table specified in <see cref="table_name" />.  Use
             /// <i>column_type</i> and <i>column_properties</i> in <see
             /// cref="options" /> to set the column's type and properties,
             /// respectively.</summary>
             public const string ADD_COLUMN = "add_column";
 
-            /// <summary>Change type and properties of the column specified in
+            /// <summary>Changes type and properties of the column specified in
             /// <see cref="_value" />.  Use <i>column_type</i> and
             /// <i>column_properties</i> in <see cref="options" /> to set the
             /// column's type and properties, respectively.</summary>
             public const string CHANGE_COLUMN = "change_column";
 
-            /// <summary>Modify the compression setting on the column specified
+            /// <summary>Modifies the <a
+            /// href="../../../../../concepts/compression.html"
+            /// target="_top">compression</a> setting on the column specified
             /// in <see cref="_value" />. </summary>
             public const string SET_COLUMN_COMPRESSION = "set_column_compression";
 
-            /// <summary>Delete the column specified in <see cref="_value" />
+            /// <summary>Deletes the column specified in <see cref="_value" />
             /// from the table specified in <see cref="table_name"
             /// />.</summary>
             public const string DELETE_COLUMN = "delete_column";
 
-            /// <summary>Create a foreign key using the format 'source_column
+            /// <summary>Creates a <a
+            /// href="../../../../../concepts/tables.html#foreign-key"
+            /// target="_top">foreign key</a> using the format 'source_column
             /// references target_table(primary_key_column) [ as
             /// <foreign_key_name> ]'.</summary>
             public const string CREATE_FOREIGN_KEY = "create_foreign_key";
 
-            /// <summary>Delete a foreign key.  The <see cref="_value" />
-            /// should be the <foreign_key_name> or the string used to define
-            /// the foreign key.</summary>
+            /// <summary>Deletes a <a
+            /// href="../../../../../concepts/tables.html#foreign-key"
+            /// target="_top">foreign key</a>.  The <see cref="_value" />
+            /// should be the <foreign_key_name> specified when creating the
+            /// key or the complete string used to define it.</summary>
             public const string DELETE_FOREIGN_KEY = "delete_foreign_key";
 
-            /// <summary>Set the global access mode (i.e. locking) for the
+            /// <summary>Sets the global access mode (i.e. locking) for the
             /// table specified in <see cref="table_name" />. Specify the
             /// access mode in <see cref="_value" />. Valid modes are
-            /// 'no-access', 'read-only', 'write-only' and
-            /// 'read-write'.</summary>
+            /// 'no_access', 'read_only', 'write_only' and
+            /// 'read_write'.</summary>
             public const string SET_GLOBAL_ACCESS_MODE = "set_global_access_mode";
         } // end struct Action
 
@@ -453,36 +474,41 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="AlterTableRequest.Action.CREATE_INDEX">CREATE_INDEX</see>:</term>
-        ///         <description>Creates an index on the column name specified
-        /// in <paramref cref="AlterTableRequest._value" />. If this column is
-        /// already indexed, an error will be returned.</description>
+        ///         <description>Creates an <a
+        /// href="../../../../concepts/indexes.html#column-index"
+        /// target="_top">index</a> on the column name specified in <paramref
+        /// cref="AlterTableRequest._value" />. If this column is already
+        /// indexed, an error will be returned.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="AlterTableRequest.Action.DELETE_INDEX">DELETE_INDEX</see>:</term>
-        ///         <description>Deletes an existing index on the column name
-        /// specified in <paramref cref="AlterTableRequest._value" />. If this
-        /// column does not have indexing turned on, an error will be
-        /// returned.</description>
+        ///         <description>Deletes an existing <a
+        /// href="../../../../concepts/indexes.html#column-index"
+        /// target="_top">index</a> on the column name specified in <paramref
+        /// cref="AlterTableRequest._value" />. If this column does not have
+        /// indexing turned on, an error will be returned.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="AlterTableRequest.Action.MOVE_TO_COLLECTION">MOVE_TO_COLLECTION</see>:</term>
-        ///         <description>Move a table into a collection <paramref
+        ///         <description>Moves a table into a collection <paramref
         /// cref="AlterTableRequest._value" />. </description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="AlterTableRequest.Action.PROTECTED">PROTECTED</see>:</term>
         ///         <description>Sets whether the given <paramref
-        /// cref="AlterTableRequest.table_name" /> should be protected or not.
-        /// The <paramref cref="AlterTableRequest._value" /> must be either
-        /// 'true' or 'false'.</description>
+        /// cref="AlterTableRequest.table_name" /> should be <a
+        /// href="../../../../concepts/protection.html"
+        /// target="_top">protected</a> or not. The <paramref
+        /// cref="AlterTableRequest._value" /> must be either 'true' or
+        /// 'false'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="AlterTableRequest.Action.RENAME_TABLE">RENAME_TABLE</see>:</term>
-        ///         <description>Rename a table, view or collection to
+        ///         <description>Renames a table, view or collection to
         /// <paramref cref="AlterTableRequest._value" />. Has the same naming
         /// restrictions as <a href="../../../../concepts/tables.html"
         /// target="_top">tables</a>.</description>
@@ -490,15 +516,15 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="AlterTableRequest.Action.TTL">TTL</see>:</term>
-        ///         <description>Sets the TTL of the table, view, or collection
-        /// specified in <paramref cref="AlterTableRequest.table_name" />. The
-        /// <paramref cref="AlterTableRequest._value" /> must be the desired
-        /// TTL in minutes.</description>
+        ///         <description>Sets the <a
+        /// href="../../../../concepts/ttl.html" target="_top">TTL</a> of the
+        /// table, view, or collection specified in <paramref
+        /// cref="AlterTableRequest.table_name" />.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="AlterTableRequest.Action.ADD_COLUMN">ADD_COLUMN</see>:</term>
-        ///         <description>Add the column specified in <paramref
+        ///         <description>Adds the column specified in <paramref
         /// cref="AlterTableRequest._value" /> to the table specified in
         /// <paramref cref="AlterTableRequest.table_name" />.  Use
         /// <i>column_type</i> and <i>column_properties</i> in <paramref
@@ -508,7 +534,7 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="AlterTableRequest.Action.CHANGE_COLUMN">CHANGE_COLUMN</see>:</term>
-        ///         <description>Change type and properties of the column
+        ///         <description>Changes type and properties of the column
         /// specified in <paramref cref="AlterTableRequest._value" />.  Use
         /// <i>column_type</i> and <i>column_properties</i> in <paramref
         /// cref="AlterTableRequest.options" /> to set the column's type and
@@ -517,40 +543,46 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="AlterTableRequest.Action.SET_COLUMN_COMPRESSION">SET_COLUMN_COMPRESSION</see>:</term>
-        ///         <description>Modify the compression setting on the column
-        /// specified in <paramref cref="AlterTableRequest._value" />.
-        /// </description>
+        ///         <description>Modifies the <a
+        /// href="../../../../concepts/compression.html"
+        /// target="_top">compression</a> setting on the column specified in
+        /// <paramref cref="AlterTableRequest._value" />. </description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="AlterTableRequest.Action.DELETE_COLUMN">DELETE_COLUMN</see>:</term>
-        ///         <description>Delete the column specified in <paramref
+        ///         <description>Deletes the column specified in <paramref
         /// cref="AlterTableRequest._value" /> from the table specified in
         /// <paramref cref="AlterTableRequest.table_name" />.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="AlterTableRequest.Action.CREATE_FOREIGN_KEY">CREATE_FOREIGN_KEY</see>:</term>
-        ///         <description>Create a foreign key using the format
-        /// 'source_column references target_table(primary_key_column) [ as
-        /// <foreign_key_name> ]'.</description>
+        ///         <description>Creates a <a
+        /// href="../../../../concepts/tables.html#foreign-key"
+        /// target="_top">foreign key</a> using the format 'source_column
+        /// references target_table(primary_key_column) [ as <foreign_key_name>
+        /// ]'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="AlterTableRequest.Action.DELETE_FOREIGN_KEY">DELETE_FOREIGN_KEY</see>:</term>
-        ///         <description>Delete a foreign key.  The <paramref
+        ///         <description>Deletes a <a
+        /// href="../../../../concepts/tables.html#foreign-key"
+        /// target="_top">foreign key</a>.  The <paramref
         /// cref="AlterTableRequest._value" /> should be the <foreign_key_name>
-        /// or the string used to define the foreign key.</description>
+        /// specified when creating the key or the complete string used to
+        /// define it.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="AlterTableRequest.Action.SET_GLOBAL_ACCESS_MODE">SET_GLOBAL_ACCESS_MODE</see>:</term>
-        ///         <description>Set the global access mode (i.e. locking) for
+        ///         <description>Sets the global access mode (i.e. locking) for
         /// the table specified in <paramref
         /// cref="AlterTableRequest.table_name" />. Specify the access mode in
         /// <paramref cref="AlterTableRequest._value" />. Valid modes are
-        /// 'no-access', 'read-only', 'write-only' and
-        /// 'read-write'.</description>
+        /// 'no_access', 'read_only', 'write_only' and
+        /// 'read_write'.</description>
         ///     </item>
         /// </list>  </summary>
         public string action { get; set; }
@@ -679,36 +711,41 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="AlterTableRequest.Action.CREATE_INDEX">CREATE_INDEX</see>:</term>
-        ///         <description>Creates an index on the column name specified
-        /// in <paramref cref="AlterTableRequest._value" />. If this column is
-        /// already indexed, an error will be returned.</description>
+        ///         <description>Creates an <a
+        /// href="../../../../concepts/indexes.html#column-index"
+        /// target="_top">index</a> on the column name specified in <paramref
+        /// cref="AlterTableRequest._value" />. If this column is already
+        /// indexed, an error will be returned.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="AlterTableRequest.Action.DELETE_INDEX">DELETE_INDEX</see>:</term>
-        ///         <description>Deletes an existing index on the column name
-        /// specified in <paramref cref="AlterTableRequest._value" />. If this
-        /// column does not have indexing turned on, an error will be
-        /// returned.</description>
+        ///         <description>Deletes an existing <a
+        /// href="../../../../concepts/indexes.html#column-index"
+        /// target="_top">index</a> on the column name specified in <paramref
+        /// cref="AlterTableRequest._value" />. If this column does not have
+        /// indexing turned on, an error will be returned.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="AlterTableRequest.Action.MOVE_TO_COLLECTION">MOVE_TO_COLLECTION</see>:</term>
-        ///         <description>Move a table into a collection <paramref
+        ///         <description>Moves a table into a collection <paramref
         /// cref="AlterTableRequest._value" />. </description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="AlterTableRequest.Action.PROTECTED">PROTECTED</see>:</term>
         ///         <description>Sets whether the given <paramref
-        /// cref="AlterTableRequest.table_name" /> should be protected or not.
-        /// The <paramref cref="AlterTableRequest._value" /> must be either
-        /// 'true' or 'false'.</description>
+        /// cref="AlterTableRequest.table_name" /> should be <a
+        /// href="../../../../concepts/protection.html"
+        /// target="_top">protected</a> or not. The <paramref
+        /// cref="AlterTableRequest._value" /> must be either 'true' or
+        /// 'false'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="AlterTableRequest.Action.RENAME_TABLE">RENAME_TABLE</see>:</term>
-        ///         <description>Rename a table, view or collection to
+        ///         <description>Renames a table, view or collection to
         /// <paramref cref="AlterTableRequest._value" />. Has the same naming
         /// restrictions as <a href="../../../../concepts/tables.html"
         /// target="_top">tables</a>.</description>
@@ -716,15 +753,15 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="AlterTableRequest.Action.TTL">TTL</see>:</term>
-        ///         <description>Sets the TTL of the table, view, or collection
-        /// specified in <paramref cref="AlterTableRequest.table_name" />. The
-        /// <paramref cref="AlterTableRequest._value" /> must be the desired
-        /// TTL in minutes.</description>
+        ///         <description>Sets the <a
+        /// href="../../../../concepts/ttl.html" target="_top">TTL</a> of the
+        /// table, view, or collection specified in <paramref
+        /// cref="AlterTableRequest.table_name" />.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="AlterTableRequest.Action.ADD_COLUMN">ADD_COLUMN</see>:</term>
-        ///         <description>Add the column specified in <paramref
+        ///         <description>Adds the column specified in <paramref
         /// cref="AlterTableRequest._value" /> to the table specified in
         /// <paramref cref="AlterTableRequest.table_name" />.  Use
         /// <i>column_type</i> and <i>column_properties</i> in <paramref
@@ -734,7 +771,7 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="AlterTableRequest.Action.CHANGE_COLUMN">CHANGE_COLUMN</see>:</term>
-        ///         <description>Change type and properties of the column
+        ///         <description>Changes type and properties of the column
         /// specified in <paramref cref="AlterTableRequest._value" />.  Use
         /// <i>column_type</i> and <i>column_properties</i> in <paramref
         /// cref="AlterTableRequest.options" /> to set the column's type and
@@ -743,40 +780,46 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="AlterTableRequest.Action.SET_COLUMN_COMPRESSION">SET_COLUMN_COMPRESSION</see>:</term>
-        ///         <description>Modify the compression setting on the column
-        /// specified in <paramref cref="AlterTableRequest._value" />.
-        /// </description>
+        ///         <description>Modifies the <a
+        /// href="../../../../concepts/compression.html"
+        /// target="_top">compression</a> setting on the column specified in
+        /// <paramref cref="AlterTableRequest._value" />. </description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="AlterTableRequest.Action.DELETE_COLUMN">DELETE_COLUMN</see>:</term>
-        ///         <description>Delete the column specified in <paramref
+        ///         <description>Deletes the column specified in <paramref
         /// cref="AlterTableRequest._value" /> from the table specified in
         /// <paramref cref="AlterTableRequest.table_name" />.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="AlterTableRequest.Action.CREATE_FOREIGN_KEY">CREATE_FOREIGN_KEY</see>:</term>
-        ///         <description>Create a foreign key using the format
-        /// 'source_column references target_table(primary_key_column) [ as
-        /// <foreign_key_name> ]'.</description>
+        ///         <description>Creates a <a
+        /// href="../../../../concepts/tables.html#foreign-key"
+        /// target="_top">foreign key</a> using the format 'source_column
+        /// references target_table(primary_key_column) [ as <foreign_key_name>
+        /// ]'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="AlterTableRequest.Action.DELETE_FOREIGN_KEY">DELETE_FOREIGN_KEY</see>:</term>
-        ///         <description>Delete a foreign key.  The <paramref
+        ///         <description>Deletes a <a
+        /// href="../../../../concepts/tables.html#foreign-key"
+        /// target="_top">foreign key</a>.  The <paramref
         /// cref="AlterTableRequest._value" /> should be the <foreign_key_name>
-        /// or the string used to define the foreign key.</description>
+        /// specified when creating the key or the complete string used to
+        /// define it.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="AlterTableRequest.Action.SET_GLOBAL_ACCESS_MODE">SET_GLOBAL_ACCESS_MODE</see>:</term>
-        ///         <description>Set the global access mode (i.e. locking) for
+        ///         <description>Sets the global access mode (i.e. locking) for
         /// the table specified in <paramref
         /// cref="AlterTableRequest.table_name" />. Specify the access mode in
         /// <paramref cref="AlterTableRequest._value" />. Valid modes are
-        /// 'no-access', 'read-only', 'write-only' and
-        /// 'read-write'.</description>
+        /// 'no_access', 'read_only', 'write_only' and
+        /// 'read_write'.</description>
         ///     </item>
         /// </list>  </param>
         /// <param name="_value">The value of the modification. May be a column

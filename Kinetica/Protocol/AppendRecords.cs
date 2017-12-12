@@ -41,8 +41,7 @@ namespace kinetica
         /// number of results to be returned from source table (specified by
         /// <paramref cref="AppendRecordsRequest.source_table_name" />). Or
         /// END_OF_SET (-9999) to indicate that the max number of results
-        /// should be returned. Default value is END_OF_SET
-        /// (-9999).</description>
+        /// should be returned.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -110,8 +109,7 @@ namespace kinetica
             /// <summary>A positive integer indicating the maximum number of
             /// results to be returned from source table (specified by <see
             /// cref="source_table_name" />). Or END_OF_SET (-9999) to indicate
-            /// that the max number of results should be returned. Default
-            /// value is END_OF_SET (-9999).</summary>
+            /// that the max number of results should be returned.</summary>
             public const string LIMIT = "limit";
 
             /// <summary>Optional filter expression to apply to the source
@@ -194,8 +192,7 @@ namespace kinetica
         /// number of results to be returned from source table (specified by
         /// <paramref cref="AppendRecordsRequest.source_table_name" />). Or
         /// END_OF_SET (-9999) to indicate that the max number of results
-        /// should be returned. Default value is END_OF_SET
-        /// (-9999).</description>
+        /// should be returned.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -288,8 +285,7 @@ namespace kinetica
         /// number of results to be returned from source table (specified by
         /// <paramref cref="AppendRecordsRequest.source_table_name" />). Or
         /// END_OF_SET (-9999) to indicate that the max number of results
-        /// should be returned. Default value is END_OF_SET
-        /// (-9999).</description>
+        /// should be returned.</description>
         ///     </item>
         ///     <item>
         ///         <term><see

@@ -148,9 +148,9 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="InsertRecordsRandomRequest.Options.ATTR_NAME">ATTR_NAME</see>:</term>
-        ///         <description>Set the following parameters for the column
-        /// specified by the key. This overrides any parameter set by
-        /// <i>all</i>.
+        ///         <description>Use the desired column name in place of
+        /// <i>attr_name</i>, and set the following parameters for the column
+        /// specified. This overrides any parameter set by <i>all</i>.
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
@@ -414,8 +414,10 @@ namespace kinetica
             /// default.</summary>
             public const string CARDINALITY = "cardinality";
 
-            /// <summary>Set the following parameters for the column specified
-            /// by the key. This overrides any parameter set by <i>all</i>.
+            /// <summary>Use the desired column name in place of
+            /// <i>attr_name</i>, and set the following parameters for the
+            /// column specified. This overrides any parameter set by
+            /// <i>all</i>.
             /// <list type="bullet">
             ///     <item>
             ///         <term><see
@@ -655,9 +657,9 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="InsertRecordsRandomRequest.Options.ATTR_NAME">ATTR_NAME</see>:</term>
-        ///         <description>Set the following parameters for the column
-        /// specified by the key. This overrides any parameter set by
-        /// <i>all</i>.
+        ///         <description>Use the desired column name in place of
+        /// <i>attr_name</i>, and set the following parameters for the column
+        /// specified. This overrides any parameter set by <i>all</i>.
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
@@ -898,9 +900,9 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="InsertRecordsRandomRequest.Options.ATTR_NAME">ATTR_NAME</see>:</term>
-        ///         <description>Set the following parameters for the column
-        /// specified by the key. This overrides any parameter set by
-        /// <i>all</i>.
+        ///         <description>Use the desired column name in place of
+        /// <i>attr_name</i>, and set the following parameters for the column
+        /// specified. This overrides any parameter set by <i>all</i>.
         /// <list type="bullet">
         ///     <item>
         ///         <term><see

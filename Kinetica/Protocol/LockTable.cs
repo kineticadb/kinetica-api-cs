@@ -16,11 +16,11 @@ namespace kinetica
     /// />.
     /// <br />
     /// Manages global access to a table's data.  By default a table has a <see
-    /// cref="lock_type" /> of <i>read-write</i>, indicating all operations are
-    /// permitted.  A user may request a <i>read-only</i> or a
-    /// <i>write-only</i> lock, after which only read or write operations,
+    /// cref="lock_type" /> of <i>read_write</i>, indicating all operations are
+    /// permitted.  A user may request a <i>read_only</i> or a
+    /// <i>write_only</i> lock, after which only read or write operations,
     /// respectively, are permitted on the table until the lock is removed.
-    /// When <see cref="lock_type" /> is <i>no-access</i> then no operations
+    /// When <see cref="lock_type" /> is <i>no_access</i> then no operations
     /// are permitted on the table.  The lock status can be queried by setting
     /// <see cref="lock_type" /> to <i>status</i>.</summary>
     public class LockTableRequest : KineticaData
@@ -68,16 +68,16 @@ namespace kinetica
             public const string STATUS = "status";
 
             /// <summary>Allow no read/write operations</summary>
-            public const string NO_ACCESS = "no-access";
+            public const string NO_ACCESS = "no_access";
 
             /// <summary>Allow only read operations</summary>
-            public const string READ_ONLY = "read-only";
+            public const string READ_ONLY = "read_only";
 
             /// <summary>Allow only write operations</summary>
-            public const string WRITE_ONLY = "write-only";
+            public const string WRITE_ONLY = "write_only";
 
             /// <summary>Allow all read/write operations</summary>
-            public const string READ_WRITE = "read-write";
+            public const string READ_WRITE = "read_write";
         } // end struct LockType
 
 

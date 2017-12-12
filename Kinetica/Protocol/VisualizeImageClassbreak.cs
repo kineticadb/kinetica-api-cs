@@ -12,7 +12,7 @@ namespace kinetica
 {
     /// @cond NO_DOCS
     /// <summary>A set of parameters for <see
-    /// cref="Kinetica.visualizeImageClassbreak(IList{string},IList{string},string,string,string,IList{IList{string}},string,IList{string},IList{string},IList{IList{string}},double,double,double,double,int,int,string,long,IDictionary{string, IList{string}},IDictionary{string, string})"
+    /// cref="Kinetica.visualizeImageClassbreak(IList{string},IList{string},string,string,string,IList{IList{string}},string,IList{string},double,double,double,double,int,int,string,long,IDictionary{string, IList{string}},IDictionary{string, string})"
     /// />.
     /// <br />
     /// </summary>
@@ -163,6 +163,16 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
+        /// cref="VisualizeImageClassbreakRequest.StyleOptions.POINTOFFSET_X">POINTOFFSET_X</see>:</term>
+        ///         <description></description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageClassbreakRequest.StyleOptions.POINTOFFSET_Y">POINTOFFSET_Y</see>:</term>
+        ///         <description></description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="VisualizeImageClassbreakRequest.StyleOptions.POINTSHAPES">POINTSHAPES</see>:</term>
         ///         <description>
         /// Supported values:
@@ -211,6 +221,16 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="VisualizeImageClassbreakRequest.StyleOptions.SHAPELINECOLORS">SHAPELINECOLORS</see>:</term>
+        ///         <description></description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageClassbreakRequest.StyleOptions.SHAPELINEPATTERNS">SHAPELINEPATTERNS</see>:</term>
+        ///         <description></description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageClassbreakRequest.StyleOptions.SHAPELINEPATTERNLEN">SHAPELINEPATTERNLEN</see>:</term>
         ///         <description></description>
         ///     </item>
         ///     <item>
@@ -406,6 +426,8 @@ namespace kinetica
             public const string DO_SYMBOLOGY = "do_symbology";
             public const string POINTCOLORS = "pointcolors";
             public const string POINTSIZES = "pointsizes";
+            public const string POINTOFFSET_X = "pointoffset_x";
+            public const string POINTOFFSET_Y = "pointoffset_y";
 
             /// <summary>
             /// Supported values:
@@ -456,6 +478,8 @@ namespace kinetica
             public const string SYMBOLCODE = "SYMBOLCODE";
             public const string SHAPELINEWIDTHS = "shapelinewidths";
             public const string SHAPELINECOLORS = "shapelinecolors";
+            public const string SHAPELINEPATTERNS = "shapelinepatterns";
+            public const string SHAPELINEPATTERNLEN = "shapelinepatternlen";
             public const string SHAPEFILLCOLORS = "shapefillcolors";
             public const string TRACKLINEWIDTHS = "tracklinewidths";
             public const string TRACKLINECOLORS = "tracklinecolors";
@@ -551,10 +575,8 @@ namespace kinetica
         public string y_column_name { get; set; }
         public string geometry_column_name { get; set; }
         public IList<IList<string>> track_ids { get; set; } = new List<IList<string>>();
-        public string cb_column_name1 { get; set; }
-        public IList<string> cb_vals1 { get; set; } = new List<string>();
-        public IList<string> cb_column_name2 { get; set; } = new List<string>();
-        public IList<IList<string>> cb_vals2 { get; set; } = new List<IList<string>>();
+        public string cb_column_name { get; set; }
+        public IList<string> cb_vals { get; set; } = new List<string>();
         public double min_x { get; set; }
         public double max_x { get; set; }
         public double min_y { get; set; }
@@ -693,6 +715,16 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
+        /// cref="VisualizeImageClassbreakRequest.StyleOptions.POINTOFFSET_X">POINTOFFSET_X</see>:</term>
+        ///         <description></description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageClassbreakRequest.StyleOptions.POINTOFFSET_Y">POINTOFFSET_Y</see>:</term>
+        ///         <description></description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="VisualizeImageClassbreakRequest.StyleOptions.POINTSHAPES">POINTSHAPES</see>:</term>
         ///         <description>
         /// Supported values:
@@ -741,6 +773,16 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="VisualizeImageClassbreakRequest.StyleOptions.SHAPELINECOLORS">SHAPELINECOLORS</see>:</term>
+        ///         <description></description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageClassbreakRequest.StyleOptions.SHAPELINEPATTERNS">SHAPELINEPATTERNS</see>:</term>
+        ///         <description></description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageClassbreakRequest.StyleOptions.SHAPELINEPATTERNLEN">SHAPELINEPATTERNLEN</see>:</term>
         ///         <description></description>
         ///     </item>
         ///     <item>
@@ -881,10 +923,8 @@ namespace kinetica
         /// <param name="y_column_name"></param>
         /// <param name="geometry_column_name"></param>
         /// <param name="track_ids"></param>
-        /// <param name="cb_column_name1"></param>
-        /// <param name="cb_vals1"></param>
-        /// <param name="cb_column_name2"></param>
-        /// <param name="cb_vals2"></param>
+        /// <param name="cb_column_name"></param>
+        /// <param name="cb_vals"></param>
         /// <param name="min_x"></param>
         /// <param name="max_x"></param>
         /// <param name="min_y"></param>
@@ -1020,6 +1060,16 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
+        /// cref="VisualizeImageClassbreakRequest.StyleOptions.POINTOFFSET_X">POINTOFFSET_X</see>:</term>
+        ///         <description></description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageClassbreakRequest.StyleOptions.POINTOFFSET_Y">POINTOFFSET_Y</see>:</term>
+        ///         <description></description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="VisualizeImageClassbreakRequest.StyleOptions.POINTSHAPES">POINTSHAPES</see>:</term>
         ///         <description>
         /// Supported values:
@@ -1068,6 +1118,16 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="VisualizeImageClassbreakRequest.StyleOptions.SHAPELINECOLORS">SHAPELINECOLORS</see>:</term>
+        ///         <description></description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageClassbreakRequest.StyleOptions.SHAPELINEPATTERNS">SHAPELINEPATTERNS</see>:</term>
+        ///         <description></description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageClassbreakRequest.StyleOptions.SHAPELINEPATTERNLEN">SHAPELINEPATTERNLEN</see>:</term>
         ///         <description></description>
         ///     </item>
         ///     <item>
@@ -1199,10 +1259,8 @@ namespace kinetica
                                                 string y_column_name,
                                                 string geometry_column_name,
                                                 IList<IList<string>> track_ids,
-                                                string cb_column_name1,
-                                                IList<string> cb_vals1,
-                                                IList<string> cb_column_name2,
-                                                IList<IList<string>> cb_vals2,
+                                                string cb_column_name,
+                                                IList<string> cb_vals,
                                                 double min_x,
                                                 double max_x,
                                                 double min_y,
@@ -1220,10 +1278,8 @@ namespace kinetica
             this.y_column_name = y_column_name ?? "";
             this.geometry_column_name = geometry_column_name ?? "";
             this.track_ids = track_ids ?? new List<IList<string>>();
-            this.cb_column_name1 = cb_column_name1 ?? "";
-            this.cb_vals1 = cb_vals1 ?? new List<string>();
-            this.cb_column_name2 = cb_column_name2 ?? new List<string>();
-            this.cb_vals2 = cb_vals2 ?? new List<IList<string>>();
+            this.cb_column_name = cb_column_name ?? "";
+            this.cb_vals = cb_vals ?? new List<string>();
             this.min_x = min_x;
             this.max_x = max_x;
             this.min_y = min_y;
@@ -1243,7 +1299,7 @@ namespace kinetica
 
     /// @cond NO_DOCS
     /// <summary>A set of results returned by <see
-    /// cref="Kinetica.visualizeImageClassbreak(IList{string},IList{string},string,string,string,IList{IList{string}},string,IList{string},IList{string},IList{IList{string}},double,double,double,double,int,int,string,long,IDictionary{string, IList{string}},IDictionary{string, string})"
+    /// cref="Kinetica.visualizeImageClassbreak(IList{string},IList{string},string,string,string,IList{IList{string}},string,IList{string},double,double,double,double,int,int,string,long,IDictionary{string, IList{string}},IDictionary{string, string})"
     /// />.</summary>
     public class VisualizeImageClassbreakResponse : KineticaData
     {

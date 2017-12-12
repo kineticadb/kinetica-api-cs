@@ -56,10 +56,9 @@ namespace kinetica
         ///         <term><see
         /// cref="CreateTableRequest.Options.COLLECTION_NAME">COLLECTION_NAME</see>:</term>
         ///         <description>Name of a collection which is to contain the
-        /// newly created table. If empty, then the newly created table will be
-        /// a top-level table. If the collection does not allow duplicate types
-        /// and it contains a table of the same type as the given one, then
-        /// this table creation request will fail.</description>
+        /// newly created table. If the collection provided is non-existent,
+        /// the collection will be automatically created. If empty, then the
+        /// newly created table will be a top-level table.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -103,9 +102,19 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="CreateTableRequest.Options.IS_REPLICATED">IS_REPLICATED</see>:</term>
-        ///         <description>For a table, indicates whether the table is to
-        /// be replicated to all the database ranks. This may be necessary when
-        /// the table is to be joined with other tables in a query.
+        ///         <description>For a table, indicates the <a
+        /// href="../../../../concepts/tables.html#distribution"
+        /// target="_top">distribution scheme</a> for the table's data.  If
+        /// true, the table will be <a
+        /// href="../../../../concepts/tables.html#replication"
+        /// target="_top">replicated</a>.  If false, the table will be <a
+        /// href="../../../../concepts/tables.html#sharding"
+        /// target="_top">sharded</a> according to the <a
+        /// href="../../../../concepts/tables.html#shard-keys"
+        /// target="_top">shard key</a> specified in the given <paramref
+        /// cref="CreateTableRequest.type_id" />, or <a
+        /// href="../../../../concepts/tables.html#random-sharding"
+        /// target="_top">randomly sharded</a>, if no shard key is specified.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -123,9 +132,10 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="CreateTableRequest.Options.FOREIGN_KEYS">FOREIGN_KEYS</see>:</term>
-        ///         <description>Semicolon-separated list of foreign keys, of
-        /// the format 'source_column references
-        /// target_table(primary_key_column) [ as <foreign_key_name>
+        ///         <description>Semicolon-separated list of <a
+        /// href="../../../../concepts/tables.html#foreign-keys"
+        /// target="_top">foreign keys</a>, of the format 'source_column
+        /// references target_table(primary_key_column) [ as <foreign_key_name>
         /// ]'.</description>
         ///     </item>
         ///     <item>
@@ -138,25 +148,24 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="CreateTableRequest.Options.TTL">TTL</see>:</term>
-        ///         <description>Sets the TTL of the table or collection
-        /// specified in <paramref cref="CreateTableRequest.table_name" />. The
-        /// value must be the desired TTL in minutes.</description>
+        ///         <description>For a table, sets the <a
+        /// href="../../../../concepts/ttl.html" target="_top">TTL</a> of the
+        /// table specified in <paramref cref="CreateTableRequest.table_name"
+        /// />.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="CreateTableRequest.Options.CHUNK_SIZE">CHUNK_SIZE</see>:</term>
-        ///         <description>If provided this indicates the chunk size to
-        /// be used for this table.</description>
+        ///         <description>Indicates the chunk size to be used for this
+        /// table.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="CreateTableRequest.Options.IS_RESULT_TABLE">IS_RESULT_TABLE</see>:</term>
-        ///         <description>For a table, indicates whether the table is a
-        /// non-persistent, memory-only table that will store the output of a
-        /// proc executed with /execute/proc. A result table cannot contain
-        /// store_only, text_search, or string columns (char columns are
-        /// acceptable), records cannot be inserted into it directly, and it
-        /// will not be retained if the server is restarted.
+        ///         <description>For a table, indicates whether the table is an
+        /// in-memory table. A result table cannot contain store_only,
+        /// text_search, or string columns (charN columns are acceptable), and
+        /// it will not be retained if the server is restarted.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -200,10 +209,9 @@ namespace kinetica
             public const string FALSE = "false";
 
             /// <summary>Name of a collection which is to contain the newly
-            /// created table. If empty, then the newly created table will be a
-            /// top-level table. If the collection does not allow duplicate
-            /// types and it contains a table of the same type as the given
-            /// one, then this table creation request will fail.</summary>
+            /// created table. If the collection provided is non-existent, the
+            /// collection will be automatically created. If empty, then the
+            /// newly created table will be a top-level table.</summary>
             public const string COLLECTION_NAME = "collection_name";
 
             /// <summary>Indicates whether the new table to be created will be
@@ -241,9 +249,20 @@ namespace kinetica
             /// cref="CreateTableRequest.Options.FALSE">FALSE</see>.</summary>
             public const string DISALLOW_HOMOGENEOUS_TABLES = "disallow_homogeneous_tables";
 
-            /// <summary>For a table, indicates whether the table is to be
-            /// replicated to all the database ranks. This may be necessary
-            /// when the table is to be joined with other tables in a query.
+            /// <summary>For a table, indicates the <a
+            /// href="../../../../../concepts/tables.html#distribution"
+            /// target="_top">distribution scheme</a> for the table's data.  If
+            /// true, the table will be <a
+            /// href="../../../../../concepts/tables.html#replication"
+            /// target="_top">replicated</a>.  If false, the table will be <a
+            /// href="../../../../../concepts/tables.html#sharding"
+            /// target="_top">sharded</a> according to the <a
+            /// href="../../../../../concepts/tables.html#shard-keys"
+            /// target="_top">shard key</a> specified in the given <see
+            /// cref="type_id" />, or <a
+            /// href="../../../../../concepts/tables.html#random-sharding"
+            /// target="_top">randomly sharded</a>, if no shard key is
+            /// specified.
             /// Supported values:
             /// <list type="bullet">
             ///     <item>
@@ -259,10 +278,11 @@ namespace kinetica
             /// cref="CreateTableRequest.Options.FALSE">FALSE</see>.</summary>
             public const string IS_REPLICATED = "is_replicated";
 
-            /// <summary>Semicolon-separated list of foreign keys, of the
-            /// format 'source_column references
-            /// target_table(primary_key_column) [ as <foreign_key_name>
-            /// ]'.</summary>
+            /// <summary>Semicolon-separated list of <a
+            /// href="../../../../../concepts/tables.html#foreign-keys"
+            /// target="_top">foreign keys</a>, of the format 'source_column
+            /// references target_table(primary_key_column) [ as
+            /// <foreign_key_name> ]'.</summary>
             public const string FOREIGN_KEYS = "foreign_keys";
 
             /// <summary>Foreign shard key of the format 'source_column
@@ -270,23 +290,19 @@ namespace kinetica
             /// target_table(primary_key_column)'</summary>
             public const string FOREIGN_SHARD_KEY = "foreign_shard_key";
 
-            /// <summary>Sets the TTL of the table or collection specified in
-            /// <see cref="table_name" />. The value must be the desired TTL in
-            /// minutes.</summary>
+            /// <summary>For a table, sets the <a
+            /// href="../../../../../concepts/ttl.html" target="_top">TTL</a>
+            /// of the table specified in <see cref="table_name" />.</summary>
             public const string TTL = "ttl";
 
-            /// <summary>If provided this indicates the chunk size to be used
-            /// for this table.</summary>
+            /// <summary>Indicates the chunk size to be used for this
+            /// table.</summary>
             public const string CHUNK_SIZE = "chunk_size";
 
-            /// <summary>For a table, indicates whether the table is a
-            /// non-persistent, memory-only table that will store the output of
-            /// a proc executed with <see
-            /// cref="Kinetica.executeProc(string,IDictionary{string, string},IDictionary{string, byte[]},IList{string},IDictionary{string, IList{string}},IList{string},IDictionary{string, string})"
-            /// />. A result table cannot contain store_only, text_search, or
-            /// string columns (char columns are acceptable), records cannot be
-            /// inserted into it directly, and it will not be retained if the
-            /// server is restarted.
+            /// <summary>For a table, indicates whether the table is an
+            /// in-memory table. A result table cannot contain store_only,
+            /// text_search, or string columns (charN columns are acceptable),
+            /// and it will not be retained if the server is restarted.
             /// Supported values:
             /// <list type="bullet">
             ///     <item>
@@ -343,10 +359,9 @@ namespace kinetica
         ///         <term><see
         /// cref="CreateTableRequest.Options.COLLECTION_NAME">COLLECTION_NAME</see>:</term>
         ///         <description>Name of a collection which is to contain the
-        /// newly created table. If empty, then the newly created table will be
-        /// a top-level table. If the collection does not allow duplicate types
-        /// and it contains a table of the same type as the given one, then
-        /// this table creation request will fail.</description>
+        /// newly created table. If the collection provided is non-existent,
+        /// the collection will be automatically created. If empty, then the
+        /// newly created table will be a top-level table.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -390,9 +405,19 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="CreateTableRequest.Options.IS_REPLICATED">IS_REPLICATED</see>:</term>
-        ///         <description>For a table, indicates whether the table is to
-        /// be replicated to all the database ranks. This may be necessary when
-        /// the table is to be joined with other tables in a query.
+        ///         <description>For a table, indicates the <a
+        /// href="../../../../concepts/tables.html#distribution"
+        /// target="_top">distribution scheme</a> for the table's data.  If
+        /// true, the table will be <a
+        /// href="../../../../concepts/tables.html#replication"
+        /// target="_top">replicated</a>.  If false, the table will be <a
+        /// href="../../../../concepts/tables.html#sharding"
+        /// target="_top">sharded</a> according to the <a
+        /// href="../../../../concepts/tables.html#shard-keys"
+        /// target="_top">shard key</a> specified in the given <paramref
+        /// cref="CreateTableRequest.type_id" />, or <a
+        /// href="../../../../concepts/tables.html#random-sharding"
+        /// target="_top">randomly sharded</a>, if no shard key is specified.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -410,9 +435,10 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="CreateTableRequest.Options.FOREIGN_KEYS">FOREIGN_KEYS</see>:</term>
-        ///         <description>Semicolon-separated list of foreign keys, of
-        /// the format 'source_column references
-        /// target_table(primary_key_column) [ as <foreign_key_name>
+        ///         <description>Semicolon-separated list of <a
+        /// href="../../../../concepts/tables.html#foreign-keys"
+        /// target="_top">foreign keys</a>, of the format 'source_column
+        /// references target_table(primary_key_column) [ as <foreign_key_name>
         /// ]'.</description>
         ///     </item>
         ///     <item>
@@ -425,25 +451,24 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="CreateTableRequest.Options.TTL">TTL</see>:</term>
-        ///         <description>Sets the TTL of the table or collection
-        /// specified in <paramref cref="CreateTableRequest.table_name" />. The
-        /// value must be the desired TTL in minutes.</description>
+        ///         <description>For a table, sets the <a
+        /// href="../../../../concepts/ttl.html" target="_top">TTL</a> of the
+        /// table specified in <paramref cref="CreateTableRequest.table_name"
+        /// />.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="CreateTableRequest.Options.CHUNK_SIZE">CHUNK_SIZE</see>:</term>
-        ///         <description>If provided this indicates the chunk size to
-        /// be used for this table.</description>
+        ///         <description>Indicates the chunk size to be used for this
+        /// table.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="CreateTableRequest.Options.IS_RESULT_TABLE">IS_RESULT_TABLE</see>:</term>
-        ///         <description>For a table, indicates whether the table is a
-        /// non-persistent, memory-only table that will store the output of a
-        /// proc executed with /execute/proc. A result table cannot contain
-        /// store_only, text_search, or string columns (char columns are
-        /// acceptable), records cannot be inserted into it directly, and it
-        /// will not be retained if the server is restarted.
+        ///         <description>For a table, indicates whether the table is an
+        /// in-memory table. A result table cannot contain store_only,
+        /// text_search, or string columns (charN columns are acceptable), and
+        /// it will not be retained if the server is restarted.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -505,10 +530,9 @@ namespace kinetica
         ///         <term><see
         /// cref="CreateTableRequest.Options.COLLECTION_NAME">COLLECTION_NAME</see>:</term>
         ///         <description>Name of a collection which is to contain the
-        /// newly created table. If empty, then the newly created table will be
-        /// a top-level table. If the collection does not allow duplicate types
-        /// and it contains a table of the same type as the given one, then
-        /// this table creation request will fail.</description>
+        /// newly created table. If the collection provided is non-existent,
+        /// the collection will be automatically created. If empty, then the
+        /// newly created table will be a top-level table.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -552,9 +576,19 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="CreateTableRequest.Options.IS_REPLICATED">IS_REPLICATED</see>:</term>
-        ///         <description>For a table, indicates whether the table is to
-        /// be replicated to all the database ranks. This may be necessary when
-        /// the table is to be joined with other tables in a query.
+        ///         <description>For a table, indicates the <a
+        /// href="../../../../concepts/tables.html#distribution"
+        /// target="_top">distribution scheme</a> for the table's data.  If
+        /// true, the table will be <a
+        /// href="../../../../concepts/tables.html#replication"
+        /// target="_top">replicated</a>.  If false, the table will be <a
+        /// href="../../../../concepts/tables.html#sharding"
+        /// target="_top">sharded</a> according to the <a
+        /// href="../../../../concepts/tables.html#shard-keys"
+        /// target="_top">shard key</a> specified in the given <paramref
+        /// cref="CreateTableRequest.type_id" />, or <a
+        /// href="../../../../concepts/tables.html#random-sharding"
+        /// target="_top">randomly sharded</a>, if no shard key is specified.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -572,9 +606,10 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="CreateTableRequest.Options.FOREIGN_KEYS">FOREIGN_KEYS</see>:</term>
-        ///         <description>Semicolon-separated list of foreign keys, of
-        /// the format 'source_column references
-        /// target_table(primary_key_column) [ as <foreign_key_name>
+        ///         <description>Semicolon-separated list of <a
+        /// href="../../../../concepts/tables.html#foreign-keys"
+        /// target="_top">foreign keys</a>, of the format 'source_column
+        /// references target_table(primary_key_column) [ as <foreign_key_name>
         /// ]'.</description>
         ///     </item>
         ///     <item>
@@ -587,25 +622,24 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="CreateTableRequest.Options.TTL">TTL</see>:</term>
-        ///         <description>Sets the TTL of the table or collection
-        /// specified in <paramref cref="CreateTableRequest.table_name" />. The
-        /// value must be the desired TTL in minutes.</description>
+        ///         <description>For a table, sets the <a
+        /// href="../../../../concepts/ttl.html" target="_top">TTL</a> of the
+        /// table specified in <paramref cref="CreateTableRequest.table_name"
+        /// />.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="CreateTableRequest.Options.CHUNK_SIZE">CHUNK_SIZE</see>:</term>
-        ///         <description>If provided this indicates the chunk size to
-        /// be used for this table.</description>
+        ///         <description>Indicates the chunk size to be used for this
+        /// table.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="CreateTableRequest.Options.IS_RESULT_TABLE">IS_RESULT_TABLE</see>:</term>
-        ///         <description>For a table, indicates whether the table is a
-        /// non-persistent, memory-only table that will store the output of a
-        /// proc executed with /execute/proc. A result table cannot contain
-        /// store_only, text_search, or string columns (char columns are
-        /// acceptable), records cannot be inserted into it directly, and it
-        /// will not be retained if the server is restarted.
+        ///         <description>For a table, indicates whether the table is an
+        /// in-memory table. A result table cannot contain store_only,
+        /// text_search, or string columns (charN columns are acceptable), and
+        /// it will not be retained if the server is restarted.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>

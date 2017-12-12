@@ -33,17 +33,17 @@ namespace kinetica
         ///         <term><see
         /// cref="FilterRequest.Options.COLLECTION_NAME">COLLECTION_NAME</see>:</term>
         ///         <description>Name of a collection which is to contain the
-        /// newly created view, otherwise the view will be a top-level table.
-        /// If the collection does not allow duplicate types and it contains a
-        /// table of the same type as the given one, then this table creation
-        /// request will fail.</description>
+        /// newly created view. If the collection provided is non-existent, the
+        /// collection will be automatically created. If empty, then the newly
+        /// created view will be top-level.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="FilterRequest.Options.TTL">TTL</see>:</term>
-        ///         <description>Sets the TTL of the view specified in
-        /// <paramref cref="FilterRequest.view_name" />. The value must be the
-        /// desired TTL in minutes.</description>
+        ///         <description>Sets the <a
+        /// href="../../../../concepts/ttl.html" target="_top">TTL</a> of the
+        /// view specified in <paramref cref="FilterRequest.view_name"
+        /// />.</description>
         ///     </item>
         /// </list>
         /// <br />
@@ -53,15 +53,14 @@ namespace kinetica
         {
 
             /// <summary>Name of a collection which is to contain the newly
-            /// created view, otherwise the view will be a top-level table. If
-            /// the collection does not allow duplicate types and it contains a
-            /// table of the same type as the given one, then this table
-            /// creation request will fail.</summary>
+            /// created view. If the collection provided is non-existent, the
+            /// collection will be automatically created. If empty, then the
+            /// newly created view will be top-level.</summary>
             public const string COLLECTION_NAME = "collection_name";
 
-            /// <summary>Sets the TTL of the view specified in <see
-            /// cref="view_name" />. The value must be the desired TTL in
-            /// minutes.</summary>
+            /// <summary>Sets the <a href="../../../../../concepts/ttl.html"
+            /// target="_top">TTL</a> of the view specified in <see
+            /// cref="view_name" />.</summary>
             public const string TTL = "ttl";
         } // end struct Options
 
@@ -89,17 +88,17 @@ namespace kinetica
         ///         <term><see
         /// cref="FilterRequest.Options.COLLECTION_NAME">COLLECTION_NAME</see>:</term>
         ///         <description>Name of a collection which is to contain the
-        /// newly created view, otherwise the view will be a top-level table.
-        /// If the collection does not allow duplicate types and it contains a
-        /// table of the same type as the given one, then this table creation
-        /// request will fail.</description>
+        /// newly created view. If the collection provided is non-existent, the
+        /// collection will be automatically created. If empty, then the newly
+        /// created view will be top-level.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="FilterRequest.Options.TTL">TTL</see>:</term>
-        ///         <description>Sets the TTL of the view specified in
-        /// <paramref cref="FilterRequest.view_name" />. The value must be the
-        /// desired TTL in minutes.</description>
+        ///         <description>Sets the <a
+        /// href="../../../../concepts/ttl.html" target="_top">TTL</a> of the
+        /// view specified in <paramref cref="FilterRequest.view_name"
+        /// />.</description>
         ///     </item>
         /// </list>
         ///   </summary>
@@ -131,17 +130,17 @@ namespace kinetica
         ///         <term><see
         /// cref="FilterRequest.Options.COLLECTION_NAME">COLLECTION_NAME</see>:</term>
         ///         <description>Name of a collection which is to contain the
-        /// newly created view, otherwise the view will be a top-level table.
-        /// If the collection does not allow duplicate types and it contains a
-        /// table of the same type as the given one, then this table creation
-        /// request will fail.</description>
+        /// newly created view. If the collection provided is non-existent, the
+        /// collection will be automatically created. If empty, then the newly
+        /// created view will be top-level.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="FilterRequest.Options.TTL">TTL</see>:</term>
-        ///         <description>Sets the TTL of the view specified in
-        /// <paramref cref="FilterRequest.view_name" />. The value must be the
-        /// desired TTL in minutes.</description>
+        ///         <description>Sets the <a
+        /// href="../../../../concepts/ttl.html" target="_top">TTL</a> of the
+        /// view specified in <paramref cref="FilterRequest.view_name"
+        /// />.</description>
         ///     </item>
         /// </list>
         ///   </param>

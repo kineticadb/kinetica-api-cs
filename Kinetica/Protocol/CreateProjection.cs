@@ -56,7 +56,8 @@ namespace kinetica
         /// href="../../../../concepts/collections.html"
         /// target="_top">collection</a> to which the projection is to be
         /// assigned as a child. If the collection provided is non-existent,
-        /// the collection will be automatically created.</description>
+        /// the collection will be automatically created. If empty, then the
+        /// projection will be at the top level.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -103,16 +104,16 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="CreateProjectionRequest.Options.CHUNK_SIZE">CHUNK_SIZE</see>:</term>
-        ///         <description>If provided this indicates the chunk size to
-        /// be used for this table.</description>
+        ///         <description>Indicates the chunk size to be used for this
+        /// table.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="CreateProjectionRequest.Options.TTL">TTL</see>:</term>
-        ///         <description>Sets the TTL of the table, view, or collection
-        /// specified in <paramref
-        /// cref="CreateProjectionRequest.projection_name" />. The value must
-        /// be the desired TTL in minutes.</description>
+        ///         <description>Sets the <a
+        /// href="../../../../concepts/ttl.html" target="_top">TTL</a> of the
+        /// projection specified in <paramref
+        /// cref="CreateProjectionRequest.projection_name" />.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -126,11 +127,11 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="CreateProjectionRequest.Options.PERSIST">PERSIST</see>:</term>
-        ///         <description>If <i>true</i> then the projection will be
-        /// persisted as a regular table (it will not be automatically cleared
-        /// unless a <i>ttl</i> is provided, and the table data can be modified
-        /// in subsequent operations). If <i>false</i> then the projection will
-        /// be a read-only, memory-only temporary table.
+        ///         <description>If <i>true</i>, then the projection specified
+        /// in <paramref cref="CreateProjectionRequest.projection_name" /> will
+        /// be persisted and will not expire unless a <i>ttl</i> is specified.
+        /// If <i>false</i>, then the projection will be an in-memory table and
+        /// will expire unless a <i>ttl</i> is specified otherwise.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -156,8 +157,8 @@ namespace kinetica
             /// href="../../../../../concepts/collections.html"
             /// target="_top">collection</a> to which the projection is to be
             /// assigned as a child. If the collection provided is
-            /// non-existent, the collection will be automatically
-            /// created.</summary>
+            /// non-existent, the collection will be automatically created. If
+            /// empty, then the projection will be at the top level.</summary>
             public const string COLLECTION_NAME = "collection_name";
 
             /// <summary>An optional filter <a
@@ -195,13 +196,13 @@ namespace kinetica
             public const string TRUE = "true";
             public const string FALSE = "false";
 
-            /// <summary>If provided this indicates the chunk size to be used
-            /// for this table.</summary>
+            /// <summary>Indicates the chunk size to be used for this
+            /// table.</summary>
             public const string CHUNK_SIZE = "chunk_size";
 
-            /// <summary>Sets the TTL of the table, view, or collection
-            /// specified in <see cref="projection_name" />. The value must be
-            /// the desired TTL in minutes.</summary>
+            /// <summary>Sets the <a href="../../../../../concepts/ttl.html"
+            /// target="_top">TTL</a> of the projection specified in <see
+            /// cref="projection_name" />.</summary>
             public const string TTL = "ttl";
 
             /// <summary>Comma-separated list of the columns to be sharded on;
@@ -211,11 +212,11 @@ namespace kinetica
             /// column name.</summary>
             public const string SHARD_KEY = "shard_key";
 
-            /// <summary>If <i>true</i> then the projection will be persisted
-            /// as a regular table (it will not be automatically cleared unless
-            /// a <i>ttl</i> is provided, and the table data can be modified in
-            /// subsequent operations). If <i>false</i> then the projection
-            /// will be a read-only, memory-only temporary table.
+            /// <summary>If <i>true</i>, then the projection specified in <see
+            /// cref="projection_name" /> will be persisted and will not expire
+            /// unless a <i>ttl</i> is specified.   If <i>false</i>, then the
+            /// projection will be an in-memory table and will expire unless a
+            /// <i>ttl</i> is specified otherwise.
             /// Supported values:
             /// <list type="bullet">
             ///     <item>
@@ -257,7 +258,8 @@ namespace kinetica
         /// href="../../../../concepts/collections.html"
         /// target="_top">collection</a> to which the projection is to be
         /// assigned as a child. If the collection provided is non-existent,
-        /// the collection will be automatically created.</description>
+        /// the collection will be automatically created. If empty, then the
+        /// projection will be at the top level.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -304,16 +306,16 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="CreateProjectionRequest.Options.CHUNK_SIZE">CHUNK_SIZE</see>:</term>
-        ///         <description>If provided this indicates the chunk size to
-        /// be used for this table.</description>
+        ///         <description>Indicates the chunk size to be used for this
+        /// table.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="CreateProjectionRequest.Options.TTL">TTL</see>:</term>
-        ///         <description>Sets the TTL of the table, view, or collection
-        /// specified in <paramref
-        /// cref="CreateProjectionRequest.projection_name" />. The value must
-        /// be the desired TTL in minutes.</description>
+        ///         <description>Sets the <a
+        /// href="../../../../concepts/ttl.html" target="_top">TTL</a> of the
+        /// projection specified in <paramref
+        /// cref="CreateProjectionRequest.projection_name" />.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -327,11 +329,11 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="CreateProjectionRequest.Options.PERSIST">PERSIST</see>:</term>
-        ///         <description>If <i>true</i> then the projection will be
-        /// persisted as a regular table (it will not be automatically cleared
-        /// unless a <i>ttl</i> is provided, and the table data can be modified
-        /// in subsequent operations). If <i>false</i> then the projection will
-        /// be a read-only, memory-only temporary table.
+        ///         <description>If <i>true</i>, then the projection specified
+        /// in <paramref cref="CreateProjectionRequest.projection_name" /> will
+        /// be persisted and will not expire unless a <i>ttl</i> is specified.
+        /// If <i>false</i>, then the projection will be an in-memory table and
+        /// will expire unless a <i>ttl</i> is specified otherwise.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -377,7 +379,8 @@ namespace kinetica
         /// href="../../../../concepts/collections.html"
         /// target="_top">collection</a> to which the projection is to be
         /// assigned as a child. If the collection provided is non-existent,
-        /// the collection will be automatically created.</description>
+        /// the collection will be automatically created. If empty, then the
+        /// projection will be at the top level.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -424,16 +427,16 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="CreateProjectionRequest.Options.CHUNK_SIZE">CHUNK_SIZE</see>:</term>
-        ///         <description>If provided this indicates the chunk size to
-        /// be used for this table.</description>
+        ///         <description>Indicates the chunk size to be used for this
+        /// table.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="CreateProjectionRequest.Options.TTL">TTL</see>:</term>
-        ///         <description>Sets the TTL of the table, view, or collection
-        /// specified in <paramref
-        /// cref="CreateProjectionRequest.projection_name" />. The value must
-        /// be the desired TTL in minutes.</description>
+        ///         <description>Sets the <a
+        /// href="../../../../concepts/ttl.html" target="_top">TTL</a> of the
+        /// projection specified in <paramref
+        /// cref="CreateProjectionRequest.projection_name" />.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -447,11 +450,11 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="CreateProjectionRequest.Options.PERSIST">PERSIST</see>:</term>
-        ///         <description>If <i>true</i> then the projection will be
-        /// persisted as a regular table (it will not be automatically cleared
-        /// unless a <i>ttl</i> is provided, and the table data can be modified
-        /// in subsequent operations). If <i>false</i> then the projection will
-        /// be a read-only, memory-only temporary table.
+        ///         <description>If <i>true</i>, then the projection specified
+        /// in <paramref cref="CreateProjectionRequest.projection_name" /> will
+        /// be persisted and will not expire unless a <i>ttl</i> is specified.
+        /// If <i>false</i>, then the projection will be an in-memory table and
+        /// will expire unless a <i>ttl</i> is specified otherwise.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
