@@ -20,8 +20,8 @@ namespace kinetica
     public class AggregateConvexHullRequest : KineticaData
     {
 
-        /// <summary>Name of Table on which the operation will be performed.
-        /// Must be an existing table.  It can not be a collection.  </summary>
+        /// <summary>Name of table on which the operation will be performed.
+        /// Must be an existing table.  It cannot be a collection.  </summary>
         public string table_name { get; set; }
 
         /// <summary>Name of the column containing the x coordinates of the
@@ -43,8 +43,8 @@ namespace kinetica
         /// <summary>Constructs an AggregateConvexHullRequest object with the
         /// specified parameters.</summary>
         /// 
-        /// <param name="table_name">Name of Table on which the operation will
-        /// be performed. Must be an existing table.  It can not be a
+        /// <param name="table_name">Name of table on which the operation will
+        /// be performed. Must be an existing table.  It cannot be a
         /// collection.  </param>
         /// <param name="x_column_name">Name of the column containing the x
         /// coordinates of the points for the operation being performed.

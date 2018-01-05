@@ -81,9 +81,9 @@ namespace kinetica
         ///         <term><see
         /// cref="CreateTypeRequest.Properties.STORE_ONLY">STORE_ONLY</see>:</term>
         ///         <description>Persist the column value but do not make it
-        /// available to queries (e.g. /filter/bybox)-i.e. it is mutually
-        /// exclusive to the 'data' property. Any 'bytes' type column must have
-        /// a 'store_only' property. This property reduces system memory
+        /// available to queries (e.g. /filter)-i.e. it is mutually exclusive
+        /// to the 'data' property. Any 'bytes' type column must have a
+        /// 'store_only' property. This property reduces system memory
         /// usage.</description>
         ///     </item>
         ///     <item>
@@ -302,7 +302,7 @@ namespace kinetica
 
             /// <summary>Persist the column value but do not make it available
             /// to queries (e.g. <see
-            /// cref="Kinetica.filterByBox(string,string,string,double,double,string,double,double,IDictionary{string, string})"
+            /// cref="Kinetica.filter(string,string,string,IDictionary{string, string})"
             /// />)-i.e. it is mutually exclusive to the 'data' property. Any
             /// 'bytes' type column must have a 'store_only' property. This
             /// property reduces system memory usage.</summary>
@@ -505,9 +505,9 @@ namespace kinetica
         ///         <term><see
         /// cref="CreateTypeRequest.Properties.STORE_ONLY">STORE_ONLY</see>:</term>
         ///         <description>Persist the column value but do not make it
-        /// available to queries (e.g. /filter/bybox)-i.e. it is mutually
-        /// exclusive to the 'data' property. Any 'bytes' type column must have
-        /// a 'store_only' property. This property reduces system memory
+        /// available to queries (e.g. /filter)-i.e. it is mutually exclusive
+        /// to the 'data' property. Any 'bytes' type column must have a
+        /// 'store_only' property. This property reduces system memory
         /// usage.</description>
         ///     </item>
         ///     <item>
@@ -753,9 +753,9 @@ namespace kinetica
         ///         <term><see
         /// cref="CreateTypeRequest.Properties.STORE_ONLY">STORE_ONLY</see>:</term>
         ///         <description>Persist the column value but do not make it
-        /// available to queries (e.g. /filter/bybox)-i.e. it is mutually
-        /// exclusive to the 'data' property. Any 'bytes' type column must have
-        /// a 'store_only' property. This property reduces system memory
+        /// available to queries (e.g. /filter)-i.e. it is mutually exclusive
+        /// to the 'data' property. Any 'bytes' type column must have a
+        /// 'store_only' property. This property reduces system memory
         /// usage.</description>
         ///     </item>
         ///     <item>

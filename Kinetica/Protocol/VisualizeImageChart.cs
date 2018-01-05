@@ -120,15 +120,15 @@ namespace kinetica
         ///         <term><see
         /// cref="VisualizeImageChartRequest.StyleOptions.X_ORDER_BY">X_ORDER_BY</see>:</term>
         ///         <description>An expression or aggregate expression by which
-        /// non-numeric x column values are sorted, e.g.
-        /// avg(price).</description>
+        /// non-numeric x column values are sorted, e.g. "avg(price)
+        /// descending".</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="VisualizeImageChartRequest.StyleOptions.Y_ORDER_BY">Y_ORDER_BY</see>:</term>
         ///         <description>An expression or aggregate expression by which
-        /// non-numeric y column values are sorted, e.g.
-        /// avg(price).</description>
+        /// non-numeric y column values are sorted, e.g. "avg(price)", which
+        /// defaults to "avg(price) ascending".</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -240,13 +240,13 @@ namespace kinetica
             public const string CB_DELIMITER = "cb_delimiter";
 
             /// <summary>An expression or aggregate expression by which
-            /// non-numeric x column values are sorted, e.g.
-            /// avg(price).</summary>
+            /// non-numeric x column values are sorted, e.g. "avg(price)
+            /// descending".</summary>
             public const string X_ORDER_BY = "x_order_by";
 
             /// <summary>An expression or aggregate expression by which
-            /// non-numeric y column values are sorted, e.g.
-            /// avg(price).</summary>
+            /// non-numeric y column values are sorted, e.g. "avg(price)",
+            /// which defaults to "avg(price) ascending".</summary>
             public const string Y_ORDER_BY = "y_order_by";
 
             /// <summary>Amplitude of horizontal jitter applied to non-numaric
@@ -401,15 +401,15 @@ namespace kinetica
         ///         <term><see
         /// cref="VisualizeImageChartRequest.StyleOptions.X_ORDER_BY">X_ORDER_BY</see>:</term>
         ///         <description>An expression or aggregate expression by which
-        /// non-numeric x column values are sorted, e.g.
-        /// avg(price).</description>
+        /// non-numeric x column values are sorted, e.g. "avg(price)
+        /// descending".</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="VisualizeImageChartRequest.StyleOptions.Y_ORDER_BY">Y_ORDER_BY</see>:</term>
         ///         <description>An expression or aggregate expression by which
-        /// non-numeric y column values are sorted, e.g.
-        /// avg(price).</description>
+        /// non-numeric y column values are sorted, e.g. "avg(price)", which
+        /// defaults to "avg(price) ascending".</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -565,15 +565,15 @@ namespace kinetica
         ///         <term><see
         /// cref="VisualizeImageChartRequest.StyleOptions.X_ORDER_BY">X_ORDER_BY</see>:</term>
         ///         <description>An expression or aggregate expression by which
-        /// non-numeric x column values are sorted, e.g.
-        /// avg(price).</description>
+        /// non-numeric x column values are sorted, e.g. "avg(price)
+        /// descending".</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="VisualizeImageChartRequest.StyleOptions.Y_ORDER_BY">Y_ORDER_BY</see>:</term>
         ///         <description>An expression or aggregate expression by which
-        /// non-numeric y column values are sorted, e.g.
-        /// avg(price).</description>
+        /// non-numeric y column values are sorted, e.g. "avg(price)", which
+        /// defaults to "avg(price) ascending".</description>
         ///     </item>
         ///     <item>
         ///         <term><see

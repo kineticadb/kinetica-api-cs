@@ -21,7 +21,7 @@ namespace kinetica
 
 
         /// <summary>Add a new node to the GPUdb cluster. By default this will
-        /// only add the node to the cluster, but will not be assigned any data
+        /// only add the node to the cluster but will not be assigned any data
         /// shards. Set the <i>reshard</i> option to <i>true</i> to move some
         /// shards from the other nodes in the cluster to this node.</summary>
         /// 
@@ -40,7 +40,7 @@ namespace kinetica
 
 
         /// <summary>Add a new node to the GPUdb cluster. By default this will
-        /// only add the node to the cluster, but will not be assigned any data
+        /// only add the node to the cluster but will not be assigned any data
         /// shards. Set the <i>reshard</i> option to <i>true</i> to move some
         /// shards from the other nodes in the cluster to this node.</summary>
         /// 
@@ -122,12 +122,12 @@ namespace kinetica
 
 
         /// <summary>Perform the requested action on a list of one or more
-        /// job(s) . Currently only cancelling filter, aggregate and get
-        /// records reqeusts are supported. Based on the type of job and the
-        /// current state of execution, the action may not be successfully
-        /// executed. The final result of the attempted actions for each
-        /// specified job is returned in the status array of the
-        /// response.</summary>
+        /// job(s). Based on the type of job and the current state of
+        /// execution, the action may not be successfully executed. The final
+        /// result of the attempted actions for each specified job is returned
+        /// in the status array of the response. See <a
+        /// href="../../../../gpudbAdmin/job_manager.html" target="_top">Job
+        /// Manager</a> for more information.</summary>
         /// 
         /// <param name="request_">Request object containing the parameters for
         /// the operation.</param>
@@ -144,12 +144,12 @@ namespace kinetica
 
 
         /// <summary>Perform the requested action on a list of one or more
-        /// job(s) . Currently only cancelling filter, aggregate and get
-        /// records reqeusts are supported. Based on the type of job and the
-        /// current state of execution, the action may not be successfully
-        /// executed. The final result of the attempted actions for each
-        /// specified job is returned in the status array of the
-        /// response.</summary>
+        /// job(s). Based on the type of job and the current state of
+        /// execution, the action may not be successfully executed. The final
+        /// result of the attempted actions for each specified job is returned
+        /// in the status array of the response. See <a
+        /// href="../../../../gpudbAdmin/job_manager.html" target="_top">Job
+        /// Manager</a> for more information.</summary>
         /// 
         /// <param name="job_ids">Jobs to be modified.  </param>
         /// <param name="action">Action to be performed on the jobs specified
@@ -212,10 +212,10 @@ namespace kinetica
         /// shards being moved.  </param>
         /// <param name="rank">node to which the shard will be moved.  </param>
         /// <param name="tom">Toms to which the shard will be moved.   </param>
-        /// <param name="index">the shard which is being moved.  When use_index
-        /// is set to true, size of this array must equal the size of rank/tom
-        /// array.  </param>
-        /// <param name="backup_map_list">List of rank_tom integers, for which
+        /// <param name="index">The shard being moved.  When use_index is set
+        /// to true, size of this array must equal the size of rank/tom array.
+        /// </param>
+        /// <param name="backup_map_list">List of rank_tom integers for which
         /// backup toms are defined  </param>
         /// <param name="backup_map_values">List of the backup rank_tom(s) for
         /// each rank_tom in backup_map_list  </param>
@@ -336,7 +336,7 @@ namespace kinetica
         /// cref="Kinetica.adminAlterShards(long,bool,IList{int},IList{int},IList{int},IList{int},IList{IList{int}},IDictionary{string, string})"
         /// /></summary>
         /// 
-        /// <param name="table_names">Sepcify the tables here if only specific
+        /// <param name="table_names">Specify the tables here if only specific
         /// tables have to be rebalanced.  Leave this empty to rebalance all
         /// the tables.  Note that only the tables which have no primary or
         /// shard key can be rebalanced.  </param>
@@ -719,8 +719,8 @@ namespace kinetica
         /// <summary>Calculates and returns the convex hull for the values in a
         /// table specified by <paramref name="table_name" />.</summary>
         /// 
-        /// <param name="table_name">Name of Table on which the operation will
-        /// be performed. Must be an existing table.  It can not be a
+        /// <param name="table_name">Name of table on which the operation will
+        /// be performed. Must be an existing table.  It cannot be a
         /// collection.  </param>
         /// <param name="x_column_name">Name of the column containing the x
         /// coordinates of the points for the operation being performed.
@@ -956,7 +956,7 @@ namespace kinetica
         ///     </item>
         /// </list>
         /// The default value is <see
-        /// cref="AggregateGroupByRequest.Options.KEY">KEY</see>.</description>
+        /// cref="AggregateGroupByRequest.Options.VALUE">VALUE</see>.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -3727,7 +3727,7 @@ namespace kinetica
         /// cref="Kinetica.insertRecords{T}(string,IList{T},IDictionary{string, string})"
         /// /> with the chosen columns' values falling within the specified
         /// region will trip the trigger. All such records will be queued at
-        /// the trigger port (by default '9001', but able to be retrieved via
+        /// the trigger port (by default '9001' but able to be retrieved via
         /// <see
         /// cref="Kinetica.showSystemStatus(IDictionary{string, string})" />)
         /// for any listening client to collect. Active triggers can be
@@ -3761,7 +3761,7 @@ namespace kinetica
         /// cref="Kinetica.insertRecords{T}(string,IList{T},IDictionary{string, string})"
         /// /> with the chosen columns' values falling within the specified
         /// region will trip the trigger. All such records will be queued at
-        /// the trigger port (by default '9001', but able to be retrieved via
+        /// the trigger port (by default '9001' but able to be retrieved via
         /// <see
         /// cref="Kinetica.showSystemStatus(IDictionary{string, string})" />)
         /// for any listening client to collect. Active triggers can be
@@ -3818,7 +3818,7 @@ namespace kinetica
         /// cref="Kinetica.insertRecords{T}(string,IList{T},IDictionary{string, string})"
         /// /> with the chosen column_name's value falling within the specified
         /// range will trip the trigger. All such records will be queued at the
-        /// trigger port (by default '9001', but able to be retrieved via <see
+        /// trigger port (by default '9001' but able to be retrieved via <see
         /// cref="Kinetica.showSystemStatus(IDictionary{string, string})" />)
         /// for any listening client to collect. Active triggers can be
         /// cancelled by using the <see
@@ -3848,7 +3848,7 @@ namespace kinetica
         /// cref="Kinetica.insertRecords{T}(string,IList{T},IDictionary{string, string})"
         /// /> with the chosen column_name's value falling within the specified
         /// range will trip the trigger. All such records will be queued at the
-        /// trigger port (by default '9001', but able to be retrieved via <see
+        /// trigger port (by default '9001' but able to be retrieved via <see
         /// cref="Kinetica.showSystemStatus(IDictionary{string, string})" />)
         /// for any listening client to collect. Active triggers can be
         /// cancelled by using the <see
@@ -4017,9 +4017,9 @@ namespace kinetica
         ///         <term><see
         /// cref="CreateTypeRequest.Properties.STORE_ONLY">STORE_ONLY</see>:</term>
         ///         <description>Persist the column value but do not make it
-        /// available to queries (e.g. /filter/bybox)-i.e. it is mutually
-        /// exclusive to the 'data' property. Any 'bytes' type column must have
-        /// a 'store_only' property. This property reduces system memory
+        /// available to queries (e.g. /filter)-i.e. it is mutually exclusive
+        /// to the 'data' property. Any 'bytes' type column must have a
+        /// 'store_only' property. This property reduces system memory
         /// usage.</description>
         ///     </item>
         ///     <item>
@@ -4356,14 +4356,13 @@ namespace kinetica
         /// cref="CreateUnionRequest.Options.MERGE_VIEWS">MERGE_VIEWS</see>:</term>
         ///         <description>Merge two or more views (or views of views) of
         /// the same base data set into a new view. If this mode is selected
-        ///                                       <paramref
-        /// cref="CreateUnionRequest.input_column_names" /> AND <paramref
-        /// cref="CreateUnionRequest.output_column_names" /> are ignored The
-        /// resulting view would match the results of a SQL OR operation, e.g.,
-        /// if filter 1 creates a view using the expression 'x = 10' and filter
-        /// 2 creates a view using the expression 'x <= 10', then the merge
-        /// views operation creates a new view using the expression 'x = 10 OR
-        /// x <= 10'.</description>
+        /// <paramref cref="CreateUnionRequest.input_column_names" /> AND
+        /// <paramref cref="CreateUnionRequest.output_column_names" /> must be
+        /// empty. The resulting view would match the results of a SQL OR
+        /// operation, e.g., if filter 1 creates a view using the expression 'x
+        /// = 10' and filter 2 creates a view using the expression 'x <= 10',
+        /// then the merge views operation creates a new view using the
+        /// expression 'x = 10 OR x <= 10'.</description>
         ///     </item>
         /// </list>
         /// The default value is <see
@@ -4570,8 +4569,9 @@ namespace kinetica
         /// records. The set must be a currently existing table and not a
         /// collection or a view.  </param>
         /// <param name="expressions">A list of the actual predicates, one for
-        /// each select; format should follow the guidelines provided /filter.
-        /// Specifying one or more <paramref
+        /// each select; format should follow the guidelines provided <a
+        /// href="../../../../concepts/expressions.html"
+        /// target="_top">here</a>. Specifying one or more <paramref
         /// cref="DeleteRecordsRequest.expressions" /> is mutually exclusive to
         /// specifying <i>record_id</i> in the <paramref
         /// cref="DeleteRecordsRequest.options" />.  </param>
@@ -4768,11 +4768,13 @@ namespace kinetica
 
 
         /// <summary>Filters data based on the specified expression.  The
-        /// results are stored in a result set with the given <paramref
+        /// results are stored in a <a
+        /// href="../../../../concepts/filtered_views.html"
+        /// target="_top">result set</a> with the given <paramref
         /// cref="FilterRequest.view_name" />.
         /// <br />
         /// For details see <a href="../../../../concepts/expressions.html"
-        /// target="_top">concepts</a>.
+        /// target="_top">Expressions</a>.
         /// <br />
         /// The response message contains the number of points for which the
         /// expression evaluated to be true, which is equivalent to the size of
@@ -4793,11 +4795,13 @@ namespace kinetica
 
 
         /// <summary>Filters data based on the specified expression.  The
-        /// results are stored in a result set with the given <paramref
+        /// results are stored in a <a
+        /// href="../../../../concepts/filtered_views.html"
+        /// target="_top">result set</a> with the given <paramref
         /// name="view_name" />.
         /// <br />
         /// For details see <a href="../../../../concepts/expressions.html"
-        /// target="_top">concepts</a>.
+        /// target="_top">Expressions</a>.
         /// <br />
         /// The response message contains the number of points for which the
         /// expression evaluated to be true, which is equivalent to the size of
@@ -4814,7 +4818,7 @@ namespace kinetica
         /// <param name="expression">The select expression to filter the
         /// specified table.  For details see <a
         /// href="../../../../concepts/expressions.html"
-        /// target="_top">concepts</a>.  </param>
+        /// target="_top">Expressions</a>.  </param>
         /// <param name="options">Optional parameters.
         /// <list type="bullet">
         ///     <item>
@@ -7230,7 +7234,7 @@ namespace kinetica
         /// optional parameter (e.g. color). To have a symbol used for
         /// rendering create a table with a string column named 'SYMBOLCODE'
         /// (along with 'x' or 'y' for example). Then when the table is
-        /// rendered (via <a href="../../../../api/rest/wms_rest.html"
+        /// rendered (via <a href="../../../rest/wms_rest.html"
         /// target="_top">WMS</a>) if the 'dosymbology' parameter is 'true'
         /// then the value of the 'SYMBOLCODE' column is used to pick the
         /// symbol displayed for each point.</summary>
@@ -7256,7 +7260,7 @@ namespace kinetica
         /// optional parameter (e.g. color). To have a symbol used for
         /// rendering create a table with a string column named 'SYMBOLCODE'
         /// (along with 'x' or 'y' for example). Then when the table is
-        /// rendered (via <a href="../../../../api/rest/wms_rest.html"
+        /// rendered (via <a href="../../../rest/wms_rest.html"
         /// target="_top">WMS</a>) if the 'dosymbology' parameter is 'true'
         /// then the value of the 'SYMBOLCODE' column is used to pick the
         /// symbol displayed for each point.</summary>
@@ -8532,7 +8536,7 @@ namespace kinetica
         ///         <term><see
         /// cref="RawUpdateRecordsRequest.Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>:</term>
         ///         <description>Can be used to customize behavior when the
-        /// updated primary key value already exists, as described in
+        /// updated primary key value already exists as described in
         /// /insert/records.
         /// Supported values:
         /// <list type="bullet">
@@ -8865,6 +8869,31 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
+        /// cref="VisualizeImageRequest.StyleOptions.HASHLINEINTERVALS">HASHLINEINTERVALS</see>:</term>
+        ///         <description></description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageRequest.StyleOptions.HASHLINECOLORS">HASHLINECOLORS</see>:</term>
+        ///         <description></description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageRequest.StyleOptions.HASHLINEANGLES">HASHLINEANGLES</see>:</term>
+        ///         <description></description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageRequest.StyleOptions.HASHLINELENS">HASHLINELENS</see>:</term>
+        ///         <description></description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageRequest.StyleOptions.HASHLINEWIDTHS">HASHLINEWIDTHS</see>:</term>
+        ///         <description></description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="VisualizeImageRequest.StyleOptions.TRACKLINEWIDTHS">TRACKLINEWIDTHS</see>:</term>
         ///         <description></description>
         ///     </item>
@@ -9172,15 +9201,15 @@ namespace kinetica
         ///         <term><see
         /// cref="VisualizeImageChartRequest.StyleOptions.X_ORDER_BY">X_ORDER_BY</see>:</term>
         ///         <description>An expression or aggregate expression by which
-        /// non-numeric x column values are sorted, e.g.
-        /// avg(price).</description>
+        /// non-numeric x column values are sorted, e.g. "avg(price)
+        /// descending".</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="VisualizeImageChartRequest.StyleOptions.Y_ORDER_BY">Y_ORDER_BY</see>:</term>
         ///         <description>An expression or aggregate expression by which
-        /// non-numeric y column values are sorted, e.g.
-        /// avg(price).</description>
+        /// non-numeric y column values are sorted, e.g. "avg(price)", which
+        /// defaults to "avg(price) ascending".</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -9466,6 +9495,31 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="VisualizeImageClassbreakRequest.StyleOptions.SHAPEFILLCOLORS">SHAPEFILLCOLORS</see>:</term>
+        ///         <description></description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageClassbreakRequest.StyleOptions.HASHLINEINTERVALS">HASHLINEINTERVALS</see>:</term>
+        ///         <description></description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageClassbreakRequest.StyleOptions.HASHLINECOLORS">HASHLINECOLORS</see>:</term>
+        ///         <description></description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageClassbreakRequest.StyleOptions.HASHLINEANGLES">HASHLINEANGLES</see>:</term>
+        ///         <description></description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageClassbreakRequest.StyleOptions.HASHLINELENS">HASHLINELENS</see>:</term>
+        ///         <description></description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageClassbreakRequest.StyleOptions.HASHLINEWIDTHS">HASHLINEWIDTHS</see>:</term>
         ///         <description></description>
         ///     </item>
         ///     <item>

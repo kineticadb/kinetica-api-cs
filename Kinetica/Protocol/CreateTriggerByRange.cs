@@ -21,7 +21,7 @@ namespace kinetica
     /// cref="Kinetica.insertRecords{T}(string,IList{T},IDictionary{string, string})"
     /// /> with the chosen column_name's value falling within the specified
     /// range will trip the trigger. All such records will be queued at the
-    /// trigger port (by default '9001', but able to be retrieved via <see
+    /// trigger port (by default '9001' but able to be retrieved via <see
     /// cref="Kinetica.showSystemStatus(IDictionary{string, string})" />) for
     /// any listening client to collect. Active triggers can be cancelled by
     /// using the <see

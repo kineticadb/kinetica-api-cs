@@ -70,9 +70,11 @@ namespace kinetica
         public string table_name { get; set; }
 
         /// <summary>A list of the actual predicates, one for each select;
-        /// format should follow the guidelines provided /filter. Specifying
-        /// one or more <paramref cref="DeleteRecordsRequest.expressions" /> is
-        /// mutually exclusive to specifying <i>record_id</i> in the <paramref
+        /// format should follow the guidelines provided <a
+        /// href="../../../../concepts/expressions.html"
+        /// target="_top">here</a>. Specifying one or more <paramref
+        /// cref="DeleteRecordsRequest.expressions" /> is mutually exclusive to
+        /// specifying <i>record_id</i> in the <paramref
         /// cref="DeleteRecordsRequest.options" />.  </summary>
         public IList<string> expressions { get; set; } = new List<string>();
 
@@ -109,8 +111,9 @@ namespace kinetica
         /// records. The set must be a currently existing table and not a
         /// collection or a view.  </param>
         /// <param name="expressions">A list of the actual predicates, one for
-        /// each select; format should follow the guidelines provided /filter.
-        /// Specifying one or more <paramref
+        /// each select; format should follow the guidelines provided <a
+        /// href="../../../../concepts/expressions.html"
+        /// target="_top">here</a>. Specifying one or more <paramref
         /// cref="DeleteRecordsRequest.expressions" /> is mutually exclusive to
         /// specifying <i>record_id</i> in the <paramref
         /// cref="DeleteRecordsRequest.options" />.  </param>

@@ -37,12 +37,12 @@ namespace kinetica
         /// <summary>Toms to which the shard will be moved.   </summary>
         public IList<int> tom { get; set; } = new List<int>();
 
-        /// <summary>the shard which is being moved.  When use_index is set to
-        /// true, size of this array must equal the size of rank/tom array.
+        /// <summary>The shard being moved.  When use_index is set to true,
+        /// size of this array must equal the size of rank/tom array.
         /// </summary>
         public IList<int> index { get; set; } = new List<int>();
 
-        /// <summary>List of rank_tom integers, for which backup toms are
+        /// <summary>List of rank_tom integers for which backup toms are
         /// defined  </summary>
         public IList<int> backup_map_list { get; set; } = new List<int>();
 
@@ -67,10 +67,10 @@ namespace kinetica
         /// shards being moved.  </param>
         /// <param name="rank">node to which the shard will be moved.  </param>
         /// <param name="tom">Toms to which the shard will be moved.   </param>
-        /// <param name="index">the shard which is being moved.  When use_index
-        /// is set to true, size of this array must equal the size of rank/tom
-        /// array.  </param>
-        /// <param name="backup_map_list">List of rank_tom integers, for which
+        /// <param name="index">The shard being moved.  When use_index is set
+        /// to true, size of this array must equal the size of rank/tom array.
+        /// </param>
+        /// <param name="backup_map_list">List of rank_tom integers for which
         /// backup toms are defined  </param>
         /// <param name="backup_map_values">List of the backup rank_tom(s) for
         /// each rank_tom in backup_map_list  </param>

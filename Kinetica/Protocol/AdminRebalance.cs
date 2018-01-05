@@ -102,7 +102,7 @@ namespace kinetica
         } // end struct Options
 
 
-        /// <summary>Sepcify the tables here if only specific tables have to be
+        /// <summary>Specify the tables here if only specific tables have to be
         /// rebalanced.  Leave this empty to rebalance all the tables.  Note
         /// that only the tables which have no primary or shard key can be
         /// rebalanced.  </summary>
@@ -159,7 +159,7 @@ namespace kinetica
         /// <summary>Constructs an AdminRebalanceRequest object with the
         /// specified parameters.</summary>
         /// 
-        /// <param name="table_names">Sepcify the tables here if only specific
+        /// <param name="table_names">Specify the tables here if only specific
         /// tables have to be rebalanced.  Leave this empty to rebalance all
         /// the tables.  Note that only the tables which have no primary or
         /// shard key can be rebalanced.  </param>

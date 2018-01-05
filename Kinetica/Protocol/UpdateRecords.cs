@@ -102,7 +102,7 @@ namespace kinetica
         ///         <term><see
         /// cref="RawUpdateRecordsRequest.Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>:</term>
         ///         <description>Can be used to customize behavior when the
-        /// updated primary key value already exists, as described in
+        /// updated primary key value already exists as described in
         /// /insert/records.
         /// Supported values:
         /// <list type="bullet">
@@ -162,7 +162,7 @@ namespace kinetica
             public const string FALSE = "false";
 
             /// <summary>Can be used to customize behavior when the updated
-            /// primary key value already exists, as described in <see
+            /// primary key value already exists as described in <see
             /// cref="Kinetica.insertRecords{T}(string,IList{T},IDictionary{string, string})"
             /// />.
             /// Supported values:
@@ -275,7 +275,7 @@ namespace kinetica
         ///         <term><see
         /// cref="RawUpdateRecordsRequest.Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>:</term>
         ///         <description>Can be used to customize behavior when the
-        /// updated primary key value already exists, as described in
+        /// updated primary key value already exists as described in
         /// /insert/records.
         /// Supported values:
         /// <list type="bullet">
@@ -362,7 +362,7 @@ namespace kinetica
         ///         <term><see
         /// cref="RawUpdateRecordsRequest.Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>:</term>
         ///         <description>Can be used to customize behavior when the
-        /// updated primary key value already exists, as described in
+        /// updated primary key value already exists as described in
         /// /insert/records.
         /// Supported values:
         /// <list type="bullet">
@@ -481,7 +481,7 @@ namespace kinetica
         ///         <term><see
         /// cref="RawUpdateRecordsRequest.Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>:</term>
         ///         <description>Can be used to customize behavior when the
-        /// updated primary key value already exists, as described in
+        /// updated primary key value already exists as described in
         /// /insert/records.
         /// Supported values:
         /// <list type="bullet">
@@ -596,7 +596,7 @@ namespace kinetica
         ///         <term><see
         /// cref="RawUpdateRecordsRequest.Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>:</term>
         ///         <description>Can be used to customize behavior when the
-        /// updated primary key value already exists, as described in
+        /// updated primary key value already exists as described in
         /// /insert/records.
         /// Supported values:
         /// <list type="bullet">
@@ -656,7 +656,7 @@ namespace kinetica
             public const string FALSE = "false";
 
             /// <summary>Can be used to customize behavior when the updated
-            /// primary key value already exists, as described in <see
+            /// primary key value already exists as described in <see
             /// cref="Kinetica.insertRecords{T}(string,IList{T},IDictionary{string, string})"
             /// />.
             /// Supported values:
@@ -744,7 +744,7 @@ namespace kinetica
         ///         <term><see
         /// cref="RawUpdateRecordsRequest.Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>:</term>
         ///         <description>Can be used to customize behavior when the
-        /// updated primary key value already exists, as described in
+        /// updated primary key value already exists as described in
         /// /insert/records.
         /// Supported values:
         /// <list type="bullet">
@@ -831,7 +831,7 @@ namespace kinetica
         ///         <term><see
         /// cref="RawUpdateRecordsRequest.Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>:</term>
         ///         <description>Can be used to customize behavior when the
-        /// updated primary key value already exists, as described in
+        /// updated primary key value already exists as described in
         /// /insert/records.
         /// Supported values:
         /// <list type="bullet">

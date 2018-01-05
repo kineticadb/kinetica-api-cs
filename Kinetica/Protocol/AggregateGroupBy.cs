@@ -175,7 +175,7 @@ namespace kinetica
         ///     </item>
         /// </list>
         /// The default value is <see
-        /// cref="AggregateGroupByRequest.Options.KEY">KEY</see>.</description>
+        /// cref="AggregateGroupByRequest.Options.VALUE">VALUE</see>.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -334,7 +334,7 @@ namespace kinetica
             ///     </item>
             /// </list>
             /// The default value is <see
-            /// cref="AggregateGroupByRequest.Options.KEY">KEY</see>.</summary>
+            /// cref="AggregateGroupByRequest.Options.VALUE">VALUE</see>.</summary>
             public const string SORT_BY = "sort_by";
 
             /// <summary>Indicates that the returned values should be sorted by
@@ -538,7 +538,7 @@ namespace kinetica
         ///     </item>
         /// </list>
         /// The default value is <see
-        /// cref="AggregateGroupByRequest.Options.KEY">KEY</see>.</description>
+        /// cref="AggregateGroupByRequest.Options.VALUE">VALUE</see>.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -720,7 +720,7 @@ namespace kinetica
         ///     </item>
         /// </list>
         /// The default value is <see
-        /// cref="AggregateGroupByRequest.Options.KEY">KEY</see>.</description>
+        /// cref="AggregateGroupByRequest.Options.VALUE">VALUE</see>.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -930,7 +930,7 @@ namespace kinetica
         ///     </item>
         /// </list>
         /// The default value is <see
-        /// cref="AggregateGroupByRequest.Options.KEY">KEY</see>.</description>
+        /// cref="AggregateGroupByRequest.Options.VALUE">VALUE</see>.</description>
         ///     </item>
         ///     <item>
         ///         <term><see

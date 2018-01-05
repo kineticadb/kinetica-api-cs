@@ -101,14 +101,13 @@ namespace kinetica
         /// cref="CreateUnionRequest.Options.MERGE_VIEWS">MERGE_VIEWS</see>:</term>
         ///         <description>Merge two or more views (or views of views) of
         /// the same base data set into a new view. If this mode is selected
-        ///                                       <paramref
-        /// cref="CreateUnionRequest.input_column_names" /> AND <paramref
-        /// cref="CreateUnionRequest.output_column_names" /> are ignored The
-        /// resulting view would match the results of a SQL OR operation, e.g.,
-        /// if filter 1 creates a view using the expression 'x = 10' and filter
-        /// 2 creates a view using the expression 'x <= 10', then the merge
-        /// views operation creates a new view using the expression 'x = 10 OR
-        /// x <= 10'.</description>
+        /// <paramref cref="CreateUnionRequest.input_column_names" /> AND
+        /// <paramref cref="CreateUnionRequest.output_column_names" /> must be
+        /// empty. The resulting view would match the results of a SQL OR
+        /// operation, e.g., if filter 1 creates a view using the expression 'x
+        /// = 10' and filter 2 creates a view using the expression 'x <= 10',
+        /// then the merge views operation creates a new view using the
+        /// expression 'x = 10 OR x <= 10'.</description>
         ///     </item>
         /// </list>
         /// The default value is <see
@@ -224,10 +223,8 @@ namespace kinetica
             /// cref="CreateUnionRequest.Options.MERGE_VIEWS">MERGE_VIEWS</see>:</term>
             ///         <description>Merge two or more views (or views of
             /// views) of the same base data set into a new view. If this mode
-            /// is selected
-            ///                                       <see
-            /// cref="input_column_names" /> AND <see
-            /// cref="output_column_names" /> are ignored The resulting view
+            /// is selected <see cref="input_column_names" /> AND <see
+            /// cref="output_column_names" /> must be empty. The resulting view
             /// would match the results of a SQL OR operation, e.g., if filter
             /// 1 creates a view using the expression 'x = 10' and filter 2
             /// creates a view using the expression 'x <= 10', then the merge
@@ -261,9 +258,8 @@ namespace kinetica
 
             /// <summary>Merge two or more views (or views of views) of the
             /// same base data set into a new view. If this mode is selected
-            ///                                       <see
-            /// cref="input_column_names" /> AND <see
-            /// cref="output_column_names" /> are ignored The resulting view
+            /// <see cref="input_column_names" /> AND <see
+            /// cref="output_column_names" /> must be empty. The resulting view
             /// would match the results of a SQL OR operation, e.g., if filter
             /// 1 creates a view using the expression 'x = 10' and filter 2
             /// creates a view using the expression 'x <= 10', then the merge
@@ -392,14 +388,13 @@ namespace kinetica
         /// cref="CreateUnionRequest.Options.MERGE_VIEWS">MERGE_VIEWS</see>:</term>
         ///         <description>Merge two or more views (or views of views) of
         /// the same base data set into a new view. If this mode is selected
-        ///                                       <paramref
-        /// cref="CreateUnionRequest.input_column_names" /> AND <paramref
-        /// cref="CreateUnionRequest.output_column_names" /> are ignored The
-        /// resulting view would match the results of a SQL OR operation, e.g.,
-        /// if filter 1 creates a view using the expression 'x = 10' and filter
-        /// 2 creates a view using the expression 'x <= 10', then the merge
-        /// views operation creates a new view using the expression 'x = 10 OR
-        /// x <= 10'.</description>
+        /// <paramref cref="CreateUnionRequest.input_column_names" /> AND
+        /// <paramref cref="CreateUnionRequest.output_column_names" /> must be
+        /// empty. The resulting view would match the results of a SQL OR
+        /// operation, e.g., if filter 1 creates a view using the expression 'x
+        /// = 10' and filter 2 creates a view using the expression 'x <= 10',
+        /// then the merge views operation creates a new view using the
+        /// expression 'x = 10 OR x <= 10'.</description>
         ///     </item>
         /// </list>
         /// The default value is <see
@@ -537,14 +532,13 @@ namespace kinetica
         /// cref="CreateUnionRequest.Options.MERGE_VIEWS">MERGE_VIEWS</see>:</term>
         ///         <description>Merge two or more views (or views of views) of
         /// the same base data set into a new view. If this mode is selected
-        ///                                       <paramref
-        /// cref="CreateUnionRequest.input_column_names" /> AND <paramref
-        /// cref="CreateUnionRequest.output_column_names" /> are ignored The
-        /// resulting view would match the results of a SQL OR operation, e.g.,
-        /// if filter 1 creates a view using the expression 'x = 10' and filter
-        /// 2 creates a view using the expression 'x <= 10', then the merge
-        /// views operation creates a new view using the expression 'x = 10 OR
-        /// x <= 10'.</description>
+        /// <paramref cref="CreateUnionRequest.input_column_names" /> AND
+        /// <paramref cref="CreateUnionRequest.output_column_names" /> must be
+        /// empty. The resulting view would match the results of a SQL OR
+        /// operation, e.g., if filter 1 creates a view using the expression 'x
+        /// = 10' and filter 2 creates a view using the expression 'x <= 10',
+        /// then the merge views operation creates a new view using the
+        /// expression 'x = 10 OR x <= 10'.</description>
         ///     </item>
         /// </list>
         /// The default value is <see

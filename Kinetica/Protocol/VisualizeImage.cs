@@ -245,6 +245,31 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
+        /// cref="VisualizeImageRequest.StyleOptions.HASHLINEINTERVALS">HASHLINEINTERVALS</see>:</term>
+        ///         <description></description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageRequest.StyleOptions.HASHLINECOLORS">HASHLINECOLORS</see>:</term>
+        ///         <description></description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageRequest.StyleOptions.HASHLINEANGLES">HASHLINEANGLES</see>:</term>
+        ///         <description></description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageRequest.StyleOptions.HASHLINELENS">HASHLINELENS</see>:</term>
+        ///         <description></description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageRequest.StyleOptions.HASHLINEWIDTHS">HASHLINEWIDTHS</see>:</term>
+        ///         <description></description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="VisualizeImageRequest.StyleOptions.TRACKLINEWIDTHS">TRACKLINEWIDTHS</see>:</term>
         ///         <description></description>
         ///     </item>
@@ -495,6 +520,11 @@ namespace kinetica
             public const string SHAPELINEPATTERNS = "shapelinepatterns";
             public const string SHAPELINEPATTERNLEN = "shapelinepatternlen";
             public const string SHAPEFILLCOLORS = "shapefillcolors";
+            public const string HASHLINEINTERVALS = "hashlineintervals";
+            public const string HASHLINECOLORS = "hashlinecolors";
+            public const string HASHLINEANGLES = "hashlineangles";
+            public const string HASHLINELENS = "hashlinelens";
+            public const string HASHLINEWIDTHS = "hashlinewidths";
             public const string TRACKLINEWIDTHS = "tracklinewidths";
             public const string TRACKLINECOLORS = "tracklinecolors";
             public const string TRACKMARKERSIZES = "trackmarkersizes";
@@ -815,6 +845,31 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="VisualizeImageRequest.StyleOptions.SHAPEFILLCOLORS">SHAPEFILLCOLORS</see>:</term>
+        ///         <description></description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageRequest.StyleOptions.HASHLINEINTERVALS">HASHLINEINTERVALS</see>:</term>
+        ///         <description></description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageRequest.StyleOptions.HASHLINECOLORS">HASHLINECOLORS</see>:</term>
+        ///         <description></description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageRequest.StyleOptions.HASHLINEANGLES">HASHLINEANGLES</see>:</term>
+        ///         <description></description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageRequest.StyleOptions.HASHLINELENS">HASHLINELENS</see>:</term>
+        ///         <description></description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageRequest.StyleOptions.HASHLINEWIDTHS">HASHLINEWIDTHS</see>:</term>
         ///         <description></description>
         ///     </item>
         ///     <item>
@@ -1171,6 +1226,31 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="VisualizeImageRequest.StyleOptions.SHAPEFILLCOLORS">SHAPEFILLCOLORS</see>:</term>
+        ///         <description></description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageRequest.StyleOptions.HASHLINEINTERVALS">HASHLINEINTERVALS</see>:</term>
+        ///         <description></description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageRequest.StyleOptions.HASHLINECOLORS">HASHLINECOLORS</see>:</term>
+        ///         <description></description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageRequest.StyleOptions.HASHLINEANGLES">HASHLINEANGLES</see>:</term>
+        ///         <description></description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageRequest.StyleOptions.HASHLINELENS">HASHLINELENS</see>:</term>
+        ///         <description></description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageRequest.StyleOptions.HASHLINEWIDTHS">HASHLINEWIDTHS</see>:</term>
         ///         <description></description>
         ///     </item>
         ///     <item>

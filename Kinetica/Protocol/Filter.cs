@@ -16,10 +16,11 @@ namespace kinetica
     /// />.
     /// <br />
     /// Filters data based on the specified expression.  The results are stored
-    /// in a result set with the given <see cref="view_name" />.
+    /// in a <a href="../../../../../concepts/filtered_views.html"
+    /// target="_top">result set</a> with the given <see cref="view_name" />.
     /// <br />
     /// For details see <a href="../../../../../concepts/expressions.html"
-    /// target="_top">concepts</a>.
+    /// target="_top">Expressions</a>.
     /// <br />
     /// The response message contains the number of points for which the
     /// expression evaluated to be true, which is equivalent to the size of the
@@ -79,7 +80,7 @@ namespace kinetica
 
         /// <summary>The select expression to filter the specified table.  For
         /// details see <a href="../../../../concepts/expressions.html"
-        /// target="_top">concepts</a>.  </summary>
+        /// target="_top">Expressions</a>.  </summary>
         public string expression { get; set; }
 
         /// <summary>Optional parameters.
@@ -123,7 +124,7 @@ namespace kinetica
         /// <param name="expression">The select expression to filter the
         /// specified table.  For details see <a
         /// href="../../../../concepts/expressions.html"
-        /// target="_top">concepts</a>.  </param>
+        /// target="_top">Expressions</a>.  </param>
         /// <param name="options">Optional parameters.
         /// <list type="bullet">
         ///     <item>

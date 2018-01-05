@@ -16,7 +16,7 @@ namespace kinetica
     /// />.
     /// <br />
     /// Add a new node to the GPUdb cluster. By default this will only add the
-    /// node to the cluster, but will not be assigned any data shards. Set the
+    /// node to the cluster but will not be assigned any data shards. Set the
     /// <i>reshard</i> option to <i>true</i> to move some shards from the other
     /// nodes in the cluster to this node.</summary>
     public class AdminAddNodeRequest : KineticaData
