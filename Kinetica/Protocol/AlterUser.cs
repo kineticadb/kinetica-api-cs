@@ -91,7 +91,7 @@ namespace kinetica
         public AlterUserRequest( string name,
                                  string action,
                                  string _value,
-                                 IDictionary<string, string> options)
+                                 IDictionary<string, string> options = null)
         {
             this.name = name ?? "";
             this.action = action ?? "";

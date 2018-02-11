@@ -165,7 +165,7 @@ namespace kinetica
         public RevokePermissionTableRequest( string name,
                                              string permission,
                                              string table_name,
-                                             IDictionary<string, string> options)
+                                             IDictionary<string, string> options = null)
         {
             this.name = name ?? "";
             this.permission = permission ?? "";

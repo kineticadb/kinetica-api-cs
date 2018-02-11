@@ -170,8 +170,8 @@ namespace kinetica
         public GrantPermissionTableRequest( string name,
                                             string permission,
                                             string table_name,
-                                            string filter_expression,
-                                            IDictionary<string, string> options)
+                                            string filter_expression = null,
+                                            IDictionary<string, string> options = null)
         {
             this.name = name ?? "";
             this.permission = permission ?? "";

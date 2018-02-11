@@ -16,7 +16,7 @@ namespace kinetica
     {
 
         // Kinetica Version
-        public const string API_VERSION = "6.1.0.0";
+        public const string API_VERSION = "6.2.0.0";
 
 
 
@@ -717,6 +717,12 @@ namespace kinetica
         ///         <description>Indicates the chunk size to be used for the
         /// result table. Must be used in combination with the
         /// <i>result_table</i> option.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AggregateGroupByRequest.Options.VIEW_ID">VIEW_ID</see>:</term>
+        ///         <description>view this result table is part
+        /// of</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -1585,6 +1591,12 @@ namespace kinetica
         /// result table. Must be used in combination with the
         /// <i>result_table</i> option.</description>
         ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AggregateUniqueRequest.Options.VIEW_ID">VIEW_ID</see>:</term>
+        ///         <description>view this result table is part
+        /// of</description>
+        ///     </item>
         /// </list>
         ///   </param>
         /// 
@@ -2180,6 +2192,35 @@ namespace kinetica
         /// 'no_access', 'read_only', 'write_only' and
         /// 'read_write'.</description>
         ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterTableRequest.Action.REFRESH">REFRESH</see>:</term>
+        ///         <description>Replay all the table creation commands
+        /// required to create this view. Endpoints supported are filter,
+        /// create_join_table, create_projection, create_union,
+        /// aggregate_group_by, and aggregate_unique.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterTableRequest.Action.SET_REFRESH_METHOD">SET_REFRESH_METHOD</see>:</term>
+        ///         <description>Set the method by which this view is refreshed
+        /// - one of manual, periodic, on_change, on_query. </description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterTableRequest.Action.SET_REFRESH_START_TIME">SET_REFRESH_START_TIME</see>:</term>
+        ///         <description>Set the time to start periodic refreshes to
+        /// datetime string with format YYYY-MM-DD HH:MM:SS at which refresh is
+        /// to be done.  Next refresh occurs at refresh_start_time +
+        /// N*refresh_period</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterTableRequest.Action.SET_REFRESH_PERIOD">SET_REFRESH_PERIOD</see>:</term>
+        ///         <description>Set the time interval at which to refresh this
+        /// view - set refresh method to periodic if not alreay
+        /// set.</description>
+        ///     </item>
         /// </list>  </param>
         /// <param name="_value">The value of the modification. May be a column
         /// name, 'true' or 'false', a TTL, or the global access mode depending
@@ -2190,7 +2231,8 @@ namespace kinetica
         ///         <term><see
         /// cref="AlterTableRequest.Options.COLUMN_DEFAULT_VALUE">COLUMN_DEFAULT_VALUE</see>:</term>
         ///         <description>When adding a column, set a default value for
-        /// existing records.</description>
+        /// existing records.  For nullable columns, the default value will be
+        /// null, regardless of data type.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -2238,10 +2280,8 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="AlterTableRequest.Options.COPY_VALUES_FROM_COLUMN">COPY_VALUES_FROM_COLUMN</see>:</term>
-        ///         <description>When adding or changing a column, enter a
-        /// column name from the same table being altered to use as a source
-        /// for the column being added/changed; values will be copied from this
-        /// source column into the new/modified column.</description>
+        ///         <description>please see add_column_expression
+        /// instead.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -2272,6 +2312,13 @@ namespace kinetica
         /// </list>
         /// The default value is <see
         /// cref="AlterTableRequest.Options.TRUE">TRUE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterTableRequest.Options.ADD_COLUMN_EXPRESSION">ADD_COLUMN_EXPRESSION</see>:</term>
+        ///         <description>expression for new column's values (optional
+        /// with add_column). Any valid expressions including existing
+        /// columns.</description>
         ///     </item>
         /// </list>
         ///   </param>
@@ -2378,7 +2425,7 @@ namespace kinetica
         public AlterUserResponse alterUser( string name,
                                             string action,
                                             string _value,
-                                            IDictionary<string, string> options )
+                                            IDictionary<string, string> options = null )
         {
             return alterUser( new AlterUserRequest( name, action, _value, options ) );
         }
@@ -2508,6 +2555,45 @@ namespace kinetica
         {
             return appendRecords( new AppendRecordsRequest( table_name, source_table_name,
                                                             field_map, options ) );
+        }
+
+
+        /// <summary>Clears (drops) one or all column statistics of a
+        /// tables.</summary>
+        /// 
+        /// <param name="request_">Request object containing the parameters for
+        /// the operation.</param>
+        /// 
+        /// <returns>Response object containing the result of the
+        /// operation.</returns>
+        /// 
+        public ClearStatisticsResponse clearStatistics( ClearStatisticsRequest request_ )
+        {
+            ClearStatisticsResponse actualResponse_ = SubmitRequest<ClearStatisticsResponse>("/clear/statistics", request_, false);
+
+            return actualResponse_;
+        }
+
+
+        /// <summary>Clears (drops) one or all column statistics of a
+        /// tables.</summary>
+        /// 
+        /// <param name="table_name">Name of the table to clear the statistics.
+        /// Must be an existing table.  </param>
+        /// <param name="column_name">Name of the column to be cleared. Must be
+        /// an existing table. Empty string clears all available statistics of
+        /// the table.  </param>
+        /// <param name="options">Optional parameters.  </param>
+        /// 
+        /// <returns>Response object containing the result of the
+        /// operation.</returns>
+        /// 
+        public ClearStatisticsResponse clearStatistics( string table_name,
+                                                        string column_name,
+                                                        IDictionary<string, string> options )
+        {
+            return clearStatistics( new ClearStatisticsRequest( table_name, column_name,
+                                                                options ) );
         }
 
 
@@ -2651,6 +2737,126 @@ namespace kinetica
                                                   IDictionary<string, string> options = null )
         {
             return clearTrigger( new ClearTriggerRequest( trigger_id, options ) );
+        }
+
+
+        /// <summary>Collect the requested statistics of the given column(s) in
+        /// a given table.</summary>
+        /// 
+        /// <param name="request_">Request object containing the parameters for
+        /// the operation.</param>
+        /// 
+        /// <returns>Response object containing the result of the
+        /// operation.</returns>
+        /// 
+        public CollectStatisticsResponse collectStatistics( CollectStatisticsRequest request_ )
+        {
+            CollectStatisticsResponse actualResponse_ = SubmitRequest<CollectStatisticsResponse>("/collect/statistics", request_, false);
+
+            return actualResponse_;
+        }
+
+
+        /// <summary>Collect the requested statistics of the given column(s) in
+        /// a given table.</summary>
+        /// 
+        /// <param name="table_name">Name of the table on which the statistics
+        /// operation will be performed.  </param>
+        /// <param name="column_names">List of one or more column names.
+        /// </param>
+        /// <param name="options">Optional parameters.  </param>
+        /// 
+        /// <returns>Response object containing the result of the
+        /// operation.</returns>
+        /// 
+        public CollectStatisticsResponse collectStatistics( string table_name,
+                                                            IList<string> column_names,
+                                                            IDictionary<string, string> options = null )
+        {
+            return collectStatistics( new CollectStatisticsRequest( table_name,
+                                                                    column_names, options ) );
+        }
+
+
+        /// <summary>Create a job which will run asynchronously. The response
+        /// returns a job ID, which can be used to query the status and result
+        /// of the job. The status and the result of the job upon completion
+        /// can be requested by <see
+        /// cref="Kinetica.getJob(int,IDictionary{string, string})"
+        /// />.</summary>
+        /// 
+        /// <param name="request_">Request object containing the parameters for
+        /// the operation.</param>
+        /// 
+        /// <returns>Response object containing the result of the
+        /// operation.</returns>
+        /// 
+        public CreateJobResponse createJob( CreateJobRequest request_ )
+        {
+            CreateJobResponse actualResponse_ = SubmitRequest<CreateJobResponse>("/create/job", request_, false);
+
+            return actualResponse_;
+        }
+
+
+        /// <summary>Create a job which will run asynchronously. The response
+        /// returns a job ID, which can be used to query the status and result
+        /// of the job. The status and the result of the job upon completion
+        /// can be requested by <see
+        /// cref="Kinetica.getJob(int,IDictionary{string, string})"
+        /// />.</summary>
+        /// 
+        /// <param name="endpoint">Indicates which endpoint to execute, e.g.
+        /// '/alter/table'.  </param>
+        /// <param name="request_encoding">The encoding of the request payload
+        /// for the job.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateJobRequest.RequestEncoding.BINARY">BINARY</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateJobRequest.RequestEncoding.JSON">JSON</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateJobRequest.RequestEncoding.SNAPPY">SNAPPY</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="CreateJobRequest.RequestEncoding.BINARY">BINARY</see>.
+        /// </param>
+        /// <param name="data">Binary-encoded payload for the job to be run
+        /// asynchronously.  The payload must contain the relevant input
+        /// parameters for the endpoint indicated in <paramref
+        /// cref="CreateJobRequest.endpoint" />.  Please see the documentation
+        /// for the appropriate endpoint to see what values must (or can) be
+        /// specified.  If this parameter is used, then <paramref
+        /// cref="CreateJobRequest.request_encoding" /> must be <i>binary</i>
+        /// or <i>snappy</i>.  </param>
+        /// <param name="data_str">JSON-encoded payload for the job to be run
+        /// asynchronously.  The payload must contain the relevant input
+        /// parameters for the endpoint indicated in <paramref
+        /// cref="CreateJobRequest.endpoint" />.  Please see the documentation
+        /// for the appropriate endpoint to see what values must (or can) be
+        /// specified.  If this parameter is used, then <paramref
+        /// cref="CreateJobRequest.request_encoding" /> must be <i>json</i>.
+        /// </param>
+        /// <param name="options">Optional parameters.  </param>
+        /// 
+        /// <returns>Response object containing the result of the
+        /// operation.</returns>
+        /// 
+        public CreateJobResponse createJob( string endpoint,
+                                            string request_encoding,
+                                            byte[] data,
+                                            string data_str,
+                                            IDictionary<string, string> options = null )
+        {
+            return createJob( new CreateJobRequest( endpoint, request_encoding, data,
+                                                    data_str, options ) );
         }
 
 
@@ -2808,6 +3014,11 @@ namespace kinetica
         /// join table specified in <paramref
         /// cref="CreateJoinTableRequest.join_table_name" />.</description>
         ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateJoinTableRequest.Options.VIEW_ID">VIEW_ID</see>:</term>
+        ///         <description>view this projection is part of</description>
+        ///     </item>
         /// </list>
         ///   </param>
         /// 
@@ -2823,6 +3034,144 @@ namespace kinetica
             return createJoinTable( new CreateJoinTableRequest( join_table_name,
                                                                 table_names, column_names,
                                                                 expressions, options ) );
+        }
+
+
+        /// <summary>The create materialized view request does not create the
+        /// actual table that will be the toplevel table of the view but
+        /// instead registers the table name so no other views or tables can be
+        /// created with that name.  The response contains a a view_id that is
+        /// used to label the table creation requests (projection, union,
+        /// group-by, filter, or join) that describes the view.</summary>
+        /// 
+        /// <param name="request_">Request object containing the parameters for
+        /// the operation.</param>
+        /// 
+        /// <returns>Response object containing the result of the
+        /// operation.</returns>
+        /// 
+        public CreateMaterializedViewResponse createMaterializedView( CreateMaterializedViewRequest request_ )
+        {
+            CreateMaterializedViewResponse actualResponse_ = SubmitRequest<CreateMaterializedViewResponse>("/create/materializedview", request_, false);
+
+            return actualResponse_;
+        }
+
+
+        /// <summary>The create materialized view request does not create the
+        /// actual table that will be the toplevel table of the view but
+        /// instead registers the table name so no other views or tables can be
+        /// created with that name.  The response contains a a view_id that is
+        /// used to label the table creation requests (projection, union,
+        /// group-by, filter, or join) that describes the view.</summary>
+        /// 
+        /// <param name="table_name">Name of the table to be created that is
+        /// the top-level table of the materialized view.  </param>
+        /// <param name="options">Optional parameters.
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateMaterializedViewRequest.Options.COLLECTION_NAME">COLLECTION_NAME</see>:</term>
+        ///         <description>Name of a collection which is to contain the
+        /// newly created view. If the collection provided is non-existent, the
+        /// collection will be automatically created. If empty, then the newly
+        /// created table will be a top-level table.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateMaterializedViewRequest.Options.TTL">TTL</see>:</term>
+        ///         <description>Sets the <a
+        /// href="../../../../concepts/ttl.html" target="_top">TTL</a> of the
+        /// table specified in <paramref
+        /// cref="CreateMaterializedViewRequest.table_name" />.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateMaterializedViewRequest.Options.PERSIST">PERSIST</see>:</term>
+        ///         <description>If <i>true</i>, then the materialized view
+        /// specified in <paramref
+        /// cref="CreateMaterializedViewRequest.table_name" /> will be
+        /// persisted and will not expire unless a <i>ttl</i> is specified.
+        /// If <i>false</i>, then the materialized view will be an in-memory
+        /// table and will expire unless a <i>ttl</i> is specified otherwise.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateMaterializedViewRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateMaterializedViewRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="CreateMaterializedViewRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateMaterializedViewRequest.Options.REFRESH_METHOD">REFRESH_METHOD</see>:</term>
+        ///         <description>Method by which the join can be refreshed when
+        /// the data in underlying member tables have changed.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateMaterializedViewRequest.Options.MANUAL">MANUAL</see>:</term>
+        ///         <description>Refresh only occurs when manually requested by
+        /// calling alter_table with action refresh_view</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateMaterializedViewRequest.Options.ON_QUERY">ON_QUERY</see>:</term>
+        ///         <description>Incrementally refresh (refresh just those
+        /// records added) whenever a new query is issued and new data is
+        /// inserted into the base table.  A full refresh of all the records
+        /// occurs when a new query is issued and there have been inserts to
+        /// any non-base-tables since the last query</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateMaterializedViewRequest.Options.ON_CHANGE">ON_CHANGE</see>:</term>
+        ///         <description>If possible, incrementally refresh (refresh
+        /// just those records added) whenever an insert, update, delete or
+        /// refresh of input table is done.  A full refresh on_query is done if
+        /// an incremental refresh is not possible. </description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateMaterializedViewRequest.Options.PERIODIC">PERIODIC</see>:</term>
+        ///         <description>Refresh table periodically at rate specified
+        /// by refresh_period option</description>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="CreateMaterializedViewRequest.Options.MANUAL">MANUAL</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateMaterializedViewRequest.Options.REFRESH_PERIOD">REFRESH_PERIOD</see>:</term>
+        ///         <description>When refresh_method is periodic specifies the
+        /// period in seconds at which refresh occurs</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateMaterializedViewRequest.Options.REFRESH_START_TIME">REFRESH_START_TIME</see>:</term>
+        ///         <description>First time at which a periodic refresh is to
+        /// be done.  Value is a datatime string with format YYYY-MM-DD
+        /// HH:MM:SS.</description>
+        ///     </item>
+        /// </list>
+        ///   </param>
+        /// 
+        /// <returns>Response object containing the result of the
+        /// operation.</returns>
+        /// 
+        public CreateMaterializedViewResponse createMaterializedView( string table_name,
+                                                                      IDictionary<string, string> options = null )
+        {
+            return createMaterializedView( new CreateMaterializedViewRequest( table_name,
+                                                                              options ) );
         }
 
 
@@ -2897,7 +3246,17 @@ namespace kinetica
         /// <param name="args">An array of command-line arguments that will be
         /// passed to <paramref cref="CreateProcRequest.command" /> when the
         /// proc is executed.  </param>
-        /// <param name="options">Optional parameters.  </param>
+        /// <param name="options">Optional parameters.
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateProcRequest.Options.MAX_CONCURRENCY_PER_NODE">MAX_CONCURRENCY_PER_NODE</see>:</term>
+        ///         <description>The maximum number of concurrent instances of
+        /// the proc that will be executed per node. 0 allows unlimited
+        /// concurrency.</description>
+        ///     </item>
+        /// </list>
+        ///   </param>
         /// 
         /// <returns>Response object containing the result of the
         /// operation.</returns>
@@ -3099,6 +3458,11 @@ namespace kinetica
         /// </list>
         /// The default value is <see
         /// cref="CreateProjectionRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateProjectionRequest.Options.VIEW_ID">VIEW_ID</see>:</term>
+        ///         <description>view this projection is part of</description>
         ///     </item>
         /// </list>
         ///   </param>
@@ -4108,6 +4472,11 @@ namespace kinetica
         /// The default value is <see
         /// cref="CreateUnionRequest.Options.FALSE">FALSE</see>.</description>
         ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateUnionRequest.Options.VIEW_ID">VIEW_ID</see>:</term>
+        ///         <description>view this union table is part of</description>
+        ///     </item>
         /// </list>
         ///   </param>
         /// 
@@ -4155,7 +4524,7 @@ namespace kinetica
         /// operation.</returns>
         /// 
         public CreateUserExternalResponse createUserExternal( string name,
-                                                              IDictionary<string, string> options )
+                                                              IDictionary<string, string> options = null )
         {
             return createUserExternal( new CreateUserExternalRequest( name, options ) );
         }
@@ -4194,7 +4563,7 @@ namespace kinetica
         /// 
         public CreateUserInternalResponse createUserInternal( string name,
                                                               string password,
-                                                              IDictionary<string, string> options )
+                                                              IDictionary<string, string> options = null )
         {
             return createUserInternal( new CreateUserInternalRequest( name, password,
                                                                       options ) );
@@ -4337,7 +4706,7 @@ namespace kinetica
         /// operation.</returns>
         /// 
         public DeleteRoleResponse deleteRole( string name,
-                                              IDictionary<string, string> options )
+                                              IDictionary<string, string> options = null )
         {
             return deleteRole( new DeleteRoleRequest( name, options ) );
         }
@@ -4369,7 +4738,7 @@ namespace kinetica
         /// operation.</returns>
         /// 
         public DeleteUserResponse deleteUser( string name,
-                                              IDictionary<string, string> options )
+                                              IDictionary<string, string> options = null )
         {
             return deleteUser( new DeleteUserRequest( name, options ) );
         }
@@ -4532,6 +4901,12 @@ namespace kinetica
         /// newly created view. If the collection provided is non-existent, the
         /// collection will be automatically created. If empty, then the newly
         /// created view will be top-level.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="FilterRequest.Options.VIEW_ID">VIEW_ID</see>:</term>
+        ///         <description>view this filtered-view is part
+        /// of</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -5754,6 +6129,36 @@ namespace kinetica
         }
 
 
+        /// 
+        /// <param name="request_">Request object containing the parameters for
+        /// the operation.</param>
+        /// 
+        /// <returns>Response object containing the result of the
+        /// operation.</returns>
+        /// 
+        public GetJobResponse getJob( GetJobRequest request_ )
+        {
+            GetJobResponse actualResponse_ = SubmitRequest<GetJobResponse>("/get/job", request_, false);
+
+            return actualResponse_;
+        }
+
+
+        /// 
+        /// <param name="job_id">A unique identifier for the job whose status
+        /// and result is to be fetched.  </param>
+        /// <param name="options">Optional parameters.  </param>
+        /// 
+        /// <returns>Response object containing the result of the
+        /// operation.</returns>
+        /// 
+        public GetJobResponse getJob( int job_id,
+                                      IDictionary<string, string> options = null )
+        {
+            return getJob( new GetJobRequest( job_id, options ) );
+        }
+
+
         /// <summary>Retrieves records from a given table, optionally filtered
         /// by an expression and/or sorted by a column. This operation can be
         /// performed on tables, views, or on homogeneous collections
@@ -6257,7 +6662,7 @@ namespace kinetica
         /// 
         public GrantPermissionSystemResponse grantPermissionSystem( string name,
                                                                     string permission,
-                                                                    IDictionary<string, string> options )
+                                                                    IDictionary<string, string> options = null )
         {
             return grantPermissionSystem( new GrantPermissionSystemRequest( name,
                                                                             permission,
@@ -6330,8 +6735,8 @@ namespace kinetica
         public GrantPermissionTableResponse grantPermissionTable( string name,
                                                                   string permission,
                                                                   string table_name,
-                                                                  string filter_expression,
-                                                                  IDictionary<string, string> options )
+                                                                  string filter_expression = "",
+                                                                  IDictionary<string, string> options = null )
         {
             return grantPermissionTable( new GrantPermissionTableRequest( name,
                                                                           permission,
@@ -6371,7 +6776,7 @@ namespace kinetica
         /// 
         public GrantRoleResponse grantRole( string role,
                                             string member,
-                                            IDictionary<string, string> options )
+                                            IDictionary<string, string> options = null )
         {
             return grantRole( new GrantRoleRequest( role, member, options ) );
         }
@@ -7349,7 +7754,7 @@ namespace kinetica
         /// 
         public RevokePermissionSystemResponse revokePermissionSystem( string name,
                                                                       string permission,
-                                                                      IDictionary<string, string> options )
+                                                                      IDictionary<string, string> options = null )
         {
             return revokePermissionSystem( new RevokePermissionSystemRequest( name,
                                                                               permission,
@@ -7422,7 +7827,7 @@ namespace kinetica
         public RevokePermissionTableResponse revokePermissionTable( string name,
                                                                     string permission,
                                                                     string table_name,
-                                                                    IDictionary<string, string> options )
+                                                                    IDictionary<string, string> options = null )
         {
             return revokePermissionTable( new RevokePermissionTableRequest( name,
                                                                             permission,
@@ -7463,7 +7868,7 @@ namespace kinetica
         /// 
         public RevokeRoleResponse revokeRole( string role,
                                               string member,
-                                              IDictionary<string, string> options )
+                                              IDictionary<string, string> options = null )
         {
             return revokeRole( new RevokeRoleRequest( role, member, options ) );
         }
@@ -7622,9 +8027,43 @@ namespace kinetica
         /// operation.</returns>
         /// 
         public ShowSecurityResponse showSecurity( IList<string> names,
-                                                  IDictionary<string, string> options )
+                                                  IDictionary<string, string> options = null )
         {
             return showSecurity( new ShowSecurityRequest( names, options ) );
+        }
+
+
+        /// <summary>Retrieves the collected column statistics for the
+        /// specified table.</summary>
+        /// 
+        /// <param name="request_">Request object containing the parameters for
+        /// the operation.</param>
+        /// 
+        /// <returns>Response object containing the result of the
+        /// operation.</returns>
+        /// 
+        public ShowStatisticsResponse showStatistics( ShowStatisticsRequest request_ )
+        {
+            ShowStatisticsResponse actualResponse_ = SubmitRequest<ShowStatisticsResponse>("/show/statistics", request_, false);
+
+            return actualResponse_;
+        }
+
+
+        /// <summary>Retrieves the collected column statistics for the
+        /// specified table.</summary>
+        /// 
+        /// <param name="table_names">Tables whose metadata will be fetched.
+        /// All provided tables must exist, or an error is returned.  </param>
+        /// <param name="options">Optional parameters.  </param>
+        /// 
+        /// <returns>Response object containing the result of the
+        /// operation.</returns>
+        /// 
+        public ShowStatisticsResponse showStatistics( IList<string> table_names,
+                                                      IDictionary<string, string> options )
+        {
+            return showStatistics( new ShowStatisticsRequest( table_names, options ) );
         }
 
 

@@ -187,6 +187,12 @@ namespace kinetica
         /// result table. Must be used in combination with the
         /// <i>result_table</i> option.</description>
         ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AggregateUniqueRequest.Options.VIEW_ID">VIEW_ID</see>:</term>
+        ///         <description>view this result table is part
+        /// of</description>
+        ///     </item>
         /// </list>
         /// <br />
         /// A set of string constants for the parameter <see cref="options"
@@ -276,6 +282,9 @@ namespace kinetica
             /// table. Must be used in combination with the <i>result_table</i>
             /// option.</summary>
             public const string CHUNK_SIZE = "chunk_size";
+
+            /// <summary>view this result table is part of</summary>
+            public const string VIEW_ID = "view_id";
         } // end struct Options
 
 
@@ -420,6 +429,12 @@ namespace kinetica
         /// result table. Must be used in combination with the
         /// <i>result_table</i> option.</description>
         ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AggregateUniqueRequest.Options.VIEW_ID">VIEW_ID</see>:</term>
+        ///         <description>view this result table is part
+        /// of</description>
+        ///     </item>
         /// </list>
         ///   </summary>
         public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
@@ -543,6 +558,12 @@ namespace kinetica
         ///         <description>Indicates the chunk size to be used for the
         /// result table. Must be used in combination with the
         /// <i>result_table</i> option.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AggregateUniqueRequest.Options.VIEW_ID">VIEW_ID</see>:</term>
+        ///         <description>view this result table is part
+        /// of</description>
         ///     </item>
         /// </list>
         ///   </param>
@@ -695,6 +716,12 @@ namespace kinetica
         ///         <description>Indicates the chunk size to be used for the
         /// result table. Must be used in combination with the
         /// <i>result_table</i> option.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AggregateUniqueRequest.Options.VIEW_ID">VIEW_ID</see>:</term>
+        ///         <description>view this result table is part
+        /// of</description>
         ///     </item>
         /// </list>
         ///   </param>

@@ -133,6 +133,11 @@ namespace kinetica
         /// join table specified in <paramref
         /// cref="CreateJoinTableRequest.join_table_name" />.</description>
         ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateJoinTableRequest.Options.VIEW_ID">VIEW_ID</see>:</term>
+        ///         <description>view this projection is part of</description>
+        ///     </item>
         /// </list>
         /// <br />
         /// A set of string constants for the parameter <see cref="options"
@@ -242,6 +247,9 @@ namespace kinetica
             /// target="_top">TTL</a> of the join table specified in <see
             /// cref="join_table_name" />.</summary>
             public const string TTL = "ttl";
+
+            /// <summary>view this projection is part of</summary>
+            public const string VIEW_ID = "view_id";
         } // end struct Options
 
 
@@ -382,6 +390,11 @@ namespace kinetica
         /// href="../../../../concepts/ttl.html" target="_top">TTL</a> of the
         /// join table specified in <paramref
         /// cref="CreateJoinTableRequest.join_table_name" />.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateJoinTableRequest.Options.VIEW_ID">VIEW_ID</see>:</term>
+        ///         <description>view this projection is part of</description>
         ///     </item>
         /// </list>
         ///   </summary>
@@ -526,6 +539,11 @@ namespace kinetica
         /// href="../../../../concepts/ttl.html" target="_top">TTL</a> of the
         /// join table specified in <paramref
         /// cref="CreateJoinTableRequest.join_table_name" />.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateJoinTableRequest.Options.VIEW_ID">VIEW_ID</see>:</term>
+        ///         <description>view this projection is part of</description>
         ///     </item>
         /// </list>
         ///   </param>

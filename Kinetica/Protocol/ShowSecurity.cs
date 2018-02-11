@@ -43,7 +43,7 @@ namespace kinetica
         /// <param name="options">Optional parameters.  </param>
         /// 
         public ShowSecurityRequest( IList<string> names,
-                                    IDictionary<string, string> options)
+                                    IDictionary<string, string> options = null)
         {
             this.names = names ?? new List<string>();
             this.options = options ?? new Dictionary<string, string>();

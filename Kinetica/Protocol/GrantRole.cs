@@ -48,7 +48,7 @@ namespace kinetica
         /// 
         public GrantRoleRequest( string role,
                                  string member,
-                                 IDictionary<string, string> options)
+                                 IDictionary<string, string> options = null)
         {
             this.role = role ?? "";
             this.member = member ?? "";

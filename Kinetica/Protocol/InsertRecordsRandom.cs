@@ -1032,8 +1032,7 @@ namespace kinetica
         /// cref="InsertRecordsRandomRequest.table_name" />.  </summary>
         public string table_name { get; set; }
 
-        /// <summary>Value of <paramref cref="InsertRecordsRandomRequest.count"
-        /// />.  </summary>
+        /// <summary>Number of records inserted.  </summary>
         public long count { get; set; }
 
     } // end class InsertRecordsRandomResponse

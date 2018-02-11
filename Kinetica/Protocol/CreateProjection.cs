@@ -146,6 +146,11 @@ namespace kinetica
         /// The default value is <see
         /// cref="CreateProjectionRequest.Options.FALSE">FALSE</see>.</description>
         ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateProjectionRequest.Options.VIEW_ID">VIEW_ID</see>:</term>
+        ///         <description>view this projection is part of</description>
+        ///     </item>
         /// </list>
         /// <br />
         /// A set of string constants for the parameter <see cref="options"
@@ -231,6 +236,9 @@ namespace kinetica
             /// The default value is <see
             /// cref="CreateProjectionRequest.Options.FALSE">FALSE</see>.</summary>
             public const string PERSIST = "persist";
+
+            /// <summary>view this projection is part of</summary>
+            public const string VIEW_ID = "view_id";
         } // end struct Options
 
 
@@ -347,6 +355,11 @@ namespace kinetica
         /// </list>
         /// The default value is <see
         /// cref="CreateProjectionRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateProjectionRequest.Options.VIEW_ID">VIEW_ID</see>:</term>
+        ///         <description>view this projection is part of</description>
         ///     </item>
         /// </list>
         ///   </summary>
@@ -468,6 +481,11 @@ namespace kinetica
         /// </list>
         /// The default value is <see
         /// cref="CreateProjectionRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateProjectionRequest.Options.VIEW_ID">VIEW_ID</see>:</term>
+        ///         <description>view this projection is part of</description>
         ///     </item>
         /// </list>
         ///   </param>

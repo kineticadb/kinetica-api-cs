@@ -241,6 +241,12 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
+        /// cref="AggregateGroupByRequest.Options.VIEW_ID">VIEW_ID</see>:</term>
+        ///         <description>view this result table is part
+        /// of</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="AggregateGroupByRequest.Options.MATERIALIZE_ON_GPU">MATERIALIZE_ON_GPU</see>:</term>
         ///         <description>If <i>true</i> then the columns of the groupby
         /// result table will be cached on the GPU. Must be used in combination
@@ -403,6 +409,9 @@ namespace kinetica
             /// table. Must be used in combination with the <i>result_table</i>
             /// option.</summary>
             public const string CHUNK_SIZE = "chunk_size";
+
+            /// <summary>view this result table is part of</summary>
+            public const string VIEW_ID = "view_id";
 
             /// <summary>If <i>true</i> then the columns of the groupby result
             /// table will be cached on the GPU. Must be used in combination
@@ -604,6 +613,12 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
+        /// cref="AggregateGroupByRequest.Options.VIEW_ID">VIEW_ID</see>:</term>
+        ///         <description>view this result table is part
+        /// of</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="AggregateGroupByRequest.Options.MATERIALIZE_ON_GPU">MATERIALIZE_ON_GPU</see>:</term>
         ///         <description>If <i>true</i> then the columns of the groupby
         /// result table will be cached on the GPU. Must be used in combination
@@ -783,6 +798,12 @@ namespace kinetica
         ///         <description>Indicates the chunk size to be used for the
         /// result table. Must be used in combination with the
         /// <i>result_table</i> option.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AggregateGroupByRequest.Options.VIEW_ID">VIEW_ID</see>:</term>
+        ///         <description>view this result table is part
+        /// of</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -993,6 +1014,12 @@ namespace kinetica
         ///         <description>Indicates the chunk size to be used for the
         /// result table. Must be used in combination with the
         /// <i>result_table</i> option.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AggregateGroupByRequest.Options.VIEW_ID">VIEW_ID</see>:</term>
+        ///         <description>view this result table is part
+        /// of</description>
         ///     </item>
         ///     <item>
         ///         <term><see

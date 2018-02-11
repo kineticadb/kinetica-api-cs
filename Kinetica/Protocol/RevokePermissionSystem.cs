@@ -124,7 +124,7 @@ namespace kinetica
         /// 
         public RevokePermissionSystemRequest( string name,
                                               string permission,
-                                              IDictionary<string, string> options)
+                                              IDictionary<string, string> options = null)
         {
             this.name = name ?? "";
             this.permission = permission ?? "";

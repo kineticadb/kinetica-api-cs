@@ -1,8 +1,15 @@
 GPUdb C# API Changelog
 =======================
 
+Version 6.2.0 - 2018-02-11
+--------------------------
+
+-   Version release
+
+
 Version 6.1.0 - 2017-10-05
 --------------------------
+
 -   Added support for datetime
 
 

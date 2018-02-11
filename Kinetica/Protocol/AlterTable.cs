@@ -180,6 +180,35 @@ namespace kinetica
         /// 'no_access', 'read_only', 'write_only' and
         /// 'read_write'.</description>
         ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterTableRequest.Action.REFRESH">REFRESH</see>:</term>
+        ///         <description>Replay all the table creation commands
+        /// required to create this view. Endpoints supported are filter,
+        /// create_join_table, create_projection, create_union,
+        /// aggregate_group_by, and aggregate_unique.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterTableRequest.Action.SET_REFRESH_METHOD">SET_REFRESH_METHOD</see>:</term>
+        ///         <description>Set the method by which this view is refreshed
+        /// - one of manual, periodic, on_change, on_query. </description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterTableRequest.Action.SET_REFRESH_START_TIME">SET_REFRESH_START_TIME</see>:</term>
+        ///         <description>Set the time to start periodic refreshes to
+        /// datetime string with format YYYY-MM-DD HH:MM:SS at which refresh is
+        /// to be done.  Next refresh occurs at refresh_start_time +
+        /// N*refresh_period</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterTableRequest.Action.SET_REFRESH_PERIOD">SET_REFRESH_PERIOD</see>:</term>
+        ///         <description>Set the time interval at which to refresh this
+        /// view - set refresh method to periodic if not alreay
+        /// set.</description>
+        ///     </item>
         /// </list>
         /// A set of string constants for the parameter <see cref="action"
         /// />.</summary>
@@ -271,6 +300,26 @@ namespace kinetica
             /// 'no_access', 'read_only', 'write_only' and
             /// 'read_write'.</summary>
             public const string SET_GLOBAL_ACCESS_MODE = "set_global_access_mode";
+
+            /// <summary>Replay all the table creation commands required to
+            /// create this view. Endpoints supported are filter,
+            /// create_join_table, create_projection, create_union,
+            /// aggregate_group_by, and aggregate_unique.</summary>
+            public const string REFRESH = "refresh";
+
+            /// <summary>Set the method by which this view is refreshed - one
+            /// of manual, periodic, on_change, on_query. </summary>
+            public const string SET_REFRESH_METHOD = "set_refresh_method";
+
+            /// <summary>Set the time to start periodic refreshes to datetime
+            /// string with format YYYY-MM-DD HH:MM:SS at which refresh is to
+            /// be done.  Next refresh occurs at refresh_start_time +
+            /// N*refresh_period</summary>
+            public const string SET_REFRESH_START_TIME = "set_refresh_start_time";
+
+            /// <summary>Set the time interval at which to refresh this view -
+            /// set refresh method to periodic if not alreay set.</summary>
+            public const string SET_REFRESH_PERIOD = "set_refresh_period";
         } // end struct Action
 
 
@@ -280,7 +329,8 @@ namespace kinetica
         ///         <term><see
         /// cref="AlterTableRequest.Options.COLUMN_DEFAULT_VALUE">COLUMN_DEFAULT_VALUE</see>:</term>
         ///         <description>When adding a column, set a default value for
-        /// existing records.</description>
+        /// existing records.  For nullable columns, the default value will be
+        /// null, regardless of data type.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -328,10 +378,8 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="AlterTableRequest.Options.COPY_VALUES_FROM_COLUMN">COPY_VALUES_FROM_COLUMN</see>:</term>
-        ///         <description>When adding or changing a column, enter a
-        /// column name from the same table being altered to use as a source
-        /// for the column being added/changed; values will be copied from this
-        /// source column into the new/modified column.</description>
+        ///         <description>please see add_column_expression
+        /// instead.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -363,6 +411,13 @@ namespace kinetica
         /// The default value is <see
         /// cref="AlterTableRequest.Options.TRUE">TRUE</see>.</description>
         ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterTableRequest.Options.ADD_COLUMN_EXPRESSION">ADD_COLUMN_EXPRESSION</see>:</term>
+        ///         <description>expression for new column's values (optional
+        /// with add_column). Any valid expressions including existing
+        /// columns.</description>
+        ///     </item>
         /// </list>
         /// <br />
         /// A set of string constants for the parameter <see cref="options"
@@ -371,7 +426,8 @@ namespace kinetica
         {
 
             /// <summary>When adding a column, set a default value for existing
-            /// records.</summary>
+            /// records.  For nullable columns, the default value will be null,
+            /// regardless of data type.</summary>
             public const string COLUMN_DEFAULT_VALUE = "column_default_value";
 
             /// <summary>When adding or changing a column, set the column
@@ -415,10 +471,7 @@ namespace kinetica
             public const string LZ4 = "lz4";
             public const string LZ4HC = "lz4hc";
 
-            /// <summary>When adding or changing a column, enter a column name
-            /// from the same table being altered to use as a source for the
-            /// column being added/changed; values will be copied from this
-            /// source column into the new/modified column.</summary>
+            /// <summary>please see add_column_expression instead.</summary>
             public const string COPY_VALUES_FROM_COLUMN = "copy_values_from_column";
 
             /// <summary>When changing a column, specify new column
@@ -452,6 +505,11 @@ namespace kinetica
 
             /// <summary>false</summary>
             public const string FALSE = "false";
+
+            /// <summary>expression for new column's values (optional with
+            /// add_column). Any valid expressions including existing
+            /// columns.</summary>
+            public const string ADD_COLUMN_EXPRESSION = "add_column_expression";
         } // end struct Options
 
 
@@ -584,6 +642,35 @@ namespace kinetica
         /// 'no_access', 'read_only', 'write_only' and
         /// 'read_write'.</description>
         ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterTableRequest.Action.REFRESH">REFRESH</see>:</term>
+        ///         <description>Replay all the table creation commands
+        /// required to create this view. Endpoints supported are filter,
+        /// create_join_table, create_projection, create_union,
+        /// aggregate_group_by, and aggregate_unique.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterTableRequest.Action.SET_REFRESH_METHOD">SET_REFRESH_METHOD</see>:</term>
+        ///         <description>Set the method by which this view is refreshed
+        /// - one of manual, periodic, on_change, on_query. </description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterTableRequest.Action.SET_REFRESH_START_TIME">SET_REFRESH_START_TIME</see>:</term>
+        ///         <description>Set the time to start periodic refreshes to
+        /// datetime string with format YYYY-MM-DD HH:MM:SS at which refresh is
+        /// to be done.  Next refresh occurs at refresh_start_time +
+        /// N*refresh_period</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterTableRequest.Action.SET_REFRESH_PERIOD">SET_REFRESH_PERIOD</see>:</term>
+        ///         <description>Set the time interval at which to refresh this
+        /// view - set refresh method to periodic if not alreay
+        /// set.</description>
+        ///     </item>
         /// </list>  </summary>
         public string action { get; set; }
 
@@ -598,7 +685,8 @@ namespace kinetica
         ///         <term><see
         /// cref="AlterTableRequest.Options.COLUMN_DEFAULT_VALUE">COLUMN_DEFAULT_VALUE</see>:</term>
         ///         <description>When adding a column, set a default value for
-        /// existing records.</description>
+        /// existing records.  For nullable columns, the default value will be
+        /// null, regardless of data type.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -646,10 +734,8 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="AlterTableRequest.Options.COPY_VALUES_FROM_COLUMN">COPY_VALUES_FROM_COLUMN</see>:</term>
-        ///         <description>When adding or changing a column, enter a
-        /// column name from the same table being altered to use as a source
-        /// for the column being added/changed; values will be copied from this
-        /// source column into the new/modified column.</description>
+        ///         <description>please see add_column_expression
+        /// instead.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -680,6 +766,13 @@ namespace kinetica
         /// </list>
         /// The default value is <see
         /// cref="AlterTableRequest.Options.TRUE">TRUE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterTableRequest.Options.ADD_COLUMN_EXPRESSION">ADD_COLUMN_EXPRESSION</see>:</term>
+        ///         <description>expression for new column's values (optional
+        /// with add_column). Any valid expressions including existing
+        /// columns.</description>
         ///     </item>
         /// </list>
         ///   </summary>
@@ -821,6 +914,35 @@ namespace kinetica
         /// 'no_access', 'read_only', 'write_only' and
         /// 'read_write'.</description>
         ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterTableRequest.Action.REFRESH">REFRESH</see>:</term>
+        ///         <description>Replay all the table creation commands
+        /// required to create this view. Endpoints supported are filter,
+        /// create_join_table, create_projection, create_union,
+        /// aggregate_group_by, and aggregate_unique.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterTableRequest.Action.SET_REFRESH_METHOD">SET_REFRESH_METHOD</see>:</term>
+        ///         <description>Set the method by which this view is refreshed
+        /// - one of manual, periodic, on_change, on_query. </description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterTableRequest.Action.SET_REFRESH_START_TIME">SET_REFRESH_START_TIME</see>:</term>
+        ///         <description>Set the time to start periodic refreshes to
+        /// datetime string with format YYYY-MM-DD HH:MM:SS at which refresh is
+        /// to be done.  Next refresh occurs at refresh_start_time +
+        /// N*refresh_period</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterTableRequest.Action.SET_REFRESH_PERIOD">SET_REFRESH_PERIOD</see>:</term>
+        ///         <description>Set the time interval at which to refresh this
+        /// view - set refresh method to periodic if not alreay
+        /// set.</description>
+        ///     </item>
         /// </list>  </param>
         /// <param name="_value">The value of the modification. May be a column
         /// name, 'true' or 'false', a TTL, or the global access mode depending
@@ -831,7 +953,8 @@ namespace kinetica
         ///         <term><see
         /// cref="AlterTableRequest.Options.COLUMN_DEFAULT_VALUE">COLUMN_DEFAULT_VALUE</see>:</term>
         ///         <description>When adding a column, set a default value for
-        /// existing records.</description>
+        /// existing records.  For nullable columns, the default value will be
+        /// null, regardless of data type.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -879,10 +1002,8 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="AlterTableRequest.Options.COPY_VALUES_FROM_COLUMN">COPY_VALUES_FROM_COLUMN</see>:</term>
-        ///         <description>When adding or changing a column, enter a
-        /// column name from the same table being altered to use as a source
-        /// for the column being added/changed; values will be copied from this
-        /// source column into the new/modified column.</description>
+        ///         <description>please see add_column_expression
+        /// instead.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -913,6 +1034,13 @@ namespace kinetica
         /// </list>
         /// The default value is <see
         /// cref="AlterTableRequest.Options.TRUE">TRUE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterTableRequest.Options.ADD_COLUMN_EXPRESSION">ADD_COLUMN_EXPRESSION</see>:</term>
+        ///         <description>expression for new column's values (optional
+        /// with add_column). Any valid expressions including existing
+        /// columns.</description>
         ///     </item>
         /// </list>
         ///   </param>

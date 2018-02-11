@@ -40,6 +40,12 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
+        /// cref="FilterRequest.Options.VIEW_ID">VIEW_ID</see>:</term>
+        ///         <description>view this filtered-view is part
+        /// of</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="FilterRequest.Options.TTL">TTL</see>:</term>
         ///         <description>Sets the <a
         /// href="../../../../concepts/ttl.html" target="_top">TTL</a> of the
@@ -58,6 +64,9 @@ namespace kinetica
             /// collection will be automatically created. If empty, then the
             /// newly created view will be top-level.</summary>
             public const string COLLECTION_NAME = "collection_name";
+
+            /// <summary>view this filtered-view is part of</summary>
+            public const string VIEW_ID = "view_id";
 
             /// <summary>Sets the <a href="../../../../../concepts/ttl.html"
             /// target="_top">TTL</a> of the view specified in <see
@@ -92,6 +101,12 @@ namespace kinetica
         /// newly created view. If the collection provided is non-existent, the
         /// collection will be automatically created. If empty, then the newly
         /// created view will be top-level.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="FilterRequest.Options.VIEW_ID">VIEW_ID</see>:</term>
+        ///         <description>view this filtered-view is part
+        /// of</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -134,6 +149,12 @@ namespace kinetica
         /// newly created view. If the collection provided is non-existent, the
         /// collection will be automatically created. If empty, then the newly
         /// created view will be top-level.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="FilterRequest.Options.VIEW_ID">VIEW_ID</see>:</term>
+        ///         <description>view this filtered-view is part
+        /// of</description>
         ///     </item>
         ///     <item>
         ///         <term><see

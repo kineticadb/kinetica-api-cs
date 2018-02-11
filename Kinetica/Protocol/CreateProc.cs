@@ -64,6 +64,29 @@ namespace kinetica
         } // end struct ExecutionMode
 
 
+        /// <summary>Optional parameters.
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateProcRequest.Options.MAX_CONCURRENCY_PER_NODE">MAX_CONCURRENCY_PER_NODE</see>:</term>
+        ///         <description>The maximum number of concurrent instances of
+        /// the proc that will be executed per node. 0 allows unlimited
+        /// concurrency.</description>
+        ///     </item>
+        /// </list>
+        /// <br />
+        /// A set of string constants for the parameter <see cref="options"
+        /// />.</summary>
+        public struct Options
+        {
+
+            /// <summary>The maximum number of concurrent instances of the proc
+            /// that will be executed per node. 0 allows unlimited
+            /// concurrency.</summary>
+            public const string MAX_CONCURRENCY_PER_NODE = "max_concurrency_per_node";
+        } // end struct Options
+
+
         /// <summary>Name of the proc to be created. Must not be the name of a
         /// currently existing proc.  </summary>
         public string proc_name { get; set; }
@@ -119,7 +142,17 @@ namespace kinetica
         /// executed.  </summary>
         public IList<string> args { get; set; } = new List<string>();
 
-        /// <summary>Optional parameters.  </summary>
+        /// <summary>Optional parameters.
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateProcRequest.Options.MAX_CONCURRENCY_PER_NODE">MAX_CONCURRENCY_PER_NODE</see>:</term>
+        ///         <description>The maximum number of concurrent instances of
+        /// the proc that will be executed per node. 0 allows unlimited
+        /// concurrency.</description>
+        ///     </item>
+        /// </list>
+        ///   </summary>
         public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
 
 
@@ -175,7 +208,17 @@ namespace kinetica
         /// <param name="args">An array of command-line arguments that will be
         /// passed to <paramref cref="CreateProcRequest.command" /> when the
         /// proc is executed.  </param>
-        /// <param name="options">Optional parameters.  </param>
+        /// <param name="options">Optional parameters.
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateProcRequest.Options.MAX_CONCURRENCY_PER_NODE">MAX_CONCURRENCY_PER_NODE</see>:</term>
+        ///         <description>The maximum number of concurrent instances of
+        /// the proc that will be executed per node. 0 allows unlimited
+        /// concurrency.</description>
+        ///     </item>
+        /// </list>
+        ///   </param>
         /// 
         public CreateProcRequest( string proc_name,
                                   string execution_mode = null,

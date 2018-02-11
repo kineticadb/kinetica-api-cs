@@ -462,6 +462,31 @@ namespace kinetica
         public struct AdditionalInfo
         {
 
+            /// <summary>method by which this table was created.
+            /// Supported values:
+            /// <list type="bullet">
+            ///     <item>
+            ///         <term><see
+            /// cref="ShowTableResponse.AdditionalInfo.CREATE_TABLE">CREATE_TABLE</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="ShowTableResponse.AdditionalInfo.CREATE_PROJECTION">CREATE_PROJECTION</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="ShowTableResponse.AdditionalInfo.CREATE_UNION">CREATE_UNION</see></term>
+            ///     </item>
+            /// </list></summary>
+            public const string REQUEST_AVRO_TYPE = "request_avro_type";
+            public const string CREATE_TABLE = "create_table";
+            public const string CREATE_PROJECTION = "create_projection";
+            public const string CREATE_UNION = "create_union";
+
+            /// <summary>The json representation of request creating this
+            /// table.</summary>
+            public const string REQUEST_AVRO_JSON = "request_avro_json";
+
             /// <summary>Only present if the respective table is a collection.
             /// The value indicates whether the collection is allowed to
             /// contain multiple tables or views of the same type or not.
@@ -500,6 +525,10 @@ namespace kinetica
             /// sum of the byte sizes of all columns with property
             /// 'data'.</summary>
             public const string RECORD_BYTES = "record_bytes";
+
+            /// <summary>The names of the collections this table is part of.
+            /// Only set if table is part of a collection</summary>
+            public const string COLLECTION_NAMES = "collection_names";
 
             /// <summary>The value of the <a
             /// href="../../../../../concepts/ttl.html"
@@ -592,6 +621,43 @@ namespace kinetica
             /// <summary>All read/write operations are allowed on this
             /// table.</summary>
             public const string READ_WRITE = "read_write";
+
+            /// <summary>for materialized view the name of the view this member
+            /// table is part of - if same as the table_name then this is the
+            /// root of the view</summary>
+            public const string VIEW_TABLE_NAME = "view_table_name";
+
+            /// <summary>true if the view named view_table_name is persisted -
+            /// reported for each view member.  Means method of recreating this
+            /// member is saved - not the members data</summary>
+            public const string IS_VIEW_PERSISTED = "is_view_persisted";
+
+            /// <summary>true if some input table of the materialized view that
+            /// affects this member table has been modified since the last
+            /// refresh</summary>
+            public const string IS_DIRTY = "is_dirty";
+
+            /// <summary>for materialized view current refresh_method - one of
+            /// manual, periodic, on_change, on_query</summary>
+            public const string REFRESH_METHOD = "refresh_method";
+
+            /// <summary>for materialized view with periodic refresh_method the
+            /// current intial datetime string that periodic refreshes
+            /// began</summary>
+            public const string REFRESH_START_TIME = "refresh_start_time";
+
+            /// <summary>for materialized view with periodic refresh_method the
+            /// current refresh period in seconds</summary>
+            public const string REFRESH_PERIOD = "refresh_period";
+
+            /// <summary>for materialized view the a datatime string indicating
+            /// the last time the view was refreshed</summary>
+            public const string LAST_REFRESH_TIME = "last_refresh_time";
+
+            /// <summary>for materialized with periodic refresh_method a
+            /// datetime string indicating the next time the view is to be
+            /// refreshed</summary>
+            public const string NEXT_REFRESH_TIME = "next_refresh_time";
         } // end struct AdditionalInfo
 
 

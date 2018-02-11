@@ -80,10 +80,14 @@
     <Compile Include="Protocol\AlterTableMetadata.cs" />
     <Compile Include="Protocol\AlterUser.cs" />
     <Compile Include="Protocol\AppendRecords.cs" />
+    <Compile Include="Protocol\ClearStatistics.cs" />
     <Compile Include="Protocol\ClearTable.cs" />
     <Compile Include="Protocol\ClearTableMonitor.cs" />
     <Compile Include="Protocol\ClearTrigger.cs" />
+    <Compile Include="Protocol\CollectStatistics.cs" />
+    <Compile Include="Protocol\CreateJob.cs" />
     <Compile Include="Protocol\CreateJoinTable.cs" />
+    <Compile Include="Protocol\CreateMaterializedView.cs" />
     <Compile Include="Protocol\CreateProc.cs" />
     <Compile Include="Protocol\CreateProjection.cs" />
     <Compile Include="Protocol\CreateRole.cs" />
@@ -114,6 +118,7 @@
     <Compile Include="Protocol\FilterByString.cs" />
     <Compile Include="Protocol\FilterByTable.cs" />
     <Compile Include="Protocol\FilterByValue.cs" />
+    <Compile Include="Protocol\GetJob.cs" />
     <Compile Include="Protocol\GetRecords.cs" />
     <Compile Include="Protocol\GetRecordsByColumn.cs" />
     <Compile Include="Protocol\GetRecordsBySeries.cs" />
@@ -137,6 +142,7 @@
     <Compile Include="Protocol\ShowProc.cs" />
     <Compile Include="Protocol\ShowProcStatus.cs" />
     <Compile Include="Protocol\ShowSecurity.cs" />
+    <Compile Include="Protocol\ShowStatistics.cs" />
     <Compile Include="Protocol\ShowSystemProperties.cs" />
     <Compile Include="Protocol\ShowSystemStatus.cs" />
     <Compile Include="Protocol\ShowSystemTiming.cs" />
