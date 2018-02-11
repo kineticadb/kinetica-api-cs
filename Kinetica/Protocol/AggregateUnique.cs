@@ -16,13 +16,13 @@ namespace kinetica
     /// />.
     /// <br />
     /// Returns all the unique values from a particular column (specified by
-    /// <see cref="column_name" />) of a particular table (specified by <see
-    /// cref="table_name" />). If <see cref="column_name" /> is a numeric
-    /// column the values will be in <member name="binary_encoded_response" />.
-    /// Otherwise if <see cref="column_name" /> is a string column the values
-    /// will be in <member name="json_encoded_response" />.  The results can be
-    /// paged via the <see cref="offset" /> and <see cref="limit" />
-    /// parameters.
+    /// <see cref="column_name" />) of a particular table or collection
+    /// (specified by <see cref="table_name" />). If <see cref="column_name" />
+    /// is a numeric column the values will be in <member
+    /// name="binary_encoded_response" />. Otherwise if <see cref="column_name"
+    /// /> is a string column the values will be in <member
+    /// name="json_encoded_response" />.  The results can be paged via the <see
+    /// cref="offset" /> and <see cref="limit" /> parameters.
     /// <br />
     /// Columns marked as <a
     /// href="../../../../../concepts/types.html#data-handling"
@@ -34,7 +34,7 @@ namespace kinetica
     /// {"limit":"10","sort_order":"descending"}.
     /// <br />
     /// The response is returned as a dynamic schema. For details see: <a
-    /// href="../../../../../concepts/dynamic_schemas.html"
+    /// href="../../../../../api/index.html#dynamic-schemas"
     /// target="_top">dynamic schemas documentation</a>.
     /// <br />
     /// If a <i>result_table</i> name is specified in the <see cref="options"
@@ -48,8 +48,9 @@ namespace kinetica
     /// the result table will be sharded, in all other cases it will be
     /// replicated.  Sorting will properly function only if the result table is
     /// replicated or if there is only one processing node and should not be
-    /// relied upon in other cases.  Not available when the value of <see
-    /// cref="column_name" /> is an unrestricted-length string.</summary>
+    /// relied upon in other cases.  Not available if <see cref="table_name" />
+    /// is a collection or when the value of <see cref="column_name" /> is an
+    /// unrestricted-length string.</summary>
     public class AggregateUniqueRequest : KineticaData
     {
 
@@ -130,8 +131,11 @@ namespace kinetica
         ///         <description>The name of the table used to store the
         /// results. If present, no results are returned in the response. Has
         /// the same naming restrictions as <a
-        /// href="../../../../concepts/tables.html"
-        /// target="_top">tables</a>.</description>
+        /// href="../../../../concepts/tables.html" target="_top">tables</a>.
+        /// Not available if <paramref cref="AggregateUniqueRequest.table_name"
+        /// /> is a collection or when <paramref
+        /// cref="AggregateUniqueRequest.column_name" /> is an
+        /// unrestricted-length string.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -225,7 +229,10 @@ namespace kinetica
             /// present, no results are returned in the response. Has the same
             /// naming restrictions as <a
             /// href="../../../../../concepts/tables.html"
-            /// target="_top">tables</a>.</summary>
+            /// target="_top">tables</a>.  Not available if <see
+            /// cref="table_name" /> is a collection or when <see
+            /// cref="column_name" /> is an unrestricted-length
+            /// string.</summary>
             public const string RESULT_TABLE = "result_table";
 
             /// <summary>If <i>true</i>, then the result table specified in
@@ -272,8 +279,8 @@ namespace kinetica
         } // end struct Options
 
 
-        /// <summary>Name of the table on which the operation will be
-        /// performed. Must be an existing table.  </summary>
+        /// <summary>Name of an existing table/collection on which the
+        /// operation will be performed.  </summary>
         public string table_name { get; set; }
 
         /// <summary>Name of the column or an expression containing one or more
@@ -357,8 +364,11 @@ namespace kinetica
         ///         <description>The name of the table used to store the
         /// results. If present, no results are returned in the response. Has
         /// the same naming restrictions as <a
-        /// href="../../../../concepts/tables.html"
-        /// target="_top">tables</a>.</description>
+        /// href="../../../../concepts/tables.html" target="_top">tables</a>.
+        /// Not available if <paramref cref="AggregateUniqueRequest.table_name"
+        /// /> is a collection or when <paramref
+        /// cref="AggregateUniqueRequest.column_name" /> is an
+        /// unrestricted-length string.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -422,8 +432,8 @@ namespace kinetica
         /// <summary>Constructs an AggregateUniqueRequest object with the
         /// specified parameters.</summary>
         /// 
-        /// <param name="table_name">Name of the table on which the operation
-        /// will be performed. Must be an existing table.  </param>
+        /// <param name="table_name">Name of an existing table/collection on
+        /// which the operation will be performed.  </param>
         /// <param name="column_name">Name of the column or an expression
         /// containing one or more column names on which the unique function
         /// would be applied.  </param>
@@ -478,8 +488,11 @@ namespace kinetica
         ///         <description>The name of the table used to store the
         /// results. If present, no results are returned in the response. Has
         /// the same naming restrictions as <a
-        /// href="../../../../concepts/tables.html"
-        /// target="_top">tables</a>.</description>
+        /// href="../../../../concepts/tables.html" target="_top">tables</a>.
+        /// Not available if <paramref cref="AggregateUniqueRequest.table_name"
+        /// /> is a collection or when <paramref
+        /// cref="AggregateUniqueRequest.column_name" /> is an
+        /// unrestricted-length string.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -552,8 +565,8 @@ namespace kinetica
         /// <summary>Constructs an AggregateUniqueRequest object with the
         /// specified parameters.</summary>
         /// 
-        /// <param name="table_name">Name of the table on which the operation
-        /// will be performed. Must be an existing table.  </param>
+        /// <param name="table_name">Name of an existing table/collection on
+        /// which the operation will be performed.  </param>
         /// <param name="column_name">Name of the column or an expression
         /// containing one or more column names on which the unique function
         /// would be applied.  </param>
@@ -627,8 +640,11 @@ namespace kinetica
         ///         <description>The name of the table used to store the
         /// results. If present, no results are returned in the response. Has
         /// the same naming restrictions as <a
-        /// href="../../../../concepts/tables.html"
-        /// target="_top">tables</a>.</description>
+        /// href="../../../../concepts/tables.html" target="_top">tables</a>.
+        /// Not available if <paramref cref="AggregateUniqueRequest.table_name"
+        /// /> is a collection or when <paramref
+        /// cref="AggregateUniqueRequest.column_name" /> is an
+        /// unrestricted-length string.</description>
         ///     </item>
         ///     <item>
         ///         <term><see

@@ -27,7 +27,7 @@ namespace kinetica
     /// contiguity across pages cannot be relied upon.
     /// <br />
     /// The response is returned as a dynamic schema. For details see: <a
-    /// href="../../../../../concepts/dynamic_schemas.html"
+    /// href="../../../../../api/index.html#dynamic-schemas"
     /// target="_top">dynamic schemas documentation</a>.</summary>
     public class GetRecordsByColumnRequest : KineticaData
     {
@@ -74,8 +74,8 @@ namespace kinetica
         ///         <term><see
         /// cref="GetRecordsByColumnRequest.Options.SORT_ORDER">SORT_ORDER</see>:</term>
         ///         <description>String indicating how the returned values
-        /// should be sorted - ascending or descending. Default is 'ascending'.
-        /// If sort_order is provided, sort_by has to be provided.
+        /// should be sorted - ascending or descending. If sort_order is
+        /// provided, sort_by has to be provided.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -116,8 +116,8 @@ namespace kinetica
             public const string SORT_BY = "sort_by";
 
             /// <summary>String indicating how the returned values should be
-            /// sorted - ascending or descending. Default is 'ascending'. If
-            /// sort_order is provided, sort_by has to be provided.
+            /// sorted - ascending or descending. If sort_order is provided,
+            /// sort_by has to be provided.
             /// Supported values:
             /// <list type="bullet">
             ///     <item>
@@ -199,8 +199,8 @@ namespace kinetica
         ///         <term><see
         /// cref="GetRecordsByColumnRequest.Options.SORT_ORDER">SORT_ORDER</see>:</term>
         ///         <description>String indicating how the returned values
-        /// should be sorted - ascending or descending. Default is 'ascending'.
-        /// If sort_order is provided, sort_by has to be provided.
+        /// should be sorted - ascending or descending. If sort_order is
+        /// provided, sort_by has to be provided.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -267,8 +267,8 @@ namespace kinetica
         ///         <term><see
         /// cref="GetRecordsByColumnRequest.Options.SORT_ORDER">SORT_ORDER</see>:</term>
         ///         <description>String indicating how the returned values
-        /// should be sorted - ascending or descending. Default is 'ascending'.
-        /// If sort_order is provided, sort_by has to be provided.
+        /// should be sorted - ascending or descending. If sort_order is
+        /// provided, sort_by has to be provided.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -360,8 +360,8 @@ namespace kinetica
         ///         <term><see
         /// cref="GetRecordsByColumnRequest.Options.SORT_ORDER">SORT_ORDER</see>:</term>
         ///         <description>String indicating how the returned values
-        /// should be sorted - ascending or descending. Default is 'ascending'.
-        /// If sort_order is provided, sort_by has to be provided.
+        /// should be sorted - ascending or descending. If sort_order is
+        /// provided, sort_by has to be provided.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>

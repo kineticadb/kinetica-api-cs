@@ -48,7 +48,7 @@ namespace kinetica
     /// arg_min, arg_max and count_distinct.
     /// <br />
     /// The response is returned as a dynamic schema. For details see: <a
-    /// href="../../../../../concepts/dynamic_schemas.html"
+    /// href="../../../../../api/index.html#dynamic-schemas"
     /// target="_top">dynamic schemas documentation</a>.
     /// <br />
     /// If a <i>result_table</i> name is specified in the <see cref="options"

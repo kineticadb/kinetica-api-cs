@@ -20,71 +20,6 @@ namespace kinetica
 
 
 
-        /// <summary>Add a new node to the GPUdb cluster. By default this will
-        /// only add the node to the cluster but will not be assigned any data
-        /// shards. Set the <i>reshard</i> option to <i>true</i> to move some
-        /// shards from the other nodes in the cluster to this node.</summary>
-        /// 
-        /// <param name="request_">Request object containing the parameters for
-        /// the operation.</param>
-        /// 
-        /// <returns>Response object containing the result of the
-        /// operation.</returns>
-        /// 
-        public AdminAddNodeResponse adminAddNode( AdminAddNodeRequest request_ )
-        {
-            AdminAddNodeResponse actualResponse_ = SubmitRequest<AdminAddNodeResponse>("/admin/add/node", request_, false);
-
-            return actualResponse_;
-        }
-
-
-        /// <summary>Add a new node to the GPUdb cluster. By default this will
-        /// only add the node to the cluster but will not be assigned any data
-        /// shards. Set the <i>reshard</i> option to <i>true</i> to move some
-        /// shards from the other nodes in the cluster to this node.</summary>
-        /// 
-        /// <param name="host_name">host name of the node being added to the
-        /// system.  </param>
-        /// <param name="gpu_index"></param>
-        /// <param name="options">Optional parameters.
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="AdminAddNodeRequest.Options.RESHARD">RESHARD</see>:</term>
-        ///         <description>If <i>true</i>, then some of the shards from
-        /// all the existing nodes will be moved to the new node being added.
-        /// Note that for big clusters, this data transfer could be time
-        /// consuming and also result in delay in responding to queries for
-        /// busy clusters.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="AdminAddNodeRequest.Options.TRUE">TRUE</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AdminAddNodeRequest.Options.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="AdminAddNodeRequest.Options.FALSE">FALSE</see>.</description>
-        ///     </item>
-        /// </list>
-        ///   </param>
-        /// 
-        /// <returns>Response object containing the result of the
-        /// operation.</returns>
-        /// 
-        public AdminAddNodeResponse adminAddNode( string host_name,
-                                                  int gpu_index,
-                                                  IDictionary<string, string> options = null )
-        {
-            return adminAddNode( new AdminAddNodeRequest( host_name, gpu_index, options ) );
-        }
-
-
         /// <summary>Update the system config file.  Updates to the config file
         /// are only permitted when the system is stopped.</summary>
         /// 
@@ -174,73 +109,6 @@ namespace kinetica
         }
 
 
-        /// <summary>Specify the mapping of the shards to the various ranks in
-        /// the cluster. In most cases, it should be sufficient to let the
-        /// system automatically distribute the shards evenly across the
-        /// available ranks. However, this endpoint can be used to move shards
-        /// for various administrative reasons, say in case of heterogeneous
-        /// node clusters.  It should be noted that the system may reassign the
-        /// shards the when the number of nodes in the cluster changes or the
-        /// cluster is rebalanced.</summary>
-        /// 
-        /// <param name="request_">Request object containing the parameters for
-        /// the operation.</param>
-        /// 
-        /// <returns>Response object containing the result of the
-        /// operation.</returns>
-        /// 
-        public AdminAlterShardsResponse adminAlterShards( AdminAlterShardsRequest request_ )
-        {
-            AdminAlterShardsResponse actualResponse_ = SubmitRequest<AdminAlterShardsResponse>("/admin/alter/shards", request_, false);
-
-            return actualResponse_;
-        }
-
-
-        /// <summary>Specify the mapping of the shards to the various ranks in
-        /// the cluster. In most cases, it should be sufficient to let the
-        /// system automatically distribute the shards evenly across the
-        /// available ranks. However, this endpoint can be used to move shards
-        /// for various administrative reasons, say in case of heterogeneous
-        /// node clusters.  It should be noted that the system may reassign the
-        /// shards the when the number of nodes in the cluster changes or the
-        /// cluster is rebalanced.</summary>
-        /// 
-        /// <param name="version"></param>
-        /// <param name="use_index">Set to true when only the shards being
-        /// moved are specified in the request.  The index must indicate the
-        /// shards being moved.  </param>
-        /// <param name="rank">node to which the shard will be moved.  </param>
-        /// <param name="tom">Toms to which the shard will be moved.   </param>
-        /// <param name="index">The shard being moved.  When use_index is set
-        /// to true, size of this array must equal the size of rank/tom array.
-        /// </param>
-        /// <param name="backup_map_list">List of rank_tom integers for which
-        /// backup toms are defined  </param>
-        /// <param name="backup_map_values">List of the backup rank_tom(s) for
-        /// each rank_tom in backup_map_list  </param>
-        /// <param name="options">Optional parameters.  </param>
-        /// 
-        /// <returns>Response object containing the result of the
-        /// operation.</returns>
-        /// 
-        public AdminAlterShardsResponse adminAlterShards( long version,
-                                                          bool use_index,
-                                                          IList<int> rank,
-                                                          IList<int> tom,
-                                                          IList<int> index,
-                                                          IList<int> backup_map_list,
-                                                          IList<IList<int>> backup_map_values,
-                                                          IDictionary<string, string> options = null )
-        {
-            return adminAlterShards( new AdminAlterShardsRequest( version, use_index,
-                                                                  rank, tom, index,
-                                                                  backup_map_list,
-                                                                  backup_map_values,
-                                                                  options ) );
-        }
-
-
         /// <summary>Take the system offline. When the system is offline, no
         /// user operations can be performed with the exception of a system
         /// shutdown.</summary>
@@ -303,176 +171,6 @@ namespace kinetica
                                                   IDictionary<string, string> options = null )
         {
             return adminOffline( new AdminOfflineRequest( offline, options ) );
-        }
-
-
-        /// <summary>Rebalance the cluster so that all the nodes contain
-        /// approximately equal number of records.  The rebalance will also
-        /// cause the shards to be (as much as possible) equally distributed
-        /// across all the ranks. Note that the system may move any shards that
-        /// were moved by system administrator using <see
-        /// cref="Kinetica.adminAlterShards(long,bool,IList{int},IList{int},IList{int},IList{int},IList{IList{int}},IDictionary{string, string})"
-        /// /></summary>
-        /// 
-        /// <param name="request_">Request object containing the parameters for
-        /// the operation.</param>
-        /// 
-        /// <returns>Response object containing the result of the
-        /// operation.</returns>
-        /// 
-        public AdminRebalanceResponse adminRebalance( AdminRebalanceRequest request_ )
-        {
-            AdminRebalanceResponse actualResponse_ = SubmitRequest<AdminRebalanceResponse>("/admin/rebalance", request_, false);
-
-            return actualResponse_;
-        }
-
-
-        /// <summary>Rebalance the cluster so that all the nodes contain
-        /// approximately equal number of records.  The rebalance will also
-        /// cause the shards to be (as much as possible) equally distributed
-        /// across all the ranks. Note that the system may move any shards that
-        /// were moved by system administrator using <see
-        /// cref="Kinetica.adminAlterShards(long,bool,IList{int},IList{int},IList{int},IList{int},IList{IList{int}},IDictionary{string, string})"
-        /// /></summary>
-        /// 
-        /// <param name="table_names">Specify the tables here if only specific
-        /// tables have to be rebalanced.  Leave this empty to rebalance all
-        /// the tables.  Note that only the tables which have no primary or
-        /// shard key can be rebalanced.  </param>
-        /// <param name="action">Specify 'start' to start rebalancing the
-        /// cluster or 'stop' to prematurely stop a previsouly issued rebalance
-        /// request.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="AdminRebalanceRequest.Action.START">START</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AdminRebalanceRequest.Action.STOP">STOP</see></term>
-        ///     </item>
-        /// </list>  </param>
-        /// <param name="options">Optional parameters.
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="AdminRebalanceRequest.Options.RESHARD">RESHARD</see>:</term>
-        ///         <description>If <i>true</i>, then all the nodes in the
-        /// cluster will be assigned approximately the same number of shards.
-        /// Note that for big clusters, this data transfer could be time
-        /// consuming and also result in delay in responding to queries for
-        /// busy clusters.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="AdminRebalanceRequest.Options.TRUE">TRUE</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AdminRebalanceRequest.Options.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="AdminRebalanceRequest.Options.TRUE">TRUE</see>.</description>
-        ///     </item>
-        /// </list>
-        ///   </param>
-        /// 
-        /// <returns>Response object containing the result of the
-        /// operation.</returns>
-        /// 
-        public AdminRebalanceResponse adminRebalance( IList<string> table_names,
-                                                      string action,
-                                                      IDictionary<string, string> options = null )
-        {
-            return adminRebalance( new AdminRebalanceRequest( table_names, action, options ) );
-        }
-
-
-        /// <summary>Remove a node from the cluster.  Note that this operation
-        /// could take a long time to complete for big clusters.  The data is
-        /// transferred to other nodes in the cluster before the node is
-        /// removed.</summary>
-        /// 
-        /// <param name="request_">Request object containing the parameters for
-        /// the operation.</param>
-        /// 
-        /// <returns>Response object containing the result of the
-        /// operation.</returns>
-        /// 
-        public AdminRemoveNodeResponse adminRemoveNode( AdminRemoveNodeRequest request_ )
-        {
-            AdminRemoveNodeResponse actualResponse_ = SubmitRequest<AdminRemoveNodeResponse>("/admin/remove/node", request_, false);
-
-            return actualResponse_;
-        }
-
-
-        /// <summary>Remove a node from the cluster.  Note that this operation
-        /// could take a long time to complete for big clusters.  The data is
-        /// transferred to other nodes in the cluster before the node is
-        /// removed.</summary>
-        /// 
-        /// <param name="rank">Rank number of the node being removed from the
-        /// cluster.  </param>
-        /// <param name="options">Optional parameters.
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="AdminRemoveNodeRequest.Options.RESHARD">RESHARD</see>:</term>
-        ///         <description>When <i>true</i>, then the shards from nodes
-        /// will be moved to the other nodes in the cluster. When false, then
-        /// the node will only be removed from the cluster if the node does not
-        /// contain any data shards, otherwise an error is returned.  Note that
-        /// for big clusters, this data transfer could be time consuming and
-        /// also result in delay in responding to queries for busy clusters.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="AdminRemoveNodeRequest.Options.TRUE">TRUE</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AdminRemoveNodeRequest.Options.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="AdminRemoveNodeRequest.Options.TRUE">TRUE</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AdminRemoveNodeRequest.Options.FORCE">FORCE</see>:</term>
-        ///         <description>When <i>true</i>, the rank is immediately
-        /// shutdown and removed from the cluster.  This will result in loss of
-        /// any data that is present in the node at the time of the request.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="AdminRemoveNodeRequest.Options.TRUE">TRUE</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AdminRemoveNodeRequest.Options.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="AdminRemoveNodeRequest.Options.FALSE">FALSE</see>.</description>
-        ///     </item>
-        /// </list>
-        ///   </param>
-        /// 
-        /// <returns>Response object containing the result of the
-        /// operation.</returns>
-        /// 
-        public AdminRemoveNodeResponse adminRemoveNode( int rank,
-                                                        IDictionary<string, string> options = null )
-        {
-            return adminRemoveNode( new AdminRemoveNodeRequest( rank, options ) );
         }
 
 
@@ -780,7 +478,7 @@ namespace kinetica
         /// var_samp, arg_min, arg_max and count_distinct.
         /// <br />
         /// The response is returned as a dynamic schema. For details see: <a
-        /// href="../../../../concepts/dynamic_schemas.html"
+        /// href="../../../../api/index.html#dynamic-schemas"
         /// target="_top">dynamic schemas documentation</a>.
         /// <br />
         /// If a <i>result_table</i> name is specified in the <paramref
@@ -851,7 +549,7 @@ namespace kinetica
         /// var_samp, arg_min, arg_max and count_distinct.
         /// <br />
         /// The response is returned as a dynamic schema. For details see: <a
-        /// href="../../../../concepts/dynamic_schemas.html"
+        /// href="../../../../api/index.html#dynamic-schemas"
         /// target="_top">dynamic schemas documentation</a>.
         /// <br />
         /// If a <i>result_table</i> name is specified in the <paramref
@@ -1670,7 +1368,7 @@ namespace kinetica
 
         /// <summary>Returns all the unique values from a particular column
         /// (specified by <paramref cref="AggregateUniqueRequest.column_name"
-        /// />) of a particular table (specified by <paramref
+        /// />) of a particular table or collection (specified by <paramref
         /// cref="AggregateUniqueRequest.table_name" />). If <paramref
         /// cref="AggregateUniqueRequest.column_name" /> is a numeric column
         /// the values will be in <paramref
@@ -1693,7 +1391,7 @@ namespace kinetica
         /// {"limit":"10","sort_order":"descending"}.
         /// <br />
         /// The response is returned as a dynamic schema. For details see: <a
-        /// href="../../../../concepts/dynamic_schemas.html"
+        /// href="../../../../api/index.html#dynamic-schemas"
         /// target="_top">dynamic schemas documentation</a>.
         /// <br />
         /// If a <i>result_table</i> name is specified in the <paramref
@@ -1709,9 +1407,10 @@ namespace kinetica
         /// be sharded, in all other cases it will be replicated.  Sorting will
         /// properly function only if the result table is replicated or if
         /// there is only one processing node and should not be relied upon in
-        /// other cases.  Not available when the value of <paramref
-        /// cref="AggregateUniqueRequest.column_name" /> is an
-        /// unrestricted-length string.</summary>
+        /// other cases.  Not available if <paramref
+        /// cref="AggregateUniqueRequest.table_name" /> is a collection or when
+        /// the value of <paramref cref="AggregateUniqueRequest.column_name" />
+        /// is an unrestricted-length string.</summary>
         /// 
         /// <param name="request_">Request object containing the parameters for
         /// the operation.</param>
@@ -1733,11 +1432,12 @@ namespace kinetica
 
         /// <summary>Returns all the unique values from a particular column
         /// (specified by <paramref name="column_name" />) of a particular
-        /// table (specified by <paramref name="table_name" />). If <paramref
-        /// name="column_name" /> is a numeric column the values will be in
-        /// <paramref cref="RawAggregateUniqueResponse.binary_encoded_response"
-        /// />. Otherwise if <paramref name="column_name" /> is a string column
-        /// the values will be in <paramref
+        /// table or collection (specified by <paramref name="table_name" />).
+        /// If <paramref name="column_name" /> is a numeric column the values
+        /// will be in <paramref
+        /// cref="RawAggregateUniqueResponse.binary_encoded_response" />.
+        /// Otherwise if <paramref name="column_name" /> is a string column the
+        /// values will be in <paramref
         /// cref="RawAggregateUniqueResponse.json_encoded_response" />.  The
         /// results can be paged via the <paramref name="offset" /> and
         /// <paramref name="limit" /> parameters.
@@ -1753,7 +1453,7 @@ namespace kinetica
         /// {"limit":"10","sort_order":"descending"}.
         /// <br />
         /// The response is returned as a dynamic schema. For details see: <a
-        /// href="../../../../concepts/dynamic_schemas.html"
+        /// href="../../../../api/index.html#dynamic-schemas"
         /// target="_top">dynamic schemas documentation</a>.
         /// <br />
         /// If a <i>result_table</i> name is specified in the <paramref
@@ -1769,11 +1469,12 @@ namespace kinetica
         /// other cases it will be replicated.  Sorting will properly function
         /// only if the result table is replicated or if there is only one
         /// processing node and should not be relied upon in other cases.  Not
-        /// available when the value of <paramref name="column_name" /> is an
+        /// available if <paramref name="table_name" /> is a collection or when
+        /// the value of <paramref name="column_name" /> is an
         /// unrestricted-length string.</summary>
         /// 
-        /// <param name="table_name">Name of the table on which the operation
-        /// will be performed. Must be an existing table.  </param>
+        /// <param name="table_name">Name of an existing table/collection on
+        /// which the operation will be performed.  </param>
         /// <param name="column_name">Name of the column or an expression
         /// containing one or more column names on which the unique function
         /// would be applied.  </param>
@@ -1828,8 +1529,11 @@ namespace kinetica
         ///         <description>The name of the table used to store the
         /// results. If present, no results are returned in the response. Has
         /// the same naming restrictions as <a
-        /// href="../../../../concepts/tables.html"
-        /// target="_top">tables</a>.</description>
+        /// href="../../../../concepts/tables.html" target="_top">tables</a>.
+        /// Not available if <paramref cref="AggregateUniqueRequest.table_name"
+        /// /> is a collection or when <paramref
+        /// cref="AggregateUniqueRequest.column_name" /> is an
+        /// unrestricted-length string.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -1909,7 +1613,7 @@ namespace kinetica
         /// column name and values respectively.
         /// <br />
         /// The response is returned as a dynamic schema. For details see: <a
-        /// href="../../../../concepts/dynamic_schemas.html"
+        /// href="../../../../api/index.html#dynamic-schemas"
         /// target="_top">dynamic schemas documentation</a>.</summary>
         /// 
         /// <param name="request_">Request object containing the parameters for
@@ -1942,7 +1646,7 @@ namespace kinetica
         /// column name and values respectively.
         /// <br />
         /// The response is returned as a dynamic schema. For details see: <a
-        /// href="../../../../concepts/dynamic_schemas.html"
+        /// href="../../../../api/index.html#dynamic-schemas"
         /// target="_top">dynamic schemas documentation</a>.</summary>
         /// 
         /// <param name="table_name">Name of the table on which the operation
@@ -6199,7 +5903,7 @@ namespace kinetica
         /// e.g., the contiguity across pages cannot be relied upon.
         /// <br />
         /// The response is returned as a dynamic schema. For details see: <a
-        /// href="../../../../concepts/dynamic_schemas.html"
+        /// href="../../../../api/index.html#dynamic-schemas"
         /// target="_top">dynamic schemas documentation</a>.</summary>
         /// 
         /// <param name="request_">Request object containing the parameters for
@@ -6234,7 +5938,7 @@ namespace kinetica
         /// e.g., the contiguity across pages cannot be relied upon.
         /// <br />
         /// The response is returned as a dynamic schema. For details see: <a
-        /// href="../../../../concepts/dynamic_schemas.html"
+        /// href="../../../../api/index.html#dynamic-schemas"
         /// target="_top">dynamic schemas documentation</a>.</summary>
         /// 
         /// <param name="table_name">Name of the table on which this operation
@@ -6267,8 +5971,8 @@ namespace kinetica
         ///         <term><see
         /// cref="GetRecordsByColumnRequest.Options.SORT_ORDER">SORT_ORDER</see>:</term>
         ///         <description>String indicating how the returned values
-        /// should be sorted - ascending or descending. Default is 'ascending'.
-        /// If sort_order is provided, sort_by has to be provided.
+        /// should be sorted - ascending or descending. If sort_order is
+        /// provided, sort_by has to be provided.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>

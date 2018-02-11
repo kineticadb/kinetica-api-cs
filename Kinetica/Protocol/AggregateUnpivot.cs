@@ -26,7 +26,7 @@ namespace kinetica
     /// respectively.
     /// <br />
     /// The response is returned as a dynamic schema. For details see: <a
-    /// href="../../../../../concepts/dynamic_schemas.html"
+    /// href="../../../../../api/index.html#dynamic-schemas"
     /// target="_top">dynamic schemas documentation</a>.</summary>
     public class AggregateUnpivotRequest : KineticaData
     {
