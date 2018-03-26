@@ -19,7 +19,7 @@ namespace kinetica
     /// the type of job and the current state of execution, the action may not
     /// be successfully executed. The final result of the attempted actions for
     /// each specified job is returned in the status array of the response. See
-    /// <a href="../../../../../gpudbAdmin/job_manager.html" target="_top">Job
+    /// <a href="../../gpudbAdmin/job_manager.html" target="_top">Job
     /// Manager</a> for more information.</summary>
     public class AdminAlterJobsRequest : KineticaData
     {

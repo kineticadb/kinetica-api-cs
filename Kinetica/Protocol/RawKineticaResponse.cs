@@ -12,7 +12,7 @@ namespace kinetica
 
     /// <summary>A set of parameters for the raw wrapper for Kinetica
     /// responses.</summary>
-    public class KineticaResponse : KineticaData
+    public class RawKineticaResponse : KineticaData
     {
         public string status { get; set; }
         public string message { get; set; }
@@ -20,7 +20,7 @@ namespace kinetica
         public byte[] data { get; set; }
         public string data_str { get; set; }
 
-    } // end class KineticaResponse
+    } // end class RawKineticaResponse
 
 
 

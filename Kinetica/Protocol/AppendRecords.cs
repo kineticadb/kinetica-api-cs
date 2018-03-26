@@ -70,7 +70,7 @@ namespace kinetica
         /// cref="AppendRecordsRequest.source_table_name" />) into the target
         /// table (specified by <paramref
         /// cref="AppendRecordsRequest.table_name" />) table with a <a
-        /// href="../../../../concepts/tables.html#primary-keys"
+        /// href="../../concepts/tables.html#primary-keys"
         /// target="_top">primary key</a>.  If set to <i>true</i>, any existing
         /// target table record with primary key values that match those of a
         /// source table record being inserted will be replaced by that new
@@ -129,7 +129,7 @@ namespace kinetica
             /// the source table records (specified by <see
             /// cref="source_table_name" />) into the target table (specified
             /// by <see cref="table_name" />) table with a <a
-            /// href="../../../../../concepts/tables.html#primary-keys"
+            /// href="../../concepts/tables.html#primary-keys"
             /// target="_top">primary key</a>.  If set to <i>true</i>, any
             /// existing target table record with primary key values that match
             /// those of a source table record being inserted will be replaced
@@ -167,11 +167,13 @@ namespace kinetica
 
         /// <summary>Contains the mapping of column names from the target table
         /// (specified by <paramref cref="AppendRecordsRequest.table_name" />)
-        /// as the keys, and corresponding column names from the source table
-        /// (specified by <paramref
+        /// as the keys, and corresponding column names or expressions (e.g.,
+        /// 'col_name+1') from the source table (specified by <paramref
         /// cref="AppendRecordsRequest.source_table_name" />). Must be existing
         /// column names in source table and target table, and their types must
-        /// be matched.  </summary>
+        /// be matched. For details on using expressions, see <a
+        /// href="../../concepts/expressions.html"
+        /// target="_top">Expressions</a>.  </summary>
         public IDictionary<string, string> field_map { get; set; } = new Dictionary<string, string>();
 
         /// <summary>Optional parameters.
@@ -221,7 +223,7 @@ namespace kinetica
         /// cref="AppendRecordsRequest.source_table_name" />) into the target
         /// table (specified by <paramref
         /// cref="AppendRecordsRequest.table_name" />) table with a <a
-        /// href="../../../../concepts/tables.html#primary-keys"
+        /// href="../../concepts/tables.html#primary-keys"
         /// target="_top">primary key</a>.  If set to <i>true</i>, any existing
         /// target table record with primary key values that match those of a
         /// source table record being inserted will be replaced by that new
@@ -263,10 +265,13 @@ namespace kinetica
         /// <param name="field_map">Contains the mapping of column names from
         /// the target table (specified by <paramref
         /// cref="AppendRecordsRequest.table_name" />) as the keys, and
-        /// corresponding column names from the source table (specified by
-        /// <paramref cref="AppendRecordsRequest.source_table_name" />). Must
-        /// be existing column names in source table and target table, and
-        /// their types must be matched.  </param>
+        /// corresponding column names or expressions (e.g., 'col_name+1') from
+        /// the source table (specified by <paramref
+        /// cref="AppendRecordsRequest.source_table_name" />). Must be existing
+        /// column names in source table and target table, and their types must
+        /// be matched. For details on using expressions, see <a
+        /// href="../../concepts/expressions.html"
+        /// target="_top">Expressions</a>.  </param>
         /// <param name="options">Optional parameters.
         /// <list type="bullet">
         ///     <item>
@@ -314,7 +319,7 @@ namespace kinetica
         /// cref="AppendRecordsRequest.source_table_name" />) into the target
         /// table (specified by <paramref
         /// cref="AppendRecordsRequest.table_name" />) table with a <a
-        /// href="../../../../concepts/tables.html#primary-keys"
+        /// href="../../concepts/tables.html#primary-keys"
         /// target="_top">primary key</a>.  If set to <i>true</i>, any existing
         /// target table record with primary key values that match those of a
         /// source table record being inserted will be replaced by that new

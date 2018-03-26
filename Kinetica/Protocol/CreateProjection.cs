@@ -15,10 +15,21 @@ namespace kinetica
     /// cref="Kinetica.createProjection(string,string,IList{string},IDictionary{string, string})"
     /// />.
     /// <br />
-    /// Creates a new <a href="../../../../../concepts/projections.html"
+    /// Creates a new <a href="../../concepts/projections.html"
     /// target="_top">projection</a> of an existing table. A projection
     /// represents a subset of the columns (potentially including derived
     /// columns) of a table.
+    /// <br />
+    /// For projection details and examples, see <a
+    /// href="../../concepts/projections.html" target="_top">Projections</a>.
+    /// For limitations, see <a
+    /// href="../../concepts/projections.html#limitations-and-cautions"
+    /// target="_top">Projection Limitations and Cautions</a>.
+    /// <br />
+    /// <a href="../../concepts/window.html" target="_top">Window functions</a>
+    /// are available through this endpoint as well as <see
+    /// cref="Kinetica.getRecordsByColumn(string,IList{string},long,long,IDictionary{string, string})"
+    /// />.
     /// <br />
     /// Notes:
     /// <br />
@@ -39,11 +50,11 @@ namespace kinetica
     /// average.
     /// <br />
     /// Also, a projection can be created with a different <a
-    /// href="../../../../../concepts/tables.html#shard-keys"
-    /// target="_top">shard key</a> than the source table.  By specifying
-    /// <i>shard_key</i>, the projection will be sharded according to the
-    /// specified columns, regardless of how the source table is sharded.  The
-    /// source table can even be unsharded or replicated.</summary>
+    /// href="../../concepts/tables.html#shard-keys" target="_top">shard
+    /// key</a> than the source table.  By specifying <i>shard_key</i>, the
+    /// projection will be sharded according to the specified columns,
+    /// regardless of how the source table is sharded.  The source table can
+    /// even be unsharded or replicated.</summary>
     public class CreateProjectionRequest : KineticaData
     {
 
@@ -53,19 +64,19 @@ namespace kinetica
         ///         <term><see
         /// cref="CreateProjectionRequest.Options.COLLECTION_NAME">COLLECTION_NAME</see>:</term>
         ///         <description>Name of a <a
-        /// href="../../../../concepts/collections.html"
-        /// target="_top">collection</a> to which the projection is to be
-        /// assigned as a child. If the collection provided is non-existent,
-        /// the collection will be automatically created. If empty, then the
-        /// projection will be at the top level.</description>
+        /// href="../../concepts/collections.html" target="_top">collection</a>
+        /// to which the projection is to be assigned as a child. If the
+        /// collection provided is non-existent, the collection will be
+        /// automatically created. If empty, then the projection will be at the
+        /// top level.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="CreateProjectionRequest.Options.EXPRESSION">EXPRESSION</see>:</term>
         ///         <description>An optional filter <a
-        /// href="../../../../concepts/expressions.html"
-        /// target="_top">expression</a> to be applied to the source table
-        /// prior to the projection.</description>
+        /// href="../../concepts/expressions.html" target="_top">expression</a>
+        /// to be applied to the source table prior to the
+        /// projection.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -110,9 +121,8 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="CreateProjectionRequest.Options.TTL">TTL</see>:</term>
-        ///         <description>Sets the <a
-        /// href="../../../../concepts/ttl.html" target="_top">TTL</a> of the
-        /// projection specified in <paramref
+        ///         <description>Sets the <a href="../../concepts/ttl.html"
+        /// target="_top">TTL</a> of the projection specified in <paramref
         /// cref="CreateProjectionRequest.projection_name" />.</description>
         ///     </item>
         ///     <item>
@@ -158,8 +168,7 @@ namespace kinetica
         public struct Options
         {
 
-            /// <summary>Name of a <a
-            /// href="../../../../../concepts/collections.html"
+            /// <summary>Name of a <a href="../../concepts/collections.html"
             /// target="_top">collection</a> to which the projection is to be
             /// assigned as a child. If the collection provided is
             /// non-existent, the collection will be automatically created. If
@@ -167,7 +176,7 @@ namespace kinetica
             public const string COLLECTION_NAME = "collection_name";
 
             /// <summary>An optional filter <a
-            /// href="../../../../../concepts/expressions.html"
+            /// href="../../concepts/expressions.html"
             /// target="_top">expression</a> to be applied to the source table
             /// prior to the projection.</summary>
             public const string EXPRESSION = "expression";
@@ -205,7 +214,7 @@ namespace kinetica
             /// table.</summary>
             public const string CHUNK_SIZE = "chunk_size";
 
-            /// <summary>Sets the <a href="../../../../../concepts/ttl.html"
+            /// <summary>Sets the <a href="../../concepts/ttl.html"
             /// target="_top">TTL</a> of the projection specified in <see
             /// cref="projection_name" />.</summary>
             public const string TTL = "ttl";
@@ -247,7 +256,7 @@ namespace kinetica
         public string table_name { get; set; }
 
         /// <summary>Name of the projection to be created. Has the same naming
-        /// restrictions as <a href="../../../../concepts/tables.html"
+        /// restrictions as <a href="../../concepts/tables.html"
         /// target="_top">tables</a>.  </summary>
         public string projection_name { get; set; }
 
@@ -263,19 +272,19 @@ namespace kinetica
         ///         <term><see
         /// cref="CreateProjectionRequest.Options.COLLECTION_NAME">COLLECTION_NAME</see>:</term>
         ///         <description>Name of a <a
-        /// href="../../../../concepts/collections.html"
-        /// target="_top">collection</a> to which the projection is to be
-        /// assigned as a child. If the collection provided is non-existent,
-        /// the collection will be automatically created. If empty, then the
-        /// projection will be at the top level.</description>
+        /// href="../../concepts/collections.html" target="_top">collection</a>
+        /// to which the projection is to be assigned as a child. If the
+        /// collection provided is non-existent, the collection will be
+        /// automatically created. If empty, then the projection will be at the
+        /// top level.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="CreateProjectionRequest.Options.EXPRESSION">EXPRESSION</see>:</term>
         ///         <description>An optional filter <a
-        /// href="../../../../concepts/expressions.html"
-        /// target="_top">expression</a> to be applied to the source table
-        /// prior to the projection.</description>
+        /// href="../../concepts/expressions.html" target="_top">expression</a>
+        /// to be applied to the source table prior to the
+        /// projection.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -320,9 +329,8 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="CreateProjectionRequest.Options.TTL">TTL</see>:</term>
-        ///         <description>Sets the <a
-        /// href="../../../../concepts/ttl.html" target="_top">TTL</a> of the
-        /// projection specified in <paramref
+        ///         <description>Sets the <a href="../../concepts/ttl.html"
+        /// target="_top">TTL</a> of the projection specified in <paramref
         /// cref="CreateProjectionRequest.projection_name" />.</description>
         ///     </item>
         ///     <item>
@@ -377,7 +385,7 @@ namespace kinetica
         /// projection is to be applied.  </param>
         /// <param name="projection_name">Name of the projection to be created.
         /// Has the same naming restrictions as <a
-        /// href="../../../../concepts/tables.html" target="_top">tables</a>.
+        /// href="../../concepts/tables.html" target="_top">tables</a>.
         /// </param>
         /// <param name="column_names">List of columns from <paramref
         /// cref="CreateProjectionRequest.table_name" /> to be included in the
@@ -389,19 +397,19 @@ namespace kinetica
         ///         <term><see
         /// cref="CreateProjectionRequest.Options.COLLECTION_NAME">COLLECTION_NAME</see>:</term>
         ///         <description>Name of a <a
-        /// href="../../../../concepts/collections.html"
-        /// target="_top">collection</a> to which the projection is to be
-        /// assigned as a child. If the collection provided is non-existent,
-        /// the collection will be automatically created. If empty, then the
-        /// projection will be at the top level.</description>
+        /// href="../../concepts/collections.html" target="_top">collection</a>
+        /// to which the projection is to be assigned as a child. If the
+        /// collection provided is non-existent, the collection will be
+        /// automatically created. If empty, then the projection will be at the
+        /// top level.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="CreateProjectionRequest.Options.EXPRESSION">EXPRESSION</see>:</term>
         ///         <description>An optional filter <a
-        /// href="../../../../concepts/expressions.html"
-        /// target="_top">expression</a> to be applied to the source table
-        /// prior to the projection.</description>
+        /// href="../../concepts/expressions.html" target="_top">expression</a>
+        /// to be applied to the source table prior to the
+        /// projection.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -446,9 +454,8 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="CreateProjectionRequest.Options.TTL">TTL</see>:</term>
-        ///         <description>Sets the <a
-        /// href="../../../../concepts/ttl.html" target="_top">TTL</a> of the
-        /// projection specified in <paramref
+        ///         <description>Sets the <a href="../../concepts/ttl.html"
+        /// target="_top">TTL</a> of the projection specified in <paramref
         /// cref="CreateProjectionRequest.projection_name" />.</description>
         ///     </item>
         ///     <item>

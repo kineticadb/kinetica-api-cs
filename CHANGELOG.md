@@ -1,10 +1,17 @@
 GPUdb C# API Changelog
 =======================
 
-Version 6.2.0 - 2018-02-11
+Version 6.2.0 - 2018-03-25
 --------------------------
 
--   Version release
+-   Added new RecordRetriever class to support multi-head record lookup by
+    shard key.
+-   Refactored the following classes from KineticaIngestor.cs to
+    the kinetica.Utils namespace:
+    -   WorkerList
+    -   RecordKey
+    -   RecordKeyBuilder
+    -   WorkerQueue
 
 
 Version 6.1.0 - 2017-10-05

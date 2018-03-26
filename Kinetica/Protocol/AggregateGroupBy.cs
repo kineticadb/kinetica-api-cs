@@ -20,10 +20,16 @@ namespace kinetica
     /// combination. This is somewhat analogous to an SQL-style SELECT...GROUP
     /// BY.
     /// <br />
+    /// For aggregation details and examples, see <a
+    /// href="../../concepts/aggregation.html" target="_top">Aggregation</a>.
+    /// For limitations, see <a
+    /// href="../../concepts/aggregation.html#limitations"
+    /// target="_top">Aggregation Limitations</a>.
+    /// <br />
     /// Any column(s) can be grouped on, and all column types except
     /// unrestricted-length strings may be used for computing applicable
     /// aggregates; columns marked as <a
-    /// href="../../../../../concepts/types.html#data-handling"
+    /// href="../../concepts/types.html#data-handling"
     /// target="_top">store-only</a> are unable to be used in grouping or
     /// aggregation.
     /// <br />
@@ -42,29 +48,40 @@ namespace kinetica
     /// column_names=['x','y','count(*)','sum(z)'].
     /// <br />
     /// Available <a
-    /// href="../../../../../concepts/expressions.html#aggregate-expressions"
+    /// href="../../concepts/expressions.html#aggregate-expressions"
     /// target="_top">aggregation functions</a> are: count(*), sum, min, max,
     /// avg, mean, stddev, stddev_pop, stddev_samp, var, var_pop, var_samp,
     /// arg_min, arg_max and count_distinct.
     /// <br />
+    /// Available grouping functions are <a href="../../concepts/rollup.html"
+    /// target="_top">Rollup</a>, <a href="../../concepts/cube.html"
+    /// target="_top">Cube</a>, and <a href="../../concepts/grouping_sets.html"
+    /// target="_top">Grouping Sets</a>
+    /// <br />
+    /// This service also provides support for <a
+    /// href="../../concepts/pivot.html" target="_top">Pivot</a> operations.
+    /// <br />
+    /// Filtering on aggregates is supported via expressions using <a
+    /// href="../../concepts/expressions.html#aggregate-expressions"
+    /// target="_top">aggregation functions</a> supplied to <i>having</i>.
+    /// <br />
     /// The response is returned as a dynamic schema. For details see: <a
-    /// href="../../../../../api/index.html#dynamic-schemas"
-    /// target="_top">dynamic schemas documentation</a>.
+    /// href="../../api/index.html#dynamic-schemas" target="_top">dynamic
+    /// schemas documentation</a>.
     /// <br />
     /// If a <i>result_table</i> name is specified in the <see cref="options"
     /// />, the results are stored in a new table with that name--no results
     /// are returned in the response.  Both the table name and resulting column
-    /// names must adhere to <a
-    /// href="../../../../../concepts/tables.html#table" target="_top">standard
-    /// naming conventions</a>; column/aggregation expressions will need to be
-    /// aliased.  If the source table's <a
-    /// href="../../../../../concepts/tables.html#shard-keys"
-    /// target="_top">shard key</a> is used as the grouping column(s), the
-    /// result table will be sharded, in all other cases it will be replicated.
-    /// Sorting will properly function only if the result table is replicated
-    /// or if there is only one processing node and should not be relied upon
-    /// in other cases.  Not available when any of the values of <see
-    /// cref="column_names" /> is an unrestricted-length string.</summary>
+    /// names must adhere to <a href="../../concepts/tables.html#table"
+    /// target="_top">standard naming conventions</a>; column/aggregation
+    /// expressions will need to be aliased.  If the source table's <a
+    /// href="../../concepts/tables.html#shard-keys" target="_top">shard
+    /// key</a> is used as the grouping column(s), the result table will be
+    /// sharded, in all other cases it will be replicated.  Sorting will
+    /// properly function only if the result table is replicated or if there is
+    /// only one processing node and should not be relied upon in other cases.
+    /// Not available when any of the values of <see cref="column_names" /> is
+    /// an unrestricted-length string.</summary>
     public class AggregateGroupByRequest : KineticaData
     {
 
@@ -182,12 +199,12 @@ namespace kinetica
         /// cref="AggregateGroupByRequest.Options.RESULT_TABLE">RESULT_TABLE</see>:</term>
         ///         <description>The name of the table used to store the
         /// results. Has the same naming restrictions as <a
-        /// href="../../../../concepts/tables.html" target="_top">tables</a>.
-        /// Column names (group-by and aggregate fields) need to be given
-        /// aliases e.g. ["FChar256 as fchar256", "sum(FDouble) as sfd"].  If
-        /// present, no results are returned in the response.  This option is
-        /// not available if one of the grouping attributes is an unrestricted
-        /// string (i.e.; not charN) type.</description>
+        /// href="../../concepts/tables.html" target="_top">tables</a>. Column
+        /// names (group-by and aggregate fields) need to be given aliases e.g.
+        /// ["FChar256 as fchar256", "sum(FDouble) as sfd"].  If present, no
+        /// results are returned in the response.  This option is not available
+        /// if one of the grouping attributes is an unrestricted string (i.e.;
+        /// not charN) type.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -228,9 +245,9 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="AggregateGroupByRequest.Options.TTL">TTL</see>:</term>
-        ///         <description>Sets the <a
-        /// href="../../../../concepts/ttl.html" target="_top">TTL</a> of the
-        /// table specified in <i>result_table</i>.</description>
+        ///         <description>Sets the <a href="../../concepts/ttl.html"
+        /// target="_top">TTL</a> of the table specified in
+        /// <i>result_table</i>.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -264,6 +281,40 @@ namespace kinetica
         /// </list>
         /// The default value is <see
         /// cref="AggregateGroupByRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AggregateGroupByRequest.Options.PIVOT">PIVOT</see>:</term>
+        ///         <description>pivot column</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AggregateGroupByRequest.Options.PIVOT_VALUES">PIVOT_VALUES</see>:</term>
+        ///         <description>The value list provided will become the column
+        /// headers in the output. Should be the values from the
+        /// pivot_column.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AggregateGroupByRequest.Options.GROUPING_SETS">GROUPING_SETS</see>:</term>
+        ///         <description>Customize the grouping attribute sets to
+        /// compute the aggregates. These sets can include ROLLUP or CUBE
+        /// operartors. The attribute sets should be enclosed in paranthesis
+        /// and can include composite attributes. All attributes specified in
+        /// the grouping sets must present in the groupby
+        /// attributes.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AggregateGroupByRequest.Options.ROLLUP">ROLLUP</see>:</term>
+        ///         <description>This option is used to specify the multilevel
+        /// aggregates.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AggregateGroupByRequest.Options.CUBE">CUBE</see>:</term>
+        ///         <description>This option is used to specify the
+        /// multidimensional aggregates.</description>
         ///     </item>
         /// </list>
         /// <br />
@@ -359,13 +410,12 @@ namespace kinetica
 
             /// <summary>The name of the table used to store the results. Has
             /// the same naming restrictions as <a
-            /// href="../../../../../concepts/tables.html"
-            /// target="_top">tables</a>. Column names (group-by and aggregate
-            /// fields) need to be given aliases e.g. ["FChar256 as fchar256",
-            /// "sum(FDouble) as sfd"].  If present, no results are returned in
-            /// the response.  This option is not available if one of the
-            /// grouping attributes is an unrestricted string (i.e.; not charN)
-            /// type.</summary>
+            /// href="../../concepts/tables.html" target="_top">tables</a>.
+            /// Column names (group-by and aggregate fields) need to be given
+            /// aliases e.g. ["FChar256 as fchar256", "sum(FDouble) as sfd"].
+            /// If present, no results are returned in the response.  This
+            /// option is not available if one of the grouping attributes is an
+            /// unrestricted string (i.e.; not charN) type.</summary>
             public const string RESULT_TABLE = "result_table";
 
             /// <summary>If <i>true</i>, then the result table specified in
@@ -400,7 +450,7 @@ namespace kinetica
             /// option.</summary>
             public const string RESULT_TABLE_GENERATE_PK = "result_table_generate_pk";
 
-            /// <summary>Sets the <a href="../../../../../concepts/ttl.html"
+            /// <summary>Sets the <a href="../../concepts/ttl.html"
             /// target="_top">TTL</a> of the table specified in
             /// <i>result_table</i>.</summary>
             public const string TTL = "ttl";
@@ -430,6 +480,29 @@ namespace kinetica
             /// The default value is <see
             /// cref="AggregateGroupByRequest.Options.FALSE">FALSE</see>.</summary>
             public const string MATERIALIZE_ON_GPU = "materialize_on_gpu";
+
+            /// <summary>pivot column</summary>
+            public const string PIVOT = "pivot";
+
+            /// <summary>The value list provided will become the column headers
+            /// in the output. Should be the values from the
+            /// pivot_column.</summary>
+            public const string PIVOT_VALUES = "pivot_values";
+
+            /// <summary>Customize the grouping attribute sets to compute the
+            /// aggregates. These sets can include ROLLUP or CUBE operartors.
+            /// The attribute sets should be enclosed in paranthesis and can
+            /// include composite attributes. All attributes specified in the
+            /// grouping sets must present in the groupby attributes.</summary>
+            public const string GROUPING_SETS = "grouping_sets";
+
+            /// <summary>This option is used to specify the multilevel
+            /// aggregates.</summary>
+            public const string ROLLUP = "rollup";
+
+            /// <summary>This option is used to specify the multidimensional
+            /// aggregates.</summary>
+            public const string CUBE = "cube";
         } // end struct Options
 
 
@@ -554,12 +627,12 @@ namespace kinetica
         /// cref="AggregateGroupByRequest.Options.RESULT_TABLE">RESULT_TABLE</see>:</term>
         ///         <description>The name of the table used to store the
         /// results. Has the same naming restrictions as <a
-        /// href="../../../../concepts/tables.html" target="_top">tables</a>.
-        /// Column names (group-by and aggregate fields) need to be given
-        /// aliases e.g. ["FChar256 as fchar256", "sum(FDouble) as sfd"].  If
-        /// present, no results are returned in the response.  This option is
-        /// not available if one of the grouping attributes is an unrestricted
-        /// string (i.e.; not charN) type.</description>
+        /// href="../../concepts/tables.html" target="_top">tables</a>. Column
+        /// names (group-by and aggregate fields) need to be given aliases e.g.
+        /// ["FChar256 as fchar256", "sum(FDouble) as sfd"].  If present, no
+        /// results are returned in the response.  This option is not available
+        /// if one of the grouping attributes is an unrestricted string (i.e.;
+        /// not charN) type.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -600,9 +673,9 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="AggregateGroupByRequest.Options.TTL">TTL</see>:</term>
-        ///         <description>Sets the <a
-        /// href="../../../../concepts/ttl.html" target="_top">TTL</a> of the
-        /// table specified in <i>result_table</i>.</description>
+        ///         <description>Sets the <a href="../../concepts/ttl.html"
+        /// target="_top">TTL</a> of the table specified in
+        /// <i>result_table</i>.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -636,6 +709,40 @@ namespace kinetica
         /// </list>
         /// The default value is <see
         /// cref="AggregateGroupByRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AggregateGroupByRequest.Options.PIVOT">PIVOT</see>:</term>
+        ///         <description>pivot column</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AggregateGroupByRequest.Options.PIVOT_VALUES">PIVOT_VALUES</see>:</term>
+        ///         <description>The value list provided will become the column
+        /// headers in the output. Should be the values from the
+        /// pivot_column.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AggregateGroupByRequest.Options.GROUPING_SETS">GROUPING_SETS</see>:</term>
+        ///         <description>Customize the grouping attribute sets to
+        /// compute the aggregates. These sets can include ROLLUP or CUBE
+        /// operartors. The attribute sets should be enclosed in paranthesis
+        /// and can include composite attributes. All attributes specified in
+        /// the grouping sets must present in the groupby
+        /// attributes.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AggregateGroupByRequest.Options.ROLLUP">ROLLUP</see>:</term>
+        ///         <description>This option is used to specify the multilevel
+        /// aggregates.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AggregateGroupByRequest.Options.CUBE">CUBE</see>:</term>
+        ///         <description>This option is used to specify the
+        /// multidimensional aggregates.</description>
         ///     </item>
         /// </list>
         ///   </summary>
@@ -742,12 +849,12 @@ namespace kinetica
         /// cref="AggregateGroupByRequest.Options.RESULT_TABLE">RESULT_TABLE</see>:</term>
         ///         <description>The name of the table used to store the
         /// results. Has the same naming restrictions as <a
-        /// href="../../../../concepts/tables.html" target="_top">tables</a>.
-        /// Column names (group-by and aggregate fields) need to be given
-        /// aliases e.g. ["FChar256 as fchar256", "sum(FDouble) as sfd"].  If
-        /// present, no results are returned in the response.  This option is
-        /// not available if one of the grouping attributes is an unrestricted
-        /// string (i.e.; not charN) type.</description>
+        /// href="../../concepts/tables.html" target="_top">tables</a>. Column
+        /// names (group-by and aggregate fields) need to be given aliases e.g.
+        /// ["FChar256 as fchar256", "sum(FDouble) as sfd"].  If present, no
+        /// results are returned in the response.  This option is not available
+        /// if one of the grouping attributes is an unrestricted string (i.e.;
+        /// not charN) type.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -788,9 +895,9 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="AggregateGroupByRequest.Options.TTL">TTL</see>:</term>
-        ///         <description>Sets the <a
-        /// href="../../../../concepts/ttl.html" target="_top">TTL</a> of the
-        /// table specified in <i>result_table</i>.</description>
+        ///         <description>Sets the <a href="../../concepts/ttl.html"
+        /// target="_top">TTL</a> of the table specified in
+        /// <i>result_table</i>.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -824,6 +931,40 @@ namespace kinetica
         /// </list>
         /// The default value is <see
         /// cref="AggregateGroupByRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AggregateGroupByRequest.Options.PIVOT">PIVOT</see>:</term>
+        ///         <description>pivot column</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AggregateGroupByRequest.Options.PIVOT_VALUES">PIVOT_VALUES</see>:</term>
+        ///         <description>The value list provided will become the column
+        /// headers in the output. Should be the values from the
+        /// pivot_column.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AggregateGroupByRequest.Options.GROUPING_SETS">GROUPING_SETS</see>:</term>
+        ///         <description>Customize the grouping attribute sets to
+        /// compute the aggregates. These sets can include ROLLUP or CUBE
+        /// operartors. The attribute sets should be enclosed in paranthesis
+        /// and can include composite attributes. All attributes specified in
+        /// the grouping sets must present in the groupby
+        /// attributes.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AggregateGroupByRequest.Options.ROLLUP">ROLLUP</see>:</term>
+        ///         <description>This option is used to specify the multilevel
+        /// aggregates.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AggregateGroupByRequest.Options.CUBE">CUBE</see>:</term>
+        ///         <description>This option is used to specify the
+        /// multidimensional aggregates.</description>
         ///     </item>
         /// </list>
         ///   </param>
@@ -958,12 +1099,12 @@ namespace kinetica
         /// cref="AggregateGroupByRequest.Options.RESULT_TABLE">RESULT_TABLE</see>:</term>
         ///         <description>The name of the table used to store the
         /// results. Has the same naming restrictions as <a
-        /// href="../../../../concepts/tables.html" target="_top">tables</a>.
-        /// Column names (group-by and aggregate fields) need to be given
-        /// aliases e.g. ["FChar256 as fchar256", "sum(FDouble) as sfd"].  If
-        /// present, no results are returned in the response.  This option is
-        /// not available if one of the grouping attributes is an unrestricted
-        /// string (i.e.; not charN) type.</description>
+        /// href="../../concepts/tables.html" target="_top">tables</a>. Column
+        /// names (group-by and aggregate fields) need to be given aliases e.g.
+        /// ["FChar256 as fchar256", "sum(FDouble) as sfd"].  If present, no
+        /// results are returned in the response.  This option is not available
+        /// if one of the grouping attributes is an unrestricted string (i.e.;
+        /// not charN) type.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -1004,9 +1145,9 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="AggregateGroupByRequest.Options.TTL">TTL</see>:</term>
-        ///         <description>Sets the <a
-        /// href="../../../../concepts/ttl.html" target="_top">TTL</a> of the
-        /// table specified in <i>result_table</i>.</description>
+        ///         <description>Sets the <a href="../../concepts/ttl.html"
+        /// target="_top">TTL</a> of the table specified in
+        /// <i>result_table</i>.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -1040,6 +1181,40 @@ namespace kinetica
         /// </list>
         /// The default value is <see
         /// cref="AggregateGroupByRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AggregateGroupByRequest.Options.PIVOT">PIVOT</see>:</term>
+        ///         <description>pivot column</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AggregateGroupByRequest.Options.PIVOT_VALUES">PIVOT_VALUES</see>:</term>
+        ///         <description>The value list provided will become the column
+        /// headers in the output. Should be the values from the
+        /// pivot_column.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AggregateGroupByRequest.Options.GROUPING_SETS">GROUPING_SETS</see>:</term>
+        ///         <description>Customize the grouping attribute sets to
+        /// compute the aggregates. These sets can include ROLLUP or CUBE
+        /// operartors. The attribute sets should be enclosed in paranthesis
+        /// and can include composite attributes. All attributes specified in
+        /// the grouping sets must present in the groupby
+        /// attributes.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AggregateGroupByRequest.Options.ROLLUP">ROLLUP</see>:</term>
+        ///         <description>This option is used to specify the multilevel
+        /// aggregates.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AggregateGroupByRequest.Options.CUBE">CUBE</see>:</term>
+        ///         <description>This option is used to specify the
+        /// multidimensional aggregates.</description>
         ///     </item>
         /// </list>
         ///   </param>

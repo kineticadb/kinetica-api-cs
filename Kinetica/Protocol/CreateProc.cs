@@ -17,9 +17,8 @@ namespace kinetica
     /// <br />
     /// Creates an instance (proc) of the user-defined function (UDF) specified
     /// by the given command, options, and files, and makes it available for
-    /// execution.  For details on UDFs, see: <a
-    /// href="../../../../../concepts/udf.html" target="_top">User-Defined
-    /// Functions</a></summary>
+    /// execution.  For details on UDFs, see: <a href="../../concepts/udf.html"
+    /// target="_top">User-Defined Functions</a></summary>
     public class CreateProcRequest : KineticaData
     {
 

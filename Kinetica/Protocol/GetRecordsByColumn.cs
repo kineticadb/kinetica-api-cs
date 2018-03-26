@@ -20,6 +20,11 @@ namespace kinetica
     /// type are returned. This endpoint supports pagination with the <see
     /// cref="offset" /> and <see cref="limit" /> parameters.
     /// <br />
+    /// <a href="../../concepts/window.html" target="_top">Window functions</a>
+    /// are available through this endpoint as well as <see
+    /// cref="Kinetica.createProjection(string,string,IList{string},IDictionary{string, string})"
+    /// />.
+    /// <br />
     /// When using pagination, if the table (or the underlying table in the
     /// case of a view) is modified (records are inserted, updated, or deleted)
     /// during a call to the endpoint, the records or values retrieved may
@@ -27,8 +32,8 @@ namespace kinetica
     /// contiguity across pages cannot be relied upon.
     /// <br />
     /// The response is returned as a dynamic schema. For details see: <a
-    /// href="../../../../../api/index.html#dynamic-schemas"
-    /// target="_top">dynamic schemas documentation</a>.</summary>
+    /// href="../../api/index.html#dynamic-schemas" target="_top">dynamic
+    /// schemas documentation</a>.</summary>
     public class GetRecordsByColumnRequest : KineticaData
     {
 

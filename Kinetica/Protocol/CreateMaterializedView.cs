@@ -15,12 +15,17 @@ namespace kinetica
     /// cref="Kinetica.createMaterializedView(string,IDictionary{string, string})"
     /// />.
     /// <br />
-    /// The create materialized view request does not create the actual table
-    /// that will be the toplevel table of the view but instead registers the
-    /// table name so no other views or tables can be created with that name.
-    /// The response contains a a view_id that is used to label the table
-    /// creation requests (projection, union, group-by, filter, or join) that
-    /// describes the view.</summary>
+    /// Initiates the process of creating a materialized view, reserving the
+    /// view's name to prevent other views or tables from being created with
+    /// that name.
+    /// <br />
+    /// For materialized view details and examples, see <a
+    /// href="../../concepts/materialized_views.html"
+    /// target="_top">Materialized Views</a>.
+    /// <br />
+    /// The response contains <member name="view_id" />, which is used to tag
+    /// each subsequent operation (projection, union, group-by, filter, or
+    /// join) that will compose the view.</summary>
     public class CreateMaterializedViewRequest : KineticaData
     {
 
@@ -37,9 +42,8 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="CreateMaterializedViewRequest.Options.TTL">TTL</see>:</term>
-        ///         <description>Sets the <a
-        /// href="../../../../concepts/ttl.html" target="_top">TTL</a> of the
-        /// table specified in <paramref
+        ///         <description>Sets the <a href="../../concepts/ttl.html"
+        /// target="_top">TTL</a> of the table specified in <paramref
         /// cref="CreateMaterializedViewRequest.table_name" />.</description>
         ///     </item>
         ///     <item>
@@ -131,7 +135,7 @@ namespace kinetica
             /// newly created table will be a top-level table.</summary>
             public const string COLLECTION_NAME = "collection_name";
 
-            /// <summary>Sets the <a href="../../../../../concepts/ttl.html"
+            /// <summary>Sets the <a href="../../concepts/ttl.html"
             /// target="_top">TTL</a> of the table specified in <see
             /// cref="table_name" />.</summary>
             public const string TTL = "ttl";
@@ -248,9 +252,8 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="CreateMaterializedViewRequest.Options.TTL">TTL</see>:</term>
-        ///         <description>Sets the <a
-        /// href="../../../../concepts/ttl.html" target="_top">TTL</a> of the
-        /// table specified in <paramref
+        ///         <description>Sets the <a href="../../concepts/ttl.html"
+        /// target="_top">TTL</a> of the table specified in <paramref
         /// cref="CreateMaterializedViewRequest.table_name" />.</description>
         ///     </item>
         ///     <item>
@@ -356,9 +359,8 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="CreateMaterializedViewRequest.Options.TTL">TTL</see>:</term>
-        ///         <description>Sets the <a
-        /// href="../../../../concepts/ttl.html" target="_top">TTL</a> of the
-        /// table specified in <paramref
+        ///         <description>Sets the <a href="../../concepts/ttl.html"
+        /// target="_top">TTL</a> of the table specified in <paramref
         /// cref="CreateMaterializedViewRequest.table_name" />.</description>
         ///     </item>
         ///     <item>

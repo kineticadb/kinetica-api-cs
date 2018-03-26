@@ -77,9 +77,14 @@ namespace kinetica
         public static string GetApiVersion() { return API_VERSION; }
 
         /// <summary>
-        /// URL for Kinetica Server (including "http:" and port)
+        /// URL for Kinetica Server (including "http:" and port) as a string
         /// </summary>
         public string Url { get; private set; }
+
+        /// <summary>
+        /// URL for Kinetica Server (including "http:" and port)
+        /// </summary>
+        public Uri URL { get; private set; }
 
         /// <summary>
         /// Optional: User Name for Kinetica security
@@ -118,11 +123,12 @@ namespace kinetica
         /// <summary>
         /// API Constructor
         /// </summary>
-        /// <param name="url">URL for Kinetica Server (including "http:" and port)</param>
+        /// <param name="url_str">URL for Kinetica Server (including "http:" and port)</param>
         /// <param name="options">Optional connection options</param>
-        public Kinetica( string url, Options options = null )
+        public Kinetica( string url_str, Options options = null )
         {
-            Url = url;
+            Url = url_str;
+            URL = new Uri( url_str );
             if ( null != options ) // If caller specified options
             {
                 Username = options.Username;
@@ -181,6 +187,27 @@ namespace kinetica
             return;
         }  // end SetKineticaSourceClassToTypeMapping
 
+
+
+        /// <summary>
+        /// Given a KineticaType object for a certain record type, decode binary data into distinct
+        /// records (objects).
+        /// </summary>
+        /// <typeparam name="T">The type of the records.</typeparam>
+        /// <param name="record_type">The type for the records.</param>
+        /// <param name="records_binary">The binary encoded data to be decoded.</param>
+        /// <param name="records">The decoded objects/records.</param>
+        public void DecodeRawBinaryDataUsingRecordType<T>( KineticaType record_type,
+                                                           IList<byte[]> records_binary,
+                                                           IList<T> records ) where T : new()
+        {
+            // Using the KineticaType object, decode all the records from avro binary encoding
+            foreach ( var bin_record in records_binary )
+            {
+                T obj = AvroDecode<T>( bin_record, record_type );
+                records.Add( obj );
+            }
+        }  // DecodeRawBinaryDataUsingRecordType
 
 
         /// <summary>
@@ -341,7 +368,7 @@ namespace kinetica
             }
 
             // Send request, and receive response
-            KineticaResponse kineticaResponse = SubmitRequestRaw( url.ToString(), requestBytes, enableCompression, avroEncoding, false);
+            RawKineticaResponse kineticaResponse = SubmitRequestRaw( url.ToString(), requestBytes, enableCompression, avroEncoding, false);
 
             // Decode response payload
             if ( avroEncoding )
@@ -380,7 +407,7 @@ namespace kinetica
             }
 
             // Send request, and receive response
-            KineticaResponse kineticaResponse = SubmitRequestRaw(endpoint, requestBytes, enableCompression, avroEncoding);
+            RawKineticaResponse kineticaResponse = SubmitRequestRaw(endpoint, requestBytes, enableCompression, avroEncoding);
 
             // Decode response payload
             if (avroEncoding)
@@ -405,8 +432,8 @@ namespace kinetica
         /// <param name="avroEncoding">Use Avro encoding</param>
         /// <param name="only_endpoint_given">If true, prefix the given url
         /// with <member cref="Url" /></param>
-        /// <returns>KineticaResponse Object</returns>
-        private KineticaResponse SubmitRequestRaw(string url, byte[] requestBytes, bool enableCompression, bool avroEncoding, bool only_endpoint_given = true)
+        /// <returns>RawKineticaResponse Object</returns>
+        private RawKineticaResponse SubmitRequestRaw(string url, byte[] requestBytes, bool enableCompression, bool avroEncoding, bool only_endpoint_given = true)
         {
             try
             {
@@ -441,14 +468,14 @@ namespace kinetica
                         {
                             if (avroEncoding)
                             {
-                                return AvroDecode<KineticaResponse>(responseStream);
+                                return AvroDecode<RawKineticaResponse>(responseStream);
                             }
                             else // JSON
                             {
                                 using (StreamReader reader = new StreamReader(responseStream, Encoding.UTF8))
                                 {
                                     var responseString = reader.ReadToEnd();
-                                    return JsonConvert.DeserializeObject<KineticaResponse>(responseString);
+                                    return JsonConvert.DeserializeObject<RawKineticaResponse>(responseString);
                                 }
                             }
                         }
@@ -465,18 +492,18 @@ namespace kinetica
                 var response = ex.Response;
                 var responseStream = response.GetResponseStream();
                 string responseString;
-                KineticaResponse serverResponse;
+                RawKineticaResponse serverResponse;
                 // Decode the response packet
                 if (avroEncoding)
                 {
-                    serverResponse = AvroDecode<KineticaResponse>(responseStream);
+                    serverResponse = AvroDecode<RawKineticaResponse>(responseStream);
                 }
                 else // JSON
                 {
                     using (StreamReader reader = new StreamReader(responseStream, Encoding.UTF8))
                     {
                         responseString = reader.ReadToEnd();
-                        serverResponse = JsonConvert.DeserializeObject<KineticaResponse>(responseString);
+                        serverResponse = JsonConvert.DeserializeObject<RawKineticaResponse>(responseString);
                     }
                 }
                 // Throw the error message found within the response packet

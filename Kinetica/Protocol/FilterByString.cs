@@ -19,8 +19,8 @@ namespace kinetica
     /// string expression for the given string columns. The options
     /// 'case_sensitive' can be used to modify the behavior for all modes
     /// except 'search'. For 'search' mode details and limitations, see <a
-    /// href="../../../../../concepts/full_text_search.html" target="_top">Full
-    /// Text Search</a>.</summary>
+    /// href="../../concepts/full_text_search.html" target="_top">Full Text
+    /// Search</a>.</summary>
     public class FilterByStringRequest : KineticaData
     {
 
@@ -151,7 +151,7 @@ namespace kinetica
 
         /// <summary>If provided, then this will be the name of the view
         /// containing the results. Has the same naming restrictions as <a
-        /// href="../../../../concepts/tables.html" target="_top">tables</a>.
+        /// href="../../concepts/tables.html" target="_top">tables</a>.
         /// </summary>
         public string view_name { get; set; } = "";
 
@@ -242,8 +242,8 @@ namespace kinetica
         /// or view.  </param>
         /// <param name="view_name">If provided, then this will be the name of
         /// the view containing the results. Has the same naming restrictions
-        /// as <a href="../../../../concepts/tables.html"
-        /// target="_top">tables</a>.  </param>
+        /// as <a href="../../concepts/tables.html" target="_top">tables</a>.
+        /// </param>
         /// <param name="expression">The expression with which to filter the
         /// table.  </param>
         /// <param name="mode">The string filtering mode to apply. See below

@@ -53,28 +53,33 @@ namespace kinetica
     public class GetJobResponse : KineticaData
     {
 
-        /// <summary>TODO
+        /// <summary>Status of the submitted job.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
-        /// cref="GetJobResponse.JobStatus.DONE">DONE</see>:</term>
-        ///         <description>TODO</description>
+        /// cref="GetJobResponse.JobStatus.RUNNING">RUNNING</see>:</term>
+        ///         <description>The job is currently executing.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="GetJobResponse.JobStatus.RUNNING">RUNNING</see>:</term>
-        ///         <description>TODO</description>
+        /// cref="GetJobResponse.JobStatus.DONE">DONE</see>:</term>
+        ///         <description>The job execution has successfully completed
+        /// and the response is included in the <member name="job_response" />
+        /// or <member name="job_response_str" /> field</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="GetJobResponse.JobStatus.ERROR">ERROR</see>:</term>
-        ///         <description>TODO</description>
+        ///         <description>The job was attempted, but an error was
+        /// encountered.  The <member name="status_map" /> contains the details
+        /// of the error in error_message</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="GetJobResponse.JobStatus.CANCELLED">CANCELLED</see>:</term>
-        ///         <description>TODO</description>
+        ///         <description>Job cancellation was requested while the
+        /// execution was in progress.</description>
         ///     </item>
         /// </list>
         /// A set of string constants for the parameter <member
@@ -82,16 +87,21 @@ namespace kinetica
         public struct JobStatus
         {
 
-            /// <summary>TODO</summary>
-            public const string DONE = "DONE";
-
-            /// <summary>TODO</summary>
+            /// <summary>The job is currently executing.</summary>
             public const string RUNNING = "RUNNING";
 
-            /// <summary>TODO</summary>
+            /// <summary>The job execution has successfully completed and the
+            /// response is included in the <member name="job_response" /> or
+            /// <member name="job_response_str" /> field</summary>
+            public const string DONE = "DONE";
+
+            /// <summary>The job was attempted, but an error was encountered.
+            /// The <member name="status_map" /> contains the details of the
+            /// error in error_message</summary>
             public const string ERROR = "ERROR";
 
-            /// <summary>TODO</summary>
+            /// <summary>Job cancellation was requested while the execution was
+            /// in progress.</summary>
             public const string CANCELLED = "CANCELLED";
         } // end struct JobStatus
 
@@ -128,8 +138,7 @@ namespace kinetica
         } // end struct ResponseEncoding
 
 
-        /// <summary>TODO; please include all possible options along with their
-        /// docstrings.
+        /// <summary>Map of various status strings for the executed job.
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
@@ -156,39 +165,45 @@ namespace kinetica
         /// '/alter/table'.  </summary>
         public string endpoint { get; set; }
 
-        /// <summary>TODO
+        /// <summary>Status of the submitted job.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
-        /// cref="GetJobResponse.JobStatus.DONE">DONE</see>:</term>
-        ///         <description>TODO</description>
+        /// cref="GetJobResponse.JobStatus.RUNNING">RUNNING</see>:</term>
+        ///         <description>The job is currently executing.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="GetJobResponse.JobStatus.RUNNING">RUNNING</see>:</term>
-        ///         <description>TODO</description>
+        /// cref="GetJobResponse.JobStatus.DONE">DONE</see>:</term>
+        ///         <description>The job execution has successfully completed
+        /// and the response is included in the <member name="job_response" />
+        /// or <member name="job_response_str" /> field</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="GetJobResponse.JobStatus.ERROR">ERROR</see>:</term>
-        ///         <description>TODO</description>
+        ///         <description>The job was attempted, but an error was
+        /// encountered.  The <member name="status_map" /> contains the details
+        /// of the error in error_message</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="GetJobResponse.JobStatus.CANCELLED">CANCELLED</see>:</term>
-        ///         <description>TODO</description>
+        ///         <description>Job cancellation was requested while the
+        /// execution was in progress.</description>
         ///     </item>
         /// </list>  </summary>
         public string job_status { get; set; }
 
-        /// <summary>TODO  </summary>
+        /// <summary>True if the end point is still executing.  </summary>
         public bool running { get; set; }
 
-        /// <summary>TODO  </summary>
+        /// <summary>Approximate percentage of the job completed.  </summary>
         public int progress { get; set; }
 
-        /// <summary>TODO  </summary>
+        /// <summary>True if the job execution completed and no errors were
+        /// encountered.  </summary>
         public bool successful { get; set; }
 
         /// <summary>The encoding of the job result (contained in <member
@@ -220,8 +235,7 @@ namespace kinetica
         /// name="response_encoding" /> is <i>json</i>  </summary>
         public string job_response_str { get; set; }
 
-        /// <summary>TODO; please include all possible options along with their
-        /// docstrings.
+        /// <summary>Map of various status strings for the executed job.
         /// <list type="bullet">
         ///     <item>
         ///         <term><see

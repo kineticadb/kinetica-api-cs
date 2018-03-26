@@ -214,7 +214,7 @@ namespace kinetica
 
         /// <summary>If provided, then this will be the name of the view
         /// containing the results. Has the same naming restrictions as <a
-        /// href="../../../../concepts/tables.html" target="_top">tables</a>.
+        /// href="../../concepts/tables.html" target="_top">tables</a>.
         /// </summary>
         public string view_name { get; set; } = "";
 
@@ -344,8 +344,8 @@ namespace kinetica
         /// filtered. Must be an existing table.  </param>
         /// <param name="view_name">If provided, then this will be the name of
         /// the view containing the results. Has the same naming restrictions
-        /// as <a href="../../../../concepts/tables.html"
-        /// target="_top">tables</a>.  </param>
+        /// as <a href="../../concepts/tables.html" target="_top">tables</a>.
+        /// </param>
         /// <param name="column_name">Name of the column by whose value the
         /// data will be filtered from the table designated by <paramref
         /// cref="FilterByTableRequest.table_name" />.  </param>

@@ -31,7 +31,7 @@ namespace kinetica
 
         /// <summary>Optional name of the result view that will be created
         /// containing the results of the query. Has the same naming
-        /// restrictions as <a href="../../../../concepts/tables.html"
+        /// restrictions as <a href="../../concepts/tables.html"
         /// target="_top">tables</a>.  </summary>
         public string view_name { get; set; } = "";
 
@@ -80,7 +80,7 @@ namespace kinetica
         /// </param>
         /// <param name="view_name">Optional name of the result view that will
         /// be created containing the results of the query. Has the same naming
-        /// restrictions as <a href="../../../../concepts/tables.html"
+        /// restrictions as <a href="../../concepts/tables.html"
         /// target="_top">tables</a>.  </param>
         /// <param name="x_column_name">Name of the column on which to perform
         /// the bounding box query. Must be a valid numeric column.  </param>

@@ -506,7 +506,7 @@ namespace kinetica
             public const string FALSE = "false";
 
             /// <summary>Indicates whether the respective table is <a
-            /// href="../../../../../concepts/protection.html"
+            /// href="../../concepts/protection.html"
             /// target="_top">protected</a> or not.
             /// Supported values:
             /// <list type="bullet">
@@ -530,21 +530,19 @@ namespace kinetica
             /// Only set if table is part of a collection</summary>
             public const string COLLECTION_NAMES = "collection_names";
 
-            /// <summary>The value of the <a
-            /// href="../../../../../concepts/ttl.html"
+            /// <summary>The value of the <a href="../../concepts/ttl.html"
             /// target="_top">time-to-live</a> setting.  Not present for
             /// collections.</summary>
             public const string TABLE_TTL = "table_ttl";
 
-            /// <summary>The remaining <a
-            /// href="../../../../../concepts/ttl.html"
+            /// <summary>The remaining <a href="../../concepts/ttl.html"
             /// target="_top">time-to-live</a>, in minutes, before the
             /// respective table expires (-1 if it will never expire).  Not
             /// present for collections.</summary>
             public const string REMAINING_TABLE_TTL = "remaining_table_ttl";
 
             /// <summary>Semicolon-separated list of <a
-            /// href="../../../../../concepts/tables.html#foreign-key"
+            /// href="../../concepts/tables.html#foreign-key"
             /// target="_top">foreign keys</a>, of the format 'source_column
             /// references target_table(primary_key_column)'. Not present for
             /// collections.</summary>
@@ -557,13 +555,13 @@ namespace kinetica
             public const string FOREIGN_SHARD_KEY = "foreign_shard_key";
 
             /// <summary>Semicolon-separated list of columns that have <a
-            /// href="../../../../../concepts/indexes.html#column-index"
+            /// href="../../concepts/indexes.html#column-index"
             /// target="_top">indexes</a>. Not present for
             /// collections.</summary>
             public const string ATTRIBUTE_INDEXES = "attribute_indexes";
 
             /// <summary>Semicolon-separated list of <a
-            /// href="../../../../../concepts/compression.html"
+            /// href="../../concepts/compression.html"
             /// target="_top">compressed</a> columns with the corresponding
             /// compression type for each; e.g.:
             /// {first_name,snappy};{last_name,lz4hc}. Not present for

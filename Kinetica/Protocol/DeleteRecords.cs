@@ -71,8 +71,8 @@ namespace kinetica
 
         /// <summary>A list of the actual predicates, one for each select;
         /// format should follow the guidelines provided <a
-        /// href="../../../../concepts/expressions.html"
-        /// target="_top">here</a>. Specifying one or more <paramref
+        /// href="../../concepts/expressions.html" target="_top">here</a>.
+        /// Specifying one or more <paramref
         /// cref="DeleteRecordsRequest.expressions" /> is mutually exclusive to
         /// specifying <i>record_id</i> in the <paramref
         /// cref="DeleteRecordsRequest.options" />.  </summary>
@@ -112,8 +112,8 @@ namespace kinetica
         /// collection or a view.  </param>
         /// <param name="expressions">A list of the actual predicates, one for
         /// each select; format should follow the guidelines provided <a
-        /// href="../../../../concepts/expressions.html"
-        /// target="_top">here</a>. Specifying one or more <paramref
+        /// href="../../concepts/expressions.html" target="_top">here</a>.
+        /// Specifying one or more <paramref
         /// cref="DeleteRecordsRequest.expressions" /> is mutually exclusive to
         /// specifying <i>record_id</i> in the <paramref
         /// cref="DeleteRecordsRequest.options" />.  </param>

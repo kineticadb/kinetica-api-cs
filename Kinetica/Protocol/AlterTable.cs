@@ -19,8 +19,7 @@ namespace kinetica
     /// available
     /// modifications include the following:
     /// <br />
-    /// Create or delete an <a
-    /// href="../../../../../concepts/indexes.html#column-index"
+    /// Create or delete an <a href="../../concepts/indexes.html#column-index"
     /// target="_top">index</a> on a
     /// particular column. This can speed up certain operations when using
     /// expressions
@@ -28,8 +27,8 @@ namespace kinetica
     /// only
     /// applies to tables.
     /// <br />
-    /// Set the <a href="../../../../../concepts/ttl.html"
-    /// target="_top">time-to-live (TTL)</a>. This can be applied
+    /// Set the <a href="../../concepts/ttl.html" target="_top">time-to-live
+    /// (TTL)</a>. This can be applied
     /// to tables, views, or collections.  When applied to collections, every
     /// contained
     /// table & view that is not protected will have its TTL set to the given
@@ -39,7 +38,7 @@ namespace kinetica
     /// set to
     /// 'no_access', 'read_only', 'write_only' or 'read_write'.
     /// <br />
-    /// Change the <a href="../../../../../concepts/protection.html"
+    /// Change the <a href="../../concepts/protection.html"
     /// target="_top">protection</a> mode to prevent or
     /// allow automatic expiration. This can be applied to tables, views, and
     /// collections.
@@ -47,10 +46,10 @@ namespace kinetica
     /// Allow homogeneous tables within a collection.
     /// <br />
     /// Manage a table's columns--a column can be added, removed, or have its
-    /// <a href="../../../../../concepts/types.html" target="_top">type and
+    /// <a href="../../concepts/types.html" target="_top">type and
     /// properties</a> modified.
     /// <br />
-    /// Set or unset <a href="../../../../../concepts/compression.html"
+    /// Set or unset <a href="../../concepts/compression.html"
     /// target="_top">compression</a> for a column.</summary>
     public class AlterTableRequest : KineticaData
     {
@@ -71,7 +70,7 @@ namespace kinetica
         ///         <term><see
         /// cref="AlterTableRequest.Action.CREATE_INDEX">CREATE_INDEX</see>:</term>
         ///         <description>Creates an <a
-        /// href="../../../../concepts/indexes.html#column-index"
+        /// href="../../concepts/indexes.html#column-index"
         /// target="_top">index</a> on the column name specified in <paramref
         /// cref="AlterTableRequest._value" />. If this column is already
         /// indexed, an error will be returned.</description>
@@ -80,7 +79,7 @@ namespace kinetica
         ///         <term><see
         /// cref="AlterTableRequest.Action.DELETE_INDEX">DELETE_INDEX</see>:</term>
         ///         <description>Deletes an existing <a
-        /// href="../../../../concepts/indexes.html#column-index"
+        /// href="../../concepts/indexes.html#column-index"
         /// target="_top">index</a> on the column name specified in <paramref
         /// cref="AlterTableRequest._value" />. If this column does not have
         /// indexing turned on, an error will be returned.</description>
@@ -96,26 +95,24 @@ namespace kinetica
         /// cref="AlterTableRequest.Action.PROTECTED">PROTECTED</see>:</term>
         ///         <description>Sets whether the given <paramref
         /// cref="AlterTableRequest.table_name" /> should be <a
-        /// href="../../../../concepts/protection.html"
-        /// target="_top">protected</a> or not. The <paramref
-        /// cref="AlterTableRequest._value" /> must be either 'true' or
-        /// 'false'.</description>
+        /// href="../../concepts/protection.html" target="_top">protected</a>
+        /// or not. The <paramref cref="AlterTableRequest._value" /> must be
+        /// either 'true' or 'false'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="AlterTableRequest.Action.RENAME_TABLE">RENAME_TABLE</see>:</term>
         ///         <description>Renames a table, view or collection to
         /// <paramref cref="AlterTableRequest._value" />. Has the same naming
-        /// restrictions as <a href="../../../../concepts/tables.html"
+        /// restrictions as <a href="../../concepts/tables.html"
         /// target="_top">tables</a>.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="AlterTableRequest.Action.TTL">TTL</see>:</term>
-        ///         <description>Sets the <a
-        /// href="../../../../concepts/ttl.html" target="_top">TTL</a> of the
-        /// table, view, or collection specified in <paramref
-        /// cref="AlterTableRequest.table_name" />.</description>
+        ///         <description>Sets the <a href="../../concepts/ttl.html"
+        /// target="_top">TTL</a> of the table, view, or collection specified
+        /// in <paramref cref="AlterTableRequest.table_name" />.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -140,7 +137,7 @@ namespace kinetica
         ///         <term><see
         /// cref="AlterTableRequest.Action.SET_COLUMN_COMPRESSION">SET_COLUMN_COMPRESSION</see>:</term>
         ///         <description>Modifies the <a
-        /// href="../../../../concepts/compression.html"
+        /// href="../../concepts/compression.html"
         /// target="_top">compression</a> setting on the column specified in
         /// <paramref cref="AlterTableRequest._value" />. </description>
         ///     </item>
@@ -155,20 +152,19 @@ namespace kinetica
         ///         <term><see
         /// cref="AlterTableRequest.Action.CREATE_FOREIGN_KEY">CREATE_FOREIGN_KEY</see>:</term>
         ///         <description>Creates a <a
-        /// href="../../../../concepts/tables.html#foreign-key"
-        /// target="_top">foreign key</a> using the format 'source_column
-        /// references target_table(primary_key_column) [ as <foreign_key_name>
-        /// ]'.</description>
+        /// href="../../concepts/tables.html#foreign-key" target="_top">foreign
+        /// key</a> using the format '(source_column_name [, ...]) references
+        /// target_table_name(primary_key_column_name [, ...]) [as
+        /// foreign_key_name]'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="AlterTableRequest.Action.DELETE_FOREIGN_KEY">DELETE_FOREIGN_KEY</see>:</term>
         ///         <description>Deletes a <a
-        /// href="../../../../concepts/tables.html#foreign-key"
-        /// target="_top">foreign key</a>.  The <paramref
-        /// cref="AlterTableRequest._value" /> should be the <foreign_key_name>
-        /// specified when creating the key or the complete string used to
-        /// define it.</description>
+        /// href="../../concepts/tables.html#foreign-key" target="_top">foreign
+        /// key</a>.  The <paramref cref="AlterTableRequest._value" /> should
+        /// be the foreign_key_name specified when creating the key or the
+        /// complete string used to define it.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -184,15 +180,16 @@ namespace kinetica
         ///         <term><see
         /// cref="AlterTableRequest.Action.REFRESH">REFRESH</see>:</term>
         ///         <description>Replay all the table creation commands
-        /// required to create this view. Endpoints supported are filter,
-        /// create_join_table, create_projection, create_union,
-        /// aggregate_group_by, and aggregate_unique.</description>
+        /// required to create this view. Endpoints supported are /filter,
+        /// /create/jointable, /create/projection, /create/union,
+        /// /aggregate/groupby, and /aggregate/unique.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="AlterTableRequest.Action.SET_REFRESH_METHOD">SET_REFRESH_METHOD</see>:</term>
         ///         <description>Set the method by which this view is refreshed
-        /// - one of manual, periodic, on_change, on_query. </description>
+        /// - one of 'manual', 'periodic', 'on_change', 'on_query'.
+        /// </description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -205,9 +202,9 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="AlterTableRequest.Action.SET_REFRESH_PERIOD">SET_REFRESH_PERIOD</see>:</term>
-        ///         <description>Set the time interval at which to refresh this
-        /// view - set refresh method to periodic if not alreay
-        /// set.</description>
+        ///         <description>Set the time interval in seconds at which to
+        /// refresh this view - sets the refresh method to periodic if not
+        /// alreay set.</description>
         ///     </item>
         /// </list>
         /// A set of string constants for the parameter <see cref="action"
@@ -222,14 +219,14 @@ namespace kinetica
             public const string ALLOW_HOMOGENEOUS_TABLES = "allow_homogeneous_tables";
 
             /// <summary>Creates an <a
-            /// href="../../../../../concepts/indexes.html#column-index"
+            /// href="../../concepts/indexes.html#column-index"
             /// target="_top">index</a> on the column name specified in <see
             /// cref="_value" />. If this column is already indexed, an error
             /// will be returned.</summary>
             public const string CREATE_INDEX = "create_index";
 
             /// <summary>Deletes an existing <a
-            /// href="../../../../../concepts/indexes.html#column-index"
+            /// href="../../concepts/indexes.html#column-index"
             /// target="_top">index</a> on the column name specified in <see
             /// cref="_value" />. If this column does not have indexing turned
             /// on, an error will be returned.</summary>
@@ -240,18 +237,18 @@ namespace kinetica
             public const string MOVE_TO_COLLECTION = "move_to_collection";
 
             /// <summary>Sets whether the given <see cref="table_name" />
-            /// should be <a href="../../../../../concepts/protection.html"
+            /// should be <a href="../../concepts/protection.html"
             /// target="_top">protected</a> or not. The <see cref="_value" />
             /// must be either 'true' or 'false'.</summary>
             public const string PROTECTED = "protected";
 
             /// <summary>Renames a table, view or collection to <see
             /// cref="_value" />. Has the same naming restrictions as <a
-            /// href="../../../../../concepts/tables.html"
+            /// href="../../concepts/tables.html"
             /// target="_top">tables</a>.</summary>
             public const string RENAME_TABLE = "rename_table";
 
-            /// <summary>Sets the <a href="../../../../../concepts/ttl.html"
+            /// <summary>Sets the <a href="../../concepts/ttl.html"
             /// target="_top">TTL</a> of the table, view, or collection
             /// specified in <see cref="table_name" />.</summary>
             public const string TTL = "ttl";
@@ -269,8 +266,7 @@ namespace kinetica
             /// column's type and properties, respectively.</summary>
             public const string CHANGE_COLUMN = "change_column";
 
-            /// <summary>Modifies the <a
-            /// href="../../../../../concepts/compression.html"
+            /// <summary>Modifies the <a href="../../concepts/compression.html"
             /// target="_top">compression</a> setting on the column specified
             /// in <see cref="_value" />. </summary>
             public const string SET_COLUMN_COMPRESSION = "set_column_compression";
@@ -281,17 +277,18 @@ namespace kinetica
             public const string DELETE_COLUMN = "delete_column";
 
             /// <summary>Creates a <a
-            /// href="../../../../../concepts/tables.html#foreign-key"
-            /// target="_top">foreign key</a> using the format 'source_column
-            /// references target_table(primary_key_column) [ as
-            /// <foreign_key_name> ]'.</summary>
+            /// href="../../concepts/tables.html#foreign-key"
+            /// target="_top">foreign key</a> using the format
+            /// '(source_column_name [, ...]) references
+            /// target_table_name(primary_key_column_name [, ...]) [as
+            /// foreign_key_name]'.</summary>
             public const string CREATE_FOREIGN_KEY = "create_foreign_key";
 
             /// <summary>Deletes a <a
-            /// href="../../../../../concepts/tables.html#foreign-key"
+            /// href="../../concepts/tables.html#foreign-key"
             /// target="_top">foreign key</a>.  The <see cref="_value" />
-            /// should be the <foreign_key_name> specified when creating the
-            /// key or the complete string used to define it.</summary>
+            /// should be the foreign_key_name specified when creating the key
+            /// or the complete string used to define it.</summary>
             public const string DELETE_FOREIGN_KEY = "delete_foreign_key";
 
             /// <summary>Sets the global access mode (i.e. locking) for the
@@ -302,13 +299,23 @@ namespace kinetica
             public const string SET_GLOBAL_ACCESS_MODE = "set_global_access_mode";
 
             /// <summary>Replay all the table creation commands required to
-            /// create this view. Endpoints supported are filter,
-            /// create_join_table, create_projection, create_union,
-            /// aggregate_group_by, and aggregate_unique.</summary>
+            /// create this view. Endpoints supported are <see
+            /// cref="Kinetica.filter(string,string,string,IDictionary{string, string})"
+            /// />, <see
+            /// cref="Kinetica.createJoinTable(string,IList{string},IList{string},IList{string},IDictionary{string, string})"
+            /// />, <see
+            /// cref="Kinetica.createProjection(string,string,IList{string},IDictionary{string, string})"
+            /// />, <see
+            /// cref="Kinetica.createUnion(string,IList{string},IList{IList{string}},IList{string},IDictionary{string, string})"
+            /// />, <see
+            /// cref="Kinetica.aggregateGroupBy(string,IList{string},long,long,IDictionary{string, string})"
+            /// />, and <see
+            /// cref="Kinetica.aggregateUnique(string,string,long,long,IDictionary{string, string})"
+            /// />.</summary>
             public const string REFRESH = "refresh";
 
             /// <summary>Set the method by which this view is refreshed - one
-            /// of manual, periodic, on_change, on_query. </summary>
+            /// of 'manual', 'periodic', 'on_change', 'on_query'. </summary>
             public const string SET_REFRESH_METHOD = "set_refresh_method";
 
             /// <summary>Set the time to start periodic refreshes to datetime
@@ -317,8 +324,9 @@ namespace kinetica
             /// N*refresh_period</summary>
             public const string SET_REFRESH_START_TIME = "set_refresh_start_time";
 
-            /// <summary>Set the time interval at which to refresh this view -
-            /// set refresh method to periodic if not alreay set.</summary>
+            /// <summary>Set the time interval in seconds at which to refresh
+            /// this view - sets the refresh method to periodic if not alreay
+            /// set.</summary>
             public const string SET_REFRESH_PERIOD = "set_refresh_period";
         } // end struct Action
 
@@ -533,7 +541,7 @@ namespace kinetica
         ///         <term><see
         /// cref="AlterTableRequest.Action.CREATE_INDEX">CREATE_INDEX</see>:</term>
         ///         <description>Creates an <a
-        /// href="../../../../concepts/indexes.html#column-index"
+        /// href="../../concepts/indexes.html#column-index"
         /// target="_top">index</a> on the column name specified in <paramref
         /// cref="AlterTableRequest._value" />. If this column is already
         /// indexed, an error will be returned.</description>
@@ -542,7 +550,7 @@ namespace kinetica
         ///         <term><see
         /// cref="AlterTableRequest.Action.DELETE_INDEX">DELETE_INDEX</see>:</term>
         ///         <description>Deletes an existing <a
-        /// href="../../../../concepts/indexes.html#column-index"
+        /// href="../../concepts/indexes.html#column-index"
         /// target="_top">index</a> on the column name specified in <paramref
         /// cref="AlterTableRequest._value" />. If this column does not have
         /// indexing turned on, an error will be returned.</description>
@@ -558,26 +566,24 @@ namespace kinetica
         /// cref="AlterTableRequest.Action.PROTECTED">PROTECTED</see>:</term>
         ///         <description>Sets whether the given <paramref
         /// cref="AlterTableRequest.table_name" /> should be <a
-        /// href="../../../../concepts/protection.html"
-        /// target="_top">protected</a> or not. The <paramref
-        /// cref="AlterTableRequest._value" /> must be either 'true' or
-        /// 'false'.</description>
+        /// href="../../concepts/protection.html" target="_top">protected</a>
+        /// or not. The <paramref cref="AlterTableRequest._value" /> must be
+        /// either 'true' or 'false'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="AlterTableRequest.Action.RENAME_TABLE">RENAME_TABLE</see>:</term>
         ///         <description>Renames a table, view or collection to
         /// <paramref cref="AlterTableRequest._value" />. Has the same naming
-        /// restrictions as <a href="../../../../concepts/tables.html"
+        /// restrictions as <a href="../../concepts/tables.html"
         /// target="_top">tables</a>.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="AlterTableRequest.Action.TTL">TTL</see>:</term>
-        ///         <description>Sets the <a
-        /// href="../../../../concepts/ttl.html" target="_top">TTL</a> of the
-        /// table, view, or collection specified in <paramref
-        /// cref="AlterTableRequest.table_name" />.</description>
+        ///         <description>Sets the <a href="../../concepts/ttl.html"
+        /// target="_top">TTL</a> of the table, view, or collection specified
+        /// in <paramref cref="AlterTableRequest.table_name" />.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -602,7 +608,7 @@ namespace kinetica
         ///         <term><see
         /// cref="AlterTableRequest.Action.SET_COLUMN_COMPRESSION">SET_COLUMN_COMPRESSION</see>:</term>
         ///         <description>Modifies the <a
-        /// href="../../../../concepts/compression.html"
+        /// href="../../concepts/compression.html"
         /// target="_top">compression</a> setting on the column specified in
         /// <paramref cref="AlterTableRequest._value" />. </description>
         ///     </item>
@@ -617,20 +623,19 @@ namespace kinetica
         ///         <term><see
         /// cref="AlterTableRequest.Action.CREATE_FOREIGN_KEY">CREATE_FOREIGN_KEY</see>:</term>
         ///         <description>Creates a <a
-        /// href="../../../../concepts/tables.html#foreign-key"
-        /// target="_top">foreign key</a> using the format 'source_column
-        /// references target_table(primary_key_column) [ as <foreign_key_name>
-        /// ]'.</description>
+        /// href="../../concepts/tables.html#foreign-key" target="_top">foreign
+        /// key</a> using the format '(source_column_name [, ...]) references
+        /// target_table_name(primary_key_column_name [, ...]) [as
+        /// foreign_key_name]'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="AlterTableRequest.Action.DELETE_FOREIGN_KEY">DELETE_FOREIGN_KEY</see>:</term>
         ///         <description>Deletes a <a
-        /// href="../../../../concepts/tables.html#foreign-key"
-        /// target="_top">foreign key</a>.  The <paramref
-        /// cref="AlterTableRequest._value" /> should be the <foreign_key_name>
-        /// specified when creating the key or the complete string used to
-        /// define it.</description>
+        /// href="../../concepts/tables.html#foreign-key" target="_top">foreign
+        /// key</a>.  The <paramref cref="AlterTableRequest._value" /> should
+        /// be the foreign_key_name specified when creating the key or the
+        /// complete string used to define it.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -646,15 +651,16 @@ namespace kinetica
         ///         <term><see
         /// cref="AlterTableRequest.Action.REFRESH">REFRESH</see>:</term>
         ///         <description>Replay all the table creation commands
-        /// required to create this view. Endpoints supported are filter,
-        /// create_join_table, create_projection, create_union,
-        /// aggregate_group_by, and aggregate_unique.</description>
+        /// required to create this view. Endpoints supported are /filter,
+        /// /create/jointable, /create/projection, /create/union,
+        /// /aggregate/groupby, and /aggregate/unique.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="AlterTableRequest.Action.SET_REFRESH_METHOD">SET_REFRESH_METHOD</see>:</term>
         ///         <description>Set the method by which this view is refreshed
-        /// - one of manual, periodic, on_change, on_query. </description>
+        /// - one of 'manual', 'periodic', 'on_change', 'on_query'.
+        /// </description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -667,9 +673,9 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="AlterTableRequest.Action.SET_REFRESH_PERIOD">SET_REFRESH_PERIOD</see>:</term>
-        ///         <description>Set the time interval at which to refresh this
-        /// view - set refresh method to periodic if not alreay
-        /// set.</description>
+        ///         <description>Set the time interval in seconds at which to
+        /// refresh this view - sets the refresh method to periodic if not
+        /// alreay set.</description>
         ///     </item>
         /// </list>  </summary>
         public string action { get; set; }
@@ -805,7 +811,7 @@ namespace kinetica
         ///         <term><see
         /// cref="AlterTableRequest.Action.CREATE_INDEX">CREATE_INDEX</see>:</term>
         ///         <description>Creates an <a
-        /// href="../../../../concepts/indexes.html#column-index"
+        /// href="../../concepts/indexes.html#column-index"
         /// target="_top">index</a> on the column name specified in <paramref
         /// cref="AlterTableRequest._value" />. If this column is already
         /// indexed, an error will be returned.</description>
@@ -814,7 +820,7 @@ namespace kinetica
         ///         <term><see
         /// cref="AlterTableRequest.Action.DELETE_INDEX">DELETE_INDEX</see>:</term>
         ///         <description>Deletes an existing <a
-        /// href="../../../../concepts/indexes.html#column-index"
+        /// href="../../concepts/indexes.html#column-index"
         /// target="_top">index</a> on the column name specified in <paramref
         /// cref="AlterTableRequest._value" />. If this column does not have
         /// indexing turned on, an error will be returned.</description>
@@ -830,26 +836,24 @@ namespace kinetica
         /// cref="AlterTableRequest.Action.PROTECTED">PROTECTED</see>:</term>
         ///         <description>Sets whether the given <paramref
         /// cref="AlterTableRequest.table_name" /> should be <a
-        /// href="../../../../concepts/protection.html"
-        /// target="_top">protected</a> or not. The <paramref
-        /// cref="AlterTableRequest._value" /> must be either 'true' or
-        /// 'false'.</description>
+        /// href="../../concepts/protection.html" target="_top">protected</a>
+        /// or not. The <paramref cref="AlterTableRequest._value" /> must be
+        /// either 'true' or 'false'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="AlterTableRequest.Action.RENAME_TABLE">RENAME_TABLE</see>:</term>
         ///         <description>Renames a table, view or collection to
         /// <paramref cref="AlterTableRequest._value" />. Has the same naming
-        /// restrictions as <a href="../../../../concepts/tables.html"
+        /// restrictions as <a href="../../concepts/tables.html"
         /// target="_top">tables</a>.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="AlterTableRequest.Action.TTL">TTL</see>:</term>
-        ///         <description>Sets the <a
-        /// href="../../../../concepts/ttl.html" target="_top">TTL</a> of the
-        /// table, view, or collection specified in <paramref
-        /// cref="AlterTableRequest.table_name" />.</description>
+        ///         <description>Sets the <a href="../../concepts/ttl.html"
+        /// target="_top">TTL</a> of the table, view, or collection specified
+        /// in <paramref cref="AlterTableRequest.table_name" />.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -874,7 +878,7 @@ namespace kinetica
         ///         <term><see
         /// cref="AlterTableRequest.Action.SET_COLUMN_COMPRESSION">SET_COLUMN_COMPRESSION</see>:</term>
         ///         <description>Modifies the <a
-        /// href="../../../../concepts/compression.html"
+        /// href="../../concepts/compression.html"
         /// target="_top">compression</a> setting on the column specified in
         /// <paramref cref="AlterTableRequest._value" />. </description>
         ///     </item>
@@ -889,20 +893,19 @@ namespace kinetica
         ///         <term><see
         /// cref="AlterTableRequest.Action.CREATE_FOREIGN_KEY">CREATE_FOREIGN_KEY</see>:</term>
         ///         <description>Creates a <a
-        /// href="../../../../concepts/tables.html#foreign-key"
-        /// target="_top">foreign key</a> using the format 'source_column
-        /// references target_table(primary_key_column) [ as <foreign_key_name>
-        /// ]'.</description>
+        /// href="../../concepts/tables.html#foreign-key" target="_top">foreign
+        /// key</a> using the format '(source_column_name [, ...]) references
+        /// target_table_name(primary_key_column_name [, ...]) [as
+        /// foreign_key_name]'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="AlterTableRequest.Action.DELETE_FOREIGN_KEY">DELETE_FOREIGN_KEY</see>:</term>
         ///         <description>Deletes a <a
-        /// href="../../../../concepts/tables.html#foreign-key"
-        /// target="_top">foreign key</a>.  The <paramref
-        /// cref="AlterTableRequest._value" /> should be the <foreign_key_name>
-        /// specified when creating the key or the complete string used to
-        /// define it.</description>
+        /// href="../../concepts/tables.html#foreign-key" target="_top">foreign
+        /// key</a>.  The <paramref cref="AlterTableRequest._value" /> should
+        /// be the foreign_key_name specified when creating the key or the
+        /// complete string used to define it.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -918,15 +921,16 @@ namespace kinetica
         ///         <term><see
         /// cref="AlterTableRequest.Action.REFRESH">REFRESH</see>:</term>
         ///         <description>Replay all the table creation commands
-        /// required to create this view. Endpoints supported are filter,
-        /// create_join_table, create_projection, create_union,
-        /// aggregate_group_by, and aggregate_unique.</description>
+        /// required to create this view. Endpoints supported are /filter,
+        /// /create/jointable, /create/projection, /create/union,
+        /// /aggregate/groupby, and /aggregate/unique.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="AlterTableRequest.Action.SET_REFRESH_METHOD">SET_REFRESH_METHOD</see>:</term>
         ///         <description>Set the method by which this view is refreshed
-        /// - one of manual, periodic, on_change, on_query. </description>
+        /// - one of 'manual', 'periodic', 'on_change', 'on_query'.
+        /// </description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -939,9 +943,9 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="AlterTableRequest.Action.SET_REFRESH_PERIOD">SET_REFRESH_PERIOD</see>:</term>
-        ///         <description>Set the time interval at which to refresh this
-        /// view - set refresh method to periodic if not alreay
-        /// set.</description>
+        ///         <description>Set the time interval in seconds at which to
+        /// refresh this view - sets the refresh method to periodic if not
+        /// alreay set.</description>
         ///     </item>
         /// </list>  </param>
         /// <param name="_value">The value of the modification. May be a column

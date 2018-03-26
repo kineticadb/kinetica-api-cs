@@ -16,10 +16,10 @@ namespace kinetica
     /// />.
     /// <br />
     /// Filters data based on the specified expression.  The results are stored
-    /// in a <a href="../../../../../concepts/filtered_views.html"
-    /// target="_top">result set</a> with the given <see cref="view_name" />.
+    /// in a <a href="../../concepts/filtered_views.html" target="_top">result
+    /// set</a> with the given <see cref="view_name" />.
     /// <br />
-    /// For details see <a href="../../../../../concepts/expressions.html"
+    /// For details see <a href="../../concepts/expressions.html"
     /// target="_top">Expressions</a>.
     /// <br />
     /// The response message contains the number of points for which the
@@ -47,10 +47,9 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="FilterRequest.Options.TTL">TTL</see>:</term>
-        ///         <description>Sets the <a
-        /// href="../../../../concepts/ttl.html" target="_top">TTL</a> of the
-        /// view specified in <paramref cref="FilterRequest.view_name"
-        /// />.</description>
+        ///         <description>Sets the <a href="../../concepts/ttl.html"
+        /// target="_top">TTL</a> of the view specified in <paramref
+        /// cref="FilterRequest.view_name" />.</description>
         ///     </item>
         /// </list>
         /// <br />
@@ -68,7 +67,7 @@ namespace kinetica
             /// <summary>view this filtered-view is part of</summary>
             public const string VIEW_ID = "view_id";
 
-            /// <summary>Sets the <a href="../../../../../concepts/ttl.html"
+            /// <summary>Sets the <a href="../../concepts/ttl.html"
             /// target="_top">TTL</a> of the view specified in <see
             /// cref="view_name" />.</summary>
             public const string TTL = "ttl";
@@ -83,12 +82,12 @@ namespace kinetica
 
         /// <summary>If provided, then this will be the name of the view
         /// containing the results. Has the same naming restrictions as <a
-        /// href="../../../../concepts/tables.html" target="_top">tables</a>.
+        /// href="../../concepts/tables.html" target="_top">tables</a>.
         /// </summary>
         public string view_name { get; set; } = "";
 
         /// <summary>The select expression to filter the specified table.  For
-        /// details see <a href="../../../../concepts/expressions.html"
+        /// details see <a href="../../concepts/expressions.html"
         /// target="_top">Expressions</a>.  </summary>
         public string expression { get; set; }
 
@@ -111,10 +110,9 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="FilterRequest.Options.TTL">TTL</see>:</term>
-        ///         <description>Sets the <a
-        /// href="../../../../concepts/ttl.html" target="_top">TTL</a> of the
-        /// view specified in <paramref cref="FilterRequest.view_name"
-        /// />.</description>
+        ///         <description>Sets the <a href="../../concepts/ttl.html"
+        /// target="_top">TTL</a> of the view specified in <paramref
+        /// cref="FilterRequest.view_name" />.</description>
         ///     </item>
         /// </list>
         ///   </summary>
@@ -134,11 +132,11 @@ namespace kinetica
         /// the collection have the same type ID.  </param>
         /// <param name="view_name">If provided, then this will be the name of
         /// the view containing the results. Has the same naming restrictions
-        /// as <a href="../../../../concepts/tables.html"
-        /// target="_top">tables</a>.  </param>
+        /// as <a href="../../concepts/tables.html" target="_top">tables</a>.
+        /// </param>
         /// <param name="expression">The select expression to filter the
         /// specified table.  For details see <a
-        /// href="../../../../concepts/expressions.html"
+        /// href="../../concepts/expressions.html"
         /// target="_top">Expressions</a>.  </param>
         /// <param name="options">Optional parameters.
         /// <list type="bullet">
@@ -159,10 +157,9 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="FilterRequest.Options.TTL">TTL</see>:</term>
-        ///         <description>Sets the <a
-        /// href="../../../../concepts/ttl.html" target="_top">TTL</a> of the
-        /// view specified in <paramref cref="FilterRequest.view_name"
-        /// />.</description>
+        ///         <description>Sets the <a href="../../concepts/ttl.html"
+        /// target="_top">TTL</a> of the view specified in <paramref
+        /// cref="FilterRequest.view_name" />.</description>
         ///     </item>
         /// </list>
         ///   </param>

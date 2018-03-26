@@ -103,17 +103,17 @@ namespace kinetica
         ///         <term><see
         /// cref="CreateTableRequest.Options.IS_REPLICATED">IS_REPLICATED</see>:</term>
         ///         <description>For a table, indicates the <a
-        /// href="../../../../concepts/tables.html#distribution"
+        /// href="../../concepts/tables.html#distribution"
         /// target="_top">distribution scheme</a> for the table's data.  If
         /// true, the table will be <a
-        /// href="../../../../concepts/tables.html#replication"
+        /// href="../../concepts/tables.html#replication"
         /// target="_top">replicated</a>.  If false, the table will be <a
-        /// href="../../../../concepts/tables.html#sharding"
+        /// href="../../concepts/tables.html#sharding"
         /// target="_top">sharded</a> according to the <a
-        /// href="../../../../concepts/tables.html#shard-keys"
-        /// target="_top">shard key</a> specified in the given <paramref
+        /// href="../../concepts/tables.html#shard-keys" target="_top">shard
+        /// key</a> specified in the given <paramref
         /// cref="CreateTableRequest.type_id" />, or <a
-        /// href="../../../../concepts/tables.html#random-sharding"
+        /// href="../../concepts/tables.html#random-sharding"
         /// target="_top">randomly sharded</a>, if no shard key is specified.
         /// Supported values:
         /// <list type="bullet">
@@ -133,10 +133,10 @@ namespace kinetica
         ///         <term><see
         /// cref="CreateTableRequest.Options.FOREIGN_KEYS">FOREIGN_KEYS</see>:</term>
         ///         <description>Semicolon-separated list of <a
-        /// href="../../../../concepts/tables.html#foreign-keys"
-        /// target="_top">foreign keys</a>, of the format 'source_column
-        /// references target_table(primary_key_column) [ as <foreign_key_name>
-        /// ]'.</description>
+        /// href="../../concepts/tables.html#foreign-keys"
+        /// target="_top">foreign keys</a>, of the format '(source_column_name
+        /// [, ...]) references target_table_name(primary_key_column_name [,
+        /// ...]) [as foreign_key_name]'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -149,8 +149,8 @@ namespace kinetica
         ///         <term><see
         /// cref="CreateTableRequest.Options.TTL">TTL</see>:</term>
         ///         <description>For a table, sets the <a
-        /// href="../../../../concepts/ttl.html" target="_top">TTL</a> of the
-        /// table specified in <paramref cref="CreateTableRequest.table_name"
+        /// href="../../concepts/ttl.html" target="_top">TTL</a> of the table
+        /// specified in <paramref cref="CreateTableRequest.table_name"
         /// />.</description>
         ///     </item>
         ///     <item>
@@ -250,17 +250,17 @@ namespace kinetica
             public const string DISALLOW_HOMOGENEOUS_TABLES = "disallow_homogeneous_tables";
 
             /// <summary>For a table, indicates the <a
-            /// href="../../../../../concepts/tables.html#distribution"
+            /// href="../../concepts/tables.html#distribution"
             /// target="_top">distribution scheme</a> for the table's data.  If
             /// true, the table will be <a
-            /// href="../../../../../concepts/tables.html#replication"
+            /// href="../../concepts/tables.html#replication"
             /// target="_top">replicated</a>.  If false, the table will be <a
-            /// href="../../../../../concepts/tables.html#sharding"
+            /// href="../../concepts/tables.html#sharding"
             /// target="_top">sharded</a> according to the <a
-            /// href="../../../../../concepts/tables.html#shard-keys"
+            /// href="../../concepts/tables.html#shard-keys"
             /// target="_top">shard key</a> specified in the given <see
             /// cref="type_id" />, or <a
-            /// href="../../../../../concepts/tables.html#random-sharding"
+            /// href="../../concepts/tables.html#random-sharding"
             /// target="_top">randomly sharded</a>, if no shard key is
             /// specified.
             /// Supported values:
@@ -279,10 +279,11 @@ namespace kinetica
             public const string IS_REPLICATED = "is_replicated";
 
             /// <summary>Semicolon-separated list of <a
-            /// href="../../../../../concepts/tables.html#foreign-keys"
-            /// target="_top">foreign keys</a>, of the format 'source_column
-            /// references target_table(primary_key_column) [ as
-            /// <foreign_key_name> ]'.</summary>
+            /// href="../../concepts/tables.html#foreign-keys"
+            /// target="_top">foreign keys</a>, of the format
+            /// '(source_column_name [, ...]) references
+            /// target_table_name(primary_key_column_name [, ...]) [as
+            /// foreign_key_name]'.</summary>
             public const string FOREIGN_KEYS = "foreign_keys";
 
             /// <summary>Foreign shard key of the format 'source_column
@@ -291,8 +292,8 @@ namespace kinetica
             public const string FOREIGN_SHARD_KEY = "foreign_shard_key";
 
             /// <summary>For a table, sets the <a
-            /// href="../../../../../concepts/ttl.html" target="_top">TTL</a>
-            /// of the table specified in <see cref="table_name" />.</summary>
+            /// href="../../concepts/ttl.html" target="_top">TTL</a> of the
+            /// table specified in <see cref="table_name" />.</summary>
             public const string TTL = "ttl";
 
             /// <summary>Indicates the chunk size to be used for this
@@ -323,8 +324,8 @@ namespace kinetica
         /// <summary>Name of the table to be created. Error for requests with
         /// existing table of the same name and type id may be suppressed by
         /// using the <i>no_error_if_exists</i> option.  See <a
-        /// href="../../../../concepts/tables.html" target="_top">Tables</a>
-        /// for naming restrictions.  </summary>
+        /// href="../../concepts/tables.html" target="_top">Tables</a> for
+        /// naming restrictions.  </summary>
         public string table_name { get; set; }
 
         /// <summary>ID of a currently registered type. All objects added to
@@ -406,17 +407,17 @@ namespace kinetica
         ///         <term><see
         /// cref="CreateTableRequest.Options.IS_REPLICATED">IS_REPLICATED</see>:</term>
         ///         <description>For a table, indicates the <a
-        /// href="../../../../concepts/tables.html#distribution"
+        /// href="../../concepts/tables.html#distribution"
         /// target="_top">distribution scheme</a> for the table's data.  If
         /// true, the table will be <a
-        /// href="../../../../concepts/tables.html#replication"
+        /// href="../../concepts/tables.html#replication"
         /// target="_top">replicated</a>.  If false, the table will be <a
-        /// href="../../../../concepts/tables.html#sharding"
+        /// href="../../concepts/tables.html#sharding"
         /// target="_top">sharded</a> according to the <a
-        /// href="../../../../concepts/tables.html#shard-keys"
-        /// target="_top">shard key</a> specified in the given <paramref
+        /// href="../../concepts/tables.html#shard-keys" target="_top">shard
+        /// key</a> specified in the given <paramref
         /// cref="CreateTableRequest.type_id" />, or <a
-        /// href="../../../../concepts/tables.html#random-sharding"
+        /// href="../../concepts/tables.html#random-sharding"
         /// target="_top">randomly sharded</a>, if no shard key is specified.
         /// Supported values:
         /// <list type="bullet">
@@ -436,10 +437,10 @@ namespace kinetica
         ///         <term><see
         /// cref="CreateTableRequest.Options.FOREIGN_KEYS">FOREIGN_KEYS</see>:</term>
         ///         <description>Semicolon-separated list of <a
-        /// href="../../../../concepts/tables.html#foreign-keys"
-        /// target="_top">foreign keys</a>, of the format 'source_column
-        /// references target_table(primary_key_column) [ as <foreign_key_name>
-        /// ]'.</description>
+        /// href="../../concepts/tables.html#foreign-keys"
+        /// target="_top">foreign keys</a>, of the format '(source_column_name
+        /// [, ...]) references target_table_name(primary_key_column_name [,
+        /// ...]) [as foreign_key_name]'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -452,8 +453,8 @@ namespace kinetica
         ///         <term><see
         /// cref="CreateTableRequest.Options.TTL">TTL</see>:</term>
         ///         <description>For a table, sets the <a
-        /// href="../../../../concepts/ttl.html" target="_top">TTL</a> of the
-        /// table specified in <paramref cref="CreateTableRequest.table_name"
+        /// href="../../concepts/ttl.html" target="_top">TTL</a> of the table
+        /// specified in <paramref cref="CreateTableRequest.table_name"
         /// />.</description>
         ///     </item>
         ///     <item>
@@ -498,8 +499,8 @@ namespace kinetica
         /// <param name="table_name">Name of the table to be created. Error for
         /// requests with existing table of the same name and type id may be
         /// suppressed by using the <i>no_error_if_exists</i> option.  See <a
-        /// href="../../../../concepts/tables.html" target="_top">Tables</a>
-        /// for naming restrictions.  </param>
+        /// href="../../concepts/tables.html" target="_top">Tables</a> for
+        /// naming restrictions.  </param>
         /// <param name="type_id">ID of a currently registered type. All
         /// objects added to the newly created table will be of this type.
         /// Ignored if <i>is_collection</i> is <i>true</i>.  </param>
@@ -577,17 +578,17 @@ namespace kinetica
         ///         <term><see
         /// cref="CreateTableRequest.Options.IS_REPLICATED">IS_REPLICATED</see>:</term>
         ///         <description>For a table, indicates the <a
-        /// href="../../../../concepts/tables.html#distribution"
+        /// href="../../concepts/tables.html#distribution"
         /// target="_top">distribution scheme</a> for the table's data.  If
         /// true, the table will be <a
-        /// href="../../../../concepts/tables.html#replication"
+        /// href="../../concepts/tables.html#replication"
         /// target="_top">replicated</a>.  If false, the table will be <a
-        /// href="../../../../concepts/tables.html#sharding"
+        /// href="../../concepts/tables.html#sharding"
         /// target="_top">sharded</a> according to the <a
-        /// href="../../../../concepts/tables.html#shard-keys"
-        /// target="_top">shard key</a> specified in the given <paramref
+        /// href="../../concepts/tables.html#shard-keys" target="_top">shard
+        /// key</a> specified in the given <paramref
         /// cref="CreateTableRequest.type_id" />, or <a
-        /// href="../../../../concepts/tables.html#random-sharding"
+        /// href="../../concepts/tables.html#random-sharding"
         /// target="_top">randomly sharded</a>, if no shard key is specified.
         /// Supported values:
         /// <list type="bullet">
@@ -607,10 +608,10 @@ namespace kinetica
         ///         <term><see
         /// cref="CreateTableRequest.Options.FOREIGN_KEYS">FOREIGN_KEYS</see>:</term>
         ///         <description>Semicolon-separated list of <a
-        /// href="../../../../concepts/tables.html#foreign-keys"
-        /// target="_top">foreign keys</a>, of the format 'source_column
-        /// references target_table(primary_key_column) [ as <foreign_key_name>
-        /// ]'.</description>
+        /// href="../../concepts/tables.html#foreign-keys"
+        /// target="_top">foreign keys</a>, of the format '(source_column_name
+        /// [, ...]) references target_table_name(primary_key_column_name [,
+        /// ...]) [as foreign_key_name]'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -623,8 +624,8 @@ namespace kinetica
         ///         <term><see
         /// cref="CreateTableRequest.Options.TTL">TTL</see>:</term>
         ///         <description>For a table, sets the <a
-        /// href="../../../../concepts/ttl.html" target="_top">TTL</a> of the
-        /// table specified in <paramref cref="CreateTableRequest.table_name"
+        /// href="../../concepts/ttl.html" target="_top">TTL</a> of the table
+        /// specified in <paramref cref="CreateTableRequest.table_name"
         /// />.</description>
         ///     </item>
         ///     <item>

@@ -34,7 +34,7 @@ namespace kinetica
 
         /// <summary>If provided, then this will be the name of the view
         /// containing the results. Has the same naming restrictions as <a
-        /// href="../../../../concepts/tables.html" target="_top">tables</a>.
+        /// href="../../concepts/tables.html" target="_top">tables</a>.
         /// </summary>
         public string view_name { get; set; } = "";
 
@@ -67,8 +67,8 @@ namespace kinetica
         /// perform the calculation.  </param>
         /// <param name="view_name">If provided, then this will be the name of
         /// the view containing the results. Has the same naming restrictions
-        /// as <a href="../../../../concepts/tables.html"
-        /// target="_top">tables</a>.  </param>
+        /// as <a href="../../concepts/tables.html" target="_top">tables</a>.
+        /// </param>
         /// <param name="is_string">Indicates whether the value being searched
         /// for is string or numeric.  </param>
         /// <param name="_value">The value to search for.  </param>

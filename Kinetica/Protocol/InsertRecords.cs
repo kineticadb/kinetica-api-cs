@@ -26,8 +26,8 @@ namespace kinetica
     /// <br />
     /// The <i>update_on_existing_pk</i> option specifies the record collision
     /// policy for inserting into a table with a <a
-    /// href="../../../../../concepts/tables.html#primary-keys"
-    /// target="_top">primary key</a>, but is ignored if no primary key exists.
+    /// href="../../concepts/tables.html#primary-keys" target="_top">primary
+    /// key</a>, but is ignored if no primary key exists.
     /// <br />
     /// The <i>return_record_ids</i> option indicates that the database should
     /// return the unique identifiers of inserted records.
@@ -67,7 +67,7 @@ namespace kinetica
         /// cref="RawInsertRecordsRequest.Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>:</term>
         ///         <description>Specifies the record collision policy for
         /// inserting into a table with a <a
-        /// href="../../../../concepts/tables.html#primary-keys"
+        /// href="../../concepts/tables.html#primary-keys"
         /// target="_top">primary key</a>.  If set to <i>true</i>, any existing
         /// table record with primary key values that match those of a record
         /// being inserted will be replaced by that new record.  If set to
@@ -123,7 +123,7 @@ namespace kinetica
 
             /// <summary>Specifies the record collision policy for inserting
             /// into a table with a <a
-            /// href="../../../../../concepts/tables.html#primary-keys"
+            /// href="../../concepts/tables.html#primary-keys"
             /// target="_top">primary key</a>.  If set to <i>true</i>, any
             /// existing table record with primary key values that match those
             /// of a record being inserted will be replaced by that new record.
@@ -213,7 +213,7 @@ namespace kinetica
         /// cref="RawInsertRecordsRequest.Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>:</term>
         ///         <description>Specifies the record collision policy for
         /// inserting into a table with a <a
-        /// href="../../../../concepts/tables.html#primary-keys"
+        /// href="../../concepts/tables.html#primary-keys"
         /// target="_top">primary key</a>.  If set to <i>true</i>, any existing
         /// table record with primary key values that match those of a record
         /// being inserted will be replaced by that new record.  If set to
@@ -286,7 +286,7 @@ namespace kinetica
         /// cref="RawInsertRecordsRequest.Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>:</term>
         ///         <description>Specifies the record collision policy for
         /// inserting into a table with a <a
-        /// href="../../../../concepts/tables.html#primary-keys"
+        /// href="../../concepts/tables.html#primary-keys"
         /// target="_top">primary key</a>.  If set to <i>true</i>, any existing
         /// table record with primary key values that match those of a record
         /// being inserted will be replaced by that new record.  If set to
@@ -386,7 +386,7 @@ namespace kinetica
         /// cref="RawInsertRecordsRequest.Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>:</term>
         ///         <description>Specifies the record collision policy for
         /// inserting into a table with a <a
-        /// href="../../../../concepts/tables.html#primary-keys"
+        /// href="../../concepts/tables.html#primary-keys"
         /// target="_top">primary key</a>.  If set to <i>true</i>, any existing
         /// table record with primary key values that match those of a record
         /// being inserted will be replaced by that new record.  If set to
@@ -468,8 +468,8 @@ namespace kinetica
     /// <br />
     /// The <i>update_on_existing_pk</i> option specifies the record collision
     /// policy for inserting into a table with a <a
-    /// href="../../../../../concepts/tables.html#primary-keys"
-    /// target="_top">primary key</a>, but is ignored if no primary key exists.
+    /// href="../../concepts/tables.html#primary-keys" target="_top">primary
+    /// key</a>, but is ignored if no primary key exists.
     /// <br />
     /// The <i>return_record_ids</i> option indicates that the database should
     /// return the unique identifiers of inserted records.
@@ -489,7 +489,7 @@ namespace kinetica
         /// cref="RawInsertRecordsRequest.Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>:</term>
         ///         <description>Specifies the record collision policy for
         /// inserting into a table with a <a
-        /// href="../../../../concepts/tables.html#primary-keys"
+        /// href="../../concepts/tables.html#primary-keys"
         /// target="_top">primary key</a>.  If set to <i>true</i>, any existing
         /// table record with primary key values that match those of a record
         /// being inserted will be replaced by that new record.  If set to
@@ -545,7 +545,7 @@ namespace kinetica
 
             /// <summary>Specifies the record collision policy for inserting
             /// into a table with a <a
-            /// href="../../../../../concepts/tables.html#primary-keys"
+            /// href="../../concepts/tables.html#primary-keys"
             /// target="_top">primary key</a>.  If set to <i>true</i>, any
             /// existing table record with primary key values that match those
             /// of a record being inserted will be replaced by that new record.
@@ -612,7 +612,7 @@ namespace kinetica
         /// cref="RawInsertRecordsRequest.Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>:</term>
         ///         <description>Specifies the record collision policy for
         /// inserting into a table with a <a
-        /// href="../../../../concepts/tables.html#primary-keys"
+        /// href="../../concepts/tables.html#primary-keys"
         /// target="_top">primary key</a>.  If set to <i>true</i>, any existing
         /// table record with primary key values that match those of a record
         /// being inserted will be replaced by that new record.  If set to
@@ -685,7 +685,7 @@ namespace kinetica
         /// cref="RawInsertRecordsRequest.Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>:</term>
         ///         <description>Specifies the record collision policy for
         /// inserting into a table with a <a
-        /// href="../../../../concepts/tables.html#primary-keys"
+        /// href="../../concepts/tables.html#primary-keys"
         /// target="_top">primary key</a>.  If set to <i>true</i>, any existing
         /// table record with primary key values that match those of a record
         /// being inserted will be replaced by that new record.  If set to

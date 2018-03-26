@@ -33,7 +33,7 @@ namespace kinetica
 
         /// <summary>If provided, then this will be the name of the view
         /// containing the results. Has the same naming restrictions as <a
-        /// href="../../../../concepts/tables.html" target="_top">tables</a>.
+        /// href="../../concepts/tables.html" target="_top">tables</a>.
         /// </summary>
         public string view_name { get; set; } = "";
 
@@ -70,8 +70,8 @@ namespace kinetica
         /// the collection have the same type ID.  </param>
         /// <param name="view_name">If provided, then this will be the name of
         /// the view containing the results. Has the same naming restrictions
-        /// as <a href="../../../../concepts/tables.html"
-        /// target="_top">tables</a>.  </param>
+        /// as <a href="../../concepts/tables.html" target="_top">tables</a>.
+        /// </param>
         /// <param name="x_column_name">Name of the column containing the x
         /// values to be filtered.  </param>
         /// <param name="x_vector">List of x coordinates of the vertices of the

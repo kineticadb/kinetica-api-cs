@@ -24,8 +24,7 @@ namespace kinetica
     /// name="json_encoded_response" />.  The results can be paged via the <see
     /// cref="offset" /> and <see cref="limit" /> parameters.
     /// <br />
-    /// Columns marked as <a
-    /// href="../../../../../concepts/types.html#data-handling"
+    /// Columns marked as <a href="../../concepts/types.html#data-handling"
     /// target="_top">store-only</a> are unable to be used with this function.
     /// <br />
     /// To get the first 10 unique values sorted in descending order <see
@@ -34,22 +33,22 @@ namespace kinetica
     /// {"limit":"10","sort_order":"descending"}.
     /// <br />
     /// The response is returned as a dynamic schema. For details see: <a
-    /// href="../../../../../api/index.html#dynamic-schemas"
-    /// target="_top">dynamic schemas documentation</a>.
+    /// href="../../api/index.html#dynamic-schemas" target="_top">dynamic
+    /// schemas documentation</a>.
     /// <br />
     /// If a <i>result_table</i> name is specified in the <see cref="options"
     /// />, the results are stored in a new table with that name--no results
     /// are returned in the response.  Both the table name and resulting column
-    /// name must adhere to <a href="../../../../../concepts/tables.html#table"
+    /// name must adhere to <a href="../../concepts/tables.html#table"
     /// target="_top">standard naming conventions</a>; any column expression
     /// will need to be aliased.  If the source table's <a
-    /// href="../../../../../concepts/tables.html#shard-keys"
-    /// target="_top">shard key</a> is used as the <see cref="column_name" />,
-    /// the result table will be sharded, in all other cases it will be
-    /// replicated.  Sorting will properly function only if the result table is
-    /// replicated or if there is only one processing node and should not be
-    /// relied upon in other cases.  Not available if <see cref="table_name" />
-    /// is a collection or when the value of <see cref="column_name" /> is an
+    /// href="../../concepts/tables.html#shard-keys" target="_top">shard
+    /// key</a> is used as the <see cref="column_name" />, the result table
+    /// will be sharded, in all other cases it will be replicated.  Sorting
+    /// will properly function only if the result table is replicated or if
+    /// there is only one processing node and should not be relied upon in
+    /// other cases.  Not available if <see cref="table_name" /> is a
+    /// collection or when the value of <see cref="column_name" /> is an
     /// unrestricted-length string.</summary>
     public class AggregateUniqueRequest : KineticaData
     {
@@ -131,9 +130,9 @@ namespace kinetica
         ///         <description>The name of the table used to store the
         /// results. If present, no results are returned in the response. Has
         /// the same naming restrictions as <a
-        /// href="../../../../concepts/tables.html" target="_top">tables</a>.
-        /// Not available if <paramref cref="AggregateUniqueRequest.table_name"
-        /// /> is a collection or when <paramref
+        /// href="../../concepts/tables.html" target="_top">tables</a>.  Not
+        /// available if <paramref cref="AggregateUniqueRequest.table_name" />
+        /// is a collection or when <paramref
         /// cref="AggregateUniqueRequest.column_name" /> is an
         /// unrestricted-length string.</description>
         ///     </item>
@@ -176,9 +175,9 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="AggregateUniqueRequest.Options.TTL">TTL</see>:</term>
-        ///         <description>Sets the <a
-        /// href="../../../../concepts/ttl.html" target="_top">TTL</a> of the
-        /// table specified in <i>result_table</i>.</description>
+        ///         <description>Sets the <a href="../../concepts/ttl.html"
+        /// target="_top">TTL</a> of the table specified in
+        /// <i>result_table</i>.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -233,8 +232,7 @@ namespace kinetica
 
             /// <summary>The name of the table used to store the results. If
             /// present, no results are returned in the response. Has the same
-            /// naming restrictions as <a
-            /// href="../../../../../concepts/tables.html"
+            /// naming restrictions as <a href="../../concepts/tables.html"
             /// target="_top">tables</a>.  Not available if <see
             /// cref="table_name" /> is a collection or when <see
             /// cref="column_name" /> is an unrestricted-length
@@ -273,7 +271,7 @@ namespace kinetica
             /// option.</summary>
             public const string RESULT_TABLE_GENERATE_PK = "result_table_generate_pk";
 
-            /// <summary>Sets the <a href="../../../../../concepts/ttl.html"
+            /// <summary>Sets the <a href="../../concepts/ttl.html"
             /// target="_top">TTL</a> of the table specified in
             /// <i>result_table</i>.</summary>
             public const string TTL = "ttl";
@@ -373,9 +371,9 @@ namespace kinetica
         ///         <description>The name of the table used to store the
         /// results. If present, no results are returned in the response. Has
         /// the same naming restrictions as <a
-        /// href="../../../../concepts/tables.html" target="_top">tables</a>.
-        /// Not available if <paramref cref="AggregateUniqueRequest.table_name"
-        /// /> is a collection or when <paramref
+        /// href="../../concepts/tables.html" target="_top">tables</a>.  Not
+        /// available if <paramref cref="AggregateUniqueRequest.table_name" />
+        /// is a collection or when <paramref
         /// cref="AggregateUniqueRequest.column_name" /> is an
         /// unrestricted-length string.</description>
         ///     </item>
@@ -418,9 +416,9 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="AggregateUniqueRequest.Options.TTL">TTL</see>:</term>
-        ///         <description>Sets the <a
-        /// href="../../../../concepts/ttl.html" target="_top">TTL</a> of the
-        /// table specified in <i>result_table</i>.</description>
+        ///         <description>Sets the <a href="../../concepts/ttl.html"
+        /// target="_top">TTL</a> of the table specified in
+        /// <i>result_table</i>.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -503,9 +501,9 @@ namespace kinetica
         ///         <description>The name of the table used to store the
         /// results. If present, no results are returned in the response. Has
         /// the same naming restrictions as <a
-        /// href="../../../../concepts/tables.html" target="_top">tables</a>.
-        /// Not available if <paramref cref="AggregateUniqueRequest.table_name"
-        /// /> is a collection or when <paramref
+        /// href="../../concepts/tables.html" target="_top">tables</a>.  Not
+        /// available if <paramref cref="AggregateUniqueRequest.table_name" />
+        /// is a collection or when <paramref
         /// cref="AggregateUniqueRequest.column_name" /> is an
         /// unrestricted-length string.</description>
         ///     </item>
@@ -548,9 +546,9 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="AggregateUniqueRequest.Options.TTL">TTL</see>:</term>
-        ///         <description>Sets the <a
-        /// href="../../../../concepts/ttl.html" target="_top">TTL</a> of the
-        /// table specified in <i>result_table</i>.</description>
+        ///         <description>Sets the <a href="../../concepts/ttl.html"
+        /// target="_top">TTL</a> of the table specified in
+        /// <i>result_table</i>.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -661,9 +659,9 @@ namespace kinetica
         ///         <description>The name of the table used to store the
         /// results. If present, no results are returned in the response. Has
         /// the same naming restrictions as <a
-        /// href="../../../../concepts/tables.html" target="_top">tables</a>.
-        /// Not available if <paramref cref="AggregateUniqueRequest.table_name"
-        /// /> is a collection or when <paramref
+        /// href="../../concepts/tables.html" target="_top">tables</a>.  Not
+        /// available if <paramref cref="AggregateUniqueRequest.table_name" />
+        /// is a collection or when <paramref
         /// cref="AggregateUniqueRequest.column_name" /> is an
         /// unrestricted-length string.</description>
         ///     </item>
@@ -706,9 +704,9 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="AggregateUniqueRequest.Options.TTL">TTL</see>:</term>
-        ///         <description>Sets the <a
-        /// href="../../../../concepts/ttl.html" target="_top">TTL</a> of the
-        /// table specified in <i>result_table</i>.</description>
+        ///         <description>Sets the <a href="../../concepts/ttl.html"
+        /// target="_top">TTL</a> of the table specified in
+        /// <i>result_table</i>.</description>
         ///     </item>
         ///     <item>
         ///         <term><see

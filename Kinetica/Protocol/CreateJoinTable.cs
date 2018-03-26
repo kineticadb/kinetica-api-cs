@@ -15,9 +15,12 @@ namespace kinetica
     /// cref="Kinetica.createJoinTable(string,IList{string},IList{string},IList{string},IDictionary{string, string})"
     /// />.
     /// <br />
-    /// Creates a table that is the result of a SQL JOIN.  For details see: <a
-    /// href="../../../../../concepts/joins.html" target="_top">join concept
-    /// documentation</a>.</summary>
+    /// Creates a table that is the result of a SQL JOIN.
+    /// <br />
+    /// For join details and examples see: <a href="../../concepts/joins.html"
+    /// target="_top">Joins</a>.  For limitations, see <a
+    /// href="../../concepts/joins.html#limitations-cautions"
+    /// target="_top">Join Limitations and Cautions</a>.</summary>
     public class CreateJoinTableRequest : KineticaData
     {
 
@@ -128,9 +131,8 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="CreateJoinTableRequest.Options.TTL">TTL</see>:</term>
-        ///         <description>Sets the <a
-        /// href="../../../../concepts/ttl.html" target="_top">TTL</a> of the
-        /// join table specified in <paramref
+        ///         <description>Sets the <a href="../../concepts/ttl.html"
+        /// target="_top">TTL</a> of the join table specified in <paramref
         /// cref="CreateJoinTableRequest.join_table_name" />.</description>
         ///     </item>
         ///     <item>
@@ -243,7 +245,7 @@ namespace kinetica
             /// last refresh.</summary>
             public const string FULL_REFRESH = "full_refresh";
 
-            /// <summary>Sets the <a href="../../../../../concepts/ttl.html"
+            /// <summary>Sets the <a href="../../concepts/ttl.html"
             /// target="_top">TTL</a> of the join table specified in <see
             /// cref="join_table_name" />.</summary>
             public const string TTL = "ttl";
@@ -254,7 +256,7 @@ namespace kinetica
 
 
         /// <summary>Name of the join table to be created.  Has the same naming
-        /// restrictions as <a href="../../../../concepts/tables.html"
+        /// restrictions as <a href="../../concepts/tables.html"
         /// target="_top">tables</a>.  </summary>
         public string join_table_name { get; set; }
 
@@ -275,7 +277,7 @@ namespace kinetica
 
         /// <summary>An optional list of expressions to combine and filter the
         /// joined tables.  Corresponds to a SQL statement WHERE clause. For
-        /// details see: <a href="../../../../concepts/expressions.html"
+        /// details see: <a href="../../concepts/expressions.html"
         /// target="_top">expressions</a>.  </summary>
         public IList<string> expressions { get; set; } = new List<string>();
 
@@ -386,9 +388,8 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="CreateJoinTableRequest.Options.TTL">TTL</see>:</term>
-        ///         <description>Sets the <a
-        /// href="../../../../concepts/ttl.html" target="_top">TTL</a> of the
-        /// join table specified in <paramref
+        ///         <description>Sets the <a href="../../concepts/ttl.html"
+        /// target="_top">TTL</a> of the join table specified in <paramref
         /// cref="CreateJoinTableRequest.join_table_name" />.</description>
         ///     </item>
         ///     <item>
@@ -410,7 +411,7 @@ namespace kinetica
         /// 
         /// <param name="join_table_name">Name of the join table to be created.
         /// Has the same naming restrictions as <a
-        /// href="../../../../concepts/tables.html" target="_top">tables</a>.
+        /// href="../../concepts/tables.html" target="_top">tables</a>.
         /// </param>
         /// <param name="table_names">The list of table names composing the
         /// join.  Corresponds to a SQL statement FROM clause.  </param>
@@ -426,7 +427,7 @@ namespace kinetica
         /// <param name="expressions">An optional list of expressions to
         /// combine and filter the joined tables.  Corresponds to a SQL
         /// statement WHERE clause. For details see: <a
-        /// href="../../../../concepts/expressions.html"
+        /// href="../../concepts/expressions.html"
         /// target="_top">expressions</a>.  </param>
         /// <param name="options">Optional parameters.
         /// <list type="bullet">
@@ -535,9 +536,8 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="CreateJoinTableRequest.Options.TTL">TTL</see>:</term>
-        ///         <description>Sets the <a
-        /// href="../../../../concepts/ttl.html" target="_top">TTL</a> of the
-        /// join table specified in <paramref
+        ///         <description>Sets the <a href="../../concepts/ttl.html"
+        /// target="_top">TTL</a> of the join table specified in <paramref
         /// cref="CreateJoinTableRequest.join_table_name" />.</description>
         ///     </item>
         ///     <item>

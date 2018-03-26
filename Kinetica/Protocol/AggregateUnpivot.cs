@@ -17,17 +17,21 @@ namespace kinetica
     /// <br />
     /// Rotate the column values into rows values.
     /// <br />
-    /// The aggregate unpivot is used to normalize tables that are built for
-    /// cross tabular reporting purposes. The unpivot operator rotates the
-    /// column values for all the pivoted columns. A variable column, value
-    /// column and all columns from the source table except the unpivot columns
-    /// are projected into the result table. The variable column and value
-    /// columns in the result table indicate the pivoted column name and values
-    /// respectively.
+    /// For unpivot details and examples, see <a
+    /// href="../../concepts/unpivot.html" target="_top">Unpivot</a>.  For
+    /// limitations, see <a href="../../concepts/unpivot.html#limitations"
+    /// target="_top">Unpivot Limitations</a>.
+    /// <br />
+    /// Unpivot is used to normalize tables that are built for cross tabular
+    /// reporting purposes. The unpivot operator rotates the column values for
+    /// all the pivoted columns. A variable column, value column and all
+    /// columns from the source table except the unpivot columns are projected
+    /// into the result table. The variable column and value columns in the
+    /// result table indicate the pivoted column name and values respectively.
     /// <br />
     /// The response is returned as a dynamic schema. For details see: <a
-    /// href="../../../../../api/index.html#dynamic-schemas"
-    /// target="_top">dynamic schemas documentation</a>.</summary>
+    /// href="../../api/index.html#dynamic-schemas" target="_top">dynamic
+    /// schemas documentation</a>.</summary>
     public class AggregateUnpivotRequest : KineticaData
     {
 
@@ -79,8 +83,8 @@ namespace kinetica
         /// cref="AggregateUnpivotRequest.Options.RESULT_TABLE">RESULT_TABLE</see>:</term>
         ///         <description>The name of the table used to store the
         /// results. Has the same naming restrictions as <a
-        /// href="../../../../concepts/tables.html" target="_top">tables</a>.
-        /// If present, no results are returned in the response.</description>
+        /// href="../../concepts/tables.html" target="_top">tables</a>. If
+        /// present, no results are returned in the response.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -134,9 +138,34 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="AggregateUnpivotRequest.Options.TTL">TTL</see>:</term>
-        ///         <description>Sets the <a
-        /// href="../../../../concepts/ttl.html" target="_top">TTL</a> of the
-        /// table specified in <i>result_table</i>.</description>
+        ///         <description>Sets the <a href="../../concepts/ttl.html"
+        /// target="_top">TTL</a> of the table specified in
+        /// <i>result_table</i>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AggregateUnpivotRequest.Options.VIEW_ID">VIEW_ID</see>:</term>
+        ///         <description>view this result table is part
+        /// of</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AggregateUnpivotRequest.Options.MATERIALIZE_ON_GPU">MATERIALIZE_ON_GPU</see>:</term>
+        ///         <description>If <i>true</i> then the output columns will be
+        /// cached on the GPU.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="AggregateUnpivotRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AggregateUnpivotRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="AggregateUnpivotRequest.Options.FALSE">FALSE</see>.</description>
         ///     </item>
         /// </list>
         /// <br />
@@ -153,9 +182,8 @@ namespace kinetica
 
             /// <summary>The name of the table used to store the results. Has
             /// the same naming restrictions as <a
-            /// href="../../../../../concepts/tables.html"
-            /// target="_top">tables</a>. If present, no results are returned
-            /// in the response.</summary>
+            /// href="../../concepts/tables.html" target="_top">tables</a>. If
+            /// present, no results are returned in the response.</summary>
             public const string RESULT_TABLE = "result_table";
 
             /// <summary>If <i>true</i>, then the result table specified in
@@ -199,10 +227,30 @@ namespace kinetica
             /// <summary>The number of records to keep.</summary>
             public const string LIMIT = "limit";
 
-            /// <summary>Sets the <a href="../../../../../concepts/ttl.html"
+            /// <summary>Sets the <a href="../../concepts/ttl.html"
             /// target="_top">TTL</a> of the table specified in
             /// <i>result_table</i>.</summary>
             public const string TTL = "ttl";
+
+            /// <summary>view this result table is part of</summary>
+            public const string VIEW_ID = "view_id";
+
+            /// <summary>If <i>true</i> then the output columns will be cached
+            /// on the GPU.
+            /// Supported values:
+            /// <list type="bullet">
+            ///     <item>
+            ///         <term><see
+            /// cref="AggregateUnpivotRequest.Options.TRUE">TRUE</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="AggregateUnpivotRequest.Options.FALSE">FALSE</see></term>
+            ///     </item>
+            /// </list>
+            /// The default value is <see
+            /// cref="AggregateUnpivotRequest.Options.FALSE">FALSE</see>.</summary>
+            public const string MATERIALIZE_ON_GPU = "materialize_on_gpu";
         } // end struct Options
 
 
@@ -257,8 +305,8 @@ namespace kinetica
         /// cref="AggregateUnpivotRequest.Options.RESULT_TABLE">RESULT_TABLE</see>:</term>
         ///         <description>The name of the table used to store the
         /// results. Has the same naming restrictions as <a
-        /// href="../../../../concepts/tables.html" target="_top">tables</a>.
-        /// If present, no results are returned in the response.</description>
+        /// href="../../concepts/tables.html" target="_top">tables</a>. If
+        /// present, no results are returned in the response.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -312,9 +360,34 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="AggregateUnpivotRequest.Options.TTL">TTL</see>:</term>
-        ///         <description>Sets the <a
-        /// href="../../../../concepts/ttl.html" target="_top">TTL</a> of the
-        /// table specified in <i>result_table</i>.</description>
+        ///         <description>Sets the <a href="../../concepts/ttl.html"
+        /// target="_top">TTL</a> of the table specified in
+        /// <i>result_table</i>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AggregateUnpivotRequest.Options.VIEW_ID">VIEW_ID</see>:</term>
+        ///         <description>view this result table is part
+        /// of</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AggregateUnpivotRequest.Options.MATERIALIZE_ON_GPU">MATERIALIZE_ON_GPU</see>:</term>
+        ///         <description>If <i>true</i> then the output columns will be
+        /// cached on the GPU.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="AggregateUnpivotRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AggregateUnpivotRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="AggregateUnpivotRequest.Options.FALSE">FALSE</see>.</description>
         ///     </item>
         /// </list>
         ///   </summary>
@@ -352,8 +425,8 @@ namespace kinetica
         /// cref="AggregateUnpivotRequest.Options.RESULT_TABLE">RESULT_TABLE</see>:</term>
         ///         <description>The name of the table used to store the
         /// results. Has the same naming restrictions as <a
-        /// href="../../../../concepts/tables.html" target="_top">tables</a>.
-        /// If present, no results are returned in the response.</description>
+        /// href="../../concepts/tables.html" target="_top">tables</a>. If
+        /// present, no results are returned in the response.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -407,9 +480,34 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="AggregateUnpivotRequest.Options.TTL">TTL</see>:</term>
-        ///         <description>Sets the <a
-        /// href="../../../../concepts/ttl.html" target="_top">TTL</a> of the
-        /// table specified in <i>result_table</i>.</description>
+        ///         <description>Sets the <a href="../../concepts/ttl.html"
+        /// target="_top">TTL</a> of the table specified in
+        /// <i>result_table</i>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AggregateUnpivotRequest.Options.VIEW_ID">VIEW_ID</see>:</term>
+        ///         <description>view this result table is part
+        /// of</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AggregateUnpivotRequest.Options.MATERIALIZE_ON_GPU">MATERIALIZE_ON_GPU</see>:</term>
+        ///         <description>If <i>true</i> then the output columns will be
+        /// cached on the GPU.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="AggregateUnpivotRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AggregateUnpivotRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="AggregateUnpivotRequest.Options.FALSE">FALSE</see>.</description>
         ///     </item>
         /// </list>
         ///   </param>
@@ -475,8 +573,8 @@ namespace kinetica
         /// cref="AggregateUnpivotRequest.Options.RESULT_TABLE">RESULT_TABLE</see>:</term>
         ///         <description>The name of the table used to store the
         /// results. Has the same naming restrictions as <a
-        /// href="../../../../concepts/tables.html" target="_top">tables</a>.
-        /// If present, no results are returned in the response.</description>
+        /// href="../../concepts/tables.html" target="_top">tables</a>. If
+        /// present, no results are returned in the response.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -530,9 +628,34 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="AggregateUnpivotRequest.Options.TTL">TTL</see>:</term>
-        ///         <description>Sets the <a
-        /// href="../../../../concepts/ttl.html" target="_top">TTL</a> of the
-        /// table specified in <i>result_table</i>.</description>
+        ///         <description>Sets the <a href="../../concepts/ttl.html"
+        /// target="_top">TTL</a> of the table specified in
+        /// <i>result_table</i>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AggregateUnpivotRequest.Options.VIEW_ID">VIEW_ID</see>:</term>
+        ///         <description>view this result table is part
+        /// of</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AggregateUnpivotRequest.Options.MATERIALIZE_ON_GPU">MATERIALIZE_ON_GPU</see>:</term>
+        ///         <description>If <i>true</i> then the output columns will be
+        /// cached on the GPU.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="AggregateUnpivotRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AggregateUnpivotRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="AggregateUnpivotRequest.Options.FALSE">FALSE</see>.</description>
         ///     </item>
         /// </list>
         ///   </param>
