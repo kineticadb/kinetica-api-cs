@@ -38,6 +38,14 @@ namespace kinetica
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
+        /// cref="FilterByListRequest.Options.COLLECTION_NAME">COLLECTION_NAME</see>:</term>
+        ///         <description>Name of a collection which is to contain the
+        /// newly created view. If the collection provided is non-existent, the
+        /// collection will be automatically created. If empty, then the newly
+        /// created view will be top-level.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="FilterByListRequest.Options.FILTER_MODE">FILTER_MODE</see>:</term>
         ///         <description>String indicating the filter mode, either
         /// 'in_list' or 'not_in_list'.
@@ -65,6 +73,12 @@ namespace kinetica
         /// />.</summary>
         public struct Options
         {
+
+            /// <summary>Name of a collection which is to contain the newly
+            /// created view. If the collection provided is non-existent, the
+            /// collection will be automatically created. If empty, then the
+            /// newly created view will be top-level.</summary>
+            public const string COLLECTION_NAME = "collection_name";
 
             /// <summary>String indicating the filter mode, either 'in_list' or
             /// 'not_in_list'.
@@ -117,6 +131,14 @@ namespace kinetica
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
+        /// cref="FilterByListRequest.Options.COLLECTION_NAME">COLLECTION_NAME</see>:</term>
+        ///         <description>Name of a collection which is to contain the
+        /// newly created view. If the collection provided is non-existent, the
+        /// collection will be automatically created. If empty, then the newly
+        /// created view will be top-level.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="FilterByListRequest.Options.FILTER_MODE">FILTER_MODE</see>:</term>
         ///         <description>String indicating the filter mode, either
         /// 'in_list' or 'not_in_list'.
@@ -162,6 +184,14 @@ namespace kinetica
         /// corresponding column in the table  </param>
         /// <param name="options">Optional parameters.
         /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="FilterByListRequest.Options.COLLECTION_NAME">COLLECTION_NAME</see>:</term>
+        ///         <description>Name of a collection which is to contain the
+        /// newly created view. If the collection provided is non-existent, the
+        /// collection will be automatically created. If empty, then the newly
+        /// created view will be top-level.</description>
+        ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="FilterByListRequest.Options.FILTER_MODE">FILTER_MODE</see>:</term>

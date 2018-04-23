@@ -39,6 +39,25 @@ namespace kinetica
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
+        /// cref="ShowTableRequest.Options.FORCE_SYNCHRONOUS">FORCE_SYNCHRONOUS</see>:</term>
+        ///         <description>If <i>true</i> then the table sizes will wait
+        /// for read lock before returning.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="ShowTableRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ShowTableRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="ShowTableRequest.Options.TRUE">TRUE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="ShowTableRequest.Options.GET_SIZES">GET_SIZES</see>:</term>
         ///         <description>If <i>true</i> then the table sizes will be
         /// returned; blank, otherwise.
@@ -127,6 +146,25 @@ namespace kinetica
         public struct Options
         {
 
+            /// <summary>If <i>true</i> then the table sizes will wait for read
+            /// lock before returning.
+            /// Supported values:
+            /// <list type="bullet">
+            ///     <item>
+            ///         <term><see
+            /// cref="ShowTableRequest.Options.TRUE">TRUE</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="ShowTableRequest.Options.FALSE">FALSE</see></term>
+            ///     </item>
+            /// </list>
+            /// The default value is <see
+            /// cref="ShowTableRequest.Options.TRUE">TRUE</see>.</summary>
+            public const string FORCE_SYNCHRONOUS = "force_synchronous";
+            public const string TRUE = "true";
+            public const string FALSE = "false";
+
             /// <summary>If <i>true</i> then the table sizes will be returned;
             /// blank, otherwise.
             /// Supported values:
@@ -143,8 +181,6 @@ namespace kinetica
             /// The default value is <see
             /// cref="ShowTableRequest.Options.FALSE">FALSE</see>.</summary>
             public const string GET_SIZES = "get_sizes";
-            public const string TRUE = "true";
-            public const string FALSE = "false";
 
             /// <summary>If <see cref="table_name" /> is a collection, then
             /// <i>true</i> will return information about the children of the
@@ -212,6 +248,25 @@ namespace kinetica
 
         /// <summary>Optional parameters.
         /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="ShowTableRequest.Options.FORCE_SYNCHRONOUS">FORCE_SYNCHRONOUS</see>:</term>
+        ///         <description>If <i>true</i> then the table sizes will wait
+        /// for read lock before returning.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="ShowTableRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ShowTableRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="ShowTableRequest.Options.TRUE">TRUE</see>.</description>
+        ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="ShowTableRequest.Options.GET_SIZES">GET_SIZES</see>:</term>
@@ -312,6 +367,25 @@ namespace kinetica
         /// and top-level tables and views is returned.  </param>
         /// <param name="options">Optional parameters.
         /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="ShowTableRequest.Options.FORCE_SYNCHRONOUS">FORCE_SYNCHRONOUS</see>:</term>
+        ///         <description>If <i>true</i> then the table sizes will wait
+        /// for read lock before returning.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="ShowTableRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ShowTableRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="ShowTableRequest.Options.TRUE">TRUE</see>.</description>
+        ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="ShowTableRequest.Options.GET_SIZES">GET_SIZES</see>:</term>

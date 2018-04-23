@@ -18,8 +18,8 @@ namespace kinetica
     /// Retrieves records from a given table, optionally filtered by an
     /// expression and/or sorted by a column. This operation can be performed
     /// on tables, views, or on homogeneous collections (collections containing
-    /// tables of all the same type). Records can be returned encoded as binary
-    /// or json.
+    /// tables of all the same type). Records can be returned encoded as
+    /// binary, json or geojson.
     /// <br />
     /// This operation supports paging through the data via the <see
     /// cref="offset" /> and <see cref="limit" /> parameters. Note that when
@@ -41,6 +41,10 @@ namespace kinetica
         ///         <term><see
         /// cref="GetRecordsRequest.Encoding.JSON">JSON</see></term>
         ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="GetRecordsRequest.Encoding.GEOJSON">GEOJSON</see></term>
+        ///     </item>
         /// </list>
         /// The default value is <see
         /// cref="GetRecordsRequest.Encoding.BINARY">BINARY</see>.
@@ -50,6 +54,7 @@ namespace kinetica
         {
             public const string BINARY = "binary";
             public const string JSON = "json";
+            public const string GEOJSON = "geojson";
         } // end struct Encoding
 
 
@@ -193,6 +198,10 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="GetRecordsRequest.Encoding.JSON">JSON</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="GetRecordsRequest.Encoding.GEOJSON">GEOJSON</see></term>
         ///     </item>
         /// </list>
         /// The default value is <see
@@ -373,6 +382,10 @@ namespace kinetica
         ///         <term><see
         /// cref="GetRecordsRequest.Encoding.JSON">JSON</see></term>
         ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="GetRecordsRequest.Encoding.GEOJSON">GEOJSON</see></term>
+        ///     </item>
         /// </list>
         /// The default value is <see
         /// cref="GetRecordsRequest.Encoding.BINARY">BINARY</see>.  </param>
@@ -469,12 +482,15 @@ namespace kinetica
 
         /// <summary>If the <paramref cref="GetRecordsRequest.encoding" /> was
         /// 'binary', then this list contains the binary encoded records
-        /// retrieved from the set, otherwise not populated.  </summary>
+        /// retrieved from the table, otherwise not populated.  </summary>
         public IList<byte[]> records_binary { get; set; } = new List<byte[]>();
 
         /// <summary>If the <paramref cref="GetRecordsRequest.encoding" /> was
         /// 'json', then this list contains the JSON encoded records retrieved
-        /// from the set, otherwise not populated.  </summary>
+        /// from the table. If the <paramref cref="GetRecordsRequest.encoding"
+        /// /> was 'geojson' this list contains a single entry consisting of a
+        /// GeoJSON FeatureCollection containing a feature per record.
+        /// Otherwise not populated.  </summary>
         public IList<string> records_json { get; set; } = new List<string>();
 
         /// <summary>Total/Filtered number of records.  </summary>
@@ -507,7 +523,7 @@ namespace kinetica
 
         /// <summary>If the <paramref cref="GetRecordsRequest.encoding" /> was
         /// 'binary', then this list contains the binary encoded records
-        /// retrieved from the set, otherwise not populated.  </summary>
+        /// retrieved from the table, otherwise not populated.  </summary>
         public IList<T> data { get; set; } = new List<T>();
 
         /// <summary>Total/Filtered number of records.  </summary>

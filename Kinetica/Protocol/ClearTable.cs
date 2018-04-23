@@ -77,7 +77,9 @@ namespace kinetica
 
 
         /// <summary>Name of the table to be cleared. Must be an existing
-        /// table. Empty string clears all available tables.  </summary>
+        /// table. Empty string clears all available tables, though this
+        /// behavior is be prevented by default via gpudb.conf parameter
+        /// 'disable_clear_all'.  </summary>
         public string table_name { get; set; } = "";
 
         /// <summary>No longer used. User can pass an empty string.  </summary>
@@ -120,8 +122,9 @@ namespace kinetica
         /// parameters.</summary>
         /// 
         /// <param name="table_name">Name of the table to be cleared. Must be
-        /// an existing table. Empty string clears all available tables.
-        /// </param>
+        /// an existing table. Empty string clears all available tables, though
+        /// this behavior is be prevented by default via gpudb.conf parameter
+        /// 'disable_clear_all'.  </param>
         /// <param name="authorization">No longer used. User can pass an empty
         /// string.  </param>
         /// <param name="options">Optional parameters.

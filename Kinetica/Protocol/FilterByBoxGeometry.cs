@@ -25,6 +25,31 @@ namespace kinetica
     public class FilterByBoxGeometryRequest : KineticaData
     {
 
+        /// <summary>Optional parameters.
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="FilterByBoxGeometryRequest.Options.COLLECTION_NAME">COLLECTION_NAME</see>:</term>
+        ///         <description>Name of a collection which is to contain the
+        /// newly created view. If the collection provided is non-existent, the
+        /// collection will be automatically created. If empty, then the newly
+        /// created view will be top-level.</description>
+        ///     </item>
+        /// </list>
+        /// <br />
+        /// A set of string constants for the parameter <see cref="options"
+        /// />.</summary>
+        public struct Options
+        {
+
+            /// <summary>Name of a collection which is to contain the newly
+            /// created view. If the collection provided is non-existent, the
+            /// collection will be automatically created. If empty, then the
+            /// newly created view will be top-level.</summary>
+            public const string COLLECTION_NAME = "collection_name";
+        } // end struct Options
+
+
         /// <summary>Name of the table on which the bounding box operation will
         /// be performed. Must be an existing table.  </summary>
         public string table_name { get; set; }
@@ -58,7 +83,18 @@ namespace kinetica
         /// cref="FilterByBoxGeometryRequest.min_y" />.  </summary>
         public double max_y { get; set; }
 
-        /// <summary>Optional parameters.  </summary>
+        /// <summary>Optional parameters.
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="FilterByBoxGeometryRequest.Options.COLLECTION_NAME">COLLECTION_NAME</see>:</term>
+        ///         <description>Name of a collection which is to contain the
+        /// newly created view. If the collection provided is non-existent, the
+        /// collection will be automatically created. If empty, then the newly
+        /// created view will be top-level.</description>
+        ///     </item>
+        /// </list>
+        ///   </summary>
         public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
 
 
@@ -89,7 +125,18 @@ namespace kinetica
         /// <param name="max_y">Upper bound for the y-coordinate of the
         /// rectangular box. Must be greater than or equal to <paramref
         /// cref="FilterByBoxGeometryRequest.min_y" />.  </param>
-        /// <param name="options">Optional parameters.  </param>
+        /// <param name="options">Optional parameters.
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="FilterByBoxGeometryRequest.Options.COLLECTION_NAME">COLLECTION_NAME</see>:</term>
+        ///         <description>Name of a collection which is to contain the
+        /// newly created view. If the collection provided is non-existent, the
+        /// collection will be automatically created. If empty, then the newly
+        /// created view will be top-level.</description>
+        ///     </item>
+        /// </list>
+        ///   </param>
         /// 
         public FilterByBoxGeometryRequest( string table_name,
                                            string view_name,

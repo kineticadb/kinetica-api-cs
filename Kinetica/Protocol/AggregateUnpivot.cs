@@ -12,7 +12,7 @@ namespace kinetica
 {
 
     /// <summary>A set of parameters for <see
-    /// cref="Kinetica.aggregateUnpivot(string,string,string,IList{string},IDictionary{string, string})"
+    /// cref="Kinetica.aggregateUnpivot(string,IList{string},string,string,IList{string},IDictionary{string, string})"
     /// />.
     /// <br />
     /// Rotate the column values into rows values.
@@ -258,6 +258,11 @@ namespace kinetica
         /// performed. Must be an existing table/view.  </summary>
         public string table_name { get; set; }
 
+        /// <summary>List of column names or expressions. A wildcard '*' can be
+        /// used to include all the non-pivoted columns from the source table.
+        /// </summary>
+        public IList<string> column_names { get; set; } = new List<string>();
+
         /// <summary>Specifies the variable/parameter column name.  </summary>
         public string variable_column_name { get; set; } = "";
 
@@ -403,6 +408,9 @@ namespace kinetica
         /// 
         /// <param name="table_name">Name of the table on which the operation
         /// will be performed. Must be an existing table/view.  </param>
+        /// <param name="column_names">List of column names or expressions. A
+        /// wildcard '*' can be used to include all the non-pivoted columns
+        /// from the source table.  </param>
         /// <param name="variable_column_name">Specifies the variable/parameter
         /// column name.  </param>
         /// <param name="value_column_name">Specifies the value column name.
@@ -513,12 +521,14 @@ namespace kinetica
         ///   </param>
         /// 
         public AggregateUnpivotRequest( string table_name,
+                                        IList<string> column_names,
                                         string variable_column_name,
                                         string value_column_name,
                                         IList<string> pivoted_columns,
                                         IDictionary<string, string> options = null)
         {
             this.table_name = table_name ?? "";
+            this.column_names = column_names ?? new List<string>();
             this.variable_column_name = variable_column_name ?? "";
             this.value_column_name = value_column_name ?? "";
             this.pivoted_columns = pivoted_columns ?? new List<string>();
@@ -532,6 +542,9 @@ namespace kinetica
         /// 
         /// <param name="table_name">Name of the table on which the operation
         /// will be performed. Must be an existing table/view.  </param>
+        /// <param name="column_names">List of column names or expressions. A
+        /// wildcard '*' can be used to include all the non-pivoted columns
+        /// from the source table.  </param>
         /// <param name="variable_column_name">Specifies the variable/parameter
         /// column name.  </param>
         /// <param name="value_column_name">Specifies the value column name.
@@ -661,6 +674,7 @@ namespace kinetica
         ///   </param>
         /// 
         public AggregateUnpivotRequest( string table_name,
+                                        IList<string> column_names,
                                         string variable_column_name,
                                         string value_column_name,
                                         IList<string> pivoted_columns,
@@ -668,6 +682,7 @@ namespace kinetica
                                         IDictionary<string, string> options = null)
         {
             this.table_name = table_name ?? "";
+            this.column_names = column_names ?? new List<string>();
             this.variable_column_name = variable_column_name ?? "";
             this.value_column_name = value_column_name ?? "";
             this.pivoted_columns = pivoted_columns ?? new List<string>();
@@ -680,7 +695,7 @@ namespace kinetica
 
 
     /// <summary>A set of results returned by <see
-    /// cref="Kinetica.aggregateUnpivot(string,string,string,IList{string},IDictionary{string, string})"
+    /// cref="Kinetica.aggregateUnpivot(string,IList{string},string,string,IList{string},IDictionary{string, string})"
     /// />.</summary>
     public class RawAggregateUnpivotResponse : KineticaData
     {
@@ -710,7 +725,7 @@ namespace kinetica
 
 
     /// <summary>A set of results returned by <see
-    /// cref="Kinetica.aggregateUnpivot(string,string,string,IList{string},IDictionary{string, string})"
+    /// cref="Kinetica.aggregateUnpivot(string,IList{string},string,string,IList{string},IDictionary{string, string})"
     /// />.</summary>
     public class AggregateUnpivotResponse : KineticaData
     {

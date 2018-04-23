@@ -28,6 +28,31 @@ namespace kinetica
     public class FilterByValueRequest : KineticaData
     {
 
+        /// <summary>Optional parameters.
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="FilterByValueRequest.Options.COLLECTION_NAME">COLLECTION_NAME</see>:</term>
+        ///         <description>Name of a collection which is to contain the
+        /// newly created view. If the collection provided is non-existent, the
+        /// collection will be automatically created. If empty, then the newly
+        /// created view will be top-level.</description>
+        ///     </item>
+        /// </list>
+        /// <br />
+        /// A set of string constants for the parameter <see cref="options"
+        /// />.</summary>
+        public struct Options
+        {
+
+            /// <summary>Name of a collection which is to contain the newly
+            /// created view. If the collection provided is non-existent, the
+            /// collection will be automatically created. If empty, then the
+            /// newly created view will be top-level.</summary>
+            public const string COLLECTION_NAME = "collection_name";
+        } // end struct Options
+
+
         /// <summary>Name of an existing table on which to perform the
         /// calculation.  </summary>
         public string table_name { get; set; }
@@ -52,7 +77,18 @@ namespace kinetica
         /// applied.  </summary>
         public string column_name { get; set; }
 
-        /// <summary>Optional parameters.  </summary>
+        /// <summary>Optional parameters.
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="FilterByValueRequest.Options.COLLECTION_NAME">COLLECTION_NAME</see>:</term>
+        ///         <description>Name of a collection which is to contain the
+        /// newly created view. If the collection provided is non-existent, the
+        /// collection will be automatically created. If empty, then the newly
+        /// created view will be top-level.</description>
+        ///     </item>
+        /// </list>
+        ///   </summary>
         public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
 
 
@@ -75,7 +111,18 @@ namespace kinetica
         /// <param name="value_str">The string value to search for.  </param>
         /// <param name="column_name">Name of a column on which the filter by
         /// value would be applied.  </param>
-        /// <param name="options">Optional parameters.  </param>
+        /// <param name="options">Optional parameters.
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="FilterByValueRequest.Options.COLLECTION_NAME">COLLECTION_NAME</see>:</term>
+        ///         <description>Name of a collection which is to contain the
+        /// newly created view. If the collection provided is non-existent, the
+        /// collection will be automatically created. If empty, then the newly
+        /// created view will be top-level.</description>
+        ///     </item>
+        /// </list>
+        ///   </param>
         /// 
         public FilterByValueRequest( string table_name,
                                      string view_name,

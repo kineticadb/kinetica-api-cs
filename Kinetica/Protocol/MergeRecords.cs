@@ -82,6 +82,28 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
+        /// cref="MergeRecordsRequest.Options.PERSIST">PERSIST</see>:</term>
+        ///         <description>If <i>true</i>, then the table specified in
+        /// <paramref cref="MergeRecordsRequest.table_name" /> will be
+        /// persisted and will not expire unless a <i>ttl</i> is specified.
+        /// If <i>false</i>, then the table will be an in-memory table and will
+        /// expire unless a <i>ttl</i> is specified otherwise.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="MergeRecordsRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="MergeRecordsRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="MergeRecordsRequest.Options.TRUE">TRUE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="MergeRecordsRequest.Options.CHUNK_SIZE">CHUNK_SIZE</see>:</term>
         ///         <description>Indicates the chunk size to be used for the
         /// merged table specified in <paramref
@@ -137,6 +159,26 @@ namespace kinetica
             /// target="_top">TTL</a> of the merged table specified in <see
             /// cref="table_name" />.</summary>
             public const string TTL = "ttl";
+
+            /// <summary>If <i>true</i>, then the table specified in <see
+            /// cref="table_name" /> will be persisted and will not expire
+            /// unless a <i>ttl</i> is specified.   If <i>false</i>, then the
+            /// table will be an in-memory table and will expire unless a
+            /// <i>ttl</i> is specified otherwise.
+            /// Supported values:
+            /// <list type="bullet">
+            ///     <item>
+            ///         <term><see
+            /// cref="MergeRecordsRequest.Options.TRUE">TRUE</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="MergeRecordsRequest.Options.FALSE">FALSE</see></term>
+            ///     </item>
+            /// </list>
+            /// The default value is <see
+            /// cref="MergeRecordsRequest.Options.TRUE">TRUE</see>.</summary>
+            public const string PERSIST = "persist";
 
             /// <summary>Indicates the chunk size to be used for the merged
             /// table specified in <see cref="table_name" />.</summary>
@@ -212,6 +254,28 @@ namespace kinetica
         ///         <description>Sets the <a href="../../concepts/ttl.html"
         /// target="_top">TTL</a> of the merged table specified in <paramref
         /// cref="MergeRecordsRequest.table_name" />.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="MergeRecordsRequest.Options.PERSIST">PERSIST</see>:</term>
+        ///         <description>If <i>true</i>, then the table specified in
+        /// <paramref cref="MergeRecordsRequest.table_name" /> will be
+        /// persisted and will not expire unless a <i>ttl</i> is specified.
+        /// If <i>false</i>, then the table will be an in-memory table and will
+        /// expire unless a <i>ttl</i> is specified otherwise.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="MergeRecordsRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="MergeRecordsRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="MergeRecordsRequest.Options.TRUE">TRUE</see>.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -297,6 +361,28 @@ namespace kinetica
         ///         <description>Sets the <a href="../../concepts/ttl.html"
         /// target="_top">TTL</a> of the merged table specified in <paramref
         /// cref="MergeRecordsRequest.table_name" />.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="MergeRecordsRequest.Options.PERSIST">PERSIST</see>:</term>
+        ///         <description>If <i>true</i>, then the table specified in
+        /// <paramref cref="MergeRecordsRequest.table_name" /> will be
+        /// persisted and will not expire unless a <i>ttl</i> is specified.
+        /// If <i>false</i>, then the table will be an in-memory table and will
+        /// expire unless a <i>ttl</i> is specified otherwise.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="MergeRecordsRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="MergeRecordsRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="MergeRecordsRequest.Options.TRUE">TRUE</see>.</description>
         ///     </item>
         ///     <item>
         ///         <term><see

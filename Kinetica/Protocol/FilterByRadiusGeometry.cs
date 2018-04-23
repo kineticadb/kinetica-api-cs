@@ -26,6 +26,31 @@ namespace kinetica
     public class FilterByRadiusGeometryRequest : KineticaData
     {
 
+        /// <summary>Optional parameters.
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="FilterByRadiusGeometryRequest.Options.COLLECTION_NAME">COLLECTION_NAME</see>:</term>
+        ///         <description>Name of a collection which is to contain the
+        /// newly created view. If the collection provided is non-existent, the
+        /// collection will be automatically created. If empty, then the newly
+        /// created view will be top-level.</description>
+        ///     </item>
+        /// </list>
+        /// <br />
+        /// A set of string constants for the parameter <see cref="options"
+        /// />.</summary>
+        public struct Options
+        {
+
+            /// <summary>Name of a collection which is to contain the newly
+            /// created view. If the collection provided is non-existent, the
+            /// collection will be automatically created. If empty, then the
+            /// newly created view will be top-level.</summary>
+            public const string COLLECTION_NAME = "collection_name";
+        } // end struct Options
+
+
         /// <summary>Name of the table on which the filter by radius operation
         /// will be performed.  Must be an existing table.  </summary>
         public string table_name { get; set; }
@@ -55,7 +80,18 @@ namespace kinetica
         /// value is 0. The maximum allowed value is MAX_INT. </summary>
         public double radius { get; set; }
 
-        /// <summary>Optional parameters.  </summary>
+        /// <summary>Optional parameters.
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="FilterByRadiusGeometryRequest.Options.COLLECTION_NAME">COLLECTION_NAME</see>:</term>
+        ///         <description>Name of a collection which is to contain the
+        /// newly created view. If the collection provided is non-existent, the
+        /// collection will be automatically created. If empty, then the newly
+        /// created view will be top-level.</description>
+        ///     </item>
+        /// </list>
+        ///   </summary>
         public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
 
 
@@ -85,7 +121,18 @@ namespace kinetica
         /// in meters; so, for example, a value of '42000' means 42 km.  The
         /// minimum allowed value is 0. The maximum allowed value is MAX_INT.
         /// </param>
-        /// <param name="options">Optional parameters.  </param>
+        /// <param name="options">Optional parameters.
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="FilterByRadiusGeometryRequest.Options.COLLECTION_NAME">COLLECTION_NAME</see>:</term>
+        ///         <description>Name of a collection which is to contain the
+        /// newly created view. If the collection provided is non-existent, the
+        /// collection will be automatically created. If empty, then the newly
+        /// created view will be top-level.</description>
+        ///     </item>
+        /// </list>
+        ///   </param>
         /// 
         public FilterByRadiusGeometryRequest( string table_name,
                                               string view_name,

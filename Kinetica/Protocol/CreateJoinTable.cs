@@ -140,6 +140,13 @@ namespace kinetica
         /// cref="CreateJoinTableRequest.Options.VIEW_ID">VIEW_ID</see>:</term>
         ///         <description>view this projection is part of</description>
         ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateJoinTableRequest.Options.NO_COUNT">NO_COUNT</see>:</term>
+        ///         <description>return a count of 0 for the join table for
+        /// logging and for show_table. optimization needed for large
+        /// overlapped equi-join stencils</description>
+        ///     </item>
         /// </list>
         /// <br />
         /// A set of string constants for the parameter <see cref="options"
@@ -252,6 +259,11 @@ namespace kinetica
 
             /// <summary>view this projection is part of</summary>
             public const string VIEW_ID = "view_id";
+
+            /// <summary>return a count of 0 for the join table for logging and
+            /// for show_table. optimization needed for large overlapped
+            /// equi-join stencils</summary>
+            public const string NO_COUNT = "no_count";
         } // end struct Options
 
 
@@ -396,6 +408,13 @@ namespace kinetica
         ///         <term><see
         /// cref="CreateJoinTableRequest.Options.VIEW_ID">VIEW_ID</see>:</term>
         ///         <description>view this projection is part of</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateJoinTableRequest.Options.NO_COUNT">NO_COUNT</see>:</term>
+        ///         <description>return a count of 0 for the join table for
+        /// logging and for show_table. optimization needed for large
+        /// overlapped equi-join stencils</description>
         ///     </item>
         /// </list>
         ///   </summary>
@@ -544,6 +563,13 @@ namespace kinetica
         ///         <term><see
         /// cref="CreateJoinTableRequest.Options.VIEW_ID">VIEW_ID</see>:</term>
         ///         <description>view this projection is part of</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateJoinTableRequest.Options.NO_COUNT">NO_COUNT</see>:</term>
+        ///         <description>return a count of 0 for the join table for
+        /// logging and for show_table. optimization needed for large
+        /// overlapped equi-join stencils</description>
         ///     </item>
         /// </list>
         ///   </param>

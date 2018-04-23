@@ -772,14 +772,40 @@ namespace kinetica
         /// cref="AggregateGroupByRequest.Options.RESULT_TABLE_FORCE_REPLICATED">RESULT_TABLE_FORCE_REPLICATED</see>:</term>
         ///         <description>Force the result table to be replicated
         /// (ignores any sharding). Must be used in combination with the
-        /// <i>result_table</i> option.</description>
+        /// <i>result_table</i> option.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="AggregateGroupByRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AggregateGroupByRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="AggregateGroupByRequest.Options.FALSE">FALSE</see>.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="AggregateGroupByRequest.Options.RESULT_TABLE_GENERATE_PK">RESULT_TABLE_GENERATE_PK</see>:</term>
         ///         <description>If 'true' then set a primary key for the
         /// result table. Must be used in combination with the
-        /// <i>result_table</i> option.</description>
+        /// <i>result_table</i> option.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="AggregateGroupByRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AggregateGroupByRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="AggregateGroupByRequest.Options.FALSE">FALSE</see>.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -1688,14 +1714,40 @@ namespace kinetica
         /// cref="AggregateUniqueRequest.Options.RESULT_TABLE_FORCE_REPLICATED">RESULT_TABLE_FORCE_REPLICATED</see>:</term>
         ///         <description>Force the result table to be replicated
         /// (ignores any sharding). Must be used in combination with the
-        /// <i>result_table</i> option.</description>
+        /// <i>result_table</i> option.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="AggregateUniqueRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AggregateUniqueRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="AggregateUniqueRequest.Options.FALSE">FALSE</see>.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="AggregateUniqueRequest.Options.RESULT_TABLE_GENERATE_PK">RESULT_TABLE_GENERATE_PK</see>:</term>
         ///         <description>If 'true' then set a primary key for the
         /// result table. Must be used in combination with the
-        /// <i>result_table</i> option.</description>
+        /// <i>result_table</i> option.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="AggregateUniqueRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AggregateUniqueRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="AggregateUniqueRequest.Options.FALSE">FALSE</see>.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -1793,6 +1845,9 @@ namespace kinetica
         /// 
         /// <param name="table_name">Name of the table on which the operation
         /// will be performed. Must be an existing table/view.  </param>
+        /// <param name="column_names">List of column names or expressions. A
+        /// wildcard '*' can be used to include all the non-pivoted columns
+        /// from the source table.  </param>
         /// <param name="variable_column_name">Specifies the variable/parameter
         /// column name.  </param>
         /// <param name="value_column_name">Specifies the value column name.
@@ -1906,12 +1961,14 @@ namespace kinetica
         /// operation.</returns>
         /// 
         public AggregateUnpivotResponse aggregateUnpivot( string table_name,
+                                                          IList<string> column_names,
                                                           string variable_column_name,
                                                           string value_column_name,
                                                           IList<string> pivoted_columns,
                                                           IDictionary<string, string> options = null )
         {
             return aggregateUnpivot( new AggregateUnpivotRequest( table_name,
+                                                                  column_names,
                                                                   variable_column_name,
                                                                   value_column_name,
                                                                   pivoted_columns, options ) );
@@ -2741,8 +2798,9 @@ namespace kinetica
         /// cleared.</summary>
         /// 
         /// <param name="table_name">Name of the table to be cleared. Must be
-        /// an existing table. Empty string clears all available tables.
-        /// </param>
+        /// an existing table. Empty string clears all available tables, though
+        /// this behavior is be prevented by default via gpudb.conf parameter
+        /// 'disable_clear_all'.  </param>
         /// <param name="authorization">No longer used. User can pass an empty
         /// string.  </param>
         /// <param name="options">Optional parameters.
@@ -3104,6 +3162,13 @@ namespace kinetica
         ///         <term><see
         /// cref="CreateJoinTableRequest.Options.VIEW_ID">VIEW_ID</see>:</term>
         ///         <description>view this projection is part of</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateJoinTableRequest.Options.NO_COUNT">NO_COUNT</see>:</term>
+        ///         <description>return a count of 0 for the join table for
+        /// logging and for show_table. optimization needed for large
+        /// overlapped equi-join stencils</description>
         ///     </item>
         /// </list>
         ///   </param>
@@ -3574,6 +3639,26 @@ namespace kinetica
         /// </list>
         /// The default value is <see
         /// cref="CreateProjectionRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateProjectionRequest.Options.PRESERVE_DICT_ENCODING">PRESERVE_DICT_ENCODING</see>:</term>
+        ///         <description>If <i>true</i>, then columns that were dict
+        /// encoded in the source table will be dict encoded in the projection
+        /// table.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateProjectionRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateProjectionRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="CreateProjectionRequest.Options.TRUE">TRUE</see>.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -5137,7 +5222,18 @@ namespace kinetica
         /// values to be filtered.  </param>
         /// <param name="y_vector">List of y coordinates of the vertices of the
         /// polygon representing the area to be filtered.  </param>
-        /// <param name="options">Optional parameters.  </param>
+        /// <param name="options">Optional parameters.
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="FilterByAreaRequest.Options.COLLECTION_NAME">COLLECTION_NAME</see>:</term>
+        ///         <description>Name of a collection which is to contain the
+        /// newly created view. If the collection provided is non-existent, the
+        /// collection will be automatically created.  If empty, then the newly
+        /// created view will be top-level.</description>
+        ///     </item>
+        /// </list>
+        ///   </param>
         /// 
         /// <returns>Response object containing the result of the
         /// operation.</returns>
@@ -5202,7 +5298,18 @@ namespace kinetica
         /// polygon representing the area to be filtered.  </param>
         /// <param name="y_vector">List of y coordinates of the vertices of the
         /// polygon representing the area to be filtered.  </param>
-        /// <param name="options">Optional parameters.  </param>
+        /// <param name="options">Optional parameters.
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="FilterByAreaGeometryRequest.Options.COLLECTION_NAME">COLLECTION_NAME</see>:</term>
+        ///         <description>Name of a collection which is to contain the
+        /// newly created view. If the collection provided is non-existent, the
+        /// collection will be automatically created. If empty, then the newly
+        /// created view will be top-level.</description>
+        ///     </item>
+        /// </list>
+        ///   </param>
         /// 
         /// <returns>Response object containing the result of the
         /// operation.</returns>
@@ -5277,7 +5384,18 @@ namespace kinetica
         /// <param name="max_y">Upper bound for <paramref
         /// cref="FilterByBoxRequest.y_column_name" />. Must be greater than or
         /// equal to <paramref cref="FilterByBoxRequest.min_y" />.  </param>
-        /// <param name="options">Optional parameters.  </param>
+        /// <param name="options">Optional parameters.
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="FilterByBoxRequest.Options.COLLECTION_NAME">COLLECTION_NAME</see>:</term>
+        ///         <description>Name of a collection which is to contain the
+        /// newly created view. If the collection provided is non-existent, the
+        /// collection will be automatically created. If empty, then the newly
+        /// created view will be top-level.</description>
+        ///     </item>
+        /// </list>
+        ///   </param>
         /// 
         /// <returns>Response object containing the result of the
         /// operation.</returns>
@@ -5351,7 +5469,18 @@ namespace kinetica
         /// <param name="max_y">Upper bound for the y-coordinate of the
         /// rectangular box. Must be greater than or equal to <paramref
         /// cref="FilterByBoxGeometryRequest.min_y" />.  </param>
-        /// <param name="options">Optional parameters.  </param>
+        /// <param name="options">Optional parameters.
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="FilterByBoxGeometryRequest.Options.COLLECTION_NAME">COLLECTION_NAME</see>:</term>
+        ///         <description>Name of a collection which is to contain the
+        /// newly created view. If the collection provided is non-existent, the
+        /// collection will be automatically created. If empty, then the newly
+        /// created view will be top-level.</description>
+        ///     </item>
+        /// </list>
+        ///   </param>
         /// 
         /// <returns>Response object containing the result of the
         /// operation.</returns>
@@ -5464,7 +5593,18 @@ namespace kinetica
         /// WKT.</description>
         ///     </item>
         /// </list>  </param>
-        /// <param name="options">Optional parameters.  </param>
+        /// <param name="options">Optional parameters.
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="FilterByGeometryRequest.Options.COLLECTION_NAME">COLLECTION_NAME</see>:</term>
+        ///         <description>Name of a collection which is to contain the
+        /// newly created view. If the collection provided is non-existent, the
+        /// collection will be automatically created. If empty, then the newly
+        /// created view will be top-level.</description>
+        ///     </item>
+        /// </list>
+        ///   </param>
         /// 
         /// <returns>Response object containing the result of the
         /// operation.</returns>
@@ -5543,6 +5683,14 @@ namespace kinetica
         /// corresponding column in the table  </param>
         /// <param name="options">Optional parameters.
         /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="FilterByListRequest.Options.COLLECTION_NAME">COLLECTION_NAME</see>:</term>
+        ///         <description>Name of a collection which is to contain the
+        /// newly created view. If the collection provided is non-existent, the
+        /// collection will be automatically created. If empty, then the newly
+        /// created view will be top-level.</description>
+        ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="FilterByListRequest.Options.FILTER_MODE">FILTER_MODE</see>:</term>
@@ -5645,7 +5793,18 @@ namespace kinetica
         /// in meters; so, for example, a value of '42000' means 42 km.  The
         /// minimum allowed value is 0. The maximum allowed value is MAX_INT.
         /// </param>
-        /// <param name="options">Optional parameters.  </param>
+        /// <param name="options">Optional parameters.
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="FilterByRadiusRequest.Options.COLLECTION_NAME">COLLECTION_NAME</see>:</term>
+        ///         <description>Name of a collection which is to contain the
+        /// newly created view. If the collection provided is non-existent, the
+        /// collection will be automatically created. If empty, then the newly
+        /// created view will be top-level.</description>
+        ///     </item>
+        /// </list>
+        ///   </param>
         /// 
         /// <returns>Response object containing the result of the
         /// operation.</returns>
@@ -5718,7 +5877,18 @@ namespace kinetica
         /// in meters; so, for example, a value of '42000' means 42 km.  The
         /// minimum allowed value is 0. The maximum allowed value is MAX_INT.
         /// </param>
-        /// <param name="options">Optional parameters.  </param>
+        /// <param name="options">Optional parameters.
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="FilterByRadiusGeometryRequest.Options.COLLECTION_NAME">COLLECTION_NAME</see>:</term>
+        ///         <description>Name of a collection which is to contain the
+        /// newly created view. If the collection provided is non-existent, the
+        /// collection will be automatically created. If empty, then the newly
+        /// created view will be top-level.</description>
+        ///     </item>
+        /// </list>
+        ///   </param>
         /// 
         /// <returns>Response object containing the result of the
         /// operation.</returns>
@@ -5797,7 +5967,18 @@ namespace kinetica
         /// </param>
         /// <param name="upper_bound">Value of the upper bound (inclusive).
         /// </param>
-        /// <param name="options">Optional parameters.  </param>
+        /// <param name="options">Optional parameters.
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="FilterByRangeRequest.Options.COLLECTION_NAME">COLLECTION_NAME</see>:</term>
+        ///         <description>Name of a collection which is to contain the
+        /// newly created view. If the collection provided is non-existent, the
+        /// collection will be automatically created. If empty, then the newly
+        /// created view will be top-level.</description>
+        ///     </item>
+        /// </list>
+        ///   </param>
         /// 
         /// <returns>Response object containing the result of the
         /// operation.</returns>
@@ -5876,6 +6057,14 @@ namespace kinetica
         /// within the given set.  </param>
         /// <param name="options">Optional parameters.
         /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="FilterBySeriesRequest.Options.COLLECTION_NAME">COLLECTION_NAME</see>:</term>
+        ///         <description>Name of a collection which is to contain the
+        /// newly created view. If the collection provided is non-existent, the
+        /// collection will be automatically created. If empty, then the newly
+        /// created view will be top-level.</description>
+        ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="FilterBySeriesRequest.Options.SPATIAL_RADIUS">SPATIAL_RADIUS</see>:</term>
@@ -6013,6 +6202,14 @@ namespace kinetica
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
+        /// cref="FilterByStringRequest.Options.COLLECTION_NAME">COLLECTION_NAME</see>:</term>
+        ///         <description>Name of a collection which is to contain the
+        /// newly created view. If the collection provided is non-existent, the
+        /// collection will be automatically created. If empty, then the newly
+        /// created view will be top-level.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="FilterByStringRequest.Options.CASE_SENSITIVE">CASE_SENSITIVE</see>:</term>
         ///         <description>If 'false' then string filtering will ignore
         /// case. Does not apply to 'search' mode.
@@ -6108,6 +6305,14 @@ namespace kinetica
         /// </param>
         /// <param name="options">Optional parameters.
         /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="FilterByTableRequest.Options.COLLECTION_NAME">COLLECTION_NAME</see>:</term>
+        ///         <description>Name of a collection which is to contain the
+        /// newly created view. If the collection provided is non-existent, the
+        /// collection will be automatically created. If empty, then the newly
+        /// created view will be top-level.</description>
+        ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="FilterByTableRequest.Options.FILTER_MODE">FILTER_MODE</see>:</term>
@@ -6268,7 +6473,18 @@ namespace kinetica
         /// <param name="value_str">The string value to search for.  </param>
         /// <param name="column_name">Name of a column on which the filter by
         /// value would be applied.  </param>
-        /// <param name="options">Optional parameters.  </param>
+        /// <param name="options">Optional parameters.
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="FilterByValueRequest.Options.COLLECTION_NAME">COLLECTION_NAME</see>:</term>
+        ///         <description>Name of a collection which is to contain the
+        /// newly created view. If the collection provided is non-existent, the
+        /// collection will be automatically created. If empty, then the newly
+        /// created view will be top-level.</description>
+        ///     </item>
+        /// </list>
+        ///   </param>
         /// 
         /// <returns>Response object containing the result of the
         /// operation.</returns>
@@ -6321,7 +6537,7 @@ namespace kinetica
         /// by an expression and/or sorted by a column. This operation can be
         /// performed on tables, views, or on homogeneous collections
         /// (collections containing tables of all the same type). Records can
-        /// be returned encoded as binary or json.
+        /// be returned encoded as binary, json or geojson.
         /// <br />
         /// This operation supports paging through the data via the <paramref
         /// cref="GetRecordsRequest.offset" /> and <paramref
@@ -6359,7 +6575,7 @@ namespace kinetica
         /// by an expression and/or sorted by a column. This operation can be
         /// performed on tables, views, or on homogeneous collections
         /// (collections containing tables of all the same type). Records can
-        /// be returned encoded as binary or json.
+        /// be returned encoded as binary, json or geojson.
         /// <br />
         /// This operation supports paging through the data via the <paramref
         /// name="offset" /> and <paramref name="limit" /> parameters. Note
@@ -7829,6 +8045,28 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
+        /// cref="MergeRecordsRequest.Options.PERSIST">PERSIST</see>:</term>
+        ///         <description>If <i>true</i>, then the table specified in
+        /// <paramref cref="MergeRecordsRequest.table_name" /> will be
+        /// persisted and will not expire unless a <i>ttl</i> is specified.
+        /// If <i>false</i>, then the table will be an in-memory table and will
+        /// expire unless a <i>ttl</i> is specified otherwise.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="MergeRecordsRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="MergeRecordsRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="MergeRecordsRequest.Options.TRUE">TRUE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="MergeRecordsRequest.Options.CHUNK_SIZE">CHUNK_SIZE</see>:</term>
         ///         <description>Indicates the chunk size to be used for the
         /// merged table specified in <paramref
@@ -8402,6 +8640,25 @@ namespace kinetica
         /// and top-level tables and views is returned.  </param>
         /// <param name="options">Optional parameters.
         /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="ShowTableRequest.Options.FORCE_SYNCHRONOUS">FORCE_SYNCHRONOUS</see>:</term>
+        ///         <description>If <i>true</i> then the table sizes will wait
+        /// for read lock before returning.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="ShowTableRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ShowTableRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="ShowTableRequest.Options.TRUE">TRUE</see>.</description>
+        ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="ShowTableRequest.Options.GET_SIZES">GET_SIZES</see>:</term>
