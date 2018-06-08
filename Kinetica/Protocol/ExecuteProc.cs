@@ -47,6 +47,16 @@ namespace kinetica
         /// the cached data from the first run ID specified in the list that
         /// includes that table will be used.</description>
         ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ExecuteProcRequest.Options.KIFS_INPUT_DIRS">KIFS_INPUT_DIRS</see>:</term>
+        ///         <description>A comma-delimited list of KiFS directories
+        /// whose local files will be made directly accessible to the proc
+        /// through the API. (All KiFS files, local or not, are also accessible
+        /// through the file system below the KiFS mount point.) Each name
+        /// specified must the name of an existing KiFS
+        /// directory.</description>
+        ///     </item>
         /// </list>
         /// <br />
         /// A set of string constants for the parameter <see cref="options"
@@ -79,6 +89,14 @@ namespace kinetica
             /// IDs, the cached data from the first run ID specified in the
             /// list that includes that table will be used.</summary>
             public const string USE_CACHED_INPUT = "use_cached_input";
+
+            /// <summary>A comma-delimited list of KiFS directories whose local
+            /// files will be made directly accessible to the proc through the
+            /// API. (All KiFS files, local or not, are also accessible through
+            /// the file system below the KiFS mount point.) Each name
+            /// specified must the name of an existing KiFS
+            /// directory.</summary>
+            public const string KIFS_INPUT_DIRS = "kifs_input_dirs";
         } // end struct Options
 
 
@@ -149,6 +167,16 @@ namespace kinetica
         /// the cached data from the first run ID specified in the list that
         /// includes that table will be used.</description>
         ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ExecuteProcRequest.Options.KIFS_INPUT_DIRS">KIFS_INPUT_DIRS</see>:</term>
+        ///         <description>A comma-delimited list of KiFS directories
+        /// whose local files will be made directly accessible to the proc
+        /// through the API. (All KiFS files, local or not, are also accessible
+        /// through the file system below the KiFS mount point.) Each name
+        /// specified must the name of an existing KiFS
+        /// directory.</description>
+        ///     </item>
         /// </list>
         ///   </summary>
         public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
@@ -215,6 +243,16 @@ namespace kinetica
         /// proc. If the same table was cached for multiple specified run IDs,
         /// the cached data from the first run ID specified in the list that
         /// includes that table will be used.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ExecuteProcRequest.Options.KIFS_INPUT_DIRS">KIFS_INPUT_DIRS</see>:</term>
+        ///         <description>A comma-delimited list of KiFS directories
+        /// whose local files will be made directly accessible to the proc
+        /// through the API. (All KiFS files, local or not, are also accessible
+        /// through the file system below the KiFS mount point.) Each name
+        /// specified must the name of an existing KiFS
+        /// directory.</description>
         ///     </item>
         /// </list>
         ///   </param>

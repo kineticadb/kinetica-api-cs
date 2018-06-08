@@ -80,6 +80,25 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
+        /// cref="CreateProjectionRequest.Options.IS_REPLICATED">IS_REPLICATED</see>:</term>
+        ///         <description>If <i>true</i> then the projection will be
+        /// replicated even if the source table is not.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateProjectionRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateProjectionRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="CreateProjectionRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="CreateProjectionRequest.Options.LIMIT">LIMIT</see>:</term>
         ///         <description>The number of records to keep.</description>
         ///     </item>
@@ -117,6 +136,15 @@ namespace kinetica
         /// cref="CreateProjectionRequest.Options.CHUNK_SIZE">CHUNK_SIZE</see>:</term>
         ///         <description>Indicates the chunk size to be used for this
         /// table.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateProjectionRequest.Options.CREATE_INDEXES">CREATE_INDEXES</see>:</term>
+        ///         <description>Comma-separated list of columns on which to
+        /// create indexes on the output table.  The columns specified must be
+        /// present in <paramref cref="CreateProjectionRequest.column_names"
+        /// />.  If any alias is given for any column name, the alias must be
+        /// used, rather than the original column name.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -201,6 +229,25 @@ namespace kinetica
             /// prior to the projection.</summary>
             public const string EXPRESSION = "expression";
 
+            /// <summary>If <i>true</i> then the projection will be replicated
+            /// even if the source table is not.
+            /// Supported values:
+            /// <list type="bullet">
+            ///     <item>
+            ///         <term><see
+            /// cref="CreateProjectionRequest.Options.TRUE">TRUE</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="CreateProjectionRequest.Options.FALSE">FALSE</see></term>
+            ///     </item>
+            /// </list>
+            /// The default value is <see
+            /// cref="CreateProjectionRequest.Options.FALSE">FALSE</see>.</summary>
+            public const string IS_REPLICATED = "is_replicated";
+            public const string TRUE = "true";
+            public const string FALSE = "false";
+
             /// <summary>The number of records to keep.</summary>
             public const string LIMIT = "limit";
 
@@ -227,12 +274,17 @@ namespace kinetica
             /// The default value is <see
             /// cref="CreateProjectionRequest.Options.FALSE">FALSE</see>.</summary>
             public const string MATERIALIZE_ON_GPU = "materialize_on_gpu";
-            public const string TRUE = "true";
-            public const string FALSE = "false";
 
             /// <summary>Indicates the chunk size to be used for this
             /// table.</summary>
             public const string CHUNK_SIZE = "chunk_size";
+
+            /// <summary>Comma-separated list of columns on which to create
+            /// indexes on the output table.  The columns specified must be
+            /// present in <see cref="column_names" />.  If any alias is given
+            /// for any column name, the alias must be used, rather than the
+            /// original column name.</summary>
+            public const string CREATE_INDEXES = "create_indexes";
 
             /// <summary>Sets the <a href="../../concepts/ttl.html"
             /// target="_top">TTL</a> of the projection specified in <see
@@ -325,6 +377,25 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
+        /// cref="CreateProjectionRequest.Options.IS_REPLICATED">IS_REPLICATED</see>:</term>
+        ///         <description>If <i>true</i> then the projection will be
+        /// replicated even if the source table is not.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateProjectionRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateProjectionRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="CreateProjectionRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="CreateProjectionRequest.Options.LIMIT">LIMIT</see>:</term>
         ///         <description>The number of records to keep.</description>
         ///     </item>
@@ -362,6 +433,15 @@ namespace kinetica
         /// cref="CreateProjectionRequest.Options.CHUNK_SIZE">CHUNK_SIZE</see>:</term>
         ///         <description>Indicates the chunk size to be used for this
         /// table.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateProjectionRequest.Options.CREATE_INDEXES">CREATE_INDEXES</see>:</term>
+        ///         <description>Comma-separated list of columns on which to
+        /// create indexes on the output table.  The columns specified must be
+        /// present in <paramref cref="CreateProjectionRequest.column_names"
+        /// />.  If any alias is given for any column name, the alias must be
+        /// used, rather than the original column name.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -470,6 +550,25 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
+        /// cref="CreateProjectionRequest.Options.IS_REPLICATED">IS_REPLICATED</see>:</term>
+        ///         <description>If <i>true</i> then the projection will be
+        /// replicated even if the source table is not.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateProjectionRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateProjectionRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="CreateProjectionRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="CreateProjectionRequest.Options.LIMIT">LIMIT</see>:</term>
         ///         <description>The number of records to keep.</description>
         ///     </item>
@@ -507,6 +606,15 @@ namespace kinetica
         /// cref="CreateProjectionRequest.Options.CHUNK_SIZE">CHUNK_SIZE</see>:</term>
         ///         <description>Indicates the chunk size to be used for this
         /// table.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateProjectionRequest.Options.CREATE_INDEXES">CREATE_INDEXES</see>:</term>
+        ///         <description>Comma-separated list of columns on which to
+        /// create indexes on the output table.  The columns specified must be
+        /// present in <paramref cref="CreateProjectionRequest.column_names"
+        /// />.  If any alias is given for any column name, the alias must be
+        /// used, rather than the original column name.</description>
         ///     </item>
         ///     <item>
         ///         <term><see

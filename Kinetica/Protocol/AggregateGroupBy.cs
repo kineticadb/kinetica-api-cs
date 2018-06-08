@@ -284,6 +284,13 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
+        /// cref="AggregateGroupByRequest.Options.CREATE_INDEXES">CREATE_INDEXES</see>:</term>
+        ///         <description>Comma-separated list of columns on which to
+        /// create indexes on the result table. Must be used in combination
+        /// with the <i>result_table</i> option.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="AggregateGroupByRequest.Options.VIEW_ID">VIEW_ID</see>:</term>
         ///         <description>view this result table is part
         /// of</description>
@@ -511,6 +518,11 @@ namespace kinetica
             /// table. Must be used in combination with the <i>result_table</i>
             /// option.</summary>
             public const string CHUNK_SIZE = "chunk_size";
+
+            /// <summary>Comma-separated list of columns on which to create
+            /// indexes on the result table. Must be used in combination with
+            /// the <i>result_table</i> option.</summary>
+            public const string CREATE_INDEXES = "create_indexes";
 
             /// <summary>view this result table is part of</summary>
             public const string VIEW_ID = "view_id";
@@ -764,6 +776,13 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
+        /// cref="AggregateGroupByRequest.Options.CREATE_INDEXES">CREATE_INDEXES</see>:</term>
+        ///         <description>Comma-separated list of columns on which to
+        /// create indexes on the result table. Must be used in combination
+        /// with the <i>result_table</i> option.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="AggregateGroupByRequest.Options.VIEW_ID">VIEW_ID</see>:</term>
         ///         <description>view this result table is part
         /// of</description>
@@ -1009,6 +1028,13 @@ namespace kinetica
         ///         <description>Indicates the chunk size to be used for the
         /// result table. Must be used in combination with the
         /// <i>result_table</i> option.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AggregateGroupByRequest.Options.CREATE_INDEXES">CREATE_INDEXES</see>:</term>
+        ///         <description>Comma-separated list of columns on which to
+        /// create indexes on the result table. Must be used in combination
+        /// with the <i>result_table</i> option.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -1285,6 +1311,13 @@ namespace kinetica
         ///         <description>Indicates the chunk size to be used for the
         /// result table. Must be used in combination with the
         /// <i>result_table</i> option.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AggregateGroupByRequest.Options.CREATE_INDEXES">CREATE_INDEXES</see>:</term>
+        ///         <description>Comma-separated list of columns on which to
+        /// create indexes on the result table. Must be used in combination
+        /// with the <i>result_table</i> option.</description>
         ///     </item>
         ///     <item>
         ///         <term><see

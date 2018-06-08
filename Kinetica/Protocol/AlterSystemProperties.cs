@@ -183,6 +183,18 @@ namespace kinetica
         ///         <description>Enable JobManager to enforce processing of
         /// requests in the order received.</description>
         ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.CHUNK_CACHE_ENABLED">CHUNK_CACHE_ENABLED</see>:</term>
+        ///         <description>Enable chunk level query caching. Flushes the
+        /// chunk cache when value is false</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.CHUNK_CACHE_SIZE">CHUNK_CACHE_SIZE</see>:</term>
+        ///         <description>Size of the chunk cache in
+        /// bytes.</description>
+        ///     </item>
         /// </list>
         /// <br />
         /// A set of string constants for the parameter <see
@@ -311,6 +323,13 @@ namespace kinetica
             /// <summary>Enable JobManager to enforce processing of requests in
             /// the order received.</summary>
             public const string ENABLE_JOB_MANAGER = "enable_job_manager";
+
+            /// <summary>Enable chunk level query caching. Flushes the chunk
+            /// cache when value is false</summary>
+            public const string CHUNK_CACHE_ENABLED = "chunk_cache_enabled";
+
+            /// <summary>Size of the chunk cache in bytes.</summary>
+            public const string CHUNK_CACHE_SIZE = "chunk_cache_size";
         } // end struct PropertyUpdatesMap
 
 
@@ -471,6 +490,18 @@ namespace kinetica
         /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.ENABLE_JOB_MANAGER">ENABLE_JOB_MANAGER</see>:</term>
         ///         <description>Enable JobManager to enforce processing of
         /// requests in the order received.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.CHUNK_CACHE_ENABLED">CHUNK_CACHE_ENABLED</see>:</term>
+        ///         <description>Enable chunk level query caching. Flushes the
+        /// chunk cache when value is false</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.CHUNK_CACHE_SIZE">CHUNK_CACHE_SIZE</see>:</term>
+        ///         <description>Size of the chunk cache in
+        /// bytes.</description>
         ///     </item>
         /// </list>
         ///   </summary>
@@ -644,6 +675,18 @@ namespace kinetica
         /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.ENABLE_JOB_MANAGER">ENABLE_JOB_MANAGER</see>:</term>
         ///         <description>Enable JobManager to enforce processing of
         /// requests in the order received.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.CHUNK_CACHE_ENABLED">CHUNK_CACHE_ENABLED</see>:</term>
+        ///         <description>Enable chunk level query caching. Flushes the
+        /// chunk cache when value is false</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.CHUNK_CACHE_SIZE">CHUNK_CACHE_SIZE</see>:</term>
+        ///         <description>Size of the chunk cache in
+        /// bytes.</description>
         ///     </item>
         /// </list>
         ///   </param>

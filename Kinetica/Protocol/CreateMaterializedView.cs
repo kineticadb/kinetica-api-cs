@@ -24,7 +24,7 @@ namespace kinetica
     /// target="_top">Materialized Views</a>.
     /// <br />
     /// The response contains <member name="view_id" />, which is used to tag
-    /// each subsequent operation (projection, union, group-by, filter, or
+    /// each subsequent operation (projection, union, aggregation, filter, or
     /// join) that will compose the view.</summary>
     public class CreateMaterializedViewRequest : KineticaData
     {
@@ -80,30 +80,26 @@ namespace kinetica
         ///         <term><see
         /// cref="CreateMaterializedViewRequest.Options.MANUAL">MANUAL</see>:</term>
         ///         <description>Refresh only occurs when manually requested by
-        /// calling alter_table with action refresh_view</description>
+        /// calling /alter/table with an 'action' of 'refresh'</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="CreateMaterializedViewRequest.Options.ON_QUERY">ON_QUERY</see>:</term>
-        ///         <description>Incrementally refresh (refresh just those
-        /// records added) whenever a new query is issued and new data is
-        /// inserted into the base table.  A full refresh of all the records
-        /// occurs when a new query is issued and there have been inserts to
-        /// any non-base-tables since the last query</description>
+        ///         <description>For future use.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="CreateMaterializedViewRequest.Options.ON_CHANGE">ON_CHANGE</see>:</term>
         ///         <description>If possible, incrementally refresh (refresh
         /// just those records added) whenever an insert, update, delete or
-        /// refresh of input table is done.  A full refresh on_query is done if
-        /// an incremental refresh is not possible. </description>
+        /// refresh of input table is done.  A full refresh is done if an
+        /// incremental refresh is not possible. </description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="CreateMaterializedViewRequest.Options.PERIODIC">PERIODIC</see>:</term>
         ///         <description>Refresh table periodically at rate specified
-        /// by refresh_period option</description>
+        /// by <i>refresh_period</i></description>
         ///     </item>
         /// </list>
         /// The default value is <see
@@ -112,15 +108,17 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="CreateMaterializedViewRequest.Options.REFRESH_PERIOD">REFRESH_PERIOD</see>:</term>
-        ///         <description>When refresh_method is periodic specifies the
-        /// period in seconds at which refresh occurs</description>
+        ///         <description>When <i>refresh_method</i> is <i>periodic</i>,
+        /// specifies the period in seconds at which refresh
+        /// occurs</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="CreateMaterializedViewRequest.Options.REFRESH_START_TIME">REFRESH_START_TIME</see>:</term>
-        ///         <description>First time at which a periodic refresh is to
-        /// be done.  Value is a datatime string with format YYYY-MM-DD
-        /// HH:MM:SS.</description>
+        ///         <description>When <i>refresh_method</i> is <i>periodic</i>,
+        /// specifies the first time at which a refresh is to be done.  Value
+        /// is a datetime string with format 'YYYY-MM-DD
+        /// HH:MM:SS'.</description>
         ///     </item>
         /// </list>
         /// <br />
@@ -170,33 +168,28 @@ namespace kinetica
             ///         <term><see
             /// cref="CreateMaterializedViewRequest.Options.MANUAL">MANUAL</see>:</term>
             ///         <description>Refresh only occurs when manually
-            /// requested by calling alter_table with action
-            /// refresh_view</description>
+            /// requested by calling <see
+            /// cref="Kinetica.alterTable(string,string,string,IDictionary{string, string})"
+            /// /> with an 'action' of 'refresh'</description>
             ///     </item>
             ///     <item>
             ///         <term><see
             /// cref="CreateMaterializedViewRequest.Options.ON_QUERY">ON_QUERY</see>:</term>
-            ///         <description>Incrementally refresh (refresh just those
-            /// records added) whenever a new query is issued and new data is
-            /// inserted into the base table.  A full refresh of all the
-            /// records occurs when a new query is issued and there have been
-            /// inserts to any non-base-tables since the last
-            /// query</description>
+            ///         <description>For future use.</description>
             ///     </item>
             ///     <item>
             ///         <term><see
             /// cref="CreateMaterializedViewRequest.Options.ON_CHANGE">ON_CHANGE</see>:</term>
             ///         <description>If possible, incrementally refresh
             /// (refresh just those records added) whenever an insert, update,
-            /// delete or refresh of input table is done.  A full refresh
-            /// on_query is done if an incremental refresh is not possible.
-            /// </description>
+            /// delete or refresh of input table is done.  A full refresh is
+            /// done if an incremental refresh is not possible. </description>
             ///     </item>
             ///     <item>
             ///         <term><see
             /// cref="CreateMaterializedViewRequest.Options.PERIODIC">PERIODIC</see>:</term>
             ///         <description>Refresh table periodically at rate
-            /// specified by refresh_period option</description>
+            /// specified by <i>refresh_period</i></description>
             ///     </item>
             /// </list>
             /// The default value is <see
@@ -204,33 +197,33 @@ namespace kinetica
             public const string REFRESH_METHOD = "refresh_method";
 
             /// <summary>Refresh only occurs when manually requested by calling
-            /// alter_table with action refresh_view</summary>
+            /// <see
+            /// cref="Kinetica.alterTable(string,string,string,IDictionary{string, string})"
+            /// /> with an 'action' of 'refresh'</summary>
             public const string MANUAL = "manual";
 
-            /// <summary>Incrementally refresh (refresh just those records
-            /// added) whenever a new query is issued and new data is inserted
-            /// into the base table.  A full refresh of all the records occurs
-            /// when a new query is issued and there have been inserts to any
-            /// non-base-tables since the last query</summary>
+            /// <summary>For future use.</summary>
             public const string ON_QUERY = "on_query";
 
             /// <summary>If possible, incrementally refresh (refresh just those
             /// records added) whenever an insert, update, delete or refresh of
-            /// input table is done.  A full refresh on_query is done if an
-            /// incremental refresh is not possible. </summary>
+            /// input table is done.  A full refresh is done if an incremental
+            /// refresh is not possible. </summary>
             public const string ON_CHANGE = "on_change";
 
             /// <summary>Refresh table periodically at rate specified by
-            /// refresh_period option</summary>
+            /// <i>refresh_period</i></summary>
             public const string PERIODIC = "periodic";
 
-            /// <summary>When refresh_method is periodic specifies the period
-            /// in seconds at which refresh occurs</summary>
+            /// <summary>When <i>refresh_method</i> is <i>periodic</i>,
+            /// specifies the period in seconds at which refresh
+            /// occurs</summary>
             public const string REFRESH_PERIOD = "refresh_period";
 
-            /// <summary>First time at which a periodic refresh is to be done.
-            /// Value is a datatime string with format YYYY-MM-DD
-            /// HH:MM:SS.</summary>
+            /// <summary>When <i>refresh_method</i> is <i>periodic</i>,
+            /// specifies the first time at which a refresh is to be done.
+            /// Value is a datetime string with format 'YYYY-MM-DD
+            /// HH:MM:SS'.</summary>
             public const string REFRESH_START_TIME = "refresh_start_time";
         } // end struct Options
 
@@ -290,30 +283,26 @@ namespace kinetica
         ///         <term><see
         /// cref="CreateMaterializedViewRequest.Options.MANUAL">MANUAL</see>:</term>
         ///         <description>Refresh only occurs when manually requested by
-        /// calling alter_table with action refresh_view</description>
+        /// calling /alter/table with an 'action' of 'refresh'</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="CreateMaterializedViewRequest.Options.ON_QUERY">ON_QUERY</see>:</term>
-        ///         <description>Incrementally refresh (refresh just those
-        /// records added) whenever a new query is issued and new data is
-        /// inserted into the base table.  A full refresh of all the records
-        /// occurs when a new query is issued and there have been inserts to
-        /// any non-base-tables since the last query</description>
+        ///         <description>For future use.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="CreateMaterializedViewRequest.Options.ON_CHANGE">ON_CHANGE</see>:</term>
         ///         <description>If possible, incrementally refresh (refresh
         /// just those records added) whenever an insert, update, delete or
-        /// refresh of input table is done.  A full refresh on_query is done if
-        /// an incremental refresh is not possible. </description>
+        /// refresh of input table is done.  A full refresh is done if an
+        /// incremental refresh is not possible. </description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="CreateMaterializedViewRequest.Options.PERIODIC">PERIODIC</see>:</term>
         ///         <description>Refresh table periodically at rate specified
-        /// by refresh_period option</description>
+        /// by <i>refresh_period</i></description>
         ///     </item>
         /// </list>
         /// The default value is <see
@@ -322,15 +311,17 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="CreateMaterializedViewRequest.Options.REFRESH_PERIOD">REFRESH_PERIOD</see>:</term>
-        ///         <description>When refresh_method is periodic specifies the
-        /// period in seconds at which refresh occurs</description>
+        ///         <description>When <i>refresh_method</i> is <i>periodic</i>,
+        /// specifies the period in seconds at which refresh
+        /// occurs</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="CreateMaterializedViewRequest.Options.REFRESH_START_TIME">REFRESH_START_TIME</see>:</term>
-        ///         <description>First time at which a periodic refresh is to
-        /// be done.  Value is a datatime string with format YYYY-MM-DD
-        /// HH:MM:SS.</description>
+        ///         <description>When <i>refresh_method</i> is <i>periodic</i>,
+        /// specifies the first time at which a refresh is to be done.  Value
+        /// is a datetime string with format 'YYYY-MM-DD
+        /// HH:MM:SS'.</description>
         ///     </item>
         /// </list>
         ///   </summary>
@@ -397,30 +388,26 @@ namespace kinetica
         ///         <term><see
         /// cref="CreateMaterializedViewRequest.Options.MANUAL">MANUAL</see>:</term>
         ///         <description>Refresh only occurs when manually requested by
-        /// calling alter_table with action refresh_view</description>
+        /// calling /alter/table with an 'action' of 'refresh'</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="CreateMaterializedViewRequest.Options.ON_QUERY">ON_QUERY</see>:</term>
-        ///         <description>Incrementally refresh (refresh just those
-        /// records added) whenever a new query is issued and new data is
-        /// inserted into the base table.  A full refresh of all the records
-        /// occurs when a new query is issued and there have been inserts to
-        /// any non-base-tables since the last query</description>
+        ///         <description>For future use.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="CreateMaterializedViewRequest.Options.ON_CHANGE">ON_CHANGE</see>:</term>
         ///         <description>If possible, incrementally refresh (refresh
         /// just those records added) whenever an insert, update, delete or
-        /// refresh of input table is done.  A full refresh on_query is done if
-        /// an incremental refresh is not possible. </description>
+        /// refresh of input table is done.  A full refresh is done if an
+        /// incremental refresh is not possible. </description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="CreateMaterializedViewRequest.Options.PERIODIC">PERIODIC</see>:</term>
         ///         <description>Refresh table periodically at rate specified
-        /// by refresh_period option</description>
+        /// by <i>refresh_period</i></description>
         ///     </item>
         /// </list>
         /// The default value is <see
@@ -429,15 +416,17 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="CreateMaterializedViewRequest.Options.REFRESH_PERIOD">REFRESH_PERIOD</see>:</term>
-        ///         <description>When refresh_method is periodic specifies the
-        /// period in seconds at which refresh occurs</description>
+        ///         <description>When <i>refresh_method</i> is <i>periodic</i>,
+        /// specifies the period in seconds at which refresh
+        /// occurs</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="CreateMaterializedViewRequest.Options.REFRESH_START_TIME">REFRESH_START_TIME</see>:</term>
-        ///         <description>First time at which a periodic refresh is to
-        /// be done.  Value is a datatime string with format YYYY-MM-DD
-        /// HH:MM:SS.</description>
+        ///         <description>When <i>refresh_method</i> is <i>periodic</i>,
+        /// specifies the first time at which a refresh is to be done.  Value
+        /// is a datetime string with format 'YYYY-MM-DD
+        /// HH:MM:SS'.</description>
         ///     </item>
         /// </list>
         ///   </param>

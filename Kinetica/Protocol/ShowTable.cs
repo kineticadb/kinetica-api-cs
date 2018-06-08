@@ -615,6 +615,11 @@ namespace kinetica
             /// present for collections.</summary>
             public const string REMAINING_TABLE_TTL = "remaining_table_ttl";
 
+            /// <summary>The value of the time-to-live in minutes for unqueried
+            /// column data to stay in memory.  Not present for collections or
+            /// if not set for this table.</summary>
+            public const string MEMORY_TTL = "memory_ttl";
+
             /// <summary>Semicolon-separated list of <a
             /// href="../../concepts/tables.html#foreign-key"
             /// target="_top">foreign keys</a>, of the format 'source_column
@@ -710,7 +715,7 @@ namespace kinetica
             public const string IS_DIRTY = "is_dirty";
 
             /// <summary>for materialized view current refresh_method - one of
-            /// manual, periodic, on_change, on_query</summary>
+            /// manual, periodic, on_change</summary>
             public const string REFRESH_METHOD = "refresh_method";
 
             /// <summary>for materialized view with periodic refresh_method the

@@ -70,7 +70,7 @@ namespace kinetica
         /// cref="InsertRecordsRandomRequest.Options.MIN">MIN</see>:</term>
         ///         <description>For numerical columns, the minimum of the
         /// generated values is set to this value.  Default is -99999.  For
-        /// point, shape, and track semantic types, min for numeric 'x' and 'y'
+        /// point, shape, and track columns, min for numeric 'x' and 'y'
         /// columns needs to be within [-180, 180] and [-90, 90], respectively.
         /// The default minimum possible values for these columns in such cases
         /// are -180.0 and -90.0. For the 'TIMESTAMP' column, the default
@@ -82,20 +82,20 @@ namespace kinetica
         /// Value needs to be within [0, 200].
         /// <br />
         /// If the min is outside the accepted ranges for strings columns and
-        /// 'x' and 'y' columns for point/shape/track types, then those
-        /// parameters will not be set; however, an error will not be thrown in
-        /// such a case. It is the responsibility of the user to use the
-        /// <i>all</i> parameter judiciously.</description>
+        /// 'x' and 'y' columns for point/shape/track, then those parameters
+        /// will not be set; however, an error will not be thrown in such a
+        /// case. It is the responsibility of the user to use the <i>all</i>
+        /// parameter judiciously.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="InsertRecordsRandomRequest.Options.MAX">MAX</see>:</term>
         ///         <description>For numerical columns, the maximum of the
         /// generated values is set to this value. Default is 99999. For point,
-        /// shape, and track semantic types, max for numeric 'x' and 'y'
-        /// columns needs to be within [-180, 180] and [-90, 90], respectively.
-        /// The default minimum possible values for these columns in such cases
-        /// are 180.0 and 90.0.
+        /// shape, and track columns, max for numeric 'x' and 'y' columns needs
+        /// to be within [-180, 180] and [-90, 90], respectively. The default
+        /// minimum possible values for these columns in such cases are 180.0
+        /// and 90.0.
         /// <br />
         /// For string columns, the maximum length of the randomly generated
         /// strings is set to this value (default is 200). If both minimum and
@@ -103,10 +103,10 @@ namespace kinetica
         /// Value needs to be within [0, 200].
         /// <br />
         /// If the *max* is outside the accepted ranges for strings columns and
-        /// 'x' and 'y' columns for point/shape/track types, then those
-        /// parameters will not be set; however, an error will not be thrown in
-        /// such a case. It is the responsibility of the user to use the
-        /// <i>all</i> parameter judiciously.</description>
+        /// 'x' and 'y' columns for point/shape/track, then those parameters
+        /// will not be set; however, an error will not be thrown in such a
+        /// case. It is the responsibility of the user to use the <i>all</i>
+        /// parameter judiciously.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -157,7 +157,7 @@ namespace kinetica
         /// cref="InsertRecordsRandomRequest.Options.MIN">MIN</see>:</term>
         ///         <description>For numerical columns, the minimum of the
         /// generated values is set to this value.  Default is -99999.  For
-        /// point, shape, and track semantic types, min for numeric 'x' and 'y'
+        /// point, shape, and track columns, min for numeric 'x' and 'y'
         /// columns needs to be within [-180, 180] and [-90, 90], respectively.
         /// The default minimum possible values for these columns in such cases
         /// are -180.0 and -90.0. For the 'TIMESTAMP' column, the default
@@ -169,20 +169,20 @@ namespace kinetica
         /// Value needs to be within [0, 200].
         /// <br />
         /// If the min is outside the accepted ranges for strings columns and
-        /// 'x' and 'y' columns for point/shape/track types, then those
-        /// parameters will not be set; however, an error will not be thrown in
-        /// such a case. It is the responsibility of the user to use the
-        /// <i>all</i> parameter judiciously.</description>
+        /// 'x' and 'y' columns for point/shape/track, then those parameters
+        /// will not be set; however, an error will not be thrown in such a
+        /// case. It is the responsibility of the user to use the <i>all</i>
+        /// parameter judiciously.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="InsertRecordsRandomRequest.Options.MAX">MAX</see>:</term>
         ///         <description>For numerical columns, the maximum of the
         /// generated values is set to this value. Default is 99999. For point,
-        /// shape, and track semantic types, max for numeric 'x' and 'y'
-        /// columns needs to be within [-180, 180] and [-90, 90], respectively.
-        /// The default minimum possible values for these columns in such cases
-        /// are 180.0 and 90.0.
+        /// shape, and track columns, max for numeric 'x' and 'y' columns needs
+        /// to be within [-180, 180] and [-90, 90], respectively. The default
+        /// minimum possible values for these columns in such cases are 180.0
+        /// and 90.0.
         /// <br />
         /// For string columns, the maximum length of the randomly generated
         /// strings is set to this value (default is 200). If both minimum and
@@ -190,10 +190,10 @@ namespace kinetica
         /// Value needs to be within [0, 200].
         /// <br />
         /// If the *max* is outside the accepted ranges for strings columns and
-        /// 'x' and 'y' columns for point/shape/track types, then those
-        /// parameters will not be set; however, an error will not be thrown in
-        /// such a case. It is the responsibility of the user to use the
-        /// <i>all</i> parameter judiciously.</description>
+        /// 'x' and 'y' columns for point/shape/track, then those parameters
+        /// will not be set; however, an error will not be thrown in such a
+        /// case. It is the responsibility of the user to use the <i>all</i>
+        /// parameter judiciously.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -235,9 +235,9 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="InsertRecordsRandomRequest.Options.TRACK_LENGTH">TRACK_LENGTH</see>:</term>
-        ///         <description>This key-map pair is only valid for track type
-        /// data sets (an error is thrown otherwise).  No nulls would be
-        /// generated for nullable columns.
+        ///         <description>This key-map pair is only valid for track data
+        /// sets (an error is thrown otherwise).  No nulls would be generated
+        /// for nullable columns.
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
@@ -296,8 +296,8 @@ namespace kinetica
             /// cref="InsertRecordsRandomRequest.Options.MIN">MIN</see>:</term>
             ///         <description>For numerical columns, the minimum of the
             /// generated values is set to this value.  Default is -99999.  For
-            /// point, shape, and track semantic types, min for numeric 'x' and
-            /// 'y' columns needs to be within [-180, 180] and [-90, 90],
+            /// point, shape, and track columns, min for numeric 'x' and 'y'
+            /// columns needs to be within [-180, 180] and [-90, 90],
             /// respectively. The default minimum possible values for these
             /// columns in such cases are -180.0 and -90.0. For the 'TIMESTAMP'
             /// column, the default minimum corresponds to Jan 1, 2010.
@@ -308,7 +308,7 @@ namespace kinetica
             /// equal to max. Value needs to be within [0, 200].
             /// <br />
             /// If the min is outside the accepted ranges for strings columns
-            /// and 'x' and 'y' columns for point/shape/track types, then those
+            /// and 'x' and 'y' columns for point/shape/track, then those
             /// parameters will not be set; however, an error will not be
             /// thrown in such a case. It is the responsibility of the user to
             /// use the <i>all</i> parameter judiciously.</description>
@@ -318,8 +318,8 @@ namespace kinetica
             /// cref="InsertRecordsRandomRequest.Options.MAX">MAX</see>:</term>
             ///         <description>For numerical columns, the maximum of the
             /// generated values is set to this value. Default is 99999. For
-            /// point, shape, and track semantic types, max for numeric 'x' and
-            /// 'y' columns needs to be within [-180, 180] and [-90, 90],
+            /// point, shape, and track columns, max for numeric 'x' and 'y'
+            /// columns needs to be within [-180, 180] and [-90, 90],
             /// respectively. The default minimum possible values for these
             /// columns in such cases are 180.0 and 90.0.
             /// <br />
@@ -329,7 +329,7 @@ namespace kinetica
             /// than or equal to *min*. Value needs to be within [0, 200].
             /// <br />
             /// If the *max* is outside the accepted ranges for strings columns
-            /// and 'x' and 'y' columns for point/shape/track types, then those
+            /// and 'x' and 'y' columns for point/shape/track, then those
             /// parameters will not be set; however, an error will not be
             /// thrown in such a case. It is the responsibility of the user to
             /// use the <i>all</i> parameter judiciously.</description>
@@ -424,8 +424,8 @@ namespace kinetica
             /// cref="InsertRecordsRandomRequest.Options.MIN">MIN</see>:</term>
             ///         <description>For numerical columns, the minimum of the
             /// generated values is set to this value.  Default is -99999.  For
-            /// point, shape, and track semantic types, min for numeric 'x' and
-            /// 'y' columns needs to be within [-180, 180] and [-90, 90],
+            /// point, shape, and track columns, min for numeric 'x' and 'y'
+            /// columns needs to be within [-180, 180] and [-90, 90],
             /// respectively. The default minimum possible values for these
             /// columns in such cases are -180.0 and -90.0. For the 'TIMESTAMP'
             /// column, the default minimum corresponds to Jan 1, 2010.
@@ -436,7 +436,7 @@ namespace kinetica
             /// equal to max. Value needs to be within [0, 200].
             /// <br />
             /// If the min is outside the accepted ranges for strings columns
-            /// and 'x' and 'y' columns for point/shape/track types, then those
+            /// and 'x' and 'y' columns for point/shape/track, then those
             /// parameters will not be set; however, an error will not be
             /// thrown in such a case. It is the responsibility of the user to
             /// use the <i>all</i> parameter judiciously.</description>
@@ -446,8 +446,8 @@ namespace kinetica
             /// cref="InsertRecordsRandomRequest.Options.MAX">MAX</see>:</term>
             ///         <description>For numerical columns, the maximum of the
             /// generated values is set to this value. Default is 99999. For
-            /// point, shape, and track semantic types, max for numeric 'x' and
-            /// 'y' columns needs to be within [-180, 180] and [-90, 90],
+            /// point, shape, and track columns, max for numeric 'x' and 'y'
+            /// columns needs to be within [-180, 180] and [-90, 90],
             /// respectively. The default minimum possible values for these
             /// columns in such cases are 180.0 and 90.0.
             /// <br />
@@ -457,7 +457,7 @@ namespace kinetica
             /// than or equal to *min*. Value needs to be within [0, 200].
             /// <br />
             /// If the *max* is outside the accepted ranges for strings columns
-            /// and 'x' and 'y' columns for point/shape/track types, then those
+            /// and 'x' and 'y' columns for point/shape/track, then those
             /// parameters will not be set; however, an error will not be
             /// thrown in such a case. It is the responsibility of the user to
             /// use the <i>all</i> parameter judiciously.</description>
@@ -501,9 +501,9 @@ namespace kinetica
             /// </summary>
             public const string ATTR_NAME = "attr_name";
 
-            /// <summary>This key-map pair is only valid for track type data
-            /// sets (an error is thrown otherwise).  No nulls would be
-            /// generated for nullable columns.
+            /// <summary>This key-map pair is only valid for track data sets
+            /// (an error is thrown otherwise).  No nulls would be generated
+            /// for nullable columns.
             /// <list type="bullet">
             ///     <item>
             ///         <term><see
@@ -579,7 +579,7 @@ namespace kinetica
         /// cref="InsertRecordsRandomRequest.Options.MIN">MIN</see>:</term>
         ///         <description>For numerical columns, the minimum of the
         /// generated values is set to this value.  Default is -99999.  For
-        /// point, shape, and track semantic types, min for numeric 'x' and 'y'
+        /// point, shape, and track columns, min for numeric 'x' and 'y'
         /// columns needs to be within [-180, 180] and [-90, 90], respectively.
         /// The default minimum possible values for these columns in such cases
         /// are -180.0 and -90.0. For the 'TIMESTAMP' column, the default
@@ -591,20 +591,20 @@ namespace kinetica
         /// Value needs to be within [0, 200].
         /// <br />
         /// If the min is outside the accepted ranges for strings columns and
-        /// 'x' and 'y' columns for point/shape/track types, then those
-        /// parameters will not be set; however, an error will not be thrown in
-        /// such a case. It is the responsibility of the user to use the
-        /// <i>all</i> parameter judiciously.</description>
+        /// 'x' and 'y' columns for point/shape/track, then those parameters
+        /// will not be set; however, an error will not be thrown in such a
+        /// case. It is the responsibility of the user to use the <i>all</i>
+        /// parameter judiciously.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="InsertRecordsRandomRequest.Options.MAX">MAX</see>:</term>
         ///         <description>For numerical columns, the maximum of the
         /// generated values is set to this value. Default is 99999. For point,
-        /// shape, and track semantic types, max for numeric 'x' and 'y'
-        /// columns needs to be within [-180, 180] and [-90, 90], respectively.
-        /// The default minimum possible values for these columns in such cases
-        /// are 180.0 and 90.0.
+        /// shape, and track columns, max for numeric 'x' and 'y' columns needs
+        /// to be within [-180, 180] and [-90, 90], respectively. The default
+        /// minimum possible values for these columns in such cases are 180.0
+        /// and 90.0.
         /// <br />
         /// For string columns, the maximum length of the randomly generated
         /// strings is set to this value (default is 200). If both minimum and
@@ -612,10 +612,10 @@ namespace kinetica
         /// Value needs to be within [0, 200].
         /// <br />
         /// If the *max* is outside the accepted ranges for strings columns and
-        /// 'x' and 'y' columns for point/shape/track types, then those
-        /// parameters will not be set; however, an error will not be thrown in
-        /// such a case. It is the responsibility of the user to use the
-        /// <i>all</i> parameter judiciously.</description>
+        /// 'x' and 'y' columns for point/shape/track, then those parameters
+        /// will not be set; however, an error will not be thrown in such a
+        /// case. It is the responsibility of the user to use the <i>all</i>
+        /// parameter judiciously.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -666,7 +666,7 @@ namespace kinetica
         /// cref="InsertRecordsRandomRequest.Options.MIN">MIN</see>:</term>
         ///         <description>For numerical columns, the minimum of the
         /// generated values is set to this value.  Default is -99999.  For
-        /// point, shape, and track semantic types, min for numeric 'x' and 'y'
+        /// point, shape, and track columns, min for numeric 'x' and 'y'
         /// columns needs to be within [-180, 180] and [-90, 90], respectively.
         /// The default minimum possible values for these columns in such cases
         /// are -180.0 and -90.0. For the 'TIMESTAMP' column, the default
@@ -678,20 +678,20 @@ namespace kinetica
         /// Value needs to be within [0, 200].
         /// <br />
         /// If the min is outside the accepted ranges for strings columns and
-        /// 'x' and 'y' columns for point/shape/track types, then those
-        /// parameters will not be set; however, an error will not be thrown in
-        /// such a case. It is the responsibility of the user to use the
-        /// <i>all</i> parameter judiciously.</description>
+        /// 'x' and 'y' columns for point/shape/track, then those parameters
+        /// will not be set; however, an error will not be thrown in such a
+        /// case. It is the responsibility of the user to use the <i>all</i>
+        /// parameter judiciously.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="InsertRecordsRandomRequest.Options.MAX">MAX</see>:</term>
         ///         <description>For numerical columns, the maximum of the
         /// generated values is set to this value. Default is 99999. For point,
-        /// shape, and track semantic types, max for numeric 'x' and 'y'
-        /// columns needs to be within [-180, 180] and [-90, 90], respectively.
-        /// The default minimum possible values for these columns in such cases
-        /// are 180.0 and 90.0.
+        /// shape, and track columns, max for numeric 'x' and 'y' columns needs
+        /// to be within [-180, 180] and [-90, 90], respectively. The default
+        /// minimum possible values for these columns in such cases are 180.0
+        /// and 90.0.
         /// <br />
         /// For string columns, the maximum length of the randomly generated
         /// strings is set to this value (default is 200). If both minimum and
@@ -699,10 +699,10 @@ namespace kinetica
         /// Value needs to be within [0, 200].
         /// <br />
         /// If the *max* is outside the accepted ranges for strings columns and
-        /// 'x' and 'y' columns for point/shape/track types, then those
-        /// parameters will not be set; however, an error will not be thrown in
-        /// such a case. It is the responsibility of the user to use the
-        /// <i>all</i> parameter judiciously.</description>
+        /// 'x' and 'y' columns for point/shape/track, then those parameters
+        /// will not be set; however, an error will not be thrown in such a
+        /// case. It is the responsibility of the user to use the <i>all</i>
+        /// parameter judiciously.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -744,9 +744,9 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="InsertRecordsRandomRequest.Options.TRACK_LENGTH">TRACK_LENGTH</see>:</term>
-        ///         <description>This key-map pair is only valid for track type
-        /// data sets (an error is thrown otherwise).  No nulls would be
-        /// generated for nullable columns.
+        ///         <description>This key-map pair is only valid for track data
+        /// sets (an error is thrown otherwise).  No nulls would be generated
+        /// for nullable columns.
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
@@ -826,7 +826,7 @@ namespace kinetica
         /// cref="InsertRecordsRandomRequest.Options.MIN">MIN</see>:</term>
         ///         <description>For numerical columns, the minimum of the
         /// generated values is set to this value.  Default is -99999.  For
-        /// point, shape, and track semantic types, min for numeric 'x' and 'y'
+        /// point, shape, and track columns, min for numeric 'x' and 'y'
         /// columns needs to be within [-180, 180] and [-90, 90], respectively.
         /// The default minimum possible values for these columns in such cases
         /// are -180.0 and -90.0. For the 'TIMESTAMP' column, the default
@@ -836,29 +836,29 @@ namespace kinetica
         /// maximum are provided, minimum must be less than or equal to max.
         /// Value needs to be within [0, 200].
         /// If the min is outside the accepted ranges for strings columns and
-        /// 'x' and 'y' columns for point/shape/track types, then those
-        /// parameters will not be set; however, an error will not be thrown in
-        /// such a case. It is the responsibility of the user to use the
-        /// <i>all</i> parameter judiciously.</description>
+        /// 'x' and 'y' columns for point/shape/track, then those parameters
+        /// will not be set; however, an error will not be thrown in such a
+        /// case. It is the responsibility of the user to use the <i>all</i>
+        /// parameter judiciously.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="InsertRecordsRandomRequest.Options.MAX">MAX</see>:</term>
         ///         <description>For numerical columns, the maximum of the
         /// generated values is set to this value. Default is 99999. For point,
-        /// shape, and track semantic types, max for numeric 'x' and 'y'
-        /// columns needs to be within [-180, 180] and [-90, 90], respectively.
-        /// The default minimum possible values for these columns in such cases
-        /// are 180.0 and 90.0.
+        /// shape, and track columns, max for numeric 'x' and 'y' columns needs
+        /// to be within [-180, 180] and [-90, 90], respectively. The default
+        /// minimum possible values for these columns in such cases are 180.0
+        /// and 90.0.
         /// For string columns, the maximum length of the randomly generated
         /// strings is set to this value (default is 200). If both minimum and
         /// maximum are provided, *max* must be greater than or equal to *min*.
         /// Value needs to be within [0, 200].
         /// If the *max* is outside the accepted ranges for strings columns and
-        /// 'x' and 'y' columns for point/shape/track types, then those
-        /// parameters will not be set; however, an error will not be thrown in
-        /// such a case. It is the responsibility of the user to use the
-        /// <i>all</i> parameter judiciously.</description>
+        /// 'x' and 'y' columns for point/shape/track, then those parameters
+        /// will not be set; however, an error will not be thrown in such a
+        /// case. It is the responsibility of the user to use the <i>all</i>
+        /// parameter judiciously.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -909,7 +909,7 @@ namespace kinetica
         /// cref="InsertRecordsRandomRequest.Options.MIN">MIN</see>:</term>
         ///         <description>For numerical columns, the minimum of the
         /// generated values is set to this value.  Default is -99999.  For
-        /// point, shape, and track semantic types, min for numeric 'x' and 'y'
+        /// point, shape, and track columns, min for numeric 'x' and 'y'
         /// columns needs to be within [-180, 180] and [-90, 90], respectively.
         /// The default minimum possible values for these columns in such cases
         /// are -180.0 and -90.0. For the 'TIMESTAMP' column, the default
@@ -919,29 +919,29 @@ namespace kinetica
         /// maximum are provided, minimum must be less than or equal to max.
         /// Value needs to be within [0, 200].
         /// If the min is outside the accepted ranges for strings columns and
-        /// 'x' and 'y' columns for point/shape/track types, then those
-        /// parameters will not be set; however, an error will not be thrown in
-        /// such a case. It is the responsibility of the user to use the
-        /// <i>all</i> parameter judiciously.</description>
+        /// 'x' and 'y' columns for point/shape/track, then those parameters
+        /// will not be set; however, an error will not be thrown in such a
+        /// case. It is the responsibility of the user to use the <i>all</i>
+        /// parameter judiciously.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="InsertRecordsRandomRequest.Options.MAX">MAX</see>:</term>
         ///         <description>For numerical columns, the maximum of the
         /// generated values is set to this value. Default is 99999. For point,
-        /// shape, and track semantic types, max for numeric 'x' and 'y'
-        /// columns needs to be within [-180, 180] and [-90, 90], respectively.
-        /// The default minimum possible values for these columns in such cases
-        /// are 180.0 and 90.0.
+        /// shape, and track columns, max for numeric 'x' and 'y' columns needs
+        /// to be within [-180, 180] and [-90, 90], respectively. The default
+        /// minimum possible values for these columns in such cases are 180.0
+        /// and 90.0.
         /// For string columns, the maximum length of the randomly generated
         /// strings is set to this value (default is 200). If both minimum and
         /// maximum are provided, *max* must be greater than or equal to *min*.
         /// Value needs to be within [0, 200].
         /// If the *max* is outside the accepted ranges for strings columns and
-        /// 'x' and 'y' columns for point/shape/track types, then those
-        /// parameters will not be set; however, an error will not be thrown in
-        /// such a case. It is the responsibility of the user to use the
-        /// <i>all</i> parameter judiciously.</description>
+        /// 'x' and 'y' columns for point/shape/track, then those parameters
+        /// will not be set; however, an error will not be thrown in such a
+        /// case. It is the responsibility of the user to use the <i>all</i>
+        /// parameter judiciously.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -983,9 +983,9 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="InsertRecordsRandomRequest.Options.TRACK_LENGTH">TRACK_LENGTH</see>:</term>
-        ///         <description>This key-map pair is only valid for track type
-        /// data sets (an error is thrown otherwise).  No nulls would be
-        /// generated for nullable columns.
+        ///         <description>This key-map pair is only valid for track data
+        /// sets (an error is thrown otherwise).  No nulls would be generated
+        /// for nullable columns.
         /// <list type="bullet">
         ///     <item>
         ///         <term><see

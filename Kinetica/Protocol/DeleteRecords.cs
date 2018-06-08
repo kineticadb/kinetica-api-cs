@@ -17,12 +17,13 @@ namespace kinetica
     /// <br />
     /// Deletes record(s) matching the provided criteria from the given table.
     /// The record selection criteria can either be one or more  <see
-    /// cref="expressions" /> (matching multiple records) or a single record
-    /// identified by <i>record_id</i> options.  Note that the two selection
-    /// criteria are mutually exclusive.  This operation cannot be run on a
-    /// collection or a view.  The operation is synchronous meaning that a
-    /// response will not be available until the request is completely
-    /// processed and all the matching records are deleted.</summary>
+    /// cref="expressions" /> (matching multiple records), a single record
+    /// identified by <i>record_id</i> options, or all records when using
+    /// <i>delete_all_records</i>.  Note that the three selection criteria are
+    /// mutually exclusive.  This operation cannot be run on a collection or a
+    /// view.  The operation is synchronous meaning that a response will not be
+    /// available until the request is completely processed and all the
+    /// matching records are deleted.</summary>
     public class DeleteRecordsRequest : KineticaData
     {
 
@@ -43,6 +44,26 @@ namespace kinetica
         /// /get/records/fromcollection with the *return_record_ids*
         /// option.</description>
         ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="DeleteRecordsRequest.Options.DELETE_ALL_RECORDS">DELETE_ALL_RECORDS</see>:</term>
+        ///         <description>If set to <i>true</i>, all records in the
+        /// table will be deleted. If set to <i>false</i>, then the option is
+        /// effectively ignored.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="DeleteRecordsRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="DeleteRecordsRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="DeleteRecordsRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
         /// </list>
         /// <br />
         /// A set of string constants for the parameter <see cref="options"
@@ -61,6 +82,26 @@ namespace kinetica
             /// cref="Kinetica.getRecordsFromCollection{T}(string,long,long,IDictionary{string, string})"
             /// /> with the *return_record_ids* option.</summary>
             public const string RECORD_ID = "record_id";
+
+            /// <summary>If set to <i>true</i>, all records in the table will
+            /// be deleted. If set to <i>false</i>, then the option is
+            /// effectively ignored.
+            /// Supported values:
+            /// <list type="bullet">
+            ///     <item>
+            ///         <term><see
+            /// cref="DeleteRecordsRequest.Options.TRUE">TRUE</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="DeleteRecordsRequest.Options.FALSE">FALSE</see></term>
+            ///     </item>
+            /// </list>
+            /// The default value is <see
+            /// cref="DeleteRecordsRequest.Options.FALSE">FALSE</see>.</summary>
+            public const string DELETE_ALL_RECORDS = "delete_all_records";
+            public const string TRUE = "true";
+            public const string FALSE = "false";
         } // end struct Options
 
 
@@ -94,6 +135,26 @@ namespace kinetica
         /// obtained at the time of /insert/records or by calling
         /// /get/records/fromcollection with the *return_record_ids*
         /// option.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="DeleteRecordsRequest.Options.DELETE_ALL_RECORDS">DELETE_ALL_RECORDS</see>:</term>
+        ///         <description>If set to <i>true</i>, all records in the
+        /// table will be deleted. If set to <i>false</i>, then the option is
+        /// effectively ignored.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="DeleteRecordsRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="DeleteRecordsRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="DeleteRecordsRequest.Options.FALSE">FALSE</see>.</description>
         ///     </item>
         /// </list>
         ///   </summary>
@@ -133,6 +194,26 @@ namespace kinetica
         /// obtained at the time of /insert/records or by calling
         /// /get/records/fromcollection with the *return_record_ids*
         /// option.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="DeleteRecordsRequest.Options.DELETE_ALL_RECORDS">DELETE_ALL_RECORDS</see>:</term>
+        ///         <description>If set to <i>true</i>, all records in the
+        /// table will be deleted. If set to <i>false</i>, then the option is
+        /// effectively ignored.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="DeleteRecordsRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="DeleteRecordsRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="DeleteRecordsRequest.Options.FALSE">FALSE</see>.</description>
         ///     </item>
         /// </list>
         ///   </param>

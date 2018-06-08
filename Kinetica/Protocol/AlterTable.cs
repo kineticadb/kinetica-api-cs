@@ -34,9 +34,13 @@ namespace kinetica
     /// table & view that is not protected will have its TTL set to the given
     /// value.
     /// <br />
-    /// Set the global access mode (i.e. locking) for a table. The mode can be
-    /// set to
-    /// 'no_access', 'read_only', 'write_only' or 'read_write'.
+    /// Set the global access mode (i.e. locking) for a table. This setting
+    /// trumps any
+    /// role-based access controls that may be in place; e.g., a user with
+    /// write access
+    /// to a table marked read-only will not be able to insert records into it.
+    /// The mode
+    /// can be set to read-only, write-only, read/write, and no access.
     /// <br />
     /// Change the <a href="../../concepts/protection.html"
     /// target="_top">protection</a> mode to prevent or
@@ -111,8 +115,19 @@ namespace kinetica
         ///         <term><see
         /// cref="AlterTableRequest.Action.TTL">TTL</see>:</term>
         ///         <description>Sets the <a href="../../concepts/ttl.html"
-        /// target="_top">TTL</a> of the table, view, or collection specified
-        /// in <paramref cref="AlterTableRequest.table_name" />.</description>
+        /// target="_top">time-to-live</a> in minutes of the table, view, or
+        /// collection specified in <paramref
+        /// cref="AlterTableRequest.table_name" />.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterTableRequest.Action.MEMORY_TTL">MEMORY_TTL</see>:</term>
+        ///         <description>Sets the time-to-live in minutes for the
+        /// individual chunks of the columns of the table, view, or collection
+        /// specified in <paramref cref="AlterTableRequest.table_name" /> to
+        /// free their memory if unused longer than the given time. Specify an
+        /// empty string to restore the global memory_ttl setting and a value
+        /// of '-1' for an infinite timeout.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -131,7 +146,12 @@ namespace kinetica
         /// specified in <paramref cref="AlterTableRequest._value" />.  Use
         /// <i>column_type</i> and <i>column_properties</i> in <paramref
         /// cref="AlterTableRequest.options" /> to set the column's type and
-        /// properties, respectively.</description>
+        /// properties, respectively. Note that primary key and/or shard key
+        /// columns cannot be changed. All unchanging column properties must be
+        /// listed for the change to take place, e.g., to add dictionary
+        /// encoding to an existing 'char4' column, both 'char4' and 'dict'
+        /// must be specified in the <paramref cref="AlterTableRequest.options"
+        /// /> map.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -179,32 +199,35 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="AlterTableRequest.Action.REFRESH">REFRESH</see>:</term>
-        ///         <description>Replay all the table creation commands
-        /// required to create this view. Endpoints supported are /filter,
-        /// /create/jointable, /create/projection, /create/union,
-        /// /aggregate/groupby, and /aggregate/unique.</description>
+        ///         <description>Replays all the table creation commands
+        /// required to create this <a
+        /// href="../../concepts/materialized_views.html"
+        /// target="_top">materialized view</a>.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="AlterTableRequest.Action.SET_REFRESH_METHOD">SET_REFRESH_METHOD</see>:</term>
-        ///         <description>Set the method by which this view is refreshed
-        /// - one of 'manual', 'periodic', 'on_change', 'on_query'.
-        /// </description>
+        ///         <description>Sets the method by which this <a
+        /// href="../../concepts/materialized_views.html"
+        /// target="_top">materialized view</a> is refreshed - one of 'manual',
+        /// 'periodic', 'on_change'. </description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="AlterTableRequest.Action.SET_REFRESH_START_TIME">SET_REFRESH_START_TIME</see>:</term>
-        ///         <description>Set the time to start periodic refreshes to
-        /// datetime string with format YYYY-MM-DD HH:MM:SS at which refresh is
-        /// to be done.  Next refresh occurs at refresh_start_time +
-        /// N*refresh_period</description>
+        ///         <description>Sets the time to start periodic refreshes of
+        /// this <a href="../../concepts/materialized_views.html"
+        /// target="_top">materialized view</a> to datetime string with format
+        /// 'YYYY-MM-DD HH:MM:SS'.  Subsequent refreshes occur at the specified
+        /// time + N * the refresh period.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="AlterTableRequest.Action.SET_REFRESH_PERIOD">SET_REFRESH_PERIOD</see>:</term>
-        ///         <description>Set the time interval in seconds at which to
-        /// refresh this view - sets the refresh method to periodic if not
-        /// alreay set.</description>
+        ///         <description>Sets the time interval in seconds at which to
+        /// refresh this <a href="../../concepts/materialized_views.html"
+        /// target="_top">materialized view</a>.  Also, sets the refresh method
+        /// to periodic if not alreay set.</description>
         ///     </item>
         /// </list>
         /// A set of string constants for the parameter <see cref="action"
@@ -249,9 +272,17 @@ namespace kinetica
             public const string RENAME_TABLE = "rename_table";
 
             /// <summary>Sets the <a href="../../concepts/ttl.html"
-            /// target="_top">TTL</a> of the table, view, or collection
-            /// specified in <see cref="table_name" />.</summary>
+            /// target="_top">time-to-live</a> in minutes of the table, view,
+            /// or collection specified in <see cref="table_name" />.</summary>
             public const string TTL = "ttl";
+
+            /// <summary>Sets the time-to-live in minutes for the individual
+            /// chunks of the columns of the table, view, or collection
+            /// specified in <see cref="table_name" /> to free their memory if
+            /// unused longer than the given time. Specify an empty string to
+            /// restore the global memory_ttl setting and a value of '-1' for
+            /// an infinite timeout.</summary>
+            public const string MEMORY_TTL = "memory_ttl";
 
             /// <summary>Adds the column specified in <see cref="_value" /> to
             /// the table specified in <see cref="table_name" />.  Use
@@ -263,7 +294,12 @@ namespace kinetica
             /// <summary>Changes type and properties of the column specified in
             /// <see cref="_value" />.  Use <i>column_type</i> and
             /// <i>column_properties</i> in <see cref="options" /> to set the
-            /// column's type and properties, respectively.</summary>
+            /// column's type and properties, respectively. Note that primary
+            /// key and/or shard key columns cannot be changed. All unchanging
+            /// column properties must be listed for the change to take place,
+            /// e.g., to add dictionary encoding to an existing 'char4' column,
+            /// both 'char4' and 'dict' must be specified in the <see
+            /// cref="options" /> map.</summary>
             public const string CHANGE_COLUMN = "change_column";
 
             /// <summary>Modifies the <a href="../../concepts/compression.html"
@@ -298,35 +334,28 @@ namespace kinetica
             /// 'read_write'.</summary>
             public const string SET_GLOBAL_ACCESS_MODE = "set_global_access_mode";
 
-            /// <summary>Replay all the table creation commands required to
-            /// create this view. Endpoints supported are <see
-            /// cref="Kinetica.filter(string,string,string,IDictionary{string, string})"
-            /// />, <see
-            /// cref="Kinetica.createJoinTable(string,IList{string},IList{string},IList{string},IDictionary{string, string})"
-            /// />, <see
-            /// cref="Kinetica.createProjection(string,string,IList{string},IDictionary{string, string})"
-            /// />, <see
-            /// cref="Kinetica.createUnion(string,IList{string},IList{IList{string}},IList{string},IDictionary{string, string})"
-            /// />, <see
-            /// cref="Kinetica.aggregateGroupBy(string,IList{string},long,long,IDictionary{string, string})"
-            /// />, and <see
-            /// cref="Kinetica.aggregateUnique(string,string,long,long,IDictionary{string, string})"
-            /// />.</summary>
+            /// <summary>Replays all the table creation commands required to
+            /// create this <a href="../../concepts/materialized_views.html"
+            /// target="_top">materialized view</a>.</summary>
             public const string REFRESH = "refresh";
 
-            /// <summary>Set the method by which this view is refreshed - one
-            /// of 'manual', 'periodic', 'on_change', 'on_query'. </summary>
+            /// <summary>Sets the method by which this <a
+            /// href="../../concepts/materialized_views.html"
+            /// target="_top">materialized view</a> is refreshed - one of
+            /// 'manual', 'periodic', 'on_change'. </summary>
             public const string SET_REFRESH_METHOD = "set_refresh_method";
 
-            /// <summary>Set the time to start periodic refreshes to datetime
-            /// string with format YYYY-MM-DD HH:MM:SS at which refresh is to
-            /// be done.  Next refresh occurs at refresh_start_time +
-            /// N*refresh_period</summary>
+            /// <summary>Sets the time to start periodic refreshes of this <a
+            /// href="../../concepts/materialized_views.html"
+            /// target="_top">materialized view</a> to datetime string with
+            /// format 'YYYY-MM-DD HH:MM:SS'.  Subsequent refreshes occur at
+            /// the specified time + N * the refresh period.</summary>
             public const string SET_REFRESH_START_TIME = "set_refresh_start_time";
 
-            /// <summary>Set the time interval in seconds at which to refresh
-            /// this view - sets the refresh method to periodic if not alreay
-            /// set.</summary>
+            /// <summary>Sets the time interval in seconds at which to refresh
+            /// this <a href="../../concepts/materialized_views.html"
+            /// target="_top">materialized view</a>.  Also, sets the refresh
+            /// method to periodic if not alreay set.</summary>
             public const string SET_REFRESH_PERIOD = "set_refresh_period";
         } // end struct Action
 
@@ -582,8 +611,19 @@ namespace kinetica
         ///         <term><see
         /// cref="AlterTableRequest.Action.TTL">TTL</see>:</term>
         ///         <description>Sets the <a href="../../concepts/ttl.html"
-        /// target="_top">TTL</a> of the table, view, or collection specified
-        /// in <paramref cref="AlterTableRequest.table_name" />.</description>
+        /// target="_top">time-to-live</a> in minutes of the table, view, or
+        /// collection specified in <paramref
+        /// cref="AlterTableRequest.table_name" />.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterTableRequest.Action.MEMORY_TTL">MEMORY_TTL</see>:</term>
+        ///         <description>Sets the time-to-live in minutes for the
+        /// individual chunks of the columns of the table, view, or collection
+        /// specified in <paramref cref="AlterTableRequest.table_name" /> to
+        /// free their memory if unused longer than the given time. Specify an
+        /// empty string to restore the global memory_ttl setting and a value
+        /// of '-1' for an infinite timeout.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -602,7 +642,12 @@ namespace kinetica
         /// specified in <paramref cref="AlterTableRequest._value" />.  Use
         /// <i>column_type</i> and <i>column_properties</i> in <paramref
         /// cref="AlterTableRequest.options" /> to set the column's type and
-        /// properties, respectively.</description>
+        /// properties, respectively. Note that primary key and/or shard key
+        /// columns cannot be changed. All unchanging column properties must be
+        /// listed for the change to take place, e.g., to add dictionary
+        /// encoding to an existing 'char4' column, both 'char4' and 'dict'
+        /// must be specified in the <paramref cref="AlterTableRequest.options"
+        /// /> map.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -650,32 +695,35 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="AlterTableRequest.Action.REFRESH">REFRESH</see>:</term>
-        ///         <description>Replay all the table creation commands
-        /// required to create this view. Endpoints supported are /filter,
-        /// /create/jointable, /create/projection, /create/union,
-        /// /aggregate/groupby, and /aggregate/unique.</description>
+        ///         <description>Replays all the table creation commands
+        /// required to create this <a
+        /// href="../../concepts/materialized_views.html"
+        /// target="_top">materialized view</a>.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="AlterTableRequest.Action.SET_REFRESH_METHOD">SET_REFRESH_METHOD</see>:</term>
-        ///         <description>Set the method by which this view is refreshed
-        /// - one of 'manual', 'periodic', 'on_change', 'on_query'.
-        /// </description>
+        ///         <description>Sets the method by which this <a
+        /// href="../../concepts/materialized_views.html"
+        /// target="_top">materialized view</a> is refreshed - one of 'manual',
+        /// 'periodic', 'on_change'. </description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="AlterTableRequest.Action.SET_REFRESH_START_TIME">SET_REFRESH_START_TIME</see>:</term>
-        ///         <description>Set the time to start periodic refreshes to
-        /// datetime string with format YYYY-MM-DD HH:MM:SS at which refresh is
-        /// to be done.  Next refresh occurs at refresh_start_time +
-        /// N*refresh_period</description>
+        ///         <description>Sets the time to start periodic refreshes of
+        /// this <a href="../../concepts/materialized_views.html"
+        /// target="_top">materialized view</a> to datetime string with format
+        /// 'YYYY-MM-DD HH:MM:SS'.  Subsequent refreshes occur at the specified
+        /// time + N * the refresh period.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="AlterTableRequest.Action.SET_REFRESH_PERIOD">SET_REFRESH_PERIOD</see>:</term>
-        ///         <description>Set the time interval in seconds at which to
-        /// refresh this view - sets the refresh method to periodic if not
-        /// alreay set.</description>
+        ///         <description>Sets the time interval in seconds at which to
+        /// refresh this <a href="../../concepts/materialized_views.html"
+        /// target="_top">materialized view</a>.  Also, sets the refresh method
+        /// to periodic if not alreay set.</description>
         ///     </item>
         /// </list>  </summary>
         public string action { get; set; }
@@ -852,8 +900,19 @@ namespace kinetica
         ///         <term><see
         /// cref="AlterTableRequest.Action.TTL">TTL</see>:</term>
         ///         <description>Sets the <a href="../../concepts/ttl.html"
-        /// target="_top">TTL</a> of the table, view, or collection specified
-        /// in <paramref cref="AlterTableRequest.table_name" />.</description>
+        /// target="_top">time-to-live</a> in minutes of the table, view, or
+        /// collection specified in <paramref
+        /// cref="AlterTableRequest.table_name" />.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterTableRequest.Action.MEMORY_TTL">MEMORY_TTL</see>:</term>
+        ///         <description>Sets the time-to-live in minutes for the
+        /// individual chunks of the columns of the table, view, or collection
+        /// specified in <paramref cref="AlterTableRequest.table_name" /> to
+        /// free their memory if unused longer than the given time. Specify an
+        /// empty string to restore the global memory_ttl setting and a value
+        /// of '-1' for an infinite timeout.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -872,7 +931,12 @@ namespace kinetica
         /// specified in <paramref cref="AlterTableRequest._value" />.  Use
         /// <i>column_type</i> and <i>column_properties</i> in <paramref
         /// cref="AlterTableRequest.options" /> to set the column's type and
-        /// properties, respectively.</description>
+        /// properties, respectively. Note that primary key and/or shard key
+        /// columns cannot be changed. All unchanging column properties must be
+        /// listed for the change to take place, e.g., to add dictionary
+        /// encoding to an existing 'char4' column, both 'char4' and 'dict'
+        /// must be specified in the <paramref cref="AlterTableRequest.options"
+        /// /> map.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -920,32 +984,35 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="AlterTableRequest.Action.REFRESH">REFRESH</see>:</term>
-        ///         <description>Replay all the table creation commands
-        /// required to create this view. Endpoints supported are /filter,
-        /// /create/jointable, /create/projection, /create/union,
-        /// /aggregate/groupby, and /aggregate/unique.</description>
+        ///         <description>Replays all the table creation commands
+        /// required to create this <a
+        /// href="../../concepts/materialized_views.html"
+        /// target="_top">materialized view</a>.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="AlterTableRequest.Action.SET_REFRESH_METHOD">SET_REFRESH_METHOD</see>:</term>
-        ///         <description>Set the method by which this view is refreshed
-        /// - one of 'manual', 'periodic', 'on_change', 'on_query'.
-        /// </description>
+        ///         <description>Sets the method by which this <a
+        /// href="../../concepts/materialized_views.html"
+        /// target="_top">materialized view</a> is refreshed - one of 'manual',
+        /// 'periodic', 'on_change'. </description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="AlterTableRequest.Action.SET_REFRESH_START_TIME">SET_REFRESH_START_TIME</see>:</term>
-        ///         <description>Set the time to start periodic refreshes to
-        /// datetime string with format YYYY-MM-DD HH:MM:SS at which refresh is
-        /// to be done.  Next refresh occurs at refresh_start_time +
-        /// N*refresh_period</description>
+        ///         <description>Sets the time to start periodic refreshes of
+        /// this <a href="../../concepts/materialized_views.html"
+        /// target="_top">materialized view</a> to datetime string with format
+        /// 'YYYY-MM-DD HH:MM:SS'.  Subsequent refreshes occur at the specified
+        /// time + N * the refresh period.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="AlterTableRequest.Action.SET_REFRESH_PERIOD">SET_REFRESH_PERIOD</see>:</term>
-        ///         <description>Set the time interval in seconds at which to
-        /// refresh this view - sets the refresh method to periodic if not
-        /// alreay set.</description>
+        ///         <description>Sets the time interval in seconds at which to
+        /// refresh this <a href="../../concepts/materialized_views.html"
+        /// target="_top">materialized view</a>.  Also, sets the refresh method
+        /// to periodic if not alreay set.</description>
         ///     </item>
         /// </list>  </param>
         /// <param name="_value">The value of the modification. May be a column

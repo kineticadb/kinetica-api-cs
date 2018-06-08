@@ -142,6 +142,14 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
+        /// cref="CreateUnionRequest.Options.CREATE_INDEXES">CREATE_INDEXES</see>:</term>
+        ///         <description>Comma-separated list of columns on which to
+        /// create indexes on the output table.  The columns specified must be
+        /// present in <paramref cref="CreateUnionRequest.output_column_names"
+        /// />.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="CreateUnionRequest.Options.TTL">TTL</see>:</term>
         ///         <description>Sets the <a href="../../concepts/ttl.html"
         /// target="_top">TTL</a> of the table specified in <paramref
@@ -297,6 +305,11 @@ namespace kinetica
             /// table.</summary>
             public const string CHUNK_SIZE = "chunk_size";
 
+            /// <summary>Comma-separated list of columns on which to create
+            /// indexes on the output table.  The columns specified must be
+            /// present in <see cref="output_column_names" />.</summary>
+            public const string CREATE_INDEXES = "create_indexes";
+
             /// <summary>Sets the <a href="../../concepts/ttl.html"
             /// target="_top">TTL</a> of the table specified in <see
             /// cref="table_name" />.</summary>
@@ -435,6 +448,14 @@ namespace kinetica
         /// cref="CreateUnionRequest.Options.CHUNK_SIZE">CHUNK_SIZE</see>:</term>
         ///         <description>Indicates the chunk size to be used for this
         /// table.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateUnionRequest.Options.CREATE_INDEXES">CREATE_INDEXES</see>:</term>
+        ///         <description>Comma-separated list of columns on which to
+        /// create indexes on the output table.  The columns specified must be
+        /// present in <paramref cref="CreateUnionRequest.output_column_names"
+        /// />.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -583,6 +604,14 @@ namespace kinetica
         /// cref="CreateUnionRequest.Options.CHUNK_SIZE">CHUNK_SIZE</see>:</term>
         ///         <description>Indicates the chunk size to be used for this
         /// table.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateUnionRequest.Options.CREATE_INDEXES">CREATE_INDEXES</see>:</term>
+        ///         <description>Comma-separated list of columns on which to
+        /// create indexes on the output table.  The columns specified must be
+        /// present in <paramref cref="CreateUnionRequest.output_column_names"
+        /// />.</description>
         ///     </item>
         ///     <item>
         ///         <term><see

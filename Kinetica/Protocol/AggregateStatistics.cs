@@ -34,10 +34,9 @@ namespace kinetica
     /// percentiles each value must be specified separately (i.e.
     /// 'percentile(75.0),percentile(99.0),percentile_rank(1234.56),percentile_rank(-5)').
     /// <br />
-    /// A second, comma-separated value can be added to the
-    /// {percentile}@{choise of input stats} statistic to calculate percentile
-    /// resolution, e.g., a 50th percentile with 200 resolution would be
-    /// 'percentile(50,200)'.
+    /// A second, comma-separated value can be added to the <i>percentile</i>
+    /// statistic to calculate percentile resolution, e.g., a 50th percentile
+    /// with 200 resolution would be 'percentile(50,200)'.
     /// <br />
     /// The weighted average statistic requires a <i>weight_column_name</i> to
     /// be specified in <see cref="options" />. The weighted average is then

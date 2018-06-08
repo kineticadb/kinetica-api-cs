@@ -17,21 +17,21 @@ namespace kinetica
         public const string DATA = "data";
 
         /// <summary>Valid only for 'string' columns. Enables full text search
-        /// for string columns. Can be set independently of *data* and
-        /// *store_only*.</summary>
+        /// for string columns. Can be set independently of <i>data</i> and
+        /// <i>store_only</i>.</summary>
         public const string TEXT_SEARCH = "text_search";
 
         /// <summary>Persist the column value but do not make it available to
         /// queries (e.g. <see
         /// cref="Kinetica.filter(string,string,string,IDictionary{string, string})"
-        /// />)-i.e. it is mutually exclusive to the 'data' property. Any
-        /// 'bytes' type column must have a 'store_only' property. This
+        /// />)-i.e. it is mutually exclusive to the <i>data</i> property. Any
+        /// 'bytes' type column must have a <i>store_only</i> property. This
         /// property reduces system memory usage.</summary>
         public const string STORE_ONLY = "store_only";
 
-        /// <summary>Works in conjunction with the 'data' property for string
-        /// columns. This property reduces system disk usage by disabling
-        /// reverse string lookups. Queries like <see
+        /// <summary>Works in conjunction with the <i>data</i> property for
+        /// string columns. This property reduces system disk usage by
+        /// disabling reverse string lookups. Queries like <see
         /// cref="Kinetica.filter(string,string,string,IDictionary{string, string})"
         /// />, <see
         /// cref="Kinetica.filterByList(string,string,IDictionary{string, IList{string}},IDictionary{string, string})"
@@ -58,82 +58,73 @@ namespace kinetica
         /// decimal point and up to four digits in the fractional part.  The
         /// value can be positive or negative (indicated by a minus sign at the
         /// beginning).  This property is mutually exclusive with the
-        /// 'text_search' property.</summary>
+        /// <i>text_search</i> property.</summary>
         public const string DECIMAL = "decimal";
 
         /// <summary>Valid only for 'string' columns.  Indicates that this
         /// field represents a date and will be provided in the format
         /// 'YYYY-MM-DD'.  The allowable range is 1000-01-01 through
         /// 2900-01-01.  This property is mutually exclusive with the
-        /// *text_search* property.</summary>
+        /// <i>text_search</i> property.</summary>
         public const string DATE = "date";
 
         /// <summary>Valid only for 'string' columns.  Indicates that this
         /// field represents a time-of-day and will be provided in the format
         /// 'HH:MM:SS.mmm'.  The allowable range is 00:00:00.000 through
         /// 23:59:59.999.  This property is mutually exclusive with the
-        /// *text_search* property.</summary>
+        /// <i>text_search</i> property.</summary>
         public const string TIME = "time";
 
         /// <summary>Valid only for 'string' columns.  Indicates that this
         /// field represents a datetime and will be provided in the format
         /// 'YYYY-MM-DD HH:MM:SS.mmm'.  The allowable range is 1000-01-01
         /// 00:00:00.000 through 2900-01-01 23:59:59.999.  This property is
-        /// mutually exclusive with the *text_search* property.</summary>
+        /// mutually exclusive with the <i>text_search</i> property.</summary>
         public const string DATETIME = "datetime";
 
         /// <summary>This property provides optimized memory, disk and query
         /// performance for string columns. Strings with this property must be
-        /// no longer than 1 character. This property cannot be combined with
-        /// *text_search*</summary>
+        /// no longer than 1 character.</summary>
         public const string CHAR1 = "char1";
 
         /// <summary>This property provides optimized memory, disk and query
         /// performance for string columns. Strings with this property must be
-        /// no longer than 2 characters. This property cannot be combined with
-        /// *text_search*</summary>
+        /// no longer than 2 characters.</summary>
         public const string CHAR2 = "char2";
 
         /// <summary>This property provides optimized memory, disk and query
         /// performance for string columns. Strings with this property must be
-        /// no longer than 4 characters. This property cannot be combined with
-        /// *text_search*</summary>
+        /// no longer than 4 characters.</summary>
         public const string CHAR4 = "char4";
 
         /// <summary>This property provides optimized memory, disk and query
         /// performance for string columns. Strings with this property must be
-        /// no longer than 8 characters. This property cannot be combined with
-        /// *text_search*</summary>
+        /// no longer than 8 characters.</summary>
         public const string CHAR8 = "char8";
 
         /// <summary>This property provides optimized memory, disk and query
         /// performance for string columns. Strings with this property must be
-        /// no longer than 16 characters. This property cannot be combined with
-        /// *text_search*</summary>
+        /// no longer than 16 characters.</summary>
         public const string CHAR16 = "char16";
 
         /// <summary>This property provides optimized memory, disk and query
         /// performance for string columns. Strings with this property must be
-        /// no longer than 32 characters. This property cannot be combined with
-        /// *text_search*</summary>
+        /// no longer than 32 characters.</summary>
         public const string CHAR32 = "char32";
 
         /// <summary>This property provides optimized memory, disk and query
         /// performance for string columns. Strings with this property must be
-        /// no longer than 64 characters. This property cannot be combined with
-        /// *text_search*</summary>
+        /// no longer than 64 characters.</summary>
         public const string CHAR64 = "char64";
 
         /// <summary>This property provides optimized memory, disk and query
         /// performance for string columns. Strings with this property must be
-        /// no longer than 128 characters. This property cannot be combined
-        /// with *text_search*</summary>
+        /// no longer than 128 characters.</summary>
         public const string CHAR128 = "char128";
 
         /// <summary>This property provides optimized memory, disk and query
         /// performance for string columns. Strings with this property must be
-        /// no longer than 256 characters. This property cannot be combined
-        /// with *text_search*</summary>
+        /// no longer than 256 characters.</summary>
         public const string CHAR256 = "char256";
 
         /// <summary>This property provides optimized memory and query
@@ -158,11 +149,13 @@ namespace kinetica
         public const string WKT = "wkt";
 
         /// <summary>This property indicates that this column will be part of
-        /// (or the entire) primary key.</summary>
+        /// (or the entire) <a href="../../concepts/tables.html#primary-keys"
+        /// target="_top">primary key</a>.</summary>
         public const string PRIMARY_KEY = "primary_key";
 
         /// <summary>This property indicates that this column will be part of
-        /// (or the entire) shard key.</summary>
+        /// (or the entire) <a href="../../concepts/tables.html#shard-keys"
+        /// target="_top">shard key</a>.</summary>
         public const string SHARD_KEY = "shard_key";
 
         /// <summary>This property indicates that this column is nullable.
@@ -174,9 +167,9 @@ namespace kinetica
         /// column in the avro schema must be: ['int', 'null'].
         /// <br />
         /// The C++, C#, Java, and Python APIs have built-in convenience for
-        /// bypassing setting the avro schema by hand.  For those two
-        /// languages, one can use this property as usual and not have to worry
-        /// about the avro schema for the record.</summary>
+        /// bypassing setting the avro schema by hand.  For those languages,
+        /// one can use this property as usual and not have to worry about the
+        /// avro schema for the record.</summary>
         public const string NULLABLE = "nullable";
 
         /// <summary>This property indicates that this column should be

@@ -124,8 +124,9 @@ namespace kinetica
 
 
         /// <summary>Name of the table on which the filter by track operation
-        /// will be performed. Must be a currently existing table with track
-        /// semantic type.  </summary>
+        /// will be performed. Must be a currently existing table with a <a
+        /// href="../../geospatial/geo_objects.html" target="_top">track</a>
+        /// present.  </summary>
         public string table_name { get; set; }
 
         /// <summary>If provided, then this will be the name of the view
@@ -203,7 +204,8 @@ namespace kinetica
         /// 
         /// <param name="table_name">Name of the table on which the filter by
         /// track operation will be performed. Must be a currently existing
-        /// table with track semantic type.  </param>
+        /// table with a <a href="../../geospatial/geo_objects.html"
+        /// target="_top">track</a> present.  </param>
         /// <param name="view_name">If provided, then this will be the name of
         /// the view containing the results. Has the same naming restrictions
         /// as <a href="../../concepts/tables.html" target="_top">tables</a>.

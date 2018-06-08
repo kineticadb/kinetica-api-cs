@@ -81,7 +81,9 @@ namespace kinetica
         /// records added) whenever a new query is issued and new data is
         /// inserted into the base table.  A full refresh of all the records
         /// occurs when a new query is issued and there have been inserts to
-        /// any non-base-tables since the last query</description>
+        /// any non-base-tables since the last query.  <a
+        /// href="../../concepts/ttl.html" target="_top">TTL</a> will be set to
+        /// not expire; any <i>ttl</i> specified will be ignored.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -90,7 +92,9 @@ namespace kinetica
         /// records added) whenever new data is inserted into a base table.  A
         /// full refresh of all the records occurs when a new query is issued
         /// and there have been inserts to any non-base-tables since the last
-        /// query</description>
+        /// query.  <a href="../../concepts/ttl.html" target="_top">TTL</a>
+        /// will be set to not expire; any <i>ttl</i> specified will be
+        /// ignored.</description>
         ///     </item>
         /// </list>
         /// The default value is <see
@@ -133,7 +137,9 @@ namespace kinetica
         /// cref="CreateJoinTableRequest.Options.TTL">TTL</see>:</term>
         ///         <description>Sets the <a href="../../concepts/ttl.html"
         /// target="_top">TTL</a> of the join table specified in <paramref
-        /// cref="CreateJoinTableRequest.join_table_name" />.</description>
+        /// cref="CreateJoinTableRequest.join_table_name" />.  Ignored if
+        /// <i>refresh_method</i> is either <i>on_insert</i> or
+        /// <i>on_query</i>.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -201,8 +207,10 @@ namespace kinetica
             /// records added) whenever a new query is issued and new data is
             /// inserted into the base table.  A full refresh of all the
             /// records occurs when a new query is issued and there have been
-            /// inserts to any non-base-tables since the last
-            /// query</description>
+            /// inserts to any non-base-tables since the last query.  <a
+            /// href="../../concepts/ttl.html" target="_top">TTL</a> will be
+            /// set to not expire; any <i>ttl</i> specified will be
+            /// ignored.</description>
             ///     </item>
             ///     <item>
             ///         <term><see
@@ -211,7 +219,9 @@ namespace kinetica
             /// records added) whenever new data is inserted into a base table.
             /// A full refresh of all the records occurs when a new query is
             /// issued and there have been inserts to any non-base-tables since
-            /// the last query</description>
+            /// the last query.  <a href="../../concepts/ttl.html"
+            /// target="_top">TTL</a> will be set to not expire; any <i>ttl</i>
+            /// specified will be ignored.</description>
             ///     </item>
             /// </list>
             /// The default value is <see
@@ -227,14 +237,19 @@ namespace kinetica
             /// added) whenever a new query is issued and new data is inserted
             /// into the base table.  A full refresh of all the records occurs
             /// when a new query is issued and there have been inserts to any
-            /// non-base-tables since the last query</summary>
+            /// non-base-tables since the last query.  <a
+            /// href="../../concepts/ttl.html" target="_top">TTL</a> will be
+            /// set to not expire; any <i>ttl</i> specified will be
+            /// ignored.</summary>
             public const string ON_QUERY = "on_query";
 
             /// <summary>incrementally refresh (refresh just those records
             /// added) whenever new data is inserted into a base table.  A full
             /// refresh of all the records occurs when a new query is issued
             /// and there have been inserts to any non-base-tables since the
-            /// last query</summary>
+            /// last query.  <a href="../../concepts/ttl.html"
+            /// target="_top">TTL</a> will be set to not expire; any <i>ttl</i>
+            /// specified will be ignored.</summary>
             public const string ON_INSERT = "on_insert";
 
             /// <summary>incrementally refresh (refresh just those records
@@ -254,7 +269,8 @@ namespace kinetica
 
             /// <summary>Sets the <a href="../../concepts/ttl.html"
             /// target="_top">TTL</a> of the join table specified in <see
-            /// cref="join_table_name" />.</summary>
+            /// cref="join_table_name" />.  Ignored if <i>refresh_method</i> is
+            /// either <i>on_insert</i> or <i>on_query</i>.</summary>
             public const string TTL = "ttl";
 
             /// <summary>view this projection is part of</summary>
@@ -282,7 +298,7 @@ namespace kinetica
         /// alias.  Columns can be aliased via the syntax 'column_name as
         /// alias'. Wild cards '*' can be used to include all columns across
         /// member tables or 'table_id.*' for all of a single table's columns.
-        /// Columns and column expressions comprising the join must be uniquely
+        /// Columns and column expressions composing the join must be uniquely
         /// named or aliased--therefore, the '*' wild card cannot be used if
         /// column names aren't unique across all tables.  </summary>
         public IList<string> column_names { get; set; } = new List<string>();
@@ -350,7 +366,9 @@ namespace kinetica
         /// records added) whenever a new query is issued and new data is
         /// inserted into the base table.  A full refresh of all the records
         /// occurs when a new query is issued and there have been inserts to
-        /// any non-base-tables since the last query</description>
+        /// any non-base-tables since the last query.  <a
+        /// href="../../concepts/ttl.html" target="_top">TTL</a> will be set to
+        /// not expire; any <i>ttl</i> specified will be ignored.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -359,7 +377,9 @@ namespace kinetica
         /// records added) whenever new data is inserted into a base table.  A
         /// full refresh of all the records occurs when a new query is issued
         /// and there have been inserts to any non-base-tables since the last
-        /// query</description>
+        /// query.  <a href="../../concepts/ttl.html" target="_top">TTL</a>
+        /// will be set to not expire; any <i>ttl</i> specified will be
+        /// ignored.</description>
         ///     </item>
         /// </list>
         /// The default value is <see
@@ -402,7 +422,9 @@ namespace kinetica
         /// cref="CreateJoinTableRequest.Options.TTL">TTL</see>:</term>
         ///         <description>Sets the <a href="../../concepts/ttl.html"
         /// target="_top">TTL</a> of the join table specified in <paramref
-        /// cref="CreateJoinTableRequest.join_table_name" />.</description>
+        /// cref="CreateJoinTableRequest.join_table_name" />.  Ignored if
+        /// <i>refresh_method</i> is either <i>on_insert</i> or
+        /// <i>on_query</i>.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -440,7 +462,7 @@ namespace kinetica
         /// alias.  Columns can be aliased via the syntax 'column_name as
         /// alias'. Wild cards '*' can be used to include all columns across
         /// member tables or 'table_id.*' for all of a single table's columns.
-        /// Columns and column expressions comprising the join must be uniquely
+        /// Columns and column expressions composing the join must be uniquely
         /// named or aliased--therefore, the '*' wild card cannot be used if
         /// column names aren't unique across all tables.  </param>
         /// <param name="expressions">An optional list of expressions to
@@ -505,7 +527,9 @@ namespace kinetica
         /// records added) whenever a new query is issued and new data is
         /// inserted into the base table.  A full refresh of all the records
         /// occurs when a new query is issued and there have been inserts to
-        /// any non-base-tables since the last query</description>
+        /// any non-base-tables since the last query.  <a
+        /// href="../../concepts/ttl.html" target="_top">TTL</a> will be set to
+        /// not expire; any <i>ttl</i> specified will be ignored.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -514,7 +538,9 @@ namespace kinetica
         /// records added) whenever new data is inserted into a base table.  A
         /// full refresh of all the records occurs when a new query is issued
         /// and there have been inserts to any non-base-tables since the last
-        /// query</description>
+        /// query.  <a href="../../concepts/ttl.html" target="_top">TTL</a>
+        /// will be set to not expire; any <i>ttl</i> specified will be
+        /// ignored.</description>
         ///     </item>
         /// </list>
         /// The default value is <see
@@ -557,7 +583,9 @@ namespace kinetica
         /// cref="CreateJoinTableRequest.Options.TTL">TTL</see>:</term>
         ///         <description>Sets the <a href="../../concepts/ttl.html"
         /// target="_top">TTL</a> of the join table specified in <paramref
-        /// cref="CreateJoinTableRequest.join_table_name" />.</description>
+        /// cref="CreateJoinTableRequest.join_table_name" />.  Ignored if
+        /// <i>refresh_method</i> is either <i>on_insert</i> or
+        /// <i>on_query</i>.</description>
         ///     </item>
         ///     <item>
         ///         <term><see

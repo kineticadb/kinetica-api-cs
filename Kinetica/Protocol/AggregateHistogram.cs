@@ -24,7 +24,8 @@ namespace kinetica
     /// number of records in it, except when a column name is provided as a
     /// *value_column* in <see cref="options" />.  In this latter case the sum
     /// of the values corresponding to the *value_column* is used as the result
-    /// instead.</summary>
+    /// instead.  The total number of bins requested cannot exceed
+    /// 10,000.</summary>
     public class AggregateHistogramRequest : KineticaData
     {
 

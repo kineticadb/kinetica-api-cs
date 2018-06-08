@@ -20,42 +20,6 @@ namespace kinetica
 
 
 
-        /// <summary>Update the system config file.  Updates to the config file
-        /// are only permitted when the system is stopped.</summary>
-        /// 
-        /// <param name="request_">Request object containing the parameters for
-        /// the operation.</param>
-        /// 
-        /// <returns>Response object containing the result of the
-        /// operation.</returns>
-        /// 
-        public AdminAlterConfigurationResponse adminAlterConfiguration( AdminAlterConfigurationRequest request_ )
-        {
-            AdminAlterConfigurationResponse actualResponse_ = SubmitRequest<AdminAlterConfigurationResponse>("/admin/alter/configuration", request_, false);
-
-            return actualResponse_;
-        }
-
-
-        /// <summary>Update the system config file.  Updates to the config file
-        /// are only permitted when the system is stopped.</summary>
-        /// 
-        /// <param name="config_string">updated contents of the config file.
-        /// </param>
-        /// <param name="options">Optional parameters.  </param>
-        /// 
-        /// <returns>Response object containing the result of the
-        /// operation.</returns>
-        /// 
-        public AdminAlterConfigurationResponse adminAlterConfiguration( string config_string,
-                                                                        IDictionary<string, string> options = null )
-        {
-            return adminAlterConfiguration( new AdminAlterConfigurationRequest(
-                                                                                config_string,
-                                                                                options ) );
-        }
-
-
         /// <summary>Perform the requested action on a list of one or more
         /// job(s). Based on the type of job and the current state of
         /// execution, the action may not be successfully executed. The final
@@ -176,6 +140,16 @@ namespace kinetica
 
         /// <summary>Retrieves a list of the most recent alerts generated.  The
         /// number of alerts to retrieve is specified in this request.
+        /// <br />
+        /// Important: This endpoint is accessed via the host manager port
+        /// rather than the primary database port; the default ports for host
+        /// manager and the primary database can be found <a
+        /// href="../../install/index.html#default-ports"
+        /// target="_top">here</a>.  If you are invoking this endpoint via a
+        /// GPUdb API object, you must instantiate that object using the host
+        /// manager port instead of the database port. The same IP address is
+        /// used for both ports.
+        /// <br />
         /// Returns lists of alert data, earliest to latest</summary>
         /// 
         /// <param name="request_">Request object containing the parameters for
@@ -194,6 +168,16 @@ namespace kinetica
 
         /// <summary>Retrieves a list of the most recent alerts generated.  The
         /// number of alerts to retrieve is specified in this request.
+        /// <br />
+        /// Important: This endpoint is accessed via the host manager port
+        /// rather than the primary database port; the default ports for host
+        /// manager and the primary database can be found <a
+        /// href="../../install/index.html#default-ports"
+        /// target="_top">here</a>.  If you are invoking this endpoint via a
+        /// GPUdb API object, you must instantiate that object using the host
+        /// manager port instead of the database port. The same IP address is
+        /// used for both ports.
+        /// <br />
         /// Returns lists of alert data, earliest to latest</summary>
         /// 
         /// <param name="num_alerts">Number of most recent alerts to request.
@@ -210,35 +194,6 @@ namespace kinetica
                                                         IDictionary<string, string> options )
         {
             return adminShowAlerts( new AdminShowAlertsRequest( num_alerts, options ) );
-        }
-
-
-        /// <summary>Show the current system configuration file.</summary>
-        /// 
-        /// <param name="request_">Request object containing the parameters for
-        /// the operation.</param>
-        /// 
-        /// <returns>Response object containing the result of the
-        /// operation.</returns>
-        /// 
-        public AdminShowConfigurationResponse adminShowConfiguration( AdminShowConfigurationRequest request_ )
-        {
-            AdminShowConfigurationResponse actualResponse_ = SubmitRequest<AdminShowConfigurationResponse>("/admin/show/configuration", request_, false);
-
-            return actualResponse_;
-        }
-
-
-        /// <summary>Show the current system configuration file.</summary>
-        /// 
-        /// <param name="options">Optional parameters.  </param>
-        /// 
-        /// <returns>Response object containing the result of the
-        /// operation.</returns>
-        /// 
-        public AdminShowConfigurationResponse adminShowConfiguration( IDictionary<string, string> options = null )
-        {
-            return adminShowConfiguration( new AdminShowConfigurationRequest( options ) );
         }
 
 
@@ -823,6 +778,13 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
+        /// cref="AggregateGroupByRequest.Options.CREATE_INDEXES">CREATE_INDEXES</see>:</term>
+        ///         <description>Comma-separated list of columns on which to
+        /// create indexes on the result table. Must be used in combination
+        /// with the <i>result_table</i> option.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="AggregateGroupByRequest.Options.VIEW_ID">VIEW_ID</see>:</term>
         ///         <description>view this result table is part
         /// of</description>
@@ -910,7 +872,8 @@ namespace kinetica
         /// name is provided as a *value_column* in <paramref
         /// cref="AggregateHistogramRequest.options" />.  In this latter case
         /// the sum of the values corresponding to the *value_column* is used
-        /// as the result instead.</summary>
+        /// as the result instead.  The total number of bins requested cannot
+        /// exceed 10,000.</summary>
         /// 
         /// <param name="request_">Request object containing the parameters for
         /// the operation.</param>
@@ -936,7 +899,8 @@ namespace kinetica
         /// except when a column name is provided as a *value_column* in
         /// <paramref name="options" />.  In this latter case the sum of the
         /// values corresponding to the *value_column* is used as the result
-        /// instead.</summary>
+        /// instead.  The total number of bins requested cannot exceed
+        /// 10,000.</summary>
         /// 
         /// <param name="table_name">Name of the table on which the operation
         /// will be performed. Must be an existing table or collection.
@@ -1164,9 +1128,9 @@ namespace kinetica
         /// 'percentile(75.0),percentile(99.0),percentile_rank(1234.56),percentile_rank(-5)').
         /// <br />
         /// A second, comma-separated value can be added to the
-        /// {percentile}@{choise of input stats} statistic to calculate
-        /// percentile resolution, e.g., a 50th percentile with 200 resolution
-        /// would be 'percentile(50,200)'.
+        /// <i>percentile</i> statistic to calculate percentile resolution,
+        /// e.g., a 50th percentile with 200 resolution would be
+        /// 'percentile(50,200)'.
         /// <br />
         /// The weighted average statistic requires a <i>weight_column_name</i>
         /// to be specified in <paramref
@@ -1224,9 +1188,9 @@ namespace kinetica
         /// 'percentile(75.0),percentile(99.0),percentile_rank(1234.56),percentile_rank(-5)').
         /// <br />
         /// A second, comma-separated value can be added to the
-        /// {percentile}@{choise of input stats} statistic to calculate
-        /// percentile resolution, e.g., a 50th percentile with 200 resolution
-        /// would be 'percentile(50,200)'.
+        /// <i>percentile</i> statistic to calculate percentile resolution,
+        /// e.g., a 50th percentile with 200 resolution would be
+        /// 'percentile(50,200)'.
         /// <br />
         /// The weighted average statistic requires a <i>weight_column_name</i>
         /// to be specified in <paramref name="options" />. The weighted
@@ -2166,6 +2130,18 @@ namespace kinetica
         ///         <description>Enable JobManager to enforce processing of
         /// requests in the order received.</description>
         ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.CHUNK_CACHE_ENABLED">CHUNK_CACHE_ENABLED</see>:</term>
+        ///         <description>Enable chunk level query caching. Flushes the
+        /// chunk cache when value is false</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.CHUNK_CACHE_SIZE">CHUNK_CACHE_SIZE</see>:</term>
+        ///         <description>Size of the chunk cache in
+        /// bytes.</description>
+        ///     </item>
         /// </list>
         ///   </param>
         /// <param name="options">Optional parameters.  </param>
@@ -2202,9 +2178,13 @@ namespace kinetica
         /// table & view that is not protected will have its TTL set to the
         /// given value.
         /// <br />
-        /// Set the global access mode (i.e. locking) for a table. The mode can
-        /// be set to
-        /// 'no_access', 'read_only', 'write_only' or 'read_write'.
+        /// Set the global access mode (i.e. locking) for a table. This setting
+        /// trumps any
+        /// role-based access controls that may be in place; e.g., a user with
+        /// write access
+        /// to a table marked read-only will not be able to insert records into
+        /// it. The mode
+        /// can be set to read-only, write-only, read/write, and no access.
         /// <br />
         /// Change the <a href="../../concepts/protection.html"
         /// target="_top">protection</a> mode to prevent or
@@ -2256,9 +2236,13 @@ namespace kinetica
         /// table & view that is not protected will have its TTL set to the
         /// given value.
         /// <br />
-        /// Set the global access mode (i.e. locking) for a table. The mode can
-        /// be set to
-        /// 'no_access', 'read_only', 'write_only' or 'read_write'.
+        /// Set the global access mode (i.e. locking) for a table. This setting
+        /// trumps any
+        /// role-based access controls that may be in place; e.g., a user with
+        /// write access
+        /// to a table marked read-only will not be able to insert records into
+        /// it. The mode
+        /// can be set to read-only, write-only, read/write, and no access.
         /// <br />
         /// Change the <a href="../../concepts/protection.html"
         /// target="_top">protection</a> mode to prevent or
@@ -2336,8 +2320,19 @@ namespace kinetica
         ///         <term><see
         /// cref="AlterTableRequest.Action.TTL">TTL</see>:</term>
         ///         <description>Sets the <a href="../../concepts/ttl.html"
-        /// target="_top">TTL</a> of the table, view, or collection specified
-        /// in <paramref cref="AlterTableRequest.table_name" />.</description>
+        /// target="_top">time-to-live</a> in minutes of the table, view, or
+        /// collection specified in <paramref
+        /// cref="AlterTableRequest.table_name" />.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterTableRequest.Action.MEMORY_TTL">MEMORY_TTL</see>:</term>
+        ///         <description>Sets the time-to-live in minutes for the
+        /// individual chunks of the columns of the table, view, or collection
+        /// specified in <paramref cref="AlterTableRequest.table_name" /> to
+        /// free their memory if unused longer than the given time. Specify an
+        /// empty string to restore the global memory_ttl setting and a value
+        /// of '-1' for an infinite timeout.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -2356,7 +2351,12 @@ namespace kinetica
         /// specified in <paramref cref="AlterTableRequest._value" />.  Use
         /// <i>column_type</i> and <i>column_properties</i> in <paramref
         /// cref="AlterTableRequest.options" /> to set the column's type and
-        /// properties, respectively.</description>
+        /// properties, respectively. Note that primary key and/or shard key
+        /// columns cannot be changed. All unchanging column properties must be
+        /// listed for the change to take place, e.g., to add dictionary
+        /// encoding to an existing 'char4' column, both 'char4' and 'dict'
+        /// must be specified in the <paramref cref="AlterTableRequest.options"
+        /// /> map.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -2404,32 +2404,35 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="AlterTableRequest.Action.REFRESH">REFRESH</see>:</term>
-        ///         <description>Replay all the table creation commands
-        /// required to create this view. Endpoints supported are /filter,
-        /// /create/jointable, /create/projection, /create/union,
-        /// /aggregate/groupby, and /aggregate/unique.</description>
+        ///         <description>Replays all the table creation commands
+        /// required to create this <a
+        /// href="../../concepts/materialized_views.html"
+        /// target="_top">materialized view</a>.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="AlterTableRequest.Action.SET_REFRESH_METHOD">SET_REFRESH_METHOD</see>:</term>
-        ///         <description>Set the method by which this view is refreshed
-        /// - one of 'manual', 'periodic', 'on_change', 'on_query'.
-        /// </description>
+        ///         <description>Sets the method by which this <a
+        /// href="../../concepts/materialized_views.html"
+        /// target="_top">materialized view</a> is refreshed - one of 'manual',
+        /// 'periodic', 'on_change'. </description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="AlterTableRequest.Action.SET_REFRESH_START_TIME">SET_REFRESH_START_TIME</see>:</term>
-        ///         <description>Set the time to start periodic refreshes to
-        /// datetime string with format YYYY-MM-DD HH:MM:SS at which refresh is
-        /// to be done.  Next refresh occurs at refresh_start_time +
-        /// N*refresh_period</description>
+        ///         <description>Sets the time to start periodic refreshes of
+        /// this <a href="../../concepts/materialized_views.html"
+        /// target="_top">materialized view</a> to datetime string with format
+        /// 'YYYY-MM-DD HH:MM:SS'.  Subsequent refreshes occur at the specified
+        /// time + N * the refresh period.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="AlterTableRequest.Action.SET_REFRESH_PERIOD">SET_REFRESH_PERIOD</see>:</term>
-        ///         <description>Set the time interval in seconds at which to
-        /// refresh this view - sets the refresh method to periodic if not
-        /// alreay set.</description>
+        ///         <description>Sets the time interval in seconds at which to
+        /// refresh this <a href="../../concepts/materialized_views.html"
+        /// target="_top">materialized view</a>.  Also, sets the refresh method
+        /// to periodic if not alreay set.</description>
         ///     </item>
         /// </list>  </param>
         /// <param name="_value">The value of the modification. May be a column
@@ -3039,7 +3042,7 @@ namespace kinetica
         /// alias.  Columns can be aliased via the syntax 'column_name as
         /// alias'. Wild cards '*' can be used to include all columns across
         /// member tables or 'table_id.*' for all of a single table's columns.
-        /// Columns and column expressions comprising the join must be uniquely
+        /// Columns and column expressions composing the join must be uniquely
         /// named or aliased--therefore, the '*' wild card cannot be used if
         /// column names aren't unique across all tables.  </param>
         /// <param name="expressions">An optional list of expressions to
@@ -3104,7 +3107,9 @@ namespace kinetica
         /// records added) whenever a new query is issued and new data is
         /// inserted into the base table.  A full refresh of all the records
         /// occurs when a new query is issued and there have been inserts to
-        /// any non-base-tables since the last query</description>
+        /// any non-base-tables since the last query.  <a
+        /// href="../../concepts/ttl.html" target="_top">TTL</a> will be set to
+        /// not expire; any <i>ttl</i> specified will be ignored.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -3113,7 +3118,9 @@ namespace kinetica
         /// records added) whenever new data is inserted into a base table.  A
         /// full refresh of all the records occurs when a new query is issued
         /// and there have been inserts to any non-base-tables since the last
-        /// query</description>
+        /// query.  <a href="../../concepts/ttl.html" target="_top">TTL</a>
+        /// will be set to not expire; any <i>ttl</i> specified will be
+        /// ignored.</description>
         ///     </item>
         /// </list>
         /// The default value is <see
@@ -3156,7 +3163,9 @@ namespace kinetica
         /// cref="CreateJoinTableRequest.Options.TTL">TTL</see>:</term>
         ///         <description>Sets the <a href="../../concepts/ttl.html"
         /// target="_top">TTL</a> of the join table specified in <paramref
-        /// cref="CreateJoinTableRequest.join_table_name" />.</description>
+        /// cref="CreateJoinTableRequest.join_table_name" />.  Ignored if
+        /// <i>refresh_method</i> is either <i>on_insert</i> or
+        /// <i>on_query</i>.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -3198,8 +3207,8 @@ namespace kinetica
         /// <br />
         /// The response contains <paramref
         /// cref="CreateMaterializedViewResponse.view_id" />, which is used to
-        /// tag each subsequent operation (projection, union, group-by, filter,
-        /// or join) that will compose the view.</summary>
+        /// tag each subsequent operation (projection, union, aggregation,
+        /// filter, or join) that will compose the view.</summary>
         /// 
         /// <param name="request_">Request object containing the parameters for
         /// the operation.</param>
@@ -3225,8 +3234,8 @@ namespace kinetica
         /// <br />
         /// The response contains <paramref
         /// cref="CreateMaterializedViewResponse.view_id" />, which is used to
-        /// tag each subsequent operation (projection, union, group-by, filter,
-        /// or join) that will compose the view.</summary>
+        /// tag each subsequent operation (projection, union, aggregation,
+        /// filter, or join) that will compose the view.</summary>
         /// 
         /// <param name="table_name">Name of the table to be created that is
         /// the top-level table of the materialized view.  </param>
@@ -3281,30 +3290,26 @@ namespace kinetica
         ///         <term><see
         /// cref="CreateMaterializedViewRequest.Options.MANUAL">MANUAL</see>:</term>
         ///         <description>Refresh only occurs when manually requested by
-        /// calling alter_table with action refresh_view</description>
+        /// calling /alter/table with an 'action' of 'refresh'</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="CreateMaterializedViewRequest.Options.ON_QUERY">ON_QUERY</see>:</term>
-        ///         <description>Incrementally refresh (refresh just those
-        /// records added) whenever a new query is issued and new data is
-        /// inserted into the base table.  A full refresh of all the records
-        /// occurs when a new query is issued and there have been inserts to
-        /// any non-base-tables since the last query</description>
+        ///         <description>For future use.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="CreateMaterializedViewRequest.Options.ON_CHANGE">ON_CHANGE</see>:</term>
         ///         <description>If possible, incrementally refresh (refresh
         /// just those records added) whenever an insert, update, delete or
-        /// refresh of input table is done.  A full refresh on_query is done if
-        /// an incremental refresh is not possible. </description>
+        /// refresh of input table is done.  A full refresh is done if an
+        /// incremental refresh is not possible. </description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="CreateMaterializedViewRequest.Options.PERIODIC">PERIODIC</see>:</term>
         ///         <description>Refresh table periodically at rate specified
-        /// by refresh_period option</description>
+        /// by <i>refresh_period</i></description>
         ///     </item>
         /// </list>
         /// The default value is <see
@@ -3313,15 +3318,17 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="CreateMaterializedViewRequest.Options.REFRESH_PERIOD">REFRESH_PERIOD</see>:</term>
-        ///         <description>When refresh_method is periodic specifies the
-        /// period in seconds at which refresh occurs</description>
+        ///         <description>When <i>refresh_method</i> is <i>periodic</i>,
+        /// specifies the period in seconds at which refresh
+        /// occurs</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="CreateMaterializedViewRequest.Options.REFRESH_START_TIME">REFRESH_START_TIME</see>:</term>
-        ///         <description>First time at which a periodic refresh is to
-        /// be done.  Value is a datatime string with format YYYY-MM-DD
-        /// HH:MM:SS.</description>
+        ///         <description>When <i>refresh_method</i> is <i>periodic</i>,
+        /// specifies the first time at which a refresh is to be done.  Value
+        /// is a datetime string with format 'YYYY-MM-DD
+        /// HH:MM:SS'.</description>
         ///     </item>
         /// </list>
         ///   </param>
@@ -3564,6 +3571,25 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
+        /// cref="CreateProjectionRequest.Options.IS_REPLICATED">IS_REPLICATED</see>:</term>
+        ///         <description>If <i>true</i> then the projection will be
+        /// replicated even if the source table is not.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateProjectionRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateProjectionRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="CreateProjectionRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="CreateProjectionRequest.Options.LIMIT">LIMIT</see>:</term>
         ///         <description>The number of records to keep.</description>
         ///     </item>
@@ -3601,6 +3627,15 @@ namespace kinetica
         /// cref="CreateProjectionRequest.Options.CHUNK_SIZE">CHUNK_SIZE</see>:</term>
         ///         <description>Indicates the chunk size to be used for this
         /// table.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateProjectionRequest.Options.CREATE_INDEXES">CREATE_INDEXES</see>:</term>
+        ///         <description>Comma-separated list of columns on which to
+        /// create indexes on the output table.  The columns specified must be
+        /// present in <paramref cref="CreateProjectionRequest.column_names"
+        /// />.  If any alias is given for any column name, the alias must be
+        /// used, rather than the original column name.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -4169,13 +4204,15 @@ namespace kinetica
         /// column simultaneously.  One example of mutually exclusive
         /// properties are <i>data</i> and <i>store_only</i>.
         /// <br />
-        /// To set a *primary key* on one or more columns include the property
-        /// 'primary_key' on the desired column_names. If a primary key is
+        /// A single <a href="../../concepts/tables.html#primary-keys"
+        /// target="_top">primary key</a> and/or single <a
+        /// href="../../concepts/tables.html#shard-keys" target="_top">shard
+        /// key</a> can be set across one or more columns. If a primary key is
         /// specified, then a uniqueness constraint is enforced, in that only a
         /// single object can exist with a given primary key. When <see
         /// cref="Kinetica.insertRecords{T}(string,IList{T},IDictionary{string, string})">inserting</see>
         /// data into a table with a primary key, depending on the parameters
-        /// in the request, incoming objects with primary keys that match
+        /// in the request, incoming objects with primary key values that match
         /// existing objects will either overwrite (i.e. update) the existing
         /// object or will be skipped and not added into the set.
         /// <br />
@@ -4227,13 +4264,15 @@ namespace kinetica
         /// column simultaneously.  One example of mutually exclusive
         /// properties are <i>data</i> and <i>store_only</i>.
         /// <br />
-        /// To set a *primary key* on one or more columns include the property
-        /// 'primary_key' on the desired column_names. If a primary key is
+        /// A single <a href="../../concepts/tables.html#primary-keys"
+        /// target="_top">primary key</a> and/or single <a
+        /// href="../../concepts/tables.html#shard-keys" target="_top">shard
+        /// key</a> can be set across one or more columns. If a primary key is
         /// specified, then a uniqueness constraint is enforced, in that only a
         /// single object can exist with a given primary key. When <see
         /// cref="Kinetica.insertRecords{T}(string,IList{T},IDictionary{string, string})">inserting</see>
         /// data into a table with a primary key, depending on the parameters
-        /// in the request, incoming objects with primary keys that match
+        /// in the request, incoming objects with primary key values that match
         /// existing objects will either overwrite (i.e. update) the existing
         /// object or will be skipped and not added into the set.
         /// <br />
@@ -4279,24 +4318,24 @@ namespace kinetica
         ///         <term><see
         /// cref="CreateTypeRequest.Properties.TEXT_SEARCH">TEXT_SEARCH</see>:</term>
         ///         <description>Valid only for 'string' columns. Enables full
-        /// text search for string columns. Can be set independently of *data*
-        /// and *store_only*.</description>
+        /// text search for string columns. Can be set independently of
+        /// <i>data</i> and <i>store_only</i>.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="CreateTypeRequest.Properties.STORE_ONLY">STORE_ONLY</see>:</term>
         ///         <description>Persist the column value but do not make it
         /// available to queries (e.g. /filter)-i.e. it is mutually exclusive
-        /// to the 'data' property. Any 'bytes' type column must have a
-        /// 'store_only' property. This property reduces system memory
+        /// to the <i>data</i> property. Any 'bytes' type column must have a
+        /// <i>store_only</i> property. This property reduces system memory
         /// usage.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="CreateTypeRequest.Properties.DISK_OPTIMIZED">DISK_OPTIMIZED</see>:</term>
-        ///         <description>Works in conjunction with the 'data' property
-        /// for string columns. This property reduces system disk usage by
-        /// disabling reverse string lookups. Queries like /filter,
+        ///         <description>Works in conjunction with the <i>data</i>
+        /// property for string columns. This property reduces system disk
+        /// usage by disabling reverse string lookups. Queries like /filter,
         /// /filter/bylist, and /filter/byvalue work as usual but
         /// /aggregate/unique, /aggregate/groupby and /get/records/bycolumn are
         /// not allowed on columns with this property.</description>
@@ -4318,7 +4357,7 @@ namespace kinetica
         /// 15 digits before the decimal point and up to four digits in the
         /// fractional part.  The value can be positive or negative (indicated
         /// by a minus sign at the beginning).  This property is mutually
-        /// exclusive with the 'text_search' property.</description>
+        /// exclusive with the <i>text_search</i> property.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -4327,7 +4366,7 @@ namespace kinetica
         /// that this field represents a date and will be provided in the
         /// format 'YYYY-MM-DD'.  The allowable range is 1000-01-01 through
         /// 2900-01-01.  This property is mutually exclusive with the
-        /// *text_search* property.</description>
+        /// <i>text_search</i> property.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -4336,7 +4375,7 @@ namespace kinetica
         /// that this field represents a time-of-day and will be provided in
         /// the format 'HH:MM:SS.mmm'.  The allowable range is 00:00:00.000
         /// through 23:59:59.999.  This property is mutually exclusive with the
-        /// *text_search* property.</description>
+        /// <i>text_search</i> property.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -4345,7 +4384,7 @@ namespace kinetica
         /// that this field represents a datetime and will be provided in the
         /// format 'YYYY-MM-DD HH:MM:SS.mmm'.  The allowable range is
         /// 1000-01-01 00:00:00.000 through 2900-01-01 23:59:59.999.  This
-        /// property is mutually exclusive with the *text_search*
+        /// property is mutually exclusive with the <i>text_search</i>
         /// property.</description>
         ///     </item>
         ///     <item>
@@ -4353,72 +4392,63 @@ namespace kinetica
         /// cref="CreateTypeRequest.Properties.CHAR1">CHAR1</see>:</term>
         ///         <description>This property provides optimized memory, disk
         /// and query performance for string columns. Strings with this
-        /// property must be no longer than 1 character. This property cannot
-        /// be combined with *text_search*</description>
+        /// property must be no longer than 1 character.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="CreateTypeRequest.Properties.CHAR2">CHAR2</see>:</term>
         ///         <description>This property provides optimized memory, disk
         /// and query performance for string columns. Strings with this
-        /// property must be no longer than 2 characters. This property cannot
-        /// be combined with *text_search*</description>
+        /// property must be no longer than 2 characters.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="CreateTypeRequest.Properties.CHAR4">CHAR4</see>:</term>
         ///         <description>This property provides optimized memory, disk
         /// and query performance for string columns. Strings with this
-        /// property must be no longer than 4 characters. This property cannot
-        /// be combined with *text_search*</description>
+        /// property must be no longer than 4 characters.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="CreateTypeRequest.Properties.CHAR8">CHAR8</see>:</term>
         ///         <description>This property provides optimized memory, disk
         /// and query performance for string columns. Strings with this
-        /// property must be no longer than 8 characters. This property cannot
-        /// be combined with *text_search*</description>
+        /// property must be no longer than 8 characters.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="CreateTypeRequest.Properties.CHAR16">CHAR16</see>:</term>
         ///         <description>This property provides optimized memory, disk
         /// and query performance for string columns. Strings with this
-        /// property must be no longer than 16 characters. This property cannot
-        /// be combined with *text_search*</description>
+        /// property must be no longer than 16 characters.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="CreateTypeRequest.Properties.CHAR32">CHAR32</see>:</term>
         ///         <description>This property provides optimized memory, disk
         /// and query performance for string columns. Strings with this
-        /// property must be no longer than 32 characters. This property cannot
-        /// be combined with *text_search*</description>
+        /// property must be no longer than 32 characters.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="CreateTypeRequest.Properties.CHAR64">CHAR64</see>:</term>
         ///         <description>This property provides optimized memory, disk
         /// and query performance for string columns. Strings with this
-        /// property must be no longer than 64 characters. This property cannot
-        /// be combined with *text_search*</description>
+        /// property must be no longer than 64 characters.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="CreateTypeRequest.Properties.CHAR128">CHAR128</see>:</term>
         ///         <description>This property provides optimized memory, disk
         /// and query performance for string columns. Strings with this
-        /// property must be no longer than 128 characters. This property
-        /// cannot be combined with *text_search*</description>
+        /// property must be no longer than 128 characters.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="CreateTypeRequest.Properties.CHAR256">CHAR256</see>:</term>
         ///         <description>This property provides optimized memory, disk
         /// and query performance for string columns. Strings with this
-        /// property must be no longer than 256 characters. This property
-        /// cannot be combined with *text_search*</description>
+        /// property must be no longer than 256 characters.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -4455,13 +4485,17 @@ namespace kinetica
         ///         <term><see
         /// cref="CreateTypeRequest.Properties.PRIMARY_KEY">PRIMARY_KEY</see>:</term>
         ///         <description>This property indicates that this column will
-        /// be part of (or the entire) primary key.</description>
+        /// be part of (or the entire) <a
+        /// href="../../concepts/tables.html#primary-keys"
+        /// target="_top">primary key</a>.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="CreateTypeRequest.Properties.SHARD_KEY">SHARD_KEY</see>:</term>
         ///         <description>This property indicates that this column will
-        /// be part of (or the entire) shard key.</description>
+        /// be part of (or the entire) <a
+        /// href="../../concepts/tables.html#shard-keys" target="_top">shard
+        /// key</a>.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -4475,9 +4509,9 @@ namespace kinetica
         /// column is of type integer and is nullable, then the entry for the
         /// column in the avro schema must be: ['int', 'null'].
         /// The C++, C#, Java, and Python APIs have built-in convenience for
-        /// bypassing setting the avro schema by hand.  For those two
-        /// languages, one can use this property as usual and not have to worry
-        /// about the avro schema for the record.</description>
+        /// bypassing setting the avro schema by hand.  For those languages,
+        /// one can use this property as usual and not have to worry about the
+        /// avro schema for the record.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -4690,6 +4724,14 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
+        /// cref="CreateUnionRequest.Options.CREATE_INDEXES">CREATE_INDEXES</see>:</term>
+        ///         <description>Comma-separated list of columns on which to
+        /// create indexes on the output table.  The columns specified must be
+        /// present in <paramref cref="CreateUnionRequest.output_column_names"
+        /// />.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="CreateUnionRequest.Options.TTL">TTL</see>:</term>
         ///         <description>Sets the <a href="../../concepts/ttl.html"
         /// target="_top">TTL</a> of the table specified in <paramref
@@ -4853,12 +4895,13 @@ namespace kinetica
         /// <summary>Deletes record(s) matching the provided criteria from the
         /// given table. The record selection criteria can either be one or
         /// more  <paramref cref="DeleteRecordsRequest.expressions" />
-        /// (matching multiple records) or a single record identified by
-        /// <i>record_id</i> options.  Note that the two selection criteria are
-        /// mutually exclusive.  This operation cannot be run on a collection
-        /// or a view.  The operation is synchronous meaning that a response
-        /// will not be available until the request is completely processed and
-        /// all the matching records are deleted.</summary>
+        /// (matching multiple records), a single record identified by
+        /// <i>record_id</i> options, or all records when using
+        /// <i>delete_all_records</i>.  Note that the three selection criteria
+        /// are mutually exclusive.  This operation cannot be run on a
+        /// collection or a view.  The operation is synchronous meaning that a
+        /// response will not be available until the request is completely
+        /// processed and all the matching records are deleted.</summary>
         /// 
         /// <param name="request_">Request object containing the parameters for
         /// the operation.</param>
@@ -4876,13 +4919,14 @@ namespace kinetica
 
         /// <summary>Deletes record(s) matching the provided criteria from the
         /// given table. The record selection criteria can either be one or
-        /// more  <paramref name="expressions" /> (matching multiple records)
-        /// or a single record identified by <i>record_id</i> options.  Note
-        /// that the two selection criteria are mutually exclusive.  This
-        /// operation cannot be run on a collection or a view.  The operation
-        /// is synchronous meaning that a response will not be available until
-        /// the request is completely processed and all the matching records
-        /// are deleted.</summary>
+        /// more  <paramref name="expressions" /> (matching multiple records),
+        /// a single record identified by <i>record_id</i> options, or all
+        /// records when using <i>delete_all_records</i>.  Note that the three
+        /// selection criteria are mutually exclusive.  This operation cannot
+        /// be run on a collection or a view.  The operation is synchronous
+        /// meaning that a response will not be available until the request is
+        /// completely processed and all the matching records are
+        /// deleted.</summary>
         /// 
         /// <param name="table_name">Name of the table from which to delete
         /// records. The set must be a currently existing table and not a
@@ -4910,6 +4954,26 @@ namespace kinetica
         /// obtained at the time of /insert/records or by calling
         /// /get/records/fromcollection with the *return_record_ids*
         /// option.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="DeleteRecordsRequest.Options.DELETE_ALL_RECORDS">DELETE_ALL_RECORDS</see>:</term>
+        ///         <description>If set to <i>true</i>, all records in the
+        /// table will be deleted. If set to <i>false</i>, then the option is
+        /// effectively ignored.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="DeleteRecordsRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="DeleteRecordsRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="DeleteRecordsRequest.Options.FALSE">FALSE</see>.</description>
         ///     </item>
         /// </list>
         ///   </param>
@@ -5064,6 +5128,16 @@ namespace kinetica
         /// proc. If the same table was cached for multiple specified run IDs,
         /// the cached data from the first run ID specified in the list that
         /// includes that table will be used.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ExecuteProcRequest.Options.KIFS_INPUT_DIRS">KIFS_INPUT_DIRS</see>:</term>
+        ///         <description>A comma-delimited list of KiFS directories
+        /// whose local files will be made directly accessible to the proc
+        /// through the API. (All KiFS files, local or not, are also accessible
+        /// through the file system below the KiFS mount point.) Each name
+        /// specified must the name of an existing KiFS
+        /// directory.</description>
         ///     </item>
         /// </list>
         ///   </param>
@@ -6044,7 +6118,8 @@ namespace kinetica
         /// 
         /// <param name="table_name">Name of the table on which the filter by
         /// track operation will be performed. Must be a currently existing
-        /// table with track semantic type.  </param>
+        /// table with a <a href="../../geospatial/geo_objects.html"
+        /// target="_top">track</a> present.  </param>
         /// <param name="view_name">If provided, then this will be the name of
         /// the view containing the results. Has the same naming restrictions
         /// as <a href="../../concepts/tables.html" target="_top">tables</a>.
@@ -7525,7 +7600,7 @@ namespace kinetica
         /// cref="InsertRecordsRandomRequest.Options.MIN">MIN</see>:</term>
         ///         <description>For numerical columns, the minimum of the
         /// generated values is set to this value.  Default is -99999.  For
-        /// point, shape, and track semantic types, min for numeric 'x' and 'y'
+        /// point, shape, and track columns, min for numeric 'x' and 'y'
         /// columns needs to be within [-180, 180] and [-90, 90], respectively.
         /// The default minimum possible values for these columns in such cases
         /// are -180.0 and -90.0. For the 'TIMESTAMP' column, the default
@@ -7535,29 +7610,29 @@ namespace kinetica
         /// maximum are provided, minimum must be less than or equal to max.
         /// Value needs to be within [0, 200].
         /// If the min is outside the accepted ranges for strings columns and
-        /// 'x' and 'y' columns for point/shape/track types, then those
-        /// parameters will not be set; however, an error will not be thrown in
-        /// such a case. It is the responsibility of the user to use the
-        /// <i>all</i> parameter judiciously.</description>
+        /// 'x' and 'y' columns for point/shape/track, then those parameters
+        /// will not be set; however, an error will not be thrown in such a
+        /// case. It is the responsibility of the user to use the <i>all</i>
+        /// parameter judiciously.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="InsertRecordsRandomRequest.Options.MAX">MAX</see>:</term>
         ///         <description>For numerical columns, the maximum of the
         /// generated values is set to this value. Default is 99999. For point,
-        /// shape, and track semantic types, max for numeric 'x' and 'y'
-        /// columns needs to be within [-180, 180] and [-90, 90], respectively.
-        /// The default minimum possible values for these columns in such cases
-        /// are 180.0 and 90.0.
+        /// shape, and track columns, max for numeric 'x' and 'y' columns needs
+        /// to be within [-180, 180] and [-90, 90], respectively. The default
+        /// minimum possible values for these columns in such cases are 180.0
+        /// and 90.0.
         /// For string columns, the maximum length of the randomly generated
         /// strings is set to this value (default is 200). If both minimum and
         /// maximum are provided, *max* must be greater than or equal to *min*.
         /// Value needs to be within [0, 200].
         /// If the *max* is outside the accepted ranges for strings columns and
-        /// 'x' and 'y' columns for point/shape/track types, then those
-        /// parameters will not be set; however, an error will not be thrown in
-        /// such a case. It is the responsibility of the user to use the
-        /// <i>all</i> parameter judiciously.</description>
+        /// 'x' and 'y' columns for point/shape/track, then those parameters
+        /// will not be set; however, an error will not be thrown in such a
+        /// case. It is the responsibility of the user to use the <i>all</i>
+        /// parameter judiciously.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -7608,7 +7683,7 @@ namespace kinetica
         /// cref="InsertRecordsRandomRequest.Options.MIN">MIN</see>:</term>
         ///         <description>For numerical columns, the minimum of the
         /// generated values is set to this value.  Default is -99999.  For
-        /// point, shape, and track semantic types, min for numeric 'x' and 'y'
+        /// point, shape, and track columns, min for numeric 'x' and 'y'
         /// columns needs to be within [-180, 180] and [-90, 90], respectively.
         /// The default minimum possible values for these columns in such cases
         /// are -180.0 and -90.0. For the 'TIMESTAMP' column, the default
@@ -7618,29 +7693,29 @@ namespace kinetica
         /// maximum are provided, minimum must be less than or equal to max.
         /// Value needs to be within [0, 200].
         /// If the min is outside the accepted ranges for strings columns and
-        /// 'x' and 'y' columns for point/shape/track types, then those
-        /// parameters will not be set; however, an error will not be thrown in
-        /// such a case. It is the responsibility of the user to use the
-        /// <i>all</i> parameter judiciously.</description>
+        /// 'x' and 'y' columns for point/shape/track, then those parameters
+        /// will not be set; however, an error will not be thrown in such a
+        /// case. It is the responsibility of the user to use the <i>all</i>
+        /// parameter judiciously.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="InsertRecordsRandomRequest.Options.MAX">MAX</see>:</term>
         ///         <description>For numerical columns, the maximum of the
         /// generated values is set to this value. Default is 99999. For point,
-        /// shape, and track semantic types, max for numeric 'x' and 'y'
-        /// columns needs to be within [-180, 180] and [-90, 90], respectively.
-        /// The default minimum possible values for these columns in such cases
-        /// are 180.0 and 90.0.
+        /// shape, and track columns, max for numeric 'x' and 'y' columns needs
+        /// to be within [-180, 180] and [-90, 90], respectively. The default
+        /// minimum possible values for these columns in such cases are 180.0
+        /// and 90.0.
         /// For string columns, the maximum length of the randomly generated
         /// strings is set to this value (default is 200). If both minimum and
         /// maximum are provided, *max* must be greater than or equal to *min*.
         /// Value needs to be within [0, 200].
         /// If the *max* is outside the accepted ranges for strings columns and
-        /// 'x' and 'y' columns for point/shape/track types, then those
-        /// parameters will not be set; however, an error will not be thrown in
-        /// such a case. It is the responsibility of the user to use the
-        /// <i>all</i> parameter judiciously.</description>
+        /// 'x' and 'y' columns for point/shape/track, then those parameters
+        /// will not be set; however, an error will not be thrown in such a
+        /// case. It is the responsibility of the user to use the <i>all</i>
+        /// parameter judiciously.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -7682,9 +7757,9 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="InsertRecordsRandomRequest.Options.TRACK_LENGTH">TRACK_LENGTH</see>:</term>
-        ///         <description>This key-map pair is only valid for track type
-        /// data sets (an error is thrown otherwise).  No nulls would be
-        /// generated for nullable columns.
+        ///         <description>This key-map pair is only valid for track data
+        /// sets (an error is thrown otherwise).  No nulls would be generated
+        /// for nullable columns.
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
@@ -8790,11 +8865,10 @@ namespace kinetica
 
 
         /// <summary>Gets names of the tables whose type matches the given
-        /// criteria. Each table has a particular type. This type is made out
-        /// of the type label, schema of the table, and the semantic type of
-        /// the table. This function allows a look up of the existing tables
-        /// based on full or partial type information. The operation is
-        /// synchronous.</summary>
+        /// criteria. Each table has a particular type. This type comprises the
+        /// schema and properties of the table and sometimes a type label. This
+        /// function allows a look up of the existing tables based on full or
+        /// partial type information. The operation is synchronous.</summary>
         /// 
         /// <param name="request_">Request object containing the parameters for
         /// the operation.</param>
@@ -8811,11 +8885,10 @@ namespace kinetica
 
 
         /// <summary>Gets names of the tables whose type matches the given
-        /// criteria. Each table has a particular type. This type is made out
-        /// of the type label, schema of the table, and the semantic type of
-        /// the table. This function allows a look up of the existing tables
-        /// based on full or partial type information. The operation is
-        /// synchronous.</summary>
+        /// criteria. Each table has a particular type. This type comprises the
+        /// schema and properties of the table and sometimes a type label. This
+        /// function allows a look up of the existing tables based on full or
+        /// partial type information. The operation is synchronous.</summary>
         /// 
         /// <param name="type_id">Type id returned by a call to /create/type.
         /// </param>
@@ -8870,12 +8943,10 @@ namespace kinetica
         }
 
 
-        /// <summary>Retrieves information for the specified data type. Given a
-        /// type ID, the database returns the data type schema, the label, and
-        /// the semantic type along with the type ID. If the user provides any
-        /// combination of label and semantic type, then the database returns
-        /// the pertinent information for all data types that match the input
-        /// criteria.</summary>
+        /// <summary>Retrieves information for the specified data type ID or
+        /// type label. For all data types that match the input criteria, the
+        /// database returns the type ID, the type schema, the label (if
+        /// available), and the type's column properties.</summary>
         /// 
         /// <param name="request_">Request object containing the parameters for
         /// the operation.</param>
@@ -8900,12 +8971,10 @@ namespace kinetica
         }
 
 
-        /// <summary>Retrieves information for the specified data type. Given a
-        /// type ID, the database returns the data type schema, the label, and
-        /// the semantic type along with the type ID. If the user provides any
-        /// combination of label and semantic type, then the database returns
-        /// the pertinent information for all data types that match the input
-        /// criteria.</summary>
+        /// <summary>Retrieves information for the specified data type ID or
+        /// type label. For all data types that match the input criteria, the
+        /// database returns the type ID, the type schema, the label (if
+        /// available), and the type's column properties.</summary>
         /// 
         /// <param name="type_id">Type Id returned in response to a call to
         /// /create/type.  </param>
@@ -10232,6 +10301,250 @@ namespace kinetica
                                                                                   bg_color,
                                                                                   style_options,
                                                                                   options ) );
+        }
+        /// @endcond
+
+        /// @cond NO_DOCS
+        /// 
+        /// <param name="request_">Request object containing the parameters for
+        /// the operation.</param>
+        /// 
+        /// <returns>Response object containing the result of the
+        /// operation.</returns>
+        /// 
+        public VisualizeImageContourResponse visualizeImageContour( VisualizeImageContourRequest request_ )
+        {
+            VisualizeImageContourResponse actualResponse_ = SubmitRequest<VisualizeImageContourResponse>("/visualize/image/contour", request_, false);
+
+            return actualResponse_;
+        }
+        /// @endcond
+
+        /// @cond NO_DOCS
+        /// 
+        /// <param name="table_names"></param>
+        /// <param name="x_column_name"></param>
+        /// <param name="y_column_name"></param>
+        /// <param name="value_column_name"></param>
+        /// <param name="min_x"></param>
+        /// <param name="max_x"></param>
+        /// <param name="min_y"></param>
+        /// <param name="max_y"></param>
+        /// <param name="width"></param>
+        /// <param name="height"></param>
+        /// <param name="projection">
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.Projection._3857">_3857</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.Projection._102100">_102100</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.Projection._900913">_900913</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.Projection.EPSG_4326">EPSG_4326</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.Projection.PLATE_CARREE">PLATE_CARREE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.Projection.EPSG_900913">EPSG_900913</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.Projection.EPSG_102100">EPSG_102100</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.Projection.EPSG_3857">EPSG_3857</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.Projection.WEB_MERCATOR">WEB_MERCATOR</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="VisualizeImageContourRequest.Projection.PLATE_CARREE">PLATE_CARREE</see>.</param>
+        /// <param name="style_options">
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.StyleOptions.LINE_SIZE">LINE_SIZE</see>:</term>
+        ///         <description></description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.StyleOptions.COLOR">COLOR</see>:</term>
+        ///         <description></description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.StyleOptions.BG_COLOR">BG_COLOR</see>:</term>
+        ///         <description></description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.StyleOptions.COLORMAP">COLORMAP</see>:</term>
+        ///         <description>
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.StyleOptions.JET">JET</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.StyleOptions.HOT">HOT</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.StyleOptions.HSV">HSV</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.StyleOptions.GRAY">GRAY</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.StyleOptions.BLUES">BLUES</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.StyleOptions.GREENS">GREENS</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.StyleOptions.GREYS">GREYS</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.StyleOptions.ORANGES">ORANGES</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.StyleOptions.PURPLES">PURPLES</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.StyleOptions.REDS">REDS</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.StyleOptions.VIRIDIS">VIRIDIS</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="VisualizeImageContourRequest.StyleOptions.JET">JET</see>.</description>
+        ///     </item>
+        /// </list>
+        /// </param>
+        /// <param name="options">
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.Options.MIN_LEVEL">MIN_LEVEL</see>:</term>
+        ///         <description></description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.Options.MAX_LEVEL">MAX_LEVEL</see>:</term>
+        ///         <description></description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.Options.NUM_LEVELS">NUM_LEVELS</see>:</term>
+        ///         <description></description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.Options.SEARCH_RADIUS">SEARCH_RADIUS</see>:</term>
+        ///         <description></description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.Options.GRIDDING_METHOD">GRIDDING_METHOD</see>:</term>
+        ///         <description>
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.Options.INV_DST_POW">INV_DST_POW</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.Options.MIN_CURV">MIN_CURV</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.Options.KRIGING">KRIGING</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.Options.PASS_THROUGH">PASS_THROUGH</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="VisualizeImageContourRequest.Options.INV_DST_POW">INV_DST_POW</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.Options.SMOOTHING_FACTOR">SMOOTHING_FACTOR</see>:</term>
+        ///         <description></description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.Options.GRID_ROWS">GRID_ROWS</see>:</term>
+        ///         <description></description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.Options.GRID_COLUMNS">GRID_COLUMNS</see>:</term>
+        ///         <description></description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.Options.RENDER_OUTPUT_GRID">RENDER_OUTPUT_GRID</see>:</term>
+        ///         <description></description>
+        ///     </item>
+        /// </list>
+        /// </param>
+        /// 
+        /// <returns>Response object containing the result of the
+        /// operation.</returns>
+        /// 
+        public VisualizeImageContourResponse visualizeImageContour( IList<string> table_names,
+                                                                    string x_column_name,
+                                                                    string y_column_name,
+                                                                    string value_column_name,
+                                                                    double min_x,
+                                                                    double max_x,
+                                                                    double min_y,
+                                                                    double max_y,
+                                                                    int width,
+                                                                    int height,
+                                                                    string projection,
+                                                                    IDictionary<string, string> style_options,
+                                                                    IDictionary<string, string> options )
+        {
+            return visualizeImageContour( new VisualizeImageContourRequest( table_names,
+                                                                            x_column_name,
+                                                                            y_column_name,
+                                                                            value_column_name,
+                                                                            min_x, max_x,
+                                                                            min_y, max_y,
+                                                                            width, height,
+                                                                            projection,
+                                                                            style_options,
+                                                                            options ) );
         }
         /// @endcond
 

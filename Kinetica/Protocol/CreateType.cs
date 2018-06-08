@@ -25,15 +25,17 @@ namespace kinetica
     /// any given column simultaneously.  One example of mutually exclusive
     /// properties are <i>data</i> and <i>store_only</i>.
     /// <br />
-    /// To set a *primary key* on one or more columns include the property
-    /// 'primary_key' on the desired column_names. If a primary key is
+    /// A single <a href="../../concepts/tables.html#primary-keys"
+    /// target="_top">primary key</a> and/or single <a
+    /// href="../../concepts/tables.html#shard-keys" target="_top">shard
+    /// key</a> can be set across one or more columns. If a primary key is
     /// specified, then a uniqueness constraint is enforced, in that only a
     /// single object can exist with a given primary key. When <see
     /// cref="Kinetica.insertRecords{T}(string,IList{T},IDictionary{string, string})">inserting</see>
     /// data into a table with a primary key, depending on the parameters in
-    /// the request, incoming objects with primary keys that match existing
-    /// objects will either overwrite (i.e. update) the existing object or will
-    /// be skipped and not added into the set.
+    /// the request, incoming objects with primary key values that match
+    /// existing objects will either overwrite (i.e. update) the existing
+    /// object or will be skipped and not added into the set.
     /// <br />
     /// Example of a type definition with some of the parameters::
     /// <br />
@@ -74,24 +76,24 @@ namespace kinetica
         ///         <term><see
         /// cref="CreateTypeRequest.Properties.TEXT_SEARCH">TEXT_SEARCH</see>:</term>
         ///         <description>Valid only for 'string' columns. Enables full
-        /// text search for string columns. Can be set independently of *data*
-        /// and *store_only*.</description>
+        /// text search for string columns. Can be set independently of
+        /// <i>data</i> and <i>store_only</i>.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="CreateTypeRequest.Properties.STORE_ONLY">STORE_ONLY</see>:</term>
         ///         <description>Persist the column value but do not make it
         /// available to queries (e.g. /filter)-i.e. it is mutually exclusive
-        /// to the 'data' property. Any 'bytes' type column must have a
-        /// 'store_only' property. This property reduces system memory
+        /// to the <i>data</i> property. Any 'bytes' type column must have a
+        /// <i>store_only</i> property. This property reduces system memory
         /// usage.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="CreateTypeRequest.Properties.DISK_OPTIMIZED">DISK_OPTIMIZED</see>:</term>
-        ///         <description>Works in conjunction with the 'data' property
-        /// for string columns. This property reduces system disk usage by
-        /// disabling reverse string lookups. Queries like /filter,
+        ///         <description>Works in conjunction with the <i>data</i>
+        /// property for string columns. This property reduces system disk
+        /// usage by disabling reverse string lookups. Queries like /filter,
         /// /filter/bylist, and /filter/byvalue work as usual but
         /// /aggregate/unique, /aggregate/groupby and /get/records/bycolumn are
         /// not allowed on columns with this property.</description>
@@ -113,7 +115,7 @@ namespace kinetica
         /// 15 digits before the decimal point and up to four digits in the
         /// fractional part.  The value can be positive or negative (indicated
         /// by a minus sign at the beginning).  This property is mutually
-        /// exclusive with the 'text_search' property.</description>
+        /// exclusive with the <i>text_search</i> property.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -122,7 +124,7 @@ namespace kinetica
         /// that this field represents a date and will be provided in the
         /// format 'YYYY-MM-DD'.  The allowable range is 1000-01-01 through
         /// 2900-01-01.  This property is mutually exclusive with the
-        /// *text_search* property.</description>
+        /// <i>text_search</i> property.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -131,7 +133,7 @@ namespace kinetica
         /// that this field represents a time-of-day and will be provided in
         /// the format 'HH:MM:SS.mmm'.  The allowable range is 00:00:00.000
         /// through 23:59:59.999.  This property is mutually exclusive with the
-        /// *text_search* property.</description>
+        /// <i>text_search</i> property.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -140,7 +142,7 @@ namespace kinetica
         /// that this field represents a datetime and will be provided in the
         /// format 'YYYY-MM-DD HH:MM:SS.mmm'.  The allowable range is
         /// 1000-01-01 00:00:00.000 through 2900-01-01 23:59:59.999.  This
-        /// property is mutually exclusive with the *text_search*
+        /// property is mutually exclusive with the <i>text_search</i>
         /// property.</description>
         ///     </item>
         ///     <item>
@@ -148,72 +150,63 @@ namespace kinetica
         /// cref="CreateTypeRequest.Properties.CHAR1">CHAR1</see>:</term>
         ///         <description>This property provides optimized memory, disk
         /// and query performance for string columns. Strings with this
-        /// property must be no longer than 1 character. This property cannot
-        /// be combined with *text_search*</description>
+        /// property must be no longer than 1 character.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="CreateTypeRequest.Properties.CHAR2">CHAR2</see>:</term>
         ///         <description>This property provides optimized memory, disk
         /// and query performance for string columns. Strings with this
-        /// property must be no longer than 2 characters. This property cannot
-        /// be combined with *text_search*</description>
+        /// property must be no longer than 2 characters.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="CreateTypeRequest.Properties.CHAR4">CHAR4</see>:</term>
         ///         <description>This property provides optimized memory, disk
         /// and query performance for string columns. Strings with this
-        /// property must be no longer than 4 characters. This property cannot
-        /// be combined with *text_search*</description>
+        /// property must be no longer than 4 characters.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="CreateTypeRequest.Properties.CHAR8">CHAR8</see>:</term>
         ///         <description>This property provides optimized memory, disk
         /// and query performance for string columns. Strings with this
-        /// property must be no longer than 8 characters. This property cannot
-        /// be combined with *text_search*</description>
+        /// property must be no longer than 8 characters.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="CreateTypeRequest.Properties.CHAR16">CHAR16</see>:</term>
         ///         <description>This property provides optimized memory, disk
         /// and query performance for string columns. Strings with this
-        /// property must be no longer than 16 characters. This property cannot
-        /// be combined with *text_search*</description>
+        /// property must be no longer than 16 characters.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="CreateTypeRequest.Properties.CHAR32">CHAR32</see>:</term>
         ///         <description>This property provides optimized memory, disk
         /// and query performance for string columns. Strings with this
-        /// property must be no longer than 32 characters. This property cannot
-        /// be combined with *text_search*</description>
+        /// property must be no longer than 32 characters.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="CreateTypeRequest.Properties.CHAR64">CHAR64</see>:</term>
         ///         <description>This property provides optimized memory, disk
         /// and query performance for string columns. Strings with this
-        /// property must be no longer than 64 characters. This property cannot
-        /// be combined with *text_search*</description>
+        /// property must be no longer than 64 characters.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="CreateTypeRequest.Properties.CHAR128">CHAR128</see>:</term>
         ///         <description>This property provides optimized memory, disk
         /// and query performance for string columns. Strings with this
-        /// property must be no longer than 128 characters. This property
-        /// cannot be combined with *text_search*</description>
+        /// property must be no longer than 128 characters.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="CreateTypeRequest.Properties.CHAR256">CHAR256</see>:</term>
         ///         <description>This property provides optimized memory, disk
         /// and query performance for string columns. Strings with this
-        /// property must be no longer than 256 characters. This property
-        /// cannot be combined with *text_search*</description>
+        /// property must be no longer than 256 characters.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -250,13 +243,17 @@ namespace kinetica
         ///         <term><see
         /// cref="CreateTypeRequest.Properties.PRIMARY_KEY">PRIMARY_KEY</see>:</term>
         ///         <description>This property indicates that this column will
-        /// be part of (or the entire) primary key.</description>
+        /// be part of (or the entire) <a
+        /// href="../../concepts/tables.html#primary-keys"
+        /// target="_top">primary key</a>.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="CreateTypeRequest.Properties.SHARD_KEY">SHARD_KEY</see>:</term>
         ///         <description>This property indicates that this column will
-        /// be part of (or the entire) shard key.</description>
+        /// be part of (or the entire) <a
+        /// href="../../concepts/tables.html#shard-keys" target="_top">shard
+        /// key</a>.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -271,9 +268,9 @@ namespace kinetica
         /// column in the avro schema must be: ['int', 'null'].
         /// <br />
         /// The C++, C#, Java, and Python APIs have built-in convenience for
-        /// bypassing setting the avro schema by hand.  For those two
-        /// languages, one can use this property as usual and not have to worry
-        /// about the avro schema for the record.</description>
+        /// bypassing setting the avro schema by hand.  For those languages,
+        /// one can use this property as usual and not have to worry about the
+        /// avro schema for the record.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -296,19 +293,19 @@ namespace kinetica
             public const string DATA = "data";
 
             /// <summary>Valid only for 'string' columns. Enables full text
-            /// search for string columns. Can be set independently of *data*
-            /// and *store_only*.</summary>
+            /// search for string columns. Can be set independently of
+            /// <i>data</i> and <i>store_only</i>.</summary>
             public const string TEXT_SEARCH = "text_search";
 
             /// <summary>Persist the column value but do not make it available
             /// to queries (e.g. <see
             /// cref="Kinetica.filter(string,string,string,IDictionary{string, string})"
-            /// />)-i.e. it is mutually exclusive to the 'data' property. Any
-            /// 'bytes' type column must have a 'store_only' property. This
-            /// property reduces system memory usage.</summary>
+            /// />)-i.e. it is mutually exclusive to the <i>data</i> property.
+            /// Any 'bytes' type column must have a <i>store_only</i> property.
+            /// This property reduces system memory usage.</summary>
             public const string STORE_ONLY = "store_only";
 
-            /// <summary>Works in conjunction with the 'data' property for
+            /// <summary>Works in conjunction with the <i>data</i> property for
             /// string columns. This property reduces system disk usage by
             /// disabling reverse string lookups. Queries like <see
             /// cref="Kinetica.filter(string,string,string,IDictionary{string, string})"
@@ -337,82 +334,75 @@ namespace kinetica
             /// before the decimal point and up to four digits in the
             /// fractional part.  The value can be positive or negative
             /// (indicated by a minus sign at the beginning).  This property is
-            /// mutually exclusive with the 'text_search' property.</summary>
+            /// mutually exclusive with the <i>text_search</i>
+            /// property.</summary>
             public const string DECIMAL = "decimal";
 
             /// <summary>Valid only for 'string' columns.  Indicates that this
             /// field represents a date and will be provided in the format
             /// 'YYYY-MM-DD'.  The allowable range is 1000-01-01 through
             /// 2900-01-01.  This property is mutually exclusive with the
-            /// *text_search* property.</summary>
+            /// <i>text_search</i> property.</summary>
             public const string DATE = "date";
 
             /// <summary>Valid only for 'string' columns.  Indicates that this
             /// field represents a time-of-day and will be provided in the
             /// format 'HH:MM:SS.mmm'.  The allowable range is 00:00:00.000
             /// through 23:59:59.999.  This property is mutually exclusive with
-            /// the *text_search* property.</summary>
+            /// the <i>text_search</i> property.</summary>
             public const string TIME = "time";
 
             /// <summary>Valid only for 'string' columns.  Indicates that this
             /// field represents a datetime and will be provided in the format
             /// 'YYYY-MM-DD HH:MM:SS.mmm'.  The allowable range is 1000-01-01
             /// 00:00:00.000 through 2900-01-01 23:59:59.999.  This property is
-            /// mutually exclusive with the *text_search* property.</summary>
+            /// mutually exclusive with the <i>text_search</i>
+            /// property.</summary>
             public const string DATETIME = "datetime";
 
             /// <summary>This property provides optimized memory, disk and
             /// query performance for string columns. Strings with this
-            /// property must be no longer than 1 character. This property
-            /// cannot be combined with *text_search*</summary>
+            /// property must be no longer than 1 character.</summary>
             public const string CHAR1 = "char1";
 
             /// <summary>This property provides optimized memory, disk and
             /// query performance for string columns. Strings with this
-            /// property must be no longer than 2 characters. This property
-            /// cannot be combined with *text_search*</summary>
+            /// property must be no longer than 2 characters.</summary>
             public const string CHAR2 = "char2";
 
             /// <summary>This property provides optimized memory, disk and
             /// query performance for string columns. Strings with this
-            /// property must be no longer than 4 characters. This property
-            /// cannot be combined with *text_search*</summary>
+            /// property must be no longer than 4 characters.</summary>
             public const string CHAR4 = "char4";
 
             /// <summary>This property provides optimized memory, disk and
             /// query performance for string columns. Strings with this
-            /// property must be no longer than 8 characters. This property
-            /// cannot be combined with *text_search*</summary>
+            /// property must be no longer than 8 characters.</summary>
             public const string CHAR8 = "char8";
 
             /// <summary>This property provides optimized memory, disk and
             /// query performance for string columns. Strings with this
-            /// property must be no longer than 16 characters. This property
-            /// cannot be combined with *text_search*</summary>
+            /// property must be no longer than 16 characters.</summary>
             public const string CHAR16 = "char16";
 
             /// <summary>This property provides optimized memory, disk and
             /// query performance for string columns. Strings with this
-            /// property must be no longer than 32 characters. This property
-            /// cannot be combined with *text_search*</summary>
+            /// property must be no longer than 32 characters.</summary>
             public const string CHAR32 = "char32";
 
             /// <summary>This property provides optimized memory, disk and
             /// query performance for string columns. Strings with this
-            /// property must be no longer than 64 characters. This property
-            /// cannot be combined with *text_search*</summary>
+            /// property must be no longer than 64 characters.</summary>
             public const string CHAR64 = "char64";
 
             /// <summary>This property provides optimized memory, disk and
             /// query performance for string columns. Strings with this
-            /// property must be no longer than 128 characters. This property
-            /// cannot be combined with *text_search*</summary>
+            /// property must be no longer than 128 characters.</summary>
             public const string CHAR128 = "char128";
 
             /// <summary>This property provides optimized memory, disk and
             /// query performance for string columns. Strings with this
-            /// property must be no longer than 256 characters. This property
-            /// cannot be combined with *text_search*</summary>
+            /// property must be no longer than 256 characters.</summary>
             public const string CHAR256 = "char256";
 
             /// <summary>This property provides optimized memory and query
@@ -439,11 +429,15 @@ namespace kinetica
             public const string WKT = "wkt";
 
             /// <summary>This property indicates that this column will be part
-            /// of (or the entire) primary key.</summary>
+            /// of (or the entire) <a
+            /// href="../../concepts/tables.html#primary-keys"
+            /// target="_top">primary key</a>.</summary>
             public const string PRIMARY_KEY = "primary_key";
 
             /// <summary>This property indicates that this column will be part
-            /// of (or the entire) shard key.</summary>
+            /// of (or the entire) <a
+            /// href="../../concepts/tables.html#shard-keys"
+            /// target="_top">shard key</a>.</summary>
             public const string SHARD_KEY = "shard_key";
 
             /// <summary>This property indicates that this column is nullable.
@@ -456,7 +450,7 @@ namespace kinetica
             /// ['int', 'null'].
             /// <br />
             /// The C++, C#, Java, and Python APIs have built-in convenience
-            /// for bypassing setting the avro schema by hand.  For those two
+            /// for bypassing setting the avro schema by hand.  For those
             /// languages, one can use this property as usual and not have to
             /// worry about the avro schema for the record.</summary>
             public const string NULLABLE = "nullable";
@@ -498,24 +492,24 @@ namespace kinetica
         ///         <term><see
         /// cref="CreateTypeRequest.Properties.TEXT_SEARCH">TEXT_SEARCH</see>:</term>
         ///         <description>Valid only for 'string' columns. Enables full
-        /// text search for string columns. Can be set independently of *data*
-        /// and *store_only*.</description>
+        /// text search for string columns. Can be set independently of
+        /// <i>data</i> and <i>store_only</i>.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="CreateTypeRequest.Properties.STORE_ONLY">STORE_ONLY</see>:</term>
         ///         <description>Persist the column value but do not make it
         /// available to queries (e.g. /filter)-i.e. it is mutually exclusive
-        /// to the 'data' property. Any 'bytes' type column must have a
-        /// 'store_only' property. This property reduces system memory
+        /// to the <i>data</i> property. Any 'bytes' type column must have a
+        /// <i>store_only</i> property. This property reduces system memory
         /// usage.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="CreateTypeRequest.Properties.DISK_OPTIMIZED">DISK_OPTIMIZED</see>:</term>
-        ///         <description>Works in conjunction with the 'data' property
-        /// for string columns. This property reduces system disk usage by
-        /// disabling reverse string lookups. Queries like /filter,
+        ///         <description>Works in conjunction with the <i>data</i>
+        /// property for string columns. This property reduces system disk
+        /// usage by disabling reverse string lookups. Queries like /filter,
         /// /filter/bylist, and /filter/byvalue work as usual but
         /// /aggregate/unique, /aggregate/groupby and /get/records/bycolumn are
         /// not allowed on columns with this property.</description>
@@ -537,7 +531,7 @@ namespace kinetica
         /// 15 digits before the decimal point and up to four digits in the
         /// fractional part.  The value can be positive or negative (indicated
         /// by a minus sign at the beginning).  This property is mutually
-        /// exclusive with the 'text_search' property.</description>
+        /// exclusive with the <i>text_search</i> property.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -546,7 +540,7 @@ namespace kinetica
         /// that this field represents a date and will be provided in the
         /// format 'YYYY-MM-DD'.  The allowable range is 1000-01-01 through
         /// 2900-01-01.  This property is mutually exclusive with the
-        /// *text_search* property.</description>
+        /// <i>text_search</i> property.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -555,7 +549,7 @@ namespace kinetica
         /// that this field represents a time-of-day and will be provided in
         /// the format 'HH:MM:SS.mmm'.  The allowable range is 00:00:00.000
         /// through 23:59:59.999.  This property is mutually exclusive with the
-        /// *text_search* property.</description>
+        /// <i>text_search</i> property.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -564,7 +558,7 @@ namespace kinetica
         /// that this field represents a datetime and will be provided in the
         /// format 'YYYY-MM-DD HH:MM:SS.mmm'.  The allowable range is
         /// 1000-01-01 00:00:00.000 through 2900-01-01 23:59:59.999.  This
-        /// property is mutually exclusive with the *text_search*
+        /// property is mutually exclusive with the <i>text_search</i>
         /// property.</description>
         ///     </item>
         ///     <item>
@@ -572,72 +566,63 @@ namespace kinetica
         /// cref="CreateTypeRequest.Properties.CHAR1">CHAR1</see>:</term>
         ///         <description>This property provides optimized memory, disk
         /// and query performance for string columns. Strings with this
-        /// property must be no longer than 1 character. This property cannot
-        /// be combined with *text_search*</description>
+        /// property must be no longer than 1 character.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="CreateTypeRequest.Properties.CHAR2">CHAR2</see>:</term>
         ///         <description>This property provides optimized memory, disk
         /// and query performance for string columns. Strings with this
-        /// property must be no longer than 2 characters. This property cannot
-        /// be combined with *text_search*</description>
+        /// property must be no longer than 2 characters.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="CreateTypeRequest.Properties.CHAR4">CHAR4</see>:</term>
         ///         <description>This property provides optimized memory, disk
         /// and query performance for string columns. Strings with this
-        /// property must be no longer than 4 characters. This property cannot
-        /// be combined with *text_search*</description>
+        /// property must be no longer than 4 characters.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="CreateTypeRequest.Properties.CHAR8">CHAR8</see>:</term>
         ///         <description>This property provides optimized memory, disk
         /// and query performance for string columns. Strings with this
-        /// property must be no longer than 8 characters. This property cannot
-        /// be combined with *text_search*</description>
+        /// property must be no longer than 8 characters.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="CreateTypeRequest.Properties.CHAR16">CHAR16</see>:</term>
         ///         <description>This property provides optimized memory, disk
         /// and query performance for string columns. Strings with this
-        /// property must be no longer than 16 characters. This property cannot
-        /// be combined with *text_search*</description>
+        /// property must be no longer than 16 characters.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="CreateTypeRequest.Properties.CHAR32">CHAR32</see>:</term>
         ///         <description>This property provides optimized memory, disk
         /// and query performance for string columns. Strings with this
-        /// property must be no longer than 32 characters. This property cannot
-        /// be combined with *text_search*</description>
+        /// property must be no longer than 32 characters.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="CreateTypeRequest.Properties.CHAR64">CHAR64</see>:</term>
         ///         <description>This property provides optimized memory, disk
         /// and query performance for string columns. Strings with this
-        /// property must be no longer than 64 characters. This property cannot
-        /// be combined with *text_search*</description>
+        /// property must be no longer than 64 characters.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="CreateTypeRequest.Properties.CHAR128">CHAR128</see>:</term>
         ///         <description>This property provides optimized memory, disk
         /// and query performance for string columns. Strings with this
-        /// property must be no longer than 128 characters. This property
-        /// cannot be combined with *text_search*</description>
+        /// property must be no longer than 128 characters.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="CreateTypeRequest.Properties.CHAR256">CHAR256</see>:</term>
         ///         <description>This property provides optimized memory, disk
         /// and query performance for string columns. Strings with this
-        /// property must be no longer than 256 characters. This property
-        /// cannot be combined with *text_search*</description>
+        /// property must be no longer than 256 characters.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -674,13 +659,17 @@ namespace kinetica
         ///         <term><see
         /// cref="CreateTypeRequest.Properties.PRIMARY_KEY">PRIMARY_KEY</see>:</term>
         ///         <description>This property indicates that this column will
-        /// be part of (or the entire) primary key.</description>
+        /// be part of (or the entire) <a
+        /// href="../../concepts/tables.html#primary-keys"
+        /// target="_top">primary key</a>.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="CreateTypeRequest.Properties.SHARD_KEY">SHARD_KEY</see>:</term>
         ///         <description>This property indicates that this column will
-        /// be part of (or the entire) shard key.</description>
+        /// be part of (or the entire) <a
+        /// href="../../concepts/tables.html#shard-keys" target="_top">shard
+        /// key</a>.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -695,9 +684,9 @@ namespace kinetica
         /// column in the avro schema must be: ['int', 'null'].
         /// <br />
         /// The C++, C#, Java, and Python APIs have built-in convenience for
-        /// bypassing setting the avro schema by hand.  For those two
-        /// languages, one can use this property as usual and not have to worry
-        /// about the avro schema for the record.</description>
+        /// bypassing setting the avro schema by hand.  For those languages,
+        /// one can use this property as usual and not have to worry about the
+        /// avro schema for the record.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -746,24 +735,24 @@ namespace kinetica
         ///         <term><see
         /// cref="CreateTypeRequest.Properties.TEXT_SEARCH">TEXT_SEARCH</see>:</term>
         ///         <description>Valid only for 'string' columns. Enables full
-        /// text search for string columns. Can be set independently of *data*
-        /// and *store_only*.</description>
+        /// text search for string columns. Can be set independently of
+        /// <i>data</i> and <i>store_only</i>.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="CreateTypeRequest.Properties.STORE_ONLY">STORE_ONLY</see>:</term>
         ///         <description>Persist the column value but do not make it
         /// available to queries (e.g. /filter)-i.e. it is mutually exclusive
-        /// to the 'data' property. Any 'bytes' type column must have a
-        /// 'store_only' property. This property reduces system memory
+        /// to the <i>data</i> property. Any 'bytes' type column must have a
+        /// <i>store_only</i> property. This property reduces system memory
         /// usage.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="CreateTypeRequest.Properties.DISK_OPTIMIZED">DISK_OPTIMIZED</see>:</term>
-        ///         <description>Works in conjunction with the 'data' property
-        /// for string columns. This property reduces system disk usage by
-        /// disabling reverse string lookups. Queries like /filter,
+        ///         <description>Works in conjunction with the <i>data</i>
+        /// property for string columns. This property reduces system disk
+        /// usage by disabling reverse string lookups. Queries like /filter,
         /// /filter/bylist, and /filter/byvalue work as usual but
         /// /aggregate/unique, /aggregate/groupby and /get/records/bycolumn are
         /// not allowed on columns with this property.</description>
@@ -785,7 +774,7 @@ namespace kinetica
         /// 15 digits before the decimal point and up to four digits in the
         /// fractional part.  The value can be positive or negative (indicated
         /// by a minus sign at the beginning).  This property is mutually
-        /// exclusive with the 'text_search' property.</description>
+        /// exclusive with the <i>text_search</i> property.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -794,7 +783,7 @@ namespace kinetica
         /// that this field represents a date and will be provided in the
         /// format 'YYYY-MM-DD'.  The allowable range is 1000-01-01 through
         /// 2900-01-01.  This property is mutually exclusive with the
-        /// *text_search* property.</description>
+        /// <i>text_search</i> property.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -803,7 +792,7 @@ namespace kinetica
         /// that this field represents a time-of-day and will be provided in
         /// the format 'HH:MM:SS.mmm'.  The allowable range is 00:00:00.000
         /// through 23:59:59.999.  This property is mutually exclusive with the
-        /// *text_search* property.</description>
+        /// <i>text_search</i> property.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -812,7 +801,7 @@ namespace kinetica
         /// that this field represents a datetime and will be provided in the
         /// format 'YYYY-MM-DD HH:MM:SS.mmm'.  The allowable range is
         /// 1000-01-01 00:00:00.000 through 2900-01-01 23:59:59.999.  This
-        /// property is mutually exclusive with the *text_search*
+        /// property is mutually exclusive with the <i>text_search</i>
         /// property.</description>
         ///     </item>
         ///     <item>
@@ -820,72 +809,63 @@ namespace kinetica
         /// cref="CreateTypeRequest.Properties.CHAR1">CHAR1</see>:</term>
         ///         <description>This property provides optimized memory, disk
         /// and query performance for string columns. Strings with this
-        /// property must be no longer than 1 character. This property cannot
-        /// be combined with *text_search*</description>
+        /// property must be no longer than 1 character.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="CreateTypeRequest.Properties.CHAR2">CHAR2</see>:</term>
         ///         <description>This property provides optimized memory, disk
         /// and query performance for string columns. Strings with this
-        /// property must be no longer than 2 characters. This property cannot
-        /// be combined with *text_search*</description>
+        /// property must be no longer than 2 characters.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="CreateTypeRequest.Properties.CHAR4">CHAR4</see>:</term>
         ///         <description>This property provides optimized memory, disk
         /// and query performance for string columns. Strings with this
-        /// property must be no longer than 4 characters. This property cannot
-        /// be combined with *text_search*</description>
+        /// property must be no longer than 4 characters.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="CreateTypeRequest.Properties.CHAR8">CHAR8</see>:</term>
         ///         <description>This property provides optimized memory, disk
         /// and query performance for string columns. Strings with this
-        /// property must be no longer than 8 characters. This property cannot
-        /// be combined with *text_search*</description>
+        /// property must be no longer than 8 characters.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="CreateTypeRequest.Properties.CHAR16">CHAR16</see>:</term>
         ///         <description>This property provides optimized memory, disk
         /// and query performance for string columns. Strings with this
-        /// property must be no longer than 16 characters. This property cannot
-        /// be combined with *text_search*</description>
+        /// property must be no longer than 16 characters.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="CreateTypeRequest.Properties.CHAR32">CHAR32</see>:</term>
         ///         <description>This property provides optimized memory, disk
         /// and query performance for string columns. Strings with this
-        /// property must be no longer than 32 characters. This property cannot
-        /// be combined with *text_search*</description>
+        /// property must be no longer than 32 characters.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="CreateTypeRequest.Properties.CHAR64">CHAR64</see>:</term>
         ///         <description>This property provides optimized memory, disk
         /// and query performance for string columns. Strings with this
-        /// property must be no longer than 64 characters. This property cannot
-        /// be combined with *text_search*</description>
+        /// property must be no longer than 64 characters.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="CreateTypeRequest.Properties.CHAR128">CHAR128</see>:</term>
         ///         <description>This property provides optimized memory, disk
         /// and query performance for string columns. Strings with this
-        /// property must be no longer than 128 characters. This property
-        /// cannot be combined with *text_search*</description>
+        /// property must be no longer than 128 characters.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="CreateTypeRequest.Properties.CHAR256">CHAR256</see>:</term>
         ///         <description>This property provides optimized memory, disk
         /// and query performance for string columns. Strings with this
-        /// property must be no longer than 256 characters. This property
-        /// cannot be combined with *text_search*</description>
+        /// property must be no longer than 256 characters.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -922,13 +902,17 @@ namespace kinetica
         ///         <term><see
         /// cref="CreateTypeRequest.Properties.PRIMARY_KEY">PRIMARY_KEY</see>:</term>
         ///         <description>This property indicates that this column will
-        /// be part of (or the entire) primary key.</description>
+        /// be part of (or the entire) <a
+        /// href="../../concepts/tables.html#primary-keys"
+        /// target="_top">primary key</a>.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="CreateTypeRequest.Properties.SHARD_KEY">SHARD_KEY</see>:</term>
         ///         <description>This property indicates that this column will
-        /// be part of (or the entire) shard key.</description>
+        /// be part of (or the entire) <a
+        /// href="../../concepts/tables.html#shard-keys" target="_top">shard
+        /// key</a>.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -942,9 +926,9 @@ namespace kinetica
         /// column is of type integer and is nullable, then the entry for the
         /// column in the avro schema must be: ['int', 'null'].
         /// The C++, C#, Java, and Python APIs have built-in convenience for
-        /// bypassing setting the avro schema by hand.  For those two
-        /// languages, one can use this property as usual and not have to worry
-        /// about the avro schema for the record.</description>
+        /// bypassing setting the avro schema by hand.  For those languages,
+        /// one can use this property as usual and not have to worry about the
+        /// avro schema for the record.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
