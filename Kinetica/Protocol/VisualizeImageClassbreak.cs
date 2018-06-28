@@ -12,7 +12,7 @@ namespace kinetica
 {
     /// @cond NO_DOCS
     /// <summary>A set of parameters for <see
-    /// cref="Kinetica.visualizeImageClassbreak(IList{string},IList{string},string,string,string,IList{IList{string}},string,IList{string},double,double,double,double,int,int,string,long,IDictionary{string, IList{string}},IDictionary{string, string})"
+    /// cref="Kinetica.visualizeImageClassbreak(IList{string},IList{string},string,string,string,IList{IList{string}},string,IList{string},string,IList{string},string,IList{string},string,IList{string},double,double,double,double,int,int,string,long,IDictionary{string, IList{string}},IDictionary{string, string})"
     /// />.
     /// <br />
     /// </summary>
@@ -605,8 +605,14 @@ namespace kinetica
         public string y_column_name { get; set; }
         public string geometry_column_name { get; set; }
         public IList<IList<string>> track_ids { get; set; } = new List<IList<string>>();
-        public string cb_column_name { get; set; }
+        public string cb_attr { get; set; }
         public IList<string> cb_vals { get; set; } = new List<string>();
+        public string cb_pointcolor_attr { get; set; }
+        public IList<string> cb_pointcolor_vals { get; set; } = new List<string>();
+        public string cb_pointsize_attr { get; set; }
+        public IList<string> cb_pointsize_vals { get; set; } = new List<string>();
+        public string cb_pointshape_attr { get; set; }
+        public IList<string> cb_pointshape_vals { get; set; } = new List<string>();
         public double min_x { get; set; }
         public double max_x { get; set; }
         public double min_y { get; set; }
@@ -978,8 +984,14 @@ namespace kinetica
         /// <param name="y_column_name"></param>
         /// <param name="geometry_column_name"></param>
         /// <param name="track_ids"></param>
-        /// <param name="cb_column_name"></param>
+        /// <param name="cb_attr"></param>
         /// <param name="cb_vals"></param>
+        /// <param name="cb_pointcolor_attr"></param>
+        /// <param name="cb_pointcolor_vals"></param>
+        /// <param name="cb_pointsize_attr"></param>
+        /// <param name="cb_pointsize_vals"></param>
+        /// <param name="cb_pointshape_attr"></param>
+        /// <param name="cb_pointshape_vals"></param>
         /// <param name="min_x"></param>
         /// <param name="max_x"></param>
         /// <param name="min_y"></param>
@@ -1339,8 +1351,14 @@ namespace kinetica
                                                 string y_column_name,
                                                 string geometry_column_name,
                                                 IList<IList<string>> track_ids,
-                                                string cb_column_name,
+                                                string cb_attr,
                                                 IList<string> cb_vals,
+                                                string cb_pointcolor_attr,
+                                                IList<string> cb_pointcolor_vals,
+                                                string cb_pointsize_attr,
+                                                IList<string> cb_pointsize_vals,
+                                                string cb_pointshape_attr,
+                                                IList<string> cb_pointshape_vals,
                                                 double min_x,
                                                 double max_x,
                                                 double min_y,
@@ -1358,8 +1376,14 @@ namespace kinetica
             this.y_column_name = y_column_name ?? "";
             this.geometry_column_name = geometry_column_name ?? "";
             this.track_ids = track_ids ?? new List<IList<string>>();
-            this.cb_column_name = cb_column_name ?? "";
+            this.cb_attr = cb_attr ?? "";
             this.cb_vals = cb_vals ?? new List<string>();
+            this.cb_pointcolor_attr = cb_pointcolor_attr ?? "";
+            this.cb_pointcolor_vals = cb_pointcolor_vals ?? new List<string>();
+            this.cb_pointsize_attr = cb_pointsize_attr ?? "";
+            this.cb_pointsize_vals = cb_pointsize_vals ?? new List<string>();
+            this.cb_pointshape_attr = cb_pointshape_attr ?? "";
+            this.cb_pointshape_vals = cb_pointshape_vals ?? new List<string>();
             this.min_x = min_x;
             this.max_x = max_x;
             this.min_y = min_y;
@@ -1379,7 +1403,7 @@ namespace kinetica
 
     /// @cond NO_DOCS
     /// <summary>A set of results returned by <see
-    /// cref="Kinetica.visualizeImageClassbreak(IList{string},IList{string},string,string,string,IList{IList{string}},string,IList{string},double,double,double,double,int,int,string,long,IDictionary{string, IList{string}},IDictionary{string, string})"
+    /// cref="Kinetica.visualizeImageClassbreak(IList{string},IList{string},string,string,string,IList{IList{string}},string,IList{string},string,IList{string},string,IList{string},string,IList{string},double,double,double,double,int,int,string,long,IDictionary{string, IList{string}},IDictionary{string, string})"
     /// />.</summary>
     public class VisualizeImageClassbreakResponse : KineticaData
     {

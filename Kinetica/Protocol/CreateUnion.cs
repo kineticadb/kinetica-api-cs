@@ -113,9 +113,23 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
+        /// cref="CreateUnionRequest.Options.EXCEPT_ALL">EXCEPT_ALL</see>:</term>
+        ///         <description>Retains all rows(including duplicates) from
+        /// the first table that do not appear in the second table (only works
+        /// on 2 tables).</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="CreateUnionRequest.Options.INTERSECT">INTERSECT</see>:</term>
         ///         <description>Retains all unique rows that appear in both of
         /// the specified tables (only works on 2 tables).</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateUnionRequest.Options.INTERSECT_ALL">INTERSECT_ALL</see>:</term>
+        ///         <description>Retains all rows(including duplicates) that
+        /// appear in both of the specified tables (only works on 2
+        /// tables).</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -183,6 +197,26 @@ namespace kinetica
         ///         <description>view the output table will be a part
         /// of</description>
         ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateUnionRequest.Options.FORCE_REPLICATED">FORCE_REPLICATED</see>:</term>
+        ///         <description>If <i>true</i>, then the table specified in
+        /// <paramref cref="CreateUnionRequest.table_name" /> will be
+        /// replicated even if the source tables are not.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateUnionRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateUnionRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="CreateUnionRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
         /// </list>
         /// <br />
         /// A set of string constants for the parameter <see cref="options"
@@ -247,9 +281,23 @@ namespace kinetica
             ///     </item>
             ///     <item>
             ///         <term><see
+            /// cref="CreateUnionRequest.Options.EXCEPT_ALL">EXCEPT_ALL</see>:</term>
+            ///         <description>Retains all rows(including duplicates)
+            /// from the first table that do not appear in the second table
+            /// (only works on 2 tables).</description>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
             /// cref="CreateUnionRequest.Options.INTERSECT">INTERSECT</see>:</term>
             ///         <description>Retains all unique rows that appear in
             /// both of the specified tables (only works on 2
+            /// tables).</description>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="CreateUnionRequest.Options.INTERSECT_ALL">INTERSECT_ALL</see>:</term>
+            ///         <description>Retains all rows(including duplicates)
+            /// that appear in both of the specified tables (only works on 2
             /// tables).</description>
             ///     </item>
             ///     <item>
@@ -286,9 +334,19 @@ namespace kinetica
             /// tables).</summary>
             public const string EXCEPT = "except";
 
+            /// <summary>Retains all rows(including duplicates) from the first
+            /// table that do not appear in the second table (only works on 2
+            /// tables).</summary>
+            public const string EXCEPT_ALL = "except_all";
+
             /// <summary>Retains all unique rows that appear in both of the
             /// specified tables (only works on 2 tables).</summary>
             public const string INTERSECT = "intersect";
+
+            /// <summary>Retains all rows(including duplicates) that appear in
+            /// both of the specified tables (only works on 2
+            /// tables).</summary>
+            public const string INTERSECT_ALL = "intersect_all";
 
             /// <summary>Merge two or more views (or views of views) of the
             /// same base data set into a new view. If this mode is selected
@@ -337,6 +395,24 @@ namespace kinetica
 
             /// <summary>view the output table will be a part of</summary>
             public const string VIEW_ID = "view_id";
+
+            /// <summary>If <i>true</i>, then the table specified in <see
+            /// cref="table_name" /> will be replicated even if the source
+            /// tables are not.
+            /// Supported values:
+            /// <list type="bullet">
+            ///     <item>
+            ///         <term><see
+            /// cref="CreateUnionRequest.Options.TRUE">TRUE</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="CreateUnionRequest.Options.FALSE">FALSE</see></term>
+            ///     </item>
+            /// </list>
+            /// The default value is <see
+            /// cref="CreateUnionRequest.Options.FALSE">FALSE</see>.</summary>
+            public const string FORCE_REPLICATED = "force_replicated";
         } // end struct Options
 
 
@@ -422,9 +498,23 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
+        /// cref="CreateUnionRequest.Options.EXCEPT_ALL">EXCEPT_ALL</see>:</term>
+        ///         <description>Retains all rows(including duplicates) from
+        /// the first table that do not appear in the second table (only works
+        /// on 2 tables).</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="CreateUnionRequest.Options.INTERSECT">INTERSECT</see>:</term>
         ///         <description>Retains all unique rows that appear in both of
         /// the specified tables (only works on 2 tables).</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateUnionRequest.Options.INTERSECT_ALL">INTERSECT_ALL</see>:</term>
+        ///         <description>Retains all rows(including duplicates) that
+        /// appear in both of the specified tables (only works on 2
+        /// tables).</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -491,6 +581,26 @@ namespace kinetica
         /// cref="CreateUnionRequest.Options.VIEW_ID">VIEW_ID</see>:</term>
         ///         <description>view the output table will be a part
         /// of</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateUnionRequest.Options.FORCE_REPLICATED">FORCE_REPLICATED</see>:</term>
+        ///         <description>If <i>true</i>, then the table specified in
+        /// <paramref cref="CreateUnionRequest.table_name" /> will be
+        /// replicated even if the source tables are not.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateUnionRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateUnionRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="CreateUnionRequest.Options.FALSE">FALSE</see>.</description>
         ///     </item>
         /// </list>
         ///   </summary>
@@ -578,9 +688,23 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
+        /// cref="CreateUnionRequest.Options.EXCEPT_ALL">EXCEPT_ALL</see>:</term>
+        ///         <description>Retains all rows(including duplicates) from
+        /// the first table that do not appear in the second table (only works
+        /// on 2 tables).</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="CreateUnionRequest.Options.INTERSECT">INTERSECT</see>:</term>
         ///         <description>Retains all unique rows that appear in both of
         /// the specified tables (only works on 2 tables).</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateUnionRequest.Options.INTERSECT_ALL">INTERSECT_ALL</see>:</term>
+        ///         <description>Retains all rows(including duplicates) that
+        /// appear in both of the specified tables (only works on 2
+        /// tables).</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -647,6 +771,26 @@ namespace kinetica
         /// cref="CreateUnionRequest.Options.VIEW_ID">VIEW_ID</see>:</term>
         ///         <description>view the output table will be a part
         /// of</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateUnionRequest.Options.FORCE_REPLICATED">FORCE_REPLICATED</see>:</term>
+        ///         <description>If <i>true</i>, then the table specified in
+        /// <paramref cref="CreateUnionRequest.table_name" /> will be
+        /// replicated even if the source tables are not.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateUnionRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateUnionRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="CreateUnionRequest.Options.FALSE">FALSE</see>.</description>
         ///     </item>
         /// </list>
         ///   </param>

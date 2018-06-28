@@ -1918,6 +1918,35 @@ namespace kinetica
         /// The default value is <see
         /// cref="AggregateUnpivotRequest.Options.FALSE">FALSE</see>.</description>
         ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AggregateUnpivotRequest.Options.CREATE_INDEXES">CREATE_INDEXES</see>:</term>
+        ///         <description>Comma-separated list of columns on which to
+        /// create indexes on the table specified in <i>result_table</i>. The
+        /// columns specified must be present in output column names.  If any
+        /// alias is given for any column name, the alias must be used, rather
+        /// than the original column name.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AggregateUnpivotRequest.Options.RESULT_TABLE_FORCE_REPLICATED">RESULT_TABLE_FORCE_REPLICATED</see>:</term>
+        ///         <description>Force the result table to be replicated
+        /// (ignores any sharding). Must be used in combination with the
+        /// <i>result_table</i> option.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="AggregateUnpivotRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AggregateUnpivotRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="AggregateUnpivotRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
         /// </list>
         ///   </param>
         /// 
@@ -4695,9 +4724,23 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
+        /// cref="CreateUnionRequest.Options.EXCEPT_ALL">EXCEPT_ALL</see>:</term>
+        ///         <description>Retains all rows(including duplicates) from
+        /// the first table that do not appear in the second table (only works
+        /// on 2 tables).</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="CreateUnionRequest.Options.INTERSECT">INTERSECT</see>:</term>
         ///         <description>Retains all unique rows that appear in both of
         /// the specified tables (only works on 2 tables).</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateUnionRequest.Options.INTERSECT_ALL">INTERSECT_ALL</see>:</term>
+        ///         <description>Retains all rows(including duplicates) that
+        /// appear in both of the specified tables (only works on 2
+        /// tables).</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -4764,6 +4807,26 @@ namespace kinetica
         /// cref="CreateUnionRequest.Options.VIEW_ID">VIEW_ID</see>:</term>
         ///         <description>view the output table will be a part
         /// of</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateUnionRequest.Options.FORCE_REPLICATED">FORCE_REPLICATED</see>:</term>
+        ///         <description>If <i>true</i>, then the table specified in
+        /// <paramref cref="CreateUnionRequest.table_name" /> will be
+        /// replicated even if the source tables are not.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateUnionRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateUnionRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="CreateUnionRequest.Options.FALSE">FALSE</see>.</description>
         ///     </item>
         /// </list>
         ///   </param>
@@ -9905,8 +9968,14 @@ namespace kinetica
         /// <param name="y_column_name"></param>
         /// <param name="geometry_column_name"></param>
         /// <param name="track_ids"></param>
-        /// <param name="cb_column_name"></param>
+        /// <param name="cb_attr"></param>
         /// <param name="cb_vals"></param>
+        /// <param name="cb_pointcolor_attr"></param>
+        /// <param name="cb_pointcolor_vals"></param>
+        /// <param name="cb_pointsize_attr"></param>
+        /// <param name="cb_pointsize_vals"></param>
+        /// <param name="cb_pointshape_attr"></param>
+        /// <param name="cb_pointshape_vals"></param>
         /// <param name="min_x"></param>
         /// <param name="max_x"></param>
         /// <param name="min_y"></param>
@@ -10269,8 +10338,14 @@ namespace kinetica
                                                                           string y_column_name,
                                                                           string geometry_column_name,
                                                                           IList<IList<string>> track_ids,
-                                                                          string cb_column_name,
+                                                                          string cb_attr,
                                                                           IList<string> cb_vals,
+                                                                          string cb_pointcolor_attr,
+                                                                          IList<string> cb_pointcolor_vals,
+                                                                          string cb_pointsize_attr,
+                                                                          IList<string> cb_pointsize_vals,
+                                                                          string cb_pointshape_attr,
+                                                                          IList<string> cb_pointshape_vals,
                                                                           double min_x,
                                                                           double max_x,
                                                                           double min_y,
@@ -10289,8 +10364,14 @@ namespace kinetica
                                                                                   y_column_name,
                                                                                   geometry_column_name,
                                                                                   track_ids,
-                                                                                  cb_column_name,
+                                                                                  cb_attr,
                                                                                   cb_vals,
+                                                                                  cb_pointcolor_attr,
+                                                                                  cb_pointcolor_vals,
+                                                                                  cb_pointsize_attr,
+                                                                                  cb_pointsize_vals,
+                                                                                  cb_pointshape_attr,
+                                                                                  cb_pointshape_vals,
                                                                                   min_x,
                                                                                   max_x,
                                                                                   min_y,

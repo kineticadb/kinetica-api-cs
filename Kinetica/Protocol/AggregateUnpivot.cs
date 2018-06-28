@@ -167,6 +167,35 @@ namespace kinetica
         /// The default value is <see
         /// cref="AggregateUnpivotRequest.Options.FALSE">FALSE</see>.</description>
         ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AggregateUnpivotRequest.Options.CREATE_INDEXES">CREATE_INDEXES</see>:</term>
+        ///         <description>Comma-separated list of columns on which to
+        /// create indexes on the table specified in <i>result_table</i>. The
+        /// columns specified must be present in output column names.  If any
+        /// alias is given for any column name, the alias must be used, rather
+        /// than the original column name.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AggregateUnpivotRequest.Options.RESULT_TABLE_FORCE_REPLICATED">RESULT_TABLE_FORCE_REPLICATED</see>:</term>
+        ///         <description>Force the result table to be replicated
+        /// (ignores any sharding). Must be used in combination with the
+        /// <i>result_table</i> option.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="AggregateUnpivotRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AggregateUnpivotRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="AggregateUnpivotRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
         /// </list>
         /// <br />
         /// A set of string constants for the parameter <see cref="options"
@@ -251,6 +280,31 @@ namespace kinetica
             /// The default value is <see
             /// cref="AggregateUnpivotRequest.Options.FALSE">FALSE</see>.</summary>
             public const string MATERIALIZE_ON_GPU = "materialize_on_gpu";
+
+            /// <summary>Comma-separated list of columns on which to create
+            /// indexes on the table specified in <i>result_table</i>. The
+            /// columns specified must be present in output column names.  If
+            /// any alias is given for any column name, the alias must be used,
+            /// rather than the original column name.</summary>
+            public const string CREATE_INDEXES = "create_indexes";
+
+            /// <summary>Force the result table to be replicated (ignores any
+            /// sharding). Must be used in combination with the
+            /// <i>result_table</i> option.
+            /// Supported values:
+            /// <list type="bullet">
+            ///     <item>
+            ///         <term><see
+            /// cref="AggregateUnpivotRequest.Options.TRUE">TRUE</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="AggregateUnpivotRequest.Options.FALSE">FALSE</see></term>
+            ///     </item>
+            /// </list>
+            /// The default value is <see
+            /// cref="AggregateUnpivotRequest.Options.FALSE">FALSE</see>.</summary>
+            public const string RESULT_TABLE_FORCE_REPLICATED = "result_table_force_replicated";
         } // end struct Options
 
 
@@ -394,6 +448,35 @@ namespace kinetica
         /// The default value is <see
         /// cref="AggregateUnpivotRequest.Options.FALSE">FALSE</see>.</description>
         ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AggregateUnpivotRequest.Options.CREATE_INDEXES">CREATE_INDEXES</see>:</term>
+        ///         <description>Comma-separated list of columns on which to
+        /// create indexes on the table specified in <i>result_table</i>. The
+        /// columns specified must be present in output column names.  If any
+        /// alias is given for any column name, the alias must be used, rather
+        /// than the original column name.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AggregateUnpivotRequest.Options.RESULT_TABLE_FORCE_REPLICATED">RESULT_TABLE_FORCE_REPLICATED</see>:</term>
+        ///         <description>Force the result table to be replicated
+        /// (ignores any sharding). Must be used in combination with the
+        /// <i>result_table</i> option.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="AggregateUnpivotRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AggregateUnpivotRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="AggregateUnpivotRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
         /// </list>
         ///   </summary>
         public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
@@ -503,6 +586,35 @@ namespace kinetica
         /// cref="AggregateUnpivotRequest.Options.MATERIALIZE_ON_GPU">MATERIALIZE_ON_GPU</see>:</term>
         ///         <description>If <i>true</i> then the output columns will be
         /// cached on the GPU.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="AggregateUnpivotRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AggregateUnpivotRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="AggregateUnpivotRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AggregateUnpivotRequest.Options.CREATE_INDEXES">CREATE_INDEXES</see>:</term>
+        ///         <description>Comma-separated list of columns on which to
+        /// create indexes on the table specified in <i>result_table</i>. The
+        /// columns specified must be present in output column names.  If any
+        /// alias is given for any column name, the alias must be used, rather
+        /// than the original column name.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AggregateUnpivotRequest.Options.RESULT_TABLE_FORCE_REPLICATED">RESULT_TABLE_FORCE_REPLICATED</see>:</term>
+        ///         <description>Force the result table to be replicated
+        /// (ignores any sharding). Must be used in combination with the
+        /// <i>result_table</i> option.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -656,6 +768,35 @@ namespace kinetica
         /// cref="AggregateUnpivotRequest.Options.MATERIALIZE_ON_GPU">MATERIALIZE_ON_GPU</see>:</term>
         ///         <description>If <i>true</i> then the output columns will be
         /// cached on the GPU.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="AggregateUnpivotRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AggregateUnpivotRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="AggregateUnpivotRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AggregateUnpivotRequest.Options.CREATE_INDEXES">CREATE_INDEXES</see>:</term>
+        ///         <description>Comma-separated list of columns on which to
+        /// create indexes on the table specified in <i>result_table</i>. The
+        /// columns specified must be present in output column names.  If any
+        /// alias is given for any column name, the alias must be used, rather
+        /// than the original column name.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AggregateUnpivotRequest.Options.RESULT_TABLE_FORCE_REPLICATED">RESULT_TABLE_FORCE_REPLICATED</see>:</term>
+        ///         <description>Force the result table to be replicated
+        /// (ignores any sharding). Must be used in combination with the
+        /// <i>result_table</i> option.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
