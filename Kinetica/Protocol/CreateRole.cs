@@ -42,7 +42,7 @@ namespace kinetica
         /// <param name="options">Optional parameters.  </param>
         /// 
         public CreateRoleRequest( string name,
-                                  IDictionary<string, string> options)
+                                  IDictionary<string, string> options = null)
         {
             this.name = name ?? "";
             this.options = options ?? new Dictionary<string, string>();

@@ -72,8 +72,9 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="GetRecordsByColumnRequest.Options.SORT_BY">SORT_BY</see>:</term>
-        ///         <description>Optional column that the data should be sorted
-        /// by. Empty by default (i.e. no sorting is applied).</description>
+        ///         <description>Optional column(s) that the data should be
+        /// sorted by. Empty by default (i.e. no sorting is
+        /// applied).</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -99,11 +100,26 @@ namespace kinetica
         ///         <term><see
         /// cref="GetRecordsByColumnRequest.Options.ORDER_BY">ORDER_BY</see>:</term>
         ///         <description>Comma-separated list of the columns to be
-        /// sorted by; e.g. 'timestamp asc, x desc'.  The columns specified
-        /// must be present in <paramref
-        /// cref="GetRecordsByColumnRequest.column_names" />.  If any alias is
-        /// given for any column name, the alias must be used, rather than the
-        /// original column name.</description>
+        /// sorted by; e.g. 'timestamp asc, x desc'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="GetRecordsByColumnRequest.Options.CONVERT_WKTS_TO_WKBS">CONVERT_WKTS_TO_WKBS</see>:</term>
+        ///         <description>If true, then WKT string columns will be
+        /// returned as WKB bytes.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="GetRecordsByColumnRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="GetRecordsByColumnRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="GetRecordsByColumnRequest.Options.FALSE">FALSE</see>.</description>
         ///     </item>
         /// </list>
         /// <br />
@@ -116,7 +132,7 @@ namespace kinetica
             /// table.</summary>
             public const string EXPRESSION = "expression";
 
-            /// <summary>Optional column that the data should be sorted by.
+            /// <summary>Optional column(s) that the data should be sorted by.
             /// Empty by default (i.e. no sorting is applied).</summary>
             public const string SORT_BY = "sort_by";
 
@@ -141,11 +157,27 @@ namespace kinetica
             public const string DESCENDING = "descending";
 
             /// <summary>Comma-separated list of the columns to be sorted by;
-            /// e.g. 'timestamp asc, x desc'.  The columns specified must be
-            /// present in <see cref="column_names" />.  If any alias is given
-            /// for any column name, the alias must be used, rather than the
-            /// original column name.</summary>
+            /// e.g. 'timestamp asc, x desc'.</summary>
             public const string ORDER_BY = "order_by";
+
+            /// <summary>If true, then WKT string columns will be returned as
+            /// WKB bytes.
+            /// Supported values:
+            /// <list type="bullet">
+            ///     <item>
+            ///         <term><see
+            /// cref="GetRecordsByColumnRequest.Options.TRUE">TRUE</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="GetRecordsByColumnRequest.Options.FALSE">FALSE</see></term>
+            ///     </item>
+            /// </list>
+            /// The default value is <see
+            /// cref="GetRecordsByColumnRequest.Options.FALSE">FALSE</see>.</summary>
+            public const string CONVERT_WKTS_TO_WKBS = "convert_wkts_to_wkbs";
+            public const string TRUE = "true";
+            public const string FALSE = "false";
         } // end struct Options
 
 
@@ -197,8 +229,9 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="GetRecordsByColumnRequest.Options.SORT_BY">SORT_BY</see>:</term>
-        ///         <description>Optional column that the data should be sorted
-        /// by. Empty by default (i.e. no sorting is applied).</description>
+        ///         <description>Optional column(s) that the data should be
+        /// sorted by. Empty by default (i.e. no sorting is
+        /// applied).</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -224,11 +257,26 @@ namespace kinetica
         ///         <term><see
         /// cref="GetRecordsByColumnRequest.Options.ORDER_BY">ORDER_BY</see>:</term>
         ///         <description>Comma-separated list of the columns to be
-        /// sorted by; e.g. 'timestamp asc, x desc'.  The columns specified
-        /// must be present in <paramref
-        /// cref="GetRecordsByColumnRequest.column_names" />.  If any alias is
-        /// given for any column name, the alias must be used, rather than the
-        /// original column name.</description>
+        /// sorted by; e.g. 'timestamp asc, x desc'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="GetRecordsByColumnRequest.Options.CONVERT_WKTS_TO_WKBS">CONVERT_WKTS_TO_WKBS</see>:</term>
+        ///         <description>If true, then WKT string columns will be
+        /// returned as WKB bytes.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="GetRecordsByColumnRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="GetRecordsByColumnRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="GetRecordsByColumnRequest.Options.FALSE">FALSE</see>.</description>
         ///     </item>
         /// </list>
         ///   </summary>
@@ -265,8 +313,9 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="GetRecordsByColumnRequest.Options.SORT_BY">SORT_BY</see>:</term>
-        ///         <description>Optional column that the data should be sorted
-        /// by. Empty by default (i.e. no sorting is applied).</description>
+        ///         <description>Optional column(s) that the data should be
+        /// sorted by. Empty by default (i.e. no sorting is
+        /// applied).</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -292,11 +341,26 @@ namespace kinetica
         ///         <term><see
         /// cref="GetRecordsByColumnRequest.Options.ORDER_BY">ORDER_BY</see>:</term>
         ///         <description>Comma-separated list of the columns to be
-        /// sorted by; e.g. 'timestamp asc, x desc'.  The columns specified
-        /// must be present in <paramref
-        /// cref="GetRecordsByColumnRequest.column_names" />.  If any alias is
-        /// given for any column name, the alias must be used, rather than the
-        /// original column name.</description>
+        /// sorted by; e.g. 'timestamp asc, x desc'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="GetRecordsByColumnRequest.Options.CONVERT_WKTS_TO_WKBS">CONVERT_WKTS_TO_WKBS</see>:</term>
+        ///         <description>If true, then WKT string columns will be
+        /// returned as WKB bytes.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="GetRecordsByColumnRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="GetRecordsByColumnRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="GetRecordsByColumnRequest.Options.FALSE">FALSE</see>.</description>
         ///     </item>
         /// </list>
         ///   </param>
@@ -358,8 +422,9 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="GetRecordsByColumnRequest.Options.SORT_BY">SORT_BY</see>:</term>
-        ///         <description>Optional column that the data should be sorted
-        /// by. Empty by default (i.e. no sorting is applied).</description>
+        ///         <description>Optional column(s) that the data should be
+        /// sorted by. Empty by default (i.e. no sorting is
+        /// applied).</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -385,11 +450,26 @@ namespace kinetica
         ///         <term><see
         /// cref="GetRecordsByColumnRequest.Options.ORDER_BY">ORDER_BY</see>:</term>
         ///         <description>Comma-separated list of the columns to be
-        /// sorted by; e.g. 'timestamp asc, x desc'.  The columns specified
-        /// must be present in <paramref
-        /// cref="GetRecordsByColumnRequest.column_names" />.  If any alias is
-        /// given for any column name, the alias must be used, rather than the
-        /// original column name.</description>
+        /// sorted by; e.g. 'timestamp asc, x desc'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="GetRecordsByColumnRequest.Options.CONVERT_WKTS_TO_WKBS">CONVERT_WKTS_TO_WKBS</see>:</term>
+        ///         <description>If true, then WKT string columns will be
+        /// returned as WKB bytes.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="GetRecordsByColumnRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="GetRecordsByColumnRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="GetRecordsByColumnRequest.Options.FALSE">FALSE</see>.</description>
         ///     </item>
         /// </list>
         ///   </param>

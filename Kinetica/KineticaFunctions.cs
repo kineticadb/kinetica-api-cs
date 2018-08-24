@@ -191,7 +191,7 @@ namespace kinetica
         /// operation.</returns>
         /// 
         public AdminShowAlertsResponse adminShowAlerts( int num_alerts,
-                                                        IDictionary<string, string> options )
+                                                        IDictionary<string, string> options = null )
         {
             return adminShowAlerts( new AdminShowAlertsRequest( num_alerts, options ) );
         }
@@ -2463,6 +2463,12 @@ namespace kinetica
         /// target="_top">materialized view</a>.  Also, sets the refresh method
         /// to periodic if not alreay set.</description>
         ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterTableRequest.Action.REMOVE_TEXT_SEARCH_ATTRIBUTES">REMOVE_TEXT_SEARCH_ATTRIBUTES</see>:</term>
+        ///         <description>remove text_search attribute from all columns,
+        /// if exists.</description>
+        ///     </item>
         /// </list>  </param>
         /// <param name="_value">The value of the modification. May be a column
         /// name, 'true' or 'false', a TTL, or the global access mode depending
@@ -2550,6 +2556,25 @@ namespace kinetica
         ///         <term><see
         /// cref="AlterTableRequest.Options.FALSE">FALSE</see>:</term>
         ///         <description>false</description>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="AlterTableRequest.Options.TRUE">TRUE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterTableRequest.Options.UPDATE_LAST_ACCESS_TIME">UPDATE_LAST_ACCESS_TIME</see>:</term>
+        ///         <description>Indicates whether need to update the
+        /// last_access_time.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterTableRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterTableRequest.Options.FALSE">FALSE</see></term>
         ///     </item>
         /// </list>
         /// The default value is <see
@@ -2748,13 +2773,12 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="AppendRecordsRequest.Options.ORDER_BY">ORDER_BY</see>:</term>
-        ///         <description>Comma-separated list of the columns to be
-        /// sorted from source table (specified by <paramref
-        /// cref="AppendRecordsRequest.source_table_name" />) by; e.g.
-        /// 'timestamp asc, x desc'.  The columns specified must be present in
-        /// <paramref cref="AppendRecordsRequest.field_map" />.  If any alias
-        /// is given for any column name, the alias must be used, rather than
-        /// the original column name.</description>
+        ///         <description>Comma-separated list of the columns and
+        /// expressions to be sorted by from the source table (specified by
+        /// <paramref cref="AppendRecordsRequest.source_table_name" />); e.g.
+        /// 'timestamp asc, x desc'.  The <i>order_by</i> columns do not have
+        /// to be present in <paramref cref="AppendRecordsRequest.field_map"
+        /// />.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -3774,7 +3798,7 @@ namespace kinetica
         /// operation.</returns>
         /// 
         public CreateRoleResponse createRole( string name,
-                                              IDictionary<string, string> options )
+                                              IDictionary<string, string> options = null )
         {
             return createRole( new CreateRoleRequest( name, options ) );
         }
@@ -4579,15 +4603,15 @@ namespace kinetica
         /// href="../../concepts/unions.html#limitations-and-cautions"
         /// target="_top">Union Limitations and Cautions</a>.
         /// <br />
-        /// INTERSECT (DISTINCT) - For data set intersection details and
+        /// INTERSECT (DISTINCT/ALL) - For data set intersection details and
         /// examples, see <a href="../../concepts/intersect.html"
         /// target="_top">Intersect</a>.  For limitations, see <a
         /// href="../../concepts/intersect.html#limitations"
         /// target="_top">Intersect Limitations</a>.
         /// <br />
-        /// EXCEPT (DISTINCT) - For data set subtraction details and examples,
-        /// see <a href="../../concepts/except.html" target="_top">Except</a>.
-        /// For limitations, see <a
+        /// EXCEPT (DISTINCT/ALL) - For data set subtraction details and
+        /// examples, see <a href="../../concepts/except.html"
+        /// target="_top">Except</a>.  For limitations, see <a
         /// href="../../concepts/except.html#limitations" target="_top">Except
         /// Limitations</a>.
         /// <br />
@@ -4627,15 +4651,15 @@ namespace kinetica
         /// href="../../concepts/unions.html#limitations-and-cautions"
         /// target="_top">Union Limitations and Cautions</a>.
         /// <br />
-        /// INTERSECT (DISTINCT) - For data set intersection details and
+        /// INTERSECT (DISTINCT/ALL) - For data set intersection details and
         /// examples, see <a href="../../concepts/intersect.html"
         /// target="_top">Intersect</a>.  For limitations, see <a
         /// href="../../concepts/intersect.html#limitations"
         /// target="_top">Intersect Limitations</a>.
         /// <br />
-        /// EXCEPT (DISTINCT) - For data set subtraction details and examples,
-        /// see <a href="../../concepts/except.html" target="_top">Except</a>.
-        /// For limitations, see <a
+        /// EXCEPT (DISTINCT/ALL) - For data set subtraction details and
+        /// examples, see <a href="../../concepts/except.html"
+        /// target="_top">Except</a>.  For limitations, see <a
         /// href="../../concepts/except.html#limitations" target="_top">Except
         /// Limitations</a>.
         /// <br />
@@ -5263,8 +5287,10 @@ namespace kinetica
         /// 
         /// <param name="table_name">Name of the table to filter.  This may be
         /// the ID of a collection, table or a result set (for chaining
-        /// queries).  Collections may be filtered only if all tables within
-        /// the collection have the same type ID.  </param>
+        /// queries). If filtering a collection, all child tables where the
+        /// filter expression is valid will be filtered; the filtered result
+        /// tables will then be placed in a collection specified by <paramref
+        /// cref="FilterRequest.view_name" />.  </param>
         /// <param name="view_name">If provided, then this will be the name of
         /// the view containing the results. Has the same naming restrictions
         /// as <a href="../../concepts/tables.html" target="_top">tables</a>.
@@ -5345,8 +5371,10 @@ namespace kinetica
         /// 
         /// <param name="table_name">Name of the table to filter.  This may be
         /// the name of a collection, a table or a view (when chaining
-        /// queries).  Collections may be filtered only if all tables within
-        /// the collection have the same type ID.  </param>
+        /// queries). If filtering a collection, all child tables where the
+        /// filter expression is valid will be filtered; the filtered result
+        /// tables will then be placed in a collection specified by <paramref
+        /// cref="FilterByAreaRequest.view_name" />.  </param>
         /// <param name="view_name">If provided, then this will be the name of
         /// the view containing the results. Has the same naming restrictions
         /// as <a href="../../concepts/tables.html" target="_top">tables</a>.
@@ -5424,8 +5452,10 @@ namespace kinetica
         /// 
         /// <param name="table_name">Name of the table to filter.  This may be
         /// the name of a collection, a table or a view (when chaining
-        /// queries).  Collections may be filtered only if all tables within
-        /// the collection have the same type ID.  </param>
+        /// queries).  If filtering a collection, all child tables where the
+        /// filter expression is valid will be filtered; the filtered result
+        /// tables will then be placed in a collection specified by <paramref
+        /// cref="FilterByAreaGeometryRequest.view_name" />.  </param>
         /// <param name="view_name">If provided, then this will be the name of
         /// the view containing the results. Must not be an already existing
         /// collection, table or view.  </param>
@@ -5810,8 +5840,10 @@ namespace kinetica
         /// 
         /// <param name="table_name">Name of the table to filter.  This may be
         /// the ID of a collection, table or a result set (for chaining
-        /// queries).  Collections may be filtered only if all tables within
-        /// the collection have the same type ID.  </param>
+        /// queries). If filtering a collection, all child tables where the
+        /// filter expression is valid will be filtered; the filtered result
+        /// tables will then be placed in a collection specified by <paramref
+        /// cref="FilterByListRequest.view_name" />.  </param>
         /// <param name="view_name">If provided, then this will be the name of
         /// the view containing the results. Has the same naming restrictions
         /// as <a href="../../concepts/tables.html" target="_top">tables</a>.
@@ -6891,8 +6923,9 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="GetRecordsByColumnRequest.Options.SORT_BY">SORT_BY</see>:</term>
-        ///         <description>Optional column that the data should be sorted
-        /// by. Empty by default (i.e. no sorting is applied).</description>
+        ///         <description>Optional column(s) that the data should be
+        /// sorted by. Empty by default (i.e. no sorting is
+        /// applied).</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -6918,11 +6951,26 @@ namespace kinetica
         ///         <term><see
         /// cref="GetRecordsByColumnRequest.Options.ORDER_BY">ORDER_BY</see>:</term>
         ///         <description>Comma-separated list of the columns to be
-        /// sorted by; e.g. 'timestamp asc, x desc'.  The columns specified
-        /// must be present in <paramref
-        /// cref="GetRecordsByColumnRequest.column_names" />.  If any alias is
-        /// given for any column name, the alias must be used, rather than the
-        /// original column name.</description>
+        /// sorted by; e.g. 'timestamp asc, x desc'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="GetRecordsByColumnRequest.Options.CONVERT_WKTS_TO_WKBS">CONVERT_WKTS_TO_WKBS</see>:</term>
+        ///         <description>If true, then WKT string columns will be
+        /// returned as WKB bytes.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="GetRecordsByColumnRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="GetRecordsByColumnRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="GetRecordsByColumnRequest.Options.FALSE">FALSE</see>.</description>
         ///     </item>
         /// </list>
         ///   </param>
@@ -7421,10 +7469,7 @@ namespace kinetica
         /// exists.
         /// <br />
         /// The <i>return_record_ids</i> option indicates that the database
-        /// should return the unique identifiers of inserted records.
-        /// <br />
-        /// The <i>route_to_address</i> option directs that inserted records
-        /// should be targeted for a particular database node.</summary>
+        /// should return the unique identifiers of inserted records.</summary>
         /// 
         /// <param name="request_">Request object containing the parameters for
         /// the operation.</param>
@@ -7457,10 +7502,7 @@ namespace kinetica
         /// exists.
         /// <br />
         /// The <i>return_record_ids</i> option indicates that the database
-        /// should return the unique identifiers of inserted records.
-        /// <br />
-        /// The <i>route_to_address</i> option directs that inserted records
-        /// should be targeted for a particular database node.</summary>
+        /// should return the unique identifiers of inserted records.</summary>
         /// 
         /// <typeparam name="T">The type of object being added.</typeparam>
         /// 
@@ -7499,10 +7541,7 @@ namespace kinetica
         /// exists.
         /// <br />
         /// The <i>return_record_ids</i> option indicates that the database
-        /// should return the unique identifiers of inserted records.
-        /// <br />
-        /// The <i>route_to_address</i> option directs that inserted records
-        /// should be targeted for a particular database node.</summary>
+        /// should return the unique identifiers of inserted records.</summary>
         /// 
         /// <typeparam name="T">The type of object being added.</typeparam>
         /// 
@@ -7560,12 +7599,6 @@ namespace kinetica
         /// </list>
         /// The default value is <see
         /// cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="RawInsertRecordsRequest.Options.ROUTE_TO_ADDRESS">ROUTE_TO_ADDRESS</see>:</term>
-        ///         <description>Route to a specific rank/tom. Option not
-        /// suitable for tables using primary/shard keys</description>
         ///     </item>
         /// </list>
         ///   </param>
@@ -9043,7 +9076,29 @@ namespace kinetica
         /// /create/type.  </param>
         /// <param name="label">Option string that was supplied by user in a
         /// call to /create/type.  </param>
-        /// <param name="options">Optional parameters.  </param>
+        /// <param name="options">Optional parameters.
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="ShowTypesRequest.Options.NO_JOIN_TYPES">NO_JOIN_TYPES</see>:</term>
+        ///         <description>When set to 'true', no join types will be
+        /// included.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="ShowTypesRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ShowTypesRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="ShowTypesRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        /// </list>
+        ///   </param>
         /// 
         /// <returns>Response object containing the result of the
         /// operation.</returns>
@@ -9221,6 +9276,27 @@ namespace kinetica
         ///         <description>Can be used to customize behavior when the
         /// updated primary key value already exists as described in
         /// /insert/records.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="RawUpdateRecordsRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="RawUpdateRecordsRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="RawUpdateRecordsRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="RawUpdateRecordsRequest.Options.USE_EXPRESSIONS_IN_NEW_VALUES_MAPS">USE_EXPRESSIONS_IN_NEW_VALUES_MAPS</see>:</term>
+        ///         <description>When set to 'true', all new_values in
+        /// new_values_maps are considered as expression values. When set to
+        /// 'false', all new_values in new_values_maps are considered as
+        /// constants.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -9766,10 +9842,10 @@ namespace kinetica
         /// 
         /// <param name="table_name">Name of the table containing the data to
         /// be drawn as a chart.  </param>
-        /// <param name="x_column_name">Name of the column containing the data
-        /// mapped to the x axis of a chart.  </param>
-        /// <param name="y_column_name">Name of the column containing the data
-        /// mapped to the y axis of a chart.  </param>
+        /// <param name="x_column_names">Names of the columns containing the
+        /// data mapped to the x axis of a chart.  </param>
+        /// <param name="y_column_names">Names of the columns containing the
+        /// data mapped to the y axis of a chart.  </param>
         /// <param name="min_x">Lower bound for the x column values. For
         /// non-numeric x column, each x column item is mapped to an integral
         /// value starting from 0.  </param>
@@ -9896,6 +9972,50 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
+        /// cref="VisualizeImageChartRequest.StyleOptions.SCALE_TYPE_X">SCALE_TYPE_X</see>:</term>
+        ///         <description>Type of x axis scale.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageChartRequest.StyleOptions.NONE">NONE</see>:</term>
+        ///         <description>No scale is applied to the x
+        /// axis.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageChartRequest.StyleOptions.LOG">LOG</see>:</term>
+        ///         <description>A base-10 log scale is applied to the x
+        /// axis.</description>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="VisualizeImageChartRequest.StyleOptions.NONE">NONE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageChartRequest.StyleOptions.SCALE_TYPE_Y">SCALE_TYPE_Y</see>:</term>
+        ///         <description>Type of y axis scale.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageChartRequest.StyleOptions.NONE">NONE</see>:</term>
+        ///         <description>No scale is applied to the y
+        /// axis.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageChartRequest.StyleOptions.LOG">LOG</see>:</term>
+        ///         <description>A base-10 log scale is applied to the y
+        /// axis.</description>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="VisualizeImageChartRequest.StyleOptions.NONE">NONE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="VisualizeImageChartRequest.StyleOptions.JITTER_X">JITTER_X</see>:</term>
         ///         <description>Amplitude of horizontal jitter applied to
         /// non-numaric x column values.</description>
@@ -9921,8 +10041,8 @@ namespace kinetica
         /// operation.</returns>
         /// 
         public VisualizeImageChartResponse visualizeImageChart( string table_name,
-                                                                string x_column_name,
-                                                                string y_column_name,
+                                                                IList<string> x_column_names,
+                                                                IList<string> y_column_names,
                                                                 double min_x,
                                                                 double max_x,
                                                                 double min_y,
@@ -9934,8 +10054,8 @@ namespace kinetica
                                                                 IDictionary<string, string> options = null )
         {
             return visualizeImageChart( new VisualizeImageChartRequest( table_name,
-                                                                        x_column_name,
-                                                                        y_column_name,
+                                                                        x_column_names,
+                                                                        y_column_names,
                                                                         min_x, max_x,
                                                                         min_y, max_y,
                                                                         width, height,
@@ -10547,7 +10667,17 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
+        /// cref="VisualizeImageContourRequest.Options.ADJUST_LEVELS">ADJUST_LEVELS</see>:</term>
+        ///         <description></description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="VisualizeImageContourRequest.Options.SEARCH_RADIUS">SEARCH_RADIUS</see>:</term>
+        ///         <description></description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.Options.MAX_SEARCH_CELLS">MAX_SEARCH_CELLS</see>:</term>
         ///         <description></description>
         ///     </item>
         ///     <item>
@@ -10572,6 +10702,10 @@ namespace kinetica
         ///         <term><see
         /// cref="VisualizeImageContourRequest.Options.PASS_THROUGH">PASS_THROUGH</see></term>
         ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.Options.FILL_RATIO">FILL_RATIO</see></term>
+        ///     </item>
         /// </list>
         /// The default value is <see
         /// cref="VisualizeImageContourRequest.Options.INV_DST_POW">INV_DST_POW</see>.</description>
@@ -10583,12 +10717,32 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="VisualizeImageContourRequest.Options.GRID_ROWS">GRID_ROWS</see>:</term>
+        /// cref="VisualizeImageContourRequest.Options.GRID_SIZE">GRID_SIZE</see>:</term>
         ///         <description></description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="VisualizeImageContourRequest.Options.GRID_COLUMNS">GRID_COLUMNS</see>:</term>
+        /// cref="VisualizeImageContourRequest.Options.ADJUST_GRID">ADJUST_GRID</see>:</term>
+        ///         <description></description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.Options.ADJUST_GRID_NEIGH">ADJUST_GRID_NEIGH</see>:</term>
+        ///         <description></description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.Options.ADJUST_GRID_SIZE">ADJUST_GRID_SIZE</see>:</term>
+        ///         <description></description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.Options.MAX_GRID_SIZE">MAX_GRID_SIZE</see>:</term>
+        ///         <description></description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.Options.MIN_GRID_SIZE">MIN_GRID_SIZE</see>:</term>
         ///         <description></description>
         ///     </item>
         ///     <item>
@@ -10614,7 +10768,7 @@ namespace kinetica
                                                                     int height,
                                                                     string projection,
                                                                     IDictionary<string, string> style_options,
-                                                                    IDictionary<string, string> options )
+                                                                    IDictionary<string, string> options = null )
         {
             return visualizeImageContour( new VisualizeImageContourRequest( table_names,
                                                                             x_column_name,

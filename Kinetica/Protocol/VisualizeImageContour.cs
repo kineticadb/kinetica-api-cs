@@ -242,7 +242,17 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
+        /// cref="VisualizeImageContourRequest.Options.ADJUST_LEVELS">ADJUST_LEVELS</see>:</term>
+        ///         <description></description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="VisualizeImageContourRequest.Options.SEARCH_RADIUS">SEARCH_RADIUS</see>:</term>
+        ///         <description></description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.Options.MAX_SEARCH_CELLS">MAX_SEARCH_CELLS</see>:</term>
         ///         <description></description>
         ///     </item>
         ///     <item>
@@ -267,6 +277,10 @@ namespace kinetica
         ///         <term><see
         /// cref="VisualizeImageContourRequest.Options.PASS_THROUGH">PASS_THROUGH</see></term>
         ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.Options.FILL_RATIO">FILL_RATIO</see></term>
+        ///     </item>
         /// </list>
         /// The default value is <see
         /// cref="VisualizeImageContourRequest.Options.INV_DST_POW">INV_DST_POW</see>.</description>
@@ -278,12 +292,32 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="VisualizeImageContourRequest.Options.GRID_ROWS">GRID_ROWS</see>:</term>
+        /// cref="VisualizeImageContourRequest.Options.GRID_SIZE">GRID_SIZE</see>:</term>
         ///         <description></description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="VisualizeImageContourRequest.Options.GRID_COLUMNS">GRID_COLUMNS</see>:</term>
+        /// cref="VisualizeImageContourRequest.Options.ADJUST_GRID">ADJUST_GRID</see>:</term>
+        ///         <description></description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.Options.ADJUST_GRID_NEIGH">ADJUST_GRID_NEIGH</see>:</term>
+        ///         <description></description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.Options.ADJUST_GRID_SIZE">ADJUST_GRID_SIZE</see>:</term>
+        ///         <description></description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.Options.MAX_GRID_SIZE">MAX_GRID_SIZE</see>:</term>
+        ///         <description></description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.Options.MIN_GRID_SIZE">MIN_GRID_SIZE</see>:</term>
         ///         <description></description>
         ///     </item>
         ///     <item>
@@ -300,7 +334,9 @@ namespace kinetica
             public const string MIN_LEVEL = "min_level";
             public const string MAX_LEVEL = "max_level";
             public const string NUM_LEVELS = "num_levels";
+            public const string ADJUST_LEVELS = "adjust_levels";
             public const string SEARCH_RADIUS = "search_radius";
+            public const string MAX_SEARCH_CELLS = "max_search_cells";
 
             /// <summary>
             /// Supported values:
@@ -321,6 +357,10 @@ namespace kinetica
             ///         <term><see
             /// cref="VisualizeImageContourRequest.Options.PASS_THROUGH">PASS_THROUGH</see></term>
             ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="VisualizeImageContourRequest.Options.FILL_RATIO">FILL_RATIO</see></term>
+            ///     </item>
             /// </list>
             /// The default value is <see
             /// cref="VisualizeImageContourRequest.Options.INV_DST_POW">INV_DST_POW</see>.</summary>
@@ -329,9 +369,14 @@ namespace kinetica
             public const string MIN_CURV = "MIN_CURV";
             public const string KRIGING = "KRIGING";
             public const string PASS_THROUGH = "PASS_THROUGH";
+            public const string FILL_RATIO = "FILL_RATIO";
             public const string SMOOTHING_FACTOR = "smoothing_factor";
-            public const string GRID_ROWS = "grid_rows";
-            public const string GRID_COLUMNS = "grid_columns";
+            public const string GRID_SIZE = "grid_size";
+            public const string ADJUST_GRID = "adjust_grid";
+            public const string ADJUST_GRID_NEIGH = "adjust_grid_neigh";
+            public const string ADJUST_GRID_SIZE = "adjust_grid_size";
+            public const string MAX_GRID_SIZE = "max_grid_size";
+            public const string MIN_GRID_SIZE = "min_grid_size";
             public const string RENDER_OUTPUT_GRID = "render_output_grid";
         } // end struct Options
 
@@ -484,7 +529,17 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
+        /// cref="VisualizeImageContourRequest.Options.ADJUST_LEVELS">ADJUST_LEVELS</see>:</term>
+        ///         <description></description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="VisualizeImageContourRequest.Options.SEARCH_RADIUS">SEARCH_RADIUS</see>:</term>
+        ///         <description></description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.Options.MAX_SEARCH_CELLS">MAX_SEARCH_CELLS</see>:</term>
         ///         <description></description>
         ///     </item>
         ///     <item>
@@ -509,6 +564,10 @@ namespace kinetica
         ///         <term><see
         /// cref="VisualizeImageContourRequest.Options.PASS_THROUGH">PASS_THROUGH</see></term>
         ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.Options.FILL_RATIO">FILL_RATIO</see></term>
+        ///     </item>
         /// </list>
         /// The default value is <see
         /// cref="VisualizeImageContourRequest.Options.INV_DST_POW">INV_DST_POW</see>.</description>
@@ -520,12 +579,32 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="VisualizeImageContourRequest.Options.GRID_ROWS">GRID_ROWS</see>:</term>
+        /// cref="VisualizeImageContourRequest.Options.GRID_SIZE">GRID_SIZE</see>:</term>
         ///         <description></description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="VisualizeImageContourRequest.Options.GRID_COLUMNS">GRID_COLUMNS</see>:</term>
+        /// cref="VisualizeImageContourRequest.Options.ADJUST_GRID">ADJUST_GRID</see>:</term>
+        ///         <description></description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.Options.ADJUST_GRID_NEIGH">ADJUST_GRID_NEIGH</see>:</term>
+        ///         <description></description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.Options.ADJUST_GRID_SIZE">ADJUST_GRID_SIZE</see>:</term>
+        ///         <description></description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.Options.MAX_GRID_SIZE">MAX_GRID_SIZE</see>:</term>
+        ///         <description></description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.Options.MIN_GRID_SIZE">MIN_GRID_SIZE</see>:</term>
         ///         <description></description>
         ///     </item>
         ///     <item>
@@ -689,7 +768,17 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
+        /// cref="VisualizeImageContourRequest.Options.ADJUST_LEVELS">ADJUST_LEVELS</see>:</term>
+        ///         <description></description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="VisualizeImageContourRequest.Options.SEARCH_RADIUS">SEARCH_RADIUS</see>:</term>
+        ///         <description></description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.Options.MAX_SEARCH_CELLS">MAX_SEARCH_CELLS</see>:</term>
         ///         <description></description>
         ///     </item>
         ///     <item>
@@ -714,6 +803,10 @@ namespace kinetica
         ///         <term><see
         /// cref="VisualizeImageContourRequest.Options.PASS_THROUGH">PASS_THROUGH</see></term>
         ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.Options.FILL_RATIO">FILL_RATIO</see></term>
+        ///     </item>
         /// </list>
         /// The default value is <see
         /// cref="VisualizeImageContourRequest.Options.INV_DST_POW">INV_DST_POW</see>.</description>
@@ -725,12 +818,32 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="VisualizeImageContourRequest.Options.GRID_ROWS">GRID_ROWS</see>:</term>
+        /// cref="VisualizeImageContourRequest.Options.GRID_SIZE">GRID_SIZE</see>:</term>
         ///         <description></description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="VisualizeImageContourRequest.Options.GRID_COLUMNS">GRID_COLUMNS</see>:</term>
+        /// cref="VisualizeImageContourRequest.Options.ADJUST_GRID">ADJUST_GRID</see>:</term>
+        ///         <description></description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.Options.ADJUST_GRID_NEIGH">ADJUST_GRID_NEIGH</see>:</term>
+        ///         <description></description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.Options.ADJUST_GRID_SIZE">ADJUST_GRID_SIZE</see>:</term>
+        ///         <description></description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.Options.MAX_GRID_SIZE">MAX_GRID_SIZE</see>:</term>
+        ///         <description></description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.Options.MIN_GRID_SIZE">MIN_GRID_SIZE</see>:</term>
         ///         <description></description>
         ///     </item>
         ///     <item>
@@ -753,7 +866,7 @@ namespace kinetica
                                              int height,
                                              string projection,
                                              IDictionary<string, string> style_options,
-                                             IDictionary<string, string> options)
+                                             IDictionary<string, string> options = null)
         {
             this.table_names = table_names ?? new List<string>();
             this.x_column_name = x_column_name ?? "";
@@ -786,6 +899,11 @@ namespace kinetica
         public long bg_color { get; set; }
         public byte[] image_data { get; set; }
         public byte[] grid_data { get; set; }
+        public double fill_n0 { get; set; }
+        public double fill_nn { get; set; }
+        public double min_level { get; set; }
+        public double max_level { get; set; }
+        public long samples_used { get; set; }
 
     } // end class VisualizeImageContourResponse
     /// @endcond

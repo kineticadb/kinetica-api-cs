@@ -229,6 +229,12 @@ namespace kinetica
         /// target="_top">materialized view</a>.  Also, sets the refresh method
         /// to periodic if not alreay set.</description>
         ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterTableRequest.Action.REMOVE_TEXT_SEARCH_ATTRIBUTES">REMOVE_TEXT_SEARCH_ATTRIBUTES</see>:</term>
+        ///         <description>remove text_search attribute from all columns,
+        /// if exists.</description>
+        ///     </item>
         /// </list>
         /// A set of string constants for the parameter <see cref="action"
         /// />.</summary>
@@ -357,6 +363,10 @@ namespace kinetica
             /// target="_top">materialized view</a>.  Also, sets the refresh
             /// method to periodic if not alreay set.</summary>
             public const string SET_REFRESH_PERIOD = "set_refresh_period";
+
+            /// <summary>remove text_search attribute from all columns, if
+            /// exists.</summary>
+            public const string REMOVE_TEXT_SEARCH_ATTRIBUTES = "remove_text_search_attributes";
         } // end struct Action
 
 
@@ -450,6 +460,25 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
+        /// cref="AlterTableRequest.Options.UPDATE_LAST_ACCESS_TIME">UPDATE_LAST_ACCESS_TIME</see>:</term>
+        ///         <description>Indicates whether need to update the
+        /// last_access_time.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterTableRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterTableRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="AlterTableRequest.Options.TRUE">TRUE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="AlterTableRequest.Options.ADD_COLUMN_EXPRESSION">ADD_COLUMN_EXPRESSION</see>:</term>
         ///         <description>expression for new column's values (optional
         /// with add_column). Any valid expressions including existing
@@ -536,12 +565,24 @@ namespace kinetica
             /// The default value is <see
             /// cref="AlterTableRequest.Options.TRUE">TRUE</see>.</summary>
             public const string VALIDATE_CHANGE_COLUMN = "validate_change_column";
-
-            /// <summary>true</summary>
             public const string TRUE = "true";
-
-            /// <summary>false</summary>
             public const string FALSE = "false";
+
+            /// <summary>Indicates whether need to update the last_access_time.
+            /// Supported values:
+            /// <list type="bullet">
+            ///     <item>
+            ///         <term><see
+            /// cref="AlterTableRequest.Options.TRUE">TRUE</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="AlterTableRequest.Options.FALSE">FALSE</see></term>
+            ///     </item>
+            /// </list>
+            /// The default value is <see
+            /// cref="AlterTableRequest.Options.TRUE">TRUE</see>.</summary>
+            public const string UPDATE_LAST_ACCESS_TIME = "update_last_access_time";
 
             /// <summary>expression for new column's values (optional with
             /// add_column). Any valid expressions including existing
@@ -725,6 +766,12 @@ namespace kinetica
         /// target="_top">materialized view</a>.  Also, sets the refresh method
         /// to periodic if not alreay set.</description>
         ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterTableRequest.Action.REMOVE_TEXT_SEARCH_ATTRIBUTES">REMOVE_TEXT_SEARCH_ATTRIBUTES</see>:</term>
+        ///         <description>remove text_search attribute from all columns,
+        /// if exists.</description>
+        ///     </item>
         /// </list>  </summary>
         public string action { get; set; }
 
@@ -816,6 +863,25 @@ namespace kinetica
         ///         <term><see
         /// cref="AlterTableRequest.Options.FALSE">FALSE</see>:</term>
         ///         <description>false</description>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="AlterTableRequest.Options.TRUE">TRUE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterTableRequest.Options.UPDATE_LAST_ACCESS_TIME">UPDATE_LAST_ACCESS_TIME</see>:</term>
+        ///         <description>Indicates whether need to update the
+        /// last_access_time.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterTableRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterTableRequest.Options.FALSE">FALSE</see></term>
         ///     </item>
         /// </list>
         /// The default value is <see
@@ -1014,6 +1080,12 @@ namespace kinetica
         /// target="_top">materialized view</a>.  Also, sets the refresh method
         /// to periodic if not alreay set.</description>
         ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterTableRequest.Action.REMOVE_TEXT_SEARCH_ATTRIBUTES">REMOVE_TEXT_SEARCH_ATTRIBUTES</see>:</term>
+        ///         <description>remove text_search attribute from all columns,
+        /// if exists.</description>
+        ///     </item>
         /// </list>  </param>
         /// <param name="_value">The value of the modification. May be a column
         /// name, 'true' or 'false', a TTL, or the global access mode depending
@@ -1101,6 +1173,25 @@ namespace kinetica
         ///         <term><see
         /// cref="AlterTableRequest.Options.FALSE">FALSE</see>:</term>
         ///         <description>false</description>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="AlterTableRequest.Options.TRUE">TRUE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterTableRequest.Options.UPDATE_LAST_ACCESS_TIME">UPDATE_LAST_ACCESS_TIME</see>:</term>
+        ///         <description>Indicates whether need to update the
+        /// last_access_time.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterTableRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterTableRequest.Options.FALSE">FALSE</see></term>
         ///     </item>
         /// </list>
         /// The default value is <see

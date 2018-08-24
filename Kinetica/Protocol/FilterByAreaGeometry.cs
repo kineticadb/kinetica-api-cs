@@ -51,9 +51,11 @@ namespace kinetica
 
 
         /// <summary>Name of the table to filter.  This may be the name of a
-        /// collection, a table or a view (when chaining queries).  Collections
-        /// may be filtered only if all tables within the collection have the
-        /// same type ID.  </summary>
+        /// collection, a table or a view (when chaining queries).  If
+        /// filtering a collection, all child tables where the filter
+        /// expression is valid will be filtered; the filtered result tables
+        /// will then be placed in a collection specified by <paramref
+        /// cref="FilterByAreaGeometryRequest.view_name" />.  </summary>
         public string table_name { get; set; }
 
         /// <summary>If provided, then this will be the name of the view
@@ -97,8 +99,10 @@ namespace kinetica
         /// 
         /// <param name="table_name">Name of the table to filter.  This may be
         /// the name of a collection, a table or a view (when chaining
-        /// queries).  Collections may be filtered only if all tables within
-        /// the collection have the same type ID.  </param>
+        /// queries).  If filtering a collection, all child tables where the
+        /// filter expression is valid will be filtered; the filtered result
+        /// tables will then be placed in a collection specified by <paramref
+        /// cref="FilterByAreaGeometryRequest.view_name" />.  </param>
         /// <param name="view_name">If provided, then this will be the name of
         /// the view containing the results. Must not be an already existing
         /// collection, table or view.  </param>

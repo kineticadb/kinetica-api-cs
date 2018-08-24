@@ -54,13 +54,12 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="AppendRecordsRequest.Options.ORDER_BY">ORDER_BY</see>:</term>
-        ///         <description>Comma-separated list of the columns to be
-        /// sorted from source table (specified by <paramref
-        /// cref="AppendRecordsRequest.source_table_name" />) by; e.g.
-        /// 'timestamp asc, x desc'.  The columns specified must be present in
-        /// <paramref cref="AppendRecordsRequest.field_map" />.  If any alias
-        /// is given for any column name, the alias must be used, rather than
-        /// the original column name.</description>
+        ///         <description>Comma-separated list of the columns and
+        /// expressions to be sorted by from the source table (specified by
+        /// <paramref cref="AppendRecordsRequest.source_table_name" />); e.g.
+        /// 'timestamp asc, x desc'.  The <i>order_by</i> columns do not have
+        /// to be present in <paramref cref="AppendRecordsRequest.field_map"
+        /// />.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -117,12 +116,11 @@ namespace kinetica
             /// default.</summary>
             public const string EXPRESSION = "expression";
 
-            /// <summary>Comma-separated list of the columns to be sorted from
-            /// source table (specified by <see cref="source_table_name" />)
-            /// by; e.g. 'timestamp asc, x desc'.  The columns specified must
-            /// be present in <see cref="field_map" />.  If any alias is given
-            /// for any column name, the alias must be used, rather than the
-            /// original column name.</summary>
+            /// <summary>Comma-separated list of the columns and expressions to
+            /// be sorted by from the source table (specified by <see
+            /// cref="source_table_name" />); e.g. 'timestamp asc, x desc'.
+            /// The <i>order_by</i> columns do not have to be present in <see
+            /// cref="field_map" />.</summary>
             public const string ORDER_BY = "order_by";
 
             /// <summary>Specifies the record collision policy for inserting
@@ -207,13 +205,12 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="AppendRecordsRequest.Options.ORDER_BY">ORDER_BY</see>:</term>
-        ///         <description>Comma-separated list of the columns to be
-        /// sorted from source table (specified by <paramref
-        /// cref="AppendRecordsRequest.source_table_name" />) by; e.g.
-        /// 'timestamp asc, x desc'.  The columns specified must be present in
-        /// <paramref cref="AppendRecordsRequest.field_map" />.  If any alias
-        /// is given for any column name, the alias must be used, rather than
-        /// the original column name.</description>
+        ///         <description>Comma-separated list of the columns and
+        /// expressions to be sorted by from the source table (specified by
+        /// <paramref cref="AppendRecordsRequest.source_table_name" />); e.g.
+        /// 'timestamp asc, x desc'.  The <i>order_by</i> columns do not have
+        /// to be present in <paramref cref="AppendRecordsRequest.field_map"
+        /// />.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -303,13 +300,12 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="AppendRecordsRequest.Options.ORDER_BY">ORDER_BY</see>:</term>
-        ///         <description>Comma-separated list of the columns to be
-        /// sorted from source table (specified by <paramref
-        /// cref="AppendRecordsRequest.source_table_name" />) by; e.g.
-        /// 'timestamp asc, x desc'.  The columns specified must be present in
-        /// <paramref cref="AppendRecordsRequest.field_map" />.  If any alias
-        /// is given for any column name, the alias must be used, rather than
-        /// the original column name.</description>
+        ///         <description>Comma-separated list of the columns and
+        /// expressions to be sorted by from the source table (specified by
+        /// <paramref cref="AppendRecordsRequest.source_table_name" />); e.g.
+        /// 'timestamp asc, x desc'.  The <i>order_by</i> columns do not have
+        /// to be present in <paramref cref="AppendRecordsRequest.field_map"
+        /// />.</description>
         ///     </item>
         ///     <item>
         ///         <term><see

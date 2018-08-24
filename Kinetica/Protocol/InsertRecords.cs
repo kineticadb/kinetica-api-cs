@@ -30,10 +30,7 @@ namespace kinetica
     /// key</a>, but is ignored if no primary key exists.
     /// <br />
     /// The <i>return_record_ids</i> option indicates that the database should
-    /// return the unique identifiers of inserted records.
-    /// <br />
-    /// The <i>route_to_address</i> option directs that inserted records should
-    /// be targeted for a particular database node.</summary>
+    /// return the unique identifiers of inserted records.</summary>
     public class RawInsertRecordsRequest : KineticaData
     {
 
@@ -108,12 +105,6 @@ namespace kinetica
         /// The default value is <see
         /// cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see>.</description>
         ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="RawInsertRecordsRequest.Options.ROUTE_TO_ADDRESS">ROUTE_TO_ADDRESS</see>:</term>
-        ///         <description>Route to a specific rank/tom. Option not
-        /// suitable for tables using primary/shard keys</description>
-        ///     </item>
         /// </list>
         /// <br />
         /// A set of string constants for the parameter <see cref="options"
@@ -165,10 +156,6 @@ namespace kinetica
             /// The default value is <see
             /// cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see>.</summary>
             public const string RETURN_RECORD_IDS = "return_record_ids";
-
-            /// <summary>Route to a specific rank/tom. Option not suitable for
-            /// tables using primary/shard keys</summary>
-            public const string ROUTE_TO_ADDRESS = "route_to_address";
         } // end struct Options
 
 
@@ -254,12 +241,6 @@ namespace kinetica
         /// The default value is <see
         /// cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see>.</description>
         ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="RawInsertRecordsRequest.Options.ROUTE_TO_ADDRESS">ROUTE_TO_ADDRESS</see>:</term>
-        ///         <description>Route to a specific rank/tom. Option not
-        /// suitable for tables using primary/shard keys</description>
-        ///     </item>
         /// </list>
         ///   </summary>
         public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
@@ -326,12 +307,6 @@ namespace kinetica
         /// </list>
         /// The default value is <see
         /// cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="RawInsertRecordsRequest.Options.ROUTE_TO_ADDRESS">ROUTE_TO_ADDRESS</see>:</term>
-        ///         <description>Route to a specific rank/tom. Option not
-        /// suitable for tables using primary/shard keys</description>
         ///     </item>
         /// </list>
         ///   </param>
@@ -427,12 +402,6 @@ namespace kinetica
         /// The default value is <see
         /// cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see>.</description>
         ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="RawInsertRecordsRequest.Options.ROUTE_TO_ADDRESS">ROUTE_TO_ADDRESS</see>:</term>
-        ///         <description>Route to a specific rank/tom. Option not
-        /// suitable for tables using primary/shard keys</description>
-        ///     </item>
         /// </list>
         ///   </param>
         /// 
@@ -472,10 +441,7 @@ namespace kinetica
     /// key</a>, but is ignored if no primary key exists.
     /// <br />
     /// The <i>return_record_ids</i> option indicates that the database should
-    /// return the unique identifiers of inserted records.
-    /// <br />
-    /// The <i>route_to_address</i> option directs that inserted records should
-    /// be targeted for a particular database node.</summary>
+    /// return the unique identifiers of inserted records.</summary>
     /// 
     /// <typeparam name="T">The type of object being processed.</typeparam>
     /// 
@@ -530,12 +496,6 @@ namespace kinetica
         /// The default value is <see
         /// cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see>.</description>
         ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="RawInsertRecordsRequest.Options.ROUTE_TO_ADDRESS">ROUTE_TO_ADDRESS</see>:</term>
-        ///         <description>Route to a specific rank/tom. Option not
-        /// suitable for tables using primary/shard keys</description>
-        ///     </item>
         /// </list>
         /// <br />
         /// A set of string constants for the parameter <see cref="options"
@@ -587,10 +547,6 @@ namespace kinetica
             /// The default value is <see
             /// cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see>.</summary>
             public const string RETURN_RECORD_IDS = "return_record_ids";
-
-            /// <summary>Route to a specific rank/tom. Option not suitable for
-            /// tables using primary/shard keys</summary>
-            public const string ROUTE_TO_ADDRESS = "route_to_address";
         } // end struct Options
 
 
@@ -652,12 +608,6 @@ namespace kinetica
         /// </list>
         /// The default value is <see
         /// cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="RawInsertRecordsRequest.Options.ROUTE_TO_ADDRESS">ROUTE_TO_ADDRESS</see>:</term>
-        ///         <description>Route to a specific rank/tom. Option not
-        /// suitable for tables using primary/shard keys</description>
         ///     </item>
         /// </list>
         ///   </summary>
@@ -725,12 +675,6 @@ namespace kinetica
         /// </list>
         /// The default value is <see
         /// cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="RawInsertRecordsRequest.Options.ROUTE_TO_ADDRESS">ROUTE_TO_ADDRESS</see>:</term>
-        ///         <description>Route to a specific rank/tom. Option not
-        /// suitable for tables using primary/shard keys</description>
         ///     </item>
         /// </list>
         ///   </param>

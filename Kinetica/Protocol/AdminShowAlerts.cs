@@ -54,7 +54,7 @@ namespace kinetica
         /// <param name="options">Optional parameters.  </param>
         /// 
         public AdminShowAlertsRequest( int num_alerts,
-                                       IDictionary<string, string> options)
+                                       IDictionary<string, string> options = null)
         {
             this.num_alerts = num_alerts;
             this.options = options ?? new Dictionary<string, string>();

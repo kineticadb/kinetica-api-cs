@@ -22,6 +22,54 @@ namespace kinetica
     public class ShowTypesRequest : KineticaData
     {
 
+        /// <summary>Optional parameters.
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="ShowTypesRequest.Options.NO_JOIN_TYPES">NO_JOIN_TYPES</see>:</term>
+        ///         <description>When set to 'true', no join types will be
+        /// included.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="ShowTypesRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ShowTypesRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="ShowTypesRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        /// </list>
+        /// <br />
+        /// A set of string constants for the parameter <see cref="options"
+        /// />.</summary>
+        public struct Options
+        {
+
+            /// <summary>When set to 'true', no join types will be included.
+            /// Supported values:
+            /// <list type="bullet">
+            ///     <item>
+            ///         <term><see
+            /// cref="ShowTypesRequest.Options.TRUE">TRUE</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="ShowTypesRequest.Options.FALSE">FALSE</see></term>
+            ///     </item>
+            /// </list>
+            /// The default value is <see
+            /// cref="ShowTypesRequest.Options.FALSE">FALSE</see>.</summary>
+            public const string NO_JOIN_TYPES = "no_join_types";
+            public const string TRUE = "true";
+            public const string FALSE = "false";
+        } // end struct Options
+
+
         /// <summary>Type Id returned in response to a call to /create/type.
         /// </summary>
         public string type_id { get; set; }
@@ -30,7 +78,29 @@ namespace kinetica
         /// /create/type.  </summary>
         public string label { get; set; }
 
-        /// <summary>Optional parameters.  </summary>
+        /// <summary>Optional parameters.
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="ShowTypesRequest.Options.NO_JOIN_TYPES">NO_JOIN_TYPES</see>:</term>
+        ///         <description>When set to 'true', no join types will be
+        /// included.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="ShowTypesRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ShowTypesRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="ShowTypesRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        /// </list>
+        ///   </summary>
         public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
 
 
@@ -45,7 +115,29 @@ namespace kinetica
         /// /create/type.  </param>
         /// <param name="label">Option string that was supplied by user in a
         /// call to /create/type.  </param>
-        /// <param name="options">Optional parameters.  </param>
+        /// <param name="options">Optional parameters.
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="ShowTypesRequest.Options.NO_JOIN_TYPES">NO_JOIN_TYPES</see>:</term>
+        ///         <description>When set to 'true', no join types will be
+        /// included.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="ShowTypesRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ShowTypesRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="ShowTypesRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        /// </list>
+        ///   </param>
         /// 
         public ShowTypesRequest( string type_id,
                                  string label,

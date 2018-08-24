@@ -120,6 +120,27 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
+        /// cref="RawUpdateRecordsRequest.Options.USE_EXPRESSIONS_IN_NEW_VALUES_MAPS">USE_EXPRESSIONS_IN_NEW_VALUES_MAPS</see>:</term>
+        ///         <description>When set to 'true', all new_values in
+        /// new_values_maps are considered as expression values. When set to
+        /// 'false', all new_values in new_values_maps are considered as
+        /// constants.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="RawUpdateRecordsRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="RawUpdateRecordsRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="RawUpdateRecordsRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="RawUpdateRecordsRequest.Options.RECORD_ID">RECORD_ID</see>:</term>
         ///         <description>ID of a single record to be updated (returned
         /// in the call to /insert/records or
@@ -179,6 +200,24 @@ namespace kinetica
             /// The default value is <see
             /// cref="RawUpdateRecordsRequest.Options.FALSE">FALSE</see>.</summary>
             public const string UPDATE_ON_EXISTING_PK = "update_on_existing_pk";
+
+            /// <summary>When set to 'true', all new_values in new_values_maps
+            /// are considered as expression values. When set to 'false', all
+            /// new_values in new_values_maps are considered as constants.
+            /// Supported values:
+            /// <list type="bullet">
+            ///     <item>
+            ///         <term><see
+            /// cref="RawUpdateRecordsRequest.Options.TRUE">TRUE</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="RawUpdateRecordsRequest.Options.FALSE">FALSE</see></term>
+            ///     </item>
+            /// </list>
+            /// The default value is <see
+            /// cref="RawUpdateRecordsRequest.Options.FALSE">FALSE</see>.</summary>
+            public const string USE_EXPRESSIONS_IN_NEW_VALUES_MAPS = "use_expressions_in_new_values_maps";
 
             /// <summary>ID of a single record to be updated (returned in the
             /// call to <see
@@ -293,6 +332,27 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
+        /// cref="RawUpdateRecordsRequest.Options.USE_EXPRESSIONS_IN_NEW_VALUES_MAPS">USE_EXPRESSIONS_IN_NEW_VALUES_MAPS</see>:</term>
+        ///         <description>When set to 'true', all new_values in
+        /// new_values_maps are considered as expression values. When set to
+        /// 'false', all new_values in new_values_maps are considered as
+        /// constants.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="RawUpdateRecordsRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="RawUpdateRecordsRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="RawUpdateRecordsRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="RawUpdateRecordsRequest.Options.RECORD_ID">RECORD_ID</see>:</term>
         ///         <description>ID of a single record to be updated (returned
         /// in the call to /insert/records or
@@ -364,6 +424,27 @@ namespace kinetica
         ///         <description>Can be used to customize behavior when the
         /// updated primary key value already exists as described in
         /// /insert/records.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="RawUpdateRecordsRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="RawUpdateRecordsRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="RawUpdateRecordsRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="RawUpdateRecordsRequest.Options.USE_EXPRESSIONS_IN_NEW_VALUES_MAPS">USE_EXPRESSIONS_IN_NEW_VALUES_MAPS</see>:</term>
+        ///         <description>When set to 'true', all new_values in
+        /// new_values_maps are considered as expression values. When set to
+        /// 'false', all new_values in new_values_maps are considered as
+        /// constants.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -499,6 +580,27 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
+        /// cref="RawUpdateRecordsRequest.Options.USE_EXPRESSIONS_IN_NEW_VALUES_MAPS">USE_EXPRESSIONS_IN_NEW_VALUES_MAPS</see>:</term>
+        ///         <description>When set to 'true', all new_values in
+        /// new_values_maps are considered as expression values. When set to
+        /// 'false', all new_values in new_values_maps are considered as
+        /// constants.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="RawUpdateRecordsRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="RawUpdateRecordsRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="RawUpdateRecordsRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="RawUpdateRecordsRequest.Options.RECORD_ID">RECORD_ID</see>:</term>
         ///         <description>ID of a single record to be updated (returned
         /// in the call to /insert/records or
@@ -614,6 +716,27 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
+        /// cref="RawUpdateRecordsRequest.Options.USE_EXPRESSIONS_IN_NEW_VALUES_MAPS">USE_EXPRESSIONS_IN_NEW_VALUES_MAPS</see>:</term>
+        ///         <description>When set to 'true', all new_values in
+        /// new_values_maps are considered as expression values. When set to
+        /// 'false', all new_values in new_values_maps are considered as
+        /// constants.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="RawUpdateRecordsRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="RawUpdateRecordsRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="RawUpdateRecordsRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="RawUpdateRecordsRequest.Options.RECORD_ID">RECORD_ID</see>:</term>
         ///         <description>ID of a single record to be updated (returned
         /// in the call to /insert/records or
@@ -673,6 +796,24 @@ namespace kinetica
             /// The default value is <see
             /// cref="RawUpdateRecordsRequest.Options.FALSE">FALSE</see>.</summary>
             public const string UPDATE_ON_EXISTING_PK = "update_on_existing_pk";
+
+            /// <summary>When set to 'true', all new_values in new_values_maps
+            /// are considered as expression values. When set to 'false', all
+            /// new_values in new_values_maps are considered as constants.
+            /// Supported values:
+            /// <list type="bullet">
+            ///     <item>
+            ///         <term><see
+            /// cref="RawUpdateRecordsRequest.Options.TRUE">TRUE</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="RawUpdateRecordsRequest.Options.FALSE">FALSE</see></term>
+            ///     </item>
+            /// </list>
+            /// The default value is <see
+            /// cref="RawUpdateRecordsRequest.Options.FALSE">FALSE</see>.</summary>
+            public const string USE_EXPRESSIONS_IN_NEW_VALUES_MAPS = "use_expressions_in_new_values_maps";
 
             /// <summary>ID of a single record to be updated (returned in the
             /// call to <see
@@ -762,6 +903,27 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
+        /// cref="RawUpdateRecordsRequest.Options.USE_EXPRESSIONS_IN_NEW_VALUES_MAPS">USE_EXPRESSIONS_IN_NEW_VALUES_MAPS</see>:</term>
+        ///         <description>When set to 'true', all new_values in
+        /// new_values_maps are considered as expression values. When set to
+        /// 'false', all new_values in new_values_maps are considered as
+        /// constants.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="RawUpdateRecordsRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="RawUpdateRecordsRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="RawUpdateRecordsRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="RawUpdateRecordsRequest.Options.RECORD_ID">RECORD_ID</see>:</term>
         ///         <description>ID of a single record to be updated (returned
         /// in the call to /insert/records or
@@ -833,6 +995,27 @@ namespace kinetica
         ///         <description>Can be used to customize behavior when the
         /// updated primary key value already exists as described in
         /// /insert/records.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="RawUpdateRecordsRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="RawUpdateRecordsRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="RawUpdateRecordsRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="RawUpdateRecordsRequest.Options.USE_EXPRESSIONS_IN_NEW_VALUES_MAPS">USE_EXPRESSIONS_IN_NEW_VALUES_MAPS</see>:</term>
+        ///         <description>When set to 'true', all new_values in
+        /// new_values_maps are considered as expression values. When set to
+        /// 'false', all new_values in new_values_maps are considered as
+        /// constants.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>

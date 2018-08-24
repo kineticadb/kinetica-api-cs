@@ -12,7 +12,7 @@ namespace kinetica
 {
 
     /// <summary>A set of parameters for <see
-    /// cref="Kinetica.visualizeImageChart(string,string,string,double,double,double,double,int,int,string,IDictionary{string, IList{string}},IDictionary{string, string})"
+    /// cref="Kinetica.visualizeImageChart(string,IList{string},IList{string},double,double,double,double,int,int,string,IDictionary{string, IList{string}},IDictionary{string, string})"
     /// />.
     /// <br />
     /// Scatter plot is the only plot type currently supported. A non-numeric
@@ -132,6 +132,50 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
+        /// cref="VisualizeImageChartRequest.StyleOptions.SCALE_TYPE_X">SCALE_TYPE_X</see>:</term>
+        ///         <description>Type of x axis scale.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageChartRequest.StyleOptions.NONE">NONE</see>:</term>
+        ///         <description>No scale is applied to the x
+        /// axis.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageChartRequest.StyleOptions.LOG">LOG</see>:</term>
+        ///         <description>A base-10 log scale is applied to the x
+        /// axis.</description>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="VisualizeImageChartRequest.StyleOptions.NONE">NONE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageChartRequest.StyleOptions.SCALE_TYPE_Y">SCALE_TYPE_Y</see>:</term>
+        ///         <description>Type of y axis scale.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageChartRequest.StyleOptions.NONE">NONE</see>:</term>
+        ///         <description>No scale is applied to the y
+        /// axis.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageChartRequest.StyleOptions.LOG">LOG</see>:</term>
+        ///         <description>A base-10 log scale is applied to the y
+        /// axis.</description>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="VisualizeImageChartRequest.StyleOptions.NONE">NONE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="VisualizeImageChartRequest.StyleOptions.JITTER_X">JITTER_X</see>:</term>
         ///         <description>Amplitude of horizontal jitter applied to
         /// non-numaric x column values.</description>
@@ -199,6 +243,8 @@ namespace kinetica
             /// The default value is <see
             /// cref="VisualizeImageChartRequest.StyleOptions.SQUARE">SQUARE</see>.</summary>
             public const string POINTSHAPE = "pointshape";
+
+            /// <summary>No scale is applied to the y axis.</summary>
             public const string NONE = "none";
             public const string CIRCLE = "circle";
             public const string SQUARE = "square";
@@ -249,6 +295,50 @@ namespace kinetica
             /// which defaults to "avg(price) ascending".</summary>
             public const string Y_ORDER_BY = "y_order_by";
 
+            /// <summary>Type of x axis scale.
+            /// Supported values:
+            /// <list type="bullet">
+            ///     <item>
+            ///         <term><see
+            /// cref="VisualizeImageChartRequest.StyleOptions.NONE">NONE</see>:</term>
+            ///         <description>No scale is applied to the x
+            /// axis.</description>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="VisualizeImageChartRequest.StyleOptions.LOG">LOG</see>:</term>
+            ///         <description>A base-10 log scale is applied to the x
+            /// axis.</description>
+            ///     </item>
+            /// </list>
+            /// The default value is <see
+            /// cref="VisualizeImageChartRequest.StyleOptions.NONE">NONE</see>.</summary>
+            public const string SCALE_TYPE_X = "scale_type_x";
+
+            /// <summary>A base-10 log scale is applied to the y
+            /// axis.</summary>
+            public const string LOG = "log";
+
+            /// <summary>Type of y axis scale.
+            /// Supported values:
+            /// <list type="bullet">
+            ///     <item>
+            ///         <term><see
+            /// cref="VisualizeImageChartRequest.StyleOptions.NONE">NONE</see>:</term>
+            ///         <description>No scale is applied to the y
+            /// axis.</description>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="VisualizeImageChartRequest.StyleOptions.LOG">LOG</see>:</term>
+            ///         <description>A base-10 log scale is applied to the y
+            /// axis.</description>
+            ///     </item>
+            /// </list>
+            /// The default value is <see
+            /// cref="VisualizeImageChartRequest.StyleOptions.NONE">NONE</see>.</summary>
+            public const string SCALE_TYPE_Y = "scale_type_y";
+
             /// <summary>Amplitude of horizontal jitter applied to non-numaric
             /// x column values.</summary>
             public const string JITTER_X = "jitter_x";
@@ -268,13 +358,13 @@ namespace kinetica
         /// chart.  </summary>
         public string table_name { get; set; }
 
-        /// <summary>Name of the column containing the data mapped to the x
+        /// <summary>Names of the columns containing the data mapped to the x
         /// axis of a chart.  </summary>
-        public string x_column_name { get; set; }
+        public IList<string> x_column_names { get; set; } = new List<string>();
 
-        /// <summary>Name of the column containing the data mapped to the y
+        /// <summary>Names of the columns containing the data mapped to the y
         /// axis of a chart.  </summary>
-        public string y_column_name { get; set; }
+        public IList<string> y_column_names { get; set; } = new List<string>();
 
         /// <summary>Lower bound for the x column values. For non-numeric x
         /// column, each x column item is mapped to an integral value starting
@@ -413,6 +503,50 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
+        /// cref="VisualizeImageChartRequest.StyleOptions.SCALE_TYPE_X">SCALE_TYPE_X</see>:</term>
+        ///         <description>Type of x axis scale.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageChartRequest.StyleOptions.NONE">NONE</see>:</term>
+        ///         <description>No scale is applied to the x
+        /// axis.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageChartRequest.StyleOptions.LOG">LOG</see>:</term>
+        ///         <description>A base-10 log scale is applied to the x
+        /// axis.</description>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="VisualizeImageChartRequest.StyleOptions.NONE">NONE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageChartRequest.StyleOptions.SCALE_TYPE_Y">SCALE_TYPE_Y</see>:</term>
+        ///         <description>Type of y axis scale.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageChartRequest.StyleOptions.NONE">NONE</see>:</term>
+        ///         <description>No scale is applied to the y
+        /// axis.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageChartRequest.StyleOptions.LOG">LOG</see>:</term>
+        ///         <description>A base-10 log scale is applied to the y
+        /// axis.</description>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="VisualizeImageChartRequest.StyleOptions.NONE">NONE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="VisualizeImageChartRequest.StyleOptions.JITTER_X">JITTER_X</see>:</term>
         ///         <description>Amplitude of horizontal jitter applied to
         /// non-numaric x column values.</description>
@@ -447,10 +581,10 @@ namespace kinetica
         /// 
         /// <param name="table_name">Name of the table containing the data to
         /// be drawn as a chart.  </param>
-        /// <param name="x_column_name">Name of the column containing the data
-        /// mapped to the x axis of a chart.  </param>
-        /// <param name="y_column_name">Name of the column containing the data
-        /// mapped to the y axis of a chart.  </param>
+        /// <param name="x_column_names">Names of the columns containing the
+        /// data mapped to the x axis of a chart.  </param>
+        /// <param name="y_column_names">Names of the columns containing the
+        /// data mapped to the y axis of a chart.  </param>
         /// <param name="min_x">Lower bound for the x column values. For
         /// non-numeric x column, each x column item is mapped to an integral
         /// value starting from 0.  </param>
@@ -577,6 +711,50 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
+        /// cref="VisualizeImageChartRequest.StyleOptions.SCALE_TYPE_X">SCALE_TYPE_X</see>:</term>
+        ///         <description>Type of x axis scale.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageChartRequest.StyleOptions.NONE">NONE</see>:</term>
+        ///         <description>No scale is applied to the x
+        /// axis.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageChartRequest.StyleOptions.LOG">LOG</see>:</term>
+        ///         <description>A base-10 log scale is applied to the x
+        /// axis.</description>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="VisualizeImageChartRequest.StyleOptions.NONE">NONE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageChartRequest.StyleOptions.SCALE_TYPE_Y">SCALE_TYPE_Y</see>:</term>
+        ///         <description>Type of y axis scale.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageChartRequest.StyleOptions.NONE">NONE</see>:</term>
+        ///         <description>No scale is applied to the y
+        /// axis.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageChartRequest.StyleOptions.LOG">LOG</see>:</term>
+        ///         <description>A base-10 log scale is applied to the y
+        /// axis.</description>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="VisualizeImageChartRequest.StyleOptions.NONE">NONE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="VisualizeImageChartRequest.StyleOptions.JITTER_X">JITTER_X</see>:</term>
         ///         <description>Amplitude of horizontal jitter applied to
         /// non-numaric x column values.</description>
@@ -599,8 +777,8 @@ namespace kinetica
         /// <param name="options">Optional parameters.  </param>
         /// 
         public VisualizeImageChartRequest( string table_name,
-                                           string x_column_name,
-                                           string y_column_name,
+                                           IList<string> x_column_names,
+                                           IList<string> y_column_names,
                                            double min_x,
                                            double max_x,
                                            double min_y,
@@ -612,8 +790,8 @@ namespace kinetica
                                            IDictionary<string, string> options = null)
         {
             this.table_name = table_name ?? "";
-            this.x_column_name = x_column_name ?? "";
-            this.y_column_name = y_column_name ?? "";
+            this.x_column_names = x_column_names ?? new List<string>();
+            this.y_column_names = y_column_names ?? new List<string>();
             this.min_x = min_x;
             this.max_x = max_x;
             this.min_y = min_y;
@@ -630,7 +808,7 @@ namespace kinetica
 
 
     /// <summary>A set of results returned by <see
-    /// cref="Kinetica.visualizeImageChart(string,string,string,double,double,double,double,int,int,string,IDictionary{string, IList{string}},IDictionary{string, string})"
+    /// cref="Kinetica.visualizeImageChart(string,IList{string},IList{string},double,double,double,double,int,int,string,IDictionary{string, IList{string}},IDictionary{string, string})"
     /// />.</summary>
     public class VisualizeImageChartResponse : KineticaData
     {
