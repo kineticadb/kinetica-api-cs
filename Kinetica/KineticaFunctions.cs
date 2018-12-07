@@ -16,8 +16,116 @@ namespace kinetica
     {
 
         // Kinetica Version
-        public const string API_VERSION = "6.2.0.0";
+        public const string API_VERSION = "7.0.0.0";
 
+
+
+        /// <summary>Add one or more new ranks to the Kinetica cluster. The new
+        /// ranks will not contain any data initially, other than replicated
+        /// tables, and not be assigned any shards. To rebalance data across
+        /// the cluster, which includes shifting some shard key assignments to
+        /// newly added ranks, see <see
+        /// cref="Kinetica.adminRebalance(IDictionary{string, string})" />.
+        /// <br />
+        /// For example, if attempting to add three new ranks (two ranks on
+        /// host 172.123.45.67 and one rank on host 172.123.45.68) to a
+        /// Kinetica cluster with additional configuration parameters:
+        /// <br />
+        /// * <paramref cref="AdminAddRanksRequest.hosts" /> would be an array
+        /// including 172.123.45.67 in the first two indices (signifying two
+        /// ranks being added to host 172.123.45.67) and 172.123.45.68 in the
+        /// last index (signifying one rank being added to host 172.123.45.67)
+        /// <br />
+        /// * <paramref cref="AdminAddRanksRequest.config_params" /> would be
+        /// an array of maps, with each map corresponding to the ranks being
+        /// added in <paramref cref="AdminAddRanksRequest.hosts" />. The key of
+        /// each map would be the configuration parameter name and the value
+        /// would be the parameter's value, e.g. 'rank.gpu':'1'</summary>
+        /// 
+        /// <param name="request_">Request object containing the parameters for
+        /// the operation.</param>
+        /// 
+        /// <returns>Response object containing the result of the
+        /// operation.</returns>
+        /// 
+        public AdminAddRanksResponse adminAddRanks( AdminAddRanksRequest request_ )
+        {
+            AdminAddRanksResponse actualResponse_ = SubmitRequest<AdminAddRanksResponse>("/admin/add/ranks", request_, false);
+
+            return actualResponse_;
+        }
+
+
+        /// <summary>Add one or more new ranks to the Kinetica cluster. The new
+        /// ranks will not contain any data initially, other than replicated
+        /// tables, and not be assigned any shards. To rebalance data across
+        /// the cluster, which includes shifting some shard key assignments to
+        /// newly added ranks, see <see
+        /// cref="Kinetica.adminRebalance(IDictionary{string, string})" />.
+        /// <br />
+        /// For example, if attempting to add three new ranks (two ranks on
+        /// host 172.123.45.67 and one rank on host 172.123.45.68) to a
+        /// Kinetica cluster with additional configuration parameters:
+        /// <br />
+        /// * <paramref name="hosts" /> would be an array including
+        /// 172.123.45.67 in the first two indices (signifying two ranks being
+        /// added to host 172.123.45.67) and 172.123.45.68 in the last index
+        /// (signifying one rank being added to host 172.123.45.67)
+        /// <br />
+        /// * <paramref name="config_params" /> would be an array of maps, with
+        /// each map corresponding to the ranks being added in <paramref
+        /// name="hosts" />. The key of each map would be the configuration
+        /// parameter name and the value would be the parameter's value, e.g.
+        /// 'rank.gpu':'1'</summary>
+        /// 
+        /// <param name="hosts">The IP address of each rank being added to the
+        /// cluster. Insert one entry per rank, even if they are on the same
+        /// host. The order of the hosts in the array only matters as it
+        /// relates to the <paramref cref="AdminAddRanksRequest.config_params"
+        /// />.  </param>
+        /// <param name="config_params">Configuration parameters to apply to
+        /// the new ranks, e.g., which GPU to use. Configuration parameters
+        /// that start with 'rankN.', where N is the rank number, should omit
+        /// the N, as the new rank number(s) are not allocated until the ranks
+        /// are created. Each entry in this array corresponds to the entry at
+        /// the same array index in the <paramref
+        /// cref="AdminAddRanksRequest.hosts" />. This array must either be
+        /// completely empty or have the same number of elements as the hosts
+        /// array.  An empty array will result in the new ranks being set only
+        /// with default parameters.  </param>
+        /// <param name="options">Optional parameters.
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="AdminAddRanksRequest.Options.DRY_RUN">DRY_RUN</see>:</term>
+        ///         <description>If <i>true</i>, only validation checks will be
+        /// performed. No ranks are added.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="AdminAddRanksRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AdminAddRanksRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="AdminAddRanksRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        /// </list>
+        ///   </param>
+        /// 
+        /// <returns>Response object containing the result of the
+        /// operation.</returns>
+        /// 
+        public AdminAddRanksResponse adminAddRanks( IList<string> hosts,
+                                                    IList<IDictionary<string, string>> config_params,
+                                                    IDictionary<string, string> options = null )
+        {
+            return adminAddRanks( new AdminAddRanksRequest( hosts, config_params, options ) );
+        }
 
 
         /// <summary>Perform the requested action on a list of one or more
@@ -65,12 +173,59 @@ namespace kinetica
         /// <returns>Response object containing the result of the
         /// operation.</returns>
         /// 
-        public AdminAlterJobsResponse adminAlterJobs( IList<int> job_ids,
+        public AdminAlterJobsResponse adminAlterJobs( IList<long> job_ids,
                                                       string action,
                                                       IDictionary<string, string> options = null )
         {
             return adminAlterJobs( new AdminAlterJobsRequest( job_ids, action, options ) );
         }
+
+        /// @cond NO_DOCS
+        /// 
+        /// <param name="request_">Request object containing the parameters for
+        /// the operation.</param>
+        /// 
+        /// <returns>Response object containing the result of the
+        /// operation.</returns>
+        /// 
+        public AdminAlterShardsResponse adminAlterShards( AdminAlterShardsRequest request_ )
+        {
+            AdminAlterShardsResponse actualResponse_ = SubmitRequest<AdminAlterShardsResponse>("/admin/alter/shards", request_, false);
+
+            return actualResponse_;
+        }
+        /// @endcond
+
+        /// @cond NO_DOCS
+        /// 
+        /// <param name="version"></param>
+        /// <param name="use_index"></param>
+        /// <param name="rank"></param>
+        /// <param name="tom"></param>
+        /// <param name="index"></param>
+        /// <param name="backup_map_list"></param>
+        /// <param name="backup_map_values"></param>
+        /// <param name="options"></param>
+        /// 
+        /// <returns>Response object containing the result of the
+        /// operation.</returns>
+        /// 
+        public AdminAlterShardsResponse adminAlterShards( long version,
+                                                          bool use_index,
+                                                          IList<int> rank,
+                                                          IList<int> tom,
+                                                          IList<int> index,
+                                                          IList<int> backup_map_list,
+                                                          IList<IList<int>> backup_map_values,
+                                                          IDictionary<string, string> options = null )
+        {
+            return adminAlterShards( new AdminAlterShardsRequest( version, use_index,
+                                                                  rank, tom, index,
+                                                                  backup_map_list,
+                                                                  backup_map_values,
+                                                                  options ) );
+        }
+        /// @endcond
 
 
         /// <summary>Take the system offline. When the system is offline, no
@@ -138,19 +293,197 @@ namespace kinetica
         }
 
 
-        /// <summary>Retrieves a list of the most recent alerts generated.  The
-        /// number of alerts to retrieve is specified in this request.
-        /// <br />
-        /// Important: This endpoint is accessed via the host manager port
-        /// rather than the primary database port; the default ports for host
-        /// manager and the primary database can be found <a
-        /// href="../../install/index.html#default-ports"
-        /// target="_top">here</a>.  If you are invoking this endpoint via a
-        /// GPUdb API object, you must instantiate that object using the host
-        /// manager port instead of the database port. The same IP address is
-        /// used for both ports.
-        /// <br />
-        /// Returns lists of alert data, earliest to latest</summary>
+        /// <summary>Rebalance the cluster so that all the nodes contain
+        /// approximately an equal number of records.  The rebalance will also
+        /// cause the shards to be equally distributed (as much as possible)
+        /// across all the ranks.</summary>
+        /// 
+        /// <param name="request_">Request object containing the parameters for
+        /// the operation.</param>
+        /// 
+        /// <returns>Response object containing the result of the
+        /// operation.</returns>
+        /// 
+        public AdminRebalanceResponse adminRebalance( AdminRebalanceRequest request_ )
+        {
+            AdminRebalanceResponse actualResponse_ = SubmitRequest<AdminRebalanceResponse>("/admin/rebalance", request_, false);
+
+            return actualResponse_;
+        }
+
+
+        /// <summary>Rebalance the cluster so that all the nodes contain
+        /// approximately an equal number of records.  The rebalance will also
+        /// cause the shards to be equally distributed (as much as possible)
+        /// across all the ranks.</summary>
+        /// 
+        /// <param name="options">Optional parameters.
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="AdminRebalanceRequest.Options.REBALANCE_SHARDED_DATA">REBALANCE_SHARDED_DATA</see>:</term>
+        ///         <description>If <i>true</i>, sharded data will be
+        /// rebalanced approximately equally across the cluster. Note that for
+        /// big clusters, this data transfer could be time consuming and result
+        /// in delayed query responses.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="AdminRebalanceRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AdminRebalanceRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="AdminRebalanceRequest.Options.TRUE">TRUE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AdminRebalanceRequest.Options.REBALANCE_UNSHARDED_DATA">REBALANCE_UNSHARDED_DATA</see>:</term>
+        ///         <description>If <i>true</i>, unsharded data (data without
+        /// primary keys and without shard keys) will be rebalanced
+        /// approximately equally across the cluster. Note that for big
+        /// clusters, this data transfer could be time consuming and result in
+        /// delayed query responses.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="AdminRebalanceRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AdminRebalanceRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="AdminRebalanceRequest.Options.TRUE">TRUE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AdminRebalanceRequest.Options.TABLE_WHITELIST">TABLE_WHITELIST</see>:</term>
+        ///         <description>Comma-separated list of unsharded table names
+        /// to rebalance. Not applicable to sharded tables because they are
+        /// always balanced in accordance with their primary key or shard key.
+        /// Cannot be used simultaneously with
+        /// <i>table_blacklist</i>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AdminRebalanceRequest.Options.TABLE_BLACKLIST">TABLE_BLACKLIST</see>:</term>
+        ///         <description>Comma-separated list of unsharded table names
+        /// to not rebalance. Not applicable to sharded tables because they are
+        /// always balanced in accordance with their primary key or shard key.
+        /// Cannot be used simultaneously with
+        /// <i>table_whitelist</i>.</description>
+        ///     </item>
+        /// </list>
+        ///   </param>
+        /// 
+        /// <returns>Response object containing the result of the
+        /// operation.</returns>
+        /// 
+        public AdminRebalanceResponse adminRebalance( IDictionary<string, string> options = null )
+        {
+            return adminRebalance( new AdminRebalanceRequest( options ) );
+        }
+
+
+        /// <summary>Remove one or more ranks from the cluster.  Note that this
+        /// operation could take a long time to complete for big clusters. All
+        /// data in the ranks to be removed is rebalanced to other ranks before
+        /// the node is removed unless the <i>rebalance_sharded_data</i> or
+        /// <i>rebalance_unsharded_data</i> parameters are set to <i>false</i>
+        /// in the <paramref cref="AdminRemoveRanksRequest.options"
+        /// />.</summary>
+        /// 
+        /// <param name="request_">Request object containing the parameters for
+        /// the operation.</param>
+        /// 
+        /// <returns>Response object containing the result of the
+        /// operation.</returns>
+        /// 
+        public AdminRemoveRanksResponse adminRemoveRanks( AdminRemoveRanksRequest request_ )
+        {
+            AdminRemoveRanksResponse actualResponse_ = SubmitRequest<AdminRemoveRanksResponse>("/admin/remove/ranks", request_, false);
+
+            return actualResponse_;
+        }
+
+
+        /// <summary>Remove one or more ranks from the cluster.  Note that this
+        /// operation could take a long time to complete for big clusters. All
+        /// data in the ranks to be removed is rebalanced to other ranks before
+        /// the node is removed unless the <i>rebalance_sharded_data</i> or
+        /// <i>rebalance_unsharded_data</i> parameters are set to <i>false</i>
+        /// in the <paramref name="options" />.</summary>
+        /// 
+        /// <param name="ranks">Rank numbers of the ranks to be removed from
+        /// the cluster.  </param>
+        /// <param name="options">Optional parameters.
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="AdminRemoveRanksRequest.Options.REBALANCE_SHARDED_DATA">REBALANCE_SHARDED_DATA</see>:</term>
+        ///         <description>When <i>true</i>, data with primary keys or
+        /// shard keys will be rebalanced to other ranks prior to rank removal.
+        /// Note that for big clusters, this data transfer could be time
+        /// consuming and result in delayed query responses.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="AdminRemoveRanksRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AdminRemoveRanksRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="AdminRemoveRanksRequest.Options.TRUE">TRUE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AdminRemoveRanksRequest.Options.REBALANCE_UNSHARDED_DATA">REBALANCE_UNSHARDED_DATA</see>:</term>
+        ///         <description>When <i>true</i>, unsharded data (data without
+        /// primary keys and without shard keys) will be rebalanced to other
+        /// ranks prior to rank removal. Note that for big clusters, this data
+        /// transfer could be time consuming and result in delayed query
+        /// responses.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="AdminRemoveRanksRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AdminRemoveRanksRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="AdminRemoveRanksRequest.Options.TRUE">TRUE</see>.</description>
+        ///     </item>
+        /// </list>
+        ///   </param>
+        /// 
+        /// <returns>Response object containing the result of the
+        /// operation.</returns>
+        /// 
+        public AdminRemoveRanksResponse adminRemoveRanks( IList<int> ranks,
+                                                          IDictionary<string, string> options = null )
+        {
+            return adminRemoveRanks( new AdminRemoveRanksRequest( ranks, options ) );
+        }
+
+
+        /// <summary>Requests a list of the most recent alerts.
+        /// Returns lists of alert data, including timestamp and
+        /// type.</summary>
         /// 
         /// <param name="request_">Request object containing the parameters for
         /// the operation.</param>
@@ -166,24 +499,14 @@ namespace kinetica
         }
 
 
-        /// <summary>Retrieves a list of the most recent alerts generated.  The
-        /// number of alerts to retrieve is specified in this request.
-        /// <br />
-        /// Important: This endpoint is accessed via the host manager port
-        /// rather than the primary database port; the default ports for host
-        /// manager and the primary database can be found <a
-        /// href="../../install/index.html#default-ports"
-        /// target="_top">here</a>.  If you are invoking this endpoint via a
-        /// GPUdb API object, you must instantiate that object using the host
-        /// manager port instead of the database port. The same IP address is
-        /// used for both ports.
-        /// <br />
-        /// Returns lists of alert data, earliest to latest</summary>
+        /// <summary>Requests a list of the most recent alerts.
+        /// Returns lists of alert data, including timestamp and
+        /// type.</summary>
         /// 
         /// <param name="num_alerts">Number of most recent alerts to request.
-        /// The response will return <paramref
-        /// cref="AdminShowAlertsRequest.num_alerts" /> alerts, or less if
-        /// there are less in the system. A value of 0 returns all stored
+        /// The response will include up to <paramref
+        /// cref="AdminShowAlertsRequest.num_alerts" /> depending on how many
+        /// alerts there are in the system. A value of 0 returns all stored
         /// alerts.  </param>
         /// <param name="options">Optional parameters.  </param>
         /// 
@@ -194,6 +517,56 @@ namespace kinetica
                                                         IDictionary<string, string> options = null )
         {
             return adminShowAlerts( new AdminShowAlertsRequest( num_alerts, options ) );
+        }
+
+
+        /// <summary>Shows detailed status of current or prior cluster
+        /// operations.
+        /// <br />
+        /// By default will retrieve the current or most resent cluster
+        /// operation.  The @{history_index} is used to specify which cluster
+        /// operation to retrieve. A value of zero will return the most recent,
+        /// one will return the second most recent, etc.  The response will
+        /// also indicate how many cluster operations are stored in the
+        /// history.</summary>
+        /// 
+        /// <param name="request_">Request object containing the parameters for
+        /// the operation.</param>
+        /// 
+        /// <returns>Response object containing the result of the
+        /// operation.</returns>
+        /// 
+        public AdminShowClusterOperationsResponse adminShowClusterOperations( AdminShowClusterOperationsRequest request_ )
+        {
+            AdminShowClusterOperationsResponse actualResponse_ = SubmitRequest<AdminShowClusterOperationsResponse>("/admin/show/cluster/operations", request_, false);
+
+            return actualResponse_;
+        }
+
+
+        /// <summary>Shows detailed status of current or prior cluster
+        /// operations.
+        /// <br />
+        /// By default will retrieve the current or most resent cluster
+        /// operation.  The @{history_index} is used to specify which cluster
+        /// operation to retrieve. A value of zero will return the most recent,
+        /// one will return the second most recent, etc.  The response will
+        /// also indicate how many cluster operations are stored in the
+        /// history.</summary>
+        /// 
+        /// <param name="history_index">Indicates which cluster operation to
+        /// retrieve.  Zero is most recent.  </param>
+        /// <param name="options">Optional parameters.  </param>
+        /// 
+        /// <returns>Response object containing the result of the
+        /// operation.</returns>
+        /// 
+        public AdminShowClusterOperationsResponse adminShowClusterOperations( int history_index = 0,
+                                                                              IDictionary<string, string> options = null )
+        {
+            return adminShowClusterOperations( new AdminShowClusterOperationsRequest(
+                                                                                      history_index,
+                                                                                      options ) );
         }
 
 
@@ -525,6 +898,7 @@ namespace kinetica
             response_.data = KineticaRecord.DecodeDynamicTableRecords( actualResponse_.response_schema_str, actualResponse_.binary_encoded_response );
             response_.total_number_of_records = actualResponse_.total_number_of_records;
             response_.has_more_records = actualResponse_.has_more_records;
+            response_.info = actualResponse_.info;
             return response_;
         }
 
@@ -1544,6 +1918,7 @@ namespace kinetica
             response_.table_name = actualResponse_.table_name;
             response_.data = KineticaRecord.DecodeDynamicTableRecords( actualResponse_.response_schema_str, actualResponse_.binary_encoded_response );
             response_.has_more_records = actualResponse_.has_more_records;
+            response_.info = actualResponse_.info;
             return response_;
         }
 
@@ -1784,6 +2159,7 @@ namespace kinetica
             response_.data = KineticaRecord.DecodeDynamicTableRecords( actualResponse_.response_schema_str, actualResponse_.binary_encoded_response );
             response_.total_number_of_records = actualResponse_.total_number_of_records;
             response_.has_more_records = actualResponse_.has_more_records;
+            response_.info = actualResponse_.info;
             return response_;
         }
 
@@ -1965,6 +2341,102 @@ namespace kinetica
                                                                   variable_column_name,
                                                                   value_column_name,
                                                                   pivoted_columns, options ) );
+        }
+
+
+        /// <summary>Alters properties of exisiting resource group to
+        /// facilitate resource management.</summary>
+        /// 
+        /// <param name="request_">Request object containing the parameters for
+        /// the operation.</param>
+        /// 
+        /// <returns>Response object containing the result of the
+        /// operation.</returns>
+        /// 
+        public AlterResourceGroupResponse alterResourceGroup( AlterResourceGroupRequest request_ )
+        {
+            AlterResourceGroupResponse actualResponse_ = SubmitRequest<AlterResourceGroupResponse>("/alter/resourcegroup", request_, false);
+
+            return actualResponse_;
+        }
+
+
+        /// <summary>Alters properties of exisiting resource group to
+        /// facilitate resource management.</summary>
+        /// 
+        /// <param name="name">Name of the group to be altered. Must match
+        /// existing resource group name.  </param>
+        /// <param name="tier_attributes">Optional map containing group limits
+        /// for tier-specific attributes such as memory.
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterResourceGroupRequest.TierAttributes.MAX_MEMORY">MAX_MEMORY</see>:</term>
+        ///         <description>Maximum amount of memory usable in the given
+        /// tier at one time for this group.</description>
+        ///     </item>
+        /// </list>
+        ///   </param>
+        /// <param name="tier_strategy">Optional array that defines the default
+        /// tiering strategy for this group. Each element pair defines an
+        /// existing tier and its preferred priority. e.g. ['RAM 50',VRAM 30']
+        /// </param>
+        /// <param name="options">Optional parameters.
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterResourceGroupRequest.Options.MAX_CPU_CONCURRENCY">MAX_CPU_CONCURRENCY</see>:</term>
+        ///         <description>Maximum number of simultaneous threads that
+        /// will be used to execute a request for this group.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterResourceGroupRequest.Options.MAX_SCHEDULING_PRIORITY">MAX_SCHEDULING_PRIORITY</see>:</term>
+        ///         <description>Maximum priority of a scheduled task for this
+        /// group.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterResourceGroupRequest.Options.MAX_TIER_PRIORITY">MAX_TIER_PRIORITY</see>:</term>
+        ///         <description>Maximum priority of a tiered object for this
+        /// group.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterResourceGroupRequest.Options.IS_DEFAULT_GROUP">IS_DEFAULT_GROUP</see>:</term>
+        ///         <description>If true this request applies to the global
+        /// default resource group. It is an error for this field to be true
+        /// when the <paramref cref="AlterResourceGroupRequest.name" /> field
+        /// is also populated.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterResourceGroupRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterResourceGroupRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="AlterResourceGroupRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        /// </list>
+        ///   </param>
+        /// 
+        /// <returns>Response object containing the result of the
+        /// operation.</returns>
+        /// 
+        public AlterResourceGroupResponse alterResourceGroup( string name,
+                                                              IDictionary<string, IDictionary<string, string>> tier_attributes,
+                                                              IList<string> tier_strategy,
+                                                              IDictionary<string, string> options = null )
+        {
+            return alterResourceGroup( new AlterResourceGroupRequest( name,
+                                                                      tier_attributes,
+                                                                      tier_strategy,
+                                                                      options ) );
         }
 
 
@@ -2188,8 +2660,8 @@ namespace kinetica
 
 
         /// <summary>Apply various modifications to a table, view, or
-        /// collection.  The available
-        /// modifications include the following:
+        /// collection.  The
+        /// available modifications include the following:
         /// <br />
         /// Create or delete an <a
         /// href="../../concepts/indexes.html#column-index"
@@ -2220,6 +2692,10 @@ namespace kinetica
         /// allow automatic expiration. This can be applied to tables, views,
         /// and
         /// collections.
+        /// <br />
+        /// Manage a <a href="../../concepts/tables.html#partitioning"
+        /// target="_top">range-partitioned</a>
+        /// table's partitions.
         /// <br />
         /// Allow homogeneous tables within a collection.
         /// <br />
@@ -2246,8 +2722,8 @@ namespace kinetica
 
 
         /// <summary>Apply various modifications to a table, view, or
-        /// collection.  The available
-        /// modifications include the following:
+        /// collection.  The
+        /// available modifications include the following:
         /// <br />
         /// Create or delete an <a
         /// href="../../concepts/indexes.html#column-index"
@@ -2279,6 +2755,10 @@ namespace kinetica
         /// and
         /// collections.
         /// <br />
+        /// Manage a <a href="../../concepts/tables.html#partitioning"
+        /// target="_top">range-partitioned</a>
+        /// table's partitions.
+        /// <br />
         /// Allow homogeneous tables within a collection.
         /// <br />
         /// Manage a table's columns--a column can be added, removed, or have
@@ -2298,11 +2778,8 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="AlterTableRequest.Action.ALLOW_HOMOGENEOUS_TABLES">ALLOW_HOMOGENEOUS_TABLES</see>:</term>
-        ///         <description>Sets whether homogeneous tables are allowed in
-        /// the given collection. This action is only valid if <paramref
-        /// cref="AlterTableRequest.table_name" /> is a collection. The
-        /// <paramref cref="AlterTableRequest._value" /> must be either 'true'
-        /// or 'false'.</description>
+        ///         <description>No longer supported; action will be
+        /// ignored.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -2422,6 +2899,29 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
+        /// cref="AlterTableRequest.Action.ADD_PARTITION">ADD_PARTITION</see>:</term>
+        ///         <description>Partition definition to add (for
+        /// range-partitioned tables only).  See <a
+        /// href="../../concepts/tables.html#partitioning-by-range-example"
+        /// target="_top">range partitioning example</a> for example
+        /// format.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterTableRequest.Action.REMOVE_PARTITION">REMOVE_PARTITION</see>:</term>
+        ///         <description>Name of partition to remove (for
+        /// range-partitioned tables only).  All data in partition will be
+        /// moved to the default partition</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterTableRequest.Action.DELETE_PARTITION">DELETE_PARTITION</see>:</term>
+        ///         <description>Name of partition to delete (for
+        /// range-partitioned tables only).  All data in the partition will be
+        /// deleted.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="AlterTableRequest.Action.SET_GLOBAL_ACCESS_MODE">SET_GLOBAL_ACCESS_MODE</see>:</term>
         ///         <description>Sets the global access mode (i.e. locking) for
         /// the table specified in <paramref
@@ -2475,6 +2975,21 @@ namespace kinetica
         /// on <paramref cref="AlterTableRequest.action" />.  </param>
         /// <param name="options">Optional parameters.
         /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterTableRequest.Options.ACTION">ACTION</see>:</term>
+        ///         <description></description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterTableRequest.Options.COLUMN_NAME">COLUMN_NAME</see>:</term>
+        ///         <description></description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterTableRequest.Options.TABLE_NAME">TABLE_NAME</see>:</term>
+        ///         <description></description>
+        ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="AlterTableRequest.Options.COLUMN_DEFAULT_VALUE">COLUMN_DEFAULT_VALUE</see>:</term>
@@ -2602,6 +3117,90 @@ namespace kinetica
         }
 
 
+        /// <summary>Apply various modifications to columns in a table, view.
+        /// The available
+        /// modifications include the following:
+        /// <br />
+        /// Create or delete an <a
+        /// href="../../concepts/indexes.html#column-index"
+        /// target="_top">index</a> on a
+        /// particular column. This can speed up certain operations when using
+        /// expressions
+        /// containing equality or relational operators on indexed columns.
+        /// This only
+        /// applies to tables.
+        /// <br />
+        /// Manage a table's columns--a column can be added, removed, or have
+        /// its
+        /// <a href="../../concepts/types.html" target="_top">type and
+        /// properties</a> modified.
+        /// <br />
+        /// Set or unset <a href="../../concepts/compression.html"
+        /// target="_top">compression</a> for a column.</summary>
+        /// 
+        /// <param name="request_">Request object containing the parameters for
+        /// the operation.</param>
+        /// 
+        /// <returns>Response object containing the result of the
+        /// operation.</returns>
+        /// 
+        public AlterTableColumnsResponse alterTableColumns( AlterTableColumnsRequest request_ )
+        {
+            AlterTableColumnsResponse actualResponse_ = SubmitRequest<AlterTableColumnsResponse>("/alter/table/columns", request_, false);
+
+            return actualResponse_;
+        }
+
+
+        /// <summary>Apply various modifications to columns in a table, view.
+        /// The available
+        /// modifications include the following:
+        /// <br />
+        /// Create or delete an <a
+        /// href="../../concepts/indexes.html#column-index"
+        /// target="_top">index</a> on a
+        /// particular column. This can speed up certain operations when using
+        /// expressions
+        /// containing equality or relational operators on indexed columns.
+        /// This only
+        /// applies to tables.
+        /// <br />
+        /// Manage a table's columns--a column can be added, removed, or have
+        /// its
+        /// <a href="../../concepts/types.html" target="_top">type and
+        /// properties</a> modified.
+        /// <br />
+        /// Set or unset <a href="../../concepts/compression.html"
+        /// target="_top">compression</a> for a column.</summary>
+        /// 
+        /// <param name="table_name">Table on which the operation will be
+        /// performed. Must be an existing table or view.  </param>
+        /// <param name="column_alterations">list of alter table
+        /// add/delete/change column requests - all for the same table.
+        ///                 each request is a map that includes 'column_name',
+        /// 'action' and the options specific for the action,
+        ///                 note that the same options as in alter table
+        /// requests but in the same map as the column name and the action. For
+        /// example:
+        /// [{'column_name':'col_1','action':'change_column','rename_column':'col_2'},
+        ///                 {'column_name':'col_1','action':'add_column',
+        /// 'type':'int','default_value':'1'}
+        ///                 ]   </param>
+        /// <param name="options">Optional parameters.  </param>
+        /// 
+        /// <returns>Response object containing the result of the
+        /// operation.</returns>
+        /// 
+        public AlterTableColumnsResponse alterTableColumns( string table_name,
+                                                            IList<IDictionary<string, string>> column_alterations,
+                                                            IDictionary<string, string> options )
+        {
+            return alterTableColumns( new AlterTableColumnsRequest( table_name,
+                                                                    column_alterations,
+                                                                    options ) );
+        }
+
+
         /// <summary>Updates (adds or changes) metadata for tables. The
         /// metadata key and values must both be strings. This is an easy way
         /// to annotate whole tables rather than single records within tables.
@@ -2651,6 +3250,62 @@ namespace kinetica
         }
 
 
+        /// <summary>Alters properties of exisiting tier to facilitate resource
+        /// management.</summary>
+        /// 
+        /// <param name="request_">Request object containing the parameters for
+        /// the operation.</param>
+        /// 
+        /// <returns>Response object containing the result of the
+        /// operation.</returns>
+        /// 
+        public AlterTierResponse alterTier( AlterTierRequest request_ )
+        {
+            AlterTierResponse actualResponse_ = SubmitRequest<AlterTierResponse>("/alter/tier", request_, false);
+
+            return actualResponse_;
+        }
+
+
+        /// <summary>Alters properties of exisiting tier to facilitate resource
+        /// management.</summary>
+        /// 
+        /// <param name="name">Name of the tier to be altered. Must match tier
+        /// group name.  </param>
+        /// <param name="options">Optional parameters.
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterTierRequest.Options.CAPACITY">CAPACITY</see>:</term>
+        ///         <description>Maximum size in bytes this tier may hold at
+        /// once.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterTierRequest.Options.HIGH_WATERMARK">HIGH_WATERMARK</see>:</term>
+        ///         <description>Triggers asynchronous eviction once a tiers
+        /// resource usage exceeds this percentage down to the low
+        /// watermark.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterTierRequest.Options.LOW_WATERMARK">LOW_WATERMARK</see>:</term>
+        ///         <description>Percentage resource usage to evict down to
+        /// once the high watermark has been hit.</description>
+        ///     </item>
+        /// </list>
+        ///   </param>
+        /// 
+        /// <returns>Response object containing the result of the
+        /// operation.</returns>
+        /// 
+        public AlterTierResponse alterTier( string name,
+                                            IDictionary<string, string> options = null )
+        {
+            return alterTier( new AlterTierRequest( name, options ) );
+        }
+
+
         /// <summary>Alters a user.</summary>
         /// 
         /// <param name="request_">Request object containing the parameters for
@@ -2680,6 +3335,13 @@ namespace kinetica
         /// cref="AlterUserRequest.Action.SET_PASSWORD">SET_PASSWORD</see>:</term>
         ///         <description>Sets the password of the user. The user must
         /// be an internal user.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterUserRequest.Action.SET_RESOURCE_GROUP">SET_RESOURCE_GROUP</see>:</term>
+        ///         <description>Sets the resource group for an internal user.
+        /// The resource group must exist, otherwise, an empty string assigns
+        /// the user to the default resource group.</description>
         ///     </item>
         /// </list>  </param>
         /// <param name="_value">The value of the modification, depending on
@@ -2748,36 +3410,35 @@ namespace kinetica
         ///         <term><see
         /// cref="AppendRecordsRequest.Options.OFFSET">OFFSET</see>:</term>
         ///         <description>A positive integer indicating the number of
-        /// initial results to skip from source table (specified by <paramref
-        /// cref="AppendRecordsRequest.source_table_name" />). Default is 0.
-        /// The minimum allowed value is 0. The maximum allowed value is
+        /// initial results to skip from <paramref
+        /// cref="AppendRecordsRequest.source_table_name" />. Default is 0. The
+        /// minimum allowed value is 0. The maximum allowed value is
         /// MAX_INT.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="AppendRecordsRequest.Options.LIMIT">LIMIT</see>:</term>
         ///         <description>A positive integer indicating the maximum
-        /// number of results to be returned from source table (specified by
-        /// <paramref cref="AppendRecordsRequest.source_table_name" />). Or
-        /// END_OF_SET (-9999) to indicate that the max number of results
-        /// should be returned.</description>
+        /// number of results to be returned from <paramref
+        /// cref="AppendRecordsRequest.source_table_name" />. Or END_OF_SET
+        /// (-9999) to indicate that the max number of results should be
+        /// returned.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="AppendRecordsRequest.Options.EXPRESSION">EXPRESSION</see>:</term>
         ///         <description>Optional filter expression to apply to the
-        /// source table (specified by <paramref
-        /// cref="AppendRecordsRequest.source_table_name" />). Empty by
-        /// default.</description>
+        /// <paramref cref="AppendRecordsRequest.source_table_name"
+        /// />.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="AppendRecordsRequest.Options.ORDER_BY">ORDER_BY</see>:</term>
-        ///         <description>Comma-separated list of the columns and
-        /// expressions to be sorted by from the source table (specified by
-        /// <paramref cref="AppendRecordsRequest.source_table_name" />); e.g.
-        /// 'timestamp asc, x desc'.  The <i>order_by</i> columns do not have
-        /// to be present in <paramref cref="AppendRecordsRequest.field_map"
+        ///         <description>Comma-separated list of the columns to be
+        /// sorted by from source table (specified by <paramref
+        /// cref="AppendRecordsRequest.source_table_name" />), e.g., 'timestamp
+        /// asc, x desc'. The <i>order_by</i> columns do not have to be present
+        /// in <paramref cref="AppendRecordsRequest.field_map"
         /// />.</description>
         ///     </item>
         ///     <item>
@@ -2825,6 +3486,40 @@ namespace kinetica
             return appendRecords( new AppendRecordsRequest( table_name, source_table_name,
                                                             field_map, options ) );
         }
+
+        /// @cond NO_DOCS
+        /// 
+        /// <param name="request_">Request object containing the parameters for
+        /// the operation.</param>
+        /// 
+        /// <returns>Response object containing the result of the
+        /// operation.</returns>
+        /// 
+        public ClearStatisticsResponse clearStatistics( ClearStatisticsRequest request_ )
+        {
+            ClearStatisticsResponse actualResponse_ = SubmitRequest<ClearStatisticsResponse>("/clear/statistics", request_, false);
+
+            return actualResponse_;
+        }
+        /// @endcond
+
+        /// @cond NO_DOCS
+        /// 
+        /// <param name="table_name"></param>
+        /// <param name="column_name"></param>
+        /// <param name="options"></param>
+        /// 
+        /// <returns>Response object containing the result of the
+        /// operation.</returns>
+        /// 
+        public ClearStatisticsResponse clearStatistics( string table_name = "",
+                                                        string column_name = "",
+                                                        IDictionary<string, string> options = null )
+        {
+            return clearStatistics( new ClearStatisticsRequest( table_name, column_name,
+                                                                options ) );
+        }
+        /// @endcond
 
 
         /// <summary>Clears (drops) one or all tables in the database cluster.
@@ -2970,12 +3665,315 @@ namespace kinetica
             return clearTrigger( new ClearTriggerRequest( trigger_id, options ) );
         }
 
+        /// @cond NO_DOCS
+        /// 
+        /// <param name="request_">Request object containing the parameters for
+        /// the operation.</param>
+        /// 
+        /// <returns>Response object containing the result of the
+        /// operation.</returns>
+        /// 
+        public CollectStatisticsResponse collectStatistics( CollectStatisticsRequest request_ )
+        {
+            CollectStatisticsResponse actualResponse_ = SubmitRequest<CollectStatisticsResponse>("/collect/statistics", request_, false);
+
+            return actualResponse_;
+        }
+        /// @endcond
+
+        /// @cond NO_DOCS
+        /// 
+        /// <param name="table_name"></param>
+        /// <param name="column_names"></param>
+        /// <param name="options"></param>
+        /// 
+        /// <returns>Response object containing the result of the
+        /// operation.</returns>
+        /// 
+        public CollectStatisticsResponse collectStatistics( string table_name,
+                                                            IList<string> column_names,
+                                                            IDictionary<string, string> options = null )
+        {
+            return collectStatistics( new CollectStatisticsRequest( table_name,
+                                                                    column_names, options ) );
+        }
+        /// @endcond
+
+
+        /// <summary>Creates a new graph network using given nodes, edges,
+        /// weights, and restrictions. See <a
+        /// href="../../graph_solver/network_graph_solver.html"
+        /// target="_top">Network Graph Solvers</a> for more
+        /// information.</summary>
+        /// 
+        /// <param name="request_">Request object containing the parameters for
+        /// the operation.</param>
+        /// 
+        /// <returns>Response object containing the result of the
+        /// operation.</returns>
+        /// 
+        public CreateGraphResponse createGraph( CreateGraphRequest request_ )
+        {
+            CreateGraphResponse actualResponse_ = SubmitRequest<CreateGraphResponse>("/create/graph", request_, false);
+
+            return actualResponse_;
+        }
+
+
+        /// <summary>Creates a new graph network using given nodes, edges,
+        /// weights, and restrictions. See <a
+        /// href="../../graph_solver/network_graph_solver.html"
+        /// target="_top">Network Graph Solvers</a> for more
+        /// information.</summary>
+        /// 
+        /// <param name="graph_name">Name of the graph resource to generate.
+        /// </param>
+        /// <param name="directed_graph">If set to <i>true</i>, the graph will
+        /// be directed (0 to 1, 1 to 2, etc.). If set to <i>false</i>, the
+        /// graph will not be directed.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateGraphRequest.DirectedGraph.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateGraphRequest.DirectedGraph.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="CreateGraphRequest.DirectedGraph.TRUE">TRUE</see>.  </param>
+        /// <param name="nodes">Nodes represent fundamental topological units
+        /// of a graph. Nodes must be specified using <a
+        /// href="../../graph_solver/network_graph_solver.html#identifiers"
+        /// target="_top">identifiers</a>; identifiers are grouped as <a
+        /// href="../../graph_solver/network_graph_solver.html#id-combos"
+        /// target="_top">combinations</a>. Example format: 'table.column AS
+        /// NODE_ID'  </param>
+        /// <param name="edges">Edges represent the required fundamental
+        /// topological unit of a graph that typically connect nodes. Edges
+        /// must be specified using <a
+        /// href="../../graph_solver/network_graph_solver.html#identifiers"
+        /// target="_top">identifiers</a>; identifiers are grouped as <a
+        /// href="../../graph_solver/network_graph_solver.html#id-combos"
+        /// target="_top">combinations</a>. Example format: 'table.column AS
+        /// EDGE_WKTLINE'  </param>
+        /// <param name="weights">Weights represent a method of informing the
+        /// graph solver of the cost of including a given edge in a solution.
+        /// Weights must be specified using <a
+        /// href="../../graph_solver/network_graph_solver.html#identifiers"
+        /// target="_top">identifiers</a>; identifiers are grouped as <a
+        /// href="../../graph_solver/network_graph_solver.html#id-combos"
+        /// target="_top">combinations</a>. Example format: 'table.column AS
+        /// WEIGHTS_EDGE_ID'  </param>
+        /// <param name="restrictions">Restrictions represent a method of
+        /// informing the graph solver which edges and/or nodes should be
+        /// ignored for the solution. Restrictions must be specified using <a
+        /// href="../../graph_solver/network_graph_solver.html#identifiers"
+        /// target="_top">identifiers</a>; identifiers are grouped as <a
+        /// href="../../graph_solver/network_graph_solver.html#id-combos"
+        /// target="_top">combinations</a>. Example format: 'table.column AS
+        /// RESTRICTIONS_EDGE_ID'  </param>
+        /// <param name="options">Optional parameters.
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateGraphRequest.Options.RESTRICTION_THRESHOLD_VALUE">RESTRICTION_THRESHOLD_VALUE</see>:</term>
+        ///         <description>Value-based restriction comparison. Any node
+        /// or edge with a RESTRICTIONS_VALUECOMPARED value greater than the
+        /// <i>restriction_threshold_value</i> will not be included in the
+        /// graph.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateGraphRequest.Options.MERGE_TOLERANCE">MERGE_TOLERANCE</see>:</term>
+        ///         <description>If node geospatial positions are input (e.g.,
+        /// WKTPOINT, X, Y), determines the minimum separation allowed between
+        /// unique nodes. If nodes are within the tolerance of each other, they
+        /// will be merged as a single node.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateGraphRequest.Options.MIN_X">MIN_X</see>:</term>
+        ///         <description>Minimum x (longitude) value for spatial graph
+        /// associations.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateGraphRequest.Options.MAX_X">MAX_X</see>:</term>
+        ///         <description>Maximum x (longitude) value for spatial graph
+        /// associations.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateGraphRequest.Options.MIN_Y">MIN_Y</see>:</term>
+        ///         <description>Minimum y (latitude) value for spatial graph
+        /// associations.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateGraphRequest.Options.MAX_Y">MAX_Y</see>:</term>
+        ///         <description>Maximum y (latitude) value for spatial graph
+        /// associations.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateGraphRequest.Options.RECREATE">RECREATE</see>:</term>
+        ///         <description>If set to <i>true</i> and the graph (using
+        /// <paramref cref="CreateGraphRequest.graph_name" />) already exists,
+        /// the graph is deleted and recreated.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateGraphRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateGraphRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="CreateGraphRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateGraphRequest.Options.EXPORT_CREATE_RESULTS">EXPORT_CREATE_RESULTS</see>:</term>
+        ///         <description>If set to <i>true</i>, returns the graph
+        /// topology in the response as arrays.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateGraphRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateGraphRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="CreateGraphRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateGraphRequest.Options.ENABLE_GRAPH_DRAW">ENABLE_GRAPH_DRAW</see>:</term>
+        ///         <description>If set to <i>true</i>, adds a 'EDGE_WKTLINE'
+        /// column identifier to the specified <i>graph_table</i> so the graph
+        /// can be viewed via WMS; for social and non-geospatial graphs, the
+        /// 'EDGE_WKTLINE' column identifier will be populated with spatial
+        /// coordinates derived from a flattening layout algorithm so the graph
+        /// can still be viewed.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateGraphRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateGraphRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="CreateGraphRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateGraphRequest.Options.SAVE_PERSIST">SAVE_PERSIST</see>:</term>
+        ///         <description>If set to <i>true</i>, the graph will be saved
+        /// in the persist directory (see the <a href="../../config/index.html"
+        /// target="_top">config reference</a> for more information). If set to
+        /// <i>false</i>, the graph will be removed when the graph server is
+        /// shutdown.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateGraphRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateGraphRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="CreateGraphRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateGraphRequest.Options.SYNC_DB">SYNC_DB</see>:</term>
+        ///         <description>If set to <i>true</i>, the graph will be
+        /// updated if its source table(s) is updated. If set to <i>false</i>,
+        /// the graph will not be updated if the source table(s) is updated.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateGraphRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateGraphRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="CreateGraphRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateGraphRequest.Options.ADD_TABLE_MONITOR">ADD_TABLE_MONITOR</see>:</term>
+        ///         <description>Adds a table monitor to every table used in
+        /// the creation of the graph. For more details on table monitors, see
+        /// /create/tablemonitor.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateGraphRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateGraphRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="CreateGraphRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateGraphRequest.Options.GRAPH_TABLE">GRAPH_TABLE</see>:</term>
+        ///         <description>If the <i>graph_table</i> name is NOT left
+        /// blank, the created graph is also created as a table with the given
+        /// name and following identifier columns: 'EDGE_ID', 'EDGE_NODE1_ID',
+        /// 'EDGE_NODE2_ID'. If left blank, no table is created.</description>
+        ///     </item>
+        /// </list>
+        ///   </param>
+        /// 
+        /// <returns>Response object containing the result of the
+        /// operation.</returns>
+        /// 
+        public CreateGraphResponse createGraph( string graph_name,
+                                                bool directed_graph,
+                                                IList<string> nodes,
+                                                IList<string> edges,
+                                                IList<string> weights,
+                                                IList<string> restrictions,
+                                                IDictionary<string, string> options = null )
+        {
+            return createGraph( new CreateGraphRequest( graph_name, directed_graph, nodes,
+                                                        edges, weights, restrictions,
+                                                        options ) );
+        }
+
 
         /// <summary>Create a job which will run asynchronously. The response
         /// returns a job ID, which can be used to query the status and result
         /// of the job. The status and the result of the job upon completion
         /// can be requested by <see
-        /// cref="Kinetica.getJob(int,IDictionary{string, string})"
+        /// cref="Kinetica.getJob(long,IDictionary{string, string})"
         /// />.</summary>
         /// 
         /// <param name="request_">Request object containing the parameters for
@@ -2996,7 +3994,7 @@ namespace kinetica
         /// returns a job ID, which can be used to query the status and result
         /// of the job. The status and the result of the job upon completion
         /// can be requested by <see
-        /// cref="Kinetica.getJob(int,IDictionary{string, string})"
+        /// cref="Kinetica.getJob(long,IDictionary{string, string})"
         /// />.</summary>
         /// 
         /// <param name="endpoint">Indicates which endpoint to execute, e.g.
@@ -3239,8 +4237,8 @@ namespace kinetica
         /// operation.</returns>
         /// 
         public CreateJoinTableResponse createJoinTable( string join_table_name,
-                                                        IList<string> table_names = null,
-                                                        IList<string> column_names = null,
+                                                        IList<string> table_names,
+                                                        IList<string> column_names,
                                                         IList<string> expressions = null,
                                                         IDictionary<string, string> options = null )
         {
@@ -3770,6 +4768,82 @@ namespace kinetica
         }
 
 
+        /// <summary>Creates a new resource group to facilitate resource
+        /// management.</summary>
+        /// 
+        /// <param name="request_">Request object containing the parameters for
+        /// the operation.</param>
+        /// 
+        /// <returns>Response object containing the result of the
+        /// operation.</returns>
+        /// 
+        public CreateResourceGroupResponse createResourceGroup( CreateResourceGroupRequest request_ )
+        {
+            CreateResourceGroupResponse actualResponse_ = SubmitRequest<CreateResourceGroupResponse>("/create/resourcegroup", request_, false);
+
+            return actualResponse_;
+        }
+
+
+        /// <summary>Creates a new resource group to facilitate resource
+        /// management.</summary>
+        /// 
+        /// <param name="name">Name of the group to be created. Must contain
+        /// only letters, digits, and underscores, and cannot begin with a
+        /// digit. Must not match existing resource group name.  </param>
+        /// <param name="tier_attributes">Optional map containing group limits
+        /// for tier-specific attributes such as memory.
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateResourceGroupRequest.TierAttributes.MAX_MEMORY">MAX_MEMORY</see>:</term>
+        ///         <description>Maximum amount of memory usable in the given
+        /// tier at one time for this group.</description>
+        ///     </item>
+        /// </list>
+        ///   </param>
+        /// <param name="tier_strategy">Optional array that defines the default
+        /// tiering strategy for this group. Each element pair defines an
+        /// existing tier and its preferred priority. e.g. ['RAM 50',VRAM 30']
+        /// </param>
+        /// <param name="options">Optional parameters.
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateResourceGroupRequest.Options.MAX_CPU_CONCURRENCY">MAX_CPU_CONCURRENCY</see>:</term>
+        ///         <description>Maximum number of simultaneous threads that
+        /// will be used to execute a request for this group.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateResourceGroupRequest.Options.MAX_SCHEDULING_PRIORITY">MAX_SCHEDULING_PRIORITY</see>:</term>
+        ///         <description>Maximum priority of a scheduled task for this
+        /// group.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateResourceGroupRequest.Options.MAX_TIER_PRIORITY">MAX_TIER_PRIORITY</see>:</term>
+        ///         <description>Maximum priority of a tiered object for this
+        /// group.</description>
+        ///     </item>
+        /// </list>
+        ///   </param>
+        /// 
+        /// <returns>Response object containing the result of the
+        /// operation.</returns>
+        /// 
+        public CreateResourceGroupResponse createResourceGroup( string name,
+                                                                IDictionary<string, IDictionary<string, string>> tier_attributes,
+                                                                IList<string> tier_strategy,
+                                                                IDictionary<string, string> options = null )
+        {
+            return createResourceGroup( new CreateResourceGroupRequest( name,
+                                                                        tier_attributes,
+                                                                        tier_strategy,
+                                                                        options ) );
+        }
+
+
         /// <summary>Creates a new role.</summary>
         /// 
         /// <param name="request_">Request object containing the parameters for
@@ -3805,18 +4879,30 @@ namespace kinetica
 
 
         /// <summary>Creates a new table or collection. If a new table is being
-        /// created, the type of the table is given by <paramref
-        /// cref="CreateTableRequest.type_id" />, which must the be the ID of a
-        /// currently registered type (i.e. one created via <see
+        /// created,
+        /// the type of the table is given by <paramref
+        /// cref="CreateTableRequest.type_id" />, which must the be the ID of
+        /// a currently registered type (i.e. one created via <see
         /// cref="Kinetica.createType(string,string,IDictionary{string, IList{string}},IDictionary{string, string})"
-        /// />). The table will be created inside a collection if the option
-        /// <i>collection_name</i> is specified. If that collection does not
-        /// already exist, it will be created.
+        /// />). The
+        /// table will be created inside a collection if the option
+        /// <i>collection_name</i> is specified. If that collection does
+        /// not already exist, it will be created.
         /// <br />
         /// To create a new collection, specify the name of the collection in
         /// <paramref cref="CreateTableRequest.table_name" /> and set the
-        /// <i>is_collection</i> option to <i>true</i>; <paramref
-        /// cref="CreateTableRequest.type_id" /> will be ignored.</summary>
+        /// <i>is_collection</i> option to
+        /// <i>true</i>; <paramref cref="CreateTableRequest.type_id" /> will be
+        /// ignored.
+        /// <br />
+        /// A table may optionally be designated to use a
+        /// <a href="../../concepts/tables.html#replication"
+        /// target="_top">replicated</a> distribution scheme,
+        /// have <a href="../../concepts/tables.html#foreign-keys"
+        /// target="_top">foreign keys</a> to other
+        /// tables assigned, or be assigned a
+        /// <a href="../../concepts/tables.html#partitioning"
+        /// target="_top">partitioning</a> scheme.</summary>
         /// 
         /// <param name="request_">Request object containing the parameters for
         /// the operation.</param>
@@ -3833,18 +4919,30 @@ namespace kinetica
 
 
         /// <summary>Creates a new table or collection. If a new table is being
-        /// created, the type of the table is given by <paramref name="type_id"
-        /// />, which must the be the ID of a currently registered type (i.e.
-        /// one created via <see
+        /// created,
+        /// the type of the table is given by <paramref name="type_id" />,
+        /// which must the be the ID of
+        /// a currently registered type (i.e. one created via <see
         /// cref="Kinetica.createType(string,string,IDictionary{string, IList{string}},IDictionary{string, string})"
-        /// />). The table will be created inside a collection if the option
-        /// <i>collection_name</i> is specified. If that collection does not
-        /// already exist, it will be created.
+        /// />). The
+        /// table will be created inside a collection if the option
+        /// <i>collection_name</i> is specified. If that collection does
+        /// not already exist, it will be created.
         /// <br />
         /// To create a new collection, specify the name of the collection in
         /// <paramref name="table_name" /> and set the <i>is_collection</i>
-        /// option to <i>true</i>; <paramref name="type_id" /> will be
-        /// ignored.</summary>
+        /// option to
+        /// <i>true</i>; <paramref name="type_id" /> will be
+        /// ignored.
+        /// <br />
+        /// A table may optionally be designated to use a
+        /// <a href="../../concepts/tables.html#replication"
+        /// target="_top">replicated</a> distribution scheme,
+        /// have <a href="../../concepts/tables.html#foreign-keys"
+        /// target="_top">foreign keys</a> to other
+        /// tables assigned, or be assigned a
+        /// <a href="../../concepts/tables.html#partitioning"
+        /// target="_top">partitioning</a> scheme.</summary>
         /// 
         /// <param name="table_name">Name of the table to be created. Error for
         /// requests with existing table of the same name and type id may be
@@ -3907,9 +5005,7 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="CreateTableRequest.Options.DISALLOW_HOMOGENEOUS_TABLES">DISALLOW_HOMOGENEOUS_TABLES</see>:</term>
-        ///         <description>For a collection, indicates whether the
-        /// collection prohibits containment of multiple tables of exactly the
-        /// same data type.
+        ///         <description>No longer supported; value will be ignored.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -3927,19 +5023,21 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="CreateTableRequest.Options.IS_REPLICATED">IS_REPLICATED</see>:</term>
-        ///         <description>For a table, indicates the <a
+        ///         <description>For a table, affects the <a
         /// href="../../concepts/tables.html#distribution"
         /// target="_top">distribution scheme</a> for the table's data.  If
-        /// true, the table will be <a
+        /// true and the given type has no explicit <a
+        /// href="../../concepts/tables.html#shard-key" target="_top">shard
+        /// key</a> defined, the table will be <a
         /// href="../../concepts/tables.html#replication"
         /// target="_top">replicated</a>.  If false, the table will be <a
         /// href="../../concepts/tables.html#sharding"
-        /// target="_top">sharded</a> according to the <a
-        /// href="../../concepts/tables.html#shard-keys" target="_top">shard
-        /// key</a> specified in the given <paramref
-        /// cref="CreateTableRequest.type_id" />, or <a
+        /// target="_top">sharded</a> according to the shard key specified in
+        /// the given <paramref cref="CreateTableRequest.type_id" />, or <a
         /// href="../../concepts/tables.html#random-sharding"
         /// target="_top">randomly sharded</a>, if no shard key is specified.
+        /// Note that a type containing a shard key cannot be used to create a
+        /// replicated table.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -3969,6 +5067,49 @@ namespace kinetica
         ///         <description>Foreign shard key of the format 'source_column
         /// references shard_by_column from
         /// target_table(primary_key_column)'</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableRequest.Options.PARTITION_TYPE">PARTITION_TYPE</see>:</term>
+        ///         <description><a
+        /// href="../../concepts/tables.html#partitioning"
+        /// target="_top">Partitioning</a> scheme to use
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableRequest.Options.RANGE">RANGE</see>:</term>
+        ///         <description>Use <a
+        /// href="../../concepts/tables.html#partitioning-by-range"
+        /// target="_top">range partitioning</a></description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableRequest.Options.INTERVAL">INTERVAL</see>:</term>
+        ///         <description>Use <a
+        /// href="../../concepts/tables.html#partitioning-by-interval"
+        /// target="_top">interval partitioning</a></description>
+        ///     </item>
+        /// </list></description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableRequest.Options.PARTITION_KEYS">PARTITION_KEYS</see>:</term>
+        ///         <description>Comma-separated list of partition keys, which
+        /// are the columns or column expressions by which records will be
+        /// assigned to partitions defined by
+        /// <i>partition_definitions</i></description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableRequest.Options.PARTITION_DEFINITIONS">PARTITION_DEFINITIONS</see>:</term>
+        ///         <description>Comma-separated list of partition definitions,
+        /// whose format depends on the choice of <i>partition_type</i>.  See
+        /// <a href="../../concepts/tables.html#partitioning-by-range-example"
+        /// target="_top">range partitioning example</a> or <a
+        /// href="../../concepts/tables.html#partitioning-by-interval-example"
+        /// target="_top">interval partitioning example</a> for example
+        /// formats.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -4004,6 +5145,11 @@ namespace kinetica
         /// </list>
         /// The default value is <see
         /// cref="CreateTableRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableRequest.Options.STRATEGY_DEFINITION">STRATEGY_DEFINITION</see>:</term>
+        ///         <description></description>
         ///     </item>
         /// </list>
         ///   </param>
@@ -4570,11 +5716,12 @@ namespace kinetica
         ///         <term><see
         /// cref="CreateTypeRequest.Properties.DICT">DICT</see>:</term>
         ///         <description>This property indicates that this column
-        /// should be dictionary encoded. It can only be used in conjunction
-        /// with string columns marked with a charN property. This property is
-        /// appropriate for columns where the cardinality (the number of unique
-        /// values) is expected to be low, and can save a large amount of
-        /// memory.</description>
+        /// should be <a href="../../concepts/dictionary_encoding.html"
+        /// target="_top">dictionary encoded</a>. It can only be used in
+        /// conjunction with restricted string (charN), int, or long columns.
+        /// Dictionary encoding is best for columns where the cardinality (the
+        /// number of unique values) is expected to be low. This property can
+        /// save a large amount of memory.</description>
         ///     </item>
         /// </list>  </param>
         /// <param name="options">Optional parameters.  </param>
@@ -4931,7 +6078,16 @@ namespace kinetica
         /// role.  </param>
         /// <param name="password">Initial password of the user to be created.
         /// May be an empty string for no password.  </param>
-        /// <param name="options">Optional parameters.  </param>
+        /// <param name="options">Optional parameters.
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateUserInternalRequest.Options.RESOURCE_GROUP">RESOURCE_GROUP</see>:</term>
+        ///         <description>Name of an existing resource group to
+        /// associate with this user</description>
+        ///     </item>
+        /// </list>
+        ///   </param>
         /// 
         /// <returns>Response object containing the result of the
         /// operation.</returns>
@@ -4942,6 +6098,64 @@ namespace kinetica
         {
             return createUserInternal( new CreateUserInternalRequest( name, password,
                                                                       options ) );
+        }
+
+
+        /// <summary>Deletes an existing graph from the graph server and/or
+        /// persist.</summary>
+        /// 
+        /// <param name="request_">Request object containing the parameters for
+        /// the operation.</param>
+        /// 
+        /// <returns>Response object containing the result of the
+        /// operation.</returns>
+        /// 
+        public DeleteGraphResponse deleteGraph( DeleteGraphRequest request_ )
+        {
+            DeleteGraphResponse actualResponse_ = SubmitRequest<DeleteGraphResponse>("/delete/graph", request_, false);
+
+            return actualResponse_;
+        }
+
+
+        /// <summary>Deletes an existing graph from the graph server and/or
+        /// persist.</summary>
+        /// 
+        /// <param name="graph_name">Name of the graph to be deleted.  </param>
+        /// <param name="options">Optional parameters.
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="DeleteGraphRequest.Options.DELETE_PERSIST">DELETE_PERSIST</see>:</term>
+        ///         <description>If set to <i>true</i>, the graph is removed
+        /// from the server and persist. If set to <i>false</i>, the graph is
+        /// removed from the server but is left in persist. The graph can be
+        /// reloaded from persist if it is recreated with the same
+        /// 'graph_name'.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="DeleteGraphRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="DeleteGraphRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="DeleteGraphRequest.Options.TRUE">TRUE</see>.</description>
+        ///     </item>
+        /// </list>
+        ///   </param>
+        /// 
+        /// <returns>Response object containing the result of the
+        /// operation.</returns>
+        /// 
+        public DeleteGraphResponse deleteGraph( string graph_name,
+                                                IDictionary<string, string> options = null )
+        {
+            return deleteGraph( new DeleteGraphRequest( graph_name, options ) );
         }
 
 
@@ -5074,6 +6288,37 @@ namespace kinetica
         {
             return deleteRecords( new DeleteRecordsRequest( table_name, expressions,
                                                             options ) );
+        }
+
+
+        /// <summary>Deletes a resource group.</summary>
+        /// 
+        /// <param name="request_">Request object containing the parameters for
+        /// the operation.</param>
+        /// 
+        /// <returns>Response object containing the result of the
+        /// operation.</returns>
+        /// 
+        public DeleteResourceGroupResponse deleteResourceGroup( DeleteResourceGroupRequest request_ )
+        {
+            DeleteResourceGroupResponse actualResponse_ = SubmitRequest<DeleteResourceGroupResponse>("/delete/resourcegroup", request_, false);
+
+            return actualResponse_;
+        }
+
+
+        /// <summary>Deletes a resource group.</summary>
+        /// 
+        /// <param name="name">Name of the group to be deleted.  </param>
+        /// <param name="options">Optional parameters.  </param>
+        /// 
+        /// <returns>Response object containing the result of the
+        /// operation.</returns>
+        /// 
+        public DeleteResourceGroupResponse deleteResourceGroup( string name,
+                                                                IDictionary<string, string> options = null )
+        {
+            return deleteResourceGroup( new DeleteResourceGroupRequest( name, options ) );
         }
 
 
@@ -5247,6 +6492,306 @@ namespace kinetica
         }
 
 
+        /// <summary>SQL Request</summary>
+        /// 
+        /// <param name="request_">Request object containing the parameters for
+        /// the operation.</param>
+        /// 
+        /// <returns>Response object containing the result of the
+        /// operation.</returns>
+        /// 
+        public ExecuteSqlResponse executeSql( ExecuteSqlRequest request_ )
+        {
+            RawExecuteSqlResponse actualResponse_ = SubmitRequest<RawExecuteSqlResponse>("/execute/sql", request_, false);
+
+            ExecuteSqlResponse response_ = new ExecuteSqlResponse();
+            response_.count_affected = actualResponse_.count_affected;
+            response_.data = KineticaRecord.DecodeDynamicTableRecords( actualResponse_.response_schema_str, actualResponse_.binary_encoded_response );
+            response_.total_number_of_records = actualResponse_.total_number_of_records;
+            response_.has_more_records = actualResponse_.has_more_records;
+            response_.paging_table = actualResponse_.paging_table;
+            response_.info = actualResponse_.info;
+            return response_;
+        }
+
+
+        /// <summary>SQL Request</summary>
+        /// 
+        /// <param name="statement">SQL statement (query, DML, or DDL) to be
+        /// executed  </param>
+        /// <param name="offset">A positive integer indicating the number of
+        /// initial results to skip (this can be useful for paging through the
+        /// results).  The minimum allowed value is 0. The maximum allowed
+        /// value is MAX_INT. </param>
+        /// <param name="limit">A positive integer indicating the maximum
+        /// number of results to be returned (if not provided the default is
+        /// 10000), or END_OF_SET (-9999) to indicate that the maximum number
+        /// of results allowed by the server should be returned.  </param>
+        /// <param name="request_schema_str">Avro schema of <paramref
+        /// cref="ExecuteSqlRequest.data" />.  </param>
+        /// <param name="data">An array of binary-encoded data for the records
+        /// to be binded to the SQL query.  </param>
+        /// <param name="options">Optional parameters.
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="ExecuteSqlRequest.Options.PARALLEL_EXECUTION">PARALLEL_EXECUTION</see>:</term>
+        ///         <description>If <i>false</i>, disables the parallel step
+        /// execution of the given query.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="ExecuteSqlRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ExecuteSqlRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="ExecuteSqlRequest.Options.TRUE">TRUE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ExecuteSqlRequest.Options.COST_BASED_OPTIMIZATION">COST_BASED_OPTIMIZATION</see>:</term>
+        ///         <description>If <i>false</i>, disables the cost-based
+        /// optimization of the given query.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="ExecuteSqlRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ExecuteSqlRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="ExecuteSqlRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ExecuteSqlRequest.Options.PLAN_CACHE">PLAN_CACHE</see>:</term>
+        ///         <description>If <i>false</i>, disables plan caching for the
+        /// given query.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="ExecuteSqlRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ExecuteSqlRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="ExecuteSqlRequest.Options.TRUE">TRUE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ExecuteSqlRequest.Options.RULE_BASED_OPTIMIZATION">RULE_BASED_OPTIMIZATION</see>:</term>
+        ///         <description>If <i>false</i>, disables rule-based rewrite
+        /// optimizations for the given query
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="ExecuteSqlRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ExecuteSqlRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="ExecuteSqlRequest.Options.TRUE">TRUE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ExecuteSqlRequest.Options.RESULTS_CACHING">RESULTS_CACHING</see>:</term>
+        ///         <description>If <i>false</i>, disables caching of the
+        /// results of the given query
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="ExecuteSqlRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ExecuteSqlRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="ExecuteSqlRequest.Options.TRUE">TRUE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ExecuteSqlRequest.Options.PAGING_TABLE">PAGING_TABLE</see>:</term>
+        ///         <description>When empty or the specified paging table not
+        /// exists, the system will create a paging table and return when query
+        /// output has more records than the user asked. If the paging table
+        /// exists in the system, the records from the paging table are
+        /// returned without evaluating the query.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ExecuteSqlRequest.Options.PAGING_TABLE_TTL">PAGING_TABLE_TTL</see>:</term>
+        ///         <description>Sets the <a href="../../concepts/ttl.html"
+        /// target="_top">TTL</a> of the paging table.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ExecuteSqlRequest.Options.DISTRIBUTED_JOINS">DISTRIBUTED_JOINS</see>:</term>
+        ///         <description>If <i>false</i>, disables the use of
+        /// distributed joins in servicing the given query.  Any query
+        /// requiring a distributed join to succeed will fail, though hints can
+        /// be used in the query to change the distribution of the source data
+        /// to allow the query to succeed.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="ExecuteSqlRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ExecuteSqlRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="ExecuteSqlRequest.Options.TRUE">TRUE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ExecuteSqlRequest.Options.SSQ_OPTIMIZATION">SSQ_OPTIMIZATION</see>:</term>
+        ///         <description>If <i>false</i>, scalar subqueries will be
+        /// translated into joins
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="ExecuteSqlRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ExecuteSqlRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="ExecuteSqlRequest.Options.TRUE">TRUE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ExecuteSqlRequest.Options.LATE_MATERIALIZATION">LATE_MATERIALIZATION</see>:</term>
+        ///         <description>If <i>true</i>, Joins/Filters results  will
+        /// always be materialized ( saved to result tables format)
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="ExecuteSqlRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ExecuteSqlRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="ExecuteSqlRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ExecuteSqlRequest.Options.TTL">TTL</see>:</term>
+        ///         <description>Sets the <a href="../../concepts/ttl.html"
+        /// target="_top">TTL</a> of the intermediate result tables used in
+        /// query execution.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ExecuteSqlRequest.Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>:</term>
+        ///         <description>Can be used to customize behavior when the
+        /// updated primary key value already exists as described in
+        /// /insert/records.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="ExecuteSqlRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ExecuteSqlRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="ExecuteSqlRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ExecuteSqlRequest.Options.PRESERVE_DICT_ENCODING">PRESERVE_DICT_ENCODING</see>:</term>
+        ///         <description>If <i>true</i>, then columns that were dict
+        /// encoded in the source table will be dict encoded in the projection
+        /// table.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="ExecuteSqlRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ExecuteSqlRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="ExecuteSqlRequest.Options.TRUE">TRUE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ExecuteSqlRequest.Options.VALIDATE_CHANGE_COLUMN">VALIDATE_CHANGE_COLUMN</see>:</term>
+        ///         <description>When changing a column using alter table,
+        /// validate the change before applying it. If <i>true</i>, then
+        /// validate all values. A value too large (or too long) for the new
+        /// type will prevent any change. If <i>false</i>, then when a value is
+        /// too large or long, it will be truncated.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="ExecuteSqlRequest.Options.TRUE">TRUE</see>:</term>
+        ///         <description>true</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ExecuteSqlRequest.Options.FALSE">FALSE</see>:</term>
+        ///         <description>false</description>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="ExecuteSqlRequest.Options.TRUE">TRUE</see>.</description>
+        ///     </item>
+        /// </list>
+        ///   </param>
+        /// 
+        /// <returns>Response object containing the result of the
+        /// operation.</returns>
+        /// 
+        public ExecuteSqlResponse executeSql( string statement,
+                                              long offset,
+                                              long limit,
+                                              string request_schema_str = "",
+                                              IList<byte[]> data = null,
+                                              IDictionary<string, string> options = null )
+        {
+            return executeSql( new ExecuteSqlRequest( statement, offset, limit,
+                                                      request_schema_str, data, options ) );
+        }
+
+
         /// <summary>Filters data based on the specified expression.  The
         /// results are stored in a <a
         /// href="../../concepts/filtered_views.html" target="_top">result
@@ -5286,8 +6831,8 @@ namespace kinetica
         /// the result view.</summary>
         /// 
         /// <param name="table_name">Name of the table to filter.  This may be
-        /// the ID of a collection, table or a result set (for chaining
-        /// queries). If filtering a collection, all child tables where the
+        /// the name of a collection, a table, or a view (when chaining
+        /// queries).  If filtering a collection, all child tables where the
         /// filter expression is valid will be filtered; the filtered result
         /// tables will then be placed in a collection specified by <paramref
         /// cref="FilterRequest.view_name" />.  </param>
@@ -5370,8 +6915,8 @@ namespace kinetica
         /// input.</summary>
         /// 
         /// <param name="table_name">Name of the table to filter.  This may be
-        /// the name of a collection, a table or a view (when chaining
-        /// queries). If filtering a collection, all child tables where the
+        /// the name of a collection, a table, or a view (when chaining
+        /// queries).  If filtering a collection, all child tables where the
         /// filter expression is valid will be filtered; the filtered result
         /// tables will then be placed in a collection specified by <paramref
         /// cref="FilterByAreaRequest.view_name" />.  </param>
@@ -5451,7 +6996,7 @@ namespace kinetica
         /// the input.</summary>
         /// 
         /// <param name="table_name">Name of the table to filter.  This may be
-        /// the name of a collection, a table or a view (when chaining
+        /// the name of a collection, a table, or a view (when chaining
         /// queries).  If filtering a collection, all child tables where the
         /// filter expression is valid will be filtered; the filtered result
         /// tables will then be placed in a collection specified by <paramref
@@ -5839,8 +7384,8 @@ namespace kinetica
         /// lists do not correspond.</summary>
         /// 
         /// <param name="table_name">Name of the table to filter.  This may be
-        /// the ID of a collection, table or a result set (for chaining
-        /// queries). If filtering a collection, all child tables where the
+        /// the name of a collection, a table, or a view (when chaining
+        /// queries).  If filtering a collection, all child tables where the
         /// filter expression is valid will be filtered; the filtered result
         /// tables will then be placed in a collection specified by <paramref
         /// cref="FilterByListRequest.view_name" />.  </param>
@@ -6696,7 +8241,7 @@ namespace kinetica
         /// <returns>Response object containing the result of the
         /// operation.</returns>
         /// 
-        public GetJobResponse getJob( int job_id,
+        public GetJobResponse getJob( long job_id,
                                       IDictionary<string, string> options = null )
         {
             return getJob( new GetJobRequest( job_id, options ) );
@@ -6737,6 +8282,7 @@ namespace kinetica
             this.DecodeRawBinaryDataUsingSchemaString<T>( response_.type_schema, actualResponse_.records_binary, response_.data );
             response_.total_number_of_records = actualResponse_.total_number_of_records;
             response_.has_more_records = actualResponse_.has_more_records;
+            response_.info = actualResponse_.info;
             return response_;
         }
 
@@ -6875,6 +8421,7 @@ namespace kinetica
             response_.data = KineticaRecord.DecodeDynamicTableRecords( actualResponse_.response_schema_str, actualResponse_.binary_encoded_response );
             response_.total_number_of_records = actualResponse_.total_number_of_records;
             response_.has_more_records = actualResponse_.has_more_records;
+            response_.info = actualResponse_.info;
             return response_;
         }
 
@@ -6923,16 +8470,17 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="GetRecordsByColumnRequest.Options.SORT_BY">SORT_BY</see>:</term>
-        ///         <description>Optional column(s) that the data should be
-        /// sorted by. Empty by default (i.e. no sorting is
-        /// applied).</description>
+        ///         <description>Optional column that the data should be sorted
+        /// by. Used in conjunction with <i>sort_order</i>. The <i>order_by</i>
+        /// option can be used in lieu of <i>sort_by</i> /
+        /// <i>sort_order</i>.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="GetRecordsByColumnRequest.Options.SORT_ORDER">SORT_ORDER</see>:</term>
         ///         <description>String indicating how the returned values
-        /// should be sorted - ascending or descending. If sort_order is
-        /// provided, sort_by has to be provided.
+        /// should be sorted - <i>ascending</i> or <i>descending</i>. If
+        /// <i>sort_order</i> is provided, <i>sort_by</i> has to be provided.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -6951,7 +8499,8 @@ namespace kinetica
         ///         <term><see
         /// cref="GetRecordsByColumnRequest.Options.ORDER_BY">ORDER_BY</see>:</term>
         ///         <description>Comma-separated list of the columns to be
-        /// sorted by; e.g. 'timestamp asc, x desc'.</description>
+        /// sorted by as well as the sort direction, e.g., 'timestamp asc, x
+        /// desc'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -7027,6 +8576,7 @@ namespace kinetica
             response_.type_schemas = actualResponse_.type_schemas;
             response_.data = new List<IList<T>>();
             this.DecodeRawBinaryDataUsingTypeIDs<T>( response_.type_names, actualResponse_.list_records_binary, response_.data );
+            response_.info = actualResponse_.info;
             return response_;
         }
 
@@ -7114,6 +8664,7 @@ namespace kinetica
             response_.data = new List<T>();
             this.DecodeRawBinaryDataUsingTypeIDs<T>( response_.type_names, actualResponse_.records_binary, response_.data );
             response_.record_ids = actualResponse_.record_ids;
+            response_.info = actualResponse_.info;
             return response_;
         }
 
@@ -7180,6 +8731,49 @@ namespace kinetica
                                                                                      limit,
                                                                                      options ) );
         }
+
+        /// @cond NO_DOCS
+        /// 
+        /// <param name="request_">Request object containing the parameters for
+        /// the operation.</param>
+        /// 
+        /// <returns>Response object containing the result of the
+        /// operation.</returns>
+        /// 
+        public GetVectortileResponse getVectortile( GetVectortileRequest request_ )
+        {
+            GetVectortileResponse actualResponse_ = SubmitRequest<GetVectortileResponse>("/get/vectortile", request_, false);
+
+            return actualResponse_;
+        }
+        /// @endcond
+
+        /// @cond NO_DOCS
+        /// 
+        /// <param name="table_names"></param>
+        /// <param name="column_names"></param>
+        /// <param name="layers"></param>
+        /// <param name="tile_x"></param>
+        /// <param name="tile_y"></param>
+        /// <param name="zoom"></param>
+        /// <param name="options"></param>
+        /// 
+        /// <returns>Response object containing the result of the
+        /// operation.</returns>
+        /// 
+        public GetVectortileResponse getVectortile( IList<string> table_names,
+                                                    IList<string> column_names,
+                                                    IDictionary<string, IList<string>> layers,
+                                                    int tile_x,
+                                                    int tile_y,
+                                                    int zoom,
+                                                    IDictionary<string, string> options = null )
+        {
+            return getVectortile( new GetVectortileRequest( table_names, column_names,
+                                                            layers, tile_x, tile_y, zoom,
+                                                            options ) );
+        }
+        /// @endcond
 
 
         /// <summary>Grants a system-level permission to a user or
@@ -8014,6 +9608,41 @@ namespace kinetica
         }
 
 
+        /// <summary>Lists basic information about one or all graphs that exist
+        /// on the graph server.</summary>
+        /// 
+        /// <param name="request_">Request object containing the parameters for
+        /// the operation.</param>
+        /// 
+        /// <returns>Response object containing the result of the
+        /// operation.</returns>
+        /// 
+        public ListGraphResponse listGraph( ListGraphRequest request_ )
+        {
+            ListGraphResponse actualResponse_ = SubmitRequest<ListGraphResponse>("/list/graph", request_, false);
+
+            return actualResponse_;
+        }
+
+
+        /// <summary>Lists basic information about one or all graphs that exist
+        /// on the graph server.</summary>
+        /// 
+        /// <param name="graph_name">Name of the graph on which to retrieve
+        /// information. If empty, information about all graphs is returned.
+        /// </param>
+        /// <param name="options">Optional parameters.  </param>
+        /// 
+        /// <returns>Response object containing the result of the
+        /// operation.</returns>
+        /// 
+        public ListGraphResponse listGraph( string graph_name = "",
+                                            IDictionary<string, string> options = null )
+        {
+            return listGraph( new ListGraphRequest( graph_name, options ) );
+        }
+
+
         /// <summary>Manages global access to a table's data.  By default a
         /// table has a <paramref cref="LockTableRequest.lock_type" /> of
         /// <i>read_write</i>, indicating all operations are permitted.  A user
@@ -8264,6 +9893,156 @@ namespace kinetica
                                                           field_maps, options ) );
         }
 
+
+        /// <summary>Employs a topological query on a network graph generated
+        /// a-priori by <see
+        /// cref="Kinetica.createGraph(string,bool,IList{string},IList{string},IList{string},IList{string},IDictionary{string, string})"
+        /// />. See <a href="../../graph_solver/network_graph_solver.html"
+        /// target="_top">Network Graph Solvers</a> for more
+        /// information.</summary>
+        /// 
+        /// <param name="request_">Request object containing the parameters for
+        /// the operation.</param>
+        /// 
+        /// <returns>Response object containing the result of the
+        /// operation.</returns>
+        /// 
+        public QueryGraphResponse queryGraph( QueryGraphRequest request_ )
+        {
+            QueryGraphResponse actualResponse_ = SubmitRequest<QueryGraphResponse>("/query/graph", request_, false);
+
+            return actualResponse_;
+        }
+
+
+        /// <summary>Employs a topological query on a network graph generated
+        /// a-priori by <see
+        /// cref="Kinetica.createGraph(string,bool,IList{string},IList{string},IList{string},IList{string},IDictionary{string, string})"
+        /// />. See <a href="../../graph_solver/network_graph_solver.html"
+        /// target="_top">Network Graph Solvers</a> for more
+        /// information.</summary>
+        /// 
+        /// <param name="graph_name">Name of the graph resource to query.
+        /// </param>
+        /// <param name="edge_to_node">If set to <i>true</i>, the query gives
+        /// the adjacency list from edge(s) to node(s); otherwise, the
+        /// adjacency list is from node(s) to edge(s).
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="QueryGraphRequest.EdgeToNode.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="QueryGraphRequest.EdgeToNode.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="QueryGraphRequest.EdgeToNode.TRUE">TRUE</see>.  </param>
+        /// <param name="edge_or_node_int_ids">The unique list of edge or node
+        /// integer identifiers that will be queried for adjacencies.  </param>
+        /// <param name="edge_or_node_string_ids">The unique list of edge or
+        /// node string identifiers that will be queried for adjacencies.
+        /// </param>
+        /// <param name="edge_or_node_wkt_ids">The unique list of edge or node
+        /// WKTPOINT or WKTLINE string identifiers that will be queried for
+        /// adjacencies.  </param>
+        /// <param name="adjacency_table">Name of the table to store the
+        /// resulting adjacencies. If left blank, the query results are instead
+        /// returned in the response even if <i>export_query_results</i> is set
+        /// to <i>false</i>.  </param>
+        /// <param name="options">Additional parameters
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="QueryGraphRequest.Options.NUMBER_OF_RINGS">NUMBER_OF_RINGS</see>:</term>
+        ///         <description>Sets the number of rings of edges around the
+        /// node to query for adjacency, with '1' being the edges directly
+        /// attached to the queried nodes. This setting is ignored if <paramref
+        /// cref="QueryGraphRequest.edge_to_node" /> is set to
+        /// <i>true</i>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="QueryGraphRequest.Options.INCLUDE_ALL_EDGES">INCLUDE_ALL_EDGES</see>:</term>
+        ///         <description>Includes only the edges directed out of the
+        /// node for the query if set to <i>false</i>. If set to <i>true</i>,
+        /// all edges are queried.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="QueryGraphRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="QueryGraphRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="QueryGraphRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="QueryGraphRequest.Options.EXPORT_QUERY_RESULTS">EXPORT_QUERY_RESULTS</see>:</term>
+        ///         <description>Returns query results in the response if set
+        /// to <i>true</i>.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="QueryGraphRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="QueryGraphRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="QueryGraphRequest.Options.TRUE">TRUE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="QueryGraphRequest.Options.ENABLE_GRAPH_DRAW">ENABLE_GRAPH_DRAW</see>:</term>
+        ///         <description>If set to <i>true</i>, adds an 'EDGE_WKTLINE'
+        /// column identifier to the given <paramref
+        /// cref="QueryGraphRequest.adjacency_table" />.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="QueryGraphRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="QueryGraphRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="QueryGraphRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        /// </list>
+        ///   </param>
+        /// 
+        /// <returns>Response object containing the result of the
+        /// operation.</returns>
+        /// 
+        public QueryGraphResponse queryGraph( string graph_name,
+                                              bool edge_to_node,
+                                              IList<long> edge_or_node_int_ids,
+                                              IList<string> edge_or_node_string_ids,
+                                              IList<string> edge_or_node_wkt_ids,
+                                              string adjacency_table = "",
+                                              IDictionary<string, string> options = null )
+        {
+            return queryGraph( new QueryGraphRequest( graph_name, edge_to_node,
+                                                      edge_or_node_int_ids,
+                                                      edge_or_node_string_ids,
+                                                      edge_or_node_wkt_ids,
+                                                      adjacency_table, options ) );
+        }
+
         /// @cond NO_DOCS
         /// 
         /// <param name="request_">Request object containing the parameters for
@@ -8284,14 +10063,17 @@ namespace kinetica
         /// 
         /// <param name="old_rank_tom"></param>
         /// <param name="new_rank_tom"></param>
+        /// <param name="options"></param>
         /// 
         /// <returns>Response object containing the result of the
         /// operation.</returns>
         /// 
         public AdminReplaceTomResponse adminReplaceTom( long old_rank_tom,
-                                                        long new_rank_tom )
+                                                        long new_rank_tom,
+                                                        IDictionary<string, string> options = null )
         {
-            return adminReplaceTom( new AdminReplaceTomRequest( old_rank_tom, new_rank_tom ) );
+            return adminReplaceTom( new AdminReplaceTomRequest( old_rank_tom,
+                                                                new_rank_tom, options ) );
         }
         /// @endcond
 
@@ -8590,6 +10372,112 @@ namespace kinetica
         }
 
 
+        /// <summary>Shows various statistics for storage/memory tiers and
+        /// resource groups. Statistics are provided on a per rank
+        /// basis.</summary>
+        /// 
+        /// <param name="request_">Request object containing the parameters for
+        /// the operation.</param>
+        /// 
+        /// <returns>Response object containing the result of the
+        /// operation.</returns>
+        /// 
+        public ShowResourceStatisticsResponse showResourceStatistics( ShowResourceStatisticsRequest request_ )
+        {
+            ShowResourceStatisticsResponse actualResponse_ = SubmitRequest<ShowResourceStatisticsResponse>("/show/resource/statistics", request_, false);
+
+            return actualResponse_;
+        }
+
+
+        /// <summary>Shows various statistics for storage/memory tiers and
+        /// resource groups. Statistics are provided on a per rank
+        /// basis.</summary>
+        /// 
+        /// <param name="options">Optional parameters.  </param>
+        /// 
+        /// <returns>Response object containing the result of the
+        /// operation.</returns>
+        /// 
+        public ShowResourceStatisticsResponse showResourceStatistics( IDictionary<string, string> options = null )
+        {
+            return showResourceStatistics( new ShowResourceStatisticsRequest( options ) );
+        }
+
+
+        /// <summary>Shows resource group properties.</summary>
+        /// 
+        /// <param name="request_">Request object containing the parameters for
+        /// the operation.</param>
+        /// 
+        /// <returns>Response object containing the result of the
+        /// operation.</returns>
+        /// 
+        public ShowResourceGroupsResponse showResourceGroups( ShowResourceGroupsRequest request_ )
+        {
+            ShowResourceGroupsResponse actualResponse_ = SubmitRequest<ShowResourceGroupsResponse>("/show/resourcegroups", request_, false);
+
+            return actualResponse_;
+        }
+
+
+        /// <summary>Shows resource group properties.</summary>
+        /// 
+        /// <param name="names">List of names of groups to be shown. A single
+        /// entry with an empty string returns all groups.  </param>
+        /// <param name="options">Optional parameters.
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="ShowResourceGroupsRequest.Options.SHOW_DEFAULT_VALUES">SHOW_DEFAULT_VALUES</see>:</term>
+        ///         <description>If true include values of fields that are
+        /// based on the default resource group.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="ShowResourceGroupsRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ShowResourceGroupsRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="ShowResourceGroupsRequest.Options.TRUE">TRUE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ShowResourceGroupsRequest.Options.SHOW_DEFAULT_GROUP">SHOW_DEFAULT_GROUP</see>:</term>
+        ///         <description>If true include the default resource group in
+        /// the response.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="ShowResourceGroupsRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ShowResourceGroupsRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="ShowResourceGroupsRequest.Options.TRUE">TRUE</see>.</description>
+        ///     </item>
+        /// </list>
+        ///   </param>
+        /// 
+        /// <returns>Response object containing the result of the
+        /// operation.</returns>
+        /// 
+        public ShowResourceGroupsResponse showResourceGroups( IList<string> names,
+                                                              IDictionary<string, string> options = null )
+        {
+            return showResourceGroups( new ShowResourceGroupsRequest( names, options ) );
+        }
+
+
         /// <summary>Shows security information relating to users and/or roles.
         /// If the caller is not a system administrator, only information
         /// relating to the caller and their roles is returned.</summary>
@@ -8625,6 +10513,37 @@ namespace kinetica
         {
             return showSecurity( new ShowSecurityRequest( names, options ) );
         }
+
+        /// @cond NO_DOCS
+        /// 
+        /// <param name="request_">Request object containing the parameters for
+        /// the operation.</param>
+        /// 
+        /// <returns>Response object containing the result of the
+        /// operation.</returns>
+        /// 
+        public ShowStatisticsResponse showStatistics( ShowStatisticsRequest request_ )
+        {
+            ShowStatisticsResponse actualResponse_ = SubmitRequest<ShowStatisticsResponse>("/show/statistics", request_, false);
+
+            return actualResponse_;
+        }
+        /// @endcond
+
+        /// @cond NO_DOCS
+        /// 
+        /// <param name="table_names"></param>
+        /// <param name="options"></param>
+        /// 
+        /// <returns>Response object containing the result of the
+        /// operation.</returns>
+        /// 
+        public ShowStatisticsResponse showStatistics( IList<string> table_names,
+                                                      IDictionary<string, string> options = null )
+        {
+            return showStatistics( new ShowStatisticsRequest( table_names, options ) );
+        }
+        /// @endcond
 
 
         /// <summary>Returns server configuration and version related
@@ -9111,6 +11030,265 @@ namespace kinetica
         }
 
 
+        /// <summary>Solves an existing graph for a type of problem (e.g.,
+        /// shortest path, page rank, travelling salesman, etc.) using source
+        /// nodes, destination nodes, and additional, optional weights and
+        /// restrictions. See <a
+        /// href="../../graph_solver/network_graph_solver.html"
+        /// target="_top">Network Graph Solvers</a> for more
+        /// information.</summary>
+        /// 
+        /// <param name="request_">Request object containing the parameters for
+        /// the operation.</param>
+        /// 
+        /// <returns>Response object containing the result of the
+        /// operation.</returns>
+        /// 
+        public SolveGraphResponse solveGraph( SolveGraphRequest request_ )
+        {
+            SolveGraphResponse actualResponse_ = SubmitRequest<SolveGraphResponse>("/solve/graph", request_, false);
+
+            return actualResponse_;
+        }
+
+
+        /// <summary>Solves an existing graph for a type of problem (e.g.,
+        /// shortest path, page rank, travelling salesman, etc.) using source
+        /// nodes, destination nodes, and additional, optional weights and
+        /// restrictions. See <a
+        /// href="../../graph_solver/network_graph_solver.html"
+        /// target="_top">Network Graph Solvers</a> for more
+        /// information.</summary>
+        /// 
+        /// <param name="graph_name">Name of the graph resource to solve.
+        /// </param>
+        /// <param name="weights_on_edges">Additional weights to apply to the
+        /// edges of an existing graph. Example format: 'table.column AS
+        /// WEIGHTS_EDGE_ID'. Any provided weights will be added (in the case
+        /// of 'WEIGHTS_VALUESPECIFIED') to or multiplied with (in the case of
+        /// 'WEIGHTS_FACTORSPECIFIED') the existing weight(s).  </param>
+        /// <param name="restrictions">Additional restrictions to apply to the
+        /// nodes/edges of an existing graph. Example format: 'table.column AS
+        /// RESTRICTIONS_NODE_ID'. If <i>remove_previous_restrictions</i> is
+        /// set to <i>true</i>, any provided restrictions will replace the
+        /// existing restrictions. If <i>remove_previous_restrictions</i> is
+        /// set to <i>false</i>, any provided weights will be added (in the
+        /// case of 'RESTRICTIONS_VALUECOMPARED') to or replaced (in the case
+        /// of 'RESTRICTIONS_ONOFFCOMPARED').  </param>
+        /// <param name="solver_type">The type of solver to use for the graph.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="SolveGraphRequest.SolverType.SHORTEST_PATH">SHORTEST_PATH</see>:</term>
+        ///         <description>Solves for the optimal (shortest) path based
+        /// on weights and restrictions from one source to destinations nodes.
+        /// Also known as the Dijkstra solver.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="SolveGraphRequest.SolverType.PAGE_RANK">PAGE_RANK</see>:</term>
+        ///         <description>Solves for the probability of each destination
+        /// node being visited based on the links of the graph
+        /// topology.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="SolveGraphRequest.SolverType.CENTRALITY">CENTRALITY</see>:</term>
+        ///         <description>Solves for the degree of a node to depict how
+        /// many pairs of individuals that would have to go through the node to
+        /// reach one another in the minimum number of hops. Also known as
+        /// betweenness.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="SolveGraphRequest.SolverType.MULTIPLE_ROUTING">MULTIPLE_ROUTING</see>:</term>
+        ///         <description>Solves for finding the minimum cost cumulative
+        /// path for a round-trip starting from the given source and visiting
+        /// each given destination node once then returning to the source. Also
+        /// known as the travelling salesman problem.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="SolveGraphRequest.SolverType.INVERSE_SHORTEST_PATH">INVERSE_SHORTEST_PATH</see>:</term>
+        ///         <description>Solves for finding the optimal path cost for
+        /// each destination node to route to the source node. Also known as
+        /// inverse Dijkstra or the service man routing problem.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="SolveGraphRequest.SolverType.BACKHAUL_ROUTING">BACKHAUL_ROUTING</see>:</term>
+        ///         <description>Solves for optimal routes that connect remote
+        /// asset nodes to the fixed (backbone) asset nodes. When
+        /// <i>BACKHAUL_ROUTING</i> is invoked, the <paramref
+        /// cref="SolveGraphRequest.destination_nodes" /> or <paramref
+        /// cref="SolveGraphRequest.destination_node_ids" /> array is used for
+        /// both fixed and remote asset nodes and the <paramref
+        /// cref="SolveGraphRequest.source_node_id" /> represents the number of
+        /// fixed asset nodes contained in <paramref
+        /// cref="SolveGraphRequest.destination_nodes" /> / <paramref
+        /// cref="SolveGraphRequest.destination_node_ids" />.</description>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="SolveGraphRequest.SolverType.SHORTEST_PATH">SHORTEST_PATH</see>.
+        /// </param>
+        /// <param name="source_node_id">If <paramref
+        /// cref="SolveGraphRequest.node_type" /> is <i>NODE_ID</i>, the node
+        /// ID (integer) of the source (starting point) for the graph solution.
+        /// If the <paramref cref="SolveGraphRequest.solver_type" /> is set to
+        /// <i>BACKHAUL_ROUTING</i>, this number represents the number of fixed
+        /// asset nodes contained in <paramref
+        /// cref="SolveGraphRequest.destination_nodes" />, e.g., if <paramref
+        /// cref="SolveGraphRequest.source_node_id" /> is set to 24, the first
+        /// 24 nodes listed in <paramref
+        /// cref="SolveGraphRequest.destination_nodes" /> / <paramref
+        /// cref="SolveGraphRequest.destination_node_ids" /> are the fixed
+        /// asset nodes and the rest of the nodes in the array are remote
+        /// assets.  </param>
+        /// <param name="destination_node_ids">List of destination node
+        /// indices, or indices for pageranks. If the <paramref
+        /// cref="SolveGraphRequest.solver_type" /> is set to
+        /// <i>BACKHAUL_ROUTING</i>, it is the list of all fixed and remote
+        /// asset nodes.  </param>
+        /// <param name="node_type">Source and destination node identifier
+        /// type.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="SolveGraphRequest.NodeType.NODE_ID">NODE_ID</see>:</term>
+        ///         <description>The graph's nodes were identified as integers,
+        /// e.g., 1234.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="SolveGraphRequest.NodeType.NODE_WKTPOINT">NODE_WKTPOINT</see>:</term>
+        ///         <description>The graph's nodes were identified as
+        /// geospatial coordinates, e.g., 'POINT(1.0 2.0)'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="SolveGraphRequest.NodeType.NODE_NAME">NODE_NAME</see>:</term>
+        ///         <description>The graph's nodes were identified as strings,
+        /// e.g., 'Arlington'.</description>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="SolveGraphRequest.NodeType.NODE_ID">NODE_ID</see>.  </param>
+        /// <param name="source_node">If <paramref
+        /// cref="SolveGraphRequest.node_type" /> is <i>NODE_WKTPOINT</i> or
+        /// <i>NODE_NAME</i>, the node (string) of the source (starting point)
+        /// for the graph solution.  </param>
+        /// <param name="destination_nodes">If <paramref
+        /// cref="SolveGraphRequest.node_type" /> is <i>NODE_WKTPOINT</i> or
+        /// <i>NODE_NAME</i>, the list of destination node or page rank indices
+        /// (strings) for the graph solution. If the <paramref
+        /// cref="SolveGraphRequest.solver_type" /> is set to
+        /// <i>BACKHAUL_ROUTING</i>, it is the list of all fixed and remote
+        /// asset nodes. The string type should be consistent with the
+        /// <paramref cref="SolveGraphRequest.node_type" /> parameter.
+        /// </param>
+        /// <param name="solution_table">Name of the table to store the
+        /// solution.  </param>
+        /// <param name="options">Additional parameters
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="SolveGraphRequest.Options.MAX_SOLUTION_RADIUS">MAX_SOLUTION_RADIUS</see>:</term>
+        ///         <description>For <i>SHORTEST_PATH</i> and
+        /// <i>INVERSE_SHORTEST_PATH</i> solvers only. Sets the maximum
+        /// solution cost radius, which ignores the <paramref
+        /// cref="SolveGraphRequest.destination_node_ids" /> list and instead
+        /// outputs the nodes within the radius sorted by ascending cost. If
+        /// set to '0.0', the setting is ignored.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="SolveGraphRequest.Options.MAX_SOLUTION_TARGETS">MAX_SOLUTION_TARGETS</see>:</term>
+        ///         <description>For <i>SHORTEST_PATH</i> and
+        /// <i>INVERSE_SHORTEST_PATH</i> solvers only. Sets the maximum number
+        /// of solution targets, which ignores the <paramref
+        /// cref="SolveGraphRequest.destination_node_ids" /> list and instead
+        /// outputs no more than n number of nodes sorted by ascending cost
+        /// where n is equal to the setting value. If set to 0, the setting is
+        /// ignored.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="SolveGraphRequest.Options.EXPORT_SOLVE_RESULTS">EXPORT_SOLVE_RESULTS</see>:</term>
+        ///         <description>Returns solution results inside the <member
+        /// name="result_per_destination_node" /> array in the response if set
+        /// to <i>true</i>.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="SolveGraphRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="SolveGraphRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="SolveGraphRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="SolveGraphRequest.Options.REMOVE_PREVIOUS_RESTRICTIONS">REMOVE_PREVIOUS_RESTRICTIONS</see>:</term>
+        ///         <description>Ignore the restrictions applied to the graph
+        /// during the creation stage and only use the restrictions specified
+        /// in this request if set to <i>true</i>.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="SolveGraphRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="SolveGraphRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="SolveGraphRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="SolveGraphRequest.Options.RESTRICTION_THRESHOLD_VALUE">RESTRICTION_THRESHOLD_VALUE</see>:</term>
+        ///         <description>Value-based restriction comparison. Any node
+        /// or edge with a RESTRICTIONS_VALUECOMPARED value greater than the
+        /// <i>restriction_threshold_value</i> will not be included in the
+        /// solution.</description>
+        ///     </item>
+        /// </list>
+        ///   </param>
+        /// 
+        /// <returns>Response object containing the result of the
+        /// operation.</returns>
+        /// 
+        public SolveGraphResponse solveGraph( string graph_name,
+                                              IList<string> weights_on_edges,
+                                              IList<string> restrictions,
+                                              string solver_type,
+                                              long source_node_id,
+                                              IList<long> destination_node_ids,
+                                              string node_type,
+                                              string source_node,
+                                              IList<string> destination_nodes,
+                                              string solution_table = "graph_solutions",
+                                              IDictionary<string, string> options = null )
+        {
+            return solveGraph( new SolveGraphRequest( graph_name, weights_on_edges,
+                                                      restrictions, solver_type,
+                                                      source_node_id,
+                                                      destination_node_ids, node_type,
+                                                      source_node, destination_nodes,
+                                                      solution_table, options ) );
+        }
+
+
         /// <summary>Runs multiple predicate-based updates in a single call.
         /// With the list of given expressions, any matching record's column
         /// values will be updated as provided in <paramref
@@ -9249,7 +11427,7 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="RawUpdateRecordsRequest.Options.BYPASS_SAFETY_CHECKS">BYPASS_SAFETY_CHECKS</see>:</term>
-        ///         <description>When set to 'true', all predicates are
+        ///         <description>When set to <i>true</i>, all predicates are
         /// available for primary key updates.  Keep in mind that it is
         /// possible to destroy data in this case, since a single predicate may
         /// match multiple objects (potentially all of records of a table), and
@@ -9293,10 +11471,13 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="RawUpdateRecordsRequest.Options.USE_EXPRESSIONS_IN_NEW_VALUES_MAPS">USE_EXPRESSIONS_IN_NEW_VALUES_MAPS</see>:</term>
-        ///         <description>When set to 'true', all new_values in
-        /// new_values_maps are considered as expression values. When set to
-        /// 'false', all new_values in new_values_maps are considered as
-        /// constants.
+        ///         <description>When set to <i>true</i>, all new values in
+        /// <paramref cref="RawUpdateRecordsRequest.new_values_maps" /> are
+        /// considered as expression values. When set to <i>false</i>, all new
+        /// values in <paramref cref="RawUpdateRecordsRequest.new_values_maps"
+        /// /> are considered as constants.  NOTE:  When <i>true</i>, string
+        /// constants will need to be quoted to avoid being evaluated as
+        /// expressions.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -9409,6 +11590,7 @@ namespace kinetica
         /// <param name="world_table_names"></param>
         /// <param name="x_column_name"></param>
         /// <param name="y_column_name"></param>
+        /// <param name="symbol_column_name"></param>
         /// <param name="geometry_column_name"></param>
         /// <param name="track_ids"></param>
         /// <param name="min_x"></param>
@@ -9784,6 +11966,7 @@ namespace kinetica
                                                       IList<string> world_table_names,
                                                       string x_column_name,
                                                       string y_column_name,
+                                                      string symbol_column_name,
                                                       string geometry_column_name,
                                                       IList<IList<string>> track_ids,
                                                       double min_x,
@@ -9801,6 +11984,7 @@ namespace kinetica
                                                               world_table_names,
                                                               x_column_name,
                                                               y_column_name,
+                                                              symbol_column_name,
                                                               geometry_column_name,
                                                               track_ids, min_x, max_x,
                                                               min_y, max_y, width, height,
@@ -10018,13 +12202,13 @@ namespace kinetica
         ///         <term><see
         /// cref="VisualizeImageChartRequest.StyleOptions.JITTER_X">JITTER_X</see>:</term>
         ///         <description>Amplitude of horizontal jitter applied to
-        /// non-numaric x column values.</description>
+        /// non-numeric x column values.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="VisualizeImageChartRequest.StyleOptions.JITTER_Y">JITTER_Y</see>:</term>
         ///         <description>Amplitude of vertical jitter applied to
-        /// non-numaric y column values.</description>
+        /// non-numeric y column values.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -10750,6 +12934,46 @@ namespace kinetica
         /// cref="VisualizeImageContourRequest.Options.RENDER_OUTPUT_GRID">RENDER_OUTPUT_GRID</see>:</term>
         ///         <description></description>
         ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.Options.COLOR_ISOLINES">COLOR_ISOLINES</see>:</term>
+        ///         <description></description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.Options.ADD_LABELS">ADD_LABELS</see>:</term>
+        ///         <description></description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.Options.LABELS_FONT_SIZE">LABELS_FONT_SIZE</see>:</term>
+        ///         <description></description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.Options.LABELS_FONT_FAMILY">LABELS_FONT_FAMILY</see>:</term>
+        ///         <description></description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.Options.LABELS_SEARCH_WINDOW">LABELS_SEARCH_WINDOW</see>:</term>
+        ///         <description></description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.Options.LABELS_INTRALEVEL_SEPARATION">LABELS_INTRALEVEL_SEPARATION</see>:</term>
+        ///         <description></description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.Options.LABELS_INTERLEVEL_SEPARATION">LABELS_INTERLEVEL_SEPARATION</see>:</term>
+        ///         <description></description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.Options.LABELS_MAX_ANGLE">LABELS_MAX_ANGLE</see>:</term>
+        ///         <description></description>
+        ///     </item>
         /// </list>
         /// </param>
         /// 
@@ -10868,19 +13092,119 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="VisualizeImageHeatmapRequest.StyleOptions.HOT">HOT</see></term>
+        /// cref="VisualizeImageHeatmapRequest.StyleOptions.ACCENT">ACCENT</see></term>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="VisualizeImageHeatmapRequest.StyleOptions.HSV">HSV</see></term>
+        /// cref="VisualizeImageHeatmapRequest.StyleOptions.AFMHOT">AFMHOT</see></term>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="VisualizeImageHeatmapRequest.StyleOptions.GRAY">GRAY</see></term>
+        /// cref="VisualizeImageHeatmapRequest.StyleOptions.AUTUMN">AUTUMN</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageHeatmapRequest.StyleOptions.BINARY">BINARY</see></term>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="VisualizeImageHeatmapRequest.StyleOptions.BLUES">BLUES</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageHeatmapRequest.StyleOptions.BONE">BONE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageHeatmapRequest.StyleOptions.BRBG">BRBG</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageHeatmapRequest.StyleOptions.BRG">BRG</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageHeatmapRequest.StyleOptions.BUGN">BUGN</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageHeatmapRequest.StyleOptions.BUPU">BUPU</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageHeatmapRequest.StyleOptions.BWR">BWR</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageHeatmapRequest.StyleOptions.CMRMAP">CMRMAP</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageHeatmapRequest.StyleOptions.COOL">COOL</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageHeatmapRequest.StyleOptions.COOLWARM">COOLWARM</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageHeatmapRequest.StyleOptions.COPPER">COPPER</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageHeatmapRequest.StyleOptions.CUBEHELIX">CUBEHELIX</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageHeatmapRequest.StyleOptions.DARK2">DARK2</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageHeatmapRequest.StyleOptions.FLAG">FLAG</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageHeatmapRequest.StyleOptions.GIST_EARTH">GIST_EARTH</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageHeatmapRequest.StyleOptions.GIST_GRAY">GIST_GRAY</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageHeatmapRequest.StyleOptions.GIST_HEAT">GIST_HEAT</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageHeatmapRequest.StyleOptions.GIST_NCAR">GIST_NCAR</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageHeatmapRequest.StyleOptions.GIST_RAINBOW">GIST_RAINBOW</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageHeatmapRequest.StyleOptions.GIST_STERN">GIST_STERN</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageHeatmapRequest.StyleOptions.GIST_YARG">GIST_YARG</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageHeatmapRequest.StyleOptions.GNBU">GNBU</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageHeatmapRequest.StyleOptions.GNUPLOT2">GNUPLOT2</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageHeatmapRequest.StyleOptions.GNUPLOT">GNUPLOT</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageHeatmapRequest.StyleOptions.GRAY">GRAY</see></term>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -10892,7 +13216,83 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
+        /// cref="VisualizeImageHeatmapRequest.StyleOptions.HOT">HOT</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageHeatmapRequest.StyleOptions.HSV">HSV</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageHeatmapRequest.StyleOptions.INFERNO">INFERNO</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageHeatmapRequest.StyleOptions.MAGMA">MAGMA</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageHeatmapRequest.StyleOptions.NIPY_SPECTRAL">NIPY_SPECTRAL</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageHeatmapRequest.StyleOptions.OCEAN">OCEAN</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="VisualizeImageHeatmapRequest.StyleOptions.ORANGES">ORANGES</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageHeatmapRequest.StyleOptions.ORRD">ORRD</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageHeatmapRequest.StyleOptions.PAIRED">PAIRED</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageHeatmapRequest.StyleOptions.PASTEL1">PASTEL1</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageHeatmapRequest.StyleOptions.PASTEL2">PASTEL2</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageHeatmapRequest.StyleOptions.PINK">PINK</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageHeatmapRequest.StyleOptions.PIYG">PIYG</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageHeatmapRequest.StyleOptions.PLASMA">PLASMA</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageHeatmapRequest.StyleOptions.PRGN">PRGN</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageHeatmapRequest.StyleOptions.PRISM">PRISM</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageHeatmapRequest.StyleOptions.PUBU">PUBU</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageHeatmapRequest.StyleOptions.PUBUGN">PUBUGN</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageHeatmapRequest.StyleOptions.PUOR">PUOR</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageHeatmapRequest.StyleOptions.PURD">PURD</see></term>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -10900,11 +13300,91 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
+        /// cref="VisualizeImageHeatmapRequest.StyleOptions.RAINBOW">RAINBOW</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageHeatmapRequest.StyleOptions.RDBU">RDBU</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageHeatmapRequest.StyleOptions.RDGY">RDGY</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageHeatmapRequest.StyleOptions.RDPU">RDPU</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageHeatmapRequest.StyleOptions.RDYLBU">RDYLBU</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageHeatmapRequest.StyleOptions.RDYLGN">RDYLGN</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="VisualizeImageHeatmapRequest.StyleOptions.REDS">REDS</see></term>
         ///     </item>
         ///     <item>
         ///         <term><see
+        /// cref="VisualizeImageHeatmapRequest.StyleOptions.SEISMIC">SEISMIC</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageHeatmapRequest.StyleOptions.SET1">SET1</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageHeatmapRequest.StyleOptions.SET2">SET2</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageHeatmapRequest.StyleOptions.SET3">SET3</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageHeatmapRequest.StyleOptions.SPECTRAL">SPECTRAL</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageHeatmapRequest.StyleOptions.SPRING">SPRING</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageHeatmapRequest.StyleOptions.SUMMER">SUMMER</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageHeatmapRequest.StyleOptions.TERRAIN">TERRAIN</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="VisualizeImageHeatmapRequest.StyleOptions.VIRIDIS">VIRIDIS</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageHeatmapRequest.StyleOptions.WINTER">WINTER</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageHeatmapRequest.StyleOptions.WISTIA">WISTIA</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageHeatmapRequest.StyleOptions.YLGN">YLGN</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageHeatmapRequest.StyleOptions.YLGNBU">YLGNBU</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageHeatmapRequest.StyleOptions.YLORBR">YLORBR</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageHeatmapRequest.StyleOptions.YLORRD">YLORRD</see></term>
         ///     </item>
         /// </list>
         /// The default value is <see

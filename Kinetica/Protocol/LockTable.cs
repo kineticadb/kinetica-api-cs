@@ -190,6 +190,9 @@ namespace kinetica
         /// <summary>Returns the lock state of the table.  </summary>
         public string lock_type { get; set; }
 
+        /// <summary>Additional information.  </summary>
+        public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
+
     } // end class LockTableResponse
 
 

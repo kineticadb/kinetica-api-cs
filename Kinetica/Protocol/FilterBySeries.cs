@@ -291,6 +291,9 @@ namespace kinetica
         /// </summary>
         public long count { get; set; }
 
+        /// <summary>Additional information.  </summary>
+        public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
+
     } // end class FilterBySeriesResponse
 
 

@@ -12,7 +12,7 @@ namespace kinetica
 {
     /// @cond NO_DOCS
     /// <summary>A set of parameters for <see
-    /// cref="Kinetica.visualizeImage(IList{string},IList{string},string,string,string,IList{IList{string}},double,double,double,double,int,int,string,long,IDictionary{string, IList{string}},IDictionary{string, string})"
+    /// cref="Kinetica.visualizeImage(IList{string},IList{string},string,string,string,string,IList{IList{string}},double,double,double,double,int,int,string,long,IDictionary{string, IList{string}},IDictionary{string, string})"
     /// />.
     /// <br />
     /// </summary>
@@ -627,6 +627,7 @@ namespace kinetica
         public IList<string> world_table_names { get; set; } = new List<string>();
         public string x_column_name { get; set; }
         public string y_column_name { get; set; }
+        public string symbol_column_name { get; set; }
         public string geometry_column_name { get; set; }
         public IList<IList<string>> track_ids { get; set; } = new List<IList<string>>();
         public double min_x { get; set; }
@@ -1011,6 +1012,7 @@ namespace kinetica
         /// <param name="world_table_names"></param>
         /// <param name="x_column_name"></param>
         /// <param name="y_column_name"></param>
+        /// <param name="symbol_column_name"></param>
         /// <param name="geometry_column_name"></param>
         /// <param name="track_ids"></param>
         /// <param name="min_x"></param>
@@ -1383,6 +1385,7 @@ namespace kinetica
                                       IList<string> world_table_names,
                                       string x_column_name,
                                       string y_column_name,
+                                      string symbol_column_name,
                                       string geometry_column_name,
                                       IList<IList<string>> track_ids,
                                       double min_x,
@@ -1400,6 +1403,7 @@ namespace kinetica
             this.world_table_names = world_table_names ?? new List<string>();
             this.x_column_name = x_column_name ?? "";
             this.y_column_name = y_column_name ?? "";
+            this.symbol_column_name = symbol_column_name ?? "";
             this.geometry_column_name = geometry_column_name ?? "";
             this.track_ids = track_ids ?? new List<IList<string>>();
             this.min_x = min_x;
@@ -1421,7 +1425,7 @@ namespace kinetica
 
     /// @cond NO_DOCS
     /// <summary>A set of results returned by <see
-    /// cref="Kinetica.visualizeImage(IList{string},IList{string},string,string,string,IList{IList{string}},double,double,double,double,int,int,string,long,IDictionary{string, IList{string}},IDictionary{string, string})"
+    /// cref="Kinetica.visualizeImage(IList{string},IList{string},string,string,string,string,IList{IList{string}},double,double,double,double,int,int,string,long,IDictionary{string, IList{string}},IDictionary{string, string})"
     /// />.</summary>
     public class VisualizeImageResponse : KineticaData
     {
@@ -1429,6 +1433,7 @@ namespace kinetica
         public double height { get; set; }
         public long bg_color { get; set; }
         public byte[] image_data { get; set; }
+        public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
 
     } // end class VisualizeImageResponse
     /// @endcond

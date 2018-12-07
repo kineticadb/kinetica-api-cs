@@ -20,6 +20,27 @@ namespace kinetica
     public class CreateUserInternalRequest : KineticaData
     {
 
+        /// <summary>Optional parameters.
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateUserInternalRequest.Options.RESOURCE_GROUP">RESOURCE_GROUP</see>:</term>
+        ///         <description>Name of an existing resource group to
+        /// associate with this user</description>
+        ///     </item>
+        /// </list>
+        /// <br />
+        /// A set of string constants for the parameter <see cref="options"
+        /// />.</summary>
+        public struct Options
+        {
+
+            /// <summary>Name of an existing resource group to associate with
+            /// this user</summary>
+            public const string RESOURCE_GROUP = "resource_group";
+        } // end struct Options
+
+
         /// <summary>Name of the user to be created. Must contain only
         /// lowercase letters, digits, and underscores, and cannot begin with a
         /// digit. Must not be the same name as an existing user or role.
@@ -30,7 +51,16 @@ namespace kinetica
         /// empty string for no password.  </summary>
         public string password { get; set; }
 
-        /// <summary>Optional parameters.  </summary>
+        /// <summary>Optional parameters.
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateUserInternalRequest.Options.RESOURCE_GROUP">RESOURCE_GROUP</see>:</term>
+        ///         <description>Name of an existing resource group to
+        /// associate with this user</description>
+        ///     </item>
+        /// </list>
+        ///   </summary>
         public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
 
 
@@ -47,7 +77,16 @@ namespace kinetica
         /// role.  </param>
         /// <param name="password">Initial password of the user to be created.
         /// May be an empty string for no password.  </param>
-        /// <param name="options">Optional parameters.  </param>
+        /// <param name="options">Optional parameters.
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateUserInternalRequest.Options.RESOURCE_GROUP">RESOURCE_GROUP</see>:</term>
+        ///         <description>Name of an existing resource group to
+        /// associate with this user</description>
+        ///     </item>
+        /// </list>
+        ///   </param>
         /// 
         public CreateUserInternalRequest( string name,
                                           string password,
@@ -71,6 +110,9 @@ namespace kinetica
         /// <summary>Value of <paramref cref="CreateUserInternalRequest.name"
         /// />.  </summary>
         public string name { get; set; }
+
+        /// <summary>Additional information.  </summary>
+        public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
 
     } // end class CreateUserInternalResponse
 

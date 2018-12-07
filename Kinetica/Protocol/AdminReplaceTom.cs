@@ -4,6 +4,7 @@
  *  DO NOT EDIT DIRECTLY.
  */
 
+using System.Collections.Generic;
 
 
 
@@ -11,13 +12,15 @@ namespace kinetica
 {
     /// @cond NO_DOCS
     /// <summary>A set of parameters for <see
-    /// cref="Kinetica.adminReplaceTom(long,long)" />.
+    /// cref="Kinetica.adminReplaceTom(long,long,IDictionary{string, string})"
+    /// />.
     /// <br />
     /// </summary>
     public class AdminReplaceTomRequest : KineticaData
     {
         public long old_rank_tom { get; set; }
         public long new_rank_tom { get; set; }
+        public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
 
 
         /// <summary>Constructs an AdminReplaceTomRequest object with default
@@ -29,12 +32,15 @@ namespace kinetica
         /// 
         /// <param name="old_rank_tom"></param>
         /// <param name="new_rank_tom"></param>
+        /// <param name="options"></param>
         /// 
         public AdminReplaceTomRequest( long old_rank_tom,
-                                       long new_rank_tom)
+                                       long new_rank_tom,
+                                       IDictionary<string, string> options = null)
         {
             this.old_rank_tom = old_rank_tom;
             this.new_rank_tom = new_rank_tom;
+            this.options = options ?? new Dictionary<string, string>();
         } // end constructor
 
     } // end class AdminReplaceTomRequest
@@ -44,11 +50,13 @@ namespace kinetica
 
     /// @cond NO_DOCS
     /// <summary>A set of results returned by <see
-    /// cref="Kinetica.adminReplaceTom(long,long)" />.</summary>
+    /// cref="Kinetica.adminReplaceTom(long,long,IDictionary{string, string})"
+    /// />.</summary>
     public class AdminReplaceTomResponse : KineticaData
     {
         public long old_rank_tom { get; set; }
         public long new_rank_tom { get; set; }
+        public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
 
     } // end class AdminReplaceTomResponse
     /// @endcond

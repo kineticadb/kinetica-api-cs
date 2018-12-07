@@ -83,6 +83,9 @@ namespace kinetica
         /// cref="AlterTableMetadataRequest.metadata_map" />.  </summary>
         public IDictionary<string, string> metadata_map { get; set; } = new Dictionary<string, string>();
 
+        /// <summary>Additional information.  </summary>
+        public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
+
     } // end class AlterTableMetadataResponse
 
 

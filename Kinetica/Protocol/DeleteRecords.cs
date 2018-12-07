@@ -245,6 +245,9 @@ namespace kinetica
         /// </summary>
         public IList<long> counts_deleted { get; set; } = new List<long>();
 
+        /// <summary>Additional information.  </summary>
+        public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
+
     } // end class DeleteRecordsResponse
 
 

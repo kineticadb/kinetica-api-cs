@@ -126,12 +126,15 @@ namespace kinetica
     /// />.</summary>
     public class AdminShowJobsResponse : KineticaData
     {
-        public IList<int> job_id { get; set; } = new List<int>();
+        public IList<long> job_id { get; set; } = new List<long>();
         public IList<string> status { get; set; } = new List<string>();
         public IList<string> endpoint_name { get; set; } = new List<string>();
         public IList<long> time_received { get; set; } = new List<long>();
         public IList<string> auth_id { get; set; } = new List<string>();
         public IList<string> user_data { get; set; } = new List<string>();
+
+        /// <summary>Additional information.  </summary>
+        public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
 
     } // end class AdminShowJobsResponse
 

@@ -12,7 +12,7 @@ namespace kinetica
 {
 
     /// <summary>A set of parameters for <see
-    /// cref="Kinetica.getJob(int,IDictionary{string, string})" />.
+    /// cref="Kinetica.getJob(long,IDictionary{string, string})" />.
     /// <br />
     /// </summary>
     public class GetJobRequest : KineticaData
@@ -20,7 +20,7 @@ namespace kinetica
 
         /// <summary>A unique identifier for the job whose status and result is
         /// to be fetched.  </summary>
-        public int job_id { get; set; }
+        public long job_id { get; set; }
 
         /// <summary>Optional parameters.  </summary>
         public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
@@ -37,7 +37,7 @@ namespace kinetica
         /// and result is to be fetched.  </param>
         /// <param name="options">Optional parameters.  </param>
         /// 
-        public GetJobRequest( int job_id,
+        public GetJobRequest( long job_id,
                               IDictionary<string, string> options = null)
         {
             this.job_id = job_id;
@@ -49,7 +49,8 @@ namespace kinetica
 
 
     /// <summary>A set of results returned by <see
-    /// cref="Kinetica.getJob(int,IDictionary{string, string})" />.</summary>
+    /// cref="Kinetica.getJob(long,IDictionary{string, string})"
+    /// />.</summary>
     public class GetJobResponse : KineticaData
     {
 
@@ -247,6 +248,9 @@ namespace kinetica
         /// </list>
         ///   </summary>
         public IDictionary<string, string> status_map { get; set; } = new Dictionary<string, string>();
+
+        /// <summary>Additional information.  </summary>
+        public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
 
     } // end class GetJobResponse
 

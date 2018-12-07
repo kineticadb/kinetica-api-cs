@@ -77,7 +77,7 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="RawUpdateRecordsRequest.Options.BYPASS_SAFETY_CHECKS">BYPASS_SAFETY_CHECKS</see>:</term>
-        ///         <description>When set to 'true', all predicates are
+        ///         <description>When set to <i>true</i>, all predicates are
         /// available for primary key updates.  Keep in mind that it is
         /// possible to destroy data in this case, since a single predicate may
         /// match multiple objects (potentially all of records of a table), and
@@ -121,10 +121,13 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="RawUpdateRecordsRequest.Options.USE_EXPRESSIONS_IN_NEW_VALUES_MAPS">USE_EXPRESSIONS_IN_NEW_VALUES_MAPS</see>:</term>
-        ///         <description>When set to 'true', all new_values in
-        /// new_values_maps are considered as expression values. When set to
-        /// 'false', all new_values in new_values_maps are considered as
-        /// constants.
+        ///         <description>When set to <i>true</i>, all new values in
+        /// <paramref cref="RawUpdateRecordsRequest.new_values_maps" /> are
+        /// considered as expression values. When set to <i>false</i>, all new
+        /// values in <paramref cref="RawUpdateRecordsRequest.new_values_maps"
+        /// /> are considered as constants.  NOTE:  When <i>true</i>, string
+        /// constants will need to be quoted to avoid being evaluated as
+        /// expressions.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -158,8 +161,8 @@ namespace kinetica
             /// />.</summary>
             public const string GLOBAL_EXPRESSION = "global_expression";
 
-            /// <summary>When set to 'true', all predicates are available for
-            /// primary key updates.  Keep in mind that it is possible to
+            /// <summary>When set to <i>true</i>, all predicates are available
+            /// for primary key updates.  Keep in mind that it is possible to
             /// destroy data in this case, since a single predicate may match
             /// multiple objects (potentially all of records of a table), and
             /// then updating all of those records to have the same primary key
@@ -201,9 +204,12 @@ namespace kinetica
             /// cref="RawUpdateRecordsRequest.Options.FALSE">FALSE</see>.</summary>
             public const string UPDATE_ON_EXISTING_PK = "update_on_existing_pk";
 
-            /// <summary>When set to 'true', all new_values in new_values_maps
-            /// are considered as expression values. When set to 'false', all
-            /// new_values in new_values_maps are considered as constants.
+            /// <summary>When set to <i>true</i>, all new values in <see
+            /// cref="new_values_maps" /> are considered as expression values.
+            /// When set to <i>false</i>, all new values in <see
+            /// cref="new_values_maps" /> are considered as constants.  NOTE:
+            /// When <i>true</i>, string constants will need to be quoted to
+            /// avoid being evaluated as expressions.
             /// Supported values:
             /// <list type="bullet">
             ///     <item>
@@ -289,7 +295,7 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="RawUpdateRecordsRequest.Options.BYPASS_SAFETY_CHECKS">BYPASS_SAFETY_CHECKS</see>:</term>
-        ///         <description>When set to 'true', all predicates are
+        ///         <description>When set to <i>true</i>, all predicates are
         /// available for primary key updates.  Keep in mind that it is
         /// possible to destroy data in this case, since a single predicate may
         /// match multiple objects (potentially all of records of a table), and
@@ -333,10 +339,13 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="RawUpdateRecordsRequest.Options.USE_EXPRESSIONS_IN_NEW_VALUES_MAPS">USE_EXPRESSIONS_IN_NEW_VALUES_MAPS</see>:</term>
-        ///         <description>When set to 'true', all new_values in
-        /// new_values_maps are considered as expression values. When set to
-        /// 'false', all new_values in new_values_maps are considered as
-        /// constants.
+        ///         <description>When set to <i>true</i>, all new values in
+        /// <paramref cref="RawUpdateRecordsRequest.new_values_maps" /> are
+        /// considered as expression values. When set to <i>false</i>, all new
+        /// values in <paramref cref="RawUpdateRecordsRequest.new_values_maps"
+        /// /> are considered as constants.  NOTE:  When <i>true</i>, string
+        /// constants will need to be quoted to avoid being evaluated as
+        /// expressions.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -397,7 +406,7 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="RawUpdateRecordsRequest.Options.BYPASS_SAFETY_CHECKS">BYPASS_SAFETY_CHECKS</see>:</term>
-        ///         <description>When set to 'true', all predicates are
+        ///         <description>When set to <i>true</i>, all predicates are
         /// available for primary key updates.  Keep in mind that it is
         /// possible to destroy data in this case, since a single predicate may
         /// match multiple objects (potentially all of records of a table), and
@@ -441,10 +450,13 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="RawUpdateRecordsRequest.Options.USE_EXPRESSIONS_IN_NEW_VALUES_MAPS">USE_EXPRESSIONS_IN_NEW_VALUES_MAPS</see>:</term>
-        ///         <description>When set to 'true', all new_values in
-        /// new_values_maps are considered as expression values. When set to
-        /// 'false', all new_values in new_values_maps are considered as
-        /// constants.
+        ///         <description>When set to <i>true</i>, all new values in
+        /// <paramref cref="RawUpdateRecordsRequest.new_values_maps" /> are
+        /// considered as expression values. When set to <i>false</i>, all new
+        /// values in <paramref cref="RawUpdateRecordsRequest.new_values_maps"
+        /// /> are considered as constants.  NOTE:  When <i>true</i>, string
+        /// constants will need to be quoted to avoid being evaluated as
+        /// expressions.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -537,7 +549,7 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="RawUpdateRecordsRequest.Options.BYPASS_SAFETY_CHECKS">BYPASS_SAFETY_CHECKS</see>:</term>
-        ///         <description>When set to 'true', all predicates are
+        ///         <description>When set to <i>true</i>, all predicates are
         /// available for primary key updates.  Keep in mind that it is
         /// possible to destroy data in this case, since a single predicate may
         /// match multiple objects (potentially all of records of a table), and
@@ -581,10 +593,13 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="RawUpdateRecordsRequest.Options.USE_EXPRESSIONS_IN_NEW_VALUES_MAPS">USE_EXPRESSIONS_IN_NEW_VALUES_MAPS</see>:</term>
-        ///         <description>When set to 'true', all new_values in
-        /// new_values_maps are considered as expression values. When set to
-        /// 'false', all new_values in new_values_maps are considered as
-        /// constants.
+        ///         <description>When set to <i>true</i>, all new values in
+        /// <paramref cref="RawUpdateRecordsRequest.new_values_maps" /> are
+        /// considered as expression values. When set to <i>false</i>, all new
+        /// values in <paramref cref="RawUpdateRecordsRequest.new_values_maps"
+        /// /> are considered as constants.  NOTE:  When <i>true</i>, string
+        /// constants will need to be quoted to avoid being evaluated as
+        /// expressions.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -673,7 +688,7 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="RawUpdateRecordsRequest.Options.BYPASS_SAFETY_CHECKS">BYPASS_SAFETY_CHECKS</see>:</term>
-        ///         <description>When set to 'true', all predicates are
+        ///         <description>When set to <i>true</i>, all predicates are
         /// available for primary key updates.  Keep in mind that it is
         /// possible to destroy data in this case, since a single predicate may
         /// match multiple objects (potentially all of records of a table), and
@@ -717,10 +732,13 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="RawUpdateRecordsRequest.Options.USE_EXPRESSIONS_IN_NEW_VALUES_MAPS">USE_EXPRESSIONS_IN_NEW_VALUES_MAPS</see>:</term>
-        ///         <description>When set to 'true', all new_values in
-        /// new_values_maps are considered as expression values. When set to
-        /// 'false', all new_values in new_values_maps are considered as
-        /// constants.
+        ///         <description>When set to <i>true</i>, all new values in
+        /// <paramref cref="RawUpdateRecordsRequest.new_values_maps" /> are
+        /// considered as expression values. When set to <i>false</i>, all new
+        /// values in <paramref cref="RawUpdateRecordsRequest.new_values_maps"
+        /// /> are considered as constants.  NOTE:  When <i>true</i>, string
+        /// constants will need to be quoted to avoid being evaluated as
+        /// expressions.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -754,8 +772,8 @@ namespace kinetica
             /// />.</summary>
             public const string GLOBAL_EXPRESSION = "global_expression";
 
-            /// <summary>When set to 'true', all predicates are available for
-            /// primary key updates.  Keep in mind that it is possible to
+            /// <summary>When set to <i>true</i>, all predicates are available
+            /// for primary key updates.  Keep in mind that it is possible to
             /// destroy data in this case, since a single predicate may match
             /// multiple objects (potentially all of records of a table), and
             /// then updating all of those records to have the same primary key
@@ -797,9 +815,12 @@ namespace kinetica
             /// cref="RawUpdateRecordsRequest.Options.FALSE">FALSE</see>.</summary>
             public const string UPDATE_ON_EXISTING_PK = "update_on_existing_pk";
 
-            /// <summary>When set to 'true', all new_values in new_values_maps
-            /// are considered as expression values. When set to 'false', all
-            /// new_values in new_values_maps are considered as constants.
+            /// <summary>When set to <i>true</i>, all new values in <see
+            /// cref="new_values_maps" /> are considered as expression values.
+            /// When set to <i>false</i>, all new values in <see
+            /// cref="new_values_maps" /> are considered as constants.  NOTE:
+            /// When <i>true</i>, string constants will need to be quoted to
+            /// avoid being evaluated as expressions.
             /// Supported values:
             /// <list type="bullet">
             ///     <item>
@@ -860,7 +881,7 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="RawUpdateRecordsRequest.Options.BYPASS_SAFETY_CHECKS">BYPASS_SAFETY_CHECKS</see>:</term>
-        ///         <description>When set to 'true', all predicates are
+        ///         <description>When set to <i>true</i>, all predicates are
         /// available for primary key updates.  Keep in mind that it is
         /// possible to destroy data in this case, since a single predicate may
         /// match multiple objects (potentially all of records of a table), and
@@ -904,10 +925,13 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="RawUpdateRecordsRequest.Options.USE_EXPRESSIONS_IN_NEW_VALUES_MAPS">USE_EXPRESSIONS_IN_NEW_VALUES_MAPS</see>:</term>
-        ///         <description>When set to 'true', all new_values in
-        /// new_values_maps are considered as expression values. When set to
-        /// 'false', all new_values in new_values_maps are considered as
-        /// constants.
+        ///         <description>When set to <i>true</i>, all new values in
+        /// <paramref cref="RawUpdateRecordsRequest.new_values_maps" /> are
+        /// considered as expression values. When set to <i>false</i>, all new
+        /// values in <paramref cref="RawUpdateRecordsRequest.new_values_maps"
+        /// /> are considered as constants.  NOTE:  When <i>true</i>, string
+        /// constants will need to be quoted to avoid being evaluated as
+        /// expressions.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -968,7 +992,7 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="RawUpdateRecordsRequest.Options.BYPASS_SAFETY_CHECKS">BYPASS_SAFETY_CHECKS</see>:</term>
-        ///         <description>When set to 'true', all predicates are
+        ///         <description>When set to <i>true</i>, all predicates are
         /// available for primary key updates.  Keep in mind that it is
         /// possible to destroy data in this case, since a single predicate may
         /// match multiple objects (potentially all of records of a table), and
@@ -1012,10 +1036,13 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="RawUpdateRecordsRequest.Options.USE_EXPRESSIONS_IN_NEW_VALUES_MAPS">USE_EXPRESSIONS_IN_NEW_VALUES_MAPS</see>:</term>
-        ///         <description>When set to 'true', all new_values in
-        /// new_values_maps are considered as expression values. When set to
-        /// 'false', all new_values in new_values_maps are considered as
-        /// constants.
+        ///         <description>When set to <i>true</i>, all new values in
+        /// <paramref cref="RawUpdateRecordsRequest.new_values_maps" /> are
+        /// considered as expression values. When set to <i>false</i>, all new
+        /// values in <paramref cref="RawUpdateRecordsRequest.new_values_maps"
+        /// /> are considered as constants.  NOTE:  When <i>true</i>, string
+        /// constants will need to be quoted to avoid being evaluated as
+        /// expressions.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -1078,6 +1105,9 @@ namespace kinetica
         /// <paramref cref="RawUpdateRecordsRequest.expressions" /> (will be
         /// either 0 or 1 for each expression).  </summary>
         public IList<long> counts_inserted { get; set; } = new List<long>();
+
+        /// <summary>Additional information.  </summary>
+        public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
 
     } // end class UpdateRecordsResponse
 

@@ -181,6 +181,9 @@ namespace kinetica
         /// </summary>
         public bool is_offline { get; set; }
 
+        /// <summary>Additional information.  </summary>
+        public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
+
     } // end class AdminOfflineResponse
 
 

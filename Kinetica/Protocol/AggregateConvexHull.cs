@@ -88,6 +88,9 @@ namespace kinetica
         public int count { get; set; }
         public bool is_valid { get; set; }
 
+        /// <summary>Additional information.  </summary>
+        public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
+
     } // end class AggregateConvexHullResponse
 
 

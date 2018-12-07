@@ -162,6 +162,9 @@ namespace kinetica
         public IList<string> labels { get; set; } = new List<string>();
         public IList<IDictionary<string, IList<string>>> properties { get; set; } = new List<IDictionary<string, IList<string>>>();
 
+        /// <summary>Additional information.  </summary>
+        public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
+
     } // end class ShowTypesResponse
 
 

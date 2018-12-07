@@ -178,13 +178,13 @@ namespace kinetica
         ///         <term><see
         /// cref="VisualizeImageChartRequest.StyleOptions.JITTER_X">JITTER_X</see>:</term>
         ///         <description>Amplitude of horizontal jitter applied to
-        /// non-numaric x column values.</description>
+        /// non-numeric x column values.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="VisualizeImageChartRequest.StyleOptions.JITTER_Y">JITTER_Y</see>:</term>
         ///         <description>Amplitude of vertical jitter applied to
-        /// non-numaric y column values.</description>
+        /// non-numeric y column values.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -339,11 +339,11 @@ namespace kinetica
             /// cref="VisualizeImageChartRequest.StyleOptions.NONE">NONE</see>.</summary>
             public const string SCALE_TYPE_Y = "scale_type_y";
 
-            /// <summary>Amplitude of horizontal jitter applied to non-numaric
+            /// <summary>Amplitude of horizontal jitter applied to non-numeric
             /// x column values.</summary>
             public const string JITTER_X = "jitter_x";
 
-            /// <summary>Amplitude of vertical jitter applied to non-numaric y
+            /// <summary>Amplitude of vertical jitter applied to non-numeric y
             /// column values.</summary>
             public const string JITTER_Y = "jitter_y";
 
@@ -549,13 +549,13 @@ namespace kinetica
         ///         <term><see
         /// cref="VisualizeImageChartRequest.StyleOptions.JITTER_X">JITTER_X</see>:</term>
         ///         <description>Amplitude of horizontal jitter applied to
-        /// non-numaric x column values.</description>
+        /// non-numeric x column values.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="VisualizeImageChartRequest.StyleOptions.JITTER_Y">JITTER_Y</see>:</term>
         ///         <description>Amplitude of vertical jitter applied to
-        /// non-numaric y column values.</description>
+        /// non-numeric y column values.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -757,13 +757,13 @@ namespace kinetica
         ///         <term><see
         /// cref="VisualizeImageChartRequest.StyleOptions.JITTER_X">JITTER_X</see>:</term>
         ///         <description>Amplitude of horizontal jitter applied to
-        /// non-numaric x column values.</description>
+        /// non-numeric x column values.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="VisualizeImageChartRequest.StyleOptions.JITTER_Y">JITTER_Y</see>:</term>
         ///         <description>Amplitude of vertical jitter applied to
-        /// non-numaric y column values.</description>
+        /// non-numeric y column values.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -930,6 +930,9 @@ namespace kinetica
         /// </list>
         ///   </summary>
         public IDictionary<string, IList<string>> axes_info { get; set; } = new Dictionary<string, IList<string>>();
+
+        /// <summary>Additional information.  </summary>
+        public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
 
     } // end class VisualizeImageChartResponse
 

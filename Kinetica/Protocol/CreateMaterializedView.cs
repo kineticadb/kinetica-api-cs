@@ -455,6 +455,9 @@ namespace kinetica
         /// <summary>Value of view_id.  </summary>
         public string view_id { get; set; }
 
+        /// <summary>Additional information.  </summary>
+        public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
+
     } // end class CreateMaterializedViewResponse
 
 

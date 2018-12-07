@@ -147,6 +147,9 @@ namespace kinetica
         /// cref="GrantPermissionSystemRequest.permission" />.  </summary>
         public string permission { get; set; }
 
+        /// <summary>Additional information.  </summary>
+        public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
+
     } // end class GrantPermissionSystemResponse
 
 

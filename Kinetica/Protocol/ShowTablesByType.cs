@@ -71,6 +71,9 @@ namespace kinetica
         /// <summary>List of tables matching the input criteria.  </summary>
         public IList<string> table_names { get; set; } = new List<string>();
 
+        /// <summary>Additional information.  </summary>
+        public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
+
     } // end class ShowTablesByTypeResponse
 
 

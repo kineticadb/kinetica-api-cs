@@ -80,6 +80,9 @@ namespace kinetica
         /// cref="AggregateMinMaxGeometryRequest.column_name" />.  </summary>
         public double max_y { get; set; }
 
+        /// <summary>Additional information.  </summary>
+        public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
+
     } // end class AggregateMinMaxGeometryResponse
 
 

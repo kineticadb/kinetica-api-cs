@@ -28,6 +28,13 @@ namespace kinetica
         ///         <description>Sets the password of the user. The user must
         /// be an internal user.</description>
         ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterUserRequest.Action.SET_RESOURCE_GROUP">SET_RESOURCE_GROUP</see>:</term>
+        ///         <description>Sets the resource group for an internal user.
+        /// The resource group must exist, otherwise, an empty string assigns
+        /// the user to the default resource group.</description>
+        ///     </item>
         /// </list>
         /// A set of string constants for the parameter <see cref="action"
         /// />.</summary>
@@ -37,6 +44,11 @@ namespace kinetica
             /// <summary>Sets the password of the user. The user must be an
             /// internal user.</summary>
             public const string SET_PASSWORD = "set_password";
+
+            /// <summary>Sets the resource group for an internal user. The
+            /// resource group must exist, otherwise, an empty string assigns
+            /// the user to the default resource group.</summary>
+            public const string SET_RESOURCE_GROUP = "set_resource_group";
         } // end struct Action
 
 
@@ -52,6 +64,13 @@ namespace kinetica
         /// cref="AlterUserRequest.Action.SET_PASSWORD">SET_PASSWORD</see>:</term>
         ///         <description>Sets the password of the user. The user must
         /// be an internal user.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterUserRequest.Action.SET_RESOURCE_GROUP">SET_RESOURCE_GROUP</see>:</term>
+        ///         <description>Sets the resource group for an internal user.
+        /// The resource group must exist, otherwise, an empty string assigns
+        /// the user to the default resource group.</description>
         ///     </item>
         /// </list>  </summary>
         public string action { get; set; }
@@ -83,6 +102,13 @@ namespace kinetica
         ///         <description>Sets the password of the user. The user must
         /// be an internal user.</description>
         ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterUserRequest.Action.SET_RESOURCE_GROUP">SET_RESOURCE_GROUP</see>:</term>
+        ///         <description>Sets the resource group for an internal user.
+        /// The resource group must exist, otherwise, an empty string assigns
+        /// the user to the default resource group.</description>
+        ///     </item>
         /// </list>  </param>
         /// <param name="_value">The value of the modification, depending on
         /// <paramref cref="AlterUserRequest.action" />.  </param>
@@ -112,6 +138,9 @@ namespace kinetica
         /// <summary>Value of <paramref cref="AlterUserRequest.name" />.
         /// </summary>
         public string name { get; set; }
+
+        /// <summary>Additional information.  </summary>
+        public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
 
     } // end class AlterUserResponse
 

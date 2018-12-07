@@ -325,6 +325,46 @@ namespace kinetica
         /// cref="VisualizeImageContourRequest.Options.RENDER_OUTPUT_GRID">RENDER_OUTPUT_GRID</see>:</term>
         ///         <description></description>
         ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.Options.COLOR_ISOLINES">COLOR_ISOLINES</see>:</term>
+        ///         <description></description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.Options.ADD_LABELS">ADD_LABELS</see>:</term>
+        ///         <description></description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.Options.LABELS_FONT_SIZE">LABELS_FONT_SIZE</see>:</term>
+        ///         <description></description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.Options.LABELS_FONT_FAMILY">LABELS_FONT_FAMILY</see>:</term>
+        ///         <description></description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.Options.LABELS_SEARCH_WINDOW">LABELS_SEARCH_WINDOW</see>:</term>
+        ///         <description></description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.Options.LABELS_INTRALEVEL_SEPARATION">LABELS_INTRALEVEL_SEPARATION</see>:</term>
+        ///         <description></description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.Options.LABELS_INTERLEVEL_SEPARATION">LABELS_INTERLEVEL_SEPARATION</see>:</term>
+        ///         <description></description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.Options.LABELS_MAX_ANGLE">LABELS_MAX_ANGLE</see>:</term>
+        ///         <description></description>
+        ///     </item>
         /// </list>
         /// <br />
         /// A set of string constants for the parameter <see cref="options"
@@ -378,6 +418,14 @@ namespace kinetica
             public const string MAX_GRID_SIZE = "max_grid_size";
             public const string MIN_GRID_SIZE = "min_grid_size";
             public const string RENDER_OUTPUT_GRID = "render_output_grid";
+            public const string COLOR_ISOLINES = "color_isolines";
+            public const string ADD_LABELS = "add_labels";
+            public const string LABELS_FONT_SIZE = "labels_font_size";
+            public const string LABELS_FONT_FAMILY = "labels_font_family";
+            public const string LABELS_SEARCH_WINDOW = "labels_search_window";
+            public const string LABELS_INTRALEVEL_SEPARATION = "labels_intralevel_separation";
+            public const string LABELS_INTERLEVEL_SEPARATION = "labels_interlevel_separation";
+            public const string LABELS_MAX_ANGLE = "labels_max_angle";
         } // end struct Options
 
         public IList<string> table_names { get; set; } = new List<string>();
@@ -610,6 +658,46 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="VisualizeImageContourRequest.Options.RENDER_OUTPUT_GRID">RENDER_OUTPUT_GRID</see>:</term>
+        ///         <description></description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.Options.COLOR_ISOLINES">COLOR_ISOLINES</see>:</term>
+        ///         <description></description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.Options.ADD_LABELS">ADD_LABELS</see>:</term>
+        ///         <description></description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.Options.LABELS_FONT_SIZE">LABELS_FONT_SIZE</see>:</term>
+        ///         <description></description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.Options.LABELS_FONT_FAMILY">LABELS_FONT_FAMILY</see>:</term>
+        ///         <description></description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.Options.LABELS_SEARCH_WINDOW">LABELS_SEARCH_WINDOW</see>:</term>
+        ///         <description></description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.Options.LABELS_INTRALEVEL_SEPARATION">LABELS_INTRALEVEL_SEPARATION</see>:</term>
+        ///         <description></description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.Options.LABELS_INTERLEVEL_SEPARATION">LABELS_INTERLEVEL_SEPARATION</see>:</term>
+        ///         <description></description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.Options.LABELS_MAX_ANGLE">LABELS_MAX_ANGLE</see>:</term>
         ///         <description></description>
         ///     </item>
         /// </list>
@@ -851,6 +939,46 @@ namespace kinetica
         /// cref="VisualizeImageContourRequest.Options.RENDER_OUTPUT_GRID">RENDER_OUTPUT_GRID</see>:</term>
         ///         <description></description>
         ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.Options.COLOR_ISOLINES">COLOR_ISOLINES</see>:</term>
+        ///         <description></description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.Options.ADD_LABELS">ADD_LABELS</see>:</term>
+        ///         <description></description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.Options.LABELS_FONT_SIZE">LABELS_FONT_SIZE</see>:</term>
+        ///         <description></description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.Options.LABELS_FONT_FAMILY">LABELS_FONT_FAMILY</see>:</term>
+        ///         <description></description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.Options.LABELS_SEARCH_WINDOW">LABELS_SEARCH_WINDOW</see>:</term>
+        ///         <description></description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.Options.LABELS_INTRALEVEL_SEPARATION">LABELS_INTRALEVEL_SEPARATION</see>:</term>
+        ///         <description></description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.Options.LABELS_INTERLEVEL_SEPARATION">LABELS_INTERLEVEL_SEPARATION</see>:</term>
+        ///         <description></description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.Options.LABELS_MAX_ANGLE">LABELS_MAX_ANGLE</see>:</term>
+        ///         <description></description>
+        ///     </item>
         /// </list>
         /// </param>
         /// 
@@ -904,6 +1032,7 @@ namespace kinetica
         public double min_level { get; set; }
         public double max_level { get; set; }
         public long samples_used { get; set; }
+        public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
 
     } // end class VisualizeImageContourResponse
     /// @endcond

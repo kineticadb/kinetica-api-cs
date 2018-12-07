@@ -93,6 +93,9 @@ namespace kinetica
         /// </list>  </summary>
         public bool type_exists { get; set; }
 
+        /// <summary>Additional information.  </summary>
+        public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
+
     } // end class HasTypeResponse
 
 

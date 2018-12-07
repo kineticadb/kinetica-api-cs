@@ -129,6 +129,12 @@ namespace kinetica
         /// numbers of all the ingestion-enabled worker ranks of the
         /// system.</description>
         ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ShowSystemPropertiesResponse.PropertyMap.CONF_HM_HTTP_PORT">CONF_HM_HTTP_PORT</see>:</term>
+        ///         <description>The host manager port number (an integer
+        /// value).</description>
+        ///     </item>
         /// </list>
         /// <br />
         /// A set of string constants for the parameter <member
@@ -171,6 +177,10 @@ namespace kinetica
             /// of all the ingestion-enabled worker ranks of the
             /// system.</summary>
             public const string CONF_WORKER_HTTP_SERVER_PORTS = "conf.worker_http_server_ports";
+
+            /// <summary>The host manager port number (an integer
+            /// value).</summary>
+            public const string CONF_HM_HTTP_PORT = "conf.hm_http_port";
         } // end struct PropertyMap
 
 
@@ -212,9 +222,18 @@ namespace kinetica
         /// numbers of all the ingestion-enabled worker ranks of the
         /// system.</description>
         ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ShowSystemPropertiesResponse.PropertyMap.CONF_HM_HTTP_PORT">CONF_HM_HTTP_PORT</see>:</term>
+        ///         <description>The host manager port number (an integer
+        /// value).</description>
+        ///     </item>
         /// </list>
         ///   </summary>
         public IDictionary<string, string> property_map { get; set; } = new Dictionary<string, string>();
+
+        /// <summary>Additional information.  </summary>
+        public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
 
     } // end class ShowSystemPropertiesResponse
 

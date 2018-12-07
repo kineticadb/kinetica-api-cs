@@ -72,6 +72,9 @@ namespace kinetica
         /// cref="AggregateMinMaxRequest.column_name" />.  </summary>
         public double max { get; set; }
 
+        /// <summary>Additional information.  </summary>
+        public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
+
     } // end class AggregateMinMaxResponse
 
 

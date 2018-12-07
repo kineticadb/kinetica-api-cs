@@ -29,36 +29,35 @@ namespace kinetica
         ///         <term><see
         /// cref="AppendRecordsRequest.Options.OFFSET">OFFSET</see>:</term>
         ///         <description>A positive integer indicating the number of
-        /// initial results to skip from source table (specified by <paramref
-        /// cref="AppendRecordsRequest.source_table_name" />). Default is 0.
-        /// The minimum allowed value is 0. The maximum allowed value is
+        /// initial results to skip from <paramref
+        /// cref="AppendRecordsRequest.source_table_name" />. Default is 0. The
+        /// minimum allowed value is 0. The maximum allowed value is
         /// MAX_INT.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="AppendRecordsRequest.Options.LIMIT">LIMIT</see>:</term>
         ///         <description>A positive integer indicating the maximum
-        /// number of results to be returned from source table (specified by
-        /// <paramref cref="AppendRecordsRequest.source_table_name" />). Or
-        /// END_OF_SET (-9999) to indicate that the max number of results
-        /// should be returned.</description>
+        /// number of results to be returned from <paramref
+        /// cref="AppendRecordsRequest.source_table_name" />. Or END_OF_SET
+        /// (-9999) to indicate that the max number of results should be
+        /// returned.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="AppendRecordsRequest.Options.EXPRESSION">EXPRESSION</see>:</term>
         ///         <description>Optional filter expression to apply to the
-        /// source table (specified by <paramref
-        /// cref="AppendRecordsRequest.source_table_name" />). Empty by
-        /// default.</description>
+        /// <paramref cref="AppendRecordsRequest.source_table_name"
+        /// />.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="AppendRecordsRequest.Options.ORDER_BY">ORDER_BY</see>:</term>
-        ///         <description>Comma-separated list of the columns and
-        /// expressions to be sorted by from the source table (specified by
-        /// <paramref cref="AppendRecordsRequest.source_table_name" />); e.g.
-        /// 'timestamp asc, x desc'.  The <i>order_by</i> columns do not have
-        /// to be present in <paramref cref="AppendRecordsRequest.field_map"
+        ///         <description>Comma-separated list of the columns to be
+        /// sorted by from source table (specified by <paramref
+        /// cref="AppendRecordsRequest.source_table_name" />), e.g., 'timestamp
+        /// asc, x desc'. The <i>order_by</i> columns do not have to be present
+        /// in <paramref cref="AppendRecordsRequest.field_map"
         /// />.</description>
         ///     </item>
         ///     <item>
@@ -100,27 +99,26 @@ namespace kinetica
         {
 
             /// <summary>A positive integer indicating the number of initial
-            /// results to skip from source table (specified by <see
-            /// cref="source_table_name" />). Default is 0. The minimum allowed
-            /// value is 0. The maximum allowed value is MAX_INT.</summary>
+            /// results to skip from <see cref="source_table_name" />. Default
+            /// is 0. The minimum allowed value is 0. The maximum allowed value
+            /// is MAX_INT.</summary>
             public const string OFFSET = "offset";
 
             /// <summary>A positive integer indicating the maximum number of
-            /// results to be returned from source table (specified by <see
-            /// cref="source_table_name" />). Or END_OF_SET (-9999) to indicate
-            /// that the max number of results should be returned.</summary>
+            /// results to be returned from <see cref="source_table_name" />.
+            /// Or END_OF_SET (-9999) to indicate that the max number of
+            /// results should be returned.</summary>
             public const string LIMIT = "limit";
 
-            /// <summary>Optional filter expression to apply to the source
-            /// table (specified by <see cref="source_table_name" />). Empty by
-            /// default.</summary>
+            /// <summary>Optional filter expression to apply to the <see
+            /// cref="source_table_name" />.</summary>
             public const string EXPRESSION = "expression";
 
-            /// <summary>Comma-separated list of the columns and expressions to
-            /// be sorted by from the source table (specified by <see
-            /// cref="source_table_name" />); e.g. 'timestamp asc, x desc'.
-            /// The <i>order_by</i> columns do not have to be present in <see
-            /// cref="field_map" />.</summary>
+            /// <summary>Comma-separated list of the columns to be sorted by
+            /// from source table (specified by <see cref="source_table_name"
+            /// />), e.g., 'timestamp asc, x desc'. The <i>order_by</i> columns
+            /// do not have to be present in <see cref="field_map"
+            /// />.</summary>
             public const string ORDER_BY = "order_by";
 
             /// <summary>Specifies the record collision policy for inserting
@@ -180,36 +178,35 @@ namespace kinetica
         ///         <term><see
         /// cref="AppendRecordsRequest.Options.OFFSET">OFFSET</see>:</term>
         ///         <description>A positive integer indicating the number of
-        /// initial results to skip from source table (specified by <paramref
-        /// cref="AppendRecordsRequest.source_table_name" />). Default is 0.
-        /// The minimum allowed value is 0. The maximum allowed value is
+        /// initial results to skip from <paramref
+        /// cref="AppendRecordsRequest.source_table_name" />. Default is 0. The
+        /// minimum allowed value is 0. The maximum allowed value is
         /// MAX_INT.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="AppendRecordsRequest.Options.LIMIT">LIMIT</see>:</term>
         ///         <description>A positive integer indicating the maximum
-        /// number of results to be returned from source table (specified by
-        /// <paramref cref="AppendRecordsRequest.source_table_name" />). Or
-        /// END_OF_SET (-9999) to indicate that the max number of results
-        /// should be returned.</description>
+        /// number of results to be returned from <paramref
+        /// cref="AppendRecordsRequest.source_table_name" />. Or END_OF_SET
+        /// (-9999) to indicate that the max number of results should be
+        /// returned.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="AppendRecordsRequest.Options.EXPRESSION">EXPRESSION</see>:</term>
         ///         <description>Optional filter expression to apply to the
-        /// source table (specified by <paramref
-        /// cref="AppendRecordsRequest.source_table_name" />). Empty by
-        /// default.</description>
+        /// <paramref cref="AppendRecordsRequest.source_table_name"
+        /// />.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="AppendRecordsRequest.Options.ORDER_BY">ORDER_BY</see>:</term>
-        ///         <description>Comma-separated list of the columns and
-        /// expressions to be sorted by from the source table (specified by
-        /// <paramref cref="AppendRecordsRequest.source_table_name" />); e.g.
-        /// 'timestamp asc, x desc'.  The <i>order_by</i> columns do not have
-        /// to be present in <paramref cref="AppendRecordsRequest.field_map"
+        ///         <description>Comma-separated list of the columns to be
+        /// sorted by from source table (specified by <paramref
+        /// cref="AppendRecordsRequest.source_table_name" />), e.g., 'timestamp
+        /// asc, x desc'. The <i>order_by</i> columns do not have to be present
+        /// in <paramref cref="AppendRecordsRequest.field_map"
         /// />.</description>
         ///     </item>
         ///     <item>
@@ -275,36 +272,35 @@ namespace kinetica
         ///         <term><see
         /// cref="AppendRecordsRequest.Options.OFFSET">OFFSET</see>:</term>
         ///         <description>A positive integer indicating the number of
-        /// initial results to skip from source table (specified by <paramref
-        /// cref="AppendRecordsRequest.source_table_name" />). Default is 0.
-        /// The minimum allowed value is 0. The maximum allowed value is
+        /// initial results to skip from <paramref
+        /// cref="AppendRecordsRequest.source_table_name" />. Default is 0. The
+        /// minimum allowed value is 0. The maximum allowed value is
         /// MAX_INT.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="AppendRecordsRequest.Options.LIMIT">LIMIT</see>:</term>
         ///         <description>A positive integer indicating the maximum
-        /// number of results to be returned from source table (specified by
-        /// <paramref cref="AppendRecordsRequest.source_table_name" />). Or
-        /// END_OF_SET (-9999) to indicate that the max number of results
-        /// should be returned.</description>
+        /// number of results to be returned from <paramref
+        /// cref="AppendRecordsRequest.source_table_name" />. Or END_OF_SET
+        /// (-9999) to indicate that the max number of results should be
+        /// returned.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="AppendRecordsRequest.Options.EXPRESSION">EXPRESSION</see>:</term>
         ///         <description>Optional filter expression to apply to the
-        /// source table (specified by <paramref
-        /// cref="AppendRecordsRequest.source_table_name" />). Empty by
-        /// default.</description>
+        /// <paramref cref="AppendRecordsRequest.source_table_name"
+        /// />.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="AppendRecordsRequest.Options.ORDER_BY">ORDER_BY</see>:</term>
-        ///         <description>Comma-separated list of the columns and
-        /// expressions to be sorted by from the source table (specified by
-        /// <paramref cref="AppendRecordsRequest.source_table_name" />); e.g.
-        /// 'timestamp asc, x desc'.  The <i>order_by</i> columns do not have
-        /// to be present in <paramref cref="AppendRecordsRequest.field_map"
+        ///         <description>Comma-separated list of the columns to be
+        /// sorted by from source table (specified by <paramref
+        /// cref="AppendRecordsRequest.source_table_name" />), e.g., 'timestamp
+        /// asc, x desc'. The <i>order_by</i> columns do not have to be present
+        /// in <paramref cref="AppendRecordsRequest.field_map"
         /// />.</description>
         ///     </item>
         ///     <item>
@@ -362,6 +358,9 @@ namespace kinetica
     public class AppendRecordsResponse : KineticaData
     {
         public string table_name { get; set; }
+
+        /// <summary>Additional information.  </summary>
+        public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
 
     } // end class AppendRecordsResponse
 

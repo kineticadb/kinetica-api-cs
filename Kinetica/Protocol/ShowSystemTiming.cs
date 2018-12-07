@@ -60,6 +60,9 @@ namespace kinetica
         /// </summary>
         public IList<string> jobIds { get; set; } = new List<string>();
 
+        /// <summary>Additional information.  </summary>
+        public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
+
     } // end class ShowSystemTimingResponse
 
 

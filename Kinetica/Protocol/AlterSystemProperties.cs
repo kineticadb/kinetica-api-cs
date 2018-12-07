@@ -713,6 +713,9 @@ namespace kinetica
         /// measured to the measurement  </summary>
         public IDictionary<string, string> updated_properties_map { get; set; } = new Dictionary<string, string>();
 
+        /// <summary>Additional information.  </summary>
+        public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
+
     } // end class AlterSystemPropertiesResponse
 
 

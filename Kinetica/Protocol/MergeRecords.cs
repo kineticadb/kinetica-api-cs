@@ -422,6 +422,9 @@ namespace kinetica
     {
         public string table_name { get; set; }
 
+        /// <summary>Additional information.  </summary>
+        public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
+
     } // end class MergeRecordsResponse
 
 

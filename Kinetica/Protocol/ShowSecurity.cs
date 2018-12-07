@@ -129,6 +129,12 @@ namespace kinetica
         /// granted to that user/role.  </summary>
         public IDictionary<string, IList<IDictionary<string, string>>> permissions { get; set; } = new Dictionary<string, IList<IDictionary<string, string>>>();
 
+        /// <summary>Map of user name to resource group name.  </summary>
+        public IDictionary<string, string> resource_groups { get; set; } = new Dictionary<string, string>();
+
+        /// <summary>Additional information.  </summary>
+        public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
+
     } // end class ShowSecurityResponse
 
 

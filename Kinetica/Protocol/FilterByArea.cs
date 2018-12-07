@@ -51,10 +51,10 @@ namespace kinetica
 
 
         /// <summary>Name of the table to filter.  This may be the name of a
-        /// collection, a table or a view (when chaining queries). If filtering
-        /// a collection, all child tables where the filter expression is valid
-        /// will be filtered; the filtered result tables will then be placed in
-        /// a collection specified by <paramref
+        /// collection, a table, or a view (when chaining queries).  If
+        /// filtering a collection, all child tables where the filter
+        /// expression is valid will be filtered; the filtered result tables
+        /// will then be placed in a collection specified by <paramref
         /// cref="FilterByAreaRequest.view_name" />.  </summary>
         public string table_name { get; set; }
 
@@ -103,8 +103,8 @@ namespace kinetica
         /// parameters.</summary>
         /// 
         /// <param name="table_name">Name of the table to filter.  This may be
-        /// the name of a collection, a table or a view (when chaining
-        /// queries). If filtering a collection, all child tables where the
+        /// the name of a collection, a table, or a view (when chaining
+        /// queries).  If filtering a collection, all child tables where the
         /// filter expression is valid will be filtered; the filtered result
         /// tables will then be placed in a collection specified by <paramref
         /// cref="FilterByAreaRequest.view_name" />.  </param>
@@ -162,6 +162,9 @@ namespace kinetica
 
         /// <summary>The number of records passing the area filter.  </summary>
         public long count { get; set; }
+
+        /// <summary>Additional information.  </summary>
+        public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
 
     } // end class FilterByAreaResponse
 

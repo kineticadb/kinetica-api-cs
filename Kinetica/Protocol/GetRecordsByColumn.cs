@@ -72,16 +72,17 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="GetRecordsByColumnRequest.Options.SORT_BY">SORT_BY</see>:</term>
-        ///         <description>Optional column(s) that the data should be
-        /// sorted by. Empty by default (i.e. no sorting is
-        /// applied).</description>
+        ///         <description>Optional column that the data should be sorted
+        /// by. Used in conjunction with <i>sort_order</i>. The <i>order_by</i>
+        /// option can be used in lieu of <i>sort_by</i> /
+        /// <i>sort_order</i>.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="GetRecordsByColumnRequest.Options.SORT_ORDER">SORT_ORDER</see>:</term>
         ///         <description>String indicating how the returned values
-        /// should be sorted - ascending or descending. If sort_order is
-        /// provided, sort_by has to be provided.
+        /// should be sorted - <i>ascending</i> or <i>descending</i>. If
+        /// <i>sort_order</i> is provided, <i>sort_by</i> has to be provided.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -100,7 +101,8 @@ namespace kinetica
         ///         <term><see
         /// cref="GetRecordsByColumnRequest.Options.ORDER_BY">ORDER_BY</see>:</term>
         ///         <description>Comma-separated list of the columns to be
-        /// sorted by; e.g. 'timestamp asc, x desc'.</description>
+        /// sorted by as well as the sort direction, e.g., 'timestamp asc, x
+        /// desc'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -132,13 +134,16 @@ namespace kinetica
             /// table.</summary>
             public const string EXPRESSION = "expression";
 
-            /// <summary>Optional column(s) that the data should be sorted by.
-            /// Empty by default (i.e. no sorting is applied).</summary>
+            /// <summary>Optional column that the data should be sorted by.
+            /// Used in conjunction with <i>sort_order</i>. The <i>order_by</i>
+            /// option can be used in lieu of <i>sort_by</i> /
+            /// <i>sort_order</i>.</summary>
             public const string SORT_BY = "sort_by";
 
             /// <summary>String indicating how the returned values should be
-            /// sorted - ascending or descending. If sort_order is provided,
-            /// sort_by has to be provided.
+            /// sorted - <i>ascending</i> or <i>descending</i>. If
+            /// <i>sort_order</i> is provided, <i>sort_by</i> has to be
+            /// provided.
             /// Supported values:
             /// <list type="bullet">
             ///     <item>
@@ -156,8 +161,9 @@ namespace kinetica
             public const string ASCENDING = "ascending";
             public const string DESCENDING = "descending";
 
-            /// <summary>Comma-separated list of the columns to be sorted by;
-            /// e.g. 'timestamp asc, x desc'.</summary>
+            /// <summary>Comma-separated list of the columns to be sorted by as
+            /// well as the sort direction, e.g., 'timestamp asc, x
+            /// desc'.</summary>
             public const string ORDER_BY = "order_by";
 
             /// <summary>If true, then WKT string columns will be returned as
@@ -229,16 +235,17 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="GetRecordsByColumnRequest.Options.SORT_BY">SORT_BY</see>:</term>
-        ///         <description>Optional column(s) that the data should be
-        /// sorted by. Empty by default (i.e. no sorting is
-        /// applied).</description>
+        ///         <description>Optional column that the data should be sorted
+        /// by. Used in conjunction with <i>sort_order</i>. The <i>order_by</i>
+        /// option can be used in lieu of <i>sort_by</i> /
+        /// <i>sort_order</i>.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="GetRecordsByColumnRequest.Options.SORT_ORDER">SORT_ORDER</see>:</term>
         ///         <description>String indicating how the returned values
-        /// should be sorted - ascending or descending. If sort_order is
-        /// provided, sort_by has to be provided.
+        /// should be sorted - <i>ascending</i> or <i>descending</i>. If
+        /// <i>sort_order</i> is provided, <i>sort_by</i> has to be provided.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -257,7 +264,8 @@ namespace kinetica
         ///         <term><see
         /// cref="GetRecordsByColumnRequest.Options.ORDER_BY">ORDER_BY</see>:</term>
         ///         <description>Comma-separated list of the columns to be
-        /// sorted by; e.g. 'timestamp asc, x desc'.</description>
+        /// sorted by as well as the sort direction, e.g., 'timestamp asc, x
+        /// desc'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -313,16 +321,17 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="GetRecordsByColumnRequest.Options.SORT_BY">SORT_BY</see>:</term>
-        ///         <description>Optional column(s) that the data should be
-        /// sorted by. Empty by default (i.e. no sorting is
-        /// applied).</description>
+        ///         <description>Optional column that the data should be sorted
+        /// by. Used in conjunction with <i>sort_order</i>. The <i>order_by</i>
+        /// option can be used in lieu of <i>sort_by</i> /
+        /// <i>sort_order</i>.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="GetRecordsByColumnRequest.Options.SORT_ORDER">SORT_ORDER</see>:</term>
         ///         <description>String indicating how the returned values
-        /// should be sorted - ascending or descending. If sort_order is
-        /// provided, sort_by has to be provided.
+        /// should be sorted - <i>ascending</i> or <i>descending</i>. If
+        /// <i>sort_order</i> is provided, <i>sort_by</i> has to be provided.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -341,7 +350,8 @@ namespace kinetica
         ///         <term><see
         /// cref="GetRecordsByColumnRequest.Options.ORDER_BY">ORDER_BY</see>:</term>
         ///         <description>Comma-separated list of the columns to be
-        /// sorted by; e.g. 'timestamp asc, x desc'.</description>
+        /// sorted by as well as the sort direction, e.g., 'timestamp asc, x
+        /// desc'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -422,16 +432,17 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="GetRecordsByColumnRequest.Options.SORT_BY">SORT_BY</see>:</term>
-        ///         <description>Optional column(s) that the data should be
-        /// sorted by. Empty by default (i.e. no sorting is
-        /// applied).</description>
+        ///         <description>Optional column that the data should be sorted
+        /// by. Used in conjunction with <i>sort_order</i>. The <i>order_by</i>
+        /// option can be used in lieu of <i>sort_by</i> /
+        /// <i>sort_order</i>.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="GetRecordsByColumnRequest.Options.SORT_ORDER">SORT_ORDER</see>:</term>
         ///         <description>String indicating how the returned values
-        /// should be sorted - ascending or descending. If sort_order is
-        /// provided, sort_by has to be provided.
+        /// should be sorted - <i>ascending</i> or <i>descending</i>. If
+        /// <i>sort_order</i> is provided, <i>sort_by</i> has to be provided.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -450,7 +461,8 @@ namespace kinetica
         ///         <term><see
         /// cref="GetRecordsByColumnRequest.Options.ORDER_BY">ORDER_BY</see>:</term>
         ///         <description>Comma-separated list of the columns to be
-        /// sorted by; e.g. 'timestamp asc, x desc'.</description>
+        /// sorted by as well as the sort direction, e.g., 'timestamp asc, x
+        /// desc'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -519,6 +531,9 @@ namespace kinetica
         /// <summary>Too many records. Returned a partial set.  </summary>
         public bool has_more_records { get; set; }
 
+        /// <summary>Additional information.  </summary>
+        public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
+
     } // end class RawGetRecordsByColumnResponse
 
 
@@ -541,6 +556,9 @@ namespace kinetica
 
         /// <summary>Too many records. Returned a partial set.  </summary>
         public bool has_more_records { get; set; }
+
+        /// <summary>Additional information.  </summary>
+        public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
 
     } // end class GetRecordsByColumnResponse
 

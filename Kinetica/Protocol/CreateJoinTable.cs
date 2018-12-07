@@ -603,8 +603,8 @@ namespace kinetica
         ///   </param>
         /// 
         public CreateJoinTableRequest( string join_table_name,
-                                       IList<string> table_names = null,
-                                       IList<string> column_names = null,
+                                       IList<string> table_names,
+                                       IList<string> column_names,
                                        IList<string> expressions = null,
                                        IDictionary<string, string> options = null)
         {
@@ -632,6 +632,9 @@ namespace kinetica
         /// <summary>The number of records in the join table filtered by the
         /// given select expression.  </summary>
         public long count { get; set; }
+
+        /// <summary>Additional information.  </summary>
+        public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
 
     } // end class CreateJoinTableResponse
 

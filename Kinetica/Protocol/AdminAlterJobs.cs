@@ -12,7 +12,7 @@ namespace kinetica
 {
 
     /// <summary>A set of parameters for <see
-    /// cref="Kinetica.adminAlterJobs(IList{int},string,IDictionary{string, string})"
+    /// cref="Kinetica.adminAlterJobs(IList{long},string,IDictionary{string, string})"
     /// />.
     /// <br />
     /// Perform the requested action on a list of one or more job(s). Based on
@@ -41,7 +41,7 @@ namespace kinetica
 
 
         /// <summary>Jobs to be modified.  </summary>
-        public IList<int> job_ids { get; set; } = new List<int>();
+        public IList<long> job_ids { get; set; } = new List<long>();
 
         /// <summary>Action to be performed on the jobs specified by job_ids.
         /// Supported values:
@@ -76,11 +76,11 @@ namespace kinetica
         /// </list>  </param>
         /// <param name="options">Optional parameters.  </param>
         /// 
-        public AdminAlterJobsRequest( IList<int> job_ids,
+        public AdminAlterJobsRequest( IList<long> job_ids,
                                       string action,
                                       IDictionary<string, string> options = null)
         {
-            this.job_ids = job_ids ?? new List<int>();
+            this.job_ids = job_ids ?? new List<long>();
             this.action = action ?? "";
             this.options = options ?? new Dictionary<string, string>();
         } // end constructor
@@ -90,19 +90,22 @@ namespace kinetica
 
 
     /// <summary>A set of results returned by <see
-    /// cref="Kinetica.adminAlterJobs(IList{int},string,IDictionary{string, string})"
+    /// cref="Kinetica.adminAlterJobs(IList{long},string,IDictionary{string, string})"
     /// />.</summary>
     public class AdminAlterJobsResponse : KineticaData
     {
 
         /// <summary>Jobs on which the action was performed.  </summary>
-        public IList<int> job_ids { get; set; } = new List<int>();
+        public IList<long> job_ids { get; set; } = new List<long>();
 
         /// <summary>Action requested on the jobs.  </summary>
         public string action { get; set; }
 
         /// <summary>Status of the requested action for each job.  </summary>
         public IList<string> status { get; set; } = new List<string>();
+
+        /// <summary>Additional information.  </summary>
+        public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
 
     } // end class AdminAlterJobsResponse
 

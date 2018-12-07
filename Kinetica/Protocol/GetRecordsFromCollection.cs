@@ -317,6 +317,9 @@ namespace kinetica
         /// Otherwise it will be empty.  </summary>
         public IList<string> record_ids { get; set; } = new List<string>();
 
+        /// <summary>Additional information.  </summary>
+        public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
+
     } // end class RawGetRecordsFromCollectionResponse
 
 
@@ -351,6 +354,9 @@ namespace kinetica
         /// 'true', then this list contains the internal ID for each object.
         /// Otherwise it will be empty.  </summary>
         public IList<string> record_ids { get; set; } = new List<string>();
+
+        /// <summary>Additional information.  </summary>
+        public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
 
     } // end class GetRecordsFromCollectionResponse
 

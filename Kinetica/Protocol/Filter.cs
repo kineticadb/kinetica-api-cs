@@ -74,8 +74,8 @@ namespace kinetica
         } // end struct Options
 
 
-        /// <summary>Name of the table to filter.  This may be the ID of a
-        /// collection, table or a result set (for chaining queries). If
+        /// <summary>Name of the table to filter.  This may be the name of a
+        /// collection, a table, or a view (when chaining queries).  If
         /// filtering a collection, all child tables where the filter
         /// expression is valid will be filtered; the filtered result tables
         /// will then be placed in a collection specified by <paramref
@@ -129,8 +129,8 @@ namespace kinetica
         /// parameters.</summary>
         /// 
         /// <param name="table_name">Name of the table to filter.  This may be
-        /// the ID of a collection, table or a result set (for chaining
-        /// queries). If filtering a collection, all child tables where the
+        /// the name of a collection, a table, or a view (when chaining
+        /// queries).  If filtering a collection, all child tables where the
         /// filter expression is valid will be filtered; the filtered result
         /// tables will then be placed in a collection specified by <paramref
         /// cref="FilterRequest.view_name" />.  </param>
@@ -192,6 +192,9 @@ namespace kinetica
         /// <summary>The number of records that matched the given select
         /// expression.  </summary>
         public long count { get; set; }
+
+        /// <summary>Additional information.  </summary>
+        public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
 
     } // end class FilterResponse
 

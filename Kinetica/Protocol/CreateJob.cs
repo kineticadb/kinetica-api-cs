@@ -18,7 +18,7 @@ namespace kinetica
     /// Create a job which will run asynchronously. The response returns a job
     /// ID, which can be used to query the status and result of the job. The
     /// status and the result of the job upon completion can be requested by
-    /// <see cref="Kinetica.getJob(int,IDictionary{string, string})"
+    /// <see cref="Kinetica.getJob(long,IDictionary{string, string})"
     /// />.</summary>
     public class CreateJobRequest : KineticaData
     {
@@ -171,7 +171,10 @@ namespace kinetica
 
         /// <summary>An identifier for the job created by this call.
         /// </summary>
-        public int job_id { get; set; }
+        public long job_id { get; set; }
+
+        /// <summary>Additional information.  </summary>
+        public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
 
     } // end class CreateJobResponse
 

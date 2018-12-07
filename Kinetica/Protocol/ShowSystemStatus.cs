@@ -53,6 +53,9 @@ namespace kinetica
         /// </summary>
         public IDictionary<string, string> status_map { get; set; } = new Dictionary<string, string>();
 
+        /// <summary>Additional information.  </summary>
+        public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
+
     } // end class ShowSystemStatusResponse
 
 

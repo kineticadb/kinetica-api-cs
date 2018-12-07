@@ -1411,6 +1411,7 @@ namespace kinetica
         public double height { get; set; }
         public long bg_color { get; set; }
         public byte[] image_data { get; set; }
+        public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
 
     } // end class VisualizeImageClassbreakResponse
     /// @endcond

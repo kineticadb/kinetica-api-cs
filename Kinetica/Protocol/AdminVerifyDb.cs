@@ -214,6 +214,9 @@ namespace kinetica
         /// internal state.  </summary>
         public IList<string> error_list { get; set; } = new List<string>();
 
+        /// <summary>Additional information.  </summary>
+        public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
+
     } // end class AdminVerifyDbResponse
 
 

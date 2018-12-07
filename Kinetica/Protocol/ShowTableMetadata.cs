@@ -67,6 +67,9 @@ namespace kinetica
         /// </summary>
         public IList<IDictionary<string, string>> metadata_maps { get; set; } = new List<IDictionary<string, string>>();
 
+        /// <summary>Additional information.  </summary>
+        public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
+
     } // end class ShowTableMetadataResponse
 
 

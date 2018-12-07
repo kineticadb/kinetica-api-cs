@@ -232,6 +232,9 @@ namespace kinetica
         /// empty list-of-lists.  </summary>
         public IList<IList<string>> list_records_json { get; set; } = new List<IList<string>>();
 
+        /// <summary>Additional information.  </summary>
+        public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
+
     } // end class RawGetRecordsBySeriesResponse
 
 
@@ -265,6 +268,9 @@ namespace kinetica
         /// object (inner list) in each series/track (outer list). Otherwise,
         /// empty list-of-lists.  </summary>
         public IList<IList<T>> data { get; set; } = new List<IList<T>>();
+
+        /// <summary>Additional information.  </summary>
+        public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
 
     } // end class GetRecordsBySeriesResponse
 

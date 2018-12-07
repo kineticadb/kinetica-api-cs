@@ -170,6 +170,9 @@ namespace kinetica
         /// <summary>The number of records passing the box filter.  </summary>
         public long count { get; set; }
 
+        /// <summary>Additional information.  </summary>
+        public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
+
     } // end class FilterByBoxGeometryResponse
 
 

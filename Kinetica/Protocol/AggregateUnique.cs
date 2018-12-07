@@ -896,6 +896,9 @@ namespace kinetica
         /// <summary>Too many records. Returned a partial set.  </summary>
         public bool has_more_records { get; set; }
 
+        /// <summary>Additional information.  </summary>
+        public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
+
     } // end class RawAggregateUniqueResponse
 
 
@@ -915,6 +918,9 @@ namespace kinetica
 
         /// <summary>Too many records. Returned a partial set.  </summary>
         public bool has_more_records { get; set; }
+
+        /// <summary>Additional information.  </summary>
+        public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
 
     } // end class AggregateUniqueResponse
 

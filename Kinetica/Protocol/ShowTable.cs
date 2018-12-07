@@ -561,24 +561,6 @@ namespace kinetica
             /// table.</summary>
             public const string REQUEST_AVRO_JSON = "request_avro_json";
 
-            /// <summary>Only present if the respective table is a collection.
-            /// The value indicates whether the collection is allowed to
-            /// contain multiple tables or views of the same type or not.
-            /// Supported values:
-            /// <list type="bullet">
-            ///     <item>
-            ///         <term><see
-            /// cref="ShowTableResponse.AdditionalInfo.TRUE">TRUE</see></term>
-            ///     </item>
-            ///     <item>
-            ///         <term><see
-            /// cref="ShowTableResponse.AdditionalInfo.FALSE">FALSE</see></term>
-            ///     </item>
-            /// </list></summary>
-            public const string ALLOW_HOMOGENEOUS_TABLES = "allow_homogeneous_tables";
-            public const string TRUE = "true";
-            public const string FALSE = "false";
-
             /// <summary>Indicates whether the respective table is <a
             /// href="../../concepts/protection.html"
             /// target="_top">protected</a> or not.
@@ -594,6 +576,8 @@ namespace kinetica
             ///     </item>
             /// </list></summary>
             public const string PROTECTED = "protected";
+            public const string TRUE = "true";
+            public const string FALSE = "false";
 
             /// <summary>The number of in-memory bytes per record which is the
             /// sum of the byte sizes of all columns with property
@@ -632,6 +616,58 @@ namespace kinetica
             /// <pk_table_name>(<pk_primary_key>). Not present for
             /// collections.</summary>
             public const string FOREIGN_SHARD_KEY = "foreign_shard_key";
+
+            /// <summary><a href="../../concepts/tables.html#partitioning"
+            /// target="_top">Partitioning</a> scheme used for this table
+            /// Supported values:
+            /// <list type="bullet">
+            ///     <item>
+            ///         <term><see
+            /// cref="ShowTableResponse.AdditionalInfo.RANGE">RANGE</see>:</term>
+            ///         <description>Using <a
+            /// href="../../concepts/tables.html#partitioning-by-range"
+            /// target="_top">range partitioning</a></description>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="ShowTableResponse.AdditionalInfo.INTERVAL">INTERVAL</see>:</term>
+            ///         <description>Using <a
+            /// href="../../concepts/tables.html#partitioning-by-interval"
+            /// target="_top">interval partitioning</a></description>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="ShowTableResponse.AdditionalInfo.NONE">NONE</see>:</term>
+            ///         <description>Using no partitioning</description>
+            ///     </item>
+            /// </list>
+            /// The default value is <see
+            /// cref="ShowTableResponse.AdditionalInfo.NONE">NONE</see>.</summary>
+            public const string PARTITION_TYPE = "partition_type";
+
+            /// <summary>Using <a
+            /// href="../../concepts/tables.html#partitioning-by-range"
+            /// target="_top">range partitioning</a></summary>
+            public const string RANGE = "RANGE";
+
+            /// <summary>Using <a
+            /// href="../../concepts/tables.html#partitioning-by-interval"
+            /// target="_top">interval partitioning</a></summary>
+            public const string INTERVAL = "INTERVAL";
+
+            /// <summary>Using no partitioning</summary>
+            public const string NONE = "NONE";
+
+            /// <summary>Comma-separated list of partition keys</summary>
+            public const string PARTITION_KEYS = "partition_keys";
+
+            /// <summary>Comma-separated list of partition definitions, whose
+            /// format depends on the {partition_type}@{key of output
+            /// additional_info}.  See <a
+            /// href="../../concepts/tables.html#partitioning"
+            /// target="_top">partitioning</a> documentation for
+            /// details.</summary>
+            public const string PARTITION_DEFINITIONS = "partition_definitions";
 
             /// <summary>Semicolon-separated list of columns that have <a
             /// href="../../concepts/indexes.html#column-index"
@@ -731,10 +767,14 @@ namespace kinetica
             /// the last time the view was refreshed</summary>
             public const string LAST_REFRESH_TIME = "last_refresh_time";
 
-            /// <summary>for materialized with periodic refresh_method a
+            /// <summary>for materialized view with periodic refresh_method a
             /// datetime string indicating the next time the view is to be
             /// refreshed</summary>
             public const string NEXT_REFRESH_TIME = "next_refresh_time";
+
+            /// <summary>user-specified chunk size, if provided at table
+            /// creation time</summary>
+            public const string USER_CHUNK_SIZE = "user_chunk_size";
         } // end struct AdditionalInfo
 
 
@@ -841,6 +881,9 @@ namespace kinetica
         /// <summary>-1 if the <i>get_sizes</i> option is <i>false</i>. The sum
         /// of the elements of <member name="full_sizes" />.  </summary>
         public long total_full_size { get; set; }
+
+        /// <summary>Additional information.  </summary>
+        public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
 
     } // end class ShowTableResponse
 

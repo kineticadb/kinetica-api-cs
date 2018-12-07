@@ -78,6 +78,9 @@ namespace kinetica
         /// published records.  </summary>
         public string type_schema { get; set; }
 
+        /// <summary>Additional information.  </summary>
+        public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
+
     } // end class CreateTableMonitorResponse
 
 

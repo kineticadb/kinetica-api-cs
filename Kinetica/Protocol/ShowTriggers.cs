@@ -70,6 +70,9 @@ namespace kinetica
         /// contains a comma separated list of table names.  </summary>
         public IDictionary<string, IDictionary<string, string>> trigger_map { get; set; } = new Dictionary<string, IDictionary<string, string>>();
 
+        /// <summary>Additional information.  </summary>
+        public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
+
     } // end class ShowTriggersResponse
 
 

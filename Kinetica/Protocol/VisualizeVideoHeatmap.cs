@@ -541,6 +541,7 @@ namespace kinetica
         public int num_frames { get; set; }
         public string session_key { get; set; }
         public IList<byte[]> data { get; set; } = new List<byte[]>();
+        public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
 
     } // end class VisualizeVideoHeatmapResponse
     /// @endcond

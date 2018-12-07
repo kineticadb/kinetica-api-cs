@@ -207,6 +207,9 @@ namespace kinetica
         /// </summary>
         public string filter_expression { get; set; }
 
+        /// <summary>Additional information.  </summary>
+        public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
+
     } // end class GrantPermissionTableResponse
 
 

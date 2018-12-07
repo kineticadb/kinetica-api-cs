@@ -528,6 +528,9 @@ namespace kinetica
         /// statistics, including the total count by default.  </summary>
         public IDictionary<string, double> stats { get; set; } = new Dictionary<string, double>();
 
+        /// <summary>Additional information.  </summary>
+        public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
+
     } // end class AggregateStatisticsResponse
 
 

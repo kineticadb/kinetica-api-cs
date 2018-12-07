@@ -255,6 +255,9 @@ namespace kinetica
         /// value that is a histogram of the binning-column.  </summary>
         public IDictionary<string, IList<double>> stats { get; set; } = new Dictionary<string, IList<double>>();
 
+        /// <summary>Additional information.  </summary>
+        public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
+
     } // end class AggregateStatisticsByRangeResponse
 
 

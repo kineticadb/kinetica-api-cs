@@ -708,6 +708,9 @@ namespace kinetica
         /// <summary>The number of records updated.  </summary>
         public int count_updated { get; set; }
 
+        /// <summary>Additional information.  </summary>
+        public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
+
     } // end class InsertRecordsResponse
 
 

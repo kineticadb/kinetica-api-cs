@@ -707,6 +707,9 @@ namespace kinetica
         /// cref="CreateProjectionRequest.projection_name" />.  </summary>
         public string projection_name { get; set; }
 
+        /// <summary>Additional information.  </summary>
+        public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
+
     } // end class CreateProjectionResponse
 
 

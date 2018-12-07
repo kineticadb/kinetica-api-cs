@@ -65,6 +65,9 @@ namespace kinetica
         /// <summary>'OK' upon (right before) successful exit.  </summary>
         public string exit_status { get; set; }
 
+        /// <summary>Additional information.  </summary>
+        public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
+
     } // end class AdminShutdownResponse
 
 

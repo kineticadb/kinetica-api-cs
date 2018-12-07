@@ -60,6 +60,9 @@ namespace kinetica
         /// cref="ClearTableMonitorRequest.topic_id" />.  </summary>
         public string topic_id { get; set; }
 
+        /// <summary>Additional information.  </summary>
+        public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
+
     } // end class ClearTableMonitorResponse
 
 

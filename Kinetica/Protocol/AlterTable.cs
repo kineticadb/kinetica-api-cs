@@ -16,8 +16,7 @@ namespace kinetica
     /// />.
     /// <br />
     /// Apply various modifications to a table, view, or collection.  The
-    /// available
-    /// modifications include the following:
+    /// available modifications include the following:
     /// <br />
     /// Create or delete an <a href="../../concepts/indexes.html#column-index"
     /// target="_top">index</a> on a
@@ -47,6 +46,10 @@ namespace kinetica
     /// allow automatic expiration. This can be applied to tables, views, and
     /// collections.
     /// <br />
+    /// Manage a <a href="../../concepts/tables.html#partitioning"
+    /// target="_top">range-partitioned</a>
+    /// table's partitions.
+    /// <br />
     /// Allow homogeneous tables within a collection.
     /// <br />
     /// Manage a table's columns--a column can be added, removed, or have its
@@ -64,11 +67,8 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="AlterTableRequest.Action.ALLOW_HOMOGENEOUS_TABLES">ALLOW_HOMOGENEOUS_TABLES</see>:</term>
-        ///         <description>Sets whether homogeneous tables are allowed in
-        /// the given collection. This action is only valid if <paramref
-        /// cref="AlterTableRequest.table_name" /> is a collection. The
-        /// <paramref cref="AlterTableRequest._value" /> must be either 'true'
-        /// or 'false'.</description>
+        ///         <description>No longer supported; action will be
+        /// ignored.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -188,6 +188,29 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
+        /// cref="AlterTableRequest.Action.ADD_PARTITION">ADD_PARTITION</see>:</term>
+        ///         <description>Partition definition to add (for
+        /// range-partitioned tables only).  See <a
+        /// href="../../concepts/tables.html#partitioning-by-range-example"
+        /// target="_top">range partitioning example</a> for example
+        /// format.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterTableRequest.Action.REMOVE_PARTITION">REMOVE_PARTITION</see>:</term>
+        ///         <description>Name of partition to remove (for
+        /// range-partitioned tables only).  All data in partition will be
+        /// moved to the default partition</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterTableRequest.Action.DELETE_PARTITION">DELETE_PARTITION</see>:</term>
+        ///         <description>Name of partition to delete (for
+        /// range-partitioned tables only).  All data in the partition will be
+        /// deleted.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="AlterTableRequest.Action.SET_GLOBAL_ACCESS_MODE">SET_GLOBAL_ACCESS_MODE</see>:</term>
         ///         <description>Sets the global access mode (i.e. locking) for
         /// the table specified in <paramref
@@ -241,10 +264,7 @@ namespace kinetica
         public struct Action
         {
 
-            /// <summary>Sets whether homogeneous tables are allowed in the
-            /// given collection. This action is only valid if <see
-            /// cref="table_name" /> is a collection. The <see cref="_value" />
-            /// must be either 'true' or 'false'.</summary>
+            /// <summary>No longer supported; action will be ignored.</summary>
             public const string ALLOW_HOMOGENEOUS_TABLES = "allow_homogeneous_tables";
 
             /// <summary>Creates an <a
@@ -333,6 +353,23 @@ namespace kinetica
             /// or the complete string used to define it.</summary>
             public const string DELETE_FOREIGN_KEY = "delete_foreign_key";
 
+            /// <summary>Partition definition to add (for range-partitioned
+            /// tables only).  See <a
+            /// href="../../concepts/tables.html#partitioning-by-range-example"
+            /// target="_top">range partitioning example</a> for example
+            /// format.</summary>
+            public const string ADD_PARTITION = "add_partition";
+
+            /// <summary>Name of partition to remove (for range-partitioned
+            /// tables only).  All data in partition will be moved to the
+            /// default partition</summary>
+            public const string REMOVE_PARTITION = "remove_partition";
+
+            /// <summary>Name of partition to delete (for range-partitioned
+            /// tables only).  All data in the partition will be
+            /// deleted.</summary>
+            public const string DELETE_PARTITION = "delete_partition";
+
             /// <summary>Sets the global access mode (i.e. locking) for the
             /// table specified in <see cref="table_name" />. Specify the
             /// access mode in <see cref="_value" />. Valid modes are
@@ -372,6 +409,21 @@ namespace kinetica
 
         /// <summary>Optional parameters.
         /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterTableRequest.Options.ACTION">ACTION</see>:</term>
+        ///         <description></description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterTableRequest.Options.COLUMN_NAME">COLUMN_NAME</see>:</term>
+        ///         <description></description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterTableRequest.Options.TABLE_NAME">TABLE_NAME</see>:</term>
+        ///         <description></description>
+        ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="AlterTableRequest.Options.COLUMN_DEFAULT_VALUE">COLUMN_DEFAULT_VALUE</see>:</term>
@@ -490,6 +542,9 @@ namespace kinetica
         /// />.</summary>
         public struct Options
         {
+            public const string ACTION = "action";
+            public const string COLUMN_NAME = "column_name";
+            public const string TABLE_NAME = "table_name";
 
             /// <summary>When adding a column, set a default value for existing
             /// records.  For nullable columns, the default value will be null,
@@ -601,11 +656,8 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="AlterTableRequest.Action.ALLOW_HOMOGENEOUS_TABLES">ALLOW_HOMOGENEOUS_TABLES</see>:</term>
-        ///         <description>Sets whether homogeneous tables are allowed in
-        /// the given collection. This action is only valid if <paramref
-        /// cref="AlterTableRequest.table_name" /> is a collection. The
-        /// <paramref cref="AlterTableRequest._value" /> must be either 'true'
-        /// or 'false'.</description>
+        ///         <description>No longer supported; action will be
+        /// ignored.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -725,6 +777,29 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
+        /// cref="AlterTableRequest.Action.ADD_PARTITION">ADD_PARTITION</see>:</term>
+        ///         <description>Partition definition to add (for
+        /// range-partitioned tables only).  See <a
+        /// href="../../concepts/tables.html#partitioning-by-range-example"
+        /// target="_top">range partitioning example</a> for example
+        /// format.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterTableRequest.Action.REMOVE_PARTITION">REMOVE_PARTITION</see>:</term>
+        ///         <description>Name of partition to remove (for
+        /// range-partitioned tables only).  All data in partition will be
+        /// moved to the default partition</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterTableRequest.Action.DELETE_PARTITION">DELETE_PARTITION</see>:</term>
+        ///         <description>Name of partition to delete (for
+        /// range-partitioned tables only).  All data in the partition will be
+        /// deleted.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="AlterTableRequest.Action.SET_GLOBAL_ACCESS_MODE">SET_GLOBAL_ACCESS_MODE</see>:</term>
         ///         <description>Sets the global access mode (i.e. locking) for
         /// the table specified in <paramref
@@ -782,6 +857,21 @@ namespace kinetica
 
         /// <summary>Optional parameters.
         /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterTableRequest.Options.ACTION">ACTION</see>:</term>
+        ///         <description></description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterTableRequest.Options.COLUMN_NAME">COLUMN_NAME</see>:</term>
+        ///         <description></description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterTableRequest.Options.TABLE_NAME">TABLE_NAME</see>:</term>
+        ///         <description></description>
+        ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="AlterTableRequest.Options.COLUMN_DEFAULT_VALUE">COLUMN_DEFAULT_VALUE</see>:</term>
@@ -915,11 +1005,8 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="AlterTableRequest.Action.ALLOW_HOMOGENEOUS_TABLES">ALLOW_HOMOGENEOUS_TABLES</see>:</term>
-        ///         <description>Sets whether homogeneous tables are allowed in
-        /// the given collection. This action is only valid if <paramref
-        /// cref="AlterTableRequest.table_name" /> is a collection. The
-        /// <paramref cref="AlterTableRequest._value" /> must be either 'true'
-        /// or 'false'.</description>
+        ///         <description>No longer supported; action will be
+        /// ignored.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -1039,6 +1126,29 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
+        /// cref="AlterTableRequest.Action.ADD_PARTITION">ADD_PARTITION</see>:</term>
+        ///         <description>Partition definition to add (for
+        /// range-partitioned tables only).  See <a
+        /// href="../../concepts/tables.html#partitioning-by-range-example"
+        /// target="_top">range partitioning example</a> for example
+        /// format.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterTableRequest.Action.REMOVE_PARTITION">REMOVE_PARTITION</see>:</term>
+        ///         <description>Name of partition to remove (for
+        /// range-partitioned tables only).  All data in partition will be
+        /// moved to the default partition</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterTableRequest.Action.DELETE_PARTITION">DELETE_PARTITION</see>:</term>
+        ///         <description>Name of partition to delete (for
+        /// range-partitioned tables only).  All data in the partition will be
+        /// deleted.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="AlterTableRequest.Action.SET_GLOBAL_ACCESS_MODE">SET_GLOBAL_ACCESS_MODE</see>:</term>
         ///         <description>Sets the global access mode (i.e. locking) for
         /// the table specified in <paramref
@@ -1092,6 +1202,21 @@ namespace kinetica
         /// on <paramref cref="AlterTableRequest.action" />.  </param>
         /// <param name="options">Optional parameters.
         /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterTableRequest.Options.ACTION">ACTION</see>:</term>
+        ///         <description></description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterTableRequest.Options.COLUMN_NAME">COLUMN_NAME</see>:</term>
+        ///         <description></description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterTableRequest.Options.TABLE_NAME">TABLE_NAME</see>:</term>
+        ///         <description></description>
+        ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="AlterTableRequest.Options.COLUMN_DEFAULT_VALUE">COLUMN_DEFAULT_VALUE</see>:</term>
@@ -1253,6 +1378,9 @@ namespace kinetica
         /// <summary>return the type label  (when changing a table, a new type
         /// may be created)  </summary>
         public string label { get; set; }
+
+        /// <summary>Additional information.  </summary>
+        public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
 
     } // end class AlterTableResponse
 

@@ -326,6 +326,9 @@ namespace kinetica
         /// data segment ID.  </summary>
         public IDictionary<string, IDictionary<string, IDictionary<string, long>>> timings { get; set; } = new Dictionary<string, IDictionary<string, IDictionary<string, long>>>();
 
+        /// <summary>Additional information.  </summary>
+        public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
+
     } // end class ShowProcStatusResponse
 
 

@@ -62,6 +62,9 @@ namespace kinetica
         /// </summary>
         public IList<string> run_ids { get; set; } = new List<string>();
 
+        /// <summary>Additional information.  </summary>
+        public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
+
     } // end class KillProcResponse
 
 

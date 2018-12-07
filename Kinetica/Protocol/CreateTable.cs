@@ -15,17 +15,29 @@ namespace kinetica
     /// cref="Kinetica.createTable(string,string,IDictionary{string, string})"
     /// />.
     /// <br />
-    /// Creates a new table or collection. If a new table is being created, the
-    /// type of the table is given by <see cref="type_id" />, which must the be
-    /// the ID of a currently registered type (i.e. one created via <see
+    /// Creates a new table or collection. If a new table is being created,
+    /// the type of the table is given by <see cref="type_id" />, which must
+    /// the be the ID of
+    /// a currently registered type (i.e. one created via <see
     /// cref="Kinetica.createType(string,string,IDictionary{string, IList{string}},IDictionary{string, string})"
-    /// />). The table will be created inside a collection if the option
-    /// <i>collection_name</i> is specified. If that collection does not
-    /// already exist, it will be created.
+    /// />). The
+    /// table will be created inside a collection if the option
+    /// <i>collection_name</i> is specified. If that collection does
+    /// not already exist, it will be created.
     /// <br />
-    /// To create a new collection, specify the name of the collection in <see
-    /// cref="table_name" /> and set the <i>is_collection</i> option to
-    /// <i>true</i>; <see cref="type_id" /> will be ignored.</summary>
+    /// To create a new collection, specify the name of the collection in
+    /// <see cref="table_name" /> and set the <i>is_collection</i> option to
+    /// <i>true</i>; <see cref="type_id" /> will be
+    /// ignored.
+    /// <br />
+    /// A table may optionally be designated to use a
+    /// <a href="../../concepts/tables.html#replication"
+    /// target="_top">replicated</a> distribution scheme,
+    /// have <a href="../../concepts/tables.html#foreign-keys"
+    /// target="_top">foreign keys</a> to other
+    /// tables assigned, or be assigned a
+    /// <a href="../../concepts/tables.html#partitioning"
+    /// target="_top">partitioning</a> scheme.</summary>
     public class CreateTableRequest : KineticaData
     {
 
@@ -82,9 +94,7 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="CreateTableRequest.Options.DISALLOW_HOMOGENEOUS_TABLES">DISALLOW_HOMOGENEOUS_TABLES</see>:</term>
-        ///         <description>For a collection, indicates whether the
-        /// collection prohibits containment of multiple tables of exactly the
-        /// same data type.
+        ///         <description>No longer supported; value will be ignored.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -102,19 +112,21 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="CreateTableRequest.Options.IS_REPLICATED">IS_REPLICATED</see>:</term>
-        ///         <description>For a table, indicates the <a
+        ///         <description>For a table, affects the <a
         /// href="../../concepts/tables.html#distribution"
         /// target="_top">distribution scheme</a> for the table's data.  If
-        /// true, the table will be <a
+        /// true and the given type has no explicit <a
+        /// href="../../concepts/tables.html#shard-key" target="_top">shard
+        /// key</a> defined, the table will be <a
         /// href="../../concepts/tables.html#replication"
         /// target="_top">replicated</a>.  If false, the table will be <a
         /// href="../../concepts/tables.html#sharding"
-        /// target="_top">sharded</a> according to the <a
-        /// href="../../concepts/tables.html#shard-keys" target="_top">shard
-        /// key</a> specified in the given <paramref
-        /// cref="CreateTableRequest.type_id" />, or <a
+        /// target="_top">sharded</a> according to the shard key specified in
+        /// the given <paramref cref="CreateTableRequest.type_id" />, or <a
         /// href="../../concepts/tables.html#random-sharding"
         /// target="_top">randomly sharded</a>, if no shard key is specified.
+        /// Note that a type containing a shard key cannot be used to create a
+        /// replicated table.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -144,6 +156,49 @@ namespace kinetica
         ///         <description>Foreign shard key of the format 'source_column
         /// references shard_by_column from
         /// target_table(primary_key_column)'</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableRequest.Options.PARTITION_TYPE">PARTITION_TYPE</see>:</term>
+        ///         <description><a
+        /// href="../../concepts/tables.html#partitioning"
+        /// target="_top">Partitioning</a> scheme to use
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableRequest.Options.RANGE">RANGE</see>:</term>
+        ///         <description>Use <a
+        /// href="../../concepts/tables.html#partitioning-by-range"
+        /// target="_top">range partitioning</a></description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableRequest.Options.INTERVAL">INTERVAL</see>:</term>
+        ///         <description>Use <a
+        /// href="../../concepts/tables.html#partitioning-by-interval"
+        /// target="_top">interval partitioning</a></description>
+        ///     </item>
+        /// </list></description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableRequest.Options.PARTITION_KEYS">PARTITION_KEYS</see>:</term>
+        ///         <description>Comma-separated list of partition keys, which
+        /// are the columns or column expressions by which records will be
+        /// assigned to partitions defined by
+        /// <i>partition_definitions</i></description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableRequest.Options.PARTITION_DEFINITIONS">PARTITION_DEFINITIONS</see>:</term>
+        ///         <description>Comma-separated list of partition definitions,
+        /// whose format depends on the choice of <i>partition_type</i>.  See
+        /// <a href="../../concepts/tables.html#partitioning-by-range-example"
+        /// target="_top">range partitioning example</a> or <a
+        /// href="../../concepts/tables.html#partitioning-by-interval-example"
+        /// target="_top">interval partitioning example</a> for example
+        /// formats.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -179,6 +234,11 @@ namespace kinetica
         /// </list>
         /// The default value is <see
         /// cref="CreateTableRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableRequest.Options.STRATEGY_DEFINITION">STRATEGY_DEFINITION</see>:</term>
+        ///         <description></description>
         ///     </item>
         /// </list>
         /// <br />
@@ -231,9 +291,7 @@ namespace kinetica
             /// cref="CreateTableRequest.Options.FALSE">FALSE</see>.</summary>
             public const string IS_COLLECTION = "is_collection";
 
-            /// <summary>For a collection, indicates whether the collection
-            /// prohibits containment of multiple tables of exactly the same
-            /// data type.
+            /// <summary>No longer supported; value will be ignored.
             /// Supported values:
             /// <list type="bullet">
             ///     <item>
@@ -249,20 +307,21 @@ namespace kinetica
             /// cref="CreateTableRequest.Options.FALSE">FALSE</see>.</summary>
             public const string DISALLOW_HOMOGENEOUS_TABLES = "disallow_homogeneous_tables";
 
-            /// <summary>For a table, indicates the <a
+            /// <summary>For a table, affects the <a
             /// href="../../concepts/tables.html#distribution"
             /// target="_top">distribution scheme</a> for the table's data.  If
-            /// true, the table will be <a
+            /// true and the given type has no explicit <a
+            /// href="../../concepts/tables.html#shard-key" target="_top">shard
+            /// key</a> defined, the table will be <a
             /// href="../../concepts/tables.html#replication"
             /// target="_top">replicated</a>.  If false, the table will be <a
             /// href="../../concepts/tables.html#sharding"
-            /// target="_top">sharded</a> according to the <a
-            /// href="../../concepts/tables.html#shard-keys"
-            /// target="_top">shard key</a> specified in the given <see
-            /// cref="type_id" />, or <a
+            /// target="_top">sharded</a> according to the shard key specified
+            /// in the given <see cref="type_id" />, or <a
             /// href="../../concepts/tables.html#random-sharding"
             /// target="_top">randomly sharded</a>, if no shard key is
-            /// specified.
+            /// specified.  Note that a type containing a shard key cannot be
+            /// used to create a replicated table.
             /// Supported values:
             /// <list type="bullet">
             ///     <item>
@@ -291,6 +350,51 @@ namespace kinetica
             /// target_table(primary_key_column)'</summary>
             public const string FOREIGN_SHARD_KEY = "foreign_shard_key";
 
+            /// <summary><a href="../../concepts/tables.html#partitioning"
+            /// target="_top">Partitioning</a> scheme to use
+            /// Supported values:
+            /// <list type="bullet">
+            ///     <item>
+            ///         <term><see
+            /// cref="CreateTableRequest.Options.RANGE">RANGE</see>:</term>
+            ///         <description>Use <a
+            /// href="../../concepts/tables.html#partitioning-by-range"
+            /// target="_top">range partitioning</a></description>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="CreateTableRequest.Options.INTERVAL">INTERVAL</see>:</term>
+            ///         <description>Use <a
+            /// href="../../concepts/tables.html#partitioning-by-interval"
+            /// target="_top">interval partitioning</a></description>
+            ///     </item>
+            /// </list></summary>
+            public const string PARTITION_TYPE = "partition_type";
+
+            /// <summary>Use <a
+            /// href="../../concepts/tables.html#partitioning-by-range"
+            /// target="_top">range partitioning</a></summary>
+            public const string RANGE = "RANGE";
+
+            /// <summary>Use <a
+            /// href="../../concepts/tables.html#partitioning-by-interval"
+            /// target="_top">interval partitioning</a></summary>
+            public const string INTERVAL = "INTERVAL";
+
+            /// <summary>Comma-separated list of partition keys, which are the
+            /// columns or column expressions by which records will be assigned
+            /// to partitions defined by <i>partition_definitions</i></summary>
+            public const string PARTITION_KEYS = "partition_keys";
+
+            /// <summary>Comma-separated list of partition definitions, whose
+            /// format depends on the choice of <i>partition_type</i>.  See <a
+            /// href="../../concepts/tables.html#partitioning-by-range-example"
+            /// target="_top">range partitioning example</a> or <a
+            /// href="../../concepts/tables.html#partitioning-by-interval-example"
+            /// target="_top">interval partitioning example</a> for example
+            /// formats.</summary>
+            public const string PARTITION_DEFINITIONS = "partition_definitions";
+
             /// <summary>For a table, sets the <a
             /// href="../../concepts/ttl.html" target="_top">TTL</a> of the
             /// table specified in <see cref="table_name" />.</summary>
@@ -318,6 +422,7 @@ namespace kinetica
             /// The default value is <see
             /// cref="CreateTableRequest.Options.FALSE">FALSE</see>.</summary>
             public const string IS_RESULT_TABLE = "is_result_table";
+            public const string STRATEGY_DEFINITION = "strategy_definition";
         } // end struct Options
 
 
@@ -386,9 +491,7 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="CreateTableRequest.Options.DISALLOW_HOMOGENEOUS_TABLES">DISALLOW_HOMOGENEOUS_TABLES</see>:</term>
-        ///         <description>For a collection, indicates whether the
-        /// collection prohibits containment of multiple tables of exactly the
-        /// same data type.
+        ///         <description>No longer supported; value will be ignored.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -406,19 +509,21 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="CreateTableRequest.Options.IS_REPLICATED">IS_REPLICATED</see>:</term>
-        ///         <description>For a table, indicates the <a
+        ///         <description>For a table, affects the <a
         /// href="../../concepts/tables.html#distribution"
         /// target="_top">distribution scheme</a> for the table's data.  If
-        /// true, the table will be <a
+        /// true and the given type has no explicit <a
+        /// href="../../concepts/tables.html#shard-key" target="_top">shard
+        /// key</a> defined, the table will be <a
         /// href="../../concepts/tables.html#replication"
         /// target="_top">replicated</a>.  If false, the table will be <a
         /// href="../../concepts/tables.html#sharding"
-        /// target="_top">sharded</a> according to the <a
-        /// href="../../concepts/tables.html#shard-keys" target="_top">shard
-        /// key</a> specified in the given <paramref
-        /// cref="CreateTableRequest.type_id" />, or <a
+        /// target="_top">sharded</a> according to the shard key specified in
+        /// the given <paramref cref="CreateTableRequest.type_id" />, or <a
         /// href="../../concepts/tables.html#random-sharding"
         /// target="_top">randomly sharded</a>, if no shard key is specified.
+        /// Note that a type containing a shard key cannot be used to create a
+        /// replicated table.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -448,6 +553,49 @@ namespace kinetica
         ///         <description>Foreign shard key of the format 'source_column
         /// references shard_by_column from
         /// target_table(primary_key_column)'</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableRequest.Options.PARTITION_TYPE">PARTITION_TYPE</see>:</term>
+        ///         <description><a
+        /// href="../../concepts/tables.html#partitioning"
+        /// target="_top">Partitioning</a> scheme to use
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableRequest.Options.RANGE">RANGE</see>:</term>
+        ///         <description>Use <a
+        /// href="../../concepts/tables.html#partitioning-by-range"
+        /// target="_top">range partitioning</a></description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableRequest.Options.INTERVAL">INTERVAL</see>:</term>
+        ///         <description>Use <a
+        /// href="../../concepts/tables.html#partitioning-by-interval"
+        /// target="_top">interval partitioning</a></description>
+        ///     </item>
+        /// </list></description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableRequest.Options.PARTITION_KEYS">PARTITION_KEYS</see>:</term>
+        ///         <description>Comma-separated list of partition keys, which
+        /// are the columns or column expressions by which records will be
+        /// assigned to partitions defined by
+        /// <i>partition_definitions</i></description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableRequest.Options.PARTITION_DEFINITIONS">PARTITION_DEFINITIONS</see>:</term>
+        ///         <description>Comma-separated list of partition definitions,
+        /// whose format depends on the choice of <i>partition_type</i>.  See
+        /// <a href="../../concepts/tables.html#partitioning-by-range-example"
+        /// target="_top">range partitioning example</a> or <a
+        /// href="../../concepts/tables.html#partitioning-by-interval-example"
+        /// target="_top">interval partitioning example</a> for example
+        /// formats.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -483,6 +631,11 @@ namespace kinetica
         /// </list>
         /// The default value is <see
         /// cref="CreateTableRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableRequest.Options.STRATEGY_DEFINITION">STRATEGY_DEFINITION</see>:</term>
+        ///         <description></description>
         ///     </item>
         /// </list>
         ///   </summary>
@@ -557,9 +710,7 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="CreateTableRequest.Options.DISALLOW_HOMOGENEOUS_TABLES">DISALLOW_HOMOGENEOUS_TABLES</see>:</term>
-        ///         <description>For a collection, indicates whether the
-        /// collection prohibits containment of multiple tables of exactly the
-        /// same data type.
+        ///         <description>No longer supported; value will be ignored.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -577,19 +728,21 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="CreateTableRequest.Options.IS_REPLICATED">IS_REPLICATED</see>:</term>
-        ///         <description>For a table, indicates the <a
+        ///         <description>For a table, affects the <a
         /// href="../../concepts/tables.html#distribution"
         /// target="_top">distribution scheme</a> for the table's data.  If
-        /// true, the table will be <a
+        /// true and the given type has no explicit <a
+        /// href="../../concepts/tables.html#shard-key" target="_top">shard
+        /// key</a> defined, the table will be <a
         /// href="../../concepts/tables.html#replication"
         /// target="_top">replicated</a>.  If false, the table will be <a
         /// href="../../concepts/tables.html#sharding"
-        /// target="_top">sharded</a> according to the <a
-        /// href="../../concepts/tables.html#shard-keys" target="_top">shard
-        /// key</a> specified in the given <paramref
-        /// cref="CreateTableRequest.type_id" />, or <a
+        /// target="_top">sharded</a> according to the shard key specified in
+        /// the given <paramref cref="CreateTableRequest.type_id" />, or <a
         /// href="../../concepts/tables.html#random-sharding"
         /// target="_top">randomly sharded</a>, if no shard key is specified.
+        /// Note that a type containing a shard key cannot be used to create a
+        /// replicated table.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -619,6 +772,49 @@ namespace kinetica
         ///         <description>Foreign shard key of the format 'source_column
         /// references shard_by_column from
         /// target_table(primary_key_column)'</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableRequest.Options.PARTITION_TYPE">PARTITION_TYPE</see>:</term>
+        ///         <description><a
+        /// href="../../concepts/tables.html#partitioning"
+        /// target="_top">Partitioning</a> scheme to use
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableRequest.Options.RANGE">RANGE</see>:</term>
+        ///         <description>Use <a
+        /// href="../../concepts/tables.html#partitioning-by-range"
+        /// target="_top">range partitioning</a></description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableRequest.Options.INTERVAL">INTERVAL</see>:</term>
+        ///         <description>Use <a
+        /// href="../../concepts/tables.html#partitioning-by-interval"
+        /// target="_top">interval partitioning</a></description>
+        ///     </item>
+        /// </list></description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableRequest.Options.PARTITION_KEYS">PARTITION_KEYS</see>:</term>
+        ///         <description>Comma-separated list of partition keys, which
+        /// are the columns or column expressions by which records will be
+        /// assigned to partitions defined by
+        /// <i>partition_definitions</i></description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableRequest.Options.PARTITION_DEFINITIONS">PARTITION_DEFINITIONS</see>:</term>
+        ///         <description>Comma-separated list of partition definitions,
+        /// whose format depends on the choice of <i>partition_type</i>.  See
+        /// <a href="../../concepts/tables.html#partitioning-by-range-example"
+        /// target="_top">range partitioning example</a> or <a
+        /// href="../../concepts/tables.html#partitioning-by-interval-example"
+        /// target="_top">interval partitioning example</a> for example
+        /// formats.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -655,6 +851,11 @@ namespace kinetica
         /// The default value is <see
         /// cref="CreateTableRequest.Options.FALSE">FALSE</see>.</description>
         ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableRequest.Options.STRATEGY_DEFINITION">STRATEGY_DEFINITION</see>:</term>
+        ///         <description></description>
+        ///     </item>
         /// </list>
         ///   </param>
         /// 
@@ -688,6 +889,9 @@ namespace kinetica
         /// <summary>Indicates if the created entity is a collection.
         /// </summary>
         public bool is_collection { get; set; }
+
+        /// <summary>Additional information.  </summary>
+        public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
 
     } // end class CreateTableResponse
 
