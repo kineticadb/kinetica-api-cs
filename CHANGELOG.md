@@ -1,7 +1,7 @@
 GPUdb C# API Changelog
 =======================
 
-Version 7.0.0 - TBD
+Version 7.0.0 - 2019-01-31
 --------------------------
 
 -   Version release
