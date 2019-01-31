@@ -175,10 +175,10 @@ namespace kinetica
         /// <summary>This property indicates that this column should be <a
         /// href="../../concepts/dictionary_encoding.html"
         /// target="_top">dictionary encoded</a>. It can only be used in
-        /// conjunction with restricted string (charN), int, or long columns.
-        /// Dictionary encoding is best for columns where the cardinality (the
-        /// number of unique values) is expected to be low. This property can
-        /// save a large amount of memory.</summary>
+        /// conjunction with restricted string (charN), int, long or date
+        /// columns. Dictionary encoding is best for columns where the
+        /// cardinality (the number of unique values) is expected to be low.
+        /// This property can save a large amount of memory.</summary>
         public const string DICT = "dict";
     } // end struct ColumnProperty
 

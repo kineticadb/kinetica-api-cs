@@ -278,10 +278,10 @@ namespace kinetica
         ///         <description>This property indicates that this column
         /// should be <a href="../../concepts/dictionary_encoding.html"
         /// target="_top">dictionary encoded</a>. It can only be used in
-        /// conjunction with restricted string (charN), int, or long columns.
-        /// Dictionary encoding is best for columns where the cardinality (the
-        /// number of unique values) is expected to be low. This property can
-        /// save a large amount of memory.</description>
+        /// conjunction with restricted string (charN), int, long or date
+        /// columns. Dictionary encoding is best for columns where the
+        /// cardinality (the number of unique values) is expected to be low.
+        /// This property can save a large amount of memory.</description>
         ///     </item>
         /// </list>
         /// A set of string constants for the parameter <see cref="properties"
@@ -459,7 +459,7 @@ namespace kinetica
             /// <summary>This property indicates that this column should be <a
             /// href="../../concepts/dictionary_encoding.html"
             /// target="_top">dictionary encoded</a>. It can only be used in
-            /// conjunction with restricted string (charN), int, or long
+            /// conjunction with restricted string (charN), int, long or date
             /// columns. Dictionary encoding is best for columns where the
             /// cardinality (the number of unique values) is expected to be
             /// low. This property can save a large amount of memory.</summary>
@@ -696,10 +696,10 @@ namespace kinetica
         ///         <description>This property indicates that this column
         /// should be <a href="../../concepts/dictionary_encoding.html"
         /// target="_top">dictionary encoded</a>. It can only be used in
-        /// conjunction with restricted string (charN), int, or long columns.
-        /// Dictionary encoding is best for columns where the cardinality (the
-        /// number of unique values) is expected to be low. This property can
-        /// save a large amount of memory.</description>
+        /// conjunction with restricted string (charN), int, long or date
+        /// columns. Dictionary encoding is best for columns where the
+        /// cardinality (the number of unique values) is expected to be low.
+        /// This property can save a large amount of memory.</description>
         ///     </item>
         /// </list>  </summary>
         public IDictionary<string, IList<string>> properties { get; set; } = new Dictionary<string, IList<string>>();
@@ -939,10 +939,10 @@ namespace kinetica
         ///         <description>This property indicates that this column
         /// should be <a href="../../concepts/dictionary_encoding.html"
         /// target="_top">dictionary encoded</a>. It can only be used in
-        /// conjunction with restricted string (charN), int, or long columns.
-        /// Dictionary encoding is best for columns where the cardinality (the
-        /// number of unique values) is expected to be low. This property can
-        /// save a large amount of memory.</description>
+        /// conjunction with restricted string (charN), int, long or date
+        /// columns. Dictionary encoding is best for columns where the
+        /// cardinality (the number of unique values) is expected to be low.
+        /// This property can save a large amount of memory.</description>
         ///     </item>
         /// </list>  </param>
         /// <param name="options">Optional parameters.  </param>

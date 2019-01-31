@@ -15,18 +15,17 @@ namespace kinetica
     /// cref="Kinetica.adminShowClusterOperations(int,IDictionary{string, string})"
     /// />.
     /// <br />
-    /// Shows detailed status of current or prior cluster operations.
+    /// Requests the detailed status of the current operation (by default) or a
+    /// prior cluster operation specified by <see cref="history_index" />.
+    /// Returns details on the requested cluster operation.
     /// <br />
-    /// By default will retrieve the current or most resent cluster operation.
-    /// The @{history_index} is used to specify which cluster operation to
-    /// retrieve. A value of zero will return the most recent, one will return
-    /// the second most recent, etc.  The response will also indicate how many
-    /// cluster operations are stored in the history.</summary>
+    /// The response will also indicate how many cluster operations are stored
+    /// in the history.</summary>
     public class AdminShowClusterOperationsRequest : KineticaData
     {
 
-        /// <summary>Indicates which cluster operation to retrieve.  Zero is
-        /// most recent.  </summary>
+        /// <summary>Indicates which cluster operation to retrieve.  Use 0 for
+        /// the most recent.  </summary>
         public int history_index { get; set; } = 0;
 
         /// <summary>Optional parameters.  </summary>
@@ -41,7 +40,7 @@ namespace kinetica
         /// with the specified parameters.</summary>
         /// 
         /// <param name="history_index">Indicates which cluster operation to
-        /// retrieve.  Zero is most recent.  </param>
+        /// retrieve.  Use 0 for the most recent.  </param>
         /// <param name="options">Optional parameters.  </param>
         /// 
         public AdminShowClusterOperationsRequest( int history_index = 0,
@@ -61,22 +60,384 @@ namespace kinetica
     public class AdminShowClusterOperationsResponse : KineticaData
     {
 
-        /// <summary>Indicates how recent the cluster operation is, relative to
-        /// all prior cluster operations.  Zero is most recent, one is second
-        /// most recent, etc.  </summary>
+        /// <summary>Whether this cluster operation is currently in progress or
+        /// not.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="AdminShowClusterOperationsResponse.InProgress.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AdminShowClusterOperationsResponse.InProgress.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// A set of string constants for the parameter <member
+        /// name="in_progress" />.</summary>
+        public struct InProgress
+        {
+            public const string TRUE = "true";
+            public const string FALSE = "false";
+        } // end struct InProgress
+
+
+        /// <summary>Overall success status of the operation.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="AdminShowClusterOperationsResponse.OverallStatus.OK">OK</see>:</term>
+        ///         <description>The operation was successful, or, if still in
+        /// progress, the operation is successful so far.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AdminShowClusterOperationsResponse.OverallStatus.ERROR">ERROR</see>:</term>
+        ///         <description>An error occurred executing the
+        /// operation.</description>
+        ///     </item>
+        /// </list>
+        /// A set of string constants for the parameter <member
+        /// name="overall_status" />.</summary>
+        public struct OverallStatus
+        {
+
+            /// <summary>The operation was successful, or, if still in
+            /// progress, the operation is successful so far.</summary>
+            public const string OK = "OK";
+
+            /// <summary>An error occurred executing the operation.</summary>
+            public const string ERROR = "ERROR";
+        } // end struct OverallStatus
+
+
+        /// <summary>Whether a user stopped this operation at any point while
+        /// in progress.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="AdminShowClusterOperationsResponse.UserStopped.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AdminShowClusterOperationsResponse.UserStopped.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// A set of string constants for the parameter <member
+        /// name="user_stopped" />.</summary>
+        public struct UserStopped
+        {
+            public const string TRUE = "true";
+            public const string FALSE = "false";
+        } // end struct UserStopped
+
+
+        /// <summary>Whether this operation was a dry run.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="AdminShowClusterOperationsResponse.DryRun.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AdminShowClusterOperationsResponse.DryRun.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// A set of string constants for the parameter <member name="dry_run"
+        /// />.</summary>
+        public struct DryRun
+        {
+            public const string TRUE = "true";
+            public const string FALSE = "false";
+        } // end struct DryRun
+
+
+        /// <summary>Whether adding ranks is (or was) part of this operation.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="AdminShowClusterOperationsResponse.AddRanks.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AdminShowClusterOperationsResponse.AddRanks.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// A set of string constants for the parameter <member
+        /// name="add_ranks" />.</summary>
+        public struct AddRanks
+        {
+            public const string TRUE = "true";
+            public const string FALSE = "false";
+        } // end struct AddRanks
+
+
+        /// <summary>If this was a rank-adding operation, the add-specific
+        /// status of the operation.
+        /// Valid values are:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="AdminShowClusterOperationsResponse.AddRanksStatus.NOT_STARTED">NOT_STARTED</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AdminShowClusterOperationsResponse.AddRanksStatus.IN_PROGRESS">IN_PROGRESS</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AdminShowClusterOperationsResponse.AddRanksStatus.INTERRUPTED">INTERRUPTED</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AdminShowClusterOperationsResponse.AddRanksStatus.COMPLETED_OK">COMPLETED_OK</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AdminShowClusterOperationsResponse.AddRanksStatus.ERROR">ERROR</see></term>
+        ///     </item>
+        /// </list>
+        /// A set of string constants for the parameter <member
+        /// name="add_ranks_status" />.</summary>
+        public struct AddRanksStatus
+        {
+            public const string NOT_STARTED = "NOT_STARTED";
+            public const string IN_PROGRESS = "IN_PROGRESS";
+            public const string INTERRUPTED = "INTERRUPTED";
+            public const string COMPLETED_OK = "COMPLETED_OK";
+            public const string ERROR = "ERROR";
+        } // end struct AddRanksStatus
+
+
+        /// <summary>Whether removing ranks is (or was) part of this operation.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="AdminShowClusterOperationsResponse.RemoveRanks.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AdminShowClusterOperationsResponse.RemoveRanks.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// A set of string constants for the parameter <member
+        /// name="remove_ranks" />.</summary>
+        public struct RemoveRanks
+        {
+            public const string TRUE = "true";
+            public const string FALSE = "false";
+        } // end struct RemoveRanks
+
+
+        /// <summary>If this was a rank-removing operation, the
+        /// removal-specific status of the operation.
+        /// Valid values are:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="AdminShowClusterOperationsResponse.RemoveRanksStatus.NOT_STARTED">NOT_STARTED</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AdminShowClusterOperationsResponse.RemoveRanksStatus.IN_PROGRESS">IN_PROGRESS</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AdminShowClusterOperationsResponse.RemoveRanksStatus.INTERRUPTED">INTERRUPTED</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AdminShowClusterOperationsResponse.RemoveRanksStatus.COMPLETED_OK">COMPLETED_OK</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AdminShowClusterOperationsResponse.RemoveRanksStatus.ERROR">ERROR</see></term>
+        ///     </item>
+        /// </list>
+        /// A set of string constants for the parameter <member
+        /// name="remove_ranks_status" />.</summary>
+        public struct RemoveRanksStatus
+        {
+            public const string NOT_STARTED = "NOT_STARTED";
+            public const string IN_PROGRESS = "IN_PROGRESS";
+            public const string INTERRUPTED = "INTERRUPTED";
+            public const string COMPLETED_OK = "COMPLETED_OK";
+            public const string ERROR = "ERROR";
+        } // end struct RemoveRanksStatus
+
+
+        /// <summary>Whether data and/or shard rebalancing is (or was) part of
+        /// this operation.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="AdminShowClusterOperationsResponse.Rebalance.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AdminShowClusterOperationsResponse.Rebalance.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// A set of string constants for the parameter <member
+        /// name="rebalance" />.</summary>
+        public struct Rebalance
+        {
+            public const string TRUE = "true";
+            public const string FALSE = "false";
+        } // end struct Rebalance
+
+
+        /// <summary>Whether rebalancing of unsharded data is (or was) part of
+        /// this operation.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="AdminShowClusterOperationsResponse.RebalanceUnshardedData.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AdminShowClusterOperationsResponse.RebalanceUnshardedData.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// A set of string constants for the parameter <member
+        /// name="rebalance_unsharded_data" />.</summary>
+        public struct RebalanceUnshardedData
+        {
+            public const string TRUE = "true";
+            public const string FALSE = "false";
+        } // end struct RebalanceUnshardedData
+
+
+        /// <summary>If this was an operation that included rebalancing
+        /// unsharded data, the rebalancing-specific status of the operation.
+        /// Valid values are:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="AdminShowClusterOperationsResponse.RebalanceUnshardedDataStatus.NOT_STARTED">NOT_STARTED</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AdminShowClusterOperationsResponse.RebalanceUnshardedDataStatus.IN_PROGRESS">IN_PROGRESS</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AdminShowClusterOperationsResponse.RebalanceUnshardedDataStatus.INTERRUPTED">INTERRUPTED</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AdminShowClusterOperationsResponse.RebalanceUnshardedDataStatus.COMPLETED_OK">COMPLETED_OK</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AdminShowClusterOperationsResponse.RebalanceUnshardedDataStatus.ERROR">ERROR</see></term>
+        ///     </item>
+        /// </list>
+        /// A set of string constants for the parameter <member
+        /// name="rebalance_unsharded_data_status" />.</summary>
+        public struct RebalanceUnshardedDataStatus
+        {
+            public const string NOT_STARTED = "NOT_STARTED";
+            public const string IN_PROGRESS = "IN_PROGRESS";
+            public const string INTERRUPTED = "INTERRUPTED";
+            public const string COMPLETED_OK = "COMPLETED_OK";
+            public const string ERROR = "ERROR";
+        } // end struct RebalanceUnshardedDataStatus
+
+
+        /// <summary>Whether rebalancing of sharded data is (or was) part of
+        /// this operation.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="AdminShowClusterOperationsResponse.RebalanceShardedData.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AdminShowClusterOperationsResponse.RebalanceShardedData.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// A set of string constants for the parameter <member
+        /// name="rebalance_sharded_data" />.</summary>
+        public struct RebalanceShardedData
+        {
+            public const string TRUE = "true";
+            public const string FALSE = "false";
+        } // end struct RebalanceShardedData
+
+
+        /// <summary>If this was an operation that included rebalancing sharded
+        /// data, the rebalancing-specific status of the operation.
+        /// Valid values are:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="AdminShowClusterOperationsResponse.RebalanceShardedDataStatus.NOT_STARTED">NOT_STARTED</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AdminShowClusterOperationsResponse.RebalanceShardedDataStatus.IN_PROGRESS">IN_PROGRESS</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AdminShowClusterOperationsResponse.RebalanceShardedDataStatus.INTERRUPTED">INTERRUPTED</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AdminShowClusterOperationsResponse.RebalanceShardedDataStatus.COMPLETED_OK">COMPLETED_OK</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AdminShowClusterOperationsResponse.RebalanceShardedDataStatus.ERROR">ERROR</see></term>
+        ///     </item>
+        /// </list>
+        /// A set of string constants for the parameter <member
+        /// name="rebalance_sharded_data_status" />.</summary>
+        public struct RebalanceShardedDataStatus
+        {
+            public const string NOT_STARTED = "NOT_STARTED";
+            public const string IN_PROGRESS = "IN_PROGRESS";
+            public const string INTERRUPTED = "INTERRUPTED";
+            public const string COMPLETED_OK = "COMPLETED_OK";
+            public const string ERROR = "ERROR";
+        } // end struct RebalanceShardedDataStatus
+
+
+        /// <summary>The index of this cluster operation in the
+        /// reverse-chronologically sorted list of operations, where 0 is the
+        /// most recent operation.  </summary>
         public int history_index { get; set; }
 
-        /// <summary>Number of cluster operations executed to date  </summary>
+        /// <summary>Number of cluster operations executed to date.  </summary>
         public int history_size { get; set; }
 
         /// <summary>Whether this cluster operation is currently in progress or
-        /// not  </summary>
+        /// not.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="AdminShowClusterOperationsResponse.InProgress.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AdminShowClusterOperationsResponse.InProgress.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>  </summary>
         public bool in_progress { get; set; }
 
-        /// <summary>The start time of the cluster operation  </summary>
+        /// <summary>The start time of the cluster operation.  </summary>
         public string start_time { get; set; }
 
-        /// <summary>The end time of the cluster operation, if completed
+        /// <summary>The end time of the cluster operation, if completed.
         /// </summary>
         public string end_time { get; set; }
 
@@ -84,32 +445,101 @@ namespace kinetica
         /// </summary>
         public string endpoint { get; set; }
 
-        /// <summary>The schema for the original request  </summary>
+        /// <summary>The schema for the original request.  </summary>
         public string endpoint_schema { get; set; }
 
-        /// <summary>OK or ERROR.  If the operation is still in progress, OK
-        /// means it has been successful so far.  </summary>
+        /// <summary>Overall success status of the operation.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="AdminShowClusterOperationsResponse.OverallStatus.OK">OK</see>:</term>
+        ///         <description>The operation was successful, or, if still in
+        /// progress, the operation is successful so far.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AdminShowClusterOperationsResponse.OverallStatus.ERROR">ERROR</see>:</term>
+        ///         <description>An error occurred executing the
+        /// operation.</description>
+        ///     </item>
+        /// </list>  </summary>
         public string overall_status { get; set; }
 
-        /// <summary>Indicates if a user stopped this operation at any point
-        /// while in progress.  </summary>
+        /// <summary>Whether a user stopped this operation at any point while
+        /// in progress.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="AdminShowClusterOperationsResponse.UserStopped.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AdminShowClusterOperationsResponse.UserStopped.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>  </summary>
         public bool user_stopped { get; set; }
 
         /// <summary>Percent complete of this entire operation.  </summary>
         public int percent_complete { get; set; }
 
-        /// <summary>Indicates if this operation was a dry run.  </summary>
+        /// <summary>Whether this operation was a dry run.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="AdminShowClusterOperationsResponse.DryRun.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AdminShowClusterOperationsResponse.DryRun.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>  </summary>
         public bool dry_run { get; set; }
 
-        /// <summary>Updates, and error messages if any.  </summary>
+        /// <summary>Updates and error messages if any.  </summary>
         public IList<string> messages { get; set; } = new List<string>();
 
-        /// <summary>Indicates that adding ranks is being performed or was
-        /// performed as part of this operation.  </summary>
+        /// <summary>Whether adding ranks is (or was) part of this operation.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="AdminShowClusterOperationsResponse.AddRanks.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AdminShowClusterOperationsResponse.AddRanks.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>  </summary>
         public bool add_ranks { get; set; }
 
-        /// <summary>Will be one of NOT_STARTED, IN PROGRESS, INTERRUPTED,
-        /// COMPLETED_OK, or ERROR  </summary>
+        /// <summary>If this was a rank-adding operation, the add-specific
+        /// status of the operation.
+        /// Valid values are:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="AdminShowClusterOperationsResponse.AddRanksStatus.NOT_STARTED">NOT_STARTED</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AdminShowClusterOperationsResponse.AddRanksStatus.IN_PROGRESS">IN_PROGRESS</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AdminShowClusterOperationsResponse.AddRanksStatus.INTERRUPTED">INTERRUPTED</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AdminShowClusterOperationsResponse.AddRanksStatus.COMPLETED_OK">COMPLETED_OK</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AdminShowClusterOperationsResponse.AddRanksStatus.ERROR">ERROR</see></term>
+        ///     </item>
+        /// </list>  </summary>
         public string add_ranks_status { get; set; }
 
         /// <summary>The rank numbers of the ranks currently being added, or
@@ -122,56 +552,168 @@ namespace kinetica
         /// </summary>
         public IList<string> rank_hosts { get; set; } = new List<string>();
 
-        /// <summary>Current percent complete of the add ranks operation
+        /// <summary>Current percent complete of the add ranks operation.
         /// </summary>
         public int add_ranks_percent_complete { get; set; }
 
-        /// <summary>Indicates that removing ranks is being performed or was
-        /// performed as part of this operation.  </summary>
+        /// <summary>Whether removing ranks is (or was) part of this operation.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="AdminShowClusterOperationsResponse.RemoveRanks.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AdminShowClusterOperationsResponse.RemoveRanks.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>  </summary>
         public bool remove_ranks { get; set; }
 
-        /// <summary>Will be one of NOT_STARTED, IN PROGRESS, INTERRUPTED,
-        /// COMPLETED_OK, or ERROR  </summary>
+        /// <summary>If this was a rank-removing operation, the
+        /// removal-specific status of the operation.
+        /// Valid values are:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="AdminShowClusterOperationsResponse.RemoveRanksStatus.NOT_STARTED">NOT_STARTED</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AdminShowClusterOperationsResponse.RemoveRanksStatus.IN_PROGRESS">IN_PROGRESS</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AdminShowClusterOperationsResponse.RemoveRanksStatus.INTERRUPTED">INTERRUPTED</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AdminShowClusterOperationsResponse.RemoveRanksStatus.COMPLETED_OK">COMPLETED_OK</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AdminShowClusterOperationsResponse.RemoveRanksStatus.ERROR">ERROR</see></term>
+        ///     </item>
+        /// </list>  </summary>
         public string remove_ranks_status { get; set; }
 
         /// <summary>The ranks being removed, or that have been removed if the
         /// operation is completed.  </summary>
         public IList<int> ranks_being_removed { get; set; } = new List<int>();
 
-        /// <summary>Current percent complete of the remove ranks operation
+        /// <summary>Current percent complete of the remove ranks operation.
         /// </summary>
         public int remove_ranks_percent_complete { get; set; }
 
-        /// <summary>Indicates whether data and/or shard rebalancing is part of
-        /// this operation  </summary>
+        /// <summary>Whether data and/or shard rebalancing is (or was) part of
+        /// this operation.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="AdminShowClusterOperationsResponse.Rebalance.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AdminShowClusterOperationsResponse.Rebalance.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>  </summary>
         public bool rebalance { get; set; }
 
-        /// <summary>Indicates that a rebalance operation included rebalancing
-        /// of unsharded data.  </summary>
+        /// <summary>Whether rebalancing of unsharded data is (or was) part of
+        /// this operation.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="AdminShowClusterOperationsResponse.RebalanceUnshardedData.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AdminShowClusterOperationsResponse.RebalanceUnshardedData.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>  </summary>
         public bool rebalance_unsharded_data { get; set; }
 
-        /// <summary>Will be one of NOT_STARTED, IN PROGRESS, INTERRUPTED,
-        /// COMPLETED_OK, or ERROR  </summary>
+        /// <summary>If this was an operation that included rebalancing
+        /// unsharded data, the rebalancing-specific status of the operation.
+        /// Valid values are:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="AdminShowClusterOperationsResponse.RebalanceUnshardedDataStatus.NOT_STARTED">NOT_STARTED</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AdminShowClusterOperationsResponse.RebalanceUnshardedDataStatus.IN_PROGRESS">IN_PROGRESS</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AdminShowClusterOperationsResponse.RebalanceUnshardedDataStatus.INTERRUPTED">INTERRUPTED</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AdminShowClusterOperationsResponse.RebalanceUnshardedDataStatus.COMPLETED_OK">COMPLETED_OK</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AdminShowClusterOperationsResponse.RebalanceUnshardedDataStatus.ERROR">ERROR</see></term>
+        ///     </item>
+        /// </list>  </summary>
         public string rebalance_unsharded_data_status { get; set; }
 
         /// <summary>Percentage of unsharded tables that completed rebalancing,
-        /// out of all unsharded tables to rebalance  </summary>
+        /// out of all unsharded tables to rebalance.  </summary>
         public int unsharded_rebalance_percent_complete { get; set; }
 
-        /// <summary>Indicates that a rebalance operation included rebalancing
-        /// of sharded data.  </summary>
+        /// <summary>Whether rebalancing of sharded data is (or was) part of
+        /// this operation.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="AdminShowClusterOperationsResponse.RebalanceShardedData.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AdminShowClusterOperationsResponse.RebalanceShardedData.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>  </summary>
         public bool rebalance_sharded_data { get; set; }
 
-        /// <summary>shard array version that was/is being rebalanced to. Each
-        /// change to the shard array results in the version number
-        /// incrementing  </summary>
+        /// <summary>Version of the shard array that is (or was) being
+        /// rebalanced to. Each change to the shard array results in the
+        /// version number incrementing.  </summary>
         public long shard_array_version { get; set; }
 
-        /// <summary>Will be one of NOT_STARTED, IN PROGRESS, INTERRUPTED,
-        /// COMPLETED_OK, or ERROR  </summary>
+        /// <summary>If this was an operation that included rebalancing sharded
+        /// data, the rebalancing-specific status of the operation.
+        /// Valid values are:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="AdminShowClusterOperationsResponse.RebalanceShardedDataStatus.NOT_STARTED">NOT_STARTED</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AdminShowClusterOperationsResponse.RebalanceShardedDataStatus.IN_PROGRESS">IN_PROGRESS</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AdminShowClusterOperationsResponse.RebalanceShardedDataStatus.INTERRUPTED">INTERRUPTED</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AdminShowClusterOperationsResponse.RebalanceShardedDataStatus.COMPLETED_OK">COMPLETED_OK</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AdminShowClusterOperationsResponse.RebalanceShardedDataStatus.ERROR">ERROR</see></term>
+        ///     </item>
+        /// </list>  </summary>
         public string rebalance_sharded_data_status { get; set; }
 
-        /// <summary>Number of shards that will change as part of rebalance
+        /// <summary>Number of shards that will change as part of rebalance.
         /// </summary>
         public int num_shards_changing { get; set; }
 

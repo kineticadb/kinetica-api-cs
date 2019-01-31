@@ -20,114 +20,6 @@ namespace kinetica
 
 
 
-        /// <summary>Add one or more new ranks to the Kinetica cluster. The new
-        /// ranks will not contain any data initially, other than replicated
-        /// tables, and not be assigned any shards. To rebalance data across
-        /// the cluster, which includes shifting some shard key assignments to
-        /// newly added ranks, see <see
-        /// cref="Kinetica.adminRebalance(IDictionary{string, string})" />.
-        /// <br />
-        /// For example, if attempting to add three new ranks (two ranks on
-        /// host 172.123.45.67 and one rank on host 172.123.45.68) to a
-        /// Kinetica cluster with additional configuration parameters:
-        /// <br />
-        /// * <paramref cref="AdminAddRanksRequest.hosts" /> would be an array
-        /// including 172.123.45.67 in the first two indices (signifying two
-        /// ranks being added to host 172.123.45.67) and 172.123.45.68 in the
-        /// last index (signifying one rank being added to host 172.123.45.67)
-        /// <br />
-        /// * <paramref cref="AdminAddRanksRequest.config_params" /> would be
-        /// an array of maps, with each map corresponding to the ranks being
-        /// added in <paramref cref="AdminAddRanksRequest.hosts" />. The key of
-        /// each map would be the configuration parameter name and the value
-        /// would be the parameter's value, e.g. 'rank.gpu':'1'</summary>
-        /// 
-        /// <param name="request_">Request object containing the parameters for
-        /// the operation.</param>
-        /// 
-        /// <returns>Response object containing the result of the
-        /// operation.</returns>
-        /// 
-        public AdminAddRanksResponse adminAddRanks( AdminAddRanksRequest request_ )
-        {
-            AdminAddRanksResponse actualResponse_ = SubmitRequest<AdminAddRanksResponse>("/admin/add/ranks", request_, false);
-
-            return actualResponse_;
-        }
-
-
-        /// <summary>Add one or more new ranks to the Kinetica cluster. The new
-        /// ranks will not contain any data initially, other than replicated
-        /// tables, and not be assigned any shards. To rebalance data across
-        /// the cluster, which includes shifting some shard key assignments to
-        /// newly added ranks, see <see
-        /// cref="Kinetica.adminRebalance(IDictionary{string, string})" />.
-        /// <br />
-        /// For example, if attempting to add three new ranks (two ranks on
-        /// host 172.123.45.67 and one rank on host 172.123.45.68) to a
-        /// Kinetica cluster with additional configuration parameters:
-        /// <br />
-        /// * <paramref name="hosts" /> would be an array including
-        /// 172.123.45.67 in the first two indices (signifying two ranks being
-        /// added to host 172.123.45.67) and 172.123.45.68 in the last index
-        /// (signifying one rank being added to host 172.123.45.67)
-        /// <br />
-        /// * <paramref name="config_params" /> would be an array of maps, with
-        /// each map corresponding to the ranks being added in <paramref
-        /// name="hosts" />. The key of each map would be the configuration
-        /// parameter name and the value would be the parameter's value, e.g.
-        /// 'rank.gpu':'1'</summary>
-        /// 
-        /// <param name="hosts">The IP address of each rank being added to the
-        /// cluster. Insert one entry per rank, even if they are on the same
-        /// host. The order of the hosts in the array only matters as it
-        /// relates to the <paramref cref="AdminAddRanksRequest.config_params"
-        /// />.  </param>
-        /// <param name="config_params">Configuration parameters to apply to
-        /// the new ranks, e.g., which GPU to use. Configuration parameters
-        /// that start with 'rankN.', where N is the rank number, should omit
-        /// the N, as the new rank number(s) are not allocated until the ranks
-        /// are created. Each entry in this array corresponds to the entry at
-        /// the same array index in the <paramref
-        /// cref="AdminAddRanksRequest.hosts" />. This array must either be
-        /// completely empty or have the same number of elements as the hosts
-        /// array.  An empty array will result in the new ranks being set only
-        /// with default parameters.  </param>
-        /// <param name="options">Optional parameters.
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="AdminAddRanksRequest.Options.DRY_RUN">DRY_RUN</see>:</term>
-        ///         <description>If <i>true</i>, only validation checks will be
-        /// performed. No ranks are added.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="AdminAddRanksRequest.Options.TRUE">TRUE</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AdminAddRanksRequest.Options.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="AdminAddRanksRequest.Options.FALSE">FALSE</see>.</description>
-        ///     </item>
-        /// </list>
-        ///   </param>
-        /// 
-        /// <returns>Response object containing the result of the
-        /// operation.</returns>
-        /// 
-        public AdminAddRanksResponse adminAddRanks( IList<string> hosts,
-                                                    IList<IDictionary<string, string>> config_params,
-                                                    IDictionary<string, string> options = null )
-        {
-            return adminAddRanks( new AdminAddRanksRequest( hosts, config_params, options ) );
-        }
-
-
         /// <summary>Perform the requested action on a list of one or more
         /// job(s). Based on the type of job and the current state of
         /// execution, the action may not be successfully executed. The final
@@ -293,194 +185,6 @@ namespace kinetica
         }
 
 
-        /// <summary>Rebalance the cluster so that all the nodes contain
-        /// approximately an equal number of records.  The rebalance will also
-        /// cause the shards to be equally distributed (as much as possible)
-        /// across all the ranks.</summary>
-        /// 
-        /// <param name="request_">Request object containing the parameters for
-        /// the operation.</param>
-        /// 
-        /// <returns>Response object containing the result of the
-        /// operation.</returns>
-        /// 
-        public AdminRebalanceResponse adminRebalance( AdminRebalanceRequest request_ )
-        {
-            AdminRebalanceResponse actualResponse_ = SubmitRequest<AdminRebalanceResponse>("/admin/rebalance", request_, false);
-
-            return actualResponse_;
-        }
-
-
-        /// <summary>Rebalance the cluster so that all the nodes contain
-        /// approximately an equal number of records.  The rebalance will also
-        /// cause the shards to be equally distributed (as much as possible)
-        /// across all the ranks.</summary>
-        /// 
-        /// <param name="options">Optional parameters.
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="AdminRebalanceRequest.Options.REBALANCE_SHARDED_DATA">REBALANCE_SHARDED_DATA</see>:</term>
-        ///         <description>If <i>true</i>, sharded data will be
-        /// rebalanced approximately equally across the cluster. Note that for
-        /// big clusters, this data transfer could be time consuming and result
-        /// in delayed query responses.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="AdminRebalanceRequest.Options.TRUE">TRUE</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AdminRebalanceRequest.Options.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="AdminRebalanceRequest.Options.TRUE">TRUE</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AdminRebalanceRequest.Options.REBALANCE_UNSHARDED_DATA">REBALANCE_UNSHARDED_DATA</see>:</term>
-        ///         <description>If <i>true</i>, unsharded data (data without
-        /// primary keys and without shard keys) will be rebalanced
-        /// approximately equally across the cluster. Note that for big
-        /// clusters, this data transfer could be time consuming and result in
-        /// delayed query responses.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="AdminRebalanceRequest.Options.TRUE">TRUE</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AdminRebalanceRequest.Options.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="AdminRebalanceRequest.Options.TRUE">TRUE</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AdminRebalanceRequest.Options.TABLE_WHITELIST">TABLE_WHITELIST</see>:</term>
-        ///         <description>Comma-separated list of unsharded table names
-        /// to rebalance. Not applicable to sharded tables because they are
-        /// always balanced in accordance with their primary key or shard key.
-        /// Cannot be used simultaneously with
-        /// <i>table_blacklist</i>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AdminRebalanceRequest.Options.TABLE_BLACKLIST">TABLE_BLACKLIST</see>:</term>
-        ///         <description>Comma-separated list of unsharded table names
-        /// to not rebalance. Not applicable to sharded tables because they are
-        /// always balanced in accordance with their primary key or shard key.
-        /// Cannot be used simultaneously with
-        /// <i>table_whitelist</i>.</description>
-        ///     </item>
-        /// </list>
-        ///   </param>
-        /// 
-        /// <returns>Response object containing the result of the
-        /// operation.</returns>
-        /// 
-        public AdminRebalanceResponse adminRebalance( IDictionary<string, string> options = null )
-        {
-            return adminRebalance( new AdminRebalanceRequest( options ) );
-        }
-
-
-        /// <summary>Remove one or more ranks from the cluster.  Note that this
-        /// operation could take a long time to complete for big clusters. All
-        /// data in the ranks to be removed is rebalanced to other ranks before
-        /// the node is removed unless the <i>rebalance_sharded_data</i> or
-        /// <i>rebalance_unsharded_data</i> parameters are set to <i>false</i>
-        /// in the <paramref cref="AdminRemoveRanksRequest.options"
-        /// />.</summary>
-        /// 
-        /// <param name="request_">Request object containing the parameters for
-        /// the operation.</param>
-        /// 
-        /// <returns>Response object containing the result of the
-        /// operation.</returns>
-        /// 
-        public AdminRemoveRanksResponse adminRemoveRanks( AdminRemoveRanksRequest request_ )
-        {
-            AdminRemoveRanksResponse actualResponse_ = SubmitRequest<AdminRemoveRanksResponse>("/admin/remove/ranks", request_, false);
-
-            return actualResponse_;
-        }
-
-
-        /// <summary>Remove one or more ranks from the cluster.  Note that this
-        /// operation could take a long time to complete for big clusters. All
-        /// data in the ranks to be removed is rebalanced to other ranks before
-        /// the node is removed unless the <i>rebalance_sharded_data</i> or
-        /// <i>rebalance_unsharded_data</i> parameters are set to <i>false</i>
-        /// in the <paramref name="options" />.</summary>
-        /// 
-        /// <param name="ranks">Rank numbers of the ranks to be removed from
-        /// the cluster.  </param>
-        /// <param name="options">Optional parameters.
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="AdminRemoveRanksRequest.Options.REBALANCE_SHARDED_DATA">REBALANCE_SHARDED_DATA</see>:</term>
-        ///         <description>When <i>true</i>, data with primary keys or
-        /// shard keys will be rebalanced to other ranks prior to rank removal.
-        /// Note that for big clusters, this data transfer could be time
-        /// consuming and result in delayed query responses.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="AdminRemoveRanksRequest.Options.TRUE">TRUE</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AdminRemoveRanksRequest.Options.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="AdminRemoveRanksRequest.Options.TRUE">TRUE</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AdminRemoveRanksRequest.Options.REBALANCE_UNSHARDED_DATA">REBALANCE_UNSHARDED_DATA</see>:</term>
-        ///         <description>When <i>true</i>, unsharded data (data without
-        /// primary keys and without shard keys) will be rebalanced to other
-        /// ranks prior to rank removal. Note that for big clusters, this data
-        /// transfer could be time consuming and result in delayed query
-        /// responses.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="AdminRemoveRanksRequest.Options.TRUE">TRUE</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AdminRemoveRanksRequest.Options.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="AdminRemoveRanksRequest.Options.TRUE">TRUE</see>.</description>
-        ///     </item>
-        /// </list>
-        ///   </param>
-        /// 
-        /// <returns>Response object containing the result of the
-        /// operation.</returns>
-        /// 
-        public AdminRemoveRanksResponse adminRemoveRanks( IList<int> ranks,
-                                                          IDictionary<string, string> options = null )
-        {
-            return adminRemoveRanks( new AdminRemoveRanksRequest( ranks, options ) );
-        }
-
-
         /// <summary>Requests a list of the most recent alerts.
         /// Returns lists of alert data, including timestamp and
         /// type.</summary>
@@ -520,15 +224,13 @@ namespace kinetica
         }
 
 
-        /// <summary>Shows detailed status of current or prior cluster
-        /// operations.
+        /// <summary>Requests the detailed status of the current operation (by
+        /// default) or a prior cluster operation specified by <paramref
+        /// cref="AdminShowClusterOperationsRequest.history_index" />.
+        /// Returns details on the requested cluster operation.
         /// <br />
-        /// By default will retrieve the current or most resent cluster
-        /// operation.  The @{history_index} is used to specify which cluster
-        /// operation to retrieve. A value of zero will return the most recent,
-        /// one will return the second most recent, etc.  The response will
-        /// also indicate how many cluster operations are stored in the
-        /// history.</summary>
+        /// The response will also indicate how many cluster operations are
+        /// stored in the history.</summary>
         /// 
         /// <param name="request_">Request object containing the parameters for
         /// the operation.</param>
@@ -544,18 +246,16 @@ namespace kinetica
         }
 
 
-        /// <summary>Shows detailed status of current or prior cluster
-        /// operations.
+        /// <summary>Requests the detailed status of the current operation (by
+        /// default) or a prior cluster operation specified by <paramref
+        /// name="history_index" />.
+        /// Returns details on the requested cluster operation.
         /// <br />
-        /// By default will retrieve the current or most resent cluster
-        /// operation.  The @{history_index} is used to specify which cluster
-        /// operation to retrieve. A value of zero will return the most recent,
-        /// one will return the second most recent, etc.  The response will
-        /// also indicate how many cluster operations are stored in the
-        /// history.</summary>
+        /// The response will also indicate how many cluster operations are
+        /// stored in the history.</summary>
         /// 
         /// <param name="history_index">Indicates which cluster operation to
-        /// retrieve.  Zero is most recent.  </param>
+        /// retrieve.  Use 0 for the most recent.  </param>
         /// <param name="options">Optional parameters.  </param>
         /// 
         /// <returns>Response object containing the result of the
@@ -737,6 +437,45 @@ namespace kinetica
         ///         <term><see
         /// cref="AdminVerifyDbRequest.Options.VERIFY_PERSIST">VERIFY_PERSIST</see>:</term>
         ///         <description>
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="AdminVerifyDbRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AdminVerifyDbRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="AdminVerifyDbRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AdminVerifyDbRequest.Options.CONCURRENT_SAFE">CONCURRENT_SAFE</see>:</term>
+        ///         <description>When enabled, allows this endpoint to be run
+        /// safely with other concurrent database operations. Other operations
+        /// may be slower while this is running.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="AdminVerifyDbRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AdminVerifyDbRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="AdminVerifyDbRequest.Options.TRUE">TRUE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AdminVerifyDbRequest.Options.VERIFY_RANK0">VERIFY_RANK0</see>:</term>
+        ///         <description>When enabled, compares rank0 table meta-data
+        /// against workers meta-data
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -1216,6 +955,16 @@ namespace kinetica
         /// cref="AggregateGroupByRequest.Options.CUBE">CUBE</see>:</term>
         ///         <description>This option is used to specify the
         /// multidimensional aggregates.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AggregateGroupByRequest.Options.THROW_ERROR_ON_REFRESH">THROW_ERROR_ON_REFRESH</see>:</term>
+        ///         <description><DEVELOPER></description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AggregateGroupByRequest.Options.SLEEP_ON_REFRESH">SLEEP_ON_REFRESH</see>:</term>
+        ///         <description><DEVELOPER></description>
         ///     </item>
         /// </list>
         ///   </param>
@@ -2364,10 +2113,15 @@ namespace kinetica
         /// <summary>Alters properties of exisiting resource group to
         /// facilitate resource management.</summary>
         /// 
-        /// <param name="name">Name of the group to be altered. Must match
+        /// <param name="name">Name of the group to be altered. Must be an
         /// existing resource group name.  </param>
-        /// <param name="tier_attributes">Optional map containing group limits
-        /// for tier-specific attributes such as memory.
+        /// <param name="tier_attributes">Optional map containing tier names
+        /// and their respective attribute group limits.  The only valid
+        /// attribute limit that can be set is max_memory (in bytes) for the
+        /// VRAM & RAM tiers.
+        /// For instance, to set max VRAM capacity to 1GB and max RAM capacity
+        /// to 10GB, use:  {'VRAM':{'max_memory':'1000000000'},
+        /// 'RAM':{'max_memory':'10000000000'}}
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
@@ -2377,10 +2131,6 @@ namespace kinetica
         ///     </item>
         /// </list>
         ///   </param>
-        /// <param name="tier_strategy">Optional array that defines the default
-        /// tiering strategy for this group. Each element pair defines an
-        /// existing tier and its preferred priority. e.g. ['RAM 50',VRAM 30']
-        /// </param>
         /// <param name="options">Optional parameters.
         /// <list type="bullet">
         ///     <item>
@@ -2404,10 +2154,10 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="AlterResourceGroupRequest.Options.IS_DEFAULT_GROUP">IS_DEFAULT_GROUP</see>:</term>
-        ///         <description>If true this request applies to the global
-        /// default resource group. It is an error for this field to be true
-        /// when the <paramref cref="AlterResourceGroupRequest.name" /> field
-        /// is also populated.
+        ///         <description>If <i>true</i>, this request applies to the
+        /// global default resource group. It is an error for this field to be
+        /// <i>true</i> when the <paramref
+        /// cref="AlterResourceGroupRequest.name" /> field is also populated.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -2429,13 +2179,11 @@ namespace kinetica
         /// operation.</returns>
         /// 
         public AlterResourceGroupResponse alterResourceGroup( string name,
-                                                              IDictionary<string, IDictionary<string, string>> tier_attributes,
-                                                              IList<string> tier_strategy,
+                                                              IDictionary<string, IDictionary<string, string>> tier_attributes = null,
                                                               IDictionary<string, string> options = null )
         {
             return alterResourceGroup( new AlterResourceGroupRequest( name,
                                                                       tier_attributes,
-                                                                      tier_strategy,
                                                                       options ) );
         }
 
@@ -2597,13 +2345,6 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.MEMORY_ALLOCATION_LIMIT_MB">MEMORY_ALLOCATION_LIMIT_MB</see>:</term>
-        ///         <description>Set the memory allocation limit for all rank
-        /// processes in megabytes, 0 means no limit. Overrides any individual
-        /// rank memory allocation limits.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
         /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.ENABLE_AUDIT">ENABLE_AUDIT</see>:</term>
         ///         <description>Enable or disable auditing.</description>
         ///     </item>
@@ -2627,12 +2368,6 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.ENABLE_JOB_MANAGER">ENABLE_JOB_MANAGER</see>:</term>
-        ///         <description>Enable JobManager to enforce processing of
-        /// requests in the order received.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
         /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.CHUNK_CACHE_ENABLED">CHUNK_CACHE_ENABLED</see>:</term>
         ///         <description>Enable chunk level query caching. Flushes the
         /// chunk cache when value is false</description>
@@ -2642,6 +2377,12 @@ namespace kinetica
         /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.CHUNK_CACHE_SIZE">CHUNK_CACHE_SIZE</see>:</term>
         ///         <description>Size of the chunk cache in
         /// bytes.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.SYNCHRONOUS_COMPRESSION">SYNCHRONOUS_COMPRESSION</see>:</term>
+        ///         <description>compress vector on set_compression (instead of
+        /// waiting for background thread)</description>
         ///     </item>
         /// </list>
         ///   </param>
@@ -2663,6 +2404,13 @@ namespace kinetica
         /// collection.  The
         /// available modifications include the following:
         /// <br />
+        /// Manage a table's columns--a column can be added, removed, or have
+        /// its
+        /// <a href="../../concepts/types.html" target="_top">type and
+        /// properties</a> modified, including
+        /// whether it is <a href="../../concepts/compression.html"
+        /// target="_top">compressed</a> or not.
+        /// <br />
         /// Create or delete an <a
         /// href="../../concepts/indexes.html#column-index"
         /// target="_top">index</a> on a
@@ -2671,6 +2419,22 @@ namespace kinetica
         /// containing equality or relational operators on indexed columns.
         /// This only
         /// applies to tables.
+        /// <br />
+        /// Create or delete a <a href="../../concepts/tables.html#foreign-key"
+        /// target="_top">foreign key</a>
+        /// on a particular column.
+        /// <br />
+        /// Manage a <a href="../../concepts/tables.html#partitioning"
+        /// target="_top">range-partitioned</a>
+        /// table's partitions.
+        /// <br />
+        /// Set (or reset) the <a href="../../rm/concepts.html#tier-strategies"
+        /// target="_top">tier strategy</a>
+        /// of a table or view.
+        /// <br />
+        /// Refresh and manage the refresh mode of a
+        /// <a href="../../concepts/materialized_views.html"
+        /// target="_top">materialized view</a>.
         /// <br />
         /// Set the <a href="../../concepts/ttl.html"
         /// target="_top">time-to-live (TTL)</a>. This can be applied
@@ -2691,21 +2455,7 @@ namespace kinetica
         /// target="_top">protection</a> mode to prevent or
         /// allow automatic expiration. This can be applied to tables, views,
         /// and
-        /// collections.
-        /// <br />
-        /// Manage a <a href="../../concepts/tables.html#partitioning"
-        /// target="_top">range-partitioned</a>
-        /// table's partitions.
-        /// <br />
-        /// Allow homogeneous tables within a collection.
-        /// <br />
-        /// Manage a table's columns--a column can be added, removed, or have
-        /// its
-        /// <a href="../../concepts/types.html" target="_top">type and
-        /// properties</a> modified.
-        /// <br />
-        /// Set or unset <a href="../../concepts/compression.html"
-        /// target="_top">compression</a> for a column.</summary>
+        /// collections.</summary>
         /// 
         /// <param name="request_">Request object containing the parameters for
         /// the operation.</param>
@@ -2725,6 +2475,13 @@ namespace kinetica
         /// collection.  The
         /// available modifications include the following:
         /// <br />
+        /// Manage a table's columns--a column can be added, removed, or have
+        /// its
+        /// <a href="../../concepts/types.html" target="_top">type and
+        /// properties</a> modified, including
+        /// whether it is <a href="../../concepts/compression.html"
+        /// target="_top">compressed</a> or not.
+        /// <br />
         /// Create or delete an <a
         /// href="../../concepts/indexes.html#column-index"
         /// target="_top">index</a> on a
@@ -2733,6 +2490,22 @@ namespace kinetica
         /// containing equality or relational operators on indexed columns.
         /// This only
         /// applies to tables.
+        /// <br />
+        /// Create or delete a <a href="../../concepts/tables.html#foreign-key"
+        /// target="_top">foreign key</a>
+        /// on a particular column.
+        /// <br />
+        /// Manage a <a href="../../concepts/tables.html#partitioning"
+        /// target="_top">range-partitioned</a>
+        /// table's partitions.
+        /// <br />
+        /// Set (or reset) the <a href="../../rm/concepts.html#tier-strategies"
+        /// target="_top">tier strategy</a>
+        /// of a table or view.
+        /// <br />
+        /// Refresh and manage the refresh mode of a
+        /// <a href="../../concepts/materialized_views.html"
+        /// target="_top">materialized view</a>.
         /// <br />
         /// Set the <a href="../../concepts/ttl.html"
         /// target="_top">time-to-live (TTL)</a>. This can be applied
@@ -2753,21 +2526,7 @@ namespace kinetica
         /// target="_top">protection</a> mode to prevent or
         /// allow automatic expiration. This can be applied to tables, views,
         /// and
-        /// collections.
-        /// <br />
-        /// Manage a <a href="../../concepts/tables.html#partitioning"
-        /// target="_top">range-partitioned</a>
-        /// table's partitions.
-        /// <br />
-        /// Allow homogeneous tables within a collection.
-        /// <br />
-        /// Manage a table's columns--a column can be added, removed, or have
-        /// its
-        /// <a href="../../concepts/types.html" target="_top">type and
-        /// properties</a> modified.
-        /// <br />
-        /// Set or unset <a href="../../concepts/compression.html"
-        /// target="_top">compression</a> for a column.</summary>
+        /// collections.</summary>
         /// 
         /// <param name="table_name">Table on which the operation will be
         /// performed. Must be an existing table, view, or collection.
@@ -2870,7 +2629,8 @@ namespace kinetica
         ///         <description>Modifies the <a
         /// href="../../concepts/compression.html"
         /// target="_top">compression</a> setting on the column specified in
-        /// <paramref cref="AlterTableRequest._value" />. </description>
+        /// <paramref cref="AlterTableRequest._value" /> to the compression
+        /// type specified in <i>compression_type</i>. </description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -2884,7 +2644,8 @@ namespace kinetica
         /// cref="AlterTableRequest.Action.CREATE_FOREIGN_KEY">CREATE_FOREIGN_KEY</see>:</term>
         ///         <description>Creates a <a
         /// href="../../concepts/tables.html#foreign-key" target="_top">foreign
-        /// key</a> using the format '(source_column_name [, ...]) references
+        /// key</a> specified in <paramref cref="AlterTableRequest._value" />
+        /// using the format '(source_column_name [, ...]) references
         /// target_table_name(primary_key_column_name [, ...]) [as
         /// foreign_key_name]'.</description>
         ///     </item>
@@ -2900,8 +2661,9 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="AlterTableRequest.Action.ADD_PARTITION">ADD_PARTITION</see>:</term>
-        ///         <description>Partition definition to add (for
-        /// range-partitioned tables only).  See <a
+        ///         <description>Adds a partition (for range-partitioned tables
+        /// only) specified in <paramref cref="AlterTableRequest._value" />.
+        /// See <a
         /// href="../../concepts/tables.html#partitioning-by-range-example"
         /// target="_top">range partitioning example</a> for example
         /// format.</description>
@@ -2909,16 +2671,17 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="AlterTableRequest.Action.REMOVE_PARTITION">REMOVE_PARTITION</see>:</term>
-        ///         <description>Name of partition to remove (for
-        /// range-partitioned tables only).  All data in partition will be
-        /// moved to the default partition</description>
+        ///         <description>Removes the partition specified in <paramref
+        /// cref="AlterTableRequest._value" /> and relocates all its data to
+        /// the default partition (for range-partitioned tables
+        /// only).</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="AlterTableRequest.Action.DELETE_PARTITION">DELETE_PARTITION</see>:</term>
-        ///         <description>Name of partition to delete (for
-        /// range-partitioned tables only).  All data in the partition will be
-        /// deleted.</description>
+        ///         <description>Deletes the partition specified in <paramref
+        /// cref="AlterTableRequest._value" /> and its data (for
+        /// range-partitioned tables only).</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -2943,36 +2706,61 @@ namespace kinetica
         /// cref="AlterTableRequest.Action.SET_REFRESH_METHOD">SET_REFRESH_METHOD</see>:</term>
         ///         <description>Sets the method by which this <a
         /// href="../../concepts/materialized_views.html"
-        /// target="_top">materialized view</a> is refreshed - one of 'manual',
-        /// 'periodic', 'on_change'. </description>
+        /// target="_top">materialized view</a> is refreshed to the method
+        /// specified in <paramref cref="AlterTableRequest._value" /> - one of
+        /// 'manual', 'periodic', 'on_change'. </description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="AlterTableRequest.Action.SET_REFRESH_START_TIME">SET_REFRESH_START_TIME</see>:</term>
         ///         <description>Sets the time to start periodic refreshes of
         /// this <a href="../../concepts/materialized_views.html"
-        /// target="_top">materialized view</a> to datetime string with format
-        /// 'YYYY-MM-DD HH:MM:SS'.  Subsequent refreshes occur at the specified
-        /// time + N * the refresh period.</description>
+        /// target="_top">materialized view</a> to the datetime string
+        /// specified in <paramref cref="AlterTableRequest._value" /> with
+        /// format 'YYYY-MM-DD HH:MM:SS'.  Subsequent refreshes occur at the
+        /// specified time + N * the refresh period.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="AlterTableRequest.Action.SET_REFRESH_PERIOD">SET_REFRESH_PERIOD</see>:</term>
         ///         <description>Sets the time interval in seconds at which to
         /// refresh this <a href="../../concepts/materialized_views.html"
-        /// target="_top">materialized view</a>.  Also, sets the refresh method
-        /// to periodic if not alreay set.</description>
+        /// target="_top">materialized view</a> to the value specified in
+        /// <paramref cref="AlterTableRequest._value" />.  Also, sets the
+        /// refresh method to periodic if not already set.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="AlterTableRequest.Action.REMOVE_TEXT_SEARCH_ATTRIBUTES">REMOVE_TEXT_SEARCH_ATTRIBUTES</see>:</term>
-        ///         <description>remove text_search attribute from all columns,
-        /// if exists.</description>
+        ///         <description>Removes <a
+        /// href="../../concepts/full_text_search.html" target="_top">text
+        /// search</a> attribute from all columns.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterTableRequest.Action.SET_STRATEGY_DEFINITION">SET_STRATEGY_DEFINITION</see>:</term>
+        ///         <description>Sets the <a
+        /// href="../../rm/concepts.html#tier-strategies" target="_top">tier
+        /// strategy</a> for the table and its columns to the one specified in
+        /// <paramref cref="AlterTableRequest._value" />, replacing the
+        /// existing tier strategy in its entirety. See <a
+        /// href="../../rm/concepts.html#tier-strategies" target="_top">tier
+        /// strategy usage</a> for format and <a
+        /// href="../../rm/usage.html#tier-strategies" target="_top">tier
+        /// strategy examples</a> for examples.</description>
         ///     </item>
         /// </list>  </param>
-        /// <param name="_value">The value of the modification. May be a column
-        /// name, 'true' or 'false', a TTL, or the global access mode depending
-        /// on <paramref cref="AlterTableRequest.action" />.  </param>
+        /// <param name="_value">The value of the modification, depending on
+        /// <paramref cref="AlterTableRequest.action" />.  For example, if
+        /// <paramref cref="AlterTableRequest.action" /> is <i>add_column</i>,
+        /// this would be the column name; while the column's definition would
+        /// be covered by the <i>column_type</i>, <i>column_properties</i>,
+        /// <i>column_default_value</i>, and <i>add_column_expression</i> in
+        /// <paramref cref="AlterTableRequest.options" />.  If <paramref
+        /// cref="AlterTableRequest.action" /> is <i>ttl</i>, it would be the
+        /// number of minutes for the new TTL. If <paramref
+        /// cref="AlterTableRequest.action" /> is <i>refresh</i>, this field
+        /// would be blank.  </param>
         /// <param name="options">Optional parameters.
         /// <list type="bullet">
         ///     <item>
@@ -3043,8 +2831,8 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="AlterTableRequest.Options.COPY_VALUES_FROM_COLUMN">COPY_VALUES_FROM_COLUMN</see>:</term>
-        ///         <description>please see add_column_expression
-        /// instead.</description>
+        ///         <description>Deprecated.  Please use
+        /// <i>add_column_expression</i> instead.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -3079,17 +2867,23 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="AlterTableRequest.Options.UPDATE_LAST_ACCESS_TIME">UPDATE_LAST_ACCESS_TIME</see>:</term>
-        ///         <description>Indicates whether need to update the
-        /// last_access_time.
+        ///         <description>Indicates whether the <a
+        /// href="../../concepts/ttl.html" target="_top">time-to-live</a> (TTL)
+        /// expiration countdown timer should be reset to the table's TTL.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
-        /// cref="AlterTableRequest.Options.TRUE">TRUE</see></term>
+        /// cref="AlterTableRequest.Options.TRUE">TRUE</see>:</term>
+        ///         <description>Reset the expiration countdown timer to the
+        /// table's configured TTL.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AlterTableRequest.Options.FALSE">FALSE</see></term>
+        /// cref="AlterTableRequest.Options.FALSE">FALSE</see>:</term>
+        ///         <description>Don't reset the timer; expiration countdown
+        /// will continue from where it is, as if the table had not been
+        /// accessed.</description>
         ///     </item>
         /// </list>
         /// The default value is <see
@@ -3098,9 +2892,26 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="AlterTableRequest.Options.ADD_COLUMN_EXPRESSION">ADD_COLUMN_EXPRESSION</see>:</term>
-        ///         <description>expression for new column's values (optional
-        /// with add_column). Any valid expressions including existing
-        /// columns.</description>
+        ///         <description>When adding a column, an optional expression
+        /// to use for the new column's values. Any valid expression may be
+        /// used, including one containing references to existing columns in
+        /// the same table.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterTableRequest.Options.STRATEGY_DEFINITION">STRATEGY_DEFINITION</see>:</term>
+        ///         <description>Optional parameter for specifying the <a
+        /// href="../../rm/concepts.html#tier-strategies" target="_top">tier
+        /// strategy</a> for the table and its columns when <paramref
+        /// cref="AlterTableRequest.action" /> is
+        /// <i>set_strategy_definition</i>, replacing the existing tier
+        /// strategy in its entirety. See <a
+        /// href="../../rm/concepts.html#tier-strategies" target="_top">tier
+        /// strategy usage</a> for format and <a
+        /// href="../../rm/usage.html#tier-strategies" target="_top">tier
+        /// strategy examples</a> for examples.  This option will be ignored if
+        /// <paramref cref="AlterTableRequest._value" /> is also
+        /// specified.</description>
         ///     </item>
         /// </list>
         ///   </param>
@@ -3250,8 +3061,15 @@ namespace kinetica
         }
 
 
-        /// <summary>Alters properties of exisiting tier to facilitate resource
-        /// management.</summary>
+        /// <summary>Alters properties of an exisiting <a
+        /// href="../../rm/concepts.html#storage-tiers" target="_top">tier</a>
+        /// to facilitate <a href="../../rm/concepts.html"
+        /// target="_top">resource management</a>.
+        /// <br />
+        /// To disable <a
+        /// href="../../rm/concepts.html#watermark-based-eviction"
+        /// target="_top">watermark-based eviction</a>, set both
+        /// <i>high_watermark</i> and <i>low_watermark</i> to 100.</summary>
         /// 
         /// <param name="request_">Request object containing the parameters for
         /// the operation.</param>
@@ -3267,11 +3085,18 @@ namespace kinetica
         }
 
 
-        /// <summary>Alters properties of exisiting tier to facilitate resource
-        /// management.</summary>
+        /// <summary>Alters properties of an exisiting <a
+        /// href="../../rm/concepts.html#storage-tiers" target="_top">tier</a>
+        /// to facilitate <a href="../../rm/concepts.html"
+        /// target="_top">resource management</a>.
+        /// <br />
+        /// To disable <a
+        /// href="../../rm/concepts.html#watermark-based-eviction"
+        /// target="_top">watermark-based eviction</a>, set both
+        /// <i>high_watermark</i> and <i>low_watermark</i> to 100.</summary>
         /// 
-        /// <param name="name">Name of the tier to be altered. Must match tier
-        /// group name.  </param>
+        /// <param name="name">Name of the tier to be altered. Must be an
+        /// existing tier group name.  </param>
         /// <param name="options">Optional parameters.
         /// <list type="bullet">
         ///     <item>
@@ -3283,15 +3108,16 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="AlterTierRequest.Options.HIGH_WATERMARK">HIGH_WATERMARK</see>:</term>
-        ///         <description>Triggers asynchronous eviction once a tiers
-        /// resource usage exceeds this percentage down to the low
-        /// watermark.</description>
+        ///         <description>Threshold of usage of this tier's resource
+        /// that, once exceeded, will trigger watermark-based eviction from
+        /// this tier.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="AlterTierRequest.Options.LOW_WATERMARK">LOW_WATERMARK</see>:</term>
-        ///         <description>Percentage resource usage to evict down to
-        /// once the high watermark has been hit.</description>
+        ///         <description>Threshold of resource usage that, once fallen
+        /// below after crossing the <i>high_watermark</i>, will cease
+        /// watermark-based eviction from this tier.</description>
         ///     </item>
         /// </list>
         ///   </param>
@@ -3487,7 +3313,9 @@ namespace kinetica
                                                             field_map, options ) );
         }
 
-        /// @cond NO_DOCS
+
+        /// <summary>Clears statistics (cardinality, mean value, etc.) for a
+        /// column in a specified table.</summary>
         /// 
         /// <param name="request_">Request object containing the parameters for
         /// the operation.</param>
@@ -3501,13 +3329,18 @@ namespace kinetica
 
             return actualResponse_;
         }
-        /// @endcond
 
-        /// @cond NO_DOCS
+
+        /// <summary>Clears statistics (cardinality, mean value, etc.) for a
+        /// column in a specified table.</summary>
         /// 
-        /// <param name="table_name"></param>
-        /// <param name="column_name"></param>
-        /// <param name="options"></param>
+        /// <param name="table_name">Name of a table. Must be an existing
+        /// table.  </param>
+        /// <param name="column_name">Name of the column in <paramref
+        /// cref="ClearStatisticsRequest.table_name" /> for which to clear
+        /// statistics. The column must be from an existing table. An empty
+        /// string clears statistics for all columns in the table.  </param>
+        /// <param name="options">Optional parameters.  </param>
         /// 
         /// <returns>Response object containing the result of the
         /// operation.</returns>
@@ -3519,7 +3352,6 @@ namespace kinetica
             return clearStatistics( new ClearStatisticsRequest( table_name, column_name,
                                                                 options ) );
         }
-        /// @endcond
 
 
         /// <summary>Clears (drops) one or all tables in the database cluster.
@@ -3665,7 +3497,9 @@ namespace kinetica
             return clearTrigger( new ClearTriggerRequest( trigger_id, options ) );
         }
 
-        /// @cond NO_DOCS
+
+        /// <summary>Collect statistics for a column(s) in a specified
+        /// table.</summary>
         /// 
         /// <param name="request_">Request object containing the parameters for
         /// the operation.</param>
@@ -3679,13 +3513,17 @@ namespace kinetica
 
             return actualResponse_;
         }
-        /// @endcond
 
-        /// @cond NO_DOCS
+
+        /// <summary>Collect statistics for a column(s) in a specified
+        /// table.</summary>
         /// 
-        /// <param name="table_name"></param>
-        /// <param name="column_names"></param>
-        /// <param name="options"></param>
+        /// <param name="table_name">Name of a table. Must be an existing
+        /// table.  </param>
+        /// <param name="column_names">List of one or more column names in
+        /// <paramref cref="CollectStatisticsRequest.table_name" /> for which
+        /// to collect statistics (cardinality, mean value, etc.).  </param>
+        /// <param name="options">Optional parameters.  </param>
         /// 
         /// <returns>Response object containing the result of the
         /// operation.</returns>
@@ -3697,7 +3535,6 @@ namespace kinetica
             return collectStatistics( new CollectStatisticsRequest( table_name,
                                                                     column_names, options ) );
         }
-        /// @endcond
 
 
         /// <summary>Creates a new graph network using given nodes, edges,
@@ -3749,32 +3586,40 @@ namespace kinetica
         /// href="../../graph_solver/network_graph_solver.html#identifiers"
         /// target="_top">identifiers</a>; identifiers are grouped as <a
         /// href="../../graph_solver/network_graph_solver.html#id-combos"
-        /// target="_top">combinations</a>. Example format: 'table.column AS
-        /// NODE_ID'  </param>
+        /// target="_top">combinations</a>. Identifiers can be used with
+        /// existing column names, e.g., 'table.column AS NODE_ID', or
+        /// expressions, e.g., 'ST_MAKEPOINT(column1, column2) AS
+        /// NODE_WKTPOINT'.  </param>
         /// <param name="edges">Edges represent the required fundamental
         /// topological unit of a graph that typically connect nodes. Edges
         /// must be specified using <a
         /// href="../../graph_solver/network_graph_solver.html#identifiers"
         /// target="_top">identifiers</a>; identifiers are grouped as <a
         /// href="../../graph_solver/network_graph_solver.html#id-combos"
-        /// target="_top">combinations</a>. Example format: 'table.column AS
-        /// EDGE_WKTLINE'  </param>
+        /// target="_top">combinations</a>. Identifiers can be used with
+        /// existing column names, e.g., 'table.column AS EDGE_ID', or
+        /// expressions, e.g., 'SUBSTR(column, 1, 6) AS EDGE_NODE1_NAME'.
+        /// </param>
         /// <param name="weights">Weights represent a method of informing the
         /// graph solver of the cost of including a given edge in a solution.
         /// Weights must be specified using <a
         /// href="../../graph_solver/network_graph_solver.html#identifiers"
         /// target="_top">identifiers</a>; identifiers are grouped as <a
         /// href="../../graph_solver/network_graph_solver.html#id-combos"
-        /// target="_top">combinations</a>. Example format: 'table.column AS
-        /// WEIGHTS_EDGE_ID'  </param>
+        /// target="_top">combinations</a>. Identifiers can be used with
+        /// existing column names, e.g., 'table.column AS WEIGHTS_EDGE_ID', or
+        /// expressions, e.g., 'ST_LENGTH(wkt) AS WEIGHTS_VALUESPECIFIED'.
+        /// </param>
         /// <param name="restrictions">Restrictions represent a method of
         /// informing the graph solver which edges and/or nodes should be
         /// ignored for the solution. Restrictions must be specified using <a
         /// href="../../graph_solver/network_graph_solver.html#identifiers"
         /// target="_top">identifiers</a>; identifiers are grouped as <a
         /// href="../../graph_solver/network_graph_solver.html#id-combos"
-        /// target="_top">combinations</a>. Example format: 'table.column AS
-        /// RESTRICTIONS_EDGE_ID'  </param>
+        /// target="_top">combinations</a>. Identifiers can be used with
+        /// existing column names, e.g., 'table.column AS
+        /// RESTRICTIONS_EDGE_ID', or expressions, e.g., 'column/2 AS
+        /// RESTRICTIONS_VALUECOMPARED'.  </param>
         /// <param name="options">Optional parameters.
         /// <list type="bullet">
         ///     <item>
@@ -4744,7 +4589,7 @@ namespace kinetica
         ///     </item>
         /// </list>
         /// The default value is <see
-        /// cref="CreateProjectionRequest.Options.TRUE">TRUE</see>.</description>
+        /// cref="CreateProjectionRequest.Options.FALSE">FALSE</see>.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -4791,8 +4636,13 @@ namespace kinetica
         /// <param name="name">Name of the group to be created. Must contain
         /// only letters, digits, and underscores, and cannot begin with a
         /// digit. Must not match existing resource group name.  </param>
-        /// <param name="tier_attributes">Optional map containing group limits
-        /// for tier-specific attributes such as memory.
+        /// <param name="tier_attributes">Optional map containing tier names
+        /// and their respective attribute group limits.  The only valid
+        /// attribute limit that can be set is max_memory (in bytes) for the
+        /// VRAM & RAM tiers.
+        /// For instance, to set max VRAM capacity to 1GB and max RAM capacity
+        /// to 10GB, use:  {'VRAM':{'max_memory':'1000000000'},
+        /// 'RAM':{'max_memory':'10000000000'}}
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
@@ -4802,10 +4652,6 @@ namespace kinetica
         ///     </item>
         /// </list>
         ///   </param>
-        /// <param name="tier_strategy">Optional array that defines the default
-        /// tiering strategy for this group. Each element pair defines an
-        /// existing tier and its preferred priority. e.g. ['RAM 50',VRAM 30']
-        /// </param>
         /// <param name="options">Optional parameters.
         /// <list type="bullet">
         ///     <item>
@@ -4833,13 +4679,11 @@ namespace kinetica
         /// operation.</returns>
         /// 
         public CreateResourceGroupResponse createResourceGroup( string name,
-                                                                IDictionary<string, IDictionary<string, string>> tier_attributes,
-                                                                IList<string> tier_strategy,
+                                                                IDictionary<string, IDictionary<string, string>> tier_attributes = null,
                                                                 IDictionary<string, string> options = null )
         {
             return createResourceGroup( new CreateResourceGroupRequest( name,
                                                                         tier_attributes,
-                                                                        tier_strategy,
                                                                         options ) );
         }
 
@@ -4900,9 +4744,11 @@ namespace kinetica
         /// target="_top">replicated</a> distribution scheme,
         /// have <a href="../../concepts/tables.html#foreign-keys"
         /// target="_top">foreign keys</a> to other
-        /// tables assigned, or be assigned a
+        /// tables assigned, be assigned a
         /// <a href="../../concepts/tables.html#partitioning"
-        /// target="_top">partitioning</a> scheme.</summary>
+        /// target="_top">partitioning</a> scheme, or have a
+        /// <a href="../../rm/concepts.html#tier-strategies" target="_top">tier
+        /// strategy</a> assigned.</summary>
         /// 
         /// <param name="request_">Request object containing the parameters for
         /// the operation.</param>
@@ -4940,9 +4786,11 @@ namespace kinetica
         /// target="_top">replicated</a> distribution scheme,
         /// have <a href="../../concepts/tables.html#foreign-keys"
         /// target="_top">foreign keys</a> to other
-        /// tables assigned, or be assigned a
+        /// tables assigned, be assigned a
         /// <a href="../../concepts/tables.html#partitioning"
-        /// target="_top">partitioning</a> scheme.</summary>
+        /// target="_top">partitioning</a> scheme, or have a
+        /// <a href="../../rm/concepts.html#tier-strategies" target="_top">tier
+        /// strategy</a> assigned.</summary>
         /// 
         /// <param name="table_name">Name of the table to be created. Error for
         /// requests with existing table of the same name and type id may be
@@ -5066,14 +4914,14 @@ namespace kinetica
         /// cref="CreateTableRequest.Options.FOREIGN_SHARD_KEY">FOREIGN_SHARD_KEY</see>:</term>
         ///         <description>Foreign shard key of the format 'source_column
         /// references shard_by_column from
-        /// target_table(primary_key_column)'</description>
+        /// target_table(primary_key_column)'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="CreateTableRequest.Options.PARTITION_TYPE">PARTITION_TYPE</see>:</term>
         ///         <description><a
         /// href="../../concepts/tables.html#partitioning"
-        /// target="_top">Partitioning</a> scheme to use
+        /// target="_top">Partitioning</a> scheme to use.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -5081,14 +4929,14 @@ namespace kinetica
         /// cref="CreateTableRequest.Options.RANGE">RANGE</see>:</term>
         ///         <description>Use <a
         /// href="../../concepts/tables.html#partitioning-by-range"
-        /// target="_top">range partitioning</a></description>
+        /// target="_top">range partitioning</a>.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="CreateTableRequest.Options.INTERVAL">INTERVAL</see>:</term>
         ///         <description>Use <a
         /// href="../../concepts/tables.html#partitioning-by-interval"
-        /// target="_top">interval partitioning</a></description>
+        /// target="_top">interval partitioning</a>.</description>
         ///     </item>
         /// </list></description>
         ///     </item>
@@ -5098,7 +4946,7 @@ namespace kinetica
         ///         <description>Comma-separated list of partition keys, which
         /// are the columns or column expressions by which records will be
         /// assigned to partitions defined by
-        /// <i>partition_definitions</i></description>
+        /// <i>partition_definitions</i>.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -5149,7 +4997,13 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="CreateTableRequest.Options.STRATEGY_DEFINITION">STRATEGY_DEFINITION</see>:</term>
-        ///         <description></description>
+        ///         <description>The <a
+        /// href="../../rm/concepts.html#tier-strategies" target="_top">tier
+        /// strategy</a> for the table and its columns. See <a
+        /// href="../../rm/concepts.html#tier-strategies" target="_top">tier
+        /// strategy usage</a> for format and <a
+        /// href="../../rm/usage.html#tier-strategies" target="_top">tier
+        /// strategy examples</a> for examples.</description>
         ///     </item>
         /// </list>
         ///   </param>
@@ -5718,10 +5572,10 @@ namespace kinetica
         ///         <description>This property indicates that this column
         /// should be <a href="../../concepts/dictionary_encoding.html"
         /// target="_top">dictionary encoded</a>. It can only be used in
-        /// conjunction with restricted string (charN), int, or long columns.
-        /// Dictionary encoding is best for columns where the cardinality (the
-        /// number of unique values) is expected to be low. This property can
-        /// save a large amount of memory.</description>
+        /// conjunction with restricted string (charN), int, long or date
+        /// columns. Dictionary encoding is best for columns where the
+        /// cardinality (the number of unique values) is expected to be low.
+        /// This property can save a large amount of memory.</description>
         ///     </item>
         /// </list>  </param>
         /// <param name="options">Optional parameters.  </param>
@@ -6309,7 +6163,8 @@ namespace kinetica
 
         /// <summary>Deletes a resource group.</summary>
         /// 
-        /// <param name="name">Name of the group to be deleted.  </param>
+        /// <param name="name">Name of the resource group to be deleted.
+        /// </param>
         /// <param name="options">Optional parameters.  </param>
         /// 
         /// <returns>Response object containing the result of the
@@ -10372,9 +10227,9 @@ namespace kinetica
         }
 
 
-        /// <summary>Shows various statistics for storage/memory tiers and
-        /// resource groups. Statistics are provided on a per rank
-        /// basis.</summary>
+        /// <summary>Requests various statistics for storage/memory tiers and
+        /// resource groups.
+        /// Returns statistics on a per-rank basis.</summary>
         /// 
         /// <param name="request_">Request object containing the parameters for
         /// the operation.</param>
@@ -10390,9 +10245,9 @@ namespace kinetica
         }
 
 
-        /// <summary>Shows various statistics for storage/memory tiers and
-        /// resource groups. Statistics are provided on a per rank
-        /// basis.</summary>
+        /// <summary>Requests various statistics for storage/memory tiers and
+        /// resource groups.
+        /// Returns statistics on a per-rank basis.</summary>
         /// 
         /// <param name="options">Optional parameters.  </param>
         /// 
@@ -10405,7 +10260,9 @@ namespace kinetica
         }
 
 
-        /// <summary>Shows resource group properties.</summary>
+        /// <summary>Requests resource group properties.
+        /// Returns detailed information about the requested resource
+        /// groups.</summary>
         /// 
         /// <param name="request_">Request object containing the parameters for
         /// the operation.</param>
@@ -10421,7 +10278,9 @@ namespace kinetica
         }
 
 
-        /// <summary>Shows resource group properties.</summary>
+        /// <summary>Requests resource group properties.
+        /// Returns detailed information about the requested resource
+        /// groups.</summary>
         /// 
         /// <param name="names">List of names of groups to be shown. A single
         /// entry with an empty string returns all groups.  </param>
@@ -10430,8 +10289,8 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="ShowResourceGroupsRequest.Options.SHOW_DEFAULT_VALUES">SHOW_DEFAULT_VALUES</see>:</term>
-        ///         <description>If true include values of fields that are
-        /// based on the default resource group.
+        ///         <description>If <i>true</i> include values of fields that
+        /// are based on the default resource group.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -10449,8 +10308,8 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="ShowResourceGroupsRequest.Options.SHOW_DEFAULT_GROUP">SHOW_DEFAULT_GROUP</see>:</term>
-        ///         <description>If true include the default resource group in
-        /// the response.
+        ///         <description>If <i>true</i> include the default resource
+        /// group in the response.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -10514,7 +10373,9 @@ namespace kinetica
             return showSecurity( new ShowSecurityRequest( names, options ) );
         }
 
-        /// @cond NO_DOCS
+
+        /// <summary>Retrieves the collected column statistics for the
+        /// specified table.</summary>
         /// 
         /// <param name="request_">Request object containing the parameters for
         /// the operation.</param>
@@ -10528,12 +10389,14 @@ namespace kinetica
 
             return actualResponse_;
         }
-        /// @endcond
 
-        /// @cond NO_DOCS
+
+        /// <summary>Retrieves the collected column statistics for the
+        /// specified table.</summary>
         /// 
-        /// <param name="table_names"></param>
-        /// <param name="options"></param>
+        /// <param name="table_names">Tables whose metadata will be fetched.
+        /// All provided tables must exist, or an error is returned.  </param>
+        /// <param name="options">Optional parameters.  </param>
         /// 
         /// <returns>Response object containing the result of the
         /// operation.</returns>
@@ -10543,7 +10406,6 @@ namespace kinetica
         {
             return showStatistics( new ShowStatisticsRequest( table_names, options ) );
         }
-        /// @endcond
 
 
         /// <summary>Returns server configuration and version related
@@ -11063,14 +10925,27 @@ namespace kinetica
         /// <param name="graph_name">Name of the graph resource to solve.
         /// </param>
         /// <param name="weights_on_edges">Additional weights to apply to the
-        /// edges of an existing graph. Example format: 'table.column AS
-        /// WEIGHTS_EDGE_ID'. Any provided weights will be added (in the case
-        /// of 'WEIGHTS_VALUESPECIFIED') to or multiplied with (in the case of
+        /// edges of an existing graph. Weights must be specified using <a
+        /// href="../../graph_solver/network_graph_solver.html#identifiers"
+        /// target="_top">identifiers</a>; identifiers are grouped as <a
+        /// href="../../graph_solver/network_graph_solver.html#id-combos"
+        /// target="_top">combinations</a>. Identifiers can be used with
+        /// existing column names, e.g., 'table.column AS WEIGHTS_EDGE_ID', or
+        /// expressions, e.g., 'ST_LENGTH(wkt) AS WEIGHTS_VALUESPECIFIED'. Any
+        /// provided weights will be added (in the case of
+        /// 'WEIGHTS_VALUESPECIFIED') to or multiplied with (in the case of
         /// 'WEIGHTS_FACTORSPECIFIED') the existing weight(s).  </param>
         /// <param name="restrictions">Additional restrictions to apply to the
-        /// nodes/edges of an existing graph. Example format: 'table.column AS
-        /// RESTRICTIONS_NODE_ID'. If <i>remove_previous_restrictions</i> is
-        /// set to <i>true</i>, any provided restrictions will replace the
+        /// nodes/edges of an existing graph. Restrictions must be specified
+        /// using <a
+        /// href="../../graph_solver/network_graph_solver.html#identifiers"
+        /// target="_top">identifiers</a>; identifiers are grouped as <a
+        /// href="../../graph_solver/network_graph_solver.html#id-combos"
+        /// target="_top">combinations</a>. Identifiers can be used with
+        /// existing column names, e.g., 'table.column AS
+        /// RESTRICTIONS_EDGE_ID', or expressions, e.g., 'column/2 AS
+        /// RESTRICTIONS_VALUECOMPARED'. If <i>remove_previous_restrictions</i>
+        /// is set to <i>true</i>, any provided restrictions will replace the
         /// existing restrictions. If <i>remove_previous_restrictions</i> is
         /// set to <i>false</i>, any provided weights will be added (in the
         /// case of 'RESTRICTIONS_VALUECOMPARED') to or replaced (in the case
@@ -11273,10 +11148,10 @@ namespace kinetica
                                               IList<string> restrictions,
                                               string solver_type,
                                               long source_node_id,
-                                              IList<long> destination_node_ids,
-                                              string node_type,
-                                              string source_node,
-                                              IList<string> destination_nodes,
+                                              IList<long> destination_node_ids = null,
+                                              string node_type = SolveGraphRequest.NodeType.NODE_ID,
+                                              string source_node = "",
+                                              IList<string> destination_nodes = null,
                                               string solution_table = "graph_solutions",
                                               IDictionary<string, string> options = null )
         {
@@ -11454,6 +11329,25 @@ namespace kinetica
         ///         <description>Can be used to customize behavior when the
         /// updated primary key value already exists as described in
         /// /insert/records.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="RawUpdateRecordsRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="RawUpdateRecordsRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="RawUpdateRecordsRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="RawUpdateRecordsRequest.Options.UPDATE_PARTITION">UPDATE_PARTITION</see>:</term>
+        ///         <description>Force qualifying records to be deleted and
+        /// reinserted so their partition membership will be reevaluated.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -12778,6 +12672,11 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
+        /// cref="VisualizeImageContourRequest.StyleOptions.TEXT_COLOR">TEXT_COLOR</see>:</term>
+        ///         <description></description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="VisualizeImageContourRequest.StyleOptions.COLORMAP">COLORMAP</see>:</term>
         ///         <description>
         /// Supported values:
@@ -12788,19 +12687,119 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="VisualizeImageContourRequest.StyleOptions.HOT">HOT</see></term>
+        /// cref="VisualizeImageContourRequest.StyleOptions.ACCENT">ACCENT</see></term>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="VisualizeImageContourRequest.StyleOptions.HSV">HSV</see></term>
+        /// cref="VisualizeImageContourRequest.StyleOptions.AFMHOT">AFMHOT</see></term>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="VisualizeImageContourRequest.StyleOptions.GRAY">GRAY</see></term>
+        /// cref="VisualizeImageContourRequest.StyleOptions.AUTUMN">AUTUMN</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.StyleOptions.BINARY">BINARY</see></term>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="VisualizeImageContourRequest.StyleOptions.BLUES">BLUES</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.StyleOptions.BONE">BONE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.StyleOptions.BRBG">BRBG</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.StyleOptions.BRG">BRG</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.StyleOptions.BUGN">BUGN</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.StyleOptions.BUPU">BUPU</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.StyleOptions.BWR">BWR</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.StyleOptions.CMRMAP">CMRMAP</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.StyleOptions.COOL">COOL</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.StyleOptions.COOLWARM">COOLWARM</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.StyleOptions.COPPER">COPPER</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.StyleOptions.CUBEHELIX">CUBEHELIX</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.StyleOptions.DARK2">DARK2</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.StyleOptions.FLAG">FLAG</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.StyleOptions.GIST_EARTH">GIST_EARTH</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.StyleOptions.GIST_GRAY">GIST_GRAY</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.StyleOptions.GIST_HEAT">GIST_HEAT</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.StyleOptions.GIST_NCAR">GIST_NCAR</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.StyleOptions.GIST_RAINBOW">GIST_RAINBOW</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.StyleOptions.GIST_STERN">GIST_STERN</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.StyleOptions.GIST_YARG">GIST_YARG</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.StyleOptions.GNBU">GNBU</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.StyleOptions.GNUPLOT2">GNUPLOT2</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.StyleOptions.GNUPLOT">GNUPLOT</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.StyleOptions.GRAY">GRAY</see></term>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -12812,7 +12811,83 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
+        /// cref="VisualizeImageContourRequest.StyleOptions.HOT">HOT</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.StyleOptions.HSV">HSV</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.StyleOptions.INFERNO">INFERNO</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.StyleOptions.MAGMA">MAGMA</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.StyleOptions.NIPY_SPECTRAL">NIPY_SPECTRAL</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.StyleOptions.OCEAN">OCEAN</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="VisualizeImageContourRequest.StyleOptions.ORANGES">ORANGES</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.StyleOptions.ORRD">ORRD</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.StyleOptions.PAIRED">PAIRED</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.StyleOptions.PASTEL1">PASTEL1</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.StyleOptions.PASTEL2">PASTEL2</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.StyleOptions.PINK">PINK</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.StyleOptions.PIYG">PIYG</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.StyleOptions.PLASMA">PLASMA</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.StyleOptions.PRGN">PRGN</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.StyleOptions.PRISM">PRISM</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.StyleOptions.PUBU">PUBU</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.StyleOptions.PUBUGN">PUBUGN</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.StyleOptions.PUOR">PUOR</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.StyleOptions.PURD">PURD</see></term>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -12820,11 +12895,91 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
+        /// cref="VisualizeImageContourRequest.StyleOptions.RAINBOW">RAINBOW</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.StyleOptions.RDBU">RDBU</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.StyleOptions.RDGY">RDGY</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.StyleOptions.RDPU">RDPU</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.StyleOptions.RDYLBU">RDYLBU</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.StyleOptions.RDYLGN">RDYLGN</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="VisualizeImageContourRequest.StyleOptions.REDS">REDS</see></term>
         ///     </item>
         ///     <item>
         ///         <term><see
+        /// cref="VisualizeImageContourRequest.StyleOptions.SEISMIC">SEISMIC</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.StyleOptions.SET1">SET1</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.StyleOptions.SET2">SET2</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.StyleOptions.SET3">SET3</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.StyleOptions.SPECTRAL">SPECTRAL</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.StyleOptions.SPRING">SPRING</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.StyleOptions.SUMMER">SUMMER</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.StyleOptions.TERRAIN">TERRAIN</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="VisualizeImageContourRequest.StyleOptions.VIRIDIS">VIRIDIS</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.StyleOptions.WINTER">WINTER</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.StyleOptions.WISTIA">WISTIA</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.StyleOptions.YLGN">YLGN</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.StyleOptions.YLGNBU">YLGNBU</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.StyleOptions.YLORBR">YLORBR</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.StyleOptions.YLORRD">YLORRD</see></term>
         ///     </item>
         /// </list>
         /// The default value is <see

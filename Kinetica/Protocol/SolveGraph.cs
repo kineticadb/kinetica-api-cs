@@ -312,16 +312,28 @@ namespace kinetica
         public string graph_name { get; set; }
 
         /// <summary>Additional weights to apply to the edges of an existing
-        /// graph. Example format: 'table.column AS WEIGHTS_EDGE_ID'. Any
+        /// graph. Weights must be specified using <a
+        /// href="../../graph_solver/network_graph_solver.html#identifiers"
+        /// target="_top">identifiers</a>; identifiers are grouped as <a
+        /// href="../../graph_solver/network_graph_solver.html#id-combos"
+        /// target="_top">combinations</a>. Identifiers can be used with
+        /// existing column names, e.g., 'table.column AS WEIGHTS_EDGE_ID', or
+        /// expressions, e.g., 'ST_LENGTH(wkt) AS WEIGHTS_VALUESPECIFIED'. Any
         /// provided weights will be added (in the case of
         /// 'WEIGHTS_VALUESPECIFIED') to or multiplied with (in the case of
         /// 'WEIGHTS_FACTORSPECIFIED') the existing weight(s).  </summary>
         public IList<string> weights_on_edges { get; set; } = new List<string>();
 
         /// <summary>Additional restrictions to apply to the nodes/edges of an
-        /// existing graph. Example format: 'table.column AS
-        /// RESTRICTIONS_NODE_ID'. If <i>remove_previous_restrictions</i> is
-        /// set to <i>true</i>, any provided restrictions will replace the
+        /// existing graph. Restrictions must be specified using <a
+        /// href="../../graph_solver/network_graph_solver.html#identifiers"
+        /// target="_top">identifiers</a>; identifiers are grouped as <a
+        /// href="../../graph_solver/network_graph_solver.html#id-combos"
+        /// target="_top">combinations</a>. Identifiers can be used with
+        /// existing column names, e.g., 'table.column AS
+        /// RESTRICTIONS_EDGE_ID', or expressions, e.g., 'column/2 AS
+        /// RESTRICTIONS_VALUECOMPARED'. If <i>remove_previous_restrictions</i>
+        /// is set to <i>true</i>, any provided restrictions will replace the
         /// existing restrictions. If <i>remove_previous_restrictions</i> is
         /// set to <i>false</i>, any provided weights will be added (in the
         /// case of 'RESTRICTIONS_VALUECOMPARED') to or replaced (in the case
@@ -401,7 +413,7 @@ namespace kinetica
         /// cref="SolveGraphRequest.destination_node_ids" /> are the fixed
         /// asset nodes and the rest of the nodes in the array are remote
         /// assets.  </summary>
-        public long source_node_id { get; set; } = 0;
+        public long source_node_id { get; set; }
 
         /// <summary>List of destination node indices, or indices for
         /// pageranks. If the <paramref cref="SolveGraphRequest.solver_type" />
@@ -439,7 +451,7 @@ namespace kinetica
         /// <summary>If <paramref cref="SolveGraphRequest.node_type" /> is
         /// <i>NODE_WKTPOINT</i> or <i>NODE_NAME</i>, the node (string) of the
         /// source (starting point) for the graph solution.  </summary>
-        public string source_node { get; set; } = "0";
+        public string source_node { get; set; } = "";
 
         /// <summary>If <paramref cref="SolveGraphRequest.node_type" /> is
         /// <i>NODE_WKTPOINT</i> or <i>NODE_NAME</i>, the list of destination
@@ -540,14 +552,27 @@ namespace kinetica
         /// <param name="graph_name">Name of the graph resource to solve.
         /// </param>
         /// <param name="weights_on_edges">Additional weights to apply to the
-        /// edges of an existing graph. Example format: 'table.column AS
-        /// WEIGHTS_EDGE_ID'. Any provided weights will be added (in the case
-        /// of 'WEIGHTS_VALUESPECIFIED') to or multiplied with (in the case of
+        /// edges of an existing graph. Weights must be specified using <a
+        /// href="../../graph_solver/network_graph_solver.html#identifiers"
+        /// target="_top">identifiers</a>; identifiers are grouped as <a
+        /// href="../../graph_solver/network_graph_solver.html#id-combos"
+        /// target="_top">combinations</a>. Identifiers can be used with
+        /// existing column names, e.g., 'table.column AS WEIGHTS_EDGE_ID', or
+        /// expressions, e.g., 'ST_LENGTH(wkt) AS WEIGHTS_VALUESPECIFIED'. Any
+        /// provided weights will be added (in the case of
+        /// 'WEIGHTS_VALUESPECIFIED') to or multiplied with (in the case of
         /// 'WEIGHTS_FACTORSPECIFIED') the existing weight(s).  </param>
         /// <param name="restrictions">Additional restrictions to apply to the
-        /// nodes/edges of an existing graph. Example format: 'table.column AS
-        /// RESTRICTIONS_NODE_ID'. If <i>remove_previous_restrictions</i> is
-        /// set to <i>true</i>, any provided restrictions will replace the
+        /// nodes/edges of an existing graph. Restrictions must be specified
+        /// using <a
+        /// href="../../graph_solver/network_graph_solver.html#identifiers"
+        /// target="_top">identifiers</a>; identifiers are grouped as <a
+        /// href="../../graph_solver/network_graph_solver.html#id-combos"
+        /// target="_top">combinations</a>. Identifiers can be used with
+        /// existing column names, e.g., 'table.column AS
+        /// RESTRICTIONS_EDGE_ID', or expressions, e.g., 'column/2 AS
+        /// RESTRICTIONS_VALUECOMPARED'. If <i>remove_previous_restrictions</i>
+        /// is set to <i>true</i>, any provided restrictions will replace the
         /// existing restrictions. If <i>remove_previous_restrictions</i> is
         /// set to <i>false</i>, any provided weights will be added (in the
         /// case of 'RESTRICTIONS_VALUECOMPARED') to or replaced (in the case
@@ -747,10 +772,10 @@ namespace kinetica
                                   IList<string> restrictions,
                                   string solver_type,
                                   long source_node_id,
-                                  IList<long> destination_node_ids,
-                                  string node_type,
-                                  string source_node,
-                                  IList<string> destination_nodes,
+                                  IList<long> destination_node_ids = null,
+                                  string node_type = null,
+                                  string source_node = null,
+                                  IList<string> destination_nodes = null,
                                   string solution_table = null,
                                   IDictionary<string, string> options = null)
         {
@@ -758,10 +783,10 @@ namespace kinetica
             this.weights_on_edges = weights_on_edges ?? new List<string>();
             this.restrictions = restrictions ?? new List<string>();
             this.solver_type = solver_type ?? SolverType.SHORTEST_PATH;
-            this.source_node_id = source_node_id ?? "0";
+            this.source_node_id = source_node_id;
             this.destination_node_ids = destination_node_ids ?? new List<long>();
             this.node_type = node_type ?? NodeType.NODE_ID;
-            this.source_node = source_node ?? "0";
+            this.source_node = source_node ?? "";
             this.destination_nodes = destination_nodes ?? new List<string>();
             this.solution_table = solution_table ?? "graph_solutions";
             this.options = options ?? new Dictionary<string, string>();

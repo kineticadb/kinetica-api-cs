@@ -407,8 +407,10 @@ namespace kinetica
         /// href="../../graph_solver/network_graph_solver.html#identifiers"
         /// target="_top">identifiers</a>; identifiers are grouped as <a
         /// href="../../graph_solver/network_graph_solver.html#id-combos"
-        /// target="_top">combinations</a>. Example format: 'table.column AS
-        /// NODE_ID'  </summary>
+        /// target="_top">combinations</a>. Identifiers can be used with
+        /// existing column names, e.g., 'table.column AS NODE_ID', or
+        /// expressions, e.g., 'ST_MAKEPOINT(column1, column2) AS
+        /// NODE_WKTPOINT'.  </summary>
         public IList<string> nodes { get; set; } = new List<string>();
 
         /// <summary>Edges represent the required fundamental topological unit
@@ -417,8 +419,10 @@ namespace kinetica
         /// href="../../graph_solver/network_graph_solver.html#identifiers"
         /// target="_top">identifiers</a>; identifiers are grouped as <a
         /// href="../../graph_solver/network_graph_solver.html#id-combos"
-        /// target="_top">combinations</a>. Example format: 'table.column AS
-        /// EDGE_WKTLINE'  </summary>
+        /// target="_top">combinations</a>. Identifiers can be used with
+        /// existing column names, e.g., 'table.column AS EDGE_ID', or
+        /// expressions, e.g., 'SUBSTR(column, 1, 6) AS EDGE_NODE1_NAME'.
+        /// </summary>
         public IList<string> edges { get; set; } = new List<string>();
 
         /// <summary>Weights represent a method of informing the graph solver
@@ -427,8 +431,10 @@ namespace kinetica
         /// href="../../graph_solver/network_graph_solver.html#identifiers"
         /// target="_top">identifiers</a>; identifiers are grouped as <a
         /// href="../../graph_solver/network_graph_solver.html#id-combos"
-        /// target="_top">combinations</a>. Example format: 'table.column AS
-        /// WEIGHTS_EDGE_ID'  </summary>
+        /// target="_top">combinations</a>. Identifiers can be used with
+        /// existing column names, e.g., 'table.column AS WEIGHTS_EDGE_ID', or
+        /// expressions, e.g., 'ST_LENGTH(wkt) AS WEIGHTS_VALUESPECIFIED'.
+        /// </summary>
         public IList<string> weights { get; set; } = new List<string>();
 
         /// <summary>Restrictions represent a method of informing the graph
@@ -437,8 +443,10 @@ namespace kinetica
         /// href="../../graph_solver/network_graph_solver.html#identifiers"
         /// target="_top">identifiers</a>; identifiers are grouped as <a
         /// href="../../graph_solver/network_graph_solver.html#id-combos"
-        /// target="_top">combinations</a>. Example format: 'table.column AS
-        /// RESTRICTIONS_EDGE_ID'  </summary>
+        /// target="_top">combinations</a>. Identifiers can be used with
+        /// existing column names, e.g., 'table.column AS
+        /// RESTRICTIONS_EDGE_ID', or expressions, e.g., 'column/2 AS
+        /// RESTRICTIONS_VALUECOMPARED'.  </summary>
         public IList<string> restrictions { get; set; } = new List<string>();
 
         /// <summary>Optional parameters.
@@ -650,32 +658,40 @@ namespace kinetica
         /// href="../../graph_solver/network_graph_solver.html#identifiers"
         /// target="_top">identifiers</a>; identifiers are grouped as <a
         /// href="../../graph_solver/network_graph_solver.html#id-combos"
-        /// target="_top">combinations</a>. Example format: 'table.column AS
-        /// NODE_ID'  </param>
+        /// target="_top">combinations</a>. Identifiers can be used with
+        /// existing column names, e.g., 'table.column AS NODE_ID', or
+        /// expressions, e.g., 'ST_MAKEPOINT(column1, column2) AS
+        /// NODE_WKTPOINT'.  </param>
         /// <param name="edges">Edges represent the required fundamental
         /// topological unit of a graph that typically connect nodes. Edges
         /// must be specified using <a
         /// href="../../graph_solver/network_graph_solver.html#identifiers"
         /// target="_top">identifiers</a>; identifiers are grouped as <a
         /// href="../../graph_solver/network_graph_solver.html#id-combos"
-        /// target="_top">combinations</a>. Example format: 'table.column AS
-        /// EDGE_WKTLINE'  </param>
+        /// target="_top">combinations</a>. Identifiers can be used with
+        /// existing column names, e.g., 'table.column AS EDGE_ID', or
+        /// expressions, e.g., 'SUBSTR(column, 1, 6) AS EDGE_NODE1_NAME'.
+        /// </param>
         /// <param name="weights">Weights represent a method of informing the
         /// graph solver of the cost of including a given edge in a solution.
         /// Weights must be specified using <a
         /// href="../../graph_solver/network_graph_solver.html#identifiers"
         /// target="_top">identifiers</a>; identifiers are grouped as <a
         /// href="../../graph_solver/network_graph_solver.html#id-combos"
-        /// target="_top">combinations</a>. Example format: 'table.column AS
-        /// WEIGHTS_EDGE_ID'  </param>
+        /// target="_top">combinations</a>. Identifiers can be used with
+        /// existing column names, e.g., 'table.column AS WEIGHTS_EDGE_ID', or
+        /// expressions, e.g., 'ST_LENGTH(wkt) AS WEIGHTS_VALUESPECIFIED'.
+        /// </param>
         /// <param name="restrictions">Restrictions represent a method of
         /// informing the graph solver which edges and/or nodes should be
         /// ignored for the solution. Restrictions must be specified using <a
         /// href="../../graph_solver/network_graph_solver.html#identifiers"
         /// target="_top">identifiers</a>; identifiers are grouped as <a
         /// href="../../graph_solver/network_graph_solver.html#id-combos"
-        /// target="_top">combinations</a>. Example format: 'table.column AS
-        /// RESTRICTIONS_EDGE_ID'  </param>
+        /// target="_top">combinations</a>. Identifiers can be used with
+        /// existing column names, e.g., 'table.column AS
+        /// RESTRICTIONS_EDGE_ID', or expressions, e.g., 'column/2 AS
+        /// RESTRICTIONS_VALUECOMPARED'.  </param>
         /// <param name="options">Optional parameters.
         /// <list type="bullet">
         ///     <item>

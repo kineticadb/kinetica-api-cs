@@ -19,7 +19,7 @@ namespace kinetica
     public class DeleteResourceGroupRequest : KineticaData
     {
 
-        /// <summary>Name of the group to be deleted.  </summary>
+        /// <summary>Name of the resource group to be deleted.  </summary>
         public string name { get; set; }
 
         /// <summary>Optional parameters.  </summary>
@@ -33,7 +33,8 @@ namespace kinetica
         /// <summary>Constructs a DeleteResourceGroupRequest object with the
         /// specified parameters.</summary>
         /// 
-        /// <param name="name">Name of the group to be deleted.  </param>
+        /// <param name="name">Name of the resource group to be deleted.
+        /// </param>
         /// <param name="options">Optional parameters.  </param>
         /// 
         public DeleteResourceGroupRequest( string name,

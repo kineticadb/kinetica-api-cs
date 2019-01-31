@@ -70,7 +70,7 @@ namespace kinetica
     /// />.</summary>
     public class GetVectortileResponse : KineticaData
     {
-        public byte[] encoded_data { get; set; }
+        public string encoded_data { get; set; }
         public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
 
     } // end class GetVectortileResponse

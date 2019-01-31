@@ -149,13 +149,6 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.MEMORY_ALLOCATION_LIMIT_MB">MEMORY_ALLOCATION_LIMIT_MB</see>:</term>
-        ///         <description>Set the memory allocation limit for all rank
-        /// processes in megabytes, 0 means no limit. Overrides any individual
-        /// rank memory allocation limits.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
         /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.ENABLE_AUDIT">ENABLE_AUDIT</see>:</term>
         ///         <description>Enable or disable auditing.</description>
         ///     </item>
@@ -179,12 +172,6 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.ENABLE_JOB_MANAGER">ENABLE_JOB_MANAGER</see>:</term>
-        ///         <description>Enable JobManager to enforce processing of
-        /// requests in the order received.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
         /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.CHUNK_CACHE_ENABLED">CHUNK_CACHE_ENABLED</see>:</term>
         ///         <description>Enable chunk level query caching. Flushes the
         /// chunk cache when value is false</description>
@@ -194,6 +181,12 @@ namespace kinetica
         /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.CHUNK_CACHE_SIZE">CHUNK_CACHE_SIZE</see>:</term>
         ///         <description>Size of the chunk cache in
         /// bytes.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.SYNCHRONOUS_COMPRESSION">SYNCHRONOUS_COMPRESSION</see>:</term>
+        ///         <description>compress vector on set_compression (instead of
+        /// waiting for background thread)</description>
         ///     </item>
         /// </list>
         /// <br />
@@ -301,11 +294,6 @@ namespace kinetica
             /// for a given data retrieval call</summary>
             public const string MAX_GET_RECORDS_SIZE = "max_get_records_size";
 
-            /// <summary>Set the memory allocation limit for all rank processes
-            /// in megabytes, 0 means no limit. Overrides any individual rank
-            /// memory allocation limits.</summary>
-            public const string MEMORY_ALLOCATION_LIMIT_MB = "memory_allocation_limit_mb";
-
             /// <summary>Enable or disable auditing.</summary>
             public const string ENABLE_AUDIT = "enable_audit";
 
@@ -320,16 +308,16 @@ namespace kinetica
             /// <summary>Enable or disable auditing of request data.</summary>
             public const string AUDIT_DATA = "audit_data";
 
-            /// <summary>Enable JobManager to enforce processing of requests in
-            /// the order received.</summary>
-            public const string ENABLE_JOB_MANAGER = "enable_job_manager";
-
             /// <summary>Enable chunk level query caching. Flushes the chunk
             /// cache when value is false</summary>
             public const string CHUNK_CACHE_ENABLED = "chunk_cache_enabled";
 
             /// <summary>Size of the chunk cache in bytes.</summary>
             public const string CHUNK_CACHE_SIZE = "chunk_cache_size";
+
+            /// <summary>compress vector on set_compression (instead of waiting
+            /// for background thread)</summary>
+            public const string SYNCHRONOUS_COMPRESSION = "synchronous_compression";
         } // end struct PropertyUpdatesMap
 
 
@@ -457,13 +445,6 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.MEMORY_ALLOCATION_LIMIT_MB">MEMORY_ALLOCATION_LIMIT_MB</see>:</term>
-        ///         <description>Set the memory allocation limit for all rank
-        /// processes in megabytes, 0 means no limit. Overrides any individual
-        /// rank memory allocation limits.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
         /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.ENABLE_AUDIT">ENABLE_AUDIT</see>:</term>
         ///         <description>Enable or disable auditing.</description>
         ///     </item>
@@ -487,12 +468,6 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.ENABLE_JOB_MANAGER">ENABLE_JOB_MANAGER</see>:</term>
-        ///         <description>Enable JobManager to enforce processing of
-        /// requests in the order received.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
         /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.CHUNK_CACHE_ENABLED">CHUNK_CACHE_ENABLED</see>:</term>
         ///         <description>Enable chunk level query caching. Flushes the
         /// chunk cache when value is false</description>
@@ -502,6 +477,12 @@ namespace kinetica
         /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.CHUNK_CACHE_SIZE">CHUNK_CACHE_SIZE</see>:</term>
         ///         <description>Size of the chunk cache in
         /// bytes.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.SYNCHRONOUS_COMPRESSION">SYNCHRONOUS_COMPRESSION</see>:</term>
+        ///         <description>compress vector on set_compression (instead of
+        /// waiting for background thread)</description>
         ///     </item>
         /// </list>
         ///   </summary>
@@ -642,13 +623,6 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.MEMORY_ALLOCATION_LIMIT_MB">MEMORY_ALLOCATION_LIMIT_MB</see>:</term>
-        ///         <description>Set the memory allocation limit for all rank
-        /// processes in megabytes, 0 means no limit. Overrides any individual
-        /// rank memory allocation limits.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
         /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.ENABLE_AUDIT">ENABLE_AUDIT</see>:</term>
         ///         <description>Enable or disable auditing.</description>
         ///     </item>
@@ -672,12 +646,6 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.ENABLE_JOB_MANAGER">ENABLE_JOB_MANAGER</see>:</term>
-        ///         <description>Enable JobManager to enforce processing of
-        /// requests in the order received.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
         /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.CHUNK_CACHE_ENABLED">CHUNK_CACHE_ENABLED</see>:</term>
         ///         <description>Enable chunk level query caching. Flushes the
         /// chunk cache when value is false</description>
@@ -687,6 +655,12 @@ namespace kinetica
         /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.CHUNK_CACHE_SIZE">CHUNK_CACHE_SIZE</see>:</term>
         ///         <description>Size of the chunk cache in
         /// bytes.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.SYNCHRONOUS_COMPRESSION">SYNCHRONOUS_COMPRESSION</see>:</term>
+        ///         <description>compress vector on set_compression (instead of
+        /// waiting for background thread)</description>
         ///     </item>
         /// </list>
         ///   </param>

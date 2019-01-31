@@ -12,7 +12,7 @@ namespace kinetica
 {
 
     /// <summary>A set of parameters for <see
-    /// cref="Kinetica.alterResourceGroup(string,IDictionary{string, IDictionary{string, string}},IList{string},IDictionary{string, string})"
+    /// cref="Kinetica.alterResourceGroup(string,IDictionary{string, IDictionary{string, string}},IDictionary{string, string})"
     /// />.
     /// <br />
     /// Alters properties of exisiting resource group to facilitate resource
@@ -20,8 +20,13 @@ namespace kinetica
     public class AlterResourceGroupRequest : KineticaData
     {
 
-        /// <summary>Optional map containing group limits for tier-specific
-        /// attributes such as memory.
+        /// <summary>Optional map containing tier names and their respective
+        /// attribute group limits.  The only valid attribute limit that can be
+        /// set is max_memory (in bytes) for the VRAM & RAM tiers.
+        /// <br />
+        /// For instance, to set max VRAM capacity to 1GB and max RAM capacity
+        /// to 10GB, use:  {'VRAM':{'max_memory':'1000000000'},
+        /// 'RAM':{'max_memory':'10000000000'}}
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
@@ -65,10 +70,10 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="AlterResourceGroupRequest.Options.IS_DEFAULT_GROUP">IS_DEFAULT_GROUP</see>:</term>
-        ///         <description>If true this request applies to the global
-        /// default resource group. It is an error for this field to be true
-        /// when the <paramref cref="AlterResourceGroupRequest.name" /> field
-        /// is also populated.
+        ///         <description>If <i>true</i>, this request applies to the
+        /// global default resource group. It is an error for this field to be
+        /// <i>true</i> when the <paramref
+        /// cref="AlterResourceGroupRequest.name" /> field is also populated.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -102,9 +107,10 @@ namespace kinetica
             /// group.</summary>
             public const string MAX_TIER_PRIORITY = "max_tier_priority";
 
-            /// <summary>If true this request applies to the global default
-            /// resource group. It is an error for this field to be true when
-            /// the <see cref="name" /> field is also populated.
+            /// <summary>If <i>true</i>, this request applies to the global
+            /// default resource group. It is an error for this field to be
+            /// <i>true</i> when the <see cref="name" /> field is also
+            /// populated.
             /// Supported values:
             /// <list type="bullet">
             ///     <item>
@@ -124,12 +130,17 @@ namespace kinetica
         } // end struct Options
 
 
-        /// <summary>Name of the group to be altered. Must match existing
+        /// <summary>Name of the group to be altered. Must be an existing
         /// resource group name.  </summary>
         public string name { get; set; }
 
-        /// <summary>Optional map containing group limits for tier-specific
-        /// attributes such as memory.
+        /// <summary>Optional map containing tier names and their respective
+        /// attribute group limits.  The only valid attribute limit that can be
+        /// set is max_memory (in bytes) for the VRAM & RAM tiers.
+        /// <br />
+        /// For instance, to set max VRAM capacity to 1GB and max RAM capacity
+        /// to 10GB, use:  {'VRAM':{'max_memory':'1000000000'},
+        /// 'RAM':{'max_memory':'10000000000'}}
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
@@ -140,11 +151,6 @@ namespace kinetica
         /// </list>
         ///   </summary>
         public IDictionary<string, IDictionary<string, string>> tier_attributes { get; set; } = new Dictionary<string, IDictionary<string, string>>();
-
-        /// <summary>Optional array that defines the default tiering strategy
-        /// for this group. Each element pair defines an existing tier and its
-        /// preferred priority. e.g. ['RAM 50',VRAM 30']  </summary>
-        public IList<string> tier_strategy { get; set; } = new List<string>();
 
         /// <summary>Optional parameters.
         /// <list type="bullet">
@@ -169,10 +175,10 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="AlterResourceGroupRequest.Options.IS_DEFAULT_GROUP">IS_DEFAULT_GROUP</see>:</term>
-        ///         <description>If true this request applies to the global
-        /// default resource group. It is an error for this field to be true
-        /// when the <paramref cref="AlterResourceGroupRequest.name" /> field
-        /// is also populated.
+        ///         <description>If <i>true</i>, this request applies to the
+        /// global default resource group. It is an error for this field to be
+        /// <i>true</i> when the <paramref
+        /// cref="AlterResourceGroupRequest.name" /> field is also populated.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -199,10 +205,15 @@ namespace kinetica
         /// <summary>Constructs an AlterResourceGroupRequest object with the
         /// specified parameters.</summary>
         /// 
-        /// <param name="name">Name of the group to be altered. Must match
+        /// <param name="name">Name of the group to be altered. Must be an
         /// existing resource group name.  </param>
-        /// <param name="tier_attributes">Optional map containing group limits
-        /// for tier-specific attributes such as memory.
+        /// <param name="tier_attributes">Optional map containing tier names
+        /// and their respective attribute group limits.  The only valid
+        /// attribute limit that can be set is max_memory (in bytes) for the
+        /// VRAM & RAM tiers.
+        /// For instance, to set max VRAM capacity to 1GB and max RAM capacity
+        /// to 10GB, use:  {'VRAM':{'max_memory':'1000000000'},
+        /// 'RAM':{'max_memory':'10000000000'}}
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
@@ -212,10 +223,6 @@ namespace kinetica
         ///     </item>
         /// </list>
         ///   </param>
-        /// <param name="tier_strategy">Optional array that defines the default
-        /// tiering strategy for this group. Each element pair defines an
-        /// existing tier and its preferred priority. e.g. ['RAM 50',VRAM 30']
-        /// </param>
         /// <param name="options">Optional parameters.
         /// <list type="bullet">
         ///     <item>
@@ -239,10 +246,10 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="AlterResourceGroupRequest.Options.IS_DEFAULT_GROUP">IS_DEFAULT_GROUP</see>:</term>
-        ///         <description>If true this request applies to the global
-        /// default resource group. It is an error for this field to be true
-        /// when the <paramref cref="AlterResourceGroupRequest.name" /> field
-        /// is also populated.
+        ///         <description>If <i>true</i>, this request applies to the
+        /// global default resource group. It is an error for this field to be
+        /// <i>true</i> when the <paramref
+        /// cref="AlterResourceGroupRequest.name" /> field is also populated.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -261,13 +268,11 @@ namespace kinetica
         ///   </param>
         /// 
         public AlterResourceGroupRequest( string name,
-                                          IDictionary<string, IDictionary<string, string>> tier_attributes,
-                                          IList<string> tier_strategy,
+                                          IDictionary<string, IDictionary<string, string>> tier_attributes = null,
                                           IDictionary<string, string> options = null)
         {
             this.name = name ?? "";
             this.tier_attributes = tier_attributes ?? new Dictionary<string, IDictionary<string, string>>();
-            this.tier_strategy = tier_strategy ?? new List<string>();
             this.options = options ?? new Dictionary<string, string>();
         } // end constructor
 
@@ -276,7 +281,7 @@ namespace kinetica
 
 
     /// <summary>A set of results returned by <see
-    /// cref="Kinetica.alterResourceGroup(string,IDictionary{string, IDictionary{string, string}},IList{string},IDictionary{string, string})"
+    /// cref="Kinetica.alterResourceGroup(string,IDictionary{string, IDictionary{string, string}},IDictionary{string, string})"
     /// />.</summary>
     public class AlterResourceGroupResponse : KineticaData
     {

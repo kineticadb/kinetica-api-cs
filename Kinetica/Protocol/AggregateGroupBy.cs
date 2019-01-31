@@ -349,6 +349,16 @@ namespace kinetica
         ///         <description>This option is used to specify the
         /// multidimensional aggregates.</description>
         ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AggregateGroupByRequest.Options.THROW_ERROR_ON_REFRESH">THROW_ERROR_ON_REFRESH</see>:</term>
+        ///         <description><DEVELOPER></description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AggregateGroupByRequest.Options.SLEEP_ON_REFRESH">SLEEP_ON_REFRESH</see>:</term>
+        ///         <description><DEVELOPER></description>
+        ///     </item>
         /// </list>
         /// <br />
         /// A set of string constants for the parameter <see cref="options"
@@ -567,6 +577,12 @@ namespace kinetica
             /// <summary>This option is used to specify the multidimensional
             /// aggregates.</summary>
             public const string CUBE = "cube";
+
+            /// <summary><DEVELOPER></summary>
+            public const string THROW_ERROR_ON_REFRESH = "throw_error_on_refresh";
+
+            /// <summary><DEVELOPER></summary>
+            public const string SLEEP_ON_REFRESH = "sleep_on_refresh";
         } // end struct Options
 
 
@@ -841,6 +857,16 @@ namespace kinetica
         ///         <description>This option is used to specify the
         /// multidimensional aggregates.</description>
         ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AggregateGroupByRequest.Options.THROW_ERROR_ON_REFRESH">THROW_ERROR_ON_REFRESH</see>:</term>
+        ///         <description><DEVELOPER></description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AggregateGroupByRequest.Options.SLEEP_ON_REFRESH">SLEEP_ON_REFRESH</see>:</term>
+        ///         <description><DEVELOPER></description>
+        ///     </item>
         /// </list>
         ///   </summary>
         public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
@@ -1095,6 +1121,16 @@ namespace kinetica
         /// cref="AggregateGroupByRequest.Options.CUBE">CUBE</see>:</term>
         ///         <description>This option is used to specify the
         /// multidimensional aggregates.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AggregateGroupByRequest.Options.THROW_ERROR_ON_REFRESH">THROW_ERROR_ON_REFRESH</see>:</term>
+        ///         <description><DEVELOPER></description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AggregateGroupByRequest.Options.SLEEP_ON_REFRESH">SLEEP_ON_REFRESH</see>:</term>
+        ///         <description><DEVELOPER></description>
         ///     </item>
         /// </list>
         ///   </param>
@@ -1378,6 +1414,16 @@ namespace kinetica
         /// cref="AggregateGroupByRequest.Options.CUBE">CUBE</see>:</term>
         ///         <description>This option is used to specify the
         /// multidimensional aggregates.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AggregateGroupByRequest.Options.THROW_ERROR_ON_REFRESH">THROW_ERROR_ON_REFRESH</see>:</term>
+        ///         <description><DEVELOPER></description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AggregateGroupByRequest.Options.SLEEP_ON_REFRESH">SLEEP_ON_REFRESH</see>:</term>
+        ///         <description><DEVELOPER></description>
         ///     </item>
         /// </list>
         ///   </param>

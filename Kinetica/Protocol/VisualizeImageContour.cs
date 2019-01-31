@@ -96,6 +96,11 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
+        /// cref="VisualizeImageContourRequest.StyleOptions.TEXT_COLOR">TEXT_COLOR</see>:</term>
+        ///         <description></description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="VisualizeImageContourRequest.StyleOptions.COLORMAP">COLORMAP</see>:</term>
         ///         <description>
         /// Supported values:
@@ -106,19 +111,119 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="VisualizeImageContourRequest.StyleOptions.HOT">HOT</see></term>
+        /// cref="VisualizeImageContourRequest.StyleOptions.ACCENT">ACCENT</see></term>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="VisualizeImageContourRequest.StyleOptions.HSV">HSV</see></term>
+        /// cref="VisualizeImageContourRequest.StyleOptions.AFMHOT">AFMHOT</see></term>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="VisualizeImageContourRequest.StyleOptions.GRAY">GRAY</see></term>
+        /// cref="VisualizeImageContourRequest.StyleOptions.AUTUMN">AUTUMN</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.StyleOptions.BINARY">BINARY</see></term>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="VisualizeImageContourRequest.StyleOptions.BLUES">BLUES</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.StyleOptions.BONE">BONE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.StyleOptions.BRBG">BRBG</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.StyleOptions.BRG">BRG</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.StyleOptions.BUGN">BUGN</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.StyleOptions.BUPU">BUPU</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.StyleOptions.BWR">BWR</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.StyleOptions.CMRMAP">CMRMAP</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.StyleOptions.COOL">COOL</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.StyleOptions.COOLWARM">COOLWARM</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.StyleOptions.COPPER">COPPER</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.StyleOptions.CUBEHELIX">CUBEHELIX</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.StyleOptions.DARK2">DARK2</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.StyleOptions.FLAG">FLAG</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.StyleOptions.GIST_EARTH">GIST_EARTH</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.StyleOptions.GIST_GRAY">GIST_GRAY</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.StyleOptions.GIST_HEAT">GIST_HEAT</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.StyleOptions.GIST_NCAR">GIST_NCAR</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.StyleOptions.GIST_RAINBOW">GIST_RAINBOW</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.StyleOptions.GIST_STERN">GIST_STERN</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.StyleOptions.GIST_YARG">GIST_YARG</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.StyleOptions.GNBU">GNBU</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.StyleOptions.GNUPLOT2">GNUPLOT2</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.StyleOptions.GNUPLOT">GNUPLOT</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.StyleOptions.GRAY">GRAY</see></term>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -130,7 +235,83 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
+        /// cref="VisualizeImageContourRequest.StyleOptions.HOT">HOT</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.StyleOptions.HSV">HSV</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.StyleOptions.INFERNO">INFERNO</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.StyleOptions.MAGMA">MAGMA</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.StyleOptions.NIPY_SPECTRAL">NIPY_SPECTRAL</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.StyleOptions.OCEAN">OCEAN</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="VisualizeImageContourRequest.StyleOptions.ORANGES">ORANGES</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.StyleOptions.ORRD">ORRD</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.StyleOptions.PAIRED">PAIRED</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.StyleOptions.PASTEL1">PASTEL1</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.StyleOptions.PASTEL2">PASTEL2</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.StyleOptions.PINK">PINK</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.StyleOptions.PIYG">PIYG</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.StyleOptions.PLASMA">PLASMA</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.StyleOptions.PRGN">PRGN</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.StyleOptions.PRISM">PRISM</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.StyleOptions.PUBU">PUBU</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.StyleOptions.PUBUGN">PUBUGN</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.StyleOptions.PUOR">PUOR</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.StyleOptions.PURD">PURD</see></term>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -138,11 +319,91 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
+        /// cref="VisualizeImageContourRequest.StyleOptions.RAINBOW">RAINBOW</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.StyleOptions.RDBU">RDBU</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.StyleOptions.RDGY">RDGY</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.StyleOptions.RDPU">RDPU</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.StyleOptions.RDYLBU">RDYLBU</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.StyleOptions.RDYLGN">RDYLGN</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="VisualizeImageContourRequest.StyleOptions.REDS">REDS</see></term>
         ///     </item>
         ///     <item>
         ///         <term><see
+        /// cref="VisualizeImageContourRequest.StyleOptions.SEISMIC">SEISMIC</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.StyleOptions.SET1">SET1</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.StyleOptions.SET2">SET2</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.StyleOptions.SET3">SET3</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.StyleOptions.SPECTRAL">SPECTRAL</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.StyleOptions.SPRING">SPRING</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.StyleOptions.SUMMER">SUMMER</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.StyleOptions.TERRAIN">TERRAIN</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="VisualizeImageContourRequest.StyleOptions.VIRIDIS">VIRIDIS</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.StyleOptions.WINTER">WINTER</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.StyleOptions.WISTIA">WISTIA</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.StyleOptions.YLGN">YLGN</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.StyleOptions.YLGNBU">YLGNBU</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.StyleOptions.YLORBR">YLORBR</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.StyleOptions.YLORRD">YLORRD</see></term>
         ///     </item>
         /// </list>
         /// The default value is <see
@@ -157,6 +418,7 @@ namespace kinetica
             public const string LINE_SIZE = "line_size";
             public const string COLOR = "color";
             public const string BG_COLOR = "bg_color";
+            public const string TEXT_COLOR = "text_color";
 
             /// <summary>
             /// Supported values:
@@ -167,19 +429,119 @@ namespace kinetica
             ///     </item>
             ///     <item>
             ///         <term><see
-            /// cref="VisualizeImageContourRequest.StyleOptions.HOT">HOT</see></term>
+            /// cref="VisualizeImageContourRequest.StyleOptions.ACCENT">ACCENT</see></term>
             ///     </item>
             ///     <item>
             ///         <term><see
-            /// cref="VisualizeImageContourRequest.StyleOptions.HSV">HSV</see></term>
+            /// cref="VisualizeImageContourRequest.StyleOptions.AFMHOT">AFMHOT</see></term>
             ///     </item>
             ///     <item>
             ///         <term><see
-            /// cref="VisualizeImageContourRequest.StyleOptions.GRAY">GRAY</see></term>
+            /// cref="VisualizeImageContourRequest.StyleOptions.AUTUMN">AUTUMN</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="VisualizeImageContourRequest.StyleOptions.BINARY">BINARY</see></term>
             ///     </item>
             ///     <item>
             ///         <term><see
             /// cref="VisualizeImageContourRequest.StyleOptions.BLUES">BLUES</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="VisualizeImageContourRequest.StyleOptions.BONE">BONE</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="VisualizeImageContourRequest.StyleOptions.BRBG">BRBG</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="VisualizeImageContourRequest.StyleOptions.BRG">BRG</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="VisualizeImageContourRequest.StyleOptions.BUGN">BUGN</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="VisualizeImageContourRequest.StyleOptions.BUPU">BUPU</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="VisualizeImageContourRequest.StyleOptions.BWR">BWR</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="VisualizeImageContourRequest.StyleOptions.CMRMAP">CMRMAP</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="VisualizeImageContourRequest.StyleOptions.COOL">COOL</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="VisualizeImageContourRequest.StyleOptions.COOLWARM">COOLWARM</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="VisualizeImageContourRequest.StyleOptions.COPPER">COPPER</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="VisualizeImageContourRequest.StyleOptions.CUBEHELIX">CUBEHELIX</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="VisualizeImageContourRequest.StyleOptions.DARK2">DARK2</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="VisualizeImageContourRequest.StyleOptions.FLAG">FLAG</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="VisualizeImageContourRequest.StyleOptions.GIST_EARTH">GIST_EARTH</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="VisualizeImageContourRequest.StyleOptions.GIST_GRAY">GIST_GRAY</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="VisualizeImageContourRequest.StyleOptions.GIST_HEAT">GIST_HEAT</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="VisualizeImageContourRequest.StyleOptions.GIST_NCAR">GIST_NCAR</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="VisualizeImageContourRequest.StyleOptions.GIST_RAINBOW">GIST_RAINBOW</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="VisualizeImageContourRequest.StyleOptions.GIST_STERN">GIST_STERN</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="VisualizeImageContourRequest.StyleOptions.GIST_YARG">GIST_YARG</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="VisualizeImageContourRequest.StyleOptions.GNBU">GNBU</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="VisualizeImageContourRequest.StyleOptions.GNUPLOT2">GNUPLOT2</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="VisualizeImageContourRequest.StyleOptions.GNUPLOT">GNUPLOT</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="VisualizeImageContourRequest.StyleOptions.GRAY">GRAY</see></term>
             ///     </item>
             ///     <item>
             ///         <term><see
@@ -191,7 +553,83 @@ namespace kinetica
             ///     </item>
             ///     <item>
             ///         <term><see
+            /// cref="VisualizeImageContourRequest.StyleOptions.HOT">HOT</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="VisualizeImageContourRequest.StyleOptions.HSV">HSV</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="VisualizeImageContourRequest.StyleOptions.INFERNO">INFERNO</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="VisualizeImageContourRequest.StyleOptions.MAGMA">MAGMA</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="VisualizeImageContourRequest.StyleOptions.NIPY_SPECTRAL">NIPY_SPECTRAL</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="VisualizeImageContourRequest.StyleOptions.OCEAN">OCEAN</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
             /// cref="VisualizeImageContourRequest.StyleOptions.ORANGES">ORANGES</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="VisualizeImageContourRequest.StyleOptions.ORRD">ORRD</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="VisualizeImageContourRequest.StyleOptions.PAIRED">PAIRED</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="VisualizeImageContourRequest.StyleOptions.PASTEL1">PASTEL1</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="VisualizeImageContourRequest.StyleOptions.PASTEL2">PASTEL2</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="VisualizeImageContourRequest.StyleOptions.PINK">PINK</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="VisualizeImageContourRequest.StyleOptions.PIYG">PIYG</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="VisualizeImageContourRequest.StyleOptions.PLASMA">PLASMA</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="VisualizeImageContourRequest.StyleOptions.PRGN">PRGN</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="VisualizeImageContourRequest.StyleOptions.PRISM">PRISM</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="VisualizeImageContourRequest.StyleOptions.PUBU">PUBU</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="VisualizeImageContourRequest.StyleOptions.PUBUGN">PUBUGN</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="VisualizeImageContourRequest.StyleOptions.PUOR">PUOR</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="VisualizeImageContourRequest.StyleOptions.PURD">PURD</see></term>
             ///     </item>
             ///     <item>
             ///         <term><see
@@ -199,27 +637,171 @@ namespace kinetica
             ///     </item>
             ///     <item>
             ///         <term><see
+            /// cref="VisualizeImageContourRequest.StyleOptions.RAINBOW">RAINBOW</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="VisualizeImageContourRequest.StyleOptions.RDBU">RDBU</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="VisualizeImageContourRequest.StyleOptions.RDGY">RDGY</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="VisualizeImageContourRequest.StyleOptions.RDPU">RDPU</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="VisualizeImageContourRequest.StyleOptions.RDYLBU">RDYLBU</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="VisualizeImageContourRequest.StyleOptions.RDYLGN">RDYLGN</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
             /// cref="VisualizeImageContourRequest.StyleOptions.REDS">REDS</see></term>
             ///     </item>
             ///     <item>
             ///         <term><see
+            /// cref="VisualizeImageContourRequest.StyleOptions.SEISMIC">SEISMIC</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="VisualizeImageContourRequest.StyleOptions.SET1">SET1</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="VisualizeImageContourRequest.StyleOptions.SET2">SET2</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="VisualizeImageContourRequest.StyleOptions.SET3">SET3</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="VisualizeImageContourRequest.StyleOptions.SPECTRAL">SPECTRAL</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="VisualizeImageContourRequest.StyleOptions.SPRING">SPRING</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="VisualizeImageContourRequest.StyleOptions.SUMMER">SUMMER</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="VisualizeImageContourRequest.StyleOptions.TERRAIN">TERRAIN</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
             /// cref="VisualizeImageContourRequest.StyleOptions.VIRIDIS">VIRIDIS</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="VisualizeImageContourRequest.StyleOptions.WINTER">WINTER</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="VisualizeImageContourRequest.StyleOptions.WISTIA">WISTIA</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="VisualizeImageContourRequest.StyleOptions.YLGN">YLGN</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="VisualizeImageContourRequest.StyleOptions.YLGNBU">YLGNBU</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="VisualizeImageContourRequest.StyleOptions.YLORBR">YLORBR</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="VisualizeImageContourRequest.StyleOptions.YLORRD">YLORRD</see></term>
             ///     </item>
             /// </list>
             /// The default value is <see
             /// cref="VisualizeImageContourRequest.StyleOptions.JET">JET</see>.</summary>
             public const string COLORMAP = "colormap";
             public const string JET = "jet";
-            public const string HOT = "hot";
-            public const string HSV = "hsv";
-            public const string GRAY = "gray";
+            public const string ACCENT = "accent";
+            public const string AFMHOT = "afmhot";
+            public const string AUTUMN = "autumn";
+            public const string BINARY = "binary";
             public const string BLUES = "blues";
+            public const string BONE = "bone";
+            public const string BRBG = "brbg";
+            public const string BRG = "brg";
+            public const string BUGN = "bugn";
+            public const string BUPU = "bupu";
+            public const string BWR = "bwr";
+            public const string CMRMAP = "cmrmap";
+            public const string COOL = "cool";
+            public const string COOLWARM = "coolwarm";
+            public const string COPPER = "copper";
+            public const string CUBEHELIX = "cubehelix";
+            public const string DARK2 = "dark2";
+            public const string FLAG = "flag";
+            public const string GIST_EARTH = "gist_earth";
+            public const string GIST_GRAY = "gist_gray";
+            public const string GIST_HEAT = "gist_heat";
+            public const string GIST_NCAR = "gist_ncar";
+            public const string GIST_RAINBOW = "gist_rainbow";
+            public const string GIST_STERN = "gist_stern";
+            public const string GIST_YARG = "gist_yarg";
+            public const string GNBU = "gnbu";
+            public const string GNUPLOT2 = "gnuplot2";
+            public const string GNUPLOT = "gnuplot";
+            public const string GRAY = "gray";
             public const string GREENS = "greens";
             public const string GREYS = "greys";
+            public const string HOT = "hot";
+            public const string HSV = "hsv";
+            public const string INFERNO = "inferno";
+            public const string MAGMA = "magma";
+            public const string NIPY_SPECTRAL = "nipy_spectral";
+            public const string OCEAN = "ocean";
             public const string ORANGES = "oranges";
+            public const string ORRD = "orrd";
+            public const string PAIRED = "paired";
+            public const string PASTEL1 = "pastel1";
+            public const string PASTEL2 = "pastel2";
+            public const string PINK = "pink";
+            public const string PIYG = "piyg";
+            public const string PLASMA = "plasma";
+            public const string PRGN = "prgn";
+            public const string PRISM = "prism";
+            public const string PUBU = "pubu";
+            public const string PUBUGN = "pubugn";
+            public const string PUOR = "puor";
+            public const string PURD = "purd";
             public const string PURPLES = "purples";
+            public const string RAINBOW = "rainbow";
+            public const string RDBU = "rdbu";
+            public const string RDGY = "rdgy";
+            public const string RDPU = "rdpu";
+            public const string RDYLBU = "rdylbu";
+            public const string RDYLGN = "rdylgn";
             public const string REDS = "reds";
+            public const string SEISMIC = "seismic";
+            public const string SET1 = "set1";
+            public const string SET2 = "set2";
+            public const string SET3 = "set3";
+            public const string SPECTRAL = "spectral";
+            public const string SPRING = "spring";
+            public const string SUMMER = "summer";
+            public const string TERRAIN = "terrain";
             public const string VIRIDIS = "viridis";
+            public const string WINTER = "winter";
+            public const string WISTIA = "wistia";
+            public const string YLGN = "ylgn";
+            public const string YLGNBU = "ylgnbu";
+            public const string YLORBR = "ylorbr";
+            public const string YLORRD = "ylorrd";
         } // end struct StyleOptions
 
 
@@ -502,6 +1084,11 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
+        /// cref="VisualizeImageContourRequest.StyleOptions.TEXT_COLOR">TEXT_COLOR</see>:</term>
+        ///         <description></description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="VisualizeImageContourRequest.StyleOptions.COLORMAP">COLORMAP</see>:</term>
         ///         <description>
         /// Supported values:
@@ -512,19 +1099,119 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="VisualizeImageContourRequest.StyleOptions.HOT">HOT</see></term>
+        /// cref="VisualizeImageContourRequest.StyleOptions.ACCENT">ACCENT</see></term>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="VisualizeImageContourRequest.StyleOptions.HSV">HSV</see></term>
+        /// cref="VisualizeImageContourRequest.StyleOptions.AFMHOT">AFMHOT</see></term>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="VisualizeImageContourRequest.StyleOptions.GRAY">GRAY</see></term>
+        /// cref="VisualizeImageContourRequest.StyleOptions.AUTUMN">AUTUMN</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.StyleOptions.BINARY">BINARY</see></term>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="VisualizeImageContourRequest.StyleOptions.BLUES">BLUES</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.StyleOptions.BONE">BONE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.StyleOptions.BRBG">BRBG</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.StyleOptions.BRG">BRG</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.StyleOptions.BUGN">BUGN</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.StyleOptions.BUPU">BUPU</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.StyleOptions.BWR">BWR</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.StyleOptions.CMRMAP">CMRMAP</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.StyleOptions.COOL">COOL</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.StyleOptions.COOLWARM">COOLWARM</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.StyleOptions.COPPER">COPPER</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.StyleOptions.CUBEHELIX">CUBEHELIX</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.StyleOptions.DARK2">DARK2</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.StyleOptions.FLAG">FLAG</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.StyleOptions.GIST_EARTH">GIST_EARTH</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.StyleOptions.GIST_GRAY">GIST_GRAY</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.StyleOptions.GIST_HEAT">GIST_HEAT</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.StyleOptions.GIST_NCAR">GIST_NCAR</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.StyleOptions.GIST_RAINBOW">GIST_RAINBOW</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.StyleOptions.GIST_STERN">GIST_STERN</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.StyleOptions.GIST_YARG">GIST_YARG</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.StyleOptions.GNBU">GNBU</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.StyleOptions.GNUPLOT2">GNUPLOT2</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.StyleOptions.GNUPLOT">GNUPLOT</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.StyleOptions.GRAY">GRAY</see></term>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -536,7 +1223,83 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
+        /// cref="VisualizeImageContourRequest.StyleOptions.HOT">HOT</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.StyleOptions.HSV">HSV</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.StyleOptions.INFERNO">INFERNO</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.StyleOptions.MAGMA">MAGMA</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.StyleOptions.NIPY_SPECTRAL">NIPY_SPECTRAL</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.StyleOptions.OCEAN">OCEAN</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="VisualizeImageContourRequest.StyleOptions.ORANGES">ORANGES</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.StyleOptions.ORRD">ORRD</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.StyleOptions.PAIRED">PAIRED</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.StyleOptions.PASTEL1">PASTEL1</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.StyleOptions.PASTEL2">PASTEL2</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.StyleOptions.PINK">PINK</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.StyleOptions.PIYG">PIYG</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.StyleOptions.PLASMA">PLASMA</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.StyleOptions.PRGN">PRGN</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.StyleOptions.PRISM">PRISM</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.StyleOptions.PUBU">PUBU</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.StyleOptions.PUBUGN">PUBUGN</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.StyleOptions.PUOR">PUOR</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.StyleOptions.PURD">PURD</see></term>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -544,11 +1307,91 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
+        /// cref="VisualizeImageContourRequest.StyleOptions.RAINBOW">RAINBOW</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.StyleOptions.RDBU">RDBU</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.StyleOptions.RDGY">RDGY</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.StyleOptions.RDPU">RDPU</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.StyleOptions.RDYLBU">RDYLBU</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.StyleOptions.RDYLGN">RDYLGN</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="VisualizeImageContourRequest.StyleOptions.REDS">REDS</see></term>
         ///     </item>
         ///     <item>
         ///         <term><see
+        /// cref="VisualizeImageContourRequest.StyleOptions.SEISMIC">SEISMIC</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.StyleOptions.SET1">SET1</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.StyleOptions.SET2">SET2</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.StyleOptions.SET3">SET3</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.StyleOptions.SPECTRAL">SPECTRAL</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.StyleOptions.SPRING">SPRING</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.StyleOptions.SUMMER">SUMMER</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.StyleOptions.TERRAIN">TERRAIN</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="VisualizeImageContourRequest.StyleOptions.VIRIDIS">VIRIDIS</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.StyleOptions.WINTER">WINTER</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.StyleOptions.WISTIA">WISTIA</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.StyleOptions.YLGN">YLGN</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.StyleOptions.YLGNBU">YLGNBU</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.StyleOptions.YLORBR">YLORBR</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.StyleOptions.YLORRD">YLORRD</see></term>
         ///     </item>
         /// </list>
         /// The default value is <see
@@ -783,6 +1626,11 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
+        /// cref="VisualizeImageContourRequest.StyleOptions.TEXT_COLOR">TEXT_COLOR</see>:</term>
+        ///         <description></description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="VisualizeImageContourRequest.StyleOptions.COLORMAP">COLORMAP</see>:</term>
         ///         <description>
         /// Supported values:
@@ -793,19 +1641,119 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="VisualizeImageContourRequest.StyleOptions.HOT">HOT</see></term>
+        /// cref="VisualizeImageContourRequest.StyleOptions.ACCENT">ACCENT</see></term>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="VisualizeImageContourRequest.StyleOptions.HSV">HSV</see></term>
+        /// cref="VisualizeImageContourRequest.StyleOptions.AFMHOT">AFMHOT</see></term>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="VisualizeImageContourRequest.StyleOptions.GRAY">GRAY</see></term>
+        /// cref="VisualizeImageContourRequest.StyleOptions.AUTUMN">AUTUMN</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.StyleOptions.BINARY">BINARY</see></term>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="VisualizeImageContourRequest.StyleOptions.BLUES">BLUES</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.StyleOptions.BONE">BONE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.StyleOptions.BRBG">BRBG</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.StyleOptions.BRG">BRG</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.StyleOptions.BUGN">BUGN</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.StyleOptions.BUPU">BUPU</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.StyleOptions.BWR">BWR</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.StyleOptions.CMRMAP">CMRMAP</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.StyleOptions.COOL">COOL</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.StyleOptions.COOLWARM">COOLWARM</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.StyleOptions.COPPER">COPPER</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.StyleOptions.CUBEHELIX">CUBEHELIX</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.StyleOptions.DARK2">DARK2</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.StyleOptions.FLAG">FLAG</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.StyleOptions.GIST_EARTH">GIST_EARTH</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.StyleOptions.GIST_GRAY">GIST_GRAY</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.StyleOptions.GIST_HEAT">GIST_HEAT</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.StyleOptions.GIST_NCAR">GIST_NCAR</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.StyleOptions.GIST_RAINBOW">GIST_RAINBOW</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.StyleOptions.GIST_STERN">GIST_STERN</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.StyleOptions.GIST_YARG">GIST_YARG</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.StyleOptions.GNBU">GNBU</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.StyleOptions.GNUPLOT2">GNUPLOT2</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.StyleOptions.GNUPLOT">GNUPLOT</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.StyleOptions.GRAY">GRAY</see></term>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -817,7 +1765,83 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
+        /// cref="VisualizeImageContourRequest.StyleOptions.HOT">HOT</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.StyleOptions.HSV">HSV</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.StyleOptions.INFERNO">INFERNO</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.StyleOptions.MAGMA">MAGMA</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.StyleOptions.NIPY_SPECTRAL">NIPY_SPECTRAL</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.StyleOptions.OCEAN">OCEAN</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="VisualizeImageContourRequest.StyleOptions.ORANGES">ORANGES</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.StyleOptions.ORRD">ORRD</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.StyleOptions.PAIRED">PAIRED</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.StyleOptions.PASTEL1">PASTEL1</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.StyleOptions.PASTEL2">PASTEL2</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.StyleOptions.PINK">PINK</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.StyleOptions.PIYG">PIYG</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.StyleOptions.PLASMA">PLASMA</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.StyleOptions.PRGN">PRGN</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.StyleOptions.PRISM">PRISM</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.StyleOptions.PUBU">PUBU</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.StyleOptions.PUBUGN">PUBUGN</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.StyleOptions.PUOR">PUOR</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.StyleOptions.PURD">PURD</see></term>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -825,11 +1849,91 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
+        /// cref="VisualizeImageContourRequest.StyleOptions.RAINBOW">RAINBOW</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.StyleOptions.RDBU">RDBU</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.StyleOptions.RDGY">RDGY</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.StyleOptions.RDPU">RDPU</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.StyleOptions.RDYLBU">RDYLBU</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.StyleOptions.RDYLGN">RDYLGN</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="VisualizeImageContourRequest.StyleOptions.REDS">REDS</see></term>
         ///     </item>
         ///     <item>
         ///         <term><see
+        /// cref="VisualizeImageContourRequest.StyleOptions.SEISMIC">SEISMIC</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.StyleOptions.SET1">SET1</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.StyleOptions.SET2">SET2</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.StyleOptions.SET3">SET3</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.StyleOptions.SPECTRAL">SPECTRAL</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.StyleOptions.SPRING">SPRING</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.StyleOptions.SUMMER">SUMMER</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.StyleOptions.TERRAIN">TERRAIN</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="VisualizeImageContourRequest.StyleOptions.VIRIDIS">VIRIDIS</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.StyleOptions.WINTER">WINTER</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.StyleOptions.WISTIA">WISTIA</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.StyleOptions.YLGN">YLGN</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.StyleOptions.YLGNBU">YLGNBU</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.StyleOptions.YLORBR">YLORBR</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.StyleOptions.YLORRD">YLORRD</see></term>
         ///     </item>
         /// </list>
         /// The default value is <see

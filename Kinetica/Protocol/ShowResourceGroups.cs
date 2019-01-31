@@ -15,7 +15,9 @@ namespace kinetica
     /// cref="Kinetica.showResourceGroups(IList{string},IDictionary{string, string})"
     /// />.
     /// <br />
-    /// Shows resource group properties.</summary>
+    /// Requests resource group properties.
+    /// Returns detailed information about the requested resource
+    /// groups.</summary>
     public class ShowResourceGroupsRequest : KineticaData
     {
 
@@ -24,8 +26,8 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="ShowResourceGroupsRequest.Options.SHOW_DEFAULT_VALUES">SHOW_DEFAULT_VALUES</see>:</term>
-        ///         <description>If true include values of fields that are
-        /// based on the default resource group.
+        ///         <description>If <i>true</i> include values of fields that
+        /// are based on the default resource group.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -43,8 +45,8 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="ShowResourceGroupsRequest.Options.SHOW_DEFAULT_GROUP">SHOW_DEFAULT_GROUP</see>:</term>
-        ///         <description>If true include the default resource group in
-        /// the response.
+        ///         <description>If <i>true</i> include the default resource
+        /// group in the response.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -66,8 +68,8 @@ namespace kinetica
         public struct Options
         {
 
-            /// <summary>If true include values of fields that are based on the
-            /// default resource group.
+            /// <summary>If <i>true</i> include values of fields that are based
+            /// on the default resource group.
             /// Supported values:
             /// <list type="bullet">
             ///     <item>
@@ -85,8 +87,8 @@ namespace kinetica
             public const string TRUE = "true";
             public const string FALSE = "false";
 
-            /// <summary>If true include the default resource group in the
-            /// response.
+            /// <summary>If <i>true</i> include the default resource group in
+            /// the response.
             /// Supported values:
             /// <list type="bullet">
             ///     <item>
@@ -113,8 +115,8 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="ShowResourceGroupsRequest.Options.SHOW_DEFAULT_VALUES">SHOW_DEFAULT_VALUES</see>:</term>
-        ///         <description>If true include values of fields that are
-        /// based on the default resource group.
+        ///         <description>If <i>true</i> include values of fields that
+        /// are based on the default resource group.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -132,8 +134,8 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="ShowResourceGroupsRequest.Options.SHOW_DEFAULT_GROUP">SHOW_DEFAULT_GROUP</see>:</term>
-        ///         <description>If true include the default resource group in
-        /// the response.
+        ///         <description>If <i>true</i> include the default resource
+        /// group in the response.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -167,8 +169,8 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="ShowResourceGroupsRequest.Options.SHOW_DEFAULT_VALUES">SHOW_DEFAULT_VALUES</see>:</term>
-        ///         <description>If true include values of fields that are
-        /// based on the default resource group.
+        ///         <description>If <i>true</i> include values of fields that
+        /// are based on the default resource group.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -186,8 +188,8 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="ShowResourceGroupsRequest.Options.SHOW_DEFAULT_GROUP">SHOW_DEFAULT_GROUP</see>:</term>
-        ///         <description>If true include the default resource group in
-        /// the response.
+        ///         <description>If <i>true</i> include the default resource
+        /// group in the response.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>

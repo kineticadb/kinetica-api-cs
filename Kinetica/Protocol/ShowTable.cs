@@ -662,8 +662,7 @@ namespace kinetica
             public const string PARTITION_KEYS = "partition_keys";
 
             /// <summary>Comma-separated list of partition definitions, whose
-            /// format depends on the {partition_type}@{key of output
-            /// additional_info}.  See <a
+            /// format depends on the partition_type.  See <a
             /// href="../../concepts/tables.html#partitioning"
             /// target="_top">partitioning</a> documentation for
             /// details.</summary>

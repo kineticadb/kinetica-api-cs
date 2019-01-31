@@ -10,16 +10,24 @@ using System.Collections.Generic;
 
 namespace kinetica
 {
-    /// @cond NO_DOCS
+
     /// <summary>A set of parameters for <see
     /// cref="Kinetica.collectStatistics(string,IList{string},IDictionary{string, string})"
     /// />.
     /// <br />
-    /// </summary>
+    /// Collect statistics for a column(s) in a specified table.</summary>
     public class CollectStatisticsRequest : KineticaData
     {
+
+        /// <summary>Name of a table. Must be an existing table.  </summary>
         public string table_name { get; set; }
+
+        /// <summary>List of one or more column names in <paramref
+        /// cref="CollectStatisticsRequest.table_name" /> for which to collect
+        /// statistics (cardinality, mean value, etc.).  </summary>
         public IList<string> column_names { get; set; } = new List<string>();
+
+        /// <summary>Optional parameters.  </summary>
         public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
 
 
@@ -30,9 +38,12 @@ namespace kinetica
         /// <summary>Constructs a CollectStatisticsRequest object with the
         /// specified parameters.</summary>
         /// 
-        /// <param name="table_name"></param>
-        /// <param name="column_names"></param>
-        /// <param name="options"></param>
+        /// <param name="table_name">Name of a table. Must be an existing
+        /// table.  </param>
+        /// <param name="column_names">List of one or more column names in
+        /// <paramref cref="CollectStatisticsRequest.table_name" /> for which
+        /// to collect statistics (cardinality, mean value, etc.).  </param>
+        /// <param name="options">Optional parameters.  </param>
         /// 
         public CollectStatisticsRequest( string table_name,
                                          IList<string> column_names,
@@ -44,23 +55,27 @@ namespace kinetica
         } // end constructor
 
     } // end class CollectStatisticsRequest
-    /// @endcond
 
 
 
-    /// @cond NO_DOCS
     /// <summary>A set of results returned by <see
     /// cref="Kinetica.collectStatistics(string,IList{string},IDictionary{string, string})"
     /// />.</summary>
     public class CollectStatisticsResponse : KineticaData
     {
+
+        /// <summary>Value of <paramref
+        /// cref="CollectStatisticsRequest.table_name" />.  </summary>
         public string table_name { get; set; }
+
+        /// <summary>Value of <paramref
+        /// cref="CollectStatisticsRequest.column_names" />.  </summary>
         public IList<string> column_names { get; set; } = new List<string>();
+
+        /// <summary>Additional information.  </summary>
         public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
 
     } // end class CollectStatisticsResponse
-    /// @endcond
-
 
 
 

@@ -14,8 +14,14 @@ namespace kinetica
     /// <summary>A set of parameters for <see
     /// cref="Kinetica.alterTier(string,IDictionary{string, string})" />.
     /// <br />
-    /// Alters properties of exisiting tier to facilitate resource
-    /// management.</summary>
+    /// Alters properties of an exisiting <a
+    /// href="../../rm/concepts.html#storage-tiers" target="_top">tier</a> to
+    /// facilitate <a href="../../rm/concepts.html" target="_top">resource
+    /// management</a>.
+    /// <br />
+    /// To disable <a href="../../rm/concepts.html#watermark-based-eviction"
+    /// target="_top">watermark-based eviction</a>, set both
+    /// <i>high_watermark</i> and <i>low_watermark</i> to 100.</summary>
     public class AlterTierRequest : KineticaData
     {
 
@@ -30,15 +36,16 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="AlterTierRequest.Options.HIGH_WATERMARK">HIGH_WATERMARK</see>:</term>
-        ///         <description>Triggers asynchronous eviction once a tiers
-        /// resource usage exceeds this percentage down to the low
-        /// watermark.</description>
+        ///         <description>Threshold of usage of this tier's resource
+        /// that, once exceeded, will trigger watermark-based eviction from
+        /// this tier.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="AlterTierRequest.Options.LOW_WATERMARK">LOW_WATERMARK</see>:</term>
-        ///         <description>Percentage resource usage to evict down to
-        /// once the high watermark has been hit.</description>
+        ///         <description>Threshold of resource usage that, once fallen
+        /// below after crossing the <i>high_watermark</i>, will cease
+        /// watermark-based eviction from this tier.</description>
         ///     </item>
         /// </list>
         /// <br />
@@ -51,19 +58,20 @@ namespace kinetica
             /// once.</summary>
             public const string CAPACITY = "capacity";
 
-            /// <summary>Triggers asynchronous eviction once a tiers resource
-            /// usage exceeds this percentage down to the low
-            /// watermark.</summary>
+            /// <summary>Threshold of usage of this tier's resource that, once
+            /// exceeded, will trigger watermark-based eviction from this
+            /// tier.</summary>
             public const string HIGH_WATERMARK = "high_watermark";
 
-            /// <summary>Percentage resource usage to evict down to once the
-            /// high watermark has been hit.</summary>
+            /// <summary>Threshold of resource usage that, once fallen below
+            /// after crossing the <i>high_watermark</i>, will cease
+            /// watermark-based eviction from this tier.</summary>
             public const string LOW_WATERMARK = "low_watermark";
         } // end struct Options
 
 
-        /// <summary>Name of the tier to be altered. Must match tier group
-        /// name.  </summary>
+        /// <summary>Name of the tier to be altered. Must be an existing tier
+        /// group name.  </summary>
         public string name { get; set; }
 
         /// <summary>Optional parameters.
@@ -77,15 +85,16 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="AlterTierRequest.Options.HIGH_WATERMARK">HIGH_WATERMARK</see>:</term>
-        ///         <description>Triggers asynchronous eviction once a tiers
-        /// resource usage exceeds this percentage down to the low
-        /// watermark.</description>
+        ///         <description>Threshold of usage of this tier's resource
+        /// that, once exceeded, will trigger watermark-based eviction from
+        /// this tier.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="AlterTierRequest.Options.LOW_WATERMARK">LOW_WATERMARK</see>:</term>
-        ///         <description>Percentage resource usage to evict down to
-        /// once the high watermark has been hit.</description>
+        ///         <description>Threshold of resource usage that, once fallen
+        /// below after crossing the <i>high_watermark</i>, will cease
+        /// watermark-based eviction from this tier.</description>
         ///     </item>
         /// </list>
         ///   </summary>
@@ -99,8 +108,8 @@ namespace kinetica
         /// <summary>Constructs an AlterTierRequest object with the specified
         /// parameters.</summary>
         /// 
-        /// <param name="name">Name of the tier to be altered. Must match tier
-        /// group name.  </param>
+        /// <param name="name">Name of the tier to be altered. Must be an
+        /// existing tier group name.  </param>
         /// <param name="options">Optional parameters.
         /// <list type="bullet">
         ///     <item>
@@ -112,15 +121,16 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="AlterTierRequest.Options.HIGH_WATERMARK">HIGH_WATERMARK</see>:</term>
-        ///         <description>Triggers asynchronous eviction once a tiers
-        /// resource usage exceeds this percentage down to the low
-        /// watermark.</description>
+        ///         <description>Threshold of usage of this tier's resource
+        /// that, once exceeded, will trigger watermark-based eviction from
+        /// this tier.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="AlterTierRequest.Options.LOW_WATERMARK">LOW_WATERMARK</see>:</term>
-        ///         <description>Percentage resource usage to evict down to
-        /// once the high watermark has been hit.</description>
+        ///         <description>Threshold of resource usage that, once fallen
+        /// below after crossing the <i>high_watermark</i>, will cease
+        /// watermark-based eviction from this tier.</description>
         ///     </item>
         /// </list>
         ///   </param>

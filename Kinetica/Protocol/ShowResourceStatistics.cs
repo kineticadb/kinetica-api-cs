@@ -15,8 +15,9 @@ namespace kinetica
     /// cref="Kinetica.showResourceStatistics(IDictionary{string, string})"
     /// />.
     /// <br />
-    /// Shows various statistics for storage/memory tiers and resource groups.
-    /// Statistics are provided on a per rank basis.</summary>
+    /// Requests various statistics for storage/memory tiers and resource
+    /// groups.
+    /// Returns statistics on a per-rank basis.</summary>
     public class ShowResourceStatisticsRequest : KineticaData
     {
 

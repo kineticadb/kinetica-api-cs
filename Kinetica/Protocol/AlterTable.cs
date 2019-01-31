@@ -18,6 +18,12 @@ namespace kinetica
     /// Apply various modifications to a table, view, or collection.  The
     /// available modifications include the following:
     /// <br />
+    /// Manage a table's columns--a column can be added, removed, or have its
+    /// <a href="../../concepts/types.html" target="_top">type and
+    /// properties</a> modified, including
+    /// whether it is <a href="../../concepts/compression.html"
+    /// target="_top">compressed</a> or not.
+    /// <br />
     /// Create or delete an <a href="../../concepts/indexes.html#column-index"
     /// target="_top">index</a> on a
     /// particular column. This can speed up certain operations when using
@@ -25,6 +31,22 @@ namespace kinetica
     /// containing equality or relational operators on indexed columns. This
     /// only
     /// applies to tables.
+    /// <br />
+    /// Create or delete a <a href="../../concepts/tables.html#foreign-key"
+    /// target="_top">foreign key</a>
+    /// on a particular column.
+    /// <br />
+    /// Manage a <a href="../../concepts/tables.html#partitioning"
+    /// target="_top">range-partitioned</a>
+    /// table's partitions.
+    /// <br />
+    /// Set (or reset) the <a href="../../rm/concepts.html#tier-strategies"
+    /// target="_top">tier strategy</a>
+    /// of a table or view.
+    /// <br />
+    /// Refresh and manage the refresh mode of a
+    /// <a href="../../concepts/materialized_views.html"
+    /// target="_top">materialized view</a>.
     /// <br />
     /// Set the <a href="../../concepts/ttl.html" target="_top">time-to-live
     /// (TTL)</a>. This can be applied
@@ -44,20 +66,7 @@ namespace kinetica
     /// Change the <a href="../../concepts/protection.html"
     /// target="_top">protection</a> mode to prevent or
     /// allow automatic expiration. This can be applied to tables, views, and
-    /// collections.
-    /// <br />
-    /// Manage a <a href="../../concepts/tables.html#partitioning"
-    /// target="_top">range-partitioned</a>
-    /// table's partitions.
-    /// <br />
-    /// Allow homogeneous tables within a collection.
-    /// <br />
-    /// Manage a table's columns--a column can be added, removed, or have its
-    /// <a href="../../concepts/types.html" target="_top">type and
-    /// properties</a> modified.
-    /// <br />
-    /// Set or unset <a href="../../concepts/compression.html"
-    /// target="_top">compression</a> for a column.</summary>
+    /// collections.</summary>
     public class AlterTableRequest : KineticaData
     {
 
@@ -159,7 +168,8 @@ namespace kinetica
         ///         <description>Modifies the <a
         /// href="../../concepts/compression.html"
         /// target="_top">compression</a> setting on the column specified in
-        /// <paramref cref="AlterTableRequest._value" />. </description>
+        /// <paramref cref="AlterTableRequest._value" /> to the compression
+        /// type specified in <i>compression_type</i>. </description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -173,7 +183,8 @@ namespace kinetica
         /// cref="AlterTableRequest.Action.CREATE_FOREIGN_KEY">CREATE_FOREIGN_KEY</see>:</term>
         ///         <description>Creates a <a
         /// href="../../concepts/tables.html#foreign-key" target="_top">foreign
-        /// key</a> using the format '(source_column_name [, ...]) references
+        /// key</a> specified in <paramref cref="AlterTableRequest._value" />
+        /// using the format '(source_column_name [, ...]) references
         /// target_table_name(primary_key_column_name [, ...]) [as
         /// foreign_key_name]'.</description>
         ///     </item>
@@ -189,8 +200,9 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="AlterTableRequest.Action.ADD_PARTITION">ADD_PARTITION</see>:</term>
-        ///         <description>Partition definition to add (for
-        /// range-partitioned tables only).  See <a
+        ///         <description>Adds a partition (for range-partitioned tables
+        /// only) specified in <paramref cref="AlterTableRequest._value" />.
+        /// See <a
         /// href="../../concepts/tables.html#partitioning-by-range-example"
         /// target="_top">range partitioning example</a> for example
         /// format.</description>
@@ -198,16 +210,17 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="AlterTableRequest.Action.REMOVE_PARTITION">REMOVE_PARTITION</see>:</term>
-        ///         <description>Name of partition to remove (for
-        /// range-partitioned tables only).  All data in partition will be
-        /// moved to the default partition</description>
+        ///         <description>Removes the partition specified in <paramref
+        /// cref="AlterTableRequest._value" /> and relocates all its data to
+        /// the default partition (for range-partitioned tables
+        /// only).</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="AlterTableRequest.Action.DELETE_PARTITION">DELETE_PARTITION</see>:</term>
-        ///         <description>Name of partition to delete (for
-        /// range-partitioned tables only).  All data in the partition will be
-        /// deleted.</description>
+        ///         <description>Deletes the partition specified in <paramref
+        /// cref="AlterTableRequest._value" /> and its data (for
+        /// range-partitioned tables only).</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -232,31 +245,48 @@ namespace kinetica
         /// cref="AlterTableRequest.Action.SET_REFRESH_METHOD">SET_REFRESH_METHOD</see>:</term>
         ///         <description>Sets the method by which this <a
         /// href="../../concepts/materialized_views.html"
-        /// target="_top">materialized view</a> is refreshed - one of 'manual',
-        /// 'periodic', 'on_change'. </description>
+        /// target="_top">materialized view</a> is refreshed to the method
+        /// specified in <paramref cref="AlterTableRequest._value" /> - one of
+        /// 'manual', 'periodic', 'on_change'. </description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="AlterTableRequest.Action.SET_REFRESH_START_TIME">SET_REFRESH_START_TIME</see>:</term>
         ///         <description>Sets the time to start periodic refreshes of
         /// this <a href="../../concepts/materialized_views.html"
-        /// target="_top">materialized view</a> to datetime string with format
-        /// 'YYYY-MM-DD HH:MM:SS'.  Subsequent refreshes occur at the specified
-        /// time + N * the refresh period.</description>
+        /// target="_top">materialized view</a> to the datetime string
+        /// specified in <paramref cref="AlterTableRequest._value" /> with
+        /// format 'YYYY-MM-DD HH:MM:SS'.  Subsequent refreshes occur at the
+        /// specified time + N * the refresh period.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="AlterTableRequest.Action.SET_REFRESH_PERIOD">SET_REFRESH_PERIOD</see>:</term>
         ///         <description>Sets the time interval in seconds at which to
         /// refresh this <a href="../../concepts/materialized_views.html"
-        /// target="_top">materialized view</a>.  Also, sets the refresh method
-        /// to periodic if not alreay set.</description>
+        /// target="_top">materialized view</a> to the value specified in
+        /// <paramref cref="AlterTableRequest._value" />.  Also, sets the
+        /// refresh method to periodic if not already set.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="AlterTableRequest.Action.REMOVE_TEXT_SEARCH_ATTRIBUTES">REMOVE_TEXT_SEARCH_ATTRIBUTES</see>:</term>
-        ///         <description>remove text_search attribute from all columns,
-        /// if exists.</description>
+        ///         <description>Removes <a
+        /// href="../../concepts/full_text_search.html" target="_top">text
+        /// search</a> attribute from all columns.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterTableRequest.Action.SET_STRATEGY_DEFINITION">SET_STRATEGY_DEFINITION</see>:</term>
+        ///         <description>Sets the <a
+        /// href="../../rm/concepts.html#tier-strategies" target="_top">tier
+        /// strategy</a> for the table and its columns to the one specified in
+        /// <paramref cref="AlterTableRequest._value" />, replacing the
+        /// existing tier strategy in its entirety. See <a
+        /// href="../../rm/concepts.html#tier-strategies" target="_top">tier
+        /// strategy usage</a> for format and <a
+        /// href="../../rm/usage.html#tier-strategies" target="_top">tier
+        /// strategy examples</a> for examples.</description>
         ///     </item>
         /// </list>
         /// A set of string constants for the parameter <see cref="action"
@@ -330,7 +360,8 @@ namespace kinetica
 
             /// <summary>Modifies the <a href="../../concepts/compression.html"
             /// target="_top">compression</a> setting on the column specified
-            /// in <see cref="_value" />. </summary>
+            /// in <see cref="_value" /> to the compression type specified in
+            /// <i>compression_type</i>. </summary>
             public const string SET_COLUMN_COMPRESSION = "set_column_compression";
 
             /// <summary>Deletes the column specified in <see cref="_value" />
@@ -340,8 +371,8 @@ namespace kinetica
 
             /// <summary>Creates a <a
             /// href="../../concepts/tables.html#foreign-key"
-            /// target="_top">foreign key</a> using the format
-            /// '(source_column_name [, ...]) references
+            /// target="_top">foreign key</a> specified in <see cref="_value"
+            /// /> using the format '(source_column_name [, ...]) references
             /// target_table_name(primary_key_column_name [, ...]) [as
             /// foreign_key_name]'.</summary>
             public const string CREATE_FOREIGN_KEY = "create_foreign_key";
@@ -353,21 +384,20 @@ namespace kinetica
             /// or the complete string used to define it.</summary>
             public const string DELETE_FOREIGN_KEY = "delete_foreign_key";
 
-            /// <summary>Partition definition to add (for range-partitioned
-            /// tables only).  See <a
+            /// <summary>Adds a partition (for range-partitioned tables only)
+            /// specified in <see cref="_value" />.  See <a
             /// href="../../concepts/tables.html#partitioning-by-range-example"
             /// target="_top">range partitioning example</a> for example
             /// format.</summary>
             public const string ADD_PARTITION = "add_partition";
 
-            /// <summary>Name of partition to remove (for range-partitioned
-            /// tables only).  All data in partition will be moved to the
-            /// default partition</summary>
+            /// <summary>Removes the partition specified in <see cref="_value"
+            /// /> and relocates all its data to the default partition (for
+            /// range-partitioned tables only).</summary>
             public const string REMOVE_PARTITION = "remove_partition";
 
-            /// <summary>Name of partition to delete (for range-partitioned
-            /// tables only).  All data in the partition will be
-            /// deleted.</summary>
+            /// <summary>Deletes the partition specified in <see cref="_value"
+            /// /> and its data (for range-partitioned tables only).</summary>
             public const string DELETE_PARTITION = "delete_partition";
 
             /// <summary>Sets the global access mode (i.e. locking) for the
@@ -384,26 +414,41 @@ namespace kinetica
 
             /// <summary>Sets the method by which this <a
             /// href="../../concepts/materialized_views.html"
-            /// target="_top">materialized view</a> is refreshed - one of
-            /// 'manual', 'periodic', 'on_change'. </summary>
+            /// target="_top">materialized view</a> is refreshed to the method
+            /// specified in <see cref="_value" /> - one of 'manual',
+            /// 'periodic', 'on_change'. </summary>
             public const string SET_REFRESH_METHOD = "set_refresh_method";
 
             /// <summary>Sets the time to start periodic refreshes of this <a
             /// href="../../concepts/materialized_views.html"
-            /// target="_top">materialized view</a> to datetime string with
-            /// format 'YYYY-MM-DD HH:MM:SS'.  Subsequent refreshes occur at
-            /// the specified time + N * the refresh period.</summary>
+            /// target="_top">materialized view</a> to the datetime string
+            /// specified in <see cref="_value" /> with format 'YYYY-MM-DD
+            /// HH:MM:SS'.  Subsequent refreshes occur at the specified time +
+            /// N * the refresh period.</summary>
             public const string SET_REFRESH_START_TIME = "set_refresh_start_time";
 
             /// <summary>Sets the time interval in seconds at which to refresh
             /// this <a href="../../concepts/materialized_views.html"
-            /// target="_top">materialized view</a>.  Also, sets the refresh
-            /// method to periodic if not alreay set.</summary>
+            /// target="_top">materialized view</a> to the value specified in
+            /// <see cref="_value" />.  Also, sets the refresh method to
+            /// periodic if not already set.</summary>
             public const string SET_REFRESH_PERIOD = "set_refresh_period";
 
-            /// <summary>remove text_search attribute from all columns, if
-            /// exists.</summary>
+            /// <summary>Removes <a href="../../concepts/full_text_search.html"
+            /// target="_top">text search</a> attribute from all
+            /// columns.</summary>
             public const string REMOVE_TEXT_SEARCH_ATTRIBUTES = "remove_text_search_attributes";
+
+            /// <summary>Sets the <a
+            /// href="../../rm/concepts.html#tier-strategies"
+            /// target="_top">tier strategy</a> for the table and its columns
+            /// to the one specified in <see cref="_value" />, replacing the
+            /// existing tier strategy in its entirety. See <a
+            /// href="../../rm/concepts.html#tier-strategies"
+            /// target="_top">tier strategy usage</a> for format and <a
+            /// href="../../rm/usage.html#tier-strategies" target="_top">tier
+            /// strategy examples</a> for examples.</summary>
+            public const string SET_STRATEGY_DEFINITION = "set_strategy_definition";
         } // end struct Action
 
 
@@ -477,8 +522,8 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="AlterTableRequest.Options.COPY_VALUES_FROM_COLUMN">COPY_VALUES_FROM_COLUMN</see>:</term>
-        ///         <description>please see add_column_expression
-        /// instead.</description>
+        ///         <description>Deprecated.  Please use
+        /// <i>add_column_expression</i> instead.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -513,17 +558,23 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="AlterTableRequest.Options.UPDATE_LAST_ACCESS_TIME">UPDATE_LAST_ACCESS_TIME</see>:</term>
-        ///         <description>Indicates whether need to update the
-        /// last_access_time.
+        ///         <description>Indicates whether the <a
+        /// href="../../concepts/ttl.html" target="_top">time-to-live</a> (TTL)
+        /// expiration countdown timer should be reset to the table's TTL.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
-        /// cref="AlterTableRequest.Options.TRUE">TRUE</see></term>
+        /// cref="AlterTableRequest.Options.TRUE">TRUE</see>:</term>
+        ///         <description>Reset the expiration countdown timer to the
+        /// table's configured TTL.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AlterTableRequest.Options.FALSE">FALSE</see></term>
+        /// cref="AlterTableRequest.Options.FALSE">FALSE</see>:</term>
+        ///         <description>Don't reset the timer; expiration countdown
+        /// will continue from where it is, as if the table had not been
+        /// accessed.</description>
         ///     </item>
         /// </list>
         /// The default value is <see
@@ -532,9 +583,26 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="AlterTableRequest.Options.ADD_COLUMN_EXPRESSION">ADD_COLUMN_EXPRESSION</see>:</term>
-        ///         <description>expression for new column's values (optional
-        /// with add_column). Any valid expressions including existing
-        /// columns.</description>
+        ///         <description>When adding a column, an optional expression
+        /// to use for the new column's values. Any valid expression may be
+        /// used, including one containing references to existing columns in
+        /// the same table.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterTableRequest.Options.STRATEGY_DEFINITION">STRATEGY_DEFINITION</see>:</term>
+        ///         <description>Optional parameter for specifying the <a
+        /// href="../../rm/concepts.html#tier-strategies" target="_top">tier
+        /// strategy</a> for the table and its columns when <paramref
+        /// cref="AlterTableRequest.action" /> is
+        /// <i>set_strategy_definition</i>, replacing the existing tier
+        /// strategy in its entirety. See <a
+        /// href="../../rm/concepts.html#tier-strategies" target="_top">tier
+        /// strategy usage</a> for format and <a
+        /// href="../../rm/usage.html#tier-strategies" target="_top">tier
+        /// strategy examples</a> for examples.  This option will be ignored if
+        /// <paramref cref="AlterTableRequest._value" /> is also
+        /// specified.</description>
         ///     </item>
         /// </list>
         /// <br />
@@ -592,7 +660,8 @@ namespace kinetica
             public const string LZ4 = "lz4";
             public const string LZ4HC = "lz4hc";
 
-            /// <summary>please see add_column_expression instead.</summary>
+            /// <summary>Deprecated.  Please use <i>add_column_expression</i>
+            /// instead.</summary>
             public const string COPY_VALUES_FROM_COLUMN = "copy_values_from_column";
 
             /// <summary>When changing a column, specify new column
@@ -620,29 +689,57 @@ namespace kinetica
             /// The default value is <see
             /// cref="AlterTableRequest.Options.TRUE">TRUE</see>.</summary>
             public const string VALIDATE_CHANGE_COLUMN = "validate_change_column";
+
+            /// <summary>Reset the expiration countdown timer to the table's
+            /// configured TTL.</summary>
             public const string TRUE = "true";
+
+            /// <summary>Don't reset the timer; expiration countdown will
+            /// continue from where it is, as if the table had not been
+            /// accessed.</summary>
             public const string FALSE = "false";
 
-            /// <summary>Indicates whether need to update the last_access_time.
+            /// <summary>Indicates whether the <a
+            /// href="../../concepts/ttl.html" target="_top">time-to-live</a>
+            /// (TTL) expiration countdown timer should be reset to the table's
+            /// TTL.
             /// Supported values:
             /// <list type="bullet">
             ///     <item>
             ///         <term><see
-            /// cref="AlterTableRequest.Options.TRUE">TRUE</see></term>
+            /// cref="AlterTableRequest.Options.TRUE">TRUE</see>:</term>
+            ///         <description>Reset the expiration countdown timer to
+            /// the table's configured TTL.</description>
             ///     </item>
             ///     <item>
             ///         <term><see
-            /// cref="AlterTableRequest.Options.FALSE">FALSE</see></term>
+            /// cref="AlterTableRequest.Options.FALSE">FALSE</see>:</term>
+            ///         <description>Don't reset the timer; expiration
+            /// countdown will continue from where it is, as if the table had
+            /// not been accessed.</description>
             ///     </item>
             /// </list>
             /// The default value is <see
             /// cref="AlterTableRequest.Options.TRUE">TRUE</see>.</summary>
             public const string UPDATE_LAST_ACCESS_TIME = "update_last_access_time";
 
-            /// <summary>expression for new column's values (optional with
-            /// add_column). Any valid expressions including existing
-            /// columns.</summary>
+            /// <summary>When adding a column, an optional expression to use
+            /// for the new column's values. Any valid expression may be used,
+            /// including one containing references to existing columns in the
+            /// same table.</summary>
             public const string ADD_COLUMN_EXPRESSION = "add_column_expression";
+
+            /// <summary>Optional parameter for specifying the <a
+            /// href="../../rm/concepts.html#tier-strategies"
+            /// target="_top">tier strategy</a> for the table and its columns
+            /// when <see cref="action" /> is <i>set_strategy_definition</i>,
+            /// replacing the existing tier strategy in its entirety. See <a
+            /// href="../../rm/concepts.html#tier-strategies"
+            /// target="_top">tier strategy usage</a> for format and <a
+            /// href="../../rm/usage.html#tier-strategies" target="_top">tier
+            /// strategy examples</a> for examples.  This option will be
+            /// ignored if <see cref="_value" /> is also specified.</summary>
+            public const string STRATEGY_DEFINITION = "strategy_definition";
         } // end struct Options
 
 
@@ -748,7 +845,8 @@ namespace kinetica
         ///         <description>Modifies the <a
         /// href="../../concepts/compression.html"
         /// target="_top">compression</a> setting on the column specified in
-        /// <paramref cref="AlterTableRequest._value" />. </description>
+        /// <paramref cref="AlterTableRequest._value" /> to the compression
+        /// type specified in <i>compression_type</i>. </description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -762,7 +860,8 @@ namespace kinetica
         /// cref="AlterTableRequest.Action.CREATE_FOREIGN_KEY">CREATE_FOREIGN_KEY</see>:</term>
         ///         <description>Creates a <a
         /// href="../../concepts/tables.html#foreign-key" target="_top">foreign
-        /// key</a> using the format '(source_column_name [, ...]) references
+        /// key</a> specified in <paramref cref="AlterTableRequest._value" />
+        /// using the format '(source_column_name [, ...]) references
         /// target_table_name(primary_key_column_name [, ...]) [as
         /// foreign_key_name]'.</description>
         ///     </item>
@@ -778,8 +877,9 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="AlterTableRequest.Action.ADD_PARTITION">ADD_PARTITION</see>:</term>
-        ///         <description>Partition definition to add (for
-        /// range-partitioned tables only).  See <a
+        ///         <description>Adds a partition (for range-partitioned tables
+        /// only) specified in <paramref cref="AlterTableRequest._value" />.
+        /// See <a
         /// href="../../concepts/tables.html#partitioning-by-range-example"
         /// target="_top">range partitioning example</a> for example
         /// format.</description>
@@ -787,16 +887,17 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="AlterTableRequest.Action.REMOVE_PARTITION">REMOVE_PARTITION</see>:</term>
-        ///         <description>Name of partition to remove (for
-        /// range-partitioned tables only).  All data in partition will be
-        /// moved to the default partition</description>
+        ///         <description>Removes the partition specified in <paramref
+        /// cref="AlterTableRequest._value" /> and relocates all its data to
+        /// the default partition (for range-partitioned tables
+        /// only).</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="AlterTableRequest.Action.DELETE_PARTITION">DELETE_PARTITION</see>:</term>
-        ///         <description>Name of partition to delete (for
-        /// range-partitioned tables only).  All data in the partition will be
-        /// deleted.</description>
+        ///         <description>Deletes the partition specified in <paramref
+        /// cref="AlterTableRequest._value" /> and its data (for
+        /// range-partitioned tables only).</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -821,38 +922,63 @@ namespace kinetica
         /// cref="AlterTableRequest.Action.SET_REFRESH_METHOD">SET_REFRESH_METHOD</see>:</term>
         ///         <description>Sets the method by which this <a
         /// href="../../concepts/materialized_views.html"
-        /// target="_top">materialized view</a> is refreshed - one of 'manual',
-        /// 'periodic', 'on_change'. </description>
+        /// target="_top">materialized view</a> is refreshed to the method
+        /// specified in <paramref cref="AlterTableRequest._value" /> - one of
+        /// 'manual', 'periodic', 'on_change'. </description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="AlterTableRequest.Action.SET_REFRESH_START_TIME">SET_REFRESH_START_TIME</see>:</term>
         ///         <description>Sets the time to start periodic refreshes of
         /// this <a href="../../concepts/materialized_views.html"
-        /// target="_top">materialized view</a> to datetime string with format
-        /// 'YYYY-MM-DD HH:MM:SS'.  Subsequent refreshes occur at the specified
-        /// time + N * the refresh period.</description>
+        /// target="_top">materialized view</a> to the datetime string
+        /// specified in <paramref cref="AlterTableRequest._value" /> with
+        /// format 'YYYY-MM-DD HH:MM:SS'.  Subsequent refreshes occur at the
+        /// specified time + N * the refresh period.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="AlterTableRequest.Action.SET_REFRESH_PERIOD">SET_REFRESH_PERIOD</see>:</term>
         ///         <description>Sets the time interval in seconds at which to
         /// refresh this <a href="../../concepts/materialized_views.html"
-        /// target="_top">materialized view</a>.  Also, sets the refresh method
-        /// to periodic if not alreay set.</description>
+        /// target="_top">materialized view</a> to the value specified in
+        /// <paramref cref="AlterTableRequest._value" />.  Also, sets the
+        /// refresh method to periodic if not already set.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="AlterTableRequest.Action.REMOVE_TEXT_SEARCH_ATTRIBUTES">REMOVE_TEXT_SEARCH_ATTRIBUTES</see>:</term>
-        ///         <description>remove text_search attribute from all columns,
-        /// if exists.</description>
+        ///         <description>Removes <a
+        /// href="../../concepts/full_text_search.html" target="_top">text
+        /// search</a> attribute from all columns.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterTableRequest.Action.SET_STRATEGY_DEFINITION">SET_STRATEGY_DEFINITION</see>:</term>
+        ///         <description>Sets the <a
+        /// href="../../rm/concepts.html#tier-strategies" target="_top">tier
+        /// strategy</a> for the table and its columns to the one specified in
+        /// <paramref cref="AlterTableRequest._value" />, replacing the
+        /// existing tier strategy in its entirety. See <a
+        /// href="../../rm/concepts.html#tier-strategies" target="_top">tier
+        /// strategy usage</a> for format and <a
+        /// href="../../rm/usage.html#tier-strategies" target="_top">tier
+        /// strategy examples</a> for examples.</description>
         ///     </item>
         /// </list>  </summary>
         public string action { get; set; }
 
-        /// <summary>The value of the modification. May be a column name,
-        /// 'true' or 'false', a TTL, or the global access mode depending on
-        /// <paramref cref="AlterTableRequest.action" />.  </summary>
+        /// <summary>The value of the modification, depending on <paramref
+        /// cref="AlterTableRequest.action" />.  For example, if <paramref
+        /// cref="AlterTableRequest.action" /> is <i>add_column</i>, this would
+        /// be the column name; while the column's definition would be covered
+        /// by the <i>column_type</i>, <i>column_properties</i>,
+        /// <i>column_default_value</i>, and <i>add_column_expression</i> in
+        /// <paramref cref="AlterTableRequest.options" />.  If <paramref
+        /// cref="AlterTableRequest.action" /> is <i>ttl</i>, it would be the
+        /// number of minutes for the new TTL. If <paramref
+        /// cref="AlterTableRequest.action" /> is <i>refresh</i>, this field
+        /// would be blank.  </summary>
         public string _value { get; set; }
 
         /// <summary>Optional parameters.
@@ -925,8 +1051,8 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="AlterTableRequest.Options.COPY_VALUES_FROM_COLUMN">COPY_VALUES_FROM_COLUMN</see>:</term>
-        ///         <description>please see add_column_expression
-        /// instead.</description>
+        ///         <description>Deprecated.  Please use
+        /// <i>add_column_expression</i> instead.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -961,17 +1087,23 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="AlterTableRequest.Options.UPDATE_LAST_ACCESS_TIME">UPDATE_LAST_ACCESS_TIME</see>:</term>
-        ///         <description>Indicates whether need to update the
-        /// last_access_time.
+        ///         <description>Indicates whether the <a
+        /// href="../../concepts/ttl.html" target="_top">time-to-live</a> (TTL)
+        /// expiration countdown timer should be reset to the table's TTL.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
-        /// cref="AlterTableRequest.Options.TRUE">TRUE</see></term>
+        /// cref="AlterTableRequest.Options.TRUE">TRUE</see>:</term>
+        ///         <description>Reset the expiration countdown timer to the
+        /// table's configured TTL.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AlterTableRequest.Options.FALSE">FALSE</see></term>
+        /// cref="AlterTableRequest.Options.FALSE">FALSE</see>:</term>
+        ///         <description>Don't reset the timer; expiration countdown
+        /// will continue from where it is, as if the table had not been
+        /// accessed.</description>
         ///     </item>
         /// </list>
         /// The default value is <see
@@ -980,9 +1112,26 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="AlterTableRequest.Options.ADD_COLUMN_EXPRESSION">ADD_COLUMN_EXPRESSION</see>:</term>
-        ///         <description>expression for new column's values (optional
-        /// with add_column). Any valid expressions including existing
-        /// columns.</description>
+        ///         <description>When adding a column, an optional expression
+        /// to use for the new column's values. Any valid expression may be
+        /// used, including one containing references to existing columns in
+        /// the same table.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterTableRequest.Options.STRATEGY_DEFINITION">STRATEGY_DEFINITION</see>:</term>
+        ///         <description>Optional parameter for specifying the <a
+        /// href="../../rm/concepts.html#tier-strategies" target="_top">tier
+        /// strategy</a> for the table and its columns when <paramref
+        /// cref="AlterTableRequest.action" /> is
+        /// <i>set_strategy_definition</i>, replacing the existing tier
+        /// strategy in its entirety. See <a
+        /// href="../../rm/concepts.html#tier-strategies" target="_top">tier
+        /// strategy usage</a> for format and <a
+        /// href="../../rm/usage.html#tier-strategies" target="_top">tier
+        /// strategy examples</a> for examples.  This option will be ignored if
+        /// <paramref cref="AlterTableRequest._value" /> is also
+        /// specified.</description>
         ///     </item>
         /// </list>
         ///   </summary>
@@ -1097,7 +1246,8 @@ namespace kinetica
         ///         <description>Modifies the <a
         /// href="../../concepts/compression.html"
         /// target="_top">compression</a> setting on the column specified in
-        /// <paramref cref="AlterTableRequest._value" />. </description>
+        /// <paramref cref="AlterTableRequest._value" /> to the compression
+        /// type specified in <i>compression_type</i>. </description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -1111,7 +1261,8 @@ namespace kinetica
         /// cref="AlterTableRequest.Action.CREATE_FOREIGN_KEY">CREATE_FOREIGN_KEY</see>:</term>
         ///         <description>Creates a <a
         /// href="../../concepts/tables.html#foreign-key" target="_top">foreign
-        /// key</a> using the format '(source_column_name [, ...]) references
+        /// key</a> specified in <paramref cref="AlterTableRequest._value" />
+        /// using the format '(source_column_name [, ...]) references
         /// target_table_name(primary_key_column_name [, ...]) [as
         /// foreign_key_name]'.</description>
         ///     </item>
@@ -1127,8 +1278,9 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="AlterTableRequest.Action.ADD_PARTITION">ADD_PARTITION</see>:</term>
-        ///         <description>Partition definition to add (for
-        /// range-partitioned tables only).  See <a
+        ///         <description>Adds a partition (for range-partitioned tables
+        /// only) specified in <paramref cref="AlterTableRequest._value" />.
+        /// See <a
         /// href="../../concepts/tables.html#partitioning-by-range-example"
         /// target="_top">range partitioning example</a> for example
         /// format.</description>
@@ -1136,16 +1288,17 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="AlterTableRequest.Action.REMOVE_PARTITION">REMOVE_PARTITION</see>:</term>
-        ///         <description>Name of partition to remove (for
-        /// range-partitioned tables only).  All data in partition will be
-        /// moved to the default partition</description>
+        ///         <description>Removes the partition specified in <paramref
+        /// cref="AlterTableRequest._value" /> and relocates all its data to
+        /// the default partition (for range-partitioned tables
+        /// only).</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="AlterTableRequest.Action.DELETE_PARTITION">DELETE_PARTITION</see>:</term>
-        ///         <description>Name of partition to delete (for
-        /// range-partitioned tables only).  All data in the partition will be
-        /// deleted.</description>
+        ///         <description>Deletes the partition specified in <paramref
+        /// cref="AlterTableRequest._value" /> and its data (for
+        /// range-partitioned tables only).</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -1170,36 +1323,61 @@ namespace kinetica
         /// cref="AlterTableRequest.Action.SET_REFRESH_METHOD">SET_REFRESH_METHOD</see>:</term>
         ///         <description>Sets the method by which this <a
         /// href="../../concepts/materialized_views.html"
-        /// target="_top">materialized view</a> is refreshed - one of 'manual',
-        /// 'periodic', 'on_change'. </description>
+        /// target="_top">materialized view</a> is refreshed to the method
+        /// specified in <paramref cref="AlterTableRequest._value" /> - one of
+        /// 'manual', 'periodic', 'on_change'. </description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="AlterTableRequest.Action.SET_REFRESH_START_TIME">SET_REFRESH_START_TIME</see>:</term>
         ///         <description>Sets the time to start periodic refreshes of
         /// this <a href="../../concepts/materialized_views.html"
-        /// target="_top">materialized view</a> to datetime string with format
-        /// 'YYYY-MM-DD HH:MM:SS'.  Subsequent refreshes occur at the specified
-        /// time + N * the refresh period.</description>
+        /// target="_top">materialized view</a> to the datetime string
+        /// specified in <paramref cref="AlterTableRequest._value" /> with
+        /// format 'YYYY-MM-DD HH:MM:SS'.  Subsequent refreshes occur at the
+        /// specified time + N * the refresh period.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="AlterTableRequest.Action.SET_REFRESH_PERIOD">SET_REFRESH_PERIOD</see>:</term>
         ///         <description>Sets the time interval in seconds at which to
         /// refresh this <a href="../../concepts/materialized_views.html"
-        /// target="_top">materialized view</a>.  Also, sets the refresh method
-        /// to periodic if not alreay set.</description>
+        /// target="_top">materialized view</a> to the value specified in
+        /// <paramref cref="AlterTableRequest._value" />.  Also, sets the
+        /// refresh method to periodic if not already set.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="AlterTableRequest.Action.REMOVE_TEXT_SEARCH_ATTRIBUTES">REMOVE_TEXT_SEARCH_ATTRIBUTES</see>:</term>
-        ///         <description>remove text_search attribute from all columns,
-        /// if exists.</description>
+        ///         <description>Removes <a
+        /// href="../../concepts/full_text_search.html" target="_top">text
+        /// search</a> attribute from all columns.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterTableRequest.Action.SET_STRATEGY_DEFINITION">SET_STRATEGY_DEFINITION</see>:</term>
+        ///         <description>Sets the <a
+        /// href="../../rm/concepts.html#tier-strategies" target="_top">tier
+        /// strategy</a> for the table and its columns to the one specified in
+        /// <paramref cref="AlterTableRequest._value" />, replacing the
+        /// existing tier strategy in its entirety. See <a
+        /// href="../../rm/concepts.html#tier-strategies" target="_top">tier
+        /// strategy usage</a> for format and <a
+        /// href="../../rm/usage.html#tier-strategies" target="_top">tier
+        /// strategy examples</a> for examples.</description>
         ///     </item>
         /// </list>  </param>
-        /// <param name="_value">The value of the modification. May be a column
-        /// name, 'true' or 'false', a TTL, or the global access mode depending
-        /// on <paramref cref="AlterTableRequest.action" />.  </param>
+        /// <param name="_value">The value of the modification, depending on
+        /// <paramref cref="AlterTableRequest.action" />.  For example, if
+        /// <paramref cref="AlterTableRequest.action" /> is <i>add_column</i>,
+        /// this would be the column name; while the column's definition would
+        /// be covered by the <i>column_type</i>, <i>column_properties</i>,
+        /// <i>column_default_value</i>, and <i>add_column_expression</i> in
+        /// <paramref cref="AlterTableRequest.options" />.  If <paramref
+        /// cref="AlterTableRequest.action" /> is <i>ttl</i>, it would be the
+        /// number of minutes for the new TTL. If <paramref
+        /// cref="AlterTableRequest.action" /> is <i>refresh</i>, this field
+        /// would be blank.  </param>
         /// <param name="options">Optional parameters.
         /// <list type="bullet">
         ///     <item>
@@ -1270,8 +1448,8 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="AlterTableRequest.Options.COPY_VALUES_FROM_COLUMN">COPY_VALUES_FROM_COLUMN</see>:</term>
-        ///         <description>please see add_column_expression
-        /// instead.</description>
+        ///         <description>Deprecated.  Please use
+        /// <i>add_column_expression</i> instead.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -1306,17 +1484,23 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="AlterTableRequest.Options.UPDATE_LAST_ACCESS_TIME">UPDATE_LAST_ACCESS_TIME</see>:</term>
-        ///         <description>Indicates whether need to update the
-        /// last_access_time.
+        ///         <description>Indicates whether the <a
+        /// href="../../concepts/ttl.html" target="_top">time-to-live</a> (TTL)
+        /// expiration countdown timer should be reset to the table's TTL.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
-        /// cref="AlterTableRequest.Options.TRUE">TRUE</see></term>
+        /// cref="AlterTableRequest.Options.TRUE">TRUE</see>:</term>
+        ///         <description>Reset the expiration countdown timer to the
+        /// table's configured TTL.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AlterTableRequest.Options.FALSE">FALSE</see></term>
+        /// cref="AlterTableRequest.Options.FALSE">FALSE</see>:</term>
+        ///         <description>Don't reset the timer; expiration countdown
+        /// will continue from where it is, as if the table had not been
+        /// accessed.</description>
         ///     </item>
         /// </list>
         /// The default value is <see
@@ -1325,9 +1509,26 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="AlterTableRequest.Options.ADD_COLUMN_EXPRESSION">ADD_COLUMN_EXPRESSION</see>:</term>
-        ///         <description>expression for new column's values (optional
-        /// with add_column). Any valid expressions including existing
-        /// columns.</description>
+        ///         <description>When adding a column, an optional expression
+        /// to use for the new column's values. Any valid expression may be
+        /// used, including one containing references to existing columns in
+        /// the same table.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterTableRequest.Options.STRATEGY_DEFINITION">STRATEGY_DEFINITION</see>:</term>
+        ///         <description>Optional parameter for specifying the <a
+        /// href="../../rm/concepts.html#tier-strategies" target="_top">tier
+        /// strategy</a> for the table and its columns when <paramref
+        /// cref="AlterTableRequest.action" /> is
+        /// <i>set_strategy_definition</i>, replacing the existing tier
+        /// strategy in its entirety. See <a
+        /// href="../../rm/concepts.html#tier-strategies" target="_top">tier
+        /// strategy usage</a> for format and <a
+        /// href="../../rm/usage.html#tier-strategies" target="_top">tier
+        /// strategy examples</a> for examples.  This option will be ignored if
+        /// <paramref cref="AlterTableRequest._value" /> is also
+        /// specified.</description>
         ///     </item>
         /// </list>
         ///   </param>

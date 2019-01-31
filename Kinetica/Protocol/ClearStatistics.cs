@@ -10,16 +10,26 @@ using System.Collections.Generic;
 
 namespace kinetica
 {
-    /// @cond NO_DOCS
+
     /// <summary>A set of parameters for <see
     /// cref="Kinetica.clearStatistics(string,string,IDictionary{string, string})"
     /// />.
     /// <br />
-    /// </summary>
+    /// Clears statistics (cardinality, mean value, etc.) for a column in a
+    /// specified table.</summary>
     public class ClearStatisticsRequest : KineticaData
     {
+
+        /// <summary>Name of a table. Must be an existing table.  </summary>
         public string table_name { get; set; } = "";
+
+        /// <summary>Name of the column in <paramref
+        /// cref="ClearStatisticsRequest.table_name" /> for which to clear
+        /// statistics. The column must be from an existing table. An empty
+        /// string clears statistics for all columns in the table.  </summary>
         public string column_name { get; set; } = "";
+
+        /// <summary>Optional parameters.  </summary>
         public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
 
 
@@ -30,9 +40,13 @@ namespace kinetica
         /// <summary>Constructs a ClearStatisticsRequest object with the
         /// specified parameters.</summary>
         /// 
-        /// <param name="table_name"></param>
-        /// <param name="column_name"></param>
-        /// <param name="options"></param>
+        /// <param name="table_name">Name of a table. Must be an existing
+        /// table.  </param>
+        /// <param name="column_name">Name of the column in <paramref
+        /// cref="ClearStatisticsRequest.table_name" /> for which to clear
+        /// statistics. The column must be from an existing table. An empty
+        /// string clears statistics for all columns in the table.  </param>
+        /// <param name="options">Optional parameters.  </param>
         /// 
         public ClearStatisticsRequest( string table_name = null,
                                        string column_name = null,
@@ -44,23 +58,27 @@ namespace kinetica
         } // end constructor
 
     } // end class ClearStatisticsRequest
-    /// @endcond
 
 
 
-    /// @cond NO_DOCS
     /// <summary>A set of results returned by <see
     /// cref="Kinetica.clearStatistics(string,string,IDictionary{string, string})"
     /// />.</summary>
     public class ClearStatisticsResponse : KineticaData
     {
+
+        /// <summary>Value of <paramref
+        /// cref="ClearStatisticsRequest.table_name" />.  </summary>
         public string table_name { get; set; }
+
+        /// <summary>Value of <paramref
+        /// cref="ClearStatisticsRequest.column_name" />.  </summary>
         public string column_name { get; set; }
+
+        /// <summary>Additional information.  </summary>
         public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
 
     } // end class ClearStatisticsResponse
-    /// @endcond
-
 
 
 
