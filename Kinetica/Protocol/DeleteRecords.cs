@@ -39,10 +39,12 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="DeleteRecordsRequest.Options.RECORD_ID">RECORD_ID</see>:</term>
-        ///         <description>A record id identifying a single record,
+        ///         <description>A record ID identifying a single record,
         /// obtained at the time of /insert/records or by calling
-        /// /get/records/fromcollection with the *return_record_ids*
-        /// option.</description>
+        /// /get/records/fromcollection with the *return_record_ids* option.
+        /// This option cannot be used to delete records from <a
+        /// href="../../concepts/tables.html#replication"
+        /// target="_top">replicated</a> tables.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -75,12 +77,15 @@ namespace kinetica
             /// space of the <see cref="expressions" />.</summary>
             public const string GLOBAL_EXPRESSION = "global_expression";
 
-            /// <summary>A record id identifying a single record, obtained at
+            /// <summary>A record ID identifying a single record, obtained at
             /// the time of <see
             /// cref="Kinetica.insertRecords{T}(string,IList{T},IDictionary{string, string})">insertion
             /// of the record</see> or by calling <see
             /// cref="Kinetica.getRecordsFromCollection{T}(string,long,long,IDictionary{string, string})"
-            /// /> with the *return_record_ids* option.</summary>
+            /// /> with the *return_record_ids* option. This option cannot be
+            /// used to delete records from <a
+            /// href="../../concepts/tables.html#replication"
+            /// target="_top">replicated</a> tables.</summary>
             public const string RECORD_ID = "record_id";
 
             /// <summary>If set to <i>true</i>, all records in the table will
@@ -131,10 +136,12 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="DeleteRecordsRequest.Options.RECORD_ID">RECORD_ID</see>:</term>
-        ///         <description>A record id identifying a single record,
+        ///         <description>A record ID identifying a single record,
         /// obtained at the time of /insert/records or by calling
-        /// /get/records/fromcollection with the *return_record_ids*
-        /// option.</description>
+        /// /get/records/fromcollection with the *return_record_ids* option.
+        /// This option cannot be used to delete records from <a
+        /// href="../../concepts/tables.html#replication"
+        /// target="_top">replicated</a> tables.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -190,10 +197,12 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="DeleteRecordsRequest.Options.RECORD_ID">RECORD_ID</see>:</term>
-        ///         <description>A record id identifying a single record,
+        ///         <description>A record ID identifying a single record,
         /// obtained at the time of /insert/records or by calling
-        /// /get/records/fromcollection with the *return_record_ids*
-        /// option.</description>
+        /// /get/records/fromcollection with the *return_record_ids* option.
+        /// This option cannot be used to delete records from <a
+        /// href="../../concepts/tables.html#replication"
+        /// target="_top">replicated</a> tables.</description>
         ///     </item>
         ///     <item>
         ///         <term><see

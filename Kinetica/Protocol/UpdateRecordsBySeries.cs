@@ -29,8 +29,8 @@ namespace kinetica
         /// information.  </summary>
         public string world_table_name { get; set; }
 
-        /// <summary>Optional name of the view containing the series (tracks)
-        /// which have to be updated.  </summary>
+        /// <summary>name of the view containing the series (tracks) which have
+        /// to be updated.  </summary>
         public string view_name { get; set; } = "";
         public IList<string> reserved { get; set; } = new List<string>();
 
@@ -49,8 +49,8 @@ namespace kinetica
         /// operation will be performed. Must be an existing view.  </param>
         /// <param name="world_table_name">Name of the table containing the
         /// complete series (track) information.  </param>
-        /// <param name="view_name">Optional name of the view containing the
-        /// series (tracks) which have to be updated.  </param>
+        /// <param name="view_name">name of the view containing the series
+        /// (tracks) which have to be updated.  </param>
         /// <param name="reserved"></param>
         /// <param name="options">Optional parameters.  </param>
         /// 

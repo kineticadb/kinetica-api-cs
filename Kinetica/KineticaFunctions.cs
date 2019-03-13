@@ -16,8 +16,130 @@ namespace kinetica
     {
 
         // Kinetica Version
-        public const string API_VERSION = "7.0.0.0";
+        public const string API_VERSION = "7.0.1.0";
 
+
+
+        /// <summary>Add one or more new ranks to the Kinetica cluster. The new
+        /// ranks will not contain any data initially, other than replicated
+        /// tables, and not be assigned any shards. To rebalance data across
+        /// the cluster, which includes shifting some shard key assignments to
+        /// newly added ranks, see <see
+        /// cref="Kinetica.adminRebalance(IDictionary{string, string})" />.
+        /// <br />
+        /// For example, if attempting to add three new ranks (two ranks on
+        /// host 172.123.45.67 and one rank on host 172.123.45.68) to a
+        /// Kinetica cluster with additional configuration parameters:
+        /// <br />
+        /// * <paramref cref="AdminAddRanksRequest.hosts" /> would be an array
+        /// including 172.123.45.67 in the first two indices (signifying two
+        /// ranks being added to host 172.123.45.67) and 172.123.45.68 in the
+        /// last index (signifying one rank being added to host 172.123.45.67)
+        /// <br />
+        /// * <paramref cref="AdminAddRanksRequest.config_params" /> would be
+        /// an array of maps, with each map corresponding to the ranks being
+        /// added in <paramref cref="AdminAddRanksRequest.hosts" />. The key of
+        /// each map would be the configuration parameter name and the value
+        /// would be the parameter's value, e.g. 'rank.gpu':'1'
+        /// <br />
+        /// This endpoint's processing includes copying all replicated table
+        /// data to the new rank(s) and therefore could take a long time. The
+        /// API call may time out if run directly.  It is recommended to run
+        /// this endpoint asynchronously via <see
+        /// cref="Kinetica.createJob(string,string,byte[],string,IDictionary{string, string})"
+        /// />.</summary>
+        /// 
+        /// <param name="request_">Request object containing the parameters for
+        /// the operation.</param>
+        /// 
+        /// <returns>Response object containing the result of the
+        /// operation.</returns>
+        /// 
+        public AdminAddRanksResponse adminAddRanks( AdminAddRanksRequest request_ )
+        {
+            AdminAddRanksResponse actualResponse_ = SubmitRequest<AdminAddRanksResponse>("/admin/add/ranks", request_, false);
+
+            return actualResponse_;
+        }
+
+
+        /// <summary>Add one or more new ranks to the Kinetica cluster. The new
+        /// ranks will not contain any data initially, other than replicated
+        /// tables, and not be assigned any shards. To rebalance data across
+        /// the cluster, which includes shifting some shard key assignments to
+        /// newly added ranks, see <see
+        /// cref="Kinetica.adminRebalance(IDictionary{string, string})" />.
+        /// <br />
+        /// For example, if attempting to add three new ranks (two ranks on
+        /// host 172.123.45.67 and one rank on host 172.123.45.68) to a
+        /// Kinetica cluster with additional configuration parameters:
+        /// <br />
+        /// * <paramref name="hosts" /> would be an array including
+        /// 172.123.45.67 in the first two indices (signifying two ranks being
+        /// added to host 172.123.45.67) and 172.123.45.68 in the last index
+        /// (signifying one rank being added to host 172.123.45.67)
+        /// <br />
+        /// * <paramref name="config_params" /> would be an array of maps, with
+        /// each map corresponding to the ranks being added in <paramref
+        /// name="hosts" />. The key of each map would be the configuration
+        /// parameter name and the value would be the parameter's value, e.g.
+        /// 'rank.gpu':'1'
+        /// <br />
+        /// This endpoint's processing includes copying all replicated table
+        /// data to the new rank(s) and therefore could take a long time. The
+        /// API call may time out if run directly.  It is recommended to run
+        /// this endpoint asynchronously via <see
+        /// cref="Kinetica.createJob(string,string,byte[],string,IDictionary{string, string})"
+        /// />.</summary>
+        /// 
+        /// <param name="hosts">The IP address of each rank being added to the
+        /// cluster. Insert one entry per rank, even if they are on the same
+        /// host. The order of the hosts in the array only matters as it
+        /// relates to the <paramref cref="AdminAddRanksRequest.config_params"
+        /// />.  </param>
+        /// <param name="config_params">Configuration parameters to apply to
+        /// the new ranks, e.g., which GPU to use. Configuration parameters
+        /// that start with 'rankN.', where N is the rank number, should omit
+        /// the N, as the new rank number(s) are not allocated until the ranks
+        /// are created. Each entry in this array corresponds to the entry at
+        /// the same array index in the <paramref
+        /// cref="AdminAddRanksRequest.hosts" />. This array must either be
+        /// completely empty or have the same number of elements as the hosts
+        /// array.  An empty array will result in the new ranks being set only
+        /// with default parameters.  </param>
+        /// <param name="options">Optional parameters.
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="AdminAddRanksRequest.Options.DRY_RUN">DRY_RUN</see>:</term>
+        ///         <description>If <i>true</i>, only validation checks will be
+        /// performed. No ranks are added.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="AdminAddRanksRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AdminAddRanksRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="AdminAddRanksRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        /// </list>
+        ///   </param>
+        /// 
+        /// <returns>Response object containing the result of the
+        /// operation.</returns>
+        /// 
+        public AdminAddRanksResponse adminAddRanks( IList<string> hosts,
+                                                    IList<IDictionary<string, string>> config_params,
+                                                    IDictionary<string, string> options = null )
+        {
+            return adminAddRanks( new AdminAddRanksRequest( hosts, config_params, options ) );
+        }
 
 
         /// <summary>Perform the requested action on a list of one or more
@@ -71,53 +193,6 @@ namespace kinetica
         {
             return adminAlterJobs( new AdminAlterJobsRequest( job_ids, action, options ) );
         }
-
-        /// @cond NO_DOCS
-        /// 
-        /// <param name="request_">Request object containing the parameters for
-        /// the operation.</param>
-        /// 
-        /// <returns>Response object containing the result of the
-        /// operation.</returns>
-        /// 
-        public AdminAlterShardsResponse adminAlterShards( AdminAlterShardsRequest request_ )
-        {
-            AdminAlterShardsResponse actualResponse_ = SubmitRequest<AdminAlterShardsResponse>("/admin/alter/shards", request_, false);
-
-            return actualResponse_;
-        }
-        /// @endcond
-
-        /// @cond NO_DOCS
-        /// 
-        /// <param name="version"></param>
-        /// <param name="use_index"></param>
-        /// <param name="rank"></param>
-        /// <param name="tom"></param>
-        /// <param name="index"></param>
-        /// <param name="backup_map_list"></param>
-        /// <param name="backup_map_values"></param>
-        /// <param name="options"></param>
-        /// 
-        /// <returns>Response object containing the result of the
-        /// operation.</returns>
-        /// 
-        public AdminAlterShardsResponse adminAlterShards( long version,
-                                                          bool use_index,
-                                                          IList<int> rank,
-                                                          IList<int> tom,
-                                                          IList<int> index,
-                                                          IList<int> backup_map_list,
-                                                          IList<IList<int>> backup_map_values,
-                                                          IDictionary<string, string> options = null )
-        {
-            return adminAlterShards( new AdminAlterShardsRequest( version, use_index,
-                                                                  rank, tom, index,
-                                                                  backup_map_list,
-                                                                  backup_map_values,
-                                                                  options ) );
-        }
-        /// @endcond
 
 
         /// <summary>Take the system offline. When the system is offline, no
@@ -182,6 +257,217 @@ namespace kinetica
                                                   IDictionary<string, string> options = null )
         {
             return adminOffline( new AdminOfflineRequest( offline, options ) );
+        }
+
+
+        /// <summary>Rebalance the cluster so that all the nodes contain
+        /// approximately an equal number of records.  The rebalance will also
+        /// cause the shards to be equally distributed (as much as possible)
+        /// across all the ranks.
+        /// <br />
+        /// This endpoint may take a long time to run, depending on the amount
+        /// of data in the system. The API call may time out if run directly.
+        /// It is recommended to run this endpoint asynchronously via <see
+        /// cref="Kinetica.createJob(string,string,byte[],string,IDictionary{string, string})"
+        /// />.</summary>
+        /// 
+        /// <param name="request_">Request object containing the parameters for
+        /// the operation.</param>
+        /// 
+        /// <returns>Response object containing the result of the
+        /// operation.</returns>
+        /// 
+        public AdminRebalanceResponse adminRebalance( AdminRebalanceRequest request_ )
+        {
+            AdminRebalanceResponse actualResponse_ = SubmitRequest<AdminRebalanceResponse>("/admin/rebalance", request_, false);
+
+            return actualResponse_;
+        }
+
+
+        /// <summary>Rebalance the cluster so that all the nodes contain
+        /// approximately an equal number of records.  The rebalance will also
+        /// cause the shards to be equally distributed (as much as possible)
+        /// across all the ranks.
+        /// <br />
+        /// This endpoint may take a long time to run, depending on the amount
+        /// of data in the system. The API call may time out if run directly.
+        /// It is recommended to run this endpoint asynchronously via <see
+        /// cref="Kinetica.createJob(string,string,byte[],string,IDictionary{string, string})"
+        /// />.</summary>
+        /// 
+        /// <param name="options">Optional parameters.
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="AdminRebalanceRequest.Options.REBALANCE_SHARDED_DATA">REBALANCE_SHARDED_DATA</see>:</term>
+        ///         <description>If <i>true</i>, sharded data will be
+        /// rebalanced approximately equally across the cluster. Note that for
+        /// big clusters, this data transfer could be time consuming and result
+        /// in delayed query responses.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="AdminRebalanceRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AdminRebalanceRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="AdminRebalanceRequest.Options.TRUE">TRUE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AdminRebalanceRequest.Options.REBALANCE_UNSHARDED_DATA">REBALANCE_UNSHARDED_DATA</see>:</term>
+        ///         <description>If <i>true</i>, unsharded data (data without
+        /// primary keys and without shard keys) will be rebalanced
+        /// approximately equally across the cluster. Note that for big
+        /// clusters, this data transfer could be time consuming and result in
+        /// delayed query responses.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="AdminRebalanceRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AdminRebalanceRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="AdminRebalanceRequest.Options.TRUE">TRUE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AdminRebalanceRequest.Options.TABLE_WHITELIST">TABLE_WHITELIST</see>:</term>
+        ///         <description>Comma-separated list of unsharded table names
+        /// to rebalance. Not applicable to sharded tables because they are
+        /// always balanced in accordance with their primary key or shard key.
+        /// Cannot be used simultaneously with
+        /// <i>table_blacklist</i>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AdminRebalanceRequest.Options.TABLE_BLACKLIST">TABLE_BLACKLIST</see>:</term>
+        ///         <description>Comma-separated list of unsharded table names
+        /// to not rebalance. Not applicable to sharded tables because they are
+        /// always balanced in accordance with their primary key or shard key.
+        /// Cannot be used simultaneously with
+        /// <i>table_whitelist</i>.</description>
+        ///     </item>
+        /// </list>
+        ///   </param>
+        /// 
+        /// <returns>Response object containing the result of the
+        /// operation.</returns>
+        /// 
+        public AdminRebalanceResponse adminRebalance( IDictionary<string, string> options = null )
+        {
+            return adminRebalance( new AdminRebalanceRequest( options ) );
+        }
+
+
+        /// <summary>Remove one or more ranks from the cluster. All data in the
+        /// ranks to be removed is rebalanced to other ranks before the node is
+        /// removed unless the <i>rebalance_sharded_data</i> or
+        /// <i>rebalance_unsharded_data</i> parameters are set to <i>false</i>
+        /// in the <paramref cref="AdminRemoveRanksRequest.options" />.
+        /// <br />
+        /// Due to the rebalancing, this endpoint may take a long time to run,
+        /// depending on the amount of data in the system. The API call may
+        /// time out if run directly.  It is recommended to run this endpoint
+        /// asynchronously via <see
+        /// cref="Kinetica.createJob(string,string,byte[],string,IDictionary{string, string})"
+        /// />.</summary>
+        /// 
+        /// <param name="request_">Request object containing the parameters for
+        /// the operation.</param>
+        /// 
+        /// <returns>Response object containing the result of the
+        /// operation.</returns>
+        /// 
+        public AdminRemoveRanksResponse adminRemoveRanks( AdminRemoveRanksRequest request_ )
+        {
+            AdminRemoveRanksResponse actualResponse_ = SubmitRequest<AdminRemoveRanksResponse>("/admin/remove/ranks", request_, false);
+
+            return actualResponse_;
+        }
+
+
+        /// <summary>Remove one or more ranks from the cluster. All data in the
+        /// ranks to be removed is rebalanced to other ranks before the node is
+        /// removed unless the <i>rebalance_sharded_data</i> or
+        /// <i>rebalance_unsharded_data</i> parameters are set to <i>false</i>
+        /// in the <paramref name="options" />.
+        /// <br />
+        /// Due to the rebalancing, this endpoint may take a long time to run,
+        /// depending on the amount of data in the system. The API call may
+        /// time out if run directly.  It is recommended to run this endpoint
+        /// asynchronously via <see
+        /// cref="Kinetica.createJob(string,string,byte[],string,IDictionary{string, string})"
+        /// />.</summary>
+        /// 
+        /// <param name="ranks">Rank numbers of the ranks to be removed from
+        /// the cluster.  </param>
+        /// <param name="options">Optional parameters.
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="AdminRemoveRanksRequest.Options.REBALANCE_SHARDED_DATA">REBALANCE_SHARDED_DATA</see>:</term>
+        ///         <description>When <i>true</i>, data with primary keys or
+        /// shard keys will be rebalanced to other ranks prior to rank removal.
+        /// Note that for big clusters, this data transfer could be time
+        /// consuming and result in delayed query responses.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="AdminRemoveRanksRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AdminRemoveRanksRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="AdminRemoveRanksRequest.Options.TRUE">TRUE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AdminRemoveRanksRequest.Options.REBALANCE_UNSHARDED_DATA">REBALANCE_UNSHARDED_DATA</see>:</term>
+        ///         <description>When <i>true</i>, unsharded data (data without
+        /// primary keys and without shard keys) will be rebalanced to other
+        /// ranks prior to rank removal. Note that for big clusters, this data
+        /// transfer could be time consuming and result in delayed query
+        /// responses.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="AdminRemoveRanksRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AdminRemoveRanksRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="AdminRemoveRanksRequest.Options.TRUE">TRUE</see>.</description>
+        ///     </item>
+        /// </list>
+        ///   </param>
+        /// 
+        /// <returns>Response object containing the result of the
+        /// operation.</returns>
+        /// 
+        public AdminRemoveRanksResponse adminRemoveRanks( IList<int> ranks,
+                                                          IDictionary<string, string> options = null )
+        {
+            return adminRemoveRanks( new AdminRemoveRanksRequest( ranks, options ) );
         }
 
 
@@ -964,6 +1250,11 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="AggregateGroupByRequest.Options.SLEEP_ON_REFRESH">SLEEP_ON_REFRESH</see>:</term>
+        ///         <description><DEVELOPER></description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AggregateGroupByRequest.Options.REFRESH_TYPE">REFRESH_TYPE</see>:</term>
         ///         <description><DEVELOPER></description>
         ///     </item>
         /// </list>
@@ -2591,16 +2882,6 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AlterTableRequest.Action.MEMORY_TTL">MEMORY_TTL</see>:</term>
-        ///         <description>Sets the time-to-live in minutes for the
-        /// individual chunks of the columns of the table, view, or collection
-        /// specified in <paramref cref="AlterTableRequest.table_name" /> to
-        /// free their memory if unused longer than the given time. Specify an
-        /// empty string to restore the global memory_ttl setting and a value
-        /// of '-1' for an infinite timeout.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
         /// cref="AlterTableRequest.Action.ADD_COLUMN">ADD_COLUMN</see>:</term>
         ///         <description>Adds the column specified in <paramref
         /// cref="AlterTableRequest._value" /> to the table specified in
@@ -3298,6 +3579,29 @@ namespace kinetica
         /// The default value is <see
         /// cref="AppendRecordsRequest.Options.FALSE">FALSE</see>.</description>
         ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AppendRecordsRequest.Options.TRUNCATE_STRINGS">TRUNCATE_STRINGS</see>:</term>
+        ///         <description>If set to {true}@{, it allows to append
+        /// unbounded string to charN string. If 'truncate_strings' is 'true',
+        /// the desination column is charN datatype, and the source column is
+        /// unnbounded string, it will truncate the source string to length of
+        /// N first, and then append the truncated string to the destination
+        /// charN column. The default value is false.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="AppendRecordsRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AppendRecordsRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="AppendRecordsRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
         /// </list>
         ///   </param>
         /// 
@@ -3959,9 +4263,7 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="CreateJoinTableRequest.Options.MAX_QUERY_DIMENSIONS">MAX_QUERY_DIMENSIONS</see>:</term>
-        ///         <description>The maximum number of tables in a join that
-        /// can be accessed by a query and are not equated by a foreign-key to
-        /// primary-key equality predicate</description>
+        ///         <description>Obsolete in GPUdb v7.0</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -4074,6 +4376,12 @@ namespace kinetica
         ///         <description>return a count of 0 for the join table for
         /// logging and for show_table. optimization needed for large
         /// overlapped equi-join stencils</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateJoinTableRequest.Options.CHUNK_SIZE">CHUNK_SIZE</see>:</term>
+        ///         <description>Maximum size of a joined-chunk for this table.
+        /// Defaults to the gpudb.conf file chunk size</description>
         ///     </item>
         /// </list>
         ///   </param>
@@ -4938,6 +5246,11 @@ namespace kinetica
         /// href="../../concepts/tables.html#partitioning-by-interval"
         /// target="_top">interval partitioning</a>.</description>
         ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableRequest.Options.LIST">LIST</see>:</term>
+        ///         <description>Not yet supported</description>
+        ///     </item>
         /// </list></description>
         ///     </item>
         ///     <item>
@@ -4958,6 +5271,26 @@ namespace kinetica
         /// href="../../concepts/tables.html#partitioning-by-interval-example"
         /// target="_top">interval partitioning example</a> for example
         /// formats.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableRequest.Options.IS_AUTOMATIC_PARTITION">IS_AUTOMATIC_PARTITION</see>:</term>
+        ///         <description>If true, a new partition will be created for
+        /// values which don't fall into an existing partition.  Currently only
+        /// supported for LIST partitions
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="CreateTableRequest.Options.FALSE">FALSE</see>.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -5390,8 +5723,8 @@ namespace kinetica
         /// property for string columns. This property reduces system disk
         /// usage by disabling reverse string lookups. Queries like /filter,
         /// /filter/bylist, and /filter/byvalue work as usual but
-        /// /aggregate/unique, /aggregate/groupby and /get/records/bycolumn are
-        /// not allowed on columns with this property.</description>
+        /// /aggregate/unique and /aggregate/groupby are not allowed on columns
+        /// with this property.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -5576,6 +5909,13 @@ namespace kinetica
         /// columns. Dictionary encoding is best for columns where the
         /// cardinality (the number of unique values) is expected to be low.
         /// This property can save a large amount of memory.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTypeRequest.Properties.INIT_WITH_NOW">INIT_WITH_NOW</see>:</term>
+        ///         <description>For columns with attributes of date, time,
+        /// datetime or timestamp, at insert time, replace empty strings and
+        /// invalid timestamps with NOW()</description>
         ///     </item>
         /// </list>  </param>
         /// <param name="options">Optional parameters.  </param>
@@ -6105,10 +6445,12 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="DeleteRecordsRequest.Options.RECORD_ID">RECORD_ID</see>:</term>
-        ///         <description>A record id identifying a single record,
+        ///         <description>A record ID identifying a single record,
         /// obtained at the time of /insert/records or by calling
-        /// /get/records/fromcollection with the *return_record_ids*
-        /// option.</description>
+        /// /get/records/fromcollection with the *return_record_ids* option.
+        /// This option cannot be used to delete records from <a
+        /// href="../../concepts/tables.html#replication"
+        /// target="_top">replicated</a> tables.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -6501,11 +6843,11 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="ExecuteSqlRequest.Options.DISTRIBUTED_JOINS">DISTRIBUTED_JOINS</see>:</term>
-        ///         <description>If <i>false</i>, disables the use of
-        /// distributed joins in servicing the given query.  Any query
-        /// requiring a distributed join to succeed will fail, though hints can
-        /// be used in the query to change the distribution of the source data
-        /// to allow the query to succeed.
+        ///         <description>If <i>true</i>, enables the use of distributed
+        /// joins in servicing the given query.  Any query requiring a
+        /// distributed join will succeed, though hints can be used in the
+        /// query to change the distribution of the source data to allow the
+        /// query to succeed.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -6518,7 +6860,29 @@ namespace kinetica
         ///     </item>
         /// </list>
         /// The default value is <see
-        /// cref="ExecuteSqlRequest.Options.TRUE">TRUE</see>.</description>
+        /// cref="ExecuteSqlRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ExecuteSqlRequest.Options.DISTRIBUTED_OPERATIONS">DISTRIBUTED_OPERATIONS</see>:</term>
+        ///         <description>If <i>true</i>, enables the use of distributed
+        /// operations in servicing the given query.  Any query requiring a
+        /// distributed join will succeed, though hints can be used in the
+        /// query to change the distribution of the source data to allow the
+        /// query to succeed.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="ExecuteSqlRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ExecuteSqlRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="ExecuteSqlRequest.Options.FALSE">FALSE</see>.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -6624,6 +6988,44 @@ namespace kinetica
         ///         <term><see
         /// cref="ExecuteSqlRequest.Options.FALSE">FALSE</see>:</term>
         ///         <description>false</description>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="ExecuteSqlRequest.Options.TRUE">TRUE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ExecuteSqlRequest.Options.PREPARE_MODE">PREPARE_MODE</see>:</term>
+        ///         <description>If <i>true</i>, compiles a query into an
+        /// execution plan and saves it in query cache. Query execution is not
+        /// performed and an empty response will be returned to user
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="ExecuteSqlRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ExecuteSqlRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="ExecuteSqlRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ExecuteSqlRequest.Options.PLANNER_JOIN_VALIDATIONS">PLANNER_JOIN_VALIDATIONS</see>:</term>
+        ///         <description><DEVELOPER>
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="ExecuteSqlRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ExecuteSqlRequest.Options.FALSE">FALSE</see></term>
         ///     </item>
         /// </list>
         /// The default value is <see
@@ -9752,8 +10154,85 @@ namespace kinetica
         /// <summary>Employs a topological query on a network graph generated
         /// a-priori by <see
         /// cref="Kinetica.createGraph(string,bool,IList{string},IList{string},IList{string},IList{string},IDictionary{string, string})"
-        /// />. See <a href="../../graph_solver/network_graph_solver.html"
-        /// target="_top">Network Graph Solvers</a> for more
+        /// /> and returns a list of adjacent edge(s) or node(s), also known as
+        /// an adjacency list, depending on what's been provided to the
+        /// endpoint; providing edges will return nodes and providing nodes
+        /// will return edges. There are two ways to provide edge(s) or node(s)
+        /// to be queried: using column names and <a
+        /// href="../../graph_solver/network_graph_solver.html#query-identifiers"
+        /// target="_top">query identifiers</a> with the <paramref
+        /// cref="QueryGraphRequest.queries" /> with or using a list of
+        /// specific IDs with one of the <paramref
+        /// cref="QueryGraphRequest.edge_or_node_int_ids" />, <paramref
+        /// cref="QueryGraphRequest.edge_or_node_string_ids" />, and <paramref
+        /// cref="QueryGraphRequest.edge_or_node_wkt_ids" /> arrays and
+        /// <paramref cref="QueryGraphRequest.edge_to_node" /> to determine if
+        /// the IDs are edges or nodes.
+        /// <br />
+        /// To determine the node(s) or edge(s) adjacent to a value from a
+        /// given column, provide a list of column names aliased as a
+        /// particular query identifier to <paramref
+        /// cref="QueryGraphRequest.queries" />. This field can be populated
+        /// with column values from any table as long as the type is supported
+        /// by the given identifier. See <a
+        /// href="../../graph_solver/network_graph_solver.html#query-identifiers"
+        /// target="_top">Query Identifiers</a> for more information. I
+        /// <br />
+        /// To query for nodes that are adjacent to a given set of edges, set
+        /// <paramref cref="QueryGraphRequest.edge_to_node" /> to <i>true</i>
+        /// and provide values to the <paramref
+        /// cref="QueryGraphRequest.edge_or_node_int_ids" />, <paramref
+        /// cref="QueryGraphRequest.edge_or_node_string_ids" />, and <paramref
+        /// cref="QueryGraphRequest.edge_or_node_wkt_ids" /> arrays; it is
+        /// assumed the values in the arrays are edges and the corresponding
+        /// adjacency list array in the response will be populated with nodes.
+        /// <br />
+        /// To query for edges that are adjacent to a given set of nodes, set
+        /// <paramref cref="QueryGraphRequest.edge_to_node" /> to <i>false</i>
+        /// and provide values to the <paramref
+        /// cref="QueryGraphRequest.edge_or_node_int_ids" />, <paramref
+        /// cref="QueryGraphRequest.edge_or_node_string_ids" />, and <paramref
+        /// cref="QueryGraphRequest.edge_or_node_wkt_ids" /> arrays; it is
+        /// assumed the values in arrays are nodes and the given node(s) will
+        /// be queried for adjacent edges and the corresponding adjacency list
+        /// array in the response will be populated with edges.
+        /// <br />
+        /// To query for adjacencies relative to a given column and a given set
+        /// of edges/nodes, the <paramref cref="QueryGraphRequest.queries" />
+        /// and <paramref cref="QueryGraphRequest.edge_or_node_int_ids" /> /
+        /// <paramref cref="QueryGraphRequest.edge_or_node_string_ids" /> /
+        /// <paramref cref="QueryGraphRequest.edge_or_node_wkt_ids" />
+        /// parameters can be used in conjuction with each other. If both
+        /// <paramref cref="QueryGraphRequest.queries" /> and one of the arrays
+        /// are populated, values from <paramref
+        /// cref="QueryGraphRequest.queries" /> will be prioritized over values
+        /// in the array and all values parsed from the <paramref
+        /// cref="QueryGraphRequest.queries" /> array will be appended to the
+        /// corresponding arrays (depending on the type). If using both
+        /// <paramref cref="QueryGraphRequest.queries" /> and the edge_or_node
+        /// arrays, the types must match, e.g., if <paramref
+        /// cref="QueryGraphRequest.queries" /> utilizes the 'QUERY_NODE_ID'
+        /// identifier, only the <paramref
+        /// cref="QueryGraphRequest.edge_or_node_int_ids" /> array should be
+        /// used. Note that using <paramref cref="QueryGraphRequest.queries" />
+        /// will override <paramref cref="QueryGraphRequest.edge_to_node" />,
+        /// so if <paramref cref="QueryGraphRequest.queries" /> contains a
+        /// node-based query identifier, e.g., 'table.column AS QUERY_NODE_ID',
+        /// it is assumed that the <paramref
+        /// cref="QueryGraphRequest.edge_or_node_int_ids" /> will contain node
+        /// IDs.
+        /// <br />
+        /// To return the adjacency list in the response, leave <paramref
+        /// cref="QueryGraphRequest.adjacency_table" /> empty. To return the
+        /// adjacency list in a table and not in the response, provide a value
+        /// to <paramref cref="QueryGraphRequest.adjacency_table" /> and set
+        /// <i>export_query_results</i> to <i>false</i>. To return the
+        /// adjacency list both in a table and the response, provide a value to
+        /// <paramref cref="QueryGraphRequest.adjacency_table" /> and set
+        /// <i>export_query_results</i> to <i>true</i>.
+        /// <br />
+        /// See <a href="../../graph_solver/network_graph_solver.html"
+        /// target="_top">Network Graph Solver</a> for more
         /// information.</summary>
         /// 
         /// <param name="request_">Request object containing the parameters for
@@ -9773,15 +10252,89 @@ namespace kinetica
         /// <summary>Employs a topological query on a network graph generated
         /// a-priori by <see
         /// cref="Kinetica.createGraph(string,bool,IList{string},IList{string},IList{string},IList{string},IDictionary{string, string})"
-        /// />. See <a href="../../graph_solver/network_graph_solver.html"
-        /// target="_top">Network Graph Solvers</a> for more
+        /// /> and returns a list of adjacent edge(s) or node(s), also known as
+        /// an adjacency list, depending on what's been provided to the
+        /// endpoint; providing edges will return nodes and providing nodes
+        /// will return edges. There are two ways to provide edge(s) or node(s)
+        /// to be queried: using column names and <a
+        /// href="../../graph_solver/network_graph_solver.html#query-identifiers"
+        /// target="_top">query identifiers</a> with the <paramref
+        /// name="queries" /> with or using a list of specific IDs with one of
+        /// the <paramref name="edge_or_node_int_ids" />, <paramref
+        /// name="edge_or_node_string_ids" />, and <paramref
+        /// name="edge_or_node_wkt_ids" /> arrays and <paramref
+        /// name="edge_to_node" /> to determine if the IDs are edges or nodes.
+        /// <br />
+        /// To determine the node(s) or edge(s) adjacent to a value from a
+        /// given column, provide a list of column names aliased as a
+        /// particular query identifier to <paramref name="queries" />. This
+        /// field can be populated with column values from any table as long as
+        /// the type is supported by the given identifier. See <a
+        /// href="../../graph_solver/network_graph_solver.html#query-identifiers"
+        /// target="_top">Query Identifiers</a> for more information. I
+        /// <br />
+        /// To query for nodes that are adjacent to a given set of edges, set
+        /// <paramref name="edge_to_node" /> to <i>true</i> and provide values
+        /// to the <paramref name="edge_or_node_int_ids" />, <paramref
+        /// name="edge_or_node_string_ids" />, and <paramref
+        /// name="edge_or_node_wkt_ids" /> arrays; it is assumed the values in
+        /// the arrays are edges and the corresponding adjacency list array in
+        /// the response will be populated with nodes.
+        /// <br />
+        /// To query for edges that are adjacent to a given set of nodes, set
+        /// <paramref name="edge_to_node" /> to <i>false</i> and provide values
+        /// to the <paramref name="edge_or_node_int_ids" />, <paramref
+        /// name="edge_or_node_string_ids" />, and <paramref
+        /// name="edge_or_node_wkt_ids" /> arrays; it is assumed the values in
+        /// arrays are nodes and the given node(s) will be queried for adjacent
+        /// edges and the corresponding adjacency list array in the response
+        /// will be populated with edges.
+        /// <br />
+        /// To query for adjacencies relative to a given column and a given set
+        /// of edges/nodes, the <paramref name="queries" /> and <paramref
+        /// name="edge_or_node_int_ids" /> / <paramref
+        /// name="edge_or_node_string_ids" /> / <paramref
+        /// name="edge_or_node_wkt_ids" /> parameters can be used in conjuction
+        /// with each other. If both <paramref name="queries" /> and one of the
+        /// arrays are populated, values from <paramref name="queries" /> will
+        /// be prioritized over values in the array and all values parsed from
+        /// the <paramref name="queries" /> array will be appended to the
+        /// corresponding arrays (depending on the type). If using both
+        /// <paramref name="queries" /> and the edge_or_node arrays, the types
+        /// must match, e.g., if <paramref name="queries" /> utilizes the
+        /// 'QUERY_NODE_ID' identifier, only the <paramref
+        /// name="edge_or_node_int_ids" /> array should be used. Note that
+        /// using <paramref name="queries" /> will override <paramref
+        /// name="edge_to_node" />, so if <paramref name="queries" /> contains
+        /// a node-based query identifier, e.g., 'table.column AS
+        /// QUERY_NODE_ID', it is assumed that the <paramref
+        /// name="edge_or_node_int_ids" /> will contain node IDs.
+        /// <br />
+        /// To return the adjacency list in the response, leave <paramref
+        /// name="adjacency_table" /> empty. To return the adjacency list in a
+        /// table and not in the response, provide a value to <paramref
+        /// name="adjacency_table" /> and set <i>export_query_results</i> to
+        /// <i>false</i>. To return the adjacency list both in a table and the
+        /// response, provide a value to <paramref name="adjacency_table" />
+        /// and set <i>export_query_results</i> to <i>true</i>.
+        /// <br />
+        /// See <a href="../../graph_solver/network_graph_solver.html"
+        /// target="_top">Network Graph Solver</a> for more
         /// information.</summary>
         /// 
         /// <param name="graph_name">Name of the graph resource to query.
         /// </param>
-        /// <param name="edge_to_node">If set to <i>true</i>, the query gives
-        /// the adjacency list from edge(s) to node(s); otherwise, the
-        /// adjacency list is from node(s) to edge(s).
+        /// <param name="queries">Nodes or edges to be queried specified using
+        /// <a
+        /// href="../../graph_solver/network_graph_solver.html#query-identifiers"
+        /// target="_top">query identifiers</a>, e.g., 'table.column AS
+        /// QUERY_NODE_ID' or 'table.column AS QUERY_EDGE_WKTLINE'. Multiple
+        /// columns can be used as long as the same identifier is used for all
+        /// columns. Passing in a query identifier will override the <paramref
+        /// cref="QueryGraphRequest.edge_to_node" /> parameter.  </param>
+        /// <param name="edge_to_node">If set to <i>true</i>, the given edge(s)
+        /// will be queried for adjacent nodes. If set to <i>false</i>, the
+        /// given node(s) will be queried for adjacent edges.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -9814,16 +10367,24 @@ namespace kinetica
         /// cref="QueryGraphRequest.Options.NUMBER_OF_RINGS">NUMBER_OF_RINGS</see>:</term>
         ///         <description>Sets the number of rings of edges around the
         /// node to query for adjacency, with '1' being the edges directly
-        /// attached to the queried nodes. This setting is ignored if <paramref
-        /// cref="QueryGraphRequest.edge_to_node" /> is set to
-        /// <i>true</i>.</description>
+        /// attached to the queried nodes. For example, if
+        /// <i>number_of_rings</i> is set to '2', the edge(s) directly attached
+        /// to the queried nodes will be returned; in addition, the edge(s)
+        /// attached to the node(s) attached to the initial ring of edge(s)
+        /// surrounding the queried node(s) will be returned. This setting is
+        /// ignored if <paramref cref="QueryGraphRequest.edge_to_node" /> is
+        /// set to <i>true</i>. This setting cannot be less than
+        /// '1'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="QueryGraphRequest.Options.INCLUDE_ALL_EDGES">INCLUDE_ALL_EDGES</see>:</term>
-        ///         <description>Includes only the edges directed out of the
-        /// node for the query if set to <i>false</i>. If set to <i>true</i>,
-        /// all edges are queried.
+        ///         <description>This parameter is only applicable if the
+        /// queried graph is directed and <paramref
+        /// cref="QueryGraphRequest.edge_to_node" /> is set to <i>false</i>. If
+        /// set to <i>true</i>, all inbound edges and outbound edges relative
+        /// to the node will be returned. If set to <i>false</i>, only outbound
+        /// edges relative to the node will be returned.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -9860,9 +10421,14 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="QueryGraphRequest.Options.ENABLE_GRAPH_DRAW">ENABLE_GRAPH_DRAW</see>:</term>
-        ///         <description>If set to <i>true</i>, adds an 'EDGE_WKTLINE'
-        /// column identifier to the given <paramref
-        /// cref="QueryGraphRequest.adjacency_table" />.
+        ///         <description>If set to <i>true</i>, adds a WKT-type column
+        /// named 'QUERY_EDGE_WKTLINE' to the given <paramref
+        /// cref="QueryGraphRequest.adjacency_table" /> and inputs WKT values
+        /// from the source graph (if available) or auto-generated WKT values
+        /// (if there are no WKT values in the source graph). A subsequent call
+        /// to the <a href="../../api/rest/wms_rest.html"
+        /// target="_top">/wms</a> endpoint can then be made to display the
+        /// query results on a map.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -9884,6 +10450,7 @@ namespace kinetica
         /// operation.</returns>
         /// 
         public QueryGraphResponse queryGraph( string graph_name,
+                                              IList<string> queries,
                                               bool edge_to_node,
                                               IList<long> edge_or_node_int_ids,
                                               IList<string> edge_or_node_string_ids,
@@ -9891,46 +10458,12 @@ namespace kinetica
                                               string adjacency_table = "",
                                               IDictionary<string, string> options = null )
         {
-            return queryGraph( new QueryGraphRequest( graph_name, edge_to_node,
+            return queryGraph( new QueryGraphRequest( graph_name, queries, edge_to_node,
                                                       edge_or_node_int_ids,
                                                       edge_or_node_string_ids,
                                                       edge_or_node_wkt_ids,
                                                       adjacency_table, options ) );
         }
-
-        /// @cond NO_DOCS
-        /// 
-        /// <param name="request_">Request object containing the parameters for
-        /// the operation.</param>
-        /// 
-        /// <returns>Response object containing the result of the
-        /// operation.</returns>
-        /// 
-        public AdminReplaceTomResponse adminReplaceTom( AdminReplaceTomRequest request_ )
-        {
-            AdminReplaceTomResponse actualResponse_ = SubmitRequest<AdminReplaceTomResponse>("/replace/tom", request_, false);
-
-            return actualResponse_;
-        }
-        /// @endcond
-
-        /// @cond NO_DOCS
-        /// 
-        /// <param name="old_rank_tom"></param>
-        /// <param name="new_rank_tom"></param>
-        /// <param name="options"></param>
-        /// 
-        /// <returns>Response object containing the result of the
-        /// operation.</returns>
-        /// 
-        public AdminReplaceTomResponse adminReplaceTom( long old_rank_tom,
-                                                        long new_rank_tom,
-                                                        IDictionary<string, string> options = null )
-        {
-            return adminReplaceTom( new AdminReplaceTomRequest( old_rank_tom,
-                                                                new_rank_tom, options ) );
-        }
-        /// @endcond
 
 
         /// <summary>Revokes a system-level permission from a user or
@@ -10540,7 +11073,11 @@ namespace kinetica
         /// <i>false</i> returns only information about the collection itself;
         /// setting <i>show_children</i> to <i>true</i> returns a list of
         /// tables and views contained in the collection, along with their
-        /// corresponding detail.</summary>
+        /// corresponding detail.
+        /// <br />
+        /// To retrieve a list of every table, view, and collection in the
+        /// database, set <paramref cref="ShowTableRequest.table_name" /> to
+        /// '*' and <i>show_children</i> to <i>true</i>.</summary>
         /// 
         /// <param name="request_">Request object containing the parameters for
         /// the operation.</param>
@@ -10585,7 +11122,11 @@ namespace kinetica
         /// <i>false</i> returns only information about the collection itself;
         /// setting <i>show_children</i> to <i>true</i> returns a list of
         /// tables and views contained in the collection, along with their
-        /// corresponding detail.</summary>
+        /// corresponding detail.
+        /// <br />
+        /// To retrieve a list of every table, view, and collection in the
+        /// database, set <paramref name="table_name" /> to '*' and
+        /// <i>show_children</i> to <i>true</i>.</summary>
         /// 
         /// <param name="table_name">Name of the table for which to retrieve
         /// the information. If blank, then information about all collections
@@ -11441,8 +11982,8 @@ namespace kinetica
         /// operation will be performed. Must be an existing view.  </param>
         /// <param name="world_table_name">Name of the table containing the
         /// complete series (track) information.  </param>
-        /// <param name="view_name">Optional name of the view containing the
-        /// series (tracks) which have to be updated.  </param>
+        /// <param name="view_name">name of the view containing the series
+        /// (tracks) which have to be updated.  </param>
         /// <param name="reserved"></param>
         /// <param name="options">Optional parameters.  </param>
         /// 

@@ -158,11 +158,11 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="ExecuteSqlRequest.Options.DISTRIBUTED_JOINS">DISTRIBUTED_JOINS</see>:</term>
-        ///         <description>If <i>false</i>, disables the use of
-        /// distributed joins in servicing the given query.  Any query
-        /// requiring a distributed join to succeed will fail, though hints can
-        /// be used in the query to change the distribution of the source data
-        /// to allow the query to succeed.
+        ///         <description>If <i>true</i>, enables the use of distributed
+        /// joins in servicing the given query.  Any query requiring a
+        /// distributed join will succeed, though hints can be used in the
+        /// query to change the distribution of the source data to allow the
+        /// query to succeed.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -175,7 +175,29 @@ namespace kinetica
         ///     </item>
         /// </list>
         /// The default value is <see
-        /// cref="ExecuteSqlRequest.Options.TRUE">TRUE</see>.</description>
+        /// cref="ExecuteSqlRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ExecuteSqlRequest.Options.DISTRIBUTED_OPERATIONS">DISTRIBUTED_OPERATIONS</see>:</term>
+        ///         <description>If <i>true</i>, enables the use of distributed
+        /// operations in servicing the given query.  Any query requiring a
+        /// distributed join will succeed, though hints can be used in the
+        /// query to change the distribution of the source data to allow the
+        /// query to succeed.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="ExecuteSqlRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ExecuteSqlRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="ExecuteSqlRequest.Options.FALSE">FALSE</see>.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -286,6 +308,44 @@ namespace kinetica
         /// The default value is <see
         /// cref="ExecuteSqlRequest.Options.TRUE">TRUE</see>.</description>
         ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ExecuteSqlRequest.Options.PREPARE_MODE">PREPARE_MODE</see>:</term>
+        ///         <description>If <i>true</i>, compiles a query into an
+        /// execution plan and saves it in query cache. Query execution is not
+        /// performed and an empty response will be returned to user
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="ExecuteSqlRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ExecuteSqlRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="ExecuteSqlRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ExecuteSqlRequest.Options.PLANNER_JOIN_VALIDATIONS">PLANNER_JOIN_VALIDATIONS</see>:</term>
+        ///         <description><DEVELOPER>
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="ExecuteSqlRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ExecuteSqlRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="ExecuteSqlRequest.Options.TRUE">TRUE</see>.</description>
+        ///     </item>
         /// </list>
         /// <br />
         /// A set of string constants for the parameter <see cref="options"
@@ -309,11 +369,7 @@ namespace kinetica
             /// The default value is <see
             /// cref="ExecuteSqlRequest.Options.TRUE">TRUE</see>.</summary>
             public const string PARALLEL_EXECUTION = "parallel_execution";
-
-            /// <summary>true</summary>
             public const string TRUE = "true";
-
-            /// <summary>false</summary>
             public const string FALSE = "false";
 
             /// <summary>If <i>false</i>, disables the cost-based optimization
@@ -395,11 +451,11 @@ namespace kinetica
             /// target="_top">TTL</a> of the paging table.</summary>
             public const string PAGING_TABLE_TTL = "paging_table_ttl";
 
-            /// <summary>If <i>false</i>, disables the use of distributed joins
+            /// <summary>If <i>true</i>, enables the use of distributed joins
             /// in servicing the given query.  Any query requiring a
-            /// distributed join to succeed will fail, though hints can be used
-            /// in the query to change the distribution of the source data to
-            /// allow the query to succeed.
+            /// distributed join will succeed, though hints can be used in the
+            /// query to change the distribution of the source data to allow
+            /// the query to succeed.
             /// Supported values:
             /// <list type="bullet">
             ///     <item>
@@ -412,8 +468,28 @@ namespace kinetica
             ///     </item>
             /// </list>
             /// The default value is <see
-            /// cref="ExecuteSqlRequest.Options.TRUE">TRUE</see>.</summary>
+            /// cref="ExecuteSqlRequest.Options.FALSE">FALSE</see>.</summary>
             public const string DISTRIBUTED_JOINS = "distributed_joins";
+
+            /// <summary>If <i>true</i>, enables the use of distributed
+            /// operations in servicing the given query.  Any query requiring a
+            /// distributed join will succeed, though hints can be used in the
+            /// query to change the distribution of the source data to allow
+            /// the query to succeed.
+            /// Supported values:
+            /// <list type="bullet">
+            ///     <item>
+            ///         <term><see
+            /// cref="ExecuteSqlRequest.Options.TRUE">TRUE</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="ExecuteSqlRequest.Options.FALSE">FALSE</see></term>
+            ///     </item>
+            /// </list>
+            /// The default value is <see
+            /// cref="ExecuteSqlRequest.Options.FALSE">FALSE</see>.</summary>
+            public const string DISTRIBUTED_OPERATIONS = "distributed_operations";
 
             /// <summary>If <i>false</i>, scalar subqueries will be translated
             /// into joins
@@ -511,6 +587,40 @@ namespace kinetica
             /// The default value is <see
             /// cref="ExecuteSqlRequest.Options.TRUE">TRUE</see>.</summary>
             public const string VALIDATE_CHANGE_COLUMN = "validate_change_column";
+
+            /// <summary>If <i>true</i>, compiles a query into an execution
+            /// plan and saves it in query cache. Query execution is not
+            /// performed and an empty response will be returned to user
+            /// Supported values:
+            /// <list type="bullet">
+            ///     <item>
+            ///         <term><see
+            /// cref="ExecuteSqlRequest.Options.TRUE">TRUE</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="ExecuteSqlRequest.Options.FALSE">FALSE</see></term>
+            ///     </item>
+            /// </list>
+            /// The default value is <see
+            /// cref="ExecuteSqlRequest.Options.FALSE">FALSE</see>.</summary>
+            public const string PREPARE_MODE = "prepare_mode";
+
+            /// <summary><DEVELOPER>
+            /// Supported values:
+            /// <list type="bullet">
+            ///     <item>
+            ///         <term><see
+            /// cref="ExecuteSqlRequest.Options.TRUE">TRUE</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="ExecuteSqlRequest.Options.FALSE">FALSE</see></term>
+            ///     </item>
+            /// </list>
+            /// The default value is <see
+            /// cref="ExecuteSqlRequest.Options.TRUE">TRUE</see>.</summary>
+            public const string PLANNER_JOIN_VALIDATIONS = "planner_join_validations";
         } // end struct Options
 
 
@@ -670,11 +780,11 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="ExecuteSqlRequest.Options.DISTRIBUTED_JOINS">DISTRIBUTED_JOINS</see>:</term>
-        ///         <description>If <i>false</i>, disables the use of
-        /// distributed joins in servicing the given query.  Any query
-        /// requiring a distributed join to succeed will fail, though hints can
-        /// be used in the query to change the distribution of the source data
-        /// to allow the query to succeed.
+        ///         <description>If <i>true</i>, enables the use of distributed
+        /// joins in servicing the given query.  Any query requiring a
+        /// distributed join will succeed, though hints can be used in the
+        /// query to change the distribution of the source data to allow the
+        /// query to succeed.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -687,7 +797,29 @@ namespace kinetica
         ///     </item>
         /// </list>
         /// The default value is <see
-        /// cref="ExecuteSqlRequest.Options.TRUE">TRUE</see>.</description>
+        /// cref="ExecuteSqlRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ExecuteSqlRequest.Options.DISTRIBUTED_OPERATIONS">DISTRIBUTED_OPERATIONS</see>:</term>
+        ///         <description>If <i>true</i>, enables the use of distributed
+        /// operations in servicing the given query.  Any query requiring a
+        /// distributed join will succeed, though hints can be used in the
+        /// query to change the distribution of the source data to allow the
+        /// query to succeed.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="ExecuteSqlRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ExecuteSqlRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="ExecuteSqlRequest.Options.FALSE">FALSE</see>.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -793,6 +925,44 @@ namespace kinetica
         ///         <term><see
         /// cref="ExecuteSqlRequest.Options.FALSE">FALSE</see>:</term>
         ///         <description>false</description>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="ExecuteSqlRequest.Options.TRUE">TRUE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ExecuteSqlRequest.Options.PREPARE_MODE">PREPARE_MODE</see>:</term>
+        ///         <description>If <i>true</i>, compiles a query into an
+        /// execution plan and saves it in query cache. Query execution is not
+        /// performed and an empty response will be returned to user
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="ExecuteSqlRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ExecuteSqlRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="ExecuteSqlRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ExecuteSqlRequest.Options.PLANNER_JOIN_VALIDATIONS">PLANNER_JOIN_VALIDATIONS</see>:</term>
+        ///         <description><DEVELOPER>
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="ExecuteSqlRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ExecuteSqlRequest.Options.FALSE">FALSE</see></term>
         ///     </item>
         /// </list>
         /// The default value is <see
@@ -939,11 +1109,11 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="ExecuteSqlRequest.Options.DISTRIBUTED_JOINS">DISTRIBUTED_JOINS</see>:</term>
-        ///         <description>If <i>false</i>, disables the use of
-        /// distributed joins in servicing the given query.  Any query
-        /// requiring a distributed join to succeed will fail, though hints can
-        /// be used in the query to change the distribution of the source data
-        /// to allow the query to succeed.
+        ///         <description>If <i>true</i>, enables the use of distributed
+        /// joins in servicing the given query.  Any query requiring a
+        /// distributed join will succeed, though hints can be used in the
+        /// query to change the distribution of the source data to allow the
+        /// query to succeed.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -956,7 +1126,29 @@ namespace kinetica
         ///     </item>
         /// </list>
         /// The default value is <see
-        /// cref="ExecuteSqlRequest.Options.TRUE">TRUE</see>.</description>
+        /// cref="ExecuteSqlRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ExecuteSqlRequest.Options.DISTRIBUTED_OPERATIONS">DISTRIBUTED_OPERATIONS</see>:</term>
+        ///         <description>If <i>true</i>, enables the use of distributed
+        /// operations in servicing the given query.  Any query requiring a
+        /// distributed join will succeed, though hints can be used in the
+        /// query to change the distribution of the source data to allow the
+        /// query to succeed.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="ExecuteSqlRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ExecuteSqlRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="ExecuteSqlRequest.Options.FALSE">FALSE</see>.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -1062,6 +1254,44 @@ namespace kinetica
         ///         <term><see
         /// cref="ExecuteSqlRequest.Options.FALSE">FALSE</see>:</term>
         ///         <description>false</description>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="ExecuteSqlRequest.Options.TRUE">TRUE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ExecuteSqlRequest.Options.PREPARE_MODE">PREPARE_MODE</see>:</term>
+        ///         <description>If <i>true</i>, compiles a query into an
+        /// execution plan and saves it in query cache. Query execution is not
+        /// performed and an empty response will be returned to user
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="ExecuteSqlRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ExecuteSqlRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="ExecuteSqlRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ExecuteSqlRequest.Options.PLANNER_JOIN_VALIDATIONS">PLANNER_JOIN_VALIDATIONS</see>:</term>
+        ///         <description><DEVELOPER>
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="ExecuteSqlRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ExecuteSqlRequest.Options.FALSE">FALSE</see></term>
         ///     </item>
         /// </list>
         /// The default value is <see
@@ -1234,11 +1464,11 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="ExecuteSqlRequest.Options.DISTRIBUTED_JOINS">DISTRIBUTED_JOINS</see>:</term>
-        ///         <description>If <i>false</i>, disables the use of
-        /// distributed joins in servicing the given query.  Any query
-        /// requiring a distributed join to succeed will fail, though hints can
-        /// be used in the query to change the distribution of the source data
-        /// to allow the query to succeed.
+        ///         <description>If <i>true</i>, enables the use of distributed
+        /// joins in servicing the given query.  Any query requiring a
+        /// distributed join will succeed, though hints can be used in the
+        /// query to change the distribution of the source data to allow the
+        /// query to succeed.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -1251,7 +1481,29 @@ namespace kinetica
         ///     </item>
         /// </list>
         /// The default value is <see
-        /// cref="ExecuteSqlRequest.Options.TRUE">TRUE</see>.</description>
+        /// cref="ExecuteSqlRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ExecuteSqlRequest.Options.DISTRIBUTED_OPERATIONS">DISTRIBUTED_OPERATIONS</see>:</term>
+        ///         <description>If <i>true</i>, enables the use of distributed
+        /// operations in servicing the given query.  Any query requiring a
+        /// distributed join will succeed, though hints can be used in the
+        /// query to change the distribution of the source data to allow the
+        /// query to succeed.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="ExecuteSqlRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ExecuteSqlRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="ExecuteSqlRequest.Options.FALSE">FALSE</see>.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -1357,6 +1609,44 @@ namespace kinetica
         ///         <term><see
         /// cref="ExecuteSqlRequest.Options.FALSE">FALSE</see>:</term>
         ///         <description>false</description>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="ExecuteSqlRequest.Options.TRUE">TRUE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ExecuteSqlRequest.Options.PREPARE_MODE">PREPARE_MODE</see>:</term>
+        ///         <description>If <i>true</i>, compiles a query into an
+        /// execution plan and saves it in query cache. Query execution is not
+        /// performed and an empty response will be returned to user
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="ExecuteSqlRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ExecuteSqlRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="ExecuteSqlRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ExecuteSqlRequest.Options.PLANNER_JOIN_VALIDATIONS">PLANNER_JOIN_VALIDATIONS</see>:</term>
+        ///         <description><DEVELOPER>
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="ExecuteSqlRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ExecuteSqlRequest.Options.FALSE">FALSE</see></term>
         ///     </item>
         /// </list>
         /// The default value is <see

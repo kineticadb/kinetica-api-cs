@@ -31,7 +31,11 @@ namespace kinetica
     /// <i>false</i> returns only information about the collection itself;
     /// setting <i>show_children</i> to <i>true</i> returns a list of tables
     /// and views contained in the collection, along with their corresponding
-    /// detail.</summary>
+    /// detail.
+    /// <br />
+    /// To retrieve a list of every table, view, and collection in the
+    /// database, set <see cref="table_name" /> to '*' and <i>show_children</i>
+    /// to <i>true</i>.</summary>
     public class ShowTableRequest : KineticaData
     {
 
@@ -599,11 +603,6 @@ namespace kinetica
             /// present for collections.</summary>
             public const string REMAINING_TABLE_TTL = "remaining_table_ttl";
 
-            /// <summary>The value of the time-to-live in minutes for unqueried
-            /// column data to stay in memory.  Not present for collections or
-            /// if not set for this table.</summary>
-            public const string MEMORY_TTL = "memory_ttl";
-
             /// <summary>Semicolon-separated list of <a
             /// href="../../concepts/tables.html#foreign-key"
             /// target="_top">foreign keys</a>, of the format 'source_column
@@ -637,6 +636,11 @@ namespace kinetica
             ///     </item>
             ///     <item>
             ///         <term><see
+            /// cref="ShowTableResponse.AdditionalInfo.LIST">LIST</see>:</term>
+            ///         <description>Not yet supported</description>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
             /// cref="ShowTableResponse.AdditionalInfo.NONE">NONE</see>:</term>
             ///         <description>Using no partitioning</description>
             ///     </item>
@@ -655,6 +659,9 @@ namespace kinetica
             /// target="_top">interval partitioning</a></summary>
             public const string INTERVAL = "INTERVAL";
 
+            /// <summary>Not yet supported</summary>
+            public const string LIST = "LIST";
+
             /// <summary>Using no partitioning</summary>
             public const string NONE = "NONE";
 
@@ -667,6 +674,10 @@ namespace kinetica
             /// target="_top">partitioning</a> documentation for
             /// details.</summary>
             public const string PARTITION_DEFINITIONS = "partition_definitions";
+
+            /// <summary>true if partitions will be created for values which
+            /// don't fall into existing partitions</summary>
+            public const string IS_AUTOMATIC_PARTITION = "is_automatic_partition";
 
             /// <summary>Semicolon-separated list of columns that have <a
             /// href="../../concepts/indexes.html#column-index"

@@ -39,10 +39,8 @@ namespace kinetica
         /// cref="Kinetica.filterByValue(string,string,bool,double,string,string,IDictionary{string, string})"
         /// /> work as usual but <see
         /// cref="Kinetica.aggregateUnique(string,string,long,long,IDictionary{string, string})"
-        /// />, <see
-        /// cref="Kinetica.aggregateGroupBy(string,IList{string},long,long,IDictionary{string, string})"
         /// /> and <see
-        /// cref="Kinetica.getRecordsByColumn(string,IList{string},long,long,IDictionary{string, string})"
+        /// cref="Kinetica.aggregateGroupBy(string,IList{string},long,long,IDictionary{string, string})"
         /// /> are not allowed on columns with this property.</summary>
         public const string DISK_OPTIMIZED = "disk_optimized";
 
@@ -180,6 +178,11 @@ namespace kinetica
         /// cardinality (the number of unique values) is expected to be low.
         /// This property can save a large amount of memory.</summary>
         public const string DICT = "dict";
+
+        /// <summary>For columns with attributes of date, time, datetime or
+        /// timestamp, at insert time, replace empty strings and invalid
+        /// timestamps with NOW()</summary>
+        public const string INIT_WITH_NOW = "init_with_now";
     } // end struct ColumnProperty
 
 

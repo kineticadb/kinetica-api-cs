@@ -95,8 +95,8 @@ namespace kinetica
         /// property for string columns. This property reduces system disk
         /// usage by disabling reverse string lookups. Queries like /filter,
         /// /filter/bylist, and /filter/byvalue work as usual but
-        /// /aggregate/unique, /aggregate/groupby and /get/records/bycolumn are
-        /// not allowed on columns with this property.</description>
+        /// /aggregate/unique and /aggregate/groupby are not allowed on columns
+        /// with this property.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -283,6 +283,13 @@ namespace kinetica
         /// cardinality (the number of unique values) is expected to be low.
         /// This property can save a large amount of memory.</description>
         ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTypeRequest.Properties.INIT_WITH_NOW">INIT_WITH_NOW</see>:</term>
+        ///         <description>For columns with attributes of date, time,
+        /// datetime or timestamp, at insert time, replace empty strings and
+        /// invalid timestamps with NOW()</description>
+        ///     </item>
         /// </list>
         /// A set of string constants for the parameter <see cref="properties"
         /// />.</summary>
@@ -316,10 +323,8 @@ namespace kinetica
             /// cref="Kinetica.filterByValue(string,string,bool,double,string,string,IDictionary{string, string})"
             /// /> work as usual but <see
             /// cref="Kinetica.aggregateUnique(string,string,long,long,IDictionary{string, string})"
-            /// />, <see
-            /// cref="Kinetica.aggregateGroupBy(string,IList{string},long,long,IDictionary{string, string})"
             /// /> and <see
-            /// cref="Kinetica.getRecordsByColumn(string,IList{string},long,long,IDictionary{string, string})"
+            /// cref="Kinetica.aggregateGroupBy(string,IList{string},long,long,IDictionary{string, string})"
             /// /> are not allowed on columns with this property.</summary>
             public const string DISK_OPTIMIZED = "disk_optimized";
 
@@ -464,6 +469,11 @@ namespace kinetica
             /// cardinality (the number of unique values) is expected to be
             /// low. This property can save a large amount of memory.</summary>
             public const string DICT = "dict";
+
+            /// <summary>For columns with attributes of date, time, datetime or
+            /// timestamp, at insert time, replace empty strings and invalid
+            /// timestamps with NOW()</summary>
+            public const string INIT_WITH_NOW = "init_with_now";
         } // end struct Properties
 
 
@@ -513,8 +523,8 @@ namespace kinetica
         /// property for string columns. This property reduces system disk
         /// usage by disabling reverse string lookups. Queries like /filter,
         /// /filter/bylist, and /filter/byvalue work as usual but
-        /// /aggregate/unique, /aggregate/groupby and /get/records/bycolumn are
-        /// not allowed on columns with this property.</description>
+        /// /aggregate/unique and /aggregate/groupby are not allowed on columns
+        /// with this property.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -701,6 +711,13 @@ namespace kinetica
         /// cardinality (the number of unique values) is expected to be low.
         /// This property can save a large amount of memory.</description>
         ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTypeRequest.Properties.INIT_WITH_NOW">INIT_WITH_NOW</see>:</term>
+        ///         <description>For columns with attributes of date, time,
+        /// datetime or timestamp, at insert time, replace empty strings and
+        /// invalid timestamps with NOW()</description>
+        ///     </item>
         /// </list>  </summary>
         public IDictionary<string, IList<string>> properties { get; set; } = new Dictionary<string, IList<string>>();
 
@@ -757,8 +774,8 @@ namespace kinetica
         /// property for string columns. This property reduces system disk
         /// usage by disabling reverse string lookups. Queries like /filter,
         /// /filter/bylist, and /filter/byvalue work as usual but
-        /// /aggregate/unique, /aggregate/groupby and /get/records/bycolumn are
-        /// not allowed on columns with this property.</description>
+        /// /aggregate/unique and /aggregate/groupby are not allowed on columns
+        /// with this property.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -943,6 +960,13 @@ namespace kinetica
         /// columns. Dictionary encoding is best for columns where the
         /// cardinality (the number of unique values) is expected to be low.
         /// This property can save a large amount of memory.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTypeRequest.Properties.INIT_WITH_NOW">INIT_WITH_NOW</see>:</term>
+        ///         <description>For columns with attributes of date, time,
+        /// datetime or timestamp, at insert time, replace empty strings and
+        /// invalid timestamps with NOW()</description>
         ///     </item>
         /// </list>  </param>
         /// <param name="options">Optional parameters.  </param>

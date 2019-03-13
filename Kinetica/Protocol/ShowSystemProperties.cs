@@ -135,6 +135,19 @@ namespace kinetica
         ///         <description>The host manager port number (an integer
         /// value).</description>
         ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ShowSystemPropertiesResponse.PropertyMap.CONF_ENABLE_HA">CONF_ENABLE_HA</see>:</term>
+        ///         <description>Flag indicating whether high availability (HA)
+        /// is set up (a boolean value).</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ShowSystemPropertiesResponse.PropertyMap.CONF_HA_RING_HEAD_NODES">CONF_HA_RING_HEAD_NODES</see>:</term>
+        ///         <description>A comma-separated string of high availability
+        /// (HA) ring node URLs.  If HA is not set up, then an empty
+        /// string.</description>
+        ///     </item>
         /// </list>
         /// <br />
         /// A set of string constants for the parameter <member
@@ -181,6 +194,15 @@ namespace kinetica
             /// <summary>The host manager port number (an integer
             /// value).</summary>
             public const string CONF_HM_HTTP_PORT = "conf.hm_http_port";
+
+            /// <summary>Flag indicating whether high availability (HA) is set
+            /// up (a boolean value).</summary>
+            public const string CONF_ENABLE_HA = "conf.enable_ha";
+
+            /// <summary>A comma-separated string of high availability (HA)
+            /// ring node URLs.  If HA is not set up, then an empty
+            /// string.</summary>
+            public const string CONF_HA_RING_HEAD_NODES = "conf.ha_ring_head_nodes";
         } // end struct PropertyMap
 
 
@@ -227,6 +249,19 @@ namespace kinetica
         /// cref="ShowSystemPropertiesResponse.PropertyMap.CONF_HM_HTTP_PORT">CONF_HM_HTTP_PORT</see>:</term>
         ///         <description>The host manager port number (an integer
         /// value).</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ShowSystemPropertiesResponse.PropertyMap.CONF_ENABLE_HA">CONF_ENABLE_HA</see>:</term>
+        ///         <description>Flag indicating whether high availability (HA)
+        /// is set up (a boolean value).</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ShowSystemPropertiesResponse.PropertyMap.CONF_HA_RING_HEAD_NODES">CONF_HA_RING_HEAD_NODES</see>:</term>
+        ///         <description>A comma-separated string of high availability
+        /// (HA) ring node URLs.  If HA is not set up, then an empty
+        /// string.</description>
         ///     </item>
         /// </list>
         ///   </summary>

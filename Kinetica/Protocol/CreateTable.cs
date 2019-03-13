@@ -181,6 +181,11 @@ namespace kinetica
         /// href="../../concepts/tables.html#partitioning-by-interval"
         /// target="_top">interval partitioning</a>.</description>
         ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableRequest.Options.LIST">LIST</see>:</term>
+        ///         <description>Not yet supported</description>
+        ///     </item>
         /// </list></description>
         ///     </item>
         ///     <item>
@@ -201,6 +206,26 @@ namespace kinetica
         /// href="../../concepts/tables.html#partitioning-by-interval-example"
         /// target="_top">interval partitioning example</a> for example
         /// formats.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableRequest.Options.IS_AUTOMATIC_PARTITION">IS_AUTOMATIC_PARTITION</see>:</term>
+        ///         <description>If true, a new partition will be created for
+        /// values which don't fall into an existing partition.  Currently only
+        /// supported for LIST partitions
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="CreateTableRequest.Options.FALSE">FALSE</see>.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -376,6 +401,11 @@ namespace kinetica
             /// href="../../concepts/tables.html#partitioning-by-interval"
             /// target="_top">interval partitioning</a>.</description>
             ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="CreateTableRequest.Options.LIST">LIST</see>:</term>
+            ///         <description>Not yet supported</description>
+            ///     </item>
             /// </list></summary>
             public const string PARTITION_TYPE = "partition_type";
 
@@ -388,6 +418,9 @@ namespace kinetica
             /// href="../../concepts/tables.html#partitioning-by-interval"
             /// target="_top">interval partitioning</a>.</summary>
             public const string INTERVAL = "INTERVAL";
+
+            /// <summary>Not yet supported</summary>
+            public const string LIST = "LIST";
 
             /// <summary>Comma-separated list of partition keys, which are the
             /// columns or column expressions by which records will be assigned
@@ -403,6 +436,24 @@ namespace kinetica
             /// target="_top">interval partitioning example</a> for example
             /// formats.</summary>
             public const string PARTITION_DEFINITIONS = "partition_definitions";
+
+            /// <summary>If true, a new partition will be created for values
+            /// which don't fall into an existing partition.  Currently only
+            /// supported for LIST partitions
+            /// Supported values:
+            /// <list type="bullet">
+            ///     <item>
+            ///         <term><see
+            /// cref="CreateTableRequest.Options.TRUE">TRUE</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="CreateTableRequest.Options.FALSE">FALSE</see></term>
+            ///     </item>
+            /// </list>
+            /// The default value is <see
+            /// cref="CreateTableRequest.Options.FALSE">FALSE</see>.</summary>
+            public const string IS_AUTOMATIC_PARTITION = "is_automatic_partition";
 
             /// <summary>For a table, sets the <a
             /// href="../../concepts/ttl.html" target="_top">TTL</a> of the
@@ -592,6 +643,11 @@ namespace kinetica
         /// href="../../concepts/tables.html#partitioning-by-interval"
         /// target="_top">interval partitioning</a>.</description>
         ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableRequest.Options.LIST">LIST</see>:</term>
+        ///         <description>Not yet supported</description>
+        ///     </item>
         /// </list></description>
         ///     </item>
         ///     <item>
@@ -612,6 +668,26 @@ namespace kinetica
         /// href="../../concepts/tables.html#partitioning-by-interval-example"
         /// target="_top">interval partitioning example</a> for example
         /// formats.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableRequest.Options.IS_AUTOMATIC_PARTITION">IS_AUTOMATIC_PARTITION</see>:</term>
+        ///         <description>If true, a new partition will be created for
+        /// values which don't fall into an existing partition.  Currently only
+        /// supported for LIST partitions
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="CreateTableRequest.Options.FALSE">FALSE</see>.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -817,6 +893,11 @@ namespace kinetica
         /// href="../../concepts/tables.html#partitioning-by-interval"
         /// target="_top">interval partitioning</a>.</description>
         ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableRequest.Options.LIST">LIST</see>:</term>
+        ///         <description>Not yet supported</description>
+        ///     </item>
         /// </list></description>
         ///     </item>
         ///     <item>
@@ -837,6 +918,26 @@ namespace kinetica
         /// href="../../concepts/tables.html#partitioning-by-interval-example"
         /// target="_top">interval partitioning example</a> for example
         /// formats.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableRequest.Options.IS_AUTOMATIC_PARTITION">IS_AUTOMATIC_PARTITION</see>:</term>
+        ///         <description>If true, a new partition will be created for
+        /// values which don't fall into an existing partition.  Currently only
+        /// supported for LIST partitions
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="CreateTableRequest.Options.FALSE">FALSE</see>.</description>
         ///     </item>
         ///     <item>
         ///         <term><see

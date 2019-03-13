@@ -91,6 +91,29 @@ namespace kinetica
         /// The default value is <see
         /// cref="AppendRecordsRequest.Options.FALSE">FALSE</see>.</description>
         ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AppendRecordsRequest.Options.TRUNCATE_STRINGS">TRUNCATE_STRINGS</see>:</term>
+        ///         <description>If set to {true}@{, it allows to append
+        /// unbounded string to charN string. If 'truncate_strings' is 'true',
+        /// the desination column is charN datatype, and the source column is
+        /// unnbounded string, it will truncate the source string to length of
+        /// N first, and then append the truncated string to the destination
+        /// charN column. The default value is false.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="AppendRecordsRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AppendRecordsRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="AppendRecordsRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
         /// </list>
         /// <br />
         /// A set of string constants for the parameter <see cref="options"
@@ -150,6 +173,27 @@ namespace kinetica
             public const string UPDATE_ON_EXISTING_PK = "update_on_existing_pk";
             public const string TRUE = "true";
             public const string FALSE = "false";
+
+            /// <summary>If set to {true}@{, it allows to append unbounded
+            /// string to charN string. If 'truncate_strings' is 'true', the
+            /// desination column is charN datatype, and the source column is
+            /// unnbounded string, it will truncate the source string to length
+            /// of N first, and then append the truncated string to the
+            /// destination charN column. The default value is false.
+            /// Supported values:
+            /// <list type="bullet">
+            ///     <item>
+            ///         <term><see
+            /// cref="AppendRecordsRequest.Options.TRUE">TRUE</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="AppendRecordsRequest.Options.FALSE">FALSE</see></term>
+            ///     </item>
+            /// </list>
+            /// The default value is <see
+            /// cref="AppendRecordsRequest.Options.FALSE">FALSE</see>.</summary>
+            public const string TRUNCATE_STRINGS = "truncate_strings";
         } // end struct Options
 
 
@@ -226,6 +270,29 @@ namespace kinetica
         /// being inserted will remain unchanged and the new record discarded.
         /// If the specified table does not have a primary key, then this
         /// option is ignored.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="AppendRecordsRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AppendRecordsRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="AppendRecordsRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AppendRecordsRequest.Options.TRUNCATE_STRINGS">TRUNCATE_STRINGS</see>:</term>
+        ///         <description>If set to {true}@{, it allows to append
+        /// unbounded string to charN string. If 'truncate_strings' is 'true',
+        /// the desination column is charN datatype, and the source column is
+        /// unnbounded string, it will truncate the source string to length of
+        /// N first, and then append the truncated string to the destination
+        /// charN column. The default value is false.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -320,6 +387,29 @@ namespace kinetica
         /// being inserted will remain unchanged and the new record discarded.
         /// If the specified table does not have a primary key, then this
         /// option is ignored.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="AppendRecordsRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AppendRecordsRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="AppendRecordsRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AppendRecordsRequest.Options.TRUNCATE_STRINGS">TRUNCATE_STRINGS</see>:</term>
+        ///         <description>If set to {true}@{, it allows to append
+        /// unbounded string to charN string. If 'truncate_strings' is 'true',
+        /// the desination column is charN datatype, and the source column is
+        /// unnbounded string, it will truncate the source string to length of
+        /// N first, and then append the truncated string to the destination
+        /// charN column. The default value is false.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>

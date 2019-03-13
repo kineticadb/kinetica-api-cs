@@ -37,9 +37,7 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="CreateJoinTableRequest.Options.MAX_QUERY_DIMENSIONS">MAX_QUERY_DIMENSIONS</see>:</term>
-        ///         <description>The maximum number of tables in a join that
-        /// can be accessed by a query and are not equated by a foreign-key to
-        /// primary-key equality predicate</description>
+        ///         <description>Obsolete in GPUdb v7.0</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -153,6 +151,12 @@ namespace kinetica
         /// logging and for show_table. optimization needed for large
         /// overlapped equi-join stencils</description>
         ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateJoinTableRequest.Options.CHUNK_SIZE">CHUNK_SIZE</see>:</term>
+        ///         <description>Maximum size of a joined-chunk for this table.
+        /// Defaults to the gpudb.conf file chunk size</description>
+        ///     </item>
         /// </list>
         /// <br />
         /// A set of string constants for the parameter <see cref="options"
@@ -166,9 +170,7 @@ namespace kinetica
             /// top level.</summary>
             public const string COLLECTION_NAME = "collection_name";
 
-            /// <summary>The maximum number of tables in a join that can be
-            /// accessed by a query and are not equated by a foreign-key to
-            /// primary-key equality predicate</summary>
+            /// <summary>Obsolete in GPUdb v7.0</summary>
             public const string MAX_QUERY_DIMENSIONS = "max_query_dimensions";
 
             /// <summary>Use more memory to speed up the joining of tables.
@@ -280,6 +282,10 @@ namespace kinetica
             /// for show_table. optimization needed for large overlapped
             /// equi-join stencils</summary>
             public const string NO_COUNT = "no_count";
+
+            /// <summary>Maximum size of a joined-chunk for this table.
+            /// Defaults to the gpudb.conf file chunk size</summary>
+            public const string CHUNK_SIZE = "chunk_size";
         } // end struct Options
 
 
@@ -322,9 +328,7 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="CreateJoinTableRequest.Options.MAX_QUERY_DIMENSIONS">MAX_QUERY_DIMENSIONS</see>:</term>
-        ///         <description>The maximum number of tables in a join that
-        /// can be accessed by a query and are not equated by a foreign-key to
-        /// primary-key equality predicate</description>
+        ///         <description>Obsolete in GPUdb v7.0</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -437,6 +441,12 @@ namespace kinetica
         ///         <description>return a count of 0 for the join table for
         /// logging and for show_table. optimization needed for large
         /// overlapped equi-join stencils</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateJoinTableRequest.Options.CHUNK_SIZE">CHUNK_SIZE</see>:</term>
+        ///         <description>Maximum size of a joined-chunk for this table.
+        /// Defaults to the gpudb.conf file chunk size</description>
         ///     </item>
         /// </list>
         ///   </summary>
@@ -483,9 +493,7 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="CreateJoinTableRequest.Options.MAX_QUERY_DIMENSIONS">MAX_QUERY_DIMENSIONS</see>:</term>
-        ///         <description>The maximum number of tables in a join that
-        /// can be accessed by a query and are not equated by a foreign-key to
-        /// primary-key equality predicate</description>
+        ///         <description>Obsolete in GPUdb v7.0</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -598,6 +606,12 @@ namespace kinetica
         ///         <description>return a count of 0 for the join table for
         /// logging and for show_table. optimization needed for large
         /// overlapped equi-join stencils</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateJoinTableRequest.Options.CHUNK_SIZE">CHUNK_SIZE</see>:</term>
+        ///         <description>Maximum size of a joined-chunk for this table.
+        /// Defaults to the gpudb.conf file chunk size</description>
         ///     </item>
         /// </list>
         ///   </param>

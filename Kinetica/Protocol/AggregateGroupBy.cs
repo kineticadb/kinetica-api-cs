@@ -359,6 +359,11 @@ namespace kinetica
         /// cref="AggregateGroupByRequest.Options.SLEEP_ON_REFRESH">SLEEP_ON_REFRESH</see>:</term>
         ///         <description><DEVELOPER></description>
         ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AggregateGroupByRequest.Options.REFRESH_TYPE">REFRESH_TYPE</see>:</term>
+        ///         <description><DEVELOPER></description>
+        ///     </item>
         /// </list>
         /// <br />
         /// A set of string constants for the parameter <see cref="options"
@@ -583,6 +588,9 @@ namespace kinetica
 
             /// <summary><DEVELOPER></summary>
             public const string SLEEP_ON_REFRESH = "sleep_on_refresh";
+
+            /// <summary><DEVELOPER></summary>
+            public const string REFRESH_TYPE = "refresh_type";
         } // end struct Options
 
 
@@ -867,6 +875,11 @@ namespace kinetica
         /// cref="AggregateGroupByRequest.Options.SLEEP_ON_REFRESH">SLEEP_ON_REFRESH</see>:</term>
         ///         <description><DEVELOPER></description>
         ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AggregateGroupByRequest.Options.REFRESH_TYPE">REFRESH_TYPE</see>:</term>
+        ///         <description><DEVELOPER></description>
+        ///     </item>
         /// </list>
         ///   </summary>
         public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
@@ -1130,6 +1143,11 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="AggregateGroupByRequest.Options.SLEEP_ON_REFRESH">SLEEP_ON_REFRESH</see>:</term>
+        ///         <description><DEVELOPER></description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AggregateGroupByRequest.Options.REFRESH_TYPE">REFRESH_TYPE</see>:</term>
         ///         <description><DEVELOPER></description>
         ///     </item>
         /// </list>
@@ -1423,6 +1441,11 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="AggregateGroupByRequest.Options.SLEEP_ON_REFRESH">SLEEP_ON_REFRESH</see>:</term>
+        ///         <description><DEVELOPER></description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AggregateGroupByRequest.Options.REFRESH_TYPE">REFRESH_TYPE</see>:</term>
         ///         <description><DEVELOPER></description>
         ///     </item>
         /// </list>

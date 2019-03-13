@@ -130,16 +130,6 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AlterTableRequest.Action.MEMORY_TTL">MEMORY_TTL</see>:</term>
-        ///         <description>Sets the time-to-live in minutes for the
-        /// individual chunks of the columns of the table, view, or collection
-        /// specified in <paramref cref="AlterTableRequest.table_name" /> to
-        /// free their memory if unused longer than the given time. Specify an
-        /// empty string to restore the global memory_ttl setting and a value
-        /// of '-1' for an infinite timeout.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
         /// cref="AlterTableRequest.Action.ADD_COLUMN">ADD_COLUMN</see>:</term>
         ///         <description>Adds the column specified in <paramref
         /// cref="AlterTableRequest._value" /> to the table specified in
@@ -331,14 +321,6 @@ namespace kinetica
             /// target="_top">time-to-live</a> in minutes of the table, view,
             /// or collection specified in <see cref="table_name" />.</summary>
             public const string TTL = "ttl";
-
-            /// <summary>Sets the time-to-live in minutes for the individual
-            /// chunks of the columns of the table, view, or collection
-            /// specified in <see cref="table_name" /> to free their memory if
-            /// unused longer than the given time. Specify an empty string to
-            /// restore the global memory_ttl setting and a value of '-1' for
-            /// an infinite timeout.</summary>
-            public const string MEMORY_TTL = "memory_ttl";
 
             /// <summary>Adds the column specified in <see cref="_value" /> to
             /// the table specified in <see cref="table_name" />.  Use
@@ -807,16 +789,6 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AlterTableRequest.Action.MEMORY_TTL">MEMORY_TTL</see>:</term>
-        ///         <description>Sets the time-to-live in minutes for the
-        /// individual chunks of the columns of the table, view, or collection
-        /// specified in <paramref cref="AlterTableRequest.table_name" /> to
-        /// free their memory if unused longer than the given time. Specify an
-        /// empty string to restore the global memory_ttl setting and a value
-        /// of '-1' for an infinite timeout.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
         /// cref="AlterTableRequest.Action.ADD_COLUMN">ADD_COLUMN</see>:</term>
         ///         <description>Adds the column specified in <paramref
         /// cref="AlterTableRequest._value" /> to the table specified in
@@ -1205,16 +1177,6 @@ namespace kinetica
         /// target="_top">time-to-live</a> in minutes of the table, view, or
         /// collection specified in <paramref
         /// cref="AlterTableRequest.table_name" />.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterTableRequest.Action.MEMORY_TTL">MEMORY_TTL</see>:</term>
-        ///         <description>Sets the time-to-live in minutes for the
-        /// individual chunks of the columns of the table, view, or collection
-        /// specified in <paramref cref="AlterTableRequest.table_name" /> to
-        /// free their memory if unused longer than the given time. Specify an
-        /// empty string to restore the global memory_ttl setting and a value
-        /// of '-1' for an infinite timeout.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
