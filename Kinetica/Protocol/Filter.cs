@@ -41,8 +41,8 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="FilterRequest.Options.VIEW_ID">VIEW_ID</see>:</term>
-        ///         <description>view this filtered-view is part
-        /// of</description>
+        ///         <description>view this filtered-view is part of.  The
+        /// default value is ''.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -52,7 +52,7 @@ namespace kinetica
         /// cref="FilterRequest.view_name" />.</description>
         ///     </item>
         /// </list>
-        /// <br />
+        /// The default value is an empty {@link Dictionary}.
         /// A set of string constants for the parameter <see cref="options"
         /// />.</summary>
         public struct Options
@@ -64,7 +64,8 @@ namespace kinetica
             /// newly created view will be top-level.</summary>
             public const string COLLECTION_NAME = "collection_name";
 
-            /// <summary>view this filtered-view is part of</summary>
+            /// <summary>view this filtered-view is part of.  The default value
+            /// is ''.</summary>
             public const string VIEW_ID = "view_id";
 
             /// <summary>Sets the <a href="../../concepts/ttl.html"
@@ -84,8 +85,8 @@ namespace kinetica
 
         /// <summary>If provided, then this will be the name of the view
         /// containing the results. Has the same naming restrictions as <a
-        /// href="../../concepts/tables.html" target="_top">tables</a>.
-        /// </summary>
+        /// href="../../concepts/tables.html" target="_top">tables</a>.  The
+        /// default value is ''.</summary>
         public string view_name { get; set; } = "";
 
         /// <summary>The select expression to filter the specified table.  For
@@ -106,8 +107,8 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="FilterRequest.Options.VIEW_ID">VIEW_ID</see>:</term>
-        ///         <description>view this filtered-view is part
-        /// of</description>
+        ///         <description>view this filtered-view is part of.  The
+        /// default value is ''.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -117,7 +118,7 @@ namespace kinetica
         /// cref="FilterRequest.view_name" />.</description>
         ///     </item>
         /// </list>
-        ///   </summary>
+        /// The default value is an empty {@link Dictionary}.</summary>
         public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
 
 
@@ -137,7 +138,7 @@ namespace kinetica
         /// <param name="view_name">If provided, then this will be the name of
         /// the view containing the results. Has the same naming restrictions
         /// as <a href="../../concepts/tables.html" target="_top">tables</a>.
-        /// </param>
+        /// The default value is ''.</param>
         /// <param name="expression">The select expression to filter the
         /// specified table.  For details see <a
         /// href="../../concepts/expressions.html"
@@ -155,8 +156,8 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="FilterRequest.Options.VIEW_ID">VIEW_ID</see>:</term>
-        ///         <description>view this filtered-view is part
-        /// of</description>
+        ///         <description>view this filtered-view is part of.  The
+        /// default value is ''.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -166,7 +167,7 @@ namespace kinetica
         /// cref="FilterRequest.view_name" />.</description>
         ///     </item>
         /// </list>
-        ///   </param>
+        /// The default value is an empty {@link Dictionary}.</param>
         /// 
         public FilterRequest( string table_name,
                               string view_name,

@@ -22,7 +22,8 @@ namespace kinetica
         /// request.  </summary>
         public string type_id { get; set; }
 
-        /// <summary>Optional parameters.  </summary>
+        /// <summary>Optional parameters.  The default value is an empty {@link
+        /// Dictionary}.</summary>
         public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
 
 
@@ -35,7 +36,8 @@ namespace kinetica
         /// 
         /// <param name="type_id">Id of the type returned in response to
         /// /create/type request.  </param>
-        /// <param name="options">Optional parameters.  </param>
+        /// <param name="options">Optional parameters.  The default value is an
+        /// empty {@link Dictionary}.</param>
         /// 
         public HasTypeRequest( string type_id,
                                IDictionary<string, string> options = null)

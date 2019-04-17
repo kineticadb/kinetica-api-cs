@@ -22,7 +22,8 @@ namespace kinetica
         /// <summary>Name of the resource group to be deleted.  </summary>
         public string name { get; set; }
 
-        /// <summary>Optional parameters.  </summary>
+        /// <summary>Optional parameters.  The default value is an empty {@link
+        /// Dictionary}.</summary>
         public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
 
 
@@ -35,7 +36,8 @@ namespace kinetica
         /// 
         /// <param name="name">Name of the resource group to be deleted.
         /// </param>
-        /// <param name="options">Optional parameters.  </param>
+        /// <param name="options">Optional parameters.  The default value is an
+        /// empty {@link Dictionary}.</param>
         /// 
         public DeleteResourceGroupRequest( string name,
                                            IDictionary<string, string> options = null)

@@ -36,7 +36,7 @@ namespace kinetica
         /// created view will be top-level.</description>
         ///     </item>
         /// </list>
-        /// <br />
+        /// The default value is an empty {@link Dictionary}.
         /// A set of string constants for the parameter <see cref="options"
         /// />.</summary>
         public struct Options
@@ -57,7 +57,7 @@ namespace kinetica
         /// <summary>Optional name of the result view that will be created
         /// containing the results of the query. Has the same naming
         /// restrictions as <a href="../../concepts/tables.html"
-        /// target="_top">tables</a>.  </summary>
+        /// target="_top">tables</a>.  The default value is ''.</summary>
         public string view_name { get; set; } = "";
 
         /// <summary>Name of the column on which to perform the bounding box
@@ -100,7 +100,7 @@ namespace kinetica
         /// created view will be top-level.</description>
         ///     </item>
         /// </list>
-        ///   </summary>
+        /// The default value is an empty {@link Dictionary}.</summary>
         public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
 
 
@@ -117,7 +117,7 @@ namespace kinetica
         /// <param name="view_name">Optional name of the result view that will
         /// be created containing the results of the query. Has the same naming
         /// restrictions as <a href="../../concepts/tables.html"
-        /// target="_top">tables</a>.  </param>
+        /// target="_top">tables</a>.  The default value is ''.</param>
         /// <param name="x_column_name">Name of the column on which to perform
         /// the bounding box query. Must be a valid numeric column.  </param>
         /// <param name="min_x">Lower bound for the column chosen by <paramref
@@ -145,7 +145,7 @@ namespace kinetica
         /// created view will be top-level.</description>
         ///     </item>
         /// </list>
-        ///   </param>
+        /// The default value is an empty {@link Dictionary}.</param>
         /// 
         public FilterByBoxRequest( string table_name,
                                    string view_name,

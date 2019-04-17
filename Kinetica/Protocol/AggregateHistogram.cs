@@ -22,10 +22,13 @@ namespace kinetica
     /// the end value is exclusive--except for the very last bin for which the
     /// end value is also inclusive.  The value returned for each bin is the
     /// number of records in it, except when a column name is provided as a
-    /// *value_column* in <see cref="options" />.  In this latter case the sum
-    /// of the values corresponding to the *value_column* is used as the result
-    /// instead.  The total number of bins requested cannot exceed
-    /// 10,000.</summary>
+    /// <i>value_column</i>.  In this latter case the sum of the values
+    /// corresponding to the <i>value_column</i> is used as the result instead.
+    /// The total number of bins requested cannot exceed 10,000.
+    /// <br />
+    /// NOTE:  The Kinetica instance being accessed must be running a CUDA
+    /// (GPU-based) build to service a request that specifies a
+    /// <i>value_column</i> option.</summary>
     public class AggregateHistogramRequest : KineticaData
     {
 
@@ -39,7 +42,7 @@ namespace kinetica
         /// type (int, double, long, float).</description>
         ///     </item>
         /// </list>
-        /// <br />
+        /// The default value is an empty {@link Dictionary}.
         /// A set of string constants for the parameter <see cref="options"
         /// />.</summary>
         public struct Options
@@ -82,7 +85,7 @@ namespace kinetica
         /// type (int, double, long, float).</description>
         ///     </item>
         /// </list>
-        ///   </summary>
+        /// The default value is an empty {@link Dictionary}.</summary>
         public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
 
 
@@ -115,7 +118,7 @@ namespace kinetica
         /// type (int, double, long, float).</description>
         ///     </item>
         /// </list>
-        ///   </param>
+        /// The default value is an empty {@link Dictionary}.</param>
         /// 
         public AggregateHistogramRequest( string table_name,
                                           string column_name,

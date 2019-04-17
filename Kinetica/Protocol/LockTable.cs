@@ -120,7 +120,8 @@ namespace kinetica
         /// cref="LockTableRequest.LockType.STATUS">STATUS</see>.  </summary>
         public string lock_type { get; set; } = LockType.STATUS;
 
-        /// <summary>Optional parameters.  </summary>
+        /// <summary>Optional parameters.  The default value is an empty {@link
+        /// Dictionary}.</summary>
         public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
 
 
@@ -166,7 +167,8 @@ namespace kinetica
         /// </list>
         /// The default value is <see
         /// cref="LockTableRequest.LockType.STATUS">STATUS</see>.  </param>
-        /// <param name="options">Optional parameters.  </param>
+        /// <param name="options">Optional parameters.  The default value is an
+        /// empty {@link Dictionary}.</param>
         /// 
         public LockTableRequest( string table_name,
                                  string lock_type = null,

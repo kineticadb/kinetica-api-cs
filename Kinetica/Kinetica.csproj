@@ -83,6 +83,7 @@
     <Compile Include="Protocol\AggregateUnique.cs" />
     <Compile Include="Protocol\AggregateUnpivot.cs" />
     <Compile Include="Protocol\AlterResourceGroup.cs" />
+    <Compile Include="Protocol\AlterRole.cs" />
     <Compile Include="Protocol\AlterSystemProperties.cs" />
     <Compile Include="Protocol\AlterTable.cs" />
     <Compile Include="Protocol\AlterTableColumns.cs" />
@@ -151,6 +152,7 @@
     <Compile Include="Protocol\KillProc.cs" />
     <Compile Include="Protocol\ListGraph.cs" />
     <Compile Include="Protocol\LockTable.cs" />
+    <Compile Include="Protocol\MatchGraph.cs" />
     <Compile Include="Protocol\MergeRecords.cs" />
     <Compile Include="Protocol\QueryGraph.cs" />
     <Compile Include="Protocol\RawKineticaResponse.cs" />

@@ -20,10 +20,12 @@ namespace kinetica
     {
 
         /// <summary>Name of the graph on which to retrieve information. If
-        /// empty, information about all graphs is returned.  </summary>
+        /// empty, information about all graphs is returned.  The default value
+        /// is ''.</summary>
         public string graph_name { get; set; } = "";
 
-        /// <summary>Optional parameters.  </summary>
+        /// <summary>Optional parameters.  The default value is an empty {@link
+        /// Dictionary}.</summary>
         public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
 
 
@@ -36,8 +38,9 @@ namespace kinetica
         /// 
         /// <param name="graph_name">Name of the graph on which to retrieve
         /// information. If empty, information about all graphs is returned.
-        /// </param>
-        /// <param name="options">Optional parameters.  </param>
+        /// The default value is ''.</param>
+        /// <param name="options">Optional parameters.  The default value is an
+        /// empty {@link Dictionary}.</param>
         /// 
         public ListGraphRequest( string graph_name = null,
                                  IDictionary<string, string> options = null)

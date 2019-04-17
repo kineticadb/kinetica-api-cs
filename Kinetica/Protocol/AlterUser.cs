@@ -79,7 +79,8 @@ namespace kinetica
         /// cref="AlterUserRequest.action" />.  </summary>
         public string _value { get; set; }
 
-        /// <summary>Optional parameters.  </summary>
+        /// <summary>Optional parameters.  The default value is an empty {@link
+        /// Dictionary}.</summary>
         public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
 
 
@@ -112,7 +113,8 @@ namespace kinetica
         /// </list>  </param>
         /// <param name="_value">The value of the modification, depending on
         /// <paramref cref="AlterUserRequest.action" />.  </param>
-        /// <param name="options">Optional parameters.  </param>
+        /// <param name="options">Optional parameters.  The default value is an
+        /// empty {@link Dictionary}.</param>
         /// 
         public AlterUserRequest( string name,
                                  string action,

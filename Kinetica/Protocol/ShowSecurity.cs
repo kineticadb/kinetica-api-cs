@@ -26,7 +26,8 @@ namespace kinetica
         /// all users and roles will be returned.  </summary>
         public IList<string> names { get; set; } = new List<string>();
 
-        /// <summary>Optional parameters.  </summary>
+        /// <summary>Optional parameters.  The default value is an empty {@link
+        /// Dictionary}.</summary>
         public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
 
 
@@ -40,7 +41,8 @@ namespace kinetica
         /// <param name="names">A list of names of users and/or roles about
         /// which security information is requested. If none are provided,
         /// information about all users and roles will be returned.  </param>
-        /// <param name="options">Optional parameters.  </param>
+        /// <param name="options">Optional parameters.  The default value is an
+        /// empty {@link Dictionary}.</param>
         /// 
         public ShowSecurityRequest( IList<string> names,
                                     IDictionary<string, string> options = null)

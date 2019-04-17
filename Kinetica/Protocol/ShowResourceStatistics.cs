@@ -21,7 +21,8 @@ namespace kinetica
     public class ShowResourceStatisticsRequest : KineticaData
     {
 
-        /// <summary>Optional parameters.  </summary>
+        /// <summary>Optional parameters.  The default value is an empty {@link
+        /// Dictionary}.</summary>
         public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
 
 
@@ -32,7 +33,8 @@ namespace kinetica
         /// <summary>Constructs a ShowResourceStatisticsRequest object with the
         /// specified parameters.</summary>
         /// 
-        /// <param name="options">Optional parameters.  </param>
+        /// <param name="options">Optional parameters.  The default value is an
+        /// empty {@link Dictionary}.</param>
         /// 
         public ShowResourceStatisticsRequest( IDictionary<string, string> options = null)
         {

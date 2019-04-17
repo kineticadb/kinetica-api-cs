@@ -23,7 +23,8 @@ namespace kinetica
         /// <summary>ID for the trigger to be deactivated.  </summary>
         public string trigger_id { get; set; }
 
-        /// <summary>Optional parameters.  </summary>
+        /// <summary>Optional parameters.  The default value is an empty {@link
+        /// Dictionary}.</summary>
         public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
 
 
@@ -36,7 +37,8 @@ namespace kinetica
         /// 
         /// <param name="trigger_id">ID for the trigger to be deactivated.
         /// </param>
-        /// <param name="options">Optional parameters.  </param>
+        /// <param name="options">Optional parameters.  The default value is an
+        /// empty {@link Dictionary}.</param>
         /// 
         public ClearTriggerRequest( string trigger_id,
                                     IDictionary<string, string> options = null)

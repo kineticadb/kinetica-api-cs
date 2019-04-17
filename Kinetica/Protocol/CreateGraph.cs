@@ -63,31 +63,32 @@ namespace kinetica
         ///         <description>If node geospatial positions are input (e.g.,
         /// WKTPOINT, X, Y), determines the minimum separation allowed between
         /// unique nodes. If nodes are within the tolerance of each other, they
-        /// will be merged as a single node.</description>
+        /// will be merged as a single node.  The default value is
+        /// '1.0E-4'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="CreateGraphRequest.Options.MIN_X">MIN_X</see>:</term>
         ///         <description>Minimum x (longitude) value for spatial graph
-        /// associations.</description>
+        /// associations.  The default value is '-180.0'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="CreateGraphRequest.Options.MAX_X">MAX_X</see>:</term>
         ///         <description>Maximum x (longitude) value for spatial graph
-        /// associations.</description>
+        /// associations.  The default value is '180.0'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="CreateGraphRequest.Options.MIN_Y">MIN_Y</see>:</term>
         ///         <description>Minimum y (latitude) value for spatial graph
-        /// associations.</description>
+        /// associations.  The default value is '-90.0'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="CreateGraphRequest.Options.MAX_Y">MAX_Y</see>:</term>
         ///         <description>Maximum y (latitude) value for spatial graph
-        /// associations.</description>
+        /// associations.  The default value is '90.0'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -219,10 +220,11 @@ namespace kinetica
         ///         <description>If the <i>graph_table</i> name is NOT left
         /// blank, the created graph is also created as a table with the given
         /// name and following identifier columns: 'EDGE_ID', 'EDGE_NODE1_ID',
-        /// 'EDGE_NODE2_ID'. If left blank, no table is created.</description>
+        /// 'EDGE_NODE2_ID'. If left blank, no table is created.  The default
+        /// value is ''.</description>
         ///     </item>
         /// </list>
-        /// <br />
+        /// The default value is an empty {@link Dictionary}.
         /// A set of string constants for the parameter <see cref="options"
         /// />.</summary>
         public struct Options
@@ -237,23 +239,24 @@ namespace kinetica
             /// <summary>If node geospatial positions are input (e.g.,
             /// WKTPOINT, X, Y), determines the minimum separation allowed
             /// between unique nodes. If nodes are within the tolerance of each
-            /// other, they will be merged as a single node.</summary>
+            /// other, they will be merged as a single node.  The default value
+            /// is '1.0E-4'.</summary>
             public const string MERGE_TOLERANCE = "merge_tolerance";
 
             /// <summary>Minimum x (longitude) value for spatial graph
-            /// associations.</summary>
+            /// associations.  The default value is '-180.0'.</summary>
             public const string MIN_X = "min_x";
 
             /// <summary>Maximum x (longitude) value for spatial graph
-            /// associations.</summary>
+            /// associations.  The default value is '180.0'.</summary>
             public const string MAX_X = "max_x";
 
             /// <summary>Minimum y (latitude) value for spatial graph
-            /// associations.</summary>
+            /// associations.  The default value is '-90.0'.</summary>
             public const string MIN_Y = "min_y";
 
             /// <summary>Maximum y (latitude) value for spatial graph
-            /// associations.</summary>
+            /// associations.  The default value is '90.0'.</summary>
             public const string MAX_Y = "max_y";
 
             /// <summary>If set to <i>true</i> and the graph (using <see
@@ -375,7 +378,8 @@ namespace kinetica
             /// <summary>If the <i>graph_table</i> name is NOT left blank, the
             /// created graph is also created as a table with the given name
             /// and following identifier columns: 'EDGE_ID', 'EDGE_NODE1_ID',
-            /// 'EDGE_NODE2_ID'. If left blank, no table is created.</summary>
+            /// 'EDGE_NODE2_ID'. If left blank, no table is created.  The
+            /// default value is ''.</summary>
             public const string GRAPH_TABLE = "graph_table";
         } // end struct Options
 
@@ -465,31 +469,32 @@ namespace kinetica
         ///         <description>If node geospatial positions are input (e.g.,
         /// WKTPOINT, X, Y), determines the minimum separation allowed between
         /// unique nodes. If nodes are within the tolerance of each other, they
-        /// will be merged as a single node.</description>
+        /// will be merged as a single node.  The default value is
+        /// '1.0E-4'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="CreateGraphRequest.Options.MIN_X">MIN_X</see>:</term>
         ///         <description>Minimum x (longitude) value for spatial graph
-        /// associations.</description>
+        /// associations.  The default value is '-180.0'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="CreateGraphRequest.Options.MAX_X">MAX_X</see>:</term>
         ///         <description>Maximum x (longitude) value for spatial graph
-        /// associations.</description>
+        /// associations.  The default value is '180.0'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="CreateGraphRequest.Options.MIN_Y">MIN_Y</see>:</term>
         ///         <description>Minimum y (latitude) value for spatial graph
-        /// associations.</description>
+        /// associations.  The default value is '-90.0'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="CreateGraphRequest.Options.MAX_Y">MAX_Y</see>:</term>
         ///         <description>Maximum y (latitude) value for spatial graph
-        /// associations.</description>
+        /// associations.  The default value is '90.0'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -621,10 +626,11 @@ namespace kinetica
         ///         <description>If the <i>graph_table</i> name is NOT left
         /// blank, the created graph is also created as a table with the given
         /// name and following identifier columns: 'EDGE_ID', 'EDGE_NODE1_ID',
-        /// 'EDGE_NODE2_ID'. If left blank, no table is created.</description>
+        /// 'EDGE_NODE2_ID'. If left blank, no table is created.  The default
+        /// value is ''.</description>
         ///     </item>
         /// </list>
-        ///   </summary>
+        /// The default value is an empty {@link Dictionary}.</summary>
         public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
 
 
@@ -708,31 +714,32 @@ namespace kinetica
         ///         <description>If node geospatial positions are input (e.g.,
         /// WKTPOINT, X, Y), determines the minimum separation allowed between
         /// unique nodes. If nodes are within the tolerance of each other, they
-        /// will be merged as a single node.</description>
+        /// will be merged as a single node.  The default value is
+        /// '1.0E-4'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="CreateGraphRequest.Options.MIN_X">MIN_X</see>:</term>
         ///         <description>Minimum x (longitude) value for spatial graph
-        /// associations.</description>
+        /// associations.  The default value is '-180.0'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="CreateGraphRequest.Options.MAX_X">MAX_X</see>:</term>
         ///         <description>Maximum x (longitude) value for spatial graph
-        /// associations.</description>
+        /// associations.  The default value is '180.0'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="CreateGraphRequest.Options.MIN_Y">MIN_Y</see>:</term>
         ///         <description>Minimum y (latitude) value for spatial graph
-        /// associations.</description>
+        /// associations.  The default value is '-90.0'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="CreateGraphRequest.Options.MAX_Y">MAX_Y</see>:</term>
         ///         <description>Maximum y (latitude) value for spatial graph
-        /// associations.</description>
+        /// associations.  The default value is '90.0'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -864,10 +871,11 @@ namespace kinetica
         ///         <description>If the <i>graph_table</i> name is NOT left
         /// blank, the created graph is also created as a table with the given
         /// name and following identifier columns: 'EDGE_ID', 'EDGE_NODE1_ID',
-        /// 'EDGE_NODE2_ID'. If left blank, no table is created.</description>
+        /// 'EDGE_NODE2_ID'. If left blank, no table is created.  The default
+        /// value is ''.</description>
         ///     </item>
         /// </list>
-        ///   </param>
+        /// The default value is an empty {@link Dictionary}.</param>
         /// 
         public CreateGraphRequest( string graph_name,
                                    bool directed_graph,

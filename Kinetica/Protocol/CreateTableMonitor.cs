@@ -34,7 +34,8 @@ namespace kinetica
         /// collection.  </summary>
         public string table_name { get; set; }
 
-        /// <summary>Optional parameters.  </summary>
+        /// <summary>Optional parameters.  The default value is an empty {@link
+        /// Dictionary}.</summary>
         public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
 
 
@@ -47,7 +48,8 @@ namespace kinetica
         /// 
         /// <param name="table_name">Name of the table to monitor. Must not
         /// refer to a collection.  </param>
-        /// <param name="options">Optional parameters.  </param>
+        /// <param name="options">Optional parameters.  The default value is an
+        /// empty {@link Dictionary}.</param>
         /// 
         public CreateTableMonitorRequest( string table_name,
                                           IDictionary<string, string> options = null)

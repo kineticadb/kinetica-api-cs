@@ -32,7 +32,7 @@ namespace kinetica
         ///         <description>Name of a collection which is to contain the
         /// join. If the collection provided is non-existent, the collection
         /// will be automatically created. If empty, then the join will be at
-        /// the top level.</description>
+        /// the top level.  The default value is ''.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -60,96 +60,24 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="CreateJoinTableRequest.Options.REFRESH_METHOD">REFRESH_METHOD</see>:</term>
-        ///         <description>Method by which the join can be refreshed when
-        /// the data in underlying member tables have changed.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateJoinTableRequest.Options.MANUAL">MANUAL</see>:</term>
-        ///         <description>refresh only occurs when manually requested by
-        /// calling this endpoint with refresh option set to <i>refresh</i> or
-        /// <i>full_refresh</i></description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateJoinTableRequest.Options.ON_QUERY">ON_QUERY</see>:</term>
-        ///         <description>incrementally refresh (refresh just those
-        /// records added) whenever a new query is issued and new data is
-        /// inserted into the base table.  A full refresh of all the records
-        /// occurs when a new query is issued and there have been inserts to
-        /// any non-base-tables since the last query.  <a
-        /// href="../../concepts/ttl.html" target="_top">TTL</a> will be set to
-        /// not expire; any <i>ttl</i> specified will be ignored.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateJoinTableRequest.Options.ON_INSERT">ON_INSERT</see>:</term>
-        ///         <description>incrementally refresh (refresh just those
-        /// records added) whenever new data is inserted into a base table.  A
-        /// full refresh of all the records occurs when a new query is issued
-        /// and there have been inserts to any non-base-tables since the last
-        /// query.  <a href="../../concepts/ttl.html" target="_top">TTL</a>
-        /// will be set to not expire; any <i>ttl</i> specified will be
-        /// ignored.</description>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="CreateJoinTableRequest.Options.MANUAL">MANUAL</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateJoinTableRequest.Options.REFRESH">REFRESH</see>:</term>
-        ///         <description>Do a manual refresh of the join if it exists -
-        /// throws an error otherwise
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateJoinTableRequest.Options.NO_REFRESH">NO_REFRESH</see>:</term>
-        ///         <description>don't refresh</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateJoinTableRequest.Options.REFRESH">REFRESH</see>:</term>
-        ///         <description>incrementally refresh (refresh just those
-        /// records added) if new data has been inserted into the base table.
-        /// A full refresh of all the records occurs if there have been inserts
-        /// to any non-base-tables since the last refresh</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateJoinTableRequest.Options.FULL_REFRESH">FULL_REFRESH</see>:</term>
-        ///         <description>always refresh even if no new records have
-        /// been added.  Only refresh method guaranteed to do a full refresh
-        /// (refresh all the records) if a delete or update has occurred since
-        /// the last refresh.</description>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="CreateJoinTableRequest.Options.NO_REFRESH">NO_REFRESH</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
         /// cref="CreateJoinTableRequest.Options.TTL">TTL</see>:</term>
         ///         <description>Sets the <a href="../../concepts/ttl.html"
         /// target="_top">TTL</a> of the join table specified in <paramref
-        /// cref="CreateJoinTableRequest.join_table_name" />.  Ignored if
-        /// <i>refresh_method</i> is either <i>on_insert</i> or
-        /// <i>on_query</i>.</description>
+        /// cref="CreateJoinTableRequest.join_table_name" />.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="CreateJoinTableRequest.Options.VIEW_ID">VIEW_ID</see>:</term>
-        ///         <description>view this projection is part of</description>
+        ///         <description>view this projection is part of.  The default
+        /// value is ''.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="CreateJoinTableRequest.Options.NO_COUNT">NO_COUNT</see>:</term>
         ///         <description>return a count of 0 for the join table for
         /// logging and for show_table. optimization needed for large
-        /// overlapped equi-join stencils</description>
+        /// overlapped equi-join stencils.  The default value is
+        /// 'false'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -158,7 +86,7 @@ namespace kinetica
         /// Defaults to the gpudb.conf file chunk size</description>
         ///     </item>
         /// </list>
-        /// <br />
+        /// The default value is an empty {@link Dictionary}.
         /// A set of string constants for the parameter <see cref="options"
         /// />.</summary>
         public struct Options
@@ -167,7 +95,7 @@ namespace kinetica
             /// <summary>Name of a collection which is to contain the join. If
             /// the collection provided is non-existent, the collection will be
             /// automatically created. If empty, then the join will be at the
-            /// top level.</summary>
+            /// top level.  The default value is ''.</summary>
             public const string COLLECTION_NAME = "collection_name";
 
             /// <summary>Obsolete in GPUdb v7.0</summary>
@@ -191,96 +119,18 @@ namespace kinetica
             public const string TRUE = "true";
             public const string FALSE = "false";
 
-            /// <summary>Method by which the join can be refreshed when the
-            /// data in underlying member tables have changed.
-            /// Supported values:
-            /// <list type="bullet">
-            ///     <item>
-            ///         <term><see
-            /// cref="CreateJoinTableRequest.Options.MANUAL">MANUAL</see>:</term>
-            ///         <description>refresh only occurs when manually
-            /// requested by calling this endpoint with refresh option set to
-            /// <i>refresh</i> or <i>full_refresh</i></description>
-            ///     </item>
-            ///     <item>
-            ///         <term><see
-            /// cref="CreateJoinTableRequest.Options.ON_QUERY">ON_QUERY</see>:</term>
-            ///         <description>incrementally refresh (refresh just those
-            /// records added) whenever a new query is issued and new data is
-            /// inserted into the base table.  A full refresh of all the
-            /// records occurs when a new query is issued and there have been
-            /// inserts to any non-base-tables since the last query.  <a
-            /// href="../../concepts/ttl.html" target="_top">TTL</a> will be
-            /// set to not expire; any <i>ttl</i> specified will be
-            /// ignored.</description>
-            ///     </item>
-            ///     <item>
-            ///         <term><see
-            /// cref="CreateJoinTableRequest.Options.ON_INSERT">ON_INSERT</see>:</term>
-            ///         <description>incrementally refresh (refresh just those
-            /// records added) whenever new data is inserted into a base table.
-            /// A full refresh of all the records occurs when a new query is
-            /// issued and there have been inserts to any non-base-tables since
-            /// the last query.  <a href="../../concepts/ttl.html"
-            /// target="_top">TTL</a> will be set to not expire; any <i>ttl</i>
-            /// specified will be ignored.</description>
-            ///     </item>
-            /// </list>
-            /// The default value is <see
-            /// cref="CreateJoinTableRequest.Options.MANUAL">MANUAL</see>.</summary>
-            public const string REFRESH_METHOD = "refresh_method";
-
-            /// <summary>refresh only occurs when manually requested by calling
-            /// this endpoint with refresh option set to <i>refresh</i> or
-            /// <i>full_refresh</i></summary>
-            public const string MANUAL = "manual";
-
-            /// <summary>incrementally refresh (refresh just those records
-            /// added) whenever a new query is issued and new data is inserted
-            /// into the base table.  A full refresh of all the records occurs
-            /// when a new query is issued and there have been inserts to any
-            /// non-base-tables since the last query.  <a
-            /// href="../../concepts/ttl.html" target="_top">TTL</a> will be
-            /// set to not expire; any <i>ttl</i> specified will be
-            /// ignored.</summary>
-            public const string ON_QUERY = "on_query";
-
-            /// <summary>incrementally refresh (refresh just those records
-            /// added) whenever new data is inserted into a base table.  A full
-            /// refresh of all the records occurs when a new query is issued
-            /// and there have been inserts to any non-base-tables since the
-            /// last query.  <a href="../../concepts/ttl.html"
-            /// target="_top">TTL</a> will be set to not expire; any <i>ttl</i>
-            /// specified will be ignored.</summary>
-            public const string ON_INSERT = "on_insert";
-
-            /// <summary>incrementally refresh (refresh just those records
-            /// added) if new data has been inserted into the base table.  A
-            /// full refresh of all the records occurs if there have been
-            /// inserts to any non-base-tables since the last refresh</summary>
-            public const string REFRESH = "refresh";
-
-            /// <summary>don't refresh</summary>
-            public const string NO_REFRESH = "no_refresh";
-
-            /// <summary>always refresh even if no new records have been added.
-            /// Only refresh method guaranteed to do a full refresh (refresh
-            /// all the records) if a delete or update has occurred since the
-            /// last refresh.</summary>
-            public const string FULL_REFRESH = "full_refresh";
-
             /// <summary>Sets the <a href="../../concepts/ttl.html"
             /// target="_top">TTL</a> of the join table specified in <see
-            /// cref="join_table_name" />.  Ignored if <i>refresh_method</i> is
-            /// either <i>on_insert</i> or <i>on_query</i>.</summary>
+            /// cref="join_table_name" />.</summary>
             public const string TTL = "ttl";
 
-            /// <summary>view this projection is part of</summary>
+            /// <summary>view this projection is part of.  The default value is
+            /// ''.</summary>
             public const string VIEW_ID = "view_id";
 
             /// <summary>return a count of 0 for the join table for logging and
             /// for show_table. optimization needed for large overlapped
-            /// equi-join stencils</summary>
+            /// equi-join stencils.  The default value is 'false'.</summary>
             public const string NO_COUNT = "no_count";
 
             /// <summary>Maximum size of a joined-chunk for this table.
@@ -312,7 +162,8 @@ namespace kinetica
         /// <summary>An optional list of expressions to combine and filter the
         /// joined tables.  Corresponds to a SQL statement WHERE clause. For
         /// details see: <a href="../../concepts/expressions.html"
-        /// target="_top">expressions</a>.  </summary>
+        /// target="_top">expressions</a>.  The default value is an empty
+        /// {@link List}.</summary>
         public IList<string> expressions { get; set; } = new List<string>();
 
         /// <summary>Optional parameters.
@@ -323,7 +174,7 @@ namespace kinetica
         ///         <description>Name of a collection which is to contain the
         /// join. If the collection provided is non-existent, the collection
         /// will be automatically created. If empty, then the join will be at
-        /// the top level.</description>
+        /// the top level.  The default value is ''.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -351,96 +202,24 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="CreateJoinTableRequest.Options.REFRESH_METHOD">REFRESH_METHOD</see>:</term>
-        ///         <description>Method by which the join can be refreshed when
-        /// the data in underlying member tables have changed.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateJoinTableRequest.Options.MANUAL">MANUAL</see>:</term>
-        ///         <description>refresh only occurs when manually requested by
-        /// calling this endpoint with refresh option set to <i>refresh</i> or
-        /// <i>full_refresh</i></description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateJoinTableRequest.Options.ON_QUERY">ON_QUERY</see>:</term>
-        ///         <description>incrementally refresh (refresh just those
-        /// records added) whenever a new query is issued and new data is
-        /// inserted into the base table.  A full refresh of all the records
-        /// occurs when a new query is issued and there have been inserts to
-        /// any non-base-tables since the last query.  <a
-        /// href="../../concepts/ttl.html" target="_top">TTL</a> will be set to
-        /// not expire; any <i>ttl</i> specified will be ignored.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateJoinTableRequest.Options.ON_INSERT">ON_INSERT</see>:</term>
-        ///         <description>incrementally refresh (refresh just those
-        /// records added) whenever new data is inserted into a base table.  A
-        /// full refresh of all the records occurs when a new query is issued
-        /// and there have been inserts to any non-base-tables since the last
-        /// query.  <a href="../../concepts/ttl.html" target="_top">TTL</a>
-        /// will be set to not expire; any <i>ttl</i> specified will be
-        /// ignored.</description>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="CreateJoinTableRequest.Options.MANUAL">MANUAL</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateJoinTableRequest.Options.REFRESH">REFRESH</see>:</term>
-        ///         <description>Do a manual refresh of the join if it exists -
-        /// throws an error otherwise
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateJoinTableRequest.Options.NO_REFRESH">NO_REFRESH</see>:</term>
-        ///         <description>don't refresh</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateJoinTableRequest.Options.REFRESH">REFRESH</see>:</term>
-        ///         <description>incrementally refresh (refresh just those
-        /// records added) if new data has been inserted into the base table.
-        /// A full refresh of all the records occurs if there have been inserts
-        /// to any non-base-tables since the last refresh</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateJoinTableRequest.Options.FULL_REFRESH">FULL_REFRESH</see>:</term>
-        ///         <description>always refresh even if no new records have
-        /// been added.  Only refresh method guaranteed to do a full refresh
-        /// (refresh all the records) if a delete or update has occurred since
-        /// the last refresh.</description>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="CreateJoinTableRequest.Options.NO_REFRESH">NO_REFRESH</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
         /// cref="CreateJoinTableRequest.Options.TTL">TTL</see>:</term>
         ///         <description>Sets the <a href="../../concepts/ttl.html"
         /// target="_top">TTL</a> of the join table specified in <paramref
-        /// cref="CreateJoinTableRequest.join_table_name" />.  Ignored if
-        /// <i>refresh_method</i> is either <i>on_insert</i> or
-        /// <i>on_query</i>.</description>
+        /// cref="CreateJoinTableRequest.join_table_name" />.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="CreateJoinTableRequest.Options.VIEW_ID">VIEW_ID</see>:</term>
-        ///         <description>view this projection is part of</description>
+        ///         <description>view this projection is part of.  The default
+        /// value is ''.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="CreateJoinTableRequest.Options.NO_COUNT">NO_COUNT</see>:</term>
         ///         <description>return a count of 0 for the join table for
         /// logging and for show_table. optimization needed for large
-        /// overlapped equi-join stencils</description>
+        /// overlapped equi-join stencils.  The default value is
+        /// 'false'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -449,7 +228,7 @@ namespace kinetica
         /// Defaults to the gpudb.conf file chunk size</description>
         ///     </item>
         /// </list>
-        ///   </summary>
+        /// The default value is an empty {@link Dictionary}.</summary>
         public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
 
 
@@ -479,7 +258,8 @@ namespace kinetica
         /// combine and filter the joined tables.  Corresponds to a SQL
         /// statement WHERE clause. For details see: <a
         /// href="../../concepts/expressions.html"
-        /// target="_top">expressions</a>.  </param>
+        /// target="_top">expressions</a>.  The default value is an empty
+        /// {@link List}.</param>
         /// <param name="options">Optional parameters.
         /// <list type="bullet">
         ///     <item>
@@ -488,7 +268,7 @@ namespace kinetica
         ///         <description>Name of a collection which is to contain the
         /// join. If the collection provided is non-existent, the collection
         /// will be automatically created. If empty, then the join will be at
-        /// the top level.</description>
+        /// the top level.  The default value is ''.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -516,96 +296,24 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="CreateJoinTableRequest.Options.REFRESH_METHOD">REFRESH_METHOD</see>:</term>
-        ///         <description>Method by which the join can be refreshed when
-        /// the data in underlying member tables have changed.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateJoinTableRequest.Options.MANUAL">MANUAL</see>:</term>
-        ///         <description>refresh only occurs when manually requested by
-        /// calling this endpoint with refresh option set to <i>refresh</i> or
-        /// <i>full_refresh</i></description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateJoinTableRequest.Options.ON_QUERY">ON_QUERY</see>:</term>
-        ///         <description>incrementally refresh (refresh just those
-        /// records added) whenever a new query is issued and new data is
-        /// inserted into the base table.  A full refresh of all the records
-        /// occurs when a new query is issued and there have been inserts to
-        /// any non-base-tables since the last query.  <a
-        /// href="../../concepts/ttl.html" target="_top">TTL</a> will be set to
-        /// not expire; any <i>ttl</i> specified will be ignored.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateJoinTableRequest.Options.ON_INSERT">ON_INSERT</see>:</term>
-        ///         <description>incrementally refresh (refresh just those
-        /// records added) whenever new data is inserted into a base table.  A
-        /// full refresh of all the records occurs when a new query is issued
-        /// and there have been inserts to any non-base-tables since the last
-        /// query.  <a href="../../concepts/ttl.html" target="_top">TTL</a>
-        /// will be set to not expire; any <i>ttl</i> specified will be
-        /// ignored.</description>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="CreateJoinTableRequest.Options.MANUAL">MANUAL</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateJoinTableRequest.Options.REFRESH">REFRESH</see>:</term>
-        ///         <description>Do a manual refresh of the join if it exists -
-        /// throws an error otherwise
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateJoinTableRequest.Options.NO_REFRESH">NO_REFRESH</see>:</term>
-        ///         <description>don't refresh</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateJoinTableRequest.Options.REFRESH">REFRESH</see>:</term>
-        ///         <description>incrementally refresh (refresh just those
-        /// records added) if new data has been inserted into the base table.
-        /// A full refresh of all the records occurs if there have been inserts
-        /// to any non-base-tables since the last refresh</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateJoinTableRequest.Options.FULL_REFRESH">FULL_REFRESH</see>:</term>
-        ///         <description>always refresh even if no new records have
-        /// been added.  Only refresh method guaranteed to do a full refresh
-        /// (refresh all the records) if a delete or update has occurred since
-        /// the last refresh.</description>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="CreateJoinTableRequest.Options.NO_REFRESH">NO_REFRESH</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
         /// cref="CreateJoinTableRequest.Options.TTL">TTL</see>:</term>
         ///         <description>Sets the <a href="../../concepts/ttl.html"
         /// target="_top">TTL</a> of the join table specified in <paramref
-        /// cref="CreateJoinTableRequest.join_table_name" />.  Ignored if
-        /// <i>refresh_method</i> is either <i>on_insert</i> or
-        /// <i>on_query</i>.</description>
+        /// cref="CreateJoinTableRequest.join_table_name" />.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="CreateJoinTableRequest.Options.VIEW_ID">VIEW_ID</see>:</term>
-        ///         <description>view this projection is part of</description>
+        ///         <description>view this projection is part of.  The default
+        /// value is ''.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="CreateJoinTableRequest.Options.NO_COUNT">NO_COUNT</see>:</term>
         ///         <description>return a count of 0 for the join table for
         /// logging and for show_table. optimization needed for large
-        /// overlapped equi-join stencils</description>
+        /// overlapped equi-join stencils.  The default value is
+        /// 'false'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -614,7 +322,7 @@ namespace kinetica
         /// Defaults to the gpudb.conf file chunk size</description>
         ///     </item>
         /// </list>
-        ///   </param>
+        /// The default value is an empty {@link Dictionary}.</param>
         /// 
         public CreateJoinTableRequest( string join_table_name,
                                        IList<string> table_names,

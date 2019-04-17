@@ -31,8 +31,8 @@ namespace kinetica
         ///         <description>A positive integer indicating the number of
         /// initial results to skip from <paramref
         /// cref="AppendRecordsRequest.source_table_name" />. Default is 0. The
-        /// minimum allowed value is 0. The maximum allowed value is
-        /// MAX_INT.</description>
+        /// minimum allowed value is 0. The maximum allowed value is MAX_INT.
+        /// The default value is '0'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -41,14 +41,14 @@ namespace kinetica
         /// number of results to be returned from <paramref
         /// cref="AppendRecordsRequest.source_table_name" />. Or END_OF_SET
         /// (-9999) to indicate that the max number of results should be
-        /// returned.</description>
+        /// returned.  The default value is '-9999'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="AppendRecordsRequest.Options.EXPRESSION">EXPRESSION</see>:</term>
         ///         <description>Optional filter expression to apply to the
-        /// <paramref cref="AppendRecordsRequest.source_table_name"
-        /// />.</description>
+        /// <paramref cref="AppendRecordsRequest.source_table_name" />.  The
+        /// default value is ''.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -57,8 +57,8 @@ namespace kinetica
         /// sorted by from source table (specified by <paramref
         /// cref="AppendRecordsRequest.source_table_name" />), e.g., 'timestamp
         /// asc, x desc'. The <i>order_by</i> columns do not have to be present
-        /// in <paramref cref="AppendRecordsRequest.field_map"
-        /// />.</description>
+        /// in <paramref cref="AppendRecordsRequest.field_map" />.  The default
+        /// value is ''.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -115,7 +115,7 @@ namespace kinetica
         /// cref="AppendRecordsRequest.Options.FALSE">FALSE</see>.</description>
         ///     </item>
         /// </list>
-        /// <br />
+        /// The default value is an empty {@link Dictionary}.
         /// A set of string constants for the parameter <see cref="options"
         /// />.</summary>
         public struct Options
@@ -124,24 +124,26 @@ namespace kinetica
             /// <summary>A positive integer indicating the number of initial
             /// results to skip from <see cref="source_table_name" />. Default
             /// is 0. The minimum allowed value is 0. The maximum allowed value
-            /// is MAX_INT.</summary>
+            /// is MAX_INT.  The default value is '0'.</summary>
             public const string OFFSET = "offset";
 
             /// <summary>A positive integer indicating the maximum number of
             /// results to be returned from <see cref="source_table_name" />.
             /// Or END_OF_SET (-9999) to indicate that the max number of
-            /// results should be returned.</summary>
+            /// results should be returned.  The default value is
+            /// '-9999'.</summary>
             public const string LIMIT = "limit";
 
             /// <summary>Optional filter expression to apply to the <see
-            /// cref="source_table_name" />.</summary>
+            /// cref="source_table_name" />.  The default value is
+            /// ''.</summary>
             public const string EXPRESSION = "expression";
 
             /// <summary>Comma-separated list of the columns to be sorted by
             /// from source table (specified by <see cref="source_table_name"
             /// />), e.g., 'timestamp asc, x desc'. The <i>order_by</i> columns
-            /// do not have to be present in <see cref="field_map"
-            /// />.</summary>
+            /// do not have to be present in <see cref="field_map" />.  The
+            /// default value is ''.</summary>
             public const string ORDER_BY = "order_by";
 
             /// <summary>Specifies the record collision policy for inserting
@@ -224,8 +226,8 @@ namespace kinetica
         ///         <description>A positive integer indicating the number of
         /// initial results to skip from <paramref
         /// cref="AppendRecordsRequest.source_table_name" />. Default is 0. The
-        /// minimum allowed value is 0. The maximum allowed value is
-        /// MAX_INT.</description>
+        /// minimum allowed value is 0. The maximum allowed value is MAX_INT.
+        /// The default value is '0'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -234,14 +236,14 @@ namespace kinetica
         /// number of results to be returned from <paramref
         /// cref="AppendRecordsRequest.source_table_name" />. Or END_OF_SET
         /// (-9999) to indicate that the max number of results should be
-        /// returned.</description>
+        /// returned.  The default value is '-9999'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="AppendRecordsRequest.Options.EXPRESSION">EXPRESSION</see>:</term>
         ///         <description>Optional filter expression to apply to the
-        /// <paramref cref="AppendRecordsRequest.source_table_name"
-        /// />.</description>
+        /// <paramref cref="AppendRecordsRequest.source_table_name" />.  The
+        /// default value is ''.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -250,8 +252,8 @@ namespace kinetica
         /// sorted by from source table (specified by <paramref
         /// cref="AppendRecordsRequest.source_table_name" />), e.g., 'timestamp
         /// asc, x desc'. The <i>order_by</i> columns do not have to be present
-        /// in <paramref cref="AppendRecordsRequest.field_map"
-        /// />.</description>
+        /// in <paramref cref="AppendRecordsRequest.field_map" />.  The default
+        /// value is ''.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -308,7 +310,7 @@ namespace kinetica
         /// cref="AppendRecordsRequest.Options.FALSE">FALSE</see>.</description>
         ///     </item>
         /// </list>
-        ///   </summary>
+        /// The default value is an empty {@link Dictionary}.</summary>
         public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
 
 
@@ -341,8 +343,8 @@ namespace kinetica
         ///         <description>A positive integer indicating the number of
         /// initial results to skip from <paramref
         /// cref="AppendRecordsRequest.source_table_name" />. Default is 0. The
-        /// minimum allowed value is 0. The maximum allowed value is
-        /// MAX_INT.</description>
+        /// minimum allowed value is 0. The maximum allowed value is MAX_INT.
+        /// The default value is '0'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -351,14 +353,14 @@ namespace kinetica
         /// number of results to be returned from <paramref
         /// cref="AppendRecordsRequest.source_table_name" />. Or END_OF_SET
         /// (-9999) to indicate that the max number of results should be
-        /// returned.</description>
+        /// returned.  The default value is '-9999'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="AppendRecordsRequest.Options.EXPRESSION">EXPRESSION</see>:</term>
         ///         <description>Optional filter expression to apply to the
-        /// <paramref cref="AppendRecordsRequest.source_table_name"
-        /// />.</description>
+        /// <paramref cref="AppendRecordsRequest.source_table_name" />.  The
+        /// default value is ''.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -367,8 +369,8 @@ namespace kinetica
         /// sorted by from source table (specified by <paramref
         /// cref="AppendRecordsRequest.source_table_name" />), e.g., 'timestamp
         /// asc, x desc'. The <i>order_by</i> columns do not have to be present
-        /// in <paramref cref="AppendRecordsRequest.field_map"
-        /// />.</description>
+        /// in <paramref cref="AppendRecordsRequest.field_map" />.  The default
+        /// value is ''.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -425,7 +427,7 @@ namespace kinetica
         /// cref="AppendRecordsRequest.Options.FALSE">FALSE</see>.</description>
         ///     </item>
         /// </list>
-        ///   </param>
+        /// The default value is an empty {@link Dictionary}.</param>
         /// 
         public AppendRecordsRequest( string table_name,
                                      string source_table_name,

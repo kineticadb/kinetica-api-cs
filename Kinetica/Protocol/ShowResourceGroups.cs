@@ -62,7 +62,7 @@ namespace kinetica
         /// cref="ShowResourceGroupsRequest.Options.TRUE">TRUE</see>.</description>
         ///     </item>
         /// </list>
-        /// <br />
+        /// The default value is an empty {@link Dictionary}.
         /// A set of string constants for the parameter <see cref="options"
         /// />.</summary>
         public struct Options
@@ -151,7 +151,7 @@ namespace kinetica
         /// cref="ShowResourceGroupsRequest.Options.TRUE">TRUE</see>.</description>
         ///     </item>
         /// </list>
-        ///   </summary>
+        /// The default value is an empty {@link Dictionary}.</summary>
         public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
 
 
@@ -205,7 +205,7 @@ namespace kinetica
         /// cref="ShowResourceGroupsRequest.Options.TRUE">TRUE</see>.</description>
         ///     </item>
         /// </list>
-        ///   </param>
+        /// The default value is an empty {@link Dictionary}.</param>
         /// 
         public ShowResourceGroupsRequest( IList<string> names,
                                           IDictionary<string, string> options = null)
@@ -225,7 +225,7 @@ namespace kinetica
     {
 
         /// <summary>Map of resource group information.  </summary>
-        public IDictionary<string, IDictionary<string, string>> groups { get; set; } = new Dictionary<string, IDictionary<string, string>>();
+        public IList<IDictionary<string, string>> groups { get; set; } = new List<IDictionary<string, string>>();
 
         /// <summary>Additional information.  </summary>
         public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();

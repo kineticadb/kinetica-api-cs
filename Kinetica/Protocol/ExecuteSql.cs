@@ -347,7 +347,7 @@ namespace kinetica
         /// cref="ExecuteSqlRequest.Options.TRUE">TRUE</see>.</description>
         ///     </item>
         /// </list>
-        /// <br />
+        /// The default value is an empty {@link Dictionary}.
         /// A set of string constants for the parameter <see cref="options"
         /// />.</summary>
         public struct Options
@@ -658,11 +658,12 @@ namespace kinetica
         public string encoding { get; set; } = Encoding.BINARY;
 
         /// <summary>Avro schema of <paramref cref="ExecuteSqlRequest.data" />.
-        /// </summary>
+        /// The default value is ''.</summary>
         public string request_schema_str { get; set; } = "";
 
         /// <summary>An array of binary-encoded data for the records to be
-        /// binded to the SQL query.  </summary>
+        /// binded to the SQL query.  The default value is an empty {@link
+        /// List}.</summary>
         public IList<byte[]> data { get; set; } = new List<byte[]>();
 
         /// <summary>Optional parameters.
@@ -969,7 +970,7 @@ namespace kinetica
         /// cref="ExecuteSqlRequest.Options.TRUE">TRUE</see>.</description>
         ///     </item>
         /// </list>
-        ///   </summary>
+        /// The default value is an empty {@link Dictionary}.</summary>
         public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
 
 
@@ -991,9 +992,10 @@ namespace kinetica
         /// 10000), or END_OF_SET (-9999) to indicate that the maximum number
         /// of results allowed by the server should be returned.  </param>
         /// <param name="request_schema_str">Avro schema of <paramref
-        /// cref="ExecuteSqlRequest.data" />.  </param>
+        /// cref="ExecuteSqlRequest.data" />.  The default value is ''.</param>
         /// <param name="data">An array of binary-encoded data for the records
-        /// to be binded to the SQL query.  </param>
+        /// to be binded to the SQL query.  The default value is an empty
+        /// {@link List}.</param>
         /// <param name="options">Optional parameters.
         /// <list type="bullet">
         ///     <item>
@@ -1298,7 +1300,7 @@ namespace kinetica
         /// cref="ExecuteSqlRequest.Options.TRUE">TRUE</see>.</description>
         ///     </item>
         /// </list>
-        ///   </param>
+        /// The default value is an empty {@link Dictionary}.</param>
         /// 
         public ExecuteSqlRequest( string statement,
                                   long offset,
@@ -1346,9 +1348,10 @@ namespace kinetica
         /// The default value is <see
         /// cref="ExecuteSqlRequest.Encoding.BINARY">BINARY</see>.  </param>
         /// <param name="request_schema_str">Avro schema of <paramref
-        /// cref="ExecuteSqlRequest.data" />.  </param>
+        /// cref="ExecuteSqlRequest.data" />.  The default value is ''.</param>
         /// <param name="data">An array of binary-encoded data for the records
-        /// to be binded to the SQL query.  </param>
+        /// to be binded to the SQL query.  The default value is an empty
+        /// {@link List}.</param>
         /// <param name="options">Optional parameters.
         /// <list type="bullet">
         ///     <item>
@@ -1653,7 +1656,7 @@ namespace kinetica
         /// cref="ExecuteSqlRequest.Options.TRUE">TRUE</see>.</description>
         ///     </item>
         /// </list>
-        ///   </param>
+        /// The default value is an empty {@link Dictionary}.</param>
         /// 
         public ExecuteSqlRequest( string statement,
                                   long offset,

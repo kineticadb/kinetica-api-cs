@@ -154,22 +154,22 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="VisualizeImageClassbreakRequest.StyleOptions.POINTCOLORS">POINTCOLORS</see>:</term>
-        ///         <description></description>
+        ///         <description>  The default value is 'FF0000'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="VisualizeImageClassbreakRequest.StyleOptions.POINTSIZES">POINTSIZES</see>:</term>
-        ///         <description></description>
+        ///         <description>  The default value is '3'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="VisualizeImageClassbreakRequest.StyleOptions.POINTOFFSET_X">POINTOFFSET_X</see>:</term>
-        ///         <description></description>
+        ///         <description>  The default value is '0'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="VisualizeImageClassbreakRequest.StyleOptions.POINTOFFSET_Y">POINTOFFSET_Y</see>:</term>
-        ///         <description></description>
+        ///         <description>  The default value is '0'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -216,72 +216,74 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="VisualizeImageClassbreakRequest.StyleOptions.SHAPELINEWIDTHS">SHAPELINEWIDTHS</see>:</term>
-        ///         <description></description>
+        ///         <description>  The default value is '3'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="VisualizeImageClassbreakRequest.StyleOptions.SHAPELINECOLORS">SHAPELINECOLORS</see>:</term>
-        ///         <description></description>
+        ///         <description>  The default value is 'FFFF00
+        /// '.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="VisualizeImageClassbreakRequest.StyleOptions.SHAPELINEPATTERNS">SHAPELINEPATTERNS</see>:</term>
-        ///         <description></description>
+        ///         <description>  The default value is '0'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="VisualizeImageClassbreakRequest.StyleOptions.SHAPELINEPATTERNLEN">SHAPELINEPATTERNLEN</see>:</term>
-        ///         <description></description>
+        ///         <description>  The default value is '32'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="VisualizeImageClassbreakRequest.StyleOptions.SHAPEFILLCOLORS">SHAPEFILLCOLORS</see>:</term>
-        ///         <description></description>
+        ///         <description>  The default value is '-1'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="VisualizeImageClassbreakRequest.StyleOptions.HASHLINEINTERVALS">HASHLINEINTERVALS</see>:</term>
-        ///         <description></description>
+        ///         <description>  The default value is '20'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="VisualizeImageClassbreakRequest.StyleOptions.HASHLINECOLORS">HASHLINECOLORS</see>:</term>
-        ///         <description></description>
+        ///         <description>  The default value is 'The same as line
+        /// color.'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="VisualizeImageClassbreakRequest.StyleOptions.HASHLINEANGLES">HASHLINEANGLES</see>:</term>
-        ///         <description></description>
+        ///         <description>  The default value is '0'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="VisualizeImageClassbreakRequest.StyleOptions.HASHLINELENS">HASHLINELENS</see>:</term>
-        ///         <description></description>
+        ///         <description>  The default value is '0'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="VisualizeImageClassbreakRequest.StyleOptions.HASHLINEWIDTHS">HASHLINEWIDTHS</see>:</term>
-        ///         <description></description>
+        ///         <description>  The default value is '3'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="VisualizeImageClassbreakRequest.StyleOptions.TRACKLINEWIDTHS">TRACKLINEWIDTHS</see>:</term>
-        ///         <description></description>
+        ///         <description>  The default value is '3'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="VisualizeImageClassbreakRequest.StyleOptions.TRACKLINECOLORS">TRACKLINECOLORS</see>:</term>
-        ///         <description></description>
+        ///         <description>  The default value is '00FF00'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="VisualizeImageClassbreakRequest.StyleOptions.TRACKMARKERSIZES">TRACKMARKERSIZES</see>:</term>
-        ///         <description></description>
+        ///         <description>  The default value is '3'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="VisualizeImageClassbreakRequest.StyleOptions.TRACKMARKERCOLORS">TRACKMARKERCOLORS</see>:</term>
-        ///         <description></description>
+        ///         <description>  The default value is '0000FF'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -328,12 +330,12 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="VisualizeImageClassbreakRequest.StyleOptions.TRACKHEADCOLORS">TRACKHEADCOLORS</see>:</term>
-        ///         <description></description>
+        ///         <description>  The default value is 'FFFFFF'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="VisualizeImageClassbreakRequest.StyleOptions.TRACKHEADSIZES">TRACKHEADSIZES</see>:</term>
-        ///         <description></description>
+        ///         <description>  The default value is '10'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -449,9 +451,17 @@ namespace kinetica
             /// The default value is <see
             /// cref="VisualizeImageClassbreakRequest.StyleOptions.FALSE">FALSE</see>.</summary>
             public const string DO_SYMBOLOGY = "do_symbology";
+
+            /// <summary>  The default value is 'FF0000'.</summary>
             public const string POINTCOLORS = "pointcolors";
+
+            /// <summary>  The default value is '3'.</summary>
             public const string POINTSIZES = "pointsizes";
+
+            /// <summary>  The default value is '0'.</summary>
             public const string POINTOFFSET_X = "pointoffset_x";
+
+            /// <summary>  The default value is '0'.</summary>
             public const string POINTOFFSET_Y = "pointoffset_y";
 
             /// <summary>
@@ -501,19 +511,48 @@ namespace kinetica
             public const string HOLLOWSQUARE = "hollowsquare";
             public const string HOLLOWDIAMOND = "hollowdiamond";
             public const string SYMBOLCODE = "SYMBOLCODE";
+
+            /// <summary>  The default value is '3'.</summary>
             public const string SHAPELINEWIDTHS = "shapelinewidths";
+
+            /// <summary>  The default value is 'FFFF00 '.</summary>
             public const string SHAPELINECOLORS = "shapelinecolors";
+
+            /// <summary>  The default value is '0'.</summary>
             public const string SHAPELINEPATTERNS = "shapelinepatterns";
+
+            /// <summary>  The default value is '32'.</summary>
             public const string SHAPELINEPATTERNLEN = "shapelinepatternlen";
+
+            /// <summary>  The default value is '-1'.</summary>
             public const string SHAPEFILLCOLORS = "shapefillcolors";
+
+            /// <summary>  The default value is '20'.</summary>
             public const string HASHLINEINTERVALS = "hashlineintervals";
+
+            /// <summary>  The default value is 'The same as line
+            /// color.'.</summary>
             public const string HASHLINECOLORS = "hashlinecolors";
+
+            /// <summary>  The default value is '0'.</summary>
             public const string HASHLINEANGLES = "hashlineangles";
+
+            /// <summary>  The default value is '0'.</summary>
             public const string HASHLINELENS = "hashlinelens";
+
+            /// <summary>  The default value is '3'.</summary>
             public const string HASHLINEWIDTHS = "hashlinewidths";
+
+            /// <summary>  The default value is '3'.</summary>
             public const string TRACKLINEWIDTHS = "tracklinewidths";
+
+            /// <summary>  The default value is '00FF00'.</summary>
             public const string TRACKLINECOLORS = "tracklinecolors";
+
+            /// <summary>  The default value is '3'.</summary>
             public const string TRACKMARKERSIZES = "trackmarkersizes";
+
+            /// <summary>  The default value is '0000FF'.</summary>
             public const string TRACKMARKERCOLORS = "trackmarkercolors";
 
             /// <summary>
@@ -555,7 +594,11 @@ namespace kinetica
             /// The default value is <see
             /// cref="VisualizeImageClassbreakRequest.StyleOptions.NONE">NONE</see>.</summary>
             public const string TRACKMARKERSHAPES = "trackmarkershapes";
+
+            /// <summary>  The default value is 'FFFFFF'.</summary>
             public const string TRACKHEADCOLORS = "trackheadcolors";
+
+            /// <summary>  The default value is '10'.</summary>
             public const string TRACKHEADSIZES = "trackheadsizes";
 
             /// <summary>
@@ -742,22 +785,22 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="VisualizeImageClassbreakRequest.StyleOptions.POINTCOLORS">POINTCOLORS</see>:</term>
-        ///         <description></description>
+        ///         <description>  The default value is 'FF0000'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="VisualizeImageClassbreakRequest.StyleOptions.POINTSIZES">POINTSIZES</see>:</term>
-        ///         <description></description>
+        ///         <description>  The default value is '3'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="VisualizeImageClassbreakRequest.StyleOptions.POINTOFFSET_X">POINTOFFSET_X</see>:</term>
-        ///         <description></description>
+        ///         <description>  The default value is '0'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="VisualizeImageClassbreakRequest.StyleOptions.POINTOFFSET_Y">POINTOFFSET_Y</see>:</term>
-        ///         <description></description>
+        ///         <description>  The default value is '0'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -804,72 +847,74 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="VisualizeImageClassbreakRequest.StyleOptions.SHAPELINEWIDTHS">SHAPELINEWIDTHS</see>:</term>
-        ///         <description></description>
+        ///         <description>  The default value is '3'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="VisualizeImageClassbreakRequest.StyleOptions.SHAPELINECOLORS">SHAPELINECOLORS</see>:</term>
-        ///         <description></description>
+        ///         <description>  The default value is 'FFFF00
+        /// '.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="VisualizeImageClassbreakRequest.StyleOptions.SHAPELINEPATTERNS">SHAPELINEPATTERNS</see>:</term>
-        ///         <description></description>
+        ///         <description>  The default value is '0'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="VisualizeImageClassbreakRequest.StyleOptions.SHAPELINEPATTERNLEN">SHAPELINEPATTERNLEN</see>:</term>
-        ///         <description></description>
+        ///         <description>  The default value is '32'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="VisualizeImageClassbreakRequest.StyleOptions.SHAPEFILLCOLORS">SHAPEFILLCOLORS</see>:</term>
-        ///         <description></description>
+        ///         <description>  The default value is '-1'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="VisualizeImageClassbreakRequest.StyleOptions.HASHLINEINTERVALS">HASHLINEINTERVALS</see>:</term>
-        ///         <description></description>
+        ///         <description>  The default value is '20'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="VisualizeImageClassbreakRequest.StyleOptions.HASHLINECOLORS">HASHLINECOLORS</see>:</term>
-        ///         <description></description>
+        ///         <description>  The default value is 'The same as line
+        /// color.'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="VisualizeImageClassbreakRequest.StyleOptions.HASHLINEANGLES">HASHLINEANGLES</see>:</term>
-        ///         <description></description>
+        ///         <description>  The default value is '0'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="VisualizeImageClassbreakRequest.StyleOptions.HASHLINELENS">HASHLINELENS</see>:</term>
-        ///         <description></description>
+        ///         <description>  The default value is '0'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="VisualizeImageClassbreakRequest.StyleOptions.HASHLINEWIDTHS">HASHLINEWIDTHS</see>:</term>
-        ///         <description></description>
+        ///         <description>  The default value is '3'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="VisualizeImageClassbreakRequest.StyleOptions.TRACKLINEWIDTHS">TRACKLINEWIDTHS</see>:</term>
-        ///         <description></description>
+        ///         <description>  The default value is '3'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="VisualizeImageClassbreakRequest.StyleOptions.TRACKLINECOLORS">TRACKLINECOLORS</see>:</term>
-        ///         <description></description>
+        ///         <description>  The default value is '00FF00'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="VisualizeImageClassbreakRequest.StyleOptions.TRACKMARKERSIZES">TRACKMARKERSIZES</see>:</term>
-        ///         <description></description>
+        ///         <description>  The default value is '3'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="VisualizeImageClassbreakRequest.StyleOptions.TRACKMARKERCOLORS">TRACKMARKERCOLORS</see>:</term>
-        ///         <description></description>
+        ///         <description>  The default value is '0000FF'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -916,12 +961,12 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="VisualizeImageClassbreakRequest.StyleOptions.TRACKHEADCOLORS">TRACKHEADCOLORS</see>:</term>
-        ///         <description></description>
+        ///         <description>  The default value is 'FFFFFF'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="VisualizeImageClassbreakRequest.StyleOptions.TRACKHEADSIZES">TRACKHEADSIZES</see>:</term>
-        ///         <description></description>
+        ///         <description>  The default value is '10'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -1118,22 +1163,22 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="VisualizeImageClassbreakRequest.StyleOptions.POINTCOLORS">POINTCOLORS</see>:</term>
-        ///         <description></description>
+        ///         <description>  The default value is 'FF0000'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="VisualizeImageClassbreakRequest.StyleOptions.POINTSIZES">POINTSIZES</see>:</term>
-        ///         <description></description>
+        ///         <description>  The default value is '3'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="VisualizeImageClassbreakRequest.StyleOptions.POINTOFFSET_X">POINTOFFSET_X</see>:</term>
-        ///         <description></description>
+        ///         <description>  The default value is '0'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="VisualizeImageClassbreakRequest.StyleOptions.POINTOFFSET_Y">POINTOFFSET_Y</see>:</term>
-        ///         <description></description>
+        ///         <description>  The default value is '0'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -1180,72 +1225,74 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="VisualizeImageClassbreakRequest.StyleOptions.SHAPELINEWIDTHS">SHAPELINEWIDTHS</see>:</term>
-        ///         <description></description>
+        ///         <description>  The default value is '3'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="VisualizeImageClassbreakRequest.StyleOptions.SHAPELINECOLORS">SHAPELINECOLORS</see>:</term>
-        ///         <description></description>
+        ///         <description>  The default value is 'FFFF00
+        /// '.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="VisualizeImageClassbreakRequest.StyleOptions.SHAPELINEPATTERNS">SHAPELINEPATTERNS</see>:</term>
-        ///         <description></description>
+        ///         <description>  The default value is '0'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="VisualizeImageClassbreakRequest.StyleOptions.SHAPELINEPATTERNLEN">SHAPELINEPATTERNLEN</see>:</term>
-        ///         <description></description>
+        ///         <description>  The default value is '32'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="VisualizeImageClassbreakRequest.StyleOptions.SHAPEFILLCOLORS">SHAPEFILLCOLORS</see>:</term>
-        ///         <description></description>
+        ///         <description>  The default value is '-1'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="VisualizeImageClassbreakRequest.StyleOptions.HASHLINEINTERVALS">HASHLINEINTERVALS</see>:</term>
-        ///         <description></description>
+        ///         <description>  The default value is '20'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="VisualizeImageClassbreakRequest.StyleOptions.HASHLINECOLORS">HASHLINECOLORS</see>:</term>
-        ///         <description></description>
+        ///         <description>  The default value is 'The same as line
+        /// color.'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="VisualizeImageClassbreakRequest.StyleOptions.HASHLINEANGLES">HASHLINEANGLES</see>:</term>
-        ///         <description></description>
+        ///         <description>  The default value is '0'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="VisualizeImageClassbreakRequest.StyleOptions.HASHLINELENS">HASHLINELENS</see>:</term>
-        ///         <description></description>
+        ///         <description>  The default value is '0'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="VisualizeImageClassbreakRequest.StyleOptions.HASHLINEWIDTHS">HASHLINEWIDTHS</see>:</term>
-        ///         <description></description>
+        ///         <description>  The default value is '3'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="VisualizeImageClassbreakRequest.StyleOptions.TRACKLINEWIDTHS">TRACKLINEWIDTHS</see>:</term>
-        ///         <description></description>
+        ///         <description>  The default value is '3'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="VisualizeImageClassbreakRequest.StyleOptions.TRACKLINECOLORS">TRACKLINECOLORS</see>:</term>
-        ///         <description></description>
+        ///         <description>  The default value is '00FF00'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="VisualizeImageClassbreakRequest.StyleOptions.TRACKMARKERSIZES">TRACKMARKERSIZES</see>:</term>
-        ///         <description></description>
+        ///         <description>  The default value is '3'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="VisualizeImageClassbreakRequest.StyleOptions.TRACKMARKERCOLORS">TRACKMARKERCOLORS</see>:</term>
-        ///         <description></description>
+        ///         <description>  The default value is '0000FF'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -1292,12 +1339,12 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="VisualizeImageClassbreakRequest.StyleOptions.TRACKHEADCOLORS">TRACKHEADCOLORS</see>:</term>
-        ///         <description></description>
+        ///         <description>  The default value is 'FFFFFF'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="VisualizeImageClassbreakRequest.StyleOptions.TRACKHEADSIZES">TRACKHEADSIZES</see>:</term>
-        ///         <description></description>
+        ///         <description>  The default value is '10'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see

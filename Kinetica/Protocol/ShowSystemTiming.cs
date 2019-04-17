@@ -20,7 +20,8 @@ namespace kinetica
     public class ShowSystemTimingRequest : KineticaData
     {
 
-        /// <summary>Optional parameters, currently unused.  </summary>
+        /// <summary>Optional parameters, currently unused.  The default value
+        /// is an empty {@link Dictionary}.</summary>
         public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
 
 
@@ -31,8 +32,8 @@ namespace kinetica
         /// <summary>Constructs a ShowSystemTimingRequest object with the
         /// specified parameters.</summary>
         /// 
-        /// <param name="options">Optional parameters, currently unused.
-        /// </param>
+        /// <param name="options">Optional parameters, currently unused.  The
+        /// default value is an empty {@link Dictionary}.</param>
         /// 
         public ShowSystemTimingRequest( IDictionary<string, string> options = null)
         {

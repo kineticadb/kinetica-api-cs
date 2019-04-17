@@ -37,7 +37,7 @@ namespace kinetica
         /// </list></description>
         ///     </item>
         /// </list>
-        /// <br />
+        /// The default value is an empty {@link Dictionary}.
         /// A set of string constants for the parameter <see cref="options"
         /// />.</summary>
         public struct Options
@@ -80,7 +80,7 @@ namespace kinetica
         /// </list></description>
         ///     </item>
         /// </list>
-        ///   </summary>
+        /// The default value is an empty {@link Dictionary}.</summary>
         public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
 
 
@@ -110,7 +110,7 @@ namespace kinetica
         /// </list></description>
         ///     </item>
         /// </list>
-        ///   </param>
+        /// The default value is an empty {@link Dictionary}.</param>
         /// 
         public AdminShowJobsRequest( IDictionary<string, string> options = null)
         {

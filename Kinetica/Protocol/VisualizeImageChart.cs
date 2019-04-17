@@ -30,13 +30,13 @@ namespace kinetica
         ///         <term><see
         /// cref="VisualizeImageChartRequest.StyleOptions.POINTCOLOR">POINTCOLOR</see>:</term>
         ///         <description>The color of points in the plot represented as
-        /// a hexadecimal number.</description>
+        /// a hexadecimal number.  The default value is '0000FF'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="VisualizeImageChartRequest.StyleOptions.POINTSIZE">POINTSIZE</see>:</term>
         ///         <description>The size of points in the plot represented as
-        /// number of pixels.</description>
+        /// number of pixels.  The default value is '3'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -113,8 +113,8 @@ namespace kinetica
         ///         <term><see
         /// cref="VisualizeImageChartRequest.StyleOptions.CB_DELIMITER">CB_DELIMITER</see>:</term>
         ///         <description>A character or string which separates
-        /// per-class values in a class-break style option
-        /// string.</description>
+        /// per-class values in a class-break style option string.  The default
+        /// value is ';'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -178,20 +178,22 @@ namespace kinetica
         ///         <term><see
         /// cref="VisualizeImageChartRequest.StyleOptions.JITTER_X">JITTER_X</see>:</term>
         ///         <description>Amplitude of horizontal jitter applied to
-        /// non-numeric x column values.</description>
+        /// non-numeric x column values.  The default value is
+        /// '0.0'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="VisualizeImageChartRequest.StyleOptions.JITTER_Y">JITTER_Y</see>:</term>
         ///         <description>Amplitude of vertical jitter applied to
-        /// non-numeric y column values.</description>
+        /// non-numeric y column values.  The default value is
+        /// '0.0'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="VisualizeImageChartRequest.StyleOptions.PLOT_ALL">PLOT_ALL</see>:</term>
         ///         <description>If this options is set to "true", all
         /// non-numeric column values are plotted ignoring min_x, max_x, min_y
-        /// and max_y parameters.</description>
+        /// and max_y parameters.  The default value is 'false'.</description>
         ///     </item>
         /// </list>
         /// <br />
@@ -201,11 +203,11 @@ namespace kinetica
         {
 
             /// <summary>The color of points in the plot represented as a
-            /// hexadecimal number.</summary>
+            /// hexadecimal number.  The default value is '0000FF'.</summary>
             public const string POINTCOLOR = "pointcolor";
 
             /// <summary>The size of points in the plot represented as number
-            /// of pixels.</summary>
+            /// of pixels.  The default value is '3'.</summary>
             public const string POINTSIZE = "pointsize";
 
             /// <summary>The shape of points in the plot.
@@ -282,7 +284,8 @@ namespace kinetica
             public const string CB_POINTSHAPES = "cb_pointshapes";
 
             /// <summary>A character or string which separates per-class values
-            /// in a class-break style option string.</summary>
+            /// in a class-break style option string.  The default value is
+            /// ';'.</summary>
             public const string CB_DELIMITER = "cb_delimiter";
 
             /// <summary>An expression or aggregate expression by which
@@ -340,16 +343,16 @@ namespace kinetica
             public const string SCALE_TYPE_Y = "scale_type_y";
 
             /// <summary>Amplitude of horizontal jitter applied to non-numeric
-            /// x column values.</summary>
+            /// x column values.  The default value is '0.0'.</summary>
             public const string JITTER_X = "jitter_x";
 
             /// <summary>Amplitude of vertical jitter applied to non-numeric y
-            /// column values.</summary>
+            /// column values.  The default value is '0.0'.</summary>
             public const string JITTER_Y = "jitter_y";
 
             /// <summary>If this options is set to "true", all non-numeric
             /// column values are plotted ignoring min_x, max_x, min_y and
-            /// max_y parameters.</summary>
+            /// max_y parameters.  The default value is 'false'.</summary>
             public const string PLOT_ALL = "plot_all";
         } // end struct StyleOptions
 
@@ -401,13 +404,13 @@ namespace kinetica
         ///         <term><see
         /// cref="VisualizeImageChartRequest.StyleOptions.POINTCOLOR">POINTCOLOR</see>:</term>
         ///         <description>The color of points in the plot represented as
-        /// a hexadecimal number.</description>
+        /// a hexadecimal number.  The default value is '0000FF'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="VisualizeImageChartRequest.StyleOptions.POINTSIZE">POINTSIZE</see>:</term>
         ///         <description>The size of points in the plot represented as
-        /// number of pixels.</description>
+        /// number of pixels.  The default value is '3'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -484,8 +487,8 @@ namespace kinetica
         ///         <term><see
         /// cref="VisualizeImageChartRequest.StyleOptions.CB_DELIMITER">CB_DELIMITER</see>:</term>
         ///         <description>A character or string which separates
-        /// per-class values in a class-break style option
-        /// string.</description>
+        /// per-class values in a class-break style option string.  The default
+        /// value is ';'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -549,26 +552,29 @@ namespace kinetica
         ///         <term><see
         /// cref="VisualizeImageChartRequest.StyleOptions.JITTER_X">JITTER_X</see>:</term>
         ///         <description>Amplitude of horizontal jitter applied to
-        /// non-numeric x column values.</description>
+        /// non-numeric x column values.  The default value is
+        /// '0.0'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="VisualizeImageChartRequest.StyleOptions.JITTER_Y">JITTER_Y</see>:</term>
         ///         <description>Amplitude of vertical jitter applied to
-        /// non-numeric y column values.</description>
+        /// non-numeric y column values.  The default value is
+        /// '0.0'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="VisualizeImageChartRequest.StyleOptions.PLOT_ALL">PLOT_ALL</see>:</term>
         ///         <description>If this options is set to "true", all
         /// non-numeric column values are plotted ignoring min_x, max_x, min_y
-        /// and max_y parameters.</description>
+        /// and max_y parameters.  The default value is 'false'.</description>
         ///     </item>
         /// </list>
         ///   </summary>
         public IDictionary<string, IList<string>> style_options { get; set; } = new Dictionary<string, IList<string>>();
 
-        /// <summary>Optional parameters.  </summary>
+        /// <summary>Optional parameters.  The default value is an empty {@link
+        /// Dictionary}.</summary>
         public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
 
 
@@ -609,13 +615,13 @@ namespace kinetica
         ///         <term><see
         /// cref="VisualizeImageChartRequest.StyleOptions.POINTCOLOR">POINTCOLOR</see>:</term>
         ///         <description>The color of points in the plot represented as
-        /// a hexadecimal number.</description>
+        /// a hexadecimal number.  The default value is '0000FF'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="VisualizeImageChartRequest.StyleOptions.POINTSIZE">POINTSIZE</see>:</term>
         ///         <description>The size of points in the plot represented as
-        /// number of pixels.</description>
+        /// number of pixels.  The default value is '3'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -692,8 +698,8 @@ namespace kinetica
         ///         <term><see
         /// cref="VisualizeImageChartRequest.StyleOptions.CB_DELIMITER">CB_DELIMITER</see>:</term>
         ///         <description>A character or string which separates
-        /// per-class values in a class-break style option
-        /// string.</description>
+        /// per-class values in a class-break style option string.  The default
+        /// value is ';'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -757,24 +763,27 @@ namespace kinetica
         ///         <term><see
         /// cref="VisualizeImageChartRequest.StyleOptions.JITTER_X">JITTER_X</see>:</term>
         ///         <description>Amplitude of horizontal jitter applied to
-        /// non-numeric x column values.</description>
+        /// non-numeric x column values.  The default value is
+        /// '0.0'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="VisualizeImageChartRequest.StyleOptions.JITTER_Y">JITTER_Y</see>:</term>
         ///         <description>Amplitude of vertical jitter applied to
-        /// non-numeric y column values.</description>
+        /// non-numeric y column values.  The default value is
+        /// '0.0'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="VisualizeImageChartRequest.StyleOptions.PLOT_ALL">PLOT_ALL</see>:</term>
         ///         <description>If this options is set to "true", all
         /// non-numeric column values are plotted ignoring min_x, max_x, min_y
-        /// and max_y parameters.</description>
+        /// and max_y parameters.  The default value is 'false'.</description>
         ///     </item>
         /// </list>
         ///   </param>
-        /// <param name="options">Optional parameters.  </param>
+        /// <param name="options">Optional parameters.  The default value is an
+        /// empty {@link Dictionary}.</param>
         /// 
         public VisualizeImageChartRequest( string table_name,
                                            IList<string> x_column_names,

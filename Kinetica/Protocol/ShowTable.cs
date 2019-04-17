@@ -144,7 +144,7 @@ namespace kinetica
         /// cref="ShowTableRequest.Options.FALSE">FALSE</see>.</description>
         ///     </item>
         /// </list>
-        /// <br />
+        /// The default value is an empty {@link Dictionary}.
         /// A set of string constants for the parameter <see cref="options"
         /// />.</summary>
         public struct Options
@@ -355,7 +355,7 @@ namespace kinetica
         /// cref="ShowTableRequest.Options.FALSE">FALSE</see>.</description>
         ///     </item>
         /// </list>
-        ///   </summary>
+        /// The default value is an empty {@link Dictionary}.</summary>
         public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
 
 
@@ -474,7 +474,7 @@ namespace kinetica
         /// cref="ShowTableRequest.Options.FALSE">FALSE</see>.</description>
         ///     </item>
         /// </list>
-        ///   </param>
+        /// The default value is an empty {@link Dictionary}.</param>
         /// 
         public ShowTableRequest( string table_name,
                                  IDictionary<string, string> options = null)
@@ -562,7 +562,7 @@ namespace kinetica
             public const string CREATE_UNION = "create_union";
 
             /// <summary>The json representation of request creating this
-            /// table.</summary>
+            /// table.  The default value is ''.</summary>
             public const string REQUEST_AVRO_JSON = "request_avro_json";
 
             /// <summary>Indicates whether the respective table is <a
@@ -607,13 +607,13 @@ namespace kinetica
             /// href="../../concepts/tables.html#foreign-key"
             /// target="_top">foreign keys</a>, of the format 'source_column
             /// references target_table(primary_key_column)'. Not present for
-            /// collections.</summary>
+            /// collections.  The default value is ''.</summary>
             public const string FOREIGN_KEYS = "foreign_keys";
 
             /// <summary>Foreign shard key description of the format:
             /// <fk_foreign_key> references <pk_column_name> from
-            /// <pk_table_name>(<pk_primary_key>). Not present for
-            /// collections.</summary>
+            /// <pk_table_name>(<pk_primary_key>). Not present for collections.
+            /// The default value is ''.</summary>
             public const string FOREIGN_SHARD_KEY = "foreign_shard_key";
 
             /// <summary><a href="../../concepts/tables.html#partitioning"
@@ -665,24 +665,26 @@ namespace kinetica
             /// <summary>Using no partitioning</summary>
             public const string NONE = "NONE";
 
-            /// <summary>Comma-separated list of partition keys</summary>
+            /// <summary>Comma-separated list of partition keys.  The default
+            /// value is ''.</summary>
             public const string PARTITION_KEYS = "partition_keys";
 
             /// <summary>Comma-separated list of partition definitions, whose
             /// format depends on the partition_type.  See <a
             /// href="../../concepts/tables.html#partitioning"
-            /// target="_top">partitioning</a> documentation for
-            /// details.</summary>
+            /// target="_top">partitioning</a> documentation for details.  The
+            /// default value is ''.</summary>
             public const string PARTITION_DEFINITIONS = "partition_definitions";
 
             /// <summary>true if partitions will be created for values which
-            /// don't fall into existing partitions</summary>
+            /// don't fall into existing partitions.  The default value is
+            /// ''.</summary>
             public const string IS_AUTOMATIC_PARTITION = "is_automatic_partition";
 
             /// <summary>Semicolon-separated list of columns that have <a
             /// href="../../concepts/indexes.html#column-index"
-            /// target="_top">indexes</a>. Not present for
-            /// collections.</summary>
+            /// target="_top">indexes</a>. Not present for collections.  The
+            /// default value is ''.</summary>
             public const string ATTRIBUTE_INDEXES = "attribute_indexes";
 
             /// <summary>Semicolon-separated list of <a
@@ -690,12 +692,13 @@ namespace kinetica
             /// target="_top">compressed</a> columns with the corresponding
             /// compression type for each; e.g.:
             /// {first_name,snappy};{last_name,lz4hc}. Not present for
-            /// collections.</summary>
+            /// collections.  The default value is ''.</summary>
             public const string COMPRESSED_COLUMNS = "compressed_columns";
 
             /// <summary>JSON-encoded string representing a map of column name
             /// to information including memory usage if if the
-            /// <i>get_column_info</i> option is <i>true</i>.</summary>
+            /// <i>get_column_info</i> option is <i>true</i>.  The default
+            /// value is ''.</summary>
             public const string COLUMN_INFO = "column_info";
 
             /// <summary>Returns the global access mode (i.e. lock status) for
@@ -747,43 +750,47 @@ namespace kinetica
 
             /// <summary>for materialized view the name of the view this member
             /// table is part of - if same as the table_name then this is the
-            /// root of the view</summary>
+            /// root of the view.  The default value is ''.</summary>
             public const string VIEW_TABLE_NAME = "view_table_name";
 
             /// <summary>true if the view named view_table_name is persisted -
             /// reported for each view member.  Means method of recreating this
-            /// member is saved - not the members data</summary>
+            /// member is saved - not the members data.  The default value is
+            /// ''.</summary>
             public const string IS_VIEW_PERSISTED = "is_view_persisted";
 
             /// <summary>true if some input table of the materialized view that
             /// affects this member table has been modified since the last
-            /// refresh</summary>
+            /// refresh.  The default value is ''.</summary>
             public const string IS_DIRTY = "is_dirty";
 
             /// <summary>for materialized view current refresh_method - one of
-            /// manual, periodic, on_change</summary>
+            /// manual, periodic, on_change.  The default value is
+            /// ''.</summary>
             public const string REFRESH_METHOD = "refresh_method";
 
             /// <summary>for materialized view with periodic refresh_method the
-            /// current intial datetime string that periodic refreshes
-            /// began</summary>
+            /// current intial datetime string that periodic refreshes began.
+            /// The default value is ''.</summary>
             public const string REFRESH_START_TIME = "refresh_start_time";
 
             /// <summary>for materialized view with periodic refresh_method the
-            /// current refresh period in seconds</summary>
+            /// current refresh period in seconds.  The default value is
+            /// ''.</summary>
             public const string REFRESH_PERIOD = "refresh_period";
 
             /// <summary>for materialized view the a datatime string indicating
-            /// the last time the view was refreshed</summary>
+            /// the last time the view was refreshed.  The default value is
+            /// ''.</summary>
             public const string LAST_REFRESH_TIME = "last_refresh_time";
 
             /// <summary>for materialized view with periodic refresh_method a
             /// datetime string indicating the next time the view is to be
-            /// refreshed</summary>
+            /// refreshed.  The default value is ''.</summary>
             public const string NEXT_REFRESH_TIME = "next_refresh_time";
 
             /// <summary>user-specified chunk size, if provided at table
-            /// creation time</summary>
+            /// creation time.  The default value is ''.</summary>
             public const string USER_CHUNK_SIZE = "user_chunk_size";
         } // end struct AdditionalInfo
 

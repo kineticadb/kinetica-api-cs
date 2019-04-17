@@ -12,7 +12,7 @@ namespace kinetica
 {
 
     /// <summary>A set of parameters for <see
-    /// cref="Kinetica.createResourceGroup(string,IDictionary{string, IDictionary{string, string}},IDictionary{string, string})"
+    /// cref="Kinetica.createResourceGroup(string,IDictionary{string, IDictionary{string, string}},string,string,IDictionary{string, string})"
     /// />.
     /// <br />
     /// Creates a new resource group to facilitate resource
@@ -35,7 +35,7 @@ namespace kinetica
         /// tier at one time for this group.</description>
         ///     </item>
         /// </list>
-        /// <br />
+        /// The default value is an empty {@link Dictionary}.
         /// A set of string constants for the parameter <see
         /// cref="tier_attributes" />.</summary>
         public struct TierAttributes
@@ -45,6 +45,38 @@ namespace kinetica
             /// one time for this group.</summary>
             public const string MAX_MEMORY = "max_memory";
         } // end struct TierAttributes
+
+
+        /// <summary>Indicates the relative ranking among existing resource
+        /// groups where this new resource group will be placed.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateResourceGroupRequest.Ranking.FIRST">FIRST</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateResourceGroupRequest.Ranking.LAST">LAST</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateResourceGroupRequest.Ranking.BEFORE">BEFORE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateResourceGroupRequest.Ranking.AFTER">AFTER</see></term>
+        ///     </item>
+        /// </list>
+        /// A set of string constants for the parameter <see cref="ranking"
+        /// />.</summary>
+        public struct Ranking
+        {
+            public const string FIRST = "first";
+            public const string LAST = "last";
+            public const string BEFORE = "before";
+            public const string AFTER = "after";
+        } // end struct Ranking
 
 
         /// <summary>Optional parameters.
@@ -68,7 +100,7 @@ namespace kinetica
         /// group.</description>
         ///     </item>
         /// </list>
-        /// <br />
+        /// The default value is an empty {@link Dictionary}.
         /// A set of string constants for the parameter <see cref="options"
         /// />.</summary>
         public struct Options
@@ -108,8 +140,36 @@ namespace kinetica
         /// tier at one time for this group.</description>
         ///     </item>
         /// </list>
-        ///   </summary>
+        /// The default value is an empty {@link Dictionary}.</summary>
         public IDictionary<string, IDictionary<string, string>> tier_attributes { get; set; } = new Dictionary<string, IDictionary<string, string>>();
+
+        /// <summary>Indicates the relative ranking among existing resource
+        /// groups where this new resource group will be placed.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateResourceGroupRequest.Ranking.FIRST">FIRST</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateResourceGroupRequest.Ranking.LAST">LAST</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateResourceGroupRequest.Ranking.BEFORE">BEFORE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateResourceGroupRequest.Ranking.AFTER">AFTER</see></term>
+        ///     </item>
+        /// </list>  </summary>
+        public string ranking { get; set; }
+
+        /// <summary>Name of the resource group relative to which this group
+        /// will be placed. Must be specified when ranking is before or after.
+        /// The default value is ''.</summary>
+        public string adjoining_resource_group { get; set; } = "";
 
         /// <summary>Optional parameters.
         /// <list type="bullet">
@@ -132,7 +192,7 @@ namespace kinetica
         /// group.</description>
         ///     </item>
         /// </list>
-        ///   </summary>
+        /// The default value is an empty {@link Dictionary}.</summary>
         public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
 
 
@@ -161,7 +221,31 @@ namespace kinetica
         /// tier at one time for this group.</description>
         ///     </item>
         /// </list>
-        ///   </param>
+        /// The default value is an empty {@link Dictionary}.</param>
+        /// <param name="ranking">Indicates the relative ranking among existing
+        /// resource groups where this new resource group will be placed.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateResourceGroupRequest.Ranking.FIRST">FIRST</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateResourceGroupRequest.Ranking.LAST">LAST</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateResourceGroupRequest.Ranking.BEFORE">BEFORE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateResourceGroupRequest.Ranking.AFTER">AFTER</see></term>
+        ///     </item>
+        /// </list>  </param>
+        /// <param name="adjoining_resource_group">Name of the resource group
+        /// relative to which this group will be placed. Must be specified when
+        /// ranking is before or after.  The default value is ''.</param>
         /// <param name="options">Optional parameters.
         /// <list type="bullet">
         ///     <item>
@@ -183,14 +267,18 @@ namespace kinetica
         /// group.</description>
         ///     </item>
         /// </list>
-        ///   </param>
+        /// The default value is an empty {@link Dictionary}.</param>
         /// 
         public CreateResourceGroupRequest( string name,
-                                           IDictionary<string, IDictionary<string, string>> tier_attributes = null,
+                                           IDictionary<string, IDictionary<string, string>> tier_attributes,
+                                           string ranking,
+                                           string adjoining_resource_group = null,
                                            IDictionary<string, string> options = null)
         {
             this.name = name ?? "";
             this.tier_attributes = tier_attributes ?? new Dictionary<string, IDictionary<string, string>>();
+            this.ranking = ranking ?? "";
+            this.adjoining_resource_group = adjoining_resource_group ?? "";
             this.options = options ?? new Dictionary<string, string>();
         } // end constructor
 
@@ -199,7 +287,7 @@ namespace kinetica
 
 
     /// <summary>A set of results returned by <see
-    /// cref="Kinetica.createResourceGroup(string,IDictionary{string, IDictionary{string, string}},IDictionary{string, string})"
+    /// cref="Kinetica.createResourceGroup(string,IDictionary{string, IDictionary{string, string}},string,string,IDictionary{string, string})"
     /// />.</summary>
     public class CreateResourceGroupResponse : KineticaData
     {

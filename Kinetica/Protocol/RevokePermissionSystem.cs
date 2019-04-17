@@ -84,7 +84,8 @@ namespace kinetica
         /// </list>  </summary>
         public string permission { get; set; }
 
-        /// <summary>Optional parameters.  </summary>
+        /// <summary>Optional parameters.  The default value is an empty {@link
+        /// Dictionary}.</summary>
         public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
 
 
@@ -120,7 +121,8 @@ namespace kinetica
         ///         <description>Read-only access to all tables.</description>
         ///     </item>
         /// </list>  </param>
-        /// <param name="options">Optional parameters.  </param>
+        /// <param name="options">Optional parameters.  The default value is an
+        /// empty {@link Dictionary}.</param>
         /// 
         public RevokePermissionSystemRequest( string name,
                                               string permission,

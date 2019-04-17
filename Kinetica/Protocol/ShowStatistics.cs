@@ -24,7 +24,8 @@ namespace kinetica
         /// must exist, or an error is returned.  </summary>
         public IList<string> table_names { get; set; } = new List<string>();
 
-        /// <summary>Optional parameters.  </summary>
+        /// <summary>Optional parameters.  The default value is an empty {@link
+        /// Dictionary}.</summary>
         public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
 
 
@@ -37,7 +38,8 @@ namespace kinetica
         /// 
         /// <param name="table_names">Tables whose metadata will be fetched.
         /// All provided tables must exist, or an error is returned.  </param>
-        /// <param name="options">Optional parameters.  </param>
+        /// <param name="options">Optional parameters.  The default value is an
+        /// empty {@link Dictionary}.</param>
         /// 
         public ShowStatisticsRequest( IList<string> table_names,
                                       IDictionary<string, string> options = null)

@@ -39,7 +39,7 @@ namespace kinetica
         /// created view will be top-level.</description>
         ///     </item>
         /// </list>
-        /// <br />
+        /// The default value is an empty {@link Dictionary}.
         /// A set of string constants for the parameter <see cref="options"
         /// />.</summary>
         public struct Options
@@ -59,18 +59,20 @@ namespace kinetica
 
         /// <summary>If provided, then this will be the name of the view
         /// containing the results. Has the same naming restrictions as <a
-        /// href="../../concepts/tables.html" target="_top">tables</a>.
-        /// </summary>
+        /// href="../../concepts/tables.html" target="_top">tables</a>.  The
+        /// default value is ''.</summary>
         public string view_name { get; set; } = "";
 
         /// <summary>Indicates whether the value being searched for is string
         /// or numeric.  </summary>
         public bool is_string { get; set; }
 
-        /// <summary>The value to search for.  </summary>
+        /// <summary>The value to search for.  The default value is
+        /// 0.</summary>
         public double _value { get; set; } = 0;
 
-        /// <summary>The string value to search for.  </summary>
+        /// <summary>The string value to search for.  The default value is
+        /// ''.</summary>
         public string value_str { get; set; } = "";
 
         /// <summary>Name of a column on which the filter by value would be
@@ -88,7 +90,7 @@ namespace kinetica
         /// created view will be top-level.</description>
         ///     </item>
         /// </list>
-        ///   </summary>
+        /// The default value is an empty {@link Dictionary}.</summary>
         public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
 
 
@@ -104,11 +106,13 @@ namespace kinetica
         /// <param name="view_name">If provided, then this will be the name of
         /// the view containing the results. Has the same naming restrictions
         /// as <a href="../../concepts/tables.html" target="_top">tables</a>.
-        /// </param>
+        /// The default value is ''.</param>
         /// <param name="is_string">Indicates whether the value being searched
         /// for is string or numeric.  </param>
-        /// <param name="_value">The value to search for.  </param>
-        /// <param name="value_str">The string value to search for.  </param>
+        /// <param name="_value">The value to search for.  The default value is
+        /// 0.</param>
+        /// <param name="value_str">The string value to search for.  The
+        /// default value is ''.</param>
         /// <param name="column_name">Name of a column on which the filter by
         /// value would be applied.  </param>
         /// <param name="options">Optional parameters.
@@ -122,7 +126,7 @@ namespace kinetica
         /// created view will be top-level.</description>
         ///     </item>
         /// </list>
-        ///   </param>
+        /// The default value is an empty {@link Dictionary}.</param>
         /// 
         public FilterByValueRequest( string table_name,
                                      string view_name,

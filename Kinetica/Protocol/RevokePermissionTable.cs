@@ -112,7 +112,8 @@ namespace kinetica
         /// Must be an existing table, collection, or view.  </summary>
         public string table_name { get; set; }
 
-        /// <summary>Optional parameters.  </summary>
+        /// <summary>Optional parameters.  The default value is an empty {@link
+        /// Dictionary}.</summary>
         public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
 
 
@@ -160,7 +161,8 @@ namespace kinetica
         /// <param name="table_name">Name of the table to which the permission
         /// grants access. Must be an existing table, collection, or view.
         /// </param>
-        /// <param name="options">Optional parameters.  </param>
+        /// <param name="options">Optional parameters.  The default value is an
+        /// empty {@link Dictionary}.</param>
         /// 
         public RevokePermissionTableRequest( string name,
                                              string permission,

@@ -125,7 +125,7 @@ namespace kinetica
         /// cref="FilterByStringRequest.Options.TRUE">TRUE</see>.</description>
         ///     </item>
         /// </list>
-        /// <br />
+        /// The default value is an empty {@link Dictionary}.
         /// A set of string constants for the parameter <see cref="options"
         /// />.</summary>
         public struct Options
@@ -165,8 +165,8 @@ namespace kinetica
 
         /// <summary>If provided, then this will be the name of the view
         /// containing the results. Has the same naming restrictions as <a
-        /// href="../../concepts/tables.html" target="_top">tables</a>.
-        /// </summary>
+        /// href="../../concepts/tables.html" target="_top">tables</a>.  The
+        /// default value is ''.</summary>
         public string view_name { get; set; } = "";
 
         /// <summary>The expression with which to filter the table.  </summary>
@@ -248,7 +248,7 @@ namespace kinetica
         /// cref="FilterByStringRequest.Options.TRUE">TRUE</see>.</description>
         ///     </item>
         /// </list>
-        ///   </summary>
+        /// The default value is an empty {@link Dictionary}.</summary>
         public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
 
 
@@ -265,7 +265,7 @@ namespace kinetica
         /// <param name="view_name">If provided, then this will be the name of
         /// the view containing the results. Has the same naming restrictions
         /// as <a href="../../concepts/tables.html" target="_top">tables</a>.
-        /// </param>
+        /// The default value is ''.</param>
         /// <param name="expression">The expression with which to filter the
         /// table.  </param>
         /// <param name="mode">The string filtering mode to apply. See below
@@ -341,7 +341,7 @@ namespace kinetica
         /// cref="FilterByStringRequest.Options.TRUE">TRUE</see>.</description>
         ///     </item>
         /// </list>
-        ///   </param>
+        /// The default value is an empty {@link Dictionary}.</param>
         /// 
         public FilterByStringRequest( string table_name,
                                       string view_name,

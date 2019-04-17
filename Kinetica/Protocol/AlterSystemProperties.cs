@@ -60,6 +60,14 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
+        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.SUBTASK_CONCURRENCY_LIMIT">SUBTASK_CONCURRENCY_LIMIT</see>:</term>
+        ///         <description>Sets the maximum number of simultaneous
+        /// threads allocated to a given request, on each rank. Note that
+        /// thread allocation may also be limted by resource group limits
+        /// and/or system load.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.CHUNK_SIZE">CHUNK_SIZE</see>:</term>
         ///         <description>Sets the chunk size of all new sets to the
         /// specified integer value.</description>
@@ -139,13 +147,14 @@ namespace kinetica
         /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.REQUEST_TIMEOUT">REQUEST_TIMEOUT</see>:</term>
         ///         <description>Number of minutes after which filtering (e.g.,
         /// /filter) and aggregating (e.g., /aggregate/groupby) queries will
-        /// timeout.</description>
+        /// timeout.  The default value is '20'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.MAX_GET_RECORDS_SIZE">MAX_GET_RECORDS_SIZE</see>:</term>
         ///         <description>The maximum number of records the database
-        /// will serve for a given data retrieval call</description>
+        /// will serve for a given data retrieval call.  The default value is
+        /// '20000'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -179,14 +188,15 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.CHUNK_CACHE_SIZE">CHUNK_CACHE_SIZE</see>:</term>
-        ///         <description>Size of the chunk cache in
-        /// bytes.</description>
+        ///         <description>Size of the chunk cache in bytes.  The default
+        /// value is '10000000'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.SYNCHRONOUS_COMPRESSION">SYNCHRONOUS_COMPRESSION</see>:</term>
         ///         <description>compress vector on set_compression (instead of
-        /// waiting for background thread)</description>
+        /// waiting for background thread).  The default value is
+        /// 'false'.</description>
         ///     </item>
         /// </list>
         /// <br />
@@ -220,6 +230,12 @@ namespace kinetica
             public const string CONCURRENT_KERNEL_EXECUTION = "concurrent_kernel_execution";
             public const string TRUE = "true";
             public const string FALSE = "false";
+
+            /// <summary>Sets the maximum number of simultaneous threads
+            /// allocated to a given request, on each rank. Note that thread
+            /// allocation may also be limted by resource group limits and/or
+            /// system load.</summary>
+            public const string SUBTASK_CONCURRENCY_LIMIT = "subtask_concurrency_limit";
 
             /// <summary>Sets the chunk size of all new sets to the specified
             /// integer value.</summary>
@@ -287,11 +303,12 @@ namespace kinetica
             /// cref="Kinetica.filter(string,string,string,IDictionary{string, string})"
             /// />) and aggregating (e.g., <see
             /// cref="Kinetica.aggregateGroupBy(string,IList{string},long,long,IDictionary{string, string})"
-            /// />) queries will timeout.</summary>
+            /// />) queries will timeout.  The default value is '20'.</summary>
             public const string REQUEST_TIMEOUT = "request_timeout";
 
             /// <summary>The maximum number of records the database will serve
-            /// for a given data retrieval call</summary>
+            /// for a given data retrieval call.  The default value is
+            /// '20000'.</summary>
             public const string MAX_GET_RECORDS_SIZE = "max_get_records_size";
 
             /// <summary>Enable or disable auditing.</summary>
@@ -312,11 +329,13 @@ namespace kinetica
             /// cache when value is false</summary>
             public const string CHUNK_CACHE_ENABLED = "chunk_cache_enabled";
 
-            /// <summary>Size of the chunk cache in bytes.</summary>
+            /// <summary>Size of the chunk cache in bytes.  The default value
+            /// is '10000000'.</summary>
             public const string CHUNK_CACHE_SIZE = "chunk_cache_size";
 
             /// <summary>compress vector on set_compression (instead of waiting
-            /// for background thread)</summary>
+            /// for background thread).  The default value is
+            /// 'false'.</summary>
             public const string SYNCHRONOUS_COMPRESSION = "synchronous_compression";
         } // end struct PropertyUpdatesMap
 
@@ -353,6 +372,14 @@ namespace kinetica
         /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.FALSE">FALSE</see></term>
         ///     </item>
         /// </list></description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.SUBTASK_CONCURRENCY_LIMIT">SUBTASK_CONCURRENCY_LIMIT</see>:</term>
+        ///         <description>Sets the maximum number of simultaneous
+        /// threads allocated to a given request, on each rank. Note that
+        /// thread allocation may also be limted by resource group limits
+        /// and/or system load.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -435,13 +462,14 @@ namespace kinetica
         /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.REQUEST_TIMEOUT">REQUEST_TIMEOUT</see>:</term>
         ///         <description>Number of minutes after which filtering (e.g.,
         /// /filter) and aggregating (e.g., /aggregate/groupby) queries will
-        /// timeout.</description>
+        /// timeout.  The default value is '20'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.MAX_GET_RECORDS_SIZE">MAX_GET_RECORDS_SIZE</see>:</term>
         ///         <description>The maximum number of records the database
-        /// will serve for a given data retrieval call</description>
+        /// will serve for a given data retrieval call.  The default value is
+        /// '20000'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -475,20 +503,22 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.CHUNK_CACHE_SIZE">CHUNK_CACHE_SIZE</see>:</term>
-        ///         <description>Size of the chunk cache in
-        /// bytes.</description>
+        ///         <description>Size of the chunk cache in bytes.  The default
+        /// value is '10000000'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.SYNCHRONOUS_COMPRESSION">SYNCHRONOUS_COMPRESSION</see>:</term>
         ///         <description>compress vector on set_compression (instead of
-        /// waiting for background thread)</description>
+        /// waiting for background thread).  The default value is
+        /// 'false'.</description>
         ///     </item>
         /// </list>
         ///   </summary>
         public IDictionary<string, string> property_updates_map { get; set; } = new Dictionary<string, string>();
 
-        /// <summary>Optional parameters.  </summary>
+        /// <summary>Optional parameters.  The default value is an empty {@link
+        /// Dictionary}.</summary>
         public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
 
 
@@ -534,6 +564,14 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
+        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.SUBTASK_CONCURRENCY_LIMIT">SUBTASK_CONCURRENCY_LIMIT</see>:</term>
+        ///         <description>Sets the maximum number of simultaneous
+        /// threads allocated to a given request, on each rank. Note that
+        /// thread allocation may also be limted by resource group limits
+        /// and/or system load.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.CHUNK_SIZE">CHUNK_SIZE</see>:</term>
         ///         <description>Sets the chunk size of all new sets to the
         /// specified integer value.</description>
@@ -613,13 +651,14 @@ namespace kinetica
         /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.REQUEST_TIMEOUT">REQUEST_TIMEOUT</see>:</term>
         ///         <description>Number of minutes after which filtering (e.g.,
         /// /filter) and aggregating (e.g., /aggregate/groupby) queries will
-        /// timeout.</description>
+        /// timeout.  The default value is '20'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.MAX_GET_RECORDS_SIZE">MAX_GET_RECORDS_SIZE</see>:</term>
         ///         <description>The maximum number of records the database
-        /// will serve for a given data retrieval call</description>
+        /// will serve for a given data retrieval call.  The default value is
+        /// '20000'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -653,18 +692,20 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.CHUNK_CACHE_SIZE">CHUNK_CACHE_SIZE</see>:</term>
-        ///         <description>Size of the chunk cache in
-        /// bytes.</description>
+        ///         <description>Size of the chunk cache in bytes.  The default
+        /// value is '10000000'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.SYNCHRONOUS_COMPRESSION">SYNCHRONOUS_COMPRESSION</see>:</term>
         ///         <description>compress vector on set_compression (instead of
-        /// waiting for background thread)</description>
+        /// waiting for background thread).  The default value is
+        /// 'false'.</description>
         ///     </item>
         /// </list>
         ///   </param>
-        /// <param name="options">Optional parameters.  </param>
+        /// <param name="options">Optional parameters.  The default value is an
+        /// empty {@link Dictionary}.</param>
         /// 
         public AlterSystemPropertiesRequest( IDictionary<string, string> property_updates_map,
                                              IDictionary<string, string> options = null)

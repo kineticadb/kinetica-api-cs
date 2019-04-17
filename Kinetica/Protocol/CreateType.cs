@@ -721,7 +721,8 @@ namespace kinetica
         /// </list>  </summary>
         public IDictionary<string, IList<string>> properties { get; set; } = new Dictionary<string, IList<string>>();
 
-        /// <summary>Optional parameters.  </summary>
+        /// <summary>Optional parameters.  The default value is an empty {@link
+        /// Dictionary}.</summary>
         public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
 
 
@@ -969,7 +970,8 @@ namespace kinetica
         /// invalid timestamps with NOW()</description>
         ///     </item>
         /// </list>  </param>
-        /// <param name="options">Optional parameters.  </param>
+        /// <param name="options">Optional parameters.  The default value is an
+        /// empty {@link Dictionary}.</param>
         /// 
         public CreateTypeRequest( string type_definition,
                                   string label,

@@ -70,13 +70,14 @@ namespace kinetica
 
         /// <summary>A positive integer indicating the number of initial
         /// series/tracks to skip (useful for paging through the results).  The
-        /// minimum allowed value is 0. The maximum allowed value is MAX_INT.
-        /// </summary>
+        /// default value is 0.The minimum allowed value is 0. The maximum
+        /// allowed value is MAX_INT. </summary>
         public int offset { get; set; } = 0;
 
         /// <summary>A positive integer indicating the maximum number of
         /// series/tracks to be returned. Or END_OF_SET (-9999) to indicate
-        /// that the max number of results should be returned.  </summary>
+        /// that the max number of results should be returned.  The default
+        /// value is 250.</summary>
         public int limit { get; set; } = 250;
 
         /// <summary>Specifies the encoding for returned records; either
@@ -97,7 +98,8 @@ namespace kinetica
         /// </summary>
         public string encoding { get; set; } = Encoding.BINARY;
 
-        /// <summary>Optional parameters.  </summary>
+        /// <summary>Optional parameters.  The default value is an empty {@link
+        /// Dictionary}.</summary>
         public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
 
 
@@ -119,13 +121,14 @@ namespace kinetica
         /// original series/tracks. Can be blank.  </param>
         /// <param name="offset">A positive integer indicating the number of
         /// initial series/tracks to skip (useful for paging through the
-        /// results).  The minimum allowed value is 0. The maximum allowed
-        /// value is MAX_INT. </param>
+        /// results).  The default value is 0.The minimum allowed value is 0.
+        /// The maximum allowed value is MAX_INT. </param>
         /// <param name="limit">A positive integer indicating the maximum
         /// number of series/tracks to be returned. Or END_OF_SET (-9999) to
-        /// indicate that the max number of results should be returned.
-        /// </param>
-        /// <param name="options">Optional parameters.  </param>
+        /// indicate that the max number of results should be returned.  The
+        /// default value is 250.</param>
+        /// <param name="options">Optional parameters.  The default value is an
+        /// empty {@link Dictionary}.</param>
         /// 
         public GetRecordsBySeriesRequest( string table_name,
                                           string world_table_name,
@@ -156,12 +159,12 @@ namespace kinetica
         /// original series/tracks. Can be blank.  </param>
         /// <param name="offset">A positive integer indicating the number of
         /// initial series/tracks to skip (useful for paging through the
-        /// results).  The minimum allowed value is 0. The maximum allowed
-        /// value is MAX_INT. </param>
+        /// results).  The default value is 0.The minimum allowed value is 0.
+        /// The maximum allowed value is MAX_INT. </param>
         /// <param name="limit">A positive integer indicating the maximum
         /// number of series/tracks to be returned. Or END_OF_SET (-9999) to
-        /// indicate that the max number of results should be returned.
-        /// </param>
+        /// indicate that the max number of results should be returned.  The
+        /// default value is 250.</param>
         /// <param name="encoding">Specifies the encoding for returned records;
         /// either 'binary' or 'json'.
         /// Supported values:
@@ -178,7 +181,8 @@ namespace kinetica
         /// The default value is <see
         /// cref="GetRecordsBySeriesRequest.Encoding.BINARY">BINARY</see>.
         /// </param>
-        /// <param name="options">Optional parameters.  </param>
+        /// <param name="options">Optional parameters.  The default value is an
+        /// empty {@link Dictionary}.</param>
         /// 
         public GetRecordsBySeriesRequest( string table_name,
                                           string world_table_name,

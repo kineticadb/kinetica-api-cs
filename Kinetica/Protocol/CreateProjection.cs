@@ -68,15 +68,15 @@ namespace kinetica
         /// to which the projection is to be assigned as a child. If the
         /// collection provided is non-existent, the collection will be
         /// automatically created. If empty, then the projection will be at the
-        /// top level.</description>
+        /// top level.  The default value is ''.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="CreateProjectionRequest.Options.EXPRESSION">EXPRESSION</see>:</term>
         ///         <description>An optional filter <a
         /// href="../../concepts/expressions.html" target="_top">expression</a>
-        /// to be applied to the source table prior to the
-        /// projection.</description>
+        /// to be applied to the source table prior to the projection.  The
+        /// default value is ''.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -100,7 +100,8 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="CreateProjectionRequest.Options.LIMIT">LIMIT</see>:</term>
-        ///         <description>The number of records to keep.</description>
+        ///         <description>The number of records to keep.  The default
+        /// value is ''.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -110,7 +111,7 @@ namespace kinetica
         /// must be present in <paramref
         /// cref="CreateProjectionRequest.column_names" />.  If any alias is
         /// given for any column name, the alias must be used, rather than the
-        /// original column name.</description>
+        /// original column name.  The default value is ''.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -160,7 +161,8 @@ namespace kinetica
         /// sharded on; e.g. 'column1, column2'.  The columns specified must be
         /// present in <paramref cref="CreateProjectionRequest.column_names"
         /// />.  If any alias is given for any column name, the alias must be
-        /// used, rather than the original column name.</description>
+        /// used, rather than the original column name.  The default value is
+        /// ''.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -207,10 +209,11 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="CreateProjectionRequest.Options.VIEW_ID">VIEW_ID</see>:</term>
-        ///         <description>view this projection is part of</description>
+        ///         <description>view this projection is part of.  The default
+        /// value is ''.</description>
         ///     </item>
         /// </list>
-        /// <br />
+        /// The default value is an empty {@link Dictionary}.
         /// A set of string constants for the parameter <see cref="options"
         /// />.</summary>
         public struct Options
@@ -220,13 +223,14 @@ namespace kinetica
             /// target="_top">collection</a> to which the projection is to be
             /// assigned as a child. If the collection provided is
             /// non-existent, the collection will be automatically created. If
-            /// empty, then the projection will be at the top level.</summary>
+            /// empty, then the projection will be at the top level.  The
+            /// default value is ''.</summary>
             public const string COLLECTION_NAME = "collection_name";
 
             /// <summary>An optional filter <a
             /// href="../../concepts/expressions.html"
             /// target="_top">expression</a> to be applied to the source table
-            /// prior to the projection.</summary>
+            /// prior to the projection.  The default value is ''.</summary>
             public const string EXPRESSION = "expression";
 
             /// <summary>If <i>true</i> then the projection will be replicated
@@ -248,14 +252,15 @@ namespace kinetica
             public const string TRUE = "true";
             public const string FALSE = "false";
 
-            /// <summary>The number of records to keep.</summary>
+            /// <summary>The number of records to keep.  The default value is
+            /// ''.</summary>
             public const string LIMIT = "limit";
 
             /// <summary>Comma-separated list of the columns to be sorted by;
             /// e.g. 'timestamp asc, x desc'.  The columns specified must be
             /// present in <see cref="column_names" />.  If any alias is given
             /// for any column name, the alias must be used, rather than the
-            /// original column name.</summary>
+            /// original column name.  The default value is ''.</summary>
             public const string ORDER_BY = "order_by";
 
             /// <summary>If <i>true</i> then the columns of the projection will
@@ -295,7 +300,7 @@ namespace kinetica
             /// e.g. 'column1, column2'.  The columns specified must be present
             /// in <see cref="column_names" />.  If any alias is given for any
             /// column name, the alias must be used, rather than the original
-            /// column name.</summary>
+            /// column name.  The default value is ''.</summary>
             public const string SHARD_KEY = "shard_key";
 
             /// <summary>If <i>true</i>, then the projection specified in <see
@@ -335,7 +340,8 @@ namespace kinetica
             /// cref="CreateProjectionRequest.Options.FALSE">FALSE</see>.</summary>
             public const string PRESERVE_DICT_ENCODING = "preserve_dict_encoding";
 
-            /// <summary>view this projection is part of</summary>
+            /// <summary>view this projection is part of.  The default value is
+            /// ''.</summary>
             public const string VIEW_ID = "view_id";
         } // end struct Options
 
@@ -365,15 +371,15 @@ namespace kinetica
         /// to which the projection is to be assigned as a child. If the
         /// collection provided is non-existent, the collection will be
         /// automatically created. If empty, then the projection will be at the
-        /// top level.</description>
+        /// top level.  The default value is ''.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="CreateProjectionRequest.Options.EXPRESSION">EXPRESSION</see>:</term>
         ///         <description>An optional filter <a
         /// href="../../concepts/expressions.html" target="_top">expression</a>
-        /// to be applied to the source table prior to the
-        /// projection.</description>
+        /// to be applied to the source table prior to the projection.  The
+        /// default value is ''.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -397,7 +403,8 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="CreateProjectionRequest.Options.LIMIT">LIMIT</see>:</term>
-        ///         <description>The number of records to keep.</description>
+        ///         <description>The number of records to keep.  The default
+        /// value is ''.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -407,7 +414,7 @@ namespace kinetica
         /// must be present in <paramref
         /// cref="CreateProjectionRequest.column_names" />.  If any alias is
         /// given for any column name, the alias must be used, rather than the
-        /// original column name.</description>
+        /// original column name.  The default value is ''.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -457,7 +464,8 @@ namespace kinetica
         /// sharded on; e.g. 'column1, column2'.  The columns specified must be
         /// present in <paramref cref="CreateProjectionRequest.column_names"
         /// />.  If any alias is given for any column name, the alias must be
-        /// used, rather than the original column name.</description>
+        /// used, rather than the original column name.  The default value is
+        /// ''.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -504,10 +512,11 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="CreateProjectionRequest.Options.VIEW_ID">VIEW_ID</see>:</term>
-        ///         <description>view this projection is part of</description>
+        ///         <description>view this projection is part of.  The default
+        /// value is ''.</description>
         ///     </item>
         /// </list>
-        ///   </summary>
+        /// The default value is an empty {@link Dictionary}.</summary>
         public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
 
 
@@ -538,15 +547,15 @@ namespace kinetica
         /// to which the projection is to be assigned as a child. If the
         /// collection provided is non-existent, the collection will be
         /// automatically created. If empty, then the projection will be at the
-        /// top level.</description>
+        /// top level.  The default value is ''.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="CreateProjectionRequest.Options.EXPRESSION">EXPRESSION</see>:</term>
         ///         <description>An optional filter <a
         /// href="../../concepts/expressions.html" target="_top">expression</a>
-        /// to be applied to the source table prior to the
-        /// projection.</description>
+        /// to be applied to the source table prior to the projection.  The
+        /// default value is ''.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -570,7 +579,8 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="CreateProjectionRequest.Options.LIMIT">LIMIT</see>:</term>
-        ///         <description>The number of records to keep.</description>
+        ///         <description>The number of records to keep.  The default
+        /// value is ''.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -580,7 +590,7 @@ namespace kinetica
         /// must be present in <paramref
         /// cref="CreateProjectionRequest.column_names" />.  If any alias is
         /// given for any column name, the alias must be used, rather than the
-        /// original column name.</description>
+        /// original column name.  The default value is ''.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -630,7 +640,8 @@ namespace kinetica
         /// sharded on; e.g. 'column1, column2'.  The columns specified must be
         /// present in <paramref cref="CreateProjectionRequest.column_names"
         /// />.  If any alias is given for any column name, the alias must be
-        /// used, rather than the original column name.</description>
+        /// used, rather than the original column name.  The default value is
+        /// ''.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -677,10 +688,11 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="CreateProjectionRequest.Options.VIEW_ID">VIEW_ID</see>:</term>
-        ///         <description>view this projection is part of</description>
+        ///         <description>view this projection is part of.  The default
+        /// value is ''.</description>
         ///     </item>
         /// </list>
-        ///   </param>
+        /// The default value is an empty {@link Dictionary}.</param>
         /// 
         public CreateProjectionRequest( string table_name,
                                         string projection_name,

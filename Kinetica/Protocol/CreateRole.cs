@@ -18,13 +18,43 @@ namespace kinetica
     public class CreateRoleRequest : KineticaData
     {
 
+        /// <summary>Optional parameters.
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateRoleRequest.Options.RESOURCE_GROUP">RESOURCE_GROUP</see>:</term>
+        ///         <description>Name of an existing resource group to
+        /// associate with this user</description>
+        ///     </item>
+        /// </list>
+        /// The default value is an empty {@link Dictionary}.
+        /// A set of string constants for the parameter <see cref="options"
+        /// />.</summary>
+        public struct Options
+        {
+
+            /// <summary>Name of an existing resource group to associate with
+            /// this user</summary>
+            public const string RESOURCE_GROUP = "resource_group";
+        } // end struct Options
+
+
         /// <summary>Name of the role to be created. Must contain only
         /// lowercase letters, digits, and underscores, and cannot begin with a
         /// digit. Must not be the same name as an existing user or role.
         /// </summary>
         public string name { get; set; }
 
-        /// <summary>Optional parameters.  </summary>
+        /// <summary>Optional parameters.
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateRoleRequest.Options.RESOURCE_GROUP">RESOURCE_GROUP</see>:</term>
+        ///         <description>Name of an existing resource group to
+        /// associate with this user</description>
+        ///     </item>
+        /// </list>
+        /// The default value is an empty {@link Dictionary}.</summary>
         public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
 
 
@@ -39,7 +69,16 @@ namespace kinetica
         /// only lowercase letters, digits, and underscores, and cannot begin
         /// with a digit. Must not be the same name as an existing user or
         /// role.  </param>
-        /// <param name="options">Optional parameters.  </param>
+        /// <param name="options">Optional parameters.
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateRoleRequest.Options.RESOURCE_GROUP">RESOURCE_GROUP</see>:</term>
+        ///         <description>Name of an existing resource group to
+        /// associate with this user</description>
+        ///     </item>
+        /// </list>
+        /// The default value is an empty {@link Dictionary}.</param>
         /// 
         public CreateRoleRequest( string name,
                                   IDictionary<string, string> options = null)

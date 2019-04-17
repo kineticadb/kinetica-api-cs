@@ -80,7 +80,7 @@ namespace kinetica
         ///         <term><see
         /// cref="FilterByTableRequest.Options.BUFFER">BUFFER</see>:</term>
         ///         <description>Buffer size, in meters. Only relevant for
-        /// <i>spatial</i> mode.</description>
+        /// <i>spatial</i> mode.  The default value is '0'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -107,28 +107,32 @@ namespace kinetica
         ///         <term><see
         /// cref="FilterByTableRequest.Options.MAX_PARTITION_SIZE">MAX_PARTITION_SIZE</see>:</term>
         ///         <description>Maximum number of points in a partition. Only
-        /// relevant for <i>spatial</i> mode.</description>
+        /// relevant for <i>spatial</i> mode.  The default value is
+        /// '0'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="FilterByTableRequest.Options.MAX_PARTITION_SCORE">MAX_PARTITION_SCORE</see>:</term>
         ///         <description>Maximum number of points * edges in a
-        /// partition. Only relevant for <i>spatial</i> mode.</description>
+        /// partition. Only relevant for <i>spatial</i> mode.  The default
+        /// value is '8000000'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="FilterByTableRequest.Options.X_COLUMN_NAME">X_COLUMN_NAME</see>:</term>
         ///         <description>Name of column containing x value of point
-        /// being filtered in <i>spatial</i> mode.</description>
+        /// being filtered in <i>spatial</i> mode.  The default value is
+        /// 'x'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="FilterByTableRequest.Options.Y_COLUMN_NAME">Y_COLUMN_NAME</see>:</term>
         ///         <description>Name of column containing y value of point
-        /// being filtered in <i>spatial</i> mode.</description>
+        /// being filtered in <i>spatial</i> mode.  The default value is
+        /// 'y'.</description>
         ///     </item>
         /// </list>
-        /// <br />
+        /// The default value is an empty {@link Dictionary}.
         /// A set of string constants for the parameter <see cref="options"
         /// />.</summary>
         public struct Options
@@ -179,7 +183,7 @@ namespace kinetica
             public const string SPATIAL = "spatial";
 
             /// <summary>Buffer size, in meters. Only relevant for
-            /// <i>spatial</i> mode.</summary>
+            /// <i>spatial</i> mode.  The default value is '0'.</summary>
             public const string BUFFER = "buffer";
 
             /// <summary>Method used to buffer polygons.  Only relevant for
@@ -205,19 +209,22 @@ namespace kinetica
             public const string GEOS = "geos";
 
             /// <summary>Maximum number of points in a partition. Only relevant
-            /// for <i>spatial</i> mode.</summary>
+            /// for <i>spatial</i> mode.  The default value is '0'.</summary>
             public const string MAX_PARTITION_SIZE = "max_partition_size";
 
             /// <summary>Maximum number of points * edges in a partition. Only
-            /// relevant for <i>spatial</i> mode.</summary>
+            /// relevant for <i>spatial</i> mode.  The default value is
+            /// '8000000'.</summary>
             public const string MAX_PARTITION_SCORE = "max_partition_score";
 
             /// <summary>Name of column containing x value of point being
-            /// filtered in <i>spatial</i> mode.</summary>
+            /// filtered in <i>spatial</i> mode.  The default value is
+            /// 'x'.</summary>
             public const string X_COLUMN_NAME = "x_column_name";
 
             /// <summary>Name of column containing y value of point being
-            /// filtered in <i>spatial</i> mode.</summary>
+            /// filtered in <i>spatial</i> mode.  The default value is
+            /// 'y'.</summary>
             public const string Y_COLUMN_NAME = "y_column_name";
         } // end struct Options
 
@@ -228,8 +235,8 @@ namespace kinetica
 
         /// <summary>If provided, then this will be the name of the view
         /// containing the results. Has the same naming restrictions as <a
-        /// href="../../concepts/tables.html" target="_top">tables</a>.
-        /// </summary>
+        /// href="../../concepts/tables.html" target="_top">tables</a>.  The
+        /// default value is ''.</summary>
         public string view_name { get; set; } = "";
 
         /// <summary>Name of the column by whose value the data will be
@@ -303,7 +310,7 @@ namespace kinetica
         ///         <term><see
         /// cref="FilterByTableRequest.Options.BUFFER">BUFFER</see>:</term>
         ///         <description>Buffer size, in meters. Only relevant for
-        /// <i>spatial</i> mode.</description>
+        /// <i>spatial</i> mode.  The default value is '0'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -330,28 +337,32 @@ namespace kinetica
         ///         <term><see
         /// cref="FilterByTableRequest.Options.MAX_PARTITION_SIZE">MAX_PARTITION_SIZE</see>:</term>
         ///         <description>Maximum number of points in a partition. Only
-        /// relevant for <i>spatial</i> mode.</description>
+        /// relevant for <i>spatial</i> mode.  The default value is
+        /// '0'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="FilterByTableRequest.Options.MAX_PARTITION_SCORE">MAX_PARTITION_SCORE</see>:</term>
         ///         <description>Maximum number of points * edges in a
-        /// partition. Only relevant for <i>spatial</i> mode.</description>
+        /// partition. Only relevant for <i>spatial</i> mode.  The default
+        /// value is '8000000'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="FilterByTableRequest.Options.X_COLUMN_NAME">X_COLUMN_NAME</see>:</term>
         ///         <description>Name of column containing x value of point
-        /// being filtered in <i>spatial</i> mode.</description>
+        /// being filtered in <i>spatial</i> mode.  The default value is
+        /// 'x'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="FilterByTableRequest.Options.Y_COLUMN_NAME">Y_COLUMN_NAME</see>:</term>
         ///         <description>Name of column containing y value of point
-        /// being filtered in <i>spatial</i> mode.</description>
+        /// being filtered in <i>spatial</i> mode.  The default value is
+        /// 'y'.</description>
         ///     </item>
         /// </list>
-        ///   </summary>
+        /// The default value is an empty {@link Dictionary}.</summary>
         public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
 
 
@@ -367,7 +378,7 @@ namespace kinetica
         /// <param name="view_name">If provided, then this will be the name of
         /// the view containing the results. Has the same naming restrictions
         /// as <a href="../../concepts/tables.html" target="_top">tables</a>.
-        /// </param>
+        /// The default value is ''.</param>
         /// <param name="column_name">Name of the column by whose value the
         /// data will be filtered from the table designated by <paramref
         /// cref="FilterByTableRequest.table_name" />.  </param>
@@ -434,7 +445,7 @@ namespace kinetica
         ///         <term><see
         /// cref="FilterByTableRequest.Options.BUFFER">BUFFER</see>:</term>
         ///         <description>Buffer size, in meters. Only relevant for
-        /// <i>spatial</i> mode.</description>
+        /// <i>spatial</i> mode.  The default value is '0'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -461,28 +472,32 @@ namespace kinetica
         ///         <term><see
         /// cref="FilterByTableRequest.Options.MAX_PARTITION_SIZE">MAX_PARTITION_SIZE</see>:</term>
         ///         <description>Maximum number of points in a partition. Only
-        /// relevant for <i>spatial</i> mode.</description>
+        /// relevant for <i>spatial</i> mode.  The default value is
+        /// '0'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="FilterByTableRequest.Options.MAX_PARTITION_SCORE">MAX_PARTITION_SCORE</see>:</term>
         ///         <description>Maximum number of points * edges in a
-        /// partition. Only relevant for <i>spatial</i> mode.</description>
+        /// partition. Only relevant for <i>spatial</i> mode.  The default
+        /// value is '8000000'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="FilterByTableRequest.Options.X_COLUMN_NAME">X_COLUMN_NAME</see>:</term>
         ///         <description>Name of column containing x value of point
-        /// being filtered in <i>spatial</i> mode.</description>
+        /// being filtered in <i>spatial</i> mode.  The default value is
+        /// 'x'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="FilterByTableRequest.Options.Y_COLUMN_NAME">Y_COLUMN_NAME</see>:</term>
         ///         <description>Name of column containing y value of point
-        /// being filtered in <i>spatial</i> mode.</description>
+        /// being filtered in <i>spatial</i> mode.  The default value is
+        /// 'y'.</description>
         ///     </item>
         /// </list>
-        ///   </param>
+        /// The default value is an empty {@link Dictionary}.</param>
         /// 
         public FilterByTableRequest( string table_name,
                                      string view_name,

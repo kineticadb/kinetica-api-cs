@@ -41,7 +41,7 @@ namespace kinetica
         /// created view will be top-level.</description>
         ///     </item>
         /// </list>
-        /// <br />
+        /// The default value is an empty {@link Dictionary}.
         /// A set of string constants for the parameter <see cref="options"
         /// />.</summary>
         public struct Options
@@ -61,8 +61,8 @@ namespace kinetica
 
         /// <summary>If provided, then this will be the name of the view
         /// containing the results. Has the same naming restrictions as <a
-        /// href="../../concepts/tables.html" target="_top">tables</a>.
-        /// </summary>
+        /// href="../../concepts/tables.html" target="_top">tables</a>.  The
+        /// default value is ''.</summary>
         public string view_name { get; set; } = "";
 
         /// <summary>Name of a column on which the operation would be applied.
@@ -86,7 +86,7 @@ namespace kinetica
         /// created view will be top-level.</description>
         ///     </item>
         /// </list>
-        ///   </summary>
+        /// The default value is an empty {@link Dictionary}.</summary>
         public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
 
 
@@ -103,7 +103,7 @@ namespace kinetica
         /// <param name="view_name">If provided, then this will be the name of
         /// the view containing the results. Has the same naming restrictions
         /// as <a href="../../concepts/tables.html" target="_top">tables</a>.
-        /// </param>
+        /// The default value is ''.</param>
         /// <param name="column_name">Name of a column on which the operation
         /// would be applied.  </param>
         /// <param name="lower_bound">Value of the lower bound (inclusive).
@@ -121,7 +121,7 @@ namespace kinetica
         /// created view will be top-level.</description>
         ///     </item>
         /// </list>
-        ///   </param>
+        /// The default value is an empty {@link Dictionary}.</param>
         /// 
         public FilterByRangeRequest( string table_name,
                                      string view_name,

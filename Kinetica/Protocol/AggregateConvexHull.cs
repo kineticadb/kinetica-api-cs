@@ -32,7 +32,8 @@ namespace kinetica
         /// points for the operation being performed.  </summary>
         public string y_column_name { get; set; }
 
-        /// <summary>Optional parameters.  </summary>
+        /// <summary>Optional parameters.  The default value is an empty {@link
+        /// Dictionary}.</summary>
         public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
 
 
@@ -52,7 +53,8 @@ namespace kinetica
         /// <param name="y_column_name">Name of the column containing the y
         /// coordinates of the points for the operation being performed.
         /// </param>
-        /// <param name="options">Optional parameters.  </param>
+        /// <param name="options">Optional parameters.  The default value is an
+        /// empty {@link Dictionary}.</param>
         /// 
         public AggregateConvexHullRequest( string table_name,
                                            string x_column_name,

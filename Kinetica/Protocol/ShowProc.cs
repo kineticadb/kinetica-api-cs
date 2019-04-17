@@ -41,7 +41,7 @@ namespace kinetica
         /// cref="ShowProcRequest.Options.FALSE">FALSE</see>.</description>
         ///     </item>
         /// </list>
-        /// <br />
+        /// The default value is an empty {@link Dictionary}.
         /// A set of string constants for the parameter <see cref="options"
         /// />.</summary>
         public struct Options
@@ -71,7 +71,8 @@ namespace kinetica
 
         /// <summary>Name of the proc to show information about. If specified,
         /// must be the name of a currently existing proc. If not specified,
-        /// information about all procs will be returned.  </summary>
+        /// information about all procs will be returned.  The default value is
+        /// ''.</summary>
         public string proc_name { get; set; } = "";
 
         /// <summary>Optional parameters.
@@ -97,7 +98,7 @@ namespace kinetica
         /// cref="ShowProcRequest.Options.FALSE">FALSE</see>.</description>
         ///     </item>
         /// </list>
-        ///   </summary>
+        /// The default value is an empty {@link Dictionary}.</summary>
         public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
 
 
@@ -110,7 +111,8 @@ namespace kinetica
         /// 
         /// <param name="proc_name">Name of the proc to show information about.
         /// If specified, must be the name of a currently existing proc. If not
-        /// specified, information about all procs will be returned.  </param>
+        /// specified, information about all procs will be returned.  The
+        /// default value is ''.</param>
         /// <param name="options">Optional parameters.
         /// <list type="bullet">
         ///     <item>
@@ -134,7 +136,7 @@ namespace kinetica
         /// cref="ShowProcRequest.Options.FALSE">FALSE</see>.</description>
         ///     </item>
         /// </list>
-        ///   </param>
+        /// The default value is an empty {@link Dictionary}.</param>
         /// 
         public ShowProcRequest( string proc_name = null,
                                 IDictionary<string, string> options = null)

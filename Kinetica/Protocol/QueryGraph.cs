@@ -121,8 +121,8 @@ namespace kinetica
         /// attached to the node(s) attached to the initial ring of edge(s)
         /// surrounding the queried node(s) will be returned. This setting is
         /// ignored if <paramref cref="QueryGraphRequest.edge_to_node" /> is
-        /// set to <i>true</i>. This setting cannot be less than
-        /// '1'.</description>
+        /// set to <i>true</i>. This setting cannot be less than '1'.  The
+        /// default value is '1'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -192,7 +192,7 @@ namespace kinetica
         /// cref="QueryGraphRequest.Options.FALSE">FALSE</see>.</description>
         ///     </item>
         /// </list>
-        /// <br />
+        /// The default value is an empty {@link Dictionary}.
         /// A set of string constants for the parameter <see cref="options"
         /// />.</summary>
         public struct Options
@@ -206,7 +206,7 @@ namespace kinetica
             /// node(s) attached to the initial ring of edge(s) surrounding the
             /// queried node(s) will be returned. This setting is ignored if
             /// <see cref="edge_to_node" /> is set to <i>true</i>. This setting
-            /// cannot be less than '1'.</summary>
+            /// cannot be less than '1'.  The default value is '1'.</summary>
             public const string NUMBER_OF_RINGS = "number_of_rings";
 
             /// <summary>This parameter is only applicable if the queried graph
@@ -318,8 +318,8 @@ namespace kinetica
 
         /// <summary>Name of the table to store the resulting adjacencies. If
         /// left blank, the query results are instead returned in the response
-        /// even if <i>export_query_results</i> is set to <i>false</i>.
-        /// </summary>
+        /// even if <i>export_query_results</i> is set to <i>false</i>.  The
+        /// default value is ''.</summary>
         public string adjacency_table { get; set; } = "";
 
         /// <summary>Additional parameters
@@ -335,8 +335,8 @@ namespace kinetica
         /// attached to the node(s) attached to the initial ring of edge(s)
         /// surrounding the queried node(s) will be returned. This setting is
         /// ignored if <paramref cref="QueryGraphRequest.edge_to_node" /> is
-        /// set to <i>true</i>. This setting cannot be less than
-        /// '1'.</description>
+        /// set to <i>true</i>. This setting cannot be less than '1'.  The
+        /// default value is '1'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -406,7 +406,7 @@ namespace kinetica
         /// cref="QueryGraphRequest.Options.FALSE">FALSE</see>.</description>
         ///     </item>
         /// </list>
-        ///   </summary>
+        /// The default value is an empty {@link Dictionary}.</summary>
         public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
 
 
@@ -454,7 +454,7 @@ namespace kinetica
         /// <param name="adjacency_table">Name of the table to store the
         /// resulting adjacencies. If left blank, the query results are instead
         /// returned in the response even if <i>export_query_results</i> is set
-        /// to <i>false</i>.  </param>
+        /// to <i>false</i>.  The default value is ''.</param>
         /// <param name="options">Additional parameters
         /// <list type="bullet">
         ///     <item>
@@ -468,8 +468,8 @@ namespace kinetica
         /// attached to the node(s) attached to the initial ring of edge(s)
         /// surrounding the queried node(s) will be returned. This setting is
         /// ignored if <paramref cref="QueryGraphRequest.edge_to_node" /> is
-        /// set to <i>true</i>. This setting cannot be less than
-        /// '1'.</description>
+        /// set to <i>true</i>. This setting cannot be less than '1'.  The
+        /// default value is '1'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -539,7 +539,7 @@ namespace kinetica
         /// cref="QueryGraphRequest.Options.FALSE">FALSE</see>.</description>
         ///     </item>
         /// </list>
-        ///   </param>
+        /// The default value is an empty {@link Dictionary}.</param>
         /// 
         public QueryGraphRequest( string graph_name,
                                   IList<string> queries,

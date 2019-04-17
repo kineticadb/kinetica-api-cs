@@ -46,7 +46,7 @@ namespace kinetica
         /// cref="ShowProcStatusRequest.Options.FALSE">FALSE</see>.</description>
         ///     </item>
         /// </list>
-        /// <br />
+        /// The default value is an empty {@link Dictionary}.
         /// A set of string constants for the parameter <see cref="options"
         /// />.</summary>
         public struct Options
@@ -78,8 +78,8 @@ namespace kinetica
         /// <summary>The run ID of a specific running or completed proc
         /// instance for which the status will be returned. If the run ID is
         /// not found, nothing will be returned. If not specified, the statuses
-        /// of all running and completed proc instances will be returned.
-        /// </summary>
+        /// of all running and completed proc instances will be returned.  The
+        /// default value is ''.</summary>
         public string run_id { get; set; } = "";
 
         /// <summary>Optional parameters.
@@ -105,7 +105,7 @@ namespace kinetica
         /// cref="ShowProcStatusRequest.Options.FALSE">FALSE</see>.</description>
         ///     </item>
         /// </list>
-        ///   </summary>
+        /// The default value is an empty {@link Dictionary}.</summary>
         public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
 
 
@@ -120,7 +120,7 @@ namespace kinetica
         /// proc instance for which the status will be returned. If the run ID
         /// is not found, nothing will be returned. If not specified, the
         /// statuses of all running and completed proc instances will be
-        /// returned.  </param>
+        /// returned.  The default value is ''.</param>
         /// <param name="options">Optional parameters.
         /// <list type="bullet">
         ///     <item>
@@ -144,7 +144,7 @@ namespace kinetica
         /// cref="ShowProcStatusRequest.Options.FALSE">FALSE</see>.</description>
         ///     </item>
         /// </list>
-        ///   </param>
+        /// The default value is an empty {@link Dictionary}.</param>
         /// 
         public ShowProcStatusRequest( string run_id = null,
                                       IDictionary<string, string> options = null)

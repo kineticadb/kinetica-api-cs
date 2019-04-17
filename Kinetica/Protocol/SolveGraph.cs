@@ -177,7 +177,8 @@ namespace kinetica
         /// solution cost radius, which ignores the <paramref
         /// cref="SolveGraphRequest.destination_node_ids" /> list and instead
         /// outputs the nodes within the radius sorted by ascending cost. If
-        /// set to '0.0', the setting is ignored.</description>
+        /// set to '0.0', the setting is ignored.  The default value is
+        /// '0.0'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -188,7 +189,7 @@ namespace kinetica
         /// cref="SolveGraphRequest.destination_node_ids" /> list and instead
         /// outputs no more than n number of nodes sorted by ascending cost
         /// where n is equal to the setting value. If set to 0, the setting is
-        /// ignored.</description>
+        /// ignored.  The default value is '0'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -239,7 +240,7 @@ namespace kinetica
         /// solution.</description>
         ///     </item>
         /// </list>
-        /// <br />
+        /// The default value is an empty {@link Dictionary}.
         /// A set of string constants for the parameter <see cref="options"
         /// />.</summary>
         public struct Options
@@ -250,7 +251,8 @@ namespace kinetica
             /// solution cost radius, which ignores the <see
             /// cref="destination_node_ids" /> list and instead outputs the
             /// nodes within the radius sorted by ascending cost. If set to
-            /// '0.0', the setting is ignored.</summary>
+            /// '0.0', the setting is ignored.  The default value is
+            /// '0.0'.</summary>
             public const string MAX_SOLUTION_RADIUS = "max_solution_radius";
 
             /// <summary>For <i>SHORTEST_PATH</i> and
@@ -259,7 +261,7 @@ namespace kinetica
             /// cref="destination_node_ids" /> list and instead outputs no more
             /// than n number of nodes sorted by ascending cost where n is
             /// equal to the setting value. If set to 0, the setting is
-            /// ignored.</summary>
+            /// ignored.  The default value is '0'.</summary>
             public const string MAX_SOLUTION_TARGETS = "max_solution_targets";
 
             /// <summary>Returns solution results inside the <member
@@ -321,7 +323,8 @@ namespace kinetica
         /// expressions, e.g., 'ST_LENGTH(wkt) AS WEIGHTS_VALUESPECIFIED'. Any
         /// provided weights will be added (in the case of
         /// 'WEIGHTS_VALUESPECIFIED') to or multiplied with (in the case of
-        /// 'WEIGHTS_FACTORSPECIFIED') the existing weight(s).  </summary>
+        /// 'WEIGHTS_FACTORSPECIFIED') the existing weight(s).  The default
+        /// value is an empty {@link List}.</summary>
         public IList<string> weights_on_edges { get; set; } = new List<string>();
 
         /// <summary>Additional restrictions to apply to the nodes/edges of an
@@ -337,7 +340,8 @@ namespace kinetica
         /// existing restrictions. If <i>remove_previous_restrictions</i> is
         /// set to <i>false</i>, any provided weights will be added (in the
         /// case of 'RESTRICTIONS_VALUECOMPARED') to or replaced (in the case
-        /// of 'RESTRICTIONS_ONOFFCOMPARED').  </summary>
+        /// of 'RESTRICTIONS_ONOFFCOMPARED').  The default value is an empty
+        /// {@link List}.</summary>
         public IList<string> restrictions { get; set; } = new List<string>();
 
         /// <summary>The type of solver to use for the graph.
@@ -418,7 +422,8 @@ namespace kinetica
         /// <summary>List of destination node indices, or indices for
         /// pageranks. If the <paramref cref="SolveGraphRequest.solver_type" />
         /// is set to <i>BACKHAUL_ROUTING</i>, it is the list of all fixed and
-        /// remote asset nodes.  </summary>
+        /// remote asset nodes.  The default value is an empty {@link
+        /// List}.</summary>
         public IList<long> destination_node_ids { get; set; } = new List<long>();
 
         /// <summary>Source and destination node identifier type.
@@ -450,7 +455,8 @@ namespace kinetica
 
         /// <summary>If <paramref cref="SolveGraphRequest.node_type" /> is
         /// <i>NODE_WKTPOINT</i> or <i>NODE_NAME</i>, the node (string) of the
-        /// source (starting point) for the graph solution.  </summary>
+        /// source (starting point) for the graph solution.  The default value
+        /// is ''.</summary>
         public string source_node { get; set; } = "";
 
         /// <summary>If <paramref cref="SolveGraphRequest.node_type" /> is
@@ -459,11 +465,12 @@ namespace kinetica
         /// <paramref cref="SolveGraphRequest.solver_type" /> is set to
         /// <i>BACKHAUL_ROUTING</i>, it is the list of all fixed and remote
         /// asset nodes. The string type should be consistent with the
-        /// <paramref cref="SolveGraphRequest.node_type" /> parameter.
-        /// </summary>
+        /// <paramref cref="SolveGraphRequest.node_type" /> parameter.  The
+        /// default value is an empty {@link List}.</summary>
         public IList<string> destination_nodes { get; set; } = new List<string>();
 
-        /// <summary>Name of the table to store the solution.  </summary>
+        /// <summary>Name of the table to store the solution.  The default
+        /// value is 'graph_solutions'.</summary>
         public string solution_table { get; set; } = "graph_solutions";
 
         /// <summary>Additional parameters
@@ -476,7 +483,8 @@ namespace kinetica
         /// solution cost radius, which ignores the <paramref
         /// cref="SolveGraphRequest.destination_node_ids" /> list and instead
         /// outputs the nodes within the radius sorted by ascending cost. If
-        /// set to '0.0', the setting is ignored.</description>
+        /// set to '0.0', the setting is ignored.  The default value is
+        /// '0.0'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -487,7 +495,7 @@ namespace kinetica
         /// cref="SolveGraphRequest.destination_node_ids" /> list and instead
         /// outputs no more than n number of nodes sorted by ascending cost
         /// where n is equal to the setting value. If set to 0, the setting is
-        /// ignored.</description>
+        /// ignored.  The default value is '0'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -538,7 +546,7 @@ namespace kinetica
         /// solution.</description>
         ///     </item>
         /// </list>
-        ///   </summary>
+        /// The default value is an empty {@link Dictionary}.</summary>
         public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
 
 
@@ -561,7 +569,8 @@ namespace kinetica
         /// expressions, e.g., 'ST_LENGTH(wkt) AS WEIGHTS_VALUESPECIFIED'. Any
         /// provided weights will be added (in the case of
         /// 'WEIGHTS_VALUESPECIFIED') to or multiplied with (in the case of
-        /// 'WEIGHTS_FACTORSPECIFIED') the existing weight(s).  </param>
+        /// 'WEIGHTS_FACTORSPECIFIED') the existing weight(s).  The default
+        /// value is an empty {@link List}.</param>
         /// <param name="restrictions">Additional restrictions to apply to the
         /// nodes/edges of an existing graph. Restrictions must be specified
         /// using <a
@@ -576,7 +585,8 @@ namespace kinetica
         /// existing restrictions. If <i>remove_previous_restrictions</i> is
         /// set to <i>false</i>, any provided weights will be added (in the
         /// case of 'RESTRICTIONS_VALUECOMPARED') to or replaced (in the case
-        /// of 'RESTRICTIONS_ONOFFCOMPARED').  </param>
+        /// of 'RESTRICTIONS_ONOFFCOMPARED').  The default value is an empty
+        /// {@link List}.</param>
         /// <param name="solver_type">The type of solver to use for the graph.
         /// Supported values:
         /// <list type="bullet">
@@ -652,7 +662,7 @@ namespace kinetica
         /// indices, or indices for pageranks. If the <paramref
         /// cref="SolveGraphRequest.solver_type" /> is set to
         /// <i>BACKHAUL_ROUTING</i>, it is the list of all fixed and remote
-        /// asset nodes.  </param>
+        /// asset nodes.  The default value is an empty {@link List}.</param>
         /// <param name="node_type">Source and destination node identifier
         /// type.
         /// Supported values:
@@ -681,7 +691,7 @@ namespace kinetica
         /// <param name="source_node">If <paramref
         /// cref="SolveGraphRequest.node_type" /> is <i>NODE_WKTPOINT</i> or
         /// <i>NODE_NAME</i>, the node (string) of the source (starting point)
-        /// for the graph solution.  </param>
+        /// for the graph solution.  The default value is ''.</param>
         /// <param name="destination_nodes">If <paramref
         /// cref="SolveGraphRequest.node_type" /> is <i>NODE_WKTPOINT</i> or
         /// <i>NODE_NAME</i>, the list of destination node or page rank indices
@@ -689,10 +699,10 @@ namespace kinetica
         /// cref="SolveGraphRequest.solver_type" /> is set to
         /// <i>BACKHAUL_ROUTING</i>, it is the list of all fixed and remote
         /// asset nodes. The string type should be consistent with the
-        /// <paramref cref="SolveGraphRequest.node_type" /> parameter.
-        /// </param>
+        /// <paramref cref="SolveGraphRequest.node_type" /> parameter.  The
+        /// default value is an empty {@link List}.</param>
         /// <param name="solution_table">Name of the table to store the
-        /// solution.  </param>
+        /// solution.  The default value is 'graph_solutions'.</param>
         /// <param name="options">Additional parameters
         /// <list type="bullet">
         ///     <item>
@@ -703,7 +713,8 @@ namespace kinetica
         /// solution cost radius, which ignores the <paramref
         /// cref="SolveGraphRequest.destination_node_ids" /> list and instead
         /// outputs the nodes within the radius sorted by ascending cost. If
-        /// set to '0.0', the setting is ignored.</description>
+        /// set to '0.0', the setting is ignored.  The default value is
+        /// '0.0'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -714,7 +725,7 @@ namespace kinetica
         /// cref="SolveGraphRequest.destination_node_ids" /> list and instead
         /// outputs no more than n number of nodes sorted by ascending cost
         /// where n is equal to the setting value. If set to 0, the setting is
-        /// ignored.</description>
+        /// ignored.  The default value is '0'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -765,7 +776,7 @@ namespace kinetica
         /// solution.</description>
         ///     </item>
         /// </list>
-        ///   </param>
+        /// The default value is an empty {@link Dictionary}.</param>
         /// 
         public SolveGraphRequest( string graph_name,
                                   IList<string> weights_on_edges,

@@ -82,22 +82,25 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="VisualizeImageContourRequest.StyleOptions.LINE_SIZE">LINE_SIZE</see>:</term>
-        ///         <description></description>
+        ///         <description>  The default value is '3'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="VisualizeImageContourRequest.StyleOptions.COLOR">COLOR</see>:</term>
-        ///         <description></description>
+        ///         <description>  The default value is
+        /// 'FF696969'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="VisualizeImageContourRequest.StyleOptions.BG_COLOR">BG_COLOR</see>:</term>
-        ///         <description></description>
+        ///         <description>  The default value is
+        /// '00000000'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="VisualizeImageContourRequest.StyleOptions.TEXT_COLOR">TEXT_COLOR</see>:</term>
-        ///         <description></description>
+        ///         <description>  The default value is
+        /// 'FF000000'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -415,9 +418,17 @@ namespace kinetica
         /// cref="style_options" />.</summary>
         public struct StyleOptions
         {
+
+            /// <summary>  The default value is '3'.</summary>
             public const string LINE_SIZE = "line_size";
+
+            /// <summary>  The default value is 'FF696969'.</summary>
             public const string COLOR = "color";
+
+            /// <summary>  The default value is '00000000'.</summary>
             public const string BG_COLOR = "bg_color";
+
+            /// <summary>  The default value is 'FF000000'.</summary>
             public const string TEXT_COLOR = "text_color";
 
             /// <summary>
@@ -820,22 +831,22 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="VisualizeImageContourRequest.Options.NUM_LEVELS">NUM_LEVELS</see>:</term>
-        ///         <description></description>
+        ///         <description>  The default value is '10'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="VisualizeImageContourRequest.Options.ADJUST_LEVELS">ADJUST_LEVELS</see>:</term>
-        ///         <description></description>
+        ///         <description>  The default value is 'true'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="VisualizeImageContourRequest.Options.SEARCH_RADIUS">SEARCH_RADIUS</see>:</term>
-        ///         <description></description>
+        ///         <description>  The default value is '20'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="VisualizeImageContourRequest.Options.MAX_SEARCH_CELLS">MAX_SEARCH_CELLS</see>:</term>
-        ///         <description></description>
+        ///         <description>  The default value is '100'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -870,82 +881,82 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="VisualizeImageContourRequest.Options.SMOOTHING_FACTOR">SMOOTHING_FACTOR</see>:</term>
-        ///         <description></description>
+        ///         <description>  The default value is '10'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="VisualizeImageContourRequest.Options.GRID_SIZE">GRID_SIZE</see>:</term>
-        ///         <description></description>
+        ///         <description>  The default value is '100'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="VisualizeImageContourRequest.Options.ADJUST_GRID">ADJUST_GRID</see>:</term>
-        ///         <description></description>
+        ///         <description>  The default value is 'false'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="VisualizeImageContourRequest.Options.ADJUST_GRID_NEIGH">ADJUST_GRID_NEIGH</see>:</term>
-        ///         <description></description>
+        ///         <description>  The default value is '1'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="VisualizeImageContourRequest.Options.ADJUST_GRID_SIZE">ADJUST_GRID_SIZE</see>:</term>
-        ///         <description></description>
+        ///         <description>  The default value is '1'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="VisualizeImageContourRequest.Options.MAX_GRID_SIZE">MAX_GRID_SIZE</see>:</term>
-        ///         <description></description>
+        ///         <description>  The default value is '500'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="VisualizeImageContourRequest.Options.MIN_GRID_SIZE">MIN_GRID_SIZE</see>:</term>
-        ///         <description></description>
+        ///         <description>  The default value is '10'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="VisualizeImageContourRequest.Options.RENDER_OUTPUT_GRID">RENDER_OUTPUT_GRID</see>:</term>
-        ///         <description></description>
+        ///         <description>  The default value is 'false'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="VisualizeImageContourRequest.Options.COLOR_ISOLINES">COLOR_ISOLINES</see>:</term>
-        ///         <description></description>
+        ///         <description>  The default value is 'true'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="VisualizeImageContourRequest.Options.ADD_LABELS">ADD_LABELS</see>:</term>
-        ///         <description></description>
+        ///         <description>  The default value is 'false'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="VisualizeImageContourRequest.Options.LABELS_FONT_SIZE">LABELS_FONT_SIZE</see>:</term>
-        ///         <description></description>
+        ///         <description>  The default value is '12'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="VisualizeImageContourRequest.Options.LABELS_FONT_FAMILY">LABELS_FONT_FAMILY</see>:</term>
-        ///         <description></description>
+        ///         <description>  The default value is 'arial'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="VisualizeImageContourRequest.Options.LABELS_SEARCH_WINDOW">LABELS_SEARCH_WINDOW</see>:</term>
-        ///         <description></description>
+        ///         <description>  The default value is '4'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="VisualizeImageContourRequest.Options.LABELS_INTRALEVEL_SEPARATION">LABELS_INTRALEVEL_SEPARATION</see>:</term>
-        ///         <description></description>
+        ///         <description>  The default value is '4'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="VisualizeImageContourRequest.Options.LABELS_INTERLEVEL_SEPARATION">LABELS_INTERLEVEL_SEPARATION</see>:</term>
-        ///         <description></description>
+        ///         <description>  The default value is '20'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="VisualizeImageContourRequest.Options.LABELS_MAX_ANGLE">LABELS_MAX_ANGLE</see>:</term>
-        ///         <description></description>
+        ///         <description>  The default value is '60'.</description>
         ///     </item>
         /// </list>
         /// <br />
@@ -955,9 +966,17 @@ namespace kinetica
         {
             public const string MIN_LEVEL = "min_level";
             public const string MAX_LEVEL = "max_level";
+
+            /// <summary>  The default value is '10'.</summary>
             public const string NUM_LEVELS = "num_levels";
+
+            /// <summary>  The default value is 'true'.</summary>
             public const string ADJUST_LEVELS = "adjust_levels";
+
+            /// <summary>  The default value is '20'.</summary>
             public const string SEARCH_RADIUS = "search_radius";
+
+            /// <summary>  The default value is '100'.</summary>
             public const string MAX_SEARCH_CELLS = "max_search_cells";
 
             /// <summary>
@@ -992,21 +1011,53 @@ namespace kinetica
             public const string KRIGING = "KRIGING";
             public const string PASS_THROUGH = "PASS_THROUGH";
             public const string FILL_RATIO = "FILL_RATIO";
+
+            /// <summary>  The default value is '10'.</summary>
             public const string SMOOTHING_FACTOR = "smoothing_factor";
+
+            /// <summary>  The default value is '100'.</summary>
             public const string GRID_SIZE = "grid_size";
+
+            /// <summary>  The default value is 'false'.</summary>
             public const string ADJUST_GRID = "adjust_grid";
+
+            /// <summary>  The default value is '1'.</summary>
             public const string ADJUST_GRID_NEIGH = "adjust_grid_neigh";
+
+            /// <summary>  The default value is '1'.</summary>
             public const string ADJUST_GRID_SIZE = "adjust_grid_size";
+
+            /// <summary>  The default value is '500'.</summary>
             public const string MAX_GRID_SIZE = "max_grid_size";
+
+            /// <summary>  The default value is '10'.</summary>
             public const string MIN_GRID_SIZE = "min_grid_size";
+
+            /// <summary>  The default value is 'false'.</summary>
             public const string RENDER_OUTPUT_GRID = "render_output_grid";
+
+            /// <summary>  The default value is 'true'.</summary>
             public const string COLOR_ISOLINES = "color_isolines";
+
+            /// <summary>  The default value is 'false'.</summary>
             public const string ADD_LABELS = "add_labels";
+
+            /// <summary>  The default value is '12'.</summary>
             public const string LABELS_FONT_SIZE = "labels_font_size";
+
+            /// <summary>  The default value is 'arial'.</summary>
             public const string LABELS_FONT_FAMILY = "labels_font_family";
+
+            /// <summary>  The default value is '4'.</summary>
             public const string LABELS_SEARCH_WINDOW = "labels_search_window";
+
+            /// <summary>  The default value is '4'.</summary>
             public const string LABELS_INTRALEVEL_SEPARATION = "labels_intralevel_separation";
+
+            /// <summary>  The default value is '20'.</summary>
             public const string LABELS_INTERLEVEL_SEPARATION = "labels_interlevel_separation";
+
+            /// <summary>  The default value is '60'.</summary>
             public const string LABELS_MAX_ANGLE = "labels_max_angle";
         } // end struct Options
 
@@ -1070,22 +1121,25 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="VisualizeImageContourRequest.StyleOptions.LINE_SIZE">LINE_SIZE</see>:</term>
-        ///         <description></description>
+        ///         <description>  The default value is '3'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="VisualizeImageContourRequest.StyleOptions.COLOR">COLOR</see>:</term>
-        ///         <description></description>
+        ///         <description>  The default value is
+        /// 'FF696969'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="VisualizeImageContourRequest.StyleOptions.BG_COLOR">BG_COLOR</see>:</term>
-        ///         <description></description>
+        ///         <description>  The default value is
+        /// '00000000'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="VisualizeImageContourRequest.StyleOptions.TEXT_COLOR">TEXT_COLOR</see>:</term>
-        ///         <description></description>
+        ///         <description>  The default value is
+        /// 'FF000000'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -1416,22 +1470,22 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="VisualizeImageContourRequest.Options.NUM_LEVELS">NUM_LEVELS</see>:</term>
-        ///         <description></description>
+        ///         <description>  The default value is '10'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="VisualizeImageContourRequest.Options.ADJUST_LEVELS">ADJUST_LEVELS</see>:</term>
-        ///         <description></description>
+        ///         <description>  The default value is 'true'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="VisualizeImageContourRequest.Options.SEARCH_RADIUS">SEARCH_RADIUS</see>:</term>
-        ///         <description></description>
+        ///         <description>  The default value is '20'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="VisualizeImageContourRequest.Options.MAX_SEARCH_CELLS">MAX_SEARCH_CELLS</see>:</term>
-        ///         <description></description>
+        ///         <description>  The default value is '100'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -1466,82 +1520,82 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="VisualizeImageContourRequest.Options.SMOOTHING_FACTOR">SMOOTHING_FACTOR</see>:</term>
-        ///         <description></description>
+        ///         <description>  The default value is '10'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="VisualizeImageContourRequest.Options.GRID_SIZE">GRID_SIZE</see>:</term>
-        ///         <description></description>
+        ///         <description>  The default value is '100'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="VisualizeImageContourRequest.Options.ADJUST_GRID">ADJUST_GRID</see>:</term>
-        ///         <description></description>
+        ///         <description>  The default value is 'false'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="VisualizeImageContourRequest.Options.ADJUST_GRID_NEIGH">ADJUST_GRID_NEIGH</see>:</term>
-        ///         <description></description>
+        ///         <description>  The default value is '1'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="VisualizeImageContourRequest.Options.ADJUST_GRID_SIZE">ADJUST_GRID_SIZE</see>:</term>
-        ///         <description></description>
+        ///         <description>  The default value is '1'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="VisualizeImageContourRequest.Options.MAX_GRID_SIZE">MAX_GRID_SIZE</see>:</term>
-        ///         <description></description>
+        ///         <description>  The default value is '500'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="VisualizeImageContourRequest.Options.MIN_GRID_SIZE">MIN_GRID_SIZE</see>:</term>
-        ///         <description></description>
+        ///         <description>  The default value is '10'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="VisualizeImageContourRequest.Options.RENDER_OUTPUT_GRID">RENDER_OUTPUT_GRID</see>:</term>
-        ///         <description></description>
+        ///         <description>  The default value is 'false'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="VisualizeImageContourRequest.Options.COLOR_ISOLINES">COLOR_ISOLINES</see>:</term>
-        ///         <description></description>
+        ///         <description>  The default value is 'true'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="VisualizeImageContourRequest.Options.ADD_LABELS">ADD_LABELS</see>:</term>
-        ///         <description></description>
+        ///         <description>  The default value is 'false'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="VisualizeImageContourRequest.Options.LABELS_FONT_SIZE">LABELS_FONT_SIZE</see>:</term>
-        ///         <description></description>
+        ///         <description>  The default value is '12'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="VisualizeImageContourRequest.Options.LABELS_FONT_FAMILY">LABELS_FONT_FAMILY</see>:</term>
-        ///         <description></description>
+        ///         <description>  The default value is 'arial'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="VisualizeImageContourRequest.Options.LABELS_SEARCH_WINDOW">LABELS_SEARCH_WINDOW</see>:</term>
-        ///         <description></description>
+        ///         <description>  The default value is '4'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="VisualizeImageContourRequest.Options.LABELS_INTRALEVEL_SEPARATION">LABELS_INTRALEVEL_SEPARATION</see>:</term>
-        ///         <description></description>
+        ///         <description>  The default value is '4'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="VisualizeImageContourRequest.Options.LABELS_INTERLEVEL_SEPARATION">LABELS_INTERLEVEL_SEPARATION</see>:</term>
-        ///         <description></description>
+        ///         <description>  The default value is '20'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="VisualizeImageContourRequest.Options.LABELS_MAX_ANGLE">LABELS_MAX_ANGLE</see>:</term>
-        ///         <description></description>
+        ///         <description>  The default value is '60'.</description>
         ///     </item>
         /// </list>
         /// </summary>
@@ -1612,22 +1666,25 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="VisualizeImageContourRequest.StyleOptions.LINE_SIZE">LINE_SIZE</see>:</term>
-        ///         <description></description>
+        ///         <description>  The default value is '3'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="VisualizeImageContourRequest.StyleOptions.COLOR">COLOR</see>:</term>
-        ///         <description></description>
+        ///         <description>  The default value is
+        /// 'FF696969'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="VisualizeImageContourRequest.StyleOptions.BG_COLOR">BG_COLOR</see>:</term>
-        ///         <description></description>
+        ///         <description>  The default value is
+        /// '00000000'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="VisualizeImageContourRequest.StyleOptions.TEXT_COLOR">TEXT_COLOR</see>:</term>
-        ///         <description></description>
+        ///         <description>  The default value is
+        /// 'FF000000'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -1956,22 +2013,22 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="VisualizeImageContourRequest.Options.NUM_LEVELS">NUM_LEVELS</see>:</term>
-        ///         <description></description>
+        ///         <description>  The default value is '10'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="VisualizeImageContourRequest.Options.ADJUST_LEVELS">ADJUST_LEVELS</see>:</term>
-        ///         <description></description>
+        ///         <description>  The default value is 'true'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="VisualizeImageContourRequest.Options.SEARCH_RADIUS">SEARCH_RADIUS</see>:</term>
-        ///         <description></description>
+        ///         <description>  The default value is '20'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="VisualizeImageContourRequest.Options.MAX_SEARCH_CELLS">MAX_SEARCH_CELLS</see>:</term>
-        ///         <description></description>
+        ///         <description>  The default value is '100'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -2006,82 +2063,82 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="VisualizeImageContourRequest.Options.SMOOTHING_FACTOR">SMOOTHING_FACTOR</see>:</term>
-        ///         <description></description>
+        ///         <description>  The default value is '10'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="VisualizeImageContourRequest.Options.GRID_SIZE">GRID_SIZE</see>:</term>
-        ///         <description></description>
+        ///         <description>  The default value is '100'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="VisualizeImageContourRequest.Options.ADJUST_GRID">ADJUST_GRID</see>:</term>
-        ///         <description></description>
+        ///         <description>  The default value is 'false'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="VisualizeImageContourRequest.Options.ADJUST_GRID_NEIGH">ADJUST_GRID_NEIGH</see>:</term>
-        ///         <description></description>
+        ///         <description>  The default value is '1'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="VisualizeImageContourRequest.Options.ADJUST_GRID_SIZE">ADJUST_GRID_SIZE</see>:</term>
-        ///         <description></description>
+        ///         <description>  The default value is '1'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="VisualizeImageContourRequest.Options.MAX_GRID_SIZE">MAX_GRID_SIZE</see>:</term>
-        ///         <description></description>
+        ///         <description>  The default value is '500'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="VisualizeImageContourRequest.Options.MIN_GRID_SIZE">MIN_GRID_SIZE</see>:</term>
-        ///         <description></description>
+        ///         <description>  The default value is '10'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="VisualizeImageContourRequest.Options.RENDER_OUTPUT_GRID">RENDER_OUTPUT_GRID</see>:</term>
-        ///         <description></description>
+        ///         <description>  The default value is 'false'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="VisualizeImageContourRequest.Options.COLOR_ISOLINES">COLOR_ISOLINES</see>:</term>
-        ///         <description></description>
+        ///         <description>  The default value is 'true'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="VisualizeImageContourRequest.Options.ADD_LABELS">ADD_LABELS</see>:</term>
-        ///         <description></description>
+        ///         <description>  The default value is 'false'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="VisualizeImageContourRequest.Options.LABELS_FONT_SIZE">LABELS_FONT_SIZE</see>:</term>
-        ///         <description></description>
+        ///         <description>  The default value is '12'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="VisualizeImageContourRequest.Options.LABELS_FONT_FAMILY">LABELS_FONT_FAMILY</see>:</term>
-        ///         <description></description>
+        ///         <description>  The default value is 'arial'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="VisualizeImageContourRequest.Options.LABELS_SEARCH_WINDOW">LABELS_SEARCH_WINDOW</see>:</term>
-        ///         <description></description>
+        ///         <description>  The default value is '4'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="VisualizeImageContourRequest.Options.LABELS_INTRALEVEL_SEPARATION">LABELS_INTRALEVEL_SEPARATION</see>:</term>
-        ///         <description></description>
+        ///         <description>  The default value is '4'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="VisualizeImageContourRequest.Options.LABELS_INTERLEVEL_SEPARATION">LABELS_INTERLEVEL_SEPARATION</see>:</term>
-        ///         <description></description>
+        ///         <description>  The default value is '20'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="VisualizeImageContourRequest.Options.LABELS_MAX_ANGLE">LABELS_MAX_ANGLE</see>:</term>
-        ///         <description></description>
+        ///         <description>  The default value is '60'.</description>
         ///     </item>
         /// </list>
         /// </param>

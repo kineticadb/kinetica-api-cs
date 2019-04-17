@@ -27,7 +27,8 @@ namespace kinetica
         /// statistics (cardinality, mean value, etc.).  </summary>
         public IList<string> column_names { get; set; } = new List<string>();
 
-        /// <summary>Optional parameters.  </summary>
+        /// <summary>Optional parameters.  The default value is an empty {@link
+        /// Dictionary}.</summary>
         public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
 
 
@@ -43,7 +44,8 @@ namespace kinetica
         /// <param name="column_names">List of one or more column names in
         /// <paramref cref="CollectStatisticsRequest.table_name" /> for which
         /// to collect statistics (cardinality, mean value, etc.).  </param>
-        /// <param name="options">Optional parameters.  </param>
+        /// <param name="options">Optional parameters.  The default value is an
+        /// empty {@link Dictionary}.</param>
         /// 
         public CollectStatisticsRequest( string table_name,
                                          IList<string> column_names,

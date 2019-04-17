@@ -21,10 +21,11 @@ namespace kinetica
         /// <summary>The run ID of the running proc instance. If the run ID is
         /// not found or the proc instance has already completed, this does
         /// nothing. If not specified, all running proc instances will be
-        /// killed.  </summary>
+        /// killed.  The default value is ''.</summary>
         public string run_id { get; set; } = "";
 
-        /// <summary>Optional parameters.  </summary>
+        /// <summary>Optional parameters.  The default value is an empty {@link
+        /// Dictionary}.</summary>
         public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
 
 
@@ -38,8 +39,9 @@ namespace kinetica
         /// <param name="run_id">The run ID of the running proc instance. If
         /// the run ID is not found or the proc instance has already completed,
         /// this does nothing. If not specified, all running proc instances
-        /// will be killed.  </param>
-        /// <param name="options">Optional parameters.  </param>
+        /// will be killed.  The default value is ''.</param>
+        /// <param name="options">Optional parameters.  The default value is an
+        /// empty {@link Dictionary}.</param>
         /// 
         public KillProcRequest( string run_id = null,
                                 IDictionary<string, string> options = null)

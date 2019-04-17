@@ -25,7 +25,8 @@ namespace kinetica
         /// returns all stored alerts.  </summary>
         public int num_alerts { get; set; }
 
-        /// <summary>Optional parameters.  </summary>
+        /// <summary>Optional parameters.  The default value is an empty {@link
+        /// Dictionary}.</summary>
         public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
 
 
@@ -41,7 +42,8 @@ namespace kinetica
         /// cref="AdminShowAlertsRequest.num_alerts" /> depending on how many
         /// alerts there are in the system. A value of 0 returns all stored
         /// alerts.  </param>
-        /// <param name="options">Optional parameters.  </param>
+        /// <param name="options">Optional parameters.  The default value is an
+        /// empty {@link Dictionary}.</param>
         /// 
         public AdminShowAlertsRequest( int num_alerts,
                                        IDictionary<string, string> options = null)

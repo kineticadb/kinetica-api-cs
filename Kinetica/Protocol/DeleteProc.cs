@@ -23,7 +23,8 @@ namespace kinetica
         /// currently existing proc.  </summary>
         public string proc_name { get; set; }
 
-        /// <summary>Optional parameters.  </summary>
+        /// <summary>Optional parameters.  The default value is an empty {@link
+        /// Dictionary}.</summary>
         public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
 
 
@@ -36,7 +37,8 @@ namespace kinetica
         /// 
         /// <param name="proc_name">Name of the proc to be deleted. Must be the
         /// name of a currently existing proc.  </param>
-        /// <param name="options">Optional parameters.  </param>
+        /// <param name="options">Optional parameters.  The default value is an
+        /// empty {@link Dictionary}.</param>
         /// 
         public DeleteProcRequest( string proc_name,
                                   IDictionary<string, string> options = null)

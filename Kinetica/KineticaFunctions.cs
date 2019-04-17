@@ -16,7 +16,7 @@ namespace kinetica
     {
 
         // Kinetica Version
-        public const string API_VERSION = "7.0.1.0";
+        public const string API_VERSION = "7.0.2.0";
 
 
 
@@ -129,7 +129,7 @@ namespace kinetica
         /// cref="AdminAddRanksRequest.Options.FALSE">FALSE</see>.</description>
         ///     </item>
         /// </list>
-        ///   </param>
+        /// The default value is an empty {@link Dictionary}.</param>
         /// 
         /// <returns>Response object containing the result of the
         /// operation.</returns>
@@ -182,7 +182,8 @@ namespace kinetica
         /// cref="AdminAlterJobsRequest.Action.CANCEL">CANCEL</see></term>
         ///     </item>
         /// </list>  </param>
-        /// <param name="options">Optional parameters.  </param>
+        /// <param name="options">Optional parameters.  The default value is an
+        /// empty {@link Dictionary}.</param>
         /// 
         /// <returns>Response object containing the result of the
         /// operation.</returns>
@@ -248,7 +249,7 @@ namespace kinetica
         /// </list></description>
         ///     </item>
         /// </list>
-        ///   </param>
+        /// The default value is an empty {@link Dictionary}.</param>
         /// 
         /// <returns>Response object containing the result of the
         /// operation.</returns>
@@ -360,7 +361,7 @@ namespace kinetica
         /// <i>table_whitelist</i>.</description>
         ///     </item>
         /// </list>
-        ///   </param>
+        /// The default value is an empty {@link Dictionary}.</param>
         /// 
         /// <returns>Response object containing the result of the
         /// operation.</returns>
@@ -459,7 +460,7 @@ namespace kinetica
         /// cref="AdminRemoveRanksRequest.Options.TRUE">TRUE</see>.</description>
         ///     </item>
         /// </list>
-        ///   </param>
+        /// The default value is an empty {@link Dictionary}.</param>
         /// 
         /// <returns>Response object containing the result of the
         /// operation.</returns>
@@ -498,7 +499,8 @@ namespace kinetica
         /// cref="AdminShowAlertsRequest.num_alerts" /> depending on how many
         /// alerts there are in the system. A value of 0 returns all stored
         /// alerts.  </param>
-        /// <param name="options">Optional parameters.  </param>
+        /// <param name="options">Optional parameters.  The default value is an
+        /// empty {@link Dictionary}.</param>
         /// 
         /// <returns>Response object containing the result of the
         /// operation.</returns>
@@ -541,8 +543,10 @@ namespace kinetica
         /// stored in the history.</summary>
         /// 
         /// <param name="history_index">Indicates which cluster operation to
-        /// retrieve.  Use 0 for the most recent.  </param>
-        /// <param name="options">Optional parameters.  </param>
+        /// retrieve.  Use 0 for the most recent.  The default value is
+        /// 0.</param>
+        /// <param name="options">Optional parameters.  The default value is an
+        /// empty {@link Dictionary}.</param>
         /// 
         /// <returns>Response object containing the result of the
         /// operation.</returns>
@@ -593,7 +597,7 @@ namespace kinetica
         /// </list></description>
         ///     </item>
         /// </list>
-        ///   </param>
+        /// The default value is an empty {@link Dictionary}.</param>
         /// 
         /// <returns>Response object containing the result of the
         /// operation.</returns>
@@ -628,7 +632,8 @@ namespace kinetica
         /// shards in the system) Rank and TOM numbers corresponding to each
         /// shard.</summary>
         /// 
-        /// <param name="options">Optional parameters.  </param>
+        /// <param name="options">Optional parameters.  The default value is an
+        /// empty {@link Dictionary}.</param>
         /// 
         /// <returns>Response object containing the result of the
         /// operation.</returns>
@@ -661,7 +666,8 @@ namespace kinetica
         /// empty string.  </param>
         /// <param name="authorization">No longer used. User can pass an empty
         /// string.  </param>
-        /// <param name="options">Optional parameters.  </param>
+        /// <param name="options">Optional parameters.  The default value is an
+        /// empty {@link Dictionary}.</param>
         /// 
         /// <returns>Response object containing the result of the
         /// operation.</returns>
@@ -777,7 +783,7 @@ namespace kinetica
         /// cref="AdminVerifyDbRequest.Options.FALSE">FALSE</see>.</description>
         ///     </item>
         /// </list>
-        ///   </param>
+        /// The default value is an empty {@link Dictionary}.</param>
         /// 
         /// <returns>Response object containing the result of the
         /// operation.</returns>
@@ -818,7 +824,8 @@ namespace kinetica
         /// <param name="y_column_name">Name of the column containing the y
         /// coordinates of the points for the operation being performed.
         /// </param>
-        /// <param name="options">Optional parameters.  </param>
+        /// <param name="options">Optional parameters.  The default value is an
+        /// empty {@link Dictionary}.</param>
         /// 
         /// <returns>Response object containing the result of the
         /// operation.</returns>
@@ -1010,7 +1017,8 @@ namespace kinetica
         /// value is MAX_INT. </param>
         /// <param name="limit">A positive integer indicating the maximum
         /// number of results to be returned Or END_OF_SET (-9999) to indicate
-        /// that the max number of results should be returned.  </param>
+        /// that the max number of results should be returned.  The default
+        /// value is 1000.</param>
         /// <param name="options">Optional parameters.
         /// <list type="bullet">
         ///     <item>
@@ -1185,8 +1193,8 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="AggregateGroupByRequest.Options.VIEW_ID">VIEW_ID</see>:</term>
-        ///         <description>view this result table is part
-        /// of</description>
+        ///         <description>view this result table is part of.  The
+        /// default value is ''.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -1258,7 +1266,7 @@ namespace kinetica
         ///         <description><DEVELOPER></description>
         ///     </item>
         /// </list>
-        ///   </param>
+        /// The default value is an empty {@link Dictionary}.</param>
         /// 
         /// <returns>Response object containing the result of the
         /// operation.</returns>
@@ -1283,11 +1291,14 @@ namespace kinetica
         /// inclusive, but the end value is exclusive--except for the very last
         /// bin for which the end value is also inclusive.  The value returned
         /// for each bin is the number of records in it, except when a column
-        /// name is provided as a *value_column* in <paramref
-        /// cref="AggregateHistogramRequest.options" />.  In this latter case
-        /// the sum of the values corresponding to the *value_column* is used
+        /// name is provided as a <i>value_column</i>.  In this latter case the
+        /// sum of the values corresponding to the <i>value_column</i> is used
         /// as the result instead.  The total number of bins requested cannot
-        /// exceed 10,000.</summary>
+        /// exceed 10,000.
+        /// <br />
+        /// NOTE:  The Kinetica instance being accessed must be running a CUDA
+        /// (GPU-based) build to service a request that specifies a
+        /// <i>value_column</i> option.</summary>
         /// 
         /// <param name="request_">Request object containing the parameters for
         /// the operation.</param>
@@ -1310,11 +1321,14 @@ namespace kinetica
         /// start value is inclusive, but the end value is exclusive--except
         /// for the very last bin for which the end value is also inclusive.
         /// The value returned for each bin is the number of records in it,
-        /// except when a column name is provided as a *value_column* in
-        /// <paramref name="options" />.  In this latter case the sum of the
-        /// values corresponding to the *value_column* is used as the result
-        /// instead.  The total number of bins requested cannot exceed
-        /// 10,000.</summary>
+        /// except when a column name is provided as a <i>value_column</i>.  In
+        /// this latter case the sum of the values corresponding to the
+        /// <i>value_column</i> is used as the result instead.  The total
+        /// number of bins requested cannot exceed 10,000.
+        /// <br />
+        /// NOTE:  The Kinetica instance being accessed must be running a CUDA
+        /// (GPU-based) build to service a request that specifies a
+        /// <i>value_column</i> option.</summary>
         /// 
         /// <param name="table_name">Name of the table on which the operation
         /// will be performed. Must be an existing table or collection.
@@ -1338,7 +1352,7 @@ namespace kinetica
         /// type (int, double, long, float).</description>
         ///     </item>
         /// </list>
-        ///   </param>
+        /// The default value is an empty {@link Dictionary}.</param>
         /// 
         /// <returns>Response object containing the result of the
         /// operation.</returns>
@@ -1366,7 +1380,10 @@ namespace kinetica
         /// randomly selected set of k points and then refines the location of
         /// the points iteratively and settles to a local minimum.  Various
         /// parameters and options are provided to control the heuristic
-        /// search.</summary>
+        /// search.
+        /// <br />
+        /// NOTE:  The Kinetica instance being accessed must be running a CUDA
+        /// (GPU-based) build to service this request.</summary>
         /// 
         /// <param name="request_">Request object containing the parameters for
         /// the operation.</param>
@@ -1391,7 +1408,10 @@ namespace kinetica
         /// randomly selected set of k points and then refines the location of
         /// the points iteratively and settles to a local minimum.  Various
         /// parameters and options are provided to control the heuristic
-        /// search.</summary>
+        /// search.
+        /// <br />
+        /// NOTE:  The Kinetica instance being accessed must be running a CUDA
+        /// (GPU-based) build to service this request.</summary>
         /// 
         /// <param name="table_name">Name of the table on which the operation
         /// will be performed. Must be an existing table or collection.
@@ -1426,7 +1446,7 @@ namespace kinetica
         /// local minimum. Default is 1.</description>
         ///     </item>
         /// </list>
-        ///   </param>
+        /// The default value is an empty {@link Dictionary}.</param>
         /// 
         /// <returns>Response object containing the result of the
         /// operation.</returns>
@@ -1466,7 +1486,8 @@ namespace kinetica
         /// will be performed. Must be an existing table.  </param>
         /// <param name="column_name">Name of a column or an expression of one
         /// or more column on which the min-max will be calculated.  </param>
-        /// <param name="options">Optional parameters.  </param>
+        /// <param name="options">Optional parameters.  The default value is an
+        /// empty {@link Dictionary}.</param>
         /// 
         /// <returns>Response object containing the result of the
         /// operation.</returns>
@@ -1506,7 +1527,8 @@ namespace kinetica
         /// will be performed. Must be an existing table.  </param>
         /// <param name="column_name">Name of a geospatial geometry column on
         /// which the min-max will be calculated.  </param>
-        /// <param name="options">Optional parameters.  </param>
+        /// <param name="options">Optional parameters.  The default value is an
+        /// empty {@link Dictionary}.</param>
         /// 
         /// <returns>Response object containing the result of the
         /// operation.</returns>
@@ -1741,7 +1763,7 @@ namespace kinetica
         /// the weighted average statistic.</description>
         ///     </item>
         /// </list>
-        ///   </param>
+        /// The default value is an empty {@link Dictionary}.</param>
         /// 
         /// <returns>Response object containing the result of the
         /// operation.</returns>
@@ -1782,7 +1804,10 @@ namespace kinetica
         /// specifies a list of binning column values. Binning-columns whose
         /// value matches the nth member of the bin_values list are placed in
         /// the nth bin. When a list is provided the binning-column must be of
-        /// type string or int.</summary>
+        /// type string or int.
+        /// <br />
+        /// NOTE:  The Kinetica instance being accessed must be running a CUDA
+        /// (GPU-based) build to service this request.</summary>
         /// 
         /// <param name="request_">Request object containing the parameters for
         /// the operation.</param>
@@ -1821,13 +1846,16 @@ namespace kinetica
         /// name="options" /> bin_values specifies a list of binning column
         /// values. Binning-columns whose value matches the nth member of the
         /// bin_values list are placed in the nth bin. When a list is provided
-        /// the binning-column must be of type string or int.</summary>
+        /// the binning-column must be of type string or int.
+        /// <br />
+        /// NOTE:  The Kinetica instance being accessed must be running a CUDA
+        /// (GPU-based) build to service this request.</summary>
         /// 
         /// <param name="table_name">Name of the table on which the
         /// ranged-statistics operation will be performed.  </param>
         /// <param name="select_expression">For a non-empty expression
         /// statistics are calculated for those records for which the
-        /// expression is true.  </param>
+        /// expression is true.  The default value is ''.</param>
         /// <param name="column_name">Name of the binning-column used to divide
         /// the set samples into bins.  </param>
         /// <param name="value_column_name">Name of the value-column for which
@@ -1871,7 +1899,7 @@ namespace kinetica
         /// charting techniques.</description>
         ///     </item>
         /// </list>
-        ///   </param>
+        /// The default value is an empty {@link Dictionary}.</param>
         /// 
         /// <returns>Response object containing the result of the
         /// operation.</returns>
@@ -2015,7 +2043,8 @@ namespace kinetica
         /// value is MAX_INT. </param>
         /// <param name="limit">A positive integer indicating the maximum
         /// number of results to be returned. Or END_OF_SET (-9999) to indicate
-        /// that the max number of results should be returned.  </param>
+        /// that the max number of results should be returned.  The default
+        /// value is 10000.</param>
         /// <param name="options">Optional parameters.
         /// <list type="bullet">
         ///     <item>
@@ -2145,11 +2174,11 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="AggregateUniqueRequest.Options.VIEW_ID">VIEW_ID</see>:</term>
-        ///         <description>view this result table is part
-        /// of</description>
+        ///         <description>view this result table is part of.  The
+        /// default value is ''.</description>
         ///     </item>
         /// </list>
-        ///   </param>
+        /// The default value is an empty {@link Dictionary}.</param>
         /// 
         /// <returns>Response object containing the result of the
         /// operation.</returns>
@@ -2229,9 +2258,9 @@ namespace kinetica
         /// wildcard '*' can be used to include all the non-pivoted columns
         /// from the source table.  </param>
         /// <param name="variable_column_name">Specifies the variable/parameter
-        /// column name.  </param>
+        /// column name.  The default value is ''.</param>
         /// <param name="value_column_name">Specifies the value column name.
-        /// </param>
+        /// The default value is ''.</param>
         /// <param name="pivoted_columns">List of one or more values typically
         /// the column names of the input table. All the columns in the source
         /// table must have the same data type.  </param>
@@ -2288,7 +2317,7 @@ namespace kinetica
         /// sorted by; e.g. 'timestamp asc, x desc'.  The columns specified
         /// must be present in input table.  If any alias is given for any
         /// column name, the alias must be used, rather than the original
-        /// column name.</description>
+        /// column name.  The default value is ''.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -2300,7 +2329,8 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="AggregateUnpivotRequest.Options.LIMIT">LIMIT</see>:</term>
-        ///         <description>The number of records to keep.</description>
+        ///         <description>The number of records to keep.  The default
+        /// value is ''.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -2312,8 +2342,8 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="AggregateUnpivotRequest.Options.VIEW_ID">VIEW_ID</see>:</term>
-        ///         <description>view this result table is part
-        /// of</description>
+        ///         <description>view this result table is part of.  The
+        /// default value is ''.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -2364,7 +2394,7 @@ namespace kinetica
         /// cref="AggregateUnpivotRequest.Options.FALSE">FALSE</see>.</description>
         ///     </item>
         /// </list>
-        ///   </param>
+        /// The default value is an empty {@link Dictionary}.</param>
         /// 
         /// <returns>Response object containing the result of the
         /// operation.</returns>
@@ -2421,7 +2451,41 @@ namespace kinetica
         /// tier at one time for this group.</description>
         ///     </item>
         /// </list>
-        ///   </param>
+        /// The default value is an empty {@link Dictionary}.</param>
+        /// <param name="ranking">If the resource group ranking has to be
+        /// updated, this indicates the relative ranking among existing
+        /// resource groups where this resource group will be moved. Left bank
+        /// if not changing the ranking.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterResourceGroupRequest.Ranking.EMPTY_STRING">EMPTY_STRING</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterResourceGroupRequest.Ranking.FIRST">FIRST</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterResourceGroupRequest.Ranking.LAST">LAST</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterResourceGroupRequest.Ranking.BEFORE">BEFORE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterResourceGroupRequest.Ranking.AFTER">AFTER</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="AlterResourceGroupRequest.Ranking.EMPTY_STRING">EMPTY_STRING</see>.
+        /// </param>
+        /// <param name="adjoining_resource_group">If the ranking is 'before'
+        /// or 'after', this field indicates the resource group before or after
+        /// which the current group will be placed otherwise left blank.  The
+        /// default value is ''.</param>
         /// <param name="options">Optional parameters.
         /// <list type="bullet">
         ///     <item>
@@ -2464,18 +2528,71 @@ namespace kinetica
         /// cref="AlterResourceGroupRequest.Options.FALSE">FALSE</see>.</description>
         ///     </item>
         /// </list>
-        ///   </param>
+        /// The default value is an empty {@link Dictionary}.</param>
         /// 
         /// <returns>Response object containing the result of the
         /// operation.</returns>
         /// 
         public AlterResourceGroupResponse alterResourceGroup( string name,
                                                               IDictionary<string, IDictionary<string, string>> tier_attributes = null,
+                                                              string ranking = AlterResourceGroupRequest.Ranking.EMPTY_STRING,
+                                                              string adjoining_resource_group = "",
                                                               IDictionary<string, string> options = null )
         {
             return alterResourceGroup( new AlterResourceGroupRequest( name,
                                                                       tier_attributes,
+                                                                      ranking,
+                                                                      adjoining_resource_group,
                                                                       options ) );
+        }
+
+
+        /// <summary>Alters a Role.</summary>
+        /// 
+        /// <param name="request_">Request object containing the parameters for
+        /// the operation.</param>
+        /// 
+        /// <returns>Response object containing the result of the
+        /// operation.</returns>
+        /// 
+        public AlterRoleResponse alterRole( AlterRoleRequest request_ )
+        {
+            AlterRoleResponse actualResponse_ = SubmitRequest<AlterRoleResponse>("/alter/role", request_, false);
+
+            return actualResponse_;
+        }
+
+
+        /// <summary>Alters a Role.</summary>
+        /// 
+        /// <param name="name">Name of the role to be altered. Must be an
+        /// existing role.  </param>
+        /// <param name="action">Modification operation to be applied to the
+        /// role.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterRoleRequest.Action.SET_RESOURCE_GROUP">SET_RESOURCE_GROUP</see>:</term>
+        ///         <description>Sets the resource group for an internal role.
+        /// The resource group must exist, otherwise, an empty string assigns
+        /// the role to the default resource group.</description>
+        ///     </item>
+        /// </list>  </param>
+        /// <param name="_value">The value of the modification, depending on
+        /// <paramref cref="AlterRoleRequest.action" />.  </param>
+        /// <param name="options">Optional parameters.  The default value is an
+        /// empty {@link Dictionary}.</param>
+        /// 
+        /// <returns>Response object containing the result of the
+        /// operation.</returns>
+        /// 
+        public AlterRoleResponse alterRole( string name,
+                                            string action,
+                                            string _value,
+                                            IDictionary<string, string> options = null )
+        {
+            return alterRole( new AlterRoleRequest( name, action, _value, options ) );
         }
 
 
@@ -2544,6 +2661,14 @@ namespace kinetica
         /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.FALSE">FALSE</see></term>
         ///     </item>
         /// </list></description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.SUBTASK_CONCURRENCY_LIMIT">SUBTASK_CONCURRENCY_LIMIT</see>:</term>
+        ///         <description>Sets the maximum number of simultaneous
+        /// threads allocated to a given request, on each rank. Note that
+        /// thread allocation may also be limted by resource group limits
+        /// and/or system load.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -2626,13 +2751,14 @@ namespace kinetica
         /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.REQUEST_TIMEOUT">REQUEST_TIMEOUT</see>:</term>
         ///         <description>Number of minutes after which filtering (e.g.,
         /// /filter) and aggregating (e.g., /aggregate/groupby) queries will
-        /// timeout.</description>
+        /// timeout.  The default value is '20'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.MAX_GET_RECORDS_SIZE">MAX_GET_RECORDS_SIZE</see>:</term>
         ///         <description>The maximum number of records the database
-        /// will serve for a given data retrieval call</description>
+        /// will serve for a given data retrieval call.  The default value is
+        /// '20000'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -2666,18 +2792,20 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.CHUNK_CACHE_SIZE">CHUNK_CACHE_SIZE</see>:</term>
-        ///         <description>Size of the chunk cache in
-        /// bytes.</description>
+        ///         <description>Size of the chunk cache in bytes.  The default
+        /// value is '10000000'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.SYNCHRONOUS_COMPRESSION">SYNCHRONOUS_COMPRESSION</see>:</term>
         ///         <description>compress vector on set_compression (instead of
-        /// waiting for background thread)</description>
+        /// waiting for background thread).  The default value is
+        /// 'false'.</description>
         ///     </item>
         /// </list>
         ///   </param>
-        /// <param name="options">Optional parameters.  </param>
+        /// <param name="options">Optional parameters.  The default value is an
+        /// empty {@link Dictionary}.</param>
         /// 
         /// <returns>Response object containing the result of the
         /// operation.</returns>
@@ -3195,7 +3323,7 @@ namespace kinetica
         /// specified.</description>
         ///     </item>
         /// </list>
-        ///   </param>
+        /// The default value is an empty {@link Dictionary}.</param>
         /// 
         /// <returns>Response object containing the result of the
         /// operation.</returns>
@@ -3327,7 +3455,8 @@ namespace kinetica
         /// for all the tables; so the change will be applied to every table.
         /// If the provided map is empty, then all existing metadata for the
         /// table(s) will be cleared.  </param>
-        /// <param name="options">Optional parameters.  </param>
+        /// <param name="options">Optional parameters.  The default value is an
+        /// empty {@link Dictionary}.</param>
         /// 
         /// <returns>Response object containing the result of the
         /// operation.</returns>
@@ -3401,7 +3530,7 @@ namespace kinetica
         /// watermark-based eviction from this tier.</description>
         ///     </item>
         /// </list>
-        ///   </param>
+        /// The default value is an empty {@link Dictionary}.</param>
         /// 
         /// <returns>Response object containing the result of the
         /// operation.</returns>
@@ -3453,7 +3582,8 @@ namespace kinetica
         /// </list>  </param>
         /// <param name="_value">The value of the modification, depending on
         /// <paramref cref="AlterUserRequest.action" />.  </param>
-        /// <param name="options">Optional parameters.  </param>
+        /// <param name="options">Optional parameters.  The default value is an
+        /// empty {@link Dictionary}.</param>
         /// 
         /// <returns>Response object containing the result of the
         /// operation.</returns>
@@ -3519,8 +3649,8 @@ namespace kinetica
         ///         <description>A positive integer indicating the number of
         /// initial results to skip from <paramref
         /// cref="AppendRecordsRequest.source_table_name" />. Default is 0. The
-        /// minimum allowed value is 0. The maximum allowed value is
-        /// MAX_INT.</description>
+        /// minimum allowed value is 0. The maximum allowed value is MAX_INT.
+        /// The default value is '0'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -3529,14 +3659,14 @@ namespace kinetica
         /// number of results to be returned from <paramref
         /// cref="AppendRecordsRequest.source_table_name" />. Or END_OF_SET
         /// (-9999) to indicate that the max number of results should be
-        /// returned.</description>
+        /// returned.  The default value is '-9999'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="AppendRecordsRequest.Options.EXPRESSION">EXPRESSION</see>:</term>
         ///         <description>Optional filter expression to apply to the
-        /// <paramref cref="AppendRecordsRequest.source_table_name"
-        /// />.</description>
+        /// <paramref cref="AppendRecordsRequest.source_table_name" />.  The
+        /// default value is ''.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -3545,8 +3675,8 @@ namespace kinetica
         /// sorted by from source table (specified by <paramref
         /// cref="AppendRecordsRequest.source_table_name" />), e.g., 'timestamp
         /// asc, x desc'. The <i>order_by</i> columns do not have to be present
-        /// in <paramref cref="AppendRecordsRequest.field_map"
-        /// />.</description>
+        /// in <paramref cref="AppendRecordsRequest.field_map" />.  The default
+        /// value is ''.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -3603,7 +3733,7 @@ namespace kinetica
         /// cref="AppendRecordsRequest.Options.FALSE">FALSE</see>.</description>
         ///     </item>
         /// </list>
-        ///   </param>
+        /// The default value is an empty {@link Dictionary}.</param>
         /// 
         /// <returns>Response object containing the result of the
         /// operation.</returns>
@@ -3639,12 +3769,14 @@ namespace kinetica
         /// column in a specified table.</summary>
         /// 
         /// <param name="table_name">Name of a table. Must be an existing
-        /// table.  </param>
+        /// table.  The default value is ''.</param>
         /// <param name="column_name">Name of the column in <paramref
         /// cref="ClearStatisticsRequest.table_name" /> for which to clear
         /// statistics. The column must be from an existing table. An empty
-        /// string clears statistics for all columns in the table.  </param>
-        /// <param name="options">Optional parameters.  </param>
+        /// string clears statistics for all columns in the table.  The default
+        /// value is ''.</param>
+        /// <param name="options">Optional parameters.  The default value is an
+        /// empty {@link Dictionary}.</param>
         /// 
         /// <returns>Response object containing the result of the
         /// operation.</returns>
@@ -3687,9 +3819,9 @@ namespace kinetica
         /// <param name="table_name">Name of the table to be cleared. Must be
         /// an existing table. Empty string clears all available tables, though
         /// this behavior is be prevented by default via gpudb.conf parameter
-        /// 'disable_clear_all'.  </param>
+        /// 'disable_clear_all'.  The default value is ''.</param>
         /// <param name="authorization">No longer used. User can pass an empty
-        /// string.  </param>
+        /// string.  The default value is ''.</param>
         /// <param name="options">Optional parameters.
         /// <list type="bullet">
         ///     <item>
@@ -3715,7 +3847,7 @@ namespace kinetica
         /// cref="ClearTableRequest.Options.FALSE">FALSE</see>.</description>
         ///     </item>
         /// </list>
-        ///   </param>
+        /// The default value is an empty {@link Dictionary}.</param>
         /// 
         /// <returns>Response object containing the result of the
         /// operation.</returns>
@@ -3752,7 +3884,8 @@ namespace kinetica
         /// 
         /// <param name="topic_id">The topic ID returned by
         /// /create/tablemonitor.  </param>
-        /// <param name="options">Optional parameters.  </param>
+        /// <param name="options">Optional parameters.  The default value is an
+        /// empty {@link Dictionary}.</param>
         /// 
         /// <returns>Response object containing the result of the
         /// operation.</returns>
@@ -3790,7 +3923,8 @@ namespace kinetica
         /// 
         /// <param name="trigger_id">ID for the trigger to be deactivated.
         /// </param>
-        /// <param name="options">Optional parameters.  </param>
+        /// <param name="options">Optional parameters.  The default value is an
+        /// empty {@link Dictionary}.</param>
         /// 
         /// <returns>Response object containing the result of the
         /// operation.</returns>
@@ -3827,7 +3961,8 @@ namespace kinetica
         /// <param name="column_names">List of one or more column names in
         /// <paramref cref="CollectStatisticsRequest.table_name" /> for which
         /// to collect statistics (cardinality, mean value, etc.).  </param>
-        /// <param name="options">Optional parameters.  </param>
+        /// <param name="options">Optional parameters.  The default value is an
+        /// empty {@link Dictionary}.</param>
         /// 
         /// <returns>Response object containing the result of the
         /// operation.</returns>
@@ -3940,31 +4075,32 @@ namespace kinetica
         ///         <description>If node geospatial positions are input (e.g.,
         /// WKTPOINT, X, Y), determines the minimum separation allowed between
         /// unique nodes. If nodes are within the tolerance of each other, they
-        /// will be merged as a single node.</description>
+        /// will be merged as a single node.  The default value is
+        /// '1.0E-4'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="CreateGraphRequest.Options.MIN_X">MIN_X</see>:</term>
         ///         <description>Minimum x (longitude) value for spatial graph
-        /// associations.</description>
+        /// associations.  The default value is '-180.0'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="CreateGraphRequest.Options.MAX_X">MAX_X</see>:</term>
         ///         <description>Maximum x (longitude) value for spatial graph
-        /// associations.</description>
+        /// associations.  The default value is '180.0'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="CreateGraphRequest.Options.MIN_Y">MIN_Y</see>:</term>
         ///         <description>Minimum y (latitude) value for spatial graph
-        /// associations.</description>
+        /// associations.  The default value is '-90.0'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="CreateGraphRequest.Options.MAX_Y">MAX_Y</see>:</term>
         ///         <description>Maximum y (latitude) value for spatial graph
-        /// associations.</description>
+        /// associations.  The default value is '90.0'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -4096,10 +4232,11 @@ namespace kinetica
         ///         <description>If the <i>graph_table</i> name is NOT left
         /// blank, the created graph is also created as a table with the given
         /// name and following identifier columns: 'EDGE_ID', 'EDGE_NODE1_ID',
-        /// 'EDGE_NODE2_ID'. If left blank, no table is created.</description>
+        /// 'EDGE_NODE2_ID'. If left blank, no table is created.  The default
+        /// value is ''.</description>
         ///     </item>
         /// </list>
-        ///   </param>
+        /// The default value is an empty {@link Dictionary}.</param>
         /// 
         /// <returns>Response object containing the result of the
         /// operation.</returns>
@@ -4184,7 +4321,8 @@ namespace kinetica
         /// specified.  If this parameter is used, then <paramref
         /// cref="CreateJobRequest.request_encoding" /> must be <i>json</i>.
         /// </param>
-        /// <param name="options">Optional parameters.  </param>
+        /// <param name="options">Optional parameters.  The default value is an
+        /// empty {@link Dictionary}.</param>
         /// 
         /// <returns>Response object containing the result of the
         /// operation.</returns>
@@ -4249,7 +4387,8 @@ namespace kinetica
         /// combine and filter the joined tables.  Corresponds to a SQL
         /// statement WHERE clause. For details see: <a
         /// href="../../concepts/expressions.html"
-        /// target="_top">expressions</a>.  </param>
+        /// target="_top">expressions</a>.  The default value is an empty
+        /// {@link List}.</param>
         /// <param name="options">Optional parameters.
         /// <list type="bullet">
         ///     <item>
@@ -4258,7 +4397,7 @@ namespace kinetica
         ///         <description>Name of a collection which is to contain the
         /// join. If the collection provided is non-existent, the collection
         /// will be automatically created. If empty, then the join will be at
-        /// the top level.</description>
+        /// the top level.  The default value is ''.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -4286,96 +4425,24 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="CreateJoinTableRequest.Options.REFRESH_METHOD">REFRESH_METHOD</see>:</term>
-        ///         <description>Method by which the join can be refreshed when
-        /// the data in underlying member tables have changed.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateJoinTableRequest.Options.MANUAL">MANUAL</see>:</term>
-        ///         <description>refresh only occurs when manually requested by
-        /// calling this endpoint with refresh option set to <i>refresh</i> or
-        /// <i>full_refresh</i></description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateJoinTableRequest.Options.ON_QUERY">ON_QUERY</see>:</term>
-        ///         <description>incrementally refresh (refresh just those
-        /// records added) whenever a new query is issued and new data is
-        /// inserted into the base table.  A full refresh of all the records
-        /// occurs when a new query is issued and there have been inserts to
-        /// any non-base-tables since the last query.  <a
-        /// href="../../concepts/ttl.html" target="_top">TTL</a> will be set to
-        /// not expire; any <i>ttl</i> specified will be ignored.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateJoinTableRequest.Options.ON_INSERT">ON_INSERT</see>:</term>
-        ///         <description>incrementally refresh (refresh just those
-        /// records added) whenever new data is inserted into a base table.  A
-        /// full refresh of all the records occurs when a new query is issued
-        /// and there have been inserts to any non-base-tables since the last
-        /// query.  <a href="../../concepts/ttl.html" target="_top">TTL</a>
-        /// will be set to not expire; any <i>ttl</i> specified will be
-        /// ignored.</description>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="CreateJoinTableRequest.Options.MANUAL">MANUAL</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateJoinTableRequest.Options.REFRESH">REFRESH</see>:</term>
-        ///         <description>Do a manual refresh of the join if it exists -
-        /// throws an error otherwise
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateJoinTableRequest.Options.NO_REFRESH">NO_REFRESH</see>:</term>
-        ///         <description>don't refresh</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateJoinTableRequest.Options.REFRESH">REFRESH</see>:</term>
-        ///         <description>incrementally refresh (refresh just those
-        /// records added) if new data has been inserted into the base table.
-        /// A full refresh of all the records occurs if there have been inserts
-        /// to any non-base-tables since the last refresh</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateJoinTableRequest.Options.FULL_REFRESH">FULL_REFRESH</see>:</term>
-        ///         <description>always refresh even if no new records have
-        /// been added.  Only refresh method guaranteed to do a full refresh
-        /// (refresh all the records) if a delete or update has occurred since
-        /// the last refresh.</description>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="CreateJoinTableRequest.Options.NO_REFRESH">NO_REFRESH</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
         /// cref="CreateJoinTableRequest.Options.TTL">TTL</see>:</term>
         ///         <description>Sets the <a href="../../concepts/ttl.html"
         /// target="_top">TTL</a> of the join table specified in <paramref
-        /// cref="CreateJoinTableRequest.join_table_name" />.  Ignored if
-        /// <i>refresh_method</i> is either <i>on_insert</i> or
-        /// <i>on_query</i>.</description>
+        /// cref="CreateJoinTableRequest.join_table_name" />.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="CreateJoinTableRequest.Options.VIEW_ID">VIEW_ID</see>:</term>
-        ///         <description>view this projection is part of</description>
+        ///         <description>view this projection is part of.  The default
+        /// value is ''.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="CreateJoinTableRequest.Options.NO_COUNT">NO_COUNT</see>:</term>
         ///         <description>return a count of 0 for the join table for
         /// logging and for show_table. optimization needed for large
-        /// overlapped equi-join stencils</description>
+        /// overlapped equi-join stencils.  The default value is
+        /// 'false'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -4384,7 +4451,7 @@ namespace kinetica
         /// Defaults to the gpudb.conf file chunk size</description>
         ///     </item>
         /// </list>
-        ///   </param>
+        /// The default value is an empty {@link Dictionary}.</param>
         /// 
         /// <returns>Response object containing the result of the
         /// operation.</returns>
@@ -4535,7 +4602,7 @@ namespace kinetica
         /// HH:MM:SS'.</description>
         ///     </item>
         /// </list>
-        ///   </param>
+        /// The default value is an empty {@link Dictionary}.</param>
         /// 
         /// <returns>Response object containing the result of the
         /// operation.</returns>
@@ -4603,7 +4670,8 @@ namespace kinetica
         /// keys of the map are file names, and the values are the binary
         /// contents of the files. The file names may include subdirectory
         /// names (e.g. 'subdir/file') but must not resolve to a directory
-        /// above the root for the proc.  </param>
+        /// above the root for the proc.  The default value is an empty {@link
+        /// Dictionary}.</param>
         /// <param name="command">The command (excluding arguments) that will
         /// be invoked when the proc is executed. It will be invoked from the
         /// directory containing the proc <paramref
@@ -4615,10 +4683,11 @@ namespace kinetica
         /// command refers to a file in that directory, it must be preceded
         /// with './' as per Linux convention. If not specified, and exactly
         /// one file is provided in <paramref cref="CreateProcRequest.files"
-        /// />, that file will be invoked.  </param>
+        /// />, that file will be invoked.  The default value is ''.</param>
         /// <param name="args">An array of command-line arguments that will be
         /// passed to <paramref cref="CreateProcRequest.command" /> when the
-        /// proc is executed.  </param>
+        /// proc is executed.  The default value is an empty {@link
+        /// List}.</param>
         /// <param name="options">Optional parameters.
         /// <list type="bullet">
         ///     <item>
@@ -4626,10 +4695,10 @@ namespace kinetica
         /// cref="CreateProcRequest.Options.MAX_CONCURRENCY_PER_NODE">MAX_CONCURRENCY_PER_NODE</see>:</term>
         ///         <description>The maximum number of concurrent instances of
         /// the proc that will be executed per node. 0 allows unlimited
-        /// concurrency.</description>
+        /// concurrency.  The default value is '0'.</description>
         ///     </item>
         /// </list>
-        ///   </param>
+        /// The default value is an empty {@link Dictionary}.</param>
         /// 
         /// <returns>Response object containing the result of the
         /// operation.</returns>
@@ -4763,15 +4832,15 @@ namespace kinetica
         /// to which the projection is to be assigned as a child. If the
         /// collection provided is non-existent, the collection will be
         /// automatically created. If empty, then the projection will be at the
-        /// top level.</description>
+        /// top level.  The default value is ''.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="CreateProjectionRequest.Options.EXPRESSION">EXPRESSION</see>:</term>
         ///         <description>An optional filter <a
         /// href="../../concepts/expressions.html" target="_top">expression</a>
-        /// to be applied to the source table prior to the
-        /// projection.</description>
+        /// to be applied to the source table prior to the projection.  The
+        /// default value is ''.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -4795,7 +4864,8 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="CreateProjectionRequest.Options.LIMIT">LIMIT</see>:</term>
-        ///         <description>The number of records to keep.</description>
+        ///         <description>The number of records to keep.  The default
+        /// value is ''.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -4805,7 +4875,7 @@ namespace kinetica
         /// must be present in <paramref
         /// cref="CreateProjectionRequest.column_names" />.  If any alias is
         /// given for any column name, the alias must be used, rather than the
-        /// original column name.</description>
+        /// original column name.  The default value is ''.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -4855,7 +4925,8 @@ namespace kinetica
         /// sharded on; e.g. 'column1, column2'.  The columns specified must be
         /// present in <paramref cref="CreateProjectionRequest.column_names"
         /// />.  If any alias is given for any column name, the alias must be
-        /// used, rather than the original column name.</description>
+        /// used, rather than the original column name.  The default value is
+        /// ''.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -4902,10 +4973,11 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="CreateProjectionRequest.Options.VIEW_ID">VIEW_ID</see>:</term>
-        ///         <description>view this projection is part of</description>
+        ///         <description>view this projection is part of.  The default
+        /// value is ''.</description>
         ///     </item>
         /// </list>
-        ///   </param>
+        /// The default value is an empty {@link Dictionary}.</param>
         /// 
         /// <returns>Response object containing the result of the
         /// operation.</returns>
@@ -4959,7 +5031,31 @@ namespace kinetica
         /// tier at one time for this group.</description>
         ///     </item>
         /// </list>
-        ///   </param>
+        /// The default value is an empty {@link Dictionary}.</param>
+        /// <param name="ranking">Indicates the relative ranking among existing
+        /// resource groups where this new resource group will be placed.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateResourceGroupRequest.Ranking.FIRST">FIRST</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateResourceGroupRequest.Ranking.LAST">LAST</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateResourceGroupRequest.Ranking.BEFORE">BEFORE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateResourceGroupRequest.Ranking.AFTER">AFTER</see></term>
+        ///     </item>
+        /// </list>  </param>
+        /// <param name="adjoining_resource_group">Name of the resource group
+        /// relative to which this group will be placed. Must be specified when
+        /// ranking is before or after.  The default value is ''.</param>
         /// <param name="options">Optional parameters.
         /// <list type="bullet">
         ///     <item>
@@ -4981,17 +5077,21 @@ namespace kinetica
         /// group.</description>
         ///     </item>
         /// </list>
-        ///   </param>
+        /// The default value is an empty {@link Dictionary}.</param>
         /// 
         /// <returns>Response object containing the result of the
         /// operation.</returns>
         /// 
         public CreateResourceGroupResponse createResourceGroup( string name,
-                                                                IDictionary<string, IDictionary<string, string>> tier_attributes = null,
+                                                                IDictionary<string, IDictionary<string, string>> tier_attributes,
+                                                                string ranking,
+                                                                string adjoining_resource_group = "",
                                                                 IDictionary<string, string> options = null )
         {
             return createResourceGroup( new CreateResourceGroupRequest( name,
                                                                         tier_attributes,
+                                                                        ranking,
+                                                                        adjoining_resource_group,
                                                                         options ) );
         }
 
@@ -5018,7 +5118,16 @@ namespace kinetica
         /// only lowercase letters, digits, and underscores, and cannot begin
         /// with a digit. Must not be the same name as an existing user or
         /// role.  </param>
-        /// <param name="options">Optional parameters.  </param>
+        /// <param name="options">Optional parameters.
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateRoleRequest.Options.RESOURCE_GROUP">RESOURCE_GROUP</see>:</term>
+        ///         <description>Name of an existing resource group to
+        /// associate with this user</description>
+        ///     </item>
+        /// </list>
+        /// The default value is an empty {@link Dictionary}.</param>
         /// 
         /// <returns>Response object containing the result of the
         /// operation.</returns>
@@ -5339,7 +5448,7 @@ namespace kinetica
         /// strategy examples</a> for examples.</description>
         ///     </item>
         /// </list>
-        ///   </param>
+        /// The default value is an empty {@link Dictionary}.</param>
         /// 
         /// <returns>Response object containing the result of the
         /// operation.</returns>
@@ -5396,7 +5505,8 @@ namespace kinetica
         /// 
         /// <param name="table_name">Name of the table to monitor. Must not
         /// refer to a collection.  </param>
-        /// <param name="options">Optional parameters.  </param>
+        /// <param name="options">Optional parameters.  The default value is an
+        /// empty {@link Dictionary}.</param>
         /// 
         /// <returns>Response object containing the result of the
         /// operation.</returns>
@@ -5480,7 +5590,8 @@ namespace kinetica
         /// region on which the trigger is activated. This usually translates
         /// to the y-coordinates of a geospatial region. Must be the same
         /// length as xvals.  </param>
-        /// <param name="options">Optional parameters.  </param>
+        /// <param name="options">Optional parameters.  The default value is an
+        /// empty {@link Dictionary}.</param>
         /// 
         /// <returns>Response object containing the result of the
         /// operation.</returns>
@@ -5559,7 +5670,8 @@ namespace kinetica
         /// range.  </param>
         /// <param name="max">The upper bound (inclusive) for the trigger
         /// range.  </param>
-        /// <param name="options">Optional parameters.  </param>
+        /// <param name="options">Optional parameters.  The default value is an
+        /// empty {@link Dictionary}.</param>
         /// 
         /// <returns>Response object containing the result of the
         /// operation.</returns>
@@ -5918,7 +6030,8 @@ namespace kinetica
         /// invalid timestamps with NOW()</description>
         ///     </item>
         /// </list>  </param>
-        /// <param name="options">Optional parameters.  </param>
+        /// <param name="options">Optional parameters.  The default value is an
+        /// empty {@link Dictionary}.</param>
         /// 
         /// <returns>Response object containing the result of the
         /// operation.</returns>
@@ -6032,7 +6145,8 @@ namespace kinetica
         ///         <description>Name of a collection which is to contain the
         /// output table. If the collection provided is non-existent, the
         /// collection will be automatically created. If empty, the output
-        /// table will be a top-level table.</description>
+        /// table will be a top-level table.  The default value is
+        /// ''.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -6170,8 +6284,8 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="CreateUnionRequest.Options.VIEW_ID">VIEW_ID</see>:</term>
-        ///         <description>view the output table will be a part
-        /// of</description>
+        ///         <description>view the output table will be a part of.  The
+        /// default value is ''.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -6194,7 +6308,7 @@ namespace kinetica
         /// cref="CreateUnionRequest.Options.FALSE">FALSE</see>.</description>
         ///     </item>
         /// </list>
-        ///   </param>
+        /// The default value is an empty {@link Dictionary}.</param>
         /// 
         /// <returns>Response object containing the result of the
         /// operation.</returns>
@@ -6234,7 +6348,8 @@ namespace kinetica
         /// <param name="name">Name of the user to be created. Must exactly
         /// match the user's name in the external LDAP, prefixed with a @. Must
         /// not be the same name as an existing user.  </param>
-        /// <param name="options">Optional parameters.  </param>
+        /// <param name="options">Optional parameters.  The default value is an
+        /// empty {@link Dictionary}.</param>
         /// 
         /// <returns>Response object containing the result of the
         /// operation.</returns>
@@ -6281,7 +6396,7 @@ namespace kinetica
         /// associate with this user</description>
         ///     </item>
         /// </list>
-        ///   </param>
+        /// The default value is an empty {@link Dictionary}.</param>
         /// 
         /// <returns>Response object containing the result of the
         /// operation.</returns>
@@ -6341,7 +6456,7 @@ namespace kinetica
         /// cref="DeleteGraphRequest.Options.TRUE">TRUE</see>.</description>
         ///     </item>
         /// </list>
-        ///   </param>
+        /// The default value is an empty {@link Dictionary}.</param>
         /// 
         /// <returns>Response object containing the result of the
         /// operation.</returns>
@@ -6375,7 +6490,8 @@ namespace kinetica
         /// 
         /// <param name="proc_name">Name of the proc to be deleted. Must be the
         /// name of a currently existing proc.  </param>
-        /// <param name="options">Optional parameters.  </param>
+        /// <param name="options">Optional parameters.  The default value is an
+        /// empty {@link Dictionary}.</param>
         /// 
         /// <returns>Response object containing the result of the
         /// operation.</returns>
@@ -6440,7 +6556,8 @@ namespace kinetica
         /// cref="DeleteRecordsRequest.Options.GLOBAL_EXPRESSION">GLOBAL_EXPRESSION</see>:</term>
         ///         <description>An optional global expression to reduce the
         /// search space of the <paramref
-        /// cref="DeleteRecordsRequest.expressions" />.</description>
+        /// cref="DeleteRecordsRequest.expressions" />.  The default value is
+        /// ''.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -6473,7 +6590,7 @@ namespace kinetica
         /// cref="DeleteRecordsRequest.Options.FALSE">FALSE</see>.</description>
         ///     </item>
         /// </list>
-        ///   </param>
+        /// The default value is an empty {@link Dictionary}.</param>
         /// 
         /// <returns>Response object containing the result of the
         /// operation.</returns>
@@ -6507,7 +6624,8 @@ namespace kinetica
         /// 
         /// <param name="name">Name of the resource group to be deleted.
         /// </param>
-        /// <param name="options">Optional parameters.  </param>
+        /// <param name="options">Optional parameters.  The default value is an
+        /// empty {@link Dictionary}.</param>
         /// 
         /// <returns>Response object containing the result of the
         /// operation.</returns>
@@ -6539,7 +6657,8 @@ namespace kinetica
         /// 
         /// <param name="name">Name of the role to be deleted. Must be an
         /// existing role.  </param>
-        /// <param name="options">Optional parameters.  </param>
+        /// <param name="options">Optional parameters.  The default value is an
+        /// empty {@link Dictionary}.</param>
         /// 
         /// <returns>Response object containing the result of the
         /// operation.</returns>
@@ -6571,7 +6690,8 @@ namespace kinetica
         /// 
         /// <param name="name">Name of the user to be deleted. Must be an
         /// existing user.  </param>
-        /// <param name="options">Optional parameters.  </param>
+        /// <param name="options">Optional parameters.  The default value is an
+        /// empty {@link Dictionary}.</param>
         /// 
         /// <returns>Response object containing the result of the
         /// operation.</returns>
@@ -6607,21 +6727,25 @@ namespace kinetica
         /// name of a currently existing proc.  </param>
         /// <param name="_params">A map containing named parameters to pass to
         /// the proc. Each key/value pair specifies the name of a parameter and
-        /// its value.  </param>
+        /// its value.  The default value is an empty {@link
+        /// Dictionary}.</param>
         /// <param name="bin_params">A map containing named binary parameters
         /// to pass to the proc. Each key/value pair specifies the name of a
-        /// parameter and its value.  </param>
+        /// parameter and its value.  The default value is an empty {@link
+        /// Dictionary}.</param>
         /// <param name="input_table_names">Names of the tables containing data
         /// to be passed to the proc. Each name specified must be the name of a
         /// currently existing table. If no table names are specified, no data
-        /// will be passed to the proc.  </param>
+        /// will be passed to the proc.  The default value is an empty {@link
+        /// List}.</param>
         /// <param name="input_column_names">Map of table names from <paramref
         /// cref="ExecuteProcRequest.input_table_names" /> to lists of names of
         /// columns from those tables that will be passed to the proc. Each
         /// column name specified must be the name of an existing column in the
         /// corresponding table. If a table name from <paramref
         /// cref="ExecuteProcRequest.input_table_names" /> is not included, all
-        /// columns from that table will be passed to the proc.  </param>
+        /// columns from that table will be passed to the proc.  The default
+        /// value is an empty {@link Dictionary}.</param>
         /// <param name="output_table_names">Names of the tables to which
         /// output data from the proc will be written. If a specified table
         /// does not exist, it will automatically be created with the same
@@ -6630,7 +6754,7 @@ namespace kinetica
         /// primary and shard keys. If a specified table is a non-persistent
         /// result table, it must not have primary or shard keys. If no table
         /// names are specified, no output data can be returned from the proc.
-        /// </param>
+        /// The default value is an empty {@link List}.</param>
         /// <param name="options">Optional parameters.
         /// <list type="bullet">
         ///     <item>
@@ -6642,7 +6766,8 @@ namespace kinetica
         /// /execute/proc with the <i>use_cached_input</i> option. Cached input
         /// data will be retained until the proc status is cleared with the
         /// /show/proc/status option of /show/proc/status and all proc
-        /// instances using the cached data have completed.</description>
+        /// instances using the cached data have completed.  The default value
+        /// is ''.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -6656,7 +6781,8 @@ namespace kinetica
         /// other tables cached for the specified run IDs will be passed to the
         /// proc. If the same table was cached for multiple specified run IDs,
         /// the cached data from the first run ID specified in the list that
-        /// includes that table will be used.</description>
+        /// includes that table will be used.  The default value is
+        /// ''.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -6665,11 +6791,11 @@ namespace kinetica
         /// whose local files will be made directly accessible to the proc
         /// through the API. (All KiFS files, local or not, are also accessible
         /// through the file system below the KiFS mount point.) Each name
-        /// specified must the name of an existing KiFS
-        /// directory.</description>
+        /// specified must the name of an existing KiFS directory.  The default
+        /// value is ''.</description>
         ///     </item>
         /// </list>
-        ///   </param>
+        /// The default value is an empty {@link Dictionary}.</param>
         /// 
         /// <returns>Response object containing the result of the
         /// operation.</returns>
@@ -6725,9 +6851,10 @@ namespace kinetica
         /// 10000), or END_OF_SET (-9999) to indicate that the maximum number
         /// of results allowed by the server should be returned.  </param>
         /// <param name="request_schema_str">Avro schema of <paramref
-        /// cref="ExecuteSqlRequest.data" />.  </param>
+        /// cref="ExecuteSqlRequest.data" />.  The default value is ''.</param>
         /// <param name="data">An array of binary-encoded data for the records
-        /// to be binded to the SQL query.  </param>
+        /// to be binded to the SQL query.  The default value is an empty
+        /// {@link List}.</param>
         /// <param name="options">Optional parameters.
         /// <list type="bullet">
         ///     <item>
@@ -7032,7 +7159,7 @@ namespace kinetica
         /// cref="ExecuteSqlRequest.Options.TRUE">TRUE</see>.</description>
         ///     </item>
         /// </list>
-        ///   </param>
+        /// The default value is an empty {@link Dictionary}.</param>
         /// 
         /// <returns>Response object containing the result of the
         /// operation.</returns>
@@ -7096,7 +7223,7 @@ namespace kinetica
         /// <param name="view_name">If provided, then this will be the name of
         /// the view containing the results. Has the same naming restrictions
         /// as <a href="../../concepts/tables.html" target="_top">tables</a>.
-        /// </param>
+        /// The default value is ''.</param>
         /// <param name="expression">The select expression to filter the
         /// specified table.  For details see <a
         /// href="../../concepts/expressions.html"
@@ -7114,8 +7241,8 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="FilterRequest.Options.VIEW_ID">VIEW_ID</see>:</term>
-        ///         <description>view this filtered-view is part
-        /// of</description>
+        ///         <description>view this filtered-view is part of.  The
+        /// default value is ''.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -7125,7 +7252,7 @@ namespace kinetica
         /// cref="FilterRequest.view_name" />.</description>
         ///     </item>
         /// </list>
-        ///   </param>
+        /// The default value is an empty {@link Dictionary}.</param>
         /// 
         /// <returns>Response object containing the result of the
         /// operation.</returns>
@@ -7180,7 +7307,7 @@ namespace kinetica
         /// <param name="view_name">If provided, then this will be the name of
         /// the view containing the results. Has the same naming restrictions
         /// as <a href="../../concepts/tables.html" target="_top">tables</a>.
-        /// </param>
+        /// The default value is ''.</param>
         /// <param name="x_column_name">Name of the column containing the x
         /// values to be filtered.  </param>
         /// <param name="x_vector">List of x coordinates of the vertices of the
@@ -7200,7 +7327,7 @@ namespace kinetica
         /// created view will be top-level.</description>
         ///     </item>
         /// </list>
-        ///   </param>
+        /// The default value is an empty {@link Dictionary}.</param>
         /// 
         /// <returns>Response object containing the result of the
         /// operation.</returns>
@@ -7260,7 +7387,7 @@ namespace kinetica
         /// cref="FilterByAreaGeometryRequest.view_name" />.  </param>
         /// <param name="view_name">If provided, then this will be the name of
         /// the view containing the results. Must not be an already existing
-        /// collection, table or view.  </param>
+        /// collection, table or view.  The default value is ''.</param>
         /// <param name="column_name">Name of the geospatial geometry column to
         /// be filtered.  </param>
         /// <param name="x_vector">List of x coordinates of the vertices of the
@@ -7278,7 +7405,7 @@ namespace kinetica
         /// created view will be top-level.</description>
         ///     </item>
         /// </list>
-        ///   </param>
+        /// The default value is an empty {@link Dictionary}.</param>
         /// 
         /// <returns>Response object containing the result of the
         /// operation.</returns>
@@ -7336,7 +7463,7 @@ namespace kinetica
         /// <param name="view_name">Optional name of the result view that will
         /// be created containing the results of the query. Has the same naming
         /// restrictions as <a href="../../concepts/tables.html"
-        /// target="_top">tables</a>.  </param>
+        /// target="_top">tables</a>.  The default value is ''.</param>
         /// <param name="x_column_name">Name of the column on which to perform
         /// the bounding box query. Must be a valid numeric column.  </param>
         /// <param name="min_x">Lower bound for the column chosen by <paramref
@@ -7364,7 +7491,7 @@ namespace kinetica
         /// created view will be top-level.</description>
         ///     </item>
         /// </list>
-        ///   </param>
+        /// The default value is an empty {@link Dictionary}.</param>
         /// 
         /// <returns>Response object containing the result of the
         /// operation.</returns>
@@ -7423,7 +7550,8 @@ namespace kinetica
         /// </param>
         /// <param name="view_name">Optional name of the result view that will
         /// be created containing the results of the query. Must not be an
-        /// already existing collection, table or view.  </param>
+        /// already existing collection, table or view.  The default value is
+        /// ''.</param>
         /// <param name="column_name">Name of the geospatial geometry column to
         /// be filtered.  </param>
         /// <param name="min_x">Lower bound for the x-coordinate of the
@@ -7449,7 +7577,7 @@ namespace kinetica
         /// created view will be top-level.</description>
         ///     </item>
         /// </list>
-        ///   </param>
+        /// The default value is an empty {@link Dictionary}.</param>
         /// 
         /// <returns>Response object containing the result of the
         /// operation.</returns>
@@ -7501,12 +7629,13 @@ namespace kinetica
         /// <param name="view_name">If provided, then this will be the name of
         /// the view containing the results. Has the same naming restrictions
         /// as <a href="../../concepts/tables.html" target="_top">tables</a>.
-        /// </param>
+        /// The default value is ''.</param>
         /// <param name="column_name">Name of the column to be used in the
         /// filter. Must be a geospatial geometry column.  </param>
         /// <param name="input_wkt">A geometry in WKT format that will be used
         /// to filter the objects in <paramref
-        /// cref="FilterByGeometryRequest.table_name" />.  </param>
+        /// cref="FilterByGeometryRequest.table_name" />.  The default value is
+        /// ''.</param>
         /// <param name="operation">The geometric filtering operation to
         /// perform
         /// Supported values:
@@ -7573,7 +7702,7 @@ namespace kinetica
         /// created view will be top-level.</description>
         ///     </item>
         /// </list>
-        ///   </param>
+        /// The default value is an empty {@link Dictionary}.</param>
         /// 
         /// <returns>Response object containing the result of the
         /// operation.</returns>
@@ -7649,7 +7778,7 @@ namespace kinetica
         /// <param name="view_name">If provided, then this will be the name of
         /// the view containing the results. Has the same naming restrictions
         /// as <a href="../../concepts/tables.html" target="_top">tables</a>.
-        /// </param>
+        /// The default value is ''.</param>
         /// <param name="column_values_map">List of values for the
         /// corresponding column in the table  </param>
         /// <param name="options">Optional parameters.
@@ -7686,7 +7815,7 @@ namespace kinetica
         /// cref="FilterByListRequest.Options.IN_LIST">IN_LIST</see>.</description>
         ///     </item>
         /// </list>
-        ///   </param>
+        /// The default value is an empty {@link Dictionary}.</param>
         /// 
         /// <returns>Response object containing the result of the
         /// operation.</returns>
@@ -7748,7 +7877,7 @@ namespace kinetica
         /// <param name="view_name">If provided, then this will be the name of
         /// the view containing the results. Has the same naming restrictions
         /// as <a href="../../concepts/tables.html" target="_top">tables</a>.
-        /// </param>
+        /// The default value is ''.</param>
         /// <param name="x_column_name">Name of the column to be used for the
         /// x-coordinate (the longitude) of the center.  </param>
         /// <param name="x_center">Value of the longitude of the center. Must
@@ -7775,7 +7904,7 @@ namespace kinetica
         /// created view will be top-level.</description>
         ///     </item>
         /// </list>
-        ///   </param>
+        /// The default value is an empty {@link Dictionary}.</param>
         /// 
         /// <returns>Response object containing the result of the
         /// operation.</returns>
@@ -7834,7 +7963,7 @@ namespace kinetica
         /// </param>
         /// <param name="view_name">If provided, then this will be the name of
         /// the view containing the results. Must not be an already existing
-        /// collection, table or view.  </param>
+        /// collection, table or view.  The default value is ''.</param>
         /// <param name="column_name">Name of the geospatial geometry column to
         /// be filtered.  </param>
         /// <param name="x_center">Value of the longitude of the center. Must
@@ -7859,7 +7988,7 @@ namespace kinetica
         /// created view will be top-level.</description>
         ///     </item>
         /// </list>
-        ///   </param>
+        /// The default value is an empty {@link Dictionary}.</param>
         /// 
         /// <returns>Response object containing the result of the
         /// operation.</returns>
@@ -7931,7 +8060,7 @@ namespace kinetica
         /// <param name="view_name">If provided, then this will be the name of
         /// the view containing the results. Has the same naming restrictions
         /// as <a href="../../concepts/tables.html" target="_top">tables</a>.
-        /// </param>
+        /// The default value is ''.</param>
         /// <param name="column_name">Name of a column on which the operation
         /// would be applied.  </param>
         /// <param name="lower_bound">Value of the lower bound (inclusive).
@@ -7949,7 +8078,7 @@ namespace kinetica
         /// created view will be top-level.</description>
         ///     </item>
         /// </list>
-        ///   </param>
+        /// The default value is an empty {@link Dictionary}.</param>
         /// 
         /// <returns>Response object containing the result of the
         /// operation.</returns>
@@ -8020,7 +8149,7 @@ namespace kinetica
         /// <param name="view_name">If provided, then this will be the name of
         /// the view containing the results. Has the same naming restrictions
         /// as <a href="../../concepts/tables.html" target="_top">tables</a>.
-        /// </param>
+        /// The default value is ''.</param>
         /// <param name="track_id">The ID of the track which will act as the
         /// filtering points. Must be an existing track within the given table.
         /// </param>
@@ -8073,7 +8202,7 @@ namespace kinetica
         /// </list></description>
         ///     </item>
         /// </list>
-        ///   </param>
+        /// The default value is an empty {@link Dictionary}.</param>
         /// 
         /// <returns>Response object containing the result of the
         /// operation.</returns>
@@ -8124,7 +8253,7 @@ namespace kinetica
         /// <param name="view_name">If provided, then this will be the name of
         /// the view containing the results. Has the same naming restrictions
         /// as <a href="../../concepts/tables.html" target="_top">tables</a>.
-        /// </param>
+        /// The default value is ''.</param>
         /// <param name="expression">The expression with which to filter the
         /// table.  </param>
         /// <param name="mode">The string filtering mode to apply. See below
@@ -8200,7 +8329,7 @@ namespace kinetica
         /// cref="FilterByStringRequest.Options.TRUE">TRUE</see>.</description>
         ///     </item>
         /// </list>
-        ///   </param>
+        /// The default value is an empty {@link Dictionary}.</param>
         /// 
         /// <returns>Response object containing the result of the
         /// operation.</returns>
@@ -8260,7 +8389,7 @@ namespace kinetica
         /// <param name="view_name">If provided, then this will be the name of
         /// the view containing the results. Has the same naming restrictions
         /// as <a href="../../concepts/tables.html" target="_top">tables</a>.
-        /// </param>
+        /// The default value is ''.</param>
         /// <param name="column_name">Name of the column by whose value the
         /// data will be filtered from the table designated by <paramref
         /// cref="FilterByTableRequest.table_name" />.  </param>
@@ -8327,7 +8456,7 @@ namespace kinetica
         ///         <term><see
         /// cref="FilterByTableRequest.Options.BUFFER">BUFFER</see>:</term>
         ///         <description>Buffer size, in meters. Only relevant for
-        /// <i>spatial</i> mode.</description>
+        /// <i>spatial</i> mode.  The default value is '0'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -8354,28 +8483,32 @@ namespace kinetica
         ///         <term><see
         /// cref="FilterByTableRequest.Options.MAX_PARTITION_SIZE">MAX_PARTITION_SIZE</see>:</term>
         ///         <description>Maximum number of points in a partition. Only
-        /// relevant for <i>spatial</i> mode.</description>
+        /// relevant for <i>spatial</i> mode.  The default value is
+        /// '0'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="FilterByTableRequest.Options.MAX_PARTITION_SCORE">MAX_PARTITION_SCORE</see>:</term>
         ///         <description>Maximum number of points * edges in a
-        /// partition. Only relevant for <i>spatial</i> mode.</description>
+        /// partition. Only relevant for <i>spatial</i> mode.  The default
+        /// value is '8000000'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="FilterByTableRequest.Options.X_COLUMN_NAME">X_COLUMN_NAME</see>:</term>
         ///         <description>Name of column containing x value of point
-        /// being filtered in <i>spatial</i> mode.</description>
+        /// being filtered in <i>spatial</i> mode.  The default value is
+        /// 'x'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="FilterByTableRequest.Options.Y_COLUMN_NAME">Y_COLUMN_NAME</see>:</term>
         ///         <description>Name of column containing y value of point
-        /// being filtered in <i>spatial</i> mode.</description>
+        /// being filtered in <i>spatial</i> mode.  The default value is
+        /// 'y'.</description>
         ///     </item>
         /// </list>
-        ///   </param>
+        /// The default value is an empty {@link Dictionary}.</param>
         /// 
         /// <returns>Response object containing the result of the
         /// operation.</returns>
@@ -8438,11 +8571,13 @@ namespace kinetica
         /// <param name="view_name">If provided, then this will be the name of
         /// the view containing the results. Has the same naming restrictions
         /// as <a href="../../concepts/tables.html" target="_top">tables</a>.
-        /// </param>
+        /// The default value is ''.</param>
         /// <param name="is_string">Indicates whether the value being searched
         /// for is string or numeric.  </param>
-        /// <param name="_value">The value to search for.  </param>
-        /// <param name="value_str">The string value to search for.  </param>
+        /// <param name="_value">The value to search for.  The default value is
+        /// 0.</param>
+        /// <param name="value_str">The string value to search for.  The
+        /// default value is ''.</param>
         /// <param name="column_name">Name of a column on which the filter by
         /// value would be applied.  </param>
         /// <param name="options">Optional parameters.
@@ -8456,7 +8591,7 @@ namespace kinetica
         /// created view will be top-level.</description>
         ///     </item>
         /// </list>
-        ///   </param>
+        /// The default value is an empty {@link Dictionary}.</param>
         /// 
         /// <returns>Response object containing the result of the
         /// operation.</returns>
@@ -8493,7 +8628,8 @@ namespace kinetica
         /// 
         /// <param name="job_id">A unique identifier for the job whose status
         /// and result is to be fetched.  </param>
-        /// <param name="options">Optional parameters.  </param>
+        /// <param name="options">Optional parameters.  The default value is an
+        /// empty {@link Dictionary}.</param>
         /// 
         /// <returns>Response object containing the result of the
         /// operation.</returns>
@@ -8564,11 +8700,12 @@ namespace kinetica
         /// </param>
         /// <param name="offset">A positive integer indicating the number of
         /// initial results to skip (this can be useful for paging through the
-        /// results).  The minimum allowed value is 0. The maximum allowed
-        /// value is MAX_INT. </param>
+        /// results).  The default value is 0.The minimum allowed value is 0.
+        /// The maximum allowed value is MAX_INT. </param>
         /// <param name="limit">A positive integer indicating the maximum
         /// number of results to be returned. Or END_OF_SET (-9999) to indicate
-        /// that the max number of results should be returned.  </param>
+        /// that the max number of results should be returned.  The default
+        /// value is 10000.</param>
         /// <param name="options">
         /// <list type="bullet">
         ///     <item>
@@ -8626,7 +8763,7 @@ namespace kinetica
         /// cref="GetRecordsRequest.Options.ASCENDING">ASCENDING</see>.</description>
         ///     </item>
         /// </list>
-        ///   </param>
+        /// The default value is an empty {@link Dictionary}.</param>
         /// 
         /// <returns>Response object containing the result of the
         /// operation.</returns>
@@ -8729,8 +8866,8 @@ namespace kinetica
         /// cref="GetRecordsByColumnRequest.Options.SORT_BY">SORT_BY</see>:</term>
         ///         <description>Optional column that the data should be sorted
         /// by. Used in conjunction with <i>sort_order</i>. The <i>order_by</i>
-        /// option can be used in lieu of <i>sort_by</i> /
-        /// <i>sort_order</i>.</description>
+        /// option can be used in lieu of <i>sort_by</i> / <i>sort_order</i>.
+        /// The default value is ''.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -8757,7 +8894,7 @@ namespace kinetica
         /// cref="GetRecordsByColumnRequest.Options.ORDER_BY">ORDER_BY</see>:</term>
         ///         <description>Comma-separated list of the columns to be
         /// sorted by as well as the sort direction, e.g., 'timestamp asc, x
-        /// desc'.</description>
+        /// desc'.  The default value is ''.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -8779,7 +8916,7 @@ namespace kinetica
         /// cref="GetRecordsByColumnRequest.Options.FALSE">FALSE</see>.</description>
         ///     </item>
         /// </list>
-        ///   </param>
+        /// The default value is an empty {@link Dictionary}.</param>
         /// 
         /// <returns>Response object containing the result of the
         /// operation.</returns>
@@ -8866,13 +9003,14 @@ namespace kinetica
         /// original series/tracks. Can be blank.  </param>
         /// <param name="offset">A positive integer indicating the number of
         /// initial series/tracks to skip (useful for paging through the
-        /// results).  The minimum allowed value is 0. The maximum allowed
-        /// value is MAX_INT. </param>
+        /// results).  The default value is 0.The minimum allowed value is 0.
+        /// The maximum allowed value is MAX_INT. </param>
         /// <param name="limit">A positive integer indicating the maximum
         /// number of series/tracks to be returned. Or END_OF_SET (-9999) to
-        /// indicate that the max number of results should be returned.
-        /// </param>
-        /// <param name="options">Optional parameters.  </param>
+        /// indicate that the max number of results should be returned.  The
+        /// default value is 250.</param>
+        /// <param name="options">Optional parameters.  The default value is an
+        /// empty {@link Dictionary}.</param>
         /// 
         /// <returns>Response object containing the result of the
         /// operation.</returns>
@@ -8945,11 +9083,12 @@ namespace kinetica
         /// table.  </param>
         /// <param name="offset">A positive integer indicating the number of
         /// initial results to skip (this can be useful for paging through the
-        /// results).  The minimum allowed value is 0. The maximum allowed
-        /// value is MAX_INT. </param>
+        /// results).  The default value is 0.The minimum allowed value is 0.
+        /// The maximum allowed value is MAX_INT. </param>
         /// <param name="limit">A positive integer indicating the maximum
         /// number of results to be returned, or END_OF_SET (-9999) to indicate
-        /// that the max number of results should be returned.  </param>
+        /// that the max number of results should be returned.  The default
+        /// value is 10000.</param>
         /// <param name="options">
         /// <list type="bullet">
         ///     <item>
@@ -8972,7 +9111,7 @@ namespace kinetica
         /// cref="GetRecordsFromCollectionRequest.Options.FALSE">FALSE</see>.</description>
         ///     </item>
         /// </list>
-        ///   </param>
+        /// The default value is an empty {@link Dictionary}.</param>
         /// 
         /// <returns>Response object containing the result of the
         /// operation.</returns>
@@ -9076,7 +9215,8 @@ namespace kinetica
         ///         <description>Read-only access to all tables.</description>
         ///     </item>
         /// </list>  </param>
-        /// <param name="options">Optional parameters.  </param>
+        /// <param name="options">Optional parameters.  The default value is an
+        /// empty {@link Dictionary}.</param>
         /// 
         /// <returns>Response object containing the result of the
         /// operation.</returns>
@@ -9147,8 +9287,10 @@ namespace kinetica
         /// grants access. Must be an existing table, collection, or view. If a
         /// collection, the permission also applies to tables and views in the
         /// collection.  </param>
-        /// <param name="filter_expression">Reserved for future use.  </param>
-        /// <param name="options">Optional parameters.  </param>
+        /// <param name="filter_expression">Reserved for future use.  The
+        /// default value is ''.</param>
+        /// <param name="options">Optional parameters.  The default value is an
+        /// empty {@link Dictionary}.</param>
         /// 
         /// <returns>Response object containing the result of the
         /// operation.</returns>
@@ -9190,7 +9332,8 @@ namespace kinetica
         /// <param name="member">Name of the user or role that will be granted
         /// membership in <paramref cref="GrantRoleRequest.role" />. Must be an
         /// existing user or role.  </param>
-        /// <param name="options">Optional parameters.  </param>
+        /// <param name="options">Optional parameters.  The default value is an
+        /// empty {@link Dictionary}.</param>
         /// 
         /// <returns>Response object containing the result of the
         /// operation.</returns>
@@ -9225,7 +9368,8 @@ namespace kinetica
         /// 
         /// <param name="proc_name">Name of the proc to check for existence.
         /// </param>
-        /// <param name="options">Optional parameters.  </param>
+        /// <param name="options">Optional parameters.  The default value is an
+        /// empty {@link Dictionary}.</param>
         /// 
         /// <returns>Response object containing the result of the
         /// operation.</returns>
@@ -9259,7 +9403,8 @@ namespace kinetica
         /// 
         /// <param name="table_name">Name of the table to check for existence.
         /// </param>
-        /// <param name="options">Optional parameters.  </param>
+        /// <param name="options">Optional parameters.  The default value is an
+        /// empty {@link Dictionary}.</param>
         /// 
         /// <returns>Response object containing the result of the
         /// operation.</returns>
@@ -9291,7 +9436,8 @@ namespace kinetica
         /// 
         /// <param name="type_id">Id of the type returned in response to
         /// /create/type request.  </param>
-        /// <param name="options">Optional parameters.  </param>
+        /// <param name="options">Optional parameters.  The default value is an
+        /// empty {@link Dictionary}.</param>
         /// 
         /// <returns>Response object containing the result of the
         /// operation.</returns>
@@ -9452,7 +9598,7 @@ namespace kinetica
         /// cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see>.</description>
         ///     </item>
         /// </list>
-        ///   </param>
+        /// The default value is an empty {@link Dictionary}.</param>
         /// 
         /// <returns>Response object containing the result of the
         /// operation.</returns>
@@ -9728,7 +9874,7 @@ namespace kinetica
         /// </description>
         ///     </item>
         /// </list>
-        ///   </param>
+        /// The default value is an empty {@link Dictionary}.</param>
         /// 
         /// <returns>Response object containing the result of the
         /// operation.</returns>
@@ -9816,7 +9962,7 @@ namespace kinetica
         /// green) is used by default.</description>
         ///     </item>
         /// </list>
-        ///   </param>
+        /// The default value is an empty {@link Dictionary}.</param>
         /// 
         /// <returns>Response object containing the result of the
         /// operation.</returns>
@@ -9852,8 +9998,9 @@ namespace kinetica
         /// <param name="run_id">The run ID of the running proc instance. If
         /// the run ID is not found or the proc instance has already completed,
         /// this does nothing. If not specified, all running proc instances
-        /// will be killed.  </param>
-        /// <param name="options">Optional parameters.  </param>
+        /// will be killed.  The default value is ''.</param>
+        /// <param name="options">Optional parameters.  The default value is an
+        /// empty {@link Dictionary}.</param>
         /// 
         /// <returns>Response object containing the result of the
         /// operation.</returns>
@@ -9887,8 +10034,9 @@ namespace kinetica
         /// 
         /// <param name="graph_name">Name of the graph on which to retrieve
         /// information. If empty, information about all graphs is returned.
-        /// </param>
-        /// <param name="options">Optional parameters.  </param>
+        /// The default value is ''.</param>
+        /// <param name="options">Optional parameters.  The default value is an
+        /// empty {@link Dictionary}.</param>
         /// 
         /// <returns>Response object containing the result of the
         /// operation.</returns>
@@ -9970,7 +10118,8 @@ namespace kinetica
         /// </list>
         /// The default value is <see
         /// cref="LockTableRequest.LockType.STATUS">STATUS</see>.  </param>
-        /// <param name="options">Optional parameters.  </param>
+        /// <param name="options">Optional parameters.  The default value is an
+        /// empty {@link Dictionary}.</param>
         /// 
         /// <returns>Response object containing the result of the
         /// operation.</returns>
@@ -9980,6 +10129,138 @@ namespace kinetica
                                             IDictionary<string, string> options = null )
         {
             return lockTable( new LockTableRequest( table_name, lock_type, options ) );
+        }
+
+
+        /// <summary>Matches measured lon/lat points to an underlying graph
+        /// network.</summary>
+        /// 
+        /// <param name="request_">Request object containing the parameters for
+        /// the operation.</param>
+        /// 
+        /// <returns>Response object containing the result of the
+        /// operation.</returns>
+        /// 
+        public MatchGraphResponse matchGraph( MatchGraphRequest request_ )
+        {
+            MatchGraphResponse actualResponse_ = SubmitRequest<MatchGraphResponse>("/match/graph", request_, false);
+
+            return actualResponse_;
+        }
+
+
+        /// <summary>Matches measured lon/lat points to an underlying graph
+        /// network.</summary>
+        /// 
+        /// <param name="graph_name">Name of the underlying graph network.
+        /// </param>
+        /// <param name="sample_points">['Table.column AS node_identifier',
+        /// 'Table.column AS SAMPLE_TIME' ]; e.g., 't1.wkt' AS
+        /// 'SAMPLE_WKTPOINT', t1.t' AS 'SAMPLE_TIME'  </param>
+        /// <param name="solve_method">Solver used for mapmatching.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="MatchGraphRequest.SolveMethod.MARKOV_CHAIN">MARKOV_CHAIN</see>:</term>
+        ///         <description>Hidden Markov Model (HMM) based
+        /// method.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="MatchGraphRequest.SolveMethod.INCREMENTAL_WEIGHTED">INCREMENTAL_WEIGHTED</see>:</term>
+        ///         <description>Uses time and/or distance to influence one or
+        /// more shortest paths along the sample points.</description>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="MatchGraphRequest.SolveMethod.INCREMENTAL_WEIGHTED">INCREMENTAL_WEIGHTED</see>.
+        /// </param>
+        /// <param name="solution_table">Name of the table to store the
+        /// solution. Error if table already exists.  The default value is
+        /// 'map_matching_solution'.</param>
+        /// <param name="options">Additional parameters
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="MatchGraphRequest.Options.GPS_NOISE">GPS_NOISE</see>:</term>
+        ///         <description>GPS noise value - in meters - to remove
+        /// redundant samplespoints (95th percentile). -1 to disable.  The
+        /// default value is '5.0'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="MatchGraphRequest.Options.NUM_SEGMENTS">NUM_SEGMENTS</see>:</term>
+        ///         <description>Number of potentially matching road segments
+        /// for each sample point. (Defaults to 3 for 'markov_chain' and 5 for
+        /// 'incremental_weighted').  The default value is '0'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="MatchGraphRequest.Options.SEARCH_RADIUS">SEARCH_RADIUS</see>:</term>
+        ///         <description>Maximum search radius used when snapping
+        /// samples points onto potentially matching road segments. This
+        /// corresponds to approximately 100m when using geodesic coordinates.
+        /// The default value is '0.001'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="MatchGraphRequest.Options.CHAIN_WIDTH">CHAIN_WIDTH</see>:</term>
+        ///         <description>Only applicable if method is 'markov_chain'.
+        /// Length of the sample points window within the Markov kernel.  The
+        /// default value is '9'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="MatchGraphRequest.Options.MAX_SOLVE_LENGTH">MAX_SOLVE_LENGTH</see>:</term>
+        ///         <description>Only applicable if method is
+        /// 'incremental_weighted'. Maximum number of samples along the path to
+        /// solve on.  The default value is '200'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="MatchGraphRequest.Options.TIME_WINDOW_WIDTH">TIME_WINDOW_WIDTH</see>:</term>
+        ///         <description>Only applicable if method is
+        /// 'incremental_weighted'. Time window in which sample points are
+        /// favored (dt of 1 is the most attractive).  The default value is
+        /// '30'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="MatchGraphRequest.Options.DETECT_LOOPS">DETECT_LOOPS</see>:</term>
+        ///         <description>Only applicable if method is
+        /// 'incremental_weighted'. If true, add a break point within any loop.
+        /// The default value is 'true'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="MatchGraphRequest.Options.SOURCE">SOURCE</see>:</term>
+        ///         <description>Optional WKT point on the trace; otherwise the
+        /// beginning (in time) is taken as the source.  The default value is
+        /// 'POINT NULL'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="MatchGraphRequest.Options.DESTINATION">DESTINATION</see>:</term>
+        ///         <description>Optional WKT point on the trace; otherwise the
+        /// end (in time) is taken as the destination.  The default value is
+        /// 'POINT NULL'.</description>
+        ///     </item>
+        /// </list>
+        /// The default value is an empty {@link Dictionary}.</param>
+        /// 
+        /// <returns>Response object containing the result of the
+        /// operation.</returns>
+        /// 
+        public MatchGraphResponse matchGraph( string graph_name,
+                                              IList<string> sample_points,
+                                              string solve_method = MatchGraphRequest.SolveMethod.INCREMENTAL_WEIGHTED,
+                                              string solution_table = "map_matching_solution",
+                                              IDictionary<string, string> options = null )
+        {
+            return matchGraph( new MatchGraphRequest( graph_name, sample_points,
+                                                      solve_method, solution_table,
+                                                      options ) );
         }
 
 
@@ -10132,11 +10413,11 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="MergeRecordsRequest.Options.VIEW_ID">VIEW_ID</see>:</term>
-        ///         <description>view this result table is part
-        /// of</description>
+        ///         <description>view this result table is part of.  The
+        /// default value is ''.</description>
         ///     </item>
         /// </list>
-        ///   </param>
+        /// The default value is an empty {@link Dictionary}.</param>
         /// 
         /// <returns>Response object containing the result of the
         /// operation.</returns>
@@ -10359,7 +10640,7 @@ namespace kinetica
         /// <param name="adjacency_table">Name of the table to store the
         /// resulting adjacencies. If left blank, the query results are instead
         /// returned in the response even if <i>export_query_results</i> is set
-        /// to <i>false</i>.  </param>
+        /// to <i>false</i>.  The default value is ''.</param>
         /// <param name="options">Additional parameters
         /// <list type="bullet">
         ///     <item>
@@ -10373,8 +10654,8 @@ namespace kinetica
         /// attached to the node(s) attached to the initial ring of edge(s)
         /// surrounding the queried node(s) will be returned. This setting is
         /// ignored if <paramref cref="QueryGraphRequest.edge_to_node" /> is
-        /// set to <i>true</i>. This setting cannot be less than
-        /// '1'.</description>
+        /// set to <i>true</i>. This setting cannot be less than '1'.  The
+        /// default value is '1'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -10444,7 +10725,7 @@ namespace kinetica
         /// cref="QueryGraphRequest.Options.FALSE">FALSE</see>.</description>
         ///     </item>
         /// </list>
-        ///   </param>
+        /// The default value is an empty {@link Dictionary}.</param>
         /// 
         /// <returns>Response object containing the result of the
         /// operation.</returns>
@@ -10511,7 +10792,8 @@ namespace kinetica
         ///         <description>Read-only access to all tables.</description>
         ///     </item>
         /// </list>  </param>
-        /// <param name="options">Optional parameters.  </param>
+        /// <param name="options">Optional parameters.  The default value is an
+        /// empty {@link Dictionary}.</param>
         /// 
         /// <returns>Response object containing the result of the
         /// operation.</returns>
@@ -10583,7 +10865,8 @@ namespace kinetica
         /// <param name="table_name">Name of the table to which the permission
         /// grants access. Must be an existing table, collection, or view.
         /// </param>
-        /// <param name="options">Optional parameters.  </param>
+        /// <param name="options">Optional parameters.  The default value is an
+        /// empty {@link Dictionary}.</param>
         /// 
         /// <returns>Response object containing the result of the
         /// operation.</returns>
@@ -10625,7 +10908,8 @@ namespace kinetica
         /// <param name="member">Name of the user or role that will be revoked
         /// membership in <paramref cref="RevokeRoleRequest.role" />. Must be
         /// an existing user or role.  </param>
-        /// <param name="options">Optional parameters.  </param>
+        /// <param name="options">Optional parameters.  The default value is an
+        /// empty {@link Dictionary}.</param>
         /// 
         /// <returns>Response object containing the result of the
         /// operation.</returns>
@@ -10658,7 +10942,8 @@ namespace kinetica
         /// 
         /// <param name="proc_name">Name of the proc to show information about.
         /// If specified, must be the name of a currently existing proc. If not
-        /// specified, information about all procs will be returned.  </param>
+        /// specified, information about all procs will be returned.  The
+        /// default value is ''.</param>
         /// <param name="options">Optional parameters.
         /// <list type="bullet">
         ///     <item>
@@ -10682,7 +10967,7 @@ namespace kinetica
         /// cref="ShowProcRequest.Options.FALSE">FALSE</see>.</description>
         ///     </item>
         /// </list>
-        ///   </param>
+        /// The default value is an empty {@link Dictionary}.</param>
         /// 
         /// <returns>Response object containing the result of the
         /// operation.</returns>
@@ -10724,7 +11009,7 @@ namespace kinetica
         /// proc instance for which the status will be returned. If the run ID
         /// is not found, nothing will be returned. If not specified, the
         /// statuses of all running and completed proc instances will be
-        /// returned.  </param>
+        /// returned.  The default value is ''.</param>
         /// <param name="options">Optional parameters.
         /// <list type="bullet">
         ///     <item>
@@ -10748,7 +11033,7 @@ namespace kinetica
         /// cref="ShowProcStatusRequest.Options.FALSE">FALSE</see>.</description>
         ///     </item>
         /// </list>
-        ///   </param>
+        /// The default value is an empty {@link Dictionary}.</param>
         /// 
         /// <returns>Response object containing the result of the
         /// operation.</returns>
@@ -10782,7 +11067,8 @@ namespace kinetica
         /// resource groups.
         /// Returns statistics on a per-rank basis.</summary>
         /// 
-        /// <param name="options">Optional parameters.  </param>
+        /// <param name="options">Optional parameters.  The default value is an
+        /// empty {@link Dictionary}.</param>
         /// 
         /// <returns>Response object containing the result of the
         /// operation.</returns>
@@ -10858,7 +11144,7 @@ namespace kinetica
         /// cref="ShowResourceGroupsRequest.Options.TRUE">TRUE</see>.</description>
         ///     </item>
         /// </list>
-        ///   </param>
+        /// The default value is an empty {@link Dictionary}.</param>
         /// 
         /// <returns>Response object containing the result of the
         /// operation.</returns>
@@ -10895,7 +11181,8 @@ namespace kinetica
         /// <param name="names">A list of names of users and/or roles about
         /// which security information is requested. If none are provided,
         /// information about all users and roles will be returned.  </param>
-        /// <param name="options">Optional parameters.  </param>
+        /// <param name="options">Optional parameters.  The default value is an
+        /// empty {@link Dictionary}.</param>
         /// 
         /// <returns>Response object containing the result of the
         /// operation.</returns>
@@ -10929,7 +11216,8 @@ namespace kinetica
         /// 
         /// <param name="table_names">Tables whose metadata will be fetched.
         /// All provided tables must exist, or an error is returned.  </param>
-        /// <param name="options">Optional parameters.  </param>
+        /// <param name="options">Optional parameters.  The default value is an
+        /// empty {@link Dictionary}.</param>
         /// 
         /// <returns>Response object containing the result of the
         /// operation.</returns>
@@ -10973,7 +11261,7 @@ namespace kinetica
         /// returned.</description>
         ///     </item>
         /// </list>
-        ///   </param>
+        /// The default value is an empty {@link Dictionary}.</param>
         /// 
         /// <returns>Response object containing the result of the
         /// operation.</returns>
@@ -11006,8 +11294,8 @@ namespace kinetica
         /// the caller. The admin tool uses it to present server related
         /// information to the user.</summary>
         /// 
-        /// <param name="options">Optional parameters, currently unused.
-        /// </param>
+        /// <param name="options">Optional parameters, currently unused.  The
+        /// default value is an empty {@link Dictionary}.</param>
         /// 
         /// <returns>Response object containing the result of the
         /// operation.</returns>
@@ -11040,8 +11328,8 @@ namespace kinetica
         /// request timing and internal job id. The admin tool uses it to
         /// present request timing information to the user.</summary>
         /// 
-        /// <param name="options">Optional parameters, currently unused.
-        /// </param>
+        /// <param name="options">Optional parameters, currently unused.  The
+        /// default value is an empty {@link Dictionary}.</param>
         /// 
         /// <returns>Response object containing the result of the
         /// operation.</returns>
@@ -11236,7 +11524,7 @@ namespace kinetica
         /// cref="ShowTableRequest.Options.FALSE">FALSE</see>.</description>
         ///     </item>
         /// </list>
-        ///   </param>
+        /// The default value is an empty {@link Dictionary}.</param>
         /// 
         /// <returns>Response object containing the result of the
         /// operation.</returns>
@@ -11270,7 +11558,8 @@ namespace kinetica
         /// 
         /// <param name="table_names">Tables whose metadata will be fetched.
         /// All provided tables must exist, or an error is returned.  </param>
-        /// <param name="options">Optional parameters.  </param>
+        /// <param name="options">Optional parameters.  The default value is an
+        /// empty {@link Dictionary}.</param>
         /// 
         /// <returns>Response object containing the result of the
         /// operation.</returns>
@@ -11313,7 +11602,8 @@ namespace kinetica
         /// <param name="label">Optional user supplied label which can be used
         /// instead of the type_id to retrieve all tables with the given label.
         /// </param>
-        /// <param name="options">Optional parameters.  </param>
+        /// <param name="options">Optional parameters.  The default value is an
+        /// empty {@link Dictionary}.</param>
         /// 
         /// <returns>Response object containing the result of the
         /// operation.</returns>
@@ -11349,7 +11639,8 @@ namespace kinetica
         /// <param name="trigger_ids">List of IDs of the triggers whose
         /// information is to be retrieved. An empty list means information
         /// will be retrieved on all active triggers.  </param>
-        /// <param name="options">Optional parameters.  </param>
+        /// <param name="options">Optional parameters.  The default value is an
+        /// empty {@link Dictionary}.</param>
         /// 
         /// <returns>Response object containing the result of the
         /// operation.</returns>
@@ -11420,7 +11711,7 @@ namespace kinetica
         /// cref="ShowTypesRequest.Options.FALSE">FALSE</see>.</description>
         ///     </item>
         /// </list>
-        ///   </param>
+        /// The default value is an empty {@link Dictionary}.</param>
         /// 
         /// <returns>Response object containing the result of the
         /// operation.</returns>
@@ -11475,7 +11766,8 @@ namespace kinetica
         /// expressions, e.g., 'ST_LENGTH(wkt) AS WEIGHTS_VALUESPECIFIED'. Any
         /// provided weights will be added (in the case of
         /// 'WEIGHTS_VALUESPECIFIED') to or multiplied with (in the case of
-        /// 'WEIGHTS_FACTORSPECIFIED') the existing weight(s).  </param>
+        /// 'WEIGHTS_FACTORSPECIFIED') the existing weight(s).  The default
+        /// value is an empty {@link List}.</param>
         /// <param name="restrictions">Additional restrictions to apply to the
         /// nodes/edges of an existing graph. Restrictions must be specified
         /// using <a
@@ -11490,7 +11782,8 @@ namespace kinetica
         /// existing restrictions. If <i>remove_previous_restrictions</i> is
         /// set to <i>false</i>, any provided weights will be added (in the
         /// case of 'RESTRICTIONS_VALUECOMPARED') to or replaced (in the case
-        /// of 'RESTRICTIONS_ONOFFCOMPARED').  </param>
+        /// of 'RESTRICTIONS_ONOFFCOMPARED').  The default value is an empty
+        /// {@link List}.</param>
         /// <param name="solver_type">The type of solver to use for the graph.
         /// Supported values:
         /// <list type="bullet">
@@ -11566,7 +11859,7 @@ namespace kinetica
         /// indices, or indices for pageranks. If the <paramref
         /// cref="SolveGraphRequest.solver_type" /> is set to
         /// <i>BACKHAUL_ROUTING</i>, it is the list of all fixed and remote
-        /// asset nodes.  </param>
+        /// asset nodes.  The default value is an empty {@link List}.</param>
         /// <param name="node_type">Source and destination node identifier
         /// type.
         /// Supported values:
@@ -11595,7 +11888,7 @@ namespace kinetica
         /// <param name="source_node">If <paramref
         /// cref="SolveGraphRequest.node_type" /> is <i>NODE_WKTPOINT</i> or
         /// <i>NODE_NAME</i>, the node (string) of the source (starting point)
-        /// for the graph solution.  </param>
+        /// for the graph solution.  The default value is ''.</param>
         /// <param name="destination_nodes">If <paramref
         /// cref="SolveGraphRequest.node_type" /> is <i>NODE_WKTPOINT</i> or
         /// <i>NODE_NAME</i>, the list of destination node or page rank indices
@@ -11603,10 +11896,10 @@ namespace kinetica
         /// cref="SolveGraphRequest.solver_type" /> is set to
         /// <i>BACKHAUL_ROUTING</i>, it is the list of all fixed and remote
         /// asset nodes. The string type should be consistent with the
-        /// <paramref cref="SolveGraphRequest.node_type" /> parameter.
-        /// </param>
+        /// <paramref cref="SolveGraphRequest.node_type" /> parameter.  The
+        /// default value is an empty {@link List}.</param>
         /// <param name="solution_table">Name of the table to store the
-        /// solution.  </param>
+        /// solution.  The default value is 'graph_solutions'.</param>
         /// <param name="options">Additional parameters
         /// <list type="bullet">
         ///     <item>
@@ -11617,7 +11910,8 @@ namespace kinetica
         /// solution cost radius, which ignores the <paramref
         /// cref="SolveGraphRequest.destination_node_ids" /> list and instead
         /// outputs the nodes within the radius sorted by ascending cost. If
-        /// set to '0.0', the setting is ignored.</description>
+        /// set to '0.0', the setting is ignored.  The default value is
+        /// '0.0'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -11628,7 +11922,7 @@ namespace kinetica
         /// cref="SolveGraphRequest.destination_node_ids" /> list and instead
         /// outputs no more than n number of nodes sorted by ascending cost
         /// where n is equal to the setting value. If set to 0, the setting is
-        /// ignored.</description>
+        /// ignored.  The default value is '0'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -11679,7 +11973,7 @@ namespace kinetica
         /// solution.</description>
         ///     </item>
         /// </list>
-        ///   </param>
+        /// The default value is an empty {@link Dictionary}.</param>
         /// 
         /// <returns>Response object containing the result of the
         /// operation.</returns>
@@ -11830,7 +12124,8 @@ namespace kinetica
         /// records to insert, one for each update.  If one of <paramref
         /// cref="RawUpdateRecordsRequest.expressions" /> does not yield a
         /// matching record to be updated, then the corresponding element from
-        /// this list will be added to the table.  </param>
+        /// this list will be added to the table.  The default value is an
+        /// empty {@link List}.</param>
         /// <param name="options">Optional parameters.
         /// <list type="bullet">
         ///     <item>
@@ -11838,7 +12133,8 @@ namespace kinetica
         /// cref="RawUpdateRecordsRequest.Options.GLOBAL_EXPRESSION">GLOBAL_EXPRESSION</see>:</term>
         ///         <description>An optional global expression to reduce the
         /// search space of the predicates listed in <paramref
-        /// cref="RawUpdateRecordsRequest.expressions" />.</description>
+        /// cref="RawUpdateRecordsRequest.expressions" />.  The default value
+        /// is ''.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -11935,7 +12231,7 @@ namespace kinetica
         /// /get/records/fromcollection).</description>
         ///     </item>
         /// </list>
-        ///   </param>
+        /// The default value is an empty {@link Dictionary}.</param>
         /// 
         /// <returns>Response object containing the result of the
         /// operation.</returns>
@@ -11983,9 +12279,12 @@ namespace kinetica
         /// <param name="world_table_name">Name of the table containing the
         /// complete series (track) information.  </param>
         /// <param name="view_name">name of the view containing the series
-        /// (tracks) which have to be updated.  </param>
-        /// <param name="reserved"></param>
-        /// <param name="options">Optional parameters.  </param>
+        /// (tracks) which have to be updated.  The default value is
+        /// ''.</param>
+        /// <param name="reserved">The default value is an empty {@link
+        /// List}.</param>
+        /// <param name="options">Optional parameters.  The default value is an
+        /// empty {@link Dictionary}.</param>
         /// 
         /// <returns>Response object containing the result of the
         /// operation.</returns>
@@ -12159,17 +12458,17 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="VisualizeImageRequest.StyleOptions.POINTSIZES">POINTSIZES</see>:</term>
-        ///         <description></description>
+        ///         <description>  The default value is '3'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="VisualizeImageRequest.StyleOptions.POINTOFFSET_X">POINTOFFSET_X</see>:</term>
-        ///         <description></description>
+        ///         <description>  The default value is '0'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="VisualizeImageRequest.StyleOptions.POINTOFFSET_Y">POINTOFFSET_Y</see>:</term>
-        ///         <description></description>
+        ///         <description>  The default value is '0'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -12216,77 +12515,79 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="VisualizeImageRequest.StyleOptions.SYMBOLROTATIONS">SYMBOLROTATIONS</see>:</term>
-        ///         <description></description>
+        ///         <description>  The default value is '0'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="VisualizeImageRequest.StyleOptions.SHAPELINEWIDTHS">SHAPELINEWIDTHS</see>:</term>
-        ///         <description></description>
+        ///         <description>  The default value is '3'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="VisualizeImageRequest.StyleOptions.SHAPELINECOLORS">SHAPELINECOLORS</see>:</term>
-        ///         <description></description>
+        ///         <description>  The default value is 'FFFF00
+        /// '.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="VisualizeImageRequest.StyleOptions.SHAPELINEPATTERNS">SHAPELINEPATTERNS</see>:</term>
-        ///         <description></description>
+        ///         <description>  The default value is '0'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="VisualizeImageRequest.StyleOptions.SHAPELINEPATTERNLEN">SHAPELINEPATTERNLEN</see>:</term>
-        ///         <description></description>
+        ///         <description>  The default value is '32'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="VisualizeImageRequest.StyleOptions.SHAPEFILLCOLORS">SHAPEFILLCOLORS</see>:</term>
-        ///         <description></description>
+        ///         <description>  The default value is '-1'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="VisualizeImageRequest.StyleOptions.HASHLINEINTERVALS">HASHLINEINTERVALS</see>:</term>
-        ///         <description></description>
+        ///         <description>  The default value is '20'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="VisualizeImageRequest.StyleOptions.HASHLINECOLORS">HASHLINECOLORS</see>:</term>
-        ///         <description></description>
+        ///         <description>  The default value is 'The same as line
+        /// color.'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="VisualizeImageRequest.StyleOptions.HASHLINEANGLES">HASHLINEANGLES</see>:</term>
-        ///         <description></description>
+        ///         <description>  The default value is '0'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="VisualizeImageRequest.StyleOptions.HASHLINELENS">HASHLINELENS</see>:</term>
-        ///         <description></description>
+        ///         <description>  The default value is '0'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="VisualizeImageRequest.StyleOptions.HASHLINEWIDTHS">HASHLINEWIDTHS</see>:</term>
-        ///         <description></description>
+        ///         <description>  The default value is '3'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="VisualizeImageRequest.StyleOptions.TRACKLINEWIDTHS">TRACKLINEWIDTHS</see>:</term>
-        ///         <description></description>
+        ///         <description>  The default value is '3'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="VisualizeImageRequest.StyleOptions.TRACKLINECOLORS">TRACKLINECOLORS</see>:</term>
-        ///         <description></description>
+        ///         <description>  The default value is '00FF00'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="VisualizeImageRequest.StyleOptions.TRACKMARKERSIZES">TRACKMARKERSIZES</see>:</term>
-        ///         <description></description>
+        ///         <description>  The default value is '3'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="VisualizeImageRequest.StyleOptions.TRACKMARKERCOLORS">TRACKMARKERCOLORS</see>:</term>
-        ///         <description></description>
+        ///         <description>  The default value is '0000FF'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -12341,12 +12642,12 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="VisualizeImageRequest.StyleOptions.TRACKHEADCOLORS">TRACKHEADCOLORS</see>:</term>
-        ///         <description></description>
+        ///         <description>  The default value is 'FFFFFF'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="VisualizeImageRequest.StyleOptions.TRACKHEADSIZES">TRACKHEADSIZES</see>:</term>
-        ///         <description></description>
+        ///         <description>  The default value is '10'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -12489,13 +12790,13 @@ namespace kinetica
         ///         <term><see
         /// cref="VisualizeImageChartRequest.StyleOptions.POINTCOLOR">POINTCOLOR</see>:</term>
         ///         <description>The color of points in the plot represented as
-        /// a hexadecimal number.</description>
+        /// a hexadecimal number.  The default value is '0000FF'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="VisualizeImageChartRequest.StyleOptions.POINTSIZE">POINTSIZE</see>:</term>
         ///         <description>The size of points in the plot represented as
-        /// number of pixels.</description>
+        /// number of pixels.  The default value is '3'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -12572,8 +12873,8 @@ namespace kinetica
         ///         <term><see
         /// cref="VisualizeImageChartRequest.StyleOptions.CB_DELIMITER">CB_DELIMITER</see>:</term>
         ///         <description>A character or string which separates
-        /// per-class values in a class-break style option
-        /// string.</description>
+        /// per-class values in a class-break style option string.  The default
+        /// value is ';'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -12637,24 +12938,27 @@ namespace kinetica
         ///         <term><see
         /// cref="VisualizeImageChartRequest.StyleOptions.JITTER_X">JITTER_X</see>:</term>
         ///         <description>Amplitude of horizontal jitter applied to
-        /// non-numeric x column values.</description>
+        /// non-numeric x column values.  The default value is
+        /// '0.0'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="VisualizeImageChartRequest.StyleOptions.JITTER_Y">JITTER_Y</see>:</term>
         ///         <description>Amplitude of vertical jitter applied to
-        /// non-numeric y column values.</description>
+        /// non-numeric y column values.  The default value is
+        /// '0.0'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="VisualizeImageChartRequest.StyleOptions.PLOT_ALL">PLOT_ALL</see>:</term>
         ///         <description>If this options is set to "true", all
         /// non-numeric column values are plotted ignoring min_x, max_x, min_y
-        /// and max_y parameters.</description>
+        /// and max_y parameters.  The default value is 'false'.</description>
         ///     </item>
         /// </list>
         ///   </param>
-        /// <param name="options">Optional parameters.  </param>
+        /// <param name="options">Optional parameters.  The default value is an
+        /// empty {@link Dictionary}.</param>
         /// 
         /// <returns>Response object containing the result of the
         /// operation.</returns>
@@ -12841,22 +13145,22 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="VisualizeImageClassbreakRequest.StyleOptions.POINTCOLORS">POINTCOLORS</see>:</term>
-        ///         <description></description>
+        ///         <description>  The default value is 'FF0000'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="VisualizeImageClassbreakRequest.StyleOptions.POINTSIZES">POINTSIZES</see>:</term>
-        ///         <description></description>
+        ///         <description>  The default value is '3'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="VisualizeImageClassbreakRequest.StyleOptions.POINTOFFSET_X">POINTOFFSET_X</see>:</term>
-        ///         <description></description>
+        ///         <description>  The default value is '0'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="VisualizeImageClassbreakRequest.StyleOptions.POINTOFFSET_Y">POINTOFFSET_Y</see>:</term>
-        ///         <description></description>
+        ///         <description>  The default value is '0'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -12903,72 +13207,74 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="VisualizeImageClassbreakRequest.StyleOptions.SHAPELINEWIDTHS">SHAPELINEWIDTHS</see>:</term>
-        ///         <description></description>
+        ///         <description>  The default value is '3'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="VisualizeImageClassbreakRequest.StyleOptions.SHAPELINECOLORS">SHAPELINECOLORS</see>:</term>
-        ///         <description></description>
+        ///         <description>  The default value is 'FFFF00
+        /// '.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="VisualizeImageClassbreakRequest.StyleOptions.SHAPELINEPATTERNS">SHAPELINEPATTERNS</see>:</term>
-        ///         <description></description>
+        ///         <description>  The default value is '0'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="VisualizeImageClassbreakRequest.StyleOptions.SHAPELINEPATTERNLEN">SHAPELINEPATTERNLEN</see>:</term>
-        ///         <description></description>
+        ///         <description>  The default value is '32'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="VisualizeImageClassbreakRequest.StyleOptions.SHAPEFILLCOLORS">SHAPEFILLCOLORS</see>:</term>
-        ///         <description></description>
+        ///         <description>  The default value is '-1'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="VisualizeImageClassbreakRequest.StyleOptions.HASHLINEINTERVALS">HASHLINEINTERVALS</see>:</term>
-        ///         <description></description>
+        ///         <description>  The default value is '20'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="VisualizeImageClassbreakRequest.StyleOptions.HASHLINECOLORS">HASHLINECOLORS</see>:</term>
-        ///         <description></description>
+        ///         <description>  The default value is 'The same as line
+        /// color.'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="VisualizeImageClassbreakRequest.StyleOptions.HASHLINEANGLES">HASHLINEANGLES</see>:</term>
-        ///         <description></description>
+        ///         <description>  The default value is '0'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="VisualizeImageClassbreakRequest.StyleOptions.HASHLINELENS">HASHLINELENS</see>:</term>
-        ///         <description></description>
+        ///         <description>  The default value is '0'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="VisualizeImageClassbreakRequest.StyleOptions.HASHLINEWIDTHS">HASHLINEWIDTHS</see>:</term>
-        ///         <description></description>
+        ///         <description>  The default value is '3'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="VisualizeImageClassbreakRequest.StyleOptions.TRACKLINEWIDTHS">TRACKLINEWIDTHS</see>:</term>
-        ///         <description></description>
+        ///         <description>  The default value is '3'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="VisualizeImageClassbreakRequest.StyleOptions.TRACKLINECOLORS">TRACKLINECOLORS</see>:</term>
-        ///         <description></description>
+        ///         <description>  The default value is '00FF00'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="VisualizeImageClassbreakRequest.StyleOptions.TRACKMARKERSIZES">TRACKMARKERSIZES</see>:</term>
-        ///         <description></description>
+        ///         <description>  The default value is '3'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="VisualizeImageClassbreakRequest.StyleOptions.TRACKMARKERCOLORS">TRACKMARKERCOLORS</see>:</term>
-        ///         <description></description>
+        ///         <description>  The default value is '0000FF'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -13015,12 +13321,12 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="VisualizeImageClassbreakRequest.StyleOptions.TRACKHEADCOLORS">TRACKHEADCOLORS</see>:</term>
-        ///         <description></description>
+        ///         <description>  The default value is 'FFFFFF'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="VisualizeImageClassbreakRequest.StyleOptions.TRACKHEADSIZES">TRACKHEADSIZES</see>:</term>
-        ///         <description></description>
+        ///         <description>  The default value is '10'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -13199,22 +13505,25 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="VisualizeImageContourRequest.StyleOptions.LINE_SIZE">LINE_SIZE</see>:</term>
-        ///         <description></description>
+        ///         <description>  The default value is '3'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="VisualizeImageContourRequest.StyleOptions.COLOR">COLOR</see>:</term>
-        ///         <description></description>
+        ///         <description>  The default value is
+        /// 'FF696969'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="VisualizeImageContourRequest.StyleOptions.BG_COLOR">BG_COLOR</see>:</term>
-        ///         <description></description>
+        ///         <description>  The default value is
+        /// '00000000'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="VisualizeImageContourRequest.StyleOptions.TEXT_COLOR">TEXT_COLOR</see>:</term>
-        ///         <description></description>
+        ///         <description>  The default value is
+        /// 'FF000000'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -13543,22 +13852,22 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="VisualizeImageContourRequest.Options.NUM_LEVELS">NUM_LEVELS</see>:</term>
-        ///         <description></description>
+        ///         <description>  The default value is '10'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="VisualizeImageContourRequest.Options.ADJUST_LEVELS">ADJUST_LEVELS</see>:</term>
-        ///         <description></description>
+        ///         <description>  The default value is 'true'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="VisualizeImageContourRequest.Options.SEARCH_RADIUS">SEARCH_RADIUS</see>:</term>
-        ///         <description></description>
+        ///         <description>  The default value is '20'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="VisualizeImageContourRequest.Options.MAX_SEARCH_CELLS">MAX_SEARCH_CELLS</see>:</term>
-        ///         <description></description>
+        ///         <description>  The default value is '100'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -13593,82 +13902,82 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="VisualizeImageContourRequest.Options.SMOOTHING_FACTOR">SMOOTHING_FACTOR</see>:</term>
-        ///         <description></description>
+        ///         <description>  The default value is '10'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="VisualizeImageContourRequest.Options.GRID_SIZE">GRID_SIZE</see>:</term>
-        ///         <description></description>
+        ///         <description>  The default value is '100'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="VisualizeImageContourRequest.Options.ADJUST_GRID">ADJUST_GRID</see>:</term>
-        ///         <description></description>
+        ///         <description>  The default value is 'false'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="VisualizeImageContourRequest.Options.ADJUST_GRID_NEIGH">ADJUST_GRID_NEIGH</see>:</term>
-        ///         <description></description>
+        ///         <description>  The default value is '1'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="VisualizeImageContourRequest.Options.ADJUST_GRID_SIZE">ADJUST_GRID_SIZE</see>:</term>
-        ///         <description></description>
+        ///         <description>  The default value is '1'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="VisualizeImageContourRequest.Options.MAX_GRID_SIZE">MAX_GRID_SIZE</see>:</term>
-        ///         <description></description>
+        ///         <description>  The default value is '500'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="VisualizeImageContourRequest.Options.MIN_GRID_SIZE">MIN_GRID_SIZE</see>:</term>
-        ///         <description></description>
+        ///         <description>  The default value is '10'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="VisualizeImageContourRequest.Options.RENDER_OUTPUT_GRID">RENDER_OUTPUT_GRID</see>:</term>
-        ///         <description></description>
+        ///         <description>  The default value is 'false'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="VisualizeImageContourRequest.Options.COLOR_ISOLINES">COLOR_ISOLINES</see>:</term>
-        ///         <description></description>
+        ///         <description>  The default value is 'true'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="VisualizeImageContourRequest.Options.ADD_LABELS">ADD_LABELS</see>:</term>
-        ///         <description></description>
+        ///         <description>  The default value is 'false'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="VisualizeImageContourRequest.Options.LABELS_FONT_SIZE">LABELS_FONT_SIZE</see>:</term>
-        ///         <description></description>
+        ///         <description>  The default value is '12'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="VisualizeImageContourRequest.Options.LABELS_FONT_FAMILY">LABELS_FONT_FAMILY</see>:</term>
-        ///         <description></description>
+        ///         <description>  The default value is 'arial'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="VisualizeImageContourRequest.Options.LABELS_SEARCH_WINDOW">LABELS_SEARCH_WINDOW</see>:</term>
-        ///         <description></description>
+        ///         <description>  The default value is '4'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="VisualizeImageContourRequest.Options.LABELS_INTRALEVEL_SEPARATION">LABELS_INTRALEVEL_SEPARATION</see>:</term>
-        ///         <description></description>
+        ///         <description>  The default value is '4'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="VisualizeImageContourRequest.Options.LABELS_INTERLEVEL_SEPARATION">LABELS_INTERLEVEL_SEPARATION</see>:</term>
-        ///         <description></description>
+        ///         <description>  The default value is '20'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="VisualizeImageContourRequest.Options.LABELS_MAX_ANGLE">LABELS_MAX_ANGLE</see>:</term>
-        ///         <description></description>
+        ///         <description>  The default value is '60'.</description>
         ///     </item>
         /// </list>
         /// </param>
@@ -14089,7 +14398,7 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="VisualizeImageHeatmapRequest.StyleOptions.BLUR_RADIUS">BLUR_RADIUS</see>:</term>
-        ///         <description></description>
+        ///         <description>  The default value is '5'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -14099,12 +14408,12 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="VisualizeImageHeatmapRequest.StyleOptions.GRADIENT_START_COLOR">GRADIENT_START_COLOR</see>:</term>
-        ///         <description></description>
+        ///         <description>  The default value is 'FFFFFF'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="VisualizeImageHeatmapRequest.StyleOptions.GRADIENT_END_COLOR">GRADIENT_END_COLOR</see>:</term>
-        ///         <description></description>
+        ///         <description>  The default value is 'FF0000'.</description>
         ///     </item>
         /// </list>
         /// </param>
@@ -14419,12 +14728,12 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="VisualizeVideoRequest.StyleOptions.POINTCOLORS">POINTCOLORS</see>:</term>
-        ///         <description></description>
+        ///         <description>  The default value is 'FF0000'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="VisualizeVideoRequest.StyleOptions.POINTSIZES">POINTSIZES</see>:</term>
-        ///         <description></description>
+        ///         <description>  The default value is '3'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -14469,37 +14778,38 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="VisualizeVideoRequest.StyleOptions.SHAPELINEWIDTHS">SHAPELINEWIDTHS</see>:</term>
-        ///         <description></description>
+        ///         <description>  The default value is '3'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="VisualizeVideoRequest.StyleOptions.SHAPELINECOLORS">SHAPELINECOLORS</see>:</term>
-        ///         <description></description>
+        ///         <description>  The default value is 'FFFF00
+        /// '.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="VisualizeVideoRequest.StyleOptions.SHAPEFILLCOLORS">SHAPEFILLCOLORS</see>:</term>
-        ///         <description></description>
+        ///         <description>  The default value is '-1'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="VisualizeVideoRequest.StyleOptions.TRACKLINEWIDTHS">TRACKLINEWIDTHS</see>:</term>
-        ///         <description></description>
+        ///         <description>  The default value is '3'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="VisualizeVideoRequest.StyleOptions.TRACKLINECOLORS">TRACKLINECOLORS</see>:</term>
-        ///         <description></description>
+        ///         <description>  The default value is '00FF00'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="VisualizeVideoRequest.StyleOptions.TRACKMARKERSIZES">TRACKMARKERSIZES</see>:</term>
-        ///         <description></description>
+        ///         <description>  The default value is '3'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="VisualizeVideoRequest.StyleOptions.TRACKMARKERCOLORS">TRACKMARKERCOLORS</see>:</term>
-        ///         <description></description>
+        ///         <description>  The default value is '0000FF'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -14546,12 +14856,12 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="VisualizeVideoRequest.StyleOptions.TRACKHEADCOLORS">TRACKHEADCOLORS</see>:</term>
-        ///         <description></description>
+        ///         <description>  The default value is 'FFFFFF'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="VisualizeVideoRequest.StyleOptions.TRACKHEADSIZES">TRACKHEADSIZES</see>:</term>
-        ///         <description></description>
+        ///         <description>  The default value is '10'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -14762,22 +15072,23 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="VisualizeVideoHeatmapRequest.StyleOptions.BLUR_RADIUS">BLUR_RADIUS</see>:</term>
-        ///         <description></description>
+        ///         <description>  The default value is '5'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="VisualizeVideoHeatmapRequest.StyleOptions.BG_COLOR">BG_COLOR</see>:</term>
-        ///         <description></description>
+        ///         <description>  The default value is
+        /// 'FF000000'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="VisualizeVideoHeatmapRequest.StyleOptions.GRADIENT_START_COLOR">GRADIENT_START_COLOR</see>:</term>
-        ///         <description></description>
+        ///         <description>  The default value is 'FFFFFF'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="VisualizeVideoHeatmapRequest.StyleOptions.GRADIENT_END_COLOR">GRADIENT_END_COLOR</see>:</term>
-        ///         <description></description>
+        ///         <description>  The default value is 'FF0000'.</description>
         ///     </item>
         /// </list>
         /// </param>

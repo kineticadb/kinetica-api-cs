@@ -115,7 +115,7 @@ namespace kinetica
         /// cref="GetRecordsRequest.Options.ASCENDING">ASCENDING</see>.</description>
         ///     </item>
         /// </list>
-        /// <br />
+        /// The default value is an empty {@link Dictionary}.
         /// A set of string constants for the parameter <see cref="options"
         /// />.</summary>
         public struct Options
@@ -179,13 +179,14 @@ namespace kinetica
 
         /// <summary>A positive integer indicating the number of initial
         /// results to skip (this can be useful for paging through the
-        /// results).  The minimum allowed value is 0. The maximum allowed
-        /// value is MAX_INT. </summary>
+        /// results).  The default value is 0.The minimum allowed value is 0.
+        /// The maximum allowed value is MAX_INT. </summary>
         public long offset { get; set; } = 0;
 
         /// <summary>A positive integer indicating the maximum number of
         /// results to be returned. Or END_OF_SET (-9999) to indicate that the
-        /// max number of results should be returned.  </summary>
+        /// max number of results should be returned.  The default value is
+        /// 10000.</summary>
         public long limit { get; set; } = 10000;
 
         /// <summary>Specifies the encoding for returned records.
@@ -265,7 +266,7 @@ namespace kinetica
         /// cref="GetRecordsRequest.Options.ASCENDING">ASCENDING</see>.</description>
         ///     </item>
         /// </list>
-        ///   </summary>
+        /// The default value is an empty {@link Dictionary}.</summary>
         public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
 
 
@@ -281,11 +282,12 @@ namespace kinetica
         /// </param>
         /// <param name="offset">A positive integer indicating the number of
         /// initial results to skip (this can be useful for paging through the
-        /// results).  The minimum allowed value is 0. The maximum allowed
-        /// value is MAX_INT. </param>
+        /// results).  The default value is 0.The minimum allowed value is 0.
+        /// The maximum allowed value is MAX_INT. </param>
         /// <param name="limit">A positive integer indicating the maximum
         /// number of results to be returned. Or END_OF_SET (-9999) to indicate
-        /// that the max number of results should be returned.  </param>
+        /// that the max number of results should be returned.  The default
+        /// value is 10000.</param>
         /// <param name="options">
         /// <list type="bullet">
         ///     <item>
@@ -343,7 +345,7 @@ namespace kinetica
         /// cref="GetRecordsRequest.Options.ASCENDING">ASCENDING</see>.</description>
         ///     </item>
         /// </list>
-        ///   </param>
+        /// The default value is an empty {@link Dictionary}.</param>
         /// 
         public GetRecordsRequest( string table_name,
                                   long offset = 0,
@@ -366,11 +368,12 @@ namespace kinetica
         /// </param>
         /// <param name="offset">A positive integer indicating the number of
         /// initial results to skip (this can be useful for paging through the
-        /// results).  The minimum allowed value is 0. The maximum allowed
-        /// value is MAX_INT. </param>
+        /// results).  The default value is 0.The minimum allowed value is 0.
+        /// The maximum allowed value is MAX_INT. </param>
         /// <param name="limit">A positive integer indicating the maximum
         /// number of results to be returned. Or END_OF_SET (-9999) to indicate
-        /// that the max number of results should be returned.  </param>
+        /// that the max number of results should be returned.  The default
+        /// value is 10000.</param>
         /// <param name="encoding">Specifies the encoding for returned records.
         /// Supported values:
         /// <list type="bullet">
@@ -446,7 +449,7 @@ namespace kinetica
         /// cref="GetRecordsRequest.Options.ASCENDING">ASCENDING</see>.</description>
         ///     </item>
         /// </list>
-        ///   </param>
+        /// The default value is an empty {@link Dictionary}.</param>
         /// 
         public GetRecordsRequest( string table_name,
                                   long offset = 0,

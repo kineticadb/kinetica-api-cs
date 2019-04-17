@@ -26,7 +26,8 @@ namespace kinetica
         /// <summary>No longer used. User can pass an empty string.  </summary>
         public string authorization { get; set; }
 
-        /// <summary>Optional parameters.  </summary>
+        /// <summary>Optional parameters.  The default value is an empty {@link
+        /// Dictionary}.</summary>
         public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
 
 
@@ -41,7 +42,8 @@ namespace kinetica
         /// empty string.  </param>
         /// <param name="authorization">No longer used. User can pass an empty
         /// string.  </param>
-        /// <param name="options">Optional parameters.  </param>
+        /// <param name="options">Optional parameters.  The default value is an
+        /// empty {@link Dictionary}.</param>
         /// 
         public AdminShutdownRequest( string exit_type,
                                      string authorization,

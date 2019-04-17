@@ -53,7 +53,8 @@ namespace kinetica
         /// </list>  </summary>
         public string action { get; set; }
 
-        /// <summary>Optional parameters.  </summary>
+        /// <summary>Optional parameters.  The default value is an empty {@link
+        /// Dictionary}.</summary>
         public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
 
 
@@ -74,7 +75,8 @@ namespace kinetica
         /// cref="AdminAlterJobsRequest.Action.CANCEL">CANCEL</see></term>
         ///     </item>
         /// </list>  </param>
-        /// <param name="options">Optional parameters.  </param>
+        /// <param name="options">Optional parameters.  The default value is an
+        /// empty {@link Dictionary}.</param>
         /// 
         public AdminAlterJobsRequest( IList<long> job_ids,
                                       string action,

@@ -90,7 +90,7 @@ namespace kinetica
         /// <i>table_whitelist</i>.</description>
         ///     </item>
         /// </list>
-        /// <br />
+        /// The default value is an empty {@link Dictionary}.
         /// A set of string constants for the parameter <see cref="options"
         /// />.</summary>
         public struct Options
@@ -217,7 +217,7 @@ namespace kinetica
         /// <i>table_whitelist</i>.</description>
         ///     </item>
         /// </list>
-        ///   </summary>
+        /// The default value is an empty {@link Dictionary}.</summary>
         public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
 
 
@@ -292,7 +292,7 @@ namespace kinetica
         /// <i>table_whitelist</i>.</description>
         ///     </item>
         /// </list>
-        ///   </param>
+        /// The default value is an empty {@link Dictionary}.</param>
         /// 
         public AdminRebalanceRequest( IDictionary<string, string> options = null)
         {
@@ -308,12 +308,6 @@ namespace kinetica
     /// />.</summary>
     public class AdminRebalanceResponse : KineticaData
     {
-
-        /// <summary>Names of the rebalanced tables.  </summary>
-        public IList<string> table_names { get; set; } = new List<string>();
-
-        /// <summary>Error Messages from rebalancing the tables.  </summary>
-        public IList<string> message { get; set; } = new List<string>();
 
         /// <summary>Additional information.  </summary>
         public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();

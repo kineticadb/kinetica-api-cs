@@ -392,7 +392,7 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="VisualizeImageHeatmapRequest.StyleOptions.BLUR_RADIUS">BLUR_RADIUS</see>:</term>
-        ///         <description></description>
+        ///         <description>  The default value is '5'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -402,12 +402,12 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="VisualizeImageHeatmapRequest.StyleOptions.GRADIENT_START_COLOR">GRADIENT_START_COLOR</see>:</term>
-        ///         <description></description>
+        ///         <description>  The default value is 'FFFFFF'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="VisualizeImageHeatmapRequest.StyleOptions.GRADIENT_END_COLOR">GRADIENT_END_COLOR</see>:</term>
-        ///         <description></description>
+        ///         <description>  The default value is 'FF0000'.</description>
         ///     </item>
         /// </list>
         /// <br />
@@ -798,9 +798,15 @@ namespace kinetica
             public const string YLGNBU = "ylgnbu";
             public const string YLORBR = "ylorbr";
             public const string YLORRD = "ylorrd";
+
+            /// <summary>  The default value is '5'.</summary>
             public const string BLUR_RADIUS = "blur_radius";
             public const string BG_COLOR = "bg_color";
+
+            /// <summary>  The default value is 'FFFFFF'.</summary>
             public const string GRADIENT_START_COLOR = "gradient_start_color";
+
+            /// <summary>  The default value is 'FF0000'.</summary>
             public const string GRADIENT_END_COLOR = "gradient_end_color";
         } // end struct StyleOptions
 
@@ -1175,7 +1181,7 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="VisualizeImageHeatmapRequest.StyleOptions.BLUR_RADIUS">BLUR_RADIUS</see>:</term>
-        ///         <description></description>
+        ///         <description>  The default value is '5'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -1185,12 +1191,12 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="VisualizeImageHeatmapRequest.StyleOptions.GRADIENT_START_COLOR">GRADIENT_START_COLOR</see>:</term>
-        ///         <description></description>
+        ///         <description>  The default value is 'FFFFFF'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="VisualizeImageHeatmapRequest.StyleOptions.GRADIENT_END_COLOR">GRADIENT_END_COLOR</see>:</term>
-        ///         <description></description>
+        ///         <description>  The default value is 'FF0000'.</description>
         ///     </item>
         /// </list>
         /// </summary>
@@ -1573,7 +1579,7 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="VisualizeImageHeatmapRequest.StyleOptions.BLUR_RADIUS">BLUR_RADIUS</see>:</term>
-        ///         <description></description>
+        ///         <description>  The default value is '5'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -1583,12 +1589,12 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="VisualizeImageHeatmapRequest.StyleOptions.GRADIENT_START_COLOR">GRADIENT_START_COLOR</see>:</term>
-        ///         <description></description>
+        ///         <description>  The default value is 'FFFFFF'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="VisualizeImageHeatmapRequest.StyleOptions.GRADIENT_END_COLOR">GRADIENT_END_COLOR</see>:</term>
-        ///         <description></description>
+        ///         <description>  The default value is 'FF0000'.</description>
         ///     </item>
         /// </list>
         /// </param>

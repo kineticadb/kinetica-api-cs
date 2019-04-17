@@ -70,18 +70,18 @@ namespace kinetica
         /// cref="CreateProcRequest.Options.MAX_CONCURRENCY_PER_NODE">MAX_CONCURRENCY_PER_NODE</see>:</term>
         ///         <description>The maximum number of concurrent instances of
         /// the proc that will be executed per node. 0 allows unlimited
-        /// concurrency.</description>
+        /// concurrency.  The default value is '0'.</description>
         ///     </item>
         /// </list>
-        /// <br />
+        /// The default value is an empty {@link Dictionary}.
         /// A set of string constants for the parameter <see cref="options"
         /// />.</summary>
         public struct Options
         {
 
             /// <summary>The maximum number of concurrent instances of the proc
-            /// that will be executed per node. 0 allows unlimited
-            /// concurrency.</summary>
+            /// that will be executed per node. 0 allows unlimited concurrency.
+            /// The default value is '0'.</summary>
             public const string MAX_CONCURRENCY_PER_NODE = "max_concurrency_per_node";
         } // end struct Options
 
@@ -119,7 +119,8 @@ namespace kinetica
         /// map are file names, and the values are the binary contents of the
         /// files. The file names may include subdirectory names (e.g.
         /// 'subdir/file') but must not resolve to a directory above the root
-        /// for the proc.  </summary>
+        /// for the proc.  The default value is an empty {@link
+        /// Dictionary}.</summary>
         public IDictionary<string, byte[]> files { get; set; } = new Dictionary<string, byte[]>();
 
         /// <summary>The command (excluding arguments) that will be invoked
@@ -132,13 +133,13 @@ namespace kinetica
         /// node. If the command refers to a file in that directory, it must be
         /// preceded with './' as per Linux convention. If not specified, and
         /// exactly one file is provided in <paramref
-        /// cref="CreateProcRequest.files" />, that file will be invoked.
-        /// </summary>
+        /// cref="CreateProcRequest.files" />, that file will be invoked.  The
+        /// default value is ''.</summary>
         public string command { get; set; } = "";
 
         /// <summary>An array of command-line arguments that will be passed to
         /// <paramref cref="CreateProcRequest.command" /> when the proc is
-        /// executed.  </summary>
+        /// executed.  The default value is an empty {@link List}.</summary>
         public IList<string> args { get; set; } = new List<string>();
 
         /// <summary>Optional parameters.
@@ -148,10 +149,10 @@ namespace kinetica
         /// cref="CreateProcRequest.Options.MAX_CONCURRENCY_PER_NODE">MAX_CONCURRENCY_PER_NODE</see>:</term>
         ///         <description>The maximum number of concurrent instances of
         /// the proc that will be executed per node. 0 allows unlimited
-        /// concurrency.</description>
+        /// concurrency.  The default value is '0'.</description>
         ///     </item>
         /// </list>
-        ///   </summary>
+        /// The default value is an empty {@link Dictionary}.</summary>
         public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
 
 
@@ -191,7 +192,8 @@ namespace kinetica
         /// keys of the map are file names, and the values are the binary
         /// contents of the files. The file names may include subdirectory
         /// names (e.g. 'subdir/file') but must not resolve to a directory
-        /// above the root for the proc.  </param>
+        /// above the root for the proc.  The default value is an empty {@link
+        /// Dictionary}.</param>
         /// <param name="command">The command (excluding arguments) that will
         /// be invoked when the proc is executed. It will be invoked from the
         /// directory containing the proc <paramref
@@ -203,10 +205,11 @@ namespace kinetica
         /// command refers to a file in that directory, it must be preceded
         /// with './' as per Linux convention. If not specified, and exactly
         /// one file is provided in <paramref cref="CreateProcRequest.files"
-        /// />, that file will be invoked.  </param>
+        /// />, that file will be invoked.  The default value is ''.</param>
         /// <param name="args">An array of command-line arguments that will be
         /// passed to <paramref cref="CreateProcRequest.command" /> when the
-        /// proc is executed.  </param>
+        /// proc is executed.  The default value is an empty {@link
+        /// List}.</param>
         /// <param name="options">Optional parameters.
         /// <list type="bullet">
         ///     <item>
@@ -214,10 +217,10 @@ namespace kinetica
         /// cref="CreateProcRequest.Options.MAX_CONCURRENCY_PER_NODE">MAX_CONCURRENCY_PER_NODE</see>:</term>
         ///         <description>The maximum number of concurrent instances of
         /// the proc that will be executed per node. 0 allows unlimited
-        /// concurrency.</description>
+        /// concurrency.  The default value is '0'.</description>
         ///     </item>
         /// </list>
-        ///   </param>
+        /// The default value is an empty {@link Dictionary}.</param>
         /// 
         public CreateProcRequest( string proc_name,
                                   string execution_mode = null,

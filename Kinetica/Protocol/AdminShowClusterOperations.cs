@@ -25,10 +25,11 @@ namespace kinetica
     {
 
         /// <summary>Indicates which cluster operation to retrieve.  Use 0 for
-        /// the most recent.  </summary>
+        /// the most recent.  The default value is 0.</summary>
         public int history_index { get; set; } = 0;
 
-        /// <summary>Optional parameters.  </summary>
+        /// <summary>Optional parameters.  The default value is an empty {@link
+        /// Dictionary}.</summary>
         public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
 
 
@@ -40,8 +41,10 @@ namespace kinetica
         /// with the specified parameters.</summary>
         /// 
         /// <param name="history_index">Indicates which cluster operation to
-        /// retrieve.  Use 0 for the most recent.  </param>
-        /// <param name="options">Optional parameters.  </param>
+        /// retrieve.  Use 0 for the most recent.  The default value is
+        /// 0.</param>
+        /// <param name="options">Optional parameters.  The default value is an
+        /// empty {@link Dictionary}.</param>
         /// 
         public AdminShowClusterOperationsRequest( int history_index = 0,
                                                   IDictionary<string, string> options = null)

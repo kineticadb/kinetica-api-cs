@@ -21,7 +21,8 @@ namespace kinetica
         /// <summary>Name of the table to check for existence.  </summary>
         public string table_name { get; set; }
 
-        /// <summary>Optional parameters.  </summary>
+        /// <summary>Optional parameters.  The default value is an empty {@link
+        /// Dictionary}.</summary>
         public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
 
 
@@ -34,7 +35,8 @@ namespace kinetica
         /// 
         /// <param name="table_name">Name of the table to check for existence.
         /// </param>
-        /// <param name="options">Optional parameters.  </param>
+        /// <param name="options">Optional parameters.  The default value is an
+        /// empty {@link Dictionary}.</param>
         /// 
         public HasTableRequest( string table_name,
                                 IDictionary<string, string> options = null)
