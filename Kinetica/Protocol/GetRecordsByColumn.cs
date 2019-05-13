@@ -20,8 +20,9 @@ namespace kinetica
     /// type are returned. This endpoint supports pagination with the <see
     /// cref="offset" /> and <see cref="limit" /> parameters.
     /// <br />
-    /// <a href="../../concepts/window.html" target="_top">Window functions</a>
-    /// are available through this endpoint as well as <see
+    /// <a href="../../concepts/window.html" target="_top">Window
+    /// functions</a>, which can perform operations like moving averages, are
+    /// available through this endpoint as well as <see
     /// cref="Kinetica.createProjection(string,string,IList{string},IDictionary{string, string})"
     /// />.
     /// <br />

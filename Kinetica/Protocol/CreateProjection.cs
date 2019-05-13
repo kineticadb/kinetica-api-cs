@@ -26,30 +26,13 @@ namespace kinetica
     /// href="../../concepts/projections.html#limitations-and-cautions"
     /// target="_top">Projection Limitations and Cautions</a>.
     /// <br />
-    /// <a href="../../concepts/window.html" target="_top">Window functions</a>
-    /// are available through this endpoint as well as <see
+    /// <a href="../../concepts/window.html" target="_top">Window
+    /// functions</a>, which can perform operations like moving averages, are
+    /// available through this endpoint as well as <see
     /// cref="Kinetica.getRecordsByColumn(string,IList{string},long,long,IDictionary{string, string})"
     /// />.
     /// <br />
-    /// Notes:
-    /// <br />
-    /// A moving average can be calculated on a given column using the
-    /// following syntax in the <see cref="column_names" /> parameter:
-    /// <br />
-    /// 'moving_average(column_name,num_points_before,num_points_after) as
-    /// new_column_name'
-    /// <br />
-    /// For each record in the moving_average function's 'column_name'
-    /// parameter, it computes the average over the previous
-    /// 'num_points_before' records and the subsequent 'num_points_after'
-    /// records.
-    /// <br />
-    /// Note that moving average relies on <i>order_by</i>, and <i>order_by</i>
-    /// requires that all the data being ordered resides on the same processing
-    /// node, so it won't make sense to use <i>order_by</i> without moving
-    /// average.
-    /// <br />
-    /// Also, a projection can be created with a different <a
+    /// A projection can be created with a different <a
     /// href="../../concepts/tables.html#shard-keys" target="_top">shard
     /// key</a> than the source table.  By specifying <i>shard_key</i>, the
     /// projection will be sharded according to the specified columns,

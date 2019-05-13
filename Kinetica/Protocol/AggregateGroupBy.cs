@@ -76,12 +76,13 @@ namespace kinetica
     /// target="_top">standard naming conventions</a>; column/aggregation
     /// expressions will need to be aliased.  If the source table's <a
     /// href="../../concepts/tables.html#shard-keys" target="_top">shard
-    /// key</a> is used as the grouping column(s), the result table will be
-    /// sharded, in all other cases it will be replicated.  Sorting will
-    /// properly function only if the result table is replicated or if there is
-    /// only one processing node and should not be relied upon in other cases.
-    /// Not available when any of the values of <see cref="column_names" /> is
-    /// an unrestricted-length string.</summary>
+    /// key</a> is used as the grouping column(s) and all result records are
+    /// selected (<see cref="offset" /> is 0 and <see cref="limit" /> is
+    /// -9999), the result table will be sharded, in all other cases it will be
+    /// replicated.  Sorting will properly function only if the result table is
+    /// replicated or if there is only one processing node and should not be
+    /// relied upon in other cases.  Not available when any of the values of
+    /// <see cref="column_names" /> is an unrestricted-length string.</summary>
     public class AggregateGroupByRequest : KineticaData
     {
 
@@ -349,21 +350,6 @@ namespace kinetica
         ///         <description>This option is used to specify the
         /// multidimensional aggregates.</description>
         ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AggregateGroupByRequest.Options.THROW_ERROR_ON_REFRESH">THROW_ERROR_ON_REFRESH</see>:</term>
-        ///         <description><DEVELOPER></description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AggregateGroupByRequest.Options.SLEEP_ON_REFRESH">SLEEP_ON_REFRESH</see>:</term>
-        ///         <description><DEVELOPER></description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AggregateGroupByRequest.Options.REFRESH_TYPE">REFRESH_TYPE</see>:</term>
-        ///         <description><DEVELOPER></description>
-        ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.
         /// A set of string constants for the parameter <see cref="options"
@@ -583,15 +569,6 @@ namespace kinetica
             /// <summary>This option is used to specify the multidimensional
             /// aggregates.</summary>
             public const string CUBE = "cube";
-
-            /// <summary><DEVELOPER></summary>
-            public const string THROW_ERROR_ON_REFRESH = "throw_error_on_refresh";
-
-            /// <summary><DEVELOPER></summary>
-            public const string SLEEP_ON_REFRESH = "sleep_on_refresh";
-
-            /// <summary><DEVELOPER></summary>
-            public const string REFRESH_TYPE = "refresh_type";
         } // end struct Options
 
 
@@ -867,21 +844,6 @@ namespace kinetica
         ///         <description>This option is used to specify the
         /// multidimensional aggregates.</description>
         ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AggregateGroupByRequest.Options.THROW_ERROR_ON_REFRESH">THROW_ERROR_ON_REFRESH</see>:</term>
-        ///         <description><DEVELOPER></description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AggregateGroupByRequest.Options.SLEEP_ON_REFRESH">SLEEP_ON_REFRESH</see>:</term>
-        ///         <description><DEVELOPER></description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AggregateGroupByRequest.Options.REFRESH_TYPE">REFRESH_TYPE</see>:</term>
-        ///         <description><DEVELOPER></description>
-        ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.</summary>
         public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
@@ -1137,21 +1099,6 @@ namespace kinetica
         /// cref="AggregateGroupByRequest.Options.CUBE">CUBE</see>:</term>
         ///         <description>This option is used to specify the
         /// multidimensional aggregates.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AggregateGroupByRequest.Options.THROW_ERROR_ON_REFRESH">THROW_ERROR_ON_REFRESH</see>:</term>
-        ///         <description><DEVELOPER></description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AggregateGroupByRequest.Options.SLEEP_ON_REFRESH">SLEEP_ON_REFRESH</see>:</term>
-        ///         <description><DEVELOPER></description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AggregateGroupByRequest.Options.REFRESH_TYPE">REFRESH_TYPE</see>:</term>
-        ///         <description><DEVELOPER></description>
         ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.</param>
@@ -1436,21 +1383,6 @@ namespace kinetica
         /// cref="AggregateGroupByRequest.Options.CUBE">CUBE</see>:</term>
         ///         <description>This option is used to specify the
         /// multidimensional aggregates.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AggregateGroupByRequest.Options.THROW_ERROR_ON_REFRESH">THROW_ERROR_ON_REFRESH</see>:</term>
-        ///         <description><DEVELOPER></description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AggregateGroupByRequest.Options.SLEEP_ON_REFRESH">SLEEP_ON_REFRESH</see>:</term>
-        ///         <description><DEVELOPER></description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AggregateGroupByRequest.Options.REFRESH_TYPE">REFRESH_TYPE</see>:</term>
-        ///         <description><DEVELOPER></description>
         ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.</param>

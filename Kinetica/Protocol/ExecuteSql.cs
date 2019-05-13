@@ -328,24 +328,6 @@ namespace kinetica
         /// The default value is <see
         /// cref="ExecuteSqlRequest.Options.FALSE">FALSE</see>.</description>
         ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="ExecuteSqlRequest.Options.PLANNER_JOIN_VALIDATIONS">PLANNER_JOIN_VALIDATIONS</see>:</term>
-        ///         <description><DEVELOPER>
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="ExecuteSqlRequest.Options.TRUE">TRUE</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="ExecuteSqlRequest.Options.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="ExecuteSqlRequest.Options.TRUE">TRUE</see>.</description>
-        ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.
         /// A set of string constants for the parameter <see cref="options"
@@ -605,22 +587,6 @@ namespace kinetica
             /// The default value is <see
             /// cref="ExecuteSqlRequest.Options.FALSE">FALSE</see>.</summary>
             public const string PREPARE_MODE = "prepare_mode";
-
-            /// <summary><DEVELOPER>
-            /// Supported values:
-            /// <list type="bullet">
-            ///     <item>
-            ///         <term><see
-            /// cref="ExecuteSqlRequest.Options.TRUE">TRUE</see></term>
-            ///     </item>
-            ///     <item>
-            ///         <term><see
-            /// cref="ExecuteSqlRequest.Options.FALSE">FALSE</see></term>
-            ///     </item>
-            /// </list>
-            /// The default value is <see
-            /// cref="ExecuteSqlRequest.Options.TRUE">TRUE</see>.</summary>
-            public const string PLANNER_JOIN_VALIDATIONS = "planner_join_validations";
         } // end struct Options
 
 
@@ -951,24 +917,6 @@ namespace kinetica
         /// The default value is <see
         /// cref="ExecuteSqlRequest.Options.FALSE">FALSE</see>.</description>
         ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="ExecuteSqlRequest.Options.PLANNER_JOIN_VALIDATIONS">PLANNER_JOIN_VALIDATIONS</see>:</term>
-        ///         <description><DEVELOPER>
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="ExecuteSqlRequest.Options.TRUE">TRUE</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="ExecuteSqlRequest.Options.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="ExecuteSqlRequest.Options.TRUE">TRUE</see>.</description>
-        ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.</summary>
         public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
@@ -1280,24 +1228,6 @@ namespace kinetica
         /// </list>
         /// The default value is <see
         /// cref="ExecuteSqlRequest.Options.FALSE">FALSE</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="ExecuteSqlRequest.Options.PLANNER_JOIN_VALIDATIONS">PLANNER_JOIN_VALIDATIONS</see>:</term>
-        ///         <description><DEVELOPER>
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="ExecuteSqlRequest.Options.TRUE">TRUE</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="ExecuteSqlRequest.Options.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="ExecuteSqlRequest.Options.TRUE">TRUE</see>.</description>
         ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.</param>
@@ -1636,24 +1566,6 @@ namespace kinetica
         /// </list>
         /// The default value is <see
         /// cref="ExecuteSqlRequest.Options.FALSE">FALSE</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="ExecuteSqlRequest.Options.PLANNER_JOIN_VALIDATIONS">PLANNER_JOIN_VALIDATIONS</see>:</term>
-        ///         <description><DEVELOPER>
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="ExecuteSqlRequest.Options.TRUE">TRUE</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="ExecuteSqlRequest.Options.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="ExecuteSqlRequest.Options.TRUE">TRUE</see>.</description>
         ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.</param>

@@ -637,7 +637,10 @@ namespace kinetica
             ///     <item>
             ///         <term><see
             /// cref="ShowTableResponse.AdditionalInfo.LIST">LIST</see>:</term>
-            ///         <description>Not yet supported</description>
+            ///         <description>Using LIST partitioning, which allows
+            /// specifying a list of VALUES for a partition, or optionally to
+            /// create an AUTOMATIC partition for each unique
+            /// value</description>
             ///     </item>
             ///     <item>
             ///         <term><see
@@ -659,7 +662,9 @@ namespace kinetica
             /// target="_top">interval partitioning</a></summary>
             public const string INTERVAL = "INTERVAL";
 
-            /// <summary>Not yet supported</summary>
+            /// <summary>Using LIST partitioning, which allows specifying a
+            /// list of VALUES for a partition, or optionally to create an
+            /// AUTOMATIC partition for each unique value</summary>
             public const string LIST = "LIST";
 
             /// <summary>Using no partitioning</summary>
@@ -676,9 +681,9 @@ namespace kinetica
             /// default value is ''.</summary>
             public const string PARTITION_DEFINITIONS = "partition_definitions";
 
-            /// <summary>true if partitions will be created for values which
-            /// don't fall into existing partitions.  The default value is
-            /// ''.</summary>
+            /// <summary>true if partitions will be created for LIST VALUES
+            /// which don't fall into existing partitions.  The default value
+            /// is ''.</summary>
             public const string IS_AUTOMATIC_PARTITION = "is_automatic_partition";
 
             /// <summary>Semicolon-separated list of columns that have <a
@@ -792,6 +797,11 @@ namespace kinetica
             /// <summary>user-specified chunk size, if provided at table
             /// creation time.  The default value is ''.</summary>
             public const string USER_CHUNK_SIZE = "user_chunk_size";
+
+            /// <summary>Semicolon-separated list of shard keys that were
+            /// equated in joins (applicable for join tables).  The default
+            /// value is ''.</summary>
+            public const string ALTERNATE_SHARD_KEYS = "alternate_shard_keys";
         } // end struct AdditionalInfo
 
 

@@ -184,7 +184,9 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="CreateTableRequest.Options.LIST">LIST</see>:</term>
-        ///         <description>Not yet supported</description>
+        ///         <description>Allows specifying a list of VALUES for a
+        /// partition, or optionally to create an AUTOMATIC partition for each
+        /// unique value</description>
         ///     </item>
         /// </list></description>
         ///     </item>
@@ -404,7 +406,9 @@ namespace kinetica
             ///     <item>
             ///         <term><see
             /// cref="CreateTableRequest.Options.LIST">LIST</see>:</term>
-            ///         <description>Not yet supported</description>
+            ///         <description>Allows specifying a list of VALUES for a
+            /// partition, or optionally to create an AUTOMATIC partition for
+            /// each unique value</description>
             ///     </item>
             /// </list></summary>
             public const string PARTITION_TYPE = "partition_type";
@@ -419,7 +423,9 @@ namespace kinetica
             /// target="_top">interval partitioning</a>.</summary>
             public const string INTERVAL = "INTERVAL";
 
-            /// <summary>Not yet supported</summary>
+            /// <summary>Allows specifying a list of VALUES for a partition, or
+            /// optionally to create an AUTOMATIC partition for each unique
+            /// value</summary>
             public const string LIST = "LIST";
 
             /// <summary>Comma-separated list of partition keys, which are the
@@ -646,7 +652,9 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="CreateTableRequest.Options.LIST">LIST</see>:</term>
-        ///         <description>Not yet supported</description>
+        ///         <description>Allows specifying a list of VALUES for a
+        /// partition, or optionally to create an AUTOMATIC partition for each
+        /// unique value</description>
         ///     </item>
         /// </list></description>
         ///     </item>
@@ -896,7 +904,9 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="CreateTableRequest.Options.LIST">LIST</see>:</term>
-        ///         <description>Not yet supported</description>
+        ///         <description>Allows specifying a list of VALUES for a
+        /// partition, or optionally to create an AUTOMATIC partition for each
+        /// unique value</description>
         ///     </item>
         /// </list></description>
         ///     </item>

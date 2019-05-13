@@ -239,6 +239,13 @@ namespace kinetica
         /// <i>restriction_threshold_value</i> will not be included in the
         /// solution.</description>
         ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="SolveGraphRequest.Options.UNIFORM_WEIGHTS">UNIFORM_WEIGHTS</see>:</term>
+        ///         <description>When speficied, assigns the given value to all
+        /// the edges in the graph. Note that weights specified in
+        /// @{weights_on_edges} override this value.</description>
+        ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.
         /// A set of string constants for the parameter <see cref="options"
@@ -307,6 +314,11 @@ namespace kinetica
             /// <i>restriction_threshold_value</i> will not be included in the
             /// solution.</summary>
             public const string RESTRICTION_THRESHOLD_VALUE = "restriction_threshold_value";
+
+            /// <summary>When speficied, assigns the given value to all the
+            /// edges in the graph. Note that weights specified in
+            /// @{weights_on_edges} override this value.</summary>
+            public const string UNIFORM_WEIGHTS = "uniform_weights";
         } // end struct Options
 
 
@@ -545,6 +557,13 @@ namespace kinetica
         /// <i>restriction_threshold_value</i> will not be included in the
         /// solution.</description>
         ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="SolveGraphRequest.Options.UNIFORM_WEIGHTS">UNIFORM_WEIGHTS</see>:</term>
+        ///         <description>When speficied, assigns the given value to all
+        /// the edges in the graph. Note that weights specified in
+        /// @{weights_on_edges} override this value.</description>
+        ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.</summary>
         public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
@@ -774,6 +793,13 @@ namespace kinetica
         /// or edge with a RESTRICTIONS_VALUECOMPARED value greater than the
         /// <i>restriction_threshold_value</i> will not be included in the
         /// solution.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="SolveGraphRequest.Options.UNIFORM_WEIGHTS">UNIFORM_WEIGHTS</see>:</term>
+        ///         <description>When speficied, assigns the given value to all
+        /// the edges in the graph. Note that weights specified in
+        /// @{weights_on_edges} override this value.</description>
         ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.</param>

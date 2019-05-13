@@ -16,7 +16,7 @@ namespace kinetica
     {
 
         // Kinetica Version
-        public const string API_VERSION = "7.0.2.0";
+        public const string API_VERSION = "7.0.3.0";
 
 
 
@@ -908,11 +908,14 @@ namespace kinetica
         /// target="_top">standard naming conventions</a>; column/aggregation
         /// expressions will need to be aliased.  If the source table's <a
         /// href="../../concepts/tables.html#shard-keys" target="_top">shard
-        /// key</a> is used as the grouping column(s), the result table will be
-        /// sharded, in all other cases it will be replicated.  Sorting will
-        /// properly function only if the result table is replicated or if
-        /// there is only one processing node and should not be relied upon in
-        /// other cases.  Not available when any of the values of <paramref
+        /// key</a> is used as the grouping column(s) and all result records
+        /// are selected (<paramref cref="AggregateGroupByRequest.offset" /> is
+        /// 0 and <paramref cref="AggregateGroupByRequest.limit" /> is -9999),
+        /// the result table will be sharded, in all other cases it will be
+        /// replicated.  Sorting will properly function only if the result
+        /// table is replicated or if there is only one processing node and
+        /// should not be relied upon in other cases.  Not available when any
+        /// of the values of <paramref
         /// cref="AggregateGroupByRequest.column_names" /> is an
         /// unrestricted-length string.</summary>
         /// 
@@ -999,12 +1002,14 @@ namespace kinetica
         /// naming conventions</a>; column/aggregation expressions will need to
         /// be aliased.  If the source table's <a
         /// href="../../concepts/tables.html#shard-keys" target="_top">shard
-        /// key</a> is used as the grouping column(s), the result table will be
-        /// sharded, in all other cases it will be replicated.  Sorting will
-        /// properly function only if the result table is replicated or if
-        /// there is only one processing node and should not be relied upon in
-        /// other cases.  Not available when any of the values of <paramref
-        /// name="column_names" /> is an unrestricted-length string.</summary>
+        /// key</a> is used as the grouping column(s) and all result records
+        /// are selected (<paramref name="offset" /> is 0 and <paramref
+        /// name="limit" /> is -9999), the result table will be sharded, in all
+        /// other cases it will be replicated.  Sorting will properly function
+        /// only if the result table is replicated or if there is only one
+        /// processing node and should not be relied upon in other cases.  Not
+        /// available when any of the values of <paramref name="column_names"
+        /// /> is an unrestricted-length string.</summary>
         /// 
         /// <param name="table_name">Name of the table on which the operation
         /// will be performed. Must be an existing table/view/collection.
@@ -1249,21 +1254,6 @@ namespace kinetica
         /// cref="AggregateGroupByRequest.Options.CUBE">CUBE</see>:</term>
         ///         <description>This option is used to specify the
         /// multidimensional aggregates.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AggregateGroupByRequest.Options.THROW_ERROR_ON_REFRESH">THROW_ERROR_ON_REFRESH</see>:</term>
-        ///         <description><DEVELOPER></description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AggregateGroupByRequest.Options.SLEEP_ON_REFRESH">SLEEP_ON_REFRESH</see>:</term>
-        ///         <description><DEVELOPER></description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AggregateGroupByRequest.Options.REFRESH_TYPE">REFRESH_TYPE</see>:</term>
-        ///         <description><DEVELOPER></description>
         ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.</param>
@@ -3070,9 +3060,9 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="AlterTableRequest.Action.ADD_PARTITION">ADD_PARTITION</see>:</term>
-        ///         <description>Adds a partition (for range-partitioned tables
-        /// only) specified in <paramref cref="AlterTableRequest._value" />.
-        /// See <a
+        ///         <description>Adds a partition (for range-partitioned or
+        /// list-partitioned tables) specified in <paramref
+        /// cref="AlterTableRequest._value" />.  See <a
         /// href="../../concepts/tables.html#partitioning-by-range-example"
         /// target="_top">range partitioning example</a> for example
         /// format.</description>
@@ -3082,15 +3072,15 @@ namespace kinetica
         /// cref="AlterTableRequest.Action.REMOVE_PARTITION">REMOVE_PARTITION</see>:</term>
         ///         <description>Removes the partition specified in <paramref
         /// cref="AlterTableRequest._value" /> and relocates all its data to
-        /// the default partition (for range-partitioned tables
-        /// only).</description>
+        /// the default partition (for range-partitioned or list-partition
+        /// tables).</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="AlterTableRequest.Action.DELETE_PARTITION">DELETE_PARTITION</see>:</term>
         ///         <description>Deletes the partition specified in <paramref
         /// cref="AlterTableRequest._value" /> and its data (for
-        /// range-partitioned tables only).</description>
+        /// range-partitioned or list-partitioned tables).</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -4727,30 +4717,12 @@ namespace kinetica
         /// target="_top">Projection Limitations and Cautions</a>.
         /// <br />
         /// <a href="../../concepts/window.html" target="_top">Window
-        /// functions</a> are available through this endpoint as well as <see
+        /// functions</a>, which can perform operations like moving averages,
+        /// are available through this endpoint as well as <see
         /// cref="Kinetica.getRecordsByColumn(string,IList{string},long,long,IDictionary{string, string})"
         /// />.
         /// <br />
-        /// Notes:
-        /// <br />
-        /// A moving average can be calculated on a given column using the
-        /// following syntax in the <paramref
-        /// cref="CreateProjectionRequest.column_names" /> parameter:
-        /// <br />
-        /// 'moving_average(column_name,num_points_before,num_points_after) as
-        /// new_column_name'
-        /// <br />
-        /// For each record in the moving_average function's 'column_name'
-        /// parameter, it computes the average over the previous
-        /// 'num_points_before' records and the subsequent 'num_points_after'
-        /// records.
-        /// <br />
-        /// Note that moving average relies on <i>order_by</i>, and
-        /// <i>order_by</i> requires that all the data being ordered resides on
-        /// the same processing node, so it won't make sense to use
-        /// <i>order_by</i> without moving average.
-        /// <br />
-        /// Also, a projection can be created with a different <a
+        /// A projection can be created with a different <a
         /// href="../../concepts/tables.html#shard-keys" target="_top">shard
         /// key</a> than the source table.  By specifying <i>shard_key</i>, the
         /// projection will be sharded according to the specified columns,
@@ -4783,29 +4755,12 @@ namespace kinetica
         /// target="_top">Projection Limitations and Cautions</a>.
         /// <br />
         /// <a href="../../concepts/window.html" target="_top">Window
-        /// functions</a> are available through this endpoint as well as <see
+        /// functions</a>, which can perform operations like moving averages,
+        /// are available through this endpoint as well as <see
         /// cref="Kinetica.getRecordsByColumn(string,IList{string},long,long,IDictionary{string, string})"
         /// />.
         /// <br />
-        /// Notes:
-        /// <br />
-        /// A moving average can be calculated on a given column using the
-        /// following syntax in the <paramref name="column_names" /> parameter:
-        /// <br />
-        /// 'moving_average(column_name,num_points_before,num_points_after) as
-        /// new_column_name'
-        /// <br />
-        /// For each record in the moving_average function's 'column_name'
-        /// parameter, it computes the average over the previous
-        /// 'num_points_before' records and the subsequent 'num_points_after'
-        /// records.
-        /// <br />
-        /// Note that moving average relies on <i>order_by</i>, and
-        /// <i>order_by</i> requires that all the data being ordered resides on
-        /// the same processing node, so it won't make sense to use
-        /// <i>order_by</i> without moving average.
-        /// <br />
-        /// Also, a projection can be created with a different <a
+        /// A projection can be created with a different <a
         /// href="../../concepts/tables.html#shard-keys" target="_top">shard
         /// key</a> than the source table.  By specifying <i>shard_key</i>, the
         /// projection will be sharded according to the specified columns,
@@ -5358,7 +5313,9 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="CreateTableRequest.Options.LIST">LIST</see>:</term>
-        ///         <description>Not yet supported</description>
+        ///         <description>Allows specifying a list of VALUES for a
+        /// partition, or optionally to create an AUTOMATIC partition for each
+        /// unique value</description>
         ///     </item>
         /// </list></description>
         ///     </item>
@@ -7140,24 +7097,6 @@ namespace kinetica
         /// The default value is <see
         /// cref="ExecuteSqlRequest.Options.FALSE">FALSE</see>.</description>
         ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="ExecuteSqlRequest.Options.PLANNER_JOIN_VALIDATIONS">PLANNER_JOIN_VALIDATIONS</see>:</term>
-        ///         <description><DEVELOPER>
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="ExecuteSqlRequest.Options.TRUE">TRUE</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="ExecuteSqlRequest.Options.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="ExecuteSqlRequest.Options.TRUE">TRUE</see>.</description>
-        ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.</param>
         /// 
@@ -8786,7 +8725,8 @@ namespace kinetica
         /// cref="GetRecordsByColumnRequest.limit" /> parameters.
         /// <br />
         /// <a href="../../concepts/window.html" target="_top">Window
-        /// functions</a> are available through this endpoint as well as <see
+        /// functions</a>, which can perform operations like moving averages,
+        /// are available through this endpoint as well as <see
         /// cref="Kinetica.createProjection(string,string,IList{string},IDictionary{string, string})"
         /// />.
         /// <br />
@@ -8827,7 +8767,8 @@ namespace kinetica
         /// name="limit" /> parameters.
         /// <br />
         /// <a href="../../concepts/window.html" target="_top">Window
-        /// functions</a> are available through this endpoint as well as <see
+        /// functions</a>, which can perform operations like moving averages,
+        /// are available through this endpoint as well as <see
         /// cref="Kinetica.createProjection(string,string,IList{string},IDictionary{string, string})"
         /// />.
         /// <br />
@@ -10132,8 +10073,12 @@ namespace kinetica
         }
 
 
-        /// <summary>Matches measured lon/lat points to an underlying graph
-        /// network.</summary>
+        /// <summary>Matches a directed route implied by a given set of
+        /// latitude/longitude points to an existing underlying road network
+        /// graph using a given solution type. See <a
+        /// href="../../graph_solver/network_graph_solver.html"
+        /// target="_top">Network Graph Solvers</a> for more
+        /// information.</summary>
         /// 
         /// <param name="request_">Request object containing the parameters for
         /// the operation.</param>
@@ -10149,102 +10094,154 @@ namespace kinetica
         }
 
 
-        /// <summary>Matches measured lon/lat points to an underlying graph
-        /// network.</summary>
+        /// <summary>Matches a directed route implied by a given set of
+        /// latitude/longitude points to an existing underlying road network
+        /// graph using a given solution type. See <a
+        /// href="../../graph_solver/network_graph_solver.html"
+        /// target="_top">Network Graph Solvers</a> for more
+        /// information.</summary>
         /// 
-        /// <param name="graph_name">Name of the underlying graph network.
-        /// </param>
-        /// <param name="sample_points">['Table.column AS node_identifier',
-        /// 'Table.column AS SAMPLE_TIME' ]; e.g., 't1.wkt' AS
-        /// 'SAMPLE_WKTPOINT', t1.t' AS 'SAMPLE_TIME'  </param>
-        /// <param name="solve_method">Solver used for mapmatching.
+        /// <param name="graph_name">Name of the underlying geospatial graph
+        /// resource to match to using <paramref
+        /// cref="MatchGraphRequest.sample_points" />.  </param>
+        /// <param name="sample_points">Sample points used to match to an
+        /// underlying geospatial graph. Sample points must be specified using
+        /// <a
+        /// href="../../graph_solver/network_graph_solver.html#match-identifiers"
+        /// target="_top">identifiers</a>; identifiers are grouped as <a
+        /// href="../../graph_solver/network_graph_solver.html#match-combinations"
+        /// target="_top">combinations</a>. Identifiers are used with existing
+        /// column names, e.g., 'table.column AS SAMPLE_WKTPOINT'.  </param>
+        /// <param name="solve_method">The type of solver to use for graph
+        /// matching.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
         /// cref="MatchGraphRequest.SolveMethod.MARKOV_CHAIN">MARKOV_CHAIN</see>:</term>
-        ///         <description>Hidden Markov Model (HMM) based
-        /// method.</description>
+        ///         <description>Matches <paramref
+        /// cref="MatchGraphRequest.sample_points" /> to the graph using the
+        /// Hidden Markov Model (HMM)-based method, which conducts a range-tree
+        /// closest-edge search to find the best combinations of possible road
+        /// segments (<i>num_segments</i>) for each sample point to create the
+        /// best route. The route is secured one point at a time while looking
+        /// ahead <i>chain_width</i> number of points, so the prediction is
+        /// corrected after each point. This solution type is the most accurate
+        /// but also the most computationally intensive.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="MatchGraphRequest.SolveMethod.INCREMENTAL_WEIGHTED">INCREMENTAL_WEIGHTED</see>:</term>
-        ///         <description>Uses time and/or distance to influence one or
-        /// more shortest paths along the sample points.</description>
+        ///         <description>Matches <paramref
+        /// cref="MatchGraphRequest.sample_points" /> to the graph using time
+        /// and/or distance between points to influence one or more shortest
+        /// paths across the sample points.</description>
         ///     </item>
         /// </list>
         /// The default value is <see
-        /// cref="MatchGraphRequest.SolveMethod.INCREMENTAL_WEIGHTED">INCREMENTAL_WEIGHTED</see>.
+        /// cref="MatchGraphRequest.SolveMethod.MARKOV_CHAIN">MARKOV_CHAIN</see>.
         /// </param>
-        /// <param name="solution_table">Name of the table to store the
-        /// solution. Error if table already exists.  The default value is
-        /// 'map_matching_solution'.</param>
+        /// <param name="solution_table">The name of the table used to store
+        /// the results; this table contains a <a
+        /// href="../../geospatial/geo_objects.html#geospatial-tracks"
+        /// target="_top">track</a> of geospatial points for the matched
+        /// portion of the graph, a track ID, and a score value. Also outputs a
+        /// details table containing a trip ID (that matches the track ID), the
+        /// latitude/longitude pair, the timestamp the point was recorded at,
+        /// and an edge ID corresponding to the matched road segment. Has the
+        /// same naming restrictions as <a href="../../concepts/tables.html"
+        /// target="_top">tables</a>. Must not be an existing table of the same
+        /// name.  The default value is ''.</param>
         /// <param name="options">Additional parameters
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
         /// cref="MatchGraphRequest.Options.GPS_NOISE">GPS_NOISE</see>:</term>
-        ///         <description>GPS noise value - in meters - to remove
-        /// redundant samplespoints (95th percentile). -1 to disable.  The
-        /// default value is '5.0'.</description>
+        ///         <description>GPS noise value (in meters) to remove
+        /// redundant sample points. Use -1 to disable noise reduction. The
+        /// default value accounts for 95% of point variation (+ or -5 meters).
+        /// The default value is '5.0'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="MatchGraphRequest.Options.NUM_SEGMENTS">NUM_SEGMENTS</see>:</term>
-        ///         <description>Number of potentially matching road segments
-        /// for each sample point. (Defaults to 3 for 'markov_chain' and 5 for
-        /// 'incremental_weighted').  The default value is '0'.</description>
+        ///         <description>Maximum number of potentially matching road
+        /// segments for each sample point. For the <i>markov_chain</i> solver,
+        /// the default is 3; for the <i>incremental_weighted</i>, the default
+        /// is 5.  The default value is ''.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="MatchGraphRequest.Options.SEARCH_RADIUS">SEARCH_RADIUS</see>:</term>
         ///         <description>Maximum search radius used when snapping
-        /// samples points onto potentially matching road segments. This
-        /// corresponds to approximately 100m when using geodesic coordinates.
-        /// The default value is '0.001'.</description>
+        /// sample points onto potentially matching surrounding segments. The
+        /// default value corresponds to approximately 100 meters.  The default
+        /// value is '0.001'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="MatchGraphRequest.Options.CHAIN_WIDTH">CHAIN_WIDTH</see>:</term>
-        ///         <description>Only applicable if method is 'markov_chain'.
-        /// Length of the sample points window within the Markov kernel.  The
+        ///         <description>For the <i>markov_chain</i> solver only.
+        /// Length of the sample points lookahead window within the Markov
+        /// kernel; the larger the number, the more accurate the solution.  The
         /// default value is '9'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="MatchGraphRequest.Options.MAX_SOLVE_LENGTH">MAX_SOLVE_LENGTH</see>:</term>
-        ///         <description>Only applicable if method is
-        /// 'incremental_weighted'. Maximum number of samples along the path to
-        /// solve on.  The default value is '200'.</description>
+        ///         <description>For the <i>incremental_weighted</i> solver
+        /// only. Maximum number of samples along the path on which to solve.
+        /// The default value is '200'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="MatchGraphRequest.Options.TIME_WINDOW_WIDTH">TIME_WINDOW_WIDTH</see>:</term>
-        ///         <description>Only applicable if method is
-        /// 'incremental_weighted'. Time window in which sample points are
-        /// favored (dt of 1 is the most attractive).  The default value is
-        /// '30'.</description>
+        ///         <description>For the <i>incremental_weighted</i> solver
+        /// only. Time window, also known as sampling period, in which points
+        /// are favored. To determine the raw window value, the
+        /// <i>time_window_width</i> value is multiplied by the mean sample
+        /// time (in seconds) across all points, e.g., if
+        /// <i>time_window_width</i> is 30 and the mean sample time is 2
+        /// seconds, points that are sampled greater than 60 seconds after the
+        /// previous point are no longer favored in the solution.  The default
+        /// value is '30'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="MatchGraphRequest.Options.DETECT_LOOPS">DETECT_LOOPS</see>:</term>
-        ///         <description>Only applicable if method is
-        /// 'incremental_weighted'. If true, add a break point within any loop.
-        /// The default value is 'true'.</description>
+        ///         <description>For the <i>incremental_weighted</i> solver
+        /// only. If <i>true</i>, a loop will be detected and traversed even if
+        /// it would make a shorter path to ignore the loop.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="MatchGraphRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="MatchGraphRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="MatchGraphRequest.Options.TRUE">TRUE</see>.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="MatchGraphRequest.Options.SOURCE">SOURCE</see>:</term>
-        ///         <description>Optional WKT point on the trace; otherwise the
-        /// beginning (in time) is taken as the source.  The default value is
-        /// 'POINT NULL'.</description>
+        ///         <description>Optional WKT starting point from <paramref
+        /// cref="MatchGraphRequest.sample_points" /> for the solver. The
+        /// default behavior for the endpoint is to use time to determine the
+        /// starting point.  The default value is 'POINT NULL'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="MatchGraphRequest.Options.DESTINATION">DESTINATION</see>:</term>
-        ///         <description>Optional WKT point on the trace; otherwise the
-        /// end (in time) is taken as the destination.  The default value is
-        /// 'POINT NULL'.</description>
+        ///         <description>Optional WKT ending point from <paramref
+        /// cref="MatchGraphRequest.sample_points" /> for the solver. The
+        /// default behavior for the endpoint is to use time to determine the
+        /// destination point.  The default value is 'POINT
+        /// NULL'.</description>
         ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.</param>
@@ -10254,8 +10251,8 @@ namespace kinetica
         /// 
         public MatchGraphResponse matchGraph( string graph_name,
                                               IList<string> sample_points,
-                                              string solve_method = MatchGraphRequest.SolveMethod.INCREMENTAL_WEIGHTED,
-                                              string solution_table = "map_matching_solution",
+                                              string solve_method = MatchGraphRequest.SolveMethod.MARKOV_CHAIN,
+                                              string solution_table = "",
                                               IDictionary<string, string> options = null )
         {
             return matchGraph( new MatchGraphRequest( graph_name, sample_points,
@@ -10438,17 +10435,11 @@ namespace kinetica
         /// /> and returns a list of adjacent edge(s) or node(s), also known as
         /// an adjacency list, depending on what's been provided to the
         /// endpoint; providing edges will return nodes and providing nodes
-        /// will return edges. There are two ways to provide edge(s) or node(s)
-        /// to be queried: using column names and <a
+        /// will return edges. The edge(s) or node(s) to be queried are
+        /// specified using column names and <a
         /// href="../../graph_solver/network_graph_solver.html#query-identifiers"
         /// target="_top">query identifiers</a> with the <paramref
-        /// cref="QueryGraphRequest.queries" /> with or using a list of
-        /// specific IDs with one of the <paramref
-        /// cref="QueryGraphRequest.edge_or_node_int_ids" />, <paramref
-        /// cref="QueryGraphRequest.edge_or_node_string_ids" />, and <paramref
-        /// cref="QueryGraphRequest.edge_or_node_wkt_ids" /> arrays and
-        /// <paramref cref="QueryGraphRequest.edge_to_node" /> to determine if
-        /// the IDs are edges or nodes.
+        /// cref="QueryGraphRequest.queries" />.
         /// <br />
         /// To determine the node(s) or edge(s) adjacent to a value from a
         /// given column, provide a list of column names aliased as a
@@ -10457,51 +10448,7 @@ namespace kinetica
         /// with column values from any table as long as the type is supported
         /// by the given identifier. See <a
         /// href="../../graph_solver/network_graph_solver.html#query-identifiers"
-        /// target="_top">Query Identifiers</a> for more information. I
-        /// <br />
-        /// To query for nodes that are adjacent to a given set of edges, set
-        /// <paramref cref="QueryGraphRequest.edge_to_node" /> to <i>true</i>
-        /// and provide values to the <paramref
-        /// cref="QueryGraphRequest.edge_or_node_int_ids" />, <paramref
-        /// cref="QueryGraphRequest.edge_or_node_string_ids" />, and <paramref
-        /// cref="QueryGraphRequest.edge_or_node_wkt_ids" /> arrays; it is
-        /// assumed the values in the arrays are edges and the corresponding
-        /// adjacency list array in the response will be populated with nodes.
-        /// <br />
-        /// To query for edges that are adjacent to a given set of nodes, set
-        /// <paramref cref="QueryGraphRequest.edge_to_node" /> to <i>false</i>
-        /// and provide values to the <paramref
-        /// cref="QueryGraphRequest.edge_or_node_int_ids" />, <paramref
-        /// cref="QueryGraphRequest.edge_or_node_string_ids" />, and <paramref
-        /// cref="QueryGraphRequest.edge_or_node_wkt_ids" /> arrays; it is
-        /// assumed the values in arrays are nodes and the given node(s) will
-        /// be queried for adjacent edges and the corresponding adjacency list
-        /// array in the response will be populated with edges.
-        /// <br />
-        /// To query for adjacencies relative to a given column and a given set
-        /// of edges/nodes, the <paramref cref="QueryGraphRequest.queries" />
-        /// and <paramref cref="QueryGraphRequest.edge_or_node_int_ids" /> /
-        /// <paramref cref="QueryGraphRequest.edge_or_node_string_ids" /> /
-        /// <paramref cref="QueryGraphRequest.edge_or_node_wkt_ids" />
-        /// parameters can be used in conjuction with each other. If both
-        /// <paramref cref="QueryGraphRequest.queries" /> and one of the arrays
-        /// are populated, values from <paramref
-        /// cref="QueryGraphRequest.queries" /> will be prioritized over values
-        /// in the array and all values parsed from the <paramref
-        /// cref="QueryGraphRequest.queries" /> array will be appended to the
-        /// corresponding arrays (depending on the type). If using both
-        /// <paramref cref="QueryGraphRequest.queries" /> and the edge_or_node
-        /// arrays, the types must match, e.g., if <paramref
-        /// cref="QueryGraphRequest.queries" /> utilizes the 'QUERY_NODE_ID'
-        /// identifier, only the <paramref
-        /// cref="QueryGraphRequest.edge_or_node_int_ids" /> array should be
-        /// used. Note that using <paramref cref="QueryGraphRequest.queries" />
-        /// will override <paramref cref="QueryGraphRequest.edge_to_node" />,
-        /// so if <paramref cref="QueryGraphRequest.queries" /> contains a
-        /// node-based query identifier, e.g., 'table.column AS QUERY_NODE_ID',
-        /// it is assumed that the <paramref
-        /// cref="QueryGraphRequest.edge_or_node_int_ids" /> will contain node
-        /// IDs.
+        /// target="_top">Query Identifiers</a> for more information.
         /// <br />
         /// To return the adjacency list in the response, leave <paramref
         /// cref="QueryGraphRequest.adjacency_table" /> empty. To return the
@@ -10536,15 +10483,11 @@ namespace kinetica
         /// /> and returns a list of adjacent edge(s) or node(s), also known as
         /// an adjacency list, depending on what's been provided to the
         /// endpoint; providing edges will return nodes and providing nodes
-        /// will return edges. There are two ways to provide edge(s) or node(s)
-        /// to be queried: using column names and <a
+        /// will return edges. The edge(s) or node(s) to be queried are
+        /// specified using column names and <a
         /// href="../../graph_solver/network_graph_solver.html#query-identifiers"
         /// target="_top">query identifiers</a> with the <paramref
-        /// name="queries" /> with or using a list of specific IDs with one of
-        /// the <paramref name="edge_or_node_int_ids" />, <paramref
-        /// name="edge_or_node_string_ids" />, and <paramref
-        /// name="edge_or_node_wkt_ids" /> arrays and <paramref
-        /// name="edge_to_node" /> to determine if the IDs are edges or nodes.
+        /// name="queries" />.
         /// <br />
         /// To determine the node(s) or edge(s) adjacent to a value from a
         /// given column, provide a list of column names aliased as a
@@ -10552,44 +10495,7 @@ namespace kinetica
         /// field can be populated with column values from any table as long as
         /// the type is supported by the given identifier. See <a
         /// href="../../graph_solver/network_graph_solver.html#query-identifiers"
-        /// target="_top">Query Identifiers</a> for more information. I
-        /// <br />
-        /// To query for nodes that are adjacent to a given set of edges, set
-        /// <paramref name="edge_to_node" /> to <i>true</i> and provide values
-        /// to the <paramref name="edge_or_node_int_ids" />, <paramref
-        /// name="edge_or_node_string_ids" />, and <paramref
-        /// name="edge_or_node_wkt_ids" /> arrays; it is assumed the values in
-        /// the arrays are edges and the corresponding adjacency list array in
-        /// the response will be populated with nodes.
-        /// <br />
-        /// To query for edges that are adjacent to a given set of nodes, set
-        /// <paramref name="edge_to_node" /> to <i>false</i> and provide values
-        /// to the <paramref name="edge_or_node_int_ids" />, <paramref
-        /// name="edge_or_node_string_ids" />, and <paramref
-        /// name="edge_or_node_wkt_ids" /> arrays; it is assumed the values in
-        /// arrays are nodes and the given node(s) will be queried for adjacent
-        /// edges and the corresponding adjacency list array in the response
-        /// will be populated with edges.
-        /// <br />
-        /// To query for adjacencies relative to a given column and a given set
-        /// of edges/nodes, the <paramref name="queries" /> and <paramref
-        /// name="edge_or_node_int_ids" /> / <paramref
-        /// name="edge_or_node_string_ids" /> / <paramref
-        /// name="edge_or_node_wkt_ids" /> parameters can be used in conjuction
-        /// with each other. If both <paramref name="queries" /> and one of the
-        /// arrays are populated, values from <paramref name="queries" /> will
-        /// be prioritized over values in the array and all values parsed from
-        /// the <paramref name="queries" /> array will be appended to the
-        /// corresponding arrays (depending on the type). If using both
-        /// <paramref name="queries" /> and the edge_or_node arrays, the types
-        /// must match, e.g., if <paramref name="queries" /> utilizes the
-        /// 'QUERY_NODE_ID' identifier, only the <paramref
-        /// name="edge_or_node_int_ids" /> array should be used. Note that
-        /// using <paramref name="queries" /> will override <paramref
-        /// name="edge_to_node" />, so if <paramref name="queries" /> contains
-        /// a node-based query identifier, e.g., 'table.column AS
-        /// QUERY_NODE_ID', it is assumed that the <paramref
-        /// name="edge_or_node_int_ids" /> will contain node IDs.
+        /// target="_top">Query Identifiers</a> for more information.
         /// <br />
         /// To return the adjacency list in the response, leave <paramref
         /// name="adjacency_table" /> empty. To return the adjacency list in a
@@ -10611,32 +10517,18 @@ namespace kinetica
         /// target="_top">query identifiers</a>, e.g., 'table.column AS
         /// QUERY_NODE_ID' or 'table.column AS QUERY_EDGE_WKTLINE'. Multiple
         /// columns can be used as long as the same identifier is used for all
-        /// columns. Passing in a query identifier will override the <paramref
-        /// cref="QueryGraphRequest.edge_to_node" /> parameter.  </param>
-        /// <param name="edge_to_node">If set to <i>true</i>, the given edge(s)
-        /// will be queried for adjacent nodes. If set to <i>false</i>, the
-        /// given node(s) will be queried for adjacent edges.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="QueryGraphRequest.EdgeToNode.TRUE">TRUE</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="QueryGraphRequest.EdgeToNode.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="QueryGraphRequest.EdgeToNode.TRUE">TRUE</see>.  </param>
-        /// <param name="edge_or_node_int_ids">The unique list of edge or node
-        /// integer identifiers that will be queried for adjacencies.  </param>
-        /// <param name="edge_or_node_string_ids">The unique list of edge or
-        /// node string identifiers that will be queried for adjacencies.
-        /// </param>
-        /// <param name="edge_or_node_wkt_ids">The unique list of edge or node
-        /// WKTPOINT or WKTLINE string identifiers that will be queried for
-        /// adjacencies.  </param>
+        /// columns.  </param>
+        /// <param name="restrictions">Additional restrictions to apply to the
+        /// nodes/edges of an existing graph. Restrictions must be specified
+        /// using <a
+        /// href="../../graph_solver/network_graph_solver.html#identifiers"
+        /// target="_top">identifiers</a>; identifiers are grouped as <a
+        /// href="../../graph_solver/network_graph_solver.html#id-combos"
+        /// target="_top">combinations</a>. Identifiers can be used with
+        /// existing column names, e.g., 'table.column AS
+        /// RESTRICTIONS_EDGE_ID', or expressions, e.g., 'column/2 AS
+        /// RESTRICTIONS_VALUECOMPARED'.  The default value is an empty {@link
+        /// List}.</param>
         /// <param name="adjacency_table">Name of the table to store the
         /// resulting adjacencies. If left blank, the query results are instead
         /// returned in the response even if <i>export_query_results</i> is set
@@ -10645,27 +10537,24 @@ namespace kinetica
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
-        /// cref="QueryGraphRequest.Options.NUMBER_OF_RINGS">NUMBER_OF_RINGS</see>:</term>
+        /// cref="QueryGraphRequest.Options.RINGS">RINGS</see>:</term>
         ///         <description>Sets the number of rings of edges around the
         /// node to query for adjacency, with '1' being the edges directly
-        /// attached to the queried nodes. For example, if
-        /// <i>number_of_rings</i> is set to '2', the edge(s) directly attached
-        /// to the queried nodes will be returned; in addition, the edge(s)
-        /// attached to the node(s) attached to the initial ring of edge(s)
-        /// surrounding the queried node(s) will be returned. This setting is
-        /// ignored if <paramref cref="QueryGraphRequest.edge_to_node" /> is
-        /// set to <i>true</i>. This setting cannot be less than '1'.  The
-        /// default value is '1'.</description>
+        /// attached to the queried nodes. For example, if <i>rings</i> is set
+        /// to '2', the edge(s) directly attached to the queried nodes will be
+        /// returned; in addition, the edge(s) attached to the node(s) attached
+        /// to the initial ring of edge(s) surrounding the queried node(s) will
+        /// be returned. This setting cannot be less than '1'.  The default
+        /// value is '1'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="QueryGraphRequest.Options.INCLUDE_ALL_EDGES">INCLUDE_ALL_EDGES</see>:</term>
+        /// cref="QueryGraphRequest.Options.FORCE_UNDIRECTED">FORCE_UNDIRECTED</see>:</term>
         ///         <description>This parameter is only applicable if the
-        /// queried graph is directed and <paramref
-        /// cref="QueryGraphRequest.edge_to_node" /> is set to <i>false</i>. If
-        /// set to <i>true</i>, all inbound edges and outbound edges relative
-        /// to the node will be returned. If set to <i>false</i>, only outbound
-        /// edges relative to the node will be returned.
+        /// queried graph is directed. If set to <i>true</i>, all inbound edges
+        /// and outbound edges relative to the node will be returned. If set to
+        /// <i>false</i>, only outbound edges relative to the node will be
+        /// returned.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -10679,6 +10568,49 @@ namespace kinetica
         /// </list>
         /// The default value is <see
         /// cref="QueryGraphRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="QueryGraphRequest.Options.BLOCKED_NODES">BLOCKED_NODES</see>:</term>
+        ///         <description>When false, allow a restricted node to be part
+        /// of a valid traversal but not a target. Otherwise, queries are
+        /// blocked by restricted nodes.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="QueryGraphRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="QueryGraphRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="QueryGraphRequest.Options.TRUE">TRUE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="QueryGraphRequest.Options.LIMIT">LIMIT</see>:</term>
+        ///         <description>When specified, limits the number of query
+        /// results. Note that if the <i>target_nodes_table</i> is requested
+        /// (non-empty), this will limit the size of the corresponding table.
+        /// The default value is an empty {@link Dictionary}.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="QueryGraphRequest.Options.TARGET_NODES_TABLE">TARGET_NODES_TABLE</see>:</term>
+        ///         <description>If non-empty, returns a table containing the
+        /// list of the final nodes reached during the traversal. Only valid if
+        /// blocked_nodes is false.  The default value is ''.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="QueryGraphRequest.Options.RESTRICTION_THRESHOLD_VALUE">RESTRICTION_THRESHOLD_VALUE</see>:</term>
+        ///         <description>Value-based restriction comparison. Any node
+        /// or edge with a RESTRICTIONS_VALUECOMPARED value greater than the
+        /// <i>restriction_threshold_value</i> will not be included in the
+        /// solution.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -10732,17 +10664,11 @@ namespace kinetica
         /// 
         public QueryGraphResponse queryGraph( string graph_name,
                                               IList<string> queries,
-                                              bool edge_to_node,
-                                              IList<long> edge_or_node_int_ids,
-                                              IList<string> edge_or_node_string_ids,
-                                              IList<string> edge_or_node_wkt_ids,
+                                              IList<string> restrictions = null,
                                               string adjacency_table = "",
                                               IDictionary<string, string> options = null )
         {
-            return queryGraph( new QueryGraphRequest( graph_name, queries, edge_to_node,
-                                                      edge_or_node_int_ids,
-                                                      edge_or_node_string_ids,
-                                                      edge_or_node_wkt_ids,
+            return queryGraph( new QueryGraphRequest( graph_name, queries, restrictions,
                                                       adjacency_table, options ) );
         }
 
@@ -11972,6 +11898,13 @@ namespace kinetica
         /// <i>restriction_threshold_value</i> will not be included in the
         /// solution.</description>
         ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="SolveGraphRequest.Options.UNIFORM_WEIGHTS">UNIFORM_WEIGHTS</see>:</term>
+        ///         <description>When speficied, assigns the given value to all
+        /// the edges in the graph. Note that weights specified in
+        /// @{weights_on_edges} override this value.</description>
+        ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.</param>
         /// 
@@ -12933,6 +12866,18 @@ namespace kinetica
         /// </list>
         /// The default value is <see
         /// cref="VisualizeImageChartRequest.StyleOptions.NONE">NONE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageChartRequest.StyleOptions.MIN_MAX_SCALED">MIN_MAX_SCALED</see>:</term>
+        ///         <description>If this options is set to "false", this
+        /// endpoint expects request's min/max values are not yet scaled. They
+        /// will be scaled according to scale_type_x or scale_type_y for
+        /// response. If this options is set to "true", this endpoint expects
+        /// request's min/max values are already scaled according to
+        /// scale_type_x/scale_type_y. Response's min/max values will be equal
+        /// to request's min/max values.  The default value is
+        /// 'false'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see

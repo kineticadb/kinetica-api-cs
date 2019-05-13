@@ -190,9 +190,9 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="AlterTableRequest.Action.ADD_PARTITION">ADD_PARTITION</see>:</term>
-        ///         <description>Adds a partition (for range-partitioned tables
-        /// only) specified in <paramref cref="AlterTableRequest._value" />.
-        /// See <a
+        ///         <description>Adds a partition (for range-partitioned or
+        /// list-partitioned tables) specified in <paramref
+        /// cref="AlterTableRequest._value" />.  See <a
         /// href="../../concepts/tables.html#partitioning-by-range-example"
         /// target="_top">range partitioning example</a> for example
         /// format.</description>
@@ -202,15 +202,15 @@ namespace kinetica
         /// cref="AlterTableRequest.Action.REMOVE_PARTITION">REMOVE_PARTITION</see>:</term>
         ///         <description>Removes the partition specified in <paramref
         /// cref="AlterTableRequest._value" /> and relocates all its data to
-        /// the default partition (for range-partitioned tables
-        /// only).</description>
+        /// the default partition (for range-partitioned or list-partition
+        /// tables).</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="AlterTableRequest.Action.DELETE_PARTITION">DELETE_PARTITION</see>:</term>
         ///         <description>Deletes the partition specified in <paramref
         /// cref="AlterTableRequest._value" /> and its data (for
-        /// range-partitioned tables only).</description>
+        /// range-partitioned or list-partitioned tables).</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -366,8 +366,9 @@ namespace kinetica
             /// or the complete string used to define it.</summary>
             public const string DELETE_FOREIGN_KEY = "delete_foreign_key";
 
-            /// <summary>Adds a partition (for range-partitioned tables only)
-            /// specified in <see cref="_value" />.  See <a
+            /// <summary>Adds a partition (for range-partitioned or
+            /// list-partitioned tables) specified in <see cref="_value" />.
+            /// See <a
             /// href="../../concepts/tables.html#partitioning-by-range-example"
             /// target="_top">range partitioning example</a> for example
             /// format.</summary>
@@ -375,11 +376,12 @@ namespace kinetica
 
             /// <summary>Removes the partition specified in <see cref="_value"
             /// /> and relocates all its data to the default partition (for
-            /// range-partitioned tables only).</summary>
+            /// range-partitioned or list-partition tables).</summary>
             public const string REMOVE_PARTITION = "remove_partition";
 
             /// <summary>Deletes the partition specified in <see cref="_value"
-            /// /> and its data (for range-partitioned tables only).</summary>
+            /// /> and its data (for range-partitioned or list-partitioned
+            /// tables).</summary>
             public const string DELETE_PARTITION = "delete_partition";
 
             /// <summary>Sets the global access mode (i.e. locking) for the
@@ -849,9 +851,9 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="AlterTableRequest.Action.ADD_PARTITION">ADD_PARTITION</see>:</term>
-        ///         <description>Adds a partition (for range-partitioned tables
-        /// only) specified in <paramref cref="AlterTableRequest._value" />.
-        /// See <a
+        ///         <description>Adds a partition (for range-partitioned or
+        /// list-partitioned tables) specified in <paramref
+        /// cref="AlterTableRequest._value" />.  See <a
         /// href="../../concepts/tables.html#partitioning-by-range-example"
         /// target="_top">range partitioning example</a> for example
         /// format.</description>
@@ -861,15 +863,15 @@ namespace kinetica
         /// cref="AlterTableRequest.Action.REMOVE_PARTITION">REMOVE_PARTITION</see>:</term>
         ///         <description>Removes the partition specified in <paramref
         /// cref="AlterTableRequest._value" /> and relocates all its data to
-        /// the default partition (for range-partitioned tables
-        /// only).</description>
+        /// the default partition (for range-partitioned or list-partition
+        /// tables).</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="AlterTableRequest.Action.DELETE_PARTITION">DELETE_PARTITION</see>:</term>
         ///         <description>Deletes the partition specified in <paramref
         /// cref="AlterTableRequest._value" /> and its data (for
-        /// range-partitioned tables only).</description>
+        /// range-partitioned or list-partitioned tables).</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -1240,9 +1242,9 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="AlterTableRequest.Action.ADD_PARTITION">ADD_PARTITION</see>:</term>
-        ///         <description>Adds a partition (for range-partitioned tables
-        /// only) specified in <paramref cref="AlterTableRequest._value" />.
-        /// See <a
+        ///         <description>Adds a partition (for range-partitioned or
+        /// list-partitioned tables) specified in <paramref
+        /// cref="AlterTableRequest._value" />.  See <a
         /// href="../../concepts/tables.html#partitioning-by-range-example"
         /// target="_top">range partitioning example</a> for example
         /// format.</description>
@@ -1252,15 +1254,15 @@ namespace kinetica
         /// cref="AlterTableRequest.Action.REMOVE_PARTITION">REMOVE_PARTITION</see>:</term>
         ///         <description>Removes the partition specified in <paramref
         /// cref="AlterTableRequest._value" /> and relocates all its data to
-        /// the default partition (for range-partitioned tables
-        /// only).</description>
+        /// the default partition (for range-partitioned or list-partition
+        /// tables).</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="AlterTableRequest.Action.DELETE_PARTITION">DELETE_PARTITION</see>:</term>
         ///         <description>Deletes the partition specified in <paramref
         /// cref="AlterTableRequest._value" /> and its data (for
-        /// range-partitioned tables only).</description>
+        /// range-partitioned or list-partitioned tables).</description>
         ///     </item>
         ///     <item>
         ///         <term><see

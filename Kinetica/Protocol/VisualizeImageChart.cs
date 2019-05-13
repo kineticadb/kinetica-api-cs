@@ -176,6 +176,18 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
+        /// cref="VisualizeImageChartRequest.StyleOptions.MIN_MAX_SCALED">MIN_MAX_SCALED</see>:</term>
+        ///         <description>If this options is set to "false", this
+        /// endpoint expects request's min/max values are not yet scaled. They
+        /// will be scaled according to scale_type_x or scale_type_y for
+        /// response. If this options is set to "true", this endpoint expects
+        /// request's min/max values are already scaled according to
+        /// scale_type_x/scale_type_y. Response's min/max values will be equal
+        /// to request's min/max values.  The default value is
+        /// 'false'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="VisualizeImageChartRequest.StyleOptions.JITTER_X">JITTER_X</see>:</term>
         ///         <description>Amplitude of horizontal jitter applied to
         /// non-numeric x column values.  The default value is
@@ -341,6 +353,16 @@ namespace kinetica
             /// The default value is <see
             /// cref="VisualizeImageChartRequest.StyleOptions.NONE">NONE</see>.</summary>
             public const string SCALE_TYPE_Y = "scale_type_y";
+
+            /// <summary>If this options is set to "false", this endpoint
+            /// expects request's min/max values are not yet scaled. They will
+            /// be scaled according to scale_type_x or scale_type_y for
+            /// response. If this options is set to "true", this endpoint
+            /// expects request's min/max values are already scaled according
+            /// to scale_type_x/scale_type_y. Response's min/max values will be
+            /// equal to request's min/max values.  The default value is
+            /// 'false'.</summary>
+            public const string MIN_MAX_SCALED = "min_max_scaled";
 
             /// <summary>Amplitude of horizontal jitter applied to non-numeric
             /// x column values.  The default value is '0.0'.</summary>
@@ -547,6 +569,18 @@ namespace kinetica
         /// </list>
         /// The default value is <see
         /// cref="VisualizeImageChartRequest.StyleOptions.NONE">NONE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageChartRequest.StyleOptions.MIN_MAX_SCALED">MIN_MAX_SCALED</see>:</term>
+        ///         <description>If this options is set to "false", this
+        /// endpoint expects request's min/max values are not yet scaled. They
+        /// will be scaled according to scale_type_x or scale_type_y for
+        /// response. If this options is set to "true", this endpoint expects
+        /// request's min/max values are already scaled according to
+        /// scale_type_x/scale_type_y. Response's min/max values will be equal
+        /// to request's min/max values.  The default value is
+        /// 'false'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -758,6 +792,18 @@ namespace kinetica
         /// </list>
         /// The default value is <see
         /// cref="VisualizeImageChartRequest.StyleOptions.NONE">NONE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageChartRequest.StyleOptions.MIN_MAX_SCALED">MIN_MAX_SCALED</see>:</term>
+        ///         <description>If this options is set to "false", this
+        /// endpoint expects request's min/max values are not yet scaled. They
+        /// will be scaled according to scale_type_x or scale_type_y for
+        /// response. If this options is set to "true", this endpoint expects
+        /// request's min/max values are already scaled according to
+        /// scale_type_x/scale_type_y. Response's min/max values will be equal
+        /// to request's min/max values.  The default value is
+        /// 'false'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
