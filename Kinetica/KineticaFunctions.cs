@@ -2692,12 +2692,12 @@ namespace kinetica
         ///         <term><see
         /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.COMMUNICATOR_TEST">COMMUNICATOR_TEST</see>:</term>
         ///         <description>Invoke the communicator test and report timing
-        /// results. Value string is is a comma separated list of <key>=<value>
-        /// expressions.  Expressions are: num_transactions=<num> where num is
-        /// the number of request reply transactions to invoke per test;
-        /// message_size=<bytes> where bytes is the size of the messages to
-        /// send in bytes; check_values=<enabled> where if enabled is true the
-        /// value of the messages received are verified.</description>
+        /// results. Value string is is a semicolon separated list of
+        /// <key>=<value> expressions.  Expressions are: num_transactions=<num>
+        /// where num is the number of request reply transactions to invoke per
+        /// test; message_size=<bytes> where bytes is the size of the messages
+        /// to send in bytes; check_values=<enabled> where if enabled is true
+        /// the value of the messages received are verified.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -2833,8 +2833,11 @@ namespace kinetica
         /// target="_top">foreign key</a>
         /// on a particular column.
         /// <br />
-        /// Manage a <a href="../../concepts/tables.html#partitioning"
-        /// target="_top">range-partitioned</a>
+        /// Manage a
+        /// <a href="../../concepts/tables.html#partitioning-by-range"
+        /// target="_top">range-partitioned</a> or a
+        /// <a href="../../concepts/tables.html#partitioning-by-list-manual"
+        /// target="_top">manual list-partitioned</a>
         /// table's partitions.
         /// <br />
         /// Set (or reset) the <a href="../../rm/concepts.html#tier-strategies"
@@ -2904,8 +2907,11 @@ namespace kinetica
         /// target="_top">foreign key</a>
         /// on a particular column.
         /// <br />
-        /// Manage a <a href="../../concepts/tables.html#partitioning"
-        /// target="_top">range-partitioned</a>
+        /// Manage a
+        /// <a href="../../concepts/tables.html#partitioning-by-range"
+        /// target="_top">range-partitioned</a> or a
+        /// <a href="../../concepts/tables.html#partitioning-by-list-manual"
+        /// target="_top">manual list-partitioned</a>
         /// table's partitions.
         /// <br />
         /// Set (or reset) the <a href="../../rm/concepts.html#tier-strategies"
@@ -2970,8 +2976,11 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="AlterTableRequest.Action.MOVE_TO_COLLECTION">MOVE_TO_COLLECTION</see>:</term>
-        ///         <description>Moves a table into a collection <paramref
-        /// cref="AlterTableRequest._value" />. </description>
+        ///         <description>Moves a table or view into a collection named
+        /// <paramref cref="AlterTableRequest._value" />.  If the collection
+        /// provided is non-existent, the collection will be automatically
+        /// created. If <paramref cref="AlterTableRequest._value" /> is empty,
+        /// then the table or view will be top-level.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -3060,27 +3069,33 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="AlterTableRequest.Action.ADD_PARTITION">ADD_PARTITION</see>:</term>
-        ///         <description>Adds a partition (for range-partitioned or
-        /// list-partitioned tables) specified in <paramref
-        /// cref="AlterTableRequest._value" />.  See <a
-        /// href="../../concepts/tables.html#partitioning-by-range-example"
-        /// target="_top">range partitioning example</a> for example
-        /// format.</description>
+        ///         <description>Adds the partition specified in <paramref
+        /// cref="AlterTableRequest._value" />, to either a <a
+        /// href="../../concepts/tables.html#partitioning-by-range"
+        /// target="_top">range-partitioned</a> or <a
+        /// href="../../concepts/tables.html#partitioning-by-list-manual"
+        /// target="_top">manual list-partitioned</a> table.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="AlterTableRequest.Action.REMOVE_PARTITION">REMOVE_PARTITION</see>:</term>
         ///         <description>Removes the partition specified in <paramref
-        /// cref="AlterTableRequest._value" /> and relocates all its data to
-        /// the default partition (for range-partitioned or list-partition
-        /// tables).</description>
+        /// cref="AlterTableRequest._value" /> (and relocates all of its data
+        /// to the default partition) from either a <a
+        /// href="../../concepts/tables.html#partitioning-by-range"
+        /// target="_top">range-partitioned</a> or <a
+        /// href="../../concepts/tables.html#partitioning-by-list-manual"
+        /// target="_top">manual list-partitioned</a> table.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="AlterTableRequest.Action.DELETE_PARTITION">DELETE_PARTITION</see>:</term>
         ///         <description>Deletes the partition specified in <paramref
-        /// cref="AlterTableRequest._value" /> and its data (for
-        /// range-partitioned or list-partitioned tables).</description>
+        /// cref="AlterTableRequest._value" /> (and all of its data) from
+        /// either a <a href="../../concepts/tables.html#partitioning-by-range"
+        /// target="_top">range-partitioned</a> or <a
+        /// href="../../concepts/tables.html#partitioning-by-list-manual"
+        /// target="_top">manual list-partitioned</a> table.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -4016,9 +4031,11 @@ namespace kinetica
         /// target="_top">identifiers</a>; identifiers are grouped as <a
         /// href="../../graph_solver/network_graph_solver.html#id-combos"
         /// target="_top">combinations</a>. Identifiers can be used with
-        /// existing column names, e.g., 'table.column AS NODE_ID', or
+        /// existing column names, e.g., 'table.column AS NODE_ID',
         /// expressions, e.g., 'ST_MAKEPOINT(column1, column2) AS
-        /// NODE_WKTPOINT'.  </param>
+        /// NODE_WKTPOINT', or raw values, e.g., '{9, 10, 11} AS NODE_ID'. If
+        /// using raw values in an identifier combination, the number of values
+        /// specified must match across the combination.  </param>
         /// <param name="edges">Edges represent the required fundamental
         /// topological unit of a graph that typically connect nodes. Edges
         /// must be specified using <a
@@ -4026,9 +4043,11 @@ namespace kinetica
         /// target="_top">identifiers</a>; identifiers are grouped as <a
         /// href="../../graph_solver/network_graph_solver.html#id-combos"
         /// target="_top">combinations</a>. Identifiers can be used with
-        /// existing column names, e.g., 'table.column AS EDGE_ID', or
-        /// expressions, e.g., 'SUBSTR(column, 1, 6) AS EDGE_NODE1_NAME'.
-        /// </param>
+        /// existing column names, e.g., 'table.column AS EDGE_ID',
+        /// expressions, e.g., 'SUBSTR(column, 1, 6) AS EDGE_NODE1_NAME', or
+        /// raw values, e.g., "{'family', 'coworker'} AS EDGE_LABEL". If using
+        /// raw values in an identifier combination, the number of values
+        /// specified must match across the combination.  </param>
         /// <param name="weights">Weights represent a method of informing the
         /// graph solver of the cost of including a given edge in a solution.
         /// Weights must be specified using <a
@@ -4036,9 +4055,11 @@ namespace kinetica
         /// target="_top">identifiers</a>; identifiers are grouped as <a
         /// href="../../graph_solver/network_graph_solver.html#id-combos"
         /// target="_top">combinations</a>. Identifiers can be used with
-        /// existing column names, e.g., 'table.column AS WEIGHTS_EDGE_ID', or
-        /// expressions, e.g., 'ST_LENGTH(wkt) AS WEIGHTS_VALUESPECIFIED'.
-        /// </param>
+        /// existing column names, e.g., 'table.column AS WEIGHTS_EDGE_ID',
+        /// expressions, e.g., 'ST_LENGTH(wkt) AS WEIGHTS_VALUESPECIFIED', or
+        /// raw values, e.g., '{4, 15} AS WEIGHTS_VALUESPECIFIED'. If using raw
+        /// values in an identifier combination, the number of values specified
+        /// must match across the combination.  </param>
         /// <param name="restrictions">Restrictions represent a method of
         /// informing the graph solver which edges and/or nodes should be
         /// ignored for the solution. Restrictions must be specified using <a
@@ -4047,8 +4068,11 @@ namespace kinetica
         /// href="../../graph_solver/network_graph_solver.html#id-combos"
         /// target="_top">combinations</a>. Identifiers can be used with
         /// existing column names, e.g., 'table.column AS
-        /// RESTRICTIONS_EDGE_ID', or expressions, e.g., 'column/2 AS
-        /// RESTRICTIONS_VALUECOMPARED'.  </param>
+        /// RESTRICTIONS_EDGE_ID', expressions, e.g., 'column/2 AS
+        /// RESTRICTIONS_VALUECOMPARED', or raw values, e.g., '{0, 0, 0, 1} AS
+        /// RESTRICTIONS_ONOFFCOMPARED'. If using raw values in an identifier
+        /// combination, the number of values specified must match across the
+        /// combination.  </param>
         /// <param name="options">Optional parameters.
         /// <list type="bullet">
         ///     <item>
@@ -4923,7 +4947,7 @@ namespace kinetica
         ///     </item>
         /// </list>
         /// The default value is <see
-        /// cref="CreateProjectionRequest.Options.FALSE">FALSE</see>.</description>
+        /// cref="CreateProjectionRequest.Options.TRUE">TRUE</see>.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -5313,9 +5337,9 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="CreateTableRequest.Options.LIST">LIST</see>:</term>
-        ///         <description>Allows specifying a list of VALUES for a
-        /// partition, or optionally to create an AUTOMATIC partition for each
-        /// unique value</description>
+        ///         <description>Use <a
+        /// href="../../concepts/tables.html#partitioning-by-list"
+        /// target="_top">list partitioning</a>.</description>
         ///     </item>
         /// </list></description>
         ///     </item>
@@ -5332,10 +5356,12 @@ namespace kinetica
         /// cref="CreateTableRequest.Options.PARTITION_DEFINITIONS">PARTITION_DEFINITIONS</see>:</term>
         ///         <description>Comma-separated list of partition definitions,
         /// whose format depends on the choice of <i>partition_type</i>.  See
-        /// <a href="../../concepts/tables.html#partitioning-by-range-example"
-        /// target="_top">range partitioning example</a> or <a
-        /// href="../../concepts/tables.html#partitioning-by-interval-example"
-        /// target="_top">interval partitioning example</a> for example
+        /// <a href="../../concepts/tables.html#partitioning-by-range"
+        /// target="_top">range partitioning</a>, <a
+        /// href="../../concepts/tables.html#partitioning-by-interval"
+        /// target="_top">interval partitioning</a>, or <a
+        /// href="../../concepts/tables.html#partitioning-by-list"
+        /// target="_top">list partitioning</a> for example
         /// formats.</description>
         ///     </item>
         ///     <item>
@@ -5343,7 +5369,9 @@ namespace kinetica
         /// cref="CreateTableRequest.Options.IS_AUTOMATIC_PARTITION">IS_AUTOMATIC_PARTITION</see>:</term>
         ///         <description>If true, a new partition will be created for
         /// values which don't fall into an existing partition.  Currently only
-        /// supported for LIST partitions
+        /// supported for <a
+        /// href="../../concepts/tables.html#partitioning-by-list"
+        /// target="_top">list partitions</a>.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -9836,7 +9864,7 @@ namespace kinetica
         /// optional parameter (e.g. color). To have a symbol used for
         /// rendering create a table with a string column named 'SYMBOLCODE'
         /// (along with 'x' or 'y' for example). Then when the table is
-        /// rendered (via <a href="../rest/wms_rest.html"
+        /// rendered (via <a href="../../api/rest/wms_rest.html"
         /// target="_top">WMS</a>) if the 'dosymbology' parameter is 'true'
         /// then the value of the 'SYMBOLCODE' column is used to pick the
         /// symbol displayed for each point.</summary>
@@ -9862,7 +9890,7 @@ namespace kinetica
         /// optional parameter (e.g. color). To have a symbol used for
         /// rendering create a table with a string column named 'SYMBOLCODE'
         /// (along with 'x' or 'y' for example). Then when the table is
-        /// rendered (via <a href="../rest/wms_rest.html"
+        /// rendered (via <a href="../../api/rest/wms_rest.html"
         /// target="_top">WMS</a>) if the 'dosymbology' parameter is 'true'
         /// then the value of the 'SYMBOLCODE' column is used to pick the
         /// symbol displayed for each point.</summary>
@@ -10110,8 +10138,11 @@ namespace kinetica
         /// href="../../graph_solver/network_graph_solver.html#match-identifiers"
         /// target="_top">identifiers</a>; identifiers are grouped as <a
         /// href="../../graph_solver/network_graph_solver.html#match-combinations"
-        /// target="_top">combinations</a>. Identifiers are used with existing
-        /// column names, e.g., 'table.column AS SAMPLE_WKTPOINT'.  </param>
+        /// target="_top">combinations</a>. Identifiers can be used with:
+        /// existing column names, e.g., 'table.column AS SAMPLE_X';
+        /// expressions, e.g., 'ST_MAKEPOINT(table.x, table.y) AS
+        /// SAMPLE_WKTPOINT'; or raw values, e.g., '{1, 2, 10} AS
+        /// SAMPLE_TRIPID'.  </param>
         /// <param name="solve_method">The type of solver to use for graph
         /// matching.
         /// Supported values:
@@ -10435,15 +10466,10 @@ namespace kinetica
         /// /> and returns a list of adjacent edge(s) or node(s), also known as
         /// an adjacency list, depending on what's been provided to the
         /// endpoint; providing edges will return nodes and providing nodes
-        /// will return edges. The edge(s) or node(s) to be queried are
-        /// specified using column names and <a
-        /// href="../../graph_solver/network_graph_solver.html#query-identifiers"
-        /// target="_top">query identifiers</a> with the <paramref
-        /// cref="QueryGraphRequest.queries" />.
+        /// will return edges.
         /// <br />
         /// To determine the node(s) or edge(s) adjacent to a value from a
-        /// given column, provide a list of column names aliased as a
-        /// particular query identifier to <paramref
+        /// given column, provide a list of values to <paramref
         /// cref="QueryGraphRequest.queries" />. This field can be populated
         /// with column values from any table as long as the type is supported
         /// by the given identifier. See <a
@@ -10483,17 +10509,12 @@ namespace kinetica
         /// /> and returns a list of adjacent edge(s) or node(s), also known as
         /// an adjacency list, depending on what's been provided to the
         /// endpoint; providing edges will return nodes and providing nodes
-        /// will return edges. The edge(s) or node(s) to be queried are
-        /// specified using column names and <a
-        /// href="../../graph_solver/network_graph_solver.html#query-identifiers"
-        /// target="_top">query identifiers</a> with the <paramref
-        /// name="queries" />.
+        /// will return edges.
         /// <br />
         /// To determine the node(s) or edge(s) adjacent to a value from a
-        /// given column, provide a list of column names aliased as a
-        /// particular query identifier to <paramref name="queries" />. This
-        /// field can be populated with column values from any table as long as
-        /// the type is supported by the given identifier. See <a
+        /// given column, provide a list of values to <paramref name="queries"
+        /// />. This field can be populated with column values from any table
+        /// as long as the type is supported by the given identifier. See <a
         /// href="../../graph_solver/network_graph_solver.html#query-identifiers"
         /// target="_top">Query Identifiers</a> for more information.
         /// <br />
@@ -10514,10 +10535,14 @@ namespace kinetica
         /// <param name="queries">Nodes or edges to be queried specified using
         /// <a
         /// href="../../graph_solver/network_graph_solver.html#query-identifiers"
-        /// target="_top">query identifiers</a>, e.g., 'table.column AS
-        /// QUERY_NODE_ID' or 'table.column AS QUERY_EDGE_WKTLINE'. Multiple
-        /// columns can be used as long as the same identifier is used for all
-        /// columns.  </param>
+        /// target="_top">query identifiers</a>. Identifiers can be used with
+        /// existing column names, e.g., 'table.column AS QUERY_NODE_ID', raw
+        /// values, e.g., '{0, 2} AS QUERY_NODE_ID', or expressions, e.g.,
+        /// 'ST_MAKEPOINT(table.x, table.y) AS QUERY_NODE_WKTPOINT'. Multiple
+        /// values can be provided as long as the same identifier is used for
+        /// all values. If using raw values in an identifier combination, the
+        /// number of values specified must match across the combination.
+        /// </param>
         /// <param name="restrictions">Additional restrictions to apply to the
         /// nodes/edges of an existing graph. Restrictions must be specified
         /// using <a
@@ -10526,35 +10551,47 @@ namespace kinetica
         /// href="../../graph_solver/network_graph_solver.html#id-combos"
         /// target="_top">combinations</a>. Identifiers can be used with
         /// existing column names, e.g., 'table.column AS
-        /// RESTRICTIONS_EDGE_ID', or expressions, e.g., 'column/2 AS
-        /// RESTRICTIONS_VALUECOMPARED'.  The default value is an empty {@link
-        /// List}.</param>
+        /// RESTRICTIONS_EDGE_ID', expressions, e.g., 'column/2 AS
+        /// RESTRICTIONS_VALUECOMPARED', or raw values, e.g., '{0, 0, 0, 1} AS
+        /// RESTRICTIONS_ONOFFCOMPARED'. If using raw values in an identifier
+        /// combination, the number of values specified must match across the
+        /// combination.  The default value is an empty {@link List}.</param>
         /// <param name="adjacency_table">Name of the table to store the
         /// resulting adjacencies. If left blank, the query results are instead
         /// returned in the response even if <i>export_query_results</i> is set
-        /// to <i>false</i>.  The default value is ''.</param>
+        /// to <i>false</i>. If the 'QUERY_TARGET_NODE_LABEL' <a
+        /// href="../../graph_solver/network_graph_solver.html#query-identifiers"
+        /// target="_top">query identifier</a> is used in <paramref
+        /// cref="QueryGraphRequest.queries" />, then two additional columns
+        /// will be available: 'PATH_ID' and 'RING_ID'. See
+        ///             <a
+        /// href="../../graph_solver/network_graph_solver.html#using-labels"
+        /// target="_top">Using Labels</a> for more information.  The default
+        /// value is ''.</param>
         /// <param name="options">Additional parameters
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
         /// cref="QueryGraphRequest.Options.RINGS">RINGS</see>:</term>
-        ///         <description>Sets the number of rings of edges around the
-        /// node to query for adjacency, with '1' being the edges directly
-        /// attached to the queried nodes. For example, if <i>rings</i> is set
-        /// to '2', the edge(s) directly attached to the queried nodes will be
-        /// returned; in addition, the edge(s) attached to the node(s) attached
-        /// to the initial ring of edge(s) surrounding the queried node(s) will
-        /// be returned. This setting cannot be less than '1'.  The default
-        /// value is '1'.</description>
+        ///         <description>Only applicable when querying nodes. Sets the
+        /// number of rings around the node to query for adjacency, with '1'
+        /// being the edges directly attached to the queried node. Also known
+        /// as number of hops. For example, if <i>rings</i> is set to '2', the
+        /// edge(s) directly attached to the queried node(s) will be returned;
+        /// in addition, the edge(s) attached to the node(s) attached to the
+        /// initial ring of edge(s) surrounding the queried node(s) will be
+        /// returned. This setting cannot be less than '1'.  The default value
+        /// is '1'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="QueryGraphRequest.Options.FORCE_UNDIRECTED">FORCE_UNDIRECTED</see>:</term>
         ///         <description>This parameter is only applicable if the
-        /// queried graph is directed. If set to <i>true</i>, all inbound edges
-        /// and outbound edges relative to the node will be returned. If set to
-        /// <i>false</i>, only outbound edges relative to the node will be
-        /// returned.
+        /// queried graph <paramref cref="QueryGraphRequest.graph_name" /> is
+        /// directed and when querying nodes. If set to <i>true</i>, all
+        /// inbound edges and outbound edges relative to the node will be
+        /// returned. If set to <i>false</i>, only outbound edges relative to
+        /// the node will be returned.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -10571,38 +10608,23 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="QueryGraphRequest.Options.BLOCKED_NODES">BLOCKED_NODES</see>:</term>
-        ///         <description>When false, allow a restricted node to be part
-        /// of a valid traversal but not a target. Otherwise, queries are
-        /// blocked by restricted nodes.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="QueryGraphRequest.Options.TRUE">TRUE</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="QueryGraphRequest.Options.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="QueryGraphRequest.Options.TRUE">TRUE</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
         /// cref="QueryGraphRequest.Options.LIMIT">LIMIT</see>:</term>
         ///         <description>When specified, limits the number of query
-        /// results. Note that if the <i>target_nodes_table</i> is requested
-        /// (non-empty), this will limit the size of the corresponding table.
-        /// The default value is an empty {@link Dictionary}.</description>
+        /// results. Note that if the <i>target_nodes_table</i> is provided,
+        /// the size of the corresponding table will be limited by the
+        /// <i>limit</i> value.  The default value is an empty {@link
+        /// Dictionary}.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="QueryGraphRequest.Options.TARGET_NODES_TABLE">TARGET_NODES_TABLE</see>:</term>
-        ///         <description>If non-empty, returns a table containing the
-        /// list of the final nodes reached during the traversal. Only valid if
-        /// blocked_nodes is false.  The default value is ''.</description>
+        ///         <description>Name of the table to store the list of the
+        /// final nodes reached during the traversal. If the
+        /// 'QUERY_TARGET_NODE_LABEL' <a
+        /// href="../../graph_solver/network_graph_solver.html#query-identifiers"
+        /// target="_top">query identifier</a> is NOT used in <paramref
+        /// cref="QueryGraphRequest.queries" />, the table will not be created.
+        /// The default value is ''.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -10615,8 +10637,13 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="QueryGraphRequest.Options.EXPORT_QUERY_RESULTS">EXPORT_QUERY_RESULTS</see>:</term>
-        ///         <description>Returns query results in the response if set
-        /// to <i>true</i>.
+        ///         <description>Returns query results in the response. If set
+        /// to <i>true</i>, the <member name="adjacency_list_int_array" /> (if
+        /// the query was based on IDs), @{adjacency_list_string_array} (if the
+        /// query was based on names), or @{output_adjacency_list_wkt_array}
+        /// (if the query was based on WKTs) will be populated with the
+        /// results. If set to <i>false</i>, none of the arrays will be
+        /// populated.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -10629,7 +10656,7 @@ namespace kinetica
         ///     </item>
         /// </list>
         /// The default value is <see
-        /// cref="QueryGraphRequest.Options.TRUE">TRUE</see>.</description>
+        /// cref="QueryGraphRequest.Options.FALSE">FALSE</see>.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -11688,12 +11715,15 @@ namespace kinetica
         /// target="_top">identifiers</a>; identifiers are grouped as <a
         /// href="../../graph_solver/network_graph_solver.html#id-combos"
         /// target="_top">combinations</a>. Identifiers can be used with
-        /// existing column names, e.g., 'table.column AS WEIGHTS_EDGE_ID', or
-        /// expressions, e.g., 'ST_LENGTH(wkt) AS WEIGHTS_VALUESPECIFIED'. Any
+        /// existing column names, e.g., 'table.column AS WEIGHTS_EDGE_ID',
+        /// expressions, e.g., 'ST_LENGTH(wkt) AS WEIGHTS_VALUESPECIFIED', or
+        /// raw values, e.g., '{4, 15, 2} AS WEIGHTS_VALUESPECIFIED'. Any
         /// provided weights will be added (in the case of
         /// 'WEIGHTS_VALUESPECIFIED') to or multiplied with (in the case of
-        /// 'WEIGHTS_FACTORSPECIFIED') the existing weight(s).  The default
-        /// value is an empty {@link List}.</param>
+        /// 'WEIGHTS_FACTORSPECIFIED') the existing weight(s). If using raw
+        /// values in an identifier combination, the number of values specified
+        /// must match across the combination.  The default value is an empty
+        /// {@link List}.</param>
         /// <param name="restrictions">Additional restrictions to apply to the
         /// nodes/edges of an existing graph. Restrictions must be specified
         /// using <a
@@ -11702,13 +11732,16 @@ namespace kinetica
         /// href="../../graph_solver/network_graph_solver.html#id-combos"
         /// target="_top">combinations</a>. Identifiers can be used with
         /// existing column names, e.g., 'table.column AS
-        /// RESTRICTIONS_EDGE_ID', or expressions, e.g., 'column/2 AS
-        /// RESTRICTIONS_VALUECOMPARED'. If <i>remove_previous_restrictions</i>
-        /// is set to <i>true</i>, any provided restrictions will replace the
-        /// existing restrictions. If <i>remove_previous_restrictions</i> is
-        /// set to <i>false</i>, any provided weights will be added (in the
-        /// case of 'RESTRICTIONS_VALUECOMPARED') to or replaced (in the case
-        /// of 'RESTRICTIONS_ONOFFCOMPARED').  The default value is an empty
+        /// RESTRICTIONS_EDGE_ID', expressions, e.g., 'column/2 AS
+        /// RESTRICTIONS_VALUECOMPARED', or raw values, e.g., '{0, 0, 0, 1} AS
+        /// RESTRICTIONS_ONOFFCOMPARED'. If using raw values in an identifier
+        /// combination, the number of values specified must match across the
+        /// combination. If <i>remove_previous_restrictions</i> is set to
+        /// <i>true</i>, any provided restrictions will replace the existing
+        /// restrictions. If <i>remove_previous_restrictions</i> is set to
+        /// <i>false</i>, any provided weights will be added (in the case of
+        /// 'RESTRICTIONS_VALUECOMPARED') to or replaced (in the case of
+        /// 'RESTRICTIONS_ONOFFCOMPARED').  The default value is an empty
         /// {@link List}.</param>
         /// <param name="solver_type">The type of solver to use for the graph.
         /// Supported values:
@@ -11724,8 +11757,15 @@ namespace kinetica
         ///         <term><see
         /// cref="SolveGraphRequest.SolverType.PAGE_RANK">PAGE_RANK</see>:</term>
         ///         <description>Solves for the probability of each destination
-        /// node being visited based on the links of the graph
-        /// topology.</description>
+        /// node being visited based on the links of the graph topology.
+        /// Weights are not required to use this solver.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="SolveGraphRequest.SolverType.PROBABILITY_RANK">PROBABILITY_RANK</see>:</term>
+        ///         <description>Solves for the transitional probability
+        /// (Hidden Markov) for each node based on the weights (probability
+        /// assigned over given edges).</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -11841,6 +11881,18 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
+        /// cref="SolveGraphRequest.Options.MIN_SOLUTION_RADIUS">MIN_SOLUTION_RADIUS</see>:</term>
+        ///         <description>For <i>SHORTEST_PATH</i> and
+        /// <i>INVERSE_SHORTEST_PATH</i> solvers only. Applicable only when
+        /// <i>max_solution_radius</i> is set. Sets the minimum solution cost
+        /// radius, which ignores the <paramref
+        /// cref="SolveGraphRequest.destination_node_ids" /> list and instead
+        /// outputs the nodes within the radius sorted by ascending cost. If
+        /// set to '0.0', the setting is ignored.  The default value is
+        /// '0.0'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="SolveGraphRequest.Options.MAX_SOLUTION_TARGETS">MAX_SOLUTION_TARGETS</see>:</term>
         ///         <description>For <i>SHORTEST_PATH</i> and
         /// <i>INVERSE_SHORTEST_PATH</i> solvers only. Sets the maximum number
@@ -11901,9 +11953,10 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="SolveGraphRequest.Options.UNIFORM_WEIGHTS">UNIFORM_WEIGHTS</see>:</term>
-        ///         <description>When speficied, assigns the given value to all
-        /// the edges in the graph. Note that weights specified in
-        /// @{weights_on_edges} override this value.</description>
+        ///         <description>When specified, assigns the given value to all
+        /// the edges in the graph. Note that weights provided in <paramref
+        /// cref="SolveGraphRequest.weights_on_edges" /> will override this
+        /// value.</description>
         ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.</param>
@@ -13902,7 +13955,7 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="VisualizeImageContourRequest.Options.LABELS_FONT_FAMILY">LABELS_FONT_FAMILY</see>:</term>
-        ///         <description>  The default value is 'arial'.</description>
+        ///         <description>  The default value is 'sans'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -13923,6 +13976,21 @@ namespace kinetica
         ///         <term><see
         /// cref="VisualizeImageContourRequest.Options.LABELS_MAX_ANGLE">LABELS_MAX_ANGLE</see>:</term>
         ///         <description>  The default value is '60'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.Options.ISOCHRONE_CONCAVITY">ISOCHRONE_CONCAVITY</see>:</term>
+        ///         <description>  The default value is '-1'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.Options.ISOCHRONE_OUTPUT_TABLE">ISOCHRONE_OUTPUT_TABLE</see>:</term>
+        ///         <description>  The default value is ''.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.Options.ISOCHRONE_IMAGE">ISOCHRONE_IMAGE</see>:</term>
+        ///         <description>  The default value is 'false'.</description>
         ///     </item>
         /// </list>
         /// </param>
@@ -14535,6 +14603,596 @@ namespace kinetica
                                                                           height,
                                                                           projection,
                                                                           options ) );
+        }
+        /// @endcond
+
+        /// @cond NO_DOCS
+        /// 
+        /// <param name="request_">Request object containing the parameters for
+        /// the operation.</param>
+        /// 
+        /// <returns>Response object containing the result of the
+        /// operation.</returns>
+        /// 
+        public VisualizeIsochroneResponse visualizeIsochrone( VisualizeIsochroneRequest request_ )
+        {
+            VisualizeIsochroneResponse actualResponse_ = SubmitRequest<VisualizeIsochroneResponse>("/visualize/isochrone", request_, false);
+
+            return actualResponse_;
+        }
+        /// @endcond
+
+        /// @cond NO_DOCS
+        /// 
+        /// <param name="graph_name"></param>
+        /// <param name="weights_on_edges"></param>
+        /// <param name="source_node"></param>
+        /// <param name="restrictions"></param>
+        /// <param name="max_solution_radius"></param>
+        /// <param name="num_levels"></param>
+        /// <param name="generate_image"></param>
+        /// <param name="projection">
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeIsochroneRequest.Projection._3857">_3857</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeIsochroneRequest.Projection._102100">_102100</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeIsochroneRequest.Projection._900913">_900913</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeIsochroneRequest.Projection.EPSG_4326">EPSG_4326</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeIsochroneRequest.Projection.PLATE_CARREE">PLATE_CARREE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeIsochroneRequest.Projection.EPSG_900913">EPSG_900913</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeIsochroneRequest.Projection.EPSG_102100">EPSG_102100</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeIsochroneRequest.Projection.EPSG_3857">EPSG_3857</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeIsochroneRequest.Projection.WEB_MERCATOR">WEB_MERCATOR</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="VisualizeIsochroneRequest.Projection.PLATE_CARREE">PLATE_CARREE</see>.</param>
+        /// <param name="image_width"></param>
+        /// <param name="image_height"></param>
+        /// <param name="style_options">
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeIsochroneRequest.StyleOptions.LINE_SIZE">LINE_SIZE</see>:</term>
+        ///         <description>  The default value is '3'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeIsochroneRequest.StyleOptions.COLOR">COLOR</see>:</term>
+        ///         <description>  The default value is
+        /// 'FF696969'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeIsochroneRequest.StyleOptions.BG_COLOR">BG_COLOR</see>:</term>
+        ///         <description>  The default value is
+        /// '00000000'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeIsochroneRequest.StyleOptions.TEXT_COLOR">TEXT_COLOR</see>:</term>
+        ///         <description>  The default value is
+        /// 'FF000000'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeIsochroneRequest.StyleOptions.COLORMAP">COLORMAP</see>:</term>
+        ///         <description>
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeIsochroneRequest.StyleOptions.JET">JET</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeIsochroneRequest.StyleOptions.ACCENT">ACCENT</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeIsochroneRequest.StyleOptions.AFMHOT">AFMHOT</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeIsochroneRequest.StyleOptions.AUTUMN">AUTUMN</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeIsochroneRequest.StyleOptions.BINARY">BINARY</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeIsochroneRequest.StyleOptions.BLUES">BLUES</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeIsochroneRequest.StyleOptions.BONE">BONE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeIsochroneRequest.StyleOptions.BRBG">BRBG</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeIsochroneRequest.StyleOptions.BRG">BRG</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeIsochroneRequest.StyleOptions.BUGN">BUGN</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeIsochroneRequest.StyleOptions.BUPU">BUPU</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeIsochroneRequest.StyleOptions.BWR">BWR</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeIsochroneRequest.StyleOptions.CMRMAP">CMRMAP</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeIsochroneRequest.StyleOptions.COOL">COOL</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeIsochroneRequest.StyleOptions.COOLWARM">COOLWARM</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeIsochroneRequest.StyleOptions.COPPER">COPPER</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeIsochroneRequest.StyleOptions.CUBEHELIX">CUBEHELIX</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeIsochroneRequest.StyleOptions.DARK2">DARK2</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeIsochroneRequest.StyleOptions.FLAG">FLAG</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeIsochroneRequest.StyleOptions.GIST_EARTH">GIST_EARTH</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeIsochroneRequest.StyleOptions.GIST_GRAY">GIST_GRAY</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeIsochroneRequest.StyleOptions.GIST_HEAT">GIST_HEAT</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeIsochroneRequest.StyleOptions.GIST_NCAR">GIST_NCAR</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeIsochroneRequest.StyleOptions.GIST_RAINBOW">GIST_RAINBOW</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeIsochroneRequest.StyleOptions.GIST_STERN">GIST_STERN</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeIsochroneRequest.StyleOptions.GIST_YARG">GIST_YARG</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeIsochroneRequest.StyleOptions.GNBU">GNBU</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeIsochroneRequest.StyleOptions.GNUPLOT2">GNUPLOT2</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeIsochroneRequest.StyleOptions.GNUPLOT">GNUPLOT</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeIsochroneRequest.StyleOptions.GRAY">GRAY</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeIsochroneRequest.StyleOptions.GREENS">GREENS</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeIsochroneRequest.StyleOptions.GREYS">GREYS</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeIsochroneRequest.StyleOptions.HOT">HOT</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeIsochroneRequest.StyleOptions.HSV">HSV</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeIsochroneRequest.StyleOptions.INFERNO">INFERNO</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeIsochroneRequest.StyleOptions.MAGMA">MAGMA</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeIsochroneRequest.StyleOptions.NIPY_SPECTRAL">NIPY_SPECTRAL</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeIsochroneRequest.StyleOptions.OCEAN">OCEAN</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeIsochroneRequest.StyleOptions.ORANGES">ORANGES</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeIsochroneRequest.StyleOptions.ORRD">ORRD</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeIsochroneRequest.StyleOptions.PAIRED">PAIRED</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeIsochroneRequest.StyleOptions.PASTEL1">PASTEL1</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeIsochroneRequest.StyleOptions.PASTEL2">PASTEL2</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeIsochroneRequest.StyleOptions.PINK">PINK</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeIsochroneRequest.StyleOptions.PIYG">PIYG</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeIsochroneRequest.StyleOptions.PLASMA">PLASMA</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeIsochroneRequest.StyleOptions.PRGN">PRGN</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeIsochroneRequest.StyleOptions.PRISM">PRISM</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeIsochroneRequest.StyleOptions.PUBU">PUBU</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeIsochroneRequest.StyleOptions.PUBUGN">PUBUGN</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeIsochroneRequest.StyleOptions.PUOR">PUOR</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeIsochroneRequest.StyleOptions.PURD">PURD</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeIsochroneRequest.StyleOptions.PURPLES">PURPLES</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeIsochroneRequest.StyleOptions.RAINBOW">RAINBOW</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeIsochroneRequest.StyleOptions.RDBU">RDBU</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeIsochroneRequest.StyleOptions.RDGY">RDGY</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeIsochroneRequest.StyleOptions.RDPU">RDPU</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeIsochroneRequest.StyleOptions.RDYLBU">RDYLBU</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeIsochroneRequest.StyleOptions.RDYLGN">RDYLGN</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeIsochroneRequest.StyleOptions.REDS">REDS</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeIsochroneRequest.StyleOptions.SEISMIC">SEISMIC</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeIsochroneRequest.StyleOptions.SET1">SET1</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeIsochroneRequest.StyleOptions.SET2">SET2</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeIsochroneRequest.StyleOptions.SET3">SET3</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeIsochroneRequest.StyleOptions.SPECTRAL">SPECTRAL</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeIsochroneRequest.StyleOptions.SPRING">SPRING</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeIsochroneRequest.StyleOptions.SUMMER">SUMMER</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeIsochroneRequest.StyleOptions.TERRAIN">TERRAIN</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeIsochroneRequest.StyleOptions.VIRIDIS">VIRIDIS</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeIsochroneRequest.StyleOptions.WINTER">WINTER</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeIsochroneRequest.StyleOptions.WISTIA">WISTIA</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeIsochroneRequest.StyleOptions.YLGN">YLGN</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeIsochroneRequest.StyleOptions.YLGNBU">YLGNBU</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeIsochroneRequest.StyleOptions.YLORBR">YLORBR</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeIsochroneRequest.StyleOptions.YLORRD">YLORRD</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="VisualizeIsochroneRequest.StyleOptions.JET">JET</see>.</description>
+        ///     </item>
+        /// </list>
+        /// </param>
+        /// <param name="solve_options">
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeIsochroneRequest.SolveOptions.REMOVE_PREVIOUS_RESTRICTIONS">REMOVE_PREVIOUS_RESTRICTIONS</see>:</term>
+        ///         <description>
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeIsochroneRequest.SolveOptions.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeIsochroneRequest.SolveOptions.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="VisualizeIsochroneRequest.SolveOptions.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeIsochroneRequest.SolveOptions.RESTRICTION_THRESHOLD_VALUE">RESTRICTION_THRESHOLD_VALUE</see>:</term>
+        ///         <description></description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeIsochroneRequest.SolveOptions.UNIFORM_WEIGHTS">UNIFORM_WEIGHTS</see>:</term>
+        ///         <description></description>
+        ///     </item>
+        /// </list>
+        /// </param>
+        /// <param name="contour_options">
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeIsochroneRequest.ContourOptions.SEARCH_RADIUS">SEARCH_RADIUS</see>:</term>
+        ///         <description>  The default value is '20'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeIsochroneRequest.ContourOptions.GRID_SIZE">GRID_SIZE</see>:</term>
+        ///         <description>  The default value is '100'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeIsochroneRequest.ContourOptions.COLOR_ISOLINES">COLOR_ISOLINES</see>:</term>
+        ///         <description>  The default value is 'true'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeIsochroneRequest.ContourOptions.ADD_LABELS">ADD_LABELS</see>:</term>
+        ///         <description>  The default value is 'false'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeIsochroneRequest.ContourOptions.LABELS_FONT_SIZE">LABELS_FONT_SIZE</see>:</term>
+        ///         <description>  The default value is '12'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeIsochroneRequest.ContourOptions.LABELS_FONT_FAMILY">LABELS_FONT_FAMILY</see>:</term>
+        ///         <description>  The default value is 'arial'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeIsochroneRequest.ContourOptions.LABELS_SEARCH_WINDOW">LABELS_SEARCH_WINDOW</see>:</term>
+        ///         <description>  The default value is '4'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeIsochroneRequest.ContourOptions.LABELS_INTRALEVEL_SEPARATION">LABELS_INTRALEVEL_SEPARATION</see>:</term>
+        ///         <description>  The default value is '4'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeIsochroneRequest.ContourOptions.LABELS_INTERLEVEL_SEPARATION">LABELS_INTERLEVEL_SEPARATION</see>:</term>
+        ///         <description>  The default value is '20'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeIsochroneRequest.ContourOptions.LABELS_MAX_ANGLE">LABELS_MAX_ANGLE</see>:</term>
+        ///         <description>  The default value is '60'.</description>
+        ///     </item>
+        /// </list>
+        /// </param>
+        /// <param name="options">
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeIsochroneRequest.Options.LEVELS_TABLE">LEVELS_TABLE</see>:</term>
+        ///         <description>  The default value is ''.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeIsochroneRequest.Options.SOLVE_TABLE">SOLVE_TABLE</see>:</term>
+        ///         <description>  The default value is ''.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeIsochroneRequest.Options.IS_REPLICATED">IS_REPLICATED</see>:</term>
+        ///         <description>  The default value is 'true'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeIsochroneRequest.Options.DATA_MIN_X">DATA_MIN_X</see>:</term>
+        ///         <description></description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeIsochroneRequest.Options.DATA_MAX_X">DATA_MAX_X</see>:</term>
+        ///         <description></description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeIsochroneRequest.Options.DATA_MIN_Y">DATA_MIN_Y</see>:</term>
+        ///         <description></description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeIsochroneRequest.Options.DATA_MAX_Y">DATA_MAX_Y</see>:</term>
+        ///         <description></description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeIsochroneRequest.Options.CONCAVITY_LEVEL">CONCAVITY_LEVEL</see>:</term>
+        ///         <description>  The default value is '0'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeIsochroneRequest.Options.SOLVE_DIRECTION">SOLVE_DIRECTION</see>:</term>
+        ///         <description>
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeIsochroneRequest.Options.FROM_SOURCE">FROM_SOURCE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeIsochroneRequest.Options.TO_SOURCE">TO_SOURCE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="VisualizeIsochroneRequest.Options.FROM_SOURCE">FROM_SOURCE</see>.</description>
+        ///     </item>
+        /// </list>
+        /// </param>
+        /// 
+        /// <returns>Response object containing the result of the
+        /// operation.</returns>
+        /// 
+        public VisualizeIsochroneResponse visualizeIsochrone( string graph_name,
+                                                              IList<string> weights_on_edges,
+                                                              string source_node,
+                                                              IList<string> restrictions,
+                                                              double max_solution_radius,
+                                                              int num_levels,
+                                                              bool generate_image,
+                                                              string projection,
+                                                              int image_width,
+                                                              int image_height,
+                                                              IDictionary<string, string> style_options,
+                                                              IDictionary<string, string> solve_options = null,
+                                                              IDictionary<string, string> contour_options = null,
+                                                              IDictionary<string, string> options = null )
+        {
+            return visualizeIsochrone( new VisualizeIsochroneRequest( graph_name,
+                                                                      weights_on_edges,
+                                                                      source_node,
+                                                                      restrictions,
+                                                                      max_solution_radius,
+                                                                      num_levels,
+                                                                      generate_image,
+                                                                      projection,
+                                                                      image_width,
+                                                                      image_height,
+                                                                      style_options,
+                                                                      solve_options,
+                                                                      contour_options,
+                                                                      options ) );
         }
         /// @endcond
 

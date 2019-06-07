@@ -98,12 +98,12 @@ namespace kinetica
         ///         <term><see
         /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.COMMUNICATOR_TEST">COMMUNICATOR_TEST</see>:</term>
         ///         <description>Invoke the communicator test and report timing
-        /// results. Value string is is a comma separated list of <key>=<value>
-        /// expressions.  Expressions are: num_transactions=<num> where num is
-        /// the number of request reply transactions to invoke per test;
-        /// message_size=<bytes> where bytes is the size of the messages to
-        /// send in bytes; check_values=<enabled> where if enabled is true the
-        /// value of the messages received are verified.</description>
+        /// results. Value string is is a semicolon separated list of
+        /// <key>=<value> expressions.  Expressions are: num_transactions=<num>
+        /// where num is the number of request reply transactions to invoke per
+        /// test; message_size=<bytes> where bytes is the size of the messages
+        /// to send in bytes; check_values=<enabled> where if enabled is true
+        /// the value of the messages received are verified.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -258,7 +258,7 @@ namespace kinetica
             public const string CLEAR_CACHE = "clear_cache";
 
             /// <summary>Invoke the communicator test and report timing
-            /// results. Value string is is a comma separated list of
+            /// results. Value string is is a semicolon separated list of
             /// <key>=<value> expressions.  Expressions are:
             /// num_transactions=<num> where num is the number of request reply
             /// transactions to invoke per test; message_size=<bytes> where
@@ -413,12 +413,12 @@ namespace kinetica
         ///         <term><see
         /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.COMMUNICATOR_TEST">COMMUNICATOR_TEST</see>:</term>
         ///         <description>Invoke the communicator test and report timing
-        /// results. Value string is is a comma separated list of <key>=<value>
-        /// expressions.  Expressions are: num_transactions=<num> where num is
-        /// the number of request reply transactions to invoke per test;
-        /// message_size=<bytes> where bytes is the size of the messages to
-        /// send in bytes; check_values=<enabled> where if enabled is true the
-        /// value of the messages received are verified.</description>
+        /// results. Value string is is a semicolon separated list of
+        /// <key>=<value> expressions.  Expressions are: num_transactions=<num>
+        /// where num is the number of request reply transactions to invoke per
+        /// test; message_size=<bytes> where bytes is the size of the messages
+        /// to send in bytes; check_values=<enabled> where if enabled is true
+        /// the value of the messages received are verified.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -602,12 +602,12 @@ namespace kinetica
         ///         <term><see
         /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.COMMUNICATOR_TEST">COMMUNICATOR_TEST</see>:</term>
         ///         <description>Invoke the communicator test and report timing
-        /// results. Value string is is a comma separated list of <key>=<value>
-        /// expressions.  Expressions are: num_transactions=<num> where num is
-        /// the number of request reply transactions to invoke per test;
-        /// message_size=<bytes> where bytes is the size of the messages to
-        /// send in bytes; check_values=<enabled> where if enabled is true the
-        /// value of the messages received are verified.</description>
+        /// results. Value string is is a semicolon separated list of
+        /// <key>=<value> expressions.  Expressions are: num_transactions=<num>
+        /// where num is the number of request reply transactions to invoke per
+        /// test; message_size=<bytes> where bytes is the size of the messages
+        /// to send in bytes; check_values=<enabled> where if enabled is true
+        /// the value of the messages received are verified.</description>
         ///     </item>
         ///     <item>
         ///         <term><see

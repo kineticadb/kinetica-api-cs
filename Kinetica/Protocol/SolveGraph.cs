@@ -37,8 +37,15 @@ namespace kinetica
         ///         <term><see
         /// cref="SolveGraphRequest.SolverType.PAGE_RANK">PAGE_RANK</see>:</term>
         ///         <description>Solves for the probability of each destination
-        /// node being visited based on the links of the graph
-        /// topology.</description>
+        /// node being visited based on the links of the graph topology.
+        /// Weights are not required to use this solver.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="SolveGraphRequest.SolverType.PROBABILITY_RANK">PROBABILITY_RANK</see>:</term>
+        ///         <description>Solves for the transitional probability
+        /// (Hidden Markov) for each node based on the weights (probability
+        /// assigned over given edges).</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -91,9 +98,14 @@ namespace kinetica
             public const string SHORTEST_PATH = "SHORTEST_PATH";
 
             /// <summary>Solves for the probability of each destination node
-            /// being visited based on the links of the graph
-            /// topology.</summary>
+            /// being visited based on the links of the graph topology. Weights
+            /// are not required to use this solver.</summary>
             public const string PAGE_RANK = "PAGE_RANK";
+
+            /// <summary>Solves for the transitional probability (Hidden
+            /// Markov) for each node based on the weights (probability
+            /// assigned over given edges).</summary>
+            public const string PROBABILITY_RANK = "PROBABILITY_RANK";
 
             /// <summary>Solves for the degree of a node to depict how many
             /// pairs of individuals that would have to go through the node to
@@ -182,6 +194,18 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
+        /// cref="SolveGraphRequest.Options.MIN_SOLUTION_RADIUS">MIN_SOLUTION_RADIUS</see>:</term>
+        ///         <description>For <i>SHORTEST_PATH</i> and
+        /// <i>INVERSE_SHORTEST_PATH</i> solvers only. Applicable only when
+        /// <i>max_solution_radius</i> is set. Sets the minimum solution cost
+        /// radius, which ignores the <paramref
+        /// cref="SolveGraphRequest.destination_node_ids" /> list and instead
+        /// outputs the nodes within the radius sorted by ascending cost. If
+        /// set to '0.0', the setting is ignored.  The default value is
+        /// '0.0'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="SolveGraphRequest.Options.MAX_SOLUTION_TARGETS">MAX_SOLUTION_TARGETS</see>:</term>
         ///         <description>For <i>SHORTEST_PATH</i> and
         /// <i>INVERSE_SHORTEST_PATH</i> solvers only. Sets the maximum number
@@ -242,9 +266,10 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="SolveGraphRequest.Options.UNIFORM_WEIGHTS">UNIFORM_WEIGHTS</see>:</term>
-        ///         <description>When speficied, assigns the given value to all
-        /// the edges in the graph. Note that weights specified in
-        /// @{weights_on_edges} override this value.</description>
+        ///         <description>When specified, assigns the given value to all
+        /// the edges in the graph. Note that weights provided in <paramref
+        /// cref="SolveGraphRequest.weights_on_edges" /> will override this
+        /// value.</description>
         ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.
@@ -261,6 +286,15 @@ namespace kinetica
             /// '0.0', the setting is ignored.  The default value is
             /// '0.0'.</summary>
             public const string MAX_SOLUTION_RADIUS = "max_solution_radius";
+
+            /// <summary>For <i>SHORTEST_PATH</i> and
+            /// <i>INVERSE_SHORTEST_PATH</i> solvers only. Applicable only when
+            /// <i>max_solution_radius</i> is set. Sets the minimum solution
+            /// cost radius, which ignores the <see cref="destination_node_ids"
+            /// /> list and instead outputs the nodes within the radius sorted
+            /// by ascending cost. If set to '0.0', the setting is ignored.
+            /// The default value is '0.0'.</summary>
+            public const string MIN_SOLUTION_RADIUS = "min_solution_radius";
 
             /// <summary>For <i>SHORTEST_PATH</i> and
             /// <i>INVERSE_SHORTEST_PATH</i> solvers only. Sets the maximum
@@ -315,9 +349,9 @@ namespace kinetica
             /// solution.</summary>
             public const string RESTRICTION_THRESHOLD_VALUE = "restriction_threshold_value";
 
-            /// <summary>When speficied, assigns the given value to all the
-            /// edges in the graph. Note that weights specified in
-            /// @{weights_on_edges} override this value.</summary>
+            /// <summary>When specified, assigns the given value to all the
+            /// edges in the graph. Note that weights provided in <see
+            /// cref="weights_on_edges" /> will override this value.</summary>
             public const string UNIFORM_WEIGHTS = "uniform_weights";
         } // end struct Options
 
@@ -331,12 +365,15 @@ namespace kinetica
         /// target="_top">identifiers</a>; identifiers are grouped as <a
         /// href="../../graph_solver/network_graph_solver.html#id-combos"
         /// target="_top">combinations</a>. Identifiers can be used with
-        /// existing column names, e.g., 'table.column AS WEIGHTS_EDGE_ID', or
-        /// expressions, e.g., 'ST_LENGTH(wkt) AS WEIGHTS_VALUESPECIFIED'. Any
+        /// existing column names, e.g., 'table.column AS WEIGHTS_EDGE_ID',
+        /// expressions, e.g., 'ST_LENGTH(wkt) AS WEIGHTS_VALUESPECIFIED', or
+        /// raw values, e.g., '{4, 15, 2} AS WEIGHTS_VALUESPECIFIED'. Any
         /// provided weights will be added (in the case of
         /// 'WEIGHTS_VALUESPECIFIED') to or multiplied with (in the case of
-        /// 'WEIGHTS_FACTORSPECIFIED') the existing weight(s).  The default
-        /// value is an empty {@link List}.</summary>
+        /// 'WEIGHTS_FACTORSPECIFIED') the existing weight(s). If using raw
+        /// values in an identifier combination, the number of values specified
+        /// must match across the combination.  The default value is an empty
+        /// {@link List}.</summary>
         public IList<string> weights_on_edges { get; set; } = new List<string>();
 
         /// <summary>Additional restrictions to apply to the nodes/edges of an
@@ -346,13 +383,16 @@ namespace kinetica
         /// href="../../graph_solver/network_graph_solver.html#id-combos"
         /// target="_top">combinations</a>. Identifiers can be used with
         /// existing column names, e.g., 'table.column AS
-        /// RESTRICTIONS_EDGE_ID', or expressions, e.g., 'column/2 AS
-        /// RESTRICTIONS_VALUECOMPARED'. If <i>remove_previous_restrictions</i>
-        /// is set to <i>true</i>, any provided restrictions will replace the
-        /// existing restrictions. If <i>remove_previous_restrictions</i> is
-        /// set to <i>false</i>, any provided weights will be added (in the
-        /// case of 'RESTRICTIONS_VALUECOMPARED') to or replaced (in the case
-        /// of 'RESTRICTIONS_ONOFFCOMPARED').  The default value is an empty
+        /// RESTRICTIONS_EDGE_ID', expressions, e.g., 'column/2 AS
+        /// RESTRICTIONS_VALUECOMPARED', or raw values, e.g., '{0, 0, 0, 1} AS
+        /// RESTRICTIONS_ONOFFCOMPARED'. If using raw values in an identifier
+        /// combination, the number of values specified must match across the
+        /// combination. If <i>remove_previous_restrictions</i> is set to
+        /// <i>true</i>, any provided restrictions will replace the existing
+        /// restrictions. If <i>remove_previous_restrictions</i> is set to
+        /// <i>false</i>, any provided weights will be added (in the case of
+        /// 'RESTRICTIONS_VALUECOMPARED') to or replaced (in the case of
+        /// 'RESTRICTIONS_ONOFFCOMPARED').  The default value is an empty
         /// {@link List}.</summary>
         public IList<string> restrictions { get; set; } = new List<string>();
 
@@ -370,8 +410,15 @@ namespace kinetica
         ///         <term><see
         /// cref="SolveGraphRequest.SolverType.PAGE_RANK">PAGE_RANK</see>:</term>
         ///         <description>Solves for the probability of each destination
-        /// node being visited based on the links of the graph
-        /// topology.</description>
+        /// node being visited based on the links of the graph topology.
+        /// Weights are not required to use this solver.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="SolveGraphRequest.SolverType.PROBABILITY_RANK">PROBABILITY_RANK</see>:</term>
+        ///         <description>Solves for the transitional probability
+        /// (Hidden Markov) for each node based on the weights (probability
+        /// assigned over given edges).</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -500,6 +547,18 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
+        /// cref="SolveGraphRequest.Options.MIN_SOLUTION_RADIUS">MIN_SOLUTION_RADIUS</see>:</term>
+        ///         <description>For <i>SHORTEST_PATH</i> and
+        /// <i>INVERSE_SHORTEST_PATH</i> solvers only. Applicable only when
+        /// <i>max_solution_radius</i> is set. Sets the minimum solution cost
+        /// radius, which ignores the <paramref
+        /// cref="SolveGraphRequest.destination_node_ids" /> list and instead
+        /// outputs the nodes within the radius sorted by ascending cost. If
+        /// set to '0.0', the setting is ignored.  The default value is
+        /// '0.0'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="SolveGraphRequest.Options.MAX_SOLUTION_TARGETS">MAX_SOLUTION_TARGETS</see>:</term>
         ///         <description>For <i>SHORTEST_PATH</i> and
         /// <i>INVERSE_SHORTEST_PATH</i> solvers only. Sets the maximum number
@@ -560,9 +619,10 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="SolveGraphRequest.Options.UNIFORM_WEIGHTS">UNIFORM_WEIGHTS</see>:</term>
-        ///         <description>When speficied, assigns the given value to all
-        /// the edges in the graph. Note that weights specified in
-        /// @{weights_on_edges} override this value.</description>
+        ///         <description>When specified, assigns the given value to all
+        /// the edges in the graph. Note that weights provided in <paramref
+        /// cref="SolveGraphRequest.weights_on_edges" /> will override this
+        /// value.</description>
         ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.</summary>
@@ -584,12 +644,15 @@ namespace kinetica
         /// target="_top">identifiers</a>; identifiers are grouped as <a
         /// href="../../graph_solver/network_graph_solver.html#id-combos"
         /// target="_top">combinations</a>. Identifiers can be used with
-        /// existing column names, e.g., 'table.column AS WEIGHTS_EDGE_ID', or
-        /// expressions, e.g., 'ST_LENGTH(wkt) AS WEIGHTS_VALUESPECIFIED'. Any
+        /// existing column names, e.g., 'table.column AS WEIGHTS_EDGE_ID',
+        /// expressions, e.g., 'ST_LENGTH(wkt) AS WEIGHTS_VALUESPECIFIED', or
+        /// raw values, e.g., '{4, 15, 2} AS WEIGHTS_VALUESPECIFIED'. Any
         /// provided weights will be added (in the case of
         /// 'WEIGHTS_VALUESPECIFIED') to or multiplied with (in the case of
-        /// 'WEIGHTS_FACTORSPECIFIED') the existing weight(s).  The default
-        /// value is an empty {@link List}.</param>
+        /// 'WEIGHTS_FACTORSPECIFIED') the existing weight(s). If using raw
+        /// values in an identifier combination, the number of values specified
+        /// must match across the combination.  The default value is an empty
+        /// {@link List}.</param>
         /// <param name="restrictions">Additional restrictions to apply to the
         /// nodes/edges of an existing graph. Restrictions must be specified
         /// using <a
@@ -598,13 +661,16 @@ namespace kinetica
         /// href="../../graph_solver/network_graph_solver.html#id-combos"
         /// target="_top">combinations</a>. Identifiers can be used with
         /// existing column names, e.g., 'table.column AS
-        /// RESTRICTIONS_EDGE_ID', or expressions, e.g., 'column/2 AS
-        /// RESTRICTIONS_VALUECOMPARED'. If <i>remove_previous_restrictions</i>
-        /// is set to <i>true</i>, any provided restrictions will replace the
-        /// existing restrictions. If <i>remove_previous_restrictions</i> is
-        /// set to <i>false</i>, any provided weights will be added (in the
-        /// case of 'RESTRICTIONS_VALUECOMPARED') to or replaced (in the case
-        /// of 'RESTRICTIONS_ONOFFCOMPARED').  The default value is an empty
+        /// RESTRICTIONS_EDGE_ID', expressions, e.g., 'column/2 AS
+        /// RESTRICTIONS_VALUECOMPARED', or raw values, e.g., '{0, 0, 0, 1} AS
+        /// RESTRICTIONS_ONOFFCOMPARED'. If using raw values in an identifier
+        /// combination, the number of values specified must match across the
+        /// combination. If <i>remove_previous_restrictions</i> is set to
+        /// <i>true</i>, any provided restrictions will replace the existing
+        /// restrictions. If <i>remove_previous_restrictions</i> is set to
+        /// <i>false</i>, any provided weights will be added (in the case of
+        /// 'RESTRICTIONS_VALUECOMPARED') to or replaced (in the case of
+        /// 'RESTRICTIONS_ONOFFCOMPARED').  The default value is an empty
         /// {@link List}.</param>
         /// <param name="solver_type">The type of solver to use for the graph.
         /// Supported values:
@@ -620,8 +686,15 @@ namespace kinetica
         ///         <term><see
         /// cref="SolveGraphRequest.SolverType.PAGE_RANK">PAGE_RANK</see>:</term>
         ///         <description>Solves for the probability of each destination
-        /// node being visited based on the links of the graph
-        /// topology.</description>
+        /// node being visited based on the links of the graph topology.
+        /// Weights are not required to use this solver.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="SolveGraphRequest.SolverType.PROBABILITY_RANK">PROBABILITY_RANK</see>:</term>
+        ///         <description>Solves for the transitional probability
+        /// (Hidden Markov) for each node based on the weights (probability
+        /// assigned over given edges).</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -737,6 +810,18 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
+        /// cref="SolveGraphRequest.Options.MIN_SOLUTION_RADIUS">MIN_SOLUTION_RADIUS</see>:</term>
+        ///         <description>For <i>SHORTEST_PATH</i> and
+        /// <i>INVERSE_SHORTEST_PATH</i> solvers only. Applicable only when
+        /// <i>max_solution_radius</i> is set. Sets the minimum solution cost
+        /// radius, which ignores the <paramref
+        /// cref="SolveGraphRequest.destination_node_ids" /> list and instead
+        /// outputs the nodes within the radius sorted by ascending cost. If
+        /// set to '0.0', the setting is ignored.  The default value is
+        /// '0.0'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="SolveGraphRequest.Options.MAX_SOLUTION_TARGETS">MAX_SOLUTION_TARGETS</see>:</term>
         ///         <description>For <i>SHORTEST_PATH</i> and
         /// <i>INVERSE_SHORTEST_PATH</i> solvers only. Sets the maximum number
@@ -797,9 +882,10 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="SolveGraphRequest.Options.UNIFORM_WEIGHTS">UNIFORM_WEIGHTS</see>:</term>
-        ///         <description>When speficied, assigns the given value to all
-        /// the edges in the graph. Note that weights specified in
-        /// @{weights_on_edges} override this value.</description>
+        ///         <description>When specified, assigns the given value to all
+        /// the edges in the graph. Note that weights provided in <paramref
+        /// cref="SolveGraphRequest.weights_on_edges" /> will override this
+        /// value.</description>
         ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.</param>

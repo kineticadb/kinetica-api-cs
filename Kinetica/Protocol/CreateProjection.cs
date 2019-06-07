@@ -187,7 +187,7 @@ namespace kinetica
         ///     </item>
         /// </list>
         /// The default value is <see
-        /// cref="CreateProjectionRequest.Options.FALSE">FALSE</see>.</description>
+        /// cref="CreateProjectionRequest.Options.TRUE">TRUE</see>.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -320,7 +320,7 @@ namespace kinetica
             ///     </item>
             /// </list>
             /// The default value is <see
-            /// cref="CreateProjectionRequest.Options.FALSE">FALSE</see>.</summary>
+            /// cref="CreateProjectionRequest.Options.TRUE">TRUE</see>.</summary>
             public const string PRESERVE_DICT_ENCODING = "preserve_dict_encoding";
 
             /// <summary>view this projection is part of.  The default value is
@@ -490,7 +490,7 @@ namespace kinetica
         ///     </item>
         /// </list>
         /// The default value is <see
-        /// cref="CreateProjectionRequest.Options.FALSE">FALSE</see>.</description>
+        /// cref="CreateProjectionRequest.Options.TRUE">TRUE</see>.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -666,7 +666,7 @@ namespace kinetica
         ///     </item>
         /// </list>
         /// The default value is <see
-        /// cref="CreateProjectionRequest.Options.FALSE">FALSE</see>.</description>
+        /// cref="CreateProjectionRequest.Options.TRUE">TRUE</see>.</description>
         ///     </item>
         ///     <item>
         ///         <term><see

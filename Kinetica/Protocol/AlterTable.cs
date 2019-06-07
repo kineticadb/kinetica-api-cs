@@ -36,8 +36,11 @@ namespace kinetica
     /// target="_top">foreign key</a>
     /// on a particular column.
     /// <br />
-    /// Manage a <a href="../../concepts/tables.html#partitioning"
-    /// target="_top">range-partitioned</a>
+    /// Manage a
+    /// <a href="../../concepts/tables.html#partitioning-by-range"
+    /// target="_top">range-partitioned</a> or a
+    /// <a href="../../concepts/tables.html#partitioning-by-list-manual"
+    /// target="_top">manual list-partitioned</a>
     /// table's partitions.
     /// <br />
     /// Set (or reset) the <a href="../../rm/concepts.html#tier-strategies"
@@ -100,8 +103,11 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="AlterTableRequest.Action.MOVE_TO_COLLECTION">MOVE_TO_COLLECTION</see>:</term>
-        ///         <description>Moves a table into a collection <paramref
-        /// cref="AlterTableRequest._value" />. </description>
+        ///         <description>Moves a table or view into a collection named
+        /// <paramref cref="AlterTableRequest._value" />.  If the collection
+        /// provided is non-existent, the collection will be automatically
+        /// created. If <paramref cref="AlterTableRequest._value" /> is empty,
+        /// then the table or view will be top-level.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -190,27 +196,33 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="AlterTableRequest.Action.ADD_PARTITION">ADD_PARTITION</see>:</term>
-        ///         <description>Adds a partition (for range-partitioned or
-        /// list-partitioned tables) specified in <paramref
-        /// cref="AlterTableRequest._value" />.  See <a
-        /// href="../../concepts/tables.html#partitioning-by-range-example"
-        /// target="_top">range partitioning example</a> for example
-        /// format.</description>
+        ///         <description>Adds the partition specified in <paramref
+        /// cref="AlterTableRequest._value" />, to either a <a
+        /// href="../../concepts/tables.html#partitioning-by-range"
+        /// target="_top">range-partitioned</a> or <a
+        /// href="../../concepts/tables.html#partitioning-by-list-manual"
+        /// target="_top">manual list-partitioned</a> table.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="AlterTableRequest.Action.REMOVE_PARTITION">REMOVE_PARTITION</see>:</term>
         ///         <description>Removes the partition specified in <paramref
-        /// cref="AlterTableRequest._value" /> and relocates all its data to
-        /// the default partition (for range-partitioned or list-partition
-        /// tables).</description>
+        /// cref="AlterTableRequest._value" /> (and relocates all of its data
+        /// to the default partition) from either a <a
+        /// href="../../concepts/tables.html#partitioning-by-range"
+        /// target="_top">range-partitioned</a> or <a
+        /// href="../../concepts/tables.html#partitioning-by-list-manual"
+        /// target="_top">manual list-partitioned</a> table.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="AlterTableRequest.Action.DELETE_PARTITION">DELETE_PARTITION</see>:</term>
         ///         <description>Deletes the partition specified in <paramref
-        /// cref="AlterTableRequest._value" /> and its data (for
-        /// range-partitioned or list-partitioned tables).</description>
+        /// cref="AlterTableRequest._value" /> (and all of its data) from
+        /// either a <a href="../../concepts/tables.html#partitioning-by-range"
+        /// target="_top">range-partitioned</a> or <a
+        /// href="../../concepts/tables.html#partitioning-by-list-manual"
+        /// target="_top">manual list-partitioned</a> table.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -301,8 +313,11 @@ namespace kinetica
             /// on, an error will be returned.</summary>
             public const string DELETE_INDEX = "delete_index";
 
-            /// <summary>Moves a table into a collection <see cref="_value" />.
-            /// </summary>
+            /// <summary>Moves a table or view into a collection named <see
+            /// cref="_value" />.  If the collection provided is non-existent,
+            /// the collection will be automatically created. If <see
+            /// cref="_value" /> is empty, then the table or view will be
+            /// top-level.</summary>
             public const string MOVE_TO_COLLECTION = "move_to_collection";
 
             /// <summary>Sets whether the given <see cref="table_name" />
@@ -366,22 +381,29 @@ namespace kinetica
             /// or the complete string used to define it.</summary>
             public const string DELETE_FOREIGN_KEY = "delete_foreign_key";
 
-            /// <summary>Adds a partition (for range-partitioned or
-            /// list-partitioned tables) specified in <see cref="_value" />.
-            /// See <a
-            /// href="../../concepts/tables.html#partitioning-by-range-example"
-            /// target="_top">range partitioning example</a> for example
-            /// format.</summary>
+            /// <summary>Adds the partition specified in <see cref="_value" />,
+            /// to either a <a
+            /// href="../../concepts/tables.html#partitioning-by-range"
+            /// target="_top">range-partitioned</a> or <a
+            /// href="../../concepts/tables.html#partitioning-by-list-manual"
+            /// target="_top">manual list-partitioned</a> table.</summary>
             public const string ADD_PARTITION = "add_partition";
 
             /// <summary>Removes the partition specified in <see cref="_value"
-            /// /> and relocates all its data to the default partition (for
-            /// range-partitioned or list-partition tables).</summary>
+            /// /> (and relocates all of its data to the default partition)
+            /// from either a <a
+            /// href="../../concepts/tables.html#partitioning-by-range"
+            /// target="_top">range-partitioned</a> or <a
+            /// href="../../concepts/tables.html#partitioning-by-list-manual"
+            /// target="_top">manual list-partitioned</a> table.</summary>
             public const string REMOVE_PARTITION = "remove_partition";
 
             /// <summary>Deletes the partition specified in <see cref="_value"
-            /// /> and its data (for range-partitioned or list-partitioned
-            /// tables).</summary>
+            /// /> (and all of its data) from either a <a
+            /// href="../../concepts/tables.html#partitioning-by-range"
+            /// target="_top">range-partitioned</a> or <a
+            /// href="../../concepts/tables.html#partitioning-by-list-manual"
+            /// target="_top">manual list-partitioned</a> table.</summary>
             public const string DELETE_PARTITION = "delete_partition";
 
             /// <summary>Sets the global access mode (i.e. locking) for the
@@ -761,8 +783,11 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="AlterTableRequest.Action.MOVE_TO_COLLECTION">MOVE_TO_COLLECTION</see>:</term>
-        ///         <description>Moves a table into a collection <paramref
-        /// cref="AlterTableRequest._value" />. </description>
+        ///         <description>Moves a table or view into a collection named
+        /// <paramref cref="AlterTableRequest._value" />.  If the collection
+        /// provided is non-existent, the collection will be automatically
+        /// created. If <paramref cref="AlterTableRequest._value" /> is empty,
+        /// then the table or view will be top-level.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -851,27 +876,33 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="AlterTableRequest.Action.ADD_PARTITION">ADD_PARTITION</see>:</term>
-        ///         <description>Adds a partition (for range-partitioned or
-        /// list-partitioned tables) specified in <paramref
-        /// cref="AlterTableRequest._value" />.  See <a
-        /// href="../../concepts/tables.html#partitioning-by-range-example"
-        /// target="_top">range partitioning example</a> for example
-        /// format.</description>
+        ///         <description>Adds the partition specified in <paramref
+        /// cref="AlterTableRequest._value" />, to either a <a
+        /// href="../../concepts/tables.html#partitioning-by-range"
+        /// target="_top">range-partitioned</a> or <a
+        /// href="../../concepts/tables.html#partitioning-by-list-manual"
+        /// target="_top">manual list-partitioned</a> table.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="AlterTableRequest.Action.REMOVE_PARTITION">REMOVE_PARTITION</see>:</term>
         ///         <description>Removes the partition specified in <paramref
-        /// cref="AlterTableRequest._value" /> and relocates all its data to
-        /// the default partition (for range-partitioned or list-partition
-        /// tables).</description>
+        /// cref="AlterTableRequest._value" /> (and relocates all of its data
+        /// to the default partition) from either a <a
+        /// href="../../concepts/tables.html#partitioning-by-range"
+        /// target="_top">range-partitioned</a> or <a
+        /// href="../../concepts/tables.html#partitioning-by-list-manual"
+        /// target="_top">manual list-partitioned</a> table.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="AlterTableRequest.Action.DELETE_PARTITION">DELETE_PARTITION</see>:</term>
         ///         <description>Deletes the partition specified in <paramref
-        /// cref="AlterTableRequest._value" /> and its data (for
-        /// range-partitioned or list-partitioned tables).</description>
+        /// cref="AlterTableRequest._value" /> (and all of its data) from
+        /// either a <a href="../../concepts/tables.html#partitioning-by-range"
+        /// target="_top">range-partitioned</a> or <a
+        /// href="../../concepts/tables.html#partitioning-by-list-manual"
+        /// target="_top">manual list-partitioned</a> table.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -1152,8 +1183,11 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="AlterTableRequest.Action.MOVE_TO_COLLECTION">MOVE_TO_COLLECTION</see>:</term>
-        ///         <description>Moves a table into a collection <paramref
-        /// cref="AlterTableRequest._value" />. </description>
+        ///         <description>Moves a table or view into a collection named
+        /// <paramref cref="AlterTableRequest._value" />.  If the collection
+        /// provided is non-existent, the collection will be automatically
+        /// created. If <paramref cref="AlterTableRequest._value" /> is empty,
+        /// then the table or view will be top-level.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -1242,27 +1276,33 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="AlterTableRequest.Action.ADD_PARTITION">ADD_PARTITION</see>:</term>
-        ///         <description>Adds a partition (for range-partitioned or
-        /// list-partitioned tables) specified in <paramref
-        /// cref="AlterTableRequest._value" />.  See <a
-        /// href="../../concepts/tables.html#partitioning-by-range-example"
-        /// target="_top">range partitioning example</a> for example
-        /// format.</description>
+        ///         <description>Adds the partition specified in <paramref
+        /// cref="AlterTableRequest._value" />, to either a <a
+        /// href="../../concepts/tables.html#partitioning-by-range"
+        /// target="_top">range-partitioned</a> or <a
+        /// href="../../concepts/tables.html#partitioning-by-list-manual"
+        /// target="_top">manual list-partitioned</a> table.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="AlterTableRequest.Action.REMOVE_PARTITION">REMOVE_PARTITION</see>:</term>
         ///         <description>Removes the partition specified in <paramref
-        /// cref="AlterTableRequest._value" /> and relocates all its data to
-        /// the default partition (for range-partitioned or list-partition
-        /// tables).</description>
+        /// cref="AlterTableRequest._value" /> (and relocates all of its data
+        /// to the default partition) from either a <a
+        /// href="../../concepts/tables.html#partitioning-by-range"
+        /// target="_top">range-partitioned</a> or <a
+        /// href="../../concepts/tables.html#partitioning-by-list-manual"
+        /// target="_top">manual list-partitioned</a> table.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="AlterTableRequest.Action.DELETE_PARTITION">DELETE_PARTITION</see>:</term>
         ///         <description>Deletes the partition specified in <paramref
-        /// cref="AlterTableRequest._value" /> and its data (for
-        /// range-partitioned or list-partitioned tables).</description>
+        /// cref="AlterTableRequest._value" /> (and all of its data) from
+        /// either a <a href="../../concepts/tables.html#partitioning-by-range"
+        /// target="_top">range-partitioned</a> or <a
+        /// href="../../concepts/tables.html#partitioning-by-list-manual"
+        /// target="_top">manual list-partitioned</a> table.</description>
         ///     </item>
         ///     <item>
         ///         <term><see

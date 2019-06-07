@@ -637,10 +637,9 @@ namespace kinetica
             ///     <item>
             ///         <term><see
             /// cref="ShowTableResponse.AdditionalInfo.LIST">LIST</see>:</term>
-            ///         <description>Using LIST partitioning, which allows
-            /// specifying a list of VALUES for a partition, or optionally to
-            /// create an AUTOMATIC partition for each unique
-            /// value</description>
+            ///         <description>Using <a
+            /// href="../../concepts/tables.html#partitioning-by-list-manual"
+            /// target="_top">manual list partitioning</a></description>
             ///     </item>
             ///     <item>
             ///         <term><see
@@ -662,9 +661,9 @@ namespace kinetica
             /// target="_top">interval partitioning</a></summary>
             public const string INTERVAL = "INTERVAL";
 
-            /// <summary>Using LIST partitioning, which allows specifying a
-            /// list of VALUES for a partition, or optionally to create an
-            /// AUTOMATIC partition for each unique value</summary>
+            /// <summary>Using <a
+            /// href="../../concepts/tables.html#partitioning-by-list-manual"
+            /// target="_top">manual list partitioning</a></summary>
             public const string LIST = "LIST";
 
             /// <summary>Using no partitioning</summary>

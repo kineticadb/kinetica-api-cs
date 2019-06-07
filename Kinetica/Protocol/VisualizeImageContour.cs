@@ -936,7 +936,7 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="VisualizeImageContourRequest.Options.LABELS_FONT_FAMILY">LABELS_FONT_FAMILY</see>:</term>
-        ///         <description>  The default value is 'arial'.</description>
+        ///         <description>  The default value is 'sans'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -957,6 +957,21 @@ namespace kinetica
         ///         <term><see
         /// cref="VisualizeImageContourRequest.Options.LABELS_MAX_ANGLE">LABELS_MAX_ANGLE</see>:</term>
         ///         <description>  The default value is '60'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.Options.ISOCHRONE_CONCAVITY">ISOCHRONE_CONCAVITY</see>:</term>
+        ///         <description>  The default value is '-1'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.Options.ISOCHRONE_OUTPUT_TABLE">ISOCHRONE_OUTPUT_TABLE</see>:</term>
+        ///         <description>  The default value is ''.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.Options.ISOCHRONE_IMAGE">ISOCHRONE_IMAGE</see>:</term>
+        ///         <description>  The default value is 'false'.</description>
         ///     </item>
         /// </list>
         /// <br />
@@ -1045,7 +1060,7 @@ namespace kinetica
             /// <summary>  The default value is '12'.</summary>
             public const string LABELS_FONT_SIZE = "labels_font_size";
 
-            /// <summary>  The default value is 'arial'.</summary>
+            /// <summary>  The default value is 'sans'.</summary>
             public const string LABELS_FONT_FAMILY = "labels_font_family";
 
             /// <summary>  The default value is '4'.</summary>
@@ -1059,6 +1074,15 @@ namespace kinetica
 
             /// <summary>  The default value is '60'.</summary>
             public const string LABELS_MAX_ANGLE = "labels_max_angle";
+
+            /// <summary>  The default value is '-1'.</summary>
+            public const string ISOCHRONE_CONCAVITY = "isochrone_concavity";
+
+            /// <summary>  The default value is ''.</summary>
+            public const string ISOCHRONE_OUTPUT_TABLE = "isochrone_output_table";
+
+            /// <summary>  The default value is 'false'.</summary>
+            public const string ISOCHRONE_IMAGE = "isochrone_image";
         } // end struct Options
 
         public IList<string> table_names { get; set; } = new List<string>();
@@ -1575,7 +1599,7 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="VisualizeImageContourRequest.Options.LABELS_FONT_FAMILY">LABELS_FONT_FAMILY</see>:</term>
-        ///         <description>  The default value is 'arial'.</description>
+        ///         <description>  The default value is 'sans'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -1596,6 +1620,21 @@ namespace kinetica
         ///         <term><see
         /// cref="VisualizeImageContourRequest.Options.LABELS_MAX_ANGLE">LABELS_MAX_ANGLE</see>:</term>
         ///         <description>  The default value is '60'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.Options.ISOCHRONE_CONCAVITY">ISOCHRONE_CONCAVITY</see>:</term>
+        ///         <description>  The default value is '-1'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.Options.ISOCHRONE_OUTPUT_TABLE">ISOCHRONE_OUTPUT_TABLE</see>:</term>
+        ///         <description>  The default value is ''.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.Options.ISOCHRONE_IMAGE">ISOCHRONE_IMAGE</see>:</term>
+        ///         <description>  The default value is 'false'.</description>
         ///     </item>
         /// </list>
         /// </summary>
@@ -2118,7 +2157,7 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="VisualizeImageContourRequest.Options.LABELS_FONT_FAMILY">LABELS_FONT_FAMILY</see>:</term>
-        ///         <description>  The default value is 'arial'.</description>
+        ///         <description>  The default value is 'sans'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -2139,6 +2178,21 @@ namespace kinetica
         ///         <term><see
         /// cref="VisualizeImageContourRequest.Options.LABELS_MAX_ANGLE">LABELS_MAX_ANGLE</see>:</term>
         ///         <description>  The default value is '60'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.Options.ISOCHRONE_CONCAVITY">ISOCHRONE_CONCAVITY</see>:</term>
+        ///         <description>  The default value is '-1'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.Options.ISOCHRONE_OUTPUT_TABLE">ISOCHRONE_OUTPUT_TABLE</see>:</term>
+        ///         <description>  The default value is ''.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.Options.ISOCHRONE_IMAGE">ISOCHRONE_IMAGE</see>:</term>
+        ///         <description>  The default value is 'false'.</description>
         ///     </item>
         /// </list>
         /// </param>
