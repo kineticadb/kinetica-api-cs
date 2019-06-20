@@ -896,7 +896,7 @@ namespace kinetica
         /// The default value is an empty {@link Dictionary}.</param>
         /// 
         public CreateGraphRequest( string graph_name,
-                                   bool directed_graph,
+                                   bool? directed_graph,
                                    IList<string> nodes,
                                    IList<string> edges,
                                    IList<string> weights,
@@ -904,7 +904,7 @@ namespace kinetica
                                    IDictionary<string, string> options = null)
         {
             this.graph_name = graph_name ?? "";
-            this.directed_graph = directed_graph ?? DirectedGraph.TRUE;
+            this.directed_graph = directed_graph ?? true;
             this.nodes = nodes ?? new List<string>();
             this.edges = edges ?? new List<string>();
             this.weights = weights ?? new List<string>();

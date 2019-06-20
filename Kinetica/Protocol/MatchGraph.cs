@@ -47,6 +47,14 @@ namespace kinetica
         /// and/or distance between points to influence one or more shortest
         /// paths across the sample points.</description>
         ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="MatchGraphRequest.SolveMethod.MATCH_OD_PAIRS">MATCH_OD_PAIRS</see>:</term>
+        ///         <description>Matches <paramref
+        /// cref="MatchGraphRequest.sample_points" /> to find the most probable
+        /// path between origin and destination pairs with cost
+        /// constraints</description>
+        ///     </item>
         /// </list>
         /// The default value is <see
         /// cref="MatchGraphRequest.SolveMethod.MARKOV_CHAIN">MARKOV_CHAIN</see>.
@@ -70,6 +78,11 @@ namespace kinetica
             /// using time and/or distance between points to influence one or
             /// more shortest paths across the sample points.</summary>
             public const string INCREMENTAL_WEIGHTED = "incremental_weighted";
+
+            /// <summary>Matches <see cref="sample_points" /> to find the most
+            /// probable path between origin and destination pairs with cost
+            /// constraints</summary>
+            public const string MATCH_OD_PAIRS = "match_od_pairs";
         } // end struct SolveMethod
 
 
@@ -286,6 +299,14 @@ namespace kinetica
         /// and/or distance between points to influence one or more shortest
         /// paths across the sample points.</description>
         ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="MatchGraphRequest.SolveMethod.MATCH_OD_PAIRS">MATCH_OD_PAIRS</see>:</term>
+        ///         <description>Matches <paramref
+        /// cref="MatchGraphRequest.sample_points" /> to find the most probable
+        /// path between origin and destination pairs with cost
+        /// constraints</description>
+        ///     </item>
         /// </list>
         /// The default value is <see
         /// cref="MatchGraphRequest.SolveMethod.MARKOV_CHAIN">MARKOV_CHAIN</see>.
@@ -446,6 +467,14 @@ namespace kinetica
         /// cref="MatchGraphRequest.sample_points" /> to the graph using time
         /// and/or distance between points to influence one or more shortest
         /// paths across the sample points.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="MatchGraphRequest.SolveMethod.MATCH_OD_PAIRS">MATCH_OD_PAIRS</see>:</term>
+        ///         <description>Matches <paramref
+        /// cref="MatchGraphRequest.sample_points" /> to find the most probable
+        /// path between origin and destination pairs with cost
+        /// constraints</description>
         ///     </item>
         /// </list>
         /// The default value is <see

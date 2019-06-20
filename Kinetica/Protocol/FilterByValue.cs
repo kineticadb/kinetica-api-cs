@@ -131,7 +131,7 @@ namespace kinetica
         public FilterByValueRequest( string table_name,
                                      string view_name,
                                      bool is_string,
-                                     double _value,
+                                     double? _value,
                                      string value_str,
                                      string column_name,
                                      IDictionary<string, string> options = null)
@@ -139,7 +139,7 @@ namespace kinetica
             this.table_name = table_name ?? "";
             this.view_name = view_name ?? "";
             this.is_string = is_string;
-            this._value = _value;
+            this._value = _value ?? 0;
             this.value_str = value_str ?? "";
             this.column_name = column_name ?? "";
             this.options = options ?? new Dictionary<string, string>();

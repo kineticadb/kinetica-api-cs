@@ -10,102 +10,55 @@ using System.Collections.Generic;
 
 namespace kinetica
 {
-    /// @cond NO_DOCS
+
     /// <summary>A set of parameters for <see
-    /// cref="Kinetica.visualizeIsochrone(string,IList{string},string,IList{string},double,int,bool,string,int,int,IDictionary{string, string},IDictionary{string, string},IDictionary{string, string},IDictionary{string, string})"
+    /// cref="Kinetica.visualizeIsochrone(string,string,double,IList{string},IList{string},int,bool,string,IDictionary{string, string},IDictionary{string, string},IDictionary{string, string},IDictionary{string, string})"
     /// />.
     /// <br />
-    /// </summary>
+    /// Given a geomerty graph, draw isolines for travel results, which are
+    /// curves of equal cost. The latter is typically time or distance assigned
+    /// as the weights of the underlying graph.
+    /// .</summary>
     public class VisualizeIsochroneRequest : KineticaData
     {
 
-        /// <summary>
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="VisualizeIsochroneRequest.Projection._3857">_3857</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="VisualizeIsochroneRequest.Projection._102100">_102100</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="VisualizeIsochroneRequest.Projection._900913">_900913</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="VisualizeIsochroneRequest.Projection.EPSG_4326">EPSG_4326</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="VisualizeIsochroneRequest.Projection.PLATE_CARREE">PLATE_CARREE</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="VisualizeIsochroneRequest.Projection.EPSG_900913">EPSG_900913</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="VisualizeIsochroneRequest.Projection.EPSG_102100">EPSG_102100</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="VisualizeIsochroneRequest.Projection.EPSG_3857">EPSG_3857</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="VisualizeIsochroneRequest.Projection.WEB_MERCATOR">WEB_MERCATOR</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="VisualizeIsochroneRequest.Projection.PLATE_CARREE">PLATE_CARREE</see>.
-        /// A set of string constants for the parameter <see cref="projection"
-        /// />.</summary>
-        public struct Projection
-        {
-            public const string _3857 = "3857";
-            public const string _102100 = "102100";
-            public const string _900913 = "900913";
-            public const string EPSG_4326 = "EPSG:4326";
-            public const string PLATE_CARREE = "PLATE_CARREE";
-            public const string EPSG_900913 = "EPSG:900913";
-            public const string EPSG_102100 = "EPSG:102100";
-            public const string EPSG_3857 = "EPSG:3857";
-            public const string WEB_MERCATOR = "WEB_MERCATOR";
-        } // end struct Projection
-
-
-        /// <summary>
+        /// <summary>Various style related options of the isochrone image.
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
         /// cref="VisualizeIsochroneRequest.StyleOptions.LINE_SIZE">LINE_SIZE</see>:</term>
-        ///         <description>  The default value is '3'.</description>
+        ///         <description>The width of the contour lines in pixel.  The
+        /// default value is '3'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="VisualizeIsochroneRequest.StyleOptions.COLOR">COLOR</see>:</term>
-        ///         <description>  The default value is
-        /// 'FF696969'.</description>
+        ///         <description>Color of generated curves. All color values
+        /// must be in the format RRGGBB or AARRGGBB (to specify the alpha
+        /// value). If alpha is specified and flooded contours are enabled, it
+        /// will be used for as the transparency of the latter.  The default
+        /// value is 'FF696969'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="VisualizeIsochroneRequest.StyleOptions.BG_COLOR">BG_COLOR</see>:</term>
-        ///         <description>  The default value is
-        /// '00000000'.</description>
+        ///         <description>Background color of the generated image. All
+        /// color values must be in the format RRGGBB or AARRGGBB (to specify
+        /// the alpha value).  The default value is '00000000'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="VisualizeIsochroneRequest.StyleOptions.TEXT_COLOR">TEXT_COLOR</see>:</term>
-        ///         <description>  The default value is
-        /// 'FF000000'.</description>
+        ///         <description>Color for the labels when enabled. All color
+        /// values must be in the format RRGGBB or AARRGGBB (to specify the
+        /// alpha value).  The default value is 'FF000000'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="VisualizeIsochroneRequest.StyleOptions.COLORMAP">COLORMAP</see>:</term>
-        ///         <description>
+        ///         <description>Colormap for contours or fill-in regions when
+        /// enabled. All color values must be in the format RRGGBB or AARRGGBB
+        /// (to specify the alpha value)
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -419,19 +372,30 @@ namespace kinetica
         public struct StyleOptions
         {
 
-            /// <summary>  The default value is '3'.</summary>
+            /// <summary>The width of the contour lines in pixel.  The default
+            /// value is '3'.</summary>
             public const string LINE_SIZE = "line_size";
 
-            /// <summary>  The default value is 'FF696969'.</summary>
+            /// <summary>Color of generated curves. All color values must be in
+            /// the format RRGGBB or AARRGGBB (to specify the alpha value). If
+            /// alpha is specified and flooded contours are enabled, it will be
+            /// used for as the transparency of the latter.  The default value
+            /// is 'FF696969'.</summary>
             public const string COLOR = "color";
 
-            /// <summary>  The default value is '00000000'.</summary>
+            /// <summary>Background color of the generated image. All color
+            /// values must be in the format RRGGBB or AARRGGBB (to specify the
+            /// alpha value).  The default value is '00000000'.</summary>
             public const string BG_COLOR = "bg_color";
 
-            /// <summary>  The default value is 'FF000000'.</summary>
+            /// <summary>Color for the labels when enabled. All color values
+            /// must be in the format RRGGBB or AARRGGBB (to specify the alpha
+            /// value).  The default value is 'FF000000'.</summary>
             public const string TEXT_COLOR = "text_color";
 
-            /// <summary>
+            /// <summary>Colormap for contours or fill-in regions when enabled.
+            /// All color values must be in the format RRGGBB or AARRGGBB (to
+            /// specify the alpha value)
             /// Supported values:
             /// <list type="bullet">
             ///     <item>
@@ -816,12 +780,14 @@ namespace kinetica
         } // end struct StyleOptions
 
 
-        /// <summary>
+        /// <summary>Solver specific parameters
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
         /// cref="VisualizeIsochroneRequest.SolveOptions.REMOVE_PREVIOUS_RESTRICTIONS">REMOVE_PREVIOUS_RESTRICTIONS</see>:</term>
-        ///         <description>
+        ///         <description>Ignore the restrictions applied to the graph
+        /// during the creation stage and only use the restrictions specified
+        /// in this request if set to <i>true</i>.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -839,21 +805,28 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="VisualizeIsochroneRequest.SolveOptions.RESTRICTION_THRESHOLD_VALUE">RESTRICTION_THRESHOLD_VALUE</see>:</term>
-        ///         <description></description>
+        ///         <description>Value-based restriction comparison. Any node
+        /// or edge with a RESTRICTIONS_VALUECOMPARED value greater than the
+        /// <i>restriction_threshold_value</i> will not be included in the
+        /// solution.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="VisualizeIsochroneRequest.SolveOptions.UNIFORM_WEIGHTS">UNIFORM_WEIGHTS</see>:</term>
-        ///         <description></description>
+        ///         <description>When speficied, assigns the given value to all
+        /// the edges in the graph. Note that weights specified in
+        /// @{weights_on_edges} override this value.</description>
         ///     </item>
         /// </list>
-        /// <br />
+        /// The default value is an empty {@link Dictionary}.
         /// A set of string constants for the parameter <see
         /// cref="solve_options" />.</summary>
         public struct SolveOptions
         {
 
-            /// <summary>
+            /// <summary>Ignore the restrictions applied to the graph during
+            /// the creation stage and only use the restrictions specified in
+            /// this request if set to <i>true</i>.
             /// Supported values:
             /// <list type="bullet">
             ///     <item>
@@ -870,287 +843,511 @@ namespace kinetica
             public const string REMOVE_PREVIOUS_RESTRICTIONS = "remove_previous_restrictions";
             public const string TRUE = "true";
             public const string FALSE = "false";
+
+            /// <summary>Value-based restriction comparison. Any node or edge
+            /// with a RESTRICTIONS_VALUECOMPARED value greater than the
+            /// <i>restriction_threshold_value</i> will not be included in the
+            /// solution.</summary>
             public const string RESTRICTION_THRESHOLD_VALUE = "restriction_threshold_value";
+
+            /// <summary>When speficied, assigns the given value to all the
+            /// edges in the graph. Note that weights specified in
+            /// @{weights_on_edges} override this value.</summary>
             public const string UNIFORM_WEIGHTS = "uniform_weights";
         } // end struct SolveOptions
 
 
-        /// <summary>
+        /// <summary>Solver specific parameters
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
+        /// cref="VisualizeIsochroneRequest.ContourOptions.PROJECTION">PROJECTION</see>:</term>
+        ///         <description>Spatial Reference System (i.e. EPSG Code).
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeIsochroneRequest.ContourOptions._3857">_3857</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeIsochroneRequest.ContourOptions._102100">_102100</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeIsochroneRequest.ContourOptions._900913">_900913</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeIsochroneRequest.ContourOptions.EPSG_4326">EPSG_4326</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeIsochroneRequest.ContourOptions.PLATE_CARREE">PLATE_CARREE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeIsochroneRequest.ContourOptions.EPSG_900913">EPSG_900913</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeIsochroneRequest.ContourOptions.EPSG_102100">EPSG_102100</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeIsochroneRequest.ContourOptions.EPSG_3857">EPSG_3857</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeIsochroneRequest.ContourOptions.WEB_MERCATOR">WEB_MERCATOR</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="VisualizeIsochroneRequest.ContourOptions.PLATE_CARREE">PLATE_CARREE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeIsochroneRequest.ContourOptions.WIDTH">WIDTH</see>:</term>
+        ///         <description>Height of the generated image if applicable.
+        /// The default value is '512'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeIsochroneRequest.ContourOptions.HEIGHT">HEIGHT</see>:</term>
+        ///         <description>Height of the generated image if applicable.
+        /// If not given, a default of aspect_ratio*width is used.  The default
+        /// value is '-1'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="VisualizeIsochroneRequest.ContourOptions.SEARCH_RADIUS">SEARCH_RADIUS</see>:</term>
-        ///         <description>  The default value is '20'.</description>
+        ///         <description>When interpolating the graph solution to
+        /// generate the isochrone, neighborhood of influence of sample data
+        /// (in percent of the image/grid).  The default value is
+        /// '20'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="VisualizeIsochroneRequest.ContourOptions.GRID_SIZE">GRID_SIZE</see>:</term>
-        ///         <description>  The default value is '100'.</description>
+        ///         <description>When interpolating the graph solution to
+        /// generate the isochrone, number of subdivisions alongs the x axis
+        /// when building the grid (the y is computed using the aspect ratio of
+        /// the output image).  The default value is '100'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="VisualizeIsochroneRequest.ContourOptions.COLOR_ISOLINES">COLOR_ISOLINES</see>:</term>
-        ///         <description>  The default value is 'true'.</description>
+        ///         <description>Color each isoline according to the colormap;
+        /// otherwise, use the foreground color.  The default value is
+        /// 'true'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="VisualizeIsochroneRequest.ContourOptions.ADD_LABELS">ADD_LABELS</see>:</term>
-        ///         <description>  The default value is 'false'.</description>
+        ///         <description>Labels the isolines in the image.  The default
+        /// value is 'false'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="VisualizeIsochroneRequest.ContourOptions.LABELS_FONT_SIZE">LABELS_FONT_SIZE</see>:</term>
-        ///         <description>  The default value is '12'.</description>
+        ///         <description>Font size to be unsed when adding labels, in
+        /// pixels.  The default value is '12'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="VisualizeIsochroneRequest.ContourOptions.LABELS_FONT_FAMILY">LABELS_FONT_FAMILY</see>:</term>
-        ///         <description>  The default value is 'arial'.</description>
+        ///         <description>Font name to be unsed when adding labels.  The
+        /// default value is 'arial'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="VisualizeIsochroneRequest.ContourOptions.LABELS_SEARCH_WINDOW">LABELS_SEARCH_WINDOW</see>:</term>
-        ///         <description>  The default value is '4'.</description>
+        ///         <description>When placing labels on isolines, a search
+        /// window is used to rate the local quality of each isoline. Smooth,
+        /// continuous, long stretches with relatively flat angles are favored.
+        /// The given number multiplied by the font size to get the final
+        /// window size to use.  The default value is '4'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="VisualizeIsochroneRequest.ContourOptions.LABELS_INTRALEVEL_SEPARATION">LABELS_INTRALEVEL_SEPARATION</see>:</term>
-        ///         <description>  The default value is '4'.</description>
+        ///         <description>When labels are enabled, labels are separated
+        /// to avoid overlap: This specifies the distance certain distance (in
+        /// multiples of the font size) to use when separating labels of
+        /// different values.  The default value is '4'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="VisualizeIsochroneRequest.ContourOptions.LABELS_INTERLEVEL_SEPARATION">LABELS_INTERLEVEL_SEPARATION</see>:</term>
-        ///         <description>  The default value is '20'.</description>
+        ///         <description>When labels are enabled, more than one label
+        /// can placed on the same isoline: This specifies the distance certain
+        /// distance (in percent of the total window size) to use when
+        /// separating labels of the same value.  The default value is
+        /// '20'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="VisualizeIsochroneRequest.ContourOptions.LABELS_MAX_ANGLE">LABELS_MAX_ANGLE</see>:</term>
-        ///         <description>  The default value is '60'.</description>
+        ///         <description>Maximum angle from the vertical to use when
+        /// adding labels, in degrees.  The default value is
+        /// '60'.</description>
         ///     </item>
         /// </list>
-        /// <br />
+        /// The default value is an empty {@link Dictionary}.
         /// A set of string constants for the parameter <see
         /// cref="contour_options" />.</summary>
         public struct ContourOptions
         {
 
-            /// <summary>  The default value is '20'.</summary>
+            /// <summary>Spatial Reference System (i.e. EPSG Code).
+            /// Supported values:
+            /// <list type="bullet">
+            ///     <item>
+            ///         <term><see
+            /// cref="VisualizeIsochroneRequest.ContourOptions._3857">_3857</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="VisualizeIsochroneRequest.ContourOptions._102100">_102100</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="VisualizeIsochroneRequest.ContourOptions._900913">_900913</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="VisualizeIsochroneRequest.ContourOptions.EPSG_4326">EPSG_4326</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="VisualizeIsochroneRequest.ContourOptions.PLATE_CARREE">PLATE_CARREE</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="VisualizeIsochroneRequest.ContourOptions.EPSG_900913">EPSG_900913</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="VisualizeIsochroneRequest.ContourOptions.EPSG_102100">EPSG_102100</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="VisualizeIsochroneRequest.ContourOptions.EPSG_3857">EPSG_3857</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="VisualizeIsochroneRequest.ContourOptions.WEB_MERCATOR">WEB_MERCATOR</see></term>
+            ///     </item>
+            /// </list>
+            /// The default value is <see
+            /// cref="VisualizeIsochroneRequest.ContourOptions.PLATE_CARREE">PLATE_CARREE</see>.</summary>
+            public const string PROJECTION = "projection";
+            public const string _3857 = "3857";
+            public const string _102100 = "102100";
+            public const string _900913 = "900913";
+            public const string EPSG_4326 = "EPSG:4326";
+            public const string PLATE_CARREE = "PLATE_CARREE";
+            public const string EPSG_900913 = "EPSG:900913";
+            public const string EPSG_102100 = "EPSG:102100";
+            public const string EPSG_3857 = "EPSG:3857";
+            public const string WEB_MERCATOR = "WEB_MERCATOR";
+
+            /// <summary>Height of the generated image if applicable.  The
+            /// default value is '512'.</summary>
+            public const string WIDTH = "width";
+
+            /// <summary>Height of the generated image if applicable. If not
+            /// given, a default of aspect_ratio*width is used.  The default
+            /// value is '-1'.</summary>
+            public const string HEIGHT = "height";
+
+            /// <summary>When interpolating the graph solution to generate the
+            /// isochrone, neighborhood of influence of sample data (in percent
+            /// of the image/grid).  The default value is '20'.</summary>
             public const string SEARCH_RADIUS = "search_radius";
 
-            /// <summary>  The default value is '100'.</summary>
+            /// <summary>When interpolating the graph solution to generate the
+            /// isochrone, number of subdivisions alongs the x axis when
+            /// building the grid (the y is computed using the aspect ratio of
+            /// the output image).  The default value is '100'.</summary>
             public const string GRID_SIZE = "grid_size";
 
-            /// <summary>  The default value is 'true'.</summary>
+            /// <summary>Color each isoline according to the colormap;
+            /// otherwise, use the foreground color.  The default value is
+            /// 'true'.</summary>
             public const string COLOR_ISOLINES = "color_isolines";
 
-            /// <summary>  The default value is 'false'.</summary>
+            /// <summary>Labels the isolines in the image.  The default value
+            /// is 'false'.</summary>
             public const string ADD_LABELS = "add_labels";
 
-            /// <summary>  The default value is '12'.</summary>
+            /// <summary>Font size to be unsed when adding labels, in pixels.
+            /// The default value is '12'.</summary>
             public const string LABELS_FONT_SIZE = "labels_font_size";
 
-            /// <summary>  The default value is 'arial'.</summary>
+            /// <summary>Font name to be unsed when adding labels.  The default
+            /// value is 'arial'.</summary>
             public const string LABELS_FONT_FAMILY = "labels_font_family";
 
-            /// <summary>  The default value is '4'.</summary>
+            /// <summary>When placing labels on isolines, a search window is
+            /// used to rate the local quality of each isoline. Smooth,
+            /// continuous, long stretches with relatively flat angles are
+            /// favored. The given number multiplied by the font size to get
+            /// the final window size to use.  The default value is
+            /// '4'.</summary>
             public const string LABELS_SEARCH_WINDOW = "labels_search_window";
 
-            /// <summary>  The default value is '4'.</summary>
+            /// <summary>When labels are enabled, labels are separated to avoid
+            /// overlap: This specifies the distance certain distance (in
+            /// multiples of the font size) to use when separating labels of
+            /// different values.  The default value is '4'.</summary>
             public const string LABELS_INTRALEVEL_SEPARATION = "labels_intralevel_separation";
 
-            /// <summary>  The default value is '20'.</summary>
+            /// <summary>When labels are enabled, more than one label can
+            /// placed on the same isoline: This specifies the distance certain
+            /// distance (in percent of the total window size) to use when
+            /// separating labels of the same value.  The default value is
+            /// '20'.</summary>
             public const string LABELS_INTERLEVEL_SEPARATION = "labels_interlevel_separation";
 
-            /// <summary>  The default value is '60'.</summary>
+            /// <summary>Maximum angle from the vertical to use when adding
+            /// labels, in degrees.  The default value is '60'.</summary>
             public const string LABELS_MAX_ANGLE = "labels_max_angle";
         } // end struct ContourOptions
 
 
-        /// <summary>
+        /// <summary>Additional parameters
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
-        /// cref="VisualizeIsochroneRequest.Options.LEVELS_TABLE">LEVELS_TABLE</see>:</term>
-        ///         <description>  The default value is ''.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
         /// cref="VisualizeIsochroneRequest.Options.SOLVE_TABLE">SOLVE_TABLE</see>:</term>
-        ///         <description>  The default value is ''.</description>
+        ///         <description>Name of the table of the intermediate solve
+        /// results, conatining the position and cost for each vertex in the
+        /// graph. If no name is given, a temporary table is created and
+        /// deleted one the solve is done.  The default value is
+        /// ''.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="VisualizeIsochroneRequest.Options.IS_REPLICATED">IS_REPLICATED</see>:</term>
-        ///         <description>  The default value is 'true'.</description>
+        ///         <description>Replicate the solution table if true.  The
+        /// default value is 'true'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="VisualizeIsochroneRequest.Options.DATA_MIN_X">DATA_MIN_X</see>:</term>
-        ///         <description></description>
+        ///         <description>Lower bound for the x values. If not given, it
+        /// will be computed from the bounds of the input data.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="VisualizeIsochroneRequest.Options.DATA_MAX_X">DATA_MAX_X</see>:</term>
-        ///         <description></description>
+        ///         <description>Upper bound for the x values. If not given, it
+        /// will be computed from the bounds of the input data.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="VisualizeIsochroneRequest.Options.DATA_MIN_Y">DATA_MIN_Y</see>:</term>
-        ///         <description></description>
+        ///         <description>Lower bound for the y values. If not given, it
+        /// will be computed from the bounds of the input data.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="VisualizeIsochroneRequest.Options.DATA_MAX_Y">DATA_MAX_Y</see>:</term>
-        ///         <description></description>
+        ///         <description>Upper bound for the y values. If not given, it
+        /// will be computed from the bounds of the input data.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="VisualizeIsochroneRequest.Options.CONCAVITY_LEVEL">CONCAVITY_LEVEL</see>:</term>
-        ///         <description>  The default value is '0'.</description>
+        ///         <description>Factor to qualify the concavity of the
+        /// isocrhone curves, 0 for completely convex, 1 to maximize concavity.
+        /// The default value is '0.5'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="VisualizeIsochroneRequest.Options.SOLVE_DIRECTION">SOLVE_DIRECTION</see>:</term>
-        ///         <description>
+        ///         <description>Specify whether we are going to the source
+        /// node, or starting from it.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
-        /// cref="VisualizeIsochroneRequest.Options.FROM_SOURCE">FROM_SOURCE</see></term>
+        /// cref="VisualizeIsochroneRequest.Options.FROM_SOURCE">FROM_SOURCE</see>:</term>
+        ///         <description>Shortest path to get to the source (inverse
+        /// Dijkstra)</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="VisualizeIsochroneRequest.Options.TO_SOURCE">TO_SOURCE</see></term>
+        /// cref="VisualizeIsochroneRequest.Options.TO_SOURCE">TO_SOURCE</see>:</term>
+        ///         <description>Shortest path to source
+        /// (Dijkstra)</description>
         ///     </item>
         /// </list>
         /// The default value is <see
         /// cref="VisualizeIsochroneRequest.Options.FROM_SOURCE">FROM_SOURCE</see>.</description>
         ///     </item>
         /// </list>
-        /// <br />
+        /// The default value is an empty {@link Dictionary}.
         /// A set of string constants for the parameter <see cref="options"
         /// />.</summary>
         public struct Options
         {
 
-            /// <summary>  The default value is ''.</summary>
-            public const string LEVELS_TABLE = "levels_table";
-
-            /// <summary>  The default value is ''.</summary>
+            /// <summary>Name of the table of the intermediate solve results,
+            /// conatining the position and cost for each vertex in the graph.
+            /// If no name is given, a temporary table is created and deleted
+            /// one the solve is done.  The default value is ''.</summary>
             public const string SOLVE_TABLE = "solve_table";
 
-            /// <summary>  The default value is 'true'.</summary>
+            /// <summary>Replicate the solution table if true.  The default
+            /// value is 'true'.</summary>
             public const string IS_REPLICATED = "is_replicated";
+
+            /// <summary>Lower bound for the x values. If not given, it will be
+            /// computed from the bounds of the input data.</summary>
             public const string DATA_MIN_X = "data_min_x";
+
+            /// <summary>Upper bound for the x values. If not given, it will be
+            /// computed from the bounds of the input data.</summary>
             public const string DATA_MAX_X = "data_max_x";
+
+            /// <summary>Lower bound for the y values. If not given, it will be
+            /// computed from the bounds of the input data.</summary>
             public const string DATA_MIN_Y = "data_min_y";
+
+            /// <summary>Upper bound for the y values. If not given, it will be
+            /// computed from the bounds of the input data.</summary>
             public const string DATA_MAX_Y = "data_max_y";
 
-            /// <summary>  The default value is '0'.</summary>
+            /// <summary>Factor to qualify the concavity of the isocrhone
+            /// curves, 0 for completely convex, 1 to maximize concavity.  The
+            /// default value is '0.5'.</summary>
             public const string CONCAVITY_LEVEL = "concavity_level";
 
-            /// <summary>
+            /// <summary>Specify whether we are going to the source node, or
+            /// starting from it.
             /// Supported values:
             /// <list type="bullet">
             ///     <item>
             ///         <term><see
-            /// cref="VisualizeIsochroneRequest.Options.FROM_SOURCE">FROM_SOURCE</see></term>
+            /// cref="VisualizeIsochroneRequest.Options.FROM_SOURCE">FROM_SOURCE</see>:</term>
+            ///         <description>Shortest path to get to the source
+            /// (inverse Dijkstra)</description>
             ///     </item>
             ///     <item>
             ///         <term><see
-            /// cref="VisualizeIsochroneRequest.Options.TO_SOURCE">TO_SOURCE</see></term>
+            /// cref="VisualizeIsochroneRequest.Options.TO_SOURCE">TO_SOURCE</see>:</term>
+            ///         <description>Shortest path to source
+            /// (Dijkstra)</description>
             ///     </item>
             /// </list>
             /// The default value is <see
             /// cref="VisualizeIsochroneRequest.Options.FROM_SOURCE">FROM_SOURCE</see>.</summary>
             public const string SOLVE_DIRECTION = "solve_direction";
+
+            /// <summary>Shortest path to get to the source (inverse
+            /// Dijkstra)</summary>
             public const string FROM_SOURCE = "from_source";
+
+            /// <summary>Shortest path to source (Dijkstra)</summary>
             public const string TO_SOURCE = "to_source";
         } // end struct Options
 
+
+        /// <summary>Name of the graph on which the isochrone is to be
+        /// computed.  </summary>
         public string graph_name { get; set; }
-        public IList<string> weights_on_edges { get; set; } = new List<string>();
+
+        /// <summary>Starting vertex on the graph from/to which we solve.
+        /// </summary>
         public string source_node { get; set; }
-        public IList<string> restrictions { get; set; } = new List<string>();
+
+        /// <summary>Extent of the search around the source node. -1.0 is
+        /// unrestricted.  The default value is -1.0.</summary>
         public double max_solution_radius { get; set; } = -1.0;
+
+        /// <summary>Additional weights to apply to the edges of an existing
+        /// graph. Weights must be specified using <a
+        /// href="../../graph_solver/network_graph_solver.html#identifiers"
+        /// target="_top">identifiers</a>; identifiers are grouped as <a
+        /// href="../../graph_solver/network_graph_solver.html#id-combos"
+        /// target="_top">combinations</a>. Identifiers can be used with
+        /// existing column names, e.g., 'table.column AS WEIGHTS_EDGE_ID', or
+        /// expressions, e.g., 'ST_LENGTH(wkt) AS WEIGHTS_VALUESPECIFIED'. Any
+        /// provided weights will be added (in the case of
+        /// 'WEIGHTS_VALUESPECIFIED') to or multiplied with (in the case of
+        /// 'WEIGHTS_FACTORSPECIFIED') the existing weight(s).  The default
+        /// value is an empty {@link List}.</summary>
+        public IList<string> weights_on_edges { get; set; } = new List<string>();
+
+        /// <summary>Additional restrictions to apply to the nodes/edges of an
+        /// existing graph. Restrictions must be specified using <a
+        /// href="../../graph_solver/network_graph_solver.html#identifiers"
+        /// target="_top">identifiers</a>; identifiers are grouped as <a
+        /// href="../../graph_solver/network_graph_solver.html#id-combos"
+        /// target="_top">combinations</a>. Identifiers can be used with
+        /// existing column names, e.g., 'table.column AS
+        /// RESTRICTIONS_EDGE_ID', or expressions, e.g., 'column/2 AS
+        /// RESTRICTIONS_VALUECOMPARED'. If <i>remove_previous_restrictions</i>
+        /// is set to <i>true</i>, any provided restrictions will replace the
+        /// existing restrictions. If <i>remove_previous_restrictions</i> is
+        /// set to <i>false</i>, any provided weights will be added (in the
+        /// case of 'RESTRICTIONS_VALUECOMPARED') to or replaced (in the case
+        /// of 'RESTRICTIONS_ONOFFCOMPARED').  The default value is an empty
+        /// {@link List}.</summary>
+        public IList<string> restrictions { get; set; } = new List<string>();
+
+        /// <summary>Number of equally separated isochrone to compute.  The
+        /// default value is 1.</summary>
         public int num_levels { get; set; } = 1;
+
+        /// <summary>If true, return a PNG of the isochrone in the response.
+        /// The default value is true.</summary>
         public bool generate_image { get; set; } = true;
 
-        /// <summary>
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="VisualizeIsochroneRequest.Projection._3857">_3857</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="VisualizeIsochroneRequest.Projection._102100">_102100</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="VisualizeIsochroneRequest.Projection._900913">_900913</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="VisualizeIsochroneRequest.Projection.EPSG_4326">EPSG_4326</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="VisualizeIsochroneRequest.Projection.PLATE_CARREE">PLATE_CARREE</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="VisualizeIsochroneRequest.Projection.EPSG_900913">EPSG_900913</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="VisualizeIsochroneRequest.Projection.EPSG_102100">EPSG_102100</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="VisualizeIsochroneRequest.Projection.EPSG_3857">EPSG_3857</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="VisualizeIsochroneRequest.Projection.WEB_MERCATOR">WEB_MERCATOR</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="VisualizeIsochroneRequest.Projection.PLATE_CARREE">PLATE_CARREE</see>.</summary>
-        public string projection { get; set; } = Projection.PLATE_CARREE;
-        public int image_width { get; set; } = 512;
-        public int image_height { get; set; } = -1;
+        /// <summary>Name of the table to output the isochrone, containing
+        /// levels and their corresponding WKT geomerty. If no name is given,
+        /// the table is not generated.  The default value is ''.</summary>
+        public string levels_table { get; set; } = "";
 
-        /// <summary>
+        /// <summary>Various style related options of the isochrone image.
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
         /// cref="VisualizeIsochroneRequest.StyleOptions.LINE_SIZE">LINE_SIZE</see>:</term>
-        ///         <description>  The default value is '3'.</description>
+        ///         <description>The width of the contour lines in pixel.  The
+        /// default value is '3'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="VisualizeIsochroneRequest.StyleOptions.COLOR">COLOR</see>:</term>
-        ///         <description>  The default value is
-        /// 'FF696969'.</description>
+        ///         <description>Color of generated curves. All color values
+        /// must be in the format RRGGBB or AARRGGBB (to specify the alpha
+        /// value). If alpha is specified and flooded contours are enabled, it
+        /// will be used for as the transparency of the latter.  The default
+        /// value is 'FF696969'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="VisualizeIsochroneRequest.StyleOptions.BG_COLOR">BG_COLOR</see>:</term>
-        ///         <description>  The default value is
-        /// '00000000'.</description>
+        ///         <description>Background color of the generated image. All
+        /// color values must be in the format RRGGBB or AARRGGBB (to specify
+        /// the alpha value).  The default value is '00000000'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="VisualizeIsochroneRequest.StyleOptions.TEXT_COLOR">TEXT_COLOR</see>:</term>
-        ///         <description>  The default value is
-        /// 'FF000000'.</description>
+        ///         <description>Color for the labels when enabled. All color
+        /// values must be in the format RRGGBB or AARRGGBB (to specify the
+        /// alpha value).  The default value is 'FF000000'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="VisualizeIsochroneRequest.StyleOptions.COLORMAP">COLORMAP</see>:</term>
-        ///         <description>
+        ///         <description>Colormap for contours or fill-in regions when
+        /// enabled. All color values must be in the format RRGGBB or AARRGGBB
+        /// (to specify the alpha value)
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -1458,15 +1655,17 @@ namespace kinetica
         /// cref="VisualizeIsochroneRequest.StyleOptions.JET">JET</see>.</description>
         ///     </item>
         /// </list>
-        /// </summary>
+        ///   </summary>
         public IDictionary<string, string> style_options { get; set; } = new Dictionary<string, string>();
 
-        /// <summary>
+        /// <summary>Solver specific parameters
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
         /// cref="VisualizeIsochroneRequest.SolveOptions.REMOVE_PREVIOUS_RESTRICTIONS">REMOVE_PREVIOUS_RESTRICTIONS</see>:</term>
-        ///         <description>
+        ///         <description>Ignore the restrictions applied to the graph
+        /// during the creation stage and only use the restrictions specified
+        /// in this request if set to <i>true</i>.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -1484,135 +1683,234 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="VisualizeIsochroneRequest.SolveOptions.RESTRICTION_THRESHOLD_VALUE">RESTRICTION_THRESHOLD_VALUE</see>:</term>
-        ///         <description></description>
+        ///         <description>Value-based restriction comparison. Any node
+        /// or edge with a RESTRICTIONS_VALUECOMPARED value greater than the
+        /// <i>restriction_threshold_value</i> will not be included in the
+        /// solution.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="VisualizeIsochroneRequest.SolveOptions.UNIFORM_WEIGHTS">UNIFORM_WEIGHTS</see>:</term>
-        ///         <description></description>
+        ///         <description>When speficied, assigns the given value to all
+        /// the edges in the graph. Note that weights specified in
+        /// @{weights_on_edges} override this value.</description>
         ///     </item>
         /// </list>
-        /// </summary>
+        /// The default value is an empty {@link Dictionary}.</summary>
         public IDictionary<string, string> solve_options { get; set; } = new Dictionary<string, string>();
 
-        /// <summary>
+        /// <summary>Solver specific parameters
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
-        /// cref="VisualizeIsochroneRequest.ContourOptions.SEARCH_RADIUS">SEARCH_RADIUS</see>:</term>
-        ///         <description>  The default value is '20'.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="VisualizeIsochroneRequest.ContourOptions.GRID_SIZE">GRID_SIZE</see>:</term>
-        ///         <description>  The default value is '100'.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="VisualizeIsochroneRequest.ContourOptions.COLOR_ISOLINES">COLOR_ISOLINES</see>:</term>
-        ///         <description>  The default value is 'true'.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="VisualizeIsochroneRequest.ContourOptions.ADD_LABELS">ADD_LABELS</see>:</term>
-        ///         <description>  The default value is 'false'.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="VisualizeIsochroneRequest.ContourOptions.LABELS_FONT_SIZE">LABELS_FONT_SIZE</see>:</term>
-        ///         <description>  The default value is '12'.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="VisualizeIsochroneRequest.ContourOptions.LABELS_FONT_FAMILY">LABELS_FONT_FAMILY</see>:</term>
-        ///         <description>  The default value is 'arial'.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="VisualizeIsochroneRequest.ContourOptions.LABELS_SEARCH_WINDOW">LABELS_SEARCH_WINDOW</see>:</term>
-        ///         <description>  The default value is '4'.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="VisualizeIsochroneRequest.ContourOptions.LABELS_INTRALEVEL_SEPARATION">LABELS_INTRALEVEL_SEPARATION</see>:</term>
-        ///         <description>  The default value is '4'.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="VisualizeIsochroneRequest.ContourOptions.LABELS_INTERLEVEL_SEPARATION">LABELS_INTERLEVEL_SEPARATION</see>:</term>
-        ///         <description>  The default value is '20'.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="VisualizeIsochroneRequest.ContourOptions.LABELS_MAX_ANGLE">LABELS_MAX_ANGLE</see>:</term>
-        ///         <description>  The default value is '60'.</description>
-        ///     </item>
-        /// </list>
-        /// </summary>
-        public IDictionary<string, string> contour_options { get; set; } = new Dictionary<string, string>();
-
-        /// <summary>
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="VisualizeIsochroneRequest.Options.LEVELS_TABLE">LEVELS_TABLE</see>:</term>
-        ///         <description>  The default value is ''.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="VisualizeIsochroneRequest.Options.SOLVE_TABLE">SOLVE_TABLE</see>:</term>
-        ///         <description>  The default value is ''.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="VisualizeIsochroneRequest.Options.IS_REPLICATED">IS_REPLICATED</see>:</term>
-        ///         <description>  The default value is 'true'.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="VisualizeIsochroneRequest.Options.DATA_MIN_X">DATA_MIN_X</see>:</term>
-        ///         <description></description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="VisualizeIsochroneRequest.Options.DATA_MAX_X">DATA_MAX_X</see>:</term>
-        ///         <description></description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="VisualizeIsochroneRequest.Options.DATA_MIN_Y">DATA_MIN_Y</see>:</term>
-        ///         <description></description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="VisualizeIsochroneRequest.Options.DATA_MAX_Y">DATA_MAX_Y</see>:</term>
-        ///         <description></description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="VisualizeIsochroneRequest.Options.CONCAVITY_LEVEL">CONCAVITY_LEVEL</see>:</term>
-        ///         <description>  The default value is '0'.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="VisualizeIsochroneRequest.Options.SOLVE_DIRECTION">SOLVE_DIRECTION</see>:</term>
-        ///         <description>
+        /// cref="VisualizeIsochroneRequest.ContourOptions.PROJECTION">PROJECTION</see>:</term>
+        ///         <description>Spatial Reference System (i.e. EPSG Code).
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
-        /// cref="VisualizeIsochroneRequest.Options.FROM_SOURCE">FROM_SOURCE</see></term>
+        /// cref="VisualizeIsochroneRequest.ContourOptions._3857">_3857</see></term>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="VisualizeIsochroneRequest.Options.TO_SOURCE">TO_SOURCE</see></term>
+        /// cref="VisualizeIsochroneRequest.ContourOptions._102100">_102100</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeIsochroneRequest.ContourOptions._900913">_900913</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeIsochroneRequest.ContourOptions.EPSG_4326">EPSG_4326</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeIsochroneRequest.ContourOptions.PLATE_CARREE">PLATE_CARREE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeIsochroneRequest.ContourOptions.EPSG_900913">EPSG_900913</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeIsochroneRequest.ContourOptions.EPSG_102100">EPSG_102100</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeIsochroneRequest.ContourOptions.EPSG_3857">EPSG_3857</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeIsochroneRequest.ContourOptions.WEB_MERCATOR">WEB_MERCATOR</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="VisualizeIsochroneRequest.ContourOptions.PLATE_CARREE">PLATE_CARREE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeIsochroneRequest.ContourOptions.WIDTH">WIDTH</see>:</term>
+        ///         <description>Height of the generated image if applicable.
+        /// The default value is '512'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeIsochroneRequest.ContourOptions.HEIGHT">HEIGHT</see>:</term>
+        ///         <description>Height of the generated image if applicable.
+        /// If not given, a default of aspect_ratio*width is used.  The default
+        /// value is '-1'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeIsochroneRequest.ContourOptions.SEARCH_RADIUS">SEARCH_RADIUS</see>:</term>
+        ///         <description>When interpolating the graph solution to
+        /// generate the isochrone, neighborhood of influence of sample data
+        /// (in percent of the image/grid).  The default value is
+        /// '20'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeIsochroneRequest.ContourOptions.GRID_SIZE">GRID_SIZE</see>:</term>
+        ///         <description>When interpolating the graph solution to
+        /// generate the isochrone, number of subdivisions alongs the x axis
+        /// when building the grid (the y is computed using the aspect ratio of
+        /// the output image).  The default value is '100'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeIsochroneRequest.ContourOptions.COLOR_ISOLINES">COLOR_ISOLINES</see>:</term>
+        ///         <description>Color each isoline according to the colormap;
+        /// otherwise, use the foreground color.  The default value is
+        /// 'true'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeIsochroneRequest.ContourOptions.ADD_LABELS">ADD_LABELS</see>:</term>
+        ///         <description>Labels the isolines in the image.  The default
+        /// value is 'false'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeIsochroneRequest.ContourOptions.LABELS_FONT_SIZE">LABELS_FONT_SIZE</see>:</term>
+        ///         <description>Font size to be unsed when adding labels, in
+        /// pixels.  The default value is '12'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeIsochroneRequest.ContourOptions.LABELS_FONT_FAMILY">LABELS_FONT_FAMILY</see>:</term>
+        ///         <description>Font name to be unsed when adding labels.  The
+        /// default value is 'arial'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeIsochroneRequest.ContourOptions.LABELS_SEARCH_WINDOW">LABELS_SEARCH_WINDOW</see>:</term>
+        ///         <description>When placing labels on isolines, a search
+        /// window is used to rate the local quality of each isoline. Smooth,
+        /// continuous, long stretches with relatively flat angles are favored.
+        /// The given number multiplied by the font size to get the final
+        /// window size to use.  The default value is '4'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeIsochroneRequest.ContourOptions.LABELS_INTRALEVEL_SEPARATION">LABELS_INTRALEVEL_SEPARATION</see>:</term>
+        ///         <description>When labels are enabled, labels are separated
+        /// to avoid overlap: This specifies the distance certain distance (in
+        /// multiples of the font size) to use when separating labels of
+        /// different values.  The default value is '4'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeIsochroneRequest.ContourOptions.LABELS_INTERLEVEL_SEPARATION">LABELS_INTERLEVEL_SEPARATION</see>:</term>
+        ///         <description>When labels are enabled, more than one label
+        /// can placed on the same isoline: This specifies the distance certain
+        /// distance (in percent of the total window size) to use when
+        /// separating labels of the same value.  The default value is
+        /// '20'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeIsochroneRequest.ContourOptions.LABELS_MAX_ANGLE">LABELS_MAX_ANGLE</see>:</term>
+        ///         <description>Maximum angle from the vertical to use when
+        /// adding labels, in degrees.  The default value is
+        /// '60'.</description>
+        ///     </item>
+        /// </list>
+        /// The default value is an empty {@link Dictionary}.</summary>
+        public IDictionary<string, string> contour_options { get; set; } = new Dictionary<string, string>();
+
+        /// <summary>Additional parameters
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeIsochroneRequest.Options.SOLVE_TABLE">SOLVE_TABLE</see>:</term>
+        ///         <description>Name of the table of the intermediate solve
+        /// results, conatining the position and cost for each vertex in the
+        /// graph. If no name is given, a temporary table is created and
+        /// deleted one the solve is done.  The default value is
+        /// ''.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeIsochroneRequest.Options.IS_REPLICATED">IS_REPLICATED</see>:</term>
+        ///         <description>Replicate the solution table if true.  The
+        /// default value is 'true'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeIsochroneRequest.Options.DATA_MIN_X">DATA_MIN_X</see>:</term>
+        ///         <description>Lower bound for the x values. If not given, it
+        /// will be computed from the bounds of the input data.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeIsochroneRequest.Options.DATA_MAX_X">DATA_MAX_X</see>:</term>
+        ///         <description>Upper bound for the x values. If not given, it
+        /// will be computed from the bounds of the input data.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeIsochroneRequest.Options.DATA_MIN_Y">DATA_MIN_Y</see>:</term>
+        ///         <description>Lower bound for the y values. If not given, it
+        /// will be computed from the bounds of the input data.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeIsochroneRequest.Options.DATA_MAX_Y">DATA_MAX_Y</see>:</term>
+        ///         <description>Upper bound for the y values. If not given, it
+        /// will be computed from the bounds of the input data.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeIsochroneRequest.Options.CONCAVITY_LEVEL">CONCAVITY_LEVEL</see>:</term>
+        ///         <description>Factor to qualify the concavity of the
+        /// isocrhone curves, 0 for completely convex, 1 to maximize concavity.
+        /// The default value is '0.5'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeIsochroneRequest.Options.SOLVE_DIRECTION">SOLVE_DIRECTION</see>:</term>
+        ///         <description>Specify whether we are going to the source
+        /// node, or starting from it.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeIsochroneRequest.Options.FROM_SOURCE">FROM_SOURCE</see>:</term>
+        ///         <description>Shortest path to get to the source (inverse
+        /// Dijkstra)</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeIsochroneRequest.Options.TO_SOURCE">TO_SOURCE</see>:</term>
+        ///         <description>Shortest path to source
+        /// (Dijkstra)</description>
         ///     </item>
         /// </list>
         /// The default value is <see
         /// cref="VisualizeIsochroneRequest.Options.FROM_SOURCE">FROM_SOURCE</see>.</description>
         ///     </item>
         /// </list>
-        /// </summary>
+        /// The default value is an empty {@link Dictionary}.</summary>
         public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
 
 
@@ -1623,86 +1921,87 @@ namespace kinetica
         /// <summary>Constructs a VisualizeIsochroneRequest object with the
         /// specified parameters.</summary>
         /// 
-        /// <param name="graph_name"></param>
-        /// <param name="weights_on_edges"></param>
-        /// <param name="source_node"></param>
-        /// <param name="restrictions"></param>
-        /// <param name="max_solution_radius"></param>
-        /// <param name="num_levels"></param>
-        /// <param name="generate_image"></param>
-        /// <param name="projection">
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="VisualizeIsochroneRequest.Projection._3857">_3857</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="VisualizeIsochroneRequest.Projection._102100">_102100</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="VisualizeIsochroneRequest.Projection._900913">_900913</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="VisualizeIsochroneRequest.Projection.EPSG_4326">EPSG_4326</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="VisualizeIsochroneRequest.Projection.PLATE_CARREE">PLATE_CARREE</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="VisualizeIsochroneRequest.Projection.EPSG_900913">EPSG_900913</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="VisualizeIsochroneRequest.Projection.EPSG_102100">EPSG_102100</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="VisualizeIsochroneRequest.Projection.EPSG_3857">EPSG_3857</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="VisualizeIsochroneRequest.Projection.WEB_MERCATOR">WEB_MERCATOR</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="VisualizeIsochroneRequest.Projection.PLATE_CARREE">PLATE_CARREE</see>.</param>
-        /// <param name="image_width"></param>
-        /// <param name="image_height"></param>
-        /// <param name="style_options">
+        /// <param name="graph_name">Name of the graph on which the isochrone
+        /// is to be computed.  </param>
+        /// <param name="source_node">Starting vertex on the graph from/to
+        /// which we solve.  </param>
+        /// <param name="max_solution_radius">Extent of the search around the
+        /// source node. -1.0 is unrestricted.  The default value is
+        /// -1.0.</param>
+        /// <param name="weights_on_edges">Additional weights to apply to the
+        /// edges of an existing graph. Weights must be specified using <a
+        /// href="../../graph_solver/network_graph_solver.html#identifiers"
+        /// target="_top">identifiers</a>; identifiers are grouped as <a
+        /// href="../../graph_solver/network_graph_solver.html#id-combos"
+        /// target="_top">combinations</a>. Identifiers can be used with
+        /// existing column names, e.g., 'table.column AS WEIGHTS_EDGE_ID', or
+        /// expressions, e.g., 'ST_LENGTH(wkt) AS WEIGHTS_VALUESPECIFIED'. Any
+        /// provided weights will be added (in the case of
+        /// 'WEIGHTS_VALUESPECIFIED') to or multiplied with (in the case of
+        /// 'WEIGHTS_FACTORSPECIFIED') the existing weight(s).  The default
+        /// value is an empty {@link List}.</param>
+        /// <param name="restrictions">Additional restrictions to apply to the
+        /// nodes/edges of an existing graph. Restrictions must be specified
+        /// using <a
+        /// href="../../graph_solver/network_graph_solver.html#identifiers"
+        /// target="_top">identifiers</a>; identifiers are grouped as <a
+        /// href="../../graph_solver/network_graph_solver.html#id-combos"
+        /// target="_top">combinations</a>. Identifiers can be used with
+        /// existing column names, e.g., 'table.column AS
+        /// RESTRICTIONS_EDGE_ID', or expressions, e.g., 'column/2 AS
+        /// RESTRICTIONS_VALUECOMPARED'. If <i>remove_previous_restrictions</i>
+        /// is set to <i>true</i>, any provided restrictions will replace the
+        /// existing restrictions. If <i>remove_previous_restrictions</i> is
+        /// set to <i>false</i>, any provided weights will be added (in the
+        /// case of 'RESTRICTIONS_VALUECOMPARED') to or replaced (in the case
+        /// of 'RESTRICTIONS_ONOFFCOMPARED').  The default value is an empty
+        /// {@link List}.</param>
+        /// <param name="num_levels">Number of equally separated isochrone to
+        /// compute.  The default value is 1.</param>
+        /// <param name="generate_image">If true, return a PNG of the isochrone
+        /// in the response.  The default value is true.</param>
+        /// <param name="levels_table">Name of the table to output the
+        /// isochrone, containing levels and their corresponding WKT geomerty.
+        /// If no name is given, the table is not generated.  The default value
+        /// is ''.</param>
+        /// <param name="style_options">Various style related options of the
+        /// isochrone image.
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
         /// cref="VisualizeIsochroneRequest.StyleOptions.LINE_SIZE">LINE_SIZE</see>:</term>
-        ///         <description>  The default value is '3'.</description>
+        ///         <description>The width of the contour lines in pixel.  The
+        /// default value is '3'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="VisualizeIsochroneRequest.StyleOptions.COLOR">COLOR</see>:</term>
-        ///         <description>  The default value is
-        /// 'FF696969'.</description>
+        ///         <description>Color of generated curves. All color values
+        /// must be in the format RRGGBB or AARRGGBB (to specify the alpha
+        /// value). If alpha is specified and flooded contours are enabled, it
+        /// will be used for as the transparency of the latter.  The default
+        /// value is 'FF696969'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="VisualizeIsochroneRequest.StyleOptions.BG_COLOR">BG_COLOR</see>:</term>
-        ///         <description>  The default value is
-        /// '00000000'.</description>
+        ///         <description>Background color of the generated image. All
+        /// color values must be in the format RRGGBB or AARRGGBB (to specify
+        /// the alpha value).  The default value is '00000000'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="VisualizeIsochroneRequest.StyleOptions.TEXT_COLOR">TEXT_COLOR</see>:</term>
-        ///         <description>  The default value is
-        /// 'FF000000'.</description>
+        ///         <description>Color for the labels when enabled. All color
+        /// values must be in the format RRGGBB or AARRGGBB (to specify the
+        /// alpha value).  The default value is 'FF000000'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="VisualizeIsochroneRequest.StyleOptions.COLORMAP">COLORMAP</see>:</term>
-        ///         <description>
+        ///         <description>Colormap for contours or fill-in regions when
+        /// enabled. All color values must be in the format RRGGBB or AARRGGBB
+        /// (to specify the alpha value)
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -2010,13 +2309,15 @@ namespace kinetica
         /// cref="VisualizeIsochroneRequest.StyleOptions.JET">JET</see>.</description>
         ///     </item>
         /// </list>
-        /// </param>
-        /// <param name="solve_options">
+        ///   </param>
+        /// <param name="solve_options">Solver specific parameters
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
         /// cref="VisualizeIsochroneRequest.SolveOptions.REMOVE_PREVIOUS_RESTRICTIONS">REMOVE_PREVIOUS_RESTRICTIONS</see>:</term>
-        ///         <description>
+        ///         <description>Ignore the restrictions applied to the graph
+        /// during the creation stage and only use the restrictions specified
+        /// in this request if set to <i>true</i>.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -2034,157 +2335,252 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="VisualizeIsochroneRequest.SolveOptions.RESTRICTION_THRESHOLD_VALUE">RESTRICTION_THRESHOLD_VALUE</see>:</term>
-        ///         <description></description>
+        ///         <description>Value-based restriction comparison. Any node
+        /// or edge with a RESTRICTIONS_VALUECOMPARED value greater than the
+        /// <i>restriction_threshold_value</i> will not be included in the
+        /// solution.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="VisualizeIsochroneRequest.SolveOptions.UNIFORM_WEIGHTS">UNIFORM_WEIGHTS</see>:</term>
-        ///         <description></description>
+        ///         <description>When speficied, assigns the given value to all
+        /// the edges in the graph. Note that weights specified in
+        /// @{weights_on_edges} override this value.</description>
         ///     </item>
         /// </list>
-        /// </param>
-        /// <param name="contour_options">
+        /// The default value is an empty {@link Dictionary}.</param>
+        /// <param name="contour_options">Solver specific parameters
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
-        /// cref="VisualizeIsochroneRequest.ContourOptions.SEARCH_RADIUS">SEARCH_RADIUS</see>:</term>
-        ///         <description>  The default value is '20'.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="VisualizeIsochroneRequest.ContourOptions.GRID_SIZE">GRID_SIZE</see>:</term>
-        ///         <description>  The default value is '100'.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="VisualizeIsochroneRequest.ContourOptions.COLOR_ISOLINES">COLOR_ISOLINES</see>:</term>
-        ///         <description>  The default value is 'true'.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="VisualizeIsochroneRequest.ContourOptions.ADD_LABELS">ADD_LABELS</see>:</term>
-        ///         <description>  The default value is 'false'.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="VisualizeIsochroneRequest.ContourOptions.LABELS_FONT_SIZE">LABELS_FONT_SIZE</see>:</term>
-        ///         <description>  The default value is '12'.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="VisualizeIsochroneRequest.ContourOptions.LABELS_FONT_FAMILY">LABELS_FONT_FAMILY</see>:</term>
-        ///         <description>  The default value is 'arial'.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="VisualizeIsochroneRequest.ContourOptions.LABELS_SEARCH_WINDOW">LABELS_SEARCH_WINDOW</see>:</term>
-        ///         <description>  The default value is '4'.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="VisualizeIsochroneRequest.ContourOptions.LABELS_INTRALEVEL_SEPARATION">LABELS_INTRALEVEL_SEPARATION</see>:</term>
-        ///         <description>  The default value is '4'.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="VisualizeIsochroneRequest.ContourOptions.LABELS_INTERLEVEL_SEPARATION">LABELS_INTERLEVEL_SEPARATION</see>:</term>
-        ///         <description>  The default value is '20'.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="VisualizeIsochroneRequest.ContourOptions.LABELS_MAX_ANGLE">LABELS_MAX_ANGLE</see>:</term>
-        ///         <description>  The default value is '60'.</description>
-        ///     </item>
-        /// </list>
-        /// </param>
-        /// <param name="options">
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="VisualizeIsochroneRequest.Options.LEVELS_TABLE">LEVELS_TABLE</see>:</term>
-        ///         <description>  The default value is ''.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="VisualizeIsochroneRequest.Options.SOLVE_TABLE">SOLVE_TABLE</see>:</term>
-        ///         <description>  The default value is ''.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="VisualizeIsochroneRequest.Options.IS_REPLICATED">IS_REPLICATED</see>:</term>
-        ///         <description>  The default value is 'true'.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="VisualizeIsochroneRequest.Options.DATA_MIN_X">DATA_MIN_X</see>:</term>
-        ///         <description></description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="VisualizeIsochroneRequest.Options.DATA_MAX_X">DATA_MAX_X</see>:</term>
-        ///         <description></description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="VisualizeIsochroneRequest.Options.DATA_MIN_Y">DATA_MIN_Y</see>:</term>
-        ///         <description></description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="VisualizeIsochroneRequest.Options.DATA_MAX_Y">DATA_MAX_Y</see>:</term>
-        ///         <description></description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="VisualizeIsochroneRequest.Options.CONCAVITY_LEVEL">CONCAVITY_LEVEL</see>:</term>
-        ///         <description>  The default value is '0'.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="VisualizeIsochroneRequest.Options.SOLVE_DIRECTION">SOLVE_DIRECTION</see>:</term>
-        ///         <description>
+        /// cref="VisualizeIsochroneRequest.ContourOptions.PROJECTION">PROJECTION</see>:</term>
+        ///         <description>Spatial Reference System (i.e. EPSG Code).
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
-        /// cref="VisualizeIsochroneRequest.Options.FROM_SOURCE">FROM_SOURCE</see></term>
+        /// cref="VisualizeIsochroneRequest.ContourOptions._3857">_3857</see></term>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="VisualizeIsochroneRequest.Options.TO_SOURCE">TO_SOURCE</see></term>
+        /// cref="VisualizeIsochroneRequest.ContourOptions._102100">_102100</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeIsochroneRequest.ContourOptions._900913">_900913</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeIsochroneRequest.ContourOptions.EPSG_4326">EPSG_4326</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeIsochroneRequest.ContourOptions.PLATE_CARREE">PLATE_CARREE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeIsochroneRequest.ContourOptions.EPSG_900913">EPSG_900913</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeIsochroneRequest.ContourOptions.EPSG_102100">EPSG_102100</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeIsochroneRequest.ContourOptions.EPSG_3857">EPSG_3857</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeIsochroneRequest.ContourOptions.WEB_MERCATOR">WEB_MERCATOR</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="VisualizeIsochroneRequest.ContourOptions.PLATE_CARREE">PLATE_CARREE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeIsochroneRequest.ContourOptions.WIDTH">WIDTH</see>:</term>
+        ///         <description>Height of the generated image if applicable.
+        /// The default value is '512'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeIsochroneRequest.ContourOptions.HEIGHT">HEIGHT</see>:</term>
+        ///         <description>Height of the generated image if applicable.
+        /// If not given, a default of aspect_ratio*width is used.  The default
+        /// value is '-1'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeIsochroneRequest.ContourOptions.SEARCH_RADIUS">SEARCH_RADIUS</see>:</term>
+        ///         <description>When interpolating the graph solution to
+        /// generate the isochrone, neighborhood of influence of sample data
+        /// (in percent of the image/grid).  The default value is
+        /// '20'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeIsochroneRequest.ContourOptions.GRID_SIZE">GRID_SIZE</see>:</term>
+        ///         <description>When interpolating the graph solution to
+        /// generate the isochrone, number of subdivisions alongs the x axis
+        /// when building the grid (the y is computed using the aspect ratio of
+        /// the output image).  The default value is '100'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeIsochroneRequest.ContourOptions.COLOR_ISOLINES">COLOR_ISOLINES</see>:</term>
+        ///         <description>Color each isoline according to the colormap;
+        /// otherwise, use the foreground color.  The default value is
+        /// 'true'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeIsochroneRequest.ContourOptions.ADD_LABELS">ADD_LABELS</see>:</term>
+        ///         <description>Labels the isolines in the image.  The default
+        /// value is 'false'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeIsochroneRequest.ContourOptions.LABELS_FONT_SIZE">LABELS_FONT_SIZE</see>:</term>
+        ///         <description>Font size to be unsed when adding labels, in
+        /// pixels.  The default value is '12'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeIsochroneRequest.ContourOptions.LABELS_FONT_FAMILY">LABELS_FONT_FAMILY</see>:</term>
+        ///         <description>Font name to be unsed when adding labels.  The
+        /// default value is 'arial'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeIsochroneRequest.ContourOptions.LABELS_SEARCH_WINDOW">LABELS_SEARCH_WINDOW</see>:</term>
+        ///         <description>When placing labels on isolines, a search
+        /// window is used to rate the local quality of each isoline. Smooth,
+        /// continuous, long stretches with relatively flat angles are favored.
+        /// The given number multiplied by the font size to get the final
+        /// window size to use.  The default value is '4'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeIsochroneRequest.ContourOptions.LABELS_INTRALEVEL_SEPARATION">LABELS_INTRALEVEL_SEPARATION</see>:</term>
+        ///         <description>When labels are enabled, labels are separated
+        /// to avoid overlap: This specifies the distance certain distance (in
+        /// multiples of the font size) to use when separating labels of
+        /// different values.  The default value is '4'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeIsochroneRequest.ContourOptions.LABELS_INTERLEVEL_SEPARATION">LABELS_INTERLEVEL_SEPARATION</see>:</term>
+        ///         <description>When labels are enabled, more than one label
+        /// can placed on the same isoline: This specifies the distance certain
+        /// distance (in percent of the total window size) to use when
+        /// separating labels of the same value.  The default value is
+        /// '20'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeIsochroneRequest.ContourOptions.LABELS_MAX_ANGLE">LABELS_MAX_ANGLE</see>:</term>
+        ///         <description>Maximum angle from the vertical to use when
+        /// adding labels, in degrees.  The default value is
+        /// '60'.</description>
+        ///     </item>
+        /// </list>
+        /// The default value is an empty {@link Dictionary}.</param>
+        /// <param name="options">Additional parameters
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeIsochroneRequest.Options.SOLVE_TABLE">SOLVE_TABLE</see>:</term>
+        ///         <description>Name of the table of the intermediate solve
+        /// results, conatining the position and cost for each vertex in the
+        /// graph. If no name is given, a temporary table is created and
+        /// deleted one the solve is done.  The default value is
+        /// ''.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeIsochroneRequest.Options.IS_REPLICATED">IS_REPLICATED</see>:</term>
+        ///         <description>Replicate the solution table if true.  The
+        /// default value is 'true'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeIsochroneRequest.Options.DATA_MIN_X">DATA_MIN_X</see>:</term>
+        ///         <description>Lower bound for the x values. If not given, it
+        /// will be computed from the bounds of the input data.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeIsochroneRequest.Options.DATA_MAX_X">DATA_MAX_X</see>:</term>
+        ///         <description>Upper bound for the x values. If not given, it
+        /// will be computed from the bounds of the input data.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeIsochroneRequest.Options.DATA_MIN_Y">DATA_MIN_Y</see>:</term>
+        ///         <description>Lower bound for the y values. If not given, it
+        /// will be computed from the bounds of the input data.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeIsochroneRequest.Options.DATA_MAX_Y">DATA_MAX_Y</see>:</term>
+        ///         <description>Upper bound for the y values. If not given, it
+        /// will be computed from the bounds of the input data.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeIsochroneRequest.Options.CONCAVITY_LEVEL">CONCAVITY_LEVEL</see>:</term>
+        ///         <description>Factor to qualify the concavity of the
+        /// isocrhone curves, 0 for completely convex, 1 to maximize concavity.
+        /// The default value is '0.5'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeIsochroneRequest.Options.SOLVE_DIRECTION">SOLVE_DIRECTION</see>:</term>
+        ///         <description>Specify whether we are going to the source
+        /// node, or starting from it.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeIsochroneRequest.Options.FROM_SOURCE">FROM_SOURCE</see>:</term>
+        ///         <description>Shortest path to get to the source (inverse
+        /// Dijkstra)</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeIsochroneRequest.Options.TO_SOURCE">TO_SOURCE</see>:</term>
+        ///         <description>Shortest path to source
+        /// (Dijkstra)</description>
         ///     </item>
         /// </list>
         /// The default value is <see
         /// cref="VisualizeIsochroneRequest.Options.FROM_SOURCE">FROM_SOURCE</see>.</description>
         ///     </item>
         /// </list>
-        /// </param>
+        /// The default value is an empty {@link Dictionary}.</param>
         /// 
         public VisualizeIsochroneRequest( string graph_name,
-                                          IList<string> weights_on_edges,
                                           string source_node,
+                                          double? max_solution_radius,
+                                          IList<string> weights_on_edges,
                                           IList<string> restrictions,
-                                          double max_solution_radius,
-                                          int num_levels,
-                                          bool generate_image,
-                                          string projection,
-                                          int image_width,
-                                          int image_height,
+                                          int? num_levels,
+                                          bool? generate_image,
+                                          string levels_table,
                                           IDictionary<string, string> style_options,
                                           IDictionary<string, string> solve_options = null,
                                           IDictionary<string, string> contour_options = null,
                                           IDictionary<string, string> options = null)
         {
             this.graph_name = graph_name ?? "";
-            this.weights_on_edges = weights_on_edges ?? new List<string>();
             this.source_node = source_node ?? "";
+            this.max_solution_radius = max_solution_radius ?? -1.0;
+            this.weights_on_edges = weights_on_edges ?? new List<string>();
             this.restrictions = restrictions ?? new List<string>();
-            this.max_solution_radius = max_solution_radius ?? "-1.0";
-            this.num_levels = num_levels ?? "1";
-            this.generate_image = generate_image ?? "true";
-            this.projection = projection ?? Projection.PLATE_CARREE;
-            this.image_width = image_width;
-            this.image_height = image_height;
+            this.num_levels = num_levels ?? 1;
+            this.generate_image = generate_image ?? true;
+            this.levels_table = levels_table ?? "";
             this.style_options = style_options ?? new Dictionary<string, string>();
             this.solve_options = solve_options ?? new Dictionary<string, string>();
             this.contour_options = contour_options ?? new Dictionary<string, string>();
@@ -2192,27 +2588,40 @@ namespace kinetica
         } // end constructor
 
     } // end class VisualizeIsochroneRequest
-    /// @endcond
 
 
 
-    /// @cond NO_DOCS
     /// <summary>A set of results returned by <see
-    /// cref="Kinetica.visualizeIsochrone(string,IList{string},string,IList{string},double,int,bool,string,int,int,IDictionary{string, string},IDictionary{string, string},IDictionary{string, string},IDictionary{string, string})"
+    /// cref="Kinetica.visualizeIsochrone(string,string,double,IList{string},IList{string},int,bool,string,IDictionary{string, string},IDictionary{string, string},IDictionary{string, string},IDictionary{string, string})"
     /// />.</summary>
     public class VisualizeIsochroneResponse : KineticaData
     {
+
+        /// <summary>Width of the image as provided in <i>width</i>.
+        /// </summary>
         public int width { get; set; }
+
+        /// <summary>Height of the image as provided in <i>height</i>.
+        /// </summary>
         public int height { get; set; }
+
+        /// <summary>Background color of the image as provided in
+        /// <i>bg_color</i>.  </summary>
         public long bg_color { get; set; }
+
+        /// <summary>Generated contour image data.  </summary>
         public byte[] image_data { get; set; }
+
+        /// <summary>Additional information.  </summary>
         public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
+
+        /// <summary>Additional information.  </summary>
         public IDictionary<string, string> solve_info { get; set; } = new Dictionary<string, string>();
+
+        /// <summary>Additional information.  </summary>
         public IDictionary<string, string> contour_info { get; set; } = new Dictionary<string, string>();
 
     } // end class VisualizeIsochroneResponse
-    /// @endcond
-
 
 
 

@@ -132,14 +132,14 @@ namespace kinetica
         /// 
         public GetRecordsBySeriesRequest( string table_name,
                                           string world_table_name,
-                                          int offset = 0,
-                                          int limit = 250,
+                                          int? offset = null,
+                                          int? limit = null,
                                           IDictionary<string, string> options = null)
         {
             this.table_name = table_name ?? "";
             this.world_table_name = world_table_name ?? "";
-            this.offset = offset;
-            this.limit = limit;
+            this.offset = offset ?? 0;
+            this.limit = limit ?? 250;
             this.encoding = Encoding.BINARY;
             this.options = options ?? new Dictionary<string, string>();
         } // end constructor
@@ -186,15 +186,15 @@ namespace kinetica
         /// 
         public GetRecordsBySeriesRequest( string table_name,
                                           string world_table_name,
-                                          int offset = 0,
-                                          int limit = 250,
+                                          int? offset = null,
+                                          int? limit = null,
                                           string encoding = null,
                                           IDictionary<string, string> options = null)
         {
             this.table_name = table_name ?? "";
             this.world_table_name = world_table_name ?? "";
-            this.offset = offset;
-            this.limit = limit;
+            this.offset = offset ?? 0;
+            this.limit = limit ?? 250;
             this.encoding = encoding ?? Encoding.BINARY;
             this.options = options ?? new Dictionary<string, string>();
         } // end full constructor

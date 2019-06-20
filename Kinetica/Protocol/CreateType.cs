@@ -286,9 +286,9 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="CreateTypeRequest.Properties.INIT_WITH_NOW">INIT_WITH_NOW</see>:</term>
-        ///         <description>For columns with attributes of date, time,
-        /// datetime or timestamp, at insert time, replace empty strings and
-        /// invalid timestamps with NOW()</description>
+        ///         <description>For 'date', 'time', 'datetime', or 'timestamp'
+        /// column types, replace empty strings and invalid timestamps with
+        /// 'NOW()' upon insert.</description>
         ///     </item>
         /// </list>
         /// A set of string constants for the parameter <see cref="properties"
@@ -470,9 +470,9 @@ namespace kinetica
             /// low. This property can save a large amount of memory.</summary>
             public const string DICT = "dict";
 
-            /// <summary>For columns with attributes of date, time, datetime or
-            /// timestamp, at insert time, replace empty strings and invalid
-            /// timestamps with NOW()</summary>
+            /// <summary>For 'date', 'time', 'datetime', or 'timestamp' column
+            /// types, replace empty strings and invalid timestamps with
+            /// 'NOW()' upon insert.</summary>
             public const string INIT_WITH_NOW = "init_with_now";
         } // end struct Properties
 
@@ -714,9 +714,9 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="CreateTypeRequest.Properties.INIT_WITH_NOW">INIT_WITH_NOW</see>:</term>
-        ///         <description>For columns with attributes of date, time,
-        /// datetime or timestamp, at insert time, replace empty strings and
-        /// invalid timestamps with NOW()</description>
+        ///         <description>For 'date', 'time', 'datetime', or 'timestamp'
+        /// column types, replace empty strings and invalid timestamps with
+        /// 'NOW()' upon insert.</description>
         ///     </item>
         /// </list>  </summary>
         public IDictionary<string, IList<string>> properties { get; set; } = new Dictionary<string, IList<string>>();
@@ -965,9 +965,9 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="CreateTypeRequest.Properties.INIT_WITH_NOW">INIT_WITH_NOW</see>:</term>
-        ///         <description>For columns with attributes of date, time,
-        /// datetime or timestamp, at insert time, replace empty strings and
-        /// invalid timestamps with NOW()</description>
+        ///         <description>For 'date', 'time', 'datetime', or 'timestamp'
+        /// column types, replace empty strings and invalid timestamps with
+        /// 'NOW()' upon insert.</description>
         ///     </item>
         /// </list>  </param>
         /// <param name="options">Optional parameters.  The default value is an

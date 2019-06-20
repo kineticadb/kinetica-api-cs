@@ -48,7 +48,10 @@ namespace kinetica
 
 
         /// <summary>Indicates the relative ranking among existing resource
-        /// groups where this new resource group will be placed.
+        /// groups where this new resource group will be placed.  When using
+        /// <i>before</i> or <i>after</i>, specify which resource group this
+        /// one will be inserted before or after in <paramref
+        /// cref="CreateResourceGroupRequest.adjoining_resource_group" />.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -144,7 +147,10 @@ namespace kinetica
         public IDictionary<string, IDictionary<string, string>> tier_attributes { get; set; } = new Dictionary<string, IDictionary<string, string>>();
 
         /// <summary>Indicates the relative ranking among existing resource
-        /// groups where this new resource group will be placed.
+        /// groups where this new resource group will be placed.  When using
+        /// <i>before</i> or <i>after</i>, specify which resource group this
+        /// one will be inserted before or after in <paramref
+        /// cref="CreateResourceGroupRequest.adjoining_resource_group" />.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -166,9 +172,10 @@ namespace kinetica
         /// </list>  </summary>
         public string ranking { get; set; }
 
-        /// <summary>Name of the resource group relative to which this group
-        /// will be placed. Must be specified when ranking is before or after.
-        /// The default value is ''.</summary>
+        /// <summary>If <paramref cref="CreateResourceGroupRequest.ranking" />
+        /// is <i>before</i> or <i>after</i>, this field indicates the resource
+        /// group before or after which the current group will be placed;
+        /// otherwise, left blank.  The default value is ''.</summary>
         public string adjoining_resource_group { get; set; } = "";
 
         /// <summary>Optional parameters.
@@ -223,7 +230,10 @@ namespace kinetica
         /// </list>
         /// The default value is an empty {@link Dictionary}.</param>
         /// <param name="ranking">Indicates the relative ranking among existing
-        /// resource groups where this new resource group will be placed.
+        /// resource groups where this new resource group will be placed.  When
+        /// using <i>before</i> or <i>after</i>, specify which resource group
+        /// this one will be inserted before or after in <paramref
+        /// cref="CreateResourceGroupRequest.adjoining_resource_group" />.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -243,9 +253,11 @@ namespace kinetica
         /// cref="CreateResourceGroupRequest.Ranking.AFTER">AFTER</see></term>
         ///     </item>
         /// </list>  </param>
-        /// <param name="adjoining_resource_group">Name of the resource group
-        /// relative to which this group will be placed. Must be specified when
-        /// ranking is before or after.  The default value is ''.</param>
+        /// <param name="adjoining_resource_group">If <paramref
+        /// cref="CreateResourceGroupRequest.ranking" /> is <i>before</i> or
+        /// <i>after</i>, this field indicates the resource group before or
+        /// after which the current group will be placed; otherwise, left
+        /// blank.  The default value is ''.</param>
         /// <param name="options">Optional parameters.
         /// <list type="bullet">
         ///     <item>

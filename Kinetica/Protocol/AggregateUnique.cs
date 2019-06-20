@@ -676,13 +676,13 @@ namespace kinetica
         public AggregateUniqueRequest( string table_name,
                                        string column_name,
                                        long offset,
-                                       long limit = 10000,
+                                       long? limit = null,
                                        IDictionary<string, string> options = null)
         {
             this.table_name = table_name ?? "";
             this.column_name = column_name ?? "";
             this.offset = offset;
-            this.limit = limit;
+            this.limit = limit ?? 10000;
             this.encoding = Encoding.BINARY;
             this.options = options ?? new Dictionary<string, string>();
         } // end constructor
@@ -861,14 +861,14 @@ namespace kinetica
         public AggregateUniqueRequest( string table_name,
                                        string column_name,
                                        long offset,
-                                       long limit = 10000,
+                                       long? limit = null,
                                        string encoding = null,
                                        IDictionary<string, string> options = null)
         {
             this.table_name = table_name ?? "";
             this.column_name = column_name ?? "";
             this.offset = offset;
-            this.limit = limit;
+            this.limit = limit ?? 10000;
             this.encoding = encoding ?? Encoding.BINARY;
             this.options = options ?? new Dictionary<string, string>();
         } // end full constructor

@@ -42,6 +42,25 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
+        /// cref="AdminVerifyDbRequest.Options.VERIFY_NULLS">VERIFY_NULLS</see>:</term>
+        ///         <description>When enabled, verifies that null values are
+        /// set to zero
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="AdminVerifyDbRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AdminVerifyDbRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="AdminVerifyDbRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="AdminVerifyDbRequest.Options.VERIFY_PERSIST">VERIFY_PERSIST</see>:</term>
         ///         <description>
         /// Supported values:
@@ -122,6 +141,23 @@ namespace kinetica
             public const string TRUE = "true";
             public const string FALSE = "false";
 
+            /// <summary>When enabled, verifies that null values are set to
+            /// zero
+            /// Supported values:
+            /// <list type="bullet">
+            ///     <item>
+            ///         <term><see
+            /// cref="AdminVerifyDbRequest.Options.TRUE">TRUE</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="AdminVerifyDbRequest.Options.FALSE">FALSE</see></term>
+            ///     </item>
+            /// </list>
+            /// The default value is <see
+            /// cref="AdminVerifyDbRequest.Options.FALSE">FALSE</see>.</summary>
+            public const string VERIFY_NULLS = "verify_nulls";
+
             /// <summary>
             /// Supported values:
             /// <list type="bullet">
@@ -181,6 +217,25 @@ namespace kinetica
         ///         <term><see
         /// cref="AdminVerifyDbRequest.Options.REBUILD_ON_ERROR">REBUILD_ON_ERROR</see>:</term>
         ///         <description>
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="AdminVerifyDbRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AdminVerifyDbRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="AdminVerifyDbRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AdminVerifyDbRequest.Options.VERIFY_NULLS">VERIFY_NULLS</see>:</term>
+        ///         <description>When enabled, verifies that null values are
+        /// set to zero
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -270,6 +325,25 @@ namespace kinetica
         ///         <term><see
         /// cref="AdminVerifyDbRequest.Options.REBUILD_ON_ERROR">REBUILD_ON_ERROR</see>:</term>
         ///         <description>
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="AdminVerifyDbRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AdminVerifyDbRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="AdminVerifyDbRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AdminVerifyDbRequest.Options.VERIFY_NULLS">VERIFY_NULLS</see>:</term>
+        ///         <description>When enabled, verifies that null values are
+        /// set to zero
         /// Supported values:
         /// <list type="bullet">
         ///     <item>

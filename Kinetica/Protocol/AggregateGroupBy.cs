@@ -1106,13 +1106,13 @@ namespace kinetica
         public AggregateGroupByRequest( string table_name,
                                         IList<string> column_names,
                                         long offset,
-                                        long limit = 1000,
+                                        long? limit = null,
                                         IDictionary<string, string> options = null)
         {
             this.table_name = table_name ?? "";
             this.column_names = column_names ?? new List<string>();
             this.offset = offset;
-            this.limit = limit;
+            this.limit = limit ?? 1000;
             this.encoding = Encoding.BINARY;
             this.options = options ?? new Dictionary<string, string>();
         } // end constructor
@@ -1390,14 +1390,14 @@ namespace kinetica
         public AggregateGroupByRequest( string table_name,
                                         IList<string> column_names,
                                         long offset,
-                                        long limit = 1000,
+                                        long? limit = null,
                                         string encoding = null,
                                         IDictionary<string, string> options = null)
         {
             this.table_name = table_name ?? "";
             this.column_names = column_names ?? new List<string>();
             this.offset = offset;
-            this.limit = limit;
+            this.limit = limit ?? 1000;
             this.encoding = encoding ?? Encoding.BINARY;
             this.options = options ?? new Dictionary<string, string>();
         } // end full constructor

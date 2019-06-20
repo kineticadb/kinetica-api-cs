@@ -15,27 +15,144 @@ namespace kinetica
     /// cref="Kinetica.createTableMonitor(string,IDictionary{string, string})"
     /// />.
     /// <br />
-    /// Creates a monitor that watches for new records inserted into a
-    /// particular table (identified by <see cref="table_name" />) and forwards
-    /// copies to subscribers via ZMQ. After this call completes, subscribe to
-    /// the returned <member name="topic_id" /> on the ZMQ table monitor port
-    /// (default 9002). Each time an insert operation on the table completes, a
-    /// multipart message is published for that topic; the first part contains
-    /// only the topic ID, and each subsequent part contains one binary-encoded
-    /// Avro object that was inserted. The monitor will continue to run
-    /// (regardless of whether or not there are any subscribers) until
-    /// deactivated with <see
+    /// Creates a monitor that watches for table modification events such as
+    /// insert, update or delete on a particular table (identified by <see
+    /// cref="table_name" />) and forwards event notifications to subscribers
+    /// via ZMQ. After this call completes, subscribe to the returned <member
+    /// name="topic_id" /> on the ZMQ table monitor port (default 9002). Each
+    /// time a modification operation on the table completes, a multipart
+    /// message is published for that topic; the first part contains only the
+    /// topic ID, and each subsequent part contains one binary-encoded Avro
+    /// object that corresponds to the event and can be decoded using <member
+    /// name="type_schema" />. The monitor will continue to run (regardless of
+    /// whether or not there are any subscribers) until deactivated with <see
     /// cref="Kinetica.clearTableMonitor(string,IDictionary{string, string})"
     /// />.</summary>
     public class CreateTableMonitorRequest : KineticaData
     {
 
+        /// <summary>Optional parameters.
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableMonitorRequest.Options.EVENT">EVENT</see>:</term>
+        ///         <description>
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableMonitorRequest.Options.INSERT">INSERT</see>:</term>
+        ///         <description>Get notifications of new record insertions.
+        /// The new row images are forwarded to the subscribers.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableMonitorRequest.Options.UPDATE">UPDATE</see>:</term>
+        ///         <description>Get notifications of update operations. The
+        /// modified row count information is forwarded to the
+        /// subscribers.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableMonitorRequest.Options.DELETE">DELETE</see>:</term>
+        ///         <description>Get notifications of delete operations. The
+        /// deleted row count information is forwarded to the
+        /// subscribers.</description>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="CreateTableMonitorRequest.Options.INSERT">INSERT</see>.</description>
+        ///     </item>
+        /// </list>
+        /// The default value is an empty {@link Dictionary}.
+        /// A set of string constants for the parameter <see cref="options"
+        /// />.</summary>
+        public struct Options
+        {
+
+            /// <summary>
+            /// Supported values:
+            /// <list type="bullet">
+            ///     <item>
+            ///         <term><see
+            /// cref="CreateTableMonitorRequest.Options.INSERT">INSERT</see>:</term>
+            ///         <description>Get notifications of new record
+            /// insertions. The new row images are forwarded to the
+            /// subscribers.</description>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="CreateTableMonitorRequest.Options.UPDATE">UPDATE</see>:</term>
+            ///         <description>Get notifications of update operations.
+            /// The modified row count information is forwarded to the
+            /// subscribers.</description>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="CreateTableMonitorRequest.Options.DELETE">DELETE</see>:</term>
+            ///         <description>Get notifications of delete operations.
+            /// The deleted row count information is forwarded to the
+            /// subscribers.</description>
+            ///     </item>
+            /// </list>
+            /// The default value is <see
+            /// cref="CreateTableMonitorRequest.Options.INSERT">INSERT</see>.</summary>
+            public const string EVENT = "event";
+
+            /// <summary>Get notifications of new record insertions. The new
+            /// row images are forwarded to the subscribers.</summary>
+            public const string INSERT = "insert";
+
+            /// <summary>Get notifications of update operations. The modified
+            /// row count information is forwarded to the
+            /// subscribers.</summary>
+            public const string UPDATE = "update";
+
+            /// <summary>Get notifications of delete operations. The deleted
+            /// row count information is forwarded to the
+            /// subscribers.</summary>
+            public const string DELETE = "delete";
+        } // end struct Options
+
+
         /// <summary>Name of the table to monitor. Must not refer to a
         /// collection.  </summary>
         public string table_name { get; set; }
 
-        /// <summary>Optional parameters.  The default value is an empty {@link
-        /// Dictionary}.</summary>
+        /// <summary>Optional parameters.
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableMonitorRequest.Options.EVENT">EVENT</see>:</term>
+        ///         <description>
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableMonitorRequest.Options.INSERT">INSERT</see>:</term>
+        ///         <description>Get notifications of new record insertions.
+        /// The new row images are forwarded to the subscribers.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableMonitorRequest.Options.UPDATE">UPDATE</see>:</term>
+        ///         <description>Get notifications of update operations. The
+        /// modified row count information is forwarded to the
+        /// subscribers.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableMonitorRequest.Options.DELETE">DELETE</see>:</term>
+        ///         <description>Get notifications of delete operations. The
+        /// deleted row count information is forwarded to the
+        /// subscribers.</description>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="CreateTableMonitorRequest.Options.INSERT">INSERT</see>.</description>
+        ///     </item>
+        /// </list>
+        /// The default value is an empty {@link Dictionary}.</summary>
         public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
 
 
@@ -48,8 +165,40 @@ namespace kinetica
         /// 
         /// <param name="table_name">Name of the table to monitor. Must not
         /// refer to a collection.  </param>
-        /// <param name="options">Optional parameters.  The default value is an
-        /// empty {@link Dictionary}.</param>
+        /// <param name="options">Optional parameters.
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableMonitorRequest.Options.EVENT">EVENT</see>:</term>
+        ///         <description>
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableMonitorRequest.Options.INSERT">INSERT</see>:</term>
+        ///         <description>Get notifications of new record insertions.
+        /// The new row images are forwarded to the subscribers.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableMonitorRequest.Options.UPDATE">UPDATE</see>:</term>
+        ///         <description>Get notifications of update operations. The
+        /// modified row count information is forwarded to the
+        /// subscribers.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableMonitorRequest.Options.DELETE">DELETE</see>:</term>
+        ///         <description>Get notifications of delete operations. The
+        /// deleted row count information is forwarded to the
+        /// subscribers.</description>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="CreateTableMonitorRequest.Options.INSERT">INSERT</see>.</description>
+        ///     </item>
+        /// </list>
+        /// The default value is an empty {@link Dictionary}.</param>
         /// 
         public CreateTableMonitorRequest( string table_name,
                                           IDictionary<string, string> options = null)

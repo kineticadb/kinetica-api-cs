@@ -179,9 +179,9 @@ namespace kinetica
         /// This property can save a large amount of memory.</summary>
         public const string DICT = "dict";
 
-        /// <summary>For columns with attributes of date, time, datetime or
-        /// timestamp, at insert time, replace empty strings and invalid
-        /// timestamps with NOW()</summary>
+        /// <summary>For 'date', 'time', 'datetime', or 'timestamp' column
+        /// types, replace empty strings and invalid timestamps with 'NOW()'
+        /// upon insert.</summary>
         public const string INIT_WITH_NOW = "init_with_now";
     } // end struct ColumnProperty
 

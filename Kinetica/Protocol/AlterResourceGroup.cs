@@ -47,10 +47,13 @@ namespace kinetica
         } // end struct TierAttributes
 
 
-        /// <summary>If the resource group ranking has to be updated, this
+        /// <summary>If the resource group ranking is to be updated, this
         /// indicates the relative ranking among existing resource groups where
-        /// this resource group will be moved. Left bank if not changing the
-        /// ranking.
+        /// this resource group will be moved; left blank if not changing the
+        /// ranking.  When using <i>before</i> or <i>after</i>, specify which
+        /// resource group this one will be inserted before or after in
+        /// <paramref cref="AlterResourceGroupRequest.adjoining_resource_group"
+        /// />.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -193,10 +196,13 @@ namespace kinetica
         /// The default value is an empty {@link Dictionary}.</summary>
         public IDictionary<string, IDictionary<string, string>> tier_attributes { get; set; } = new Dictionary<string, IDictionary<string, string>>();
 
-        /// <summary>If the resource group ranking has to be updated, this
+        /// <summary>If the resource group ranking is to be updated, this
         /// indicates the relative ranking among existing resource groups where
-        /// this resource group will be moved. Left bank if not changing the
-        /// ranking.
+        /// this resource group will be moved; left blank if not changing the
+        /// ranking.  When using <i>before</i> or <i>after</i>, specify which
+        /// resource group this one will be inserted before or after in
+        /// <paramref cref="AlterResourceGroupRequest.adjoining_resource_group"
+        /// />.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -225,10 +231,10 @@ namespace kinetica
         /// </summary>
         public string ranking { get; set; } = Ranking.EMPTY_STRING;
 
-        /// <summary>If the ranking is 'before' or 'after', this field
-        /// indicates the resource group before or after which the current
-        /// group will be placed otherwise left blank.  The default value is
-        /// ''.</summary>
+        /// <summary>If <paramref cref="AlterResourceGroupRequest.ranking" />
+        /// is <i>before</i> or <i>after</i>, this field indicates the resource
+        /// group before or after which the current group will be placed;
+        /// otherwise, left blank.  The default value is ''.</summary>
         public string adjoining_resource_group { get; set; } = "";
 
         /// <summary>Optional parameters.
@@ -302,10 +308,13 @@ namespace kinetica
         ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.</param>
-        /// <param name="ranking">If the resource group ranking has to be
+        /// <param name="ranking">If the resource group ranking is to be
         /// updated, this indicates the relative ranking among existing
-        /// resource groups where this resource group will be moved. Left bank
-        /// if not changing the ranking.
+        /// resource groups where this resource group will be moved; left blank
+        /// if not changing the ranking.  When using <i>before</i> or
+        /// <i>after</i>, specify which resource group this one will be
+        /// inserted before or after in <paramref
+        /// cref="AlterResourceGroupRequest.adjoining_resource_group" />.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -332,10 +341,11 @@ namespace kinetica
         /// The default value is <see
         /// cref="AlterResourceGroupRequest.Ranking.EMPTY_STRING">EMPTY_STRING</see>.
         /// </param>
-        /// <param name="adjoining_resource_group">If the ranking is 'before'
-        /// or 'after', this field indicates the resource group before or after
-        /// which the current group will be placed otherwise left blank.  The
-        /// default value is ''.</param>
+        /// <param name="adjoining_resource_group">If <paramref
+        /// cref="AlterResourceGroupRequest.ranking" /> is <i>before</i> or
+        /// <i>after</i>, this field indicates the resource group before or
+        /// after which the current group will be placed; otherwise, left
+        /// blank.  The default value is ''.</param>
         /// <param name="options">Optional parameters.
         /// <list type="bullet">
         ///     <item>
