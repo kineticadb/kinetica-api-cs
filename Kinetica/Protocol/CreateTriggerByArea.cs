@@ -64,7 +64,8 @@ namespace kinetica
         /// xvals.  </summary>
         public IList<double> y_vector { get; set; } = new List<double>();
 
-        /// <summary>Optional parameters.  </summary>
+        /// <summary>Optional parameters.  The default value is an empty {@link
+        /// Dictionary}.</summary>
         public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
 
 
@@ -93,7 +94,8 @@ namespace kinetica
         /// region on which the trigger is activated. This usually translates
         /// to the y-coordinates of a geospatial region. Must be the same
         /// length as xvals.  </param>
-        /// <param name="options">Optional parameters.  </param>
+        /// <param name="options">Optional parameters.  The default value is an
+        /// empty {@link Dictionary}.</param>
         /// 
         public CreateTriggerByAreaRequest( string request_id,
                                            IList<string> table_names,

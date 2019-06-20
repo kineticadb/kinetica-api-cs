@@ -76,12 +76,13 @@ namespace kinetica
     /// target="_top">standard naming conventions</a>; column/aggregation
     /// expressions will need to be aliased.  If the source table's <a
     /// href="../../concepts/tables.html#shard-keys" target="_top">shard
-    /// key</a> is used as the grouping column(s), the result table will be
-    /// sharded, in all other cases it will be replicated.  Sorting will
-    /// properly function only if the result table is replicated or if there is
-    /// only one processing node and should not be relied upon in other cases.
-    /// Not available when any of the values of <see cref="column_names" /> is
-    /// an unrestricted-length string.</summary>
+    /// key</a> is used as the grouping column(s) and all result records are
+    /// selected (<see cref="offset" /> is 0 and <see cref="limit" /> is
+    /// -9999), the result table will be sharded, in all other cases it will be
+    /// replicated.  Sorting will properly function only if the result table is
+    /// replicated or if there is only one processing node and should not be
+    /// relied upon in other cases.  Not available when any of the values of
+    /// <see cref="column_names" /> is an unrestricted-length string.</summary>
     public class AggregateGroupByRequest : KineticaData
     {
 
@@ -292,8 +293,8 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="AggregateGroupByRequest.Options.VIEW_ID">VIEW_ID</see>:</term>
-        ///         <description>view this result table is part
-        /// of</description>
+        ///         <description>view this result table is part of.  The
+        /// default value is ''.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -350,7 +351,7 @@ namespace kinetica
         /// multidimensional aggregates.</description>
         ///     </item>
         /// </list>
-        /// <br />
+        /// The default value is an empty {@link Dictionary}.
         /// A set of string constants for the parameter <see cref="options"
         /// />.</summary>
         public struct Options
@@ -524,7 +525,8 @@ namespace kinetica
             /// the <i>result_table</i> option.</summary>
             public const string CREATE_INDEXES = "create_indexes";
 
-            /// <summary>view this result table is part of</summary>
+            /// <summary>view this result table is part of.  The default value
+            /// is ''.</summary>
             public const string VIEW_ID = "view_id";
 
             /// <summary>If <i>true</i> then the columns of the groupby result
@@ -586,7 +588,8 @@ namespace kinetica
 
         /// <summary>A positive integer indicating the maximum number of
         /// results to be returned Or END_OF_SET (-9999) to indicate that the
-        /// max number of results should be returned.  </summary>
+        /// max number of results should be returned.  The default value is
+        /// 1000.</summary>
         public long limit { get; set; } = 1000;
 
         /// <summary>Specifies the encoding for returned records.
@@ -784,8 +787,8 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="AggregateGroupByRequest.Options.VIEW_ID">VIEW_ID</see>:</term>
-        ///         <description>view this result table is part
-        /// of</description>
+        ///         <description>view this result table is part of.  The
+        /// default value is ''.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -842,7 +845,7 @@ namespace kinetica
         /// multidimensional aggregates.</description>
         ///     </item>
         /// </list>
-        ///   </summary>
+        /// The default value is an empty {@link Dictionary}.</summary>
         public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
 
 
@@ -864,7 +867,8 @@ namespace kinetica
         /// value is MAX_INT. </param>
         /// <param name="limit">A positive integer indicating the maximum
         /// number of results to be returned Or END_OF_SET (-9999) to indicate
-        /// that the max number of results should be returned.  </param>
+        /// that the max number of results should be returned.  The default
+        /// value is 1000.</param>
         /// <param name="options">Optional parameters.
         /// <list type="bullet">
         ///     <item>
@@ -1039,8 +1043,8 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="AggregateGroupByRequest.Options.VIEW_ID">VIEW_ID</see>:</term>
-        ///         <description>view this result table is part
-        /// of</description>
+        ///         <description>view this result table is part of.  The
+        /// default value is ''.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -1097,18 +1101,18 @@ namespace kinetica
         /// multidimensional aggregates.</description>
         ///     </item>
         /// </list>
-        ///   </param>
+        /// The default value is an empty {@link Dictionary}.</param>
         /// 
         public AggregateGroupByRequest( string table_name,
                                         IList<string> column_names,
                                         long offset,
-                                        long limit = 1000,
+                                        long? limit = null,
                                         IDictionary<string, string> options = null)
         {
             this.table_name = table_name ?? "";
             this.column_names = column_names ?? new List<string>();
             this.offset = offset;
-            this.limit = limit;
+            this.limit = limit ?? 1000;
             this.encoding = Encoding.BINARY;
             this.options = options ?? new Dictionary<string, string>();
         } // end constructor
@@ -1128,7 +1132,8 @@ namespace kinetica
         /// value is MAX_INT. </param>
         /// <param name="limit">A positive integer indicating the maximum
         /// number of results to be returned Or END_OF_SET (-9999) to indicate
-        /// that the max number of results should be returned.  </param>
+        /// that the max number of results should be returned.  The default
+        /// value is 1000.</param>
         /// <param name="encoding">Specifies the encoding for returned records.
         /// Supported values:
         /// <list type="bullet">
@@ -1322,8 +1327,8 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="AggregateGroupByRequest.Options.VIEW_ID">VIEW_ID</see>:</term>
-        ///         <description>view this result table is part
-        /// of</description>
+        ///         <description>view this result table is part of.  The
+        /// default value is ''.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -1380,19 +1385,19 @@ namespace kinetica
         /// multidimensional aggregates.</description>
         ///     </item>
         /// </list>
-        ///   </param>
+        /// The default value is an empty {@link Dictionary}.</param>
         /// 
         public AggregateGroupByRequest( string table_name,
                                         IList<string> column_names,
                                         long offset,
-                                        long limit = 1000,
+                                        long? limit = null,
                                         string encoding = null,
                                         IDictionary<string, string> options = null)
         {
             this.table_name = table_name ?? "";
             this.column_names = column_names ?? new List<string>();
             this.offset = offset;
-            this.limit = limit;
+            this.limit = limit ?? 1000;
             this.encoding = encoding ?? Encoding.BINARY;
             this.options = options ?? new Dictionary<string, string>();
         } // end full constructor

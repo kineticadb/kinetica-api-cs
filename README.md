@@ -7,7 +7,7 @@ For the client-side API changes, please refer to CHANGELOG.md, and for Kinetica
 function changes, please refer to CHANGELOG-FUNCTIONS.md.
 
 The documentation can be found at http://www.kinetica.com/docs/6.2/index.html.  
-The python specific documentation can be found at:
+The C# specific documentation can be found at:
 
 *   http://www.kinetica.com/docs/6.2/api/csharp/index.html
 

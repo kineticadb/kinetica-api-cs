@@ -132,22 +132,23 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="VisualizeVideoHeatmapRequest.StyleOptions.BLUR_RADIUS">BLUR_RADIUS</see>:</term>
-        ///         <description></description>
+        ///         <description>  The default value is '5'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="VisualizeVideoHeatmapRequest.StyleOptions.BG_COLOR">BG_COLOR</see>:</term>
-        ///         <description></description>
+        ///         <description>  The default value is
+        /// 'FF000000'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="VisualizeVideoHeatmapRequest.StyleOptions.GRADIENT_START_COLOR">GRADIENT_START_COLOR</see>:</term>
-        ///         <description></description>
+        ///         <description>  The default value is 'FFFFFF'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="VisualizeVideoHeatmapRequest.StyleOptions.GRADIENT_END_COLOR">GRADIENT_END_COLOR</see>:</term>
-        ///         <description></description>
+        ///         <description>  The default value is 'FF0000'.</description>
         ///     </item>
         /// </list>
         /// <br />
@@ -213,9 +214,17 @@ namespace kinetica
             public const string ORANGES = "oranges";
             public const string PURPLES = "purples";
             public const string REDS = "reds";
+
+            /// <summary>  The default value is '5'.</summary>
             public const string BLUR_RADIUS = "blur_radius";
+
+            /// <summary>  The default value is 'FF000000'.</summary>
             public const string BG_COLOR = "bg_color";
+
+            /// <summary>  The default value is 'FFFFFF'.</summary>
             public const string GRADIENT_START_COLOR = "gradient_start_color";
+
+            /// <summary>  The default value is 'FF0000'.</summary>
             public const string GRADIENT_END_COLOR = "gradient_end_color";
         } // end struct StyleOptions
 
@@ -331,22 +340,23 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="VisualizeVideoHeatmapRequest.StyleOptions.BLUR_RADIUS">BLUR_RADIUS</see>:</term>
-        ///         <description></description>
+        ///         <description>  The default value is '5'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="VisualizeVideoHeatmapRequest.StyleOptions.BG_COLOR">BG_COLOR</see>:</term>
-        ///         <description></description>
+        ///         <description>  The default value is
+        /// 'FF000000'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="VisualizeVideoHeatmapRequest.StyleOptions.GRADIENT_START_COLOR">GRADIENT_START_COLOR</see>:</term>
-        ///         <description></description>
+        ///         <description>  The default value is 'FFFFFF'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="VisualizeVideoHeatmapRequest.StyleOptions.GRADIENT_END_COLOR">GRADIENT_END_COLOR</see>:</term>
-        ///         <description></description>
+        ///         <description>  The default value is 'FF0000'.</description>
         ///     </item>
         /// </list>
         /// </summary>
@@ -470,22 +480,23 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="VisualizeVideoHeatmapRequest.StyleOptions.BLUR_RADIUS">BLUR_RADIUS</see>:</term>
-        ///         <description></description>
+        ///         <description>  The default value is '5'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="VisualizeVideoHeatmapRequest.StyleOptions.BG_COLOR">BG_COLOR</see>:</term>
-        ///         <description></description>
+        ///         <description>  The default value is
+        /// 'FF000000'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="VisualizeVideoHeatmapRequest.StyleOptions.GRADIENT_START_COLOR">GRADIENT_START_COLOR</see>:</term>
-        ///         <description></description>
+        ///         <description>  The default value is 'FFFFFF'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="VisualizeVideoHeatmapRequest.StyleOptions.GRADIENT_END_COLOR">GRADIENT_END_COLOR</see>:</term>
-        ///         <description></description>
+        ///         <description>  The default value is 'FF0000'.</description>
         ///     </item>
         /// </list>
         /// </param>

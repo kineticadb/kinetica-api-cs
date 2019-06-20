@@ -91,19 +91,119 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="VisualizeImageHeatmapRequest.StyleOptions.HOT">HOT</see></term>
+        /// cref="VisualizeImageHeatmapRequest.StyleOptions.ACCENT">ACCENT</see></term>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="VisualizeImageHeatmapRequest.StyleOptions.HSV">HSV</see></term>
+        /// cref="VisualizeImageHeatmapRequest.StyleOptions.AFMHOT">AFMHOT</see></term>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="VisualizeImageHeatmapRequest.StyleOptions.GRAY">GRAY</see></term>
+        /// cref="VisualizeImageHeatmapRequest.StyleOptions.AUTUMN">AUTUMN</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageHeatmapRequest.StyleOptions.BINARY">BINARY</see></term>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="VisualizeImageHeatmapRequest.StyleOptions.BLUES">BLUES</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageHeatmapRequest.StyleOptions.BONE">BONE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageHeatmapRequest.StyleOptions.BRBG">BRBG</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageHeatmapRequest.StyleOptions.BRG">BRG</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageHeatmapRequest.StyleOptions.BUGN">BUGN</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageHeatmapRequest.StyleOptions.BUPU">BUPU</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageHeatmapRequest.StyleOptions.BWR">BWR</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageHeatmapRequest.StyleOptions.CMRMAP">CMRMAP</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageHeatmapRequest.StyleOptions.COOL">COOL</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageHeatmapRequest.StyleOptions.COOLWARM">COOLWARM</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageHeatmapRequest.StyleOptions.COPPER">COPPER</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageHeatmapRequest.StyleOptions.CUBEHELIX">CUBEHELIX</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageHeatmapRequest.StyleOptions.DARK2">DARK2</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageHeatmapRequest.StyleOptions.FLAG">FLAG</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageHeatmapRequest.StyleOptions.GIST_EARTH">GIST_EARTH</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageHeatmapRequest.StyleOptions.GIST_GRAY">GIST_GRAY</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageHeatmapRequest.StyleOptions.GIST_HEAT">GIST_HEAT</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageHeatmapRequest.StyleOptions.GIST_NCAR">GIST_NCAR</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageHeatmapRequest.StyleOptions.GIST_RAINBOW">GIST_RAINBOW</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageHeatmapRequest.StyleOptions.GIST_STERN">GIST_STERN</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageHeatmapRequest.StyleOptions.GIST_YARG">GIST_YARG</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageHeatmapRequest.StyleOptions.GNBU">GNBU</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageHeatmapRequest.StyleOptions.GNUPLOT2">GNUPLOT2</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageHeatmapRequest.StyleOptions.GNUPLOT">GNUPLOT</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageHeatmapRequest.StyleOptions.GRAY">GRAY</see></term>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -115,7 +215,83 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
+        /// cref="VisualizeImageHeatmapRequest.StyleOptions.HOT">HOT</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageHeatmapRequest.StyleOptions.HSV">HSV</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageHeatmapRequest.StyleOptions.INFERNO">INFERNO</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageHeatmapRequest.StyleOptions.MAGMA">MAGMA</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageHeatmapRequest.StyleOptions.NIPY_SPECTRAL">NIPY_SPECTRAL</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageHeatmapRequest.StyleOptions.OCEAN">OCEAN</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="VisualizeImageHeatmapRequest.StyleOptions.ORANGES">ORANGES</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageHeatmapRequest.StyleOptions.ORRD">ORRD</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageHeatmapRequest.StyleOptions.PAIRED">PAIRED</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageHeatmapRequest.StyleOptions.PASTEL1">PASTEL1</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageHeatmapRequest.StyleOptions.PASTEL2">PASTEL2</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageHeatmapRequest.StyleOptions.PINK">PINK</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageHeatmapRequest.StyleOptions.PIYG">PIYG</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageHeatmapRequest.StyleOptions.PLASMA">PLASMA</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageHeatmapRequest.StyleOptions.PRGN">PRGN</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageHeatmapRequest.StyleOptions.PRISM">PRISM</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageHeatmapRequest.StyleOptions.PUBU">PUBU</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageHeatmapRequest.StyleOptions.PUBUGN">PUBUGN</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageHeatmapRequest.StyleOptions.PUOR">PUOR</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageHeatmapRequest.StyleOptions.PURD">PURD</see></term>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -123,11 +299,91 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
+        /// cref="VisualizeImageHeatmapRequest.StyleOptions.RAINBOW">RAINBOW</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageHeatmapRequest.StyleOptions.RDBU">RDBU</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageHeatmapRequest.StyleOptions.RDGY">RDGY</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageHeatmapRequest.StyleOptions.RDPU">RDPU</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageHeatmapRequest.StyleOptions.RDYLBU">RDYLBU</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageHeatmapRequest.StyleOptions.RDYLGN">RDYLGN</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="VisualizeImageHeatmapRequest.StyleOptions.REDS">REDS</see></term>
         ///     </item>
         ///     <item>
         ///         <term><see
+        /// cref="VisualizeImageHeatmapRequest.StyleOptions.SEISMIC">SEISMIC</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageHeatmapRequest.StyleOptions.SET1">SET1</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageHeatmapRequest.StyleOptions.SET2">SET2</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageHeatmapRequest.StyleOptions.SET3">SET3</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageHeatmapRequest.StyleOptions.SPECTRAL">SPECTRAL</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageHeatmapRequest.StyleOptions.SPRING">SPRING</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageHeatmapRequest.StyleOptions.SUMMER">SUMMER</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageHeatmapRequest.StyleOptions.TERRAIN">TERRAIN</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="VisualizeImageHeatmapRequest.StyleOptions.VIRIDIS">VIRIDIS</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageHeatmapRequest.StyleOptions.WINTER">WINTER</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageHeatmapRequest.StyleOptions.WISTIA">WISTIA</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageHeatmapRequest.StyleOptions.YLGN">YLGN</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageHeatmapRequest.StyleOptions.YLGNBU">YLGNBU</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageHeatmapRequest.StyleOptions.YLORBR">YLORBR</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageHeatmapRequest.StyleOptions.YLORRD">YLORRD</see></term>
         ///     </item>
         /// </list>
         /// The default value is <see
@@ -136,7 +392,7 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="VisualizeImageHeatmapRequest.StyleOptions.BLUR_RADIUS">BLUR_RADIUS</see>:</term>
-        ///         <description></description>
+        ///         <description>  The default value is '5'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -146,12 +402,12 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="VisualizeImageHeatmapRequest.StyleOptions.GRADIENT_START_COLOR">GRADIENT_START_COLOR</see>:</term>
-        ///         <description></description>
+        ///         <description>  The default value is 'FFFFFF'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="VisualizeImageHeatmapRequest.StyleOptions.GRADIENT_END_COLOR">GRADIENT_END_COLOR</see>:</term>
-        ///         <description></description>
+        ///         <description>  The default value is 'FF0000'.</description>
         ///     </item>
         /// </list>
         /// <br />
@@ -169,19 +425,119 @@ namespace kinetica
             ///     </item>
             ///     <item>
             ///         <term><see
-            /// cref="VisualizeImageHeatmapRequest.StyleOptions.HOT">HOT</see></term>
+            /// cref="VisualizeImageHeatmapRequest.StyleOptions.ACCENT">ACCENT</see></term>
             ///     </item>
             ///     <item>
             ///         <term><see
-            /// cref="VisualizeImageHeatmapRequest.StyleOptions.HSV">HSV</see></term>
+            /// cref="VisualizeImageHeatmapRequest.StyleOptions.AFMHOT">AFMHOT</see></term>
             ///     </item>
             ///     <item>
             ///         <term><see
-            /// cref="VisualizeImageHeatmapRequest.StyleOptions.GRAY">GRAY</see></term>
+            /// cref="VisualizeImageHeatmapRequest.StyleOptions.AUTUMN">AUTUMN</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="VisualizeImageHeatmapRequest.StyleOptions.BINARY">BINARY</see></term>
             ///     </item>
             ///     <item>
             ///         <term><see
             /// cref="VisualizeImageHeatmapRequest.StyleOptions.BLUES">BLUES</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="VisualizeImageHeatmapRequest.StyleOptions.BONE">BONE</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="VisualizeImageHeatmapRequest.StyleOptions.BRBG">BRBG</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="VisualizeImageHeatmapRequest.StyleOptions.BRG">BRG</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="VisualizeImageHeatmapRequest.StyleOptions.BUGN">BUGN</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="VisualizeImageHeatmapRequest.StyleOptions.BUPU">BUPU</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="VisualizeImageHeatmapRequest.StyleOptions.BWR">BWR</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="VisualizeImageHeatmapRequest.StyleOptions.CMRMAP">CMRMAP</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="VisualizeImageHeatmapRequest.StyleOptions.COOL">COOL</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="VisualizeImageHeatmapRequest.StyleOptions.COOLWARM">COOLWARM</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="VisualizeImageHeatmapRequest.StyleOptions.COPPER">COPPER</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="VisualizeImageHeatmapRequest.StyleOptions.CUBEHELIX">CUBEHELIX</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="VisualizeImageHeatmapRequest.StyleOptions.DARK2">DARK2</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="VisualizeImageHeatmapRequest.StyleOptions.FLAG">FLAG</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="VisualizeImageHeatmapRequest.StyleOptions.GIST_EARTH">GIST_EARTH</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="VisualizeImageHeatmapRequest.StyleOptions.GIST_GRAY">GIST_GRAY</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="VisualizeImageHeatmapRequest.StyleOptions.GIST_HEAT">GIST_HEAT</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="VisualizeImageHeatmapRequest.StyleOptions.GIST_NCAR">GIST_NCAR</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="VisualizeImageHeatmapRequest.StyleOptions.GIST_RAINBOW">GIST_RAINBOW</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="VisualizeImageHeatmapRequest.StyleOptions.GIST_STERN">GIST_STERN</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="VisualizeImageHeatmapRequest.StyleOptions.GIST_YARG">GIST_YARG</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="VisualizeImageHeatmapRequest.StyleOptions.GNBU">GNBU</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="VisualizeImageHeatmapRequest.StyleOptions.GNUPLOT2">GNUPLOT2</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="VisualizeImageHeatmapRequest.StyleOptions.GNUPLOT">GNUPLOT</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="VisualizeImageHeatmapRequest.StyleOptions.GRAY">GRAY</see></term>
             ///     </item>
             ///     <item>
             ///         <term><see
@@ -193,7 +549,83 @@ namespace kinetica
             ///     </item>
             ///     <item>
             ///         <term><see
+            /// cref="VisualizeImageHeatmapRequest.StyleOptions.HOT">HOT</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="VisualizeImageHeatmapRequest.StyleOptions.HSV">HSV</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="VisualizeImageHeatmapRequest.StyleOptions.INFERNO">INFERNO</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="VisualizeImageHeatmapRequest.StyleOptions.MAGMA">MAGMA</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="VisualizeImageHeatmapRequest.StyleOptions.NIPY_SPECTRAL">NIPY_SPECTRAL</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="VisualizeImageHeatmapRequest.StyleOptions.OCEAN">OCEAN</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
             /// cref="VisualizeImageHeatmapRequest.StyleOptions.ORANGES">ORANGES</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="VisualizeImageHeatmapRequest.StyleOptions.ORRD">ORRD</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="VisualizeImageHeatmapRequest.StyleOptions.PAIRED">PAIRED</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="VisualizeImageHeatmapRequest.StyleOptions.PASTEL1">PASTEL1</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="VisualizeImageHeatmapRequest.StyleOptions.PASTEL2">PASTEL2</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="VisualizeImageHeatmapRequest.StyleOptions.PINK">PINK</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="VisualizeImageHeatmapRequest.StyleOptions.PIYG">PIYG</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="VisualizeImageHeatmapRequest.StyleOptions.PLASMA">PLASMA</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="VisualizeImageHeatmapRequest.StyleOptions.PRGN">PRGN</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="VisualizeImageHeatmapRequest.StyleOptions.PRISM">PRISM</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="VisualizeImageHeatmapRequest.StyleOptions.PUBU">PUBU</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="VisualizeImageHeatmapRequest.StyleOptions.PUBUGN">PUBUGN</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="VisualizeImageHeatmapRequest.StyleOptions.PUOR">PUOR</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="VisualizeImageHeatmapRequest.StyleOptions.PURD">PURD</see></term>
             ///     </item>
             ///     <item>
             ///         <term><see
@@ -201,30 +633,180 @@ namespace kinetica
             ///     </item>
             ///     <item>
             ///         <term><see
+            /// cref="VisualizeImageHeatmapRequest.StyleOptions.RAINBOW">RAINBOW</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="VisualizeImageHeatmapRequest.StyleOptions.RDBU">RDBU</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="VisualizeImageHeatmapRequest.StyleOptions.RDGY">RDGY</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="VisualizeImageHeatmapRequest.StyleOptions.RDPU">RDPU</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="VisualizeImageHeatmapRequest.StyleOptions.RDYLBU">RDYLBU</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="VisualizeImageHeatmapRequest.StyleOptions.RDYLGN">RDYLGN</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
             /// cref="VisualizeImageHeatmapRequest.StyleOptions.REDS">REDS</see></term>
             ///     </item>
             ///     <item>
             ///         <term><see
+            /// cref="VisualizeImageHeatmapRequest.StyleOptions.SEISMIC">SEISMIC</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="VisualizeImageHeatmapRequest.StyleOptions.SET1">SET1</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="VisualizeImageHeatmapRequest.StyleOptions.SET2">SET2</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="VisualizeImageHeatmapRequest.StyleOptions.SET3">SET3</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="VisualizeImageHeatmapRequest.StyleOptions.SPECTRAL">SPECTRAL</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="VisualizeImageHeatmapRequest.StyleOptions.SPRING">SPRING</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="VisualizeImageHeatmapRequest.StyleOptions.SUMMER">SUMMER</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="VisualizeImageHeatmapRequest.StyleOptions.TERRAIN">TERRAIN</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
             /// cref="VisualizeImageHeatmapRequest.StyleOptions.VIRIDIS">VIRIDIS</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="VisualizeImageHeatmapRequest.StyleOptions.WINTER">WINTER</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="VisualizeImageHeatmapRequest.StyleOptions.WISTIA">WISTIA</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="VisualizeImageHeatmapRequest.StyleOptions.YLGN">YLGN</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="VisualizeImageHeatmapRequest.StyleOptions.YLGNBU">YLGNBU</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="VisualizeImageHeatmapRequest.StyleOptions.YLORBR">YLORBR</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="VisualizeImageHeatmapRequest.StyleOptions.YLORRD">YLORRD</see></term>
             ///     </item>
             /// </list>
             /// The default value is <see
             /// cref="VisualizeImageHeatmapRequest.StyleOptions.JET">JET</see>.</summary>
             public const string COLORMAP = "colormap";
             public const string JET = "jet";
-            public const string HOT = "hot";
-            public const string HSV = "hsv";
-            public const string GRAY = "gray";
+            public const string ACCENT = "accent";
+            public const string AFMHOT = "afmhot";
+            public const string AUTUMN = "autumn";
+            public const string BINARY = "binary";
             public const string BLUES = "blues";
+            public const string BONE = "bone";
+            public const string BRBG = "brbg";
+            public const string BRG = "brg";
+            public const string BUGN = "bugn";
+            public const string BUPU = "bupu";
+            public const string BWR = "bwr";
+            public const string CMRMAP = "cmrmap";
+            public const string COOL = "cool";
+            public const string COOLWARM = "coolwarm";
+            public const string COPPER = "copper";
+            public const string CUBEHELIX = "cubehelix";
+            public const string DARK2 = "dark2";
+            public const string FLAG = "flag";
+            public const string GIST_EARTH = "gist_earth";
+            public const string GIST_GRAY = "gist_gray";
+            public const string GIST_HEAT = "gist_heat";
+            public const string GIST_NCAR = "gist_ncar";
+            public const string GIST_RAINBOW = "gist_rainbow";
+            public const string GIST_STERN = "gist_stern";
+            public const string GIST_YARG = "gist_yarg";
+            public const string GNBU = "gnbu";
+            public const string GNUPLOT2 = "gnuplot2";
+            public const string GNUPLOT = "gnuplot";
+            public const string GRAY = "gray";
             public const string GREENS = "greens";
             public const string GREYS = "greys";
+            public const string HOT = "hot";
+            public const string HSV = "hsv";
+            public const string INFERNO = "inferno";
+            public const string MAGMA = "magma";
+            public const string NIPY_SPECTRAL = "nipy_spectral";
+            public const string OCEAN = "ocean";
             public const string ORANGES = "oranges";
+            public const string ORRD = "orrd";
+            public const string PAIRED = "paired";
+            public const string PASTEL1 = "pastel1";
+            public const string PASTEL2 = "pastel2";
+            public const string PINK = "pink";
+            public const string PIYG = "piyg";
+            public const string PLASMA = "plasma";
+            public const string PRGN = "prgn";
+            public const string PRISM = "prism";
+            public const string PUBU = "pubu";
+            public const string PUBUGN = "pubugn";
+            public const string PUOR = "puor";
+            public const string PURD = "purd";
             public const string PURPLES = "purples";
+            public const string RAINBOW = "rainbow";
+            public const string RDBU = "rdbu";
+            public const string RDGY = "rdgy";
+            public const string RDPU = "rdpu";
+            public const string RDYLBU = "rdylbu";
+            public const string RDYLGN = "rdylgn";
             public const string REDS = "reds";
+            public const string SEISMIC = "seismic";
+            public const string SET1 = "set1";
+            public const string SET2 = "set2";
+            public const string SET3 = "set3";
+            public const string SPECTRAL = "spectral";
+            public const string SPRING = "spring";
+            public const string SUMMER = "summer";
+            public const string TERRAIN = "terrain";
             public const string VIRIDIS = "viridis";
+            public const string WINTER = "winter";
+            public const string WISTIA = "wistia";
+            public const string YLGN = "ylgn";
+            public const string YLGNBU = "ylgnbu";
+            public const string YLORBR = "ylorbr";
+            public const string YLORRD = "ylorrd";
+
+            /// <summary>  The default value is '5'.</summary>
             public const string BLUR_RADIUS = "blur_radius";
             public const string BG_COLOR = "bg_color";
+
+            /// <summary>  The default value is 'FFFFFF'.</summary>
             public const string GRADIENT_START_COLOR = "gradient_start_color";
+
+            /// <summary>  The default value is 'FF0000'.</summary>
             public const string GRADIENT_END_COLOR = "gradient_end_color";
         } // end struct StyleOptions
 
@@ -298,19 +880,119 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="VisualizeImageHeatmapRequest.StyleOptions.HOT">HOT</see></term>
+        /// cref="VisualizeImageHeatmapRequest.StyleOptions.ACCENT">ACCENT</see></term>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="VisualizeImageHeatmapRequest.StyleOptions.HSV">HSV</see></term>
+        /// cref="VisualizeImageHeatmapRequest.StyleOptions.AFMHOT">AFMHOT</see></term>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="VisualizeImageHeatmapRequest.StyleOptions.GRAY">GRAY</see></term>
+        /// cref="VisualizeImageHeatmapRequest.StyleOptions.AUTUMN">AUTUMN</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageHeatmapRequest.StyleOptions.BINARY">BINARY</see></term>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="VisualizeImageHeatmapRequest.StyleOptions.BLUES">BLUES</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageHeatmapRequest.StyleOptions.BONE">BONE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageHeatmapRequest.StyleOptions.BRBG">BRBG</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageHeatmapRequest.StyleOptions.BRG">BRG</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageHeatmapRequest.StyleOptions.BUGN">BUGN</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageHeatmapRequest.StyleOptions.BUPU">BUPU</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageHeatmapRequest.StyleOptions.BWR">BWR</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageHeatmapRequest.StyleOptions.CMRMAP">CMRMAP</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageHeatmapRequest.StyleOptions.COOL">COOL</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageHeatmapRequest.StyleOptions.COOLWARM">COOLWARM</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageHeatmapRequest.StyleOptions.COPPER">COPPER</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageHeatmapRequest.StyleOptions.CUBEHELIX">CUBEHELIX</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageHeatmapRequest.StyleOptions.DARK2">DARK2</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageHeatmapRequest.StyleOptions.FLAG">FLAG</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageHeatmapRequest.StyleOptions.GIST_EARTH">GIST_EARTH</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageHeatmapRequest.StyleOptions.GIST_GRAY">GIST_GRAY</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageHeatmapRequest.StyleOptions.GIST_HEAT">GIST_HEAT</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageHeatmapRequest.StyleOptions.GIST_NCAR">GIST_NCAR</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageHeatmapRequest.StyleOptions.GIST_RAINBOW">GIST_RAINBOW</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageHeatmapRequest.StyleOptions.GIST_STERN">GIST_STERN</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageHeatmapRequest.StyleOptions.GIST_YARG">GIST_YARG</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageHeatmapRequest.StyleOptions.GNBU">GNBU</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageHeatmapRequest.StyleOptions.GNUPLOT2">GNUPLOT2</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageHeatmapRequest.StyleOptions.GNUPLOT">GNUPLOT</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageHeatmapRequest.StyleOptions.GRAY">GRAY</see></term>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -322,7 +1004,83 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
+        /// cref="VisualizeImageHeatmapRequest.StyleOptions.HOT">HOT</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageHeatmapRequest.StyleOptions.HSV">HSV</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageHeatmapRequest.StyleOptions.INFERNO">INFERNO</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageHeatmapRequest.StyleOptions.MAGMA">MAGMA</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageHeatmapRequest.StyleOptions.NIPY_SPECTRAL">NIPY_SPECTRAL</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageHeatmapRequest.StyleOptions.OCEAN">OCEAN</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="VisualizeImageHeatmapRequest.StyleOptions.ORANGES">ORANGES</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageHeatmapRequest.StyleOptions.ORRD">ORRD</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageHeatmapRequest.StyleOptions.PAIRED">PAIRED</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageHeatmapRequest.StyleOptions.PASTEL1">PASTEL1</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageHeatmapRequest.StyleOptions.PASTEL2">PASTEL2</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageHeatmapRequest.StyleOptions.PINK">PINK</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageHeatmapRequest.StyleOptions.PIYG">PIYG</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageHeatmapRequest.StyleOptions.PLASMA">PLASMA</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageHeatmapRequest.StyleOptions.PRGN">PRGN</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageHeatmapRequest.StyleOptions.PRISM">PRISM</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageHeatmapRequest.StyleOptions.PUBU">PUBU</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageHeatmapRequest.StyleOptions.PUBUGN">PUBUGN</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageHeatmapRequest.StyleOptions.PUOR">PUOR</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageHeatmapRequest.StyleOptions.PURD">PURD</see></term>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -330,11 +1088,91 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
+        /// cref="VisualizeImageHeatmapRequest.StyleOptions.RAINBOW">RAINBOW</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageHeatmapRequest.StyleOptions.RDBU">RDBU</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageHeatmapRequest.StyleOptions.RDGY">RDGY</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageHeatmapRequest.StyleOptions.RDPU">RDPU</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageHeatmapRequest.StyleOptions.RDYLBU">RDYLBU</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageHeatmapRequest.StyleOptions.RDYLGN">RDYLGN</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="VisualizeImageHeatmapRequest.StyleOptions.REDS">REDS</see></term>
         ///     </item>
         ///     <item>
         ///         <term><see
+        /// cref="VisualizeImageHeatmapRequest.StyleOptions.SEISMIC">SEISMIC</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageHeatmapRequest.StyleOptions.SET1">SET1</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageHeatmapRequest.StyleOptions.SET2">SET2</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageHeatmapRequest.StyleOptions.SET3">SET3</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageHeatmapRequest.StyleOptions.SPECTRAL">SPECTRAL</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageHeatmapRequest.StyleOptions.SPRING">SPRING</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageHeatmapRequest.StyleOptions.SUMMER">SUMMER</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageHeatmapRequest.StyleOptions.TERRAIN">TERRAIN</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="VisualizeImageHeatmapRequest.StyleOptions.VIRIDIS">VIRIDIS</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageHeatmapRequest.StyleOptions.WINTER">WINTER</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageHeatmapRequest.StyleOptions.WISTIA">WISTIA</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageHeatmapRequest.StyleOptions.YLGN">YLGN</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageHeatmapRequest.StyleOptions.YLGNBU">YLGNBU</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageHeatmapRequest.StyleOptions.YLORBR">YLORBR</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageHeatmapRequest.StyleOptions.YLORRD">YLORRD</see></term>
         ///     </item>
         /// </list>
         /// The default value is <see
@@ -343,7 +1181,7 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="VisualizeImageHeatmapRequest.StyleOptions.BLUR_RADIUS">BLUR_RADIUS</see>:</term>
-        ///         <description></description>
+        ///         <description>  The default value is '5'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -353,12 +1191,12 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="VisualizeImageHeatmapRequest.StyleOptions.GRADIENT_START_COLOR">GRADIENT_START_COLOR</see>:</term>
-        ///         <description></description>
+        ///         <description>  The default value is 'FFFFFF'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="VisualizeImageHeatmapRequest.StyleOptions.GRADIENT_END_COLOR">GRADIENT_END_COLOR</see>:</term>
-        ///         <description></description>
+        ///         <description>  The default value is 'FF0000'.</description>
         ///     </item>
         /// </list>
         /// </summary>
@@ -440,19 +1278,119 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="VisualizeImageHeatmapRequest.StyleOptions.HOT">HOT</see></term>
+        /// cref="VisualizeImageHeatmapRequest.StyleOptions.ACCENT">ACCENT</see></term>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="VisualizeImageHeatmapRequest.StyleOptions.HSV">HSV</see></term>
+        /// cref="VisualizeImageHeatmapRequest.StyleOptions.AFMHOT">AFMHOT</see></term>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="VisualizeImageHeatmapRequest.StyleOptions.GRAY">GRAY</see></term>
+        /// cref="VisualizeImageHeatmapRequest.StyleOptions.AUTUMN">AUTUMN</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageHeatmapRequest.StyleOptions.BINARY">BINARY</see></term>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="VisualizeImageHeatmapRequest.StyleOptions.BLUES">BLUES</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageHeatmapRequest.StyleOptions.BONE">BONE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageHeatmapRequest.StyleOptions.BRBG">BRBG</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageHeatmapRequest.StyleOptions.BRG">BRG</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageHeatmapRequest.StyleOptions.BUGN">BUGN</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageHeatmapRequest.StyleOptions.BUPU">BUPU</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageHeatmapRequest.StyleOptions.BWR">BWR</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageHeatmapRequest.StyleOptions.CMRMAP">CMRMAP</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageHeatmapRequest.StyleOptions.COOL">COOL</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageHeatmapRequest.StyleOptions.COOLWARM">COOLWARM</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageHeatmapRequest.StyleOptions.COPPER">COPPER</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageHeatmapRequest.StyleOptions.CUBEHELIX">CUBEHELIX</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageHeatmapRequest.StyleOptions.DARK2">DARK2</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageHeatmapRequest.StyleOptions.FLAG">FLAG</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageHeatmapRequest.StyleOptions.GIST_EARTH">GIST_EARTH</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageHeatmapRequest.StyleOptions.GIST_GRAY">GIST_GRAY</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageHeatmapRequest.StyleOptions.GIST_HEAT">GIST_HEAT</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageHeatmapRequest.StyleOptions.GIST_NCAR">GIST_NCAR</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageHeatmapRequest.StyleOptions.GIST_RAINBOW">GIST_RAINBOW</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageHeatmapRequest.StyleOptions.GIST_STERN">GIST_STERN</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageHeatmapRequest.StyleOptions.GIST_YARG">GIST_YARG</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageHeatmapRequest.StyleOptions.GNBU">GNBU</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageHeatmapRequest.StyleOptions.GNUPLOT2">GNUPLOT2</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageHeatmapRequest.StyleOptions.GNUPLOT">GNUPLOT</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageHeatmapRequest.StyleOptions.GRAY">GRAY</see></term>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -464,7 +1402,83 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
+        /// cref="VisualizeImageHeatmapRequest.StyleOptions.HOT">HOT</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageHeatmapRequest.StyleOptions.HSV">HSV</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageHeatmapRequest.StyleOptions.INFERNO">INFERNO</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageHeatmapRequest.StyleOptions.MAGMA">MAGMA</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageHeatmapRequest.StyleOptions.NIPY_SPECTRAL">NIPY_SPECTRAL</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageHeatmapRequest.StyleOptions.OCEAN">OCEAN</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="VisualizeImageHeatmapRequest.StyleOptions.ORANGES">ORANGES</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageHeatmapRequest.StyleOptions.ORRD">ORRD</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageHeatmapRequest.StyleOptions.PAIRED">PAIRED</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageHeatmapRequest.StyleOptions.PASTEL1">PASTEL1</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageHeatmapRequest.StyleOptions.PASTEL2">PASTEL2</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageHeatmapRequest.StyleOptions.PINK">PINK</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageHeatmapRequest.StyleOptions.PIYG">PIYG</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageHeatmapRequest.StyleOptions.PLASMA">PLASMA</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageHeatmapRequest.StyleOptions.PRGN">PRGN</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageHeatmapRequest.StyleOptions.PRISM">PRISM</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageHeatmapRequest.StyleOptions.PUBU">PUBU</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageHeatmapRequest.StyleOptions.PUBUGN">PUBUGN</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageHeatmapRequest.StyleOptions.PUOR">PUOR</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageHeatmapRequest.StyleOptions.PURD">PURD</see></term>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -472,11 +1486,91 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
+        /// cref="VisualizeImageHeatmapRequest.StyleOptions.RAINBOW">RAINBOW</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageHeatmapRequest.StyleOptions.RDBU">RDBU</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageHeatmapRequest.StyleOptions.RDGY">RDGY</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageHeatmapRequest.StyleOptions.RDPU">RDPU</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageHeatmapRequest.StyleOptions.RDYLBU">RDYLBU</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageHeatmapRequest.StyleOptions.RDYLGN">RDYLGN</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="VisualizeImageHeatmapRequest.StyleOptions.REDS">REDS</see></term>
         ///     </item>
         ///     <item>
         ///         <term><see
+        /// cref="VisualizeImageHeatmapRequest.StyleOptions.SEISMIC">SEISMIC</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageHeatmapRequest.StyleOptions.SET1">SET1</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageHeatmapRequest.StyleOptions.SET2">SET2</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageHeatmapRequest.StyleOptions.SET3">SET3</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageHeatmapRequest.StyleOptions.SPECTRAL">SPECTRAL</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageHeatmapRequest.StyleOptions.SPRING">SPRING</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageHeatmapRequest.StyleOptions.SUMMER">SUMMER</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageHeatmapRequest.StyleOptions.TERRAIN">TERRAIN</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="VisualizeImageHeatmapRequest.StyleOptions.VIRIDIS">VIRIDIS</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageHeatmapRequest.StyleOptions.WINTER">WINTER</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageHeatmapRequest.StyleOptions.WISTIA">WISTIA</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageHeatmapRequest.StyleOptions.YLGN">YLGN</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageHeatmapRequest.StyleOptions.YLGNBU">YLGNBU</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageHeatmapRequest.StyleOptions.YLORBR">YLORBR</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageHeatmapRequest.StyleOptions.YLORRD">YLORRD</see></term>
         ///     </item>
         /// </list>
         /// The default value is <see
@@ -485,7 +1579,7 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="VisualizeImageHeatmapRequest.StyleOptions.BLUR_RADIUS">BLUR_RADIUS</see>:</term>
-        ///         <description></description>
+        ///         <description>  The default value is '5'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -495,12 +1589,12 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="VisualizeImageHeatmapRequest.StyleOptions.GRADIENT_START_COLOR">GRADIENT_START_COLOR</see>:</term>
-        ///         <description></description>
+        ///         <description>  The default value is 'FFFFFF'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="VisualizeImageHeatmapRequest.StyleOptions.GRADIENT_END_COLOR">GRADIENT_END_COLOR</see>:</term>
-        ///         <description></description>
+        ///         <description>  The default value is 'FF0000'.</description>
         ///     </item>
         /// </list>
         /// </param>

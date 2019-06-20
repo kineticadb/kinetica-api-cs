@@ -22,7 +22,8 @@ namespace kinetica
         /// to be fetched.  </summary>
         public int job_id { get; set; }
 
-        /// <summary>Optional parameters.  </summary>
+        /// <summary>Optional parameters.  The default value is an empty {@link
+        /// Dictionary}.</summary>
         public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
 
 
@@ -35,7 +36,8 @@ namespace kinetica
         /// 
         /// <param name="job_id">A unique identifier for the job whose status
         /// and result is to be fetched.  </param>
-        /// <param name="options">Optional parameters.  </param>
+        /// <param name="options">Optional parameters.  The default value is an
+        /// empty {@link Dictionary}.</param>
         /// 
         public GetJobRequest( int job_id,
                               IDictionary<string, string> options = null)

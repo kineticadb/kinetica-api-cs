@@ -21,10 +21,10 @@ namespace kinetica
     /// data for the symbol, and any additional optional parameter (e.g.
     /// color). To have a symbol used for rendering create a table with a
     /// string column named 'SYMBOLCODE' (along with 'x' or 'y' for example).
-    /// Then when the table is rendered (via <a href="../rest/wms_rest.html"
-    /// target="_top">WMS</a>) if the 'dosymbology' parameter is 'true' then
-    /// the value of the 'SYMBOLCODE' column is used to pick the symbol
-    /// displayed for each point.</summary>
+    /// Then when the table is rendered (via <a
+    /// href="../../api/rest/wms_rest.html" target="_top">WMS</a>) if the
+    /// 'dosymbology' parameter is 'true' then the value of the 'SYMBOLCODE'
+    /// column is used to pick the symbol displayed for each point.</summary>
     public class InsertSymbolRequest : KineticaData
     {
 
@@ -64,7 +64,7 @@ namespace kinetica
         /// green) is used by default.</description>
         ///     </item>
         /// </list>
-        /// <br />
+        /// The default value is an empty {@link Dictionary}.
         /// A set of string constants for the parameter <see cref="options"
         /// />.</summary>
         public struct Options
@@ -123,7 +123,7 @@ namespace kinetica
         /// green) is used by default.</description>
         ///     </item>
         /// </list>
-        ///   </summary>
+        /// The default value is an empty {@link Dictionary}.</summary>
         public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
 
 
@@ -170,7 +170,7 @@ namespace kinetica
         /// green) is used by default.</description>
         ///     </item>
         /// </list>
-        ///   </param>
+        /// The default value is an empty {@link Dictionary}.</param>
         /// 
         public InsertSymbolRequest( string symbol_id,
                                     string symbol_format,

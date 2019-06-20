@@ -14,24 +14,29 @@ namespace kinetica
     /// <summary>A set of parameters for <see
     /// cref="Kinetica.showTable(string,IDictionary{string, string})" />.
     /// <br />
-    /// Retrieves detailed information about a table, view, or collection,
-    /// specified in <see cref="table_name" />. If the supplied <see
-    /// cref="table_name" /> is a collection, the call can return information
-    /// about either the collection itself or the tables and views it contains.
+    /// Retrieves detailed information about tables, views, and collections.
+    /// <br />
+    /// If <see cref="table_name" /> specifies a table or view, information
+    /// specific to that entity will be returned.
+    /// <br />
+    /// If <see cref="table_name" /> specifies a collection, the call can
+    /// return information about either the collection itself (setting the
+    /// <i>show_children</i> option to <i>false</i>) or the tables and views it
+    /// contains (setting <i>show_children</i> to <i>true</i>).
+    /// <br />
     /// If <see cref="table_name" /> is empty, information about all
-    /// collections and top-level tables and views can be returned.
+    /// collections and top-level tables and views can be returned.  Note:
+    /// <i>show_children</i> must be set to <i>true</i>.
+    /// <br />
+    /// If <see cref="table_name" /> is '*', information about all tables,
+    /// collections, and views will be returned.  Note:  <i>show_children</i>
+    /// must be set to <i>true</i>.
     /// <br />
     /// If the option <i>get_sizes</i> is set to <i>true</i>, then the sizes
     /// (objects and elements) of each table are returned (in <member
     /// name="sizes" /> and <member name="full_sizes" />), along with the total
     /// number of objects in the requested table (in <member name="total_size"
-    /// /> and <member name="total_full_size" />).
-    /// <br />
-    /// For a collection, setting the <i>show_children</i> option to
-    /// <i>false</i> returns only information about the collection itself;
-    /// setting <i>show_children</i> to <i>true</i> returns a list of tables
-    /// and views contained in the collection, along with their corresponding
-    /// detail.</summary>
+    /// /> and <member name="total_full_size" />).</summary>
     public class ShowTableRequest : KineticaData
     {
 
@@ -81,11 +86,12 @@ namespace kinetica
         ///         <description>If <paramref
         /// cref="ShowTableRequest.table_name" /> is a collection, then
         /// <i>true</i> will return information about the children of the
-        /// collection, and <i>false</i> will return information about the
-        /// collection itself. If <paramref cref="ShowTableRequest.table_name"
-        /// /> is a table or view, <i>show_children</i> must be <i>false</i>.
-        /// If <paramref cref="ShowTableRequest.table_name" /> is empty, then
-        /// <i>show_children</i> must be <i>true</i>.
+        /// collection, while <i>false</i> will return information about the
+        /// collection itself.
+        /// <br />
+        /// If <paramref cref="ShowTableRequest.table_name" /> is empty or '*',
+        /// then <i>show_children</i> must be <i>true</i> (or not specified);
+        /// otherwise, no results will be returned.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -140,7 +146,7 @@ namespace kinetica
         /// cref="ShowTableRequest.Options.FALSE">FALSE</see>.</description>
         ///     </item>
         /// </list>
-        /// <br />
+        /// The default value is an empty {@link Dictionary}.
         /// A set of string constants for the parameter <see cref="options"
         /// />.</summary>
         public struct Options
@@ -184,11 +190,12 @@ namespace kinetica
 
             /// <summary>If <see cref="table_name" /> is a collection, then
             /// <i>true</i> will return information about the children of the
-            /// collection, and <i>false</i> will return information about the
-            /// collection itself. If <see cref="table_name" /> is a table or
-            /// view, <i>show_children</i> must be <i>false</i>. If <see
-            /// cref="table_name" /> is empty, then <i>show_children</i> must
-            /// be <i>true</i>.
+            /// collection, while <i>false</i> will return information about
+            /// the collection itself.
+            /// <br />
+            /// If <see cref="table_name" /> is empty or '*', then
+            /// <i>show_children</i> must be <i>true</i> (or not specified);
+            /// otherwise, no results will be returned.
             /// Supported values:
             /// <list type="bullet">
             ///     <item>
@@ -292,11 +299,12 @@ namespace kinetica
         ///         <description>If <paramref
         /// cref="ShowTableRequest.table_name" /> is a collection, then
         /// <i>true</i> will return information about the children of the
-        /// collection, and <i>false</i> will return information about the
-        /// collection itself. If <paramref cref="ShowTableRequest.table_name"
-        /// /> is a table or view, <i>show_children</i> must be <i>false</i>.
-        /// If <paramref cref="ShowTableRequest.table_name" /> is empty, then
-        /// <i>show_children</i> must be <i>true</i>.
+        /// collection, while <i>false</i> will return information about the
+        /// collection itself.
+        /// <br />
+        /// If <paramref cref="ShowTableRequest.table_name" /> is empty or '*',
+        /// then <i>show_children</i> must be <i>true</i> (or not specified);
+        /// otherwise, no results will be returned.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -351,7 +359,7 @@ namespace kinetica
         /// cref="ShowTableRequest.Options.FALSE">FALSE</see>.</description>
         ///     </item>
         /// </list>
-        ///   </summary>
+        /// The default value is an empty {@link Dictionary}.</summary>
         public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
 
 
@@ -411,11 +419,11 @@ namespace kinetica
         ///         <description>If <paramref
         /// cref="ShowTableRequest.table_name" /> is a collection, then
         /// <i>true</i> will return information about the children of the
-        /// collection, and <i>false</i> will return information about the
-        /// collection itself. If <paramref cref="ShowTableRequest.table_name"
-        /// /> is a table or view, <i>show_children</i> must be <i>false</i>.
-        /// If <paramref cref="ShowTableRequest.table_name" /> is empty, then
-        /// <i>show_children</i> must be <i>true</i>.
+        /// collection, while <i>false</i> will return information about the
+        /// collection itself.
+        /// If <paramref cref="ShowTableRequest.table_name" /> is empty or '*',
+        /// then <i>show_children</i> must be <i>true</i> (or not specified);
+        /// otherwise, no results will be returned.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -470,7 +478,7 @@ namespace kinetica
         /// cref="ShowTableRequest.Options.FALSE">FALSE</see>.</description>
         ///     </item>
         /// </list>
-        ///   </param>
+        /// The default value is an empty {@link Dictionary}.</param>
         /// 
         public ShowTableRequest( string table_name,
                                  IDictionary<string, string> options = null)
@@ -536,7 +544,7 @@ namespace kinetica
         public struct AdditionalInfo
         {
 
-            /// <summary>method by which this table was created.
+            /// <summary>Method by which this table was created.
             /// Supported values:
             /// <list type="bullet">
             ///     <item>
@@ -557,7 +565,7 @@ namespace kinetica
             public const string CREATE_PROJECTION = "create_projection";
             public const string CREATE_UNION = "create_union";
 
-            /// <summary>The json representation of request creating this
+            /// <summary>The JSON representation of request creating this
             /// table.</summary>
             public const string REQUEST_AVRO_JSON = "request_avro_json";
 
@@ -627,9 +635,9 @@ namespace kinetica
             /// collections.</summary>
             public const string FOREIGN_KEYS = "foreign_keys";
 
-            /// <summary>Foreign shard key description of the format:
-            /// <fk_foreign_key> references <pk_column_name> from
-            /// <pk_table_name>(<pk_primary_key>). Not present for
+            /// <summary>Foreign shard key description of the format
+            /// '<fk_foreign_key> references <pk_column_name> from
+            /// <pk_table_name>(<pk_primary_key>)'. Not present for
             /// collections.</summary>
             public const string FOREIGN_SHARD_KEY = "foreign_shard_key";
 
@@ -648,7 +656,7 @@ namespace kinetica
             public const string COMPRESSED_COLUMNS = "compressed_columns";
 
             /// <summary>JSON-encoded string representing a map of column name
-            /// to information including memory usage if if the
+            /// to information including memory usage if the
             /// <i>get_column_info</i> option is <i>true</i>.</summary>
             public const string COLUMN_INFO = "column_info";
 
@@ -699,41 +707,82 @@ namespace kinetica
             /// table.</summary>
             public const string READ_WRITE = "read_write";
 
-            /// <summary>for materialized view the name of the view this member
-            /// table is part of - if same as the table_name then this is the
-            /// root of the view</summary>
+            /// <summary>If this entity is a member of a materialized view, the
+            /// name of that view.  If this name is the same as the view's
+            /// name, then this is the root of the view.</summary>
             public const string VIEW_TABLE_NAME = "view_table_name";
 
-            /// <summary>true if the view named view_table_name is persisted -
-            /// reported for each view member.  Means method of recreating this
-            /// member is saved - not the members data</summary>
+            /// <summary>If this entity is a member of a materialized view,
+            /// whether that view is persisted.  If true, signifies that the
+            /// method of recreating this member is saved, but not its data.
+            /// Supported values:
+            /// <list type="bullet">
+            ///     <item>
+            ///         <term><see
+            /// cref="ShowTableResponse.AdditionalInfo.TRUE">TRUE</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="ShowTableResponse.AdditionalInfo.FALSE">FALSE</see></term>
+            ///     </item>
+            /// </list></summary>
             public const string IS_VIEW_PERSISTED = "is_view_persisted";
 
-            /// <summary>true if some input table of the materialized view that
-            /// affects this member table has been modified since the last
-            /// refresh</summary>
+            /// <summary>If this entity is a member of a materialized view,
+            /// whether some input table of the materialized view that affects
+            /// this member table has been modified since the last refresh.
+            /// Supported values:
+            /// <list type="bullet">
+            ///     <item>
+            ///         <term><see
+            /// cref="ShowTableResponse.AdditionalInfo.TRUE">TRUE</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="ShowTableResponse.AdditionalInfo.FALSE">FALSE</see></term>
+            ///     </item>
+            /// </list></summary>
             public const string IS_DIRTY = "is_dirty";
 
-            /// <summary>for materialized view current refresh_method - one of
-            /// manual, periodic, on_change</summary>
+            /// <summary>If this entity is a member of a materialized view, the
+            /// current refresh method of that view.
+            /// Supported values:
+            /// <list type="bullet">
+            ///     <item>
+            ///         <term><see
+            /// cref="ShowTableResponse.AdditionalInfo.MANUAL">MANUAL</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="ShowTableResponse.AdditionalInfo.PERIODIC">PERIODIC</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="ShowTableResponse.AdditionalInfo.ON_CHANGE">ON_CHANGE</see></term>
+            ///     </item>
+            /// </list></summary>
             public const string REFRESH_METHOD = "refresh_method";
+            public const string MANUAL = "manual";
+            public const string PERIODIC = "periodic";
+            public const string ON_CHANGE = "on_change";
 
-            /// <summary>for materialized view with periodic refresh_method the
-            /// current intial datetime string that periodic refreshes
-            /// began</summary>
+            /// <summary>If this entity is a member of a materialized view with
+            /// a periodic refresh method, the current initial date/time that
+            /// the view's periodic refreshes began</summary>
             public const string REFRESH_START_TIME = "refresh_start_time";
 
-            /// <summary>for materialized view with periodic refresh_method the
-            /// current refresh period in seconds</summary>
+            /// <summary>If this entity is a member of a materialized view with
+            /// a periodic refresh method, the current refresh period of that
+            /// view in seconds.</summary>
             public const string REFRESH_PERIOD = "refresh_period";
 
-            /// <summary>for materialized view the a datatime string indicating
-            /// the last time the view was refreshed</summary>
+            /// <summary>If this entity is a member of a materialized view, the
+            /// last date/time that view was refreshed.</summary>
             public const string LAST_REFRESH_TIME = "last_refresh_time";
 
-            /// <summary>for materialized with periodic refresh_method a
-            /// datetime string indicating the next time the view is to be
-            /// refreshed</summary>
+            /// <summary>If this entity is a member of a materialized view with
+            /// a periodic refresh method, the next date/time that view is to
+            /// be refreshed.</summary>
             public const string NEXT_REFRESH_TIME = "next_refresh_time";
         } // end struct AdditionalInfo
 

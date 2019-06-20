@@ -56,7 +56,8 @@ namespace kinetica
         ///         <description>Name of a collection which is to contain the
         /// output table. If the collection provided is non-existent, the
         /// collection will be automatically created. If empty, the output
-        /// table will be a top-level table.</description>
+        /// table will be a top-level table.  The default value is
+        /// ''.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -194,8 +195,8 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="CreateUnionRequest.Options.VIEW_ID">VIEW_ID</see>:</term>
-        ///         <description>view the output table will be a part
-        /// of</description>
+        ///         <description>view the output table will be a part of.  The
+        /// default value is ''.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -218,7 +219,7 @@ namespace kinetica
         /// cref="CreateUnionRequest.Options.FALSE">FALSE</see>.</description>
         ///     </item>
         /// </list>
-        /// <br />
+        /// The default value is an empty {@link Dictionary}.
         /// A set of string constants for the parameter <see cref="options"
         /// />.</summary>
         public struct Options
@@ -227,7 +228,8 @@ namespace kinetica
             /// <summary>Name of a collection which is to contain the output
             /// table. If the collection provided is non-existent, the
             /// collection will be automatically created. If empty, the output
-            /// table will be a top-level table.</summary>
+            /// table will be a top-level table.  The default value is
+            /// ''.</summary>
             public const string COLLECTION_NAME = "collection_name";
 
             /// <summary>If <i>true</i>, then the columns of the output table
@@ -393,7 +395,8 @@ namespace kinetica
             /// cref="CreateUnionRequest.Options.FALSE">FALSE</see>.</summary>
             public const string PERSIST = "persist";
 
-            /// <summary>view the output table will be a part of</summary>
+            /// <summary>view the output table will be a part of.  The default
+            /// value is ''.</summary>
             public const string VIEW_ID = "view_id";
 
             /// <summary>If <i>true</i>, then the table specified in <see
@@ -441,7 +444,8 @@ namespace kinetica
         ///         <description>Name of a collection which is to contain the
         /// output table. If the collection provided is non-existent, the
         /// collection will be automatically created. If empty, the output
-        /// table will be a top-level table.</description>
+        /// table will be a top-level table.  The default value is
+        /// ''.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -579,8 +583,8 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="CreateUnionRequest.Options.VIEW_ID">VIEW_ID</see>:</term>
-        ///         <description>view the output table will be a part
-        /// of</description>
+        ///         <description>view the output table will be a part of.  The
+        /// default value is ''.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -603,7 +607,7 @@ namespace kinetica
         /// cref="CreateUnionRequest.Options.FALSE">FALSE</see>.</description>
         ///     </item>
         /// </list>
-        ///   </summary>
+        /// The default value is an empty {@link Dictionary}.</summary>
         public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
 
 
@@ -631,7 +635,8 @@ namespace kinetica
         ///         <description>Name of a collection which is to contain the
         /// output table. If the collection provided is non-existent, the
         /// collection will be automatically created. If empty, the output
-        /// table will be a top-level table.</description>
+        /// table will be a top-level table.  The default value is
+        /// ''.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -769,8 +774,8 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="CreateUnionRequest.Options.VIEW_ID">VIEW_ID</see>:</term>
-        ///         <description>view the output table will be a part
-        /// of</description>
+        ///         <description>view the output table will be a part of.  The
+        /// default value is ''.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -793,7 +798,7 @@ namespace kinetica
         /// cref="CreateUnionRequest.Options.FALSE">FALSE</see>.</description>
         ///     </item>
         /// </list>
-        ///   </param>
+        /// The default value is an empty {@link Dictionary}.</param>
         /// 
         public CreateUnionRequest( string table_name,
                                    IList<string> table_names,

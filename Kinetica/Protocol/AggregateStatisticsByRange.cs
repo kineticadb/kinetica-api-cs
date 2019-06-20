@@ -36,8 +36,10 @@ namespace kinetica
     /// In the second method, <see cref="options" /> bin_values specifies a
     /// list of binning column values. Binning-columns whose value matches the
     /// nth member of the bin_values list are placed in the nth bin. When a
-    /// list is provided the binning-column must be of type string or
-    /// int.</summary>
+    /// list is provided the binning-column must be of type string or int.
+    /// <br />
+    /// NOTE:  The Kinetica instance being accessed must be running a CUDA
+    /// (GPU-based) build to service this request.</summary>
     public class AggregateStatisticsByRangeRequest : KineticaData
     {
 
@@ -70,7 +72,7 @@ namespace kinetica
         /// charting techniques.</description>
         ///     </item>
         /// </list>
-        /// <br />
+        /// The default value is an empty {@link Dictionary}.
         /// A set of string constants for the parameter <see cref="options"
         /// />.</summary>
         public struct Options
@@ -101,7 +103,8 @@ namespace kinetica
         public string table_name { get; set; }
 
         /// <summary>For a non-empty expression statistics are calculated for
-        /// those records for which the expression is true.  </summary>
+        /// those records for which the expression is true.  The default value
+        /// is ''.</summary>
         public string select_expression { get; set; } = "";
 
         /// <summary>Name of the binning-column used to divide the set samples
@@ -157,7 +160,7 @@ namespace kinetica
         /// charting techniques.</description>
         ///     </item>
         /// </list>
-        ///   </summary>
+        /// The default value is an empty {@link Dictionary}.</summary>
         public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
 
 
@@ -172,7 +175,7 @@ namespace kinetica
         /// ranged-statistics operation will be performed.  </param>
         /// <param name="select_expression">For a non-empty expression
         /// statistics are calculated for those records for which the
-        /// expression is true.  </param>
+        /// expression is true.  The default value is ''.</param>
         /// <param name="column_name">Name of the binning-column used to divide
         /// the set samples into bins.  </param>
         /// <param name="value_column_name">Name of the value-column for which
@@ -216,7 +219,7 @@ namespace kinetica
         /// charting techniques.</description>
         ///     </item>
         /// </list>
-        ///   </param>
+        /// The default value is an empty {@link Dictionary}.</param>
         /// 
         public AggregateStatisticsByRangeRequest( string table_name,
                                                   string select_expression,

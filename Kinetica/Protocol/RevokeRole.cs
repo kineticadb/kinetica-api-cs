@@ -28,7 +28,8 @@ namespace kinetica
         /// user or role.  </summary>
         public string member { get; set; }
 
-        /// <summary>Optional parameters.  </summary>
+        /// <summary>Optional parameters.  The default value is an empty {@link
+        /// Dictionary}.</summary>
         public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
 
 
@@ -44,7 +45,8 @@ namespace kinetica
         /// <param name="member">Name of the user or role that will be revoked
         /// membership in <paramref cref="RevokeRoleRequest.role" />. Must be
         /// an existing user or role.  </param>
-        /// <param name="options">Optional parameters.  </param>
+        /// <param name="options">Optional parameters.  The default value is an
+        /// empty {@link Dictionary}.</param>
         /// 
         public RevokeRoleRequest( string role,
                                   string member,

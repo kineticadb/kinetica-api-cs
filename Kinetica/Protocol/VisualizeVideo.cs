@@ -136,12 +136,12 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="VisualizeVideoRequest.StyleOptions.POINTCOLORS">POINTCOLORS</see>:</term>
-        ///         <description></description>
+        ///         <description>  The default value is 'FF0000'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="VisualizeVideoRequest.StyleOptions.POINTSIZES">POINTSIZES</see>:</term>
-        ///         <description></description>
+        ///         <description>  The default value is '3'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -186,37 +186,38 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="VisualizeVideoRequest.StyleOptions.SHAPELINEWIDTHS">SHAPELINEWIDTHS</see>:</term>
-        ///         <description></description>
+        ///         <description>  The default value is '3'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="VisualizeVideoRequest.StyleOptions.SHAPELINECOLORS">SHAPELINECOLORS</see>:</term>
-        ///         <description></description>
+        ///         <description>  The default value is 'FFFF00
+        /// '.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="VisualizeVideoRequest.StyleOptions.SHAPEFILLCOLORS">SHAPEFILLCOLORS</see>:</term>
-        ///         <description></description>
+        ///         <description>  The default value is '-1'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="VisualizeVideoRequest.StyleOptions.TRACKLINEWIDTHS">TRACKLINEWIDTHS</see>:</term>
-        ///         <description></description>
+        ///         <description>  The default value is '3'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="VisualizeVideoRequest.StyleOptions.TRACKLINECOLORS">TRACKLINECOLORS</see>:</term>
-        ///         <description></description>
+        ///         <description>  The default value is '00FF00'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="VisualizeVideoRequest.StyleOptions.TRACKMARKERSIZES">TRACKMARKERSIZES</see>:</term>
-        ///         <description></description>
+        ///         <description>  The default value is '3'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="VisualizeVideoRequest.StyleOptions.TRACKMARKERCOLORS">TRACKMARKERCOLORS</see>:</term>
-        ///         <description></description>
+        ///         <description>  The default value is '0000FF'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -263,12 +264,12 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="VisualizeVideoRequest.StyleOptions.TRACKHEADCOLORS">TRACKHEADCOLORS</see>:</term>
-        ///         <description></description>
+        ///         <description>  The default value is 'FFFFFF'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="VisualizeVideoRequest.StyleOptions.TRACKHEADSIZES">TRACKHEADSIZES</see>:</term>
-        ///         <description></description>
+        ///         <description>  The default value is '10'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -368,7 +369,11 @@ namespace kinetica
             /// The default value is <see
             /// cref="VisualizeVideoRequest.StyleOptions.TRUE">TRUE</see>.</summary>
             public const string DO_TRACKS = "do_tracks";
+
+            /// <summary>  The default value is 'FF0000'.</summary>
             public const string POINTCOLORS = "pointcolors";
+
+            /// <summary>  The default value is '3'.</summary>
             public const string POINTSIZES = "pointsizes";
 
             /// <summary>
@@ -416,12 +421,26 @@ namespace kinetica
             public const string HOLLOWSQUARE = "hollowsquare";
             public const string HOLLOWDIAMOND = "hollowdiamond";
             public const string SYMBOLCODE = "SYMBOLCODE";
+
+            /// <summary>  The default value is '3'.</summary>
             public const string SHAPELINEWIDTHS = "shapelinewidths";
+
+            /// <summary>  The default value is 'FFFF00 '.</summary>
             public const string SHAPELINECOLORS = "shapelinecolors";
+
+            /// <summary>  The default value is '-1'.</summary>
             public const string SHAPEFILLCOLORS = "shapefillcolors";
+
+            /// <summary>  The default value is '3'.</summary>
             public const string TRACKLINEWIDTHS = "tracklinewidths";
+
+            /// <summary>  The default value is '00FF00'.</summary>
             public const string TRACKLINECOLORS = "tracklinecolors";
+
+            /// <summary>  The default value is '3'.</summary>
             public const string TRACKMARKERSIZES = "trackmarkersizes";
+
+            /// <summary>  The default value is '0000FF'.</summary>
             public const string TRACKMARKERCOLORS = "trackmarkercolors";
 
             /// <summary>
@@ -463,7 +482,11 @@ namespace kinetica
             /// The default value is <see
             /// cref="VisualizeVideoRequest.StyleOptions.NONE">NONE</see>.</summary>
             public const string TRACKMARKERSHAPES = "trackmarkershapes";
+
+            /// <summary>  The default value is 'FFFFFF'.</summary>
             public const string TRACKHEADCOLORS = "trackheadcolors";
+
+            /// <summary>  The default value is '10'.</summary>
             public const string TRACKHEADSIZES = "trackheadsizes";
 
             /// <summary>
@@ -627,12 +650,12 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="VisualizeVideoRequest.StyleOptions.POINTCOLORS">POINTCOLORS</see>:</term>
-        ///         <description></description>
+        ///         <description>  The default value is 'FF0000'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="VisualizeVideoRequest.StyleOptions.POINTSIZES">POINTSIZES</see>:</term>
-        ///         <description></description>
+        ///         <description>  The default value is '3'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -677,37 +700,38 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="VisualizeVideoRequest.StyleOptions.SHAPELINEWIDTHS">SHAPELINEWIDTHS</see>:</term>
-        ///         <description></description>
+        ///         <description>  The default value is '3'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="VisualizeVideoRequest.StyleOptions.SHAPELINECOLORS">SHAPELINECOLORS</see>:</term>
-        ///         <description></description>
+        ///         <description>  The default value is 'FFFF00
+        /// '.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="VisualizeVideoRequest.StyleOptions.SHAPEFILLCOLORS">SHAPEFILLCOLORS</see>:</term>
-        ///         <description></description>
+        ///         <description>  The default value is '-1'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="VisualizeVideoRequest.StyleOptions.TRACKLINEWIDTHS">TRACKLINEWIDTHS</see>:</term>
-        ///         <description></description>
+        ///         <description>  The default value is '3'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="VisualizeVideoRequest.StyleOptions.TRACKLINECOLORS">TRACKLINECOLORS</see>:</term>
-        ///         <description></description>
+        ///         <description>  The default value is '00FF00'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="VisualizeVideoRequest.StyleOptions.TRACKMARKERSIZES">TRACKMARKERSIZES</see>:</term>
-        ///         <description></description>
+        ///         <description>  The default value is '3'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="VisualizeVideoRequest.StyleOptions.TRACKMARKERCOLORS">TRACKMARKERCOLORS</see>:</term>
-        ///         <description></description>
+        ///         <description>  The default value is '0000FF'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -754,12 +778,12 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="VisualizeVideoRequest.StyleOptions.TRACKHEADCOLORS">TRACKHEADCOLORS</see>:</term>
-        ///         <description></description>
+        ///         <description>  The default value is 'FFFFFF'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="VisualizeVideoRequest.StyleOptions.TRACKHEADSIZES">TRACKHEADSIZES</see>:</term>
-        ///         <description></description>
+        ///         <description>  The default value is '10'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -933,12 +957,12 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="VisualizeVideoRequest.StyleOptions.POINTCOLORS">POINTCOLORS</see>:</term>
-        ///         <description></description>
+        ///         <description>  The default value is 'FF0000'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="VisualizeVideoRequest.StyleOptions.POINTSIZES">POINTSIZES</see>:</term>
-        ///         <description></description>
+        ///         <description>  The default value is '3'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -983,37 +1007,38 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="VisualizeVideoRequest.StyleOptions.SHAPELINEWIDTHS">SHAPELINEWIDTHS</see>:</term>
-        ///         <description></description>
+        ///         <description>  The default value is '3'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="VisualizeVideoRequest.StyleOptions.SHAPELINECOLORS">SHAPELINECOLORS</see>:</term>
-        ///         <description></description>
+        ///         <description>  The default value is 'FFFF00
+        /// '.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="VisualizeVideoRequest.StyleOptions.SHAPEFILLCOLORS">SHAPEFILLCOLORS</see>:</term>
-        ///         <description></description>
+        ///         <description>  The default value is '-1'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="VisualizeVideoRequest.StyleOptions.TRACKLINEWIDTHS">TRACKLINEWIDTHS</see>:</term>
-        ///         <description></description>
+        ///         <description>  The default value is '3'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="VisualizeVideoRequest.StyleOptions.TRACKLINECOLORS">TRACKLINECOLORS</see>:</term>
-        ///         <description></description>
+        ///         <description>  The default value is '00FF00'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="VisualizeVideoRequest.StyleOptions.TRACKMARKERSIZES">TRACKMARKERSIZES</see>:</term>
-        ///         <description></description>
+        ///         <description>  The default value is '3'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="VisualizeVideoRequest.StyleOptions.TRACKMARKERCOLORS">TRACKMARKERCOLORS</see>:</term>
-        ///         <description></description>
+        ///         <description>  The default value is '0000FF'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -1060,12 +1085,12 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="VisualizeVideoRequest.StyleOptions.TRACKHEADCOLORS">TRACKHEADCOLORS</see>:</term>
-        ///         <description></description>
+        ///         <description>  The default value is 'FFFFFF'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="VisualizeVideoRequest.StyleOptions.TRACKHEADSIZES">TRACKHEADSIZES</see>:</term>
-        ///         <description></description>
+        ///         <description>  The default value is '10'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see

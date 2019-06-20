@@ -30,7 +30,7 @@ namespace kinetica
         /// returned.</description>
         ///     </item>
         /// </list>
-        /// <br />
+        /// The default value is an empty {@link Dictionary}.
         /// A set of string constants for the parameter <see cref="options"
         /// />.</summary>
         public struct Options
@@ -53,7 +53,7 @@ namespace kinetica
         /// returned.</description>
         ///     </item>
         /// </list>
-        ///   </summary>
+        /// The default value is an empty {@link Dictionary}.</summary>
         public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
 
 
@@ -74,7 +74,7 @@ namespace kinetica
         /// returned.</description>
         ///     </item>
         /// </list>
-        ///   </param>
+        /// The default value is an empty {@link Dictionary}.</param>
         /// 
         public ShowSystemPropertiesRequest( IDictionary<string, string> options = null)
         {
@@ -129,6 +129,12 @@ namespace kinetica
         /// numbers of all the ingestion-enabled worker ranks of the
         /// system.</description>
         ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ShowSystemPropertiesResponse.PropertyMap.CONF_HM_HTTP_PORT">CONF_HM_HTTP_PORT</see>:</term>
+        ///         <description>The host manager port number (an integer
+        /// value).</description>
+        ///     </item>
         /// </list>
         /// <br />
         /// A set of string constants for the parameter <member
@@ -171,6 +177,10 @@ namespace kinetica
             /// of all the ingestion-enabled worker ranks of the
             /// system.</summary>
             public const string CONF_WORKER_HTTP_SERVER_PORTS = "conf.worker_http_server_ports";
+
+            /// <summary>The host manager port number (an integer
+            /// value).</summary>
+            public const string CONF_HM_HTTP_PORT = "conf.hm_http_port";
         } // end struct PropertyMap
 
 
@@ -211,6 +221,12 @@ namespace kinetica
         ///         <description>Semicolon (';') separated string of the port
         /// numbers of all the ingestion-enabled worker ranks of the
         /// system.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ShowSystemPropertiesResponse.PropertyMap.CONF_HM_HTTP_PORT">CONF_HM_HTTP_PORT</see>:</term>
+        ///         <description>The host manager port number (an integer
+        /// value).</description>
         ///     </item>
         /// </list>
         ///   </summary>

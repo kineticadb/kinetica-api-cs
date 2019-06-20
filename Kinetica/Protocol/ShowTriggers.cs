@@ -25,7 +25,8 @@ namespace kinetica
         /// active triggers.  </summary>
         public IList<string> trigger_ids { get; set; } = new List<string>();
 
-        /// <summary>Optional parameters.  </summary>
+        /// <summary>Optional parameters.  The default value is an empty {@link
+        /// Dictionary}.</summary>
         public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
 
 
@@ -39,7 +40,8 @@ namespace kinetica
         /// <param name="trigger_ids">List of IDs of the triggers whose
         /// information is to be retrieved. An empty list means information
         /// will be retrieved on all active triggers.  </param>
-        /// <param name="options">Optional parameters.  </param>
+        /// <param name="options">Optional parameters.  The default value is an
+        /// empty {@link Dictionary}.</param>
         /// 
         public ShowTriggersRequest( IList<string> trigger_ids,
                                     IDictionary<string, string> options = null)

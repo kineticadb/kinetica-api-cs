@@ -139,20 +139,22 @@ namespace kinetica
         /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.REQUEST_TIMEOUT">REQUEST_TIMEOUT</see>:</term>
         ///         <description>Number of minutes after which filtering (e.g.,
         /// /filter) and aggregating (e.g., /aggregate/groupby) queries will
-        /// timeout.</description>
+        /// timeout.  The default value is '20'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.MAX_GET_RECORDS_SIZE">MAX_GET_RECORDS_SIZE</see>:</term>
         ///         <description>The maximum number of records the database
-        /// will serve for a given data retrieval call</description>
+        /// will serve for a given data retrieval call.  The default value is
+        /// '20000'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.MEMORY_ALLOCATION_LIMIT_MB">MEMORY_ALLOCATION_LIMIT_MB</see>:</term>
         ///         <description>Set the memory allocation limit for all rank
         /// processes in megabytes, 0 means no limit. Overrides any individual
-        /// rank memory allocation limits.</description>
+        /// rank memory allocation limits.  The default value is
+        /// '0'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -192,8 +194,8 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.CHUNK_CACHE_SIZE">CHUNK_CACHE_SIZE</see>:</term>
-        ///         <description>Size of the chunk cache in
-        /// bytes.</description>
+        ///         <description>Size of the chunk cache in bytes.  The default
+        /// value is '10000000'.</description>
         ///     </item>
         /// </list>
         /// <br />
@@ -294,16 +296,17 @@ namespace kinetica
             /// cref="Kinetica.filter(string,string,string,IDictionary{string, string})"
             /// />) and aggregating (e.g., <see
             /// cref="Kinetica.aggregateGroupBy(string,IList{string},long,long,IDictionary{string, string})"
-            /// />) queries will timeout.</summary>
+            /// />) queries will timeout.  The default value is '20'.</summary>
             public const string REQUEST_TIMEOUT = "request_timeout";
 
             /// <summary>The maximum number of records the database will serve
-            /// for a given data retrieval call</summary>
+            /// for a given data retrieval call.  The default value is
+            /// '20000'.</summary>
             public const string MAX_GET_RECORDS_SIZE = "max_get_records_size";
 
             /// <summary>Set the memory allocation limit for all rank processes
             /// in megabytes, 0 means no limit. Overrides any individual rank
-            /// memory allocation limits.</summary>
+            /// memory allocation limits.  The default value is '0'.</summary>
             public const string MEMORY_ALLOCATION_LIMIT_MB = "memory_allocation_limit_mb";
 
             /// <summary>Enable or disable auditing.</summary>
@@ -328,7 +331,8 @@ namespace kinetica
             /// cache when value is false</summary>
             public const string CHUNK_CACHE_ENABLED = "chunk_cache_enabled";
 
-            /// <summary>Size of the chunk cache in bytes.</summary>
+            /// <summary>Size of the chunk cache in bytes.  The default value
+            /// is '10000000'.</summary>
             public const string CHUNK_CACHE_SIZE = "chunk_cache_size";
         } // end struct PropertyUpdatesMap
 
@@ -447,20 +451,22 @@ namespace kinetica
         /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.REQUEST_TIMEOUT">REQUEST_TIMEOUT</see>:</term>
         ///         <description>Number of minutes after which filtering (e.g.,
         /// /filter) and aggregating (e.g., /aggregate/groupby) queries will
-        /// timeout.</description>
+        /// timeout.  The default value is '20'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.MAX_GET_RECORDS_SIZE">MAX_GET_RECORDS_SIZE</see>:</term>
         ///         <description>The maximum number of records the database
-        /// will serve for a given data retrieval call</description>
+        /// will serve for a given data retrieval call.  The default value is
+        /// '20000'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.MEMORY_ALLOCATION_LIMIT_MB">MEMORY_ALLOCATION_LIMIT_MB</see>:</term>
         ///         <description>Set the memory allocation limit for all rank
         /// processes in megabytes, 0 means no limit. Overrides any individual
-        /// rank memory allocation limits.</description>
+        /// rank memory allocation limits.  The default value is
+        /// '0'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -500,14 +506,15 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.CHUNK_CACHE_SIZE">CHUNK_CACHE_SIZE</see>:</term>
-        ///         <description>Size of the chunk cache in
-        /// bytes.</description>
+        ///         <description>Size of the chunk cache in bytes.  The default
+        /// value is '10000000'.</description>
         ///     </item>
         /// </list>
         ///   </summary>
         public IDictionary<string, string> property_updates_map { get; set; } = new Dictionary<string, string>();
 
-        /// <summary>Optional parameters.  </summary>
+        /// <summary>Optional parameters.  The default value is an empty {@link
+        /// Dictionary}.</summary>
         public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
 
 
@@ -632,20 +639,22 @@ namespace kinetica
         /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.REQUEST_TIMEOUT">REQUEST_TIMEOUT</see>:</term>
         ///         <description>Number of minutes after which filtering (e.g.,
         /// /filter) and aggregating (e.g., /aggregate/groupby) queries will
-        /// timeout.</description>
+        /// timeout.  The default value is '20'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.MAX_GET_RECORDS_SIZE">MAX_GET_RECORDS_SIZE</see>:</term>
         ///         <description>The maximum number of records the database
-        /// will serve for a given data retrieval call</description>
+        /// will serve for a given data retrieval call.  The default value is
+        /// '20000'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.MEMORY_ALLOCATION_LIMIT_MB">MEMORY_ALLOCATION_LIMIT_MB</see>:</term>
         ///         <description>Set the memory allocation limit for all rank
         /// processes in megabytes, 0 means no limit. Overrides any individual
-        /// rank memory allocation limits.</description>
+        /// rank memory allocation limits.  The default value is
+        /// '0'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -685,12 +694,13 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.CHUNK_CACHE_SIZE">CHUNK_CACHE_SIZE</see>:</term>
-        ///         <description>Size of the chunk cache in
-        /// bytes.</description>
+        ///         <description>Size of the chunk cache in bytes.  The default
+        /// value is '10000000'.</description>
         ///     </item>
         /// </list>
         ///   </param>
-        /// <param name="options">Optional parameters.  </param>
+        /// <param name="options">Optional parameters.  The default value is an
+        /// empty {@link Dictionary}.</param>
         /// 
         public AlterSystemPropertiesRequest( IDictionary<string, string> property_updates_map,
                                              IDictionary<string, string> options = null)

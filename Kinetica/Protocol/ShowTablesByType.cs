@@ -31,7 +31,8 @@ namespace kinetica
         /// </summary>
         public string label { get; set; }
 
-        /// <summary>Optional parameters.  </summary>
+        /// <summary>Optional parameters.  The default value is an empty {@link
+        /// Dictionary}.</summary>
         public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
 
 
@@ -47,7 +48,8 @@ namespace kinetica
         /// <param name="label">Optional user supplied label which can be used
         /// instead of the type_id to retrieve all tables with the given label.
         /// </param>
-        /// <param name="options">Optional parameters.  </param>
+        /// <param name="options">Optional parameters.  The default value is an
+        /// empty {@link Dictionary}.</param>
         /// 
         public ShowTablesByTypeRequest( string type_id,
                                         string label,

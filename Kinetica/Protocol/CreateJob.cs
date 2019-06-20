@@ -95,7 +95,8 @@ namespace kinetica
         /// must be <i>json</i>.  </summary>
         public string data_str { get; set; }
 
-        /// <summary>Optional parameters.  </summary>
+        /// <summary>Optional parameters.  The default value is an empty {@link
+        /// Dictionary}.</summary>
         public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
 
 
@@ -144,7 +145,8 @@ namespace kinetica
         /// specified.  If this parameter is used, then <paramref
         /// cref="CreateJobRequest.request_encoding" /> must be <i>json</i>.
         /// </param>
-        /// <param name="options">Optional parameters.  </param>
+        /// <param name="options">Optional parameters.  The default value is an
+        /// empty {@link Dictionary}.</param>
         /// 
         public CreateJobRequest( string endpoint,
                                  string request_encoding,

@@ -121,7 +121,7 @@ namespace kinetica
         /// sorted by; e.g. 'timestamp asc, x desc'.  The columns specified
         /// must be present in input table.  If any alias is given for any
         /// column name, the alias must be used, rather than the original
-        /// column name.</description>
+        /// column name.  The default value is ''.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -133,7 +133,8 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="AggregateUnpivotRequest.Options.LIMIT">LIMIT</see>:</term>
-        ///         <description>The number of records to keep.</description>
+        ///         <description>The number of records to keep.  The default
+        /// value is ''.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -145,8 +146,8 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="AggregateUnpivotRequest.Options.VIEW_ID">VIEW_ID</see>:</term>
-        ///         <description>view this result table is part
-        /// of</description>
+        ///         <description>view this result table is part of.  The
+        /// default value is ''.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -197,7 +198,7 @@ namespace kinetica
         /// cref="AggregateUnpivotRequest.Options.FALSE">FALSE</see>.</description>
         ///     </item>
         /// </list>
-        /// <br />
+        /// The default value is an empty {@link Dictionary}.
         /// A set of string constants for the parameter <see cref="options"
         /// />.</summary>
         public struct Options
@@ -245,7 +246,7 @@ namespace kinetica
             /// e.g. 'timestamp asc, x desc'.  The columns specified must be
             /// present in input table.  If any alias is given for any column
             /// name, the alias must be used, rather than the original column
-            /// name.</summary>
+            /// name.  The default value is ''.</summary>
             public const string ORDER_BY = "order_by";
 
             /// <summary>Indicates the chunk size to be used for the result
@@ -253,7 +254,8 @@ namespace kinetica
             /// option.</summary>
             public const string CHUNK_SIZE = "chunk_size";
 
-            /// <summary>The number of records to keep.</summary>
+            /// <summary>The number of records to keep.  The default value is
+            /// ''.</summary>
             public const string LIMIT = "limit";
 
             /// <summary>Sets the <a href="../../concepts/ttl.html"
@@ -261,7 +263,8 @@ namespace kinetica
             /// <i>result_table</i>.</summary>
             public const string TTL = "ttl";
 
-            /// <summary>view this result table is part of</summary>
+            /// <summary>view this result table is part of.  The default value
+            /// is ''.</summary>
             public const string VIEW_ID = "view_id";
 
             /// <summary>If <i>true</i> then the output columns will be cached
@@ -317,10 +320,12 @@ namespace kinetica
         /// </summary>
         public IList<string> column_names { get; set; } = new List<string>();
 
-        /// <summary>Specifies the variable/parameter column name.  </summary>
+        /// <summary>Specifies the variable/parameter column name.  The default
+        /// value is ''.</summary>
         public string variable_column_name { get; set; } = "";
 
-        /// <summary>Specifies the value column name.  </summary>
+        /// <summary>Specifies the value column name.  The default value is
+        /// ''.</summary>
         public string value_column_name { get; set; } = "";
 
         /// <summary>List of one or more values typically the column names of
@@ -402,7 +407,7 @@ namespace kinetica
         /// sorted by; e.g. 'timestamp asc, x desc'.  The columns specified
         /// must be present in input table.  If any alias is given for any
         /// column name, the alias must be used, rather than the original
-        /// column name.</description>
+        /// column name.  The default value is ''.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -414,7 +419,8 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="AggregateUnpivotRequest.Options.LIMIT">LIMIT</see>:</term>
-        ///         <description>The number of records to keep.</description>
+        ///         <description>The number of records to keep.  The default
+        /// value is ''.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -426,8 +432,8 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="AggregateUnpivotRequest.Options.VIEW_ID">VIEW_ID</see>:</term>
-        ///         <description>view this result table is part
-        /// of</description>
+        ///         <description>view this result table is part of.  The
+        /// default value is ''.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -478,7 +484,7 @@ namespace kinetica
         /// cref="AggregateUnpivotRequest.Options.FALSE">FALSE</see>.</description>
         ///     </item>
         /// </list>
-        ///   </summary>
+        /// The default value is an empty {@link Dictionary}.</summary>
         public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
 
 
@@ -495,9 +501,9 @@ namespace kinetica
         /// wildcard '*' can be used to include all the non-pivoted columns
         /// from the source table.  </param>
         /// <param name="variable_column_name">Specifies the variable/parameter
-        /// column name.  </param>
+        /// column name.  The default value is ''.</param>
         /// <param name="value_column_name">Specifies the value column name.
-        /// </param>
+        /// The default value is ''.</param>
         /// <param name="pivoted_columns">List of one or more values typically
         /// the column names of the input table. All the columns in the source
         /// table must have the same data type.  </param>
@@ -554,7 +560,7 @@ namespace kinetica
         /// sorted by; e.g. 'timestamp asc, x desc'.  The columns specified
         /// must be present in input table.  If any alias is given for any
         /// column name, the alias must be used, rather than the original
-        /// column name.</description>
+        /// column name.  The default value is ''.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -566,7 +572,8 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="AggregateUnpivotRequest.Options.LIMIT">LIMIT</see>:</term>
-        ///         <description>The number of records to keep.</description>
+        ///         <description>The number of records to keep.  The default
+        /// value is ''.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -578,8 +585,8 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="AggregateUnpivotRequest.Options.VIEW_ID">VIEW_ID</see>:</term>
-        ///         <description>view this result table is part
-        /// of</description>
+        ///         <description>view this result table is part of.  The
+        /// default value is ''.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -630,7 +637,7 @@ namespace kinetica
         /// cref="AggregateUnpivotRequest.Options.FALSE">FALSE</see>.</description>
         ///     </item>
         /// </list>
-        ///   </param>
+        /// The default value is an empty {@link Dictionary}.</param>
         /// 
         public AggregateUnpivotRequest( string table_name,
                                         IList<string> column_names,
@@ -658,9 +665,9 @@ namespace kinetica
         /// wildcard '*' can be used to include all the non-pivoted columns
         /// from the source table.  </param>
         /// <param name="variable_column_name">Specifies the variable/parameter
-        /// column name.  </param>
+        /// column name.  The default value is ''.</param>
         /// <param name="value_column_name">Specifies the value column name.
-        /// </param>
+        /// The default value is ''.</param>
         /// <param name="pivoted_columns">List of one or more values typically
         /// the column names of the input table. All the columns in the source
         /// table must have the same data type.  </param>
@@ -736,7 +743,7 @@ namespace kinetica
         /// sorted by; e.g. 'timestamp asc, x desc'.  The columns specified
         /// must be present in input table.  If any alias is given for any
         /// column name, the alias must be used, rather than the original
-        /// column name.</description>
+        /// column name.  The default value is ''.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -748,7 +755,8 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="AggregateUnpivotRequest.Options.LIMIT">LIMIT</see>:</term>
-        ///         <description>The number of records to keep.</description>
+        ///         <description>The number of records to keep.  The default
+        /// value is ''.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -760,8 +768,8 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="AggregateUnpivotRequest.Options.VIEW_ID">VIEW_ID</see>:</term>
-        ///         <description>view this result table is part
-        /// of</description>
+        ///         <description>view this result table is part of.  The
+        /// default value is ''.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -812,7 +820,7 @@ namespace kinetica
         /// cref="AggregateUnpivotRequest.Options.FALSE">FALSE</see>.</description>
         ///     </item>
         /// </list>
-        ///   </param>
+        /// The default value is an empty {@link Dictionary}.</param>
         /// 
         public AggregateUnpivotRequest( string table_name,
                                         IList<string> column_names,

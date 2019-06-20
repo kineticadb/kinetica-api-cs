@@ -24,7 +24,8 @@ namespace kinetica
         /// <summary>The topic ID returned by /create/tablemonitor.  </summary>
         public string topic_id { get; set; }
 
-        /// <summary>Optional parameters.  </summary>
+        /// <summary>Optional parameters.  The default value is an empty {@link
+        /// Dictionary}.</summary>
         public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
 
 
@@ -37,7 +38,8 @@ namespace kinetica
         /// 
         /// <param name="topic_id">The topic ID returned by
         /// /create/tablemonitor.  </param>
-        /// <param name="options">Optional parameters.  </param>
+        /// <param name="options">Optional parameters.  The default value is an
+        /// empty {@link Dictionary}.</param>
         /// 
         public ClearTableMonitorRequest( string topic_id,
                                          IDictionary<string, string> options = null)

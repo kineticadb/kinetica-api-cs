@@ -23,7 +23,10 @@ namespace kinetica
     /// such an ideal cluster.   It begins with a randomly selected set of k
     /// points and then refines the location of the points iteratively and
     /// settles to a local minimum.  Various parameters and options are
-    /// provided to control the heuristic search.</summary>
+    /// provided to control the heuristic search.
+    /// <br />
+    /// NOTE:  The Kinetica instance being accessed must be running a CUDA
+    /// (GPU-based) build to service this request.</summary>
     public class AggregateKMeansRequest : KineticaData
     {
 
@@ -49,7 +52,7 @@ namespace kinetica
         /// local minimum. Default is 1.</description>
         ///     </item>
         /// </list>
-        /// <br />
+        /// The default value is an empty {@link Dictionary}.
         /// A set of string constants for the parameter <see cref="options"
         /// />.</summary>
         public struct Options
@@ -110,7 +113,7 @@ namespace kinetica
         /// local minimum. Default is 1.</description>
         ///     </item>
         /// </list>
-        ///   </summary>
+        /// The default value is an empty {@link Dictionary}.</summary>
         public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
 
 
@@ -154,7 +157,7 @@ namespace kinetica
         /// local minimum. Default is 1.</description>
         ///     </item>
         /// </list>
-        ///   </param>
+        /// The default value is an empty {@link Dictionary}.</param>
         /// 
         public AggregateKMeansRequest( string table_name,
                                        IList<string> column_names,

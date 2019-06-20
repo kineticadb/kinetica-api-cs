@@ -36,7 +36,7 @@ namespace kinetica
         /// created view will be top-level.</description>
         ///     </item>
         /// </list>
-        /// <br />
+        /// The default value is an empty {@link Dictionary}.
         /// A set of string constants for the parameter <see cref="options"
         /// />.</summary>
         public struct Options
@@ -60,7 +60,7 @@ namespace kinetica
 
         /// <summary>If provided, then this will be the name of the view
         /// containing the results. Must not be an already existing collection,
-        /// table or view.  </summary>
+        /// table or view.  The default value is ''.</summary>
         public string view_name { get; set; } = "";
 
         /// <summary>Name of the geospatial geometry column to be filtered.
@@ -86,7 +86,7 @@ namespace kinetica
         /// created view will be top-level.</description>
         ///     </item>
         /// </list>
-        ///   </summary>
+        /// The default value is an empty {@link Dictionary}.</summary>
         public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
 
 
@@ -105,7 +105,7 @@ namespace kinetica
         /// cref="FilterByAreaGeometryRequest.view_name" />.  </param>
         /// <param name="view_name">If provided, then this will be the name of
         /// the view containing the results. Must not be an already existing
-        /// collection, table or view.  </param>
+        /// collection, table or view.  The default value is ''.</param>
         /// <param name="column_name">Name of the geospatial geometry column to
         /// be filtered.  </param>
         /// <param name="x_vector">List of x coordinates of the vertices of the
@@ -123,7 +123,7 @@ namespace kinetica
         /// created view will be top-level.</description>
         ///     </item>
         /// </list>
-        ///   </param>
+        /// The default value is an empty {@link Dictionary}.</param>
         /// 
         public FilterByAreaGeometryRequest( string table_name,
                                             string view_name,

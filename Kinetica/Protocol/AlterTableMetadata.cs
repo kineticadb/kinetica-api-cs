@@ -35,7 +35,8 @@ namespace kinetica
         /// will be cleared.  </summary>
         public IDictionary<string, string> metadata_map { get; set; } = new Dictionary<string, string>();
 
-        /// <summary>Optional parameters.  </summary>
+        /// <summary>Optional parameters.  The default value is an empty {@link
+        /// Dictionary}.</summary>
         public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
 
 
@@ -54,7 +55,8 @@ namespace kinetica
         /// for all the tables; so the change will be applied to every table.
         /// If the provided map is empty, then all existing metadata for the
         /// table(s) will be cleared.  </param>
-        /// <param name="options">Optional parameters.  </param>
+        /// <param name="options">Optional parameters.  The default value is an
+        /// empty {@link Dictionary}.</param>
         /// 
         public AlterTableMetadataRequest( IList<string> table_names,
                                           IDictionary<string, string> metadata_map,

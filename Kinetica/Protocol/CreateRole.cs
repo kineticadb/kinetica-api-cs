@@ -24,7 +24,8 @@ namespace kinetica
         /// </summary>
         public string name { get; set; }
 
-        /// <summary>Optional parameters.  </summary>
+        /// <summary>Optional parameters.  The default value is an empty {@link
+        /// Dictionary}.</summary>
         public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
 
 
@@ -39,7 +40,8 @@ namespace kinetica
         /// only lowercase letters, digits, and underscores, and cannot begin
         /// with a digit. Must not be the same name as an existing user or
         /// role.  </param>
-        /// <param name="options">Optional parameters.  </param>
+        /// <param name="options">Optional parameters.  The default value is an
+        /// empty {@link Dictionary}.</param>
         /// 
         public CreateRoleRequest( string name,
                                   IDictionary<string, string> options = null)

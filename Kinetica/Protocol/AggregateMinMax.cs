@@ -28,7 +28,8 @@ namespace kinetica
         /// which the min-max will be calculated.  </summary>
         public string column_name { get; set; }
 
-        /// <summary>Optional parameters.  </summary>
+        /// <summary>Optional parameters.  The default value is an empty {@link
+        /// Dictionary}.</summary>
         public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
 
 
@@ -43,7 +44,8 @@ namespace kinetica
         /// will be performed. Must be an existing table.  </param>
         /// <param name="column_name">Name of a column or an expression of one
         /// or more column on which the min-max will be calculated.  </param>
-        /// <param name="options">Optional parameters.  </param>
+        /// <param name="options">Optional parameters.  The default value is an
+        /// empty {@link Dictionary}.</param>
         /// 
         public AggregateMinMaxRequest( string table_name,
                                        string column_name,

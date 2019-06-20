@@ -16,15 +16,6 @@ namespace kinetica
     /// <br />
     /// Retrieves a list of the most recent alerts generated.  The number of
     /// alerts to retrieve is specified in this request.
-    /// <br />
-    /// Important: This endpoint is accessed via the host manager port rather
-    /// than the primary database port; the default ports for host manager and
-    /// the primary database can be found <a
-    /// href="../../install/index.html#default-ports" target="_top">here</a>.
-    /// If you are invoking this endpoint via a GPUdb API object, you must
-    /// instantiate that object using the host manager port instead of the
-    /// database port. The same IP address is used for both ports.
-    /// <br />
     /// Returns lists of alert data, earliest to latest</summary>
     public class AdminShowAlertsRequest : KineticaData
     {
@@ -35,7 +26,8 @@ namespace kinetica
         /// returns all stored alerts.  </summary>
         public int num_alerts { get; set; }
 
-        /// <summary>Optional parameters.  </summary>
+        /// <summary>Optional parameters.  The default value is an empty {@link
+        /// Dictionary}.</summary>
         public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
 
 
@@ -51,7 +43,8 @@ namespace kinetica
         /// cref="AdminShowAlertsRequest.num_alerts" /> alerts, or less if
         /// there are less in the system. A value of 0 returns all stored
         /// alerts.  </param>
-        /// <param name="options">Optional parameters.  </param>
+        /// <param name="options">Optional parameters.  The default value is an
+        /// empty {@link Dictionary}.</param>
         /// 
         public AdminShowAlertsRequest( int num_alerts,
                                        IDictionary<string, string> options = null)

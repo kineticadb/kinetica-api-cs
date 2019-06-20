@@ -47,7 +47,7 @@ namespace kinetica
         /// cref="ClearTableRequest.Options.FALSE">FALSE</see>.</description>
         ///     </item>
         /// </list>
-        /// <br />
+        /// The default value is an empty {@link Dictionary}.
         /// A set of string constants for the parameter <see cref="options"
         /// />.</summary>
         public struct Options
@@ -79,10 +79,11 @@ namespace kinetica
         /// <summary>Name of the table to be cleared. Must be an existing
         /// table. Empty string clears all available tables, though this
         /// behavior is be prevented by default via gpudb.conf parameter
-        /// 'disable_clear_all'.  </summary>
+        /// 'disable_clear_all'.  The default value is ''.</summary>
         public string table_name { get; set; } = "";
 
-        /// <summary>No longer used. User can pass an empty string.  </summary>
+        /// <summary>No longer used. User can pass an empty string.  The
+        /// default value is ''.</summary>
         public string authorization { get; set; } = "";
 
         /// <summary>Optional parameters.
@@ -110,7 +111,7 @@ namespace kinetica
         /// cref="ClearTableRequest.Options.FALSE">FALSE</see>.</description>
         ///     </item>
         /// </list>
-        ///   </summary>
+        /// The default value is an empty {@link Dictionary}.</summary>
         public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
 
 
@@ -124,9 +125,9 @@ namespace kinetica
         /// <param name="table_name">Name of the table to be cleared. Must be
         /// an existing table. Empty string clears all available tables, though
         /// this behavior is be prevented by default via gpudb.conf parameter
-        /// 'disable_clear_all'.  </param>
+        /// 'disable_clear_all'.  The default value is ''.</param>
         /// <param name="authorization">No longer used. User can pass an empty
-        /// string.  </param>
+        /// string.  The default value is ''.</param>
         /// <param name="options">Optional parameters.
         /// <list type="bullet">
         ///     <item>
@@ -152,7 +153,7 @@ namespace kinetica
         /// cref="ClearTableRequest.Options.FALSE">FALSE</see>.</description>
         ///     </item>
         /// </list>
-        ///   </param>
+        /// The default value is an empty {@link Dictionary}.</param>
         /// 
         public ClearTableRequest( string table_name = null,
                                   string authorization = null,

@@ -31,7 +31,8 @@ namespace kinetica
         /// /execute/proc with the <i>use_cached_input</i> option. Cached input
         /// data will be retained until the proc status is cleared with the
         /// /show/proc/status option of /show/proc/status and all proc
-        /// instances using the cached data have completed.</description>
+        /// instances using the cached data have completed.  The default value
+        /// is ''.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -45,7 +46,8 @@ namespace kinetica
         /// other tables cached for the specified run IDs will be passed to the
         /// proc. If the same table was cached for multiple specified run IDs,
         /// the cached data from the first run ID specified in the list that
-        /// includes that table will be used.</description>
+        /// includes that table will be used.  The default value is
+        /// ''.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -54,11 +56,11 @@ namespace kinetica
         /// whose local files will be made directly accessible to the proc
         /// through the API. (All KiFS files, local or not, are also accessible
         /// through the file system below the KiFS mount point.) Each name
-        /// specified must the name of an existing KiFS
-        /// directory.</description>
+        /// specified must the name of an existing KiFS directory.  The default
+        /// value is ''.</description>
         ///     </item>
         /// </list>
-        /// <br />
+        /// The default value is an empty {@link Dictionary}.
         /// A set of string constants for the parameter <see cref="options"
         /// />.</summary>
         public struct Options
@@ -73,8 +75,8 @@ namespace kinetica
             /// cref="Kinetica.showProcStatus(string,IDictionary{string, string})">clear_complete</see>
             /// option of <see
             /// cref="Kinetica.showProcStatus(string,IDictionary{string, string})"
-            /// /> and all proc instances using the cached data have
-            /// completed.</summary>
+            /// /> and all proc instances using the cached data have completed.
+            /// The default value is ''.</summary>
             public const string CACHE_INPUT = "cache_input";
 
             /// <summary>A comma-delimited list of run IDs (as returned from
@@ -87,15 +89,16 @@ namespace kinetica
             /// tables cached for the specified run IDs will be passed to the
             /// proc. If the same table was cached for multiple specified run
             /// IDs, the cached data from the first run ID specified in the
-            /// list that includes that table will be used.</summary>
+            /// list that includes that table will be used.  The default value
+            /// is ''.</summary>
             public const string USE_CACHED_INPUT = "use_cached_input";
 
             /// <summary>A comma-delimited list of KiFS directories whose local
             /// files will be made directly accessible to the proc through the
             /// API. (All KiFS files, local or not, are also accessible through
             /// the file system below the KiFS mount point.) Each name
-            /// specified must the name of an existing KiFS
-            /// directory.</summary>
+            /// specified must the name of an existing KiFS directory.  The
+            /// default value is ''.</summary>
             public const string KIFS_INPUT_DIRS = "kifs_input_dirs";
         } // end struct Options
 
@@ -106,18 +109,18 @@ namespace kinetica
 
         /// <summary>A map containing named parameters to pass to the proc.
         /// Each key/value pair specifies the name of a parameter and its
-        /// value.  </summary>
+        /// value.  The default value is an empty {@link Dictionary}.</summary>
         public IDictionary<string, string> _params { get; set; } = new Dictionary<string, string>();
 
         /// <summary>A map containing named binary parameters to pass to the
         /// proc. Each key/value pair specifies the name of a parameter and its
-        /// value.  </summary>
+        /// value.  The default value is an empty {@link Dictionary}.</summary>
         public IDictionary<string, byte[]> bin_params { get; set; } = new Dictionary<string, byte[]>();
 
         /// <summary>Names of the tables containing data to be passed to the
         /// proc. Each name specified must be the name of a currently existing
         /// table. If no table names are specified, no data will be passed to
-        /// the proc.  </summary>
+        /// the proc.  The default value is an empty {@link List}.</summary>
         public IList<string> input_table_names { get; set; } = new List<string>();
 
         /// <summary>Map of table names from <paramref
@@ -126,7 +129,8 @@ namespace kinetica
         /// column name specified must be the name of an existing column in the
         /// corresponding table. If a table name from <paramref
         /// cref="ExecuteProcRequest.input_table_names" /> is not included, all
-        /// columns from that table will be passed to the proc.  </summary>
+        /// columns from that table will be passed to the proc.  The default
+        /// value is an empty {@link Dictionary}.</summary>
         public IDictionary<string, IList<string>> input_column_names { get; set; } = new Dictionary<string, IList<string>>();
 
         /// <summary>Names of the tables to which output data from the proc
@@ -137,7 +141,7 @@ namespace kinetica
         /// primary and shard keys. If a specified table is a non-persistent
         /// result table, it must not have primary or shard keys. If no table
         /// names are specified, no output data can be returned from the proc.
-        /// </summary>
+        /// The default value is an empty {@link List}.</summary>
         public IList<string> output_table_names { get; set; } = new List<string>();
 
         /// <summary>Optional parameters.
@@ -151,7 +155,8 @@ namespace kinetica
         /// /execute/proc with the <i>use_cached_input</i> option. Cached input
         /// data will be retained until the proc status is cleared with the
         /// /show/proc/status option of /show/proc/status and all proc
-        /// instances using the cached data have completed.</description>
+        /// instances using the cached data have completed.  The default value
+        /// is ''.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -165,7 +170,8 @@ namespace kinetica
         /// other tables cached for the specified run IDs will be passed to the
         /// proc. If the same table was cached for multiple specified run IDs,
         /// the cached data from the first run ID specified in the list that
-        /// includes that table will be used.</description>
+        /// includes that table will be used.  The default value is
+        /// ''.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -174,11 +180,11 @@ namespace kinetica
         /// whose local files will be made directly accessible to the proc
         /// through the API. (All KiFS files, local or not, are also accessible
         /// through the file system below the KiFS mount point.) Each name
-        /// specified must the name of an existing KiFS
-        /// directory.</description>
+        /// specified must the name of an existing KiFS directory.  The default
+        /// value is ''.</description>
         ///     </item>
         /// </list>
-        ///   </summary>
+        /// The default value is an empty {@link Dictionary}.</summary>
         public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
 
 
@@ -193,21 +199,25 @@ namespace kinetica
         /// name of a currently existing proc.  </param>
         /// <param name="_params">A map containing named parameters to pass to
         /// the proc. Each key/value pair specifies the name of a parameter and
-        /// its value.  </param>
+        /// its value.  The default value is an empty {@link
+        /// Dictionary}.</param>
         /// <param name="bin_params">A map containing named binary parameters
         /// to pass to the proc. Each key/value pair specifies the name of a
-        /// parameter and its value.  </param>
+        /// parameter and its value.  The default value is an empty {@link
+        /// Dictionary}.</param>
         /// <param name="input_table_names">Names of the tables containing data
         /// to be passed to the proc. Each name specified must be the name of a
         /// currently existing table. If no table names are specified, no data
-        /// will be passed to the proc.  </param>
+        /// will be passed to the proc.  The default value is an empty {@link
+        /// List}.</param>
         /// <param name="input_column_names">Map of table names from <paramref
         /// cref="ExecuteProcRequest.input_table_names" /> to lists of names of
         /// columns from those tables that will be passed to the proc. Each
         /// column name specified must be the name of an existing column in the
         /// corresponding table. If a table name from <paramref
         /// cref="ExecuteProcRequest.input_table_names" /> is not included, all
-        /// columns from that table will be passed to the proc.  </param>
+        /// columns from that table will be passed to the proc.  The default
+        /// value is an empty {@link Dictionary}.</param>
         /// <param name="output_table_names">Names of the tables to which
         /// output data from the proc will be written. If a specified table
         /// does not exist, it will automatically be created with the same
@@ -216,7 +226,7 @@ namespace kinetica
         /// primary and shard keys. If a specified table is a non-persistent
         /// result table, it must not have primary or shard keys. If no table
         /// names are specified, no output data can be returned from the proc.
-        /// </param>
+        /// The default value is an empty {@link List}.</param>
         /// <param name="options">Optional parameters.
         /// <list type="bullet">
         ///     <item>
@@ -228,7 +238,8 @@ namespace kinetica
         /// /execute/proc with the <i>use_cached_input</i> option. Cached input
         /// data will be retained until the proc status is cleared with the
         /// /show/proc/status option of /show/proc/status and all proc
-        /// instances using the cached data have completed.</description>
+        /// instances using the cached data have completed.  The default value
+        /// is ''.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -242,7 +253,8 @@ namespace kinetica
         /// other tables cached for the specified run IDs will be passed to the
         /// proc. If the same table was cached for multiple specified run IDs,
         /// the cached data from the first run ID specified in the list that
-        /// includes that table will be used.</description>
+        /// includes that table will be used.  The default value is
+        /// ''.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -251,11 +263,11 @@ namespace kinetica
         /// whose local files will be made directly accessible to the proc
         /// through the API. (All KiFS files, local or not, are also accessible
         /// through the file system below the KiFS mount point.) Each name
-        /// specified must the name of an existing KiFS
-        /// directory.</description>
+        /// specified must the name of an existing KiFS directory.  The default
+        /// value is ''.</description>
         ///     </item>
         /// </list>
-        ///   </param>
+        /// The default value is an empty {@link Dictionary}.</param>
         /// 
         public ExecuteProcRequest( string proc_name,
                                    IDictionary<string, string> _params = null,

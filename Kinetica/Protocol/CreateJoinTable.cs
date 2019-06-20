@@ -32,7 +32,7 @@ namespace kinetica
         ///         <description>Name of a collection which is to contain the
         /// join. If the collection provided is non-existent, the collection
         /// will be automatically created. If empty, then the join will be at
-        /// the top level.</description>
+        /// the top level.  The default value is ''.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -144,17 +144,34 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="CreateJoinTableRequest.Options.VIEW_ID">VIEW_ID</see>:</term>
-        ///         <description>view this projection is part of</description>
+        ///         <description>view this projection is part of.  The default
+        /// value is ''.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="CreateJoinTableRequest.Options.NO_COUNT">NO_COUNT</see>:</term>
         ///         <description>return a count of 0 for the join table for
         /// logging and for show_table. optimization needed for large
-        /// overlapped equi-join stencils</description>
+        /// overlapped equi-join stencils.  The default value is
+        /// 'false'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateJoinTableRequest.Options.CHUNK_SIZE">CHUNK_SIZE</see>:</term>
+        ///         <description>Maximum size of a joined-chunk for this table.
+        /// Defaults to the gpudb.conf file chunk size</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateJoinTableRequest.Options.ALLOW_RIGHT_PRIMARY_KEY_JOIN">ALLOW_RIGHT_PRIMARY_KEY_JOIN</see>:</term>
+        ///         <description>When true allows right joins from a key to a
+        /// primary key to be done as primary key joins.  Such a join table
+        /// cannot be joined to other join tables.  When false the right join
+        /// shall be done as an equi-join.  The default value is
+        /// 'false'.</description>
         ///     </item>
         /// </list>
-        /// <br />
+        /// The default value is an empty {@link Dictionary}.
         /// A set of string constants for the parameter <see cref="options"
         /// />.</summary>
         public struct Options
@@ -163,7 +180,7 @@ namespace kinetica
             /// <summary>Name of a collection which is to contain the join. If
             /// the collection provided is non-existent, the collection will be
             /// automatically created. If empty, then the join will be at the
-            /// top level.</summary>
+            /// top level.  The default value is ''.</summary>
             public const string COLLECTION_NAME = "collection_name";
 
             /// <summary>The maximum number of tables in a join that can be
@@ -273,13 +290,25 @@ namespace kinetica
             /// either <i>on_insert</i> or <i>on_query</i>.</summary>
             public const string TTL = "ttl";
 
-            /// <summary>view this projection is part of</summary>
+            /// <summary>view this projection is part of.  The default value is
+            /// ''.</summary>
             public const string VIEW_ID = "view_id";
 
             /// <summary>return a count of 0 for the join table for logging and
             /// for show_table. optimization needed for large overlapped
-            /// equi-join stencils</summary>
+            /// equi-join stencils.  The default value is 'false'.</summary>
             public const string NO_COUNT = "no_count";
+
+            /// <summary>Maximum size of a joined-chunk for this table.
+            /// Defaults to the gpudb.conf file chunk size</summary>
+            public const string CHUNK_SIZE = "chunk_size";
+
+            /// <summary>When true allows right joins from a key to a primary
+            /// key to be done as primary key joins.  Such a join table cannot
+            /// be joined to other join tables.  When false the right join
+            /// shall be done as an equi-join.  The default value is
+            /// 'false'.</summary>
+            public const string ALLOW_RIGHT_PRIMARY_KEY_JOIN = "allow_right_primary_key_join";
         } // end struct Options
 
 
@@ -306,7 +335,8 @@ namespace kinetica
         /// <summary>An optional list of expressions to combine and filter the
         /// joined tables.  Corresponds to a SQL statement WHERE clause. For
         /// details see: <a href="../../concepts/expressions.html"
-        /// target="_top">expressions</a>.  </summary>
+        /// target="_top">expressions</a>.  The default value is an empty
+        /// {@link List}.</summary>
         public IList<string> expressions { get; set; } = new List<string>();
 
         /// <summary>Optional parameters.
@@ -317,7 +347,7 @@ namespace kinetica
         ///         <description>Name of a collection which is to contain the
         /// join. If the collection provided is non-existent, the collection
         /// will be automatically created. If empty, then the join will be at
-        /// the top level.</description>
+        /// the top level.  The default value is ''.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -429,17 +459,34 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="CreateJoinTableRequest.Options.VIEW_ID">VIEW_ID</see>:</term>
-        ///         <description>view this projection is part of</description>
+        ///         <description>view this projection is part of.  The default
+        /// value is ''.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="CreateJoinTableRequest.Options.NO_COUNT">NO_COUNT</see>:</term>
         ///         <description>return a count of 0 for the join table for
         /// logging and for show_table. optimization needed for large
-        /// overlapped equi-join stencils</description>
+        /// overlapped equi-join stencils.  The default value is
+        /// 'false'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateJoinTableRequest.Options.CHUNK_SIZE">CHUNK_SIZE</see>:</term>
+        ///         <description>Maximum size of a joined-chunk for this table.
+        /// Defaults to the gpudb.conf file chunk size</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateJoinTableRequest.Options.ALLOW_RIGHT_PRIMARY_KEY_JOIN">ALLOW_RIGHT_PRIMARY_KEY_JOIN</see>:</term>
+        ///         <description>When true allows right joins from a key to a
+        /// primary key to be done as primary key joins.  Such a join table
+        /// cannot be joined to other join tables.  When false the right join
+        /// shall be done as an equi-join.  The default value is
+        /// 'false'.</description>
         ///     </item>
         /// </list>
-        ///   </summary>
+        /// The default value is an empty {@link Dictionary}.</summary>
         public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
 
 
@@ -469,7 +516,8 @@ namespace kinetica
         /// combine and filter the joined tables.  Corresponds to a SQL
         /// statement WHERE clause. For details see: <a
         /// href="../../concepts/expressions.html"
-        /// target="_top">expressions</a>.  </param>
+        /// target="_top">expressions</a>.  The default value is an empty
+        /// {@link List}.</param>
         /// <param name="options">Optional parameters.
         /// <list type="bullet">
         ///     <item>
@@ -478,7 +526,7 @@ namespace kinetica
         ///         <description>Name of a collection which is to contain the
         /// join. If the collection provided is non-existent, the collection
         /// will be automatically created. If empty, then the join will be at
-        /// the top level.</description>
+        /// the top level.  The default value is ''.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -590,21 +638,38 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="CreateJoinTableRequest.Options.VIEW_ID">VIEW_ID</see>:</term>
-        ///         <description>view this projection is part of</description>
+        ///         <description>view this projection is part of.  The default
+        /// value is ''.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="CreateJoinTableRequest.Options.NO_COUNT">NO_COUNT</see>:</term>
         ///         <description>return a count of 0 for the join table for
         /// logging and for show_table. optimization needed for large
-        /// overlapped equi-join stencils</description>
+        /// overlapped equi-join stencils.  The default value is
+        /// 'false'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateJoinTableRequest.Options.CHUNK_SIZE">CHUNK_SIZE</see>:</term>
+        ///         <description>Maximum size of a joined-chunk for this table.
+        /// Defaults to the gpudb.conf file chunk size</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateJoinTableRequest.Options.ALLOW_RIGHT_PRIMARY_KEY_JOIN">ALLOW_RIGHT_PRIMARY_KEY_JOIN</see>:</term>
+        ///         <description>When true allows right joins from a key to a
+        /// primary key to be done as primary key joins.  Such a join table
+        /// cannot be joined to other join tables.  When false the right join
+        /// shall be done as an equi-join.  The default value is
+        /// 'false'.</description>
         ///     </item>
         /// </list>
-        ///   </param>
+        /// The default value is an empty {@link Dictionary}.</param>
         /// 
         public CreateJoinTableRequest( string join_table_name,
-                                       IList<string> table_names = null,
-                                       IList<string> column_names = null,
+                                       IList<string> table_names,
+                                       IList<string> column_names,
                                        IList<string> expressions = null,
                                        IDictionary<string, string> options = null)
         {

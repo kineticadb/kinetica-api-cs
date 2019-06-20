@@ -34,15 +34,18 @@ namespace kinetica
         /// cref="DeleteRecordsRequest.Options.GLOBAL_EXPRESSION">GLOBAL_EXPRESSION</see>:</term>
         ///         <description>An optional global expression to reduce the
         /// search space of the <paramref
-        /// cref="DeleteRecordsRequest.expressions" />.</description>
+        /// cref="DeleteRecordsRequest.expressions" />.  The default value is
+        /// ''.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="DeleteRecordsRequest.Options.RECORD_ID">RECORD_ID</see>:</term>
-        ///         <description>A record id identifying a single record,
+        ///         <description>A record ID identifying a single record,
         /// obtained at the time of /insert/records or by calling
-        /// /get/records/fromcollection with the *return_record_ids*
-        /// option.</description>
+        /// /get/records/fromcollection with the *return_record_ids* option.
+        /// This option cannot be used to delete records from <a
+        /// href="../../concepts/tables.html#replication"
+        /// target="_top">replicated</a> tables.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -65,22 +68,26 @@ namespace kinetica
         /// cref="DeleteRecordsRequest.Options.FALSE">FALSE</see>.</description>
         ///     </item>
         /// </list>
-        /// <br />
+        /// The default value is an empty {@link Dictionary}.
         /// A set of string constants for the parameter <see cref="options"
         /// />.</summary>
         public struct Options
         {
 
             /// <summary>An optional global expression to reduce the search
-            /// space of the <see cref="expressions" />.</summary>
+            /// space of the <see cref="expressions" />.  The default value is
+            /// ''.</summary>
             public const string GLOBAL_EXPRESSION = "global_expression";
 
-            /// <summary>A record id identifying a single record, obtained at
+            /// <summary>A record ID identifying a single record, obtained at
             /// the time of <see
             /// cref="Kinetica.insertRecords{T}(string,IList{T},IDictionary{string, string})">insertion
             /// of the record</see> or by calling <see
             /// cref="Kinetica.getRecordsFromCollection{T}(string,long,long,IDictionary{string, string})"
-            /// /> with the *return_record_ids* option.</summary>
+            /// /> with the *return_record_ids* option. This option cannot be
+            /// used to delete records from <a
+            /// href="../../concepts/tables.html#replication"
+            /// target="_top">replicated</a> tables.</summary>
             public const string RECORD_ID = "record_id";
 
             /// <summary>If set to <i>true</i>, all records in the table will
@@ -126,15 +133,18 @@ namespace kinetica
         /// cref="DeleteRecordsRequest.Options.GLOBAL_EXPRESSION">GLOBAL_EXPRESSION</see>:</term>
         ///         <description>An optional global expression to reduce the
         /// search space of the <paramref
-        /// cref="DeleteRecordsRequest.expressions" />.</description>
+        /// cref="DeleteRecordsRequest.expressions" />.  The default value is
+        /// ''.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="DeleteRecordsRequest.Options.RECORD_ID">RECORD_ID</see>:</term>
-        ///         <description>A record id identifying a single record,
+        ///         <description>A record ID identifying a single record,
         /// obtained at the time of /insert/records or by calling
-        /// /get/records/fromcollection with the *return_record_ids*
-        /// option.</description>
+        /// /get/records/fromcollection with the *return_record_ids* option.
+        /// This option cannot be used to delete records from <a
+        /// href="../../concepts/tables.html#replication"
+        /// target="_top">replicated</a> tables.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -157,7 +167,7 @@ namespace kinetica
         /// cref="DeleteRecordsRequest.Options.FALSE">FALSE</see>.</description>
         ///     </item>
         /// </list>
-        ///   </summary>
+        /// The default value is an empty {@link Dictionary}.</summary>
         public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
 
 
@@ -185,15 +195,18 @@ namespace kinetica
         /// cref="DeleteRecordsRequest.Options.GLOBAL_EXPRESSION">GLOBAL_EXPRESSION</see>:</term>
         ///         <description>An optional global expression to reduce the
         /// search space of the <paramref
-        /// cref="DeleteRecordsRequest.expressions" />.</description>
+        /// cref="DeleteRecordsRequest.expressions" />.  The default value is
+        /// ''.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="DeleteRecordsRequest.Options.RECORD_ID">RECORD_ID</see>:</term>
-        ///         <description>A record id identifying a single record,
+        ///         <description>A record ID identifying a single record,
         /// obtained at the time of /insert/records or by calling
-        /// /get/records/fromcollection with the *return_record_ids*
-        /// option.</description>
+        /// /get/records/fromcollection with the *return_record_ids* option.
+        /// This option cannot be used to delete records from <a
+        /// href="../../concepts/tables.html#replication"
+        /// target="_top">replicated</a> tables.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -216,7 +229,7 @@ namespace kinetica
         /// cref="DeleteRecordsRequest.Options.FALSE">FALSE</see>.</description>
         ///     </item>
         /// </list>
-        ///   </param>
+        /// The default value is an empty {@link Dictionary}.</param>
         /// 
         public DeleteRecordsRequest( string table_name,
                                      IList<string> expressions,

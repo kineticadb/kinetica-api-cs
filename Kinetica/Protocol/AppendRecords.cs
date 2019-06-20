@@ -32,7 +32,7 @@ namespace kinetica
         /// initial results to skip from source table (specified by <paramref
         /// cref="AppendRecordsRequest.source_table_name" />). Default is 0.
         /// The minimum allowed value is 0. The maximum allowed value is
-        /// MAX_INT.</description>
+        /// MAX_INT.  The default value is '0'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -41,7 +41,7 @@ namespace kinetica
         /// number of results to be returned from source table (specified by
         /// <paramref cref="AppendRecordsRequest.source_table_name" />). Or
         /// END_OF_SET (-9999) to indicate that the max number of results
-        /// should be returned.</description>
+        /// should be returned.  The default value is '-9999'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -49,7 +49,7 @@ namespace kinetica
         ///         <description>Optional filter expression to apply to the
         /// source table (specified by <paramref
         /// cref="AppendRecordsRequest.source_table_name" />). Empty by
-        /// default.</description>
+        /// default.  The default value is ''.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -59,7 +59,7 @@ namespace kinetica
         /// <paramref cref="AppendRecordsRequest.source_table_name" />); e.g.
         /// 'timestamp asc, x desc'.  The <i>order_by</i> columns do not have
         /// to be present in <paramref cref="AppendRecordsRequest.field_map"
-        /// />.</description>
+        /// />.  The default value is ''.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -92,8 +92,31 @@ namespace kinetica
         /// The default value is <see
         /// cref="AppendRecordsRequest.Options.FALSE">FALSE</see>.</description>
         ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AppendRecordsRequest.Options.TRUNCATE_STRINGS">TRUNCATE_STRINGS</see>:</term>
+        ///         <description>If set to {true}@{, it allows to append
+        /// unbounded string to charN string. If 'truncate_strings' is 'true',
+        /// the desination column is charN datatype, and the source column is
+        /// unnbounded string, it will truncate the source string to length of
+        /// N first, and then append the truncated string to the destination
+        /// charN column. The default value is false.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="AppendRecordsRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AppendRecordsRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
         /// </list>
-        /// <br />
+        /// The default value is <see
+        /// cref="AppendRecordsRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        /// </list>
+        /// The default value is an empty {@link Dictionary}.
         /// A set of string constants for the parameter <see cref="options"
         /// />.</summary>
         public struct Options
@@ -102,25 +125,27 @@ namespace kinetica
             /// <summary>A positive integer indicating the number of initial
             /// results to skip from source table (specified by <see
             /// cref="source_table_name" />). Default is 0. The minimum allowed
-            /// value is 0. The maximum allowed value is MAX_INT.</summary>
+            /// value is 0. The maximum allowed value is MAX_INT.  The default
+            /// value is '0'.</summary>
             public const string OFFSET = "offset";
 
             /// <summary>A positive integer indicating the maximum number of
             /// results to be returned from source table (specified by <see
             /// cref="source_table_name" />). Or END_OF_SET (-9999) to indicate
-            /// that the max number of results should be returned.</summary>
+            /// that the max number of results should be returned.  The default
+            /// value is '-9999'.</summary>
             public const string LIMIT = "limit";
 
             /// <summary>Optional filter expression to apply to the source
             /// table (specified by <see cref="source_table_name" />). Empty by
-            /// default.</summary>
+            /// default.  The default value is ''.</summary>
             public const string EXPRESSION = "expression";
 
             /// <summary>Comma-separated list of the columns and expressions to
             /// be sorted by from the source table (specified by <see
             /// cref="source_table_name" />); e.g. 'timestamp asc, x desc'.
             /// The <i>order_by</i> columns do not have to be present in <see
-            /// cref="field_map" />.</summary>
+            /// cref="field_map" />.  The default value is ''.</summary>
             public const string ORDER_BY = "order_by";
 
             /// <summary>Specifies the record collision policy for inserting
@@ -152,6 +177,27 @@ namespace kinetica
             public const string UPDATE_ON_EXISTING_PK = "update_on_existing_pk";
             public const string TRUE = "true";
             public const string FALSE = "false";
+
+            /// <summary>If set to {true}@{, it allows to append unbounded
+            /// string to charN string. If 'truncate_strings' is 'true', the
+            /// desination column is charN datatype, and the source column is
+            /// unnbounded string, it will truncate the source string to length
+            /// of N first, and then append the truncated string to the
+            /// destination charN column. The default value is false.
+            /// Supported values:
+            /// <list type="bullet">
+            ///     <item>
+            ///         <term><see
+            /// cref="AppendRecordsRequest.Options.TRUE">TRUE</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="AppendRecordsRequest.Options.FALSE">FALSE</see></term>
+            ///     </item>
+            /// </list>
+            /// The default value is <see
+            /// cref="AppendRecordsRequest.Options.FALSE">FALSE</see>.</summary>
+            public const string TRUNCATE_STRINGS = "truncate_strings";
         } // end struct Options
 
 
@@ -183,7 +229,7 @@ namespace kinetica
         /// initial results to skip from source table (specified by <paramref
         /// cref="AppendRecordsRequest.source_table_name" />). Default is 0.
         /// The minimum allowed value is 0. The maximum allowed value is
-        /// MAX_INT.</description>
+        /// MAX_INT.  The default value is '0'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -192,7 +238,7 @@ namespace kinetica
         /// number of results to be returned from source table (specified by
         /// <paramref cref="AppendRecordsRequest.source_table_name" />). Or
         /// END_OF_SET (-9999) to indicate that the max number of results
-        /// should be returned.</description>
+        /// should be returned.  The default value is '-9999'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -200,7 +246,7 @@ namespace kinetica
         ///         <description>Optional filter expression to apply to the
         /// source table (specified by <paramref
         /// cref="AppendRecordsRequest.source_table_name" />). Empty by
-        /// default.</description>
+        /// default.  The default value is ''.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -210,7 +256,7 @@ namespace kinetica
         /// <paramref cref="AppendRecordsRequest.source_table_name" />); e.g.
         /// 'timestamp asc, x desc'.  The <i>order_by</i> columns do not have
         /// to be present in <paramref cref="AppendRecordsRequest.field_map"
-        /// />.</description>
+        /// />.  The default value is ''.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -243,8 +289,31 @@ namespace kinetica
         /// The default value is <see
         /// cref="AppendRecordsRequest.Options.FALSE">FALSE</see>.</description>
         ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AppendRecordsRequest.Options.TRUNCATE_STRINGS">TRUNCATE_STRINGS</see>:</term>
+        ///         <description>If set to {true}@{, it allows to append
+        /// unbounded string to charN string. If 'truncate_strings' is 'true',
+        /// the desination column is charN datatype, and the source column is
+        /// unnbounded string, it will truncate the source string to length of
+        /// N first, and then append the truncated string to the destination
+        /// charN column. The default value is false.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="AppendRecordsRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AppendRecordsRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
         /// </list>
-        ///   </summary>
+        /// The default value is <see
+        /// cref="AppendRecordsRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        /// </list>
+        /// The default value is an empty {@link Dictionary}.</summary>
         public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
 
 
@@ -278,7 +347,7 @@ namespace kinetica
         /// initial results to skip from source table (specified by <paramref
         /// cref="AppendRecordsRequest.source_table_name" />). Default is 0.
         /// The minimum allowed value is 0. The maximum allowed value is
-        /// MAX_INT.</description>
+        /// MAX_INT.  The default value is '0'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -287,7 +356,7 @@ namespace kinetica
         /// number of results to be returned from source table (specified by
         /// <paramref cref="AppendRecordsRequest.source_table_name" />). Or
         /// END_OF_SET (-9999) to indicate that the max number of results
-        /// should be returned.</description>
+        /// should be returned.  The default value is '-9999'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -295,7 +364,7 @@ namespace kinetica
         ///         <description>Optional filter expression to apply to the
         /// source table (specified by <paramref
         /// cref="AppendRecordsRequest.source_table_name" />). Empty by
-        /// default.</description>
+        /// default.  The default value is ''.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -305,7 +374,7 @@ namespace kinetica
         /// <paramref cref="AppendRecordsRequest.source_table_name" />); e.g.
         /// 'timestamp asc, x desc'.  The <i>order_by</i> columns do not have
         /// to be present in <paramref cref="AppendRecordsRequest.field_map"
-        /// />.</description>
+        /// />.  The default value is ''.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -338,8 +407,31 @@ namespace kinetica
         /// The default value is <see
         /// cref="AppendRecordsRequest.Options.FALSE">FALSE</see>.</description>
         ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AppendRecordsRequest.Options.TRUNCATE_STRINGS">TRUNCATE_STRINGS</see>:</term>
+        ///         <description>If set to {true}@{, it allows to append
+        /// unbounded string to charN string. If 'truncate_strings' is 'true',
+        /// the desination column is charN datatype, and the source column is
+        /// unnbounded string, it will truncate the source string to length of
+        /// N first, and then append the truncated string to the destination
+        /// charN column. The default value is false.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="AppendRecordsRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AppendRecordsRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
         /// </list>
-        ///   </param>
+        /// The default value is <see
+        /// cref="AppendRecordsRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        /// </list>
+        /// The default value is an empty {@link Dictionary}.</param>
         /// 
         public AppendRecordsRequest( string table_name,
                                      string source_table_name,

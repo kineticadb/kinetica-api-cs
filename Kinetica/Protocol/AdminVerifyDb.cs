@@ -59,7 +59,7 @@ namespace kinetica
         /// cref="AdminVerifyDbRequest.Options.FALSE">FALSE</see>.</description>
         ///     </item>
         /// </list>
-        /// <br />
+        /// The default value is an empty {@link Dictionary}.
         /// A set of string constants for the parameter <see cref="options"
         /// />.</summary>
         public struct Options
@@ -140,7 +140,7 @@ namespace kinetica
         /// cref="AdminVerifyDbRequest.Options.FALSE">FALSE</see>.</description>
         ///     </item>
         /// </list>
-        ///   </summary>
+        /// The default value is an empty {@link Dictionary}.</summary>
         public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
 
 
@@ -190,7 +190,7 @@ namespace kinetica
         /// cref="AdminVerifyDbRequest.Options.FALSE">FALSE</see>.</description>
         ///     </item>
         /// </list>
-        ///   </param>
+        /// The default value is an empty {@link Dictionary}.</param>
         /// 
         public AdminVerifyDbRequest( IDictionary<string, string> options = null)
         {
@@ -207,11 +207,13 @@ namespace kinetica
     public class AdminVerifyDbResponse : KineticaData
     {
 
-        /// <summary>True if no errors were found, false otherwise.  </summary>
+        /// <summary>True if no errors were found, false otherwise.  The
+        /// default value is false.</summary>
         public bool verified_ok { get; set; } = false;
 
         /// <summary>List of errors found while validating the database
-        /// internal state.  </summary>
+        /// internal state.  The default value is an empty {@link
+        /// List}.</summary>
         public IList<string> error_list { get; set; } = new List<string>();
 
     } // end class AdminVerifyDbResponse

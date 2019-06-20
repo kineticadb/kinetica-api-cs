@@ -30,7 +30,8 @@ namespace kinetica
         /// empty string for no password.  </summary>
         public string password { get; set; }
 
-        /// <summary>Optional parameters.  </summary>
+        /// <summary>Optional parameters.  The default value is an empty {@link
+        /// Dictionary}.</summary>
         public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
 
 
@@ -47,7 +48,8 @@ namespace kinetica
         /// role.  </param>
         /// <param name="password">Initial password of the user to be created.
         /// May be an empty string for no password.  </param>
-        /// <param name="options">Optional parameters.  </param>
+        /// <param name="options">Optional parameters.  The default value is an
+        /// empty {@link Dictionary}.</param>
         /// 
         public CreateUserInternalRequest( string name,
                                           string password,

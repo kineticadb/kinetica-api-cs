@@ -20,8 +20,9 @@ namespace kinetica
     /// type are returned. This endpoint supports pagination with the <see
     /// cref="offset" /> and <see cref="limit" /> parameters.
     /// <br />
-    /// <a href="../../concepts/window.html" target="_top">Window functions</a>
-    /// are available through this endpoint as well as <see
+    /// <a href="../../concepts/window.html" target="_top">Window
+    /// functions</a>, which can perform operations like moving averages, are
+    /// available through this endpoint as well as <see
     /// cref="Kinetica.createProjection(string,string,IList{string},IDictionary{string, string})"
     /// />.
     /// <br />
@@ -100,7 +101,8 @@ namespace kinetica
         ///         <term><see
         /// cref="GetRecordsByColumnRequest.Options.ORDER_BY">ORDER_BY</see>:</term>
         ///         <description>Comma-separated list of the columns to be
-        /// sorted by; e.g. 'timestamp asc, x desc'.</description>
+        /// sorted by; e.g. 'timestamp asc, x desc'.  The default value is
+        /// ''.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -122,7 +124,7 @@ namespace kinetica
         /// cref="GetRecordsByColumnRequest.Options.FALSE">FALSE</see>.</description>
         ///     </item>
         /// </list>
-        /// <br />
+        /// The default value is an empty {@link Dictionary}.
         /// A set of string constants for the parameter <see cref="options"
         /// />.</summary>
         public struct Options
@@ -157,7 +159,8 @@ namespace kinetica
             public const string DESCENDING = "descending";
 
             /// <summary>Comma-separated list of the columns to be sorted by;
-            /// e.g. 'timestamp asc, x desc'.</summary>
+            /// e.g. 'timestamp asc, x desc'.  The default value is
+            /// ''.</summary>
             public const string ORDER_BY = "order_by";
 
             /// <summary>If true, then WKT string columns will be returned as
@@ -257,7 +260,8 @@ namespace kinetica
         ///         <term><see
         /// cref="GetRecordsByColumnRequest.Options.ORDER_BY">ORDER_BY</see>:</term>
         ///         <description>Comma-separated list of the columns to be
-        /// sorted by; e.g. 'timestamp asc, x desc'.</description>
+        /// sorted by; e.g. 'timestamp asc, x desc'.  The default value is
+        /// ''.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -279,7 +283,7 @@ namespace kinetica
         /// cref="GetRecordsByColumnRequest.Options.FALSE">FALSE</see>.</description>
         ///     </item>
         /// </list>
-        ///   </summary>
+        /// The default value is an empty {@link Dictionary}.</summary>
         public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
 
 
@@ -341,7 +345,8 @@ namespace kinetica
         ///         <term><see
         /// cref="GetRecordsByColumnRequest.Options.ORDER_BY">ORDER_BY</see>:</term>
         ///         <description>Comma-separated list of the columns to be
-        /// sorted by; e.g. 'timestamp asc, x desc'.</description>
+        /// sorted by; e.g. 'timestamp asc, x desc'.  The default value is
+        /// ''.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -363,7 +368,7 @@ namespace kinetica
         /// cref="GetRecordsByColumnRequest.Options.FALSE">FALSE</see>.</description>
         ///     </item>
         /// </list>
-        ///   </param>
+        /// The default value is an empty {@link Dictionary}.</param>
         /// 
         public GetRecordsByColumnRequest( string table_name,
                                           IList<string> column_names,
@@ -450,7 +455,8 @@ namespace kinetica
         ///         <term><see
         /// cref="GetRecordsByColumnRequest.Options.ORDER_BY">ORDER_BY</see>:</term>
         ///         <description>Comma-separated list of the columns to be
-        /// sorted by; e.g. 'timestamp asc, x desc'.</description>
+        /// sorted by; e.g. 'timestamp asc, x desc'.  The default value is
+        /// ''.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -472,7 +478,7 @@ namespace kinetica
         /// cref="GetRecordsByColumnRequest.Options.FALSE">FALSE</see>.</description>
         ///     </item>
         /// </list>
-        ///   </param>
+        /// The default value is an empty {@link Dictionary}.</param>
         /// 
         public GetRecordsByColumnRequest( string table_name,
                                           IList<string> column_names,

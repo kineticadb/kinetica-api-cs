@@ -53,7 +53,8 @@ namespace kinetica
         /// </summary>
         public double max { get; set; }
 
-        /// <summary>Optional parameters.  </summary>
+        /// <summary>Optional parameters.  The default value is an empty {@link
+        /// Dictionary}.</summary>
         public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
 
 
@@ -75,7 +76,8 @@ namespace kinetica
         /// range.  </param>
         /// <param name="max">The upper bound (inclusive) for the trigger
         /// range.  </param>
-        /// <param name="options">Optional parameters.  </param>
+        /// <param name="options">Optional parameters.  The default value is an
+        /// empty {@link Dictionary}.</param>
         /// 
         public CreateTriggerByRangeRequest( string request_id,
                                             IList<string> table_names,

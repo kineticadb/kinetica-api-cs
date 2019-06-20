@@ -112,11 +112,11 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="MergeRecordsRequest.Options.VIEW_ID">VIEW_ID</see>:</term>
-        ///         <description>view this result table is part
-        /// of</description>
+        ///         <description>view this result table is part of.  The
+        /// default value is ''.</description>
         ///     </item>
         /// </list>
-        /// <br />
+        /// The default value is an empty {@link Dictionary}.
         /// A set of string constants for the parameter <see cref="options"
         /// />.</summary>
         public struct Options
@@ -184,7 +184,8 @@ namespace kinetica
             /// table specified in <see cref="table_name" />.</summary>
             public const string CHUNK_SIZE = "chunk_size";
 
-            /// <summary>view this result table is part of</summary>
+            /// <summary>view this result table is part of.  The default value
+            /// is ''.</summary>
             public const string VIEW_ID = "view_id";
         } // end struct Options
 
@@ -287,11 +288,11 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="MergeRecordsRequest.Options.VIEW_ID">VIEW_ID</see>:</term>
-        ///         <description>view this result table is part
-        /// of</description>
+        ///         <description>view this result table is part of.  The
+        /// default value is ''.</description>
         ///     </item>
         /// </list>
-        ///   </summary>
+        /// The default value is an empty {@link Dictionary}.</summary>
         public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
 
 
@@ -394,11 +395,11 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="MergeRecordsRequest.Options.VIEW_ID">VIEW_ID</see>:</term>
-        ///         <description>view this result table is part
-        /// of</description>
+        ///         <description>view this result table is part of.  The
+        /// default value is ''.</description>
         ///     </item>
         /// </list>
-        ///   </param>
+        /// The default value is an empty {@link Dictionary}.</param>
         /// 
         public MergeRecordsRequest( string table_name,
                                     IList<string> source_table_names,

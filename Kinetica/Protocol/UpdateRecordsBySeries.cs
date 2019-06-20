@@ -30,11 +30,14 @@ namespace kinetica
         public string world_table_name { get; set; }
 
         /// <summary>Optional name of the view containing the series (tracks)
-        /// which have to be updated.  </summary>
+        /// which have to be updated.  The default value is ''.</summary>
         public string view_name { get; set; } = "";
+
+        /// <summary>The default value is an empty {@link List}.</summary>
         public IList<string> reserved { get; set; } = new List<string>();
 
-        /// <summary>Optional parameters.  </summary>
+        /// <summary>Optional parameters.  The default value is an empty {@link
+        /// Dictionary}.</summary>
         public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
 
 
@@ -50,9 +53,12 @@ namespace kinetica
         /// <param name="world_table_name">Name of the table containing the
         /// complete series (track) information.  </param>
         /// <param name="view_name">Optional name of the view containing the
-        /// series (tracks) which have to be updated.  </param>
-        /// <param name="reserved"></param>
-        /// <param name="options">Optional parameters.  </param>
+        /// series (tracks) which have to be updated.  The default value is
+        /// ''.</param>
+        /// <param name="reserved">The default value is an empty {@link
+        /// List}.</param>
+        /// <param name="options">Optional parameters.  The default value is an
+        /// empty {@link Dictionary}.</param>
         /// 
         public UpdateRecordsBySeriesRequest( string table_name,
                                              string world_table_name,

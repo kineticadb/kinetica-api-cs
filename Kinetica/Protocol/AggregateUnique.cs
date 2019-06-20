@@ -215,11 +215,11 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="AggregateUniqueRequest.Options.VIEW_ID">VIEW_ID</see>:</term>
-        ///         <description>view this result table is part
-        /// of</description>
+        ///         <description>view this result table is part of.  The
+        /// default value is ''.</description>
         ///     </item>
         /// </list>
-        /// <br />
+        /// The default value is an empty {@link Dictionary}.
         /// A set of string constants for the parameter <see cref="options"
         /// />.</summary>
         public struct Options
@@ -333,7 +333,8 @@ namespace kinetica
             /// option.</summary>
             public const string CHUNK_SIZE = "chunk_size";
 
-            /// <summary>view this result table is part of</summary>
+            /// <summary>view this result table is part of.  The default value
+            /// is ''.</summary>
             public const string VIEW_ID = "view_id";
         } // end struct Options
 
@@ -355,7 +356,8 @@ namespace kinetica
 
         /// <summary>A positive integer indicating the maximum number of
         /// results to be returned. Or END_OF_SET (-9999) to indicate that the
-        /// max number of results should be returned.  </summary>
+        /// max number of results should be returned.  The default value is
+        /// 10000.</summary>
         public long limit { get; set; } = 10000;
 
         /// <summary>Specifies the encoding for returned records.
@@ -508,11 +510,11 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="AggregateUniqueRequest.Options.VIEW_ID">VIEW_ID</see>:</term>
-        ///         <description>view this result table is part
-        /// of</description>
+        ///         <description>view this result table is part of.  The
+        /// default value is ''.</description>
         ///     </item>
         /// </list>
-        ///   </summary>
+        /// The default value is an empty {@link Dictionary}.</summary>
         public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
 
 
@@ -534,7 +536,8 @@ namespace kinetica
         /// value is MAX_INT. </param>
         /// <param name="limit">A positive integer indicating the maximum
         /// number of results to be returned. Or END_OF_SET (-9999) to indicate
-        /// that the max number of results should be returned.  </param>
+        /// that the max number of results should be returned.  The default
+        /// value is 10000.</param>
         /// <param name="options">Optional parameters.
         /// <list type="bullet">
         ///     <item>
@@ -664,22 +667,22 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="AggregateUniqueRequest.Options.VIEW_ID">VIEW_ID</see>:</term>
-        ///         <description>view this result table is part
-        /// of</description>
+        ///         <description>view this result table is part of.  The
+        /// default value is ''.</description>
         ///     </item>
         /// </list>
-        ///   </param>
+        /// The default value is an empty {@link Dictionary}.</param>
         /// 
         public AggregateUniqueRequest( string table_name,
                                        string column_name,
                                        long offset,
-                                       long limit = 10000,
+                                       long? limit = null,
                                        IDictionary<string, string> options = null)
         {
             this.table_name = table_name ?? "";
             this.column_name = column_name ?? "";
             this.offset = offset;
-            this.limit = limit;
+            this.limit = limit ?? 10000;
             this.encoding = Encoding.BINARY;
             this.options = options ?? new Dictionary<string, string>();
         } // end constructor
@@ -699,7 +702,8 @@ namespace kinetica
         /// value is MAX_INT. </param>
         /// <param name="limit">A positive integer indicating the maximum
         /// number of results to be returned. Or END_OF_SET (-9999) to indicate
-        /// that the max number of results should be returned.  </param>
+        /// that the max number of results should be returned.  The default
+        /// value is 10000.</param>
         /// <param name="encoding">Specifies the encoding for returned records.
         /// Supported values:
         /// <list type="bullet">
@@ -848,23 +852,23 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="AggregateUniqueRequest.Options.VIEW_ID">VIEW_ID</see>:</term>
-        ///         <description>view this result table is part
-        /// of</description>
+        ///         <description>view this result table is part of.  The
+        /// default value is ''.</description>
         ///     </item>
         /// </list>
-        ///   </param>
+        /// The default value is an empty {@link Dictionary}.</param>
         /// 
         public AggregateUniqueRequest( string table_name,
                                        string column_name,
                                        long offset,
-                                       long limit = 10000,
+                                       long? limit = null,
                                        string encoding = null,
                                        IDictionary<string, string> options = null)
         {
             this.table_name = table_name ?? "";
             this.column_name = column_name ?? "";
             this.offset = offset;
-            this.limit = limit;
+            this.limit = limit ?? 10000;
             this.encoding = encoding ?? Encoding.BINARY;
             this.options = options ?? new Dictionary<string, string>();
         } // end full constructor
