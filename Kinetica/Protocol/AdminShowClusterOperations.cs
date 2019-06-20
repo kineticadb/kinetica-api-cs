@@ -46,10 +46,10 @@ namespace kinetica
         /// <param name="options">Optional parameters.  The default value is an
         /// empty {@link Dictionary}.</param>
         /// 
-        public AdminShowClusterOperationsRequest( int history_index = 0,
+        public AdminShowClusterOperationsRequest( int? history_index = null,
                                                   IDictionary<string, string> options = null)
         {
-            this.history_index = history_index;
+            this.history_index = history_index ?? 0;
             this.options = options ?? new Dictionary<string, string>();
         } // end constructor
 

@@ -184,7 +184,9 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="CreateTableRequest.Options.LIST">LIST</see>:</term>
-        ///         <description>Not yet supported</description>
+        ///         <description>Use <a
+        /// href="../../concepts/tables.html#partitioning-by-list"
+        /// target="_top">list partitioning</a>.</description>
         ///     </item>
         /// </list></description>
         ///     </item>
@@ -201,10 +203,12 @@ namespace kinetica
         /// cref="CreateTableRequest.Options.PARTITION_DEFINITIONS">PARTITION_DEFINITIONS</see>:</term>
         ///         <description>Comma-separated list of partition definitions,
         /// whose format depends on the choice of <i>partition_type</i>.  See
-        /// <a href="../../concepts/tables.html#partitioning-by-range-example"
-        /// target="_top">range partitioning example</a> or <a
-        /// href="../../concepts/tables.html#partitioning-by-interval-example"
-        /// target="_top">interval partitioning example</a> for example
+        /// <a href="../../concepts/tables.html#partitioning-by-range"
+        /// target="_top">range partitioning</a>, <a
+        /// href="../../concepts/tables.html#partitioning-by-interval"
+        /// target="_top">interval partitioning</a>, or <a
+        /// href="../../concepts/tables.html#partitioning-by-list"
+        /// target="_top">list partitioning</a> for example
         /// formats.</description>
         ///     </item>
         ///     <item>
@@ -212,7 +216,9 @@ namespace kinetica
         /// cref="CreateTableRequest.Options.IS_AUTOMATIC_PARTITION">IS_AUTOMATIC_PARTITION</see>:</term>
         ///         <description>If true, a new partition will be created for
         /// values which don't fall into an existing partition.  Currently only
-        /// supported for LIST partitions
+        /// supported for <a
+        /// href="../../concepts/tables.html#partitioning-by-list"
+        /// target="_top">list partitions</a>.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -404,7 +410,9 @@ namespace kinetica
             ///     <item>
             ///         <term><see
             /// cref="CreateTableRequest.Options.LIST">LIST</see>:</term>
-            ///         <description>Not yet supported</description>
+            ///         <description>Use <a
+            /// href="../../concepts/tables.html#partitioning-by-list"
+            /// target="_top">list partitioning</a>.</description>
             ///     </item>
             /// </list></summary>
             public const string PARTITION_TYPE = "partition_type";
@@ -419,7 +427,9 @@ namespace kinetica
             /// target="_top">interval partitioning</a>.</summary>
             public const string INTERVAL = "INTERVAL";
 
-            /// <summary>Not yet supported</summary>
+            /// <summary>Use <a
+            /// href="../../concepts/tables.html#partitioning-by-list"
+            /// target="_top">list partitioning</a>.</summary>
             public const string LIST = "LIST";
 
             /// <summary>Comma-separated list of partition keys, which are the
@@ -430,16 +440,20 @@ namespace kinetica
 
             /// <summary>Comma-separated list of partition definitions, whose
             /// format depends on the choice of <i>partition_type</i>.  See <a
-            /// href="../../concepts/tables.html#partitioning-by-range-example"
-            /// target="_top">range partitioning example</a> or <a
-            /// href="../../concepts/tables.html#partitioning-by-interval-example"
-            /// target="_top">interval partitioning example</a> for example
+            /// href="../../concepts/tables.html#partitioning-by-range"
+            /// target="_top">range partitioning</a>, <a
+            /// href="../../concepts/tables.html#partitioning-by-interval"
+            /// target="_top">interval partitioning</a>, or <a
+            /// href="../../concepts/tables.html#partitioning-by-list"
+            /// target="_top">list partitioning</a> for example
             /// formats.</summary>
             public const string PARTITION_DEFINITIONS = "partition_definitions";
 
             /// <summary>If true, a new partition will be created for values
             /// which don't fall into an existing partition.  Currently only
-            /// supported for LIST partitions
+            /// supported for <a
+            /// href="../../concepts/tables.html#partitioning-by-list"
+            /// target="_top">list partitions</a>.
             /// Supported values:
             /// <list type="bullet">
             ///     <item>
@@ -646,7 +660,9 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="CreateTableRequest.Options.LIST">LIST</see>:</term>
-        ///         <description>Not yet supported</description>
+        ///         <description>Use <a
+        /// href="../../concepts/tables.html#partitioning-by-list"
+        /// target="_top">list partitioning</a>.</description>
         ///     </item>
         /// </list></description>
         ///     </item>
@@ -663,10 +679,12 @@ namespace kinetica
         /// cref="CreateTableRequest.Options.PARTITION_DEFINITIONS">PARTITION_DEFINITIONS</see>:</term>
         ///         <description>Comma-separated list of partition definitions,
         /// whose format depends on the choice of <i>partition_type</i>.  See
-        /// <a href="../../concepts/tables.html#partitioning-by-range-example"
-        /// target="_top">range partitioning example</a> or <a
-        /// href="../../concepts/tables.html#partitioning-by-interval-example"
-        /// target="_top">interval partitioning example</a> for example
+        /// <a href="../../concepts/tables.html#partitioning-by-range"
+        /// target="_top">range partitioning</a>, <a
+        /// href="../../concepts/tables.html#partitioning-by-interval"
+        /// target="_top">interval partitioning</a>, or <a
+        /// href="../../concepts/tables.html#partitioning-by-list"
+        /// target="_top">list partitioning</a> for example
         /// formats.</description>
         ///     </item>
         ///     <item>
@@ -674,7 +692,9 @@ namespace kinetica
         /// cref="CreateTableRequest.Options.IS_AUTOMATIC_PARTITION">IS_AUTOMATIC_PARTITION</see>:</term>
         ///         <description>If true, a new partition will be created for
         /// values which don't fall into an existing partition.  Currently only
-        /// supported for LIST partitions
+        /// supported for <a
+        /// href="../../concepts/tables.html#partitioning-by-list"
+        /// target="_top">list partitions</a>.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -896,7 +916,9 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="CreateTableRequest.Options.LIST">LIST</see>:</term>
-        ///         <description>Not yet supported</description>
+        ///         <description>Use <a
+        /// href="../../concepts/tables.html#partitioning-by-list"
+        /// target="_top">list partitioning</a>.</description>
         ///     </item>
         /// </list></description>
         ///     </item>
@@ -913,10 +935,12 @@ namespace kinetica
         /// cref="CreateTableRequest.Options.PARTITION_DEFINITIONS">PARTITION_DEFINITIONS</see>:</term>
         ///         <description>Comma-separated list of partition definitions,
         /// whose format depends on the choice of <i>partition_type</i>.  See
-        /// <a href="../../concepts/tables.html#partitioning-by-range-example"
-        /// target="_top">range partitioning example</a> or <a
-        /// href="../../concepts/tables.html#partitioning-by-interval-example"
-        /// target="_top">interval partitioning example</a> for example
+        /// <a href="../../concepts/tables.html#partitioning-by-range"
+        /// target="_top">range partitioning</a>, <a
+        /// href="../../concepts/tables.html#partitioning-by-interval"
+        /// target="_top">interval partitioning</a>, or <a
+        /// href="../../concepts/tables.html#partitioning-by-list"
+        /// target="_top">list partitioning</a> for example
         /// formats.</description>
         ///     </item>
         ///     <item>
@@ -924,7 +948,9 @@ namespace kinetica
         /// cref="CreateTableRequest.Options.IS_AUTOMATIC_PARTITION">IS_AUTOMATIC_PARTITION</see>:</term>
         ///         <description>If true, a new partition will be created for
         /// values which don't fall into an existing partition.  Currently only
-        /// supported for LIST partitions
+        /// supported for <a
+        /// href="../../concepts/tables.html#partitioning-by-list"
+        /// target="_top">list partitions</a>.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>

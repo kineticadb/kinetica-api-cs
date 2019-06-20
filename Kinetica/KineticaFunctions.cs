@@ -16,7 +16,7 @@ namespace kinetica
     {
 
         // Kinetica Version
-        public const string API_VERSION = "7.0.2.0";
+        public const string API_VERSION = "7.0.4.0";
 
 
 
@@ -727,6 +727,25 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
+        /// cref="AdminVerifyDbRequest.Options.VERIFY_NULLS">VERIFY_NULLS</see>:</term>
+        ///         <description>When enabled, verifies that null values are
+        /// set to zero
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="AdminVerifyDbRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AdminVerifyDbRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="AdminVerifyDbRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="AdminVerifyDbRequest.Options.VERIFY_PERSIST">VERIFY_PERSIST</see>:</term>
         ///         <description>
         /// Supported values:
@@ -908,11 +927,14 @@ namespace kinetica
         /// target="_top">standard naming conventions</a>; column/aggregation
         /// expressions will need to be aliased.  If the source table's <a
         /// href="../../concepts/tables.html#shard-keys" target="_top">shard
-        /// key</a> is used as the grouping column(s), the result table will be
-        /// sharded, in all other cases it will be replicated.  Sorting will
-        /// properly function only if the result table is replicated or if
-        /// there is only one processing node and should not be relied upon in
-        /// other cases.  Not available when any of the values of <paramref
+        /// key</a> is used as the grouping column(s) and all result records
+        /// are selected (<paramref cref="AggregateGroupByRequest.offset" /> is
+        /// 0 and <paramref cref="AggregateGroupByRequest.limit" /> is -9999),
+        /// the result table will be sharded, in all other cases it will be
+        /// replicated.  Sorting will properly function only if the result
+        /// table is replicated or if there is only one processing node and
+        /// should not be relied upon in other cases.  Not available when any
+        /// of the values of <paramref
         /// cref="AggregateGroupByRequest.column_names" /> is an
         /// unrestricted-length string.</summary>
         /// 
@@ -999,12 +1021,14 @@ namespace kinetica
         /// naming conventions</a>; column/aggregation expressions will need to
         /// be aliased.  If the source table's <a
         /// href="../../concepts/tables.html#shard-keys" target="_top">shard
-        /// key</a> is used as the grouping column(s), the result table will be
-        /// sharded, in all other cases it will be replicated.  Sorting will
-        /// properly function only if the result table is replicated or if
-        /// there is only one processing node and should not be relied upon in
-        /// other cases.  Not available when any of the values of <paramref
-        /// name="column_names" /> is an unrestricted-length string.</summary>
+        /// key</a> is used as the grouping column(s) and all result records
+        /// are selected (<paramref name="offset" /> is 0 and <paramref
+        /// name="limit" /> is -9999), the result table will be sharded, in all
+        /// other cases it will be replicated.  Sorting will properly function
+        /// only if the result table is replicated or if there is only one
+        /// processing node and should not be relied upon in other cases.  Not
+        /// available when any of the values of <paramref name="column_names"
+        /// /> is an unrestricted-length string.</summary>
         /// 
         /// <param name="table_name">Name of the table on which the operation
         /// will be performed. Must be an existing table/view/collection.
@@ -1249,21 +1273,6 @@ namespace kinetica
         /// cref="AggregateGroupByRequest.Options.CUBE">CUBE</see>:</term>
         ///         <description>This option is used to specify the
         /// multidimensional aggregates.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AggregateGroupByRequest.Options.THROW_ERROR_ON_REFRESH">THROW_ERROR_ON_REFRESH</see>:</term>
-        ///         <description><DEVELOPER></description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AggregateGroupByRequest.Options.SLEEP_ON_REFRESH">SLEEP_ON_REFRESH</see>:</term>
-        ///         <description><DEVELOPER></description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AggregateGroupByRequest.Options.REFRESH_TYPE">REFRESH_TYPE</see>:</term>
-        ///         <description><DEVELOPER></description>
         ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.</param>
@@ -2452,10 +2461,13 @@ namespace kinetica
         ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.</param>
-        /// <param name="ranking">If the resource group ranking has to be
+        /// <param name="ranking">If the resource group ranking is to be
         /// updated, this indicates the relative ranking among existing
-        /// resource groups where this resource group will be moved. Left bank
-        /// if not changing the ranking.
+        /// resource groups where this resource group will be moved; left blank
+        /// if not changing the ranking.  When using <i>before</i> or
+        /// <i>after</i>, specify which resource group this one will be
+        /// inserted before or after in <paramref
+        /// cref="AlterResourceGroupRequest.adjoining_resource_group" />.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -2482,10 +2494,11 @@ namespace kinetica
         /// The default value is <see
         /// cref="AlterResourceGroupRequest.Ranking.EMPTY_STRING">EMPTY_STRING</see>.
         /// </param>
-        /// <param name="adjoining_resource_group">If the ranking is 'before'
-        /// or 'after', this field indicates the resource group before or after
-        /// which the current group will be placed otherwise left blank.  The
-        /// default value is ''.</param>
+        /// <param name="adjoining_resource_group">If <paramref
+        /// cref="AlterResourceGroupRequest.ranking" /> is <i>before</i> or
+        /// <i>after</i>, this field indicates the resource group before or
+        /// after which the current group will be placed; otherwise, left
+        /// blank.  The default value is ''.</param>
         /// <param name="options">Optional parameters.
         /// <list type="bullet">
         ///     <item>
@@ -2702,12 +2715,12 @@ namespace kinetica
         ///         <term><see
         /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.COMMUNICATOR_TEST">COMMUNICATOR_TEST</see>:</term>
         ///         <description>Invoke the communicator test and report timing
-        /// results. Value string is is a comma separated list of <key>=<value>
-        /// expressions.  Expressions are: num_transactions=<num> where num is
-        /// the number of request reply transactions to invoke per test;
-        /// message_size=<bytes> where bytes is the size of the messages to
-        /// send in bytes; check_values=<enabled> where if enabled is true the
-        /// value of the messages received are verified.</description>
+        /// results. Value string is is a semicolon separated list of
+        /// <key>=<value> expressions.  Expressions are: num_transactions=<num>
+        /// where num is the number of request reply transactions to invoke per
+        /// test; message_size=<bytes> where bytes is the size of the messages
+        /// to send in bytes; check_values=<enabled> where if enabled is true
+        /// the value of the messages received are verified.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -2843,8 +2856,11 @@ namespace kinetica
         /// target="_top">foreign key</a>
         /// on a particular column.
         /// <br />
-        /// Manage a <a href="../../concepts/tables.html#partitioning"
-        /// target="_top">range-partitioned</a>
+        /// Manage a
+        /// <a href="../../concepts/tables.html#partitioning-by-range"
+        /// target="_top">range-partitioned</a> or a
+        /// <a href="../../concepts/tables.html#partitioning-by-list-manual"
+        /// target="_top">manual list-partitioned</a>
         /// table's partitions.
         /// <br />
         /// Set (or reset) the <a href="../../rm/concepts.html#tier-strategies"
@@ -2914,8 +2930,11 @@ namespace kinetica
         /// target="_top">foreign key</a>
         /// on a particular column.
         /// <br />
-        /// Manage a <a href="../../concepts/tables.html#partitioning"
-        /// target="_top">range-partitioned</a>
+        /// Manage a
+        /// <a href="../../concepts/tables.html#partitioning-by-range"
+        /// target="_top">range-partitioned</a> or a
+        /// <a href="../../concepts/tables.html#partitioning-by-list-manual"
+        /// target="_top">manual list-partitioned</a>
         /// table's partitions.
         /// <br />
         /// Set (or reset) the <a href="../../rm/concepts.html#tier-strategies"
@@ -2980,8 +2999,11 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="AlterTableRequest.Action.MOVE_TO_COLLECTION">MOVE_TO_COLLECTION</see>:</term>
-        ///         <description>Moves a table into a collection <paramref
-        /// cref="AlterTableRequest._value" />. </description>
+        ///         <description>Moves a table or view into a collection named
+        /// <paramref cref="AlterTableRequest._value" />.  If the collection
+        /// provided is non-existent, the collection will be automatically
+        /// created. If <paramref cref="AlterTableRequest._value" /> is empty,
+        /// then the table or view will be top-level.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -3070,27 +3092,33 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="AlterTableRequest.Action.ADD_PARTITION">ADD_PARTITION</see>:</term>
-        ///         <description>Adds a partition (for range-partitioned tables
-        /// only) specified in <paramref cref="AlterTableRequest._value" />.
-        /// See <a
-        /// href="../../concepts/tables.html#partitioning-by-range-example"
-        /// target="_top">range partitioning example</a> for example
-        /// format.</description>
+        ///         <description>Adds the partition specified in <paramref
+        /// cref="AlterTableRequest._value" />, to either a <a
+        /// href="../../concepts/tables.html#partitioning-by-range"
+        /// target="_top">range-partitioned</a> or <a
+        /// href="../../concepts/tables.html#partitioning-by-list-manual"
+        /// target="_top">manual list-partitioned</a> table.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="AlterTableRequest.Action.REMOVE_PARTITION">REMOVE_PARTITION</see>:</term>
         ///         <description>Removes the partition specified in <paramref
-        /// cref="AlterTableRequest._value" /> and relocates all its data to
-        /// the default partition (for range-partitioned tables
-        /// only).</description>
+        /// cref="AlterTableRequest._value" /> (and relocates all of its data
+        /// to the default partition) from either a <a
+        /// href="../../concepts/tables.html#partitioning-by-range"
+        /// target="_top">range-partitioned</a> or <a
+        /// href="../../concepts/tables.html#partitioning-by-list-manual"
+        /// target="_top">manual list-partitioned</a> table.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="AlterTableRequest.Action.DELETE_PARTITION">DELETE_PARTITION</see>:</term>
         ///         <description>Deletes the partition specified in <paramref
-        /// cref="AlterTableRequest._value" /> and its data (for
-        /// range-partitioned tables only).</description>
+        /// cref="AlterTableRequest._value" /> (and all of its data) from
+        /// either a <a href="../../concepts/tables.html#partitioning-by-range"
+        /// target="_top">range-partitioned</a> or <a
+        /// href="../../concepts/tables.html#partitioning-by-list-manual"
+        /// target="_top">manual list-partitioned</a> table.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -4026,9 +4054,11 @@ namespace kinetica
         /// target="_top">identifiers</a>; identifiers are grouped as <a
         /// href="../../graph_solver/network_graph_solver.html#id-combos"
         /// target="_top">combinations</a>. Identifiers can be used with
-        /// existing column names, e.g., 'table.column AS NODE_ID', or
+        /// existing column names, e.g., 'table.column AS NODE_ID',
         /// expressions, e.g., 'ST_MAKEPOINT(column1, column2) AS
-        /// NODE_WKTPOINT'.  </param>
+        /// NODE_WKTPOINT', or raw values, e.g., '{9, 10, 11} AS NODE_ID'. If
+        /// using raw values in an identifier combination, the number of values
+        /// specified must match across the combination.  </param>
         /// <param name="edges">Edges represent the required fundamental
         /// topological unit of a graph that typically connect nodes. Edges
         /// must be specified using <a
@@ -4036,9 +4066,11 @@ namespace kinetica
         /// target="_top">identifiers</a>; identifiers are grouped as <a
         /// href="../../graph_solver/network_graph_solver.html#id-combos"
         /// target="_top">combinations</a>. Identifiers can be used with
-        /// existing column names, e.g., 'table.column AS EDGE_ID', or
-        /// expressions, e.g., 'SUBSTR(column, 1, 6) AS EDGE_NODE1_NAME'.
-        /// </param>
+        /// existing column names, e.g., 'table.column AS EDGE_ID',
+        /// expressions, e.g., 'SUBSTR(column, 1, 6) AS EDGE_NODE1_NAME', or
+        /// raw values, e.g., "{'family', 'coworker'} AS EDGE_LABEL". If using
+        /// raw values in an identifier combination, the number of values
+        /// specified must match across the combination.  </param>
         /// <param name="weights">Weights represent a method of informing the
         /// graph solver of the cost of including a given edge in a solution.
         /// Weights must be specified using <a
@@ -4046,9 +4078,11 @@ namespace kinetica
         /// target="_top">identifiers</a>; identifiers are grouped as <a
         /// href="../../graph_solver/network_graph_solver.html#id-combos"
         /// target="_top">combinations</a>. Identifiers can be used with
-        /// existing column names, e.g., 'table.column AS WEIGHTS_EDGE_ID', or
-        /// expressions, e.g., 'ST_LENGTH(wkt) AS WEIGHTS_VALUESPECIFIED'.
-        /// </param>
+        /// existing column names, e.g., 'table.column AS WEIGHTS_EDGE_ID',
+        /// expressions, e.g., 'ST_LENGTH(wkt) AS WEIGHTS_VALUESPECIFIED', or
+        /// raw values, e.g., '{4, 15} AS WEIGHTS_VALUESPECIFIED'. If using raw
+        /// values in an identifier combination, the number of values specified
+        /// must match across the combination.  </param>
         /// <param name="restrictions">Restrictions represent a method of
         /// informing the graph solver which edges and/or nodes should be
         /// ignored for the solution. Restrictions must be specified using <a
@@ -4057,8 +4091,11 @@ namespace kinetica
         /// href="../../graph_solver/network_graph_solver.html#id-combos"
         /// target="_top">combinations</a>. Identifiers can be used with
         /// existing column names, e.g., 'table.column AS
-        /// RESTRICTIONS_EDGE_ID', or expressions, e.g., 'column/2 AS
-        /// RESTRICTIONS_VALUECOMPARED'.  </param>
+        /// RESTRICTIONS_EDGE_ID', expressions, e.g., 'column/2 AS
+        /// RESTRICTIONS_VALUECOMPARED', or raw values, e.g., '{0, 0, 0, 1} AS
+        /// RESTRICTIONS_ONOFFCOMPARED'. If using raw values in an identifier
+        /// combination, the number of values specified must match across the
+        /// combination.  </param>
         /// <param name="options">Optional parameters.
         /// <list type="bullet">
         ///     <item>
@@ -4727,30 +4764,12 @@ namespace kinetica
         /// target="_top">Projection Limitations and Cautions</a>.
         /// <br />
         /// <a href="../../concepts/window.html" target="_top">Window
-        /// functions</a> are available through this endpoint as well as <see
+        /// functions</a>, which can perform operations like moving averages,
+        /// are available through this endpoint as well as <see
         /// cref="Kinetica.getRecordsByColumn(string,IList{string},long,long,IDictionary{string, string})"
         /// />.
         /// <br />
-        /// Notes:
-        /// <br />
-        /// A moving average can be calculated on a given column using the
-        /// following syntax in the <paramref
-        /// cref="CreateProjectionRequest.column_names" /> parameter:
-        /// <br />
-        /// 'moving_average(column_name,num_points_before,num_points_after) as
-        /// new_column_name'
-        /// <br />
-        /// For each record in the moving_average function's 'column_name'
-        /// parameter, it computes the average over the previous
-        /// 'num_points_before' records and the subsequent 'num_points_after'
-        /// records.
-        /// <br />
-        /// Note that moving average relies on <i>order_by</i>, and
-        /// <i>order_by</i> requires that all the data being ordered resides on
-        /// the same processing node, so it won't make sense to use
-        /// <i>order_by</i> without moving average.
-        /// <br />
-        /// Also, a projection can be created with a different <a
+        /// A projection can be created with a different <a
         /// href="../../concepts/tables.html#shard-keys" target="_top">shard
         /// key</a> than the source table.  By specifying <i>shard_key</i>, the
         /// projection will be sharded according to the specified columns,
@@ -4783,29 +4802,12 @@ namespace kinetica
         /// target="_top">Projection Limitations and Cautions</a>.
         /// <br />
         /// <a href="../../concepts/window.html" target="_top">Window
-        /// functions</a> are available through this endpoint as well as <see
+        /// functions</a>, which can perform operations like moving averages,
+        /// are available through this endpoint as well as <see
         /// cref="Kinetica.getRecordsByColumn(string,IList{string},long,long,IDictionary{string, string})"
         /// />.
         /// <br />
-        /// Notes:
-        /// <br />
-        /// A moving average can be calculated on a given column using the
-        /// following syntax in the <paramref name="column_names" /> parameter:
-        /// <br />
-        /// 'moving_average(column_name,num_points_before,num_points_after) as
-        /// new_column_name'
-        /// <br />
-        /// For each record in the moving_average function's 'column_name'
-        /// parameter, it computes the average over the previous
-        /// 'num_points_before' records and the subsequent 'num_points_after'
-        /// records.
-        /// <br />
-        /// Note that moving average relies on <i>order_by</i>, and
-        /// <i>order_by</i> requires that all the data being ordered resides on
-        /// the same processing node, so it won't make sense to use
-        /// <i>order_by</i> without moving average.
-        /// <br />
-        /// Also, a projection can be created with a different <a
+        /// A projection can be created with a different <a
         /// href="../../concepts/tables.html#shard-keys" target="_top">shard
         /// key</a> than the source table.  By specifying <i>shard_key</i>, the
         /// projection will be sharded according to the specified columns,
@@ -4968,7 +4970,7 @@ namespace kinetica
         ///     </item>
         /// </list>
         /// The default value is <see
-        /// cref="CreateProjectionRequest.Options.FALSE">FALSE</see>.</description>
+        /// cref="CreateProjectionRequest.Options.TRUE">TRUE</see>.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -5033,7 +5035,10 @@ namespace kinetica
         /// </list>
         /// The default value is an empty {@link Dictionary}.</param>
         /// <param name="ranking">Indicates the relative ranking among existing
-        /// resource groups where this new resource group will be placed.
+        /// resource groups where this new resource group will be placed.  When
+        /// using <i>before</i> or <i>after</i>, specify which resource group
+        /// this one will be inserted before or after in <paramref
+        /// cref="CreateResourceGroupRequest.adjoining_resource_group" />.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -5053,9 +5058,11 @@ namespace kinetica
         /// cref="CreateResourceGroupRequest.Ranking.AFTER">AFTER</see></term>
         ///     </item>
         /// </list>  </param>
-        /// <param name="adjoining_resource_group">Name of the resource group
-        /// relative to which this group will be placed. Must be specified when
-        /// ranking is before or after.  The default value is ''.</param>
+        /// <param name="adjoining_resource_group">If <paramref
+        /// cref="CreateResourceGroupRequest.ranking" /> is <i>before</i> or
+        /// <i>after</i>, this field indicates the resource group before or
+        /// after which the current group will be placed; otherwise, left
+        /// blank.  The default value is ''.</param>
         /// <param name="options">Optional parameters.
         /// <list type="bullet">
         ///     <item>
@@ -5358,7 +5365,9 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="CreateTableRequest.Options.LIST">LIST</see>:</term>
-        ///         <description>Not yet supported</description>
+        ///         <description>Use <a
+        /// href="../../concepts/tables.html#partitioning-by-list"
+        /// target="_top">list partitioning</a>.</description>
         ///     </item>
         /// </list></description>
         ///     </item>
@@ -5375,10 +5384,12 @@ namespace kinetica
         /// cref="CreateTableRequest.Options.PARTITION_DEFINITIONS">PARTITION_DEFINITIONS</see>:</term>
         ///         <description>Comma-separated list of partition definitions,
         /// whose format depends on the choice of <i>partition_type</i>.  See
-        /// <a href="../../concepts/tables.html#partitioning-by-range-example"
-        /// target="_top">range partitioning example</a> or <a
-        /// href="../../concepts/tables.html#partitioning-by-interval-example"
-        /// target="_top">interval partitioning example</a> for example
+        /// <a href="../../concepts/tables.html#partitioning-by-range"
+        /// target="_top">range partitioning</a>, <a
+        /// href="../../concepts/tables.html#partitioning-by-interval"
+        /// target="_top">interval partitioning</a>, or <a
+        /// href="../../concepts/tables.html#partitioning-by-list"
+        /// target="_top">list partitioning</a> for example
         /// formats.</description>
         ///     </item>
         ///     <item>
@@ -5386,7 +5397,9 @@ namespace kinetica
         /// cref="CreateTableRequest.Options.IS_AUTOMATIC_PARTITION">IS_AUTOMATIC_PARTITION</see>:</term>
         ///         <description>If true, a new partition will be created for
         /// values which don't fall into an existing partition.  Currently only
-        /// supported for LIST partitions
+        /// supported for <a
+        /// href="../../concepts/tables.html#partitioning-by-list"
+        /// target="_top">list partitions</a>.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -5461,17 +5474,21 @@ namespace kinetica
         }
 
 
-        /// <summary>Creates a monitor that watches for new records inserted
-        /// into a particular table (identified by <paramref
-        /// cref="CreateTableMonitorRequest.table_name" />) and forwards copies
-        /// to subscribers via ZMQ. After this call completes, subscribe to the
-        /// returned <paramref cref="CreateTableMonitorResponse.topic_id" /> on
-        /// the ZMQ table monitor port (default 9002). Each time an insert
-        /// operation on the table completes, a multipart message is published
-        /// for that topic; the first part contains only the topic ID, and each
-        /// subsequent part contains one binary-encoded Avro object that was
-        /// inserted. The monitor will continue to run (regardless of whether
-        /// or not there are any subscribers) until deactivated with <see
+        /// <summary>Creates a monitor that watches for table modification
+        /// events such as insert, update or delete on a particular table
+        /// (identified by <paramref
+        /// cref="CreateTableMonitorRequest.table_name" />) and forwards event
+        /// notifications to subscribers via ZMQ. After this call completes,
+        /// subscribe to the returned <paramref
+        /// cref="CreateTableMonitorResponse.topic_id" /> on the ZMQ table
+        /// monitor port (default 9002). Each time a modification operation on
+        /// the table completes, a multipart message is published for that
+        /// topic; the first part contains only the topic ID, and each
+        /// subsequent part contains one binary-encoded Avro object that
+        /// corresponds to the event and can be decoded using <paramref
+        /// cref="CreateTableMonitorResponse.type_schema" />. The monitor will
+        /// continue to run (regardless of whether or not there are any
+        /// subscribers) until deactivated with <see
         /// cref="Kinetica.clearTableMonitor(string,IDictionary{string, string})"
         /// />.</summary>
         /// 
@@ -5489,24 +5506,59 @@ namespace kinetica
         }
 
 
-        /// <summary>Creates a monitor that watches for new records inserted
-        /// into a particular table (identified by <paramref name="table_name"
-        /// />) and forwards copies to subscribers via ZMQ. After this call
-        /// completes, subscribe to the returned <paramref
+        /// <summary>Creates a monitor that watches for table modification
+        /// events such as insert, update or delete on a particular table
+        /// (identified by <paramref name="table_name" />) and forwards event
+        /// notifications to subscribers via ZMQ. After this call completes,
+        /// subscribe to the returned <paramref
         /// cref="CreateTableMonitorResponse.topic_id" /> on the ZMQ table
-        /// monitor port (default 9002). Each time an insert operation on the
-        /// table completes, a multipart message is published for that topic;
-        /// the first part contains only the topic ID, and each subsequent part
-        /// contains one binary-encoded Avro object that was inserted. The
-        /// monitor will continue to run (regardless of whether or not there
-        /// are any subscribers) until deactivated with <see
+        /// monitor port (default 9002). Each time a modification operation on
+        /// the table completes, a multipart message is published for that
+        /// topic; the first part contains only the topic ID, and each
+        /// subsequent part contains one binary-encoded Avro object that
+        /// corresponds to the event and can be decoded using <paramref
+        /// cref="CreateTableMonitorResponse.type_schema" />. The monitor will
+        /// continue to run (regardless of whether or not there are any
+        /// subscribers) until deactivated with <see
         /// cref="Kinetica.clearTableMonitor(string,IDictionary{string, string})"
         /// />.</summary>
         /// 
         /// <param name="table_name">Name of the table to monitor. Must not
         /// refer to a collection.  </param>
-        /// <param name="options">Optional parameters.  The default value is an
-        /// empty {@link Dictionary}.</param>
+        /// <param name="options">Optional parameters.
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableMonitorRequest.Options.EVENT">EVENT</see>:</term>
+        ///         <description>
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableMonitorRequest.Options.INSERT">INSERT</see>:</term>
+        ///         <description>Get notifications of new record insertions.
+        /// The new row images are forwarded to the subscribers.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableMonitorRequest.Options.UPDATE">UPDATE</see>:</term>
+        ///         <description>Get notifications of update operations. The
+        /// modified row count information is forwarded to the
+        /// subscribers.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableMonitorRequest.Options.DELETE">DELETE</see>:</term>
+        ///         <description>Get notifications of delete operations. The
+        /// deleted row count information is forwarded to the
+        /// subscribers.</description>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="CreateTableMonitorRequest.Options.INSERT">INSERT</see>.</description>
+        ///     </item>
+        /// </list>
+        /// The default value is an empty {@link Dictionary}.</param>
         /// 
         /// <returns>Response object containing the result of the
         /// operation.</returns>
@@ -6025,9 +6077,9 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="CreateTypeRequest.Properties.INIT_WITH_NOW">INIT_WITH_NOW</see>:</term>
-        ///         <description>For columns with attributes of date, time,
-        /// datetime or timestamp, at insert time, replace empty strings and
-        /// invalid timestamps with NOW()</description>
+        ///         <description>For 'date', 'time', 'datetime', or 'timestamp'
+        /// column types, replace empty strings and invalid timestamps with
+        /// 'NOW()' upon insert.</description>
         ///     </item>
         /// </list>  </param>
         /// <param name="options">Optional parameters.  The default value is an
@@ -7139,24 +7191,6 @@ namespace kinetica
         /// </list>
         /// The default value is <see
         /// cref="ExecuteSqlRequest.Options.FALSE">FALSE</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="ExecuteSqlRequest.Options.PLANNER_JOIN_VALIDATIONS">PLANNER_JOIN_VALIDATIONS</see>:</term>
-        ///         <description><DEVELOPER>
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="ExecuteSqlRequest.Options.TRUE">TRUE</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="ExecuteSqlRequest.Options.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="ExecuteSqlRequest.Options.TRUE">TRUE</see>.</description>
         ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.</param>
@@ -8786,7 +8820,8 @@ namespace kinetica
         /// cref="GetRecordsByColumnRequest.limit" /> parameters.
         /// <br />
         /// <a href="../../concepts/window.html" target="_top">Window
-        /// functions</a> are available through this endpoint as well as <see
+        /// functions</a>, which can perform operations like moving averages,
+        /// are available through this endpoint as well as <see
         /// cref="Kinetica.createProjection(string,string,IList{string},IDictionary{string, string})"
         /// />.
         /// <br />
@@ -8827,7 +8862,8 @@ namespace kinetica
         /// name="limit" /> parameters.
         /// <br />
         /// <a href="../../concepts/window.html" target="_top">Window
-        /// functions</a> are available through this endpoint as well as <see
+        /// functions</a>, which can perform operations like moving averages,
+        /// are available through this endpoint as well as <see
         /// cref="Kinetica.createProjection(string,string,IList{string},IDictionary{string, string})"
         /// />.
         /// <br />
@@ -9895,7 +9931,7 @@ namespace kinetica
         /// optional parameter (e.g. color). To have a symbol used for
         /// rendering create a table with a string column named 'SYMBOLCODE'
         /// (along with 'x' or 'y' for example). Then when the table is
-        /// rendered (via <a href="../rest/wms_rest.html"
+        /// rendered (via <a href="../../api/rest/wms_rest.html"
         /// target="_top">WMS</a>) if the 'dosymbology' parameter is 'true'
         /// then the value of the 'SYMBOLCODE' column is used to pick the
         /// symbol displayed for each point.</summary>
@@ -9921,7 +9957,7 @@ namespace kinetica
         /// optional parameter (e.g. color). To have a symbol used for
         /// rendering create a table with a string column named 'SYMBOLCODE'
         /// (along with 'x' or 'y' for example). Then when the table is
-        /// rendered (via <a href="../rest/wms_rest.html"
+        /// rendered (via <a href="../../api/rest/wms_rest.html"
         /// target="_top">WMS</a>) if the 'dosymbology' parameter is 'true'
         /// then the value of the 'SYMBOLCODE' column is used to pick the
         /// symbol displayed for each point.</summary>
@@ -10132,8 +10168,12 @@ namespace kinetica
         }
 
 
-        /// <summary>Matches measured lon/lat points to an underlying graph
-        /// network.</summary>
+        /// <summary>Matches a directed route implied by a given set of
+        /// latitude/longitude points to an existing underlying road network
+        /// graph using a given solution type. See <a
+        /// href="../../graph_solver/network_graph_solver.html"
+        /// target="_top">Network Graph Solvers</a> for more
+        /// information.</summary>
         /// 
         /// <param name="request_">Request object containing the parameters for
         /// the operation.</param>
@@ -10149,102 +10189,165 @@ namespace kinetica
         }
 
 
-        /// <summary>Matches measured lon/lat points to an underlying graph
-        /// network.</summary>
+        /// <summary>Matches a directed route implied by a given set of
+        /// latitude/longitude points to an existing underlying road network
+        /// graph using a given solution type. See <a
+        /// href="../../graph_solver/network_graph_solver.html"
+        /// target="_top">Network Graph Solvers</a> for more
+        /// information.</summary>
         /// 
-        /// <param name="graph_name">Name of the underlying graph network.
-        /// </param>
-        /// <param name="sample_points">['Table.column AS node_identifier',
-        /// 'Table.column AS SAMPLE_TIME' ]; e.g., 't1.wkt' AS
-        /// 'SAMPLE_WKTPOINT', t1.t' AS 'SAMPLE_TIME'  </param>
-        /// <param name="solve_method">Solver used for mapmatching.
+        /// <param name="graph_name">Name of the underlying geospatial graph
+        /// resource to match to using <paramref
+        /// cref="MatchGraphRequest.sample_points" />.  </param>
+        /// <param name="sample_points">Sample points used to match to an
+        /// underlying geospatial graph. Sample points must be specified using
+        /// <a
+        /// href="../../graph_solver/network_graph_solver.html#match-identifiers"
+        /// target="_top">identifiers</a>; identifiers are grouped as <a
+        /// href="../../graph_solver/network_graph_solver.html#match-combinations"
+        /// target="_top">combinations</a>. Identifiers can be used with:
+        /// existing column names, e.g., 'table.column AS SAMPLE_X';
+        /// expressions, e.g., 'ST_MAKEPOINT(table.x, table.y) AS
+        /// SAMPLE_WKTPOINT'; or raw values, e.g., '{1, 2, 10} AS
+        /// SAMPLE_TRIPID'.  </param>
+        /// <param name="solve_method">The type of solver to use for graph
+        /// matching.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
         /// cref="MatchGraphRequest.SolveMethod.MARKOV_CHAIN">MARKOV_CHAIN</see>:</term>
-        ///         <description>Hidden Markov Model (HMM) based
-        /// method.</description>
+        ///         <description>Matches <paramref
+        /// cref="MatchGraphRequest.sample_points" /> to the graph using the
+        /// Hidden Markov Model (HMM)-based method, which conducts a range-tree
+        /// closest-edge search to find the best combinations of possible road
+        /// segments (<i>num_segments</i>) for each sample point to create the
+        /// best route. The route is secured one point at a time while looking
+        /// ahead <i>chain_width</i> number of points, so the prediction is
+        /// corrected after each point. This solution type is the most accurate
+        /// but also the most computationally intensive.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="MatchGraphRequest.SolveMethod.INCREMENTAL_WEIGHTED">INCREMENTAL_WEIGHTED</see>:</term>
-        ///         <description>Uses time and/or distance to influence one or
-        /// more shortest paths along the sample points.</description>
+        ///         <description>Matches <paramref
+        /// cref="MatchGraphRequest.sample_points" /> to the graph using time
+        /// and/or distance between points to influence one or more shortest
+        /// paths across the sample points.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="MatchGraphRequest.SolveMethod.MATCH_OD_PAIRS">MATCH_OD_PAIRS</see>:</term>
+        ///         <description>Matches <paramref
+        /// cref="MatchGraphRequest.sample_points" /> to find the most probable
+        /// path between origin and destination pairs with cost
+        /// constraints</description>
         ///     </item>
         /// </list>
         /// The default value is <see
-        /// cref="MatchGraphRequest.SolveMethod.INCREMENTAL_WEIGHTED">INCREMENTAL_WEIGHTED</see>.
+        /// cref="MatchGraphRequest.SolveMethod.MARKOV_CHAIN">MARKOV_CHAIN</see>.
         /// </param>
-        /// <param name="solution_table">Name of the table to store the
-        /// solution. Error if table already exists.  The default value is
-        /// 'map_matching_solution'.</param>
+        /// <param name="solution_table">The name of the table used to store
+        /// the results; this table contains a <a
+        /// href="../../geospatial/geo_objects.html#geospatial-tracks"
+        /// target="_top">track</a> of geospatial points for the matched
+        /// portion of the graph, a track ID, and a score value. Also outputs a
+        /// details table containing a trip ID (that matches the track ID), the
+        /// latitude/longitude pair, the timestamp the point was recorded at,
+        /// and an edge ID corresponding to the matched road segment. Has the
+        /// same naming restrictions as <a href="../../concepts/tables.html"
+        /// target="_top">tables</a>. Must not be an existing table of the same
+        /// name.  The default value is ''.</param>
         /// <param name="options">Additional parameters
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
         /// cref="MatchGraphRequest.Options.GPS_NOISE">GPS_NOISE</see>:</term>
-        ///         <description>GPS noise value - in meters - to remove
-        /// redundant samplespoints (95th percentile). -1 to disable.  The
-        /// default value is '5.0'.</description>
+        ///         <description>GPS noise value (in meters) to remove
+        /// redundant sample points. Use -1 to disable noise reduction. The
+        /// default value accounts for 95% of point variation (+ or -5 meters).
+        /// The default value is '5.0'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="MatchGraphRequest.Options.NUM_SEGMENTS">NUM_SEGMENTS</see>:</term>
-        ///         <description>Number of potentially matching road segments
-        /// for each sample point. (Defaults to 3 for 'markov_chain' and 5 for
-        /// 'incremental_weighted').  The default value is '0'.</description>
+        ///         <description>Maximum number of potentially matching road
+        /// segments for each sample point. For the <i>markov_chain</i> solver,
+        /// the default is 3; for the <i>incremental_weighted</i>, the default
+        /// is 5.  The default value is ''.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="MatchGraphRequest.Options.SEARCH_RADIUS">SEARCH_RADIUS</see>:</term>
         ///         <description>Maximum search radius used when snapping
-        /// samples points onto potentially matching road segments. This
-        /// corresponds to approximately 100m when using geodesic coordinates.
-        /// The default value is '0.001'.</description>
+        /// sample points onto potentially matching surrounding segments. The
+        /// default value corresponds to approximately 100 meters.  The default
+        /// value is '0.001'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="MatchGraphRequest.Options.CHAIN_WIDTH">CHAIN_WIDTH</see>:</term>
-        ///         <description>Only applicable if method is 'markov_chain'.
-        /// Length of the sample points window within the Markov kernel.  The
+        ///         <description>For the <i>markov_chain</i> solver only.
+        /// Length of the sample points lookahead window within the Markov
+        /// kernel; the larger the number, the more accurate the solution.  The
         /// default value is '9'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="MatchGraphRequest.Options.MAX_SOLVE_LENGTH">MAX_SOLVE_LENGTH</see>:</term>
-        ///         <description>Only applicable if method is
-        /// 'incremental_weighted'. Maximum number of samples along the path to
-        /// solve on.  The default value is '200'.</description>
+        ///         <description>For the <i>incremental_weighted</i> solver
+        /// only. Maximum number of samples along the path on which to solve.
+        /// The default value is '200'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="MatchGraphRequest.Options.TIME_WINDOW_WIDTH">TIME_WINDOW_WIDTH</see>:</term>
-        ///         <description>Only applicable if method is
-        /// 'incremental_weighted'. Time window in which sample points are
-        /// favored (dt of 1 is the most attractive).  The default value is
-        /// '30'.</description>
+        ///         <description>For the <i>incremental_weighted</i> solver
+        /// only. Time window, also known as sampling period, in which points
+        /// are favored. To determine the raw window value, the
+        /// <i>time_window_width</i> value is multiplied by the mean sample
+        /// time (in seconds) across all points, e.g., if
+        /// <i>time_window_width</i> is 30 and the mean sample time is 2
+        /// seconds, points that are sampled greater than 60 seconds after the
+        /// previous point are no longer favored in the solution.  The default
+        /// value is '30'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="MatchGraphRequest.Options.DETECT_LOOPS">DETECT_LOOPS</see>:</term>
-        ///         <description>Only applicable if method is
-        /// 'incremental_weighted'. If true, add a break point within any loop.
-        /// The default value is 'true'.</description>
+        ///         <description>For the <i>incremental_weighted</i> solver
+        /// only. If <i>true</i>, a loop will be detected and traversed even if
+        /// it would make a shorter path to ignore the loop.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="MatchGraphRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="MatchGraphRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="MatchGraphRequest.Options.TRUE">TRUE</see>.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="MatchGraphRequest.Options.SOURCE">SOURCE</see>:</term>
-        ///         <description>Optional WKT point on the trace; otherwise the
-        /// beginning (in time) is taken as the source.  The default value is
-        /// 'POINT NULL'.</description>
+        ///         <description>Optional WKT starting point from <paramref
+        /// cref="MatchGraphRequest.sample_points" /> for the solver. The
+        /// default behavior for the endpoint is to use time to determine the
+        /// starting point.  The default value is 'POINT NULL'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="MatchGraphRequest.Options.DESTINATION">DESTINATION</see>:</term>
-        ///         <description>Optional WKT point on the trace; otherwise the
-        /// end (in time) is taken as the destination.  The default value is
-        /// 'POINT NULL'.</description>
+        ///         <description>Optional WKT ending point from <paramref
+        /// cref="MatchGraphRequest.sample_points" /> for the solver. The
+        /// default behavior for the endpoint is to use time to determine the
+        /// destination point.  The default value is 'POINT
+        /// NULL'.</description>
         ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.</param>
@@ -10254,8 +10357,8 @@ namespace kinetica
         /// 
         public MatchGraphResponse matchGraph( string graph_name,
                                               IList<string> sample_points,
-                                              string solve_method = MatchGraphRequest.SolveMethod.INCREMENTAL_WEIGHTED,
-                                              string solution_table = "map_matching_solution",
+                                              string solve_method = MatchGraphRequest.SolveMethod.MARKOV_CHAIN,
+                                              string solution_table = "",
                                               IDictionary<string, string> options = null )
         {
             return matchGraph( new MatchGraphRequest( graph_name, sample_points,
@@ -10438,70 +10541,15 @@ namespace kinetica
         /// /> and returns a list of adjacent edge(s) or node(s), also known as
         /// an adjacency list, depending on what's been provided to the
         /// endpoint; providing edges will return nodes and providing nodes
-        /// will return edges. There are two ways to provide edge(s) or node(s)
-        /// to be queried: using column names and <a
-        /// href="../../graph_solver/network_graph_solver.html#query-identifiers"
-        /// target="_top">query identifiers</a> with the <paramref
-        /// cref="QueryGraphRequest.queries" /> with or using a list of
-        /// specific IDs with one of the <paramref
-        /// cref="QueryGraphRequest.edge_or_node_int_ids" />, <paramref
-        /// cref="QueryGraphRequest.edge_or_node_string_ids" />, and <paramref
-        /// cref="QueryGraphRequest.edge_or_node_wkt_ids" /> arrays and
-        /// <paramref cref="QueryGraphRequest.edge_to_node" /> to determine if
-        /// the IDs are edges or nodes.
+        /// will return edges.
         /// <br />
         /// To determine the node(s) or edge(s) adjacent to a value from a
-        /// given column, provide a list of column names aliased as a
-        /// particular query identifier to <paramref
+        /// given column, provide a list of values to <paramref
         /// cref="QueryGraphRequest.queries" />. This field can be populated
         /// with column values from any table as long as the type is supported
         /// by the given identifier. See <a
         /// href="../../graph_solver/network_graph_solver.html#query-identifiers"
-        /// target="_top">Query Identifiers</a> for more information. I
-        /// <br />
-        /// To query for nodes that are adjacent to a given set of edges, set
-        /// <paramref cref="QueryGraphRequest.edge_to_node" /> to <i>true</i>
-        /// and provide values to the <paramref
-        /// cref="QueryGraphRequest.edge_or_node_int_ids" />, <paramref
-        /// cref="QueryGraphRequest.edge_or_node_string_ids" />, and <paramref
-        /// cref="QueryGraphRequest.edge_or_node_wkt_ids" /> arrays; it is
-        /// assumed the values in the arrays are edges and the corresponding
-        /// adjacency list array in the response will be populated with nodes.
-        /// <br />
-        /// To query for edges that are adjacent to a given set of nodes, set
-        /// <paramref cref="QueryGraphRequest.edge_to_node" /> to <i>false</i>
-        /// and provide values to the <paramref
-        /// cref="QueryGraphRequest.edge_or_node_int_ids" />, <paramref
-        /// cref="QueryGraphRequest.edge_or_node_string_ids" />, and <paramref
-        /// cref="QueryGraphRequest.edge_or_node_wkt_ids" /> arrays; it is
-        /// assumed the values in arrays are nodes and the given node(s) will
-        /// be queried for adjacent edges and the corresponding adjacency list
-        /// array in the response will be populated with edges.
-        /// <br />
-        /// To query for adjacencies relative to a given column and a given set
-        /// of edges/nodes, the <paramref cref="QueryGraphRequest.queries" />
-        /// and <paramref cref="QueryGraphRequest.edge_or_node_int_ids" /> /
-        /// <paramref cref="QueryGraphRequest.edge_or_node_string_ids" /> /
-        /// <paramref cref="QueryGraphRequest.edge_or_node_wkt_ids" />
-        /// parameters can be used in conjuction with each other. If both
-        /// <paramref cref="QueryGraphRequest.queries" /> and one of the arrays
-        /// are populated, values from <paramref
-        /// cref="QueryGraphRequest.queries" /> will be prioritized over values
-        /// in the array and all values parsed from the <paramref
-        /// cref="QueryGraphRequest.queries" /> array will be appended to the
-        /// corresponding arrays (depending on the type). If using both
-        /// <paramref cref="QueryGraphRequest.queries" /> and the edge_or_node
-        /// arrays, the types must match, e.g., if <paramref
-        /// cref="QueryGraphRequest.queries" /> utilizes the 'QUERY_NODE_ID'
-        /// identifier, only the <paramref
-        /// cref="QueryGraphRequest.edge_or_node_int_ids" /> array should be
-        /// used. Note that using <paramref cref="QueryGraphRequest.queries" />
-        /// will override <paramref cref="QueryGraphRequest.edge_to_node" />,
-        /// so if <paramref cref="QueryGraphRequest.queries" /> contains a
-        /// node-based query identifier, e.g., 'table.column AS QUERY_NODE_ID',
-        /// it is assumed that the <paramref
-        /// cref="QueryGraphRequest.edge_or_node_int_ids" /> will contain node
-        /// IDs.
+        /// target="_top">Query Identifiers</a> for more information.
         /// <br />
         /// To return the adjacency list in the response, leave <paramref
         /// cref="QueryGraphRequest.adjacency_table" /> empty. To return the
@@ -10536,60 +10584,14 @@ namespace kinetica
         /// /> and returns a list of adjacent edge(s) or node(s), also known as
         /// an adjacency list, depending on what's been provided to the
         /// endpoint; providing edges will return nodes and providing nodes
-        /// will return edges. There are two ways to provide edge(s) or node(s)
-        /// to be queried: using column names and <a
-        /// href="../../graph_solver/network_graph_solver.html#query-identifiers"
-        /// target="_top">query identifiers</a> with the <paramref
-        /// name="queries" /> with or using a list of specific IDs with one of
-        /// the <paramref name="edge_or_node_int_ids" />, <paramref
-        /// name="edge_or_node_string_ids" />, and <paramref
-        /// name="edge_or_node_wkt_ids" /> arrays and <paramref
-        /// name="edge_to_node" /> to determine if the IDs are edges or nodes.
+        /// will return edges.
         /// <br />
         /// To determine the node(s) or edge(s) adjacent to a value from a
-        /// given column, provide a list of column names aliased as a
-        /// particular query identifier to <paramref name="queries" />. This
-        /// field can be populated with column values from any table as long as
-        /// the type is supported by the given identifier. See <a
+        /// given column, provide a list of values to <paramref name="queries"
+        /// />. This field can be populated with column values from any table
+        /// as long as the type is supported by the given identifier. See <a
         /// href="../../graph_solver/network_graph_solver.html#query-identifiers"
-        /// target="_top">Query Identifiers</a> for more information. I
-        /// <br />
-        /// To query for nodes that are adjacent to a given set of edges, set
-        /// <paramref name="edge_to_node" /> to <i>true</i> and provide values
-        /// to the <paramref name="edge_or_node_int_ids" />, <paramref
-        /// name="edge_or_node_string_ids" />, and <paramref
-        /// name="edge_or_node_wkt_ids" /> arrays; it is assumed the values in
-        /// the arrays are edges and the corresponding adjacency list array in
-        /// the response will be populated with nodes.
-        /// <br />
-        /// To query for edges that are adjacent to a given set of nodes, set
-        /// <paramref name="edge_to_node" /> to <i>false</i> and provide values
-        /// to the <paramref name="edge_or_node_int_ids" />, <paramref
-        /// name="edge_or_node_string_ids" />, and <paramref
-        /// name="edge_or_node_wkt_ids" /> arrays; it is assumed the values in
-        /// arrays are nodes and the given node(s) will be queried for adjacent
-        /// edges and the corresponding adjacency list array in the response
-        /// will be populated with edges.
-        /// <br />
-        /// To query for adjacencies relative to a given column and a given set
-        /// of edges/nodes, the <paramref name="queries" /> and <paramref
-        /// name="edge_or_node_int_ids" /> / <paramref
-        /// name="edge_or_node_string_ids" /> / <paramref
-        /// name="edge_or_node_wkt_ids" /> parameters can be used in conjuction
-        /// with each other. If both <paramref name="queries" /> and one of the
-        /// arrays are populated, values from <paramref name="queries" /> will
-        /// be prioritized over values in the array and all values parsed from
-        /// the <paramref name="queries" /> array will be appended to the
-        /// corresponding arrays (depending on the type). If using both
-        /// <paramref name="queries" /> and the edge_or_node arrays, the types
-        /// must match, e.g., if <paramref name="queries" /> utilizes the
-        /// 'QUERY_NODE_ID' identifier, only the <paramref
-        /// name="edge_or_node_int_ids" /> array should be used. Note that
-        /// using <paramref name="queries" /> will override <paramref
-        /// name="edge_to_node" />, so if <paramref name="queries" /> contains
-        /// a node-based query identifier, e.g., 'table.column AS
-        /// QUERY_NODE_ID', it is assumed that the <paramref
-        /// name="edge_or_node_int_ids" /> will contain node IDs.
+        /// target="_top">Query Identifiers</a> for more information.
         /// <br />
         /// To return the adjacency list in the response, leave <paramref
         /// name="adjacency_table" /> empty. To return the adjacency list in a
@@ -10608,64 +10610,63 @@ namespace kinetica
         /// <param name="queries">Nodes or edges to be queried specified using
         /// <a
         /// href="../../graph_solver/network_graph_solver.html#query-identifiers"
-        /// target="_top">query identifiers</a>, e.g., 'table.column AS
-        /// QUERY_NODE_ID' or 'table.column AS QUERY_EDGE_WKTLINE'. Multiple
-        /// columns can be used as long as the same identifier is used for all
-        /// columns. Passing in a query identifier will override the <paramref
-        /// cref="QueryGraphRequest.edge_to_node" /> parameter.  </param>
-        /// <param name="edge_to_node">If set to <i>true</i>, the given edge(s)
-        /// will be queried for adjacent nodes. If set to <i>false</i>, the
-        /// given node(s) will be queried for adjacent edges.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="QueryGraphRequest.EdgeToNode.TRUE">TRUE</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="QueryGraphRequest.EdgeToNode.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="QueryGraphRequest.EdgeToNode.TRUE">TRUE</see>.  </param>
-        /// <param name="edge_or_node_int_ids">The unique list of edge or node
-        /// integer identifiers that will be queried for adjacencies.  </param>
-        /// <param name="edge_or_node_string_ids">The unique list of edge or
-        /// node string identifiers that will be queried for adjacencies.
+        /// target="_top">query identifiers</a>. Identifiers can be used with
+        /// existing column names, e.g., 'table.column AS QUERY_NODE_ID', raw
+        /// values, e.g., '{0, 2} AS QUERY_NODE_ID', or expressions, e.g.,
+        /// 'ST_MAKEPOINT(table.x, table.y) AS QUERY_NODE_WKTPOINT'. Multiple
+        /// values can be provided as long as the same identifier is used for
+        /// all values. If using raw values in an identifier combination, the
+        /// number of values specified must match across the combination.
         /// </param>
-        /// <param name="edge_or_node_wkt_ids">The unique list of edge or node
-        /// WKTPOINT or WKTLINE string identifiers that will be queried for
-        /// adjacencies.  </param>
+        /// <param name="restrictions">Additional restrictions to apply to the
+        /// nodes/edges of an existing graph. Restrictions must be specified
+        /// using <a
+        /// href="../../graph_solver/network_graph_solver.html#identifiers"
+        /// target="_top">identifiers</a>; identifiers are grouped as <a
+        /// href="../../graph_solver/network_graph_solver.html#id-combos"
+        /// target="_top">combinations</a>. Identifiers can be used with
+        /// existing column names, e.g., 'table.column AS
+        /// RESTRICTIONS_EDGE_ID', expressions, e.g., 'column/2 AS
+        /// RESTRICTIONS_VALUECOMPARED', or raw values, e.g., '{0, 0, 0, 1} AS
+        /// RESTRICTIONS_ONOFFCOMPARED'. If using raw values in an identifier
+        /// combination, the number of values specified must match across the
+        /// combination.  The default value is an empty {@link List}.</param>
         /// <param name="adjacency_table">Name of the table to store the
         /// resulting adjacencies. If left blank, the query results are instead
         /// returned in the response even if <i>export_query_results</i> is set
-        /// to <i>false</i>.  The default value is ''.</param>
+        /// to <i>false</i>. If the 'QUERY_TARGET_NODE_LABEL' <a
+        /// href="../../graph_solver/network_graph_solver.html#query-identifiers"
+        /// target="_top">query identifier</a> is used in <paramref
+        /// cref="QueryGraphRequest.queries" />, then two additional columns
+        /// will be available: 'PATH_ID' and 'RING_ID'. See
+        ///             <a
+        /// href="../../graph_solver/network_graph_solver.html#using-labels"
+        /// target="_top">Using Labels</a> for more information.  The default
+        /// value is ''.</param>
         /// <param name="options">Additional parameters
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
-        /// cref="QueryGraphRequest.Options.NUMBER_OF_RINGS">NUMBER_OF_RINGS</see>:</term>
-        ///         <description>Sets the number of rings of edges around the
-        /// node to query for adjacency, with '1' being the edges directly
-        /// attached to the queried nodes. For example, if
-        /// <i>number_of_rings</i> is set to '2', the edge(s) directly attached
-        /// to the queried nodes will be returned; in addition, the edge(s)
-        /// attached to the node(s) attached to the initial ring of edge(s)
-        /// surrounding the queried node(s) will be returned. This setting is
-        /// ignored if <paramref cref="QueryGraphRequest.edge_to_node" /> is
-        /// set to <i>true</i>. This setting cannot be less than '1'.  The
-        /// default value is '1'.</description>
+        /// cref="QueryGraphRequest.Options.RINGS">RINGS</see>:</term>
+        ///         <description>Only applicable when querying nodes. Sets the
+        /// number of rings around the node to query for adjacency, with '1'
+        /// being the edges directly attached to the queried node. Also known
+        /// as number of hops. For example, if <i>rings</i> is set to '2', the
+        /// edge(s) directly attached to the queried node(s) will be returned;
+        /// in addition, the edge(s) attached to the node(s) attached to the
+        /// initial ring of edge(s) surrounding the queried node(s) will be
+        /// returned. This setting cannot be less than '1'.  The default value
+        /// is '1'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="QueryGraphRequest.Options.INCLUDE_ALL_EDGES">INCLUDE_ALL_EDGES</see>:</term>
+        /// cref="QueryGraphRequest.Options.FORCE_UNDIRECTED">FORCE_UNDIRECTED</see>:</term>
         ///         <description>This parameter is only applicable if the
-        /// queried graph is directed and <paramref
-        /// cref="QueryGraphRequest.edge_to_node" /> is set to <i>false</i>. If
-        /// set to <i>true</i>, all inbound edges and outbound edges relative
-        /// to the node will be returned. If set to <i>false</i>, only outbound
-        /// edges relative to the node will be returned.
+        /// queried graph <paramref cref="QueryGraphRequest.graph_name" /> is
+        /// directed and when querying nodes. If set to <i>true</i>, all
+        /// inbound edges and outbound edges relative to the node will be
+        /// returned. If set to <i>false</i>, only outbound edges relative to
+        /// the node will be returned.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -10682,9 +10683,42 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
+        /// cref="QueryGraphRequest.Options.LIMIT">LIMIT</see>:</term>
+        ///         <description>When specified, limits the number of query
+        /// results. Note that if the <i>target_nodes_table</i> is provided,
+        /// the size of the corresponding table will be limited by the
+        /// <i>limit</i> value.  The default value is an empty {@link
+        /// Dictionary}.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="QueryGraphRequest.Options.TARGET_NODES_TABLE">TARGET_NODES_TABLE</see>:</term>
+        ///         <description>Name of the table to store the list of the
+        /// final nodes reached during the traversal. If the
+        /// 'QUERY_TARGET_NODE_LABEL' <a
+        /// href="../../graph_solver/network_graph_solver.html#query-identifiers"
+        /// target="_top">query identifier</a> is NOT used in <paramref
+        /// cref="QueryGraphRequest.queries" />, the table will not be created.
+        /// The default value is ''.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="QueryGraphRequest.Options.RESTRICTION_THRESHOLD_VALUE">RESTRICTION_THRESHOLD_VALUE</see>:</term>
+        ///         <description>Value-based restriction comparison. Any node
+        /// or edge with a RESTRICTIONS_VALUECOMPARED value greater than the
+        /// <i>restriction_threshold_value</i> will not be included in the
+        /// solution.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="QueryGraphRequest.Options.EXPORT_QUERY_RESULTS">EXPORT_QUERY_RESULTS</see>:</term>
-        ///         <description>Returns query results in the response if set
-        /// to <i>true</i>.
+        ///         <description>Returns query results in the response. If set
+        /// to <i>true</i>, the <member name="adjacency_list_int_array" /> (if
+        /// the query was based on IDs), @{adjacency_list_string_array} (if the
+        /// query was based on names), or @{output_adjacency_list_wkt_array}
+        /// (if the query was based on WKTs) will be populated with the
+        /// results. If set to <i>false</i>, none of the arrays will be
+        /// populated.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -10697,7 +10731,7 @@ namespace kinetica
         ///     </item>
         /// </list>
         /// The default value is <see
-        /// cref="QueryGraphRequest.Options.TRUE">TRUE</see>.</description>
+        /// cref="QueryGraphRequest.Options.FALSE">FALSE</see>.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -10732,17 +10766,11 @@ namespace kinetica
         /// 
         public QueryGraphResponse queryGraph( string graph_name,
                                               IList<string> queries,
-                                              bool edge_to_node,
-                                              IList<long> edge_or_node_int_ids,
-                                              IList<string> edge_or_node_string_ids,
-                                              IList<string> edge_or_node_wkt_ids,
+                                              IList<string> restrictions = null,
                                               string adjacency_table = "",
                                               IDictionary<string, string> options = null )
         {
-            return queryGraph( new QueryGraphRequest( graph_name, queries, edge_to_node,
-                                                      edge_or_node_int_ids,
-                                                      edge_or_node_string_ids,
-                                                      edge_or_node_wkt_ids,
+            return queryGraph( new QueryGraphRequest( graph_name, queries, restrictions,
                                                       adjacency_table, options ) );
         }
 
@@ -11762,12 +11790,15 @@ namespace kinetica
         /// target="_top">identifiers</a>; identifiers are grouped as <a
         /// href="../../graph_solver/network_graph_solver.html#id-combos"
         /// target="_top">combinations</a>. Identifiers can be used with
-        /// existing column names, e.g., 'table.column AS WEIGHTS_EDGE_ID', or
-        /// expressions, e.g., 'ST_LENGTH(wkt) AS WEIGHTS_VALUESPECIFIED'. Any
+        /// existing column names, e.g., 'table.column AS WEIGHTS_EDGE_ID',
+        /// expressions, e.g., 'ST_LENGTH(wkt) AS WEIGHTS_VALUESPECIFIED', or
+        /// raw values, e.g., '{4, 15, 2} AS WEIGHTS_VALUESPECIFIED'. Any
         /// provided weights will be added (in the case of
         /// 'WEIGHTS_VALUESPECIFIED') to or multiplied with (in the case of
-        /// 'WEIGHTS_FACTORSPECIFIED') the existing weight(s).  The default
-        /// value is an empty {@link List}.</param>
+        /// 'WEIGHTS_FACTORSPECIFIED') the existing weight(s). If using raw
+        /// values in an identifier combination, the number of values specified
+        /// must match across the combination.  The default value is an empty
+        /// {@link List}.</param>
         /// <param name="restrictions">Additional restrictions to apply to the
         /// nodes/edges of an existing graph. Restrictions must be specified
         /// using <a
@@ -11776,13 +11807,16 @@ namespace kinetica
         /// href="../../graph_solver/network_graph_solver.html#id-combos"
         /// target="_top">combinations</a>. Identifiers can be used with
         /// existing column names, e.g., 'table.column AS
-        /// RESTRICTIONS_EDGE_ID', or expressions, e.g., 'column/2 AS
-        /// RESTRICTIONS_VALUECOMPARED'. If <i>remove_previous_restrictions</i>
-        /// is set to <i>true</i>, any provided restrictions will replace the
-        /// existing restrictions. If <i>remove_previous_restrictions</i> is
-        /// set to <i>false</i>, any provided weights will be added (in the
-        /// case of 'RESTRICTIONS_VALUECOMPARED') to or replaced (in the case
-        /// of 'RESTRICTIONS_ONOFFCOMPARED').  The default value is an empty
+        /// RESTRICTIONS_EDGE_ID', expressions, e.g., 'column/2 AS
+        /// RESTRICTIONS_VALUECOMPARED', or raw values, e.g., '{0, 0, 0, 1} AS
+        /// RESTRICTIONS_ONOFFCOMPARED'. If using raw values in an identifier
+        /// combination, the number of values specified must match across the
+        /// combination. If <i>remove_previous_restrictions</i> is set to
+        /// <i>true</i>, any provided restrictions will replace the existing
+        /// restrictions. If <i>remove_previous_restrictions</i> is set to
+        /// <i>false</i>, any provided weights will be added (in the case of
+        /// 'RESTRICTIONS_VALUECOMPARED') to or replaced (in the case of
+        /// 'RESTRICTIONS_ONOFFCOMPARED').  The default value is an empty
         /// {@link List}.</param>
         /// <param name="solver_type">The type of solver to use for the graph.
         /// Supported values:
@@ -11798,8 +11832,15 @@ namespace kinetica
         ///         <term><see
         /// cref="SolveGraphRequest.SolverType.PAGE_RANK">PAGE_RANK</see>:</term>
         ///         <description>Solves for the probability of each destination
-        /// node being visited based on the links of the graph
-        /// topology.</description>
+        /// node being visited based on the links of the graph topology.
+        /// Weights are not required to use this solver.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="SolveGraphRequest.SolverType.PROBABILITY_RANK">PROBABILITY_RANK</see>:</term>
+        ///         <description>Solves for the transitional probability
+        /// (Hidden Markov) for each node based on the weights (probability
+        /// assigned over given edges).</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -11915,6 +11956,18 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
+        /// cref="SolveGraphRequest.Options.MIN_SOLUTION_RADIUS">MIN_SOLUTION_RADIUS</see>:</term>
+        ///         <description>For <i>SHORTEST_PATH</i> and
+        /// <i>INVERSE_SHORTEST_PATH</i> solvers only. Applicable only when
+        /// <i>max_solution_radius</i> is set. Sets the minimum solution cost
+        /// radius, which ignores the <paramref
+        /// cref="SolveGraphRequest.destination_node_ids" /> list and instead
+        /// outputs the nodes within the radius sorted by ascending cost. If
+        /// set to '0.0', the setting is ignored.  The default value is
+        /// '0.0'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="SolveGraphRequest.Options.MAX_SOLUTION_TARGETS">MAX_SOLUTION_TARGETS</see>:</term>
         ///         <description>For <i>SHORTEST_PATH</i> and
         /// <i>INVERSE_SHORTEST_PATH</i> solvers only. Sets the maximum number
@@ -11971,6 +12024,14 @@ namespace kinetica
         /// or edge with a RESTRICTIONS_VALUECOMPARED value greater than the
         /// <i>restriction_threshold_value</i> will not be included in the
         /// solution.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="SolveGraphRequest.Options.UNIFORM_WEIGHTS">UNIFORM_WEIGHTS</see>:</term>
+        ///         <description>When specified, assigns the given value to all
+        /// the edges in the graph. Note that weights provided in <paramref
+        /// cref="SolveGraphRequest.weights_on_edges" /> will override this
+        /// value.</description>
         ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.</param>
@@ -12933,6 +12994,18 @@ namespace kinetica
         /// </list>
         /// The default value is <see
         /// cref="VisualizeImageChartRequest.StyleOptions.NONE">NONE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageChartRequest.StyleOptions.MIN_MAX_SCALED">MIN_MAX_SCALED</see>:</term>
+        ///         <description>If this options is set to "false", this
+        /// endpoint expects request's min/max values are not yet scaled. They
+        /// will be scaled according to scale_type_x or scale_type_y for
+        /// response. If this options is set to "true", this endpoint expects
+        /// request's min/max values are already scaled according to
+        /// scale_type_x/scale_type_y. Response's min/max values will be equal
+        /// to request's min/max values.  The default value is
+        /// 'false'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -13957,7 +14030,7 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="VisualizeImageContourRequest.Options.LABELS_FONT_FAMILY">LABELS_FONT_FAMILY</see>:</term>
-        ///         <description>  The default value is 'arial'.</description>
+        ///         <description>  The default value is 'sans'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -13978,6 +14051,21 @@ namespace kinetica
         ///         <term><see
         /// cref="VisualizeImageContourRequest.Options.LABELS_MAX_ANGLE">LABELS_MAX_ANGLE</see>:</term>
         ///         <description>  The default value is '60'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.Options.ISOCHRONE_CONCAVITY">ISOCHRONE_CONCAVITY</see>:</term>
+        ///         <description>  The default value is '-1'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.Options.ISOCHRONE_OUTPUT_TABLE">ISOCHRONE_OUTPUT_TABLE</see>:</term>
+        ///         <description>  The default value is ''.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageContourRequest.Options.ISOCHRONE_IMAGE">ISOCHRONE_IMAGE</see>:</term>
+        ///         <description>  The default value is 'false'.</description>
         ///     </item>
         /// </list>
         /// </param>
@@ -14592,6 +14680,700 @@ namespace kinetica
                                                                           options ) );
         }
         /// @endcond
+
+
+        /// <summary>Given a geomerty graph, draw isolines for travel results,
+        /// which are curves of equal cost. The latter is typically time or
+        /// distance assigned as the weights of the underlying graph.
+        /// .</summary>
+        /// 
+        /// <param name="request_">Request object containing the parameters for
+        /// the operation.</param>
+        /// 
+        /// <returns>Response object containing the result of the
+        /// operation.</returns>
+        /// 
+        public VisualizeIsochroneResponse visualizeIsochrone( VisualizeIsochroneRequest request_ )
+        {
+            VisualizeIsochroneResponse actualResponse_ = SubmitRequest<VisualizeIsochroneResponse>("/visualize/isochrone", request_, false);
+
+            return actualResponse_;
+        }
+
+
+        /// <summary>Given a geomerty graph, draw isolines for travel results,
+        /// which are curves of equal cost. The latter is typically time or
+        /// distance assigned as the weights of the underlying graph.
+        /// .</summary>
+        /// 
+        /// <param name="graph_name">Name of the graph on which the isochrone
+        /// is to be computed.  </param>
+        /// <param name="source_node">Starting vertex on the graph from/to
+        /// which we solve.  </param>
+        /// <param name="max_solution_radius">Extent of the search around the
+        /// source node. -1.0 is unrestricted.  The default value is
+        /// -1.0.</param>
+        /// <param name="weights_on_edges">Additional weights to apply to the
+        /// edges of an existing graph. Weights must be specified using <a
+        /// href="../../graph_solver/network_graph_solver.html#identifiers"
+        /// target="_top">identifiers</a>; identifiers are grouped as <a
+        /// href="../../graph_solver/network_graph_solver.html#id-combos"
+        /// target="_top">combinations</a>. Identifiers can be used with
+        /// existing column names, e.g., 'table.column AS WEIGHTS_EDGE_ID', or
+        /// expressions, e.g., 'ST_LENGTH(wkt) AS WEIGHTS_VALUESPECIFIED'. Any
+        /// provided weights will be added (in the case of
+        /// 'WEIGHTS_VALUESPECIFIED') to or multiplied with (in the case of
+        /// 'WEIGHTS_FACTORSPECIFIED') the existing weight(s).  The default
+        /// value is an empty {@link List}.</param>
+        /// <param name="restrictions">Additional restrictions to apply to the
+        /// nodes/edges of an existing graph. Restrictions must be specified
+        /// using <a
+        /// href="../../graph_solver/network_graph_solver.html#identifiers"
+        /// target="_top">identifiers</a>; identifiers are grouped as <a
+        /// href="../../graph_solver/network_graph_solver.html#id-combos"
+        /// target="_top">combinations</a>. Identifiers can be used with
+        /// existing column names, e.g., 'table.column AS
+        /// RESTRICTIONS_EDGE_ID', or expressions, e.g., 'column/2 AS
+        /// RESTRICTIONS_VALUECOMPARED'. If <i>remove_previous_restrictions</i>
+        /// is set to <i>true</i>, any provided restrictions will replace the
+        /// existing restrictions. If <i>remove_previous_restrictions</i> is
+        /// set to <i>false</i>, any provided weights will be added (in the
+        /// case of 'RESTRICTIONS_VALUECOMPARED') to or replaced (in the case
+        /// of 'RESTRICTIONS_ONOFFCOMPARED').  The default value is an empty
+        /// {@link List}.</param>
+        /// <param name="num_levels">Number of equally separated isochrone to
+        /// compute.  The default value is 1.</param>
+        /// <param name="generate_image">If true, return a PNG of the isochrone
+        /// in the response.  The default value is true.</param>
+        /// <param name="levels_table">Name of the table to output the
+        /// isochrone, containing levels and their corresponding WKT geomerty.
+        /// If no name is given, the table is not generated.  The default value
+        /// is ''.</param>
+        /// <param name="style_options">Various style related options of the
+        /// isochrone image.
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeIsochroneRequest.StyleOptions.LINE_SIZE">LINE_SIZE</see>:</term>
+        ///         <description>The width of the contour lines in pixel.  The
+        /// default value is '3'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeIsochroneRequest.StyleOptions.COLOR">COLOR</see>:</term>
+        ///         <description>Color of generated curves. All color values
+        /// must be in the format RRGGBB or AARRGGBB (to specify the alpha
+        /// value). If alpha is specified and flooded contours are enabled, it
+        /// will be used for as the transparency of the latter.  The default
+        /// value is 'FF696969'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeIsochroneRequest.StyleOptions.BG_COLOR">BG_COLOR</see>:</term>
+        ///         <description>Background color of the generated image. All
+        /// color values must be in the format RRGGBB or AARRGGBB (to specify
+        /// the alpha value).  The default value is '00000000'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeIsochroneRequest.StyleOptions.TEXT_COLOR">TEXT_COLOR</see>:</term>
+        ///         <description>Color for the labels when enabled. All color
+        /// values must be in the format RRGGBB or AARRGGBB (to specify the
+        /// alpha value).  The default value is 'FF000000'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeIsochroneRequest.StyleOptions.COLORMAP">COLORMAP</see>:</term>
+        ///         <description>Colormap for contours or fill-in regions when
+        /// enabled. All color values must be in the format RRGGBB or AARRGGBB
+        /// (to specify the alpha value)
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeIsochroneRequest.StyleOptions.JET">JET</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeIsochroneRequest.StyleOptions.ACCENT">ACCENT</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeIsochroneRequest.StyleOptions.AFMHOT">AFMHOT</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeIsochroneRequest.StyleOptions.AUTUMN">AUTUMN</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeIsochroneRequest.StyleOptions.BINARY">BINARY</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeIsochroneRequest.StyleOptions.BLUES">BLUES</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeIsochroneRequest.StyleOptions.BONE">BONE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeIsochroneRequest.StyleOptions.BRBG">BRBG</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeIsochroneRequest.StyleOptions.BRG">BRG</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeIsochroneRequest.StyleOptions.BUGN">BUGN</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeIsochroneRequest.StyleOptions.BUPU">BUPU</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeIsochroneRequest.StyleOptions.BWR">BWR</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeIsochroneRequest.StyleOptions.CMRMAP">CMRMAP</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeIsochroneRequest.StyleOptions.COOL">COOL</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeIsochroneRequest.StyleOptions.COOLWARM">COOLWARM</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeIsochroneRequest.StyleOptions.COPPER">COPPER</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeIsochroneRequest.StyleOptions.CUBEHELIX">CUBEHELIX</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeIsochroneRequest.StyleOptions.DARK2">DARK2</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeIsochroneRequest.StyleOptions.FLAG">FLAG</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeIsochroneRequest.StyleOptions.GIST_EARTH">GIST_EARTH</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeIsochroneRequest.StyleOptions.GIST_GRAY">GIST_GRAY</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeIsochroneRequest.StyleOptions.GIST_HEAT">GIST_HEAT</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeIsochroneRequest.StyleOptions.GIST_NCAR">GIST_NCAR</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeIsochroneRequest.StyleOptions.GIST_RAINBOW">GIST_RAINBOW</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeIsochroneRequest.StyleOptions.GIST_STERN">GIST_STERN</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeIsochroneRequest.StyleOptions.GIST_YARG">GIST_YARG</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeIsochroneRequest.StyleOptions.GNBU">GNBU</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeIsochroneRequest.StyleOptions.GNUPLOT2">GNUPLOT2</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeIsochroneRequest.StyleOptions.GNUPLOT">GNUPLOT</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeIsochroneRequest.StyleOptions.GRAY">GRAY</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeIsochroneRequest.StyleOptions.GREENS">GREENS</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeIsochroneRequest.StyleOptions.GREYS">GREYS</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeIsochroneRequest.StyleOptions.HOT">HOT</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeIsochroneRequest.StyleOptions.HSV">HSV</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeIsochroneRequest.StyleOptions.INFERNO">INFERNO</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeIsochroneRequest.StyleOptions.MAGMA">MAGMA</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeIsochroneRequest.StyleOptions.NIPY_SPECTRAL">NIPY_SPECTRAL</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeIsochroneRequest.StyleOptions.OCEAN">OCEAN</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeIsochroneRequest.StyleOptions.ORANGES">ORANGES</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeIsochroneRequest.StyleOptions.ORRD">ORRD</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeIsochroneRequest.StyleOptions.PAIRED">PAIRED</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeIsochroneRequest.StyleOptions.PASTEL1">PASTEL1</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeIsochroneRequest.StyleOptions.PASTEL2">PASTEL2</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeIsochroneRequest.StyleOptions.PINK">PINK</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeIsochroneRequest.StyleOptions.PIYG">PIYG</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeIsochroneRequest.StyleOptions.PLASMA">PLASMA</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeIsochroneRequest.StyleOptions.PRGN">PRGN</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeIsochroneRequest.StyleOptions.PRISM">PRISM</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeIsochroneRequest.StyleOptions.PUBU">PUBU</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeIsochroneRequest.StyleOptions.PUBUGN">PUBUGN</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeIsochroneRequest.StyleOptions.PUOR">PUOR</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeIsochroneRequest.StyleOptions.PURD">PURD</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeIsochroneRequest.StyleOptions.PURPLES">PURPLES</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeIsochroneRequest.StyleOptions.RAINBOW">RAINBOW</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeIsochroneRequest.StyleOptions.RDBU">RDBU</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeIsochroneRequest.StyleOptions.RDGY">RDGY</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeIsochroneRequest.StyleOptions.RDPU">RDPU</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeIsochroneRequest.StyleOptions.RDYLBU">RDYLBU</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeIsochroneRequest.StyleOptions.RDYLGN">RDYLGN</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeIsochroneRequest.StyleOptions.REDS">REDS</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeIsochroneRequest.StyleOptions.SEISMIC">SEISMIC</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeIsochroneRequest.StyleOptions.SET1">SET1</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeIsochroneRequest.StyleOptions.SET2">SET2</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeIsochroneRequest.StyleOptions.SET3">SET3</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeIsochroneRequest.StyleOptions.SPECTRAL">SPECTRAL</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeIsochroneRequest.StyleOptions.SPRING">SPRING</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeIsochroneRequest.StyleOptions.SUMMER">SUMMER</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeIsochroneRequest.StyleOptions.TERRAIN">TERRAIN</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeIsochroneRequest.StyleOptions.VIRIDIS">VIRIDIS</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeIsochroneRequest.StyleOptions.WINTER">WINTER</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeIsochroneRequest.StyleOptions.WISTIA">WISTIA</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeIsochroneRequest.StyleOptions.YLGN">YLGN</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeIsochroneRequest.StyleOptions.YLGNBU">YLGNBU</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeIsochroneRequest.StyleOptions.YLORBR">YLORBR</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeIsochroneRequest.StyleOptions.YLORRD">YLORRD</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="VisualizeIsochroneRequest.StyleOptions.JET">JET</see>.</description>
+        ///     </item>
+        /// </list>
+        ///   </param>
+        /// <param name="solve_options">Solver specific parameters
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeIsochroneRequest.SolveOptions.REMOVE_PREVIOUS_RESTRICTIONS">REMOVE_PREVIOUS_RESTRICTIONS</see>:</term>
+        ///         <description>Ignore the restrictions applied to the graph
+        /// during the creation stage and only use the restrictions specified
+        /// in this request if set to <i>true</i>.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeIsochroneRequest.SolveOptions.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeIsochroneRequest.SolveOptions.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="VisualizeIsochroneRequest.SolveOptions.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeIsochroneRequest.SolveOptions.RESTRICTION_THRESHOLD_VALUE">RESTRICTION_THRESHOLD_VALUE</see>:</term>
+        ///         <description>Value-based restriction comparison. Any node
+        /// or edge with a RESTRICTIONS_VALUECOMPARED value greater than the
+        /// <i>restriction_threshold_value</i> will not be included in the
+        /// solution.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeIsochroneRequest.SolveOptions.UNIFORM_WEIGHTS">UNIFORM_WEIGHTS</see>:</term>
+        ///         <description>When speficied, assigns the given value to all
+        /// the edges in the graph. Note that weights specified in
+        /// @{weights_on_edges} override this value.</description>
+        ///     </item>
+        /// </list>
+        /// The default value is an empty {@link Dictionary}.</param>
+        /// <param name="contour_options">Solver specific parameters
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeIsochroneRequest.ContourOptions.PROJECTION">PROJECTION</see>:</term>
+        ///         <description>Spatial Reference System (i.e. EPSG Code).
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeIsochroneRequest.ContourOptions._3857">_3857</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeIsochroneRequest.ContourOptions._102100">_102100</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeIsochroneRequest.ContourOptions._900913">_900913</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeIsochroneRequest.ContourOptions.EPSG_4326">EPSG_4326</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeIsochroneRequest.ContourOptions.PLATE_CARREE">PLATE_CARREE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeIsochroneRequest.ContourOptions.EPSG_900913">EPSG_900913</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeIsochroneRequest.ContourOptions.EPSG_102100">EPSG_102100</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeIsochroneRequest.ContourOptions.EPSG_3857">EPSG_3857</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeIsochroneRequest.ContourOptions.WEB_MERCATOR">WEB_MERCATOR</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="VisualizeIsochroneRequest.ContourOptions.PLATE_CARREE">PLATE_CARREE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeIsochroneRequest.ContourOptions.WIDTH">WIDTH</see>:</term>
+        ///         <description>Height of the generated image if applicable.
+        /// The default value is '512'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeIsochroneRequest.ContourOptions.HEIGHT">HEIGHT</see>:</term>
+        ///         <description>Height of the generated image if applicable.
+        /// If not given, a default of aspect_ratio*width is used.  The default
+        /// value is '-1'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeIsochroneRequest.ContourOptions.SEARCH_RADIUS">SEARCH_RADIUS</see>:</term>
+        ///         <description>When interpolating the graph solution to
+        /// generate the isochrone, neighborhood of influence of sample data
+        /// (in percent of the image/grid).  The default value is
+        /// '20'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeIsochroneRequest.ContourOptions.GRID_SIZE">GRID_SIZE</see>:</term>
+        ///         <description>When interpolating the graph solution to
+        /// generate the isochrone, number of subdivisions alongs the x axis
+        /// when building the grid (the y is computed using the aspect ratio of
+        /// the output image).  The default value is '100'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeIsochroneRequest.ContourOptions.COLOR_ISOLINES">COLOR_ISOLINES</see>:</term>
+        ///         <description>Color each isoline according to the colormap;
+        /// otherwise, use the foreground color.  The default value is
+        /// 'true'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeIsochroneRequest.ContourOptions.ADD_LABELS">ADD_LABELS</see>:</term>
+        ///         <description>Labels the isolines in the image.  The default
+        /// value is 'false'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeIsochroneRequest.ContourOptions.LABELS_FONT_SIZE">LABELS_FONT_SIZE</see>:</term>
+        ///         <description>Font size to be unsed when adding labels, in
+        /// pixels.  The default value is '12'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeIsochroneRequest.ContourOptions.LABELS_FONT_FAMILY">LABELS_FONT_FAMILY</see>:</term>
+        ///         <description>Font name to be unsed when adding labels.  The
+        /// default value is 'arial'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeIsochroneRequest.ContourOptions.LABELS_SEARCH_WINDOW">LABELS_SEARCH_WINDOW</see>:</term>
+        ///         <description>When placing labels on isolines, a search
+        /// window is used to rate the local quality of each isoline. Smooth,
+        /// continuous, long stretches with relatively flat angles are favored.
+        /// The given number multiplied by the font size to get the final
+        /// window size to use.  The default value is '4'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeIsochroneRequest.ContourOptions.LABELS_INTRALEVEL_SEPARATION">LABELS_INTRALEVEL_SEPARATION</see>:</term>
+        ///         <description>When labels are enabled, labels are separated
+        /// to avoid overlap: This specifies the distance certain distance (in
+        /// multiples of the font size) to use when separating labels of
+        /// different values.  The default value is '4'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeIsochroneRequest.ContourOptions.LABELS_INTERLEVEL_SEPARATION">LABELS_INTERLEVEL_SEPARATION</see>:</term>
+        ///         <description>When labels are enabled, more than one label
+        /// can placed on the same isoline: This specifies the distance certain
+        /// distance (in percent of the total window size) to use when
+        /// separating labels of the same value.  The default value is
+        /// '20'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeIsochroneRequest.ContourOptions.LABELS_MAX_ANGLE">LABELS_MAX_ANGLE</see>:</term>
+        ///         <description>Maximum angle from the vertical to use when
+        /// adding labels, in degrees.  The default value is
+        /// '60'.</description>
+        ///     </item>
+        /// </list>
+        /// The default value is an empty {@link Dictionary}.</param>
+        /// <param name="options">Additional parameters
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeIsochroneRequest.Options.SOLVE_TABLE">SOLVE_TABLE</see>:</term>
+        ///         <description>Name of the table of the intermediate solve
+        /// results, conatining the position and cost for each vertex in the
+        /// graph. If no name is given, a temporary table is created and
+        /// deleted one the solve is done.  The default value is
+        /// ''.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeIsochroneRequest.Options.IS_REPLICATED">IS_REPLICATED</see>:</term>
+        ///         <description>Replicate the solution table if true.  The
+        /// default value is 'true'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeIsochroneRequest.Options.DATA_MIN_X">DATA_MIN_X</see>:</term>
+        ///         <description>Lower bound for the x values. If not given, it
+        /// will be computed from the bounds of the input data.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeIsochroneRequest.Options.DATA_MAX_X">DATA_MAX_X</see>:</term>
+        ///         <description>Upper bound for the x values. If not given, it
+        /// will be computed from the bounds of the input data.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeIsochroneRequest.Options.DATA_MIN_Y">DATA_MIN_Y</see>:</term>
+        ///         <description>Lower bound for the y values. If not given, it
+        /// will be computed from the bounds of the input data.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeIsochroneRequest.Options.DATA_MAX_Y">DATA_MAX_Y</see>:</term>
+        ///         <description>Upper bound for the y values. If not given, it
+        /// will be computed from the bounds of the input data.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeIsochroneRequest.Options.CONCAVITY_LEVEL">CONCAVITY_LEVEL</see>:</term>
+        ///         <description>Factor to qualify the concavity of the
+        /// isocrhone curves, 0 for completely convex, 1 to maximize concavity.
+        /// The default value is '0.5'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeIsochroneRequest.Options.SOLVE_DIRECTION">SOLVE_DIRECTION</see>:</term>
+        ///         <description>Specify whether we are going to the source
+        /// node, or starting from it.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeIsochroneRequest.Options.FROM_SOURCE">FROM_SOURCE</see>:</term>
+        ///         <description>Shortest path to get to the source (inverse
+        /// Dijkstra)</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeIsochroneRequest.Options.TO_SOURCE">TO_SOURCE</see>:</term>
+        ///         <description>Shortest path to source
+        /// (Dijkstra)</description>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="VisualizeIsochroneRequest.Options.FROM_SOURCE">FROM_SOURCE</see>.</description>
+        ///     </item>
+        /// </list>
+        /// The default value is an empty {@link Dictionary}.</param>
+        /// 
+        /// <returns>Response object containing the result of the
+        /// operation.</returns>
+        /// 
+        public VisualizeIsochroneResponse visualizeIsochrone( string graph_name,
+                                                              string source_node,
+                                                              double max_solution_radius,
+                                                              IList<string> weights_on_edges,
+                                                              IList<string> restrictions,
+                                                              int num_levels,
+                                                              bool generate_image,
+                                                              string levels_table,
+                                                              IDictionary<string, string> style_options,
+                                                              IDictionary<string, string> solve_options = null,
+                                                              IDictionary<string, string> contour_options = null,
+                                                              IDictionary<string, string> options = null )
+        {
+            return visualizeIsochrone( new VisualizeIsochroneRequest( graph_name,
+                                                                      source_node,
+                                                                      max_solution_radius,
+                                                                      weights_on_edges,
+                                                                      restrictions,
+                                                                      num_levels,
+                                                                      generate_image,
+                                                                      levels_table,
+                                                                      style_options,
+                                                                      solve_options,
+                                                                      contour_options,
+                                                                      options ) );
+        }
 
         /// @cond NO_DOCS
         /// 

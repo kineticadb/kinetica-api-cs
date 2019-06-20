@@ -412,9 +412,11 @@ namespace kinetica
         /// target="_top">identifiers</a>; identifiers are grouped as <a
         /// href="../../graph_solver/network_graph_solver.html#id-combos"
         /// target="_top">combinations</a>. Identifiers can be used with
-        /// existing column names, e.g., 'table.column AS NODE_ID', or
+        /// existing column names, e.g., 'table.column AS NODE_ID',
         /// expressions, e.g., 'ST_MAKEPOINT(column1, column2) AS
-        /// NODE_WKTPOINT'.  </summary>
+        /// NODE_WKTPOINT', or raw values, e.g., '{9, 10, 11} AS NODE_ID'. If
+        /// using raw values in an identifier combination, the number of values
+        /// specified must match across the combination.  </summary>
         public IList<string> nodes { get; set; } = new List<string>();
 
         /// <summary>Edges represent the required fundamental topological unit
@@ -424,9 +426,11 @@ namespace kinetica
         /// target="_top">identifiers</a>; identifiers are grouped as <a
         /// href="../../graph_solver/network_graph_solver.html#id-combos"
         /// target="_top">combinations</a>. Identifiers can be used with
-        /// existing column names, e.g., 'table.column AS EDGE_ID', or
-        /// expressions, e.g., 'SUBSTR(column, 1, 6) AS EDGE_NODE1_NAME'.
-        /// </summary>
+        /// existing column names, e.g., 'table.column AS EDGE_ID',
+        /// expressions, e.g., 'SUBSTR(column, 1, 6) AS EDGE_NODE1_NAME', or
+        /// raw values, e.g., "{'family', 'coworker'} AS EDGE_LABEL". If using
+        /// raw values in an identifier combination, the number of values
+        /// specified must match across the combination.  </summary>
         public IList<string> edges { get; set; } = new List<string>();
 
         /// <summary>Weights represent a method of informing the graph solver
@@ -436,9 +440,11 @@ namespace kinetica
         /// target="_top">identifiers</a>; identifiers are grouped as <a
         /// href="../../graph_solver/network_graph_solver.html#id-combos"
         /// target="_top">combinations</a>. Identifiers can be used with
-        /// existing column names, e.g., 'table.column AS WEIGHTS_EDGE_ID', or
-        /// expressions, e.g., 'ST_LENGTH(wkt) AS WEIGHTS_VALUESPECIFIED'.
-        /// </summary>
+        /// existing column names, e.g., 'table.column AS WEIGHTS_EDGE_ID',
+        /// expressions, e.g., 'ST_LENGTH(wkt) AS WEIGHTS_VALUESPECIFIED', or
+        /// raw values, e.g., '{4, 15} AS WEIGHTS_VALUESPECIFIED'. If using raw
+        /// values in an identifier combination, the number of values specified
+        /// must match across the combination.  </summary>
         public IList<string> weights { get; set; } = new List<string>();
 
         /// <summary>Restrictions represent a method of informing the graph
@@ -449,8 +455,11 @@ namespace kinetica
         /// href="../../graph_solver/network_graph_solver.html#id-combos"
         /// target="_top">combinations</a>. Identifiers can be used with
         /// existing column names, e.g., 'table.column AS
-        /// RESTRICTIONS_EDGE_ID', or expressions, e.g., 'column/2 AS
-        /// RESTRICTIONS_VALUECOMPARED'.  </summary>
+        /// RESTRICTIONS_EDGE_ID', expressions, e.g., 'column/2 AS
+        /// RESTRICTIONS_VALUECOMPARED', or raw values, e.g., '{0, 0, 0, 1} AS
+        /// RESTRICTIONS_ONOFFCOMPARED'. If using raw values in an identifier
+        /// combination, the number of values specified must match across the
+        /// combination.  </summary>
         public IList<string> restrictions { get; set; } = new List<string>();
 
         /// <summary>Optional parameters.
@@ -665,9 +674,11 @@ namespace kinetica
         /// target="_top">identifiers</a>; identifiers are grouped as <a
         /// href="../../graph_solver/network_graph_solver.html#id-combos"
         /// target="_top">combinations</a>. Identifiers can be used with
-        /// existing column names, e.g., 'table.column AS NODE_ID', or
+        /// existing column names, e.g., 'table.column AS NODE_ID',
         /// expressions, e.g., 'ST_MAKEPOINT(column1, column2) AS
-        /// NODE_WKTPOINT'.  </param>
+        /// NODE_WKTPOINT', or raw values, e.g., '{9, 10, 11} AS NODE_ID'. If
+        /// using raw values in an identifier combination, the number of values
+        /// specified must match across the combination.  </param>
         /// <param name="edges">Edges represent the required fundamental
         /// topological unit of a graph that typically connect nodes. Edges
         /// must be specified using <a
@@ -675,9 +686,11 @@ namespace kinetica
         /// target="_top">identifiers</a>; identifiers are grouped as <a
         /// href="../../graph_solver/network_graph_solver.html#id-combos"
         /// target="_top">combinations</a>. Identifiers can be used with
-        /// existing column names, e.g., 'table.column AS EDGE_ID', or
-        /// expressions, e.g., 'SUBSTR(column, 1, 6) AS EDGE_NODE1_NAME'.
-        /// </param>
+        /// existing column names, e.g., 'table.column AS EDGE_ID',
+        /// expressions, e.g., 'SUBSTR(column, 1, 6) AS EDGE_NODE1_NAME', or
+        /// raw values, e.g., "{'family', 'coworker'} AS EDGE_LABEL". If using
+        /// raw values in an identifier combination, the number of values
+        /// specified must match across the combination.  </param>
         /// <param name="weights">Weights represent a method of informing the
         /// graph solver of the cost of including a given edge in a solution.
         /// Weights must be specified using <a
@@ -685,9 +698,11 @@ namespace kinetica
         /// target="_top">identifiers</a>; identifiers are grouped as <a
         /// href="../../graph_solver/network_graph_solver.html#id-combos"
         /// target="_top">combinations</a>. Identifiers can be used with
-        /// existing column names, e.g., 'table.column AS WEIGHTS_EDGE_ID', or
-        /// expressions, e.g., 'ST_LENGTH(wkt) AS WEIGHTS_VALUESPECIFIED'.
-        /// </param>
+        /// existing column names, e.g., 'table.column AS WEIGHTS_EDGE_ID',
+        /// expressions, e.g., 'ST_LENGTH(wkt) AS WEIGHTS_VALUESPECIFIED', or
+        /// raw values, e.g., '{4, 15} AS WEIGHTS_VALUESPECIFIED'. If using raw
+        /// values in an identifier combination, the number of values specified
+        /// must match across the combination.  </param>
         /// <param name="restrictions">Restrictions represent a method of
         /// informing the graph solver which edges and/or nodes should be
         /// ignored for the solution. Restrictions must be specified using <a
@@ -696,8 +711,11 @@ namespace kinetica
         /// href="../../graph_solver/network_graph_solver.html#id-combos"
         /// target="_top">combinations</a>. Identifiers can be used with
         /// existing column names, e.g., 'table.column AS
-        /// RESTRICTIONS_EDGE_ID', or expressions, e.g., 'column/2 AS
-        /// RESTRICTIONS_VALUECOMPARED'.  </param>
+        /// RESTRICTIONS_EDGE_ID', expressions, e.g., 'column/2 AS
+        /// RESTRICTIONS_VALUECOMPARED', or raw values, e.g., '{0, 0, 0, 1} AS
+        /// RESTRICTIONS_ONOFFCOMPARED'. If using raw values in an identifier
+        /// combination, the number of values specified must match across the
+        /// combination.  </param>
         /// <param name="options">Optional parameters.
         /// <list type="bullet">
         ///     <item>
@@ -878,7 +896,7 @@ namespace kinetica
         /// The default value is an empty {@link Dictionary}.</param>
         /// 
         public CreateGraphRequest( string graph_name,
-                                   bool directed_graph,
+                                   bool? directed_graph,
                                    IList<string> nodes,
                                    IList<string> edges,
                                    IList<string> weights,
@@ -886,7 +904,7 @@ namespace kinetica
                                    IDictionary<string, string> options = null)
         {
             this.graph_name = graph_name ?? "";
-            this.directed_graph = directed_graph ?? DirectedGraph.TRUE;
+            this.directed_graph = directed_graph ?? true;
             this.nodes = nodes ?? new List<string>();
             this.edges = edges ?? new List<string>();
             this.weights = weights ?? new List<string>();

@@ -204,13 +204,13 @@ namespace kinetica
         /// The default value is an empty {@link Dictionary}.</param>
         /// 
         public GetRecordsFromCollectionRequest( string table_name,
-                                                long offset = 0,
-                                                long limit = 10000,
+                                                long? offset = null,
+                                                long? limit = null,
                                                 IDictionary<string, string> options = null)
         {
             this.table_name = table_name ?? "";
-            this.offset = offset;
-            this.limit = limit;
+            this.offset = offset ?? 0;
+            this.limit = limit ?? 10000;
             this.encoding = Encoding.BINARY;
             this.options = options ?? new Dictionary<string, string>();
         } // end constructor
@@ -271,14 +271,14 @@ namespace kinetica
         /// The default value is an empty {@link Dictionary}.</param>
         /// 
         public GetRecordsFromCollectionRequest( string table_name,
-                                                long offset = 0,
-                                                long limit = 10000,
+                                                long? offset = null,
+                                                long? limit = null,
                                                 string encoding = null,
                                                 IDictionary<string, string> options = null)
         {
             this.table_name = table_name ?? "";
-            this.offset = offset;
-            this.limit = limit;
+            this.offset = offset ?? 0;
+            this.limit = limit ?? 10000;
             this.encoding = encoding ?? Encoding.BINARY;
             this.options = options ?? new Dictionary<string, string>();
         } // end full constructor
