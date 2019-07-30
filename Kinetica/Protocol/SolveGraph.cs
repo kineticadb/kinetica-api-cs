@@ -390,8 +390,8 @@ namespace kinetica
         /// combination. If <i>remove_previous_restrictions</i> is set to
         /// <i>true</i>, any provided restrictions will replace the existing
         /// restrictions. If <i>remove_previous_restrictions</i> is set to
-        /// <i>false</i>, any provided weights will be added (in the case of
-        /// 'RESTRICTIONS_VALUECOMPARED') to or replaced (in the case of
+        /// <i>false</i>, any provided restrictions will be added (in the case
+        /// of 'RESTRICTIONS_VALUECOMPARED') to or replaced (in the case of
         /// 'RESTRICTIONS_ONOFFCOMPARED').  The default value is an empty
         /// {@link List}.</summary>
         public IList<string> restrictions { get; set; } = new List<string>();
@@ -668,8 +668,8 @@ namespace kinetica
         /// combination. If <i>remove_previous_restrictions</i> is set to
         /// <i>true</i>, any provided restrictions will replace the existing
         /// restrictions. If <i>remove_previous_restrictions</i> is set to
-        /// <i>false</i>, any provided weights will be added (in the case of
-        /// 'RESTRICTIONS_VALUECOMPARED') to or replaced (in the case of
+        /// <i>false</i>, any provided restrictions will be added (in the case
+        /// of 'RESTRICTIONS_VALUECOMPARED') to or replaced (in the case of
         /// 'RESTRICTIONS_ONOFFCOMPARED').  The default value is an empty
         /// {@link List}.</param>
         /// <param name="solver_type">The type of solver to use for the graph.

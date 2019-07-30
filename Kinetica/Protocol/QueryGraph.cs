@@ -158,6 +158,25 @@ namespace kinetica
         /// The default value is <see
         /// cref="QueryGraphRequest.Options.FALSE">FALSE</see>.</description>
         ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="QueryGraphRequest.Options.AND_LABELS">AND_LABELS</see>:</term>
+        ///         <description>If set to <i>true</i>, the result of the query
+        /// has entities that satisfy all of the target labels, instead of any.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="QueryGraphRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="QueryGraphRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="QueryGraphRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.
         /// A set of string constants for the parameter <see cref="options"
@@ -264,6 +283,23 @@ namespace kinetica
             /// The default value is <see
             /// cref="QueryGraphRequest.Options.FALSE">FALSE</see>.</summary>
             public const string ENABLE_GRAPH_DRAW = "enable_graph_draw";
+
+            /// <summary>If set to <i>true</i>, the result of the query has
+            /// entities that satisfy all of the target labels, instead of any.
+            /// Supported values:
+            /// <list type="bullet">
+            ///     <item>
+            ///         <term><see
+            /// cref="QueryGraphRequest.Options.TRUE">TRUE</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="QueryGraphRequest.Options.FALSE">FALSE</see></term>
+            ///     </item>
+            /// </list>
+            /// The default value is <see
+            /// cref="QueryGraphRequest.Options.FALSE">FALSE</see>.</summary>
+            public const string AND_LABELS = "and_labels";
         } // end struct Options
 
 
@@ -411,6 +447,25 @@ namespace kinetica
         /// to the <a href="../../api/rest/wms_rest.html"
         /// target="_top">/wms</a> endpoint can then be made to display the
         /// query results on a map.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="QueryGraphRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="QueryGraphRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="QueryGraphRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="QueryGraphRequest.Options.AND_LABELS">AND_LABELS</see>:</term>
+        ///         <description>If set to <i>true</i>, the result of the query
+        /// has entities that satisfy all of the target labels, instead of any.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -576,6 +631,25 @@ namespace kinetica
         /// to the <a href="../../api/rest/wms_rest.html"
         /// target="_top">/wms</a> endpoint can then be made to display the
         /// query results on a map.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="QueryGraphRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="QueryGraphRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="QueryGraphRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="QueryGraphRequest.Options.AND_LABELS">AND_LABELS</see>:</term>
+        ///         <description>If set to <i>true</i>, the result of the query
+        /// has entities that satisfy all of the target labels, instead of any.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>

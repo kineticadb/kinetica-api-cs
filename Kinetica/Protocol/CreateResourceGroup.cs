@@ -175,7 +175,7 @@ namespace kinetica
         /// <summary>If <paramref cref="CreateResourceGroupRequest.ranking" />
         /// is <i>before</i> or <i>after</i>, this field indicates the resource
         /// group before or after which the current group will be placed;
-        /// otherwise, left blank.  The default value is ''.</summary>
+        /// otherwise, leave blank.  The default value is ''.</summary>
         public string adjoining_resource_group { get; set; } = "";
 
         /// <summary>Optional parameters.
@@ -256,7 +256,7 @@ namespace kinetica
         /// <param name="adjoining_resource_group">If <paramref
         /// cref="CreateResourceGroupRequest.ranking" /> is <i>before</i> or
         /// <i>after</i>, this field indicates the resource group before or
-        /// after which the current group will be placed; otherwise, left
+        /// after which the current group will be placed; otherwise, leave
         /// blank.  The default value is ''.</param>
         /// <param name="options">Optional parameters.
         /// <list type="bullet">
