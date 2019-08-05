@@ -105,6 +105,26 @@ namespace kinetica
         /// The default value is <see
         /// cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see>.</description>
         ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="RawInsertRecordsRequest.Options.TRUNCATE_STRINGS">TRUNCATE_STRINGS</see>:</term>
+        ///         <description>If set to {true}@{, any strings which are too
+        /// long for their charN string fields will be truncated to fit.  The
+        /// default value is false.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="RawInsertRecordsRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.
         /// A set of string constants for the parameter <see cref="options"
@@ -156,6 +176,24 @@ namespace kinetica
             /// The default value is <see
             /// cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see>.</summary>
             public const string RETURN_RECORD_IDS = "return_record_ids";
+
+            /// <summary>If set to {true}@{, any strings which are too long for
+            /// their charN string fields will be truncated to fit.  The
+            /// default value is false.
+            /// Supported values:
+            /// <list type="bullet">
+            ///     <item>
+            ///         <term><see
+            /// cref="RawInsertRecordsRequest.Options.TRUE">TRUE</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see></term>
+            ///     </item>
+            /// </list>
+            /// The default value is <see
+            /// cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see>.</summary>
+            public const string TRUNCATE_STRINGS = "truncate_strings";
         } // end struct Options
 
 
@@ -241,6 +279,26 @@ namespace kinetica
         /// The default value is <see
         /// cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see>.</description>
         ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="RawInsertRecordsRequest.Options.TRUNCATE_STRINGS">TRUNCATE_STRINGS</see>:</term>
+        ///         <description>If set to {true}@{, any strings which are too
+        /// long for their charN string fields will be truncated to fit.  The
+        /// default value is false.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="RawInsertRecordsRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.</summary>
         public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
@@ -294,6 +352,26 @@ namespace kinetica
         /// cref="RawInsertRecordsRequest.Options.RETURN_RECORD_IDS">RETURN_RECORD_IDS</see>:</term>
         ///         <description>If <i>true</i> then return the internal record
         /// id along for each inserted record.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="RawInsertRecordsRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="RawInsertRecordsRequest.Options.TRUNCATE_STRINGS">TRUNCATE_STRINGS</see>:</term>
+        ///         <description>If set to {true}@{, any strings which are too
+        /// long for their charN string fields will be truncated to fit.  The
+        /// default value is false.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -402,6 +480,26 @@ namespace kinetica
         /// The default value is <see
         /// cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see>.</description>
         ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="RawInsertRecordsRequest.Options.TRUNCATE_STRINGS">TRUNCATE_STRINGS</see>:</term>
+        ///         <description>If set to {true}@{, any strings which are too
+        /// long for their charN string fields will be truncated to fit.  The
+        /// default value is false.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="RawInsertRecordsRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.</param>
         /// 
@@ -496,6 +594,26 @@ namespace kinetica
         /// The default value is <see
         /// cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see>.</description>
         ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="RawInsertRecordsRequest.Options.TRUNCATE_STRINGS">TRUNCATE_STRINGS</see>:</term>
+        ///         <description>If set to {true}@{, any strings which are too
+        /// long for their charN string fields will be truncated to fit.  The
+        /// default value is false.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="RawInsertRecordsRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.
         /// A set of string constants for the parameter <see cref="options"
@@ -547,6 +665,24 @@ namespace kinetica
             /// The default value is <see
             /// cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see>.</summary>
             public const string RETURN_RECORD_IDS = "return_record_ids";
+
+            /// <summary>If set to {true}@{, any strings which are too long for
+            /// their charN string fields will be truncated to fit.  The
+            /// default value is false.
+            /// Supported values:
+            /// <list type="bullet">
+            ///     <item>
+            ///         <term><see
+            /// cref="RawInsertRecordsRequest.Options.TRUE">TRUE</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see></term>
+            ///     </item>
+            /// </list>
+            /// The default value is <see
+            /// cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see>.</summary>
+            public const string TRUNCATE_STRINGS = "truncate_strings";
         } // end struct Options
 
 
@@ -595,6 +731,26 @@ namespace kinetica
         /// cref="RawInsertRecordsRequest.Options.RETURN_RECORD_IDS">RETURN_RECORD_IDS</see>:</term>
         ///         <description>If <i>true</i> then return the internal record
         /// id along for each inserted record.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="RawInsertRecordsRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="RawInsertRecordsRequest.Options.TRUNCATE_STRINGS">TRUNCATE_STRINGS</see>:</term>
+        ///         <description>If set to {true}@{, any strings which are too
+        /// long for their charN string fields will be truncated to fit.  The
+        /// default value is false.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -662,6 +818,26 @@ namespace kinetica
         /// cref="RawInsertRecordsRequest.Options.RETURN_RECORD_IDS">RETURN_RECORD_IDS</see>:</term>
         ///         <description>If <i>true</i> then return the internal record
         /// id along for each inserted record.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="RawInsertRecordsRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="RawInsertRecordsRequest.Options.TRUNCATE_STRINGS">TRUNCATE_STRINGS</see>:</term>
+        ///         <description>If set to {true}@{, any strings which are too
+        /// long for their charN string fields will be truncated to fit.  The
+        /// default value is false.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>

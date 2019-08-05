@@ -22,8 +22,10 @@ namespace kinetica
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
-        /// cref="AdminShowJobsRequest.Options.SHOW_DETAILS">SHOW_DETAILS</see>:</term>
-        ///         <description>
+        /// cref="AdminShowJobsRequest.Options.SHOW_ASYNC_JOBS">SHOW_ASYNC_JOBS</see>:</term>
+        ///         <description>If <i>true</i>, then the completed async jobs
+        /// are also included in the response. By default, once the async jobs
+        /// are completed they are no longer included in the jobs list.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -34,7 +36,9 @@ namespace kinetica
         ///         <term><see
         /// cref="AdminShowJobsRequest.Options.FALSE">FALSE</see></term>
         ///     </item>
-        /// </list></description>
+        /// </list>
+        /// The default value is <see
+        /// cref="AdminShowJobsRequest.Options.FALSE">FALSE</see>.</description>
         ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.
@@ -43,7 +47,9 @@ namespace kinetica
         public struct Options
         {
 
-            /// <summary>
+            /// <summary>If <i>true</i>, then the completed async jobs are also
+            /// included in the response. By default, once the async jobs are
+            /// completed they are no longer included in the jobs list.
             /// Supported values:
             /// <list type="bullet">
             ///     <item>
@@ -54,8 +60,10 @@ namespace kinetica
             ///         <term><see
             /// cref="AdminShowJobsRequest.Options.FALSE">FALSE</see></term>
             ///     </item>
-            /// </list></summary>
-            public const string SHOW_DETAILS = "show_details";
+            /// </list>
+            /// The default value is <see
+            /// cref="AdminShowJobsRequest.Options.FALSE">FALSE</see>.</summary>
+            public const string SHOW_ASYNC_JOBS = "show_async_jobs";
             public const string TRUE = "true";
             public const string FALSE = "false";
         } // end struct Options
@@ -65,8 +73,10 @@ namespace kinetica
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
-        /// cref="AdminShowJobsRequest.Options.SHOW_DETAILS">SHOW_DETAILS</see>:</term>
-        ///         <description>
+        /// cref="AdminShowJobsRequest.Options.SHOW_ASYNC_JOBS">SHOW_ASYNC_JOBS</see>:</term>
+        ///         <description>If <i>true</i>, then the completed async jobs
+        /// are also included in the response. By default, once the async jobs
+        /// are completed they are no longer included in the jobs list.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -77,7 +87,9 @@ namespace kinetica
         ///         <term><see
         /// cref="AdminShowJobsRequest.Options.FALSE">FALSE</see></term>
         ///     </item>
-        /// </list></description>
+        /// </list>
+        /// The default value is <see
+        /// cref="AdminShowJobsRequest.Options.FALSE">FALSE</see>.</description>
         ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.</summary>
@@ -95,8 +107,10 @@ namespace kinetica
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
-        /// cref="AdminShowJobsRequest.Options.SHOW_DETAILS">SHOW_DETAILS</see>:</term>
-        ///         <description>
+        /// cref="AdminShowJobsRequest.Options.SHOW_ASYNC_JOBS">SHOW_ASYNC_JOBS</see>:</term>
+        ///         <description>If <i>true</i>, then the completed async jobs
+        /// are also included in the response. By default, once the async jobs
+        /// are completed they are no longer included in the jobs list.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -107,7 +121,9 @@ namespace kinetica
         ///         <term><see
         /// cref="AdminShowJobsRequest.Options.FALSE">FALSE</see></term>
         ///     </item>
-        /// </list></description>
+        /// </list>
+        /// The default value is <see
+        /// cref="AdminShowJobsRequest.Options.FALSE">FALSE</see>.</description>
         ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.</param>
@@ -131,6 +147,7 @@ namespace kinetica
         public IList<string> endpoint_name { get; set; } = new List<string>();
         public IList<long> time_received { get; set; } = new List<long>();
         public IList<string> auth_id { get; set; } = new List<string>();
+        public IList<string> source_ip { get; set; } = new List<string>();
         public IList<string> user_data { get; set; } = new List<string>();
 
         /// <summary>Additional information.  </summary>

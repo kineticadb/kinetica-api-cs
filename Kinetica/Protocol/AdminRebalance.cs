@@ -89,6 +89,16 @@ namespace kinetica
         /// Cannot be used simultaneously with
         /// <i>table_whitelist</i>.</description>
         ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AdminRebalanceRequest.Options.AGGRESSIVENESS">AGGRESSIVENESS</see>:</term>
+        ///         <description>Influences how much data to send per rebalance
+        /// round.  A higher aggressiveness setting will complete the rebalance
+        /// faster.  A lower aggressiveness setting will take longer, but allow
+        /// for better interleaving between the rebalance and other queries.
+        /// Allowed values are 1 through 10.  The default value is
+        /// '1'.</description>
+        ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.
         /// A set of string constants for the parameter <see cref="options"
@@ -150,6 +160,14 @@ namespace kinetica
             /// key. Cannot be used simultaneously with
             /// <i>table_whitelist</i>.</summary>
             public const string TABLE_BLACKLIST = "table_blacklist";
+
+            /// <summary>Influences how much data to send per rebalance round.
+            /// A higher aggressiveness setting will complete the rebalance
+            /// faster.  A lower aggressiveness setting will take longer, but
+            /// allow for better interleaving between the rebalance and other
+            /// queries. Allowed values are 1 through 10.  The default value is
+            /// '1'.</summary>
+            public const string AGGRESSIVENESS = "aggressiveness";
         } // end struct Options
 
 
@@ -215,6 +233,16 @@ namespace kinetica
         /// always balanced in accordance with their primary key or shard key.
         /// Cannot be used simultaneously with
         /// <i>table_whitelist</i>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AdminRebalanceRequest.Options.AGGRESSIVENESS">AGGRESSIVENESS</see>:</term>
+        ///         <description>Influences how much data to send per rebalance
+        /// round.  A higher aggressiveness setting will complete the rebalance
+        /// faster.  A lower aggressiveness setting will take longer, but allow
+        /// for better interleaving between the rebalance and other queries.
+        /// Allowed values are 1 through 10.  The default value is
+        /// '1'.</description>
         ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.</summary>
@@ -290,6 +318,16 @@ namespace kinetica
         /// always balanced in accordance with their primary key or shard key.
         /// Cannot be used simultaneously with
         /// <i>table_whitelist</i>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AdminRebalanceRequest.Options.AGGRESSIVENESS">AGGRESSIVENESS</see>:</term>
+        ///         <description>Influences how much data to send per rebalance
+        /// round.  A higher aggressiveness setting will complete the rebalance
+        /// faster.  A lower aggressiveness setting will take longer, but allow
+        /// for better interleaving between the rebalance and other queries.
+        /// Allowed values are 1 through 10.  The default value is
+        /// '1'.</description>
         ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.</param>
