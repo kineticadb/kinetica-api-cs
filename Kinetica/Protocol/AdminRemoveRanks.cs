@@ -74,6 +74,16 @@ namespace kinetica
         /// The default value is <see
         /// cref="AdminRemoveRanksRequest.Options.TRUE">TRUE</see>.</description>
         ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AdminRemoveRanksRequest.Options.AGGRESSIVENESS">AGGRESSIVENESS</see>:</term>
+        ///         <description>Influences how much data to send per rebalance
+        /// round, during the rebalance portion of removing ranks.  A higher
+        /// aggressiveness setting will complete the rebalance faster.  A lower
+        /// aggressiveness setting will take longer, but allow for better
+        /// interleaving between the rebalance and other queries. Allowed
+        /// values are 1 through 10.  The default value is '1'.</description>
+        ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.
         /// A set of string constants for the parameter <see cref="options"
@@ -121,6 +131,15 @@ namespace kinetica
             /// The default value is <see
             /// cref="AdminRemoveRanksRequest.Options.TRUE">TRUE</see>.</summary>
             public const string REBALANCE_UNSHARDED_DATA = "rebalance_unsharded_data";
+
+            /// <summary>Influences how much data to send per rebalance round,
+            /// during the rebalance portion of removing ranks.  A higher
+            /// aggressiveness setting will complete the rebalance faster.  A
+            /// lower aggressiveness setting will take longer, but allow for
+            /// better interleaving between the rebalance and other queries.
+            /// Allowed values are 1 through 10.  The default value is
+            /// '1'.</summary>
+            public const string AGGRESSIVENESS = "aggressiveness";
         } // end struct Options
 
 
@@ -172,6 +191,16 @@ namespace kinetica
         /// </list>
         /// The default value is <see
         /// cref="AdminRemoveRanksRequest.Options.TRUE">TRUE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AdminRemoveRanksRequest.Options.AGGRESSIVENESS">AGGRESSIVENESS</see>:</term>
+        ///         <description>Influences how much data to send per rebalance
+        /// round, during the rebalance portion of removing ranks.  A higher
+        /// aggressiveness setting will complete the rebalance faster.  A lower
+        /// aggressiveness setting will take longer, but allow for better
+        /// interleaving between the rebalance and other queries. Allowed
+        /// values are 1 through 10.  The default value is '1'.</description>
         ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.</summary>
@@ -231,6 +260,16 @@ namespace kinetica
         /// </list>
         /// The default value is <see
         /// cref="AdminRemoveRanksRequest.Options.TRUE">TRUE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AdminRemoveRanksRequest.Options.AGGRESSIVENESS">AGGRESSIVENESS</see>:</term>
+        ///         <description>Influences how much data to send per rebalance
+        /// round, during the rebalance portion of removing ranks.  A higher
+        /// aggressiveness setting will complete the rebalance faster.  A lower
+        /// aggressiveness setting will take longer, but allow for better
+        /// interleaving between the rebalance and other queries. Allowed
+        /// values are 1 through 10.  The default value is '1'.</description>
         ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.</param>

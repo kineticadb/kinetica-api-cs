@@ -94,12 +94,9 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="AppendRecordsRequest.Options.TRUNCATE_STRINGS">TRUNCATE_STRINGS</see>:</term>
-        ///         <description>If set to {true}@{, it allows to append
-        /// unbounded string to charN string. If 'truncate_strings' is 'true',
-        /// the desination column is charN datatype, and the source column is
-        /// unnbounded string, it will truncate the source string to length of
-        /// N first, and then append the truncated string to the destination
-        /// charN column. The default value is false.
+        ///         <description>If set to {true}@{, it allows appending longer
+        /// strings to smaller charN string columns by truncating the longer
+        /// string to fit.  The default value is false.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -176,12 +173,9 @@ namespace kinetica
             public const string TRUE = "true";
             public const string FALSE = "false";
 
-            /// <summary>If set to {true}@{, it allows to append unbounded
-            /// string to charN string. If 'truncate_strings' is 'true', the
-            /// desination column is charN datatype, and the source column is
-            /// unnbounded string, it will truncate the source string to length
-            /// of N first, and then append the truncated string to the
-            /// destination charN column. The default value is false.
+            /// <summary>If set to {true}@{, it allows appending longer strings
+            /// to smaller charN string columns by truncating the longer string
+            /// to fit.  The default value is false.
             /// Supported values:
             /// <list type="bullet">
             ///     <item>
@@ -289,12 +283,9 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="AppendRecordsRequest.Options.TRUNCATE_STRINGS">TRUNCATE_STRINGS</see>:</term>
-        ///         <description>If set to {true}@{, it allows to append
-        /// unbounded string to charN string. If 'truncate_strings' is 'true',
-        /// the desination column is charN datatype, and the source column is
-        /// unnbounded string, it will truncate the source string to length of
-        /// N first, and then append the truncated string to the destination
-        /// charN column. The default value is false.
+        ///         <description>If set to {true}@{, it allows appending longer
+        /// strings to smaller charN string columns by truncating the longer
+        /// string to fit.  The default value is false.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -406,12 +397,9 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="AppendRecordsRequest.Options.TRUNCATE_STRINGS">TRUNCATE_STRINGS</see>:</term>
-        ///         <description>If set to {true}@{, it allows to append
-        /// unbounded string to charN string. If 'truncate_strings' is 'true',
-        /// the desination column is charN datatype, and the source column is
-        /// unnbounded string, it will truncate the source string to length of
-        /// N first, and then append the truncated string to the destination
-        /// charN column. The default value is false.
+        ///         <description>If set to {true}@{, it allows appending longer
+        /// strings to smaller charN string columns by truncating the longer
+        /// string to fit.  The default value is false.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>

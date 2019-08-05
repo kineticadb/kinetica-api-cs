@@ -140,6 +140,7 @@
     <Compile Include="Protocol\GetRecordsBySeries.cs" />
     <Compile Include="Protocol\GetRecordsFromCollection.cs" />
     <Compile Include="Protocol\GetVectortile.cs" />
+    <Compile Include="Protocol\GrantPermissionProc.cs" />
     <Compile Include="Protocol\GrantPermissionSystem.cs" />
     <Compile Include="Protocol\GrantPermissionTable.cs" />
     <Compile Include="Protocol\GrantRole.cs" />
@@ -156,9 +157,11 @@
     <Compile Include="Protocol\MergeRecords.cs" />
     <Compile Include="Protocol\QueryGraph.cs" />
     <Compile Include="Protocol\RawKineticaResponse.cs" />
+    <Compile Include="Protocol\RevokePermissionProc.cs" />
     <Compile Include="Protocol\RevokePermissionSystem.cs" />
     <Compile Include="Protocol\RevokePermissionTable.cs" />
     <Compile Include="Protocol\RevokeRole.cs" />
+    <Compile Include="Protocol\ShowGraph.cs" />
     <Compile Include="Protocol\ShowProc.cs" />
     <Compile Include="Protocol\ShowProcStatus.cs" />
     <Compile Include="Protocol\ShowResourceGroups.cs" />

@@ -12,7 +12,7 @@ namespace kinetica
 {
 
     /// <summary>A set of parameters for <see
-    /// cref="Kinetica.queryGraph(string,IList{string},IList{string},string,IDictionary{string, string})"
+    /// cref="Kinetica.queryGraph(string,IList{string},IList{string},string,int,IDictionary{string, string})"
     /// />.
     /// <br />
     /// Employs a topological query on a network graph generated a-priori by
@@ -45,19 +45,6 @@ namespace kinetica
 
         /// <summary>Additional parameters
         /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="QueryGraphRequest.Options.RINGS">RINGS</see>:</term>
-        ///         <description>Only applicable when querying nodes. Sets the
-        /// number of rings around the node to query for adjacency, with '1'
-        /// being the edges directly attached to the queried node. Also known
-        /// as number of hops. For example, if <i>rings</i> is set to '2', the
-        /// edge(s) directly attached to the queried node(s) will be returned;
-        /// in addition, the edge(s) attached to the node(s) attached to the
-        /// initial ring of edge(s) surrounding the queried node(s) will be
-        /// returned. This setting cannot be less than '1'.  The default value
-        /// is '1'.</description>
-        ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="QueryGraphRequest.Options.FORCE_UNDIRECTED">FORCE_UNDIRECTED</see>:</term>
@@ -94,12 +81,9 @@ namespace kinetica
         ///         <term><see
         /// cref="QueryGraphRequest.Options.TARGET_NODES_TABLE">TARGET_NODES_TABLE</see>:</term>
         ///         <description>Name of the table to store the list of the
-        /// final nodes reached during the traversal. If the
-        /// 'QUERY_TARGET_NODE_LABEL' <a
-        /// href="../../graph_solver/network_graph_solver.html#query-identifiers"
-        /// target="_top">query identifier</a> is NOT used in <paramref
-        /// cref="QueryGraphRequest.queries" />, the table will not be created.
-        /// The default value is ''.</description>
+        /// final nodes reached during the traversal. If this value is not
+        /// given it'll default to adjacemcy_table+'_nodes'.  The default value
+        /// is ''.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -184,17 +168,6 @@ namespace kinetica
         public struct Options
         {
 
-            /// <summary>Only applicable when querying nodes. Sets the number
-            /// of rings around the node to query for adjacency, with '1' being
-            /// the edges directly attached to the queried node. Also known as
-            /// number of hops. For example, if <i>rings</i> is set to '2', the
-            /// edge(s) directly attached to the queried node(s) will be
-            /// returned; in addition, the edge(s) attached to the node(s)
-            /// attached to the initial ring of edge(s) surrounding the queried
-            /// node(s) will be returned. This setting cannot be less than '1'.
-            /// The default value is '1'.</summary>
-            public const string RINGS = "rings";
-
             /// <summary>This parameter is only applicable if the queried graph
             /// <see cref="graph_name" /> is directed and when querying nodes.
             /// If set to <i>true</i>, all inbound edges and outbound edges
@@ -225,12 +198,9 @@ namespace kinetica
             public const string LIMIT = "limit";
 
             /// <summary>Name of the table to store the list of the final nodes
-            /// reached during the traversal. If the 'QUERY_TARGET_NODE_LABEL'
-            /// <a
-            /// href="../../graph_solver/network_graph_solver.html#query-identifiers"
-            /// target="_top">query identifier</a> is NOT used in <see
-            /// cref="queries" />, the table will not be created.  The default
-            /// value is ''.</summary>
+            /// reached during the traversal. If this value is not given it'll
+            /// default to adjacemcy_table+'_nodes'.  The default value is
+            /// ''.</summary>
             public const string TARGET_NODES_TABLE = "target_nodes_table";
 
             /// <summary>Value-based restriction comparison. Any node or edge
@@ -346,21 +316,20 @@ namespace kinetica
         /// value is ''.</summary>
         public string adjacency_table { get; set; } = "";
 
+        /// <summary>Only applicable when querying nodes. Sets the number of
+        /// rings around the node to query for adjacency, with '1' being the
+        /// edges directly attached to the queried node. Also known as number
+        /// of hops. For example, if it is set to '2', the edge(s) directly
+        /// attached to the queried node(s) will be returned; in addition, the
+        /// edge(s) attached to the node(s) attached to the initial ring of
+        /// edge(s) surrounding the queried node(s) will be returned. This
+        /// setting can be '0' in which case if the node type id label, it'll
+        /// then query for all that has the same property.  The default value
+        /// is 1.</summary>
+        public int rings { get; set; } = 1;
+
         /// <summary>Additional parameters
         /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="QueryGraphRequest.Options.RINGS">RINGS</see>:</term>
-        ///         <description>Only applicable when querying nodes. Sets the
-        /// number of rings around the node to query for adjacency, with '1'
-        /// being the edges directly attached to the queried node. Also known
-        /// as number of hops. For example, if <i>rings</i> is set to '2', the
-        /// edge(s) directly attached to the queried node(s) will be returned;
-        /// in addition, the edge(s) attached to the node(s) attached to the
-        /// initial ring of edge(s) surrounding the queried node(s) will be
-        /// returned. This setting cannot be less than '1'.  The default value
-        /// is '1'.</description>
-        ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="QueryGraphRequest.Options.FORCE_UNDIRECTED">FORCE_UNDIRECTED</see>:</term>
@@ -397,12 +366,9 @@ namespace kinetica
         ///         <term><see
         /// cref="QueryGraphRequest.Options.TARGET_NODES_TABLE">TARGET_NODES_TABLE</see>:</term>
         ///         <description>Name of the table to store the list of the
-        /// final nodes reached during the traversal. If the
-        /// 'QUERY_TARGET_NODE_LABEL' <a
-        /// href="../../graph_solver/network_graph_solver.html#query-identifiers"
-        /// target="_top">query identifier</a> is NOT used in <paramref
-        /// cref="QueryGraphRequest.queries" />, the table will not be created.
-        /// The default value is ''.</description>
+        /// final nodes reached during the traversal. If this value is not
+        /// given it'll default to adjacemcy_table+'_nodes'.  The default value
+        /// is ''.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -530,21 +496,18 @@ namespace kinetica
         /// href="../../graph_solver/network_graph_solver.html#using-labels"
         /// target="_top">Using Labels</a> for more information.  The default
         /// value is ''.</param>
-        /// <param name="options">Additional parameters
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="QueryGraphRequest.Options.RINGS">RINGS</see>:</term>
-        ///         <description>Only applicable when querying nodes. Sets the
+        /// <param name="rings">Only applicable when querying nodes. Sets the
         /// number of rings around the node to query for adjacency, with '1'
         /// being the edges directly attached to the queried node. Also known
-        /// as number of hops. For example, if <i>rings</i> is set to '2', the
-        /// edge(s) directly attached to the queried node(s) will be returned;
-        /// in addition, the edge(s) attached to the node(s) attached to the
+        /// as number of hops. For example, if it is set to '2', the edge(s)
+        /// directly attached to the queried node(s) will be returned; in
+        /// addition, the edge(s) attached to the node(s) attached to the
         /// initial ring of edge(s) surrounding the queried node(s) will be
-        /// returned. This setting cannot be less than '1'.  The default value
-        /// is '1'.</description>
-        ///     </item>
+        /// returned. This setting can be '0' in which case if the node type id
+        /// label, it'll then query for all that has the same property.  The
+        /// default value is 1.</param>
+        /// <param name="options">Additional parameters
+        /// <list type="bullet">
         ///     <item>
         ///         <term><see
         /// cref="QueryGraphRequest.Options.FORCE_UNDIRECTED">FORCE_UNDIRECTED</see>:</term>
@@ -581,12 +544,9 @@ namespace kinetica
         ///         <term><see
         /// cref="QueryGraphRequest.Options.TARGET_NODES_TABLE">TARGET_NODES_TABLE</see>:</term>
         ///         <description>Name of the table to store the list of the
-        /// final nodes reached during the traversal. If the
-        /// 'QUERY_TARGET_NODE_LABEL' <a
-        /// href="../../graph_solver/network_graph_solver.html#query-identifiers"
-        /// target="_top">query identifier</a> is NOT used in <paramref
-        /// cref="QueryGraphRequest.queries" />, the table will not be created.
-        /// The default value is ''.</description>
+        /// final nodes reached during the traversal. If this value is not
+        /// given it'll default to adjacemcy_table+'_nodes'.  The default value
+        /// is ''.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -671,12 +631,14 @@ namespace kinetica
                                   IList<string> queries,
                                   IList<string> restrictions = null,
                                   string adjacency_table = null,
+                                  int? rings = null,
                                   IDictionary<string, string> options = null)
         {
             this.graph_name = graph_name ?? "";
             this.queries = queries ?? new List<string>();
             this.restrictions = restrictions ?? new List<string>();
             this.adjacency_table = adjacency_table ?? "";
+            this.rings = rings ?? 1;
             this.options = options ?? new Dictionary<string, string>();
         } // end constructor
 
@@ -685,7 +647,7 @@ namespace kinetica
 
 
     /// <summary>A set of results returned by <see
-    /// cref="Kinetica.queryGraph(string,IList{string},IList{string},string,IDictionary{string, string})"
+    /// cref="Kinetica.queryGraph(string,IList{string},IList{string},string,int,IDictionary{string, string})"
     /// />.</summary>
     public class QueryGraphResponse : KineticaData
     {

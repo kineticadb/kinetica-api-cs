@@ -16,7 +16,7 @@ namespace kinetica
     {
 
         // Kinetica Version
-        public const string API_VERSION = "7.0.5.0";
+        public const string API_VERSION = "7.0.6.0";
 
 
 
@@ -360,6 +360,16 @@ namespace kinetica
         /// Cannot be used simultaneously with
         /// <i>table_whitelist</i>.</description>
         ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AdminRebalanceRequest.Options.AGGRESSIVENESS">AGGRESSIVENESS</see>:</term>
+        ///         <description>Influences how much data to send per rebalance
+        /// round.  A higher aggressiveness setting will complete the rebalance
+        /// faster.  A lower aggressiveness setting will take longer, but allow
+        /// for better interleaving between the rebalance and other queries.
+        /// Allowed values are 1 through 10.  The default value is
+        /// '1'.</description>
+        ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.</param>
         /// 
@@ -458,6 +468,16 @@ namespace kinetica
         /// </list>
         /// The default value is <see
         /// cref="AdminRemoveRanksRequest.Options.TRUE">TRUE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AdminRemoveRanksRequest.Options.AGGRESSIVENESS">AGGRESSIVENESS</see>:</term>
+        ///         <description>Influences how much data to send per rebalance
+        /// round, during the rebalance portion of removing ranks.  A higher
+        /// aggressiveness setting will complete the rebalance faster.  A lower
+        /// aggressiveness setting will take longer, but allow for better
+        /// interleaving between the rebalance and other queries. Allowed
+        /// values are 1 through 10.  The default value is '1'.</description>
         ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.</param>
@@ -582,8 +602,10 @@ namespace kinetica
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
-        /// cref="AdminShowJobsRequest.Options.SHOW_DETAILS">SHOW_DETAILS</see>:</term>
-        ///         <description>
+        /// cref="AdminShowJobsRequest.Options.SHOW_ASYNC_JOBS">SHOW_ASYNC_JOBS</see>:</term>
+        ///         <description>If <i>true</i>, then the completed async jobs
+        /// are also included in the response. By default, once the async jobs
+        /// are completed they are no longer included in the jobs list.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -594,7 +616,9 @@ namespace kinetica
         ///         <term><see
         /// cref="AdminShowJobsRequest.Options.FALSE">FALSE</see></term>
         ///     </item>
-        /// </list></description>
+        /// </list>
+        /// The default value is <see
+        /// cref="AdminShowJobsRequest.Options.FALSE">FALSE</see>.</description>
         ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.</param>
@@ -3740,12 +3764,9 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="AppendRecordsRequest.Options.TRUNCATE_STRINGS">TRUNCATE_STRINGS</see>:</term>
-        ///         <description>If set to {true}@{, it allows to append
-        /// unbounded string to charN string. If 'truncate_strings' is 'true',
-        /// the desination column is charN datatype, and the source column is
-        /// unnbounded string, it will truncate the source string to length of
-        /// N first, and then append the truncated string to the destination
-        /// charN column. The default value is false.
+        ///         <description>If set to {true}@{, it allows appending longer
+        /// strings to smaller charN string columns by truncating the longer
+        /// string to fit.  The default value is false.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -9208,6 +9229,56 @@ namespace kinetica
         /// @endcond
 
 
+        /// <summary>Grants a proc-level permission to a user or
+        /// role.</summary>
+        /// 
+        /// <param name="request_">Request object containing the parameters for
+        /// the operation.</param>
+        /// 
+        /// <returns>Response object containing the result of the
+        /// operation.</returns>
+        /// 
+        public GrantPermissionProcResponse grantPermissionProc( GrantPermissionProcRequest request_ )
+        {
+            GrantPermissionProcResponse actualResponse_ = SubmitRequest<GrantPermissionProcResponse>("/grant/permission/proc", request_, false);
+
+            return actualResponse_;
+        }
+
+
+        /// <summary>Grants a proc-level permission to a user or
+        /// role.</summary>
+        /// 
+        /// <param name="name">Name of the user or role to which the permission
+        /// will be granted. Must be an existing user or role.  </param>
+        /// <param name="permission">Permission to grant to the user or role.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="GrantPermissionProcRequest.Permission.PROC_EXECUTE">PROC_EXECUTE</see>:</term>
+        ///         <description>Execute access to the proc.</description>
+        ///     </item>
+        /// </list>  </param>
+        /// <param name="proc_name">Name of the proc to which the permission
+        /// grants access. Must be an existing proc, or an empty string to
+        /// grant access to all procs.  </param>
+        /// <param name="options">Optional parameters.  The default value is an
+        /// empty {@link Dictionary}.</param>
+        /// 
+        /// <returns>Response object containing the result of the
+        /// operation.</returns>
+        /// 
+        public GrantPermissionProcResponse grantPermissionProc( string name,
+                                                                string permission,
+                                                                string proc_name,
+                                                                IDictionary<string, string> options = null )
+        {
+            return grantPermissionProc( new GrantPermissionProcRequest( name, permission,
+                                                                        proc_name, options ) );
+        }
+
+
         /// <summary>Grants a system-level permission to a user or
         /// role.</summary>
         /// 
@@ -9619,6 +9690,26 @@ namespace kinetica
         /// cref="RawInsertRecordsRequest.Options.RETURN_RECORD_IDS">RETURN_RECORD_IDS</see>:</term>
         ///         <description>If <i>true</i> then return the internal record
         /// id along for each inserted record.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="RawInsertRecordsRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="RawInsertRecordsRequest.Options.TRUNCATE_STRINGS">TRUNCATE_STRINGS</see>:</term>
+        ///         <description>If set to {true}@{, any strings which are too
+        /// long for their charN string fields will be truncated to fit.  The
+        /// default value is false.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -10643,21 +10734,18 @@ namespace kinetica
         /// href="../../graph_solver/network_graph_solver.html#using-labels"
         /// target="_top">Using Labels</a> for more information.  The default
         /// value is ''.</param>
-        /// <param name="options">Additional parameters
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="QueryGraphRequest.Options.RINGS">RINGS</see>:</term>
-        ///         <description>Only applicable when querying nodes. Sets the
+        /// <param name="rings">Only applicable when querying nodes. Sets the
         /// number of rings around the node to query for adjacency, with '1'
         /// being the edges directly attached to the queried node. Also known
-        /// as number of hops. For example, if <i>rings</i> is set to '2', the
-        /// edge(s) directly attached to the queried node(s) will be returned;
-        /// in addition, the edge(s) attached to the node(s) attached to the
+        /// as number of hops. For example, if it is set to '2', the edge(s)
+        /// directly attached to the queried node(s) will be returned; in
+        /// addition, the edge(s) attached to the node(s) attached to the
         /// initial ring of edge(s) surrounding the queried node(s) will be
-        /// returned. This setting cannot be less than '1'.  The default value
-        /// is '1'.</description>
-        ///     </item>
+        /// returned. This setting can be '0' in which case if the node type id
+        /// label, it'll then query for all that has the same property.  The
+        /// default value is 1.</param>
+        /// <param name="options">Additional parameters
+        /// <list type="bullet">
         ///     <item>
         ///         <term><see
         /// cref="QueryGraphRequest.Options.FORCE_UNDIRECTED">FORCE_UNDIRECTED</see>:</term>
@@ -10694,12 +10782,9 @@ namespace kinetica
         ///         <term><see
         /// cref="QueryGraphRequest.Options.TARGET_NODES_TABLE">TARGET_NODES_TABLE</see>:</term>
         ///         <description>Name of the table to store the list of the
-        /// final nodes reached during the traversal. If the
-        /// 'QUERY_TARGET_NODE_LABEL' <a
-        /// href="../../graph_solver/network_graph_solver.html#query-identifiers"
-        /// target="_top">query identifier</a> is NOT used in <paramref
-        /// cref="QueryGraphRequest.queries" />, the table will not be created.
-        /// The default value is ''.</description>
+        /// final nodes reached during the traversal. If this value is not
+        /// given it'll default to adjacemcy_table+'_nodes'.  The default value
+        /// is ''.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -10787,10 +10872,65 @@ namespace kinetica
                                               IList<string> queries,
                                               IList<string> restrictions = null,
                                               string adjacency_table = "",
+                                              int rings = "1",
                                               IDictionary<string, string> options = null )
         {
             return queryGraph( new QueryGraphRequest( graph_name, queries, restrictions,
-                                                      adjacency_table, options ) );
+                                                      adjacency_table, rings, options ) );
+        }
+
+
+        /// <summary>Revokes a proc-level permission from a user or
+        /// role.</summary>
+        /// 
+        /// <param name="request_">Request object containing the parameters for
+        /// the operation.</param>
+        /// 
+        /// <returns>Response object containing the result of the
+        /// operation.</returns>
+        /// 
+        public RevokePermissionProcResponse revokePermissionProc( RevokePermissionProcRequest request_ )
+        {
+            RevokePermissionProcResponse actualResponse_ = SubmitRequest<RevokePermissionProcResponse>("/revoke/permission/proc", request_, false);
+
+            return actualResponse_;
+        }
+
+
+        /// <summary>Revokes a proc-level permission from a user or
+        /// role.</summary>
+        /// 
+        /// <param name="name">Name of the user or role from which the
+        /// permission will be revoked. Must be an existing user or role.
+        /// </param>
+        /// <param name="permission">Permission to revoke from the user or
+        /// role.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="RevokePermissionProcRequest.Permission.PROC_EXECUTE">PROC_EXECUTE</see>:</term>
+        ///         <description>Execute access to the proc.</description>
+        ///     </item>
+        /// </list>  </param>
+        /// <param name="proc_name">Name of the proc to which the permission
+        /// grants access. Must be an existing proc, or an empty string if the
+        /// permission grants access to all procs.  </param>
+        /// <param name="options">Optional parameters.  The default value is an
+        /// empty {@link Dictionary}.</param>
+        /// 
+        /// <returns>Response object containing the result of the
+        /// operation.</returns>
+        /// 
+        public RevokePermissionProcResponse revokePermissionProc( string name,
+                                                                  string permission,
+                                                                  string proc_name,
+                                                                  IDictionary<string, string> options = null )
+        {
+            return revokePermissionProc( new RevokePermissionProcRequest( name,
+                                                                          permission,
+                                                                          proc_name,
+                                                                          options ) );
         }
 
 
@@ -10966,6 +11106,63 @@ namespace kinetica
                                               IDictionary<string, string> options = null )
         {
             return revokeRole( new RevokeRoleRequest( role, member, options ) );
+        }
+
+
+        /// <summary>Shows information and characteristics of graphs that exist
+        /// on the graph server, depending on the options specified.</summary>
+        /// 
+        /// <param name="request_">Request object containing the parameters for
+        /// the operation.</param>
+        /// 
+        /// <returns>Response object containing the result of the
+        /// operation.</returns>
+        /// 
+        public ShowGraphResponse showGraph( ShowGraphRequest request_ )
+        {
+            ShowGraphResponse actualResponse_ = SubmitRequest<ShowGraphResponse>("/show/graph", request_, false);
+
+            return actualResponse_;
+        }
+
+
+        /// <summary>Shows information and characteristics of graphs that exist
+        /// on the graph server, depending on the options specified.</summary>
+        /// 
+        /// <param name="graph_name">Name of the graph on which to retrieve
+        /// information. If empty, information about all graphs is returned.
+        /// The default value is ''.</param>
+        /// <param name="options">Optional parameters.
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="ShowGraphRequest.Options.SHOW_ORIGINAL_REQUEST">SHOW_ORIGINAL_REQUEST</see>:</term>
+        ///         <description>If set to <i>true</i>, the request that was
+        /// originally used.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="ShowGraphRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ShowGraphRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="ShowGraphRequest.Options.TRUE">TRUE</see>.</description>
+        ///     </item>
+        /// </list>
+        /// The default value is an empty {@link Dictionary}.</param>
+        /// 
+        /// <returns>Response object containing the result of the
+        /// operation.</returns>
+        /// 
+        public ShowGraphResponse showGraph( string graph_name = "",
+                                            IDictionary<string, string> options = null )
+        {
+            return showGraph( new ShowGraphRequest( graph_name, options ) );
         }
 
 
