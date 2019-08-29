@@ -55,6 +55,14 @@ namespace kinetica
         /// path between origin and destination pairs with cost
         /// constraints</description>
         ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="MatchGraphRequest.SolveMethod.MATCH_SUPPLY_DEMAND">MATCH_SUPPLY_DEMAND</see>:</term>
+        ///         <description>Matches <paramref
+        /// cref="MatchGraphRequest.sample_points" /> to optimize scheduling
+        /// multiple supplies (trucks) with varying sizes to varying demand
+        /// sites with varying capacities per depot</description>
+        ///     </item>
         /// </list>
         /// The default value is <see
         /// cref="MatchGraphRequest.SolveMethod.MARKOV_CHAIN">MARKOV_CHAIN</see>.
@@ -83,6 +91,12 @@ namespace kinetica
             /// probable path between origin and destination pairs with cost
             /// constraints</summary>
             public const string MATCH_OD_PAIRS = "match_od_pairs";
+
+            /// <summary>Matches <see cref="sample_points" /> to optimize
+            /// scheduling multiple supplies (trucks) with varying sizes to
+            /// varying demand sites with varying capacities per
+            /// depot</summary>
+            public const string MATCH_SUPPLY_DEMAND = "match_supply_demand";
         } // end struct SolveMethod
 
 
@@ -177,6 +191,30 @@ namespace kinetica
         /// destination point.  The default value is 'POINT
         /// NULL'.</description>
         ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="MatchGraphRequest.Options.PARTIAL_LOADING">PARTIAL_LOADING</see>:</term>
+        ///         <description>For the <i>match_supply_demand</i> solver
+        /// only. When false (non-default), trucks do not off-load at the
+        /// demand (store) side if the remainder is less than the store's need
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="MatchGraphRequest.Options.TRUE">TRUE</see>:</term>
+        ///         <description>Partial off loading at multiple store (demand)
+        /// locations</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="MatchGraphRequest.Options.FALSE">FALSE</see>:</term>
+        ///         <description>No partial off loading allowed if supply is
+        /// less than the store's demand.</description>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="MatchGraphRequest.Options.TRUE">TRUE</see>.</description>
+        ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.
         /// A set of string constants for the parameter <see cref="options"
@@ -241,7 +279,13 @@ namespace kinetica
             /// The default value is <see
             /// cref="MatchGraphRequest.Options.TRUE">TRUE</see>.</summary>
             public const string DETECT_LOOPS = "detect_loops";
+
+            /// <summary>Partial off loading at multiple store (demand)
+            /// locations</summary>
             public const string TRUE = "true";
+
+            /// <summary>No partial off loading allowed if supply is less than
+            /// the store's demand.</summary>
             public const string FALSE = "false";
 
             /// <summary>Optional WKT starting point from <see
@@ -255,6 +299,28 @@ namespace kinetica
             /// for the endpoint is to use time to determine the destination
             /// point.  The default value is 'POINT NULL'.</summary>
             public const string DESTINATION = "destination";
+
+            /// <summary>For the <i>match_supply_demand</i> solver only. When
+            /// false (non-default), trucks do not off-load at the demand
+            /// (store) side if the remainder is less than the store's need
+            /// Supported values:
+            /// <list type="bullet">
+            ///     <item>
+            ///         <term><see
+            /// cref="MatchGraphRequest.Options.TRUE">TRUE</see>:</term>
+            ///         <description>Partial off loading at multiple store
+            /// (demand) locations</description>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="MatchGraphRequest.Options.FALSE">FALSE</see>:</term>
+            ///         <description>No partial off loading allowed if supply
+            /// is less than the store's demand.</description>
+            ///     </item>
+            /// </list>
+            /// The default value is <see
+            /// cref="MatchGraphRequest.Options.TRUE">TRUE</see>.</summary>
+            public const string PARTIAL_LOADING = "partial_loading";
         } // end struct Options
 
 
@@ -306,6 +372,14 @@ namespace kinetica
         /// cref="MatchGraphRequest.sample_points" /> to find the most probable
         /// path between origin and destination pairs with cost
         /// constraints</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="MatchGraphRequest.SolveMethod.MATCH_SUPPLY_DEMAND">MATCH_SUPPLY_DEMAND</see>:</term>
+        ///         <description>Matches <paramref
+        /// cref="MatchGraphRequest.sample_points" /> to optimize scheduling
+        /// multiple supplies (trucks) with varying sizes to varying demand
+        /// sites with varying capacities per depot</description>
         ///     </item>
         /// </list>
         /// The default value is <see
@@ -417,6 +491,30 @@ namespace kinetica
         /// destination point.  The default value is 'POINT
         /// NULL'.</description>
         ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="MatchGraphRequest.Options.PARTIAL_LOADING">PARTIAL_LOADING</see>:</term>
+        ///         <description>For the <i>match_supply_demand</i> solver
+        /// only. When false (non-default), trucks do not off-load at the
+        /// demand (store) side if the remainder is less than the store's need
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="MatchGraphRequest.Options.TRUE">TRUE</see>:</term>
+        ///         <description>Partial off loading at multiple store (demand)
+        /// locations</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="MatchGraphRequest.Options.FALSE">FALSE</see>:</term>
+        ///         <description>No partial off loading allowed if supply is
+        /// less than the store's demand.</description>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="MatchGraphRequest.Options.TRUE">TRUE</see>.</description>
+        ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.</summary>
         public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
@@ -475,6 +573,14 @@ namespace kinetica
         /// cref="MatchGraphRequest.sample_points" /> to find the most probable
         /// path between origin and destination pairs with cost
         /// constraints</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="MatchGraphRequest.SolveMethod.MATCH_SUPPLY_DEMAND">MATCH_SUPPLY_DEMAND</see>:</term>
+        ///         <description>Matches <paramref
+        /// cref="MatchGraphRequest.sample_points" /> to optimize scheduling
+        /// multiple supplies (trucks) with varying sizes to varying demand
+        /// sites with varying capacities per depot</description>
         ///     </item>
         /// </list>
         /// The default value is <see
@@ -581,6 +687,30 @@ namespace kinetica
         /// default behavior for the endpoint is to use time to determine the
         /// destination point.  The default value is 'POINT
         /// NULL'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="MatchGraphRequest.Options.PARTIAL_LOADING">PARTIAL_LOADING</see>:</term>
+        ///         <description>For the <i>match_supply_demand</i> solver
+        /// only. When false (non-default), trucks do not off-load at the
+        /// demand (store) side if the remainder is less than the store's need
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="MatchGraphRequest.Options.TRUE">TRUE</see>:</term>
+        ///         <description>Partial off loading at multiple store (demand)
+        /// locations</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="MatchGraphRequest.Options.FALSE">FALSE</see>:</term>
+        ///         <description>No partial off loading allowed if supply is
+        /// less than the store's demand.</description>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="MatchGraphRequest.Options.TRUE">TRUE</see>.</description>
         ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.</param>

@@ -59,6 +59,13 @@ namespace kinetica
         /// specified must the name of an existing KiFS directory.  The default
         /// value is ''.</description>
         ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ExecuteProcRequest.Options.RUN_TAG">RUN_TAG</see>:</term>
+        ///         <description>A string that, if not empty, can be used in
+        /// subsequent calls to /show/proc/status or /kill/proc to identify the
+        /// proc instance.  The default value is ''.</description>
+        ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.
         /// A set of string constants for the parameter <see cref="options"
@@ -100,6 +107,15 @@ namespace kinetica
             /// specified must the name of an existing KiFS directory.  The
             /// default value is ''.</summary>
             public const string KIFS_INPUT_DIRS = "kifs_input_dirs";
+
+            /// <summary>A string that, if not empty, can be used in subsequent
+            /// calls to <see
+            /// cref="Kinetica.showProcStatus(string,IDictionary{string, string})"
+            /// /> or <see
+            /// cref="Kinetica.killProc(string,IDictionary{string, string})"
+            /// /> to identify the proc instance.  The default value is
+            /// ''.</summary>
+            public const string RUN_TAG = "run_tag";
         } // end struct Options
 
 
@@ -183,6 +199,13 @@ namespace kinetica
         /// specified must the name of an existing KiFS directory.  The default
         /// value is ''.</description>
         ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ExecuteProcRequest.Options.RUN_TAG">RUN_TAG</see>:</term>
+        ///         <description>A string that, if not empty, can be used in
+        /// subsequent calls to /show/proc/status or /kill/proc to identify the
+        /// proc instance.  The default value is ''.</description>
+        ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.</summary>
         public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
@@ -265,6 +288,13 @@ namespace kinetica
         /// through the file system below the KiFS mount point.) Each name
         /// specified must the name of an existing KiFS directory.  The default
         /// value is ''.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ExecuteProcRequest.Options.RUN_TAG">RUN_TAG</see>:</term>
+        ///         <description>A string that, if not empty, can be used in
+        /// subsequent calls to /show/proc/status or /kill/proc to identify the
+        /// proc instance.  The default value is ''.</description>
         ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.</param>

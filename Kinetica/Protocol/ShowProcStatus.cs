@@ -45,6 +45,13 @@ namespace kinetica
         /// The default value is <see
         /// cref="ShowProcStatusRequest.Options.FALSE">FALSE</see>.</description>
         ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ShowProcStatusRequest.Options.RUN_TAG">RUN_TAG</see>:</term>
+        ///         <description>Limit statuses to proc instances where a
+        /// matching run tag was provided to /execute/proc.  The default value
+        /// is ''.</description>
+        ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.
         /// A set of string constants for the parameter <see cref="options"
@@ -72,6 +79,12 @@ namespace kinetica
             public const string CLEAR_COMPLETE = "clear_complete";
             public const string TRUE = "true";
             public const string FALSE = "false";
+
+            /// <summary>Limit statuses to proc instances where a matching run
+            /// tag was provided to <see
+            /// cref="Kinetica.executeProc(string,IDictionary{string, string},IDictionary{string, byte[]},IList{string},IDictionary{string, IList{string}},IList{string},IDictionary{string, string})"
+            /// />.  The default value is ''.</summary>
+            public const string RUN_TAG = "run_tag";
         } // end struct Options
 
 
@@ -103,6 +116,13 @@ namespace kinetica
         /// </list>
         /// The default value is <see
         /// cref="ShowProcStatusRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ShowProcStatusRequest.Options.RUN_TAG">RUN_TAG</see>:</term>
+        ///         <description>Limit statuses to proc instances where a
+        /// matching run tag was provided to /execute/proc.  The default value
+        /// is ''.</description>
         ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.</summary>
@@ -142,6 +162,13 @@ namespace kinetica
         /// </list>
         /// The default value is <see
         /// cref="ShowProcStatusRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ShowProcStatusRequest.Options.RUN_TAG">RUN_TAG</see>:</term>
+        ///         <description>Limit statuses to proc instances where a
+        /// matching run tag was provided to /execute/proc.  The default value
+        /// is ''.</description>
         ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.</param>

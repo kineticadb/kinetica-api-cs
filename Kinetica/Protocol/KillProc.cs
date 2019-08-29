@@ -18,14 +18,47 @@ namespace kinetica
     public class KillProcRequest : KineticaData
     {
 
+        /// <summary>Optional parameters.
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="KillProcRequest.Options.RUN_TAG">RUN_TAG</see>:</term>
+        ///         <description>Kill only proc instances where a matching run
+        /// tag was provided to /execute/proc.  The default value is
+        /// ''.</description>
+        ///     </item>
+        /// </list>
+        /// The default value is an empty {@link Dictionary}.
+        /// A set of string constants for the parameter <see cref="options"
+        /// />.</summary>
+        public struct Options
+        {
+
+            /// <summary>Kill only proc instances where a matching run tag was
+            /// provided to <see
+            /// cref="Kinetica.executeProc(string,IDictionary{string, string},IDictionary{string, byte[]},IList{string},IDictionary{string, IList{string}},IList{string},IDictionary{string, string})"
+            /// />.  The default value is ''.</summary>
+            public const string RUN_TAG = "run_tag";
+        } // end struct Options
+
+
         /// <summary>The run ID of the running proc instance. If the run ID is
         /// not found or the proc instance has already completed, this does
         /// nothing. If not specified, all running proc instances will be
         /// killed.  The default value is ''.</summary>
         public string run_id { get; set; } = "";
 
-        /// <summary>Optional parameters.  The default value is an empty {@link
-        /// Dictionary}.</summary>
+        /// <summary>Optional parameters.
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="KillProcRequest.Options.RUN_TAG">RUN_TAG</see>:</term>
+        ///         <description>Kill only proc instances where a matching run
+        /// tag was provided to /execute/proc.  The default value is
+        /// ''.</description>
+        ///     </item>
+        /// </list>
+        /// The default value is an empty {@link Dictionary}.</summary>
         public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
 
 
@@ -40,8 +73,17 @@ namespace kinetica
         /// the run ID is not found or the proc instance has already completed,
         /// this does nothing. If not specified, all running proc instances
         /// will be killed.  The default value is ''.</param>
-        /// <param name="options">Optional parameters.  The default value is an
-        /// empty {@link Dictionary}.</param>
+        /// <param name="options">Optional parameters.
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="KillProcRequest.Options.RUN_TAG">RUN_TAG</see>:</term>
+        ///         <description>Kill only proc instances where a matching run
+        /// tag was provided to /execute/proc.  The default value is
+        /// ''.</description>
+        ///     </item>
+        /// </list>
+        /// The default value is an empty {@link Dictionary}.</param>
         /// 
         public KillProcRequest( string run_id = null,
                                 IDictionary<string, string> options = null)

@@ -30,6 +30,12 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
+        /// cref="GrantPermissionSystemRequest.Permission.SYSTEM_USER_ADMIN">SYSTEM_USER_ADMIN</see>:</term>
+        ///         <description>Access to administer users and roles that do
+        /// not have system_admin permission.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="GrantPermissionSystemRequest.Permission.SYSTEM_WRITE">SYSTEM_WRITE</see>:</term>
         ///         <description>Read and write access to all
         /// tables.</description>
@@ -48,6 +54,10 @@ namespace kinetica
             /// <summary>Full access to all data and system
             /// functions.</summary>
             public const string SYSTEM_ADMIN = "system_admin";
+
+            /// <summary>Access to administer users and roles that do not have
+            /// system_admin permission.</summary>
+            public const string SYSTEM_USER_ADMIN = "system_user_admin";
 
             /// <summary>Read and write access to all tables.</summary>
             public const string SYSTEM_WRITE = "system_write";
@@ -69,6 +79,12 @@ namespace kinetica
         /// cref="GrantPermissionSystemRequest.Permission.SYSTEM_ADMIN">SYSTEM_ADMIN</see>:</term>
         ///         <description>Full access to all data and system
         /// functions.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="GrantPermissionSystemRequest.Permission.SYSTEM_USER_ADMIN">SYSTEM_USER_ADMIN</see>:</term>
+        ///         <description>Access to administer users and roles that do
+        /// not have system_admin permission.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -106,6 +122,12 @@ namespace kinetica
         /// cref="GrantPermissionSystemRequest.Permission.SYSTEM_ADMIN">SYSTEM_ADMIN</see>:</term>
         ///         <description>Full access to all data and system
         /// functions.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="GrantPermissionSystemRequest.Permission.SYSTEM_USER_ADMIN">SYSTEM_USER_ADMIN</see>:</term>
+        ///         <description>Access to administer users and roles that do
+        /// not have system_admin permission.</description>
         ///     </item>
         ///     <item>
         ///         <term><see

@@ -162,6 +162,7 @@
     <Compile Include="Protocol\RevokePermissionTable.cs" />
     <Compile Include="Protocol\RevokeRole.cs" />
     <Compile Include="Protocol\ShowGraph.cs" />
+    <Compile Include="Protocol\ShowGraphGrammar.cs" />
     <Compile Include="Protocol\ShowProc.cs" />
     <Compile Include="Protocol\ShowProcStatus.cs" />
     <Compile Include="Protocol\ShowResourceGroups.cs" />
