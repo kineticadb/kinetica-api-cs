@@ -51,6 +51,12 @@ namespace kinetica
         /// 2900.</summary>
         public const string TIMESTAMP = "timestamp";
 
+        /// <summary>Valid only for 'string' columns.  It represents an
+        /// unsigned long integer data type. The string can only be interpreted
+        /// as an unsigned long data type with minimum value of zero, and
+        /// maximum value of 18446744073709551615.</summary>
+        public const string ULONG = "ulong";
+
         /// <summary>Valid only for 'string' columns.  It represents a SQL type
         /// NUMERIC(19, 4) data type.  There can be up to 15 digits before the
         /// decimal point and up to four digits in the fractional part.  The

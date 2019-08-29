@@ -107,11 +107,25 @@ namespace kinetica
     public class CreateUserInternalResponse : KineticaData
     {
 
+        /// <summary>Additional information.
+        /// <list type="bullet">
+        /// </list>
+        /// The default value is an empty {@link Dictionary}.
+        /// A set of string constants for the parameter <member name="info"
+        /// />.</summary>
+        public struct Info
+        {
+        } // end struct Info
+
+
         /// <summary>Value of <paramref cref="CreateUserInternalRequest.name"
         /// />.  </summary>
         public string name { get; set; }
 
-        /// <summary>Additional information.  </summary>
+        /// <summary>Additional information.
+        /// <list type="bullet">
+        /// </list>
+        /// The default value is an empty {@link Dictionary}.</summary>
         public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
 
     } // end class CreateUserInternalResponse

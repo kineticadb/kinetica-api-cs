@@ -31,12 +31,12 @@ namespace kinetica
     /// can be used for numeric valued binning-columns, a min, max and interval
     /// are specified. The number of bins, nbins, is the integer upper bound of
     /// (max-min)/interval. Values that fall in the range
-    /// [min+n\*interval,min+(n+1)\*interval) are placed in the nth bin where n
-    /// ranges from 0..nbin-2. The final bin is [min+(nbin-1)\*interval,max].
-    /// In the second method, <see cref="options" /> bin_values specifies a
-    /// list of binning column values. Binning-columns whose value matches the
-    /// nth member of the bin_values list are placed in the nth bin. When a
-    /// list is provided the binning-column must be of type string or int.
+    /// [min+n*interval,min+(n+1)*interval) are placed in the nth bin where n
+    /// ranges from 0..nbin-2. The final bin is [min+(nbin-1)*interval,max]. In
+    /// the second method, <see cref="options" /> bin_values specifies a list
+    /// of binning column values. Binning-columns whose value matches the nth
+    /// member of the bin_values list are placed in the nth bin. When a list is
+    /// provided the binning-column must be of type string or int.
     /// <br />
     /// NOTE:  The Kinetica instance being accessed must be running a CUDA
     /// (GPU-based) build to service this request.</summary>
@@ -127,8 +127,8 @@ namespace kinetica
         public double end { get; set; }
 
         /// <summary>The interval of a bin. Set members fall into bin i if the
-        /// binning-column falls in the range [start+interval``*``i,
-        /// start+interval``*``(i+1)).  </summary>
+        /// binning-column falls in the range [start+interval*i,
+        /// start+interval*(i+1)).  </summary>
         public double interval { get; set; }
 
         /// <summary>Map of optional parameters:
@@ -188,8 +188,8 @@ namespace kinetica
         /// </param>
         /// <param name="end">The upper bound of the binning-column.  </param>
         /// <param name="interval">The interval of a bin. Set members fall into
-        /// bin i if the binning-column falls in the range
-        /// [start+interval``*``i, start+interval``*``(i+1)).  </param>
+        /// bin i if the binning-column falls in the range [start+interval*i,
+        /// start+interval*(i+1)).  </param>
         /// <param name="options">Map of optional parameters:
         /// <list type="bullet">
         ///     <item>

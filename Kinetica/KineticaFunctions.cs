@@ -16,7 +16,7 @@ namespace kinetica
     {
 
         // Kinetica Version
-        public const string API_VERSION = "7.0.6.0";
+        public const string API_VERSION = "7.0.7.0";
 
 
 
@@ -1830,9 +1830,9 @@ namespace kinetica
         /// which can be used for numeric valued binning-columns, a min, max
         /// and interval are specified. The number of bins, nbins, is the
         /// integer upper bound of (max-min)/interval. Values that fall in the
-        /// range [min+n\*interval,min+(n+1)\*interval) are placed in the nth
-        /// bin where n ranges from 0..nbin-2. The final bin is
-        /// [min+(nbin-1)\*interval,max]. In the second method, <paramref
+        /// range [min+n*interval,min+(n+1)*interval) are placed in the nth bin
+        /// where n ranges from 0..nbin-2. The final bin is
+        /// [min+(nbin-1)*interval,max]. In the second method, <paramref
         /// cref="AggregateStatisticsByRangeRequest.options" /> bin_values
         /// specifies a list of binning column values. Binning-columns whose
         /// value matches the nth member of the bin_values list are placed in
@@ -1873,9 +1873,9 @@ namespace kinetica
         /// which can be used for numeric valued binning-columns, a min, max
         /// and interval are specified. The number of bins, nbins, is the
         /// integer upper bound of (max-min)/interval. Values that fall in the
-        /// range [min+n\*interval,min+(n+1)\*interval) are placed in the nth
-        /// bin where n ranges from 0..nbin-2. The final bin is
-        /// [min+(nbin-1)\*interval,max]. In the second method, <paramref
+        /// range [min+n*interval,min+(n+1)*interval) are placed in the nth bin
+        /// where n ranges from 0..nbin-2. The final bin is
+        /// [min+(nbin-1)*interval,max]. In the second method, <paramref
         /// name="options" /> bin_values specifies a list of binning column
         /// values. Binning-columns whose value matches the nth member of the
         /// bin_values list are placed in the nth bin. When a list is provided
@@ -1901,8 +1901,8 @@ namespace kinetica
         /// </param>
         /// <param name="end">The upper bound of the binning-column.  </param>
         /// <param name="interval">The interval of a bin. Set members fall into
-        /// bin i if the binning-column falls in the range
-        /// [start+interval``*``i, start+interval``*``(i+1)).  </param>
+        /// bin i if the binning-column falls in the range [start+interval*i,
+        /// start+interval*(i+1)).  </param>
         /// <param name="options">Map of optional parameters:
         /// <list type="bullet">
         ///     <item>
@@ -5922,6 +5922,14 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
+        /// cref="CreateTypeRequest.Properties.ULONG">ULONG</see>:</term>
+        ///         <description>Valid only for 'string' columns.  It
+        /// represents an unsigned long integer data type. The string can only
+        /// be interpreted as an unsigned long data type with minimum value of
+        /// zero, and maximum value of 18446744073709551615.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="CreateTypeRequest.Properties.DECIMAL">DECIMAL</see>:</term>
         ///         <description>Valid only for 'string' columns.  It
         /// represents a SQL type NUMERIC(19, 4) data type.  There can be up to
@@ -6866,6 +6874,13 @@ namespace kinetica
         /// through the file system below the KiFS mount point.) Each name
         /// specified must the name of an existing KiFS directory.  The default
         /// value is ''.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ExecuteProcRequest.Options.RUN_TAG">RUN_TAG</see>:</term>
+        ///         <description>A string that, if not empty, can be used in
+        /// subsequent calls to /show/proc/status or /kill/proc to identify the
+        /// proc instance.  The default value is ''.</description>
         ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.</param>
@@ -9312,6 +9327,12 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
+        /// cref="GrantPermissionSystemRequest.Permission.SYSTEM_USER_ADMIN">SYSTEM_USER_ADMIN</see>:</term>
+        ///         <description>Access to administer users and roles that do
+        /// not have system_admin permission.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="GrantPermissionSystemRequest.Permission.SYSTEM_WRITE">SYSTEM_WRITE</see>:</term>
         ///         <description>Read and write access to all
         /// tables.</description>
@@ -10126,8 +10147,17 @@ namespace kinetica
         /// the run ID is not found or the proc instance has already completed,
         /// this does nothing. If not specified, all running proc instances
         /// will be killed.  The default value is ''.</param>
-        /// <param name="options">Optional parameters.  The default value is an
-        /// empty {@link Dictionary}.</param>
+        /// <param name="options">Optional parameters.
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="KillProcRequest.Options.RUN_TAG">RUN_TAG</see>:</term>
+        ///         <description>Kill only proc instances where a matching run
+        /// tag was provided to /execute/proc.  The default value is
+        /// ''.</description>
+        ///     </item>
+        /// </list>
+        /// The default value is an empty {@link Dictionary}.</param>
         /// 
         /// <returns>Response object containing the result of the
         /// operation.</returns>
@@ -10334,6 +10364,14 @@ namespace kinetica
         /// path between origin and destination pairs with cost
         /// constraints</description>
         ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="MatchGraphRequest.SolveMethod.MATCH_SUPPLY_DEMAND">MATCH_SUPPLY_DEMAND</see>:</term>
+        ///         <description>Matches <paramref
+        /// cref="MatchGraphRequest.sample_points" /> to optimize scheduling
+        /// multiple supplies (trucks) with varying sizes to varying demand
+        /// sites with varying capacities per depot</description>
+        ///     </item>
         /// </list>
         /// The default value is <see
         /// cref="MatchGraphRequest.SolveMethod.MARKOV_CHAIN">MARKOV_CHAIN</see>.
@@ -10439,6 +10477,30 @@ namespace kinetica
         /// default behavior for the endpoint is to use time to determine the
         /// destination point.  The default value is 'POINT
         /// NULL'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="MatchGraphRequest.Options.PARTIAL_LOADING">PARTIAL_LOADING</see>:</term>
+        ///         <description>For the <i>match_supply_demand</i> solver
+        /// only. When false (non-default), trucks do not off-load at the
+        /// demand (store) side if the remainder is less than the store's need
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="MatchGraphRequest.Options.TRUE">TRUE</see>:</term>
+        ///         <description>Partial off loading at multiple store (demand)
+        /// locations</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="MatchGraphRequest.Options.FALSE">FALSE</see>:</term>
+        ///         <description>No partial off loading allowed if supply is
+        /// less than the store's demand.</description>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="MatchGraphRequest.Options.TRUE">TRUE</see>.</description>
         ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.</param>
@@ -10969,6 +11031,12 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
+        /// cref="RevokePermissionSystemRequest.Permission.SYSTEM_USER_ADMIN">SYSTEM_USER_ADMIN</see>:</term>
+        ///         <description>Access to administer users and roles that do
+        /// not have system_admin permission.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="RevokePermissionSystemRequest.Permission.SYSTEM_WRITE">SYSTEM_WRITE</see>:</term>
         ///         <description>Read and write access to all
         /// tables.</description>
@@ -11165,6 +11233,35 @@ namespace kinetica
             return showGraph( new ShowGraphRequest( graph_name, options ) );
         }
 
+        /// @cond NO_DOCS
+        /// 
+        /// <param name="request_">Request object containing the parameters for
+        /// the operation.</param>
+        /// 
+        /// <returns>Response object containing the result of the
+        /// operation.</returns>
+        /// 
+        public ShowGraphGrammarResponse showGraphGrammar( ShowGraphGrammarRequest request_ )
+        {
+            ShowGraphGrammarResponse actualResponse_ = SubmitRequest<ShowGraphGrammarResponse>("/show/graph/grammar", request_, false);
+
+            return actualResponse_;
+        }
+        /// @endcond
+
+        /// @cond NO_DOCS
+        /// 
+        /// <param name="options"></param>
+        /// 
+        /// <returns>Response object containing the result of the
+        /// operation.</returns>
+        /// 
+        public ShowGraphGrammarResponse showGraphGrammar( IDictionary<string, string> options = null )
+        {
+            return showGraphGrammar( new ShowGraphGrammarRequest( options ) );
+        }
+        /// @endcond
+
 
         /// <summary>Shows information about a proc.</summary>
         /// 
@@ -11275,6 +11372,13 @@ namespace kinetica
         /// </list>
         /// The default value is <see
         /// cref="ShowProcStatusRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ShowProcStatusRequest.Options.RUN_TAG">RUN_TAG</see>:</term>
+        ///         <description>Limit statuses to proc instances where a
+        /// matching run tag was provided to /execute/proc.  The default value
+        /// is ''.</description>
         ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.</param>
