@@ -48,9 +48,13 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="ShowProcStatusRequest.Options.RUN_TAG">RUN_TAG</see>:</term>
-        ///         <description>Limit statuses to proc instances where a
-        /// matching run tag was provided to /execute/proc.  The default value
-        /// is ''.</description>
+        ///         <description>If <paramref
+        /// cref="ShowProcStatusRequest.run_id" /> is specified, return the
+        /// status for a proc instance that has a matching run ID and a
+        /// matching run tag that was provided to /execute/proc. If <paramref
+        /// cref="ShowProcStatusRequest.run_id" /> is not specified, return
+        /// statuses for all proc instances where a matching run tag was
+        /// provided to /execute/proc.  The default value is ''.</description>
         ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.
@@ -80,19 +84,24 @@ namespace kinetica
             public const string TRUE = "true";
             public const string FALSE = "false";
 
-            /// <summary>Limit statuses to proc instances where a matching run
-            /// tag was provided to <see
+            /// <summary>If <see cref="run_id" /> is specified, return the
+            /// status for a proc instance that has a matching run ID and a
+            /// matching run tag that was provided to <see
+            /// cref="Kinetica.executeProc(string,IDictionary{string, string},IDictionary{string, byte[]},IList{string},IDictionary{string, IList{string}},IList{string},IDictionary{string, string})"
+            /// />. If <see cref="run_id" /> is not specified, return statuses
+            /// for all proc instances where a matching run tag was provided to
+            /// <see
             /// cref="Kinetica.executeProc(string,IDictionary{string, string},IDictionary{string, byte[]},IList{string},IDictionary{string, IList{string}},IList{string},IDictionary{string, string})"
             /// />.  The default value is ''.</summary>
             public const string RUN_TAG = "run_tag";
         } // end struct Options
 
 
-        /// <summary>The run ID of a specific running or completed proc
-        /// instance for which the status will be returned. If the run ID is
-        /// not found, nothing will be returned. If not specified, the statuses
-        /// of all running and completed proc instances will be returned.  The
-        /// default value is ''.</summary>
+        /// <summary>The run ID of a specific proc instance for which the
+        /// status will be returned. If a proc with a matching run ID is not
+        /// found, the response will be empty. If not specified, the statuses
+        /// of all executed proc instances will be returned.  The default value
+        /// is ''.</summary>
         public string run_id { get; set; } = "";
 
         /// <summary>Optional parameters.
@@ -120,9 +129,13 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="ShowProcStatusRequest.Options.RUN_TAG">RUN_TAG</see>:</term>
-        ///         <description>Limit statuses to proc instances where a
-        /// matching run tag was provided to /execute/proc.  The default value
-        /// is ''.</description>
+        ///         <description>If <paramref
+        /// cref="ShowProcStatusRequest.run_id" /> is specified, return the
+        /// status for a proc instance that has a matching run ID and a
+        /// matching run tag that was provided to /execute/proc. If <paramref
+        /// cref="ShowProcStatusRequest.run_id" /> is not specified, return
+        /// statuses for all proc instances where a matching run tag was
+        /// provided to /execute/proc.  The default value is ''.</description>
         ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.</summary>
@@ -136,11 +149,11 @@ namespace kinetica
         /// <summary>Constructs a ShowProcStatusRequest object with the
         /// specified parameters.</summary>
         /// 
-        /// <param name="run_id">The run ID of a specific running or completed
-        /// proc instance for which the status will be returned. If the run ID
-        /// is not found, nothing will be returned. If not specified, the
-        /// statuses of all running and completed proc instances will be
-        /// returned.  The default value is ''.</param>
+        /// <param name="run_id">The run ID of a specific proc instance for
+        /// which the status will be returned. If a proc with a matching run ID
+        /// is not found, the response will be empty. If not specified, the
+        /// statuses of all executed proc instances will be returned.  The
+        /// default value is ''.</param>
         /// <param name="options">Optional parameters.
         /// <list type="bullet">
         ///     <item>
@@ -166,9 +179,13 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="ShowProcStatusRequest.Options.RUN_TAG">RUN_TAG</see>:</term>
-        ///         <description>Limit statuses to proc instances where a
-        /// matching run tag was provided to /execute/proc.  The default value
-        /// is ''.</description>
+        ///         <description>If <paramref
+        /// cref="ShowProcStatusRequest.run_id" /> is specified, return the
+        /// status for a proc instance that has a matching run ID and a
+        /// matching run tag that was provided to /execute/proc. If <paramref
+        /// cref="ShowProcStatusRequest.run_id" /> is not specified, return
+        /// statuses for all proc instances where a matching run tag was
+        /// provided to /execute/proc.  The default value is ''.</description>
         ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.</param>

@@ -23,9 +23,12 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="KillProcRequest.Options.RUN_TAG">RUN_TAG</see>:</term>
-        ///         <description>Kill only proc instances where a matching run
-        /// tag was provided to /execute/proc.  The default value is
-        /// ''.</description>
+        ///         <description>If <paramref cref="KillProcRequest.run_id" />
+        /// is specified, kill the proc instance that has a matching run ID and
+        /// a matching run tag that was provided to /execute/proc. If <paramref
+        /// cref="KillProcRequest.run_id" /> is not specified, kill the proc
+        /// instance(s) where a matching run tag was provided to /execute/proc.
+        /// The default value is ''.</description>
         ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.
@@ -34,18 +37,22 @@ namespace kinetica
         public struct Options
         {
 
-            /// <summary>Kill only proc instances where a matching run tag was
-            /// provided to <see
+            /// <summary>If <see cref="run_id" /> is specified, kill the proc
+            /// instance that has a matching run ID and a matching run tag that
+            /// was provided to <see
+            /// cref="Kinetica.executeProc(string,IDictionary{string, string},IDictionary{string, byte[]},IList{string},IDictionary{string, IList{string}},IList{string},IDictionary{string, string})"
+            /// />. If <see cref="run_id" /> is not specified, kill the proc
+            /// instance(s) where a matching run tag was provided to <see
             /// cref="Kinetica.executeProc(string,IDictionary{string, string},IDictionary{string, byte[]},IList{string},IDictionary{string, IList{string}},IList{string},IDictionary{string, string})"
             /// />.  The default value is ''.</summary>
             public const string RUN_TAG = "run_tag";
         } // end struct Options
 
 
-        /// <summary>The run ID of the running proc instance. If the run ID is
-        /// not found or the proc instance has already completed, this does
-        /// nothing. If not specified, all running proc instances will be
-        /// killed.  The default value is ''.</summary>
+        /// <summary>The run ID of a running proc instance. If a proc with a
+        /// matching run ID is not found or the proc instance has already
+        /// completed, no procs will be killed. If not specified, all running
+        /// proc instances will be killed.  The default value is ''.</summary>
         public string run_id { get; set; } = "";
 
         /// <summary>Optional parameters.
@@ -53,9 +60,12 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="KillProcRequest.Options.RUN_TAG">RUN_TAG</see>:</term>
-        ///         <description>Kill only proc instances where a matching run
-        /// tag was provided to /execute/proc.  The default value is
-        /// ''.</description>
+        ///         <description>If <paramref cref="KillProcRequest.run_id" />
+        /// is specified, kill the proc instance that has a matching run ID and
+        /// a matching run tag that was provided to /execute/proc. If <paramref
+        /// cref="KillProcRequest.run_id" /> is not specified, kill the proc
+        /// instance(s) where a matching run tag was provided to /execute/proc.
+        /// The default value is ''.</description>
         ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.</summary>
@@ -69,18 +79,22 @@ namespace kinetica
         /// <summary>Constructs a KillProcRequest object with the specified
         /// parameters.</summary>
         /// 
-        /// <param name="run_id">The run ID of the running proc instance. If
-        /// the run ID is not found or the proc instance has already completed,
-        /// this does nothing. If not specified, all running proc instances
-        /// will be killed.  The default value is ''.</param>
+        /// <param name="run_id">The run ID of a running proc instance. If a
+        /// proc with a matching run ID is not found or the proc instance has
+        /// already completed, no procs will be killed. If not specified, all
+        /// running proc instances will be killed.  The default value is
+        /// ''.</param>
         /// <param name="options">Optional parameters.
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
         /// cref="KillProcRequest.Options.RUN_TAG">RUN_TAG</see>:</term>
-        ///         <description>Kill only proc instances where a matching run
-        /// tag was provided to /execute/proc.  The default value is
-        /// ''.</description>
+        ///         <description>If <paramref cref="KillProcRequest.run_id" />
+        /// is specified, kill the proc instance that has a matching run ID and
+        /// a matching run tag that was provided to /execute/proc. If <paramref
+        /// cref="KillProcRequest.run_id" /> is not specified, kill the proc
+        /// instance(s) where a matching run tag was provided to /execute/proc.
+        /// The default value is ''.</description>
         ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.</param>
