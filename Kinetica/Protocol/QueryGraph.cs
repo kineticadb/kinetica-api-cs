@@ -48,12 +48,12 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="QueryGraphRequest.Options.FORCE_UNDIRECTED">FORCE_UNDIRECTED</see>:</term>
-        ///         <description>This parameter is only applicable if the
-        /// queried graph <paramref cref="QueryGraphRequest.graph_name" /> is
-        /// directed and when querying nodes. If set to <i>true</i>, all
-        /// inbound edges and outbound edges relative to the node will be
-        /// returned. If set to <i>false</i>, only outbound edges relative to
-        /// the node will be returned.
+        ///         <description>If set to <i>true</i>, all inbound edges and
+        /// outbound edges relative to the node will be returned. If set to
+        /// <i>false</i>, only outbound edges relative to the node will be
+        /// returned. This parameter is only applicable if the queried graph
+        /// <paramref cref="QueryGraphRequest.graph_name" /> is directed and
+        /// when querying nodes.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -81,9 +81,11 @@ namespace kinetica
         ///         <term><see
         /// cref="QueryGraphRequest.Options.TARGET_NODES_TABLE">TARGET_NODES_TABLE</see>:</term>
         ///         <description>Name of the table to store the list of the
-        /// final nodes reached during the traversal. If this value is not
-        /// given it'll default to adjacemcy_table+'_nodes'.  The default value
-        /// is ''.</description>
+        /// final nodes reached during the traversal. If this value is left as
+        /// the default, the table name will default to the <paramref
+        /// cref="QueryGraphRequest.adjacency_table" /> value plus a '_nodes'
+        /// suffix, e.g., '<adjacency_table_name>_nodes'.  The default value is
+        /// ''.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -98,11 +100,11 @@ namespace kinetica
         /// cref="QueryGraphRequest.Options.EXPORT_QUERY_RESULTS">EXPORT_QUERY_RESULTS</see>:</term>
         ///         <description>Returns query results in the response. If set
         /// to <i>true</i>, the <member name="adjacency_list_int_array" /> (if
-        /// the query was based on IDs), @{adjacency_list_string_array} (if the
-        /// query was based on names), or @{output_adjacency_list_wkt_array}
-        /// (if the query was based on WKTs) will be populated with the
-        /// results. If set to <i>false</i>, none of the arrays will be
-        /// populated.
+        /// the query was based on IDs), <member
+        /// name="adjacency_list_string_array" /> (if the query was based on
+        /// names), or <member name="adjacency_list_wkt_array" /> (if the query
+        /// was based on WKTs) will be populated with the results. If set to
+        /// <i>false</i>, none of the arrays will be populated.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -168,11 +170,12 @@ namespace kinetica
         public struct Options
         {
 
-            /// <summary>This parameter is only applicable if the queried graph
-            /// <see cref="graph_name" /> is directed and when querying nodes.
-            /// If set to <i>true</i>, all inbound edges and outbound edges
-            /// relative to the node will be returned. If set to <i>false</i>,
-            /// only outbound edges relative to the node will be returned.
+            /// <summary>If set to <i>true</i>, all inbound edges and outbound
+            /// edges relative to the node will be returned. If set to
+            /// <i>false</i>, only outbound edges relative to the node will be
+            /// returned. This parameter is only applicable if the queried
+            /// graph <see cref="graph_name" /> is directed and when querying
+            /// nodes.
             /// Supported values:
             /// <list type="bullet">
             ///     <item>
@@ -198,8 +201,10 @@ namespace kinetica
             public const string LIMIT = "limit";
 
             /// <summary>Name of the table to store the list of the final nodes
-            /// reached during the traversal. If this value is not given it'll
-            /// default to adjacemcy_table+'_nodes'.  The default value is
+            /// reached during the traversal. If this value is left as the
+            /// default, the table name will default to the <see
+            /// cref="adjacency_table" /> value plus a '_nodes' suffix, e.g.,
+            /// '<adjacency_table_name>_nodes'.  The default value is
             /// ''.</summary>
             public const string TARGET_NODES_TABLE = "target_nodes_table";
 
@@ -211,11 +216,12 @@ namespace kinetica
 
             /// <summary>Returns query results in the response. If set to
             /// <i>true</i>, the <member name="adjacency_list_int_array" /> (if
-            /// the query was based on IDs), @{adjacency_list_string_array} (if
-            /// the query was based on names), or
-            /// @{output_adjacency_list_wkt_array} (if the query was based on
-            /// WKTs) will be populated with the results. If set to
-            /// <i>false</i>, none of the arrays will be populated.
+            /// the query was based on IDs), <member
+            /// name="adjacency_list_string_array" /> (if the query was based
+            /// on names), or <member name="adjacency_list_wkt_array" /> (if
+            /// the query was based on WKTs) will be populated with the
+            /// results. If set to <i>false</i>, none of the arrays will be
+            /// populated.
             /// Supported values:
             /// <list type="bullet">
             ///     <item>
@@ -316,16 +322,18 @@ namespace kinetica
         /// value is ''.</summary>
         public string adjacency_table { get; set; } = "";
 
-        /// <summary>Only applicable when querying nodes. Sets the number of
-        /// rings around the node to query for adjacency, with '1' being the
-        /// edges directly attached to the queried node. Also known as number
-        /// of hops. For example, if it is set to '2', the edge(s) directly
-        /// attached to the queried node(s) will be returned; in addition, the
-        /// edge(s) attached to the node(s) attached to the initial ring of
-        /// edge(s) surrounding the queried node(s) will be returned. This
-        /// setting can be '0' in which case if the node type id label, it'll
-        /// then query for all that has the same property.  The default value
-        /// is 1.</summary>
+        /// <summary>Sets the number of rings around the node to query for
+        /// adjacency, with '1' being the edges directly attached to the
+        /// queried node. Also known as number of hops. For example, if it is
+        /// set to '2', the edge(s) directly attached to the queried node(s)
+        /// will be returned; in addition, the edge(s) attached to the node(s)
+        /// attached to the initial ring of edge(s) surrounding the queried
+        /// node(s) will be returned. If the value is set to '0', any nodes
+        /// that meet the criteria in <paramref
+        /// cref="QueryGraphRequest.queries" /> and <paramref
+        /// cref="QueryGraphRequest.restrictions" /> will be returned. This
+        /// parameter is only applicable when querying nodes.  The default
+        /// value is 1.</summary>
         public int rings { get; set; } = 1;
 
         /// <summary>Additional parameters
@@ -333,12 +341,12 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="QueryGraphRequest.Options.FORCE_UNDIRECTED">FORCE_UNDIRECTED</see>:</term>
-        ///         <description>This parameter is only applicable if the
-        /// queried graph <paramref cref="QueryGraphRequest.graph_name" /> is
-        /// directed and when querying nodes. If set to <i>true</i>, all
-        /// inbound edges and outbound edges relative to the node will be
-        /// returned. If set to <i>false</i>, only outbound edges relative to
-        /// the node will be returned.
+        ///         <description>If set to <i>true</i>, all inbound edges and
+        /// outbound edges relative to the node will be returned. If set to
+        /// <i>false</i>, only outbound edges relative to the node will be
+        /// returned. This parameter is only applicable if the queried graph
+        /// <paramref cref="QueryGraphRequest.graph_name" /> is directed and
+        /// when querying nodes.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -366,9 +374,11 @@ namespace kinetica
         ///         <term><see
         /// cref="QueryGraphRequest.Options.TARGET_NODES_TABLE">TARGET_NODES_TABLE</see>:</term>
         ///         <description>Name of the table to store the list of the
-        /// final nodes reached during the traversal. If this value is not
-        /// given it'll default to adjacemcy_table+'_nodes'.  The default value
-        /// is ''.</description>
+        /// final nodes reached during the traversal. If this value is left as
+        /// the default, the table name will default to the <paramref
+        /// cref="QueryGraphRequest.adjacency_table" /> value plus a '_nodes'
+        /// suffix, e.g., '<adjacency_table_name>_nodes'.  The default value is
+        /// ''.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -383,11 +393,11 @@ namespace kinetica
         /// cref="QueryGraphRequest.Options.EXPORT_QUERY_RESULTS">EXPORT_QUERY_RESULTS</see>:</term>
         ///         <description>Returns query results in the response. If set
         /// to <i>true</i>, the <member name="adjacency_list_int_array" /> (if
-        /// the query was based on IDs), @{adjacency_list_string_array} (if the
-        /// query was based on names), or @{output_adjacency_list_wkt_array}
-        /// (if the query was based on WKTs) will be populated with the
-        /// results. If set to <i>false</i>, none of the arrays will be
-        /// populated.
+        /// the query was based on IDs), <member
+        /// name="adjacency_list_string_array" /> (if the query was based on
+        /// names), or <member name="adjacency_list_wkt_array" /> (if the query
+        /// was based on WKTs) will be populated with the results. If set to
+        /// <i>false</i>, none of the arrays will be populated.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -496,27 +506,29 @@ namespace kinetica
         /// href="../../graph_solver/network_graph_solver.html#using-labels"
         /// target="_top">Using Labels</a> for more information.  The default
         /// value is ''.</param>
-        /// <param name="rings">Only applicable when querying nodes. Sets the
-        /// number of rings around the node to query for adjacency, with '1'
-        /// being the edges directly attached to the queried node. Also known
-        /// as number of hops. For example, if it is set to '2', the edge(s)
-        /// directly attached to the queried node(s) will be returned; in
-        /// addition, the edge(s) attached to the node(s) attached to the
-        /// initial ring of edge(s) surrounding the queried node(s) will be
-        /// returned. This setting can be '0' in which case if the node type id
-        /// label, it'll then query for all that has the same property.  The
-        /// default value is 1.</param>
+        /// <param name="rings">Sets the number of rings around the node to
+        /// query for adjacency, with '1' being the edges directly attached to
+        /// the queried node. Also known as number of hops. For example, if it
+        /// is set to '2', the edge(s) directly attached to the queried node(s)
+        /// will be returned; in addition, the edge(s) attached to the node(s)
+        /// attached to the initial ring of edge(s) surrounding the queried
+        /// node(s) will be returned. If the value is set to '0', any nodes
+        /// that meet the criteria in <paramref
+        /// cref="QueryGraphRequest.queries" /> and <paramref
+        /// cref="QueryGraphRequest.restrictions" /> will be returned. This
+        /// parameter is only applicable when querying nodes.  The default
+        /// value is 1.</param>
         /// <param name="options">Additional parameters
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
         /// cref="QueryGraphRequest.Options.FORCE_UNDIRECTED">FORCE_UNDIRECTED</see>:</term>
-        ///         <description>This parameter is only applicable if the
-        /// queried graph <paramref cref="QueryGraphRequest.graph_name" /> is
-        /// directed and when querying nodes. If set to <i>true</i>, all
-        /// inbound edges and outbound edges relative to the node will be
-        /// returned. If set to <i>false</i>, only outbound edges relative to
-        /// the node will be returned.
+        ///         <description>If set to <i>true</i>, all inbound edges and
+        /// outbound edges relative to the node will be returned. If set to
+        /// <i>false</i>, only outbound edges relative to the node will be
+        /// returned. This parameter is only applicable if the queried graph
+        /// <paramref cref="QueryGraphRequest.graph_name" /> is directed and
+        /// when querying nodes.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -544,9 +556,11 @@ namespace kinetica
         ///         <term><see
         /// cref="QueryGraphRequest.Options.TARGET_NODES_TABLE">TARGET_NODES_TABLE</see>:</term>
         ///         <description>Name of the table to store the list of the
-        /// final nodes reached during the traversal. If this value is not
-        /// given it'll default to adjacemcy_table+'_nodes'.  The default value
-        /// is ''.</description>
+        /// final nodes reached during the traversal. If this value is left as
+        /// the default, the table name will default to the <paramref
+        /// cref="QueryGraphRequest.adjacency_table" /> value plus a '_nodes'
+        /// suffix, e.g., '<adjacency_table_name>_nodes'.  The default value is
+        /// ''.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -561,11 +575,11 @@ namespace kinetica
         /// cref="QueryGraphRequest.Options.EXPORT_QUERY_RESULTS">EXPORT_QUERY_RESULTS</see>:</term>
         ///         <description>Returns query results in the response. If set
         /// to <i>true</i>, the <member name="adjacency_list_int_array" /> (if
-        /// the query was based on IDs), @{adjacency_list_string_array} (if the
-        /// query was based on names), or @{output_adjacency_list_wkt_array}
-        /// (if the query was based on WKTs) will be populated with the
-        /// results. If set to <i>false</i>, none of the arrays will be
-        /// populated.
+        /// the query was based on IDs), <member
+        /// name="adjacency_list_string_array" /> (if the query was based on
+        /// names), or <member name="adjacency_list_wkt_array" /> (if the query
+        /// was based on WKTs) will be populated with the results. If set to
+        /// <i>false</i>, none of the arrays will be populated.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>

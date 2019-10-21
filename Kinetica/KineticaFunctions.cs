@@ -16,7 +16,7 @@ namespace kinetica
     {
 
         // Kinetica Version
-        public const string API_VERSION = "7.0.7.0";
+        public const string API_VERSION = "7.0.8.0";
 
 
 
@@ -2715,6 +2715,16 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
+        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.EVICT_COLUMNS">EVICT_COLUMNS</see>:</term>
+        ///         <description>Attempts to evict columns from memory to the
+        /// persistent store.  Value string is a semicolon separated list of
+        /// entries, each entry being a table name optionally followed by a
+        /// comma and a comma separated list of column names to attempt to
+        /// evict.  An empty value string will attempt to evict all tables and
+        /// columns.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.EXECUTION_MODE">EXECUTION_MODE</see>:</term>
         ///         <description>Sets the execution_mode for kernel executions
         /// to the specified string value. Possible values are host, device,
@@ -3764,9 +3774,9 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="AppendRecordsRequest.Options.TRUNCATE_STRINGS">TRUNCATE_STRINGS</see>:</term>
-        ///         <description>If set to {true}@{, it allows appending longer
-        /// strings to smaller charN string columns by truncating the longer
-        /// string to fit.  The default value is false.
+        ///         <description>If set to <i>true</i>, it allows inserting
+        /// longer strings into smaller charN string columns by truncating the
+        /// longer strings to fit.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -4247,9 +4257,12 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="CreateGraphRequest.Options.SYNC_DB">SYNC_DB</see>:</term>
-        ///         <description>If set to <i>true</i>, the graph will be
-        /// updated if its source table(s) is updated. If set to <i>false</i>,
-        /// the graph will not be updated if the source table(s) is updated.
+        ///         <description>If set to <i>true</i> and <i>save_persist</i>
+        /// is set to <i>true</i>, the graph will be fully reconstructed upon a
+        /// database restart and be updated to align with any source table(s)
+        /// updates made since the creation of the graph. If dynamic graph
+        /// updates upon table inserts are desired, use
+        /// <i>add_table_monitor</i> instead.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -4268,8 +4281,12 @@ namespace kinetica
         ///         <term><see
         /// cref="CreateGraphRequest.Options.ADD_TABLE_MONITOR">ADD_TABLE_MONITOR</see>:</term>
         ///         <description>Adds a table monitor to every table used in
-        /// the creation of the graph. For more details on table monitors, see
-        /// /create/tablemonitor.
+        /// the creation of the graph; this table monitor will trigger the
+        /// graph to update dynamically upon inserts to the source table(s).
+        /// Note that upon database restart, if <i>save_persist</i> is also set
+        /// to <i>true</i>, the graph will be fully reconstructed and the table
+        /// monitors will be reattached. For more details on table monitors,
+        /// see /create/tablemonitor.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -9728,9 +9745,9 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="RawInsertRecordsRequest.Options.TRUNCATE_STRINGS">TRUNCATE_STRINGS</see>:</term>
-        ///         <description>If set to {true}@{, any strings which are too
-        /// long for their charN string fields will be truncated to fit.  The
-        /// default value is false.
+        ///         <description>If set to <i>true</i>, any strings which are
+        /// too long for their target charN string columns will be truncated to
+        /// fit.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -10143,18 +10160,22 @@ namespace kinetica
 
         /// <summary>Kills a running proc instance.</summary>
         /// 
-        /// <param name="run_id">The run ID of the running proc instance. If
-        /// the run ID is not found or the proc instance has already completed,
-        /// this does nothing. If not specified, all running proc instances
-        /// will be killed.  The default value is ''.</param>
+        /// <param name="run_id">The run ID of a running proc instance. If a
+        /// proc with a matching run ID is not found or the proc instance has
+        /// already completed, no procs will be killed. If not specified, all
+        /// running proc instances will be killed.  The default value is
+        /// ''.</param>
         /// <param name="options">Optional parameters.
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
         /// cref="KillProcRequest.Options.RUN_TAG">RUN_TAG</see>:</term>
-        ///         <description>Kill only proc instances where a matching run
-        /// tag was provided to /execute/proc.  The default value is
-        /// ''.</description>
+        ///         <description>If <paramref cref="KillProcRequest.run_id" />
+        /// is specified, kill the proc instance that has a matching run ID and
+        /// a matching run tag that was provided to /execute/proc. If <paramref
+        /// cref="KillProcRequest.run_id" /> is not specified, kill the proc
+        /// instance(s) where a matching run tag was provided to /execute/proc.
+        /// The default value is ''.</description>
         ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.</param>
@@ -10796,27 +10817,29 @@ namespace kinetica
         /// href="../../graph_solver/network_graph_solver.html#using-labels"
         /// target="_top">Using Labels</a> for more information.  The default
         /// value is ''.</param>
-        /// <param name="rings">Only applicable when querying nodes. Sets the
-        /// number of rings around the node to query for adjacency, with '1'
-        /// being the edges directly attached to the queried node. Also known
-        /// as number of hops. For example, if it is set to '2', the edge(s)
-        /// directly attached to the queried node(s) will be returned; in
-        /// addition, the edge(s) attached to the node(s) attached to the
-        /// initial ring of edge(s) surrounding the queried node(s) will be
-        /// returned. This setting can be '0' in which case if the node type id
-        /// label, it'll then query for all that has the same property.  The
-        /// default value is 1.</param>
+        /// <param name="rings">Sets the number of rings around the node to
+        /// query for adjacency, with '1' being the edges directly attached to
+        /// the queried node. Also known as number of hops. For example, if it
+        /// is set to '2', the edge(s) directly attached to the queried node(s)
+        /// will be returned; in addition, the edge(s) attached to the node(s)
+        /// attached to the initial ring of edge(s) surrounding the queried
+        /// node(s) will be returned. If the value is set to '0', any nodes
+        /// that meet the criteria in <paramref
+        /// cref="QueryGraphRequest.queries" /> and <paramref
+        /// cref="QueryGraphRequest.restrictions" /> will be returned. This
+        /// parameter is only applicable when querying nodes.  The default
+        /// value is 1.</param>
         /// <param name="options">Additional parameters
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
         /// cref="QueryGraphRequest.Options.FORCE_UNDIRECTED">FORCE_UNDIRECTED</see>:</term>
-        ///         <description>This parameter is only applicable if the
-        /// queried graph <paramref cref="QueryGraphRequest.graph_name" /> is
-        /// directed and when querying nodes. If set to <i>true</i>, all
-        /// inbound edges and outbound edges relative to the node will be
-        /// returned. If set to <i>false</i>, only outbound edges relative to
-        /// the node will be returned.
+        ///         <description>If set to <i>true</i>, all inbound edges and
+        /// outbound edges relative to the node will be returned. If set to
+        /// <i>false</i>, only outbound edges relative to the node will be
+        /// returned. This parameter is only applicable if the queried graph
+        /// <paramref cref="QueryGraphRequest.graph_name" /> is directed and
+        /// when querying nodes.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -10844,9 +10867,11 @@ namespace kinetica
         ///         <term><see
         /// cref="QueryGraphRequest.Options.TARGET_NODES_TABLE">TARGET_NODES_TABLE</see>:</term>
         ///         <description>Name of the table to store the list of the
-        /// final nodes reached during the traversal. If this value is not
-        /// given it'll default to adjacemcy_table+'_nodes'.  The default value
-        /// is ''.</description>
+        /// final nodes reached during the traversal. If this value is left as
+        /// the default, the table name will default to the <paramref
+        /// cref="QueryGraphRequest.adjacency_table" /> value plus a '_nodes'
+        /// suffix, e.g., '<adjacency_table_name>_nodes'.  The default value is
+        /// ''.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -10861,11 +10886,11 @@ namespace kinetica
         /// cref="QueryGraphRequest.Options.EXPORT_QUERY_RESULTS">EXPORT_QUERY_RESULTS</see>:</term>
         ///         <description>Returns query results in the response. If set
         /// to <i>true</i>, the <member name="adjacency_list_int_array" /> (if
-        /// the query was based on IDs), @{adjacency_list_string_array} (if the
-        /// query was based on names), or @{output_adjacency_list_wkt_array}
-        /// (if the query was based on WKTs) will be populated with the
-        /// results. If set to <i>false</i>, none of the arrays will be
-        /// populated.
+        /// the query was based on IDs), <member
+        /// name="adjacency_list_string_array" /> (if the query was based on
+        /// names), or <member name="adjacency_list_wkt_array" /> (if the query
+        /// was based on WKTs) will be populated with the results. If set to
+        /// <i>false</i>, none of the arrays will be populated.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -11178,7 +11203,7 @@ namespace kinetica
 
 
         /// <summary>Shows information and characteristics of graphs that exist
-        /// on the graph server, depending on the options specified.</summary>
+        /// on the graph server.</summary>
         /// 
         /// <param name="request_">Request object containing the parameters for
         /// the operation.</param>
@@ -11195,18 +11220,18 @@ namespace kinetica
 
 
         /// <summary>Shows information and characteristics of graphs that exist
-        /// on the graph server, depending on the options specified.</summary>
+        /// on the graph server.</summary>
         /// 
         /// <param name="graph_name">Name of the graph on which to retrieve
-        /// information. If empty, information about all graphs is returned.
-        /// The default value is ''.</param>
+        /// information. If left as the default value, information about all
+        /// graphs is returned.  The default value is ''.</param>
         /// <param name="options">Optional parameters.
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
         /// cref="ShowGraphRequest.Options.SHOW_ORIGINAL_REQUEST">SHOW_ORIGINAL_REQUEST</see>:</term>
         ///         <description>If set to <i>true</i>, the request that was
-        /// originally used.
+        /// originally used to create the graph is also returned as JSON.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -11346,11 +11371,11 @@ namespace kinetica
         /// />) and data segment ID (each invocation of the proc command on a
         /// data segment is assigned a data segment ID).</summary>
         /// 
-        /// <param name="run_id">The run ID of a specific running or completed
-        /// proc instance for which the status will be returned. If the run ID
-        /// is not found, nothing will be returned. If not specified, the
-        /// statuses of all running and completed proc instances will be
-        /// returned.  The default value is ''.</param>
+        /// <param name="run_id">The run ID of a specific proc instance for
+        /// which the status will be returned. If a proc with a matching run ID
+        /// is not found, the response will be empty. If not specified, the
+        /// statuses of all executed proc instances will be returned.  The
+        /// default value is ''.</param>
         /// <param name="options">Optional parameters.
         /// <list type="bullet">
         ///     <item>
@@ -11376,9 +11401,13 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="ShowProcStatusRequest.Options.RUN_TAG">RUN_TAG</see>:</term>
-        ///         <description>Limit statuses to proc instances where a
-        /// matching run tag was provided to /execute/proc.  The default value
-        /// is ''.</description>
+        ///         <description>If <paramref
+        /// cref="ShowProcStatusRequest.run_id" /> is specified, return the
+        /// status for a proc instance that has a matching run ID and a
+        /// matching run tag that was provided to /execute/proc. If <paramref
+        /// cref="ShowProcStatusRequest.run_id" /> is not specified, return
+        /// statuses for all proc instances where a matching run tag was
+        /// provided to /execute/proc.  The default value is ''.</description>
         ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.</param>
@@ -12582,6 +12611,26 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
+        /// cref="RawUpdateRecordsRequest.Options.TRUNCATE_STRINGS">TRUNCATE_STRINGS</see>:</term>
+        ///         <description>If set to {true}@{, any strings which are too
+        /// long for their charN string fields will be truncated to fit.  The
+        /// default value is false.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="RawUpdateRecordsRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="RawUpdateRecordsRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="RawUpdateRecordsRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="RawUpdateRecordsRequest.Options.USE_EXPRESSIONS_IN_NEW_VALUES_MAPS">USE_EXPRESSIONS_IN_NEW_VALUES_MAPS</see>:</term>
         ///         <description>When set to <i>true</i>, all new values in
         /// <paramref cref="RawUpdateRecordsRequest.new_values_maps" /> are
@@ -13766,6 +13815,7 @@ namespace kinetica
         /// </list>
         /// </param>
         /// <param name="options"></param>
+        /// <param name="cb_transparency_vec"></param>
         /// 
         /// <returns>Response object containing the result of the
         /// operation.</returns>
@@ -13793,7 +13843,8 @@ namespace kinetica
                                                                           string projection,
                                                                           long bg_color,
                                                                           IDictionary<string, IList<string>> style_options,
-                                                                          IDictionary<string, string> options = null )
+                                                                          IDictionary<string, string> options,
+                                                                          IList<int> cb_transparency_vec )
         {
             return visualizeImageClassbreak( new VisualizeImageClassbreakRequest(
                                                                                   table_names,
@@ -13819,7 +13870,8 @@ namespace kinetica
                                                                                   projection,
                                                                                   bg_color,
                                                                                   style_options,
-                                                                                  options ) );
+                                                                                  options,
+                                                                                  cb_transparency_vec ) );
         }
         /// @endcond
 

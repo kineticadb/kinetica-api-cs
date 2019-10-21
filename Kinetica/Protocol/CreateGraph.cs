@@ -177,9 +177,12 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="CreateGraphRequest.Options.SYNC_DB">SYNC_DB</see>:</term>
-        ///         <description>If set to <i>true</i>, the graph will be
-        /// updated if its source table(s) is updated. If set to <i>false</i>,
-        /// the graph will not be updated if the source table(s) is updated.
+        ///         <description>If set to <i>true</i> and <i>save_persist</i>
+        /// is set to <i>true</i>, the graph will be fully reconstructed upon a
+        /// database restart and be updated to align with any source table(s)
+        /// updates made since the creation of the graph. If dynamic graph
+        /// updates upon table inserts are desired, use
+        /// <i>add_table_monitor</i> instead.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -198,8 +201,12 @@ namespace kinetica
         ///         <term><see
         /// cref="CreateGraphRequest.Options.ADD_TABLE_MONITOR">ADD_TABLE_MONITOR</see>:</term>
         ///         <description>Adds a table monitor to every table used in
-        /// the creation of the graph. For more details on table monitors, see
-        /// /create/tablemonitor.
+        /// the creation of the graph; this table monitor will trigger the
+        /// graph to update dynamically upon inserts to the source table(s).
+        /// Note that upon database restart, if <i>save_persist</i> is also set
+        /// to <i>true</i>, the graph will be fully reconstructed and the table
+        /// monitors will be reattached. For more details on table monitors,
+        /// see /create/tablemonitor.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -337,9 +344,12 @@ namespace kinetica
             /// cref="CreateGraphRequest.Options.FALSE">FALSE</see>.</summary>
             public const string SAVE_PERSIST = "save_persist";
 
-            /// <summary>If set to <i>true</i>, the graph will be updated if
-            /// its source table(s) is updated. If set to <i>false</i>, the
-            /// graph will not be updated if the source table(s) is updated.
+            /// <summary>If set to <i>true</i> and <i>save_persist</i> is set
+            /// to <i>true</i>, the graph will be fully reconstructed upon a
+            /// database restart and be updated to align with any source
+            /// table(s) updates made since the creation of the graph. If
+            /// dynamic graph updates upon table inserts are desired, use
+            /// <i>add_table_monitor</i> instead.
             /// Supported values:
             /// <list type="bullet">
             ///     <item>
@@ -356,8 +366,12 @@ namespace kinetica
             public const string SYNC_DB = "sync_db";
 
             /// <summary>Adds a table monitor to every table used in the
-            /// creation of the graph. For more details on table monitors, see
-            /// <see
+            /// creation of the graph; this table monitor will trigger the
+            /// graph to update dynamically upon inserts to the source
+            /// table(s). Note that upon database restart, if
+            /// <i>save_persist</i> is also set to <i>true</i>, the graph will
+            /// be fully reconstructed and the table monitors will be
+            /// reattached. For more details on table monitors, see <see
             /// cref="Kinetica.createTableMonitor(string,IDictionary{string, string})"
             /// />.
             /// Supported values:
@@ -592,9 +606,12 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="CreateGraphRequest.Options.SYNC_DB">SYNC_DB</see>:</term>
-        ///         <description>If set to <i>true</i>, the graph will be
-        /// updated if its source table(s) is updated. If set to <i>false</i>,
-        /// the graph will not be updated if the source table(s) is updated.
+        ///         <description>If set to <i>true</i> and <i>save_persist</i>
+        /// is set to <i>true</i>, the graph will be fully reconstructed upon a
+        /// database restart and be updated to align with any source table(s)
+        /// updates made since the creation of the graph. If dynamic graph
+        /// updates upon table inserts are desired, use
+        /// <i>add_table_monitor</i> instead.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -613,8 +630,12 @@ namespace kinetica
         ///         <term><see
         /// cref="CreateGraphRequest.Options.ADD_TABLE_MONITOR">ADD_TABLE_MONITOR</see>:</term>
         ///         <description>Adds a table monitor to every table used in
-        /// the creation of the graph. For more details on table monitors, see
-        /// /create/tablemonitor.
+        /// the creation of the graph; this table monitor will trigger the
+        /// graph to update dynamically upon inserts to the source table(s).
+        /// Note that upon database restart, if <i>save_persist</i> is also set
+        /// to <i>true</i>, the graph will be fully reconstructed and the table
+        /// monitors will be reattached. For more details on table monitors,
+        /// see /create/tablemonitor.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -846,9 +867,12 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="CreateGraphRequest.Options.SYNC_DB">SYNC_DB</see>:</term>
-        ///         <description>If set to <i>true</i>, the graph will be
-        /// updated if its source table(s) is updated. If set to <i>false</i>,
-        /// the graph will not be updated if the source table(s) is updated.
+        ///         <description>If set to <i>true</i> and <i>save_persist</i>
+        /// is set to <i>true</i>, the graph will be fully reconstructed upon a
+        /// database restart and be updated to align with any source table(s)
+        /// updates made since the creation of the graph. If dynamic graph
+        /// updates upon table inserts are desired, use
+        /// <i>add_table_monitor</i> instead.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -867,8 +891,12 @@ namespace kinetica
         ///         <term><see
         /// cref="CreateGraphRequest.Options.ADD_TABLE_MONITOR">ADD_TABLE_MONITOR</see>:</term>
         ///         <description>Adds a table monitor to every table used in
-        /// the creation of the graph. For more details on table monitors, see
-        /// /create/tablemonitor.
+        /// the creation of the graph; this table monitor will trigger the
+        /// graph to update dynamically upon inserts to the source table(s).
+        /// Note that upon database restart, if <i>save_persist</i> is also set
+        /// to <i>true</i>, the graph will be fully reconstructed and the table
+        /// monitors will be reattached. For more details on table monitors,
+        /// see /create/tablemonitor.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>

@@ -12,7 +12,7 @@ namespace kinetica
 {
     /// @cond NO_DOCS
     /// <summary>A set of parameters for <see
-    /// cref="Kinetica.visualizeImageClassbreak(IList{string},IList{string},string,string,string,IList{IList{string}},string,IList{string},string,IList{string},string,IList{string},string,IList{string},double,double,double,double,int,int,string,long,IDictionary{string, IList{string}},IDictionary{string, string})"
+    /// cref="Kinetica.visualizeImageClassbreak(IList{string},IList{string},string,string,string,IList{IList{string}},string,IList{string},string,IList{string},string,IList{string},string,IList{string},double,double,double,double,int,int,string,long,IDictionary{string, IList{string}},IDictionary{string, string},IList{int})"
     /// />.
     /// <br />
     /// </summary>
@@ -1014,6 +1014,7 @@ namespace kinetica
         /// </summary>
         public IDictionary<string, IList<string>> style_options { get; set; } = new Dictionary<string, IList<string>>();
         public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
+        public IList<int> cb_transparency_vec { get; set; } = new List<int>();
 
 
         /// <summary>Constructs a VisualizeImageClassbreakRequest object with
@@ -1391,6 +1392,7 @@ namespace kinetica
         /// </list>
         /// </param>
         /// <param name="options"></param>
+        /// <param name="cb_transparency_vec"></param>
         /// 
         public VisualizeImageClassbreakRequest( IList<string> table_names,
                                                 IList<string> world_table_names,
@@ -1415,7 +1417,8 @@ namespace kinetica
                                                 string projection,
                                                 long bg_color,
                                                 IDictionary<string, IList<string>> style_options,
-                                                IDictionary<string, string> options = null)
+                                                IDictionary<string, string> options,
+                                                IList<int> cb_transparency_vec)
         {
             this.table_names = table_names ?? new List<string>();
             this.world_table_names = world_table_names ?? new List<string>();
@@ -1441,6 +1444,7 @@ namespace kinetica
             this.bg_color = bg_color;
             this.style_options = style_options ?? new Dictionary<string, IList<string>>();
             this.options = options ?? new Dictionary<string, string>();
+            this.cb_transparency_vec = cb_transparency_vec ?? new List<int>();
         } // end constructor
 
     } // end class VisualizeImageClassbreakRequest
@@ -1450,7 +1454,7 @@ namespace kinetica
 
     /// @cond NO_DOCS
     /// <summary>A set of results returned by <see
-    /// cref="Kinetica.visualizeImageClassbreak(IList{string},IList{string},string,string,string,IList{IList{string}},string,IList{string},string,IList{string},string,IList{string},string,IList{string},double,double,double,double,int,int,string,long,IDictionary{string, IList{string}},IDictionary{string, string})"
+    /// cref="Kinetica.visualizeImageClassbreak(IList{string},IList{string},string,string,string,IList{IList{string}},string,IList{string},string,IList{string},string,IList{string},string,IList{string},double,double,double,double,int,int,string,long,IDictionary{string, IList{string}},IDictionary{string, string},IList{int})"
     /// />.</summary>
     public class VisualizeImageClassbreakResponse : KineticaData
     {

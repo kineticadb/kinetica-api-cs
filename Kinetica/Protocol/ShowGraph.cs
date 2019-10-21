@@ -15,7 +15,7 @@ namespace kinetica
     /// cref="Kinetica.showGraph(string,IDictionary{string, string})" />.
     /// <br />
     /// Shows information and characteristics of graphs that exist on the graph
-    /// server, depending on the options specified.</summary>
+    /// server.</summary>
     public class ShowGraphRequest : KineticaData
     {
 
@@ -25,7 +25,7 @@ namespace kinetica
         ///         <term><see
         /// cref="ShowGraphRequest.Options.SHOW_ORIGINAL_REQUEST">SHOW_ORIGINAL_REQUEST</see>:</term>
         ///         <description>If set to <i>true</i>, the request that was
-        /// originally used.
+        /// originally used to create the graph is also returned as JSON.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -48,7 +48,7 @@ namespace kinetica
         {
 
             /// <summary>If set to <i>true</i>, the request that was originally
-            /// used.
+            /// used to create the graph is also returned as JSON.
             /// Supported values:
             /// <list type="bullet">
             ///     <item>
@@ -69,8 +69,8 @@ namespace kinetica
 
 
         /// <summary>Name of the graph on which to retrieve information. If
-        /// empty, information about all graphs is returned.  The default value
-        /// is ''.</summary>
+        /// left as the default value, information about all graphs is
+        /// returned.  The default value is ''.</summary>
         public string graph_name { get; set; } = "";
 
         /// <summary>Optional parameters.
@@ -79,7 +79,7 @@ namespace kinetica
         ///         <term><see
         /// cref="ShowGraphRequest.Options.SHOW_ORIGINAL_REQUEST">SHOW_ORIGINAL_REQUEST</see>:</term>
         ///         <description>If set to <i>true</i>, the request that was
-        /// originally used.
+        /// originally used to create the graph is also returned as JSON.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -107,15 +107,15 @@ namespace kinetica
         /// parameters.</summary>
         /// 
         /// <param name="graph_name">Name of the graph on which to retrieve
-        /// information. If empty, information about all graphs is returned.
-        /// The default value is ''.</param>
+        /// information. If left as the default value, information about all
+        /// graphs is returned.  The default value is ''.</param>
         /// <param name="options">Optional parameters.
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
         /// cref="ShowGraphRequest.Options.SHOW_ORIGINAL_REQUEST">SHOW_ORIGINAL_REQUEST</see>:</term>
         ///         <description>If set to <i>true</i>, the request that was
-        /// originally used.
+        /// originally used to create the graph is also returned as JSON.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>

@@ -94,9 +94,9 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="AppendRecordsRequest.Options.TRUNCATE_STRINGS">TRUNCATE_STRINGS</see>:</term>
-        ///         <description>If set to {true}@{, it allows appending longer
-        /// strings to smaller charN string columns by truncating the longer
-        /// string to fit.  The default value is false.
+        ///         <description>If set to <i>true</i>, it allows inserting
+        /// longer strings into smaller charN string columns by truncating the
+        /// longer strings to fit.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -173,9 +173,9 @@ namespace kinetica
             public const string TRUE = "true";
             public const string FALSE = "false";
 
-            /// <summary>If set to {true}@{, it allows appending longer strings
-            /// to smaller charN string columns by truncating the longer string
-            /// to fit.  The default value is false.
+            /// <summary>If set to <i>true</i>, it allows inserting longer
+            /// strings into smaller charN string columns by truncating the
+            /// longer strings to fit.
             /// Supported values:
             /// <list type="bullet">
             ///     <item>
@@ -283,9 +283,9 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="AppendRecordsRequest.Options.TRUNCATE_STRINGS">TRUNCATE_STRINGS</see>:</term>
-        ///         <description>If set to {true}@{, it allows appending longer
-        /// strings to smaller charN string columns by truncating the longer
-        /// string to fit.  The default value is false.
+        ///         <description>If set to <i>true</i>, it allows inserting
+        /// longer strings into smaller charN string columns by truncating the
+        /// longer strings to fit.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -397,9 +397,9 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="AppendRecordsRequest.Options.TRUNCATE_STRINGS">TRUNCATE_STRINGS</see>:</term>
-        ///         <description>If set to {true}@{, it allows appending longer
-        /// strings to smaller charN string columns by truncating the longer
-        /// string to fit.  The default value is false.
+        ///         <description>If set to <i>true</i>, it allows inserting
+        /// longer strings into smaller charN string columns by truncating the
+        /// longer strings to fit.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
