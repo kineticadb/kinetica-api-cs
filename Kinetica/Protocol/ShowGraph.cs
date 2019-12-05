@@ -158,8 +158,10 @@ namespace kinetica
         public IList<string> graph_names { get; set; } = new List<string>();
 
         /// <summary>Whether or not the edges of the graph have directions
-        /// (bi-directional edges can still exist in directed graphs.
-        /// </summary>
+        /// (bi-directional edges can still exist in directed graphs). Consult
+        /// <a
+        /// href="../../graph_solver/network_graph_solver.html#directed-graphs"
+        /// target="_top">Directed Graphs</a> for more details.  </summary>
         public IList<bool> directed { get; set; } = new List<bool>();
 
         /// <summary>Total number of nodes in the graph.  </summary>

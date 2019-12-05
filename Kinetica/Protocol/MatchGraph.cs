@@ -17,9 +17,16 @@ namespace kinetica
     /// <br />
     /// Matches a directed route implied by a given set of latitude/longitude
     /// points to an existing underlying road network graph using a given
-    /// solution type. See <a
+    /// solution type.
+    /// <br />
+    /// IMPORTANT: It's highly recommended that you review the <a
     /// href="../../graph_solver/network_graph_solver.html"
-    /// target="_top">Network Graph Solvers</a> for more information.</summary>
+    /// target="_top">Network Graphs & Solvers</a> concepts documentation, the
+    /// <a href="../../graph_solver/examples/graph_rest_guide.html"
+    /// target="_top">Graph REST Tutorial</a>, and/or some <a
+    /// href="../../graph_solver/examples.html#match-graph"
+    /// target="_top">/match/graph examples</a> before using this
+    /// endpoint.</summary>
     public class MatchGraphRequest : KineticaData
     {
 
@@ -63,6 +70,13 @@ namespace kinetica
         /// multiple supplies (trucks) with varying sizes to varying demand
         /// sites with varying capacities per depot</description>
         ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="MatchGraphRequest.SolveMethod.MATCH_BATCH_SOLVES">MATCH_BATCH_SOLVES</see>:</term>
+        ///         <description>Matches <paramref
+        /// cref="MatchGraphRequest.sample_points" /> source and destination
+        /// pairs for the shortest path solves in batch mode</description>
+        ///     </item>
         /// </list>
         /// The default value is <see
         /// cref="MatchGraphRequest.SolveMethod.MARKOV_CHAIN">MARKOV_CHAIN</see>.
@@ -97,6 +111,11 @@ namespace kinetica
             /// varying demand sites with varying capacities per
             /// depot</summary>
             public const string MATCH_SUPPLY_DEMAND = "match_supply_demand";
+
+            /// <summary>Matches <see cref="sample_points" /> source and
+            /// destination pairs for the shortest path solves in batch
+            /// mode</summary>
+            public const string MATCH_BATCH_SOLVES = "match_batch_solves";
         } // end struct SolveMethod
 
 
@@ -215,6 +234,14 @@ namespace kinetica
         /// The default value is <see
         /// cref="MatchGraphRequest.Options.TRUE">TRUE</see>.</description>
         ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="MatchGraphRequest.Options.MAX_COMBINATIONS">MAX_COMBINATIONS</see>:</term>
+        ///         <description>For the <i>match_supply_demand</i> solver
+        /// only. This is the cutoff for the number of generated combinations
+        /// for sequencing the demand locations - can increase this upto 2M.
+        /// The default value is '10000'.</description>
+        ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.
         /// A set of string constants for the parameter <see cref="options"
@@ -321,6 +348,12 @@ namespace kinetica
             /// The default value is <see
             /// cref="MatchGraphRequest.Options.TRUE">TRUE</see>.</summary>
             public const string PARTIAL_LOADING = "partial_loading";
+
+            /// <summary>For the <i>match_supply_demand</i> solver only. This
+            /// is the cutoff for the number of generated combinations for
+            /// sequencing the demand locations - can increase this upto 2M.
+            /// The default value is '10000'.</summary>
+            public const string MAX_COMBINATIONS = "max_combinations";
         } // end struct Options
 
 
@@ -380,6 +413,13 @@ namespace kinetica
         /// cref="MatchGraphRequest.sample_points" /> to optimize scheduling
         /// multiple supplies (trucks) with varying sizes to varying demand
         /// sites with varying capacities per depot</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="MatchGraphRequest.SolveMethod.MATCH_BATCH_SOLVES">MATCH_BATCH_SOLVES</see>:</term>
+        ///         <description>Matches <paramref
+        /// cref="MatchGraphRequest.sample_points" /> source and destination
+        /// pairs for the shortest path solves in batch mode</description>
         ///     </item>
         /// </list>
         /// The default value is <see
@@ -515,6 +555,14 @@ namespace kinetica
         /// The default value is <see
         /// cref="MatchGraphRequest.Options.TRUE">TRUE</see>.</description>
         ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="MatchGraphRequest.Options.MAX_COMBINATIONS">MAX_COMBINATIONS</see>:</term>
+        ///         <description>For the <i>match_supply_demand</i> solver
+        /// only. This is the cutoff for the number of generated combinations
+        /// for sequencing the demand locations - can increase this upto 2M.
+        /// The default value is '10000'.</description>
+        ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.</summary>
         public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
@@ -581,6 +629,13 @@ namespace kinetica
         /// cref="MatchGraphRequest.sample_points" /> to optimize scheduling
         /// multiple supplies (trucks) with varying sizes to varying demand
         /// sites with varying capacities per depot</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="MatchGraphRequest.SolveMethod.MATCH_BATCH_SOLVES">MATCH_BATCH_SOLVES</see>:</term>
+        ///         <description>Matches <paramref
+        /// cref="MatchGraphRequest.sample_points" /> source and destination
+        /// pairs for the shortest path solves in batch mode</description>
         ///     </item>
         /// </list>
         /// The default value is <see
@@ -711,6 +766,14 @@ namespace kinetica
         /// </list>
         /// The default value is <see
         /// cref="MatchGraphRequest.Options.TRUE">TRUE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="MatchGraphRequest.Options.MAX_COMBINATIONS">MAX_COMBINATIONS</see>:</term>
+        ///         <description>For the <i>match_supply_demand</i> solver
+        /// only. This is the cutoff for the number of generated combinations
+        /// for sequencing the demand locations - can increase this upto 2M.
+        /// The default value is '10000'.</description>
         ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.</param>

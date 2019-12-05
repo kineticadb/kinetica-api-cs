@@ -126,8 +126,8 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="AggregateUnpivotRequest.Options.CHUNK_SIZE">CHUNK_SIZE</see>:</term>
-        ///         <description>Indicates the chunk size to be used for the
-        /// result table. Must be used in combination with the
+        ///         <description>Indicates the number of records per chunk to
+        /// be used for the result table. Must be used in combination with the
         /// <i>result_table</i> option.</description>
         ///     </item>
         ///     <item>
@@ -249,9 +249,9 @@ namespace kinetica
             /// name.  The default value is ''.</summary>
             public const string ORDER_BY = "order_by";
 
-            /// <summary>Indicates the chunk size to be used for the result
-            /// table. Must be used in combination with the <i>result_table</i>
-            /// option.</summary>
+            /// <summary>Indicates the number of records per chunk to be used
+            /// for the result table. Must be used in combination with the
+            /// <i>result_table</i> option.</summary>
             public const string CHUNK_SIZE = "chunk_size";
 
             /// <summary>The number of records to keep.  The default value is
@@ -412,8 +412,8 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="AggregateUnpivotRequest.Options.CHUNK_SIZE">CHUNK_SIZE</see>:</term>
-        ///         <description>Indicates the chunk size to be used for the
-        /// result table. Must be used in combination with the
+        ///         <description>Indicates the number of records per chunk to
+        /// be used for the result table. Must be used in combination with the
         /// <i>result_table</i> option.</description>
         ///     </item>
         ///     <item>
@@ -565,8 +565,8 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="AggregateUnpivotRequest.Options.CHUNK_SIZE">CHUNK_SIZE</see>:</term>
-        ///         <description>Indicates the chunk size to be used for the
-        /// result table. Must be used in combination with the
+        ///         <description>Indicates the number of records per chunk to
+        /// be used for the result table. Must be used in combination with the
         /// <i>result_table</i> option.</description>
         ///     </item>
         ///     <item>
@@ -748,8 +748,8 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="AggregateUnpivotRequest.Options.CHUNK_SIZE">CHUNK_SIZE</see>:</term>
-        ///         <description>Indicates the chunk size to be used for the
-        /// result table. Must be used in combination with the
+        ///         <description>Indicates the number of records per chunk to
+        /// be used for the result table. Must be used in combination with the
         /// <i>result_table</i> option.</description>
         ///     </item>
         ///     <item>

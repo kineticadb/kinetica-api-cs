@@ -37,7 +37,16 @@ namespace kinetica
     /// key</a> than the source table.  By specifying <i>shard_key</i>, the
     /// projection will be sharded according to the specified columns,
     /// regardless of how the source table is sharded.  The source table can
-    /// even be unsharded or replicated.</summary>
+    /// even be unsharded or replicated.
+    /// <br />
+    /// If <see cref="table_name" /> is empty, selection is performed against a
+    /// single-row virtual table.  This can be useful in executing temporal (<a
+    /// href="../../concepts/expressions.html#date-time-functions"
+    /// target="_top">NOW()</a>), identity (<a
+    /// href="../../concepts/expressions.html#user-security-functions"
+    /// target="_top">USER()</a>), or constant-based functions (<a
+    /// href="../../concepts/expressions.html#scalar-functions"
+    /// target="_top">GEODIST(-77.11, 38.88, -71.06, 42.36)</a>).</summary>
     public class CreateProjectionRequest : KineticaData
     {
 
@@ -118,14 +127,14 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="CreateProjectionRequest.Options.CHUNK_SIZE">CHUNK_SIZE</see>:</term>
-        ///         <description>Indicates the chunk size to be used for this
-        /// table.</description>
+        ///         <description>Indicates the number of records per chunk to
+        /// be used for this projection.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="CreateProjectionRequest.Options.CREATE_INDEXES">CREATE_INDEXES</see>:</term>
         ///         <description>Comma-separated list of columns on which to
-        /// create indexes on the output table.  The columns specified must be
+        /// create indexes on the projection.  The columns specified must be
         /// present in <paramref cref="CreateProjectionRequest.column_names"
         /// />.  If any alias is given for any column name, the alias must be
         /// used, rather than the original column name.</description>
@@ -173,8 +182,7 @@ namespace kinetica
         ///         <term><see
         /// cref="CreateProjectionRequest.Options.PRESERVE_DICT_ENCODING">PRESERVE_DICT_ENCODING</see>:</term>
         ///         <description>If <i>true</i>, then columns that were dict
-        /// encoded in the source table will be dict encoded in the projection
-        /// table.
+        /// encoded in the source table will be dict encoded in the projection.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -191,9 +199,28 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
+        /// cref="CreateProjectionRequest.Options.RETAIN_PARTITIONS">RETAIN_PARTITIONS</see>:</term>
+        ///         <description>Determines whether the created projection will
+        /// retain the partitioning scheme from the source table.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateProjectionRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateProjectionRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="CreateProjectionRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="CreateProjectionRequest.Options.VIEW_ID">VIEW_ID</see>:</term>
-        ///         <description>view this projection is part of.  The default
-        /// value is ''.</description>
+        ///         <description>ID of view of which this projection is a
+        /// member.  The default value is ''.</description>
         ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.
@@ -263,12 +290,12 @@ namespace kinetica
             /// cref="CreateProjectionRequest.Options.FALSE">FALSE</see>.</summary>
             public const string MATERIALIZE_ON_GPU = "materialize_on_gpu";
 
-            /// <summary>Indicates the chunk size to be used for this
-            /// table.</summary>
+            /// <summary>Indicates the number of records per chunk to be used
+            /// for this projection.</summary>
             public const string CHUNK_SIZE = "chunk_size";
 
             /// <summary>Comma-separated list of columns on which to create
-            /// indexes on the output table.  The columns specified must be
+            /// indexes on the projection.  The columns specified must be
             /// present in <see cref="column_names" />.  If any alias is given
             /// for any column name, the alias must be used, rather than the
             /// original column name.</summary>
@@ -307,7 +334,7 @@ namespace kinetica
             public const string PERSIST = "persist";
 
             /// <summary>If <i>true</i>, then columns that were dict encoded in
-            /// the source table will be dict encoded in the projection table.
+            /// the source table will be dict encoded in the projection.
             /// Supported values:
             /// <list type="bullet">
             ///     <item>
@@ -323,14 +350,33 @@ namespace kinetica
             /// cref="CreateProjectionRequest.Options.TRUE">TRUE</see>.</summary>
             public const string PRESERVE_DICT_ENCODING = "preserve_dict_encoding";
 
-            /// <summary>view this projection is part of.  The default value is
-            /// ''.</summary>
+            /// <summary>Determines whether the created projection will retain
+            /// the partitioning scheme from the source table.
+            /// Supported values:
+            /// <list type="bullet">
+            ///     <item>
+            ///         <term><see
+            /// cref="CreateProjectionRequest.Options.TRUE">TRUE</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="CreateProjectionRequest.Options.FALSE">FALSE</see></term>
+            ///     </item>
+            /// </list>
+            /// The default value is <see
+            /// cref="CreateProjectionRequest.Options.FALSE">FALSE</see>.</summary>
+            public const string RETAIN_PARTITIONS = "retain_partitions";
+
+            /// <summary>ID of view of which this projection is a member.  The
+            /// default value is ''.</summary>
             public const string VIEW_ID = "view_id";
         } // end struct Options
 
 
         /// <summary>Name of the existing table on which the projection is to
-        /// be applied.  </summary>
+        /// be applied.  An empty table name creates a projection from a
+        /// single-row virtual table, where columns specified should be
+        /// constants or constant expressions.  </summary>
         public string table_name { get; set; }
 
         /// <summary>Name of the projection to be created. Has the same naming
@@ -421,14 +467,14 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="CreateProjectionRequest.Options.CHUNK_SIZE">CHUNK_SIZE</see>:</term>
-        ///         <description>Indicates the chunk size to be used for this
-        /// table.</description>
+        ///         <description>Indicates the number of records per chunk to
+        /// be used for this projection.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="CreateProjectionRequest.Options.CREATE_INDEXES">CREATE_INDEXES</see>:</term>
         ///         <description>Comma-separated list of columns on which to
-        /// create indexes on the output table.  The columns specified must be
+        /// create indexes on the projection.  The columns specified must be
         /// present in <paramref cref="CreateProjectionRequest.column_names"
         /// />.  If any alias is given for any column name, the alias must be
         /// used, rather than the original column name.</description>
@@ -476,8 +522,7 @@ namespace kinetica
         ///         <term><see
         /// cref="CreateProjectionRequest.Options.PRESERVE_DICT_ENCODING">PRESERVE_DICT_ENCODING</see>:</term>
         ///         <description>If <i>true</i>, then columns that were dict
-        /// encoded in the source table will be dict encoded in the projection
-        /// table.
+        /// encoded in the source table will be dict encoded in the projection.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -494,9 +539,28 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
+        /// cref="CreateProjectionRequest.Options.RETAIN_PARTITIONS">RETAIN_PARTITIONS</see>:</term>
+        ///         <description>Determines whether the created projection will
+        /// retain the partitioning scheme from the source table.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateProjectionRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateProjectionRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="CreateProjectionRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="CreateProjectionRequest.Options.VIEW_ID">VIEW_ID</see>:</term>
-        ///         <description>view this projection is part of.  The default
-        /// value is ''.</description>
+        ///         <description>ID of view of which this projection is a
+        /// member.  The default value is ''.</description>
         ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.</summary>
@@ -511,7 +575,9 @@ namespace kinetica
         /// specified parameters.</summary>
         /// 
         /// <param name="table_name">Name of the existing table on which the
-        /// projection is to be applied.  </param>
+        /// projection is to be applied.  An empty table name creates a
+        /// projection from a single-row virtual table, where columns specified
+        /// should be constants or constant expressions.  </param>
         /// <param name="projection_name">Name of the projection to be created.
         /// Has the same naming restrictions as <a
         /// href="../../concepts/tables.html" target="_top">tables</a>.
@@ -597,14 +663,14 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="CreateProjectionRequest.Options.CHUNK_SIZE">CHUNK_SIZE</see>:</term>
-        ///         <description>Indicates the chunk size to be used for this
-        /// table.</description>
+        ///         <description>Indicates the number of records per chunk to
+        /// be used for this projection.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="CreateProjectionRequest.Options.CREATE_INDEXES">CREATE_INDEXES</see>:</term>
         ///         <description>Comma-separated list of columns on which to
-        /// create indexes on the output table.  The columns specified must be
+        /// create indexes on the projection.  The columns specified must be
         /// present in <paramref cref="CreateProjectionRequest.column_names"
         /// />.  If any alias is given for any column name, the alias must be
         /// used, rather than the original column name.</description>
@@ -652,8 +718,7 @@ namespace kinetica
         ///         <term><see
         /// cref="CreateProjectionRequest.Options.PRESERVE_DICT_ENCODING">PRESERVE_DICT_ENCODING</see>:</term>
         ///         <description>If <i>true</i>, then columns that were dict
-        /// encoded in the source table will be dict encoded in the projection
-        /// table.
+        /// encoded in the source table will be dict encoded in the projection.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -670,9 +735,28 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
+        /// cref="CreateProjectionRequest.Options.RETAIN_PARTITIONS">RETAIN_PARTITIONS</see>:</term>
+        ///         <description>Determines whether the created projection will
+        /// retain the partitioning scheme from the source table.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateProjectionRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateProjectionRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="CreateProjectionRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="CreateProjectionRequest.Options.VIEW_ID">VIEW_ID</see>:</term>
-        ///         <description>view this projection is part of.  The default
-        /// value is ''.</description>
+        ///         <description>ID of view of which this projection is a
+        /// member.  The default value is ''.</description>
         ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.</param>

@@ -610,6 +610,26 @@ namespace kinetica
         /// <paramref cref="AlterTableRequest._value" /> is also
         /// specified.</description>
         ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterTableRequest.Options.INDEX_TYPE">INDEX_TYPE</see>:</term>
+        ///         <description>Type of index to create.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterTableRequest.Options.COLUMN">COLUMN</see>:</term>
+        ///         <description>Standard column index.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterTableRequest.Options.CHUNK_SKIP">CHUNK_SKIP</see>:</term>
+        ///         <description>Chunk skip index.</description>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="AlterTableRequest.Options.COLUMN">COLUMN</see>.</description>
+        ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.
         /// A set of string constants for the parameter <see cref="options"
@@ -746,6 +766,30 @@ namespace kinetica
             /// strategy examples</a> for examples.  This option will be
             /// ignored if <see cref="_value" /> is also specified.</summary>
             public const string STRATEGY_DEFINITION = "strategy_definition";
+
+            /// <summary>Type of index to create.
+            /// Supported values:
+            /// <list type="bullet">
+            ///     <item>
+            ///         <term><see
+            /// cref="AlterTableRequest.Options.COLUMN">COLUMN</see>:</term>
+            ///         <description>Standard column index.</description>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="AlterTableRequest.Options.CHUNK_SKIP">CHUNK_SKIP</see>:</term>
+            ///         <description>Chunk skip index.</description>
+            ///     </item>
+            /// </list>
+            /// The default value is <see
+            /// cref="AlterTableRequest.Options.COLUMN">COLUMN</see>.</summary>
+            public const string INDEX_TYPE = "index_type";
+
+            /// <summary>Standard column index.</summary>
+            public const string COLUMN = "column";
+
+            /// <summary>Chunk skip index.</summary>
+            public const string CHUNK_SKIP = "chunk_skip";
         } // end struct Options
 
 
@@ -1137,6 +1181,26 @@ namespace kinetica
         /// strategy examples</a> for examples.  This option will be ignored if
         /// <paramref cref="AlterTableRequest._value" /> is also
         /// specified.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterTableRequest.Options.INDEX_TYPE">INDEX_TYPE</see>:</term>
+        ///         <description>Type of index to create.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterTableRequest.Options.COLUMN">COLUMN</see>:</term>
+        ///         <description>Standard column index.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterTableRequest.Options.CHUNK_SKIP">CHUNK_SKIP</see>:</term>
+        ///         <description>Chunk skip index.</description>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="AlterTableRequest.Options.COLUMN">COLUMN</see>.</description>
         ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.</summary>
@@ -1533,6 +1597,26 @@ namespace kinetica
         /// strategy examples</a> for examples.  This option will be ignored if
         /// <paramref cref="AlterTableRequest._value" /> is also
         /// specified.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterTableRequest.Options.INDEX_TYPE">INDEX_TYPE</see>:</term>
+        ///         <description>Type of index to create.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterTableRequest.Options.COLUMN">COLUMN</see>:</term>
+        ///         <description>Standard column index.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterTableRequest.Options.CHUNK_SKIP">CHUNK_SKIP</see>:</term>
+        ///         <description>Chunk skip index.</description>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="AlterTableRequest.Options.COLUMN">COLUMN</see>.</description>
         ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.</param>

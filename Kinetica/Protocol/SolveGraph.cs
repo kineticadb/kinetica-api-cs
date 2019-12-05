@@ -12,14 +12,21 @@ namespace kinetica
 {
 
     /// <summary>A set of parameters for <see
-    /// cref="Kinetica.solveGraph(string,IList{string},IList{string},string,long,IList{long},string,string,IList{string},string,IDictionary{string, string})"
+    /// cref="Kinetica.solveGraph(string,IList{string},IList{string},string,IList{string},IList{string},string,IDictionary{string, string})"
     /// />.
     /// <br />
     /// Solves an existing graph for a type of problem (e.g., shortest path,
     /// page rank, travelling salesman, etc.) using source nodes, destination
-    /// nodes, and additional, optional weights and restrictions. See <a
+    /// nodes, and additional, optional weights and restrictions.
+    /// <br />
+    /// IMPORTANT: It's highly recommended that you review the <a
     /// href="../../graph_solver/network_graph_solver.html"
-    /// target="_top">Network Graph Solvers</a> for more information.</summary>
+    /// target="_top">Network Graphs & Solvers</a> concepts documentation, the
+    /// <a href="../../graph_solver/examples/graph_rest_guide.html"
+    /// target="_top">Graph REST Tutorial</a>, and/or some <a
+    /// href="../../graph_solver/examples.html#solve-graph"
+    /// target="_top">/solve/graph examples</a> before using this
+    /// endpoint.</summary>
     public class SolveGraphRequest : KineticaData
     {
 
@@ -74,15 +81,15 @@ namespace kinetica
         ///         <term><see
         /// cref="SolveGraphRequest.SolverType.BACKHAUL_ROUTING">BACKHAUL_ROUTING</see>:</term>
         ///         <description>Solves for optimal routes that connect remote
-        /// asset nodes to the fixed (backbone) asset nodes. When
-        /// <i>BACKHAUL_ROUTING</i> is invoked, the <paramref
-        /// cref="SolveGraphRequest.destination_nodes" /> or <paramref
-        /// cref="SolveGraphRequest.destination_node_ids" /> array is used for
-        /// both fixed and remote asset nodes and the <paramref
-        /// cref="SolveGraphRequest.source_node_id" /> represents the number of
-        /// fixed asset nodes contained in <paramref
-        /// cref="SolveGraphRequest.destination_nodes" /> / <paramref
-        /// cref="SolveGraphRequest.destination_node_ids" />.</description>
+        /// asset nodes to the fixed (backbone) asset nodes.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="SolveGraphRequest.SolverType.ALLPATHS">ALLPATHS</see>:</term>
+        ///         <description>Solves for paths that would give costs between
+        /// max and min solution radia - Make sure to limit by the
+        /// 'max_solution_targets' option. Min cost shoudl be >= shortest_path
+        /// cost.</description>
         ///     </item>
         /// </list>
         /// The default value is <see
@@ -125,58 +132,15 @@ namespace kinetica
             public const string INVERSE_SHORTEST_PATH = "INVERSE_SHORTEST_PATH";
 
             /// <summary>Solves for optimal routes that connect remote asset
-            /// nodes to the fixed (backbone) asset nodes. When
-            /// <i>BACKHAUL_ROUTING</i> is invoked, the <see
-            /// cref="destination_nodes" /> or <see cref="destination_node_ids"
-            /// /> array is used for both fixed and remote asset nodes and the
-            /// <see cref="source_node_id" /> represents the number of fixed
-            /// asset nodes contained in <see cref="destination_nodes" /> /
-            /// <see cref="destination_node_ids" />.</summary>
+            /// nodes to the fixed (backbone) asset nodes.</summary>
             public const string BACKHAUL_ROUTING = "BACKHAUL_ROUTING";
+
+            /// <summary>Solves for paths that would give costs between max and
+            /// min solution radia - Make sure to limit by the
+            /// 'max_solution_targets' option. Min cost shoudl be >=
+            /// shortest_path cost.</summary>
+            public const string ALLPATHS = "ALLPATHS";
         } // end struct SolverType
-
-
-        /// <summary>Source and destination node identifier type.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="SolveGraphRequest.NodeType.NODE_ID">NODE_ID</see>:</term>
-        ///         <description>The graph's nodes were identified as integers,
-        /// e.g., 1234.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="SolveGraphRequest.NodeType.NODE_WKTPOINT">NODE_WKTPOINT</see>:</term>
-        ///         <description>The graph's nodes were identified as
-        /// geospatial coordinates, e.g., 'POINT(1.0 2.0)'.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="SolveGraphRequest.NodeType.NODE_NAME">NODE_NAME</see>:</term>
-        ///         <description>The graph's nodes were identified as strings,
-        /// e.g., 'Arlington'.</description>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="SolveGraphRequest.NodeType.NODE_ID">NODE_ID</see>.
-        /// A set of string constants for the parameter <see cref="node_type"
-        /// />.</summary>
-        public struct NodeType
-        {
-
-            /// <summary>The graph's nodes were identified as integers, e.g.,
-            /// 1234.</summary>
-            public const string NODE_ID = "NODE_ID";
-
-            /// <summary>The graph's nodes were identified as geospatial
-            /// coordinates, e.g., 'POINT(1.0 2.0)'.</summary>
-            public const string NODE_WKTPOINT = "NODE_WKTPOINT";
-
-            /// <summary>The graph's nodes were identified as strings, e.g.,
-            /// 'Arlington'.</summary>
-            public const string NODE_NAME = "NODE_NAME";
-        } // end struct NodeType
 
 
         /// <summary>Additional parameters
@@ -187,7 +151,7 @@ namespace kinetica
         ///         <description>For <i>SHORTEST_PATH</i> and
         /// <i>INVERSE_SHORTEST_PATH</i> solvers only. Sets the maximum
         /// solution cost radius, which ignores the <paramref
-        /// cref="SolveGraphRequest.destination_node_ids" /> list and instead
+        /// cref="SolveGraphRequest.destination_nodes" /> list and instead
         /// outputs the nodes within the radius sorted by ascending cost. If
         /// set to '0.0', the setting is ignored.  The default value is
         /// '0.0'.</description>
@@ -199,7 +163,7 @@ namespace kinetica
         /// <i>INVERSE_SHORTEST_PATH</i> solvers only. Applicable only when
         /// <i>max_solution_radius</i> is set. Sets the minimum solution cost
         /// radius, which ignores the <paramref
-        /// cref="SolveGraphRequest.destination_node_ids" /> list and instead
+        /// cref="SolveGraphRequest.destination_nodes" /> list and instead
         /// outputs the nodes within the radius sorted by ascending cost. If
         /// set to '0.0', the setting is ignored.  The default value is
         /// '0.0'.</description>
@@ -210,7 +174,7 @@ namespace kinetica
         ///         <description>For <i>SHORTEST_PATH</i> and
         /// <i>INVERSE_SHORTEST_PATH</i> solvers only. Sets the maximum number
         /// of solution targets, which ignores the <paramref
-        /// cref="SolveGraphRequest.destination_node_ids" /> list and instead
+        /// cref="SolveGraphRequest.destination_nodes" /> list and instead
         /// outputs no more than n number of nodes sorted by ascending cost
         /// where n is equal to the setting value. If set to 0, the setting is
         /// ignored.  The default value is '0'.</description>
@@ -281,25 +245,24 @@ namespace kinetica
             /// <summary>For <i>SHORTEST_PATH</i> and
             /// <i>INVERSE_SHORTEST_PATH</i> solvers only. Sets the maximum
             /// solution cost radius, which ignores the <see
-            /// cref="destination_node_ids" /> list and instead outputs the
-            /// nodes within the radius sorted by ascending cost. If set to
-            /// '0.0', the setting is ignored.  The default value is
-            /// '0.0'.</summary>
+            /// cref="destination_nodes" /> list and instead outputs the nodes
+            /// within the radius sorted by ascending cost. If set to '0.0',
+            /// the setting is ignored.  The default value is '0.0'.</summary>
             public const string MAX_SOLUTION_RADIUS = "max_solution_radius";
 
             /// <summary>For <i>SHORTEST_PATH</i> and
             /// <i>INVERSE_SHORTEST_PATH</i> solvers only. Applicable only when
             /// <i>max_solution_radius</i> is set. Sets the minimum solution
-            /// cost radius, which ignores the <see cref="destination_node_ids"
-            /// /> list and instead outputs the nodes within the radius sorted
-            /// by ascending cost. If set to '0.0', the setting is ignored.
-            /// The default value is '0.0'.</summary>
+            /// cost radius, which ignores the <see cref="destination_nodes" />
+            /// list and instead outputs the nodes within the radius sorted by
+            /// ascending cost. If set to '0.0', the setting is ignored.  The
+            /// default value is '0.0'.</summary>
             public const string MIN_SOLUTION_RADIUS = "min_solution_radius";
 
             /// <summary>For <i>SHORTEST_PATH</i> and
             /// <i>INVERSE_SHORTEST_PATH</i> solvers only. Sets the maximum
             /// number of solution targets, which ignores the <see
-            /// cref="destination_node_ids" /> list and instead outputs no more
+            /// cref="destination_nodes" /> list and instead outputs no more
             /// than n number of nodes sorted by ascending cost where n is
             /// equal to the setting value. If set to 0, the setting is
             /// ignored.  The default value is '0'.</summary>
@@ -447,15 +410,15 @@ namespace kinetica
         ///         <term><see
         /// cref="SolveGraphRequest.SolverType.BACKHAUL_ROUTING">BACKHAUL_ROUTING</see>:</term>
         ///         <description>Solves for optimal routes that connect remote
-        /// asset nodes to the fixed (backbone) asset nodes. When
-        /// <i>BACKHAUL_ROUTING</i> is invoked, the <paramref
-        /// cref="SolveGraphRequest.destination_nodes" /> or <paramref
-        /// cref="SolveGraphRequest.destination_node_ids" /> array is used for
-        /// both fixed and remote asset nodes and the <paramref
-        /// cref="SolveGraphRequest.source_node_id" /> represents the number of
-        /// fixed asset nodes contained in <paramref
-        /// cref="SolveGraphRequest.destination_nodes" /> / <paramref
-        /// cref="SolveGraphRequest.destination_node_ids" />.</description>
+        /// asset nodes to the fixed (backbone) asset nodes.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="SolveGraphRequest.SolverType.ALLPATHS">ALLPATHS</see>:</term>
+        ///         <description>Solves for paths that would give costs between
+        /// max and min solution radia - Make sure to limit by the
+        /// 'max_solution_targets' option. Min cost shoudl be >= shortest_path
+        /// cost.</description>
         ///     </item>
         /// </list>
         /// The default value is <see
@@ -463,68 +426,15 @@ namespace kinetica
         /// </summary>
         public string solver_type { get; set; } = SolverType.SHORTEST_PATH;
 
-        /// <summary>If <paramref cref="SolveGraphRequest.node_type" /> is
-        /// <i>NODE_ID</i>, the node ID (integer) of the source (starting
-        /// point) for the graph solution. If the <paramref
-        /// cref="SolveGraphRequest.solver_type" /> is set to
-        /// <i>BACKHAUL_ROUTING</i>, this number represents the number of fixed
-        /// asset nodes contained in <paramref
-        /// cref="SolveGraphRequest.destination_nodes" />, e.g., if <paramref
-        /// cref="SolveGraphRequest.source_node_id" /> is set to 24, the first
-        /// 24 nodes listed in <paramref
-        /// cref="SolveGraphRequest.destination_nodes" /> / <paramref
-        /// cref="SolveGraphRequest.destination_node_ids" /> are the fixed
-        /// asset nodes and the rest of the nodes in the array are remote
-        /// assets.  </summary>
-        public long source_node_id { get; set; }
+        /// <summary>It can be one of the nodal identifiers - e.g:
+        /// 'NODE_WKTPOINT' for source nodes. For <i>BACKHAUL_ROUTING</i>, this
+        /// list depicts the fixed assets.  The default value is an empty
+        /// {@link List}.</summary>
+        public IList<string> source_nodes { get; set; } = new List<string>();
 
-        /// <summary>List of destination node indices, or indices for
-        /// pageranks. If the <paramref cref="SolveGraphRequest.solver_type" />
-        /// is set to <i>BACKHAUL_ROUTING</i>, it is the list of all fixed and
-        /// remote asset nodes.  The default value is an empty {@link
-        /// List}.</summary>
-        public IList<long> destination_node_ids { get; set; } = new List<long>();
-
-        /// <summary>Source and destination node identifier type.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="SolveGraphRequest.NodeType.NODE_ID">NODE_ID</see>:</term>
-        ///         <description>The graph's nodes were identified as integers,
-        /// e.g., 1234.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="SolveGraphRequest.NodeType.NODE_WKTPOINT">NODE_WKTPOINT</see>:</term>
-        ///         <description>The graph's nodes were identified as
-        /// geospatial coordinates, e.g., 'POINT(1.0 2.0)'.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="SolveGraphRequest.NodeType.NODE_NAME">NODE_NAME</see>:</term>
-        ///         <description>The graph's nodes were identified as strings,
-        /// e.g., 'Arlington'.</description>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="SolveGraphRequest.NodeType.NODE_ID">NODE_ID</see>.
-        /// </summary>
-        public string node_type { get; set; } = NodeType.NODE_ID;
-
-        /// <summary>If <paramref cref="SolveGraphRequest.node_type" /> is
-        /// <i>NODE_WKTPOINT</i> or <i>NODE_NAME</i>, the node (string) of the
-        /// source (starting point) for the graph solution.  The default value
-        /// is ''.</summary>
-        public string source_node { get; set; } = "";
-
-        /// <summary>If <paramref cref="SolveGraphRequest.node_type" /> is
-        /// <i>NODE_WKTPOINT</i> or <i>NODE_NAME</i>, the list of destination
-        /// node or page rank indices (strings) for the graph solution. If the
-        /// <paramref cref="SolveGraphRequest.solver_type" /> is set to
-        /// <i>BACKHAUL_ROUTING</i>, it is the list of all fixed and remote
-        /// asset nodes. The string type should be consistent with the
-        /// <paramref cref="SolveGraphRequest.node_type" /> parameter.  The
+        /// <summary>It can be one of the nodal identifiers - e.g:
+        /// 'NODE_WKTPOINT' for destination (target) nodes. For
+        /// <i>BACKHAUL_ROUTING</i>, this list depicts the remote assets.  The
         /// default value is an empty {@link List}.</summary>
         public IList<string> destination_nodes { get; set; } = new List<string>();
 
@@ -540,7 +450,7 @@ namespace kinetica
         ///         <description>For <i>SHORTEST_PATH</i> and
         /// <i>INVERSE_SHORTEST_PATH</i> solvers only. Sets the maximum
         /// solution cost radius, which ignores the <paramref
-        /// cref="SolveGraphRequest.destination_node_ids" /> list and instead
+        /// cref="SolveGraphRequest.destination_nodes" /> list and instead
         /// outputs the nodes within the radius sorted by ascending cost. If
         /// set to '0.0', the setting is ignored.  The default value is
         /// '0.0'.</description>
@@ -552,7 +462,7 @@ namespace kinetica
         /// <i>INVERSE_SHORTEST_PATH</i> solvers only. Applicable only when
         /// <i>max_solution_radius</i> is set. Sets the minimum solution cost
         /// radius, which ignores the <paramref
-        /// cref="SolveGraphRequest.destination_node_ids" /> list and instead
+        /// cref="SolveGraphRequest.destination_nodes" /> list and instead
         /// outputs the nodes within the radius sorted by ascending cost. If
         /// set to '0.0', the setting is ignored.  The default value is
         /// '0.0'.</description>
@@ -563,7 +473,7 @@ namespace kinetica
         ///         <description>For <i>SHORTEST_PATH</i> and
         /// <i>INVERSE_SHORTEST_PATH</i> solvers only. Sets the maximum number
         /// of solution targets, which ignores the <paramref
-        /// cref="SolveGraphRequest.destination_node_ids" /> list and instead
+        /// cref="SolveGraphRequest.destination_nodes" /> list and instead
         /// outputs no more than n number of nodes sorted by ascending cost
         /// where n is equal to the setting value. If set to 0, the setting is
         /// ignored.  The default value is '0'.</description>
@@ -723,76 +633,28 @@ namespace kinetica
         ///         <term><see
         /// cref="SolveGraphRequest.SolverType.BACKHAUL_ROUTING">BACKHAUL_ROUTING</see>:</term>
         ///         <description>Solves for optimal routes that connect remote
-        /// asset nodes to the fixed (backbone) asset nodes. When
-        /// <i>BACKHAUL_ROUTING</i> is invoked, the <paramref
-        /// cref="SolveGraphRequest.destination_nodes" /> or <paramref
-        /// cref="SolveGraphRequest.destination_node_ids" /> array is used for
-        /// both fixed and remote asset nodes and the <paramref
-        /// cref="SolveGraphRequest.source_node_id" /> represents the number of
-        /// fixed asset nodes contained in <paramref
-        /// cref="SolveGraphRequest.destination_nodes" /> / <paramref
-        /// cref="SolveGraphRequest.destination_node_ids" />.</description>
+        /// asset nodes to the fixed (backbone) asset nodes.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="SolveGraphRequest.SolverType.ALLPATHS">ALLPATHS</see>:</term>
+        ///         <description>Solves for paths that would give costs between
+        /// max and min solution radia - Make sure to limit by the
+        /// 'max_solution_targets' option. Min cost shoudl be >= shortest_path
+        /// cost.</description>
         ///     </item>
         /// </list>
         /// The default value is <see
         /// cref="SolveGraphRequest.SolverType.SHORTEST_PATH">SHORTEST_PATH</see>.
         /// </param>
-        /// <param name="source_node_id">If <paramref
-        /// cref="SolveGraphRequest.node_type" /> is <i>NODE_ID</i>, the node
-        /// ID (integer) of the source (starting point) for the graph solution.
-        /// If the <paramref cref="SolveGraphRequest.solver_type" /> is set to
-        /// <i>BACKHAUL_ROUTING</i>, this number represents the number of fixed
-        /// asset nodes contained in <paramref
-        /// cref="SolveGraphRequest.destination_nodes" />, e.g., if <paramref
-        /// cref="SolveGraphRequest.source_node_id" /> is set to 24, the first
-        /// 24 nodes listed in <paramref
-        /// cref="SolveGraphRequest.destination_nodes" /> / <paramref
-        /// cref="SolveGraphRequest.destination_node_ids" /> are the fixed
-        /// asset nodes and the rest of the nodes in the array are remote
-        /// assets.  </param>
-        /// <param name="destination_node_ids">List of destination node
-        /// indices, or indices for pageranks. If the <paramref
-        /// cref="SolveGraphRequest.solver_type" /> is set to
-        /// <i>BACKHAUL_ROUTING</i>, it is the list of all fixed and remote
-        /// asset nodes.  The default value is an empty {@link List}.</param>
-        /// <param name="node_type">Source and destination node identifier
-        /// type.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="SolveGraphRequest.NodeType.NODE_ID">NODE_ID</see>:</term>
-        ///         <description>The graph's nodes were identified as integers,
-        /// e.g., 1234.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="SolveGraphRequest.NodeType.NODE_WKTPOINT">NODE_WKTPOINT</see>:</term>
-        ///         <description>The graph's nodes were identified as
-        /// geospatial coordinates, e.g., 'POINT(1.0 2.0)'.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="SolveGraphRequest.NodeType.NODE_NAME">NODE_NAME</see>:</term>
-        ///         <description>The graph's nodes were identified as strings,
-        /// e.g., 'Arlington'.</description>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="SolveGraphRequest.NodeType.NODE_ID">NODE_ID</see>.  </param>
-        /// <param name="source_node">If <paramref
-        /// cref="SolveGraphRequest.node_type" /> is <i>NODE_WKTPOINT</i> or
-        /// <i>NODE_NAME</i>, the node (string) of the source (starting point)
-        /// for the graph solution.  The default value is ''.</param>
-        /// <param name="destination_nodes">If <paramref
-        /// cref="SolveGraphRequest.node_type" /> is <i>NODE_WKTPOINT</i> or
-        /// <i>NODE_NAME</i>, the list of destination node or page rank indices
-        /// (strings) for the graph solution. If the <paramref
-        /// cref="SolveGraphRequest.solver_type" /> is set to
-        /// <i>BACKHAUL_ROUTING</i>, it is the list of all fixed and remote
-        /// asset nodes. The string type should be consistent with the
-        /// <paramref cref="SolveGraphRequest.node_type" /> parameter.  The
-        /// default value is an empty {@link List}.</param>
+        /// <param name="source_nodes">It can be one of the nodal identifiers -
+        /// e.g: 'NODE_WKTPOINT' for source nodes. For <i>BACKHAUL_ROUTING</i>,
+        /// this list depicts the fixed assets.  The default value is an empty
+        /// {@link List}.</param>
+        /// <param name="destination_nodes">It can be one of the nodal
+        /// identifiers - e.g: 'NODE_WKTPOINT' for destination (target) nodes.
+        /// For <i>BACKHAUL_ROUTING</i>, this list depicts the remote assets.
+        /// The default value is an empty {@link List}.</param>
         /// <param name="solution_table">Name of the table to store the
         /// solution.  The default value is 'graph_solutions'.</param>
         /// <param name="options">Additional parameters
@@ -803,7 +665,7 @@ namespace kinetica
         ///         <description>For <i>SHORTEST_PATH</i> and
         /// <i>INVERSE_SHORTEST_PATH</i> solvers only. Sets the maximum
         /// solution cost radius, which ignores the <paramref
-        /// cref="SolveGraphRequest.destination_node_ids" /> list and instead
+        /// cref="SolveGraphRequest.destination_nodes" /> list and instead
         /// outputs the nodes within the radius sorted by ascending cost. If
         /// set to '0.0', the setting is ignored.  The default value is
         /// '0.0'.</description>
@@ -815,7 +677,7 @@ namespace kinetica
         /// <i>INVERSE_SHORTEST_PATH</i> solvers only. Applicable only when
         /// <i>max_solution_radius</i> is set. Sets the minimum solution cost
         /// radius, which ignores the <paramref
-        /// cref="SolveGraphRequest.destination_node_ids" /> list and instead
+        /// cref="SolveGraphRequest.destination_nodes" /> list and instead
         /// outputs the nodes within the radius sorted by ascending cost. If
         /// set to '0.0', the setting is ignored.  The default value is
         /// '0.0'.</description>
@@ -826,7 +688,7 @@ namespace kinetica
         ///         <description>For <i>SHORTEST_PATH</i> and
         /// <i>INVERSE_SHORTEST_PATH</i> solvers only. Sets the maximum number
         /// of solution targets, which ignores the <paramref
-        /// cref="SolveGraphRequest.destination_node_ids" /> list and instead
+        /// cref="SolveGraphRequest.destination_nodes" /> list and instead
         /// outputs no more than n number of nodes sorted by ascending cost
         /// where n is equal to the setting value. If set to 0, the setting is
         /// ignored.  The default value is '0'.</description>
@@ -891,13 +753,10 @@ namespace kinetica
         /// The default value is an empty {@link Dictionary}.</param>
         /// 
         public SolveGraphRequest( string graph_name,
-                                  IList<string> weights_on_edges,
-                                  IList<string> restrictions,
-                                  string solver_type,
-                                  long source_node_id,
-                                  IList<long> destination_node_ids = null,
-                                  string node_type = null,
-                                  string source_node = null,
+                                  IList<string> weights_on_edges = null,
+                                  IList<string> restrictions = null,
+                                  string solver_type = null,
+                                  IList<string> source_nodes = null,
                                   IList<string> destination_nodes = null,
                                   string solution_table = null,
                                   IDictionary<string, string> options = null)
@@ -906,10 +765,7 @@ namespace kinetica
             this.weights_on_edges = weights_on_edges ?? new List<string>();
             this.restrictions = restrictions ?? new List<string>();
             this.solver_type = solver_type ?? SolverType.SHORTEST_PATH;
-            this.source_node_id = source_node_id;
-            this.destination_node_ids = destination_node_ids ?? new List<long>();
-            this.node_type = node_type ?? NodeType.NODE_ID;
-            this.source_node = source_node ?? "";
+            this.source_nodes = source_nodes ?? new List<string>();
             this.destination_nodes = destination_nodes ?? new List<string>();
             this.solution_table = solution_table ?? "graph_solutions";
             this.options = options ?? new Dictionary<string, string>();
@@ -920,7 +776,7 @@ namespace kinetica
 
 
     /// <summary>A set of results returned by <see
-    /// cref="Kinetica.solveGraph(string,IList{string},IList{string},string,long,IList{long},string,string,IList{string},string,IDictionary{string, string})"
+    /// cref="Kinetica.solveGraph(string,IList{string},IList{string},string,IList{string},IList{string},string,IDictionary{string, string})"
     /// />.</summary>
     public class SolveGraphResponse : KineticaData
     {

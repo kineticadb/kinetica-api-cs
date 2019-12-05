@@ -16,7 +16,7 @@ namespace kinetica
     {
 
         // Kinetica Version
-        public const string API_VERSION = "7.0.8.0";
+        public const string API_VERSION = "7.0.10.0";
 
 
 
@@ -886,9 +886,9 @@ namespace kinetica
 
 
         /// <summary>Calculates unique combinations (groups) of values for the
-        /// given columns in a given table/view/collection and computes
-        /// aggregates on each unique combination. This is somewhat analogous
-        /// to an SQL-style SELECT...GROUP BY.
+        /// given columns in a given table or view and computes aggregates on
+        /// each unique combination. This is somewhat analogous to an SQL-style
+        /// SELECT...GROUP BY.
         /// <br />
         /// For aggregation details and examples, see <a
         /// href="../../concepts/aggregation.html"
@@ -982,9 +982,9 @@ namespace kinetica
 
 
         /// <summary>Calculates unique combinations (groups) of values for the
-        /// given columns in a given table/view/collection and computes
-        /// aggregates on each unique combination. This is somewhat analogous
-        /// to an SQL-style SELECT...GROUP BY.
+        /// given columns in a given table or view and computes aggregates on
+        /// each unique combination. This is somewhat analogous to an SQL-style
+        /// SELECT...GROUP BY.
         /// <br />
         /// For aggregation details and examples, see <a
         /// href="../../concepts/aggregation.html"
@@ -1054,19 +1054,25 @@ namespace kinetica
         /// available when any of the values of <paramref name="column_names"
         /// /> is an unrestricted-length string.</summary>
         /// 
-        /// <param name="table_name">Name of the table on which the operation
-        /// will be performed. Must be an existing table/view/collection.
-        /// </param>
+        /// <param name="table_name">Name of an existing table or view on which
+        /// the operation will be performed.  </param>
         /// <param name="column_names">List of one or more column names,
         /// expressions, and aggregate expressions.  </param>
         /// <param name="offset">A positive integer indicating the number of
         /// initial results to skip (this can be useful for paging through the
-        /// results).  The minimum allowed value is 0. The maximum allowed
-        /// value is MAX_INT. </param>
+        /// results).  The default value is 0.The minimum allowed value is 0.
+        /// The maximum allowed value is MAX_INT. </param>
         /// <param name="limit">A positive integer indicating the maximum
-        /// number of results to be returned Or END_OF_SET (-9999) to indicate
-        /// that the max number of results should be returned.  The default
-        /// value is 1000.</param>
+        /// number of results to be returned, or END_OF_SET (-9999) to indicate
+        /// that the max number of results should be returned.  The number of
+        /// records returned will never exceed the server's own limit, defined
+        /// by the <a href="../../config/index.html#general"
+        /// target="_top">max_get_records_size</a> parameter in the server
+        /// configuration.  Use <member name="has_more_records" /> to see if
+        /// more records exist in the result to be fetched, and <paramref
+        /// cref="AggregateGroupByRequest.offset" /> & <paramref
+        /// cref="AggregateGroupByRequest.limit" /> to request subsequent pages
+        /// of results.  The default value is -9999.</param>
         /// <param name="options">Optional parameters.
         /// <list type="bullet">
         ///     <item>
@@ -1075,10 +1081,7 @@ namespace kinetica
         ///         <description>Name of a collection which is to contain the
         /// table specified in <i>result_table</i>. If the collection provided
         /// is non-existent, the collection will be automatically created. If
-        /// empty, then the table will be a top-level table.  Additionally this
-        /// option is invalid if <paramref
-        /// cref="AggregateGroupByRequest.table_name" /> is a
-        /// collection.</description>
+        /// empty, then the table will be a top-level table.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -1200,7 +1203,7 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="AggregateGroupByRequest.Options.RESULT_TABLE_GENERATE_PK">RESULT_TABLE_GENERATE_PK</see>:</term>
-        ///         <description>If 'true' then set a primary key for the
+        ///         <description>If <i>true</i> then set a primary key for the
         /// result table. Must be used in combination with the
         /// <i>result_table</i> option.
         /// Supported values:
@@ -1227,8 +1230,8 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="AggregateGroupByRequest.Options.CHUNK_SIZE">CHUNK_SIZE</see>:</term>
-        ///         <description>Indicates the chunk size to be used for the
-        /// result table. Must be used in combination with the
+        ///         <description>Indicates the number of records per chunk to
+        /// be used for the result table. Must be used in combination with the
         /// <i>result_table</i> option.</description>
         ///     </item>
         ///     <item>
@@ -1241,8 +1244,8 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="AggregateGroupByRequest.Options.VIEW_ID">VIEW_ID</see>:</term>
-        ///         <description>view this result table is part of.  The
-        /// default value is ''.</description>
+        ///         <description>ID of view of which the result table will be a
+        /// member.  The default value is ''.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -1306,8 +1309,8 @@ namespace kinetica
         /// 
         public AggregateGroupByResponse aggregateGroupBy( string table_name,
                                                           IList<string> column_names,
-                                                          long offset,
-                                                          long limit = 1000,
+                                                          long offset = 0,
+                                                          long limit = -9999,
                                                           IDictionary<string, string> options = null )
         {
             return aggregateGroupBy( new AggregateGroupByRequest( table_name,
@@ -1962,7 +1965,7 @@ namespace kinetica
 
         /// <summary>Returns all the unique values from a particular column
         /// (specified by <paramref cref="AggregateUniqueRequest.column_name"
-        /// />) of a particular table or collection (specified by <paramref
+        /// />) of a particular table or view (specified by <paramref
         /// cref="AggregateUniqueRequest.table_name" />). If <paramref
         /// cref="AggregateUniqueRequest.column_name" /> is a numeric column
         /// the values will be in <paramref
@@ -2000,10 +2003,9 @@ namespace kinetica
         /// be sharded, in all other cases it will be replicated.  Sorting will
         /// properly function only if the result table is replicated or if
         /// there is only one processing node and should not be relied upon in
-        /// other cases.  Not available if <paramref
-        /// cref="AggregateUniqueRequest.table_name" /> is a collection or when
-        /// the value of <paramref cref="AggregateUniqueRequest.column_name" />
-        /// is an unrestricted-length string.</summary>
+        /// other cases.  Not available if the value of <paramref
+        /// cref="AggregateUniqueRequest.column_name" /> is an
+        /// unrestricted-length string.</summary>
         /// 
         /// <param name="request_">Request object containing the parameters for
         /// the operation.</param>
@@ -2026,9 +2028,9 @@ namespace kinetica
 
         /// <summary>Returns all the unique values from a particular column
         /// (specified by <paramref name="column_name" />) of a particular
-        /// table or collection (specified by <paramref name="table_name" />).
-        /// If <paramref name="column_name" /> is a numeric column the values
-        /// will be in <paramref
+        /// table or view (specified by <paramref name="table_name" />). If
+        /// <paramref name="column_name" /> is a numeric column the values will
+        /// be in <paramref
         /// cref="RawAggregateUniqueResponse.binary_encoded_response" />.
         /// Otherwise if <paramref name="column_name" /> is a string column the
         /// values will be in <paramref
@@ -2061,23 +2063,30 @@ namespace kinetica
         /// table will be sharded, in all other cases it will be replicated.
         /// Sorting will properly function only if the result table is
         /// replicated or if there is only one processing node and should not
-        /// be relied upon in other cases.  Not available if <paramref
-        /// name="table_name" /> is a collection or when the value of <paramref
-        /// name="column_name" /> is an unrestricted-length string.</summary>
+        /// be relied upon in other cases.  Not available if the value of
+        /// <paramref name="column_name" /> is an unrestricted-length
+        /// string.</summary>
         /// 
-        /// <param name="table_name">Name of an existing table/collection on
-        /// which the operation will be performed.  </param>
+        /// <param name="table_name">Name of an existing table or view on which
+        /// the operation will be performed.  </param>
         /// <param name="column_name">Name of the column or an expression
         /// containing one or more column names on which the unique function
         /// would be applied.  </param>
         /// <param name="offset">A positive integer indicating the number of
         /// initial results to skip (this can be useful for paging through the
-        /// results).  The minimum allowed value is 0. The maximum allowed
-        /// value is MAX_INT. </param>
+        /// results).  The default value is 0.The minimum allowed value is 0.
+        /// The maximum allowed value is MAX_INT. </param>
         /// <param name="limit">A positive integer indicating the maximum
         /// number of results to be returned. Or END_OF_SET (-9999) to indicate
-        /// that the max number of results should be returned.  The default
-        /// value is 10000.</param>
+        /// that the max number of results should be returned.  The number of
+        /// records returned will never exceed the server's own limit, defined
+        /// by the <a href="../../config/index.html#general"
+        /// target="_top">max_get_records_size</a> parameter in the server
+        /// configuration.  Use <member name="has_more_records" /> to see if
+        /// more records exist in the result to be fetched, and <paramref
+        /// cref="AggregateUniqueRequest.offset" /> & <paramref
+        /// cref="AggregateUniqueRequest.limit" /> to request subsequent pages
+        /// of results.  The default value is -9999.</param>
         /// <param name="options">Optional parameters.
         /// <list type="bullet">
         ///     <item>
@@ -2086,10 +2095,7 @@ namespace kinetica
         ///         <description>Name of a collection which is to contain the
         /// table specified in <i>result_table</i>. If the collection provided
         /// is non-existent, the collection will be automatically created. If
-        /// empty, then the table will be a top-level table.  Additionally this
-        /// option is invalid if <paramref
-        /// cref="AggregateUniqueRequest.table_name" /> is a
-        /// collection.</description>
+        /// empty, then the table will be a top-level table.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -2123,10 +2129,8 @@ namespace kinetica
         /// results. If present, no results are returned in the response. Has
         /// the same naming restrictions as <a
         /// href="../../concepts/tables.html" target="_top">tables</a>.  Not
-        /// available if <paramref cref="AggregateUniqueRequest.table_name" />
-        /// is a collection or when <paramref
-        /// cref="AggregateUniqueRequest.column_name" /> is an
-        /// unrestricted-length string.</description>
+        /// available if <paramref cref="AggregateUniqueRequest.column_name" />
+        /// is an unrestricted-length string.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -2173,7 +2177,7 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="AggregateUniqueRequest.Options.RESULT_TABLE_GENERATE_PK">RESULT_TABLE_GENERATE_PK</see>:</term>
-        ///         <description>If 'true' then set a primary key for the
+        ///         <description>If <i>true</i> then set a primary key for the
         /// result table. Must be used in combination with the
         /// <i>result_table</i> option.
         /// Supported values:
@@ -2200,15 +2204,15 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="AggregateUniqueRequest.Options.CHUNK_SIZE">CHUNK_SIZE</see>:</term>
-        ///         <description>Indicates the chunk size to be used for the
-        /// result table. Must be used in combination with the
+        ///         <description>Indicates the number of records per chunk to
+        /// be used for the result table. Must be used in combination with the
         /// <i>result_table</i> option.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="AggregateUniqueRequest.Options.VIEW_ID">VIEW_ID</see>:</term>
-        ///         <description>view this result table is part of.  The
-        /// default value is ''.</description>
+        ///         <description>ID of view of which the result table will be a
+        /// member.  The default value is ''.</description>
         ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.</param>
@@ -2218,8 +2222,8 @@ namespace kinetica
         /// 
         public AggregateUniqueResponse aggregateUnique( string table_name,
                                                         string column_name,
-                                                        long offset,
-                                                        long limit = 10000,
+                                                        long offset = 0,
+                                                        long limit = -9999,
                                                         IDictionary<string, string> options = null )
         {
             return aggregateUnique( new AggregateUniqueRequest( table_name, column_name,
@@ -2355,8 +2359,8 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="AggregateUnpivotRequest.Options.CHUNK_SIZE">CHUNK_SIZE</see>:</term>
-        ///         <description>Indicates the chunk size to be used for the
-        /// result table. Must be used in combination with the
+        ///         <description>Indicates the number of records per chunk to
+        /// be used for the result table. Must be used in combination with the
         /// <i>result_table</i> option.</description>
         ///     </item>
         ///     <item>
@@ -2710,8 +2714,8 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.CHUNK_SIZE">CHUNK_SIZE</see>:</term>
-        ///         <description>Sets the chunk size of all new sets to the
-        /// specified integer value.</description>
+        ///         <description>Sets the number of records per chunk to be
+        /// used for all new tables.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -2750,10 +2754,10 @@ namespace kinetica
         /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.COMMUNICATOR_TEST">COMMUNICATOR_TEST</see>:</term>
         ///         <description>Invoke the communicator test and report timing
         /// results. Value string is is a semicolon separated list of
-        /// <key>=<value> expressions.  Expressions are: num_transactions=<num>
+        /// [key]=[value] expressions.  Expressions are: num_transactions=[num]
         /// where num is the number of request reply transactions to invoke per
-        /// test; message_size=<bytes> where bytes is the size of the messages
-        /// to send in bytes; check_values=<enabled> where if enabled is true
+        /// test; message_size=[bytes] where bytes is the size in bytes of the
+        /// messages to send; check_values=[enabled] where if enabled is true
         /// the value of the messages received are verified.</description>
         ///     </item>
         ///     <item>
@@ -2785,13 +2789,14 @@ namespace kinetica
         /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.NETWORK_SPEED">NETWORK_SPEED</see>:</term>
         ///         <description>Invoke the network speed test and report
         /// timing results. Value string is a semicolon-separated list of
-        /// <key>=<value> expressions.  Valid expressions are: seconds=<time>
-        /// where time is the time in seconds to run the test; data_size=<size>
-        /// where size is the size in bytes of the block to be transferred;
-        /// threads=<number of threads>; to_ranks=<space-separated list of
-        /// ranks> where the list of ranks is the ranks that rank 0 will send
-        /// data to and get data from. If to_ranks is unspecified then all
-        /// worker ranks are used.</description>
+        /// [key]=[value] expressions.  Valid expressions are: seconds=[time]
+        /// where time is the time in seconds to run the test;
+        /// data_size=[bytes] where bytes is the size in bytes of the block to
+        /// be transferred; threads=[number of threads];
+        /// to_ranks=[space-separated list of ranks] where the list of ranks is
+        /// the ranks that rank 0 will send data to and get data from. If
+        /// to_ranks is unspecified then all worker ranks are
+        /// used.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -2832,15 +2837,15 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.CHUNK_CACHE_ENABLED">CHUNK_CACHE_ENABLED</see>:</term>
-        ///         <description>Enable chunk level query caching. Flushes the
-        /// chunk cache when value is false</description>
+        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.SHADOW_AGG_SIZE">SHADOW_AGG_SIZE</see>:</term>
+        ///         <description>Size of the shadow aggregate chunk cache in
+        /// bytes.  The default value is '10000000'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.CHUNK_CACHE_SIZE">CHUNK_CACHE_SIZE</see>:</term>
-        ///         <description>Size of the chunk cache in bytes.  The default
-        /// value is '10000000'.</description>
+        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.SHADOW_FILTER_SIZE">SHADOW_FILTER_SIZE</see>:</term>
+        ///         <description>Size of the shdow filter chunk cache in bytes.
+        /// The default value is '10000000'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -3383,6 +3388,26 @@ namespace kinetica
         /// strategy examples</a> for examples.  This option will be ignored if
         /// <paramref cref="AlterTableRequest._value" /> is also
         /// specified.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterTableRequest.Options.INDEX_TYPE">INDEX_TYPE</see>:</term>
+        ///         <description>Type of index to create.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterTableRequest.Options.COLUMN">COLUMN</see>:</term>
+        ///         <description>Standard column index.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterTableRequest.Options.CHUNK_SKIP">CHUNK_SKIP</see>:</term>
+        ///         <description>Chunk skip index.</description>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="AlterTableRequest.Options.COLUMN">COLUMN</see>.</description>
         ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.</param>
@@ -4036,10 +4061,15 @@ namespace kinetica
 
 
         /// <summary>Creates a new graph network using given nodes, edges,
-        /// weights, and restrictions. See <a
+        /// weights, and restrictions.
+        /// <br />
+        /// IMPORTANT: It's highly recommended that you review the <a
         /// href="../../graph_solver/network_graph_solver.html"
-        /// target="_top">Network Graph Solvers</a> for more
-        /// information.</summary>
+        /// target="_top">Network Graphs & Solvers</a> concepts documentation,
+        /// the <a href="../../graph_solver/examples/graph_rest_guide.html"
+        /// target="_top">Graph REST Tutorial</a>, and/or some <a
+        /// href="../../graph_solver/examples.html" target="_top">graph
+        /// examples</a> before using this endpoint.</summary>
         /// 
         /// <param name="request_">Request object containing the parameters for
         /// the operation.</param>
@@ -4056,16 +4086,23 @@ namespace kinetica
 
 
         /// <summary>Creates a new graph network using given nodes, edges,
-        /// weights, and restrictions. See <a
+        /// weights, and restrictions.
+        /// <br />
+        /// IMPORTANT: It's highly recommended that you review the <a
         /// href="../../graph_solver/network_graph_solver.html"
-        /// target="_top">Network Graph Solvers</a> for more
-        /// information.</summary>
+        /// target="_top">Network Graphs & Solvers</a> concepts documentation,
+        /// the <a href="../../graph_solver/examples/graph_rest_guide.html"
+        /// target="_top">Graph REST Tutorial</a>, and/or some <a
+        /// href="../../graph_solver/examples.html" target="_top">graph
+        /// examples</a> before using this endpoint.</summary>
         /// 
         /// <param name="graph_name">Name of the graph resource to generate.
         /// </param>
         /// <param name="directed_graph">If set to <i>true</i>, the graph will
-        /// be directed (0 to 1, 1 to 2, etc.). If set to <i>false</i>, the
-        /// graph will not be directed.
+        /// be directed. If set to <i>false</i>, the graph will not be
+        /// directed. Consult <a
+        /// href="../../graph_solver/network_graph_solver.html#directed-graphs"
+        /// target="_top">Directed Graphs</a> for more details.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -4176,6 +4213,26 @@ namespace kinetica
         ///         <description>If set to <i>true</i> and the graph (using
         /// <paramref cref="CreateGraphRequest.graph_name" />) already exists,
         /// the graph is deleted and recreated.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateGraphRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateGraphRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="CreateGraphRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateGraphRequest.Options.MODIFY">MODIFY</see>:</term>
+        ///         <description>If set to <i>true</i> and <i>true</i> and if
+        /// the graph (using <paramref cref="CreateGraphRequest.graph_name" />)
+        /// already exists, the graph is updated with these components.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -4522,8 +4579,9 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="CreateJoinTableRequest.Options.CHUNK_SIZE">CHUNK_SIZE</see>:</term>
-        ///         <description>Maximum size of a joined-chunk for this table.
-        /// Defaults to the gpudb.conf file chunk size</description>
+        ///         <description>Maximum number of records per joined-chunk for
+        /// this table. Defaults to the gpudb.conf file chunk
+        /// size</description>
         ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.</param>
@@ -4812,7 +4870,17 @@ namespace kinetica
         /// key</a> than the source table.  By specifying <i>shard_key</i>, the
         /// projection will be sharded according to the specified columns,
         /// regardless of how the source table is sharded.  The source table
-        /// can even be unsharded or replicated.</summary>
+        /// can even be unsharded or replicated.
+        /// <br />
+        /// If <paramref cref="CreateProjectionRequest.table_name" /> is empty,
+        /// selection is performed against a single-row virtual table.  This
+        /// can be useful in executing temporal (<a
+        /// href="../../concepts/expressions.html#date-time-functions"
+        /// target="_top">NOW()</a>), identity (<a
+        /// href="../../concepts/expressions.html#user-security-functions"
+        /// target="_top">USER()</a>), or constant-based functions (<a
+        /// href="../../concepts/expressions.html#scalar-functions"
+        /// target="_top">GEODIST(-77.11, 38.88, -71.06, 42.36)</a>).</summary>
         /// 
         /// <param name="request_">Request object containing the parameters for
         /// the operation.</param>
@@ -4850,10 +4918,22 @@ namespace kinetica
         /// key</a> than the source table.  By specifying <i>shard_key</i>, the
         /// projection will be sharded according to the specified columns,
         /// regardless of how the source table is sharded.  The source table
-        /// can even be unsharded or replicated.</summary>
+        /// can even be unsharded or replicated.
+        /// <br />
+        /// If <paramref name="table_name" /> is empty, selection is performed
+        /// against a single-row virtual table.  This can be useful in
+        /// executing temporal (<a
+        /// href="../../concepts/expressions.html#date-time-functions"
+        /// target="_top">NOW()</a>), identity (<a
+        /// href="../../concepts/expressions.html#user-security-functions"
+        /// target="_top">USER()</a>), or constant-based functions (<a
+        /// href="../../concepts/expressions.html#scalar-functions"
+        /// target="_top">GEODIST(-77.11, 38.88, -71.06, 42.36)</a>).</summary>
         /// 
         /// <param name="table_name">Name of the existing table on which the
-        /// projection is to be applied.  </param>
+        /// projection is to be applied.  An empty table name creates a
+        /// projection from a single-row virtual table, where columns specified
+        /// should be constants or constant expressions.  </param>
         /// <param name="projection_name">Name of the projection to be created.
         /// Has the same naming restrictions as <a
         /// href="../../concepts/tables.html" target="_top">tables</a>.
@@ -4939,14 +5019,14 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="CreateProjectionRequest.Options.CHUNK_SIZE">CHUNK_SIZE</see>:</term>
-        ///         <description>Indicates the chunk size to be used for this
-        /// table.</description>
+        ///         <description>Indicates the number of records per chunk to
+        /// be used for this projection.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="CreateProjectionRequest.Options.CREATE_INDEXES">CREATE_INDEXES</see>:</term>
         ///         <description>Comma-separated list of columns on which to
-        /// create indexes on the output table.  The columns specified must be
+        /// create indexes on the projection.  The columns specified must be
         /// present in <paramref cref="CreateProjectionRequest.column_names"
         /// />.  If any alias is given for any column name, the alias must be
         /// used, rather than the original column name.</description>
@@ -4994,8 +5074,7 @@ namespace kinetica
         ///         <term><see
         /// cref="CreateProjectionRequest.Options.PRESERVE_DICT_ENCODING">PRESERVE_DICT_ENCODING</see>:</term>
         ///         <description>If <i>true</i>, then columns that were dict
-        /// encoded in the source table will be dict encoded in the projection
-        /// table.
+        /// encoded in the source table will be dict encoded in the projection.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -5012,9 +5091,28 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
+        /// cref="CreateProjectionRequest.Options.RETAIN_PARTITIONS">RETAIN_PARTITIONS</see>:</term>
+        ///         <description>Determines whether the created projection will
+        /// retain the partitioning scheme from the source table.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateProjectionRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateProjectionRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="CreateProjectionRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="CreateProjectionRequest.Options.VIEW_ID">VIEW_ID</see>:</term>
-        ///         <description>view this projection is part of.  The default
-        /// value is ''.</description>
+        ///         <description>ID of view of which this projection is a
+        /// member.  The default value is ''.</description>
         ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.</param>
@@ -5407,6 +5505,13 @@ namespace kinetica
         /// href="../../concepts/tables.html#partitioning-by-list"
         /// target="_top">list partitioning</a>.</description>
         ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableRequest.Options.HASH">HASH</see>:</term>
+        ///         <description>Use <a
+        /// href="../../concepts/tables.html#partitioning-by-hash"
+        /// target="_top">hash partitioning</a>.</description>
+        ///     </item>
         /// </list></description>
         ///     </item>
         ///     <item>
@@ -5425,9 +5530,11 @@ namespace kinetica
         /// <a href="../../concepts/tables.html#partitioning-by-range"
         /// target="_top">range partitioning</a>, <a
         /// href="../../concepts/tables.html#partitioning-by-interval"
-        /// target="_top">interval partitioning</a>, or <a
+        /// target="_top">interval partitioning</a>, <a
         /// href="../../concepts/tables.html#partitioning-by-list"
-        /// target="_top">list partitioning</a> for example
+        /// target="_top">list partitioning</a>, or <a
+        /// href="../../concepts/tables.html#partitioning-by-hash"
+        /// target="_top">hash partitioning</a> for example
         /// formats.</description>
         ///     </item>
         ///     <item>
@@ -5463,8 +5570,8 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="CreateTableRequest.Options.CHUNK_SIZE">CHUNK_SIZE</see>:</term>
-        ///         <description>Indicates the chunk size to be used for this
-        /// table.</description>
+        ///         <description>Indicates the number of records per chunk to
+        /// be used for this table.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -6339,8 +6446,8 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="CreateUnionRequest.Options.CHUNK_SIZE">CHUNK_SIZE</see>:</term>
-        ///         <description>Indicates the chunk size to be used for this
-        /// table.</description>
+        ///         <description>Indicates the number of records per chunk to
+        /// be used for this output table.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -6354,17 +6461,17 @@ namespace kinetica
         ///         <term><see
         /// cref="CreateUnionRequest.Options.TTL">TTL</see>:</term>
         ///         <description>Sets the <a href="../../concepts/ttl.html"
-        /// target="_top">TTL</a> of the table specified in <paramref
+        /// target="_top">TTL</a> of the output table specified in <paramref
         /// cref="CreateUnionRequest.table_name" />.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="CreateUnionRequest.Options.PERSIST">PERSIST</see>:</term>
-        ///         <description>If <i>true</i>, then the table specified in
-        /// <paramref cref="CreateUnionRequest.table_name" /> will be persisted
-        /// and will not expire unless a <i>ttl</i> is specified.   If
-        /// <i>false</i>, then the table will be an in-memory table and will
-        /// expire unless a <i>ttl</i> is specified otherwise.
+        ///         <description>If <i>true</i>, then the output table
+        /// specified in <paramref cref="CreateUnionRequest.table_name" /> will
+        /// be persisted and will not expire unless a <i>ttl</i> is specified.
+        /// If <i>false</i>, then the output table will be an in-memory table
+        /// and will expire unless a <i>ttl</i> is specified otherwise.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -6382,15 +6489,15 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="CreateUnionRequest.Options.VIEW_ID">VIEW_ID</see>:</term>
-        ///         <description>view the output table will be a part of.  The
-        /// default value is ''.</description>
+        ///         <description>ID of view of which this output table is a
+        /// member.  The default value is ''.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="CreateUnionRequest.Options.FORCE_REPLICATED">FORCE_REPLICATED</see>:</term>
-        ///         <description>If <i>true</i>, then the table specified in
-        /// <paramref cref="CreateUnionRequest.table_name" /> will be
-        /// replicated even if the source tables are not.
+        ///         <description>If <i>true</i>, then the output table
+        /// specified in <paramref cref="CreateUnionRequest.table_name" /> will
+        /// be replicated even if the source tables are not.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -6949,12 +7056,20 @@ namespace kinetica
         /// executed  </param>
         /// <param name="offset">A positive integer indicating the number of
         /// initial results to skip (this can be useful for paging through the
-        /// results).  The minimum allowed value is 0. The maximum allowed
-        /// value is MAX_INT. </param>
+        /// results).  The default value is 0.The minimum allowed value is 0.
+        /// The maximum allowed value is MAX_INT. </param>
         /// <param name="limit">A positive integer indicating the maximum
-        /// number of results to be returned (if not provided the default is
-        /// 10000), or END_OF_SET (-9999) to indicate that the maximum number
-        /// of results allowed by the server should be returned.  </param>
+        /// number of results to be returned, or END_OF_SET (-9999) to indicate
+        /// that the maximum number of results allowed by the server should be
+        /// returned.  The number of records returned will never exceed the
+        /// server's own limit, defined by the <a
+        /// href="../../config/index.html#general"
+        /// target="_top">max_get_records_size</a> parameter in the server
+        /// configuration.  Use <member name="has_more_records" /> to see if
+        /// more records exist in the result to be fetched, and <paramref
+        /// cref="ExecuteSqlRequest.offset" /> & <paramref
+        /// cref="ExecuteSqlRequest.limit" /> to request subsequent pages of
+        /// results.  The default value is -9999.</param>
         /// <param name="request_schema_str">Avro schema of <paramref
         /// cref="ExecuteSqlRequest.data" />.  The default value is ''.</param>
         /// <param name="data">An array of binary-encoded data for the records
@@ -7252,8 +7367,8 @@ namespace kinetica
         /// operation.</returns>
         /// 
         public ExecuteSqlResponse executeSql( string statement,
-                                              long offset,
-                                              long limit,
+                                              long offset = 0,
+                                              long limit = -9999,
                                               string request_schema_str = "",
                                               IList<byte[]> data = null,
                                               IDictionary<string, string> options = null )
@@ -8791,8 +8906,15 @@ namespace kinetica
         /// The maximum allowed value is MAX_INT. </param>
         /// <param name="limit">A positive integer indicating the maximum
         /// number of results to be returned. Or END_OF_SET (-9999) to indicate
-        /// that the max number of results should be returned.  The default
-        /// value is 10000.</param>
+        /// that the max number of results should be returned.  The number of
+        /// records returned will never exceed the server's own limit, defined
+        /// by the <a href="../../config/index.html#general"
+        /// target="_top">max_get_records_size</a> parameter in the server
+        /// configuration.  Use <member name="has_more_records" /> to see if
+        /// more records exist in the result to be fetched, and <paramref
+        /// cref="GetRecordsRequest.offset" /> & <paramref
+        /// cref="GetRecordsRequest.limit" /> to request subsequent pages of
+        /// results.  The default value is -9999.</param>
         /// <param name="options">
         /// <list type="bullet">
         ///     <item>
@@ -8857,7 +8979,7 @@ namespace kinetica
         /// 
         public GetRecordsResponse<T> getRecords<T>( string table_name,
                                                     long offset = 0,
-                                                    long limit = 10000,
+                                                    long limit = -9999,
                                                     IDictionary<string, string> options = null ) where T : new()
         {
             return getRecords<T>( new GetRecordsRequest( table_name, offset, limit,
@@ -8883,6 +9005,16 @@ namespace kinetica
         /// deleted) during a call to the endpoint, the records or values
         /// retrieved may differ between calls based on the type of the update,
         /// e.g., the contiguity across pages cannot be relied upon.
+        /// <br />
+        /// If <paramref cref="GetRecordsByColumnRequest.table_name" /> is
+        /// empty, selection is performed against a single-row virtual table.
+        /// This can be useful in executing temporal (<a
+        /// href="../../concepts/expressions.html#date-time-functions"
+        /// target="_top">NOW()</a>), identity (<a
+        /// href="../../concepts/expressions.html#user-security-functions"
+        /// target="_top">USER()</a>), or constant-based functions (<a
+        /// href="../../concepts/expressions.html#scalar-functions"
+        /// target="_top">GEODIST(-77.11, 38.88, -71.06, 42.36)</a>).
         /// <br />
         /// The response is returned as a dynamic schema. For details see: <a
         /// href="../../api/index.html#dynamic-schemas" target="_top">dynamic
@@ -8926,22 +9058,43 @@ namespace kinetica
         /// retrieved may differ between calls based on the type of the update,
         /// e.g., the contiguity across pages cannot be relied upon.
         /// <br />
+        /// If <paramref name="table_name" /> is empty, selection is performed
+        /// against a single-row virtual table.  This can be useful in
+        /// executing temporal (<a
+        /// href="../../concepts/expressions.html#date-time-functions"
+        /// target="_top">NOW()</a>), identity (<a
+        /// href="../../concepts/expressions.html#user-security-functions"
+        /// target="_top">USER()</a>), or constant-based functions (<a
+        /// href="../../concepts/expressions.html#scalar-functions"
+        /// target="_top">GEODIST(-77.11, 38.88, -71.06, 42.36)</a>).
+        /// <br />
         /// The response is returned as a dynamic schema. For details see: <a
         /// href="../../api/index.html#dynamic-schemas" target="_top">dynamic
         /// schemas documentation</a>.</summary>
         /// 
         /// <param name="table_name">Name of the table on which this operation
-        /// will be performed. The table cannot be a parent set.  </param>
+        /// will be performed.  An empty table name retrieves one record from a
+        /// single-row virtual table, where columns specified should be
+        /// constants or constant expressions.  The table cannot be a parent
+        /// set.  </param>
         /// <param name="column_names">The list of column values to retrieve.
         /// </param>
         /// <param name="offset">A positive integer indicating the number of
         /// initial results to skip (this can be useful for paging through the
-        /// results).  The minimum allowed value is 0. The maximum allowed
-        /// value is MAX_INT. </param>
+        /// results).  The default value is 0.The minimum allowed value is 0.
+        /// The maximum allowed value is MAX_INT. </param>
         /// <param name="limit">A positive integer indicating the maximum
-        /// number of results to be returned (if not provided the default is
-        /// 10000), or END_OF_SET (-9999) to indicate that the maximum number
-        /// of results allowed by the server should be returned.  </param>
+        /// number of results to be returned, or END_OF_SET (-9999) to indicate
+        /// that the maximum number of results allowed by the server should be
+        /// returned.  The number of records returned will never exceed the
+        /// server's own limit, defined by the <a
+        /// href="../../config/index.html#general"
+        /// target="_top">max_get_records_size</a> parameter in the server
+        /// configuration.  Use <member name="has_more_records" /> to see if
+        /// more records exist in the result to be fetched, and <paramref
+        /// cref="GetRecordsByColumnRequest.offset" /> & <paramref
+        /// cref="GetRecordsByColumnRequest.limit" /> to request subsequent
+        /// pages of results.  The default value is -9999.</param>
         /// <param name="options">
         /// <list type="bullet">
         ///     <item>
@@ -9012,8 +9165,8 @@ namespace kinetica
         /// 
         public GetRecordsByColumnResponse getRecordsByColumn( string table_name,
                                                               IList<string> column_names,
-                                                              long offset,
-                                                              long limit,
+                                                              long offset = 0,
+                                                              long limit = -9999,
                                                               IDictionary<string, string> options = null )
         {
             return getRecordsByColumn( new GetRecordsByColumnRequest( table_name,
@@ -9176,8 +9329,14 @@ namespace kinetica
         /// The maximum allowed value is MAX_INT. </param>
         /// <param name="limit">A positive integer indicating the maximum
         /// number of results to be returned, or END_OF_SET (-9999) to indicate
-        /// that the max number of results should be returned.  The default
-        /// value is 10000.</param>
+        /// that the max number of results should be returned.  The number of
+        /// records returned will never exceed the server's own limit, defined
+        /// by the <a href="../../config/index.html#general"
+        /// target="_top">max_get_records_size</a> parameter in the server
+        /// configuration.  Use <paramref
+        /// cref="GetRecordsFromCollectionRequest.offset" /> & <paramref
+        /// cref="GetRecordsFromCollectionRequest.limit" /> to request
+        /// subsequent pages of results.  The default value is -9999.</param>
         /// <param name="options">
         /// <list type="bullet">
         ///     <item>
@@ -9207,7 +9366,7 @@ namespace kinetica
         /// 
         public GetRecordsFromCollectionResponse<T> getRecordsFromCollection<T>( string table_name,
                                                                                 long offset = 0,
-                                                                                long limit = 10000,
+                                                                                long limit = -9999,
                                                                                 IDictionary<string, string> options = null ) where T : new()
         {
             return getRecordsFromCollection<T>( new GetRecordsFromCollectionRequest(
@@ -9748,6 +9907,69 @@ namespace kinetica
         ///         <description>If set to <i>true</i>, any strings which are
         /// too long for their target charN string columns will be truncated to
         /// fit.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="RawInsertRecordsRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="RawInsertRecordsRequest.Options.RETURN_INDIVIDUAL_ERRORS">RETURN_INDIVIDUAL_ERRORS</see>:</term>
+        ///         <description>If set to <i>true</i>, success will always be
+        /// returned, and any errors found will be included in the info map.
+        /// The "bad_record_indices" entry is a comma-separated list of bad
+        /// records (0-based).  And if so, there will also be an "error_N"
+        /// entry for each record with an error, where N is the index
+        /// (0-based).
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="RawInsertRecordsRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="RawInsertRecordsRequest.Options.ALLOW_PARTIAL_BATCH">ALLOW_PARTIAL_BATCH</see>:</term>
+        ///         <description>If set to <i>true</i>, all correct records
+        /// will be inserted and incorrect records will be rejected and
+        /// reported.  Otherwise, the entire batch will be rejected if any
+        /// records are incorrect.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="RawInsertRecordsRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="RawInsertRecordsRequest.Options.DRY_RUN">DRY_RUN</see>:</term>
+        ///         <description>If set to <i>true</i>, no data will be saved
+        /// and any errors will be returned.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -10312,10 +10534,16 @@ namespace kinetica
 
         /// <summary>Matches a directed route implied by a given set of
         /// latitude/longitude points to an existing underlying road network
-        /// graph using a given solution type. See <a
+        /// graph using a given solution type.
+        /// <br />
+        /// IMPORTANT: It's highly recommended that you review the <a
         /// href="../../graph_solver/network_graph_solver.html"
-        /// target="_top">Network Graph Solvers</a> for more
-        /// information.</summary>
+        /// target="_top">Network Graphs & Solvers</a> concepts documentation,
+        /// the <a href="../../graph_solver/examples/graph_rest_guide.html"
+        /// target="_top">Graph REST Tutorial</a>, and/or some <a
+        /// href="../../graph_solver/examples.html#match-graph"
+        /// target="_top">/match/graph examples</a> before using this
+        /// endpoint.</summary>
         /// 
         /// <param name="request_">Request object containing the parameters for
         /// the operation.</param>
@@ -10333,10 +10561,16 @@ namespace kinetica
 
         /// <summary>Matches a directed route implied by a given set of
         /// latitude/longitude points to an existing underlying road network
-        /// graph using a given solution type. See <a
+        /// graph using a given solution type.
+        /// <br />
+        /// IMPORTANT: It's highly recommended that you review the <a
         /// href="../../graph_solver/network_graph_solver.html"
-        /// target="_top">Network Graph Solvers</a> for more
-        /// information.</summary>
+        /// target="_top">Network Graphs & Solvers</a> concepts documentation,
+        /// the <a href="../../graph_solver/examples/graph_rest_guide.html"
+        /// target="_top">Graph REST Tutorial</a>, and/or some <a
+        /// href="../../graph_solver/examples.html#match-graph"
+        /// target="_top">/match/graph examples</a> before using this
+        /// endpoint.</summary>
         /// 
         /// <param name="graph_name">Name of the underlying geospatial graph
         /// resource to match to using <paramref
@@ -10392,6 +10626,13 @@ namespace kinetica
         /// cref="MatchGraphRequest.sample_points" /> to optimize scheduling
         /// multiple supplies (trucks) with varying sizes to varying demand
         /// sites with varying capacities per depot</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="MatchGraphRequest.SolveMethod.MATCH_BATCH_SOLVES">MATCH_BATCH_SOLVES</see>:</term>
+        ///         <description>Matches <paramref
+        /// cref="MatchGraphRequest.sample_points" /> source and destination
+        /// pairs for the shortest path solves in batch mode</description>
         ///     </item>
         /// </list>
         /// The default value is <see
@@ -10522,6 +10763,14 @@ namespace kinetica
         /// </list>
         /// The default value is <see
         /// cref="MatchGraphRequest.Options.TRUE">TRUE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="MatchGraphRequest.Options.MAX_COMBINATIONS">MAX_COMBINATIONS</see>:</term>
+        ///         <description>For the <i>match_supply_demand</i> solver
+        /// only. This is the cutoff for the number of generated combinations
+        /// for sequencing the demand locations - can increase this upto 2M.
+        /// The default value is '10000'.</description>
         ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.</param>
@@ -10683,8 +10932,8 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="MergeRecordsRequest.Options.CHUNK_SIZE">CHUNK_SIZE</see>:</term>
-        ///         <description>Indicates the chunk size to be used for the
-        /// merged table specified in <paramref
+        ///         <description>Indicates the number of records per chunk to
+        /// be used for the merged table specified in <paramref
         /// cref="MergeRecordsRequest.table_name" />.</description>
         ///     </item>
         ///     <item>
@@ -10734,9 +10983,14 @@ namespace kinetica
         /// <paramref cref="QueryGraphRequest.adjacency_table" /> and set
         /// <i>export_query_results</i> to <i>true</i>.
         /// <br />
-        /// See <a href="../../graph_solver/network_graph_solver.html"
-        /// target="_top">Network Graph Solver</a> for more
-        /// information.</summary>
+        /// IMPORTANT: It's highly recommended that you review the <a
+        /// href="../../graph_solver/network_graph_solver.html"
+        /// target="_top">Network Graphs & Solvers</a> concepts documentation,
+        /// the <a href="../../graph_solver/examples/graph_rest_guide.html"
+        /// target="_top">Graph REST Tutorial</a>, and/or some <a
+        /// href="../../graph_solver/examples.html#query-graph"
+        /// target="_top">/query/graph examples</a> before using this
+        /// endpoint.</summary>
         /// 
         /// <param name="request_">Request object containing the parameters for
         /// the operation.</param>
@@ -10775,9 +11029,14 @@ namespace kinetica
         /// response, provide a value to <paramref name="adjacency_table" />
         /// and set <i>export_query_results</i> to <i>true</i>.
         /// <br />
-        /// See <a href="../../graph_solver/network_graph_solver.html"
-        /// target="_top">Network Graph Solver</a> for more
-        /// information.</summary>
+        /// IMPORTANT: It's highly recommended that you review the <a
+        /// href="../../graph_solver/network_graph_solver.html"
+        /// target="_top">Network Graphs & Solvers</a> concepts documentation,
+        /// the <a href="../../graph_solver/examples/graph_rest_guide.html"
+        /// target="_top">Graph REST Tutorial</a>, and/or some <a
+        /// href="../../graph_solver/examples.html#query-graph"
+        /// target="_top">/query/graph examples</a> before using this
+        /// endpoint.</summary>
         /// 
         /// <param name="graph_name">Name of the graph resource to query.
         /// </param>
@@ -10839,7 +11098,9 @@ namespace kinetica
         /// <i>false</i>, only outbound edges relative to the node will be
         /// returned. This parameter is only applicable if the queried graph
         /// <paramref cref="QueryGraphRequest.graph_name" /> is directed and
-        /// when querying nodes.
+        /// when querying nodes. Consult <a
+        /// href="../../graph_solver/network_graph_solver.html#directed-graphs"
+        /// target="_top">Directed Graphs</a> for more details.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -10959,7 +11220,7 @@ namespace kinetica
                                               IList<string> queries,
                                               IList<string> restrictions = null,
                                               string adjacency_table = "",
-                                              int rings = "1",
+                                              int rings = 1,
                                               IDictionary<string, string> options = null )
         {
             return queryGraph( new QueryGraphRequest( graph_name, queries, restrictions,
@@ -11571,6 +11832,62 @@ namespace kinetica
         }
 
 
+        /// <summary>Procedures</summary>
+        /// 
+        /// <param name="request_">Request object containing the parameters for
+        /// the operation.</param>
+        /// 
+        /// <returns>Response object containing the result of the
+        /// operation.</returns>
+        /// 
+        public ShowSqlProcResponse showSqlProc( ShowSqlProcRequest request_ )
+        {
+            ShowSqlProcResponse actualResponse_ = SubmitRequest<ShowSqlProcResponse>("/show/sql/proc", request_, false);
+
+            return actualResponse_;
+        }
+
+
+        /// <summary>Procedures</summary>
+        /// 
+        /// <param name="procedure_name">Name of the procedure for which to
+        /// retrieve the information. If blank, then information about all
+        /// procedures is returned.  The default value is ''.</param>
+        /// <param name="options">Optional parameters.
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="ShowSqlProcRequest.Options.NO_ERROR_IF_NOT_EXISTS">NO_ERROR_IF_NOT_EXISTS</see>:</term>
+        ///         <description>If <i>false</i> will return an error if the
+        /// provided  does not exist. If <i>true</i> then it will return an
+        /// empty result.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="ShowSqlProcRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ShowSqlProcRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="ShowSqlProcRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        /// </list>
+        /// The default value is an empty {@link Dictionary}.</param>
+        /// 
+        /// <returns>Response object containing the result of the
+        /// operation.</returns>
+        /// 
+        public ShowSqlProcResponse showSqlProc( string procedure_name = "",
+                                                IDictionary<string, string> options = null )
+        {
+            return showSqlProc( new ShowSqlProcRequest( procedure_name, options ) );
+        }
+
+
         /// <summary>Retrieves the collected column statistics for the
         /// specified table.</summary>
         /// 
@@ -12104,10 +12421,16 @@ namespace kinetica
         /// <summary>Solves an existing graph for a type of problem (e.g.,
         /// shortest path, page rank, travelling salesman, etc.) using source
         /// nodes, destination nodes, and additional, optional weights and
-        /// restrictions. See <a
+        /// restrictions.
+        /// <br />
+        /// IMPORTANT: It's highly recommended that you review the <a
         /// href="../../graph_solver/network_graph_solver.html"
-        /// target="_top">Network Graph Solvers</a> for more
-        /// information.</summary>
+        /// target="_top">Network Graphs & Solvers</a> concepts documentation,
+        /// the <a href="../../graph_solver/examples/graph_rest_guide.html"
+        /// target="_top">Graph REST Tutorial</a>, and/or some <a
+        /// href="../../graph_solver/examples.html#solve-graph"
+        /// target="_top">/solve/graph examples</a> before using this
+        /// endpoint.</summary>
         /// 
         /// <param name="request_">Request object containing the parameters for
         /// the operation.</param>
@@ -12126,10 +12449,16 @@ namespace kinetica
         /// <summary>Solves an existing graph for a type of problem (e.g.,
         /// shortest path, page rank, travelling salesman, etc.) using source
         /// nodes, destination nodes, and additional, optional weights and
-        /// restrictions. See <a
+        /// restrictions.
+        /// <br />
+        /// IMPORTANT: It's highly recommended that you review the <a
         /// href="../../graph_solver/network_graph_solver.html"
-        /// target="_top">Network Graph Solvers</a> for more
-        /// information.</summary>
+        /// target="_top">Network Graphs & Solvers</a> concepts documentation,
+        /// the <a href="../../graph_solver/examples/graph_rest_guide.html"
+        /// target="_top">Graph REST Tutorial</a>, and/or some <a
+        /// href="../../graph_solver/examples.html#solve-graph"
+        /// target="_top">/solve/graph examples</a> before using this
+        /// endpoint.</summary>
         /// 
         /// <param name="graph_name">Name of the graph resource to solve.
         /// </param>
@@ -12218,76 +12547,28 @@ namespace kinetica
         ///         <term><see
         /// cref="SolveGraphRequest.SolverType.BACKHAUL_ROUTING">BACKHAUL_ROUTING</see>:</term>
         ///         <description>Solves for optimal routes that connect remote
-        /// asset nodes to the fixed (backbone) asset nodes. When
-        /// <i>BACKHAUL_ROUTING</i> is invoked, the <paramref
-        /// cref="SolveGraphRequest.destination_nodes" /> or <paramref
-        /// cref="SolveGraphRequest.destination_node_ids" /> array is used for
-        /// both fixed and remote asset nodes and the <paramref
-        /// cref="SolveGraphRequest.source_node_id" /> represents the number of
-        /// fixed asset nodes contained in <paramref
-        /// cref="SolveGraphRequest.destination_nodes" /> / <paramref
-        /// cref="SolveGraphRequest.destination_node_ids" />.</description>
+        /// asset nodes to the fixed (backbone) asset nodes.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="SolveGraphRequest.SolverType.ALLPATHS">ALLPATHS</see>:</term>
+        ///         <description>Solves for paths that would give costs between
+        /// max and min solution radia - Make sure to limit by the
+        /// 'max_solution_targets' option. Min cost shoudl be >= shortest_path
+        /// cost.</description>
         ///     </item>
         /// </list>
         /// The default value is <see
         /// cref="SolveGraphRequest.SolverType.SHORTEST_PATH">SHORTEST_PATH</see>.
         /// </param>
-        /// <param name="source_node_id">If <paramref
-        /// cref="SolveGraphRequest.node_type" /> is <i>NODE_ID</i>, the node
-        /// ID (integer) of the source (starting point) for the graph solution.
-        /// If the <paramref cref="SolveGraphRequest.solver_type" /> is set to
-        /// <i>BACKHAUL_ROUTING</i>, this number represents the number of fixed
-        /// asset nodes contained in <paramref
-        /// cref="SolveGraphRequest.destination_nodes" />, e.g., if <paramref
-        /// cref="SolveGraphRequest.source_node_id" /> is set to 24, the first
-        /// 24 nodes listed in <paramref
-        /// cref="SolveGraphRequest.destination_nodes" /> / <paramref
-        /// cref="SolveGraphRequest.destination_node_ids" /> are the fixed
-        /// asset nodes and the rest of the nodes in the array are remote
-        /// assets.  </param>
-        /// <param name="destination_node_ids">List of destination node
-        /// indices, or indices for pageranks. If the <paramref
-        /// cref="SolveGraphRequest.solver_type" /> is set to
-        /// <i>BACKHAUL_ROUTING</i>, it is the list of all fixed and remote
-        /// asset nodes.  The default value is an empty {@link List}.</param>
-        /// <param name="node_type">Source and destination node identifier
-        /// type.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="SolveGraphRequest.NodeType.NODE_ID">NODE_ID</see>:</term>
-        ///         <description>The graph's nodes were identified as integers,
-        /// e.g., 1234.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="SolveGraphRequest.NodeType.NODE_WKTPOINT">NODE_WKTPOINT</see>:</term>
-        ///         <description>The graph's nodes were identified as
-        /// geospatial coordinates, e.g., 'POINT(1.0 2.0)'.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="SolveGraphRequest.NodeType.NODE_NAME">NODE_NAME</see>:</term>
-        ///         <description>The graph's nodes were identified as strings,
-        /// e.g., 'Arlington'.</description>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="SolveGraphRequest.NodeType.NODE_ID">NODE_ID</see>.  </param>
-        /// <param name="source_node">If <paramref
-        /// cref="SolveGraphRequest.node_type" /> is <i>NODE_WKTPOINT</i> or
-        /// <i>NODE_NAME</i>, the node (string) of the source (starting point)
-        /// for the graph solution.  The default value is ''.</param>
-        /// <param name="destination_nodes">If <paramref
-        /// cref="SolveGraphRequest.node_type" /> is <i>NODE_WKTPOINT</i> or
-        /// <i>NODE_NAME</i>, the list of destination node or page rank indices
-        /// (strings) for the graph solution. If the <paramref
-        /// cref="SolveGraphRequest.solver_type" /> is set to
-        /// <i>BACKHAUL_ROUTING</i>, it is the list of all fixed and remote
-        /// asset nodes. The string type should be consistent with the
-        /// <paramref cref="SolveGraphRequest.node_type" /> parameter.  The
-        /// default value is an empty {@link List}.</param>
+        /// <param name="source_nodes">It can be one of the nodal identifiers -
+        /// e.g: 'NODE_WKTPOINT' for source nodes. For <i>BACKHAUL_ROUTING</i>,
+        /// this list depicts the fixed assets.  The default value is an empty
+        /// {@link List}.</param>
+        /// <param name="destination_nodes">It can be one of the nodal
+        /// identifiers - e.g: 'NODE_WKTPOINT' for destination (target) nodes.
+        /// For <i>BACKHAUL_ROUTING</i>, this list depicts the remote assets.
+        /// The default value is an empty {@link List}.</param>
         /// <param name="solution_table">Name of the table to store the
         /// solution.  The default value is 'graph_solutions'.</param>
         /// <param name="options">Additional parameters
@@ -12298,7 +12579,7 @@ namespace kinetica
         ///         <description>For <i>SHORTEST_PATH</i> and
         /// <i>INVERSE_SHORTEST_PATH</i> solvers only. Sets the maximum
         /// solution cost radius, which ignores the <paramref
-        /// cref="SolveGraphRequest.destination_node_ids" /> list and instead
+        /// cref="SolveGraphRequest.destination_nodes" /> list and instead
         /// outputs the nodes within the radius sorted by ascending cost. If
         /// set to '0.0', the setting is ignored.  The default value is
         /// '0.0'.</description>
@@ -12310,7 +12591,7 @@ namespace kinetica
         /// <i>INVERSE_SHORTEST_PATH</i> solvers only. Applicable only when
         /// <i>max_solution_radius</i> is set. Sets the minimum solution cost
         /// radius, which ignores the <paramref
-        /// cref="SolveGraphRequest.destination_node_ids" /> list and instead
+        /// cref="SolveGraphRequest.destination_nodes" /> list and instead
         /// outputs the nodes within the radius sorted by ascending cost. If
         /// set to '0.0', the setting is ignored.  The default value is
         /// '0.0'.</description>
@@ -12321,7 +12602,7 @@ namespace kinetica
         ///         <description>For <i>SHORTEST_PATH</i> and
         /// <i>INVERSE_SHORTEST_PATH</i> solvers only. Sets the maximum number
         /// of solution targets, which ignores the <paramref
-        /// cref="SolveGraphRequest.destination_node_ids" /> list and instead
+        /// cref="SolveGraphRequest.destination_nodes" /> list and instead
         /// outputs no more than n number of nodes sorted by ascending cost
         /// where n is equal to the setting value. If set to 0, the setting is
         /// ignored.  The default value is '0'.</description>
@@ -12389,22 +12670,17 @@ namespace kinetica
         /// operation.</returns>
         /// 
         public SolveGraphResponse solveGraph( string graph_name,
-                                              IList<string> weights_on_edges,
-                                              IList<string> restrictions,
-                                              string solver_type,
-                                              long source_node_id,
-                                              IList<long> destination_node_ids = null,
-                                              string node_type = SolveGraphRequest.NodeType.NODE_ID,
-                                              string source_node = "",
+                                              IList<string> weights_on_edges = null,
+                                              IList<string> restrictions = null,
+                                              string solver_type = SolveGraphRequest.SolverType.SHORTEST_PATH,
+                                              IList<string> source_nodes = null,
                                               IList<string> destination_nodes = null,
                                               string solution_table = "graph_solutions",
                                               IDictionary<string, string> options = null )
         {
             return solveGraph( new SolveGraphRequest( graph_name, weights_on_edges,
                                                       restrictions, solver_type,
-                                                      source_node_id,
-                                                      destination_node_ids, node_type,
-                                                      source_node, destination_nodes,
+                                                      source_nodes, destination_nodes,
                                                       solution_table, options ) );
         }
 
@@ -12612,9 +12888,8 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="RawUpdateRecordsRequest.Options.TRUNCATE_STRINGS">TRUNCATE_STRINGS</see>:</term>
-        ///         <description>If set to {true}@{, any strings which are too
-        /// long for their charN string fields will be truncated to fit.  The
-        /// default value is false.
+        ///         <description>If set to <i>true</i>, any strings which are
+        /// too long for their charN string fields will be truncated to fit.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -15059,7 +15334,7 @@ namespace kinetica
         /// with cost typically referring to the time or distance assigned as
         /// the weights of the underlying graph. See <a
         /// href="../../graph_solver/network_graph_solver.html"
-        /// target="_top">Network Graph Solvers</a> for more information on
+        /// target="_top">Network Graphs & Solvers</a> for more information on
         /// graphs.
         /// .</summary>
         /// 
@@ -15082,7 +15357,7 @@ namespace kinetica
         /// with cost typically referring to the time or distance assigned as
         /// the weights of the underlying graph. See <a
         /// href="../../graph_solver/network_graph_solver.html"
-        /// target="_top">Network Graph Solvers</a> for more information on
+        /// target="_top">Network Graphs & Solvers</a> for more information on
         /// graphs.
         /// .</summary>
         /// 

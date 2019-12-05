@@ -141,9 +141,8 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="RawUpdateRecordsRequest.Options.TRUNCATE_STRINGS">TRUNCATE_STRINGS</see>:</term>
-        ///         <description>If set to {true}@{, any strings which are too
-        /// long for their charN string fields will be truncated to fit.  The
-        /// default value is false.
+        ///         <description>If set to <i>true</i>, any strings which are
+        /// too long for their charN string fields will be truncated to fit.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -261,9 +260,8 @@ namespace kinetica
             /// cref="RawUpdateRecordsRequest.Options.FALSE">FALSE</see>.</summary>
             public const string UPDATE_PARTITION = "update_partition";
 
-            /// <summary>If set to {true}@{, any strings which are too long for
-            /// their charN string fields will be truncated to fit.  The
-            /// default value is false.
+            /// <summary>If set to <i>true</i>, any strings which are too long
+            /// for their charN string fields will be truncated to fit.
             /// Supported values:
             /// <list type="bullet">
             ///     <item>
@@ -436,9 +434,8 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="RawUpdateRecordsRequest.Options.TRUNCATE_STRINGS">TRUNCATE_STRINGS</see>:</term>
-        ///         <description>If set to {true}@{, any strings which are too
-        /// long for their charN string fields will be truncated to fit.  The
-        /// default value is false.
+        ///         <description>If set to <i>true</i>, any strings which are
+        /// too long for their charN string fields will be truncated to fit.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -588,9 +585,8 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="RawUpdateRecordsRequest.Options.TRUNCATE_STRINGS">TRUNCATE_STRINGS</see>:</term>
-        ///         <description>If set to {true}@{, any strings which are too
-        /// long for their charN string fields will be truncated to fit.  The
-        /// default value is false.
+        ///         <description>If set to <i>true</i>, any strings which are
+        /// too long for their charN string fields will be truncated to fit.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -772,9 +768,8 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="RawUpdateRecordsRequest.Options.TRUNCATE_STRINGS">TRUNCATE_STRINGS</see>:</term>
-        ///         <description>If set to {true}@{, any strings which are too
-        /// long for their charN string fields will be truncated to fit.  The
-        /// default value is false.
+        ///         <description>If set to <i>true</i>, any strings which are
+        /// too long for their charN string fields will be truncated to fit.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -951,9 +946,8 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="RawUpdateRecordsRequest.Options.TRUNCATE_STRINGS">TRUNCATE_STRINGS</see>:</term>
-        ///         <description>If set to {true}@{, any strings which are too
-        /// long for their charN string fields will be truncated to fit.  The
-        /// default value is false.
+        ///         <description>If set to <i>true</i>, any strings which are
+        /// too long for their charN string fields will be truncated to fit.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -1071,9 +1065,8 @@ namespace kinetica
             /// cref="RawUpdateRecordsRequest.Options.FALSE">FALSE</see>.</summary>
             public const string UPDATE_PARTITION = "update_partition";
 
-            /// <summary>If set to {true}@{, any strings which are too long for
-            /// their charN string fields will be truncated to fit.  The
-            /// default value is false.
+            /// <summary>If set to <i>true</i>, any strings which are too long
+            /// for their charN string fields will be truncated to fit.
             /// Supported values:
             /// <list type="bullet">
             ///     <item>
@@ -1220,9 +1213,8 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="RawUpdateRecordsRequest.Options.TRUNCATE_STRINGS">TRUNCATE_STRINGS</see>:</term>
-        ///         <description>If set to {true}@{, any strings which are too
-        /// long for their charN string fields will be truncated to fit.  The
-        /// default value is false.
+        ///         <description>If set to <i>true</i>, any strings which are
+        /// too long for their charN string fields will be truncated to fit.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -1372,9 +1364,8 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="RawUpdateRecordsRequest.Options.TRUNCATE_STRINGS">TRUNCATE_STRINGS</see>:</term>
-        ///         <description>If set to {true}@{, any strings which are too
-        /// long for their charN string fields will be truncated to fit.  The
-        /// default value is false.
+        ///         <description>If set to <i>true</i>, any strings which are
+        /// too long for their charN string fields will be truncated to fit.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>

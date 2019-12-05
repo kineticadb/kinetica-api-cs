@@ -69,8 +69,8 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.CHUNK_SIZE">CHUNK_SIZE</see>:</term>
-        ///         <description>Sets the chunk size of all new sets to the
-        /// specified integer value.</description>
+        ///         <description>Sets the number of records per chunk to be
+        /// used for all new tables.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -109,10 +109,10 @@ namespace kinetica
         /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.COMMUNICATOR_TEST">COMMUNICATOR_TEST</see>:</term>
         ///         <description>Invoke the communicator test and report timing
         /// results. Value string is is a semicolon separated list of
-        /// <key>=<value> expressions.  Expressions are: num_transactions=<num>
+        /// [key]=[value] expressions.  Expressions are: num_transactions=[num]
         /// where num is the number of request reply transactions to invoke per
-        /// test; message_size=<bytes> where bytes is the size of the messages
-        /// to send in bytes; check_values=<enabled> where if enabled is true
+        /// test; message_size=[bytes] where bytes is the size in bytes of the
+        /// messages to send; check_values=[enabled] where if enabled is true
         /// the value of the messages received are verified.</description>
         ///     </item>
         ///     <item>
@@ -144,13 +144,14 @@ namespace kinetica
         /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.NETWORK_SPEED">NETWORK_SPEED</see>:</term>
         ///         <description>Invoke the network speed test and report
         /// timing results. Value string is a semicolon-separated list of
-        /// <key>=<value> expressions.  Valid expressions are: seconds=<time>
-        /// where time is the time in seconds to run the test; data_size=<size>
-        /// where size is the size in bytes of the block to be transferred;
-        /// threads=<number of threads>; to_ranks=<space-separated list of
-        /// ranks> where the list of ranks is the ranks that rank 0 will send
-        /// data to and get data from. If to_ranks is unspecified then all
-        /// worker ranks are used.</description>
+        /// [key]=[value] expressions.  Valid expressions are: seconds=[time]
+        /// where time is the time in seconds to run the test;
+        /// data_size=[bytes] where bytes is the size in bytes of the block to
+        /// be transferred; threads=[number of threads];
+        /// to_ranks=[space-separated list of ranks] where the list of ranks is
+        /// the ranks that rank 0 will send data to and get data from. If
+        /// to_ranks is unspecified then all worker ranks are
+        /// used.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -191,15 +192,15 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.CHUNK_CACHE_ENABLED">CHUNK_CACHE_ENABLED</see>:</term>
-        ///         <description>Enable chunk level query caching. Flushes the
-        /// chunk cache when value is false</description>
+        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.SHADOW_AGG_SIZE">SHADOW_AGG_SIZE</see>:</term>
+        ///         <description>Size of the shadow aggregate chunk cache in
+        /// bytes.  The default value is '10000000'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.CHUNK_CACHE_SIZE">CHUNK_CACHE_SIZE</see>:</term>
-        ///         <description>Size of the chunk cache in bytes.  The default
-        /// value is '10000000'.</description>
+        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.SHADOW_FILTER_SIZE">SHADOW_FILTER_SIZE</see>:</term>
+        ///         <description>Size of the shdow filter chunk cache in bytes.
+        /// The default value is '10000000'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -247,8 +248,8 @@ namespace kinetica
             /// system load.</summary>
             public const string SUBTASK_CONCURRENCY_LIMIT = "subtask_concurrency_limit";
 
-            /// <summary>Sets the chunk size of all new sets to the specified
-            /// integer value.</summary>
+            /// <summary>Sets the number of records per chunk to be used for
+            /// all new tables.</summary>
             public const string CHUNK_SIZE = "chunk_size";
 
             /// <summary>Attempts to evict columns from memory to the
@@ -277,11 +278,11 @@ namespace kinetica
 
             /// <summary>Invoke the communicator test and report timing
             /// results. Value string is is a semicolon separated list of
-            /// <key>=<value> expressions.  Expressions are:
-            /// num_transactions=<num> where num is the number of request reply
-            /// transactions to invoke per test; message_size=<bytes> where
-            /// bytes is the size of the messages to send in bytes;
-            /// check_values=<enabled> where if enabled is true the value of
+            /// [key]=[value] expressions.  Expressions are:
+            /// num_transactions=[num] where num is the number of request reply
+            /// transactions to invoke per test; message_size=[bytes] where
+            /// bytes is the size in bytes of the messages to send;
+            /// check_values=[enabled] where if enabled is true the value of
             /// the messages received are verified.</summary>
             public const string COMMUNICATOR_TEST = "communicator_test";
 
@@ -307,11 +308,11 @@ namespace kinetica
 
             /// <summary>Invoke the network speed test and report timing
             /// results. Value string is a semicolon-separated list of
-            /// <key>=<value> expressions.  Valid expressions are:
-            /// seconds=<time> where time is the time in seconds to run the
-            /// test; data_size=<size> where size is the size in bytes of the
-            /// block to be transferred; threads=<number of threads>;
-            /// to_ranks=<space-separated list of ranks> where the list of
+            /// [key]=[value] expressions.  Valid expressions are:
+            /// seconds=[time] where time is the time in seconds to run the
+            /// test; data_size=[bytes] where bytes is the size in bytes of the
+            /// block to be transferred; threads=[number of threads];
+            /// to_ranks=[space-separated list of ranks] where the list of
             /// ranks is the ranks that rank 0 will send data to and get data
             /// from. If to_ranks is unspecified then all worker ranks are
             /// used.</summary>
@@ -343,13 +344,13 @@ namespace kinetica
             /// <summary>Enable or disable auditing of request data.</summary>
             public const string AUDIT_DATA = "audit_data";
 
-            /// <summary>Enable chunk level query caching. Flushes the chunk
-            /// cache when value is false</summary>
-            public const string CHUNK_CACHE_ENABLED = "chunk_cache_enabled";
+            /// <summary>Size of the shadow aggregate chunk cache in bytes.
+            /// The default value is '10000000'.</summary>
+            public const string SHADOW_AGG_SIZE = "shadow_agg_size";
 
-            /// <summary>Size of the chunk cache in bytes.  The default value
-            /// is '10000000'.</summary>
-            public const string CHUNK_CACHE_SIZE = "chunk_cache_size";
+            /// <summary>Size of the shdow filter chunk cache in bytes.  The
+            /// default value is '10000000'.</summary>
+            public const string SHADOW_FILTER_SIZE = "shadow_filter_size";
 
             /// <summary>compress vector on set_compression (instead of waiting
             /// for background thread).  The default value is
@@ -402,8 +403,8 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.CHUNK_SIZE">CHUNK_SIZE</see>:</term>
-        ///         <description>Sets the chunk size of all new sets to the
-        /// specified integer value.</description>
+        ///         <description>Sets the number of records per chunk to be
+        /// used for all new tables.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -442,10 +443,10 @@ namespace kinetica
         /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.COMMUNICATOR_TEST">COMMUNICATOR_TEST</see>:</term>
         ///         <description>Invoke the communicator test and report timing
         /// results. Value string is is a semicolon separated list of
-        /// <key>=<value> expressions.  Expressions are: num_transactions=<num>
+        /// [key]=[value] expressions.  Expressions are: num_transactions=[num]
         /// where num is the number of request reply transactions to invoke per
-        /// test; message_size=<bytes> where bytes is the size of the messages
-        /// to send in bytes; check_values=<enabled> where if enabled is true
+        /// test; message_size=[bytes] where bytes is the size in bytes of the
+        /// messages to send; check_values=[enabled] where if enabled is true
         /// the value of the messages received are verified.</description>
         ///     </item>
         ///     <item>
@@ -477,13 +478,14 @@ namespace kinetica
         /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.NETWORK_SPEED">NETWORK_SPEED</see>:</term>
         ///         <description>Invoke the network speed test and report
         /// timing results. Value string is a semicolon-separated list of
-        /// <key>=<value> expressions.  Valid expressions are: seconds=<time>
-        /// where time is the time in seconds to run the test; data_size=<size>
-        /// where size is the size in bytes of the block to be transferred;
-        /// threads=<number of threads>; to_ranks=<space-separated list of
-        /// ranks> where the list of ranks is the ranks that rank 0 will send
-        /// data to and get data from. If to_ranks is unspecified then all
-        /// worker ranks are used.</description>
+        /// [key]=[value] expressions.  Valid expressions are: seconds=[time]
+        /// where time is the time in seconds to run the test;
+        /// data_size=[bytes] where bytes is the size in bytes of the block to
+        /// be transferred; threads=[number of threads];
+        /// to_ranks=[space-separated list of ranks] where the list of ranks is
+        /// the ranks that rank 0 will send data to and get data from. If
+        /// to_ranks is unspecified then all worker ranks are
+        /// used.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -524,15 +526,15 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.CHUNK_CACHE_ENABLED">CHUNK_CACHE_ENABLED</see>:</term>
-        ///         <description>Enable chunk level query caching. Flushes the
-        /// chunk cache when value is false</description>
+        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.SHADOW_AGG_SIZE">SHADOW_AGG_SIZE</see>:</term>
+        ///         <description>Size of the shadow aggregate chunk cache in
+        /// bytes.  The default value is '10000000'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.CHUNK_CACHE_SIZE">CHUNK_CACHE_SIZE</see>:</term>
-        ///         <description>Size of the chunk cache in bytes.  The default
-        /// value is '10000000'.</description>
+        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.SHADOW_FILTER_SIZE">SHADOW_FILTER_SIZE</see>:</term>
+        ///         <description>Size of the shdow filter chunk cache in bytes.
+        /// The default value is '10000000'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -601,8 +603,8 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.CHUNK_SIZE">CHUNK_SIZE</see>:</term>
-        ///         <description>Sets the chunk size of all new sets to the
-        /// specified integer value.</description>
+        ///         <description>Sets the number of records per chunk to be
+        /// used for all new tables.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -641,10 +643,10 @@ namespace kinetica
         /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.COMMUNICATOR_TEST">COMMUNICATOR_TEST</see>:</term>
         ///         <description>Invoke the communicator test and report timing
         /// results. Value string is is a semicolon separated list of
-        /// <key>=<value> expressions.  Expressions are: num_transactions=<num>
+        /// [key]=[value] expressions.  Expressions are: num_transactions=[num]
         /// where num is the number of request reply transactions to invoke per
-        /// test; message_size=<bytes> where bytes is the size of the messages
-        /// to send in bytes; check_values=<enabled> where if enabled is true
+        /// test; message_size=[bytes] where bytes is the size in bytes of the
+        /// messages to send; check_values=[enabled] where if enabled is true
         /// the value of the messages received are verified.</description>
         ///     </item>
         ///     <item>
@@ -676,13 +678,14 @@ namespace kinetica
         /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.NETWORK_SPEED">NETWORK_SPEED</see>:</term>
         ///         <description>Invoke the network speed test and report
         /// timing results. Value string is a semicolon-separated list of
-        /// <key>=<value> expressions.  Valid expressions are: seconds=<time>
-        /// where time is the time in seconds to run the test; data_size=<size>
-        /// where size is the size in bytes of the block to be transferred;
-        /// threads=<number of threads>; to_ranks=<space-separated list of
-        /// ranks> where the list of ranks is the ranks that rank 0 will send
-        /// data to and get data from. If to_ranks is unspecified then all
-        /// worker ranks are used.</description>
+        /// [key]=[value] expressions.  Valid expressions are: seconds=[time]
+        /// where time is the time in seconds to run the test;
+        /// data_size=[bytes] where bytes is the size in bytes of the block to
+        /// be transferred; threads=[number of threads];
+        /// to_ranks=[space-separated list of ranks] where the list of ranks is
+        /// the ranks that rank 0 will send data to and get data from. If
+        /// to_ranks is unspecified then all worker ranks are
+        /// used.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -723,15 +726,15 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.CHUNK_CACHE_ENABLED">CHUNK_CACHE_ENABLED</see>:</term>
-        ///         <description>Enable chunk level query caching. Flushes the
-        /// chunk cache when value is false</description>
+        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.SHADOW_AGG_SIZE">SHADOW_AGG_SIZE</see>:</term>
+        ///         <description>Size of the shadow aggregate chunk cache in
+        /// bytes.  The default value is '10000000'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.CHUNK_CACHE_SIZE">CHUNK_CACHE_SIZE</see>:</term>
-        ///         <description>Size of the chunk cache in bytes.  The default
-        /// value is '10000000'.</description>
+        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.SHADOW_FILTER_SIZE">SHADOW_FILTER_SIZE</see>:</term>
+        ///         <description>Size of the shdow filter chunk cache in bytes.
+        /// The default value is '10000000'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see

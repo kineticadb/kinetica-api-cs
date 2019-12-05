@@ -16,7 +16,7 @@ namespace kinetica
     /// />.
     /// <br />
     /// Calculates unique combinations (groups) of values for the given columns
-    /// in a given table/view/collection and computes aggregates on each unique
+    /// in a given table or view and computes aggregates on each unique
     /// combination. This is somewhat analogous to an SQL-style SELECT...GROUP
     /// BY.
     /// <br />
@@ -127,10 +127,7 @@ namespace kinetica
         ///         <description>Name of a collection which is to contain the
         /// table specified in <i>result_table</i>. If the collection provided
         /// is non-existent, the collection will be automatically created. If
-        /// empty, then the table will be a top-level table.  Additionally this
-        /// option is invalid if <paramref
-        /// cref="AggregateGroupByRequest.table_name" /> is a
-        /// collection.</description>
+        /// empty, then the table will be a top-level table.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -252,7 +249,7 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="AggregateGroupByRequest.Options.RESULT_TABLE_GENERATE_PK">RESULT_TABLE_GENERATE_PK</see>:</term>
-        ///         <description>If 'true' then set a primary key for the
+        ///         <description>If <i>true</i> then set a primary key for the
         /// result table. Must be used in combination with the
         /// <i>result_table</i> option.
         /// Supported values:
@@ -279,8 +276,8 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="AggregateGroupByRequest.Options.CHUNK_SIZE">CHUNK_SIZE</see>:</term>
-        ///         <description>Indicates the chunk size to be used for the
-        /// result table. Must be used in combination with the
+        ///         <description>Indicates the number of records per chunk to
+        /// be used for the result table. Must be used in combination with the
         /// <i>result_table</i> option.</description>
         ///     </item>
         ///     <item>
@@ -293,8 +290,8 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="AggregateGroupByRequest.Options.VIEW_ID">VIEW_ID</see>:</term>
-        ///         <description>view this result table is part of.  The
-        /// default value is ''.</description>
+        ///         <description>ID of view of which the result table will be a
+        /// member.  The default value is ''.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -360,9 +357,7 @@ namespace kinetica
             /// <summary>Name of a collection which is to contain the table
             /// specified in <i>result_table</i>. If the collection provided is
             /// non-existent, the collection will be automatically created. If
-            /// empty, then the table will be a top-level table.  Additionally
-            /// this option is invalid if <see cref="table_name" /> is a
-            /// collection.</summary>
+            /// empty, then the table will be a top-level table.</summary>
             public const string COLLECTION_NAME = "collection_name";
 
             /// <summary>Filter expression to apply to the table prior to
@@ -492,8 +487,8 @@ namespace kinetica
             /// cref="AggregateGroupByRequest.Options.FALSE">FALSE</see>.</summary>
             public const string RESULT_TABLE_FORCE_REPLICATED = "result_table_force_replicated";
 
-            /// <summary>If 'true' then set a primary key for the result table.
-            /// Must be used in combination with the <i>result_table</i>
+            /// <summary>If <i>true</i> then set a primary key for the result
+            /// table. Must be used in combination with the <i>result_table</i>
             /// option.
             /// Supported values:
             /// <list type="bullet">
@@ -515,9 +510,9 @@ namespace kinetica
             /// <i>result_table</i>.</summary>
             public const string TTL = "ttl";
 
-            /// <summary>Indicates the chunk size to be used for the result
-            /// table. Must be used in combination with the <i>result_table</i>
-            /// option.</summary>
+            /// <summary>Indicates the number of records per chunk to be used
+            /// for the result table. Must be used in combination with the
+            /// <i>result_table</i> option.</summary>
             public const string CHUNK_SIZE = "chunk_size";
 
             /// <summary>Comma-separated list of columns on which to create
@@ -525,8 +520,8 @@ namespace kinetica
             /// the <i>result_table</i> option.</summary>
             public const string CREATE_INDEXES = "create_indexes";
 
-            /// <summary>view this result table is part of.  The default value
-            /// is ''.</summary>
+            /// <summary>ID of view of which the result table will be a member.
+            /// The default value is ''.</summary>
             public const string VIEW_ID = "view_id";
 
             /// <summary>If <i>true</i> then the columns of the groupby result
@@ -572,8 +567,8 @@ namespace kinetica
         } // end struct Options
 
 
-        /// <summary>Name of the table on which the operation will be
-        /// performed. Must be an existing table/view/collection.  </summary>
+        /// <summary>Name of an existing table or view on which the operation
+        /// will be performed.  </summary>
         public string table_name { get; set; }
 
         /// <summary>List of one or more column names, expressions, and
@@ -582,15 +577,22 @@ namespace kinetica
 
         /// <summary>A positive integer indicating the number of initial
         /// results to skip (this can be useful for paging through the
-        /// results).  The minimum allowed value is 0. The maximum allowed
-        /// value is MAX_INT. </summary>
-        public long offset { get; set; }
+        /// results).  The default value is 0.The minimum allowed value is 0.
+        /// The maximum allowed value is MAX_INT. </summary>
+        public long offset { get; set; } = 0;
 
         /// <summary>A positive integer indicating the maximum number of
-        /// results to be returned Or END_OF_SET (-9999) to indicate that the
-        /// max number of results should be returned.  The default value is
-        /// 1000.</summary>
-        public long limit { get; set; } = 1000;
+        /// results to be returned, or END_OF_SET (-9999) to indicate that the
+        /// max number of results should be returned.  The number of records
+        /// returned will never exceed the server's own limit, defined by the
+        /// <a href="../../config/index.html#general"
+        /// target="_top">max_get_records_size</a> parameter in the server
+        /// configuration.  Use <member name="has_more_records" /> to see if
+        /// more records exist in the result to be fetched, and <paramref
+        /// cref="AggregateGroupByRequest.offset" /> & <paramref
+        /// cref="AggregateGroupByRequest.limit" /> to request subsequent pages
+        /// of results.  The default value is -9999.</summary>
+        public long limit { get; set; } = -9999;
 
         /// <summary>Specifies the encoding for returned records.
         /// Supported values:
@@ -621,10 +623,7 @@ namespace kinetica
         ///         <description>Name of a collection which is to contain the
         /// table specified in <i>result_table</i>. If the collection provided
         /// is non-existent, the collection will be automatically created. If
-        /// empty, then the table will be a top-level table.  Additionally this
-        /// option is invalid if <paramref
-        /// cref="AggregateGroupByRequest.table_name" /> is a
-        /// collection.</description>
+        /// empty, then the table will be a top-level table.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -746,7 +745,7 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="AggregateGroupByRequest.Options.RESULT_TABLE_GENERATE_PK">RESULT_TABLE_GENERATE_PK</see>:</term>
-        ///         <description>If 'true' then set a primary key for the
+        ///         <description>If <i>true</i> then set a primary key for the
         /// result table. Must be used in combination with the
         /// <i>result_table</i> option.
         /// Supported values:
@@ -773,8 +772,8 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="AggregateGroupByRequest.Options.CHUNK_SIZE">CHUNK_SIZE</see>:</term>
-        ///         <description>Indicates the chunk size to be used for the
-        /// result table. Must be used in combination with the
+        ///         <description>Indicates the number of records per chunk to
+        /// be used for the result table. Must be used in combination with the
         /// <i>result_table</i> option.</description>
         ///     </item>
         ///     <item>
@@ -787,8 +786,8 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="AggregateGroupByRequest.Options.VIEW_ID">VIEW_ID</see>:</term>
-        ///         <description>view this result table is part of.  The
-        /// default value is ''.</description>
+        ///         <description>ID of view of which the result table will be a
+        /// member.  The default value is ''.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -856,19 +855,25 @@ namespace kinetica
         /// <summary>Constructs an AggregateGroupByRequest object with the
         /// specified parameters.</summary>
         /// 
-        /// <param name="table_name">Name of the table on which the operation
-        /// will be performed. Must be an existing table/view/collection.
-        /// </param>
+        /// <param name="table_name">Name of an existing table or view on which
+        /// the operation will be performed.  </param>
         /// <param name="column_names">List of one or more column names,
         /// expressions, and aggregate expressions.  </param>
         /// <param name="offset">A positive integer indicating the number of
         /// initial results to skip (this can be useful for paging through the
-        /// results).  The minimum allowed value is 0. The maximum allowed
-        /// value is MAX_INT. </param>
+        /// results).  The default value is 0.The minimum allowed value is 0.
+        /// The maximum allowed value is MAX_INT. </param>
         /// <param name="limit">A positive integer indicating the maximum
-        /// number of results to be returned Or END_OF_SET (-9999) to indicate
-        /// that the max number of results should be returned.  The default
-        /// value is 1000.</param>
+        /// number of results to be returned, or END_OF_SET (-9999) to indicate
+        /// that the max number of results should be returned.  The number of
+        /// records returned will never exceed the server's own limit, defined
+        /// by the <a href="../../config/index.html#general"
+        /// target="_top">max_get_records_size</a> parameter in the server
+        /// configuration.  Use <member name="has_more_records" /> to see if
+        /// more records exist in the result to be fetched, and <paramref
+        /// cref="AggregateGroupByRequest.offset" /> & <paramref
+        /// cref="AggregateGroupByRequest.limit" /> to request subsequent pages
+        /// of results.  The default value is -9999.</param>
         /// <param name="options">Optional parameters.
         /// <list type="bullet">
         ///     <item>
@@ -877,10 +882,7 @@ namespace kinetica
         ///         <description>Name of a collection which is to contain the
         /// table specified in <i>result_table</i>. If the collection provided
         /// is non-existent, the collection will be automatically created. If
-        /// empty, then the table will be a top-level table.  Additionally this
-        /// option is invalid if <paramref
-        /// cref="AggregateGroupByRequest.table_name" /> is a
-        /// collection.</description>
+        /// empty, then the table will be a top-level table.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -1002,7 +1004,7 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="AggregateGroupByRequest.Options.RESULT_TABLE_GENERATE_PK">RESULT_TABLE_GENERATE_PK</see>:</term>
-        ///         <description>If 'true' then set a primary key for the
+        ///         <description>If <i>true</i> then set a primary key for the
         /// result table. Must be used in combination with the
         /// <i>result_table</i> option.
         /// Supported values:
@@ -1029,8 +1031,8 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="AggregateGroupByRequest.Options.CHUNK_SIZE">CHUNK_SIZE</see>:</term>
-        ///         <description>Indicates the chunk size to be used for the
-        /// result table. Must be used in combination with the
+        ///         <description>Indicates the number of records per chunk to
+        /// be used for the result table. Must be used in combination with the
         /// <i>result_table</i> option.</description>
         ///     </item>
         ///     <item>
@@ -1043,8 +1045,8 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="AggregateGroupByRequest.Options.VIEW_ID">VIEW_ID</see>:</term>
-        ///         <description>view this result table is part of.  The
-        /// default value is ''.</description>
+        ///         <description>ID of view of which the result table will be a
+        /// member.  The default value is ''.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -1105,14 +1107,14 @@ namespace kinetica
         /// 
         public AggregateGroupByRequest( string table_name,
                                         IList<string> column_names,
-                                        long offset,
+                                        long? offset = null,
                                         long? limit = null,
                                         IDictionary<string, string> options = null)
         {
             this.table_name = table_name ?? "";
             this.column_names = column_names ?? new List<string>();
-            this.offset = offset;
-            this.limit = limit ?? 1000;
+            this.offset = offset ?? 0;
+            this.limit = limit ?? -9999;
             this.encoding = Encoding.BINARY;
             this.options = options ?? new Dictionary<string, string>();
         } // end constructor
@@ -1121,19 +1123,25 @@ namespace kinetica
         /// <summary>Constructs an AggregateGroupByRequest object with the
         /// specified parameters.</summary>
         /// 
-        /// <param name="table_name">Name of the table on which the operation
-        /// will be performed. Must be an existing table/view/collection.
-        /// </param>
+        /// <param name="table_name">Name of an existing table or view on which
+        /// the operation will be performed.  </param>
         /// <param name="column_names">List of one or more column names,
         /// expressions, and aggregate expressions.  </param>
         /// <param name="offset">A positive integer indicating the number of
         /// initial results to skip (this can be useful for paging through the
-        /// results).  The minimum allowed value is 0. The maximum allowed
-        /// value is MAX_INT. </param>
+        /// results).  The default value is 0.The minimum allowed value is 0.
+        /// The maximum allowed value is MAX_INT. </param>
         /// <param name="limit">A positive integer indicating the maximum
-        /// number of results to be returned Or END_OF_SET (-9999) to indicate
-        /// that the max number of results should be returned.  The default
-        /// value is 1000.</param>
+        /// number of results to be returned, or END_OF_SET (-9999) to indicate
+        /// that the max number of results should be returned.  The number of
+        /// records returned will never exceed the server's own limit, defined
+        /// by the <a href="../../config/index.html#general"
+        /// target="_top">max_get_records_size</a> parameter in the server
+        /// configuration.  Use <member name="has_more_records" /> to see if
+        /// more records exist in the result to be fetched, and <paramref
+        /// cref="AggregateGroupByRequest.offset" /> & <paramref
+        /// cref="AggregateGroupByRequest.limit" /> to request subsequent pages
+        /// of results.  The default value is -9999.</param>
         /// <param name="encoding">Specifies the encoding for returned records.
         /// Supported values:
         /// <list type="bullet">
@@ -1161,10 +1169,7 @@ namespace kinetica
         ///         <description>Name of a collection which is to contain the
         /// table specified in <i>result_table</i>. If the collection provided
         /// is non-existent, the collection will be automatically created. If
-        /// empty, then the table will be a top-level table.  Additionally this
-        /// option is invalid if <paramref
-        /// cref="AggregateGroupByRequest.table_name" /> is a
-        /// collection.</description>
+        /// empty, then the table will be a top-level table.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -1286,7 +1291,7 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="AggregateGroupByRequest.Options.RESULT_TABLE_GENERATE_PK">RESULT_TABLE_GENERATE_PK</see>:</term>
-        ///         <description>If 'true' then set a primary key for the
+        ///         <description>If <i>true</i> then set a primary key for the
         /// result table. Must be used in combination with the
         /// <i>result_table</i> option.
         /// Supported values:
@@ -1313,8 +1318,8 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="AggregateGroupByRequest.Options.CHUNK_SIZE">CHUNK_SIZE</see>:</term>
-        ///         <description>Indicates the chunk size to be used for the
-        /// result table. Must be used in combination with the
+        ///         <description>Indicates the number of records per chunk to
+        /// be used for the result table. Must be used in combination with the
         /// <i>result_table</i> option.</description>
         ///     </item>
         ///     <item>
@@ -1327,8 +1332,8 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="AggregateGroupByRequest.Options.VIEW_ID">VIEW_ID</see>:</term>
-        ///         <description>view this result table is part of.  The
-        /// default value is ''.</description>
+        ///         <description>ID of view of which the result table will be a
+        /// member.  The default value is ''.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -1389,15 +1394,15 @@ namespace kinetica
         /// 
         public AggregateGroupByRequest( string table_name,
                                         IList<string> column_names,
-                                        long offset,
+                                        long? offset = null,
                                         long? limit = null,
                                         string encoding = null,
                                         IDictionary<string, string> options = null)
         {
             this.table_name = table_name ?? "";
             this.column_names = column_names ?? new List<string>();
-            this.offset = offset;
-            this.limit = limit ?? 1000;
+            this.offset = offset ?? 0;
+            this.limit = limit ?? -9999;
             this.encoding = encoding ?? Encoding.BINARY;
             this.options = options ?? new Dictionary<string, string>();
         } // end full constructor

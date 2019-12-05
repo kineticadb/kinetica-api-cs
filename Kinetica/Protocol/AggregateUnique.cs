@@ -16,13 +16,13 @@ namespace kinetica
     /// />.
     /// <br />
     /// Returns all the unique values from a particular column (specified by
-    /// <see cref="column_name" />) of a particular table or collection
-    /// (specified by <see cref="table_name" />). If <see cref="column_name" />
-    /// is a numeric column the values will be in <member
-    /// name="binary_encoded_response" />. Otherwise if <see cref="column_name"
-    /// /> is a string column the values will be in <member
-    /// name="json_encoded_response" />.  The results can be paged via the <see
-    /// cref="offset" /> and <see cref="limit" /> parameters.
+    /// <see cref="column_name" />) of a particular table or view (specified by
+    /// <see cref="table_name" />). If <see cref="column_name" /> is a numeric
+    /// column the values will be in <member name="binary_encoded_response" />.
+    /// Otherwise if <see cref="column_name" /> is a string column the values
+    /// will be in <member name="json_encoded_response" />.  The results can be
+    /// paged via the <see cref="offset" /> and <see cref="limit" />
+    /// parameters.
     /// <br />
     /// Columns marked as <a href="../../concepts/types.html#data-handling"
     /// target="_top">store-only</a> are unable to be used with this function.
@@ -47,9 +47,8 @@ namespace kinetica
     /// will be sharded, in all other cases it will be replicated.  Sorting
     /// will properly function only if the result table is replicated or if
     /// there is only one processing node and should not be relied upon in
-    /// other cases.  Not available if <see cref="table_name" /> is a
-    /// collection or when the value of <see cref="column_name" /> is an
-    /// unrestricted-length string.</summary>
+    /// other cases.  Not available if the value of <see cref="column_name" />
+    /// is an unrestricted-length string.</summary>
     public class AggregateUniqueRequest : KineticaData
     {
 
@@ -94,10 +93,7 @@ namespace kinetica
         ///         <description>Name of a collection which is to contain the
         /// table specified in <i>result_table</i>. If the collection provided
         /// is non-existent, the collection will be automatically created. If
-        /// empty, then the table will be a top-level table.  Additionally this
-        /// option is invalid if <paramref
-        /// cref="AggregateUniqueRequest.table_name" /> is a
-        /// collection.</description>
+        /// empty, then the table will be a top-level table.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -131,10 +127,8 @@ namespace kinetica
         /// results. If present, no results are returned in the response. Has
         /// the same naming restrictions as <a
         /// href="../../concepts/tables.html" target="_top">tables</a>.  Not
-        /// available if <paramref cref="AggregateUniqueRequest.table_name" />
-        /// is a collection or when <paramref
-        /// cref="AggregateUniqueRequest.column_name" /> is an
-        /// unrestricted-length string.</description>
+        /// available if <paramref cref="AggregateUniqueRequest.column_name" />
+        /// is an unrestricted-length string.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -181,7 +175,7 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="AggregateUniqueRequest.Options.RESULT_TABLE_GENERATE_PK">RESULT_TABLE_GENERATE_PK</see>:</term>
-        ///         <description>If 'true' then set a primary key for the
+        ///         <description>If <i>true</i> then set a primary key for the
         /// result table. Must be used in combination with the
         /// <i>result_table</i> option.
         /// Supported values:
@@ -208,15 +202,15 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="AggregateUniqueRequest.Options.CHUNK_SIZE">CHUNK_SIZE</see>:</term>
-        ///         <description>Indicates the chunk size to be used for the
-        /// result table. Must be used in combination with the
+        ///         <description>Indicates the number of records per chunk to
+        /// be used for the result table. Must be used in combination with the
         /// <i>result_table</i> option.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="AggregateUniqueRequest.Options.VIEW_ID">VIEW_ID</see>:</term>
-        ///         <description>view this result table is part of.  The
-        /// default value is ''.</description>
+        ///         <description>ID of view of which the result table will be a
+        /// member.  The default value is ''.</description>
         ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.
@@ -228,9 +222,7 @@ namespace kinetica
             /// <summary>Name of a collection which is to contain the table
             /// specified in <i>result_table</i>. If the collection provided is
             /// non-existent, the collection will be automatically created. If
-            /// empty, then the table will be a top-level table.  Additionally
-            /// this option is invalid if <see cref="table_name" /> is a
-            /// collection.</summary>
+            /// empty, then the table will be a top-level table.</summary>
             public const string COLLECTION_NAME = "collection_name";
 
             /// <summary>Optional filter expression to apply to the
@@ -260,7 +252,6 @@ namespace kinetica
             /// present, no results are returned in the response. Has the same
             /// naming restrictions as <a href="../../concepts/tables.html"
             /// target="_top">tables</a>.  Not available if <see
-            /// cref="table_name" /> is a collection or when <see
             /// cref="column_name" /> is an unrestricted-length
             /// string.</summary>
             public const string RESULT_TABLE = "result_table";
@@ -305,8 +296,8 @@ namespace kinetica
             /// cref="AggregateUniqueRequest.Options.FALSE">FALSE</see>.</summary>
             public const string RESULT_TABLE_FORCE_REPLICATED = "result_table_force_replicated";
 
-            /// <summary>If 'true' then set a primary key for the result table.
-            /// Must be used in combination with the <i>result_table</i>
+            /// <summary>If <i>true</i> then set a primary key for the result
+            /// table. Must be used in combination with the <i>result_table</i>
             /// option.
             /// Supported values:
             /// <list type="bullet">
@@ -328,19 +319,19 @@ namespace kinetica
             /// <i>result_table</i>.</summary>
             public const string TTL = "ttl";
 
-            /// <summary>Indicates the chunk size to be used for the result
-            /// table. Must be used in combination with the <i>result_table</i>
-            /// option.</summary>
+            /// <summary>Indicates the number of records per chunk to be used
+            /// for the result table. Must be used in combination with the
+            /// <i>result_table</i> option.</summary>
             public const string CHUNK_SIZE = "chunk_size";
 
-            /// <summary>view this result table is part of.  The default value
-            /// is ''.</summary>
+            /// <summary>ID of view of which the result table will be a member.
+            /// The default value is ''.</summary>
             public const string VIEW_ID = "view_id";
         } // end struct Options
 
 
-        /// <summary>Name of an existing table/collection on which the
-        /// operation will be performed.  </summary>
+        /// <summary>Name of an existing table or view on which the operation
+        /// will be performed.  </summary>
         public string table_name { get; set; }
 
         /// <summary>Name of the column or an expression containing one or more
@@ -350,15 +341,22 @@ namespace kinetica
 
         /// <summary>A positive integer indicating the number of initial
         /// results to skip (this can be useful for paging through the
-        /// results).  The minimum allowed value is 0. The maximum allowed
-        /// value is MAX_INT. </summary>
-        public long offset { get; set; }
+        /// results).  The default value is 0.The minimum allowed value is 0.
+        /// The maximum allowed value is MAX_INT. </summary>
+        public long offset { get; set; } = 0;
 
         /// <summary>A positive integer indicating the maximum number of
         /// results to be returned. Or END_OF_SET (-9999) to indicate that the
-        /// max number of results should be returned.  The default value is
-        /// 10000.</summary>
-        public long limit { get; set; } = 10000;
+        /// max number of results should be returned.  The number of records
+        /// returned will never exceed the server's own limit, defined by the
+        /// <a href="../../config/index.html#general"
+        /// target="_top">max_get_records_size</a> parameter in the server
+        /// configuration.  Use <member name="has_more_records" /> to see if
+        /// more records exist in the result to be fetched, and <paramref
+        /// cref="AggregateUniqueRequest.offset" /> & <paramref
+        /// cref="AggregateUniqueRequest.limit" /> to request subsequent pages
+        /// of results.  The default value is -9999.</summary>
+        public long limit { get; set; } = -9999;
 
         /// <summary>Specifies the encoding for returned records.
         /// Supported values:
@@ -389,10 +387,7 @@ namespace kinetica
         ///         <description>Name of a collection which is to contain the
         /// table specified in <i>result_table</i>. If the collection provided
         /// is non-existent, the collection will be automatically created. If
-        /// empty, then the table will be a top-level table.  Additionally this
-        /// option is invalid if <paramref
-        /// cref="AggregateUniqueRequest.table_name" /> is a
-        /// collection.</description>
+        /// empty, then the table will be a top-level table.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -426,10 +421,8 @@ namespace kinetica
         /// results. If present, no results are returned in the response. Has
         /// the same naming restrictions as <a
         /// href="../../concepts/tables.html" target="_top">tables</a>.  Not
-        /// available if <paramref cref="AggregateUniqueRequest.table_name" />
-        /// is a collection or when <paramref
-        /// cref="AggregateUniqueRequest.column_name" /> is an
-        /// unrestricted-length string.</description>
+        /// available if <paramref cref="AggregateUniqueRequest.column_name" />
+        /// is an unrestricted-length string.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -476,7 +469,7 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="AggregateUniqueRequest.Options.RESULT_TABLE_GENERATE_PK">RESULT_TABLE_GENERATE_PK</see>:</term>
-        ///         <description>If 'true' then set a primary key for the
+        ///         <description>If <i>true</i> then set a primary key for the
         /// result table. Must be used in combination with the
         /// <i>result_table</i> option.
         /// Supported values:
@@ -503,15 +496,15 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="AggregateUniqueRequest.Options.CHUNK_SIZE">CHUNK_SIZE</see>:</term>
-        ///         <description>Indicates the chunk size to be used for the
-        /// result table. Must be used in combination with the
+        ///         <description>Indicates the number of records per chunk to
+        /// be used for the result table. Must be used in combination with the
         /// <i>result_table</i> option.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="AggregateUniqueRequest.Options.VIEW_ID">VIEW_ID</see>:</term>
-        ///         <description>view this result table is part of.  The
-        /// default value is ''.</description>
+        ///         <description>ID of view of which the result table will be a
+        /// member.  The default value is ''.</description>
         ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.</summary>
@@ -525,19 +518,26 @@ namespace kinetica
         /// <summary>Constructs an AggregateUniqueRequest object with the
         /// specified parameters.</summary>
         /// 
-        /// <param name="table_name">Name of an existing table/collection on
-        /// which the operation will be performed.  </param>
+        /// <param name="table_name">Name of an existing table or view on which
+        /// the operation will be performed.  </param>
         /// <param name="column_name">Name of the column or an expression
         /// containing one or more column names on which the unique function
         /// would be applied.  </param>
         /// <param name="offset">A positive integer indicating the number of
         /// initial results to skip (this can be useful for paging through the
-        /// results).  The minimum allowed value is 0. The maximum allowed
-        /// value is MAX_INT. </param>
+        /// results).  The default value is 0.The minimum allowed value is 0.
+        /// The maximum allowed value is MAX_INT. </param>
         /// <param name="limit">A positive integer indicating the maximum
         /// number of results to be returned. Or END_OF_SET (-9999) to indicate
-        /// that the max number of results should be returned.  The default
-        /// value is 10000.</param>
+        /// that the max number of results should be returned.  The number of
+        /// records returned will never exceed the server's own limit, defined
+        /// by the <a href="../../config/index.html#general"
+        /// target="_top">max_get_records_size</a> parameter in the server
+        /// configuration.  Use <member name="has_more_records" /> to see if
+        /// more records exist in the result to be fetched, and <paramref
+        /// cref="AggregateUniqueRequest.offset" /> & <paramref
+        /// cref="AggregateUniqueRequest.limit" /> to request subsequent pages
+        /// of results.  The default value is -9999.</param>
         /// <param name="options">Optional parameters.
         /// <list type="bullet">
         ///     <item>
@@ -546,10 +546,7 @@ namespace kinetica
         ///         <description>Name of a collection which is to contain the
         /// table specified in <i>result_table</i>. If the collection provided
         /// is non-existent, the collection will be automatically created. If
-        /// empty, then the table will be a top-level table.  Additionally this
-        /// option is invalid if <paramref
-        /// cref="AggregateUniqueRequest.table_name" /> is a
-        /// collection.</description>
+        /// empty, then the table will be a top-level table.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -583,10 +580,8 @@ namespace kinetica
         /// results. If present, no results are returned in the response. Has
         /// the same naming restrictions as <a
         /// href="../../concepts/tables.html" target="_top">tables</a>.  Not
-        /// available if <paramref cref="AggregateUniqueRequest.table_name" />
-        /// is a collection or when <paramref
-        /// cref="AggregateUniqueRequest.column_name" /> is an
-        /// unrestricted-length string.</description>
+        /// available if <paramref cref="AggregateUniqueRequest.column_name" />
+        /// is an unrestricted-length string.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -633,7 +628,7 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="AggregateUniqueRequest.Options.RESULT_TABLE_GENERATE_PK">RESULT_TABLE_GENERATE_PK</see>:</term>
-        ///         <description>If 'true' then set a primary key for the
+        ///         <description>If <i>true</i> then set a primary key for the
         /// result table. Must be used in combination with the
         /// <i>result_table</i> option.
         /// Supported values:
@@ -660,29 +655,29 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="AggregateUniqueRequest.Options.CHUNK_SIZE">CHUNK_SIZE</see>:</term>
-        ///         <description>Indicates the chunk size to be used for the
-        /// result table. Must be used in combination with the
+        ///         <description>Indicates the number of records per chunk to
+        /// be used for the result table. Must be used in combination with the
         /// <i>result_table</i> option.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="AggregateUniqueRequest.Options.VIEW_ID">VIEW_ID</see>:</term>
-        ///         <description>view this result table is part of.  The
-        /// default value is ''.</description>
+        ///         <description>ID of view of which the result table will be a
+        /// member.  The default value is ''.</description>
         ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.</param>
         /// 
         public AggregateUniqueRequest( string table_name,
                                        string column_name,
-                                       long offset,
+                                       long? offset = null,
                                        long? limit = null,
                                        IDictionary<string, string> options = null)
         {
             this.table_name = table_name ?? "";
             this.column_name = column_name ?? "";
-            this.offset = offset;
-            this.limit = limit ?? 10000;
+            this.offset = offset ?? 0;
+            this.limit = limit ?? -9999;
             this.encoding = Encoding.BINARY;
             this.options = options ?? new Dictionary<string, string>();
         } // end constructor
@@ -691,19 +686,26 @@ namespace kinetica
         /// <summary>Constructs an AggregateUniqueRequest object with the
         /// specified parameters.</summary>
         /// 
-        /// <param name="table_name">Name of an existing table/collection on
-        /// which the operation will be performed.  </param>
+        /// <param name="table_name">Name of an existing table or view on which
+        /// the operation will be performed.  </param>
         /// <param name="column_name">Name of the column or an expression
         /// containing one or more column names on which the unique function
         /// would be applied.  </param>
         /// <param name="offset">A positive integer indicating the number of
         /// initial results to skip (this can be useful for paging through the
-        /// results).  The minimum allowed value is 0. The maximum allowed
-        /// value is MAX_INT. </param>
+        /// results).  The default value is 0.The minimum allowed value is 0.
+        /// The maximum allowed value is MAX_INT. </param>
         /// <param name="limit">A positive integer indicating the maximum
         /// number of results to be returned. Or END_OF_SET (-9999) to indicate
-        /// that the max number of results should be returned.  The default
-        /// value is 10000.</param>
+        /// that the max number of results should be returned.  The number of
+        /// records returned will never exceed the server's own limit, defined
+        /// by the <a href="../../config/index.html#general"
+        /// target="_top">max_get_records_size</a> parameter in the server
+        /// configuration.  Use <member name="has_more_records" /> to see if
+        /// more records exist in the result to be fetched, and <paramref
+        /// cref="AggregateUniqueRequest.offset" /> & <paramref
+        /// cref="AggregateUniqueRequest.limit" /> to request subsequent pages
+        /// of results.  The default value is -9999.</param>
         /// <param name="encoding">Specifies the encoding for returned records.
         /// Supported values:
         /// <list type="bullet">
@@ -731,10 +733,7 @@ namespace kinetica
         ///         <description>Name of a collection which is to contain the
         /// table specified in <i>result_table</i>. If the collection provided
         /// is non-existent, the collection will be automatically created. If
-        /// empty, then the table will be a top-level table.  Additionally this
-        /// option is invalid if <paramref
-        /// cref="AggregateUniqueRequest.table_name" /> is a
-        /// collection.</description>
+        /// empty, then the table will be a top-level table.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -768,10 +767,8 @@ namespace kinetica
         /// results. If present, no results are returned in the response. Has
         /// the same naming restrictions as <a
         /// href="../../concepts/tables.html" target="_top">tables</a>.  Not
-        /// available if <paramref cref="AggregateUniqueRequest.table_name" />
-        /// is a collection or when <paramref
-        /// cref="AggregateUniqueRequest.column_name" /> is an
-        /// unrestricted-length string.</description>
+        /// available if <paramref cref="AggregateUniqueRequest.column_name" />
+        /// is an unrestricted-length string.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -818,7 +815,7 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="AggregateUniqueRequest.Options.RESULT_TABLE_GENERATE_PK">RESULT_TABLE_GENERATE_PK</see>:</term>
-        ///         <description>If 'true' then set a primary key for the
+        ///         <description>If <i>true</i> then set a primary key for the
         /// result table. Must be used in combination with the
         /// <i>result_table</i> option.
         /// Supported values:
@@ -845,30 +842,30 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="AggregateUniqueRequest.Options.CHUNK_SIZE">CHUNK_SIZE</see>:</term>
-        ///         <description>Indicates the chunk size to be used for the
-        /// result table. Must be used in combination with the
+        ///         <description>Indicates the number of records per chunk to
+        /// be used for the result table. Must be used in combination with the
         /// <i>result_table</i> option.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="AggregateUniqueRequest.Options.VIEW_ID">VIEW_ID</see>:</term>
-        ///         <description>view this result table is part of.  The
-        /// default value is ''.</description>
+        ///         <description>ID of view of which the result table will be a
+        /// member.  The default value is ''.</description>
         ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.</param>
         /// 
         public AggregateUniqueRequest( string table_name,
                                        string column_name,
-                                       long offset,
+                                       long? offset = null,
                                        long? limit = null,
                                        string encoding = null,
                                        IDictionary<string, string> options = null)
         {
             this.table_name = table_name ?? "";
             this.column_name = column_name ?? "";
-            this.offset = offset;
-            this.limit = limit ?? 10000;
+            this.offset = offset ?? 0;
+            this.limit = limit ?? -9999;
             this.encoding = encoding ?? Encoding.BINARY;
             this.options = options ?? new Dictionary<string, string>();
         } // end full constructor
