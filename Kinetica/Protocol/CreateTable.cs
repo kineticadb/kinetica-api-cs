@@ -188,6 +188,13 @@ namespace kinetica
         /// href="../../concepts/tables.html#partitioning-by-list"
         /// target="_top">list partitioning</a>.</description>
         ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableRequest.Options.HASH">HASH</see>:</term>
+        ///         <description>Use <a
+        /// href="../../concepts/tables.html#partitioning-by-hash"
+        /// target="_top">hash partitioning</a>.</description>
+        ///     </item>
         /// </list></description>
         ///     </item>
         ///     <item>
@@ -206,9 +213,11 @@ namespace kinetica
         /// <a href="../../concepts/tables.html#partitioning-by-range"
         /// target="_top">range partitioning</a>, <a
         /// href="../../concepts/tables.html#partitioning-by-interval"
-        /// target="_top">interval partitioning</a>, or <a
+        /// target="_top">interval partitioning</a>, <a
         /// href="../../concepts/tables.html#partitioning-by-list"
-        /// target="_top">list partitioning</a> for example
+        /// target="_top">list partitioning</a>, or <a
+        /// href="../../concepts/tables.html#partitioning-by-hash"
+        /// target="_top">hash partitioning</a> for example
         /// formats.</description>
         ///     </item>
         ///     <item>
@@ -244,8 +253,8 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="CreateTableRequest.Options.CHUNK_SIZE">CHUNK_SIZE</see>:</term>
-        ///         <description>Indicates the chunk size to be used for this
-        /// table.</description>
+        ///         <description>Indicates the number of records per chunk to
+        /// be used for this table.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -414,6 +423,13 @@ namespace kinetica
             /// href="../../concepts/tables.html#partitioning-by-list"
             /// target="_top">list partitioning</a>.</description>
             ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="CreateTableRequest.Options.HASH">HASH</see>:</term>
+            ///         <description>Use <a
+            /// href="../../concepts/tables.html#partitioning-by-hash"
+            /// target="_top">hash partitioning</a>.</description>
+            ///     </item>
             /// </list></summary>
             public const string PARTITION_TYPE = "partition_type";
 
@@ -432,6 +448,11 @@ namespace kinetica
             /// target="_top">list partitioning</a>.</summary>
             public const string LIST = "LIST";
 
+            /// <summary>Use <a
+            /// href="../../concepts/tables.html#partitioning-by-hash"
+            /// target="_top">hash partitioning</a>.</summary>
+            public const string HASH = "HASH";
+
             /// <summary>Comma-separated list of partition keys, which are the
             /// columns or column expressions by which records will be assigned
             /// to partitions defined by
@@ -443,9 +464,11 @@ namespace kinetica
             /// href="../../concepts/tables.html#partitioning-by-range"
             /// target="_top">range partitioning</a>, <a
             /// href="../../concepts/tables.html#partitioning-by-interval"
-            /// target="_top">interval partitioning</a>, or <a
+            /// target="_top">interval partitioning</a>, <a
             /// href="../../concepts/tables.html#partitioning-by-list"
-            /// target="_top">list partitioning</a> for example
+            /// target="_top">list partitioning</a>, or <a
+            /// href="../../concepts/tables.html#partitioning-by-hash"
+            /// target="_top">hash partitioning</a> for example
             /// formats.</summary>
             public const string PARTITION_DEFINITIONS = "partition_definitions";
 
@@ -474,8 +497,8 @@ namespace kinetica
             /// table specified in <see cref="table_name" />.</summary>
             public const string TTL = "ttl";
 
-            /// <summary>Indicates the chunk size to be used for this
-            /// table.</summary>
+            /// <summary>Indicates the number of records per chunk to be used
+            /// for this table.</summary>
             public const string CHUNK_SIZE = "chunk_size";
 
             /// <summary>For a table, indicates whether the table is an
@@ -664,6 +687,13 @@ namespace kinetica
         /// href="../../concepts/tables.html#partitioning-by-list"
         /// target="_top">list partitioning</a>.</description>
         ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableRequest.Options.HASH">HASH</see>:</term>
+        ///         <description>Use <a
+        /// href="../../concepts/tables.html#partitioning-by-hash"
+        /// target="_top">hash partitioning</a>.</description>
+        ///     </item>
         /// </list></description>
         ///     </item>
         ///     <item>
@@ -682,9 +712,11 @@ namespace kinetica
         /// <a href="../../concepts/tables.html#partitioning-by-range"
         /// target="_top">range partitioning</a>, <a
         /// href="../../concepts/tables.html#partitioning-by-interval"
-        /// target="_top">interval partitioning</a>, or <a
+        /// target="_top">interval partitioning</a>, <a
         /// href="../../concepts/tables.html#partitioning-by-list"
-        /// target="_top">list partitioning</a> for example
+        /// target="_top">list partitioning</a>, or <a
+        /// href="../../concepts/tables.html#partitioning-by-hash"
+        /// target="_top">hash partitioning</a> for example
         /// formats.</description>
         ///     </item>
         ///     <item>
@@ -720,8 +752,8 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="CreateTableRequest.Options.CHUNK_SIZE">CHUNK_SIZE</see>:</term>
-        ///         <description>Indicates the chunk size to be used for this
-        /// table.</description>
+        ///         <description>Indicates the number of records per chunk to
+        /// be used for this table.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -920,6 +952,13 @@ namespace kinetica
         /// href="../../concepts/tables.html#partitioning-by-list"
         /// target="_top">list partitioning</a>.</description>
         ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableRequest.Options.HASH">HASH</see>:</term>
+        ///         <description>Use <a
+        /// href="../../concepts/tables.html#partitioning-by-hash"
+        /// target="_top">hash partitioning</a>.</description>
+        ///     </item>
         /// </list></description>
         ///     </item>
         ///     <item>
@@ -938,9 +977,11 @@ namespace kinetica
         /// <a href="../../concepts/tables.html#partitioning-by-range"
         /// target="_top">range partitioning</a>, <a
         /// href="../../concepts/tables.html#partitioning-by-interval"
-        /// target="_top">interval partitioning</a>, or <a
+        /// target="_top">interval partitioning</a>, <a
         /// href="../../concepts/tables.html#partitioning-by-list"
-        /// target="_top">list partitioning</a> for example
+        /// target="_top">list partitioning</a>, or <a
+        /// href="../../concepts/tables.html#partitioning-by-hash"
+        /// target="_top">hash partitioning</a> for example
         /// formats.</description>
         ///     </item>
         ///     <item>
@@ -976,8 +1017,8 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="CreateTableRequest.Options.CHUNK_SIZE">CHUNK_SIZE</see>:</term>
-        ///         <description>Indicates the chunk size to be used for this
-        /// table.</description>
+        ///         <description>Indicates the number of records per chunk to
+        /// be used for this table.</description>
         ///     </item>
         ///     <item>
         ///         <term><see

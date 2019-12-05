@@ -596,15 +596,22 @@ namespace kinetica
 
         /// <summary>A positive integer indicating the number of initial
         /// results to skip (this can be useful for paging through the
-        /// results).  The minimum allowed value is 0. The maximum allowed
-        /// value is MAX_INT. </summary>
-        public long offset { get; set; }
+        /// results).  The default value is 0.The minimum allowed value is 0.
+        /// The maximum allowed value is MAX_INT. </summary>
+        public long offset { get; set; } = 0;
 
         /// <summary>A positive integer indicating the maximum number of
-        /// results to be returned (if not provided the default is 10000), or
-        /// END_OF_SET (-9999) to indicate that the maximum number of results
-        /// allowed by the server should be returned.  </summary>
-        public long limit { get; set; }
+        /// results to be returned, or END_OF_SET (-9999) to indicate that the
+        /// maximum number of results allowed by the server should be returned.
+        /// The number of records returned will never exceed the server's own
+        /// limit, defined by the <a href="../../config/index.html#general"
+        /// target="_top">max_get_records_size</a> parameter in the server
+        /// configuration.  Use <member name="has_more_records" /> to see if
+        /// more records exist in the result to be fetched, and <paramref
+        /// cref="ExecuteSqlRequest.offset" /> & <paramref
+        /// cref="ExecuteSqlRequest.limit" /> to request subsequent pages of
+        /// results.  The default value is -9999.</summary>
+        public long limit { get; set; } = -9999;
 
         /// <summary>Specifies the encoding for returned records; either
         /// 'binary' or 'json'.
@@ -933,12 +940,20 @@ namespace kinetica
         /// executed  </param>
         /// <param name="offset">A positive integer indicating the number of
         /// initial results to skip (this can be useful for paging through the
-        /// results).  The minimum allowed value is 0. The maximum allowed
-        /// value is MAX_INT. </param>
+        /// results).  The default value is 0.The minimum allowed value is 0.
+        /// The maximum allowed value is MAX_INT. </param>
         /// <param name="limit">A positive integer indicating the maximum
-        /// number of results to be returned (if not provided the default is
-        /// 10000), or END_OF_SET (-9999) to indicate that the maximum number
-        /// of results allowed by the server should be returned.  </param>
+        /// number of results to be returned, or END_OF_SET (-9999) to indicate
+        /// that the maximum number of results allowed by the server should be
+        /// returned.  The number of records returned will never exceed the
+        /// server's own limit, defined by the <a
+        /// href="../../config/index.html#general"
+        /// target="_top">max_get_records_size</a> parameter in the server
+        /// configuration.  Use <member name="has_more_records" /> to see if
+        /// more records exist in the result to be fetched, and <paramref
+        /// cref="ExecuteSqlRequest.offset" /> & <paramref
+        /// cref="ExecuteSqlRequest.limit" /> to request subsequent pages of
+        /// results.  The default value is -9999.</param>
         /// <param name="request_schema_str">Avro schema of <paramref
         /// cref="ExecuteSqlRequest.data" />.  The default value is ''.</param>
         /// <param name="data">An array of binary-encoded data for the records
@@ -1233,15 +1248,15 @@ namespace kinetica
         /// The default value is an empty {@link Dictionary}.</param>
         /// 
         public ExecuteSqlRequest( string statement,
-                                  long offset,
-                                  long limit,
+                                  long? offset = null,
+                                  long? limit = null,
                                   string request_schema_str = null,
                                   IList<byte[]> data = null,
                                   IDictionary<string, string> options = null)
         {
             this.statement = statement ?? "";
-            this.offset = offset;
-            this.limit = limit;
+            this.offset = offset ?? 0;
+            this.limit = limit ?? -9999;
             this.encoding = Encoding.BINARY;
             this.request_schema_str = request_schema_str ?? "";
             this.data = data ?? new List<byte[]>();
@@ -1256,12 +1271,20 @@ namespace kinetica
         /// executed  </param>
         /// <param name="offset">A positive integer indicating the number of
         /// initial results to skip (this can be useful for paging through the
-        /// results).  The minimum allowed value is 0. The maximum allowed
-        /// value is MAX_INT. </param>
+        /// results).  The default value is 0.The minimum allowed value is 0.
+        /// The maximum allowed value is MAX_INT. </param>
         /// <param name="limit">A positive integer indicating the maximum
-        /// number of results to be returned (if not provided the default is
-        /// 10000), or END_OF_SET (-9999) to indicate that the maximum number
-        /// of results allowed by the server should be returned.  </param>
+        /// number of results to be returned, or END_OF_SET (-9999) to indicate
+        /// that the maximum number of results allowed by the server should be
+        /// returned.  The number of records returned will never exceed the
+        /// server's own limit, defined by the <a
+        /// href="../../config/index.html#general"
+        /// target="_top">max_get_records_size</a> parameter in the server
+        /// configuration.  Use <member name="has_more_records" /> to see if
+        /// more records exist in the result to be fetched, and <paramref
+        /// cref="ExecuteSqlRequest.offset" /> & <paramref
+        /// cref="ExecuteSqlRequest.limit" /> to request subsequent pages of
+        /// results.  The default value is -9999.</param>
         /// <param name="encoding">Specifies the encoding for returned records;
         /// either 'binary' or 'json'.
         /// Supported values:
@@ -1571,16 +1594,16 @@ namespace kinetica
         /// The default value is an empty {@link Dictionary}.</param>
         /// 
         public ExecuteSqlRequest( string statement,
-                                  long offset,
-                                  long limit,
+                                  long? offset = null,
+                                  long? limit = null,
                                   string encoding = null,
                                   string request_schema_str = null,
                                   IList<byte[]> data = null,
                                   IDictionary<string, string> options = null)
         {
             this.statement = statement ?? "";
-            this.offset = offset;
-            this.limit = limit;
+            this.offset = offset ?? 0;
+            this.limit = limit ?? -9999;
             this.encoding = encoding ?? Encoding.BINARY;
             this.request_schema_str = request_schema_str ?? "";
             this.data = data ?? new List<byte[]>();

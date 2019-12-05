@@ -152,8 +152,8 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="CreateUnionRequest.Options.CHUNK_SIZE">CHUNK_SIZE</see>:</term>
-        ///         <description>Indicates the chunk size to be used for this
-        /// table.</description>
+        ///         <description>Indicates the number of records per chunk to
+        /// be used for this output table.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -167,17 +167,17 @@ namespace kinetica
         ///         <term><see
         /// cref="CreateUnionRequest.Options.TTL">TTL</see>:</term>
         ///         <description>Sets the <a href="../../concepts/ttl.html"
-        /// target="_top">TTL</a> of the table specified in <paramref
+        /// target="_top">TTL</a> of the output table specified in <paramref
         /// cref="CreateUnionRequest.table_name" />.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="CreateUnionRequest.Options.PERSIST">PERSIST</see>:</term>
-        ///         <description>If <i>true</i>, then the table specified in
-        /// <paramref cref="CreateUnionRequest.table_name" /> will be persisted
-        /// and will not expire unless a <i>ttl</i> is specified.   If
-        /// <i>false</i>, then the table will be an in-memory table and will
-        /// expire unless a <i>ttl</i> is specified otherwise.
+        ///         <description>If <i>true</i>, then the output table
+        /// specified in <paramref cref="CreateUnionRequest.table_name" /> will
+        /// be persisted and will not expire unless a <i>ttl</i> is specified.
+        /// If <i>false</i>, then the output table will be an in-memory table
+        /// and will expire unless a <i>ttl</i> is specified otherwise.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -195,15 +195,15 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="CreateUnionRequest.Options.VIEW_ID">VIEW_ID</see>:</term>
-        ///         <description>view the output table will be a part of.  The
-        /// default value is ''.</description>
+        ///         <description>ID of view of which this output table is a
+        /// member.  The default value is ''.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="CreateUnionRequest.Options.FORCE_REPLICATED">FORCE_REPLICATED</see>:</term>
-        ///         <description>If <i>true</i>, then the table specified in
-        /// <paramref cref="CreateUnionRequest.table_name" /> will be
-        /// replicated even if the source tables are not.
+        ///         <description>If <i>true</i>, then the output table
+        /// specified in <paramref cref="CreateUnionRequest.table_name" /> will
+        /// be replicated even if the source tables are not.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -361,8 +361,8 @@ namespace kinetica
             /// OR x <= 10'.</summary>
             public const string MERGE_VIEWS = "merge_views";
 
-            /// <summary>Indicates the chunk size to be used for this
-            /// table.</summary>
+            /// <summary>Indicates the number of records per chunk to be used
+            /// for this output table.</summary>
             public const string CHUNK_SIZE = "chunk_size";
 
             /// <summary>Comma-separated list of columns on which to create
@@ -371,15 +371,15 @@ namespace kinetica
             public const string CREATE_INDEXES = "create_indexes";
 
             /// <summary>Sets the <a href="../../concepts/ttl.html"
-            /// target="_top">TTL</a> of the table specified in <see
+            /// target="_top">TTL</a> of the output table specified in <see
             /// cref="table_name" />.</summary>
             public const string TTL = "ttl";
 
-            /// <summary>If <i>true</i>, then the table specified in <see
-            /// cref="table_name" /> will be persisted and will not expire
+            /// <summary>If <i>true</i>, then the output table specified in
+            /// <see cref="table_name" /> will be persisted and will not expire
             /// unless a <i>ttl</i> is specified.   If <i>false</i>, then the
-            /// table will be an in-memory table and will expire unless a
-            /// <i>ttl</i> is specified otherwise.
+            /// output table will be an in-memory table and will expire unless
+            /// a <i>ttl</i> is specified otherwise.
             /// Supported values:
             /// <list type="bullet">
             ///     <item>
@@ -395,12 +395,12 @@ namespace kinetica
             /// cref="CreateUnionRequest.Options.FALSE">FALSE</see>.</summary>
             public const string PERSIST = "persist";
 
-            /// <summary>view the output table will be a part of.  The default
-            /// value is ''.</summary>
+            /// <summary>ID of view of which this output table is a member.
+            /// The default value is ''.</summary>
             public const string VIEW_ID = "view_id";
 
-            /// <summary>If <i>true</i>, then the table specified in <see
-            /// cref="table_name" /> will be replicated even if the source
+            /// <summary>If <i>true</i>, then the output table specified in
+            /// <see cref="table_name" /> will be replicated even if the source
             /// tables are not.
             /// Supported values:
             /// <list type="bullet">
@@ -540,8 +540,8 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="CreateUnionRequest.Options.CHUNK_SIZE">CHUNK_SIZE</see>:</term>
-        ///         <description>Indicates the chunk size to be used for this
-        /// table.</description>
+        ///         <description>Indicates the number of records per chunk to
+        /// be used for this output table.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -555,17 +555,17 @@ namespace kinetica
         ///         <term><see
         /// cref="CreateUnionRequest.Options.TTL">TTL</see>:</term>
         ///         <description>Sets the <a href="../../concepts/ttl.html"
-        /// target="_top">TTL</a> of the table specified in <paramref
+        /// target="_top">TTL</a> of the output table specified in <paramref
         /// cref="CreateUnionRequest.table_name" />.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="CreateUnionRequest.Options.PERSIST">PERSIST</see>:</term>
-        ///         <description>If <i>true</i>, then the table specified in
-        /// <paramref cref="CreateUnionRequest.table_name" /> will be persisted
-        /// and will not expire unless a <i>ttl</i> is specified.   If
-        /// <i>false</i>, then the table will be an in-memory table and will
-        /// expire unless a <i>ttl</i> is specified otherwise.
+        ///         <description>If <i>true</i>, then the output table
+        /// specified in <paramref cref="CreateUnionRequest.table_name" /> will
+        /// be persisted and will not expire unless a <i>ttl</i> is specified.
+        /// If <i>false</i>, then the output table will be an in-memory table
+        /// and will expire unless a <i>ttl</i> is specified otherwise.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -583,15 +583,15 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="CreateUnionRequest.Options.VIEW_ID">VIEW_ID</see>:</term>
-        ///         <description>view the output table will be a part of.  The
-        /// default value is ''.</description>
+        ///         <description>ID of view of which this output table is a
+        /// member.  The default value is ''.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="CreateUnionRequest.Options.FORCE_REPLICATED">FORCE_REPLICATED</see>:</term>
-        ///         <description>If <i>true</i>, then the table specified in
-        /// <paramref cref="CreateUnionRequest.table_name" /> will be
-        /// replicated even if the source tables are not.
+        ///         <description>If <i>true</i>, then the output table
+        /// specified in <paramref cref="CreateUnionRequest.table_name" /> will
+        /// be replicated even if the source tables are not.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -731,8 +731,8 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="CreateUnionRequest.Options.CHUNK_SIZE">CHUNK_SIZE</see>:</term>
-        ///         <description>Indicates the chunk size to be used for this
-        /// table.</description>
+        ///         <description>Indicates the number of records per chunk to
+        /// be used for this output table.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -746,17 +746,17 @@ namespace kinetica
         ///         <term><see
         /// cref="CreateUnionRequest.Options.TTL">TTL</see>:</term>
         ///         <description>Sets the <a href="../../concepts/ttl.html"
-        /// target="_top">TTL</a> of the table specified in <paramref
+        /// target="_top">TTL</a> of the output table specified in <paramref
         /// cref="CreateUnionRequest.table_name" />.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="CreateUnionRequest.Options.PERSIST">PERSIST</see>:</term>
-        ///         <description>If <i>true</i>, then the table specified in
-        /// <paramref cref="CreateUnionRequest.table_name" /> will be persisted
-        /// and will not expire unless a <i>ttl</i> is specified.   If
-        /// <i>false</i>, then the table will be an in-memory table and will
-        /// expire unless a <i>ttl</i> is specified otherwise.
+        ///         <description>If <i>true</i>, then the output table
+        /// specified in <paramref cref="CreateUnionRequest.table_name" /> will
+        /// be persisted and will not expire unless a <i>ttl</i> is specified.
+        /// If <i>false</i>, then the output table will be an in-memory table
+        /// and will expire unless a <i>ttl</i> is specified otherwise.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -774,15 +774,15 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="CreateUnionRequest.Options.VIEW_ID">VIEW_ID</see>:</term>
-        ///         <description>view the output table will be a part of.  The
-        /// default value is ''.</description>
+        ///         <description>ID of view of which this output table is a
+        /// member.  The default value is ''.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="CreateUnionRequest.Options.FORCE_REPLICATED">FORCE_REPLICATED</see>:</term>
-        ///         <description>If <i>true</i>, then the table specified in
-        /// <paramref cref="CreateUnionRequest.table_name" /> will be
-        /// replicated even if the source tables are not.
+        ///         <description>If <i>true</i>, then the output table
+        /// specified in <paramref cref="CreateUnionRequest.table_name" /> will
+        /// be replicated even if the source tables are not.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>

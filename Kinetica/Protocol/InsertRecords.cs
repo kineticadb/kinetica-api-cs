@@ -125,6 +125,69 @@ namespace kinetica
         /// The default value is <see
         /// cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see>.</description>
         ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="RawInsertRecordsRequest.Options.RETURN_INDIVIDUAL_ERRORS">RETURN_INDIVIDUAL_ERRORS</see>:</term>
+        ///         <description>If set to <i>true</i>, success will always be
+        /// returned, and any errors found will be included in the info map.
+        /// The "bad_record_indices" entry is a comma-separated list of bad
+        /// records (0-based).  And if so, there will also be an "error_N"
+        /// entry for each record with an error, where N is the index
+        /// (0-based).
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="RawInsertRecordsRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="RawInsertRecordsRequest.Options.ALLOW_PARTIAL_BATCH">ALLOW_PARTIAL_BATCH</see>:</term>
+        ///         <description>If set to <i>true</i>, all correct records
+        /// will be inserted and incorrect records will be rejected and
+        /// reported.  Otherwise, the entire batch will be rejected if any
+        /// records are incorrect.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="RawInsertRecordsRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="RawInsertRecordsRequest.Options.DRY_RUN">DRY_RUN</see>:</term>
+        ///         <description>If set to <i>true</i>, no data will be saved
+        /// and any errors will be returned.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="RawInsertRecordsRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.
         /// A set of string constants for the parameter <see cref="options"
@@ -193,6 +256,63 @@ namespace kinetica
             /// The default value is <see
             /// cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see>.</summary>
             public const string TRUNCATE_STRINGS = "truncate_strings";
+
+            /// <summary>If set to <i>true</i>, success will always be
+            /// returned, and any errors found will be included in the info
+            /// map.  The "bad_record_indices" entry is a comma-separated list
+            /// of bad records (0-based).  And if so, there will also be an
+            /// "error_N" entry for each record with an error, where N is the
+            /// index (0-based).
+            /// Supported values:
+            /// <list type="bullet">
+            ///     <item>
+            ///         <term><see
+            /// cref="RawInsertRecordsRequest.Options.TRUE">TRUE</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see></term>
+            ///     </item>
+            /// </list>
+            /// The default value is <see
+            /// cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see>.</summary>
+            public const string RETURN_INDIVIDUAL_ERRORS = "return_individual_errors";
+
+            /// <summary>If set to <i>true</i>, all correct records will be
+            /// inserted and incorrect records will be rejected and reported.
+            /// Otherwise, the entire batch will be rejected if any records are
+            /// incorrect.
+            /// Supported values:
+            /// <list type="bullet">
+            ///     <item>
+            ///         <term><see
+            /// cref="RawInsertRecordsRequest.Options.TRUE">TRUE</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see></term>
+            ///     </item>
+            /// </list>
+            /// The default value is <see
+            /// cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see>.</summary>
+            public const string ALLOW_PARTIAL_BATCH = "allow_partial_batch";
+
+            /// <summary>If set to <i>true</i>, no data will be saved and any
+            /// errors will be returned.
+            /// Supported values:
+            /// <list type="bullet">
+            ///     <item>
+            ///         <term><see
+            /// cref="RawInsertRecordsRequest.Options.TRUE">TRUE</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see></term>
+            ///     </item>
+            /// </list>
+            /// The default value is <see
+            /// cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see>.</summary>
+            public const string DRY_RUN = "dry_run";
         } // end struct Options
 
 
@@ -298,6 +418,69 @@ namespace kinetica
         /// The default value is <see
         /// cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see>.</description>
         ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="RawInsertRecordsRequest.Options.RETURN_INDIVIDUAL_ERRORS">RETURN_INDIVIDUAL_ERRORS</see>:</term>
+        ///         <description>If set to <i>true</i>, success will always be
+        /// returned, and any errors found will be included in the info map.
+        /// The "bad_record_indices" entry is a comma-separated list of bad
+        /// records (0-based).  And if so, there will also be an "error_N"
+        /// entry for each record with an error, where N is the index
+        /// (0-based).
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="RawInsertRecordsRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="RawInsertRecordsRequest.Options.ALLOW_PARTIAL_BATCH">ALLOW_PARTIAL_BATCH</see>:</term>
+        ///         <description>If set to <i>true</i>, all correct records
+        /// will be inserted and incorrect records will be rejected and
+        /// reported.  Otherwise, the entire batch will be rejected if any
+        /// records are incorrect.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="RawInsertRecordsRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="RawInsertRecordsRequest.Options.DRY_RUN">DRY_RUN</see>:</term>
+        ///         <description>If set to <i>true</i>, no data will be saved
+        /// and any errors will be returned.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="RawInsertRecordsRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.</summary>
         public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
@@ -371,6 +554,69 @@ namespace kinetica
         ///         <description>If set to <i>true</i>, any strings which are
         /// too long for their target charN string columns will be truncated to
         /// fit.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="RawInsertRecordsRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="RawInsertRecordsRequest.Options.RETURN_INDIVIDUAL_ERRORS">RETURN_INDIVIDUAL_ERRORS</see>:</term>
+        ///         <description>If set to <i>true</i>, success will always be
+        /// returned, and any errors found will be included in the info map.
+        /// The "bad_record_indices" entry is a comma-separated list of bad
+        /// records (0-based).  And if so, there will also be an "error_N"
+        /// entry for each record with an error, where N is the index
+        /// (0-based).
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="RawInsertRecordsRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="RawInsertRecordsRequest.Options.ALLOW_PARTIAL_BATCH">ALLOW_PARTIAL_BATCH</see>:</term>
+        ///         <description>If set to <i>true</i>, all correct records
+        /// will be inserted and incorrect records will be rejected and
+        /// reported.  Otherwise, the entire batch will be rejected if any
+        /// records are incorrect.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="RawInsertRecordsRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="RawInsertRecordsRequest.Options.DRY_RUN">DRY_RUN</see>:</term>
+        ///         <description>If set to <i>true</i>, no data will be saved
+        /// and any errors will be returned.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -499,6 +745,69 @@ namespace kinetica
         /// The default value is <see
         /// cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see>.</description>
         ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="RawInsertRecordsRequest.Options.RETURN_INDIVIDUAL_ERRORS">RETURN_INDIVIDUAL_ERRORS</see>:</term>
+        ///         <description>If set to <i>true</i>, success will always be
+        /// returned, and any errors found will be included in the info map.
+        /// The "bad_record_indices" entry is a comma-separated list of bad
+        /// records (0-based).  And if so, there will also be an "error_N"
+        /// entry for each record with an error, where N is the index
+        /// (0-based).
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="RawInsertRecordsRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="RawInsertRecordsRequest.Options.ALLOW_PARTIAL_BATCH">ALLOW_PARTIAL_BATCH</see>:</term>
+        ///         <description>If set to <i>true</i>, all correct records
+        /// will be inserted and incorrect records will be rejected and
+        /// reported.  Otherwise, the entire batch will be rejected if any
+        /// records are incorrect.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="RawInsertRecordsRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="RawInsertRecordsRequest.Options.DRY_RUN">DRY_RUN</see>:</term>
+        ///         <description>If set to <i>true</i>, no data will be saved
+        /// and any errors will be returned.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="RawInsertRecordsRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.</param>
         /// 
@@ -613,6 +922,69 @@ namespace kinetica
         /// The default value is <see
         /// cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see>.</description>
         ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="RawInsertRecordsRequest.Options.RETURN_INDIVIDUAL_ERRORS">RETURN_INDIVIDUAL_ERRORS</see>:</term>
+        ///         <description>If set to <i>true</i>, success will always be
+        /// returned, and any errors found will be included in the info map.
+        /// The "bad_record_indices" entry is a comma-separated list of bad
+        /// records (0-based).  And if so, there will also be an "error_N"
+        /// entry for each record with an error, where N is the index
+        /// (0-based).
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="RawInsertRecordsRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="RawInsertRecordsRequest.Options.ALLOW_PARTIAL_BATCH">ALLOW_PARTIAL_BATCH</see>:</term>
+        ///         <description>If set to <i>true</i>, all correct records
+        /// will be inserted and incorrect records will be rejected and
+        /// reported.  Otherwise, the entire batch will be rejected if any
+        /// records are incorrect.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="RawInsertRecordsRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="RawInsertRecordsRequest.Options.DRY_RUN">DRY_RUN</see>:</term>
+        ///         <description>If set to <i>true</i>, no data will be saved
+        /// and any errors will be returned.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="RawInsertRecordsRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.
         /// A set of string constants for the parameter <see cref="options"
@@ -681,6 +1053,63 @@ namespace kinetica
             /// The default value is <see
             /// cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see>.</summary>
             public const string TRUNCATE_STRINGS = "truncate_strings";
+
+            /// <summary>If set to <i>true</i>, success will always be
+            /// returned, and any errors found will be included in the info
+            /// map.  The "bad_record_indices" entry is a comma-separated list
+            /// of bad records (0-based).  And if so, there will also be an
+            /// "error_N" entry for each record with an error, where N is the
+            /// index (0-based).
+            /// Supported values:
+            /// <list type="bullet">
+            ///     <item>
+            ///         <term><see
+            /// cref="RawInsertRecordsRequest.Options.TRUE">TRUE</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see></term>
+            ///     </item>
+            /// </list>
+            /// The default value is <see
+            /// cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see>.</summary>
+            public const string RETURN_INDIVIDUAL_ERRORS = "return_individual_errors";
+
+            /// <summary>If set to <i>true</i>, all correct records will be
+            /// inserted and incorrect records will be rejected and reported.
+            /// Otherwise, the entire batch will be rejected if any records are
+            /// incorrect.
+            /// Supported values:
+            /// <list type="bullet">
+            ///     <item>
+            ///         <term><see
+            /// cref="RawInsertRecordsRequest.Options.TRUE">TRUE</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see></term>
+            ///     </item>
+            /// </list>
+            /// The default value is <see
+            /// cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see>.</summary>
+            public const string ALLOW_PARTIAL_BATCH = "allow_partial_batch";
+
+            /// <summary>If set to <i>true</i>, no data will be saved and any
+            /// errors will be returned.
+            /// Supported values:
+            /// <list type="bullet">
+            ///     <item>
+            ///         <term><see
+            /// cref="RawInsertRecordsRequest.Options.TRUE">TRUE</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see></term>
+            ///     </item>
+            /// </list>
+            /// The default value is <see
+            /// cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see>.</summary>
+            public const string DRY_RUN = "dry_run";
         } // end struct Options
 
 
@@ -749,6 +1178,69 @@ namespace kinetica
         ///         <description>If set to <i>true</i>, any strings which are
         /// too long for their target charN string columns will be truncated to
         /// fit.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="RawInsertRecordsRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="RawInsertRecordsRequest.Options.RETURN_INDIVIDUAL_ERRORS">RETURN_INDIVIDUAL_ERRORS</see>:</term>
+        ///         <description>If set to <i>true</i>, success will always be
+        /// returned, and any errors found will be included in the info map.
+        /// The "bad_record_indices" entry is a comma-separated list of bad
+        /// records (0-based).  And if so, there will also be an "error_N"
+        /// entry for each record with an error, where N is the index
+        /// (0-based).
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="RawInsertRecordsRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="RawInsertRecordsRequest.Options.ALLOW_PARTIAL_BATCH">ALLOW_PARTIAL_BATCH</see>:</term>
+        ///         <description>If set to <i>true</i>, all correct records
+        /// will be inserted and incorrect records will be rejected and
+        /// reported.  Otherwise, the entire batch will be rejected if any
+        /// records are incorrect.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="RawInsertRecordsRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="RawInsertRecordsRequest.Options.DRY_RUN">DRY_RUN</see>:</term>
+        ///         <description>If set to <i>true</i>, no data will be saved
+        /// and any errors will be returned.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -850,6 +1342,69 @@ namespace kinetica
         /// The default value is <see
         /// cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see>.</description>
         ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="RawInsertRecordsRequest.Options.RETURN_INDIVIDUAL_ERRORS">RETURN_INDIVIDUAL_ERRORS</see>:</term>
+        ///         <description>If set to <i>true</i>, success will always be
+        /// returned, and any errors found will be included in the info map.
+        /// The "bad_record_indices" entry is a comma-separated list of bad
+        /// records (0-based).  And if so, there will also be an "error_N"
+        /// entry for each record with an error, where N is the index
+        /// (0-based).
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="RawInsertRecordsRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="RawInsertRecordsRequest.Options.ALLOW_PARTIAL_BATCH">ALLOW_PARTIAL_BATCH</see>:</term>
+        ///         <description>If set to <i>true</i>, all correct records
+        /// will be inserted and incorrect records will be rejected and
+        /// reported.  Otherwise, the entire batch will be rejected if any
+        /// records are incorrect.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="RawInsertRecordsRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="RawInsertRecordsRequest.Options.DRY_RUN">DRY_RUN</see>:</term>
+        ///         <description>If set to <i>true</i>, no data will be saved
+        /// and any errors will be returned.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="RawInsertRecordsRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.</param>
         /// 
@@ -872,6 +1427,39 @@ namespace kinetica
     public class InsertRecordsResponse : KineticaData
     {
 
+        /// <summary>Additional information.
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsResponse.Info.BAD_RECORD_INDICES">BAD_RECORD_INDICES</see>:</term>
+        ///         <description>If return_individual_errors option is
+        /// specified or implied, returns a comma-separated list of invalid
+        /// indices (0-based)</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsResponse.Info.ERROR_N">ERROR_N</see>:</term>
+        ///         <description>Error message for record at index N
+        /// (0-based)</description>
+        ///     </item>
+        /// </list>
+        /// <br />
+        /// A set of string constants for the parameter <member name="info"
+        /// />.</summary>
+        public struct Info
+        {
+
+            /// <summary>If return_individual_errors option is specified or
+            /// implied, returns a comma-separated list of invalid indices
+            /// (0-based)</summary>
+            public const string BAD_RECORD_INDICES = "bad_record_indices";
+
+            /// <summary>Error message for record at index N
+            /// (0-based)</summary>
+            public const string ERROR_N = "error_N";
+        } // end struct Info
+
+
         /// <summary>An array containing the IDs with which the added records
         /// are identified internally.  </summary>
         public IList<string> record_ids { get; set; } = new List<string>();
@@ -882,7 +1470,23 @@ namespace kinetica
         /// <summary>The number of records updated.  </summary>
         public int count_updated { get; set; }
 
-        /// <summary>Additional information.  </summary>
+        /// <summary>Additional information.
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsResponse.Info.BAD_RECORD_INDICES">BAD_RECORD_INDICES</see>:</term>
+        ///         <description>If return_individual_errors option is
+        /// specified or implied, returns a comma-separated list of invalid
+        /// indices (0-based)</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsResponse.Info.ERROR_N">ERROR_N</see>:</term>
+        ///         <description>Error message for record at index N
+        /// (0-based)</description>
+        ///     </item>
+        /// </list>
+        ///   </summary>
         public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
 
     } // end class InsertRecordsResponse

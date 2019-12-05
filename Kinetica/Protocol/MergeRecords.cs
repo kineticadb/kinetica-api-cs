@@ -105,8 +105,8 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="MergeRecordsRequest.Options.CHUNK_SIZE">CHUNK_SIZE</see>:</term>
-        ///         <description>Indicates the chunk size to be used for the
-        /// merged table specified in <paramref
+        ///         <description>Indicates the number of records per chunk to
+        /// be used for the merged table specified in <paramref
         /// cref="MergeRecordsRequest.table_name" />.</description>
         ///     </item>
         ///     <item>
@@ -180,8 +180,9 @@ namespace kinetica
             /// cref="MergeRecordsRequest.Options.TRUE">TRUE</see>.</summary>
             public const string PERSIST = "persist";
 
-            /// <summary>Indicates the chunk size to be used for the merged
-            /// table specified in <see cref="table_name" />.</summary>
+            /// <summary>Indicates the number of records per chunk to be used
+            /// for the merged table specified in <see cref="table_name"
+            /// />.</summary>
             public const string CHUNK_SIZE = "chunk_size";
 
             /// <summary>view this result table is part of.  The default value
@@ -281,8 +282,8 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="MergeRecordsRequest.Options.CHUNK_SIZE">CHUNK_SIZE</see>:</term>
-        ///         <description>Indicates the chunk size to be used for the
-        /// merged table specified in <paramref
+        ///         <description>Indicates the number of records per chunk to
+        /// be used for the merged table specified in <paramref
         /// cref="MergeRecordsRequest.table_name" />.</description>
         ///     </item>
         ///     <item>
@@ -388,8 +389,8 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="MergeRecordsRequest.Options.CHUNK_SIZE">CHUNK_SIZE</see>:</term>
-        ///         <description>Indicates the chunk size to be used for the
-        /// merged table specified in <paramref
+        ///         <description>Indicates the number of records per chunk to
+        /// be used for the merged table specified in <paramref
         /// cref="MergeRecordsRequest.table_name" />.</description>
         ///     </item>
         ///     <item>

@@ -16,15 +16,22 @@ namespace kinetica
     /// />.
     /// <br />
     /// Creates a new graph network using given nodes, edges, weights, and
-    /// restrictions. See <a
+    /// restrictions.
+    /// <br />
+    /// IMPORTANT: It's highly recommended that you review the <a
     /// href="../../graph_solver/network_graph_solver.html"
-    /// target="_top">Network Graph Solvers</a> for more information.</summary>
+    /// target="_top">Network Graphs & Solvers</a> concepts documentation, the
+    /// <a href="../../graph_solver/examples/graph_rest_guide.html"
+    /// target="_top">Graph REST Tutorial</a>, and/or some <a
+    /// href="../../graph_solver/examples.html" target="_top">graph
+    /// examples</a> before using this endpoint.</summary>
     public class CreateGraphRequest : KineticaData
     {
 
-        /// <summary>If set to <i>true</i>, the graph will be directed (0 to 1,
-        /// 1 to 2, etc.). If set to <i>false</i>, the graph will not be
-        /// directed.
+        /// <summary>If set to <i>true</i>, the graph will be directed. If set
+        /// to <i>false</i>, the graph will not be directed. Consult <a
+        /// href="../../graph_solver/network_graph_solver.html#directed-graphs"
+        /// target="_top">Directed Graphs</a> for more details.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -96,6 +103,26 @@ namespace kinetica
         ///         <description>If set to <i>true</i> and the graph (using
         /// <paramref cref="CreateGraphRequest.graph_name" />) already exists,
         /// the graph is deleted and recreated.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateGraphRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateGraphRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="CreateGraphRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateGraphRequest.Options.MODIFY">MODIFY</see>:</term>
+        ///         <description>If set to <i>true</i> and <i>true</i> and if
+        /// the graph (using <paramref cref="CreateGraphRequest.graph_name" />)
+        /// already exists, the graph is updated with these components.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -286,6 +313,24 @@ namespace kinetica
             public const string TRUE = "true";
             public const string FALSE = "false";
 
+            /// <summary>If set to <i>true</i> and <i>true</i> and if the graph
+            /// (using <see cref="graph_name" />) already exists, the graph is
+            /// updated with these components.
+            /// Supported values:
+            /// <list type="bullet">
+            ///     <item>
+            ///         <term><see
+            /// cref="CreateGraphRequest.Options.TRUE">TRUE</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="CreateGraphRequest.Options.FALSE">FALSE</see></term>
+            ///     </item>
+            /// </list>
+            /// The default value is <see
+            /// cref="CreateGraphRequest.Options.FALSE">FALSE</see>.</summary>
+            public const string MODIFY = "modify";
+
             /// <summary>If set to <i>true</i>, returns the graph topology in
             /// the response as arrays.
             /// Supported values:
@@ -401,9 +446,10 @@ namespace kinetica
         /// <summary>Name of the graph resource to generate.  </summary>
         public string graph_name { get; set; }
 
-        /// <summary>If set to <i>true</i>, the graph will be directed (0 to 1,
-        /// 1 to 2, etc.). If set to <i>false</i>, the graph will not be
-        /// directed.
+        /// <summary>If set to <i>true</i>, the graph will be directed. If set
+        /// to <i>false</i>, the graph will not be directed. Consult <a
+        /// href="../../graph_solver/network_graph_solver.html#directed-graphs"
+        /// target="_top">Directed Graphs</a> for more details.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -525,6 +571,26 @@ namespace kinetica
         ///         <description>If set to <i>true</i> and the graph (using
         /// <paramref cref="CreateGraphRequest.graph_name" />) already exists,
         /// the graph is deleted and recreated.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateGraphRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateGraphRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="CreateGraphRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateGraphRequest.Options.MODIFY">MODIFY</see>:</term>
+        ///         <description>If set to <i>true</i> and <i>true</i> and if
+        /// the graph (using <paramref cref="CreateGraphRequest.graph_name" />)
+        /// already exists, the graph is updated with these components.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -674,8 +740,10 @@ namespace kinetica
         /// <param name="graph_name">Name of the graph resource to generate.
         /// </param>
         /// <param name="directed_graph">If set to <i>true</i>, the graph will
-        /// be directed (0 to 1, 1 to 2, etc.). If set to <i>false</i>, the
-        /// graph will not be directed.
+        /// be directed. If set to <i>false</i>, the graph will not be
+        /// directed. Consult <a
+        /// href="../../graph_solver/network_graph_solver.html#directed-graphs"
+        /// target="_top">Directed Graphs</a> for more details.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -786,6 +854,26 @@ namespace kinetica
         ///         <description>If set to <i>true</i> and the graph (using
         /// <paramref cref="CreateGraphRequest.graph_name" />) already exists,
         /// the graph is deleted and recreated.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateGraphRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateGraphRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="CreateGraphRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateGraphRequest.Options.MODIFY">MODIFY</see>:</term>
+        ///         <description>If set to <i>true</i> and <i>true</i> and if
+        /// the graph (using <paramref cref="CreateGraphRequest.graph_name" />)
+        /// already exists, the graph is updated with these components.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>

@@ -82,8 +82,9 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="CreateJoinTableRequest.Options.CHUNK_SIZE">CHUNK_SIZE</see>:</term>
-        ///         <description>Maximum size of a joined-chunk for this table.
-        /// Defaults to the gpudb.conf file chunk size</description>
+        ///         <description>Maximum number of records per joined-chunk for
+        /// this table. Defaults to the gpudb.conf file chunk
+        /// size</description>
         ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.
@@ -133,8 +134,8 @@ namespace kinetica
             /// equi-join stencils.  The default value is 'false'.</summary>
             public const string NO_COUNT = "no_count";
 
-            /// <summary>Maximum size of a joined-chunk for this table.
-            /// Defaults to the gpudb.conf file chunk size</summary>
+            /// <summary>Maximum number of records per joined-chunk for this
+            /// table. Defaults to the gpudb.conf file chunk size</summary>
             public const string CHUNK_SIZE = "chunk_size";
         } // end struct Options
 
@@ -224,8 +225,9 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="CreateJoinTableRequest.Options.CHUNK_SIZE">CHUNK_SIZE</see>:</term>
-        ///         <description>Maximum size of a joined-chunk for this table.
-        /// Defaults to the gpudb.conf file chunk size</description>
+        ///         <description>Maximum number of records per joined-chunk for
+        /// this table. Defaults to the gpudb.conf file chunk
+        /// size</description>
         ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.</summary>
@@ -318,8 +320,9 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="CreateJoinTableRequest.Options.CHUNK_SIZE">CHUNK_SIZE</see>:</term>
-        ///         <description>Maximum size of a joined-chunk for this table.
-        /// Defaults to the gpudb.conf file chunk size</description>
+        ///         <description>Maximum number of records per joined-chunk for
+        /// this table. Defaults to the gpudb.conf file chunk
+        /// size</description>
         ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.</param>

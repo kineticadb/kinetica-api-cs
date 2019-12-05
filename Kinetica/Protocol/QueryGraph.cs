@@ -38,8 +38,14 @@ namespace kinetica
     /// response, provide a value to <see cref="adjacency_table" /> and set
     /// <i>export_query_results</i> to <i>true</i>.
     /// <br />
-    /// See <a href="../../graph_solver/network_graph_solver.html"
-    /// target="_top">Network Graph Solver</a> for more information.</summary>
+    /// IMPORTANT: It's highly recommended that you review the <a
+    /// href="../../graph_solver/network_graph_solver.html"
+    /// target="_top">Network Graphs & Solvers</a> concepts documentation, the
+    /// <a href="../../graph_solver/examples/graph_rest_guide.html"
+    /// target="_top">Graph REST Tutorial</a>, and/or some <a
+    /// href="../../graph_solver/examples.html#query-graph"
+    /// target="_top">/query/graph examples</a> before using this
+    /// endpoint.</summary>
     public class QueryGraphRequest : KineticaData
     {
 
@@ -53,7 +59,9 @@ namespace kinetica
         /// <i>false</i>, only outbound edges relative to the node will be
         /// returned. This parameter is only applicable if the queried graph
         /// <paramref cref="QueryGraphRequest.graph_name" /> is directed and
-        /// when querying nodes.
+        /// when querying nodes. Consult <a
+        /// href="../../graph_solver/network_graph_solver.html#directed-graphs"
+        /// target="_top">Directed Graphs</a> for more details.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -175,7 +183,9 @@ namespace kinetica
             /// <i>false</i>, only outbound edges relative to the node will be
             /// returned. This parameter is only applicable if the queried
             /// graph <see cref="graph_name" /> is directed and when querying
-            /// nodes.
+            /// nodes. Consult <a
+            /// href="../../graph_solver/network_graph_solver.html#directed-graphs"
+            /// target="_top">Directed Graphs</a> for more details.
             /// Supported values:
             /// <list type="bullet">
             ///     <item>
@@ -346,7 +356,9 @@ namespace kinetica
         /// <i>false</i>, only outbound edges relative to the node will be
         /// returned. This parameter is only applicable if the queried graph
         /// <paramref cref="QueryGraphRequest.graph_name" /> is directed and
-        /// when querying nodes.
+        /// when querying nodes. Consult <a
+        /// href="../../graph_solver/network_graph_solver.html#directed-graphs"
+        /// target="_top">Directed Graphs</a> for more details.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -528,7 +540,9 @@ namespace kinetica
         /// <i>false</i>, only outbound edges relative to the node will be
         /// returned. This parameter is only applicable if the queried graph
         /// <paramref cref="QueryGraphRequest.graph_name" /> is directed and
-        /// when querying nodes.
+        /// when querying nodes. Consult <a
+        /// href="../../graph_solver/network_graph_solver.html#directed-graphs"
+        /// target="_top">Directed Graphs</a> for more details.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>

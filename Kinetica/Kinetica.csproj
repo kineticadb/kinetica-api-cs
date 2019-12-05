@@ -168,6 +168,7 @@
     <Compile Include="Protocol\ShowResourceGroups.cs" />
     <Compile Include="Protocol\ShowResourceStatistics.cs" />
     <Compile Include="Protocol\ShowSecurity.cs" />
+    <Compile Include="Protocol\ShowSqlProc.cs" />
     <Compile Include="Protocol\ShowStatistics.cs" />
     <Compile Include="Protocol\ShowSystemProperties.cs" />
     <Compile Include="Protocol\ShowSystemStatus.cs" />
