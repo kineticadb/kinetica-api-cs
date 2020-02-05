@@ -517,6 +517,10 @@ namespace kinetica
         ///         <term><see
         /// cref="ShowTableResponse.TableDescriptions.RESULT_TABLE">RESULT_TABLE</see></term>
         ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ShowTableResponse.TableDescriptions.MATERIALIZED_VIEW_UNDER_CONSTRUCTION">MATERIALIZED_VIEW_UNDER_CONSTRUCTION</see></term>
+        ///     </item>
         /// </list>
         /// A set of string constants for the parameter <member
         /// name="table_descriptions" />.</summary>
@@ -527,6 +531,7 @@ namespace kinetica
             public const string REPLICATED = "REPLICATED";
             public const string JOIN = "JOIN";
             public const string RESULT_TABLE = "RESULT_TABLE";
+            public const string MATERIALIZED_VIEW_UNDER_CONSTRUCTION = "MATERIALIZED_VIEW_UNDER_CONSTRUCTION";
         } // end struct TableDescriptions
 
 
@@ -845,6 +850,10 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="ShowTableResponse.TableDescriptions.RESULT_TABLE">RESULT_TABLE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ShowTableResponse.TableDescriptions.MATERIALIZED_VIEW_UNDER_CONSTRUCTION">MATERIALIZED_VIEW_UNDER_CONSTRUCTION</see></term>
         ///     </item>
         /// </list>  </summary>
         public IList<IList<string>> table_descriptions { get; set; } = new List<IList<string>>();
