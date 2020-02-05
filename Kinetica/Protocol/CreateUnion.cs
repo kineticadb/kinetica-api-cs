@@ -62,8 +62,13 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="CreateUnionRequest.Options.MATERIALIZE_ON_GPU">MATERIALIZE_ON_GPU</see>:</term>
-        ///         <description>If <i>true</i>, then the columns of the output
-        /// table will be cached on the GPU.
+        ///         <description>No longer used.  See <a
+        /// href="../../rm/concepts.html" target="_top">Resource Management
+        /// Concepts</a> for information about how resources are managed, <a
+        /// href="../../rm/concepts.html" target="_top">Tier Strategy
+        /// Concepts</a> for how resources are targeted for VRAM, and <a
+        /// href="../../rm/usage.html#tier-strategies" target="_top">Tier
+        /// Strategy Usage</a> for how to specify a table's priority in VRAM.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -232,8 +237,14 @@ namespace kinetica
             /// ''.</summary>
             public const string COLLECTION_NAME = "collection_name";
 
-            /// <summary>If <i>true</i>, then the columns of the output table
-            /// will be cached on the GPU.
+            /// <summary>No longer used.  See <a href="../../rm/concepts.html"
+            /// target="_top">Resource Management Concepts</a> for information
+            /// about how resources are managed, <a
+            /// href="../../rm/concepts.html" target="_top">Tier Strategy
+            /// Concepts</a> for how resources are targeted for VRAM, and <a
+            /// href="../../rm/usage.html#tier-strategies" target="_top">Tier
+            /// Strategy Usage</a> for how to specify a table's priority in
+            /// VRAM.
             /// Supported values:
             /// <list type="bullet">
             ///     <item>
@@ -450,8 +461,13 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="CreateUnionRequest.Options.MATERIALIZE_ON_GPU">MATERIALIZE_ON_GPU</see>:</term>
-        ///         <description>If <i>true</i>, then the columns of the output
-        /// table will be cached on the GPU.
+        ///         <description>No longer used.  See <a
+        /// href="../../rm/concepts.html" target="_top">Resource Management
+        /// Concepts</a> for information about how resources are managed, <a
+        /// href="../../rm/concepts.html" target="_top">Tier Strategy
+        /// Concepts</a> for how resources are targeted for VRAM, and <a
+        /// href="../../rm/usage.html#tier-strategies" target="_top">Tier
+        /// Strategy Usage</a> for how to specify a table's priority in VRAM.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -641,8 +657,13 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="CreateUnionRequest.Options.MATERIALIZE_ON_GPU">MATERIALIZE_ON_GPU</see>:</term>
-        ///         <description>If <i>true</i>, then the columns of the output
-        /// table will be cached on the GPU.
+        ///         <description>No longer used.  See <a
+        /// href="../../rm/concepts.html" target="_top">Resource Management
+        /// Concepts</a> for information about how resources are managed, <a
+        /// href="../../rm/concepts.html" target="_top">Tier Strategy
+        /// Concepts</a> for how resources are targeted for VRAM, and <a
+        /// href="../../rm/usage.html#tier-strategies" target="_top">Tier
+        /// Strategy Usage</a> for how to specify a table's priority in VRAM.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>

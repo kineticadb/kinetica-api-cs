@@ -99,6 +99,19 @@ namespace kinetica
         /// Allowed values are 1 through 10.  The default value is
         /// '1'.</description>
         ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AdminRebalanceRequest.Options.COMPACT_AFTER_REBALANCE">COMPACT_AFTER_REBALANCE</see>:</term>
+        ///         <description>Perform compaction of deleted records once the
+        /// rebalance completes, to reclaim memory and disk space. Default is
+        /// true.  The default value is 'true'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AdminRebalanceRequest.Options.COMPACT_ONLY">COMPACT_ONLY</see>:</term>
+        ///         <description>Only perform compaction, do not rebalance.
+        /// Default is false.  The default value is 'false'.</description>
+        ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.
         /// A set of string constants for the parameter <see cref="options"
@@ -168,6 +181,15 @@ namespace kinetica
             /// queries. Allowed values are 1 through 10.  The default value is
             /// '1'.</summary>
             public const string AGGRESSIVENESS = "aggressiveness";
+
+            /// <summary>Perform compaction of deleted records once the
+            /// rebalance completes, to reclaim memory and disk space. Default
+            /// is true.  The default value is 'true'.</summary>
+            public const string COMPACT_AFTER_REBALANCE = "compact_after_rebalance";
+
+            /// <summary>Only perform compaction, do not rebalance. Default is
+            /// false.  The default value is 'false'.</summary>
+            public const string COMPACT_ONLY = "compact_only";
         } // end struct Options
 
 
@@ -243,6 +265,19 @@ namespace kinetica
         /// for better interleaving between the rebalance and other queries.
         /// Allowed values are 1 through 10.  The default value is
         /// '1'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AdminRebalanceRequest.Options.COMPACT_AFTER_REBALANCE">COMPACT_AFTER_REBALANCE</see>:</term>
+        ///         <description>Perform compaction of deleted records once the
+        /// rebalance completes, to reclaim memory and disk space. Default is
+        /// true.  The default value is 'true'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AdminRebalanceRequest.Options.COMPACT_ONLY">COMPACT_ONLY</see>:</term>
+        ///         <description>Only perform compaction, do not rebalance.
+        /// Default is false.  The default value is 'false'.</description>
         ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.</summary>
@@ -328,6 +363,19 @@ namespace kinetica
         /// for better interleaving between the rebalance and other queries.
         /// Allowed values are 1 through 10.  The default value is
         /// '1'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AdminRebalanceRequest.Options.COMPACT_AFTER_REBALANCE">COMPACT_AFTER_REBALANCE</see>:</term>
+        ///         <description>Perform compaction of deleted records once the
+        /// rebalance completes, to reclaim memory and disk space. Default is
+        /// true.  The default value is 'true'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AdminRebalanceRequest.Options.COMPACT_ONLY">COMPACT_ONLY</see>:</term>
+        ///         <description>Only perform compaction, do not rebalance.
+        /// Default is false.  The default value is 'false'.</description>
         ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.</param>

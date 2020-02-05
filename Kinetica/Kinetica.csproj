@@ -96,6 +96,7 @@
     <Compile Include="Protocol\ClearTableMonitor.cs" />
     <Compile Include="Protocol\ClearTrigger.cs" />
     <Compile Include="Protocol\CollectStatistics.cs" />
+    <Compile Include="Protocol\CreateExternalTable.cs" />
     <Compile Include="Protocol\CreateGraph.cs" />
     <Compile Include="Protocol\CreateJob.cs" />
     <Compile Include="Protocol\CreateJoinTable.cs" />
@@ -148,6 +149,7 @@
     <Compile Include="Protocol\HasTable.cs" />
     <Compile Include="Protocol\HasType.cs" />
     <Compile Include="Protocol\InsertRecords.cs" />
+    <Compile Include="Protocol\InsertRecordsFromFiles.cs" />
     <Compile Include="Protocol\InsertRecordsRandom.cs" />
     <Compile Include="Protocol\InsertSymbol.cs" />
     <Compile Include="Protocol\KillProc.cs" />
@@ -155,6 +157,7 @@
     <Compile Include="Protocol\LockTable.cs" />
     <Compile Include="Protocol\MatchGraph.cs" />
     <Compile Include="Protocol\MergeRecords.cs" />
+    <Compile Include="Protocol\ModifyGraph.cs" />
     <Compile Include="Protocol\QueryGraph.cs" />
     <Compile Include="Protocol\RawKineticaResponse.cs" />
     <Compile Include="Protocol\RevokePermissionProc.cs" />

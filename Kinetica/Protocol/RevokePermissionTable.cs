@@ -72,6 +72,27 @@ namespace kinetica
         } // end struct Permission
 
 
+        /// <summary>Optional parameters.
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="RevokePermissionTableRequest.Options.COLUMNS">COLUMNS</see>:</term>
+        ///         <description>Apply security to these columns,
+        /// comma-separated.  The default value is ''.</description>
+        ///     </item>
+        /// </list>
+        /// The default value is an empty {@link Dictionary}.
+        /// A set of string constants for the parameter <see cref="options"
+        /// />.</summary>
+        public struct Options
+        {
+
+            /// <summary>Apply security to these columns, comma-separated.  The
+            /// default value is ''.</summary>
+            public const string COLUMNS = "columns";
+        } // end struct Options
+
+
         /// <summary>Name of the user or role from which the permission will be
         /// revoked. Must be an existing user or role.  </summary>
         public string name { get; set; }
@@ -112,8 +133,16 @@ namespace kinetica
         /// Must be an existing table, collection, or view.  </summary>
         public string table_name { get; set; }
 
-        /// <summary>Optional parameters.  The default value is an empty {@link
-        /// Dictionary}.</summary>
+        /// <summary>Optional parameters.
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="RevokePermissionTableRequest.Options.COLUMNS">COLUMNS</see>:</term>
+        ///         <description>Apply security to these columns,
+        /// comma-separated.  The default value is ''.</description>
+        ///     </item>
+        /// </list>
+        /// The default value is an empty {@link Dictionary}.</summary>
         public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
 
 
@@ -161,8 +190,16 @@ namespace kinetica
         /// <param name="table_name">Name of the table to which the permission
         /// grants access. Must be an existing table, collection, or view.
         /// </param>
-        /// <param name="options">Optional parameters.  The default value is an
-        /// empty {@link Dictionary}.</param>
+        /// <param name="options">Optional parameters.
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="RevokePermissionTableRequest.Options.COLUMNS">COLUMNS</see>:</term>
+        ///         <description>Apply security to these columns,
+        /// comma-separated.  The default value is ''.</description>
+        ///     </item>
+        /// </list>
+        /// The default value is an empty {@link Dictionary}.</param>
         /// 
         public RevokePermissionTableRequest( string name,
                                              string permission,

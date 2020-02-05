@@ -120,9 +120,10 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="CreateGraphRequest.Options.MODIFY">MODIFY</see>:</term>
-        ///         <description>If set to <i>true</i> and <i>true</i> and if
-        /// the graph (using <paramref cref="CreateGraphRequest.graph_name" />)
-        /// already exists, the graph is updated with these components.
+        ///         <description>If set to <i>true</i>, <i>recreate</i> is set
+        /// to <i>true</i>, and the graph (specified using <paramref
+        /// cref="CreateGraphRequest.graph_name" />) already exists, the graph
+        /// is updated with the given components.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -251,11 +252,31 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="CreateGraphRequest.Options.GRAPH_TABLE">GRAPH_TABLE</see>:</term>
-        ///         <description>If the <i>graph_table</i> name is NOT left
-        /// blank, the created graph is also created as a table with the given
-        /// name and following identifier columns: 'EDGE_ID', 'EDGE_NODE1_ID',
-        /// 'EDGE_NODE2_ID'. If left blank, no table is created.  The default
-        /// value is ''.</description>
+        ///         <description>If specified, the created graph is also
+        /// created as a table with the given name and following identifier
+        /// columns: 'EDGE_ID', 'EDGE_NODE1_ID', 'EDGE_NODE2_ID'. If left
+        /// blank, no table is created.  The default value is ''.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateGraphRequest.Options.REMOVE_LABEL_ONLY">REMOVE_LABEL_ONLY</see>:</term>
+        ///         <description>When RESTRICTIONS on labeled entities
+        /// requested, if set to true this will NOT delete the entity but only
+        /// the label associated with the entity. Otherwise (default), it'll
+        /// delete the label AND the entity.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateGraphRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateGraphRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="CreateGraphRequest.Options.FALSE">FALSE</see>.</description>
         ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.
@@ -313,9 +334,10 @@ namespace kinetica
             public const string TRUE = "true";
             public const string FALSE = "false";
 
-            /// <summary>If set to <i>true</i> and <i>true</i> and if the graph
-            /// (using <see cref="graph_name" />) already exists, the graph is
-            /// updated with these components.
+            /// <summary>If set to <i>true</i>, <i>recreate</i> is set to
+            /// <i>true</i>, and the graph (specified using <see
+            /// cref="graph_name" />) already exists, the graph is updated with
+            /// the given components.
             /// Supported values:
             /// <list type="bullet">
             ///     <item>
@@ -434,12 +456,30 @@ namespace kinetica
             /// cref="CreateGraphRequest.Options.FALSE">FALSE</see>.</summary>
             public const string ADD_TABLE_MONITOR = "add_table_monitor";
 
-            /// <summary>If the <i>graph_table</i> name is NOT left blank, the
-            /// created graph is also created as a table with the given name
-            /// and following identifier columns: 'EDGE_ID', 'EDGE_NODE1_ID',
-            /// 'EDGE_NODE2_ID'. If left blank, no table is created.  The
-            /// default value is ''.</summary>
+            /// <summary>If specified, the created graph is also created as a
+            /// table with the given name and following identifier columns:
+            /// 'EDGE_ID', 'EDGE_NODE1_ID', 'EDGE_NODE2_ID'. If left blank, no
+            /// table is created.  The default value is ''.</summary>
             public const string GRAPH_TABLE = "graph_table";
+
+            /// <summary>When RESTRICTIONS on labeled entities requested, if
+            /// set to true this will NOT delete the entity but only the label
+            /// associated with the entity. Otherwise (default), it'll delete
+            /// the label AND the entity.
+            /// Supported values:
+            /// <list type="bullet">
+            ///     <item>
+            ///         <term><see
+            /// cref="CreateGraphRequest.Options.TRUE">TRUE</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="CreateGraphRequest.Options.FALSE">FALSE</see></term>
+            ///     </item>
+            /// </list>
+            /// The default value is <see
+            /// cref="CreateGraphRequest.Options.FALSE">FALSE</see>.</summary>
+            public const string REMOVE_LABEL_ONLY = "remove_label_only";
         } // end struct Options
 
 
@@ -588,9 +628,10 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="CreateGraphRequest.Options.MODIFY">MODIFY</see>:</term>
-        ///         <description>If set to <i>true</i> and <i>true</i> and if
-        /// the graph (using <paramref cref="CreateGraphRequest.graph_name" />)
-        /// already exists, the graph is updated with these components.
+        ///         <description>If set to <i>true</i>, <i>recreate</i> is set
+        /// to <i>true</i>, and the graph (specified using <paramref
+        /// cref="CreateGraphRequest.graph_name" />) already exists, the graph
+        /// is updated with the given components.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -719,11 +760,31 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="CreateGraphRequest.Options.GRAPH_TABLE">GRAPH_TABLE</see>:</term>
-        ///         <description>If the <i>graph_table</i> name is NOT left
-        /// blank, the created graph is also created as a table with the given
-        /// name and following identifier columns: 'EDGE_ID', 'EDGE_NODE1_ID',
-        /// 'EDGE_NODE2_ID'. If left blank, no table is created.  The default
-        /// value is ''.</description>
+        ///         <description>If specified, the created graph is also
+        /// created as a table with the given name and following identifier
+        /// columns: 'EDGE_ID', 'EDGE_NODE1_ID', 'EDGE_NODE2_ID'. If left
+        /// blank, no table is created.  The default value is ''.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateGraphRequest.Options.REMOVE_LABEL_ONLY">REMOVE_LABEL_ONLY</see>:</term>
+        ///         <description>When RESTRICTIONS on labeled entities
+        /// requested, if set to true this will NOT delete the entity but only
+        /// the label associated with the entity. Otherwise (default), it'll
+        /// delete the label AND the entity.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateGraphRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateGraphRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="CreateGraphRequest.Options.FALSE">FALSE</see>.</description>
         ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.</summary>
@@ -871,9 +932,10 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="CreateGraphRequest.Options.MODIFY">MODIFY</see>:</term>
-        ///         <description>If set to <i>true</i> and <i>true</i> and if
-        /// the graph (using <paramref cref="CreateGraphRequest.graph_name" />)
-        /// already exists, the graph is updated with these components.
+        ///         <description>If set to <i>true</i>, <i>recreate</i> is set
+        /// to <i>true</i>, and the graph (specified using <paramref
+        /// cref="CreateGraphRequest.graph_name" />) already exists, the graph
+        /// is updated with the given components.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -1002,11 +1064,31 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="CreateGraphRequest.Options.GRAPH_TABLE">GRAPH_TABLE</see>:</term>
-        ///         <description>If the <i>graph_table</i> name is NOT left
-        /// blank, the created graph is also created as a table with the given
-        /// name and following identifier columns: 'EDGE_ID', 'EDGE_NODE1_ID',
-        /// 'EDGE_NODE2_ID'. If left blank, no table is created.  The default
-        /// value is ''.</description>
+        ///         <description>If specified, the created graph is also
+        /// created as a table with the given name and following identifier
+        /// columns: 'EDGE_ID', 'EDGE_NODE1_ID', 'EDGE_NODE2_ID'. If left
+        /// blank, no table is created.  The default value is ''.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateGraphRequest.Options.REMOVE_LABEL_ONLY">REMOVE_LABEL_ONLY</see>:</term>
+        ///         <description>When RESTRICTIONS on labeled entities
+        /// requested, if set to true this will NOT delete the entity but only
+        /// the label associated with the entity. Otherwise (default), it'll
+        /// delete the label AND the entity.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateGraphRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateGraphRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="CreateGraphRequest.Options.FALSE">FALSE</see>.</description>
         ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.</param>

@@ -92,6 +92,13 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
+        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.EXTERNAL_FILES_DIRECTORY">EXTERNAL_FILES_DIRECTORY</see>:</term>
+        ///         <description>Sets the root directory path where external
+        /// table data files are accessed from.  Path must exist on the head
+        /// node</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.FLUSH_TO_DISK">FLUSH_TO_DISK</see>:</term>
         ///         <description>Flushes any changes to any tables to the
         /// persistent store.  These changes include updates to the vector
@@ -209,6 +216,18 @@ namespace kinetica
         /// waiting for background thread).  The default value is
         /// 'false'.</description>
         ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.ENABLE_OVERLAPPED_EQUI_JOIN">ENABLE_OVERLAPPED_EQUI_JOIN</see>:</term>
+        ///         <description>Enable overlapped-equi-join filter.  The
+        /// default value is 'true'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.ENABLE_COMPOUND_EQUI_JOIN">ENABLE_COMPOUND_EQUI_JOIN</see>:</term>
+        ///         <description>Enable compound-equi-join filter plan type.
+        /// The default value is 'false'.</description>
+        ///     </item>
         /// </list>
         /// <br />
         /// A set of string constants for the parameter <see
@@ -265,6 +284,11 @@ namespace kinetica
             /// default (engine decides) or an integer value that indicates max
             /// chunk size to exec on host</summary>
             public const string EXECUTION_MODE = "execution_mode";
+
+            /// <summary>Sets the root directory path where external table data
+            /// files are accessed from.  Path must exist on the head
+            /// node</summary>
+            public const string EXTERNAL_FILES_DIRECTORY = "external_files_directory";
 
             /// <summary>Flushes any changes to any tables to the persistent
             /// store.  These changes include updates to the vector store,
@@ -356,6 +380,14 @@ namespace kinetica
             /// for background thread).  The default value is
             /// 'false'.</summary>
             public const string SYNCHRONOUS_COMPRESSION = "synchronous_compression";
+
+            /// <summary>Enable overlapped-equi-join filter.  The default value
+            /// is 'true'.</summary>
+            public const string ENABLE_OVERLAPPED_EQUI_JOIN = "enable_overlapped_equi_join";
+
+            /// <summary>Enable compound-equi-join filter plan type.  The
+            /// default value is 'false'.</summary>
+            public const string ENABLE_COMPOUND_EQUI_JOIN = "enable_compound_equi_join";
         } // end struct PropertyUpdatesMap
 
 
@@ -423,6 +455,13 @@ namespace kinetica
         /// to the specified string value. Possible values are host, device,
         /// default (engine decides) or an integer value that indicates max
         /// chunk size to exec on host</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.EXTERNAL_FILES_DIRECTORY">EXTERNAL_FILES_DIRECTORY</see>:</term>
+        ///         <description>Sets the root directory path where external
+        /// table data files are accessed from.  Path must exist on the head
+        /// node</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -542,6 +581,18 @@ namespace kinetica
         ///         <description>compress vector on set_compression (instead of
         /// waiting for background thread).  The default value is
         /// 'false'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.ENABLE_OVERLAPPED_EQUI_JOIN">ENABLE_OVERLAPPED_EQUI_JOIN</see>:</term>
+        ///         <description>Enable overlapped-equi-join filter.  The
+        /// default value is 'true'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.ENABLE_COMPOUND_EQUI_JOIN">ENABLE_COMPOUND_EQUI_JOIN</see>:</term>
+        ///         <description>Enable compound-equi-join filter plan type.
+        /// The default value is 'false'.</description>
         ///     </item>
         /// </list>
         ///   </summary>
@@ -626,6 +677,13 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
+        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.EXTERNAL_FILES_DIRECTORY">EXTERNAL_FILES_DIRECTORY</see>:</term>
+        ///         <description>Sets the root directory path where external
+        /// table data files are accessed from.  Path must exist on the head
+        /// node</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.FLUSH_TO_DISK">FLUSH_TO_DISK</see>:</term>
         ///         <description>Flushes any changes to any tables to the
         /// persistent store.  These changes include updates to the vector
@@ -742,6 +800,18 @@ namespace kinetica
         ///         <description>compress vector on set_compression (instead of
         /// waiting for background thread).  The default value is
         /// 'false'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.ENABLE_OVERLAPPED_EQUI_JOIN">ENABLE_OVERLAPPED_EQUI_JOIN</see>:</term>
+        ///         <description>Enable overlapped-equi-join filter.  The
+        /// default value is 'true'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.ENABLE_COMPOUND_EQUI_JOIN">ENABLE_COMPOUND_EQUI_JOIN</see>:</term>
+        ///         <description>Enable compound-equi-join filter plan type.
+        /// The default value is 'false'.</description>
         ///     </item>
         /// </list>
         ///   </param>

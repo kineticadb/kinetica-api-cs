@@ -370,6 +370,19 @@ namespace kinetica
         /// Allowed values are 1 through 10.  The default value is
         /// '1'.</description>
         ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AdminRebalanceRequest.Options.COMPACT_AFTER_REBALANCE">COMPACT_AFTER_REBALANCE</see>:</term>
+        ///         <description>Perform compaction of deleted records once the
+        /// rebalance completes, to reclaim memory and disk space. Default is
+        /// true.  The default value is 'true'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AdminRebalanceRequest.Options.COMPACT_ONLY">COMPACT_ONLY</see>:</term>
+        ///         <description>Only perform compaction, do not rebalance.
+        /// Default is false.  The default value is 'false'.</description>
+        ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.</param>
         /// 
@@ -1250,9 +1263,13 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="AggregateGroupByRequest.Options.MATERIALIZE_ON_GPU">MATERIALIZE_ON_GPU</see>:</term>
-        ///         <description>If <i>true</i> then the columns of the groupby
-        /// result table will be cached on the GPU. Must be used in combination
-        /// with the <i>result_table</i> option.
+        ///         <description>No longer used.  See <a
+        /// href="../../rm/concepts.html" target="_top">Resource Management
+        /// Concepts</a> for information about how resources are managed, <a
+        /// href="../../rm/concepts.html" target="_top">Tier Strategy
+        /// Concepts</a> for how resources are targeted for VRAM, and <a
+        /// href="../../rm/usage.html#tier-strategies" target="_top">Tier
+        /// Strategy Usage</a> for how to specify a table's priority in VRAM.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -2385,8 +2402,13 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="AggregateUnpivotRequest.Options.MATERIALIZE_ON_GPU">MATERIALIZE_ON_GPU</see>:</term>
-        ///         <description>If <i>true</i> then the output columns will be
-        /// cached on the GPU.
+        ///         <description>No longer used.  See <a
+        /// href="../../rm/concepts.html" target="_top">Resource Management
+        /// Concepts</a> for information about how resources are managed, <a
+        /// href="../../rm/concepts.html" target="_top">Tier Strategy
+        /// Concepts</a> for how resources are targeted for VRAM, and <a
+        /// href="../../rm/usage.html#tier-strategies" target="_top">Tier
+        /// Strategy Usage</a> for how to specify a table's priority in VRAM.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -2737,6 +2759,13 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
+        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.EXTERNAL_FILES_DIRECTORY">EXTERNAL_FILES_DIRECTORY</see>:</term>
+        ///         <description>Sets the root directory path where external
+        /// table data files are accessed from.  Path must exist on the head
+        /// node</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.FLUSH_TO_DISK">FLUSH_TO_DISK</see>:</term>
         ///         <description>Flushes any changes to any tables to the
         /// persistent store.  These changes include updates to the vector
@@ -2853,6 +2882,18 @@ namespace kinetica
         ///         <description>compress vector on set_compression (instead of
         /// waiting for background thread).  The default value is
         /// 'false'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.ENABLE_OVERLAPPED_EQUI_JOIN">ENABLE_OVERLAPPED_EQUI_JOIN</see>:</term>
+        ///         <description>Enable overlapped-equi-join filter.  The
+        /// default value is 'true'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.ENABLE_COMPOUND_EQUI_JOIN">ENABLE_COMPOUND_EQUI_JOIN</see>:</term>
+        ///         <description>Enable compound-equi-join filter plan type.
+        /// The default value is 'false'.</description>
         ///     </item>
         /// </list>
         ///   </param>
@@ -3020,20 +3061,26 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="AlterTableRequest.Action.CREATE_INDEX">CREATE_INDEX</see>:</term>
-        ///         <description>Creates an <a
+        ///         <description>Creates either a <a
         /// href="../../concepts/indexes.html#column-index"
-        /// target="_top">index</a> on the column name specified in <paramref
-        /// cref="AlterTableRequest._value" />. If this column is already
-        /// indexed, an error will be returned.</description>
+        /// target="_top">column (attribute) index</a> or <a
+        /// href="../../concepts/indexes.html#chunk-skip-index"
+        /// target="_top">chunk skip index</a>, depending on the specified
+        /// <i>index_type</i>, on the column name specified in <paramref
+        /// cref="AlterTableRequest._value" />. If this column already has the
+        /// specified index, an error will be returned.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="AlterTableRequest.Action.DELETE_INDEX">DELETE_INDEX</see>:</term>
-        ///         <description>Deletes an existing <a
+        ///         <description>Deletes either a <a
         /// href="../../concepts/indexes.html#column-index"
-        /// target="_top">index</a> on the column name specified in <paramref
+        /// target="_top">column (attribute) index</a> or <a
+        /// href="../../concepts/indexes.html#chunk-skip-index"
+        /// target="_top">chunk skip index</a>, depending on the specified
+        /// <i>index_type</i>, on the column name specified in <paramref
         /// cref="AlterTableRequest._value" />. If this column does not have
-        /// indexing turned on, an error will be returned.</description>
+        /// the specified index, an error will be returned.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -3392,18 +3439,25 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="AlterTableRequest.Options.INDEX_TYPE">INDEX_TYPE</see>:</term>
-        ///         <description>Type of index to create.
+        ///         <description>Type of index to create, when <paramref
+        /// cref="AlterTableRequest.action" /> is <i>create_index</i>, or to
+        /// delete, when <paramref cref="AlterTableRequest.action" /> is
+        /// <i>delete_index</i>.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
         /// cref="AlterTableRequest.Options.COLUMN">COLUMN</see>:</term>
-        ///         <description>Standard column index.</description>
+        ///         <description>Create or delete a <a
+        /// href="../../concepts/indexes.html#column-index"
+        /// target="_top">column (attribute) index</a>.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="AlterTableRequest.Options.CHUNK_SKIP">CHUNK_SKIP</see>:</term>
-        ///         <description>Chunk skip index.</description>
+        ///         <description>Create or delete a <a
+        /// href="../../concepts/indexes.html#chunk-skip-index"
+        /// target="_top">chunk skip index</a>.</description>
         ///     </item>
         /// </list>
         /// The default value is <see
@@ -4059,6 +4113,243 @@ namespace kinetica
                                                                     column_names, options ) );
         }
 
+        /// @cond NO_DOCS
+        /// 
+        /// <param name="request_">Request object containing the parameters for
+        /// the operation.</param>
+        /// 
+        /// <returns>Response object containing the result of the
+        /// operation.</returns>
+        /// 
+        public CreateExternalTableResponse createExternalTable( CreateExternalTableRequest request_ )
+        {
+            CreateExternalTableResponse actualResponse_ = SubmitRequest<CreateExternalTableResponse>("/create/externaltable", request_, false);
+
+            return actualResponse_;
+        }
+        /// @endcond
+
+        /// @cond NO_DOCS
+        /// 
+        /// <param name="table_name"></param>
+        /// <param name="filepaths"></param>
+        /// <param name="create_table_options">
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateExternalTableRequest.CreateTableOptions.TYPE_ID">TYPE_ID</see>:</term>
+        ///         <description>  The default value is ''.</description>
+        ///     </item>
+        /// </list>
+        /// </param>
+        /// <param name="options">
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateExternalTableRequest.Options.TABLE_TYPE">TABLE_TYPE</see>:</term>
+        ///         <description>
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateExternalTableRequest.Options.MATERIALIZED">MATERIALIZED</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateExternalTableRequest.Options.LOGICAL">LOGICAL</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateExternalTableRequest.Options.LOGICAL_TMP">LOGICAL_TMP</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="CreateExternalTableRequest.Options.MATERIALIZED">MATERIALIZED</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateExternalTableRequest.Options.FILE_TYPE">FILE_TYPE</see>:</term>
+        ///         <description>
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateExternalTableRequest.Options.DELIMITED_TEXT">DELIMITED_TEXT</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateExternalTableRequest.Options.PARQUET">PARQUET</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="CreateExternalTableRequest.Options.DELIMITED_TEXT">DELIMITED_TEXT</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateExternalTableRequest.Options.LOADING_MODE">LOADING_MODE</see>:</term>
+        ///         <description>
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateExternalTableRequest.Options.HEAD">HEAD</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateExternalTableRequest.Options.DISTRIBUTED_SHARED">DISTRIBUTED_SHARED</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateExternalTableRequest.Options.DISTRIBUTED_LOCAL">DISTRIBUTED_LOCAL</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="CreateExternalTableRequest.Options.HEAD">HEAD</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateExternalTableRequest.Options.ERROR_HANDLING">ERROR_HANDLING</see>:</term>
+        ///         <description>
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateExternalTableRequest.Options.PERMISSIVE">PERMISSIVE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateExternalTableRequest.Options.IGNORE_BAD_RECORDS">IGNORE_BAD_RECORDS</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateExternalTableRequest.Options.ABORT">ABORT</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="CreateExternalTableRequest.Options.PERMISSIVE">PERMISSIVE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateExternalTableRequest.Options.BATCH_SIZE">BATCH_SIZE</see>:</term>
+        ///         <description></description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateExternalTableRequest.Options.REFRESH_METHOD">REFRESH_METHOD</see>:</term>
+        ///         <description>
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateExternalTableRequest.Options.MANUAL">MANUAL</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateExternalTableRequest.Options.ON_START">ON_START</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="CreateExternalTableRequest.Options.MANUAL">MANUAL</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateExternalTableRequest.Options.COLUMN_FORMATS">COLUMN_FORMATS</see>:</term>
+        ///         <description></description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateExternalTableRequest.Options.DEFAULT_COLUMN_FORMATS">DEFAULT_COLUMN_FORMATS</see>:</term>
+        ///         <description></description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateExternalTableRequest.Options.DRY_RUN">DRY_RUN</see>:</term>
+        ///         <description>
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateExternalTableRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateExternalTableRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="CreateExternalTableRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateExternalTableRequest.Options.TEXT_HAS_HEADER">TEXT_HAS_HEADER</see>:</term>
+        ///         <description>
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateExternalTableRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateExternalTableRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="CreateExternalTableRequest.Options.TRUE">TRUE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateExternalTableRequest.Options.TEXT_DELIMITER">TEXT_DELIMITER</see>:</term>
+        ///         <description>  The default value is ','.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateExternalTableRequest.Options.TEXT_HEADER_PROPERTY_DELIMITER">TEXT_HEADER_PROPERTY_DELIMITER</see>:</term>
+        ///         <description>  The default value is '|'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateExternalTableRequest.Options.COLUMNS_TO_LOAD">COLUMNS_TO_LOAD</see>:</term>
+        ///         <description></description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateExternalTableRequest.Options.TEXT_COMMENT_STRING">TEXT_COMMENT_STRING</see>:</term>
+        ///         <description>  The default value is '#'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateExternalTableRequest.Options.TEXT_NULL_STRING">TEXT_NULL_STRING</see>:</term>
+        ///         <description>  The default value is ''.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateExternalTableRequest.Options.TEXT_QUOTE_CHARACTER">TEXT_QUOTE_CHARACTER</see>:</term>
+        ///         <description>  The default value is '"'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateExternalTableRequest.Options.TEXT_ESCAPE_CHARACTER">TEXT_ESCAPE_CHARACTER</see>:</term>
+        ///         <description></description>
+        ///     </item>
+        /// </list>
+        /// </param>
+        /// 
+        /// <returns>Response object containing the result of the
+        /// operation.</returns>
+        /// 
+        public CreateExternalTableResponse createExternalTable( string table_name,
+                                                                IList<string> filepaths,
+                                                                IDictionary<string, string> create_table_options = null,
+                                                                IDictionary<string, string> options = null )
+        {
+            return createExternalTable( new CreateExternalTableRequest( table_name,
+                                                                        filepaths,
+                                                                        create_table_options,
+                                                                        options ) );
+        }
+        /// @endcond
+
 
         /// <summary>Creates a new graph network using given nodes, edges,
         /// weights, and restrictions.
@@ -4230,9 +4521,10 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="CreateGraphRequest.Options.MODIFY">MODIFY</see>:</term>
-        ///         <description>If set to <i>true</i> and <i>true</i> and if
-        /// the graph (using <paramref cref="CreateGraphRequest.graph_name" />)
-        /// already exists, the graph is updated with these components.
+        ///         <description>If set to <i>true</i>, <i>recreate</i> is set
+        /// to <i>true</i>, and the graph (specified using <paramref
+        /// cref="CreateGraphRequest.graph_name" />) already exists, the graph
+        /// is updated with the given components.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -4361,11 +4653,31 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="CreateGraphRequest.Options.GRAPH_TABLE">GRAPH_TABLE</see>:</term>
-        ///         <description>If the <i>graph_table</i> name is NOT left
-        /// blank, the created graph is also created as a table with the given
-        /// name and following identifier columns: 'EDGE_ID', 'EDGE_NODE1_ID',
-        /// 'EDGE_NODE2_ID'. If left blank, no table is created.  The default
-        /// value is ''.</description>
+        ///         <description>If specified, the created graph is also
+        /// created as a table with the given name and following identifier
+        /// columns: 'EDGE_ID', 'EDGE_NODE1_ID', 'EDGE_NODE2_ID'. If left
+        /// blank, no table is created.  The default value is ''.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateGraphRequest.Options.REMOVE_LABEL_ONLY">REMOVE_LABEL_ONLY</see>:</term>
+        ///         <description>When RESTRICTIONS on labeled entities
+        /// requested, if set to true this will NOT delete the entity but only
+        /// the label associated with the entity. Otherwise (default), it'll
+        /// delete the label AND the entity.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateGraphRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateGraphRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="CreateGraphRequest.Options.FALSE">FALSE</see>.</description>
         ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.</param>
@@ -5000,8 +5312,13 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="CreateProjectionRequest.Options.MATERIALIZE_ON_GPU">MATERIALIZE_ON_GPU</see>:</term>
-        ///         <description>If <i>true</i> then the columns of the
-        /// projection will be cached on the GPU.
+        ///         <description>No longer used.  See <a
+        /// href="../../rm/concepts.html" target="_top">Resource Management
+        /// Concepts</a> for information about how resources are managed, <a
+        /// href="../../rm/concepts.html" target="_top">Tier Strategy
+        /// Concepts</a> for how resources are targeted for VRAM, and <a
+        /// href="../../rm/usage.html#tier-strategies" target="_top">Tier
+        /// Strategy Usage</a> for how to specify a table's priority in VRAM.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -6356,8 +6673,13 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="CreateUnionRequest.Options.MATERIALIZE_ON_GPU">MATERIALIZE_ON_GPU</see>:</term>
-        ///         <description>If <i>true</i>, then the columns of the output
-        /// table will be cached on the GPU.
+        ///         <description>No longer used.  See <a
+        /// href="../../rm/concepts.html" target="_top">Resource Management
+        /// Concepts</a> for information about how resources are managed, <a
+        /// href="../../rm/concepts.html" target="_top">Tier Strategy
+        /// Concepts</a> for how resources are targeted for VRAM, and <a
+        /// href="../../rm/usage.html#tier-strategies" target="_top">Tier
+        /// Strategy Usage</a> for how to specify a table's priority in VRAM.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -9593,8 +9915,16 @@ namespace kinetica
         /// collection.  </param>
         /// <param name="filter_expression">Reserved for future use.  The
         /// default value is ''.</param>
-        /// <param name="options">Optional parameters.  The default value is an
-        /// empty {@link Dictionary}.</param>
+        /// <param name="options">Optional parameters.
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="GrantPermissionTableRequest.Options.COLUMNS">COLUMNS</see>:</term>
+        ///         <description>Apply security to these columns,
+        /// comma-separated.  The default value is ''.</description>
+        ///     </item>
+        /// </list>
+        /// The default value is an empty {@link Dictionary}.</param>
         /// 
         /// <returns>Response object containing the result of the
         /// operation.</returns>
@@ -9996,6 +10326,504 @@ namespace kinetica
         {
             return insertRecords<T>( new InsertRecordsRequest<T>( table_name, data,
                                                                   options ) );
+        }
+
+
+        /// 
+        /// <param name="request_">Request object containing the parameters for
+        /// the operation.</param>
+        /// 
+        /// <returns>Response object containing the result of the
+        /// operation.</returns>
+        /// 
+        public InsertRecordsFromFilesResponse insertRecordsFromFiles( InsertRecordsFromFilesRequest request_ )
+        {
+            InsertRecordsFromFilesResponse actualResponse_ = SubmitRequest<InsertRecordsFromFilesResponse>("/insert/records/fromfiles", request_, false);
+
+            return actualResponse_;
+        }
+
+
+        /// 
+        /// <param name="table_name"></param>
+        /// <param name="filepaths">(can have wildcards) -- array of strings
+        /// (can be relative paths)  </param>
+        /// <param name="create_table_options">see options in
+        /// create_table_request
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromFilesRequest.CreateTableOptions.TYPE_ID">TYPE_ID</see>:</term>
+        ///         <description>Optional: ID of a currently registered type.
+        /// The default value is ''.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromFilesRequest.CreateTableOptions.NO_ERROR_IF_EXISTS">NO_ERROR_IF_EXISTS</see>:</term>
+        ///         <description>If <i>true</i>, prevents an error from
+        /// occurring if the table already exists and is of the given type.  If
+        /// a table with the same ID but a different type exists, it is still
+        /// an error.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromFilesRequest.CreateTableOptions.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromFilesRequest.CreateTableOptions.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="InsertRecordsFromFilesRequest.CreateTableOptions.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromFilesRequest.CreateTableOptions.COLLECTION_NAME">COLLECTION_NAME</see>:</term>
+        ///         <description>Name of a collection which is to contain the
+        /// newly created table. If the collection provided is non-existent,
+        /// the collection will be automatically created. If empty, then the
+        /// newly created table will be a top-level table.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromFilesRequest.CreateTableOptions.IS_COLLECTION">IS_COLLECTION</see>:</term>
+        ///         <description>Indicates whether the new table to be created
+        /// will be a collection.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromFilesRequest.CreateTableOptions.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromFilesRequest.CreateTableOptions.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="InsertRecordsFromFilesRequest.CreateTableOptions.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromFilesRequest.CreateTableOptions.DISALLOW_HOMOGENEOUS_TABLES">DISALLOW_HOMOGENEOUS_TABLES</see>:</term>
+        ///         <description>No longer supported; value will be ignored.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromFilesRequest.CreateTableOptions.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromFilesRequest.CreateTableOptions.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="InsertRecordsFromFilesRequest.CreateTableOptions.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromFilesRequest.CreateTableOptions.IS_REPLICATED">IS_REPLICATED</see>:</term>
+        ///         <description>For a table, affects the <a
+        /// href="../../concepts/tables.html#distribution"
+        /// target="_top">distribution scheme</a> for the table's data.  If
+        /// true and the given type has no explicit <a
+        /// href="../../concepts/tables.html#shard-key" target="_top">shard
+        /// key</a> defined, the table will be <a
+        /// href="../../concepts/tables.html#replication"
+        /// target="_top">replicated</a>.  If false, the table will be <a
+        /// href="../../concepts/tables.html#sharding"
+        /// target="_top">sharded</a> according to the shard key specified in
+        /// the given @{create_table_options.type_id}, or <a
+        /// href="../../concepts/tables.html#random-sharding"
+        /// target="_top">randomly sharded</a>, if no shard key is specified.
+        /// Note that a type containing a shard key cannot be used to create a
+        /// replicated table.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromFilesRequest.CreateTableOptions.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromFilesRequest.CreateTableOptions.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="InsertRecordsFromFilesRequest.CreateTableOptions.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromFilesRequest.CreateTableOptions.FOREIGN_KEYS">FOREIGN_KEYS</see>:</term>
+        ///         <description>Semicolon-separated list of <a
+        /// href="../../concepts/tables.html#foreign-keys"
+        /// target="_top">foreign keys</a>, of the format '(source_column_name
+        /// [, ...]) references target_table_name(primary_key_column_name [,
+        /// ...]) [as foreign_key_name]'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromFilesRequest.CreateTableOptions.FOREIGN_SHARD_KEY">FOREIGN_SHARD_KEY</see>:</term>
+        ///         <description>Foreign shard key of the format 'source_column
+        /// references shard_by_column from
+        /// target_table(primary_key_column)'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromFilesRequest.CreateTableOptions.PARTITION_TYPE">PARTITION_TYPE</see>:</term>
+        ///         <description><a
+        /// href="../../concepts/tables.html#partitioning"
+        /// target="_top">Partitioning</a> scheme to use.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromFilesRequest.CreateTableOptions.RANGE">RANGE</see>:</term>
+        ///         <description>Use <a
+        /// href="../../concepts/tables.html#partitioning-by-range"
+        /// target="_top">range partitioning</a>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromFilesRequest.CreateTableOptions.INTERVAL">INTERVAL</see>:</term>
+        ///         <description>Use <a
+        /// href="../../concepts/tables.html#partitioning-by-interval"
+        /// target="_top">interval partitioning</a>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromFilesRequest.CreateTableOptions.LIST">LIST</see>:</term>
+        ///         <description>Use <a
+        /// href="../../concepts/tables.html#partitioning-by-list"
+        /// target="_top">list partitioning</a>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromFilesRequest.CreateTableOptions.HASH">HASH</see>:</term>
+        ///         <description>Use <a
+        /// href="../../concepts/tables.html#partitioning-by-hash"
+        /// target="_top">hash partitioning</a>.</description>
+        ///     </item>
+        /// </list></description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromFilesRequest.CreateTableOptions.PARTITION_KEYS">PARTITION_KEYS</see>:</term>
+        ///         <description>Comma-separated list of partition keys, which
+        /// are the columns or column expressions by which records will be
+        /// assigned to partitions defined by
+        /// <i>partition_definitions</i>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromFilesRequest.CreateTableOptions.PARTITION_DEFINITIONS">PARTITION_DEFINITIONS</see>:</term>
+        ///         <description>Comma-separated list of partition definitions,
+        /// whose format depends on the choice of <i>partition_type</i>.  See
+        /// <a href="../../concepts/tables.html#partitioning-by-range"
+        /// target="_top">range partitioning</a>, <a
+        /// href="../../concepts/tables.html#partitioning-by-interval"
+        /// target="_top">interval partitioning</a>, <a
+        /// href="../../concepts/tables.html#partitioning-by-list"
+        /// target="_top">list partitioning</a>, or <a
+        /// href="../../concepts/tables.html#partitioning-by-hash"
+        /// target="_top">hash partitioning</a> for example
+        /// formats.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromFilesRequest.CreateTableOptions.IS_AUTOMATIC_PARTITION">IS_AUTOMATIC_PARTITION</see>:</term>
+        ///         <description>If true, a new partition will be created for
+        /// values which don't fall into an existing partition.  Currently only
+        /// supported for <a
+        /// href="../../concepts/tables.html#partitioning-by-list"
+        /// target="_top">list partitions</a>.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromFilesRequest.CreateTableOptions.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromFilesRequest.CreateTableOptions.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="InsertRecordsFromFilesRequest.CreateTableOptions.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromFilesRequest.CreateTableOptions.TTL">TTL</see>:</term>
+        ///         <description>For a table, sets the <a
+        /// href="../../concepts/ttl.html" target="_top">TTL</a> of the table
+        /// specified in <paramref
+        /// cref="InsertRecordsFromFilesRequest.table_name" />.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromFilesRequest.CreateTableOptions.CHUNK_SIZE">CHUNK_SIZE</see>:</term>
+        ///         <description>Indicates the number of records per chunk to
+        /// be used for this table.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromFilesRequest.CreateTableOptions.IS_RESULT_TABLE">IS_RESULT_TABLE</see>:</term>
+        ///         <description>For a table, indicates whether the table is an
+        /// in-memory table. A result table cannot contain store_only,
+        /// text_search, or string columns (charN columns are acceptable), and
+        /// it will not be retained if the server is restarted.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromFilesRequest.CreateTableOptions.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromFilesRequest.CreateTableOptions.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="InsertRecordsFromFilesRequest.CreateTableOptions.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromFilesRequest.CreateTableOptions.STRATEGY_DEFINITION">STRATEGY_DEFINITION</see>:</term>
+        ///         <description>The <a
+        /// href="../../rm/concepts.html#tier-strategies" target="_top">tier
+        /// strategy</a> for the table and its columns. See <a
+        /// href="../../rm/concepts.html#tier-strategies" target="_top">tier
+        /// strategy usage</a> for format and <a
+        /// href="../../rm/usage.html#tier-strategies" target="_top">tier
+        /// strategy examples</a> for examples.</description>
+        ///     </item>
+        /// </list>
+        /// The default value is an empty {@link Dictionary}.</param>
+        /// <param name="options">Optional parameters.
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromFilesRequest.Options.FILE_TYPE">FILE_TYPE</see>:</term>
+        ///         <description>
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromFilesRequest.Options.DELIMITED_TEXT">DELIMITED_TEXT</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromFilesRequest.Options.PARQUET">PARQUET</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="InsertRecordsFromFilesRequest.Options.DELIMITED_TEXT">DELIMITED_TEXT</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromFilesRequest.Options.LOADING_MODE">LOADING_MODE</see>:</term>
+        ///         <description>specifies how to divide up data loading among
+        /// nodes
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromFilesRequest.Options.HEAD">HEAD</see>:</term>
+        ///         <description>head node loads all data</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromFilesRequest.Options.DISTRIBUTED_SHARED">DISTRIBUTED_SHARED</see>:</term>
+        ///         <description>worker nodes load all data, all nodes can see
+        /// all files and loading is divided up internally</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromFilesRequest.Options.DISTRIBUTED_LOCAL">DISTRIBUTED_LOCAL</see>:</term>
+        ///         <description>each worker node loads the files that it
+        /// sees</description>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="InsertRecordsFromFilesRequest.Options.HEAD">HEAD</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromFilesRequest.Options.ERROR_HANDLING">ERROR_HANDLING</see>:</term>
+        ///         <description>
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromFilesRequest.Options.PERMISSIVE">PERMISSIVE</see>:</term>
+        ///         <description>tries to parse all lines: nulls are inserted
+        /// for missing tokens and extra tokens are ignored. </description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromFilesRequest.Options.IGNORE_BAD_RECORDS">IGNORE_BAD_RECORDS</see>:</term>
+        ///         <description>Drops malformed lines/rows
+        /// entirely.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromFilesRequest.Options.ABORT">ABORT</see>:</term>
+        ///         <description>Aborts ingest when it encounters an
+        /// error.</description>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="InsertRecordsFromFilesRequest.Options.PERMISSIVE">PERMISSIVE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromFilesRequest.Options.TRUNCATE_TABLE">TRUNCATE_TABLE</see>:</term>
+        ///         <description>
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromFilesRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromFilesRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="InsertRecordsFromFilesRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromFilesRequest.Options.BATCH_SIZE">BATCH_SIZE</see>:</term>
+        ///         <description>number of records per batch when loading from
+        /// file</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromFilesRequest.Options.COLUMN_FORMATS">COLUMN_FORMATS</see>:</term>
+        ///         <description>json map of colname to map of format to
+        /// value</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromFilesRequest.Options.DEFAULT_COLUMN_FORMATS">DEFAULT_COLUMN_FORMATS</see>:</term>
+        ///         <description>json map of format to value</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromFilesRequest.Options.DRY_RUN">DRY_RUN</see>:</term>
+        ///         <description>Walk through the files and determine number of
+        /// valid records.  Does not load data. Applies the error handling mode
+        /// to determine valid behavior
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromFilesRequest.Options.FALSE">FALSE</see>:</term>
+        ///         <description>no dry run</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromFilesRequest.Options.TRUE">TRUE</see>:</term>
+        ///         <description>do a dry run</description>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="InsertRecordsFromFilesRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromFilesRequest.Options.TEXT_HAS_HEADER">TEXT_HAS_HEADER</see>:</term>
+        ///         <description>
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromFilesRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromFilesRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="InsertRecordsFromFilesRequest.Options.TRUE">TRUE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromFilesRequest.Options.TEXT_DELIMITER">TEXT_DELIMITER</see>:</term>
+        ///         <description>Delimiter for csv fields and header row. Must
+        /// be a single character.  The default value is ','.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromFilesRequest.Options.TEXT_HEADER_PROPERTY_DELIMITER">TEXT_HEADER_PROPERTY_DELIMITER</see>:</term>
+        ///         <description>Delimiter for column properties in csv header
+        /// row.  The default value is '|'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromFilesRequest.Options.COLUMNS_TO_LOAD">COLUMNS_TO_LOAD</see>:</term>
+        ///         <description>Optionally used to specify a subset of columns
+        /// to load, instead of loading all columns in the file.
+        /// The columns to use are delimited by a comma. Column numbers can be
+        /// specified discretely or as a range e.g. '1 .. 4' refers to the
+        /// first through fourth columns.
+        /// For example, a value of '5,3,1..2' will create a table with the
+        /// first column in the table being the fifth column in the file,
+        /// followed by third column in the file, then the first column, and
+        /// lastly the second column.
+        /// Additionally, if the file(s) have a header, names matching the file
+        /// header names may be provided instead of numbers. Ranges are not
+        /// supported.
+        /// For example, a value of 'C, B, A' will create a three column table
+        /// with column C, followed by column B, followed by column
+        /// A.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromFilesRequest.Options.TEXT_COMMENT_STRING">TEXT_COMMENT_STRING</see>:</term>
+        ///         <description>ignore all lines starting with the comment
+        /// value.  The default value is '#'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromFilesRequest.Options.TEXT_NULL_STRING">TEXT_NULL_STRING</see>:</term>
+        ///         <description>value to treat as null.  The default value is
+        /// ''.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromFilesRequest.Options.TEXT_QUOTE_CHARACTER">TEXT_QUOTE_CHARACTER</see>:</term>
+        ///         <description>quote character, defaults to a double-quote
+        /// i.e. ".Set an empty string to not have a quote character. Must be a
+        /// single character.  The default value is '"'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromFilesRequest.Options.TEXT_ESCAPE_CHARACTER">TEXT_ESCAPE_CHARACTER</see>:</term>
+        ///         <description>escape character, defaults to no escaping.
+        /// Must be a single character</description>
+        ///     </item>
+        /// </list>
+        /// The default value is an empty {@link Dictionary}.</param>
+        /// 
+        /// <returns>Response object containing the result of the
+        /// operation.</returns>
+        /// 
+        public InsertRecordsFromFilesResponse insertRecordsFromFiles( string table_name,
+                                                                      IList<string> filepaths,
+                                                                      IDictionary<string, string> create_table_options = null,
+                                                                      IDictionary<string, string> options = null )
+        {
+            return insertRecordsFromFiles( new InsertRecordsFromFilesRequest( table_name,
+                                                                              filepaths,
+                                                                              create_table_options,
+                                                                              options ) );
         }
 
 
@@ -10958,6 +11786,265 @@ namespace kinetica
         }
 
 
+        /// <summary>Update an existing graph network using given nodes, edges,
+        /// weights, restrictions, and options.
+        /// <br />
+        /// IMPORTANT: It's highly recommended that you review the <a
+        /// href="../../graph_solver/network_graph_solver.html"
+        /// target="_top">Network Graphs & Solvers</a> concepts documentation,
+        /// the <a href="../../graph_solver/examples/graph_rest_guide.html"
+        /// target="_top">Graph REST Tutorial</a>, and/or some <a
+        /// href="../../graph_solver/examples.html" target="_top">graph
+        /// examples</a> before using this endpoint.</summary>
+        /// 
+        /// <param name="request_">Request object containing the parameters for
+        /// the operation.</param>
+        /// 
+        /// <returns>Response object containing the result of the
+        /// operation.</returns>
+        /// 
+        public ModifyGraphResponse modifyGraph( ModifyGraphRequest request_ )
+        {
+            ModifyGraphResponse actualResponse_ = SubmitRequest<ModifyGraphResponse>("/modify/graph", request_, false);
+
+            return actualResponse_;
+        }
+
+
+        /// <summary>Update an existing graph network using given nodes, edges,
+        /// weights, restrictions, and options.
+        /// <br />
+        /// IMPORTANT: It's highly recommended that you review the <a
+        /// href="../../graph_solver/network_graph_solver.html"
+        /// target="_top">Network Graphs & Solvers</a> concepts documentation,
+        /// the <a href="../../graph_solver/examples/graph_rest_guide.html"
+        /// target="_top">Graph REST Tutorial</a>, and/or some <a
+        /// href="../../graph_solver/examples.html" target="_top">graph
+        /// examples</a> before using this endpoint.</summary>
+        /// 
+        /// <param name="graph_name">Name of the graph resource to modify.
+        /// </param>
+        /// <param name="nodes">Nodes with which to update existing <paramref
+        /// cref="ModifyGraphRequest.nodes" /> in graph specified by <paramref
+        /// cref="ModifyGraphRequest.graph_name" />. Review <a
+        /// href="../../graph_solver/network_graph_solver.html#nodes"
+        /// target="_top">Nodes</a> for more information. Nodes must be
+        /// specified using <a
+        /// href="../../graph_solver/network_graph_solver.html#identifiers"
+        /// target="_top">identifiers</a>; identifiers are grouped as <a
+        /// href="../../graph_solver/network_graph_solver.html#id-combos"
+        /// target="_top">combinations</a>. Identifiers can be used with
+        /// existing column names, e.g., 'table.column AS NODE_ID',
+        /// expressions, e.g., 'ST_MAKEPOINT(column1, column2) AS
+        /// NODE_WKTPOINT', or raw values, e.g., '{9, 10, 11} AS NODE_ID'. If
+        /// using raw values in an identifier combination, the number of values
+        /// specified must match across the combination. Identifier
+        /// combination(s) do not have to match the method used to create the
+        /// graph, e.g., if column names were specified to create the graph,
+        /// expressions or raw values could also be used to modify the graph.
+        /// </param>
+        /// <param name="edges">Edges with which to update existing <paramref
+        /// cref="ModifyGraphRequest.edges" /> in graph specified by <paramref
+        /// cref="ModifyGraphRequest.graph_name" />. Review <a
+        /// href="../../graph_solver/network_graph_solver.html#edges"
+        /// target="_top">Edges</a> for more information. Edges must be
+        /// specified using <a
+        /// href="../../graph_solver/network_graph_solver.html#identifiers"
+        /// target="_top">identifiers</a>; identifiers are grouped as <a
+        /// href="../../graph_solver/network_graph_solver.html#id-combos"
+        /// target="_top">combinations</a>. Identifiers can be used with
+        /// existing column names, e.g., 'table.column AS EDGE_ID',
+        /// expressions, e.g., 'SUBSTR(column, 1, 6) AS EDGE_NODE1_NAME', or
+        /// raw values, e.g., "{'family', 'coworker'} AS EDGE_LABEL". If using
+        /// raw values in an identifier combination, the number of values
+        /// specified must match across the combination. Identifier
+        /// combination(s) do not have to match the method used to create the
+        /// graph, e.g., if column names were specified to create the graph,
+        /// expressions or raw values could also be used to modify the graph.
+        /// </param>
+        /// <param name="weights">Weights with which to update existing
+        /// <paramref cref="ModifyGraphRequest.weights" /> in graph specified
+        /// by <paramref cref="ModifyGraphRequest.graph_name" />. Review <a
+        /// href="../../graph_solver/network_graph_solver.html#graph-weights"
+        /// target="_top">Weights</a> for more information. Weights must be
+        /// specified using <a
+        /// href="../../graph_solver/network_graph_solver.html#identifiers"
+        /// target="_top">identifiers</a>; identifiers are grouped as <a
+        /// href="../../graph_solver/network_graph_solver.html#id-combos"
+        /// target="_top">combinations</a>. Identifiers can be used with
+        /// existing column names, e.g., 'table.column AS WEIGHTS_EDGE_ID',
+        /// expressions, e.g., 'ST_LENGTH(wkt) AS WEIGHTS_VALUESPECIFIED', or
+        /// raw values, e.g., '{4, 15} AS WEIGHTS_VALUESPECIFIED'. If using raw
+        /// values in an identifier combination, the number of values specified
+        /// must match across the combination. Identifier combination(s) do not
+        /// have to match the method used to create the graph, e.g., if column
+        /// names were specified to create the graph, expressions or raw values
+        /// could also be used to modify the graph.  </param>
+        /// <param name="restrictions">Restrictions with which to update
+        /// existing <paramref cref="ModifyGraphRequest.restrictions" /> in
+        /// graph specified by <paramref cref="ModifyGraphRequest.graph_name"
+        /// />. Review <a
+        /// href="../../graph_solver/network_graph_solver.html#graph-restrictions"
+        /// target="_top">Restrictions</a> for more information. Restrictions
+        /// must be specified using <a
+        /// href="../../graph_solver/network_graph_solver.html#identifiers"
+        /// target="_top">identifiers</a>; identifiers are grouped as <a
+        /// href="../../graph_solver/network_graph_solver.html#id-combos"
+        /// target="_top">combinations</a>. Identifiers can be used with
+        /// existing column names, e.g., 'table.column AS
+        /// RESTRICTIONS_EDGE_ID', expressions, e.g., 'column/2 AS
+        /// RESTRICTIONS_VALUECOMPARED', or raw values, e.g., '{0, 0, 0, 1} AS
+        /// RESTRICTIONS_ONOFFCOMPARED'. If using raw values in an identifier
+        /// combination, the number of values specified must match across the
+        /// combination. Identifier combination(s) do not have to match the
+        /// method used to create the graph, e.g., if column names were
+        /// specified to create the graph, expressions or raw values could also
+        /// be used to modify the graph.  </param>
+        /// <param name="options">Optional parameters.
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="ModifyGraphRequest.Options.RESTRICTION_THRESHOLD_VALUE">RESTRICTION_THRESHOLD_VALUE</see>:</term>
+        ///         <description>Value-based restriction comparison. Any node
+        /// or edge with a RESTRICTIONS_VALUECOMPARED value greater than the
+        /// <i>restriction_threshold_value</i> will not be included in the
+        /// graph.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ModifyGraphRequest.Options.EXPORT_CREATE_RESULTS">EXPORT_CREATE_RESULTS</see>:</term>
+        ///         <description>If set to <i>true</i>, returns the graph
+        /// topology in the response as arrays.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="ModifyGraphRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ModifyGraphRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="ModifyGraphRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ModifyGraphRequest.Options.ENABLE_GRAPH_DRAW">ENABLE_GRAPH_DRAW</see>:</term>
+        ///         <description>If set to <i>true</i>, adds a 'EDGE_WKTLINE'
+        /// column identifier to the specified <i>graph_table</i> so the graph
+        /// can be viewed via WMS; for social and non-geospatial graphs, the
+        /// 'EDGE_WKTLINE' column identifier will be populated with spatial
+        /// coordinates derived from a flattening layout algorithm so the graph
+        /// can still be viewed.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="ModifyGraphRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ModifyGraphRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="ModifyGraphRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ModifyGraphRequest.Options.SAVE_PERSIST">SAVE_PERSIST</see>:</term>
+        ///         <description>If set to <i>true</i>, the graph will be saved
+        /// in the persist directory (see the <a href="../../config/index.html"
+        /// target="_top">config reference</a> for more information). If set to
+        /// <i>false</i>, the graph will be removed when the graph server is
+        /// shutdown.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="ModifyGraphRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ModifyGraphRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="ModifyGraphRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ModifyGraphRequest.Options.ADD_TABLE_MONITOR">ADD_TABLE_MONITOR</see>:</term>
+        ///         <description>Adds a table monitor to every table used in
+        /// the creation of the graph; this table monitor will trigger the
+        /// graph to update dynamically upon inserts to the source table(s).
+        /// Note that upon database restart, if <i>save_persist</i> is also set
+        /// to <i>true</i>, the graph will be fully reconstructed and the table
+        /// monitors will be reattached. For more details on table monitors,
+        /// see /create/tablemonitor.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="ModifyGraphRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ModifyGraphRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="ModifyGraphRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ModifyGraphRequest.Options.GRAPH_TABLE">GRAPH_TABLE</see>:</term>
+        ///         <description>If specified, the created graph is also
+        /// created as a table with the given name and following identifier
+        /// columns: 'EDGE_ID', 'EDGE_NODE1_ID', 'EDGE_NODE2_ID'. If left
+        /// blank, no table is created.  The default value is ''.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ModifyGraphRequest.Options.REMOVE_LABEL_ONLY">REMOVE_LABEL_ONLY</see>:</term>
+        ///         <description>When RESTRICTIONS on labeled entities
+        /// requested, if set to true this will NOT delete the entity but only
+        /// the label associated with the entity. Otherwise (default), it'll
+        /// delete the label AND the entity.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="ModifyGraphRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ModifyGraphRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="ModifyGraphRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        /// </list>
+        /// The default value is an empty {@link Dictionary}.</param>
+        /// 
+        /// <returns>Response object containing the result of the
+        /// operation.</returns>
+        /// 
+        public ModifyGraphResponse modifyGraph( string graph_name,
+                                                IList<string> nodes,
+                                                IList<string> edges,
+                                                IList<string> weights,
+                                                IList<string> restrictions,
+                                                IDictionary<string, string> options = null )
+        {
+            return modifyGraph( new ModifyGraphRequest( graph_name, nodes, edges, weights,
+                                                        restrictions, options ) );
+        }
+
+
         /// <summary>Employs a topological query on a network graph generated
         /// a-priori by <see
         /// cref="Kinetica.createGraph(string,bool,IList{string},IList{string},IList{string},IList{string},IDictionary{string, string})"
@@ -11406,8 +12493,16 @@ namespace kinetica
         /// <param name="table_name">Name of the table to which the permission
         /// grants access. Must be an existing table, collection, or view.
         /// </param>
-        /// <param name="options">Optional parameters.  The default value is an
-        /// empty {@link Dictionary}.</param>
+        /// <param name="options">Optional parameters.
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="RevokePermissionTableRequest.Options.COLUMNS">COLUMNS</see>:</term>
+        ///         <description>Apply security to these columns,
+        /// comma-separated.  The default value is ''.</description>
+        ///     </item>
+        /// </list>
+        /// The default value is an empty {@link Dictionary}.</param>
         /// 
         /// <returns>Response object containing the result of the
         /// operation.</returns>
@@ -11832,7 +12927,8 @@ namespace kinetica
         }
 
 
-        /// <summary>Procedures</summary>
+        /// <summary>Shows information about SQL procedures, including the full
+        /// definition of each requested procedure.</summary>
         /// 
         /// <param name="request_">Request object containing the parameters for
         /// the operation.</param>
@@ -11848,7 +12944,8 @@ namespace kinetica
         }
 
 
-        /// <summary>Procedures</summary>
+        /// <summary>Shows information about SQL procedures, including the full
+        /// definition of each requested procedure.</summary>
         /// 
         /// <param name="procedure_name">Name of the procedure for which to
         /// retrieve the information. If blank, then information about all
@@ -11858,9 +12955,9 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="ShowSqlProcRequest.Options.NO_ERROR_IF_NOT_EXISTS">NO_ERROR_IF_NOT_EXISTS</see>:</term>
-        ///         <description>If <i>false</i> will return an error if the
-        /// provided  does not exist. If <i>true</i> then it will return an
-        /// empty result.
+        ///         <description>If <i>true</i>, no error will be returned if
+        /// the requested procedure does not exist.  If <i>false</i>, an error
+        /// will be returned if the requested procedure does not exist.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>

@@ -85,20 +85,26 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="AlterTableRequest.Action.CREATE_INDEX">CREATE_INDEX</see>:</term>
-        ///         <description>Creates an <a
+        ///         <description>Creates either a <a
         /// href="../../concepts/indexes.html#column-index"
-        /// target="_top">index</a> on the column name specified in <paramref
-        /// cref="AlterTableRequest._value" />. If this column is already
-        /// indexed, an error will be returned.</description>
+        /// target="_top">column (attribute) index</a> or <a
+        /// href="../../concepts/indexes.html#chunk-skip-index"
+        /// target="_top">chunk skip index</a>, depending on the specified
+        /// <i>index_type</i>, on the column name specified in <paramref
+        /// cref="AlterTableRequest._value" />. If this column already has the
+        /// specified index, an error will be returned.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="AlterTableRequest.Action.DELETE_INDEX">DELETE_INDEX</see>:</term>
-        ///         <description>Deletes an existing <a
+        ///         <description>Deletes either a <a
         /// href="../../concepts/indexes.html#column-index"
-        /// target="_top">index</a> on the column name specified in <paramref
+        /// target="_top">column (attribute) index</a> or <a
+        /// href="../../concepts/indexes.html#chunk-skip-index"
+        /// target="_top">chunk skip index</a>, depending on the specified
+        /// <i>index_type</i>, on the column name specified in <paramref
         /// cref="AlterTableRequest._value" />. If this column does not have
-        /// indexing turned on, an error will be returned.</description>
+        /// the specified index, an error will be returned.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -299,18 +305,24 @@ namespace kinetica
             /// <summary>No longer supported; action will be ignored.</summary>
             public const string ALLOW_HOMOGENEOUS_TABLES = "allow_homogeneous_tables";
 
-            /// <summary>Creates an <a
+            /// <summary>Creates either a <a
             /// href="../../concepts/indexes.html#column-index"
-            /// target="_top">index</a> on the column name specified in <see
-            /// cref="_value" />. If this column is already indexed, an error
-            /// will be returned.</summary>
+            /// target="_top">column (attribute) index</a> or <a
+            /// href="../../concepts/indexes.html#chunk-skip-index"
+            /// target="_top">chunk skip index</a>, depending on the specified
+            /// <i>index_type</i>, on the column name specified in <see
+            /// cref="_value" />. If this column already has the specified
+            /// index, an error will be returned.</summary>
             public const string CREATE_INDEX = "create_index";
 
-            /// <summary>Deletes an existing <a
+            /// <summary>Deletes either a <a
             /// href="../../concepts/indexes.html#column-index"
-            /// target="_top">index</a> on the column name specified in <see
-            /// cref="_value" />. If this column does not have indexing turned
-            /// on, an error will be returned.</summary>
+            /// target="_top">column (attribute) index</a> or <a
+            /// href="../../concepts/indexes.html#chunk-skip-index"
+            /// target="_top">chunk skip index</a>, depending on the specified
+            /// <i>index_type</i>, on the column name specified in <see
+            /// cref="_value" />. If this column does not have the specified
+            /// index, an error will be returned.</summary>
             public const string DELETE_INDEX = "delete_index";
 
             /// <summary>Moves a table or view into a collection named <see
@@ -613,18 +625,25 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="AlterTableRequest.Options.INDEX_TYPE">INDEX_TYPE</see>:</term>
-        ///         <description>Type of index to create.
+        ///         <description>Type of index to create, when <paramref
+        /// cref="AlterTableRequest.action" /> is <i>create_index</i>, or to
+        /// delete, when <paramref cref="AlterTableRequest.action" /> is
+        /// <i>delete_index</i>.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
         /// cref="AlterTableRequest.Options.COLUMN">COLUMN</see>:</term>
-        ///         <description>Standard column index.</description>
+        ///         <description>Create or delete a <a
+        /// href="../../concepts/indexes.html#column-index"
+        /// target="_top">column (attribute) index</a>.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="AlterTableRequest.Options.CHUNK_SKIP">CHUNK_SKIP</see>:</term>
-        ///         <description>Chunk skip index.</description>
+        ///         <description>Create or delete a <a
+        /// href="../../concepts/indexes.html#chunk-skip-index"
+        /// target="_top">chunk skip index</a>.</description>
         ///     </item>
         /// </list>
         /// The default value is <see
@@ -767,28 +786,38 @@ namespace kinetica
             /// ignored if <see cref="_value" /> is also specified.</summary>
             public const string STRATEGY_DEFINITION = "strategy_definition";
 
-            /// <summary>Type of index to create.
+            /// <summary>Type of index to create, when <see cref="action" /> is
+            /// <i>create_index</i>, or to delete, when <see cref="action" />
+            /// is <i>delete_index</i>.
             /// Supported values:
             /// <list type="bullet">
             ///     <item>
             ///         <term><see
             /// cref="AlterTableRequest.Options.COLUMN">COLUMN</see>:</term>
-            ///         <description>Standard column index.</description>
+            ///         <description>Create or delete a <a
+            /// href="../../concepts/indexes.html#column-index"
+            /// target="_top">column (attribute) index</a>.</description>
             ///     </item>
             ///     <item>
             ///         <term><see
             /// cref="AlterTableRequest.Options.CHUNK_SKIP">CHUNK_SKIP</see>:</term>
-            ///         <description>Chunk skip index.</description>
+            ///         <description>Create or delete a <a
+            /// href="../../concepts/indexes.html#chunk-skip-index"
+            /// target="_top">chunk skip index</a>.</description>
             ///     </item>
             /// </list>
             /// The default value is <see
             /// cref="AlterTableRequest.Options.COLUMN">COLUMN</see>.</summary>
             public const string INDEX_TYPE = "index_type";
 
-            /// <summary>Standard column index.</summary>
+            /// <summary>Create or delete a <a
+            /// href="../../concepts/indexes.html#column-index"
+            /// target="_top">column (attribute) index</a>.</summary>
             public const string COLUMN = "column";
 
-            /// <summary>Chunk skip index.</summary>
+            /// <summary>Create or delete a <a
+            /// href="../../concepts/indexes.html#chunk-skip-index"
+            /// target="_top">chunk skip index</a>.</summary>
             public const string CHUNK_SKIP = "chunk_skip";
         } // end struct Options
 
@@ -809,20 +838,26 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="AlterTableRequest.Action.CREATE_INDEX">CREATE_INDEX</see>:</term>
-        ///         <description>Creates an <a
+        ///         <description>Creates either a <a
         /// href="../../concepts/indexes.html#column-index"
-        /// target="_top">index</a> on the column name specified in <paramref
-        /// cref="AlterTableRequest._value" />. If this column is already
-        /// indexed, an error will be returned.</description>
+        /// target="_top">column (attribute) index</a> or <a
+        /// href="../../concepts/indexes.html#chunk-skip-index"
+        /// target="_top">chunk skip index</a>, depending on the specified
+        /// <i>index_type</i>, on the column name specified in <paramref
+        /// cref="AlterTableRequest._value" />. If this column already has the
+        /// specified index, an error will be returned.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="AlterTableRequest.Action.DELETE_INDEX">DELETE_INDEX</see>:</term>
-        ///         <description>Deletes an existing <a
+        ///         <description>Deletes either a <a
         /// href="../../concepts/indexes.html#column-index"
-        /// target="_top">index</a> on the column name specified in <paramref
+        /// target="_top">column (attribute) index</a> or <a
+        /// href="../../concepts/indexes.html#chunk-skip-index"
+        /// target="_top">chunk skip index</a>, depending on the specified
+        /// <i>index_type</i>, on the column name specified in <paramref
         /// cref="AlterTableRequest._value" />. If this column does not have
-        /// indexing turned on, an error will be returned.</description>
+        /// the specified index, an error will be returned.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -1185,18 +1220,25 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="AlterTableRequest.Options.INDEX_TYPE">INDEX_TYPE</see>:</term>
-        ///         <description>Type of index to create.
+        ///         <description>Type of index to create, when <paramref
+        /// cref="AlterTableRequest.action" /> is <i>create_index</i>, or to
+        /// delete, when <paramref cref="AlterTableRequest.action" /> is
+        /// <i>delete_index</i>.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
         /// cref="AlterTableRequest.Options.COLUMN">COLUMN</see>:</term>
-        ///         <description>Standard column index.</description>
+        ///         <description>Create or delete a <a
+        /// href="../../concepts/indexes.html#column-index"
+        /// target="_top">column (attribute) index</a>.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="AlterTableRequest.Options.CHUNK_SKIP">CHUNK_SKIP</see>:</term>
-        ///         <description>Chunk skip index.</description>
+        ///         <description>Create or delete a <a
+        /// href="../../concepts/indexes.html#chunk-skip-index"
+        /// target="_top">chunk skip index</a>.</description>
         ///     </item>
         /// </list>
         /// The default value is <see
@@ -1229,20 +1271,26 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="AlterTableRequest.Action.CREATE_INDEX">CREATE_INDEX</see>:</term>
-        ///         <description>Creates an <a
+        ///         <description>Creates either a <a
         /// href="../../concepts/indexes.html#column-index"
-        /// target="_top">index</a> on the column name specified in <paramref
-        /// cref="AlterTableRequest._value" />. If this column is already
-        /// indexed, an error will be returned.</description>
+        /// target="_top">column (attribute) index</a> or <a
+        /// href="../../concepts/indexes.html#chunk-skip-index"
+        /// target="_top">chunk skip index</a>, depending on the specified
+        /// <i>index_type</i>, on the column name specified in <paramref
+        /// cref="AlterTableRequest._value" />. If this column already has the
+        /// specified index, an error will be returned.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="AlterTableRequest.Action.DELETE_INDEX">DELETE_INDEX</see>:</term>
-        ///         <description>Deletes an existing <a
+        ///         <description>Deletes either a <a
         /// href="../../concepts/indexes.html#column-index"
-        /// target="_top">index</a> on the column name specified in <paramref
+        /// target="_top">column (attribute) index</a> or <a
+        /// href="../../concepts/indexes.html#chunk-skip-index"
+        /// target="_top">chunk skip index</a>, depending on the specified
+        /// <i>index_type</i>, on the column name specified in <paramref
         /// cref="AlterTableRequest._value" />. If this column does not have
-        /// indexing turned on, an error will be returned.</description>
+        /// the specified index, an error will be returned.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -1601,18 +1649,25 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="AlterTableRequest.Options.INDEX_TYPE">INDEX_TYPE</see>:</term>
-        ///         <description>Type of index to create.
+        ///         <description>Type of index to create, when <paramref
+        /// cref="AlterTableRequest.action" /> is <i>create_index</i>, or to
+        /// delete, when <paramref cref="AlterTableRequest.action" /> is
+        /// <i>delete_index</i>.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
         /// cref="AlterTableRequest.Options.COLUMN">COLUMN</see>:</term>
-        ///         <description>Standard column index.</description>
+        ///         <description>Create or delete a <a
+        /// href="../../concepts/indexes.html#column-index"
+        /// target="_top">column (attribute) index</a>.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="AlterTableRequest.Options.CHUNK_SKIP">CHUNK_SKIP</see>:</term>
-        ///         <description>Chunk skip index.</description>
+        ///         <description>Create or delete a <a
+        /// href="../../concepts/indexes.html#chunk-skip-index"
+        /// target="_top">chunk skip index</a>.</description>
         ///     </item>
         /// </list>
         /// The default value is <see

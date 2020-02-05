@@ -14,7 +14,8 @@ namespace kinetica
     /// <summary>A set of parameters for <see
     /// cref="Kinetica.showSqlProc(string,IDictionary{string, string})" />.
     /// <br />
-    /// Procedures</summary>
+    /// Shows information about SQL procedures, including the full definition
+    /// of each requested procedure.</summary>
     public class ShowSqlProcRequest : KineticaData
     {
 
@@ -23,9 +24,9 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="ShowSqlProcRequest.Options.NO_ERROR_IF_NOT_EXISTS">NO_ERROR_IF_NOT_EXISTS</see>:</term>
-        ///         <description>If <i>false</i> will return an error if the
-        /// provided  does not exist. If <i>true</i> then it will return an
-        /// empty result.
+        ///         <description>If <i>true</i>, no error will be returned if
+        /// the requested procedure does not exist.  If <i>false</i>, an error
+        /// will be returned if the requested procedure does not exist.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -47,9 +48,9 @@ namespace kinetica
         public struct Options
         {
 
-            /// <summary>If <i>false</i> will return an error if the provided
-            /// does not exist. If <i>true</i> then it will return an empty
-            /// result.
+            /// <summary>If <i>true</i>, no error will be returned if the
+            /// requested procedure does not exist.  If <i>false</i>, an error
+            /// will be returned if the requested procedure does not exist.
             /// Supported values:
             /// <list type="bullet">
             ///     <item>
@@ -79,9 +80,9 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="ShowSqlProcRequest.Options.NO_ERROR_IF_NOT_EXISTS">NO_ERROR_IF_NOT_EXISTS</see>:</term>
-        ///         <description>If <i>false</i> will return an error if the
-        /// provided  does not exist. If <i>true</i> then it will return an
-        /// empty result.
+        ///         <description>If <i>true</i>, no error will be returned if
+        /// the requested procedure does not exist.  If <i>false</i>, an error
+        /// will be returned if the requested procedure does not exist.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -116,9 +117,9 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="ShowSqlProcRequest.Options.NO_ERROR_IF_NOT_EXISTS">NO_ERROR_IF_NOT_EXISTS</see>:</term>
-        ///         <description>If <i>false</i> will return an error if the
-        /// provided  does not exist. If <i>true</i> then it will return an
-        /// empty result.
+        ///         <description>If <i>true</i>, no error will be returned if
+        /// the requested procedure does not exist.  If <i>false</i>, an error
+        /// will be returned if the requested procedure does not exist.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -153,8 +154,8 @@ namespace kinetica
     public class ShowSqlProcResponse : KineticaData
     {
 
-        /// <summary>Additional information about the respective tables in
-        /// @{procedure_names}.
+        /// <summary>Additional information about the respective tables in the
+        /// requested procedures.
         /// Supported values:
         /// <list type="bullet">
         /// </list>
@@ -163,25 +164,26 @@ namespace kinetica
         public struct AdditionalInfo
         {
 
-            /// <summary>for sql procedures the current intial datetime string
-            /// that periodic execution began.  The default value is
-            /// ''.</summary>
+            /// <summary>The initial date/time that periodic execution began.
+            /// The default value is ''.</summary>
             public const string EXECUTE_START_TIME = "execute_start_time";
 
-            /// <summary>for sql procedures the current periodic execution
-            /// interval in seconds.  The default value is ''.</summary>
+            /// <summary>The periodic execution interval in seconds.  The
+            /// default value is ''.</summary>
             public const string EXECUTE_INTERVAL = "execute_interval";
         } // end struct AdditionalInfo
 
 
-        /// <summary>Value of .  </summary>
+        /// <summary>A list of the names of the requested procedures.
+        /// </summary>
         public IList<string> procedure_names { get; set; } = new List<string>();
 
-        /// <summary>procedures  </summary>
+        /// <summary>A list of the definitions for the requested procedures.
+        /// </summary>
         public IList<string> procedure_definitions { get; set; } = new List<string>();
 
-        /// <summary>Additional information about the respective tables in
-        /// @{procedure_names}.
+        /// <summary>Additional information about the respective tables in the
+        /// requested procedures.
         /// Supported values:
         /// <list type="bullet">
         /// </list>  </summary>
