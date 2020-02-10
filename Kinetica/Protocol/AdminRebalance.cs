@@ -104,13 +104,64 @@ namespace kinetica
         /// cref="AdminRebalanceRequest.Options.COMPACT_AFTER_REBALANCE">COMPACT_AFTER_REBALANCE</see>:</term>
         ///         <description>Perform compaction of deleted records once the
         /// rebalance completes, to reclaim memory and disk space. Default is
-        /// true.  The default value is 'true'.</description>
+        /// true, unless {add_labels}@{key of options
+        /// repair_incorrectly_sharded_data} is set to <i>true</i>.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="AdminRebalanceRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AdminRebalanceRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="AdminRebalanceRequest.Options.TRUE">TRUE</see>.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="AdminRebalanceRequest.Options.COMPACT_ONLY">COMPACT_ONLY</see>:</term>
         ///         <description>Only perform compaction, do not rebalance.
-        /// Default is false.  The default value is 'false'.</description>
+        /// Default is false.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="AdminRebalanceRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AdminRebalanceRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="AdminRebalanceRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AdminRebalanceRequest.Options.REPAIR_INCORRECTLY_SHARDED_DATA">REPAIR_INCORRECTLY_SHARDED_DATA</see>:</term>
+        ///         <description>Scans for any data sharded incorrectly and
+        /// re-routes the correct location. This can be done as part of a
+        /// typical rebalance after expanding the cluster, or in a standalone
+        /// fashion when it is believed that data is sharded incorrectly
+        /// somewhere in the cluster. Compaction will not be performed by
+        /// default when this is enabled. This option may also lengthen
+        /// rebalance time, and increase the memory used by the rebalance.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="AdminRebalanceRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AdminRebalanceRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="AdminRebalanceRequest.Options.FALSE">FALSE</see>.</description>
         ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.
@@ -184,12 +235,61 @@ namespace kinetica
 
             /// <summary>Perform compaction of deleted records once the
             /// rebalance completes, to reclaim memory and disk space. Default
-            /// is true.  The default value is 'true'.</summary>
+            /// is true, unless {add_labels}@{key of options
+            /// repair_incorrectly_sharded_data} is set to <i>true</i>.
+            /// Supported values:
+            /// <list type="bullet">
+            ///     <item>
+            ///         <term><see
+            /// cref="AdminRebalanceRequest.Options.TRUE">TRUE</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="AdminRebalanceRequest.Options.FALSE">FALSE</see></term>
+            ///     </item>
+            /// </list>
+            /// The default value is <see
+            /// cref="AdminRebalanceRequest.Options.TRUE">TRUE</see>.</summary>
             public const string COMPACT_AFTER_REBALANCE = "compact_after_rebalance";
 
             /// <summary>Only perform compaction, do not rebalance. Default is
-            /// false.  The default value is 'false'.</summary>
+            /// false.
+            /// Supported values:
+            /// <list type="bullet">
+            ///     <item>
+            ///         <term><see
+            /// cref="AdminRebalanceRequest.Options.TRUE">TRUE</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="AdminRebalanceRequest.Options.FALSE">FALSE</see></term>
+            ///     </item>
+            /// </list>
+            /// The default value is <see
+            /// cref="AdminRebalanceRequest.Options.FALSE">FALSE</see>.</summary>
             public const string COMPACT_ONLY = "compact_only";
+
+            /// <summary>Scans for any data sharded incorrectly and re-routes
+            /// the correct location. This can be done as part of a typical
+            /// rebalance after expanding the cluster, or in a standalone
+            /// fashion when it is believed that data is sharded incorrectly
+            /// somewhere in the cluster. Compaction will not be performed by
+            /// default when this is enabled. This option may also lengthen
+            /// rebalance time, and increase the memory used by the rebalance.
+            /// Supported values:
+            /// <list type="bullet">
+            ///     <item>
+            ///         <term><see
+            /// cref="AdminRebalanceRequest.Options.TRUE">TRUE</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="AdminRebalanceRequest.Options.FALSE">FALSE</see></term>
+            ///     </item>
+            /// </list>
+            /// The default value is <see
+            /// cref="AdminRebalanceRequest.Options.FALSE">FALSE</see>.</summary>
+            public const string REPAIR_INCORRECTLY_SHARDED_DATA = "repair_incorrectly_sharded_data";
         } // end struct Options
 
 
@@ -271,13 +371,64 @@ namespace kinetica
         /// cref="AdminRebalanceRequest.Options.COMPACT_AFTER_REBALANCE">COMPACT_AFTER_REBALANCE</see>:</term>
         ///         <description>Perform compaction of deleted records once the
         /// rebalance completes, to reclaim memory and disk space. Default is
-        /// true.  The default value is 'true'.</description>
+        /// true, unless {add_labels}@{key of options
+        /// repair_incorrectly_sharded_data} is set to <i>true</i>.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="AdminRebalanceRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AdminRebalanceRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="AdminRebalanceRequest.Options.TRUE">TRUE</see>.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="AdminRebalanceRequest.Options.COMPACT_ONLY">COMPACT_ONLY</see>:</term>
         ///         <description>Only perform compaction, do not rebalance.
-        /// Default is false.  The default value is 'false'.</description>
+        /// Default is false.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="AdminRebalanceRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AdminRebalanceRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="AdminRebalanceRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AdminRebalanceRequest.Options.REPAIR_INCORRECTLY_SHARDED_DATA">REPAIR_INCORRECTLY_SHARDED_DATA</see>:</term>
+        ///         <description>Scans for any data sharded incorrectly and
+        /// re-routes the correct location. This can be done as part of a
+        /// typical rebalance after expanding the cluster, or in a standalone
+        /// fashion when it is believed that data is sharded incorrectly
+        /// somewhere in the cluster. Compaction will not be performed by
+        /// default when this is enabled. This option may also lengthen
+        /// rebalance time, and increase the memory used by the rebalance.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="AdminRebalanceRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AdminRebalanceRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="AdminRebalanceRequest.Options.FALSE">FALSE</see>.</description>
         ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.</summary>
@@ -369,13 +520,64 @@ namespace kinetica
         /// cref="AdminRebalanceRequest.Options.COMPACT_AFTER_REBALANCE">COMPACT_AFTER_REBALANCE</see>:</term>
         ///         <description>Perform compaction of deleted records once the
         /// rebalance completes, to reclaim memory and disk space. Default is
-        /// true.  The default value is 'true'.</description>
+        /// true, unless {add_labels}@{key of options
+        /// repair_incorrectly_sharded_data} is set to <i>true</i>.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="AdminRebalanceRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AdminRebalanceRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="AdminRebalanceRequest.Options.TRUE">TRUE</see>.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="AdminRebalanceRequest.Options.COMPACT_ONLY">COMPACT_ONLY</see>:</term>
         ///         <description>Only perform compaction, do not rebalance.
-        /// Default is false.  The default value is 'false'.</description>
+        /// Default is false.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="AdminRebalanceRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AdminRebalanceRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="AdminRebalanceRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AdminRebalanceRequest.Options.REPAIR_INCORRECTLY_SHARDED_DATA">REPAIR_INCORRECTLY_SHARDED_DATA</see>:</term>
+        ///         <description>Scans for any data sharded incorrectly and
+        /// re-routes the correct location. This can be done as part of a
+        /// typical rebalance after expanding the cluster, or in a standalone
+        /// fashion when it is believed that data is sharded incorrectly
+        /// somewhere in the cluster. Compaction will not be performed by
+        /// default when this is enabled. This option may also lengthen
+        /// rebalance time, and increase the memory used by the rebalance.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="AdminRebalanceRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AdminRebalanceRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="AdminRebalanceRequest.Options.FALSE">FALSE</see>.</description>
         ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.</param>

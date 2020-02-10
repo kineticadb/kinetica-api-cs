@@ -519,6 +519,14 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
+        /// cref="ShowTableResponse.TableDescriptions.MATERIALIZED_VIEW">MATERIALIZED_VIEW</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ShowTableResponse.TableDescriptions.MATERIALIZED_VIEW_MEMBER">MATERIALIZED_VIEW_MEMBER</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="ShowTableResponse.TableDescriptions.MATERIALIZED_VIEW_UNDER_CONSTRUCTION">MATERIALIZED_VIEW_UNDER_CONSTRUCTION</see></term>
         ///     </item>
         /// </list>
@@ -531,6 +539,8 @@ namespace kinetica
             public const string REPLICATED = "REPLICATED";
             public const string JOIN = "JOIN";
             public const string RESULT_TABLE = "RESULT_TABLE";
+            public const string MATERIALIZED_VIEW = "MATERIALIZED_VIEW";
+            public const string MATERIALIZED_VIEW_MEMBER = "MATERIALIZED_VIEW_MEMBER";
             public const string MATERIALIZED_VIEW_UNDER_CONSTRUCTION = "MATERIALIZED_VIEW_UNDER_CONSTRUCTION";
         } // end struct TableDescriptions
 
@@ -850,6 +860,14 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="ShowTableResponse.TableDescriptions.RESULT_TABLE">RESULT_TABLE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ShowTableResponse.TableDescriptions.MATERIALIZED_VIEW">MATERIALIZED_VIEW</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ShowTableResponse.TableDescriptions.MATERIALIZED_VIEW_MEMBER">MATERIALIZED_VIEW_MEMBER</see></term>
         ///     </item>
         ///     <item>
         ///         <term><see

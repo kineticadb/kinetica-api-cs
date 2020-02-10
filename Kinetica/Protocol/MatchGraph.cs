@@ -44,7 +44,8 @@ namespace kinetica
         /// best route. The route is secured one point at a time while looking
         /// ahead <i>chain_width</i> number of points, so the prediction is
         /// corrected after each point. This solution type is the most accurate
-        /// but also the most computationally intensive.</description>
+        /// but also the most computationally intensive. Related options:
+        /// <i>num_segments</i> and <i>chain_width</i>.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -52,7 +53,9 @@ namespace kinetica
         ///         <description>Matches <paramref
         /// cref="MatchGraphRequest.sample_points" /> to the graph using time
         /// and/or distance between points to influence one or more shortest
-        /// paths across the sample points.</description>
+        /// paths across the sample points. Related options:
+        /// <i>num_segments</i>, <i>max_solve_length</i>,
+        /// <i>time_window_width</i>, and <i>detect_loops</i>.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -60,7 +63,7 @@ namespace kinetica
         ///         <description>Matches <paramref
         /// cref="MatchGraphRequest.sample_points" /> to find the most probable
         /// path between origin and destination pairs with cost
-        /// constraints</description>
+        /// constraints.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -68,14 +71,15 @@ namespace kinetica
         ///         <description>Matches <paramref
         /// cref="MatchGraphRequest.sample_points" /> to optimize scheduling
         /// multiple supplies (trucks) with varying sizes to varying demand
-        /// sites with varying capacities per depot</description>
+        /// sites with varying capacities per depot. Related options:
+        /// <i>partial_loading</i> and <i>max_combinations</i>.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="MatchGraphRequest.SolveMethod.MATCH_BATCH_SOLVES">MATCH_BATCH_SOLVES</see>:</term>
         ///         <description>Matches <paramref
         /// cref="MatchGraphRequest.sample_points" /> source and destination
-        /// pairs for the shortest path solves in batch mode</description>
+        /// pairs for the shortest path solves in batch mode.</description>
         ///     </item>
         /// </list>
         /// The default value is <see
@@ -93,28 +97,32 @@ namespace kinetica
             /// secured one point at a time while looking ahead
             /// <i>chain_width</i> number of points, so the prediction is
             /// corrected after each point. This solution type is the most
-            /// accurate but also the most computationally intensive.</summary>
+            /// accurate but also the most computationally intensive. Related
+            /// options: <i>num_segments</i> and <i>chain_width</i>.</summary>
             public const string MARKOV_CHAIN = "markov_chain";
 
             /// <summary>Matches <see cref="sample_points" /> to the graph
             /// using time and/or distance between points to influence one or
-            /// more shortest paths across the sample points.</summary>
+            /// more shortest paths across the sample points. Related options:
+            /// <i>num_segments</i>, <i>max_solve_length</i>,
+            /// <i>time_window_width</i>, and <i>detect_loops</i>.</summary>
             public const string INCREMENTAL_WEIGHTED = "incremental_weighted";
 
             /// <summary>Matches <see cref="sample_points" /> to find the most
             /// probable path between origin and destination pairs with cost
-            /// constraints</summary>
+            /// constraints.</summary>
             public const string MATCH_OD_PAIRS = "match_od_pairs";
 
             /// <summary>Matches <see cref="sample_points" /> to optimize
             /// scheduling multiple supplies (trucks) with varying sizes to
-            /// varying demand sites with varying capacities per
-            /// depot</summary>
+            /// varying demand sites with varying capacities per depot. Related
+            /// options: <i>partial_loading</i> and
+            /// <i>max_combinations</i>.</summary>
             public const string MATCH_SUPPLY_DEMAND = "match_supply_demand";
 
             /// <summary>Matches <see cref="sample_points" /> source and
             /// destination pairs for the shortest path solves in batch
-            /// mode</summary>
+            /// mode.</summary>
             public const string MATCH_BATCH_SOLVES = "match_batch_solves";
         } // end struct SolveMethod
 
@@ -221,13 +229,13 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="MatchGraphRequest.Options.TRUE">TRUE</see>:</term>
-        ///         <description>Partial off loading at multiple store (demand)
+        ///         <description>Partial off-loading at multiple store (demand)
         /// locations</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="MatchGraphRequest.Options.FALSE">FALSE</see>:</term>
-        ///         <description>No partial off loading allowed if supply is
+        ///         <description>No partial off-loading allowed if supply is
         /// less than the store's demand.</description>
         ///     </item>
         /// </list>
@@ -239,7 +247,7 @@ namespace kinetica
         /// cref="MatchGraphRequest.Options.MAX_COMBINATIONS">MAX_COMBINATIONS</see>:</term>
         ///         <description>For the <i>match_supply_demand</i> solver
         /// only. This is the cutoff for the number of generated combinations
-        /// for sequencing the demand locations - can increase this upto 2M.
+        /// for sequencing the demand locations - can increase this up to 2M.
         /// The default value is '10000'.</description>
         ///     </item>
         /// </list>
@@ -307,11 +315,11 @@ namespace kinetica
             /// cref="MatchGraphRequest.Options.TRUE">TRUE</see>.</summary>
             public const string DETECT_LOOPS = "detect_loops";
 
-            /// <summary>Partial off loading at multiple store (demand)
+            /// <summary>Partial off-loading at multiple store (demand)
             /// locations</summary>
             public const string TRUE = "true";
 
-            /// <summary>No partial off loading allowed if supply is less than
+            /// <summary>No partial off-loading allowed if supply is less than
             /// the store's demand.</summary>
             public const string FALSE = "false";
 
@@ -335,13 +343,13 @@ namespace kinetica
             ///     <item>
             ///         <term><see
             /// cref="MatchGraphRequest.Options.TRUE">TRUE</see>:</term>
-            ///         <description>Partial off loading at multiple store
+            ///         <description>Partial off-loading at multiple store
             /// (demand) locations</description>
             ///     </item>
             ///     <item>
             ///         <term><see
             /// cref="MatchGraphRequest.Options.FALSE">FALSE</see>:</term>
-            ///         <description>No partial off loading allowed if supply
+            ///         <description>No partial off-loading allowed if supply
             /// is less than the store's demand.</description>
             ///     </item>
             /// </list>
@@ -351,7 +359,7 @@ namespace kinetica
 
             /// <summary>For the <i>match_supply_demand</i> solver only. This
             /// is the cutoff for the number of generated combinations for
-            /// sequencing the demand locations - can increase this upto 2M.
+            /// sequencing the demand locations - can increase this up to 2M.
             /// The default value is '10000'.</summary>
             public const string MAX_COMBINATIONS = "max_combinations";
         } // end struct Options
@@ -388,7 +396,8 @@ namespace kinetica
         /// best route. The route is secured one point at a time while looking
         /// ahead <i>chain_width</i> number of points, so the prediction is
         /// corrected after each point. This solution type is the most accurate
-        /// but also the most computationally intensive.</description>
+        /// but also the most computationally intensive. Related options:
+        /// <i>num_segments</i> and <i>chain_width</i>.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -396,7 +405,9 @@ namespace kinetica
         ///         <description>Matches <paramref
         /// cref="MatchGraphRequest.sample_points" /> to the graph using time
         /// and/or distance between points to influence one or more shortest
-        /// paths across the sample points.</description>
+        /// paths across the sample points. Related options:
+        /// <i>num_segments</i>, <i>max_solve_length</i>,
+        /// <i>time_window_width</i>, and <i>detect_loops</i>.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -404,7 +415,7 @@ namespace kinetica
         ///         <description>Matches <paramref
         /// cref="MatchGraphRequest.sample_points" /> to find the most probable
         /// path between origin and destination pairs with cost
-        /// constraints</description>
+        /// constraints.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -412,14 +423,15 @@ namespace kinetica
         ///         <description>Matches <paramref
         /// cref="MatchGraphRequest.sample_points" /> to optimize scheduling
         /// multiple supplies (trucks) with varying sizes to varying demand
-        /// sites with varying capacities per depot</description>
+        /// sites with varying capacities per depot. Related options:
+        /// <i>partial_loading</i> and <i>max_combinations</i>.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="MatchGraphRequest.SolveMethod.MATCH_BATCH_SOLVES">MATCH_BATCH_SOLVES</see>:</term>
         ///         <description>Matches <paramref
         /// cref="MatchGraphRequest.sample_points" /> source and destination
-        /// pairs for the shortest path solves in batch mode</description>
+        /// pairs for the shortest path solves in batch mode.</description>
         ///     </item>
         /// </list>
         /// The default value is <see
@@ -542,13 +554,13 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="MatchGraphRequest.Options.TRUE">TRUE</see>:</term>
-        ///         <description>Partial off loading at multiple store (demand)
+        ///         <description>Partial off-loading at multiple store (demand)
         /// locations</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="MatchGraphRequest.Options.FALSE">FALSE</see>:</term>
-        ///         <description>No partial off loading allowed if supply is
+        ///         <description>No partial off-loading allowed if supply is
         /// less than the store's demand.</description>
         ///     </item>
         /// </list>
@@ -560,7 +572,7 @@ namespace kinetica
         /// cref="MatchGraphRequest.Options.MAX_COMBINATIONS">MAX_COMBINATIONS</see>:</term>
         ///         <description>For the <i>match_supply_demand</i> solver
         /// only. This is the cutoff for the number of generated combinations
-        /// for sequencing the demand locations - can increase this upto 2M.
+        /// for sequencing the demand locations - can increase this up to 2M.
         /// The default value is '10000'.</description>
         ///     </item>
         /// </list>
@@ -604,7 +616,8 @@ namespace kinetica
         /// best route. The route is secured one point at a time while looking
         /// ahead <i>chain_width</i> number of points, so the prediction is
         /// corrected after each point. This solution type is the most accurate
-        /// but also the most computationally intensive.</description>
+        /// but also the most computationally intensive. Related options:
+        /// <i>num_segments</i> and <i>chain_width</i>.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -612,7 +625,9 @@ namespace kinetica
         ///         <description>Matches <paramref
         /// cref="MatchGraphRequest.sample_points" /> to the graph using time
         /// and/or distance between points to influence one or more shortest
-        /// paths across the sample points.</description>
+        /// paths across the sample points. Related options:
+        /// <i>num_segments</i>, <i>max_solve_length</i>,
+        /// <i>time_window_width</i>, and <i>detect_loops</i>.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -620,7 +635,7 @@ namespace kinetica
         ///         <description>Matches <paramref
         /// cref="MatchGraphRequest.sample_points" /> to find the most probable
         /// path between origin and destination pairs with cost
-        /// constraints</description>
+        /// constraints.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -628,14 +643,15 @@ namespace kinetica
         ///         <description>Matches <paramref
         /// cref="MatchGraphRequest.sample_points" /> to optimize scheduling
         /// multiple supplies (trucks) with varying sizes to varying demand
-        /// sites with varying capacities per depot</description>
+        /// sites with varying capacities per depot. Related options:
+        /// <i>partial_loading</i> and <i>max_combinations</i>.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="MatchGraphRequest.SolveMethod.MATCH_BATCH_SOLVES">MATCH_BATCH_SOLVES</see>:</term>
         ///         <description>Matches <paramref
         /// cref="MatchGraphRequest.sample_points" /> source and destination
-        /// pairs for the shortest path solves in batch mode</description>
+        /// pairs for the shortest path solves in batch mode.</description>
         ///     </item>
         /// </list>
         /// The default value is <see
@@ -754,13 +770,13 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="MatchGraphRequest.Options.TRUE">TRUE</see>:</term>
-        ///         <description>Partial off loading at multiple store (demand)
+        ///         <description>Partial off-loading at multiple store (demand)
         /// locations</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="MatchGraphRequest.Options.FALSE">FALSE</see>:</term>
-        ///         <description>No partial off loading allowed if supply is
+        ///         <description>No partial off-loading allowed if supply is
         /// less than the store's demand.</description>
         ///     </item>
         /// </list>
@@ -772,7 +788,7 @@ namespace kinetica
         /// cref="MatchGraphRequest.Options.MAX_COMBINATIONS">MAX_COMBINATIONS</see>:</term>
         ///         <description>For the <i>match_supply_demand</i> solver
         /// only. This is the cutoff for the number of generated combinations
-        /// for sequencing the demand locations - can increase this upto 2M.
+        /// for sequencing the demand locations - can increase this up to 2M.
         /// The default value is '10000'.</description>
         ///     </item>
         /// </list>

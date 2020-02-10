@@ -228,6 +228,21 @@ namespace kinetica
         /// cref="CreateExternalTableRequest.Options.TEXT_ESCAPE_CHARACTER">TEXT_ESCAPE_CHARACTER</see>:</term>
         ///         <description></description>
         ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateExternalTableRequest.Options.EXTERNAL_STORAGE_LOCATION">EXTERNAL_STORAGE_LOCATION</see>:</term>
+        ///         <description></description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateExternalTableRequest.Options.S3_BUCKET_NAME">S3_BUCKET_NAME</see>:</term>
+        ///         <description></description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateExternalTableRequest.Options.S3_REGION">S3_REGION</see>:</term>
+        ///         <description></description>
+        ///     </item>
         /// </list>
         /// <br />
         /// A set of string constants for the parameter <see cref="options"
@@ -393,6 +408,9 @@ namespace kinetica
             /// <summary>  The default value is '"'.</summary>
             public const string TEXT_QUOTE_CHARACTER = "text_quote_character";
             public const string TEXT_ESCAPE_CHARACTER = "text_escape_character";
+            public const string EXTERNAL_STORAGE_LOCATION = "external_storage_location";
+            public const string S3_BUCKET_NAME = "s3_bucket_name";
+            public const string S3_REGION = "s3_region";
         } // end struct Options
 
         public string table_name { get; set; }
@@ -597,6 +615,21 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="CreateExternalTableRequest.Options.TEXT_ESCAPE_CHARACTER">TEXT_ESCAPE_CHARACTER</see>:</term>
+        ///         <description></description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateExternalTableRequest.Options.EXTERNAL_STORAGE_LOCATION">EXTERNAL_STORAGE_LOCATION</see>:</term>
+        ///         <description></description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateExternalTableRequest.Options.S3_BUCKET_NAME">S3_BUCKET_NAME</see>:</term>
+        ///         <description></description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateExternalTableRequest.Options.S3_REGION">S3_REGION</see>:</term>
         ///         <description></description>
         ///     </item>
         /// </list>
@@ -810,6 +843,21 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="CreateExternalTableRequest.Options.TEXT_ESCAPE_CHARACTER">TEXT_ESCAPE_CHARACTER</see>:</term>
+        ///         <description></description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateExternalTableRequest.Options.EXTERNAL_STORAGE_LOCATION">EXTERNAL_STORAGE_LOCATION</see>:</term>
+        ///         <description></description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateExternalTableRequest.Options.S3_BUCKET_NAME">S3_BUCKET_NAME</see>:</term>
+        ///         <description></description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateExternalTableRequest.Options.S3_REGION">S3_REGION</see>:</term>
         ///         <description></description>
         ///     </item>
         /// </list>
