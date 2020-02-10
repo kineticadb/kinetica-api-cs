@@ -16,18 +16,28 @@ namespace kinetica
     /// />.
     /// <br />
     /// Creates a monitor that watches for table modification events such as
-    /// insert, update or delete on a particular table (identified by <see
-    /// cref="table_name" />) and forwards event notifications to subscribers
-    /// via ZMQ. After this call completes, subscribe to the returned <member
-    /// name="topic_id" /> on the ZMQ table monitor port (default 9002). Each
-    /// time a modification operation on the table completes, a multipart
-    /// message is published for that topic; the first part contains only the
-    /// topic ID, and each subsequent part contains one binary-encoded Avro
-    /// object that corresponds to the event and can be decoded using <member
-    /// name="type_schema" />. The monitor will continue to run (regardless of
-    /// whether or not there are any subscribers) until deactivated with <see
+    /// insert, update or delete on a particular table (identified by
+    /// <see cref="table_name" />) and forwards event notifications to
+    /// subscribers via ZMQ.
+    /// After this call completes, subscribe to the returned <member
+    /// name="topic_id" /> on the
+    /// ZMQ table monitor port (default 9002). Each time a modification
+    /// operation on the
+    /// table completes, a multipart message is published for that topic; the
+    /// first part
+    /// contains only the topic ID, and each subsequent part contains one
+    /// binary-encoded
+    /// Avro object that corresponds to the event and can be decoded using
+    /// <member name="type_schema" />. The monitor will continue to run
+    /// (regardless of whether
+    /// or not there are any subscribers) until deactivated with
+    /// <see
     /// cref="Kinetica.clearTableMonitor(string,IDictionary{string, string})"
-    /// />.</summary>
+    /// />.
+    /// <br />
+    /// For more information on table monitors, see
+    /// <a href="../../concepts/table_monitors.html" target="_top">Table
+    /// Monitors</a>.</summary>
     public class CreateTableMonitorRequest : KineticaData
     {
 

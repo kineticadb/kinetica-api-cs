@@ -14,7 +14,10 @@ namespace kinetica
     /// <summary>A set of parameters for <see
     /// cref="Kinetica.getJob(long,IDictionary{string, string})" />.
     /// <br />
-    /// </summary>
+    /// Get the status and result of asynchronously running job.  See the <see
+    /// cref="Kinetica.createJob(string,string,byte[],string,IDictionary{string, string})"
+    /// /> for starting an asynchronous job.  Some fields of the response are
+    /// filled only after the submitted job has finished execution.</summary>
     public class GetJobRequest : KineticaData
     {
 

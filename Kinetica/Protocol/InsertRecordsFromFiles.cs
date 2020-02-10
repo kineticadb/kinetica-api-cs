@@ -15,17 +15,33 @@ namespace kinetica
     /// cref="Kinetica.insertRecordsFromFiles(string,IList{string},IDictionary{string, string},IDictionary{string, string})"
     /// />.
     /// <br />
-    /// </summary>
+    /// Reads from one or more files located on the server and inserts the data
+    /// into a new or existing table.
+    /// <br />
+    /// For CSV files, there are two loading schemes: positional and
+    /// name-based. The name-based loading scheme is enabled when the file has
+    /// a header present and <i>text_has_header</i> is set to <i>true</i>. In
+    /// this scheme, the source file(s) field names must match the target
+    /// table's column names exactly; however, the source file can have more
+    /// fields than the target table has columns. If <i>error_handling</i> is
+    /// set to <i>permissive</i>, the source file can have fewer fields than
+    /// the target table has columns. If the name-based loading scheme is being
+    /// used, names matching the file header's names may be provided to
+    /// <i>columns_to_load</i> instead of numbers, but ranges are not
+    /// supported.
+    /// <br />
+    /// Returns once all files are processed.</summary>
     public class InsertRecordsFromFilesRequest : KineticaData
     {
 
-        /// <summary>see options in create_table_request
+        /// <summary>Options used when creating a new table.
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
         /// cref="InsertRecordsFromFilesRequest.CreateTableOptions.TYPE_ID">TYPE_ID</see>:</term>
-        ///         <description>Optional: ID of a currently registered type.
-        /// The default value is ''.</description>
+        ///         <description>ID of a currently registered <a
+        /// href="../../concepts/types.html" target="_top">type</a>.  The
+        /// default value is ''.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -58,43 +74,6 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="InsertRecordsFromFilesRequest.CreateTableOptions.IS_COLLECTION">IS_COLLECTION</see>:</term>
-        ///         <description>Indicates whether the new table to be created
-        /// will be a collection.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="InsertRecordsFromFilesRequest.CreateTableOptions.TRUE">TRUE</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="InsertRecordsFromFilesRequest.CreateTableOptions.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="InsertRecordsFromFilesRequest.CreateTableOptions.FALSE">FALSE</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="InsertRecordsFromFilesRequest.CreateTableOptions.DISALLOW_HOMOGENEOUS_TABLES">DISALLOW_HOMOGENEOUS_TABLES</see>:</term>
-        ///         <description>No longer supported; value will be ignored.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="InsertRecordsFromFilesRequest.CreateTableOptions.TRUE">TRUE</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="InsertRecordsFromFilesRequest.CreateTableOptions.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="InsertRecordsFromFilesRequest.CreateTableOptions.FALSE">FALSE</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
         /// cref="InsertRecordsFromFilesRequest.CreateTableOptions.IS_REPLICATED">IS_REPLICATED</see>:</term>
         ///         <description>For a table, affects the <a
         /// href="../../concepts/tables.html#distribution"
@@ -106,7 +85,7 @@ namespace kinetica
         /// target="_top">replicated</a>.  If false, the table will be <a
         /// href="../../concepts/tables.html#sharding"
         /// target="_top">sharded</a> according to the shard key specified in
-        /// the given @{create_table_options.type_id}, or <a
+        /// the given <i>type_id</i>, or <a
         /// href="../../concepts/tables.html#random-sharding"
         /// target="_top">randomly sharded</a>, if no shard key is specified.
         /// Note that a type containing a shard key cannot be used to create a
@@ -277,7 +256,8 @@ namespace kinetica
         public struct CreateTableOptions
         {
 
-            /// <summary>Optional: ID of a currently registered type.  The
+            /// <summary>ID of a currently registered <a
+            /// href="../../concepts/types.html" target="_top">type</a>.  The
             /// default value is ''.</summary>
             public const string TYPE_ID = "type_id";
 
@@ -308,39 +288,6 @@ namespace kinetica
             /// newly created table will be a top-level table.</summary>
             public const string COLLECTION_NAME = "collection_name";
 
-            /// <summary>Indicates whether the new table to be created will be
-            /// a collection.
-            /// Supported values:
-            /// <list type="bullet">
-            ///     <item>
-            ///         <term><see
-            /// cref="InsertRecordsFromFilesRequest.CreateTableOptions.TRUE">TRUE</see></term>
-            ///     </item>
-            ///     <item>
-            ///         <term><see
-            /// cref="InsertRecordsFromFilesRequest.CreateTableOptions.FALSE">FALSE</see></term>
-            ///     </item>
-            /// </list>
-            /// The default value is <see
-            /// cref="InsertRecordsFromFilesRequest.CreateTableOptions.FALSE">FALSE</see>.</summary>
-            public const string IS_COLLECTION = "is_collection";
-
-            /// <summary>No longer supported; value will be ignored.
-            /// Supported values:
-            /// <list type="bullet">
-            ///     <item>
-            ///         <term><see
-            /// cref="InsertRecordsFromFilesRequest.CreateTableOptions.TRUE">TRUE</see></term>
-            ///     </item>
-            ///     <item>
-            ///         <term><see
-            /// cref="InsertRecordsFromFilesRequest.CreateTableOptions.FALSE">FALSE</see></term>
-            ///     </item>
-            /// </list>
-            /// The default value is <see
-            /// cref="InsertRecordsFromFilesRequest.CreateTableOptions.FALSE">FALSE</see>.</summary>
-            public const string DISALLOW_HOMOGENEOUS_TABLES = "disallow_homogeneous_tables";
-
             /// <summary>For a table, affects the <a
             /// href="../../concepts/tables.html#distribution"
             /// target="_top">distribution scheme</a> for the table's data.  If
@@ -351,7 +298,7 @@ namespace kinetica
             /// target="_top">replicated</a>.  If false, the table will be <a
             /// href="../../concepts/tables.html#sharding"
             /// target="_top">sharded</a> according to the shard key specified
-            /// in the given @{create_table_options.type_id}, or <a
+            /// in the given <i>type_id</i>, or <a
             /// href="../../concepts/tables.html#random-sharding"
             /// target="_top">randomly sharded</a>, if no shard key is
             /// specified.  Note that a type containing a shard key cannot be
@@ -520,17 +467,126 @@ namespace kinetica
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
-        /// cref="InsertRecordsFromFilesRequest.Options.FILE_TYPE">FILE_TYPE</see>:</term>
-        ///         <description>
+        /// cref="InsertRecordsFromFilesRequest.Options.BATCH_SIZE">BATCH_SIZE</see>:</term>
+        ///         <description>Specifies number of records to process before
+        /// inserting.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromFilesRequest.Options.COLUMN_FORMATS">COLUMN_FORMATS</see>:</term>
+        ///         <description>For each target column specified, applies the
+        /// column-property-bound format to the source data loaded into that
+        /// column.  Each column format will contain a mapping of one or more
+        /// of its column properties to an appropriate format for each
+        /// property.  Currently supported column properties include date,
+        /// time, & datetime. The parameter value must be formatted as a JSON
+        /// string of maps of column names to maps of column properties to
+        /// their corresponding column formats, e.g., { "order_date" : { "date"
+        /// : "%Y.%m.%d" }, "order_time" : { "time" : "%H:%M:%S" } }.  See
+        /// <i>default_column_formats</i> for valid format
+        /// syntax.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromFilesRequest.Options.COLUMNS_TO_LOAD">COLUMNS_TO_LOAD</see>:</term>
+        ///         <description>For <i>delimited_text</i> <i>file_type</i>
+        /// only. Specifies a comma-delimited list of column positions or names
+        /// to load instead of loading all columns in the file(s); if more than
+        /// one file is being loaded, the list of columns will apply to all
+        /// files. Column numbers can be specified discretely or as a range,
+        /// e.g., a value of '5,7,1..3' will create a table with the first
+        /// column in the table being the fifth column in the file, followed by
+        /// seventh column in the file, then the first column through the
+        /// fourth column in the file.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromFilesRequest.Options.DEFAULT_COLUMN_FORMATS">DEFAULT_COLUMN_FORMATS</see>:</term>
+        ///         <description>Specifies the default format to be applied to
+        /// source data loaded into columns with the corresponding column
+        /// property.  This default column-property-bound format can be
+        /// overridden by specifying a column property & format for a given
+        /// target column in <i>column_formats</i>. For each specified
+        /// annotation, the format will apply to all columns with that
+        /// annotation unless a custom <i>column_formats</i> for that
+        /// annotation is specified. The parameter value must be formatted as a
+        /// JSON string that is a map of column properties to their respective
+        /// column formats, e.g., { "date" : "%Y.%m.%d", "time" : "%H:%M:%S" }.
+        /// Column formats are specified as a string of control characters and
+        /// plain text. The supported control characters are 'Y', 'm', 'd',
+        /// 'H', 'M', 'S', and 's', which follow the Linux 'strptime()'
+        /// specification, as well as 's', which specifies seconds and
+        /// fractional seconds (though the fractional component will be
+        /// truncated past milliseconds). Formats for the 'date' annotation
+        /// must include the 'Y', 'm', and 'd' control characters. Formats for
+        /// the 'time' annotation must include the 'H', 'M', and either 'S' or
+        /// 's' (but not both) control characters. Formats for the 'datetime'
+        /// annotation meet both the 'date' and 'time' control character
+        /// requirements. For example, '{"datetime" : "%m/%d/%Y %H:%M:%S" }'
+        /// would be used to interpret text as "05/04/2000
+        /// 12:12:11"</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromFilesRequest.Options.DRY_RUN">DRY_RUN</see>:</term>
+        ///         <description>If set to <i>true</i>, no data will be
+        /// inserted but the file will be read with the applied
+        /// <i>error_handling</i> mode and the number of valid records that
+        /// would be normally inserted are returned.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
-        /// cref="InsertRecordsFromFilesRequest.Options.DELIMITED_TEXT">DELIMITED_TEXT</see></term>
+        /// cref="InsertRecordsFromFilesRequest.Options.FALSE">FALSE</see></term>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="InsertRecordsFromFilesRequest.Options.PARQUET">PARQUET</see></term>
+        /// cref="InsertRecordsFromFilesRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="InsertRecordsFromFilesRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromFilesRequest.Options.ERROR_HANDLING">ERROR_HANDLING</see>:</term>
+        ///         <description>Specifies how errors should be handled upon
+        /// insertion.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromFilesRequest.Options.PERMISSIVE">PERMISSIVE</see>:</term>
+        ///         <description>Records with missing columns are populated
+        /// with nulls if possible; otherwise, the malformed records are
+        /// skipped.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromFilesRequest.Options.IGNORE_BAD_RECORDS">IGNORE_BAD_RECORDS</see>:</term>
+        ///         <description>Malformed records are skipped.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromFilesRequest.Options.ABORT">ABORT</see>:</term>
+        ///         <description>Stops current insertion and aborts entire
+        /// operation when an error is encountered.</description>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="InsertRecordsFromFilesRequest.Options.PERMISSIVE">PERMISSIVE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromFilesRequest.Options.FILE_TYPE">FILE_TYPE</see>:</term>
+        ///         <description>File type for the file(s).
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromFilesRequest.Options.DELIMITED_TEXT">DELIMITED_TEXT</see>:</term>
+        ///         <description>Indicates the file(s) are in delimited text
+        /// format, e.g., CSV, TSV, PSV, etc.</description>
         ///     </item>
         /// </list>
         /// The default value is <see
@@ -539,26 +595,30 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="InsertRecordsFromFilesRequest.Options.LOADING_MODE">LOADING_MODE</see>:</term>
-        ///         <description>specifies how to divide up data loading among
-        /// nodes
+        ///         <description>Specifies how to divide data loading among
+        /// nodes.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
         /// cref="InsertRecordsFromFilesRequest.Options.HEAD">HEAD</see>:</term>
-        ///         <description>head node loads all data</description>
+        ///         <description>The head node loads all data. All files must
+        /// be available on the head node.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="InsertRecordsFromFilesRequest.Options.DISTRIBUTED_SHARED">DISTRIBUTED_SHARED</see>:</term>
-        ///         <description>worker nodes load all data, all nodes can see
-        /// all files and loading is divided up internally</description>
+        ///         <description>The worker nodes coordinate loading a set of
+        /// files that are available to all of them. All files must be
+        /// available on all nodes. This option is best when there is a shared
+        /// file system.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="InsertRecordsFromFilesRequest.Options.DISTRIBUTED_LOCAL">DISTRIBUTED_LOCAL</see>:</term>
-        ///         <description>each worker node loads the files that it
-        /// sees</description>
+        ///         <description>Each worker node loads all files that are
+        /// available to it. This option is best when each worker node has its
+        /// own file system.</description>
         ///     </item>
         /// </list>
         /// The default value is <see
@@ -566,93 +626,36 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="InsertRecordsFromFilesRequest.Options.ERROR_HANDLING">ERROR_HANDLING</see>:</term>
-        ///         <description>
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="InsertRecordsFromFilesRequest.Options.PERMISSIVE">PERMISSIVE</see>:</term>
-        ///         <description>tries to parse all lines: nulls are inserted
-        /// for missing tokens and extra tokens are ignored. </description>
+        /// cref="InsertRecordsFromFilesRequest.Options.TEXT_COMMENT_STRING">TEXT_COMMENT_STRING</see>:</term>
+        ///         <description>For <i>delimited_text</i> <i>file_type</i>
+        /// only. All lines in the file(s) starting with the provided string
+        /// are ignored. The comment string has no effect unless it appears at
+        /// the beginning of a line.  The default value is '#'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="InsertRecordsFromFilesRequest.Options.IGNORE_BAD_RECORDS">IGNORE_BAD_RECORDS</see>:</term>
-        ///         <description>Drops malformed lines/rows
-        /// entirely.</description>
+        /// cref="InsertRecordsFromFilesRequest.Options.TEXT_DELIMITER">TEXT_DELIMITER</see>:</term>
+        ///         <description>For <i>delimited_text</i> <i>file_type</i>
+        /// only. Specifies the delimiter for values and columns in the header
+        /// row (if present). Must be a single character.  The default value is
+        /// ','.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="InsertRecordsFromFilesRequest.Options.ABORT">ABORT</see>:</term>
-        ///         <description>Aborts ingest when it encounters an
-        /// error.</description>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="InsertRecordsFromFilesRequest.Options.PERMISSIVE">PERMISSIVE</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="InsertRecordsFromFilesRequest.Options.TRUNCATE_TABLE">TRUNCATE_TABLE</see>:</term>
-        ///         <description>
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="InsertRecordsFromFilesRequest.Options.TRUE">TRUE</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="InsertRecordsFromFilesRequest.Options.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="InsertRecordsFromFilesRequest.Options.FALSE">FALSE</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="InsertRecordsFromFilesRequest.Options.BATCH_SIZE">BATCH_SIZE</see>:</term>
-        ///         <description>number of records per batch when loading from
-        /// file</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="InsertRecordsFromFilesRequest.Options.COLUMN_FORMATS">COLUMN_FORMATS</see>:</term>
-        ///         <description>json map of colname to map of format to
-        /// value</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="InsertRecordsFromFilesRequest.Options.DEFAULT_COLUMN_FORMATS">DEFAULT_COLUMN_FORMATS</see>:</term>
-        ///         <description>json map of format to value</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="InsertRecordsFromFilesRequest.Options.DRY_RUN">DRY_RUN</see>:</term>
-        ///         <description>Walk through the files and determine number of
-        /// valid records.  Does not load data. Applies the error handling mode
-        /// to determine valid behavior
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="InsertRecordsFromFilesRequest.Options.FALSE">FALSE</see>:</term>
-        ///         <description>no dry run</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="InsertRecordsFromFilesRequest.Options.TRUE">TRUE</see>:</term>
-        ///         <description>do a dry run</description>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="InsertRecordsFromFilesRequest.Options.FALSE">FALSE</see>.</description>
+        /// cref="InsertRecordsFromFilesRequest.Options.TEXT_ESCAPE_CHARACTER">TEXT_ESCAPE_CHARACTER</see>:</term>
+        ///         <description>For <i>delimited_text</i> <i>file_type</i>
+        /// only.  The character used in the file(s) to escape certain
+        /// character sequences in text. For example, the escape character
+        /// followed by a literal 'n' escapes to a newline character within the
+        /// field. Can be used within quoted string to escape a quote
+        /// character. An empty value for this option does not specify an
+        /// escape character.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="InsertRecordsFromFilesRequest.Options.TEXT_HAS_HEADER">TEXT_HAS_HEADER</see>:</term>
-        ///         <description>
+        ///         <description>For <i>delimited_text</i> <i>file_type</i>
+        /// only. Indicates whether the delimited text files have a header row.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -669,59 +672,51 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="InsertRecordsFromFilesRequest.Options.TEXT_DELIMITER">TEXT_DELIMITER</see>:</term>
-        ///         <description>Delimiter for csv fields and header row. Must
-        /// be a single character.  The default value is ','.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
         /// cref="InsertRecordsFromFilesRequest.Options.TEXT_HEADER_PROPERTY_DELIMITER">TEXT_HEADER_PROPERTY_DELIMITER</see>:</term>
-        ///         <description>Delimiter for column properties in csv header
-        /// row.  The default value is '|'.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="InsertRecordsFromFilesRequest.Options.COLUMNS_TO_LOAD">COLUMNS_TO_LOAD</see>:</term>
-        ///         <description>Optionally used to specify a subset of columns
-        /// to load, instead of loading all columns in the file.
-        /// The columns to use are delimited by a comma. Column numbers can be
-        /// specified discretely or as a range e.g. '1 .. 4' refers to the
-        /// first through fourth columns.
-        /// For example, a value of '5,3,1..2' will create a table with the
-        /// first column in the table being the fifth column in the file,
-        /// followed by third column in the file, then the first column, and
-        /// lastly the second column.
-        /// Additionally, if the file(s) have a header, names matching the file
-        /// header names may be provided instead of numbers. Ranges are not
-        /// supported.
-        /// For example, a value of 'C, B, A' will create a three column table
-        /// with column C, followed by column B, followed by column
-        /// A.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="InsertRecordsFromFilesRequest.Options.TEXT_COMMENT_STRING">TEXT_COMMENT_STRING</see>:</term>
-        ///         <description>ignore all lines starting with the comment
-        /// value.  The default value is '#'.</description>
+        ///         <description>For <i>delimited_text</i> <i>file_type</i>
+        /// only. Specifies the delimiter for column properties in the header
+        /// row (if present). Cannot be set to same value as text_delimiter.
+        /// The default value is '|'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="InsertRecordsFromFilesRequest.Options.TEXT_NULL_STRING">TEXT_NULL_STRING</see>:</term>
-        ///         <description>value to treat as null.  The default value is
-        /// ''.</description>
+        ///         <description>For <i>delimited_text</i> <i>file_type</i>
+        /// only. The value in the file(s) to treat as a null value in the
+        /// database.  The default value is ''.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="InsertRecordsFromFilesRequest.Options.TEXT_QUOTE_CHARACTER">TEXT_QUOTE_CHARACTER</see>:</term>
-        ///         <description>quote character, defaults to a double-quote
-        /// i.e. ".Set an empty string to not have a quote character. Must be a
-        /// single character.  The default value is '"'.</description>
+        ///         <description>For <i>delimited_text</i> <i>file_type</i>
+        /// only. The quote character used in the file(s), typically
+        /// encompassing a field value. The character must appear at beginning
+        /// and end of field to take effect. Delimiters within quoted fields
+        /// are not treated as delimiters. Within a quoted field, double quotes
+        /// (") can be used to escape a single literal quote character. To not
+        /// have a quote character, specify an empty string ("").  The default
+        /// value is '"'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="InsertRecordsFromFilesRequest.Options.TEXT_ESCAPE_CHARACTER">TEXT_ESCAPE_CHARACTER</see>:</term>
-        ///         <description>escape character, defaults to no escaping.
-        /// Must be a single character</description>
+        /// cref="InsertRecordsFromFilesRequest.Options.TRUNCATE_TABLE">TRUNCATE_TABLE</see>:</term>
+        ///         <description>If set to <i>true</i>, truncates the table
+        /// specified by <paramref
+        /// cref="InsertRecordsFromFilesRequest.table_name" /> prior to loading
+        /// the file(s).
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromFilesRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromFilesRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="InsertRecordsFromFilesRequest.Options.FALSE">FALSE</see>.</description>
         ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.
@@ -730,148 +725,204 @@ namespace kinetica
         public struct Options
         {
 
-            /// <summary>
+            /// <summary>Specifies number of records to process before
+            /// inserting.</summary>
+            public const string BATCH_SIZE = "batch_size";
+
+            /// <summary>For each target column specified, applies the
+            /// column-property-bound format to the source data loaded into
+            /// that column.  Each column format will contain a mapping of one
+            /// or more of its column properties to an appropriate format for
+            /// each property.  Currently supported column properties include
+            /// date, time, & datetime. The parameter value must be formatted
+            /// as a JSON string of maps of column names to maps of column
+            /// properties to their corresponding column formats, e.g., {
+            /// "order_date" : { "date" : "%Y.%m.%d" }, "order_time" : { "time"
+            /// : "%H:%M:%S" } }.  See <i>default_column_formats</i> for valid
+            /// format syntax.</summary>
+            public const string COLUMN_FORMATS = "column_formats";
+
+            /// <summary>For <i>delimited_text</i> <i>file_type</i> only.
+            /// Specifies a comma-delimited list of column positions or names
+            /// to load instead of loading all columns in the file(s); if more
+            /// than one file is being loaded, the list of columns will apply
+            /// to all files. Column numbers can be specified discretely or as
+            /// a range, e.g., a value of '5,7,1..3' will create a table with
+            /// the first column in the table being the fifth column in the
+            /// file, followed by seventh column in the file, then the first
+            /// column through the fourth column in the file.</summary>
+            public const string COLUMNS_TO_LOAD = "columns_to_load";
+
+            /// <summary>Specifies the default format to be applied to source
+            /// data loaded into columns with the corresponding column
+            /// property.  This default column-property-bound format can be
+            /// overridden by specifying a column property & format for a given
+            /// target column in <i>column_formats</i>. For each specified
+            /// annotation, the format will apply to all columns with that
+            /// annotation unless a custom <i>column_formats</i> for that
+            /// annotation is specified. The parameter value must be formatted
+            /// as a JSON string that is a map of column properties to their
+            /// respective column formats, e.g., { "date" : "%Y.%m.%d", "time"
+            /// : "%H:%M:%S" }. Column formats are specified as a string of
+            /// control characters and plain text. The supported control
+            /// characters are 'Y', 'm', 'd', 'H', 'M', 'S', and 's', which
+            /// follow the Linux 'strptime()' specification, as well as 's',
+            /// which specifies seconds and fractional seconds (though the
+            /// fractional component will be truncated past milliseconds).
+            /// Formats for the 'date' annotation must include the 'Y', 'm',
+            /// and 'd' control characters. Formats for the 'time' annotation
+            /// must include the 'H', 'M', and either 'S' or 's' (but not both)
+            /// control characters. Formats for the 'datetime' annotation meet
+            /// both the 'date' and 'time' control character requirements. For
+            /// example, '{"datetime" : "%m/%d/%Y %H:%M:%S" }' would be used to
+            /// interpret text as "05/04/2000 12:12:11"</summary>
+            public const string DEFAULT_COLUMN_FORMATS = "default_column_formats";
+
+            /// <summary>If set to <i>true</i>, no data will be inserted but
+            /// the file will be read with the applied <i>error_handling</i>
+            /// mode and the number of valid records that would be normally
+            /// inserted are returned.
             /// Supported values:
             /// <list type="bullet">
             ///     <item>
             ///         <term><see
-            /// cref="InsertRecordsFromFilesRequest.Options.DELIMITED_TEXT">DELIMITED_TEXT</see></term>
+            /// cref="InsertRecordsFromFilesRequest.Options.FALSE">FALSE</see></term>
             ///     </item>
             ///     <item>
             ///         <term><see
-            /// cref="InsertRecordsFromFilesRequest.Options.PARQUET">PARQUET</see></term>
+            /// cref="InsertRecordsFromFilesRequest.Options.TRUE">TRUE</see></term>
             ///     </item>
             /// </list>
             /// The default value is <see
-            /// cref="InsertRecordsFromFilesRequest.Options.DELIMITED_TEXT">DELIMITED_TEXT</see>.</summary>
-            public const string FILE_TYPE = "file_type";
-            public const string DELIMITED_TEXT = "delimited_text";
-            public const string PARQUET = "parquet";
+            /// cref="InsertRecordsFromFilesRequest.Options.FALSE">FALSE</see>.</summary>
+            public const string DRY_RUN = "dry_run";
+            public const string FALSE = "false";
+            public const string TRUE = "true";
 
-            /// <summary>specifies how to divide up data loading among nodes
-            /// Supported values:
-            /// <list type="bullet">
-            ///     <item>
-            ///         <term><see
-            /// cref="InsertRecordsFromFilesRequest.Options.HEAD">HEAD</see>:</term>
-            ///         <description>head node loads all data</description>
-            ///     </item>
-            ///     <item>
-            ///         <term><see
-            /// cref="InsertRecordsFromFilesRequest.Options.DISTRIBUTED_SHARED">DISTRIBUTED_SHARED</see>:</term>
-            ///         <description>worker nodes load all data, all nodes can
-            /// see all files and loading is divided up
-            /// internally</description>
-            ///     </item>
-            ///     <item>
-            ///         <term><see
-            /// cref="InsertRecordsFromFilesRequest.Options.DISTRIBUTED_LOCAL">DISTRIBUTED_LOCAL</see>:</term>
-            ///         <description>each worker node loads the files that it
-            /// sees</description>
-            ///     </item>
-            /// </list>
-            /// The default value is <see
-            /// cref="InsertRecordsFromFilesRequest.Options.HEAD">HEAD</see>.</summary>
-            public const string LOADING_MODE = "loading_mode";
-
-            /// <summary>head node loads all data</summary>
-            public const string HEAD = "head";
-
-            /// <summary>worker nodes load all data, all nodes can see all
-            /// files and loading is divided up internally</summary>
-            public const string DISTRIBUTED_SHARED = "distributed_shared";
-
-            /// <summary>each worker node loads the files that it
-            /// sees</summary>
-            public const string DISTRIBUTED_LOCAL = "distributed_local";
-
-            /// <summary>
+            /// <summary>Specifies how errors should be handled upon insertion.
             /// Supported values:
             /// <list type="bullet">
             ///     <item>
             ///         <term><see
             /// cref="InsertRecordsFromFilesRequest.Options.PERMISSIVE">PERMISSIVE</see>:</term>
-            ///         <description>tries to parse all lines: nulls are
-            /// inserted for missing tokens and extra tokens are ignored.
-            /// </description>
+            ///         <description>Records with missing columns are populated
+            /// with nulls if possible; otherwise, the malformed records are
+            /// skipped.</description>
             ///     </item>
             ///     <item>
             ///         <term><see
             /// cref="InsertRecordsFromFilesRequest.Options.IGNORE_BAD_RECORDS">IGNORE_BAD_RECORDS</see>:</term>
-            ///         <description>Drops malformed lines/rows
-            /// entirely.</description>
+            ///         <description>Malformed records are
+            /// skipped.</description>
             ///     </item>
             ///     <item>
             ///         <term><see
             /// cref="InsertRecordsFromFilesRequest.Options.ABORT">ABORT</see>:</term>
-            ///         <description>Aborts ingest when it encounters an
-            /// error.</description>
+            ///         <description>Stops current insertion and aborts entire
+            /// operation when an error is encountered.</description>
             ///     </item>
             /// </list>
             /// The default value is <see
             /// cref="InsertRecordsFromFilesRequest.Options.PERMISSIVE">PERMISSIVE</see>.</summary>
             public const string ERROR_HANDLING = "error_handling";
 
-            /// <summary>tries to parse all lines: nulls are inserted for
-            /// missing tokens and extra tokens are ignored. </summary>
+            /// <summary>Records with missing columns are populated with nulls
+            /// if possible; otherwise, the malformed records are
+            /// skipped.</summary>
             public const string PERMISSIVE = "permissive";
 
-            /// <summary>Drops malformed lines/rows entirely.</summary>
+            /// <summary>Malformed records are skipped.</summary>
             public const string IGNORE_BAD_RECORDS = "ignore_bad_records";
 
-            /// <summary>Aborts ingest when it encounters an error.</summary>
+            /// <summary>Stops current insertion and aborts entire operation
+            /// when an error is encountered.</summary>
             public const string ABORT = "abort";
 
-            /// <summary>
+            /// <summary>File type for the file(s).
             /// Supported values:
             /// <list type="bullet">
             ///     <item>
             ///         <term><see
-            /// cref="InsertRecordsFromFilesRequest.Options.TRUE">TRUE</see></term>
-            ///     </item>
-            ///     <item>
-            ///         <term><see
-            /// cref="InsertRecordsFromFilesRequest.Options.FALSE">FALSE</see></term>
+            /// cref="InsertRecordsFromFilesRequest.Options.DELIMITED_TEXT">DELIMITED_TEXT</see>:</term>
+            ///         <description>Indicates the file(s) are in delimited
+            /// text format, e.g., CSV, TSV, PSV, etc.</description>
             ///     </item>
             /// </list>
             /// The default value is <see
-            /// cref="InsertRecordsFromFilesRequest.Options.FALSE">FALSE</see>.</summary>
-            public const string TRUNCATE_TABLE = "truncate_table";
-            public const string TRUE = "true";
-            public const string FALSE = "false";
+            /// cref="InsertRecordsFromFilesRequest.Options.DELIMITED_TEXT">DELIMITED_TEXT</see>.</summary>
+            public const string FILE_TYPE = "file_type";
 
-            /// <summary>number of records per batch when loading from
-            /// file</summary>
-            public const string BATCH_SIZE = "batch_size";
+            /// <summary>Indicates the file(s) are in delimited text format,
+            /// e.g., CSV, TSV, PSV, etc.</summary>
+            public const string DELIMITED_TEXT = "delimited_text";
 
-            /// <summary>json map of colname to map of format to
-            /// value</summary>
-            public const string COLUMN_FORMATS = "column_formats";
-
-            /// <summary>json map of format to value</summary>
-            public const string DEFAULT_COLUMN_FORMATS = "default_column_formats";
-
-            /// <summary>Walk through the files and determine number of valid
-            /// records.  Does not load data. Applies the error handling mode
-            /// to determine valid behavior
+            /// <summary>Specifies how to divide data loading among nodes.
             /// Supported values:
             /// <list type="bullet">
             ///     <item>
             ///         <term><see
-            /// cref="InsertRecordsFromFilesRequest.Options.FALSE">FALSE</see>:</term>
-            ///         <description>no dry run</description>
+            /// cref="InsertRecordsFromFilesRequest.Options.HEAD">HEAD</see>:</term>
+            ///         <description>The head node loads all data. All files
+            /// must be available on the head node.</description>
             ///     </item>
             ///     <item>
             ///         <term><see
-            /// cref="InsertRecordsFromFilesRequest.Options.TRUE">TRUE</see>:</term>
-            ///         <description>do a dry run</description>
+            /// cref="InsertRecordsFromFilesRequest.Options.DISTRIBUTED_SHARED">DISTRIBUTED_SHARED</see>:</term>
+            ///         <description>The worker nodes coordinate loading a set
+            /// of files that are available to all of them. All files must be
+            /// available on all nodes. This option is best when there is a
+            /// shared file system.</description>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="InsertRecordsFromFilesRequest.Options.DISTRIBUTED_LOCAL">DISTRIBUTED_LOCAL</see>:</term>
+            ///         <description>Each worker node loads all files that are
+            /// available to it. This option is best when each worker node has
+            /// its own file system.</description>
             ///     </item>
             /// </list>
             /// The default value is <see
-            /// cref="InsertRecordsFromFilesRequest.Options.FALSE">FALSE</see>.</summary>
-            public const string DRY_RUN = "dry_run";
+            /// cref="InsertRecordsFromFilesRequest.Options.HEAD">HEAD</see>.</summary>
+            public const string LOADING_MODE = "loading_mode";
 
-            /// <summary>
+            /// <summary>The head node loads all data. All files must be
+            /// available on the head node.</summary>
+            public const string HEAD = "head";
+
+            /// <summary>The worker nodes coordinate loading a set of files
+            /// that are available to all of them. All files must be available
+            /// on all nodes. This option is best when there is a shared file
+            /// system.</summary>
+            public const string DISTRIBUTED_SHARED = "distributed_shared";
+
+            /// <summary>Each worker node loads all files that are available to
+            /// it. This option is best when each worker node has its own file
+            /// system.</summary>
+            public const string DISTRIBUTED_LOCAL = "distributed_local";
+
+            /// <summary>For <i>delimited_text</i> <i>file_type</i> only. All
+            /// lines in the file(s) starting with the provided string are
+            /// ignored. The comment string has no effect unless it appears at
+            /// the beginning of a line.  The default value is '#'.</summary>
+            public const string TEXT_COMMENT_STRING = "text_comment_string";
+
+            /// <summary>For <i>delimited_text</i> <i>file_type</i> only.
+            /// Specifies the delimiter for values and columns in the header
+            /// row (if present). Must be a single character.  The default
+            /// value is ','.</summary>
+            public const string TEXT_DELIMITER = "text_delimiter";
+
+            /// <summary>For <i>delimited_text</i> <i>file_type</i> only.  The
+            /// character used in the file(s) to escape certain character
+            /// sequences in text. For example, the escape character followed
+            /// by a literal 'n' escapes to a newline character within the
+            /// field. Can be used within quoted string to escape a quote
+            /// character. An empty value for this option does not specify an
+            /// escape character.</summary>
+            public const string TEXT_ESCAPE_CHARACTER = "text_escape_character";
+
+            /// <summary>For <i>delimited_text</i> <i>file_type</i> only.
+            /// Indicates whether the delimited text files have a header row.
             /// Supported values:
             /// <list type="bullet">
             ///     <item>
@@ -887,62 +938,70 @@ namespace kinetica
             /// cref="InsertRecordsFromFilesRequest.Options.TRUE">TRUE</see>.</summary>
             public const string TEXT_HAS_HEADER = "text_has_header";
 
-            /// <summary>Delimiter for csv fields and header row. Must be a
-            /// single character.  The default value is ','.</summary>
-            public const string TEXT_DELIMITER = "text_delimiter";
-
-            /// <summary>Delimiter for column properties in csv header row.
+            /// <summary>For <i>delimited_text</i> <i>file_type</i> only.
+            /// Specifies the delimiter for column properties in the header row
+            /// (if present). Cannot be set to same value as text_delimiter.
             /// The default value is '|'.</summary>
             public const string TEXT_HEADER_PROPERTY_DELIMITER = "text_header_property_delimiter";
 
-            /// <summary>Optionally used to specify a subset of columns to
-            /// load, instead of loading all columns in the file.
-            /// The columns to use are delimited by a comma. Column numbers can
-            /// be specified discretely or as a range e.g. '1 .. 4' refers to
-            /// the first through fourth columns.
-            /// For example, a value of '5,3,1..2' will create a table with the
-            /// first column in the table being the fifth column in the file,
-            /// followed by third column in the file, then the first column,
-            /// and lastly the second column.
-            /// Additionally, if the file(s) have a header, names matching the
-            /// file header names may be provided instead of numbers. Ranges
-            /// are not supported.
-            /// For example, a value of 'C, B, A' will create a three column
-            /// table with column C, followed by column B, followed by column
-            /// A.</summary>
-            public const string COLUMNS_TO_LOAD = "columns_to_load";
-
-            /// <summary>ignore all lines starting with the comment value.  The
-            /// default value is '#'.</summary>
-            public const string TEXT_COMMENT_STRING = "text_comment_string";
-
-            /// <summary>value to treat as null.  The default value is
-            /// ''.</summary>
+            /// <summary>For <i>delimited_text</i> <i>file_type</i> only. The
+            /// value in the file(s) to treat as a null value in the database.
+            /// The default value is ''.</summary>
             public const string TEXT_NULL_STRING = "text_null_string";
 
-            /// <summary>quote character, defaults to a double-quote i.e. ".Set
-            /// an empty string to not have a quote character. Must be a single
-            /// character.  The default value is '"'.</summary>
+            /// <summary>For <i>delimited_text</i> <i>file_type</i> only. The
+            /// quote character used in the file(s), typically encompassing a
+            /// field value. The character must appear at beginning and end of
+            /// field to take effect. Delimiters within quoted fields are not
+            /// treated as delimiters. Within a quoted field, double quotes (")
+            /// can be used to escape a single literal quote character. To not
+            /// have a quote character, specify an empty string ("").  The
+            /// default value is '"'.</summary>
             public const string TEXT_QUOTE_CHARACTER = "text_quote_character";
 
-            /// <summary>escape character, defaults to no escaping. Must be a
-            /// single character</summary>
-            public const string TEXT_ESCAPE_CHARACTER = "text_escape_character";
+            /// <summary>If set to <i>true</i>, truncates the table specified
+            /// by <see cref="table_name" /> prior to loading the file(s).
+            /// Supported values:
+            /// <list type="bullet">
+            ///     <item>
+            ///         <term><see
+            /// cref="InsertRecordsFromFilesRequest.Options.TRUE">TRUE</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="InsertRecordsFromFilesRequest.Options.FALSE">FALSE</see></term>
+            ///     </item>
+            /// </list>
+            /// The default value is <see
+            /// cref="InsertRecordsFromFilesRequest.Options.FALSE">FALSE</see>.</summary>
+            public const string TRUNCATE_TABLE = "truncate_table";
         } // end struct Options
 
+
+        /// <summary>Name of the table into which the data will be inserted. If
+        /// the table does not exist, the table will be created using either an
+        /// existing <i>type_id</i> or the type inferred from the file.
+        /// </summary>
         public string table_name { get; set; }
 
-        /// <summary>(can have wildcards) -- array of strings (can be relative
-        /// paths)  </summary>
+        /// <summary>Absolute or relative filepath(s) from where files will be
+        /// loaded. Relative filepaths are relative to the defined <a
+        /// href="../../config/index.html#external-files"
+        /// target="_top">external_files_directory</a> parameter in the server
+        /// configuration. The filepaths may include wildcards (*). If the
+        /// first path ends in .tsv, the text delimiter will be defaulted to a
+        /// tab character. If the first path ends in .psv, the text delimiter
+        /// will be defaulted to a pipe character (|).  </summary>
         public IList<string> filepaths { get; set; } = new List<string>();
 
-        /// <summary>see options in create_table_request
+        /// <summary>Options used when creating a new table.
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
         /// cref="InsertRecordsFromFilesRequest.CreateTableOptions.TYPE_ID">TYPE_ID</see>:</term>
-        ///         <description>Optional: ID of a currently registered type.
-        /// The default value is ''.</description>
+        ///         <description>ID of a currently registered <a
+        /// href="../../concepts/types.html" target="_top">type</a>.  The
+        /// default value is ''.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -975,43 +1034,6 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="InsertRecordsFromFilesRequest.CreateTableOptions.IS_COLLECTION">IS_COLLECTION</see>:</term>
-        ///         <description>Indicates whether the new table to be created
-        /// will be a collection.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="InsertRecordsFromFilesRequest.CreateTableOptions.TRUE">TRUE</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="InsertRecordsFromFilesRequest.CreateTableOptions.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="InsertRecordsFromFilesRequest.CreateTableOptions.FALSE">FALSE</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="InsertRecordsFromFilesRequest.CreateTableOptions.DISALLOW_HOMOGENEOUS_TABLES">DISALLOW_HOMOGENEOUS_TABLES</see>:</term>
-        ///         <description>No longer supported; value will be ignored.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="InsertRecordsFromFilesRequest.CreateTableOptions.TRUE">TRUE</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="InsertRecordsFromFilesRequest.CreateTableOptions.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="InsertRecordsFromFilesRequest.CreateTableOptions.FALSE">FALSE</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
         /// cref="InsertRecordsFromFilesRequest.CreateTableOptions.IS_REPLICATED">IS_REPLICATED</see>:</term>
         ///         <description>For a table, affects the <a
         /// href="../../concepts/tables.html#distribution"
@@ -1023,7 +1045,7 @@ namespace kinetica
         /// target="_top">replicated</a>.  If false, the table will be <a
         /// href="../../concepts/tables.html#sharding"
         /// target="_top">sharded</a> according to the shard key specified in
-        /// the given @{create_table_options.type_id}, or <a
+        /// the given <i>type_id</i>, or <a
         /// href="../../concepts/tables.html#random-sharding"
         /// target="_top">randomly sharded</a>, if no shard key is specified.
         /// Note that a type containing a shard key cannot be used to create a
@@ -1195,17 +1217,126 @@ namespace kinetica
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
-        /// cref="InsertRecordsFromFilesRequest.Options.FILE_TYPE">FILE_TYPE</see>:</term>
-        ///         <description>
+        /// cref="InsertRecordsFromFilesRequest.Options.BATCH_SIZE">BATCH_SIZE</see>:</term>
+        ///         <description>Specifies number of records to process before
+        /// inserting.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromFilesRequest.Options.COLUMN_FORMATS">COLUMN_FORMATS</see>:</term>
+        ///         <description>For each target column specified, applies the
+        /// column-property-bound format to the source data loaded into that
+        /// column.  Each column format will contain a mapping of one or more
+        /// of its column properties to an appropriate format for each
+        /// property.  Currently supported column properties include date,
+        /// time, & datetime. The parameter value must be formatted as a JSON
+        /// string of maps of column names to maps of column properties to
+        /// their corresponding column formats, e.g., { "order_date" : { "date"
+        /// : "%Y.%m.%d" }, "order_time" : { "time" : "%H:%M:%S" } }.  See
+        /// <i>default_column_formats</i> for valid format
+        /// syntax.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromFilesRequest.Options.COLUMNS_TO_LOAD">COLUMNS_TO_LOAD</see>:</term>
+        ///         <description>For <i>delimited_text</i> <i>file_type</i>
+        /// only. Specifies a comma-delimited list of column positions or names
+        /// to load instead of loading all columns in the file(s); if more than
+        /// one file is being loaded, the list of columns will apply to all
+        /// files. Column numbers can be specified discretely or as a range,
+        /// e.g., a value of '5,7,1..3' will create a table with the first
+        /// column in the table being the fifth column in the file, followed by
+        /// seventh column in the file, then the first column through the
+        /// fourth column in the file.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromFilesRequest.Options.DEFAULT_COLUMN_FORMATS">DEFAULT_COLUMN_FORMATS</see>:</term>
+        ///         <description>Specifies the default format to be applied to
+        /// source data loaded into columns with the corresponding column
+        /// property.  This default column-property-bound format can be
+        /// overridden by specifying a column property & format for a given
+        /// target column in <i>column_formats</i>. For each specified
+        /// annotation, the format will apply to all columns with that
+        /// annotation unless a custom <i>column_formats</i> for that
+        /// annotation is specified. The parameter value must be formatted as a
+        /// JSON string that is a map of column properties to their respective
+        /// column formats, e.g., { "date" : "%Y.%m.%d", "time" : "%H:%M:%S" }.
+        /// Column formats are specified as a string of control characters and
+        /// plain text. The supported control characters are 'Y', 'm', 'd',
+        /// 'H', 'M', 'S', and 's', which follow the Linux 'strptime()'
+        /// specification, as well as 's', which specifies seconds and
+        /// fractional seconds (though the fractional component will be
+        /// truncated past milliseconds). Formats for the 'date' annotation
+        /// must include the 'Y', 'm', and 'd' control characters. Formats for
+        /// the 'time' annotation must include the 'H', 'M', and either 'S' or
+        /// 's' (but not both) control characters. Formats for the 'datetime'
+        /// annotation meet both the 'date' and 'time' control character
+        /// requirements. For example, '{"datetime" : "%m/%d/%Y %H:%M:%S" }'
+        /// would be used to interpret text as "05/04/2000
+        /// 12:12:11"</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromFilesRequest.Options.DRY_RUN">DRY_RUN</see>:</term>
+        ///         <description>If set to <i>true</i>, no data will be
+        /// inserted but the file will be read with the applied
+        /// <i>error_handling</i> mode and the number of valid records that
+        /// would be normally inserted are returned.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
-        /// cref="InsertRecordsFromFilesRequest.Options.DELIMITED_TEXT">DELIMITED_TEXT</see></term>
+        /// cref="InsertRecordsFromFilesRequest.Options.FALSE">FALSE</see></term>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="InsertRecordsFromFilesRequest.Options.PARQUET">PARQUET</see></term>
+        /// cref="InsertRecordsFromFilesRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="InsertRecordsFromFilesRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromFilesRequest.Options.ERROR_HANDLING">ERROR_HANDLING</see>:</term>
+        ///         <description>Specifies how errors should be handled upon
+        /// insertion.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromFilesRequest.Options.PERMISSIVE">PERMISSIVE</see>:</term>
+        ///         <description>Records with missing columns are populated
+        /// with nulls if possible; otherwise, the malformed records are
+        /// skipped.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromFilesRequest.Options.IGNORE_BAD_RECORDS">IGNORE_BAD_RECORDS</see>:</term>
+        ///         <description>Malformed records are skipped.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromFilesRequest.Options.ABORT">ABORT</see>:</term>
+        ///         <description>Stops current insertion and aborts entire
+        /// operation when an error is encountered.</description>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="InsertRecordsFromFilesRequest.Options.PERMISSIVE">PERMISSIVE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromFilesRequest.Options.FILE_TYPE">FILE_TYPE</see>:</term>
+        ///         <description>File type for the file(s).
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromFilesRequest.Options.DELIMITED_TEXT">DELIMITED_TEXT</see>:</term>
+        ///         <description>Indicates the file(s) are in delimited text
+        /// format, e.g., CSV, TSV, PSV, etc.</description>
         ///     </item>
         /// </list>
         /// The default value is <see
@@ -1214,26 +1345,30 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="InsertRecordsFromFilesRequest.Options.LOADING_MODE">LOADING_MODE</see>:</term>
-        ///         <description>specifies how to divide up data loading among
-        /// nodes
+        ///         <description>Specifies how to divide data loading among
+        /// nodes.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
         /// cref="InsertRecordsFromFilesRequest.Options.HEAD">HEAD</see>:</term>
-        ///         <description>head node loads all data</description>
+        ///         <description>The head node loads all data. All files must
+        /// be available on the head node.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="InsertRecordsFromFilesRequest.Options.DISTRIBUTED_SHARED">DISTRIBUTED_SHARED</see>:</term>
-        ///         <description>worker nodes load all data, all nodes can see
-        /// all files and loading is divided up internally</description>
+        ///         <description>The worker nodes coordinate loading a set of
+        /// files that are available to all of them. All files must be
+        /// available on all nodes. This option is best when there is a shared
+        /// file system.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="InsertRecordsFromFilesRequest.Options.DISTRIBUTED_LOCAL">DISTRIBUTED_LOCAL</see>:</term>
-        ///         <description>each worker node loads the files that it
-        /// sees</description>
+        ///         <description>Each worker node loads all files that are
+        /// available to it. This option is best when each worker node has its
+        /// own file system.</description>
         ///     </item>
         /// </list>
         /// The default value is <see
@@ -1241,93 +1376,36 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="InsertRecordsFromFilesRequest.Options.ERROR_HANDLING">ERROR_HANDLING</see>:</term>
-        ///         <description>
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="InsertRecordsFromFilesRequest.Options.PERMISSIVE">PERMISSIVE</see>:</term>
-        ///         <description>tries to parse all lines: nulls are inserted
-        /// for missing tokens and extra tokens are ignored. </description>
+        /// cref="InsertRecordsFromFilesRequest.Options.TEXT_COMMENT_STRING">TEXT_COMMENT_STRING</see>:</term>
+        ///         <description>For <i>delimited_text</i> <i>file_type</i>
+        /// only. All lines in the file(s) starting with the provided string
+        /// are ignored. The comment string has no effect unless it appears at
+        /// the beginning of a line.  The default value is '#'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="InsertRecordsFromFilesRequest.Options.IGNORE_BAD_RECORDS">IGNORE_BAD_RECORDS</see>:</term>
-        ///         <description>Drops malformed lines/rows
-        /// entirely.</description>
+        /// cref="InsertRecordsFromFilesRequest.Options.TEXT_DELIMITER">TEXT_DELIMITER</see>:</term>
+        ///         <description>For <i>delimited_text</i> <i>file_type</i>
+        /// only. Specifies the delimiter for values and columns in the header
+        /// row (if present). Must be a single character.  The default value is
+        /// ','.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="InsertRecordsFromFilesRequest.Options.ABORT">ABORT</see>:</term>
-        ///         <description>Aborts ingest when it encounters an
-        /// error.</description>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="InsertRecordsFromFilesRequest.Options.PERMISSIVE">PERMISSIVE</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="InsertRecordsFromFilesRequest.Options.TRUNCATE_TABLE">TRUNCATE_TABLE</see>:</term>
-        ///         <description>
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="InsertRecordsFromFilesRequest.Options.TRUE">TRUE</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="InsertRecordsFromFilesRequest.Options.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="InsertRecordsFromFilesRequest.Options.FALSE">FALSE</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="InsertRecordsFromFilesRequest.Options.BATCH_SIZE">BATCH_SIZE</see>:</term>
-        ///         <description>number of records per batch when loading from
-        /// file</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="InsertRecordsFromFilesRequest.Options.COLUMN_FORMATS">COLUMN_FORMATS</see>:</term>
-        ///         <description>json map of colname to map of format to
-        /// value</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="InsertRecordsFromFilesRequest.Options.DEFAULT_COLUMN_FORMATS">DEFAULT_COLUMN_FORMATS</see>:</term>
-        ///         <description>json map of format to value</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="InsertRecordsFromFilesRequest.Options.DRY_RUN">DRY_RUN</see>:</term>
-        ///         <description>Walk through the files and determine number of
-        /// valid records.  Does not load data. Applies the error handling mode
-        /// to determine valid behavior
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="InsertRecordsFromFilesRequest.Options.FALSE">FALSE</see>:</term>
-        ///         <description>no dry run</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="InsertRecordsFromFilesRequest.Options.TRUE">TRUE</see>:</term>
-        ///         <description>do a dry run</description>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="InsertRecordsFromFilesRequest.Options.FALSE">FALSE</see>.</description>
+        /// cref="InsertRecordsFromFilesRequest.Options.TEXT_ESCAPE_CHARACTER">TEXT_ESCAPE_CHARACTER</see>:</term>
+        ///         <description>For <i>delimited_text</i> <i>file_type</i>
+        /// only.  The character used in the file(s) to escape certain
+        /// character sequences in text. For example, the escape character
+        /// followed by a literal 'n' escapes to a newline character within the
+        /// field. Can be used within quoted string to escape a quote
+        /// character. An empty value for this option does not specify an
+        /// escape character.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="InsertRecordsFromFilesRequest.Options.TEXT_HAS_HEADER">TEXT_HAS_HEADER</see>:</term>
-        ///         <description>
+        ///         <description>For <i>delimited_text</i> <i>file_type</i>
+        /// only. Indicates whether the delimited text files have a header row.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -1344,59 +1422,51 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="InsertRecordsFromFilesRequest.Options.TEXT_DELIMITER">TEXT_DELIMITER</see>:</term>
-        ///         <description>Delimiter for csv fields and header row. Must
-        /// be a single character.  The default value is ','.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
         /// cref="InsertRecordsFromFilesRequest.Options.TEXT_HEADER_PROPERTY_DELIMITER">TEXT_HEADER_PROPERTY_DELIMITER</see>:</term>
-        ///         <description>Delimiter for column properties in csv header
-        /// row.  The default value is '|'.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="InsertRecordsFromFilesRequest.Options.COLUMNS_TO_LOAD">COLUMNS_TO_LOAD</see>:</term>
-        ///         <description>Optionally used to specify a subset of columns
-        /// to load, instead of loading all columns in the file.
-        /// The columns to use are delimited by a comma. Column numbers can be
-        /// specified discretely or as a range e.g. '1 .. 4' refers to the
-        /// first through fourth columns.
-        /// For example, a value of '5,3,1..2' will create a table with the
-        /// first column in the table being the fifth column in the file,
-        /// followed by third column in the file, then the first column, and
-        /// lastly the second column.
-        /// Additionally, if the file(s) have a header, names matching the file
-        /// header names may be provided instead of numbers. Ranges are not
-        /// supported.
-        /// For example, a value of 'C, B, A' will create a three column table
-        /// with column C, followed by column B, followed by column
-        /// A.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="InsertRecordsFromFilesRequest.Options.TEXT_COMMENT_STRING">TEXT_COMMENT_STRING</see>:</term>
-        ///         <description>ignore all lines starting with the comment
-        /// value.  The default value is '#'.</description>
+        ///         <description>For <i>delimited_text</i> <i>file_type</i>
+        /// only. Specifies the delimiter for column properties in the header
+        /// row (if present). Cannot be set to same value as text_delimiter.
+        /// The default value is '|'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="InsertRecordsFromFilesRequest.Options.TEXT_NULL_STRING">TEXT_NULL_STRING</see>:</term>
-        ///         <description>value to treat as null.  The default value is
-        /// ''.</description>
+        ///         <description>For <i>delimited_text</i> <i>file_type</i>
+        /// only. The value in the file(s) to treat as a null value in the
+        /// database.  The default value is ''.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="InsertRecordsFromFilesRequest.Options.TEXT_QUOTE_CHARACTER">TEXT_QUOTE_CHARACTER</see>:</term>
-        ///         <description>quote character, defaults to a double-quote
-        /// i.e. ".Set an empty string to not have a quote character. Must be a
-        /// single character.  The default value is '"'.</description>
+        ///         <description>For <i>delimited_text</i> <i>file_type</i>
+        /// only. The quote character used in the file(s), typically
+        /// encompassing a field value. The character must appear at beginning
+        /// and end of field to take effect. Delimiters within quoted fields
+        /// are not treated as delimiters. Within a quoted field, double quotes
+        /// (") can be used to escape a single literal quote character. To not
+        /// have a quote character, specify an empty string ("").  The default
+        /// value is '"'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="InsertRecordsFromFilesRequest.Options.TEXT_ESCAPE_CHARACTER">TEXT_ESCAPE_CHARACTER</see>:</term>
-        ///         <description>escape character, defaults to no escaping.
-        /// Must be a single character</description>
+        /// cref="InsertRecordsFromFilesRequest.Options.TRUNCATE_TABLE">TRUNCATE_TABLE</see>:</term>
+        ///         <description>If set to <i>true</i>, truncates the table
+        /// specified by <paramref
+        /// cref="InsertRecordsFromFilesRequest.table_name" /> prior to loading
+        /// the file(s).
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromFilesRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromFilesRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="InsertRecordsFromFilesRequest.Options.FALSE">FALSE</see>.</description>
         ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.</summary>
@@ -1410,17 +1480,27 @@ namespace kinetica
         /// <summary>Constructs an InsertRecordsFromFilesRequest object with
         /// the specified parameters.</summary>
         /// 
-        /// <param name="table_name"></param>
-        /// <param name="filepaths">(can have wildcards) -- array of strings
-        /// (can be relative paths)  </param>
-        /// <param name="create_table_options">see options in
-        /// create_table_request
+        /// <param name="table_name">Name of the table into which the data will
+        /// be inserted. If the table does not exist, the table will be created
+        /// using either an existing <i>type_id</i> or the type inferred from
+        /// the file.  </param>
+        /// <param name="filepaths">Absolute or relative filepath(s) from where
+        /// files will be loaded. Relative filepaths are relative to the
+        /// defined <a href="../../config/index.html#external-files"
+        /// target="_top">external_files_directory</a> parameter in the server
+        /// configuration. The filepaths may include wildcards (*). If the
+        /// first path ends in .tsv, the text delimiter will be defaulted to a
+        /// tab character. If the first path ends in .psv, the text delimiter
+        /// will be defaulted to a pipe character (|).  </param>
+        /// <param name="create_table_options">Options used when creating a new
+        /// table.
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
         /// cref="InsertRecordsFromFilesRequest.CreateTableOptions.TYPE_ID">TYPE_ID</see>:</term>
-        ///         <description>Optional: ID of a currently registered type.
-        /// The default value is ''.</description>
+        ///         <description>ID of a currently registered <a
+        /// href="../../concepts/types.html" target="_top">type</a>.  The
+        /// default value is ''.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -1453,43 +1533,6 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="InsertRecordsFromFilesRequest.CreateTableOptions.IS_COLLECTION">IS_COLLECTION</see>:</term>
-        ///         <description>Indicates whether the new table to be created
-        /// will be a collection.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="InsertRecordsFromFilesRequest.CreateTableOptions.TRUE">TRUE</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="InsertRecordsFromFilesRequest.CreateTableOptions.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="InsertRecordsFromFilesRequest.CreateTableOptions.FALSE">FALSE</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="InsertRecordsFromFilesRequest.CreateTableOptions.DISALLOW_HOMOGENEOUS_TABLES">DISALLOW_HOMOGENEOUS_TABLES</see>:</term>
-        ///         <description>No longer supported; value will be ignored.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="InsertRecordsFromFilesRequest.CreateTableOptions.TRUE">TRUE</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="InsertRecordsFromFilesRequest.CreateTableOptions.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="InsertRecordsFromFilesRequest.CreateTableOptions.FALSE">FALSE</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
         /// cref="InsertRecordsFromFilesRequest.CreateTableOptions.IS_REPLICATED">IS_REPLICATED</see>:</term>
         ///         <description>For a table, affects the <a
         /// href="../../concepts/tables.html#distribution"
@@ -1501,7 +1544,7 @@ namespace kinetica
         /// target="_top">replicated</a>.  If false, the table will be <a
         /// href="../../concepts/tables.html#sharding"
         /// target="_top">sharded</a> according to the shard key specified in
-        /// the given @{create_table_options.type_id}, or <a
+        /// the given <i>type_id</i>, or <a
         /// href="../../concepts/tables.html#random-sharding"
         /// target="_top">randomly sharded</a>, if no shard key is specified.
         /// Note that a type containing a shard key cannot be used to create a
@@ -1671,17 +1714,126 @@ namespace kinetica
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
-        /// cref="InsertRecordsFromFilesRequest.Options.FILE_TYPE">FILE_TYPE</see>:</term>
-        ///         <description>
+        /// cref="InsertRecordsFromFilesRequest.Options.BATCH_SIZE">BATCH_SIZE</see>:</term>
+        ///         <description>Specifies number of records to process before
+        /// inserting.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromFilesRequest.Options.COLUMN_FORMATS">COLUMN_FORMATS</see>:</term>
+        ///         <description>For each target column specified, applies the
+        /// column-property-bound format to the source data loaded into that
+        /// column.  Each column format will contain a mapping of one or more
+        /// of its column properties to an appropriate format for each
+        /// property.  Currently supported column properties include date,
+        /// time, & datetime. The parameter value must be formatted as a JSON
+        /// string of maps of column names to maps of column properties to
+        /// their corresponding column formats, e.g., { "order_date" : { "date"
+        /// : "%Y.%m.%d" }, "order_time" : { "time" : "%H:%M:%S" } }.  See
+        /// <i>default_column_formats</i> for valid format
+        /// syntax.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromFilesRequest.Options.COLUMNS_TO_LOAD">COLUMNS_TO_LOAD</see>:</term>
+        ///         <description>For <i>delimited_text</i> <i>file_type</i>
+        /// only. Specifies a comma-delimited list of column positions or names
+        /// to load instead of loading all columns in the file(s); if more than
+        /// one file is being loaded, the list of columns will apply to all
+        /// files. Column numbers can be specified discretely or as a range,
+        /// e.g., a value of '5,7,1..3' will create a table with the first
+        /// column in the table being the fifth column in the file, followed by
+        /// seventh column in the file, then the first column through the
+        /// fourth column in the file.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromFilesRequest.Options.DEFAULT_COLUMN_FORMATS">DEFAULT_COLUMN_FORMATS</see>:</term>
+        ///         <description>Specifies the default format to be applied to
+        /// source data loaded into columns with the corresponding column
+        /// property.  This default column-property-bound format can be
+        /// overridden by specifying a column property & format for a given
+        /// target column in <i>column_formats</i>. For each specified
+        /// annotation, the format will apply to all columns with that
+        /// annotation unless a custom <i>column_formats</i> for that
+        /// annotation is specified. The parameter value must be formatted as a
+        /// JSON string that is a map of column properties to their respective
+        /// column formats, e.g., { "date" : "%Y.%m.%d", "time" : "%H:%M:%S" }.
+        /// Column formats are specified as a string of control characters and
+        /// plain text. The supported control characters are 'Y', 'm', 'd',
+        /// 'H', 'M', 'S', and 's', which follow the Linux 'strptime()'
+        /// specification, as well as 's', which specifies seconds and
+        /// fractional seconds (though the fractional component will be
+        /// truncated past milliseconds). Formats for the 'date' annotation
+        /// must include the 'Y', 'm', and 'd' control characters. Formats for
+        /// the 'time' annotation must include the 'H', 'M', and either 'S' or
+        /// 's' (but not both) control characters. Formats for the 'datetime'
+        /// annotation meet both the 'date' and 'time' control character
+        /// requirements. For example, '{"datetime" : "%m/%d/%Y %H:%M:%S" }'
+        /// would be used to interpret text as "05/04/2000
+        /// 12:12:11"</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromFilesRequest.Options.DRY_RUN">DRY_RUN</see>:</term>
+        ///         <description>If set to <i>true</i>, no data will be
+        /// inserted but the file will be read with the applied
+        /// <i>error_handling</i> mode and the number of valid records that
+        /// would be normally inserted are returned.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
-        /// cref="InsertRecordsFromFilesRequest.Options.DELIMITED_TEXT">DELIMITED_TEXT</see></term>
+        /// cref="InsertRecordsFromFilesRequest.Options.FALSE">FALSE</see></term>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="InsertRecordsFromFilesRequest.Options.PARQUET">PARQUET</see></term>
+        /// cref="InsertRecordsFromFilesRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="InsertRecordsFromFilesRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromFilesRequest.Options.ERROR_HANDLING">ERROR_HANDLING</see>:</term>
+        ///         <description>Specifies how errors should be handled upon
+        /// insertion.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromFilesRequest.Options.PERMISSIVE">PERMISSIVE</see>:</term>
+        ///         <description>Records with missing columns are populated
+        /// with nulls if possible; otherwise, the malformed records are
+        /// skipped.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromFilesRequest.Options.IGNORE_BAD_RECORDS">IGNORE_BAD_RECORDS</see>:</term>
+        ///         <description>Malformed records are skipped.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromFilesRequest.Options.ABORT">ABORT</see>:</term>
+        ///         <description>Stops current insertion and aborts entire
+        /// operation when an error is encountered.</description>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="InsertRecordsFromFilesRequest.Options.PERMISSIVE">PERMISSIVE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromFilesRequest.Options.FILE_TYPE">FILE_TYPE</see>:</term>
+        ///         <description>File type for the file(s).
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromFilesRequest.Options.DELIMITED_TEXT">DELIMITED_TEXT</see>:</term>
+        ///         <description>Indicates the file(s) are in delimited text
+        /// format, e.g., CSV, TSV, PSV, etc.</description>
         ///     </item>
         /// </list>
         /// The default value is <see
@@ -1690,26 +1842,30 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="InsertRecordsFromFilesRequest.Options.LOADING_MODE">LOADING_MODE</see>:</term>
-        ///         <description>specifies how to divide up data loading among
-        /// nodes
+        ///         <description>Specifies how to divide data loading among
+        /// nodes.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
         /// cref="InsertRecordsFromFilesRequest.Options.HEAD">HEAD</see>:</term>
-        ///         <description>head node loads all data</description>
+        ///         <description>The head node loads all data. All files must
+        /// be available on the head node.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="InsertRecordsFromFilesRequest.Options.DISTRIBUTED_SHARED">DISTRIBUTED_SHARED</see>:</term>
-        ///         <description>worker nodes load all data, all nodes can see
-        /// all files and loading is divided up internally</description>
+        ///         <description>The worker nodes coordinate loading a set of
+        /// files that are available to all of them. All files must be
+        /// available on all nodes. This option is best when there is a shared
+        /// file system.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="InsertRecordsFromFilesRequest.Options.DISTRIBUTED_LOCAL">DISTRIBUTED_LOCAL</see>:</term>
-        ///         <description>each worker node loads the files that it
-        /// sees</description>
+        ///         <description>Each worker node loads all files that are
+        /// available to it. This option is best when each worker node has its
+        /// own file system.</description>
         ///     </item>
         /// </list>
         /// The default value is <see
@@ -1717,93 +1873,36 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="InsertRecordsFromFilesRequest.Options.ERROR_HANDLING">ERROR_HANDLING</see>:</term>
-        ///         <description>
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="InsertRecordsFromFilesRequest.Options.PERMISSIVE">PERMISSIVE</see>:</term>
-        ///         <description>tries to parse all lines: nulls are inserted
-        /// for missing tokens and extra tokens are ignored. </description>
+        /// cref="InsertRecordsFromFilesRequest.Options.TEXT_COMMENT_STRING">TEXT_COMMENT_STRING</see>:</term>
+        ///         <description>For <i>delimited_text</i> <i>file_type</i>
+        /// only. All lines in the file(s) starting with the provided string
+        /// are ignored. The comment string has no effect unless it appears at
+        /// the beginning of a line.  The default value is '#'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="InsertRecordsFromFilesRequest.Options.IGNORE_BAD_RECORDS">IGNORE_BAD_RECORDS</see>:</term>
-        ///         <description>Drops malformed lines/rows
-        /// entirely.</description>
+        /// cref="InsertRecordsFromFilesRequest.Options.TEXT_DELIMITER">TEXT_DELIMITER</see>:</term>
+        ///         <description>For <i>delimited_text</i> <i>file_type</i>
+        /// only. Specifies the delimiter for values and columns in the header
+        /// row (if present). Must be a single character.  The default value is
+        /// ','.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="InsertRecordsFromFilesRequest.Options.ABORT">ABORT</see>:</term>
-        ///         <description>Aborts ingest when it encounters an
-        /// error.</description>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="InsertRecordsFromFilesRequest.Options.PERMISSIVE">PERMISSIVE</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="InsertRecordsFromFilesRequest.Options.TRUNCATE_TABLE">TRUNCATE_TABLE</see>:</term>
-        ///         <description>
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="InsertRecordsFromFilesRequest.Options.TRUE">TRUE</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="InsertRecordsFromFilesRequest.Options.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="InsertRecordsFromFilesRequest.Options.FALSE">FALSE</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="InsertRecordsFromFilesRequest.Options.BATCH_SIZE">BATCH_SIZE</see>:</term>
-        ///         <description>number of records per batch when loading from
-        /// file</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="InsertRecordsFromFilesRequest.Options.COLUMN_FORMATS">COLUMN_FORMATS</see>:</term>
-        ///         <description>json map of colname to map of format to
-        /// value</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="InsertRecordsFromFilesRequest.Options.DEFAULT_COLUMN_FORMATS">DEFAULT_COLUMN_FORMATS</see>:</term>
-        ///         <description>json map of format to value</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="InsertRecordsFromFilesRequest.Options.DRY_RUN">DRY_RUN</see>:</term>
-        ///         <description>Walk through the files and determine number of
-        /// valid records.  Does not load data. Applies the error handling mode
-        /// to determine valid behavior
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="InsertRecordsFromFilesRequest.Options.FALSE">FALSE</see>:</term>
-        ///         <description>no dry run</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="InsertRecordsFromFilesRequest.Options.TRUE">TRUE</see>:</term>
-        ///         <description>do a dry run</description>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="InsertRecordsFromFilesRequest.Options.FALSE">FALSE</see>.</description>
+        /// cref="InsertRecordsFromFilesRequest.Options.TEXT_ESCAPE_CHARACTER">TEXT_ESCAPE_CHARACTER</see>:</term>
+        ///         <description>For <i>delimited_text</i> <i>file_type</i>
+        /// only.  The character used in the file(s) to escape certain
+        /// character sequences in text. For example, the escape character
+        /// followed by a literal 'n' escapes to a newline character within the
+        /// field. Can be used within quoted string to escape a quote
+        /// character. An empty value for this option does not specify an
+        /// escape character.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="InsertRecordsFromFilesRequest.Options.TEXT_HAS_HEADER">TEXT_HAS_HEADER</see>:</term>
-        ///         <description>
+        ///         <description>For <i>delimited_text</i> <i>file_type</i>
+        /// only. Indicates whether the delimited text files have a header row.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -1820,59 +1919,51 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="InsertRecordsFromFilesRequest.Options.TEXT_DELIMITER">TEXT_DELIMITER</see>:</term>
-        ///         <description>Delimiter for csv fields and header row. Must
-        /// be a single character.  The default value is ','.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
         /// cref="InsertRecordsFromFilesRequest.Options.TEXT_HEADER_PROPERTY_DELIMITER">TEXT_HEADER_PROPERTY_DELIMITER</see>:</term>
-        ///         <description>Delimiter for column properties in csv header
-        /// row.  The default value is '|'.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="InsertRecordsFromFilesRequest.Options.COLUMNS_TO_LOAD">COLUMNS_TO_LOAD</see>:</term>
-        ///         <description>Optionally used to specify a subset of columns
-        /// to load, instead of loading all columns in the file.
-        /// The columns to use are delimited by a comma. Column numbers can be
-        /// specified discretely or as a range e.g. '1 .. 4' refers to the
-        /// first through fourth columns.
-        /// For example, a value of '5,3,1..2' will create a table with the
-        /// first column in the table being the fifth column in the file,
-        /// followed by third column in the file, then the first column, and
-        /// lastly the second column.
-        /// Additionally, if the file(s) have a header, names matching the file
-        /// header names may be provided instead of numbers. Ranges are not
-        /// supported.
-        /// For example, a value of 'C, B, A' will create a three column table
-        /// with column C, followed by column B, followed by column
-        /// A.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="InsertRecordsFromFilesRequest.Options.TEXT_COMMENT_STRING">TEXT_COMMENT_STRING</see>:</term>
-        ///         <description>ignore all lines starting with the comment
-        /// value.  The default value is '#'.</description>
+        ///         <description>For <i>delimited_text</i> <i>file_type</i>
+        /// only. Specifies the delimiter for column properties in the header
+        /// row (if present). Cannot be set to same value as text_delimiter.
+        /// The default value is '|'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="InsertRecordsFromFilesRequest.Options.TEXT_NULL_STRING">TEXT_NULL_STRING</see>:</term>
-        ///         <description>value to treat as null.  The default value is
-        /// ''.</description>
+        ///         <description>For <i>delimited_text</i> <i>file_type</i>
+        /// only. The value in the file(s) to treat as a null value in the
+        /// database.  The default value is ''.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="InsertRecordsFromFilesRequest.Options.TEXT_QUOTE_CHARACTER">TEXT_QUOTE_CHARACTER</see>:</term>
-        ///         <description>quote character, defaults to a double-quote
-        /// i.e. ".Set an empty string to not have a quote character. Must be a
-        /// single character.  The default value is '"'.</description>
+        ///         <description>For <i>delimited_text</i> <i>file_type</i>
+        /// only. The quote character used in the file(s), typically
+        /// encompassing a field value. The character must appear at beginning
+        /// and end of field to take effect. Delimiters within quoted fields
+        /// are not treated as delimiters. Within a quoted field, double quotes
+        /// (") can be used to escape a single literal quote character. To not
+        /// have a quote character, specify an empty string ("").  The default
+        /// value is '"'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="InsertRecordsFromFilesRequest.Options.TEXT_ESCAPE_CHARACTER">TEXT_ESCAPE_CHARACTER</see>:</term>
-        ///         <description>escape character, defaults to no escaping.
-        /// Must be a single character</description>
+        /// cref="InsertRecordsFromFilesRequest.Options.TRUNCATE_TABLE">TRUNCATE_TABLE</see>:</term>
+        ///         <description>If set to <i>true</i>, truncates the table
+        /// specified by <paramref
+        /// cref="InsertRecordsFromFilesRequest.table_name" /> prior to loading
+        /// the file(s).
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromFilesRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromFilesRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="InsertRecordsFromFilesRequest.Options.FALSE">FALSE</see>.</description>
         ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.</param>
@@ -1901,16 +1992,18 @@ namespace kinetica
         /// <summary>Value of <paramref
         /// cref="InsertRecordsFromFilesRequest.table_name" />.  </summary>
         public string table_name { get; set; }
+
+        /// <summary>Type ID for the table.  </summary>
         public string type_id { get; set; }
 
-        /// <summary>number of records inserted  </summary>
+        /// <summary>Number of records inserted.  </summary>
         public long count_inserted { get; set; }
 
-        /// <summary>number of records skipped, when running in a non-abort
-        /// error handling mode  </summary>
+        /// <summary>Number of records skipped when not running in <i>abort</i>
+        /// error handling mode.  </summary>
         public long count_skipped { get; set; }
 
-        /// <summary>number of records updated.  The default value is
+        /// <summary>Number of records updated.  The default value is
         /// -1.</summary>
         public long count_updated { get; set; } = -1;
 

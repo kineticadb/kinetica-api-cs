@@ -844,11 +844,40 @@ namespace kinetica
     public class CreateUnionResponse : KineticaData
     {
 
+        /// <summary>Additional information.
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateUnionResponse.Info.COUNT">COUNT</see>:</term>
+        ///         <description>Number of records in the final
+        /// table</description>
+        ///     </item>
+        /// </list>
+        /// The default value is an empty {@link Dictionary}.
+        /// A set of string constants for the parameter <member name="info"
+        /// />.</summary>
+        public struct Info
+        {
+
+            /// <summary>Number of records in the final table</summary>
+            public const string COUNT = "count";
+        } // end struct Info
+
+
         /// <summary>Value of <paramref cref="CreateUnionRequest.table_name"
         /// />.  </summary>
         public string table_name { get; set; }
 
-        /// <summary>Additional information.  </summary>
+        /// <summary>Additional information.
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateUnionResponse.Info.COUNT">COUNT</see>:</term>
+        ///         <description>Number of records in the final
+        /// table</description>
+        ///     </item>
+        /// </list>
+        /// The default value is an empty {@link Dictionary}.</summary>
         public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
 
     } // end class CreateUnionResponse

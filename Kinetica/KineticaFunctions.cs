@@ -16,7 +16,7 @@ namespace kinetica
     {
 
         // Kinetica Version
-        public const string API_VERSION = "7.0.10.0";
+        public const string API_VERSION = "7.0.12.0";
 
 
 
@@ -375,13 +375,64 @@ namespace kinetica
         /// cref="AdminRebalanceRequest.Options.COMPACT_AFTER_REBALANCE">COMPACT_AFTER_REBALANCE</see>:</term>
         ///         <description>Perform compaction of deleted records once the
         /// rebalance completes, to reclaim memory and disk space. Default is
-        /// true.  The default value is 'true'.</description>
+        /// true, unless {add_labels}@{key of options
+        /// repair_incorrectly_sharded_data} is set to <i>true</i>.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="AdminRebalanceRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AdminRebalanceRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="AdminRebalanceRequest.Options.TRUE">TRUE</see>.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="AdminRebalanceRequest.Options.COMPACT_ONLY">COMPACT_ONLY</see>:</term>
         ///         <description>Only perform compaction, do not rebalance.
-        /// Default is false.  The default value is 'false'.</description>
+        /// Default is false.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="AdminRebalanceRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AdminRebalanceRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="AdminRebalanceRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AdminRebalanceRequest.Options.REPAIR_INCORRECTLY_SHARDED_DATA">REPAIR_INCORRECTLY_SHARDED_DATA</see>:</term>
+        ///         <description>Scans for any data sharded incorrectly and
+        /// re-routes the correct location. This can be done as part of a
+        /// typical rebalance after expanding the cluster, or in a standalone
+        /// fashion when it is believed that data is sharded incorrectly
+        /// somewhere in the cluster. Compaction will not be performed by
+        /// default when this is enabled. This option may also lengthen
+        /// rebalance time, and increase the memory used by the rebalance.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="AdminRebalanceRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AdminRebalanceRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="AdminRebalanceRequest.Options.FALSE">FALSE</see>.</description>
         ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.</param>
@@ -4332,6 +4383,21 @@ namespace kinetica
         /// cref="CreateExternalTableRequest.Options.TEXT_ESCAPE_CHARACTER">TEXT_ESCAPE_CHARACTER</see>:</term>
         ///         <description></description>
         ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateExternalTableRequest.Options.EXTERNAL_STORAGE_LOCATION">EXTERNAL_STORAGE_LOCATION</see>:</term>
+        ///         <description></description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateExternalTableRequest.Options.S3_BUCKET_NAME">S3_BUCKET_NAME</see>:</term>
+        ///         <description></description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateExternalTableRequest.Options.S3_REGION">S3_REGION</see>:</term>
+        ///         <description></description>
+        ///     </item>
         /// </list>
         /// </param>
         /// 
@@ -5937,22 +6003,29 @@ namespace kinetica
 
 
         /// <summary>Creates a monitor that watches for table modification
-        /// events such as insert, update or delete on a particular table
-        /// (identified by <paramref
-        /// cref="CreateTableMonitorRequest.table_name" />) and forwards event
-        /// notifications to subscribers via ZMQ. After this call completes,
-        /// subscribe to the returned <paramref
-        /// cref="CreateTableMonitorResponse.topic_id" /> on the ZMQ table
-        /// monitor port (default 9002). Each time a modification operation on
-        /// the table completes, a multipart message is published for that
-        /// topic; the first part contains only the topic ID, and each
-        /// subsequent part contains one binary-encoded Avro object that
-        /// corresponds to the event and can be decoded using <paramref
-        /// cref="CreateTableMonitorResponse.type_schema" />. The monitor will
-        /// continue to run (regardless of whether or not there are any
-        /// subscribers) until deactivated with <see
+        /// events such as
+        /// insert, update or delete on a particular table (identified by
+        /// <paramref cref="CreateTableMonitorRequest.table_name" />) and
+        /// forwards event notifications to subscribers via ZMQ.
+        /// After this call completes, subscribe to the returned <paramref
+        /// cref="CreateTableMonitorResponse.topic_id" /> on the
+        /// ZMQ table monitor port (default 9002). Each time a modification
+        /// operation on the
+        /// table completes, a multipart message is published for that topic;
+        /// the first part
+        /// contains only the topic ID, and each subsequent part contains one
+        /// binary-encoded
+        /// Avro object that corresponds to the event and can be decoded using
+        /// <paramref cref="CreateTableMonitorResponse.type_schema" />. The
+        /// monitor will continue to run (regardless of whether
+        /// or not there are any subscribers) until deactivated with
+        /// <see
         /// cref="Kinetica.clearTableMonitor(string,IDictionary{string, string})"
-        /// />.</summary>
+        /// />.
+        /// <br />
+        /// For more information on table monitors, see
+        /// <a href="../../concepts/table_monitors.html" target="_top">Table
+        /// Monitors</a>.</summary>
         /// 
         /// <param name="request_">Request object containing the parameters for
         /// the operation.</param>
@@ -5969,21 +6042,29 @@ namespace kinetica
 
 
         /// <summary>Creates a monitor that watches for table modification
-        /// events such as insert, update or delete on a particular table
-        /// (identified by <paramref name="table_name" />) and forwards event
-        /// notifications to subscribers via ZMQ. After this call completes,
-        /// subscribe to the returned <paramref
-        /// cref="CreateTableMonitorResponse.topic_id" /> on the ZMQ table
-        /// monitor port (default 9002). Each time a modification operation on
-        /// the table completes, a multipart message is published for that
-        /// topic; the first part contains only the topic ID, and each
-        /// subsequent part contains one binary-encoded Avro object that
-        /// corresponds to the event and can be decoded using <paramref
-        /// cref="CreateTableMonitorResponse.type_schema" />. The monitor will
-        /// continue to run (regardless of whether or not there are any
-        /// subscribers) until deactivated with <see
+        /// events such as
+        /// insert, update or delete on a particular table (identified by
+        /// <paramref name="table_name" />) and forwards event notifications to
+        /// subscribers via ZMQ.
+        /// After this call completes, subscribe to the returned <paramref
+        /// cref="CreateTableMonitorResponse.topic_id" /> on the
+        /// ZMQ table monitor port (default 9002). Each time a modification
+        /// operation on the
+        /// table completes, a multipart message is published for that topic;
+        /// the first part
+        /// contains only the topic ID, and each subsequent part contains one
+        /// binary-encoded
+        /// Avro object that corresponds to the event and can be decoded using
+        /// <paramref cref="CreateTableMonitorResponse.type_schema" />. The
+        /// monitor will continue to run (regardless of whether
+        /// or not there are any subscribers) until deactivated with
+        /// <see
         /// cref="Kinetica.clearTableMonitor(string,IDictionary{string, string})"
-        /// />.</summary>
+        /// />.
+        /// <br />
+        /// For more information on table monitors, see
+        /// <a href="../../concepts/table_monitors.html" target="_top">Table
+        /// Monitors</a>.</summary>
         /// 
         /// <param name="table_name">Name of the table to monitor. Must not
         /// refer to a collection.  </param>
@@ -7682,6 +7763,18 @@ namespace kinetica
         /// The default value is <see
         /// cref="ExecuteSqlRequest.Options.FALSE">FALSE</see>.</description>
         ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ExecuteSqlRequest.Options.VIEW_ID">VIEW_ID</see>:</term>
+        ///         <description><DEVELOPER>  The default value is
+        /// ''.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ExecuteSqlRequest.Options.NO_COUNT">NO_COUNT</see>:</term>
+        ///         <description><DEVELOPER>  The default value is
+        /// 'false'.</description>
+        ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.</param>
         /// 
@@ -9134,6 +9227,12 @@ namespace kinetica
         }
 
 
+        /// <summary>Get the status and result of asynchronously running job.
+        /// See the <see
+        /// cref="Kinetica.createJob(string,string,byte[],string,IDictionary{string, string})"
+        /// /> for starting an asynchronous job.  Some fields of the response
+        /// are filled only after the submitted job has finished
+        /// execution.</summary>
         /// 
         /// <param name="request_">Request object containing the parameters for
         /// the operation.</param>
@@ -9149,6 +9248,12 @@ namespace kinetica
         }
 
 
+        /// <summary>Get the status and result of asynchronously running job.
+        /// See the <see
+        /// cref="Kinetica.createJob(string,string,byte[],string,IDictionary{string, string})"
+        /// /> for starting an asynchronous job.  Some fields of the response
+        /// are filled only after the submitted job has finished
+        /// execution.</summary>
         /// 
         /// <param name="job_id">A unique identifier for the job whose status
         /// and result is to be fetched.  </param>
@@ -10329,6 +10434,22 @@ namespace kinetica
         }
 
 
+        /// <summary>Reads from one or more files located on the server and
+        /// inserts the data into a new or existing table.
+        /// <br />
+        /// For CSV files, there are two loading schemes: positional and
+        /// name-based. The name-based loading scheme is enabled when the file
+        /// has a header present and <i>text_has_header</i> is set to
+        /// <i>true</i>. In this scheme, the source file(s) field names must
+        /// match the target table's column names exactly; however, the source
+        /// file can have more fields than the target table has columns. If
+        /// <i>error_handling</i> is set to <i>permissive</i>, the source file
+        /// can have fewer fields than the target table has columns. If the
+        /// name-based loading scheme is being used, names matching the file
+        /// header's names may be provided to <i>columns_to_load</i> instead of
+        /// numbers, but ranges are not supported.
+        /// <br />
+        /// Returns once all files are processed.</summary>
         /// 
         /// <param name="request_">Request object containing the parameters for
         /// the operation.</param>
@@ -10344,18 +10465,44 @@ namespace kinetica
         }
 
 
+        /// <summary>Reads from one or more files located on the server and
+        /// inserts the data into a new or existing table.
+        /// <br />
+        /// For CSV files, there are two loading schemes: positional and
+        /// name-based. The name-based loading scheme is enabled when the file
+        /// has a header present and <i>text_has_header</i> is set to
+        /// <i>true</i>. In this scheme, the source file(s) field names must
+        /// match the target table's column names exactly; however, the source
+        /// file can have more fields than the target table has columns. If
+        /// <i>error_handling</i> is set to <i>permissive</i>, the source file
+        /// can have fewer fields than the target table has columns. If the
+        /// name-based loading scheme is being used, names matching the file
+        /// header's names may be provided to <i>columns_to_load</i> instead of
+        /// numbers, but ranges are not supported.
+        /// <br />
+        /// Returns once all files are processed.</summary>
         /// 
-        /// <param name="table_name"></param>
-        /// <param name="filepaths">(can have wildcards) -- array of strings
-        /// (can be relative paths)  </param>
-        /// <param name="create_table_options">see options in
-        /// create_table_request
+        /// <param name="table_name">Name of the table into which the data will
+        /// be inserted. If the table does not exist, the table will be created
+        /// using either an existing <i>type_id</i> or the type inferred from
+        /// the file.  </param>
+        /// <param name="filepaths">Absolute or relative filepath(s) from where
+        /// files will be loaded. Relative filepaths are relative to the
+        /// defined <a href="../../config/index.html#external-files"
+        /// target="_top">external_files_directory</a> parameter in the server
+        /// configuration. The filepaths may include wildcards (*). If the
+        /// first path ends in .tsv, the text delimiter will be defaulted to a
+        /// tab character. If the first path ends in .psv, the text delimiter
+        /// will be defaulted to a pipe character (|).  </param>
+        /// <param name="create_table_options">Options used when creating a new
+        /// table.
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
         /// cref="InsertRecordsFromFilesRequest.CreateTableOptions.TYPE_ID">TYPE_ID</see>:</term>
-        ///         <description>Optional: ID of a currently registered type.
-        /// The default value is ''.</description>
+        ///         <description>ID of a currently registered <a
+        /// href="../../concepts/types.html" target="_top">type</a>.  The
+        /// default value is ''.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -10388,43 +10535,6 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="InsertRecordsFromFilesRequest.CreateTableOptions.IS_COLLECTION">IS_COLLECTION</see>:</term>
-        ///         <description>Indicates whether the new table to be created
-        /// will be a collection.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="InsertRecordsFromFilesRequest.CreateTableOptions.TRUE">TRUE</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="InsertRecordsFromFilesRequest.CreateTableOptions.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="InsertRecordsFromFilesRequest.CreateTableOptions.FALSE">FALSE</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="InsertRecordsFromFilesRequest.CreateTableOptions.DISALLOW_HOMOGENEOUS_TABLES">DISALLOW_HOMOGENEOUS_TABLES</see>:</term>
-        ///         <description>No longer supported; value will be ignored.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="InsertRecordsFromFilesRequest.CreateTableOptions.TRUE">TRUE</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="InsertRecordsFromFilesRequest.CreateTableOptions.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="InsertRecordsFromFilesRequest.CreateTableOptions.FALSE">FALSE</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
         /// cref="InsertRecordsFromFilesRequest.CreateTableOptions.IS_REPLICATED">IS_REPLICATED</see>:</term>
         ///         <description>For a table, affects the <a
         /// href="../../concepts/tables.html#distribution"
@@ -10436,7 +10546,7 @@ namespace kinetica
         /// target="_top">replicated</a>.  If false, the table will be <a
         /// href="../../concepts/tables.html#sharding"
         /// target="_top">sharded</a> according to the shard key specified in
-        /// the given @{create_table_options.type_id}, or <a
+        /// the given <i>type_id</i>, or <a
         /// href="../../concepts/tables.html#random-sharding"
         /// target="_top">randomly sharded</a>, if no shard key is specified.
         /// Note that a type containing a shard key cannot be used to create a
@@ -10606,17 +10716,126 @@ namespace kinetica
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
-        /// cref="InsertRecordsFromFilesRequest.Options.FILE_TYPE">FILE_TYPE</see>:</term>
-        ///         <description>
+        /// cref="InsertRecordsFromFilesRequest.Options.BATCH_SIZE">BATCH_SIZE</see>:</term>
+        ///         <description>Specifies number of records to process before
+        /// inserting.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromFilesRequest.Options.COLUMN_FORMATS">COLUMN_FORMATS</see>:</term>
+        ///         <description>For each target column specified, applies the
+        /// column-property-bound format to the source data loaded into that
+        /// column.  Each column format will contain a mapping of one or more
+        /// of its column properties to an appropriate format for each
+        /// property.  Currently supported column properties include date,
+        /// time, & datetime. The parameter value must be formatted as a JSON
+        /// string of maps of column names to maps of column properties to
+        /// their corresponding column formats, e.g., { "order_date" : { "date"
+        /// : "%Y.%m.%d" }, "order_time" : { "time" : "%H:%M:%S" } }.  See
+        /// <i>default_column_formats</i> for valid format
+        /// syntax.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromFilesRequest.Options.COLUMNS_TO_LOAD">COLUMNS_TO_LOAD</see>:</term>
+        ///         <description>For <i>delimited_text</i> <i>file_type</i>
+        /// only. Specifies a comma-delimited list of column positions or names
+        /// to load instead of loading all columns in the file(s); if more than
+        /// one file is being loaded, the list of columns will apply to all
+        /// files. Column numbers can be specified discretely or as a range,
+        /// e.g., a value of '5,7,1..3' will create a table with the first
+        /// column in the table being the fifth column in the file, followed by
+        /// seventh column in the file, then the first column through the
+        /// fourth column in the file.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromFilesRequest.Options.DEFAULT_COLUMN_FORMATS">DEFAULT_COLUMN_FORMATS</see>:</term>
+        ///         <description>Specifies the default format to be applied to
+        /// source data loaded into columns with the corresponding column
+        /// property.  This default column-property-bound format can be
+        /// overridden by specifying a column property & format for a given
+        /// target column in <i>column_formats</i>. For each specified
+        /// annotation, the format will apply to all columns with that
+        /// annotation unless a custom <i>column_formats</i> for that
+        /// annotation is specified. The parameter value must be formatted as a
+        /// JSON string that is a map of column properties to their respective
+        /// column formats, e.g., { "date" : "%Y.%m.%d", "time" : "%H:%M:%S" }.
+        /// Column formats are specified as a string of control characters and
+        /// plain text. The supported control characters are 'Y', 'm', 'd',
+        /// 'H', 'M', 'S', and 's', which follow the Linux 'strptime()'
+        /// specification, as well as 's', which specifies seconds and
+        /// fractional seconds (though the fractional component will be
+        /// truncated past milliseconds). Formats for the 'date' annotation
+        /// must include the 'Y', 'm', and 'd' control characters. Formats for
+        /// the 'time' annotation must include the 'H', 'M', and either 'S' or
+        /// 's' (but not both) control characters. Formats for the 'datetime'
+        /// annotation meet both the 'date' and 'time' control character
+        /// requirements. For example, '{"datetime" : "%m/%d/%Y %H:%M:%S" }'
+        /// would be used to interpret text as "05/04/2000
+        /// 12:12:11"</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromFilesRequest.Options.DRY_RUN">DRY_RUN</see>:</term>
+        ///         <description>If set to <i>true</i>, no data will be
+        /// inserted but the file will be read with the applied
+        /// <i>error_handling</i> mode and the number of valid records that
+        /// would be normally inserted are returned.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
-        /// cref="InsertRecordsFromFilesRequest.Options.DELIMITED_TEXT">DELIMITED_TEXT</see></term>
+        /// cref="InsertRecordsFromFilesRequest.Options.FALSE">FALSE</see></term>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="InsertRecordsFromFilesRequest.Options.PARQUET">PARQUET</see></term>
+        /// cref="InsertRecordsFromFilesRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="InsertRecordsFromFilesRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromFilesRequest.Options.ERROR_HANDLING">ERROR_HANDLING</see>:</term>
+        ///         <description>Specifies how errors should be handled upon
+        /// insertion.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromFilesRequest.Options.PERMISSIVE">PERMISSIVE</see>:</term>
+        ///         <description>Records with missing columns are populated
+        /// with nulls if possible; otherwise, the malformed records are
+        /// skipped.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromFilesRequest.Options.IGNORE_BAD_RECORDS">IGNORE_BAD_RECORDS</see>:</term>
+        ///         <description>Malformed records are skipped.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromFilesRequest.Options.ABORT">ABORT</see>:</term>
+        ///         <description>Stops current insertion and aborts entire
+        /// operation when an error is encountered.</description>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="InsertRecordsFromFilesRequest.Options.PERMISSIVE">PERMISSIVE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromFilesRequest.Options.FILE_TYPE">FILE_TYPE</see>:</term>
+        ///         <description>File type for the file(s).
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromFilesRequest.Options.DELIMITED_TEXT">DELIMITED_TEXT</see>:</term>
+        ///         <description>Indicates the file(s) are in delimited text
+        /// format, e.g., CSV, TSV, PSV, etc.</description>
         ///     </item>
         /// </list>
         /// The default value is <see
@@ -10625,26 +10844,30 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="InsertRecordsFromFilesRequest.Options.LOADING_MODE">LOADING_MODE</see>:</term>
-        ///         <description>specifies how to divide up data loading among
-        /// nodes
+        ///         <description>Specifies how to divide data loading among
+        /// nodes.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
         /// cref="InsertRecordsFromFilesRequest.Options.HEAD">HEAD</see>:</term>
-        ///         <description>head node loads all data</description>
+        ///         <description>The head node loads all data. All files must
+        /// be available on the head node.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="InsertRecordsFromFilesRequest.Options.DISTRIBUTED_SHARED">DISTRIBUTED_SHARED</see>:</term>
-        ///         <description>worker nodes load all data, all nodes can see
-        /// all files and loading is divided up internally</description>
+        ///         <description>The worker nodes coordinate loading a set of
+        /// files that are available to all of them. All files must be
+        /// available on all nodes. This option is best when there is a shared
+        /// file system.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="InsertRecordsFromFilesRequest.Options.DISTRIBUTED_LOCAL">DISTRIBUTED_LOCAL</see>:</term>
-        ///         <description>each worker node loads the files that it
-        /// sees</description>
+        ///         <description>Each worker node loads all files that are
+        /// available to it. This option is best when each worker node has its
+        /// own file system.</description>
         ///     </item>
         /// </list>
         /// The default value is <see
@@ -10652,93 +10875,36 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="InsertRecordsFromFilesRequest.Options.ERROR_HANDLING">ERROR_HANDLING</see>:</term>
-        ///         <description>
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="InsertRecordsFromFilesRequest.Options.PERMISSIVE">PERMISSIVE</see>:</term>
-        ///         <description>tries to parse all lines: nulls are inserted
-        /// for missing tokens and extra tokens are ignored. </description>
+        /// cref="InsertRecordsFromFilesRequest.Options.TEXT_COMMENT_STRING">TEXT_COMMENT_STRING</see>:</term>
+        ///         <description>For <i>delimited_text</i> <i>file_type</i>
+        /// only. All lines in the file(s) starting with the provided string
+        /// are ignored. The comment string has no effect unless it appears at
+        /// the beginning of a line.  The default value is '#'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="InsertRecordsFromFilesRequest.Options.IGNORE_BAD_RECORDS">IGNORE_BAD_RECORDS</see>:</term>
-        ///         <description>Drops malformed lines/rows
-        /// entirely.</description>
+        /// cref="InsertRecordsFromFilesRequest.Options.TEXT_DELIMITER">TEXT_DELIMITER</see>:</term>
+        ///         <description>For <i>delimited_text</i> <i>file_type</i>
+        /// only. Specifies the delimiter for values and columns in the header
+        /// row (if present). Must be a single character.  The default value is
+        /// ','.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="InsertRecordsFromFilesRequest.Options.ABORT">ABORT</see>:</term>
-        ///         <description>Aborts ingest when it encounters an
-        /// error.</description>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="InsertRecordsFromFilesRequest.Options.PERMISSIVE">PERMISSIVE</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="InsertRecordsFromFilesRequest.Options.TRUNCATE_TABLE">TRUNCATE_TABLE</see>:</term>
-        ///         <description>
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="InsertRecordsFromFilesRequest.Options.TRUE">TRUE</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="InsertRecordsFromFilesRequest.Options.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="InsertRecordsFromFilesRequest.Options.FALSE">FALSE</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="InsertRecordsFromFilesRequest.Options.BATCH_SIZE">BATCH_SIZE</see>:</term>
-        ///         <description>number of records per batch when loading from
-        /// file</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="InsertRecordsFromFilesRequest.Options.COLUMN_FORMATS">COLUMN_FORMATS</see>:</term>
-        ///         <description>json map of colname to map of format to
-        /// value</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="InsertRecordsFromFilesRequest.Options.DEFAULT_COLUMN_FORMATS">DEFAULT_COLUMN_FORMATS</see>:</term>
-        ///         <description>json map of format to value</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="InsertRecordsFromFilesRequest.Options.DRY_RUN">DRY_RUN</see>:</term>
-        ///         <description>Walk through the files and determine number of
-        /// valid records.  Does not load data. Applies the error handling mode
-        /// to determine valid behavior
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="InsertRecordsFromFilesRequest.Options.FALSE">FALSE</see>:</term>
-        ///         <description>no dry run</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="InsertRecordsFromFilesRequest.Options.TRUE">TRUE</see>:</term>
-        ///         <description>do a dry run</description>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="InsertRecordsFromFilesRequest.Options.FALSE">FALSE</see>.</description>
+        /// cref="InsertRecordsFromFilesRequest.Options.TEXT_ESCAPE_CHARACTER">TEXT_ESCAPE_CHARACTER</see>:</term>
+        ///         <description>For <i>delimited_text</i> <i>file_type</i>
+        /// only.  The character used in the file(s) to escape certain
+        /// character sequences in text. For example, the escape character
+        /// followed by a literal 'n' escapes to a newline character within the
+        /// field. Can be used within quoted string to escape a quote
+        /// character. An empty value for this option does not specify an
+        /// escape character.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="InsertRecordsFromFilesRequest.Options.TEXT_HAS_HEADER">TEXT_HAS_HEADER</see>:</term>
-        ///         <description>
+        ///         <description>For <i>delimited_text</i> <i>file_type</i>
+        /// only. Indicates whether the delimited text files have a header row.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -10755,59 +10921,51 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="InsertRecordsFromFilesRequest.Options.TEXT_DELIMITER">TEXT_DELIMITER</see>:</term>
-        ///         <description>Delimiter for csv fields and header row. Must
-        /// be a single character.  The default value is ','.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
         /// cref="InsertRecordsFromFilesRequest.Options.TEXT_HEADER_PROPERTY_DELIMITER">TEXT_HEADER_PROPERTY_DELIMITER</see>:</term>
-        ///         <description>Delimiter for column properties in csv header
-        /// row.  The default value is '|'.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="InsertRecordsFromFilesRequest.Options.COLUMNS_TO_LOAD">COLUMNS_TO_LOAD</see>:</term>
-        ///         <description>Optionally used to specify a subset of columns
-        /// to load, instead of loading all columns in the file.
-        /// The columns to use are delimited by a comma. Column numbers can be
-        /// specified discretely or as a range e.g. '1 .. 4' refers to the
-        /// first through fourth columns.
-        /// For example, a value of '5,3,1..2' will create a table with the
-        /// first column in the table being the fifth column in the file,
-        /// followed by third column in the file, then the first column, and
-        /// lastly the second column.
-        /// Additionally, if the file(s) have a header, names matching the file
-        /// header names may be provided instead of numbers. Ranges are not
-        /// supported.
-        /// For example, a value of 'C, B, A' will create a three column table
-        /// with column C, followed by column B, followed by column
-        /// A.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="InsertRecordsFromFilesRequest.Options.TEXT_COMMENT_STRING">TEXT_COMMENT_STRING</see>:</term>
-        ///         <description>ignore all lines starting with the comment
-        /// value.  The default value is '#'.</description>
+        ///         <description>For <i>delimited_text</i> <i>file_type</i>
+        /// only. Specifies the delimiter for column properties in the header
+        /// row (if present). Cannot be set to same value as text_delimiter.
+        /// The default value is '|'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="InsertRecordsFromFilesRequest.Options.TEXT_NULL_STRING">TEXT_NULL_STRING</see>:</term>
-        ///         <description>value to treat as null.  The default value is
-        /// ''.</description>
+        ///         <description>For <i>delimited_text</i> <i>file_type</i>
+        /// only. The value in the file(s) to treat as a null value in the
+        /// database.  The default value is ''.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="InsertRecordsFromFilesRequest.Options.TEXT_QUOTE_CHARACTER">TEXT_QUOTE_CHARACTER</see>:</term>
-        ///         <description>quote character, defaults to a double-quote
-        /// i.e. ".Set an empty string to not have a quote character. Must be a
-        /// single character.  The default value is '"'.</description>
+        ///         <description>For <i>delimited_text</i> <i>file_type</i>
+        /// only. The quote character used in the file(s), typically
+        /// encompassing a field value. The character must appear at beginning
+        /// and end of field to take effect. Delimiters within quoted fields
+        /// are not treated as delimiters. Within a quoted field, double quotes
+        /// (") can be used to escape a single literal quote character. To not
+        /// have a quote character, specify an empty string ("").  The default
+        /// value is '"'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="InsertRecordsFromFilesRequest.Options.TEXT_ESCAPE_CHARACTER">TEXT_ESCAPE_CHARACTER</see>:</term>
-        ///         <description>escape character, defaults to no escaping.
-        /// Must be a single character</description>
+        /// cref="InsertRecordsFromFilesRequest.Options.TRUNCATE_TABLE">TRUNCATE_TABLE</see>:</term>
+        ///         <description>If set to <i>true</i>, truncates the table
+        /// specified by <paramref
+        /// cref="InsertRecordsFromFilesRequest.table_name" /> prior to loading
+        /// the file(s).
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromFilesRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromFilesRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="InsertRecordsFromFilesRequest.Options.FALSE">FALSE</see>.</description>
         ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.</param>
@@ -11429,7 +11587,8 @@ namespace kinetica
         /// best route. The route is secured one point at a time while looking
         /// ahead <i>chain_width</i> number of points, so the prediction is
         /// corrected after each point. This solution type is the most accurate
-        /// but also the most computationally intensive.</description>
+        /// but also the most computationally intensive. Related options:
+        /// <i>num_segments</i> and <i>chain_width</i>.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -11437,7 +11596,9 @@ namespace kinetica
         ///         <description>Matches <paramref
         /// cref="MatchGraphRequest.sample_points" /> to the graph using time
         /// and/or distance between points to influence one or more shortest
-        /// paths across the sample points.</description>
+        /// paths across the sample points. Related options:
+        /// <i>num_segments</i>, <i>max_solve_length</i>,
+        /// <i>time_window_width</i>, and <i>detect_loops</i>.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -11445,7 +11606,7 @@ namespace kinetica
         ///         <description>Matches <paramref
         /// cref="MatchGraphRequest.sample_points" /> to find the most probable
         /// path between origin and destination pairs with cost
-        /// constraints</description>
+        /// constraints.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -11453,14 +11614,15 @@ namespace kinetica
         ///         <description>Matches <paramref
         /// cref="MatchGraphRequest.sample_points" /> to optimize scheduling
         /// multiple supplies (trucks) with varying sizes to varying demand
-        /// sites with varying capacities per depot</description>
+        /// sites with varying capacities per depot. Related options:
+        /// <i>partial_loading</i> and <i>max_combinations</i>.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="MatchGraphRequest.SolveMethod.MATCH_BATCH_SOLVES">MATCH_BATCH_SOLVES</see>:</term>
         ///         <description>Matches <paramref
         /// cref="MatchGraphRequest.sample_points" /> source and destination
-        /// pairs for the shortest path solves in batch mode</description>
+        /// pairs for the shortest path solves in batch mode.</description>
         ///     </item>
         /// </list>
         /// The default value is <see
@@ -11579,13 +11741,13 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="MatchGraphRequest.Options.TRUE">TRUE</see>:</term>
-        ///         <description>Partial off loading at multiple store (demand)
+        ///         <description>Partial off-loading at multiple store (demand)
         /// locations</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="MatchGraphRequest.Options.FALSE">FALSE</see>:</term>
-        ///         <description>No partial off loading allowed if supply is
+        ///         <description>No partial off-loading allowed if supply is
         /// less than the store's demand.</description>
         ///     </item>
         /// </list>
@@ -11597,7 +11759,7 @@ namespace kinetica
         /// cref="MatchGraphRequest.Options.MAX_COMBINATIONS">MAX_COMBINATIONS</see>:</term>
         ///         <description>For the <i>match_supply_demand</i> solver
         /// only. This is the cutoff for the number of generated combinations
-        /// for sequencing the demand locations - can increase this upto 2M.
+        /// for sequencing the demand locations - can increase this up to 2M.
         /// The default value is '10000'.</description>
         ///     </item>
         /// </list>

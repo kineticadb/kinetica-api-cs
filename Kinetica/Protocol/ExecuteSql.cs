@@ -328,6 +328,18 @@ namespace kinetica
         /// The default value is <see
         /// cref="ExecuteSqlRequest.Options.FALSE">FALSE</see>.</description>
         ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ExecuteSqlRequest.Options.VIEW_ID">VIEW_ID</see>:</term>
+        ///         <description><DEVELOPER>  The default value is
+        /// ''.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ExecuteSqlRequest.Options.NO_COUNT">NO_COUNT</see>:</term>
+        ///         <description><DEVELOPER>  The default value is
+        /// 'false'.</description>
+        ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.
         /// A set of string constants for the parameter <see cref="options"
@@ -587,6 +599,12 @@ namespace kinetica
             /// The default value is <see
             /// cref="ExecuteSqlRequest.Options.FALSE">FALSE</see>.</summary>
             public const string PREPARE_MODE = "prepare_mode";
+
+            /// <summary><DEVELOPER>  The default value is ''.</summary>
+            public const string VIEW_ID = "view_id";
+
+            /// <summary><DEVELOPER>  The default value is 'false'.</summary>
+            public const string NO_COUNT = "no_count";
         } // end struct Options
 
 
@@ -924,6 +942,18 @@ namespace kinetica
         /// The default value is <see
         /// cref="ExecuteSqlRequest.Options.FALSE">FALSE</see>.</description>
         ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ExecuteSqlRequest.Options.VIEW_ID">VIEW_ID</see>:</term>
+        ///         <description><DEVELOPER>  The default value is
+        /// ''.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ExecuteSqlRequest.Options.NO_COUNT">NO_COUNT</see>:</term>
+        ///         <description><DEVELOPER>  The default value is
+        /// 'false'.</description>
+        ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.</summary>
         public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
@@ -1243,6 +1273,18 @@ namespace kinetica
         /// </list>
         /// The default value is <see
         /// cref="ExecuteSqlRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ExecuteSqlRequest.Options.VIEW_ID">VIEW_ID</see>:</term>
+        ///         <description><DEVELOPER>  The default value is
+        /// ''.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ExecuteSqlRequest.Options.NO_COUNT">NO_COUNT</see>:</term>
+        ///         <description><DEVELOPER>  The default value is
+        /// 'false'.</description>
         ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.</param>
@@ -1590,6 +1632,18 @@ namespace kinetica
         /// The default value is <see
         /// cref="ExecuteSqlRequest.Options.FALSE">FALSE</see>.</description>
         ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ExecuteSqlRequest.Options.VIEW_ID">VIEW_ID</see>:</term>
+        ///         <description><DEVELOPER>  The default value is
+        /// ''.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ExecuteSqlRequest.Options.NO_COUNT">NO_COUNT</see>:</term>
+        ///         <description><DEVELOPER>  The default value is
+        /// 'false'.</description>
+        ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.</param>
         /// 
@@ -1641,6 +1695,26 @@ namespace kinetica
         } // end struct HasMoreRecords
 
 
+        /// <summary>Additional information.
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="RawExecuteSqlResponse.Info.COUNT">COUNT</see>:</term>
+        ///         <description>Number of records in the final
+        /// table</description>
+        ///     </item>
+        /// </list>
+        /// The default value is an empty {@link Dictionary}.
+        /// A set of string constants for the parameter <member name="info"
+        /// />.</summary>
+        public struct Info
+        {
+
+            /// <summary>Number of records in the final table</summary>
+            public const string COUNT = "count";
+        } // end struct Info
+
+
         /// <summary>The number of objects/records affected.  </summary>
         public long count_affected { get; set; }
 
@@ -1676,7 +1750,16 @@ namespace kinetica
         /// <i>true</i> (Subject to config.paging_tables_enabled)  </summary>
         public string paging_table { get; set; }
 
-        /// <summary>Additional information.  </summary>
+        /// <summary>Additional information.
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="RawExecuteSqlResponse.Info.COUNT">COUNT</see>:</term>
+        ///         <description>Number of records in the final
+        /// table</description>
+        ///     </item>
+        /// </list>
+        /// The default value is an empty {@link Dictionary}.</summary>
         public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
 
     } // end class RawExecuteSqlResponse
@@ -1710,6 +1793,26 @@ namespace kinetica
         } // end struct HasMoreRecords
 
 
+        /// <summary>Additional information.
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="RawExecuteSqlResponse.Info.COUNT">COUNT</see>:</term>
+        ///         <description>Number of records in the final
+        /// table</description>
+        ///     </item>
+        /// </list>
+        /// The default value is an empty {@link Dictionary}.
+        /// A set of string constants for the parameter <member name="info"
+        /// />.</summary>
+        public struct Info
+        {
+
+            /// <summary>Number of records in the final table</summary>
+            public const string COUNT = "count";
+        } // end struct Info
+
+
         /// <summary>The number of objects/records affected.  </summary>
         public long count_affected { get; set; }
 
@@ -1738,7 +1841,16 @@ namespace kinetica
         /// <i>true</i> (Subject to config.paging_tables_enabled)  </summary>
         public string paging_table { get; set; }
 
-        /// <summary>Additional information.  </summary>
+        /// <summary>Additional information.
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="RawExecuteSqlResponse.Info.COUNT">COUNT</see>:</term>
+        ///         <description>Number of records in the final
+        /// table</description>
+        ///     </item>
+        /// </list>
+        /// The default value is an empty {@link Dictionary}.</summary>
         public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
 
     } // end class ExecuteSqlResponse
