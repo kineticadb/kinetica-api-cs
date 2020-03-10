@@ -104,8 +104,8 @@ namespace kinetica
         /// cref="AdminRebalanceRequest.Options.COMPACT_AFTER_REBALANCE">COMPACT_AFTER_REBALANCE</see>:</term>
         ///         <description>Perform compaction of deleted records once the
         /// rebalance completes, to reclaim memory and disk space. Default is
-        /// true, unless {add_labels}@{key of options
-        /// repair_incorrectly_sharded_data} is set to <i>true</i>.
+        /// true, unless <i>repair_incorrectly_sharded_data</i> is set to
+        /// <i>true</i>.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -235,8 +235,8 @@ namespace kinetica
 
             /// <summary>Perform compaction of deleted records once the
             /// rebalance completes, to reclaim memory and disk space. Default
-            /// is true, unless {add_labels}@{key of options
-            /// repair_incorrectly_sharded_data} is set to <i>true</i>.
+            /// is true, unless <i>repair_incorrectly_sharded_data</i> is set
+            /// to <i>true</i>.
             /// Supported values:
             /// <list type="bullet">
             ///     <item>
@@ -371,8 +371,8 @@ namespace kinetica
         /// cref="AdminRebalanceRequest.Options.COMPACT_AFTER_REBALANCE">COMPACT_AFTER_REBALANCE</see>:</term>
         ///         <description>Perform compaction of deleted records once the
         /// rebalance completes, to reclaim memory and disk space. Default is
-        /// true, unless {add_labels}@{key of options
-        /// repair_incorrectly_sharded_data} is set to <i>true</i>.
+        /// true, unless <i>repair_incorrectly_sharded_data</i> is set to
+        /// <i>true</i>.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -520,8 +520,8 @@ namespace kinetica
         /// cref="AdminRebalanceRequest.Options.COMPACT_AFTER_REBALANCE">COMPACT_AFTER_REBALANCE</see>:</term>
         ///         <description>Perform compaction of deleted records once the
         /// rebalance completes, to reclaim memory and disk space. Default is
-        /// true, unless {add_labels}@{key of options
-        /// repair_incorrectly_sharded_data} is set to <i>true</i>.
+        /// true, unless <i>repair_incorrectly_sharded_data</i> is set to
+        /// <i>true</i>.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>

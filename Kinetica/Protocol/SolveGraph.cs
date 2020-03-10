@@ -235,6 +235,84 @@ namespace kinetica
         /// cref="SolveGraphRequest.weights_on_edges" /> will override this
         /// value.</description>
         ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="SolveGraphRequest.Options.LEFT_TURN_PENALTY">LEFT_TURN_PENALTY</see>:</term>
+        ///         <description>This will add an additonal weight over the
+        /// edges labelled as 'left turn' if the 'add_turn' option parameter of
+        /// the /create/graph was invoked at graph creation.  The default value
+        /// is '0.0'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="SolveGraphRequest.Options.RIGHT_TURN_PENALTY">RIGHT_TURN_PENALTY</see>:</term>
+        ///         <description>This will add an additonal weight over the
+        /// edges labelled as' right turn' if the 'add_turn' option parameter
+        /// of the /create/graph was invoked at graph creation.  The default
+        /// value is '0.0'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="SolveGraphRequest.Options.INTERSECTION_PENALTY">INTERSECTION_PENALTY</see>:</term>
+        ///         <description>This will add an additonal weight over the
+        /// edges labelled as 'intersection' if the 'add_turn' option parameter
+        /// of the /create/graph was invoked at graph creation.  The default
+        /// value is '0.0'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="SolveGraphRequest.Options.SHARP_TURN_PENALTY">SHARP_TURN_PENALTY</see>:</term>
+        ///         <description>This will add an additonal weight over the
+        /// edges labelled as 'sharp turn' or 'u-turn' if the 'add_turn' option
+        /// parameter of the /create/graph was invoked at graph creation.  The
+        /// default value is '0.0'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="SolveGraphRequest.Options.NUM_BEST_PATHS">NUM_BEST_PATHS</see>:</term>
+        ///         <description>For <i>MULTIPLE_ROUTING</i> solvers only; sets
+        /// the number of shortest paths computed from each node. This is the
+        /// heuristic criterion. Default value of zero allows the number to be
+        /// computed automatically by the solver. The user may want to override
+        /// this parameter to speed-up the solver.  The default value is
+        /// '0'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="SolveGraphRequest.Options.MAX_NUM_COMBINATIONS">MAX_NUM_COMBINATIONS</see>:</term>
+        ///         <description>For <i>MULTIPLE_ROUTING</i> solvers only; sets
+        /// the cap on the combinatorial sequences generated. If the default
+        /// value of two millions is overridden to a lesser value, it can
+        /// potentially speed up the solver.  The default value is
+        /// '2000000'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="SolveGraphRequest.Options.ACCURATE_SNAPS">ACCURATE_SNAPS</see>:</term>
+        ///         <description>Valid for single source destination pair
+        /// solves if points are described in NODE_WKTPOINT identifier types:
+        /// When true (default), it snaps to the nearest node of the graph;
+        /// otherwise, it searches for the closest entity that could be an
+        /// edge. For the latter case (false), the solver modifies the
+        /// resulting cost with the weights proportional to the ratio of the
+        /// snap location within the edge. This may be an over-kill when the
+        /// performance is considered and the difference is well less than 1
+        /// percent. In batch runs, since the performance is of utmost
+        /// importance, the option is always considered 'false'.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="SolveGraphRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="SolveGraphRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="SolveGraphRequest.Options.TRUE">TRUE</see>.</description>
+        ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.
         /// A set of string constants for the parameter <see cref="options"
@@ -316,6 +394,78 @@ namespace kinetica
             /// edges in the graph. Note that weights provided in <see
             /// cref="weights_on_edges" /> will override this value.</summary>
             public const string UNIFORM_WEIGHTS = "uniform_weights";
+
+            /// <summary>This will add an additonal weight over the edges
+            /// labelled as 'left turn' if the 'add_turn' option parameter of
+            /// the <see
+            /// cref="Kinetica.createGraph(string,bool,IList{string},IList{string},IList{string},IList{string},IDictionary{string, string})"
+            /// /> was invoked at graph creation.  The default value is
+            /// '0.0'.</summary>
+            public const string LEFT_TURN_PENALTY = "left_turn_penalty";
+
+            /// <summary>This will add an additonal weight over the edges
+            /// labelled as' right turn' if the 'add_turn' option parameter of
+            /// the <see
+            /// cref="Kinetica.createGraph(string,bool,IList{string},IList{string},IList{string},IList{string},IDictionary{string, string})"
+            /// /> was invoked at graph creation.  The default value is
+            /// '0.0'.</summary>
+            public const string RIGHT_TURN_PENALTY = "right_turn_penalty";
+
+            /// <summary>This will add an additonal weight over the edges
+            /// labelled as 'intersection' if the 'add_turn' option parameter
+            /// of the <see
+            /// cref="Kinetica.createGraph(string,bool,IList{string},IList{string},IList{string},IList{string},IDictionary{string, string})"
+            /// /> was invoked at graph creation.  The default value is
+            /// '0.0'.</summary>
+            public const string INTERSECTION_PENALTY = "intersection_penalty";
+
+            /// <summary>This will add an additonal weight over the edges
+            /// labelled as 'sharp turn' or 'u-turn' if the 'add_turn' option
+            /// parameter of the <see
+            /// cref="Kinetica.createGraph(string,bool,IList{string},IList{string},IList{string},IList{string},IDictionary{string, string})"
+            /// /> was invoked at graph creation.  The default value is
+            /// '0.0'.</summary>
+            public const string SHARP_TURN_PENALTY = "sharp_turn_penalty";
+
+            /// <summary>For <i>MULTIPLE_ROUTING</i> solvers only; sets the
+            /// number of shortest paths computed from each node. This is the
+            /// heuristic criterion. Default value of zero allows the number to
+            /// be computed automatically by the solver. The user may want to
+            /// override this parameter to speed-up the solver.  The default
+            /// value is '0'.</summary>
+            public const string NUM_BEST_PATHS = "num_best_paths";
+
+            /// <summary>For <i>MULTIPLE_ROUTING</i> solvers only; sets the cap
+            /// on the combinatorial sequences generated. If the default value
+            /// of two millions is overridden to a lesser value, it can
+            /// potentially speed up the solver.  The default value is
+            /// '2000000'.</summary>
+            public const string MAX_NUM_COMBINATIONS = "max_num_combinations";
+
+            /// <summary>Valid for single source destination pair solves if
+            /// points are described in NODE_WKTPOINT identifier types: When
+            /// true (default), it snaps to the nearest node of the graph;
+            /// otherwise, it searches for the closest entity that could be an
+            /// edge. For the latter case (false), the solver modifies the
+            /// resulting cost with the weights proportional to the ratio of
+            /// the snap location within the edge. This may be an over-kill
+            /// when the performance is considered and the difference is well
+            /// less than 1 percent. In batch runs, since the performance is of
+            /// utmost importance, the option is always considered 'false'.
+            /// Supported values:
+            /// <list type="bullet">
+            ///     <item>
+            ///         <term><see
+            /// cref="SolveGraphRequest.Options.TRUE">TRUE</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="SolveGraphRequest.Options.FALSE">FALSE</see></term>
+            ///     </item>
+            /// </list>
+            /// The default value is <see
+            /// cref="SolveGraphRequest.Options.TRUE">TRUE</see>.</summary>
+            public const string ACCURATE_SNAPS = "accurate_snaps";
         } // end struct Options
 
 
@@ -534,6 +684,84 @@ namespace kinetica
         /// cref="SolveGraphRequest.weights_on_edges" /> will override this
         /// value.</description>
         ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="SolveGraphRequest.Options.LEFT_TURN_PENALTY">LEFT_TURN_PENALTY</see>:</term>
+        ///         <description>This will add an additonal weight over the
+        /// edges labelled as 'left turn' if the 'add_turn' option parameter of
+        /// the /create/graph was invoked at graph creation.  The default value
+        /// is '0.0'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="SolveGraphRequest.Options.RIGHT_TURN_PENALTY">RIGHT_TURN_PENALTY</see>:</term>
+        ///         <description>This will add an additonal weight over the
+        /// edges labelled as' right turn' if the 'add_turn' option parameter
+        /// of the /create/graph was invoked at graph creation.  The default
+        /// value is '0.0'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="SolveGraphRequest.Options.INTERSECTION_PENALTY">INTERSECTION_PENALTY</see>:</term>
+        ///         <description>This will add an additonal weight over the
+        /// edges labelled as 'intersection' if the 'add_turn' option parameter
+        /// of the /create/graph was invoked at graph creation.  The default
+        /// value is '0.0'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="SolveGraphRequest.Options.SHARP_TURN_PENALTY">SHARP_TURN_PENALTY</see>:</term>
+        ///         <description>This will add an additonal weight over the
+        /// edges labelled as 'sharp turn' or 'u-turn' if the 'add_turn' option
+        /// parameter of the /create/graph was invoked at graph creation.  The
+        /// default value is '0.0'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="SolveGraphRequest.Options.NUM_BEST_PATHS">NUM_BEST_PATHS</see>:</term>
+        ///         <description>For <i>MULTIPLE_ROUTING</i> solvers only; sets
+        /// the number of shortest paths computed from each node. This is the
+        /// heuristic criterion. Default value of zero allows the number to be
+        /// computed automatically by the solver. The user may want to override
+        /// this parameter to speed-up the solver.  The default value is
+        /// '0'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="SolveGraphRequest.Options.MAX_NUM_COMBINATIONS">MAX_NUM_COMBINATIONS</see>:</term>
+        ///         <description>For <i>MULTIPLE_ROUTING</i> solvers only; sets
+        /// the cap on the combinatorial sequences generated. If the default
+        /// value of two millions is overridden to a lesser value, it can
+        /// potentially speed up the solver.  The default value is
+        /// '2000000'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="SolveGraphRequest.Options.ACCURATE_SNAPS">ACCURATE_SNAPS</see>:</term>
+        ///         <description>Valid for single source destination pair
+        /// solves if points are described in NODE_WKTPOINT identifier types:
+        /// When true (default), it snaps to the nearest node of the graph;
+        /// otherwise, it searches for the closest entity that could be an
+        /// edge. For the latter case (false), the solver modifies the
+        /// resulting cost with the weights proportional to the ratio of the
+        /// snap location within the edge. This may be an over-kill when the
+        /// performance is considered and the difference is well less than 1
+        /// percent. In batch runs, since the performance is of utmost
+        /// importance, the option is always considered 'false'.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="SolveGraphRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="SolveGraphRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="SolveGraphRequest.Options.TRUE">TRUE</see>.</description>
+        ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.</summary>
         public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
@@ -748,6 +976,84 @@ namespace kinetica
         /// the edges in the graph. Note that weights provided in <paramref
         /// cref="SolveGraphRequest.weights_on_edges" /> will override this
         /// value.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="SolveGraphRequest.Options.LEFT_TURN_PENALTY">LEFT_TURN_PENALTY</see>:</term>
+        ///         <description>This will add an additonal weight over the
+        /// edges labelled as 'left turn' if the 'add_turn' option parameter of
+        /// the /create/graph was invoked at graph creation.  The default value
+        /// is '0.0'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="SolveGraphRequest.Options.RIGHT_TURN_PENALTY">RIGHT_TURN_PENALTY</see>:</term>
+        ///         <description>This will add an additonal weight over the
+        /// edges labelled as' right turn' if the 'add_turn' option parameter
+        /// of the /create/graph was invoked at graph creation.  The default
+        /// value is '0.0'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="SolveGraphRequest.Options.INTERSECTION_PENALTY">INTERSECTION_PENALTY</see>:</term>
+        ///         <description>This will add an additonal weight over the
+        /// edges labelled as 'intersection' if the 'add_turn' option parameter
+        /// of the /create/graph was invoked at graph creation.  The default
+        /// value is '0.0'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="SolveGraphRequest.Options.SHARP_TURN_PENALTY">SHARP_TURN_PENALTY</see>:</term>
+        ///         <description>This will add an additonal weight over the
+        /// edges labelled as 'sharp turn' or 'u-turn' if the 'add_turn' option
+        /// parameter of the /create/graph was invoked at graph creation.  The
+        /// default value is '0.0'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="SolveGraphRequest.Options.NUM_BEST_PATHS">NUM_BEST_PATHS</see>:</term>
+        ///         <description>For <i>MULTIPLE_ROUTING</i> solvers only; sets
+        /// the number of shortest paths computed from each node. This is the
+        /// heuristic criterion. Default value of zero allows the number to be
+        /// computed automatically by the solver. The user may want to override
+        /// this parameter to speed-up the solver.  The default value is
+        /// '0'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="SolveGraphRequest.Options.MAX_NUM_COMBINATIONS">MAX_NUM_COMBINATIONS</see>:</term>
+        ///         <description>For <i>MULTIPLE_ROUTING</i> solvers only; sets
+        /// the cap on the combinatorial sequences generated. If the default
+        /// value of two millions is overridden to a lesser value, it can
+        /// potentially speed up the solver.  The default value is
+        /// '2000000'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="SolveGraphRequest.Options.ACCURATE_SNAPS">ACCURATE_SNAPS</see>:</term>
+        ///         <description>Valid for single source destination pair
+        /// solves if points are described in NODE_WKTPOINT identifier types:
+        /// When true (default), it snaps to the nearest node of the graph;
+        /// otherwise, it searches for the closest entity that could be an
+        /// edge. For the latter case (false), the solver modifies the
+        /// resulting cost with the weights proportional to the ratio of the
+        /// snap location within the edge. This may be an over-kill when the
+        /// performance is considered and the difference is well less than 1
+        /// percent. In batch runs, since the performance is of utmost
+        /// importance, the option is always considered 'false'.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="SolveGraphRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="SolveGraphRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="SolveGraphRequest.Options.TRUE">TRUE</see>.</description>
         ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.</param>
