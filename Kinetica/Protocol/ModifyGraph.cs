@@ -155,6 +155,38 @@ namespace kinetica
         /// The default value is <see
         /// cref="ModifyGraphRequest.Options.FALSE">FALSE</see>.</description>
         ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ModifyGraphRequest.Options.ADD_TURNS">ADD_TURNS</see>:</term>
+        ///         <description>Adds dummy 'pillowed' edges around
+        /// intersection nodes where there are more than three edges so that
+        /// additional weight penalties can be imposed by the solve endpoints.
+        /// (increases the total number of edges).
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="ModifyGraphRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ModifyGraphRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="ModifyGraphRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ModifyGraphRequest.Options.TURN_ANGLE">TURN_ANGLE</see>:</term>
+        ///         <description>Value in degrees modifies the thresholds for
+        /// attributing right, left, sharp turns, and intersections. It is the
+        /// vertical deviation angle from the incoming edge to the intersection
+        /// node. The larger the value, the larger the threshold for sharp
+        /// turns and intersections; the smaller the value, the larger the
+        /// threshold for right and left turns; 0 < turn_angle < 90.  The
+        /// default value is '60'.</description>
+        ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.
         /// A set of string constants for the parameter <see cref="options"
@@ -276,6 +308,34 @@ namespace kinetica
             /// The default value is <see
             /// cref="ModifyGraphRequest.Options.FALSE">FALSE</see>.</summary>
             public const string REMOVE_LABEL_ONLY = "remove_label_only";
+
+            /// <summary>Adds dummy 'pillowed' edges around intersection nodes
+            /// where there are more than three edges so that additional weight
+            /// penalties can be imposed by the solve endpoints. (increases the
+            /// total number of edges).
+            /// Supported values:
+            /// <list type="bullet">
+            ///     <item>
+            ///         <term><see
+            /// cref="ModifyGraphRequest.Options.TRUE">TRUE</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="ModifyGraphRequest.Options.FALSE">FALSE</see></term>
+            ///     </item>
+            /// </list>
+            /// The default value is <see
+            /// cref="ModifyGraphRequest.Options.FALSE">FALSE</see>.</summary>
+            public const string ADD_TURNS = "add_turns";
+
+            /// <summary>Value in degrees modifies the thresholds for
+            /// attributing right, left, sharp turns, and intersections. It is
+            /// the vertical deviation angle from the incoming edge to the
+            /// intersection node. The larger the value, the larger the
+            /// threshold for sharp turns and intersections; the smaller the
+            /// value, the larger the threshold for right and left turns; 0 <
+            /// turn_angle < 90.  The default value is '60'.</summary>
+            public const string TURN_ANGLE = "turn_angle";
         } // end struct Options
 
 
@@ -491,6 +551,38 @@ namespace kinetica
         /// </list>
         /// The default value is <see
         /// cref="ModifyGraphRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ModifyGraphRequest.Options.ADD_TURNS">ADD_TURNS</see>:</term>
+        ///         <description>Adds dummy 'pillowed' edges around
+        /// intersection nodes where there are more than three edges so that
+        /// additional weight penalties can be imposed by the solve endpoints.
+        /// (increases the total number of edges).
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="ModifyGraphRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ModifyGraphRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="ModifyGraphRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ModifyGraphRequest.Options.TURN_ANGLE">TURN_ANGLE</see>:</term>
+        ///         <description>Value in degrees modifies the thresholds for
+        /// attributing right, left, sharp turns, and intersections. It is the
+        /// vertical deviation angle from the incoming edge to the intersection
+        /// node. The larger the value, the larger the threshold for sharp
+        /// turns and intersections; the smaller the value, the larger the
+        /// threshold for right and left turns; 0 < turn_angle < 90.  The
+        /// default value is '60'.</description>
         ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.</summary>
@@ -708,6 +800,38 @@ namespace kinetica
         /// </list>
         /// The default value is <see
         /// cref="ModifyGraphRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ModifyGraphRequest.Options.ADD_TURNS">ADD_TURNS</see>:</term>
+        ///         <description>Adds dummy 'pillowed' edges around
+        /// intersection nodes where there are more than three edges so that
+        /// additional weight penalties can be imposed by the solve endpoints.
+        /// (increases the total number of edges).
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="ModifyGraphRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ModifyGraphRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="ModifyGraphRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ModifyGraphRequest.Options.TURN_ANGLE">TURN_ANGLE</see>:</term>
+        ///         <description>Value in degrees modifies the thresholds for
+        /// attributing right, left, sharp turns, and intersections. It is the
+        /// vertical deviation angle from the incoming edge to the intersection
+        /// node. The larger the value, the larger the threshold for sharp
+        /// turns and intersections; the smaller the value, the larger the
+        /// threshold for right and left turns; 0 < turn_angle < 90.  The
+        /// default value is '60'.</description>
         ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.</param>

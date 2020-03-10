@@ -250,6 +250,49 @@ namespace kinetica
         /// for sequencing the demand locations - can increase this up to 2M.
         /// The default value is '10000'.</description>
         ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="MatchGraphRequest.Options.LEFT_TURN_PENALTY">LEFT_TURN_PENALTY</see>:</term>
+        ///         <description>This will add an additonal weight over the
+        /// edges labelled as 'left turn' if the 'add_turn' option parameter of
+        /// the /create/graph was invoked at graph creation.  The default value
+        /// is '0.0'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="MatchGraphRequest.Options.RIGHT_TURN_PENALTY">RIGHT_TURN_PENALTY</see>:</term>
+        ///         <description>This will add an additonal weight over the
+        /// edges labelled as' right turn' if the 'add_turn' option parameter
+        /// of the /create/graph was invoked at graph creation.  The default
+        /// value is '0.0'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="MatchGraphRequest.Options.INTERSECTION_PENALTY">INTERSECTION_PENALTY</see>:</term>
+        ///         <description>This will add an additonal weight over the
+        /// edges labelled as 'intersection' if the 'add_turn' option parameter
+        /// of the /create/graph was invoked at graph creation.  The default
+        /// value is '0.0'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="MatchGraphRequest.Options.SHARP_TURN_PENALTY">SHARP_TURN_PENALTY</see>:</term>
+        ///         <description>This will add an additonal weight over the
+        /// edges labelled as 'sharp turn' or 'u-turn' if the 'add_turn' option
+        /// parameter of the /create/graph was invoked at graph creation.  The
+        /// default value is '0.0'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="MatchGraphRequest.Options.AGGREGATED_OUTPUT">AGGREGATED_OUTPUT</see>:</term>
+        ///         <description>For the <i>match_supply_demand</i> solver
+        /// only. When it is true (default), each record in the output table
+        /// shows a particular truck's scheduled cumulative round trip path
+        /// (MULTILINESTRING) and the corresponding aggregated cost. Otherwise,
+        /// each record shows a single scheduled truck route (LINESTRING)
+        /// towards a particular demand location (store id) with its
+        /// corresponding cost.  The default value is 'true'.</description>
+        ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.
         /// A set of string constants for the parameter <see cref="options"
@@ -362,6 +405,48 @@ namespace kinetica
             /// sequencing the demand locations - can increase this up to 2M.
             /// The default value is '10000'.</summary>
             public const string MAX_COMBINATIONS = "max_combinations";
+
+            /// <summary>This will add an additonal weight over the edges
+            /// labelled as 'left turn' if the 'add_turn' option parameter of
+            /// the <see
+            /// cref="Kinetica.createGraph(string,bool,IList{string},IList{string},IList{string},IList{string},IDictionary{string, string})"
+            /// /> was invoked at graph creation.  The default value is
+            /// '0.0'.</summary>
+            public const string LEFT_TURN_PENALTY = "left_turn_penalty";
+
+            /// <summary>This will add an additonal weight over the edges
+            /// labelled as' right turn' if the 'add_turn' option parameter of
+            /// the <see
+            /// cref="Kinetica.createGraph(string,bool,IList{string},IList{string},IList{string},IList{string},IDictionary{string, string})"
+            /// /> was invoked at graph creation.  The default value is
+            /// '0.0'.</summary>
+            public const string RIGHT_TURN_PENALTY = "right_turn_penalty";
+
+            /// <summary>This will add an additonal weight over the edges
+            /// labelled as 'intersection' if the 'add_turn' option parameter
+            /// of the <see
+            /// cref="Kinetica.createGraph(string,bool,IList{string},IList{string},IList{string},IList{string},IDictionary{string, string})"
+            /// /> was invoked at graph creation.  The default value is
+            /// '0.0'.</summary>
+            public const string INTERSECTION_PENALTY = "intersection_penalty";
+
+            /// <summary>This will add an additonal weight over the edges
+            /// labelled as 'sharp turn' or 'u-turn' if the 'add_turn' option
+            /// parameter of the <see
+            /// cref="Kinetica.createGraph(string,bool,IList{string},IList{string},IList{string},IList{string},IDictionary{string, string})"
+            /// /> was invoked at graph creation.  The default value is
+            /// '0.0'.</summary>
+            public const string SHARP_TURN_PENALTY = "sharp_turn_penalty";
+
+            /// <summary>For the <i>match_supply_demand</i> solver only. When
+            /// it is true (default), each record in the output table shows a
+            /// particular truck's scheduled cumulative round trip path
+            /// (MULTILINESTRING) and the corresponding aggregated cost.
+            /// Otherwise, each record shows a single scheduled truck route
+            /// (LINESTRING) towards a particular demand location (store id)
+            /// with its corresponding cost.  The default value is
+            /// 'true'.</summary>
+            public const string AGGREGATED_OUTPUT = "aggregated_output";
         } // end struct Options
 
 
@@ -574,6 +659,49 @@ namespace kinetica
         /// only. This is the cutoff for the number of generated combinations
         /// for sequencing the demand locations - can increase this up to 2M.
         /// The default value is '10000'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="MatchGraphRequest.Options.LEFT_TURN_PENALTY">LEFT_TURN_PENALTY</see>:</term>
+        ///         <description>This will add an additonal weight over the
+        /// edges labelled as 'left turn' if the 'add_turn' option parameter of
+        /// the /create/graph was invoked at graph creation.  The default value
+        /// is '0.0'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="MatchGraphRequest.Options.RIGHT_TURN_PENALTY">RIGHT_TURN_PENALTY</see>:</term>
+        ///         <description>This will add an additonal weight over the
+        /// edges labelled as' right turn' if the 'add_turn' option parameter
+        /// of the /create/graph was invoked at graph creation.  The default
+        /// value is '0.0'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="MatchGraphRequest.Options.INTERSECTION_PENALTY">INTERSECTION_PENALTY</see>:</term>
+        ///         <description>This will add an additonal weight over the
+        /// edges labelled as 'intersection' if the 'add_turn' option parameter
+        /// of the /create/graph was invoked at graph creation.  The default
+        /// value is '0.0'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="MatchGraphRequest.Options.SHARP_TURN_PENALTY">SHARP_TURN_PENALTY</see>:</term>
+        ///         <description>This will add an additonal weight over the
+        /// edges labelled as 'sharp turn' or 'u-turn' if the 'add_turn' option
+        /// parameter of the /create/graph was invoked at graph creation.  The
+        /// default value is '0.0'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="MatchGraphRequest.Options.AGGREGATED_OUTPUT">AGGREGATED_OUTPUT</see>:</term>
+        ///         <description>For the <i>match_supply_demand</i> solver
+        /// only. When it is true (default), each record in the output table
+        /// shows a particular truck's scheduled cumulative round trip path
+        /// (MULTILINESTRING) and the corresponding aggregated cost. Otherwise,
+        /// each record shows a single scheduled truck route (LINESTRING)
+        /// towards a particular demand location (store id) with its
+        /// corresponding cost.  The default value is 'true'.</description>
         ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.</summary>
@@ -790,6 +918,49 @@ namespace kinetica
         /// only. This is the cutoff for the number of generated combinations
         /// for sequencing the demand locations - can increase this up to 2M.
         /// The default value is '10000'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="MatchGraphRequest.Options.LEFT_TURN_PENALTY">LEFT_TURN_PENALTY</see>:</term>
+        ///         <description>This will add an additonal weight over the
+        /// edges labelled as 'left turn' if the 'add_turn' option parameter of
+        /// the /create/graph was invoked at graph creation.  The default value
+        /// is '0.0'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="MatchGraphRequest.Options.RIGHT_TURN_PENALTY">RIGHT_TURN_PENALTY</see>:</term>
+        ///         <description>This will add an additonal weight over the
+        /// edges labelled as' right turn' if the 'add_turn' option parameter
+        /// of the /create/graph was invoked at graph creation.  The default
+        /// value is '0.0'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="MatchGraphRequest.Options.INTERSECTION_PENALTY">INTERSECTION_PENALTY</see>:</term>
+        ///         <description>This will add an additonal weight over the
+        /// edges labelled as 'intersection' if the 'add_turn' option parameter
+        /// of the /create/graph was invoked at graph creation.  The default
+        /// value is '0.0'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="MatchGraphRequest.Options.SHARP_TURN_PENALTY">SHARP_TURN_PENALTY</see>:</term>
+        ///         <description>This will add an additonal weight over the
+        /// edges labelled as 'sharp turn' or 'u-turn' if the 'add_turn' option
+        /// parameter of the /create/graph was invoked at graph creation.  The
+        /// default value is '0.0'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="MatchGraphRequest.Options.AGGREGATED_OUTPUT">AGGREGATED_OUTPUT</see>:</term>
+        ///         <description>For the <i>match_supply_demand</i> solver
+        /// only. When it is true (default), each record in the output table
+        /// shows a particular truck's scheduled cumulative round trip path
+        /// (MULTILINESTRING) and the corresponding aggregated cost. Otherwise,
+        /// each record shows a single scheduled truck route (LINESTRING)
+        /// towards a particular demand location (store id) with its
+        /// corresponding cost.  The default value is 'true'.</description>
         ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.</param>
