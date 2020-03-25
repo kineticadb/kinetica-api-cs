@@ -16,8 +16,8 @@ namespace kinetica
     /// />.
     /// <br />
     /// Creates a new table or collection. If a new table is being created,
-    /// the type of the table is given by <see cref="type_id" />, which must
-    /// the be the ID of
+    /// the type of the table is given by <see cref="type_id" />, which must be
+    /// the ID of
     /// a currently registered type (i.e. one created via <see
     /// cref="Kinetica.createType(string,string,IDictionary{string, IList{string}},IDictionary{string, string})"
     /// />). The
@@ -531,7 +531,7 @@ namespace kinetica
 
 
         /// <summary>Name of the table to be created. Error for requests with
-        /// existing table of the same name and type id may be suppressed by
+        /// existing table of the same name and type ID may be suppressed by
         /// using the <i>no_error_if_exists</i> option.  See <a
         /// href="../../concepts/tables.html" target="_top">Tables</a> for
         /// naming restrictions.  </summary>
@@ -800,7 +800,7 @@ namespace kinetica
         /// parameters.</summary>
         /// 
         /// <param name="table_name">Name of the table to be created. Error for
-        /// requests with existing table of the same name and type id may be
+        /// requests with existing table of the same name and type ID may be
         /// suppressed by using the <i>no_error_if_exists</i> option.  See <a
         /// href="../../concepts/tables.html" target="_top">Tables</a> for
         /// naming restrictions.  </param>
