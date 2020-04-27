@@ -293,6 +293,41 @@ namespace kinetica
         /// towards a particular demand location (store id) with its
         /// corresponding cost.  The default value is 'true'.</description>
         ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="MatchGraphRequest.Options.MAX_TRIP_COST">MAX_TRIP_COST</see>:</term>
+        ///         <description>For the <i>match_supply_demand</i> solver
+        /// only. If this constraint is greater than zero (default) then the
+        /// trucks will skip travelling from one demand location to another if
+        /// the cost between them is greater than this number (distance or
+        /// time). Zero (default) value means no check is performed.  The
+        /// default value is '0.0'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="MatchGraphRequest.Options.FILTER_FOLDING_PATHS">FILTER_FOLDING_PATHS</see>:</term>
+        ///         <description>For the <i>markov_chain</i> solver only. When
+        /// true (non-default), the paths per sequence combination is checked
+        /// for folding over patterns and can significantly increase the
+        /// execution time depending on the chain width and the number of gps
+        /// samples.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="MatchGraphRequest.Options.TRUE">TRUE</see>:</term>
+        ///         <description>Filter out the folded paths.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="MatchGraphRequest.Options.FALSE">FALSE</see>:</term>
+        ///         <description>Do not filter out the folded
+        /// paths</description>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="MatchGraphRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.
         /// A set of string constants for the parameter <see cref="options"
@@ -358,12 +393,10 @@ namespace kinetica
             /// cref="MatchGraphRequest.Options.TRUE">TRUE</see>.</summary>
             public const string DETECT_LOOPS = "detect_loops";
 
-            /// <summary>Partial off-loading at multiple store (demand)
-            /// locations</summary>
+            /// <summary>Filter out the folded paths.</summary>
             public const string TRUE = "true";
 
-            /// <summary>No partial off-loading allowed if supply is less than
-            /// the store's demand.</summary>
+            /// <summary>Do not filter out the folded paths</summary>
             public const string FALSE = "false";
 
             /// <summary>Optional WKT starting point from <see
@@ -447,6 +480,37 @@ namespace kinetica
             /// with its corresponding cost.  The default value is
             /// 'true'.</summary>
             public const string AGGREGATED_OUTPUT = "aggregated_output";
+
+            /// <summary>For the <i>match_supply_demand</i> solver only. If
+            /// this constraint is greater than zero (default) then the trucks
+            /// will skip travelling from one demand location to another if the
+            /// cost between them is greater than this number (distance or
+            /// time). Zero (default) value means no check is performed.  The
+            /// default value is '0.0'.</summary>
+            public const string MAX_TRIP_COST = "max_trip_cost";
+
+            /// <summary>For the <i>markov_chain</i> solver only. When true
+            /// (non-default), the paths per sequence combination is checked
+            /// for folding over patterns and can significantly increase the
+            /// execution time depending on the chain width and the number of
+            /// gps samples.
+            /// Supported values:
+            /// <list type="bullet">
+            ///     <item>
+            ///         <term><see
+            /// cref="MatchGraphRequest.Options.TRUE">TRUE</see>:</term>
+            ///         <description>Filter out the folded paths.</description>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="MatchGraphRequest.Options.FALSE">FALSE</see>:</term>
+            ///         <description>Do not filter out the folded
+            /// paths</description>
+            ///     </item>
+            /// </list>
+            /// The default value is <see
+            /// cref="MatchGraphRequest.Options.FALSE">FALSE</see>.</summary>
+            public const string FILTER_FOLDING_PATHS = "filter_folding_paths";
         } // end struct Options
 
 
@@ -702,6 +766,41 @@ namespace kinetica
         /// each record shows a single scheduled truck route (LINESTRING)
         /// towards a particular demand location (store id) with its
         /// corresponding cost.  The default value is 'true'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="MatchGraphRequest.Options.MAX_TRIP_COST">MAX_TRIP_COST</see>:</term>
+        ///         <description>For the <i>match_supply_demand</i> solver
+        /// only. If this constraint is greater than zero (default) then the
+        /// trucks will skip travelling from one demand location to another if
+        /// the cost between them is greater than this number (distance or
+        /// time). Zero (default) value means no check is performed.  The
+        /// default value is '0.0'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="MatchGraphRequest.Options.FILTER_FOLDING_PATHS">FILTER_FOLDING_PATHS</see>:</term>
+        ///         <description>For the <i>markov_chain</i> solver only. When
+        /// true (non-default), the paths per sequence combination is checked
+        /// for folding over patterns and can significantly increase the
+        /// execution time depending on the chain width and the number of gps
+        /// samples.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="MatchGraphRequest.Options.TRUE">TRUE</see>:</term>
+        ///         <description>Filter out the folded paths.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="MatchGraphRequest.Options.FALSE">FALSE</see>:</term>
+        ///         <description>Do not filter out the folded
+        /// paths</description>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="MatchGraphRequest.Options.FALSE">FALSE</see>.</description>
         ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.</summary>
@@ -961,6 +1060,41 @@ namespace kinetica
         /// each record shows a single scheduled truck route (LINESTRING)
         /// towards a particular demand location (store id) with its
         /// corresponding cost.  The default value is 'true'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="MatchGraphRequest.Options.MAX_TRIP_COST">MAX_TRIP_COST</see>:</term>
+        ///         <description>For the <i>match_supply_demand</i> solver
+        /// only. If this constraint is greater than zero (default) then the
+        /// trucks will skip travelling from one demand location to another if
+        /// the cost between them is greater than this number (distance or
+        /// time). Zero (default) value means no check is performed.  The
+        /// default value is '0.0'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="MatchGraphRequest.Options.FILTER_FOLDING_PATHS">FILTER_FOLDING_PATHS</see>:</term>
+        ///         <description>For the <i>markov_chain</i> solver only. When
+        /// true (non-default), the paths per sequence combination is checked
+        /// for folding over patterns and can significantly increase the
+        /// execution time depending on the chain width and the number of gps
+        /// samples.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="MatchGraphRequest.Options.TRUE">TRUE</see>:</term>
+        ///         <description>Filter out the folded paths.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="MatchGraphRequest.Options.FALSE">FALSE</see>:</term>
+        ///         <description>Do not filter out the folded
+        /// paths</description>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="MatchGraphRequest.Options.FALSE">FALSE</see>.</description>
         ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.</param>
