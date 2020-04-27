@@ -379,6 +379,70 @@ namespace kinetica
         } // end struct StyleOptions
 
 
+        /// <summary>Optional parameters.
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageChartRequest.Options.IMAGE_ENCODING">IMAGE_ENCODING</see>:</term>
+        ///         <description>Encoding to be applied to the output image.
+        /// When using JSON serialization it is recommended to specify this as
+        /// <i>base64</i>.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageChartRequest.Options.BASE64">BASE64</see>:</term>
+        ///         <description>Apply base64 encoding to the output
+        /// image.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageChartRequest.Options.NONE">NONE</see>:</term>
+        ///         <description>Do not apply any additional encoding to the
+        /// output image.</description>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="VisualizeImageChartRequest.Options.NONE">NONE</see>.</description>
+        ///     </item>
+        /// </list>
+        /// The default value is an empty {@link Dictionary}.
+        /// A set of string constants for the parameter <see cref="options"
+        /// />.</summary>
+        public struct Options
+        {
+
+            /// <summary>Encoding to be applied to the output image. When using
+            /// JSON serialization it is recommended to specify this as
+            /// <i>base64</i>.
+            /// Supported values:
+            /// <list type="bullet">
+            ///     <item>
+            ///         <term><see
+            /// cref="VisualizeImageChartRequest.Options.BASE64">BASE64</see>:</term>
+            ///         <description>Apply base64 encoding to the output
+            /// image.</description>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="VisualizeImageChartRequest.Options.NONE">NONE</see>:</term>
+            ///         <description>Do not apply any additional encoding to
+            /// the output image.</description>
+            ///     </item>
+            /// </list>
+            /// The default value is <see
+            /// cref="VisualizeImageChartRequest.Options.NONE">NONE</see>.</summary>
+            public const string IMAGE_ENCODING = "image_encoding";
+
+            /// <summary>Apply base64 encoding to the output image.</summary>
+            public const string BASE64 = "base64";
+
+            /// <summary>Do not apply any additional encoding to the output
+            /// image.</summary>
+            public const string NONE = "none";
+        } // end struct Options
+
+
         /// <summary>Name of the table containing the data to be drawn as a
         /// chart.  </summary>
         public string table_name { get; set; }
@@ -607,8 +671,34 @@ namespace kinetica
         ///   </summary>
         public IDictionary<string, IList<string>> style_options { get; set; } = new Dictionary<string, IList<string>>();
 
-        /// <summary>Optional parameters.  The default value is an empty {@link
-        /// Dictionary}.</summary>
+        /// <summary>Optional parameters.
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageChartRequest.Options.IMAGE_ENCODING">IMAGE_ENCODING</see>:</term>
+        ///         <description>Encoding to be applied to the output image.
+        /// When using JSON serialization it is recommended to specify this as
+        /// <i>base64</i>.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageChartRequest.Options.BASE64">BASE64</see>:</term>
+        ///         <description>Apply base64 encoding to the output
+        /// image.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageChartRequest.Options.NONE">NONE</see>:</term>
+        ///         <description>Do not apply any additional encoding to the
+        /// output image.</description>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="VisualizeImageChartRequest.Options.NONE">NONE</see>.</description>
+        ///     </item>
+        /// </list>
+        /// The default value is an empty {@link Dictionary}.</summary>
         public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
 
 
@@ -828,8 +918,34 @@ namespace kinetica
         ///     </item>
         /// </list>
         ///   </param>
-        /// <param name="options">Optional parameters.  The default value is an
-        /// empty {@link Dictionary}.</param>
+        /// <param name="options">Optional parameters.
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageChartRequest.Options.IMAGE_ENCODING">IMAGE_ENCODING</see>:</term>
+        ///         <description>Encoding to be applied to the output image.
+        /// When using JSON serialization it is recommended to specify this as
+        /// <i>base64</i>.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageChartRequest.Options.BASE64">BASE64</see>:</term>
+        ///         <description>Apply base64 encoding to the output
+        /// image.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageChartRequest.Options.NONE">NONE</see>:</term>
+        ///         <description>Do not apply any additional encoding to the
+        /// output image.</description>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="VisualizeImageChartRequest.Options.NONE">NONE</see>.</description>
+        ///     </item>
+        /// </list>
+        /// The default value is an empty {@link Dictionary}.</param>
         /// 
         public VisualizeImageChartRequest( string table_name,
                                            IList<string> x_column_names,
