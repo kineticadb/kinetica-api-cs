@@ -16,7 +16,7 @@ namespace kinetica
     {
 
         // Kinetica Version
-        public const string API_VERSION = "7.0.15.0";
+        public const string API_VERSION = "7.0.16.0";
 
 
 
@@ -11871,6 +11871,16 @@ namespace kinetica
         /// </list>
         /// The default value is <see
         /// cref="MatchGraphRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="MatchGraphRequest.Options.UNIT_UNLOADING_COST">UNIT_UNLOADING_COST</see>:</term>
+        ///         <description>For the <i>match_supply_demand</i> solver
+        /// only. The unit cost per load amount to be delivered. If this value
+        /// is greater than zero (default) then the additional cost of this
+        /// unit load multiplied by the total dropped load will be added over
+        /// to the trip cost to the demand location.  The default value is
+        /// '0.0'.</description>
         ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.</param>

@@ -311,6 +311,57 @@ namespace kinetica
     public class RawGetRecordsFromCollectionResponse : KineticaData
     {
 
+        /// <summary>Additional information.
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="RawGetRecordsFromCollectionResponse.Info.TOTAL_NUMBER_OF_RECORDS">TOTAL_NUMBER_OF_RECORDS</see>:</term>
+        ///         <description>Total number of records.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="RawGetRecordsFromCollectionResponse.Info.HAS_MORE_RECORDS">HAS_MORE_RECORDS</see>:</term>
+        ///         <description>Too many records. Returned a partial set.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="RawGetRecordsFromCollectionResponse.Info.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="RawGetRecordsFromCollectionResponse.Info.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list></description>
+        ///     </item>
+        /// </list>
+        /// The default value is an empty {@link Dictionary}.
+        /// A set of string constants for the parameter <member name="info"
+        /// />.</summary>
+        public struct Info
+        {
+
+            /// <summary>Total number of records.</summary>
+            public const string TOTAL_NUMBER_OF_RECORDS = "total_number_of_records";
+
+            /// <summary>Too many records. Returned a partial set.
+            /// Supported values:
+            /// <list type="bullet">
+            ///     <item>
+            ///         <term><see
+            /// cref="RawGetRecordsFromCollectionResponse.Info.TRUE">TRUE</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="RawGetRecordsFromCollectionResponse.Info.FALSE">FALSE</see></term>
+            ///     </item>
+            /// </list></summary>
+            public const string HAS_MORE_RECORDS = "has_more_records";
+            public const string TRUE = "true";
+            public const string FALSE = "false";
+        } // end struct Info
+
+
         /// <summary>Value of <paramref
         /// cref="GetRecordsFromCollectionRequest.table_name" />.  </summary>
         public string table_name { get; set; }
@@ -338,7 +389,31 @@ namespace kinetica
         /// Otherwise it will be empty.  </summary>
         public IList<string> record_ids { get; set; } = new List<string>();
 
-        /// <summary>Additional information.  </summary>
+        /// <summary>Additional information.
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="RawGetRecordsFromCollectionResponse.Info.TOTAL_NUMBER_OF_RECORDS">TOTAL_NUMBER_OF_RECORDS</see>:</term>
+        ///         <description>Total number of records.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="RawGetRecordsFromCollectionResponse.Info.HAS_MORE_RECORDS">HAS_MORE_RECORDS</see>:</term>
+        ///         <description>Too many records. Returned a partial set.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="RawGetRecordsFromCollectionResponse.Info.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="RawGetRecordsFromCollectionResponse.Info.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list></description>
+        ///     </item>
+        /// </list>
+        /// The default value is an empty {@link Dictionary}.</summary>
         public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
 
     } // end class RawGetRecordsFromCollectionResponse
@@ -353,6 +428,57 @@ namespace kinetica
     /// 
     public class GetRecordsFromCollectionResponse<T> : KineticaData
     {
+
+        /// <summary>Additional information.
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="RawGetRecordsFromCollectionResponse.Info.TOTAL_NUMBER_OF_RECORDS">TOTAL_NUMBER_OF_RECORDS</see>:</term>
+        ///         <description>Total number of records.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="RawGetRecordsFromCollectionResponse.Info.HAS_MORE_RECORDS">HAS_MORE_RECORDS</see>:</term>
+        ///         <description>Too many records. Returned a partial set.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="RawGetRecordsFromCollectionResponse.Info.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="RawGetRecordsFromCollectionResponse.Info.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list></description>
+        ///     </item>
+        /// </list>
+        /// The default value is an empty {@link Dictionary}.
+        /// A set of string constants for the parameter <member name="info"
+        /// />.</summary>
+        public struct Info
+        {
+
+            /// <summary>Total number of records.</summary>
+            public const string TOTAL_NUMBER_OF_RECORDS = "total_number_of_records";
+
+            /// <summary>Too many records. Returned a partial set.
+            /// Supported values:
+            /// <list type="bullet">
+            ///     <item>
+            ///         <term><see
+            /// cref="RawGetRecordsFromCollectionResponse.Info.TRUE">TRUE</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="RawGetRecordsFromCollectionResponse.Info.FALSE">FALSE</see></term>
+            ///     </item>
+            /// </list></summary>
+            public const string HAS_MORE_RECORDS = "has_more_records";
+            public const string TRUE = "true";
+            public const string FALSE = "false";
+        } // end struct Info
+
 
         /// <summary>Value of <paramref
         /// cref="GetRecordsFromCollectionRequest.table_name" />.  </summary>
@@ -376,7 +502,31 @@ namespace kinetica
         /// Otherwise it will be empty.  </summary>
         public IList<string> record_ids { get; set; } = new List<string>();
 
-        /// <summary>Additional information.  </summary>
+        /// <summary>Additional information.
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="RawGetRecordsFromCollectionResponse.Info.TOTAL_NUMBER_OF_RECORDS">TOTAL_NUMBER_OF_RECORDS</see>:</term>
+        ///         <description>Total number of records.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="RawGetRecordsFromCollectionResponse.Info.HAS_MORE_RECORDS">HAS_MORE_RECORDS</see>:</term>
+        ///         <description>Too many records. Returned a partial set.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="RawGetRecordsFromCollectionResponse.Info.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="RawGetRecordsFromCollectionResponse.Info.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list></description>
+        ///     </item>
+        /// </list>
+        /// The default value is an empty {@link Dictionary}.</summary>
         public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
 
     } // end class GetRecordsFromCollectionResponse

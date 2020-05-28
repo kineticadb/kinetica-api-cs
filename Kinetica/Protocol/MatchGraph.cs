@@ -328,6 +328,16 @@ namespace kinetica
         /// The default value is <see
         /// cref="MatchGraphRequest.Options.FALSE">FALSE</see>.</description>
         ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="MatchGraphRequest.Options.UNIT_UNLOADING_COST">UNIT_UNLOADING_COST</see>:</term>
+        ///         <description>For the <i>match_supply_demand</i> solver
+        /// only. The unit cost per load amount to be delivered. If this value
+        /// is greater than zero (default) then the additional cost of this
+        /// unit load multiplied by the total dropped load will be added over
+        /// to the trip cost to the demand location.  The default value is
+        /// '0.0'.</description>
+        ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.
         /// A set of string constants for the parameter <see cref="options"
@@ -511,6 +521,14 @@ namespace kinetica
             /// The default value is <see
             /// cref="MatchGraphRequest.Options.FALSE">FALSE</see>.</summary>
             public const string FILTER_FOLDING_PATHS = "filter_folding_paths";
+
+            /// <summary>For the <i>match_supply_demand</i> solver only. The
+            /// unit cost per load amount to be delivered. If this value is
+            /// greater than zero (default) then the additional cost of this
+            /// unit load multiplied by the total dropped load will be added
+            /// over to the trip cost to the demand location.  The default
+            /// value is '0.0'.</summary>
+            public const string UNIT_UNLOADING_COST = "unit_unloading_cost";
         } // end struct Options
 
 
@@ -801,6 +819,16 @@ namespace kinetica
         /// </list>
         /// The default value is <see
         /// cref="MatchGraphRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="MatchGraphRequest.Options.UNIT_UNLOADING_COST">UNIT_UNLOADING_COST</see>:</term>
+        ///         <description>For the <i>match_supply_demand</i> solver
+        /// only. The unit cost per load amount to be delivered. If this value
+        /// is greater than zero (default) then the additional cost of this
+        /// unit load multiplied by the total dropped load will be added over
+        /// to the trip cost to the demand location.  The default value is
+        /// '0.0'.</description>
         ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.</summary>
@@ -1095,6 +1123,16 @@ namespace kinetica
         /// </list>
         /// The default value is <see
         /// cref="MatchGraphRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="MatchGraphRequest.Options.UNIT_UNLOADING_COST">UNIT_UNLOADING_COST</see>:</term>
+        ///         <description>For the <i>match_supply_demand</i> solver
+        /// only. The unit cost per load amount to be delivered. If this value
+        /// is greater than zero (default) then the additional cost of this
+        /// unit load multiplied by the total dropped load will be added over
+        /// to the trip cost to the demand location.  The default value is
+        /// '0.0'.</description>
         ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.</param>
