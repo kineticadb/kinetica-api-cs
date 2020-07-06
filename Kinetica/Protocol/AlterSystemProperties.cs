@@ -109,7 +109,9 @@ namespace kinetica
         ///         <term><see
         /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.CLEAR_CACHE">CLEAR_CACHE</see>:</term>
         ///         <description>Clears cached results.  Useful to allow
-        /// repeated timing of endpoints. Value string is ignored</description>
+        /// repeated timing of endpoints.  Value string is the name of the
+        /// table for which to clear the cached results, or an empty string to
+        /// clear the cached results for all tables.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -139,12 +141,6 @@ namespace kinetica
         /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.FALSE">FALSE</see></term>
         ///     </item>
         /// </list></description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.BULK_ADD_TEST">BULK_ADD_TEST</see>:</term>
-        ///         <description>Invoke the bulk add test and report timing
-        /// results. Value string is ignored.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -297,7 +293,9 @@ namespace kinetica
             public const string FLUSH_TO_DISK = "flush_to_disk";
 
             /// <summary>Clears cached results.  Useful to allow repeated
-            /// timing of endpoints. Value string is ignored</summary>
+            /// timing of endpoints.  Value string is the name of the table for
+            /// which to clear the cached results, or an empty string to clear
+            /// the cached results for all tables.</summary>
             public const string CLEAR_CACHE = "clear_cache";
 
             /// <summary>Invoke the communicator test and report timing
@@ -325,10 +323,6 @@ namespace kinetica
             ///     </item>
             /// </list></summary>
             public const string SET_MESSAGE_TIMERS_ENABLED = "set_message_timers_enabled";
-
-            /// <summary>Invoke the bulk add test and report timing results.
-            /// Value string is ignored.</summary>
-            public const string BULK_ADD_TEST = "bulk_add_test";
 
             /// <summary>Invoke the network speed test and report timing
             /// results. Value string is a semicolon-separated list of
@@ -475,7 +469,9 @@ namespace kinetica
         ///         <term><see
         /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.CLEAR_CACHE">CLEAR_CACHE</see>:</term>
         ///         <description>Clears cached results.  Useful to allow
-        /// repeated timing of endpoints. Value string is ignored</description>
+        /// repeated timing of endpoints.  Value string is the name of the
+        /// table for which to clear the cached results, or an empty string to
+        /// clear the cached results for all tables.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -505,12 +501,6 @@ namespace kinetica
         /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.FALSE">FALSE</see></term>
         ///     </item>
         /// </list></description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.BULK_ADD_TEST">BULK_ADD_TEST</see>:</term>
-        ///         <description>Invoke the bulk add test and report timing
-        /// results. Value string is ignored.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -694,7 +684,9 @@ namespace kinetica
         ///         <term><see
         /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.CLEAR_CACHE">CLEAR_CACHE</see>:</term>
         ///         <description>Clears cached results.  Useful to allow
-        /// repeated timing of endpoints. Value string is ignored</description>
+        /// repeated timing of endpoints.  Value string is the name of the
+        /// table for which to clear the cached results, or an empty string to
+        /// clear the cached results for all tables.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -724,12 +716,6 @@ namespace kinetica
         /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.FALSE">FALSE</see></term>
         ///     </item>
         /// </list></description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.BULK_ADD_TEST">BULK_ADD_TEST</see>:</term>
-        ///         <description>Invoke the bulk add test and report timing
-        /// results. Value string is ignored.</description>
         ///     </item>
         ///     <item>
         ///         <term><see

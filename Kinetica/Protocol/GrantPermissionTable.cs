@@ -135,7 +135,8 @@ namespace kinetica
         /// </summary>
         public string table_name { get; set; }
 
-        /// <summary>Reserved for future use.  The default value is
+        /// <summary>Optional filter expression to apply to this grant.  Only
+        /// rows that match the filter will be affected.  The default value is
         /// ''.</summary>
         public string filter_expression { get; set; } = "";
 
@@ -195,8 +196,9 @@ namespace kinetica
         /// grants access. Must be an existing table, collection, or view. If a
         /// collection, the permission also applies to tables and views in the
         /// collection.  </param>
-        /// <param name="filter_expression">Reserved for future use.  The
-        /// default value is ''.</param>
+        /// <param name="filter_expression">Optional filter expression to apply
+        /// to this grant.  Only rows that match the filter will be affected.
+        /// The default value is ''.</param>
         /// <param name="options">Optional parameters.
         /// <list type="bullet">
         ///     <item>
