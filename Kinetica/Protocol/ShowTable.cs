@@ -21,11 +21,13 @@ namespace kinetica
     /// If <see cref="table_name" /> is empty, information about all
     /// collections and top-level tables and views can be returned.
     /// <br />
-    /// If the option <i>get_sizes</i> is set to <i>true</i>, then the sizes
-    /// (objects and elements) of each table are returned (in <member
-    /// name="sizes" /> and <member name="full_sizes" />), along with the total
-    /// number of objects in the requested table (in <member name="total_size"
-    /// /> and <member name="total_full_size" />).
+    /// If the option <i>get_sizes</i> is set to
+    /// <i>true</i>, then the number of records
+    /// in each table is returned (in <member name="sizes" /> and
+    /// <member name="full_sizes" />), along with the total number of objects
+    /// across all
+    /// requested tables (in <member name="total_size" /> and <member
+    /// name="total_full_size" />).
     /// <br />
     /// For a collection, setting the <i>show_children</i> option to
     /// <i>false</i> returns only information about the collection itself;
@@ -63,8 +65,9 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="ShowTableRequest.Options.GET_SIZES">GET_SIZES</see>:</term>
-        ///         <description>If <i>true</i> then the table sizes will be
-        /// returned; blank, otherwise.
+        ///         <description>If <i>true</i> then the number of records in
+        /// each table, along with a cumulative count, will be returned; blank,
+        /// otherwise.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -169,8 +172,9 @@ namespace kinetica
             public const string TRUE = "true";
             public const string FALSE = "false";
 
-            /// <summary>If <i>true</i> then the table sizes will be returned;
-            /// blank, otherwise.
+            /// <summary>If <i>true</i> then the number of records in each
+            /// table, along with a cumulative count, will be returned; blank,
+            /// otherwise.
             /// Supported values:
             /// <list type="bullet">
             ///     <item>
@@ -274,8 +278,9 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="ShowTableRequest.Options.GET_SIZES">GET_SIZES</see>:</term>
-        ///         <description>If <i>true</i> then the table sizes will be
-        /// returned; blank, otherwise.
+        ///         <description>If <i>true</i> then the number of records in
+        /// each table, along with a cumulative count, will be returned; blank,
+        /// otherwise.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -393,8 +398,9 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="ShowTableRequest.Options.GET_SIZES">GET_SIZES</see>:</term>
-        ///         <description>If <i>true</i> then the table sizes will be
-        /// returned; blank, otherwise.
+        ///         <description>If <i>true</i> then the number of records in
+        /// each table, along with a cumulative count, will be returned; blank,
+        /// otherwise.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -899,41 +905,34 @@ namespace kinetica
         /// </list>  </summary>
         public IList<IDictionary<string, string>> additional_info { get; set; } = new List<IDictionary<string, string>>();
 
-        /// <summary>Empty array if the <i>get_sizes</i> option is
-        /// <i>false</i>. Otherwise, sizes of the respective tables represented
-        /// in <member name="table_names" />. For all but track data types,
-        /// this is simply the number of total objects in a table. For track
-        /// types, since each track semantically contains many individual
-        /// objects, the <member name="sizes" /> are the counts of conceptual
-        /// tracks (each of which may be associated with multiple objects).
-        /// </summary>
+        /// <summary>If <i>get_sizes</i> is <i>true</i>, an array containing
+        /// the number of records of each corresponding table in <member
+        /// name="table_names" />.  Otherwise, an empty array.  </summary>
         public IList<long> sizes { get; set; } = new List<long>();
 
-        /// <summary>Empty array if the <i>get_sizes</i> option is
-        /// <i>false</i>. Otherwise, number of total objects in the respective
-        /// tables represented in <member name="table_names" />. For all but
-        /// track data types, this is the same as <member name="sizes" />. For
-        /// track types, since each track semantically contains many individual
-        /// objects, <member name="full_sizes" /> is the count of total
-        /// objects.  </summary>
+        /// <summary>If <i>get_sizes</i> is <i>true</i>, an array containing
+        /// the number of records of each corresponding table in <member
+        /// name="table_names" /> (same values as <member name="sizes" />).
+        /// Otherwise, an empty array.  </summary>
         public IList<long> full_sizes { get; set; } = new List<long>();
 
-        /// <summary>Empty array if the <i>get_sizes</i> option is
-        /// <i>false</i>. Otherwise, number of unfiltered objects in the cross
-        /// product of the sub-tables in the joined-tables represented in
-        /// <member name="table_names" />. For simple tables, this number will
-        /// be the same as <member name="sizes" />.  For join-tables this value
-        /// gives the number of joined-table rows that must be processed by any
-        /// aggregate functions operating on the table.  </summary>
+        /// <summary>If <i>get_sizes</i> is <i>true</i>, an array containing
+        /// the number of unfiltered records in the cross product of the
+        /// sub-tables of each corresponding join-table in <member
+        /// name="table_names" />. For simple tables, this number will be the
+        /// same as <member name="sizes" />.  For join-tables, this value gives
+        /// the number of joined-table rows that must be processed by any
+        /// aggregate functions operating on the table.  Otherwise, (if
+        /// <i>get_sizes</i> is <i>false</i>), an empty array.  </summary>
         public IList<double> join_sizes { get; set; } = new List<double>();
 
-        /// <summary>-1 if the <i>get_sizes</i> option is <i>false</i>.
-        /// Otherwise, the sum of the elements of <member name="sizes" />.
-        /// </summary>
+        /// <summary>If <i>get_sizes</i> is <i>true</i>, the sum of the
+        /// elements of <member name="sizes" />.  Otherwise, -1.  </summary>
         public long total_size { get; set; }
 
-        /// <summary>-1 if the <i>get_sizes</i> option is <i>false</i>. The sum
-        /// of the elements of <member name="full_sizes" />.  </summary>
+        /// <summary>If <i>get_sizes</i> is <i>true</i>, the sum of the
+        /// elements of <member name="full_sizes" /> (same value as <member
+        /// name="total_size" />).  Otherwise, -1.  </summary>
         public long total_full_size { get; set; }
 
         /// <summary>Additional information.  </summary>

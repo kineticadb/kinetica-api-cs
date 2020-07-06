@@ -16,7 +16,7 @@ namespace kinetica
     {
 
         // Kinetica Version
-        public const string API_VERSION = "7.0.16.0";
+        public const string API_VERSION = "7.0.17.0";
 
 
 
@@ -2827,7 +2827,9 @@ namespace kinetica
         ///         <term><see
         /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.CLEAR_CACHE">CLEAR_CACHE</see>:</term>
         ///         <description>Clears cached results.  Useful to allow
-        /// repeated timing of endpoints. Value string is ignored</description>
+        /// repeated timing of endpoints.  Value string is the name of the
+        /// table for which to clear the cached results, or an empty string to
+        /// clear the cached results for all tables.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -2857,12 +2859,6 @@ namespace kinetica
         /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.FALSE">FALSE</see></term>
         ///     </item>
         /// </list></description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.BULK_ADD_TEST">BULK_ADD_TEST</see>:</term>
-        ///         <description>Invoke the bulk add test and report timing
-        /// results. Value string is ignored.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -4396,6 +4392,11 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="CreateExternalTableRequest.Options.S3_REGION">S3_REGION</see>:</term>
+        ///         <description></description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateExternalTableRequest.Options.NUM_TASKS_PER_RANK">NUM_TASKS_PER_RANK</see>:</term>
         ///         <description></description>
         ///     </item>
         /// </list>
@@ -10055,8 +10056,9 @@ namespace kinetica
         /// grants access. Must be an existing table, collection, or view. If a
         /// collection, the permission also applies to tables and views in the
         /// collection.  </param>
-        /// <param name="filter_expression">Reserved for future use.  The
-        /// default value is ''.</param>
+        /// <param name="filter_expression">Optional filter expression to apply
+        /// to this grant.  Only rows that match the filter will be affected.
+        /// The default value is ''.</param>
         /// <param name="options">Optional parameters.
         /// <list type="bullet">
         ///     <item>
@@ -11004,6 +11006,12 @@ namespace kinetica
         /// The default value is <see
         /// cref="InsertRecordsFromFilesRequest.Options.FALSE">FALSE</see>.</description>
         ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromFilesRequest.Options.NUM_TASKS_PER_RANK">NUM_TASKS_PER_RANK</see>:</term>
+        ///         <description>Optional: number of tasks for reading file per
+        /// rank. Default will be external_file_reader_num_tasks</description>
+        ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.</param>
         /// 
@@ -11624,16 +11632,6 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="MatchGraphRequest.SolveMethod.INCREMENTAL_WEIGHTED">INCREMENTAL_WEIGHTED</see>:</term>
-        ///         <description>Matches <paramref
-        /// cref="MatchGraphRequest.sample_points" /> to the graph using time
-        /// and/or distance between points to influence one or more shortest
-        /// paths across the sample points. Related options:
-        /// <i>num_segments</i>, <i>max_solve_length</i>,
-        /// <i>time_window_width</i>, and <i>detect_loops</i>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
         /// cref="MatchGraphRequest.SolveMethod.MATCH_OD_PAIRS">MATCH_OD_PAIRS</see>:</term>
         ///         <description>Matches <paramref
         /// cref="MatchGraphRequest.sample_points" /> to find the most probable
@@ -11686,8 +11684,7 @@ namespace kinetica
         /// cref="MatchGraphRequest.Options.NUM_SEGMENTS">NUM_SEGMENTS</see>:</term>
         ///         <description>Maximum number of potentially matching road
         /// segments for each sample point. For the <i>markov_chain</i> solver,
-        /// the default is 3; for the <i>incremental_weighted</i>, the default
-        /// is 5.  The default value is ''.</description>
+        /// the default is 3.  The default value is '3'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -11704,46 +11701,6 @@ namespace kinetica
         /// Length of the sample points lookahead window within the Markov
         /// kernel; the larger the number, the more accurate the solution.  The
         /// default value is '9'.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="MatchGraphRequest.Options.MAX_SOLVE_LENGTH">MAX_SOLVE_LENGTH</see>:</term>
-        ///         <description>For the <i>incremental_weighted</i> solver
-        /// only. Maximum number of samples along the path on which to solve.
-        /// The default value is '200'.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="MatchGraphRequest.Options.TIME_WINDOW_WIDTH">TIME_WINDOW_WIDTH</see>:</term>
-        ///         <description>For the <i>incremental_weighted</i> solver
-        /// only. Time window, also known as sampling period, in which points
-        /// are favored. To determine the raw window value, the
-        /// <i>time_window_width</i> value is multiplied by the mean sample
-        /// time (in seconds) across all points, e.g., if
-        /// <i>time_window_width</i> is 30 and the mean sample time is 2
-        /// seconds, points that are sampled greater than 60 seconds after the
-        /// previous point are no longer favored in the solution.  The default
-        /// value is '30'.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="MatchGraphRequest.Options.DETECT_LOOPS">DETECT_LOOPS</see>:</term>
-        ///         <description>For the <i>incremental_weighted</i> solver
-        /// only. If <i>true</i>, a loop will be detected and traversed even if
-        /// it would make a shorter path to ignore the loop.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="MatchGraphRequest.Options.TRUE">TRUE</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="MatchGraphRequest.Options.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="MatchGraphRequest.Options.TRUE">TRUE</see>.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -11881,6 +11838,49 @@ namespace kinetica
         /// unit load multiplied by the total dropped load will be added over
         /// to the trip cost to the demand location.  The default value is
         /// '0.0'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="MatchGraphRequest.Options.MAX_NUM_THREADS">MAX_NUM_THREADS</see>:</term>
+        ///         <description>For the <i>markov_chain</i> solver only. If
+        /// specified (greater than zero), the maximum number of threads will
+        /// not be greater than the specified value. It can be lower due to the
+        /// memory and the number cores available. Default value of zero allows
+        /// the algorithm to set the maximal number of threads within these
+        /// constraints.  The default value is '0'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="MatchGraphRequest.Options.TRUCK_SERVICE_LIMIT">TRUCK_SERVICE_LIMIT</see>:</term>
+        ///         <description>For the <i>match_supply_demand</i> solver
+        /// only. If specified (greather than zero), any truck's total service
+        /// cost (distance or time) will be limited by the specified value
+        /// including multiple rounds (if set).  The default value is
+        /// '0.0'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="MatchGraphRequest.Options.ENABLE_TRUCK_REUSE">ENABLE_TRUCK_REUSE</see>:</term>
+        ///         <description>For the <i>match_supply_demand</i> solver
+        /// only. If specified (true), all trucks can be scheduled for second
+        /// rounds from their originating depots.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="MatchGraphRequest.Options.TRUE">TRUE</see>:</term>
+        ///         <description>Allows reusing trucks for scheduling
+        /// again.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="MatchGraphRequest.Options.FALSE">FALSE</see>:</term>
+        ///         <description>Trucks are scheduled only once from their
+        /// depots.</description>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="MatchGraphRequest.Options.FALSE">FALSE</see>.</description>
         ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.</param>
@@ -13454,13 +13454,14 @@ namespace kinetica
         /// cref="ShowTableRequest.table_name" /> is empty, information about
         /// all collections and top-level tables and views can be returned.
         /// <br />
-        /// If the option <i>get_sizes</i> is set to <i>true</i>, then the
-        /// sizes (objects and elements) of each table are returned (in
-        /// <paramref cref="ShowTableResponse.sizes" /> and <paramref
-        /// cref="ShowTableResponse.full_sizes" />), along with the total
-        /// number of objects in the requested table (in <paramref
-        /// cref="ShowTableResponse.total_size" /> and <paramref
-        /// cref="ShowTableResponse.total_full_size" />).
+        /// If the option <i>get_sizes</i> is set to
+        /// <i>true</i>, then the number of records
+        /// in each table is returned (in <paramref
+        /// cref="ShowTableResponse.sizes" /> and
+        /// <paramref cref="ShowTableResponse.full_sizes" />), along with the
+        /// total number of objects across all
+        /// requested tables (in <paramref cref="ShowTableResponse.total_size"
+        /// /> and <paramref cref="ShowTableResponse.total_full_size" />).
         /// <br />
         /// For a collection, setting the <i>show_children</i> option to
         /// <i>false</i> returns only information about the collection itself;
@@ -13503,13 +13504,14 @@ namespace kinetica
         /// empty, information about all collections and top-level tables and
         /// views can be returned.
         /// <br />
-        /// If the option <i>get_sizes</i> is set to <i>true</i>, then the
-        /// sizes (objects and elements) of each table are returned (in
-        /// <paramref cref="ShowTableResponse.sizes" /> and <paramref
-        /// cref="ShowTableResponse.full_sizes" />), along with the total
-        /// number of objects in the requested table (in <paramref
-        /// cref="ShowTableResponse.total_size" /> and <paramref
-        /// cref="ShowTableResponse.total_full_size" />).
+        /// If the option <i>get_sizes</i> is set to
+        /// <i>true</i>, then the number of records
+        /// in each table is returned (in <paramref
+        /// cref="ShowTableResponse.sizes" /> and
+        /// <paramref cref="ShowTableResponse.full_sizes" />), along with the
+        /// total number of objects across all
+        /// requested tables (in <paramref cref="ShowTableResponse.total_size"
+        /// /> and <paramref cref="ShowTableResponse.total_full_size" />).
         /// <br />
         /// For a collection, setting the <i>show_children</i> option to
         /// <i>false</i> returns only information about the collection itself;
@@ -13548,8 +13550,9 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="ShowTableRequest.Options.GET_SIZES">GET_SIZES</see>:</term>
-        ///         <description>If <i>true</i> then the table sizes will be
-        /// returned; blank, otherwise.
+        ///         <description>If <i>true</i> then the number of records in
+        /// each table, along with a cumulative count, will be returned; blank,
+        /// otherwise.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>

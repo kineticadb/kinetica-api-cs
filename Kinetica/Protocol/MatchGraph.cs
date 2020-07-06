@@ -49,16 +49,6 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="MatchGraphRequest.SolveMethod.INCREMENTAL_WEIGHTED">INCREMENTAL_WEIGHTED</see>:</term>
-        ///         <description>Matches <paramref
-        /// cref="MatchGraphRequest.sample_points" /> to the graph using time
-        /// and/or distance between points to influence one or more shortest
-        /// paths across the sample points. Related options:
-        /// <i>num_segments</i>, <i>max_solve_length</i>,
-        /// <i>time_window_width</i>, and <i>detect_loops</i>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
         /// cref="MatchGraphRequest.SolveMethod.MATCH_OD_PAIRS">MATCH_OD_PAIRS</see>:</term>
         ///         <description>Matches <paramref
         /// cref="MatchGraphRequest.sample_points" /> to find the most probable
@@ -101,13 +91,6 @@ namespace kinetica
             /// options: <i>num_segments</i> and <i>chain_width</i>.</summary>
             public const string MARKOV_CHAIN = "markov_chain";
 
-            /// <summary>Matches <see cref="sample_points" /> to the graph
-            /// using time and/or distance between points to influence one or
-            /// more shortest paths across the sample points. Related options:
-            /// <i>num_segments</i>, <i>max_solve_length</i>,
-            /// <i>time_window_width</i>, and <i>detect_loops</i>.</summary>
-            public const string INCREMENTAL_WEIGHTED = "incremental_weighted";
-
             /// <summary>Matches <see cref="sample_points" /> to find the most
             /// probable path between origin and destination pairs with cost
             /// constraints.</summary>
@@ -142,8 +125,7 @@ namespace kinetica
         /// cref="MatchGraphRequest.Options.NUM_SEGMENTS">NUM_SEGMENTS</see>:</term>
         ///         <description>Maximum number of potentially matching road
         /// segments for each sample point. For the <i>markov_chain</i> solver,
-        /// the default is 3; for the <i>incremental_weighted</i>, the default
-        /// is 5.  The default value is ''.</description>
+        /// the default is 3.  The default value is '3'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -160,46 +142,6 @@ namespace kinetica
         /// Length of the sample points lookahead window within the Markov
         /// kernel; the larger the number, the more accurate the solution.  The
         /// default value is '9'.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="MatchGraphRequest.Options.MAX_SOLVE_LENGTH">MAX_SOLVE_LENGTH</see>:</term>
-        ///         <description>For the <i>incremental_weighted</i> solver
-        /// only. Maximum number of samples along the path on which to solve.
-        /// The default value is '200'.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="MatchGraphRequest.Options.TIME_WINDOW_WIDTH">TIME_WINDOW_WIDTH</see>:</term>
-        ///         <description>For the <i>incremental_weighted</i> solver
-        /// only. Time window, also known as sampling period, in which points
-        /// are favored. To determine the raw window value, the
-        /// <i>time_window_width</i> value is multiplied by the mean sample
-        /// time (in seconds) across all points, e.g., if
-        /// <i>time_window_width</i> is 30 and the mean sample time is 2
-        /// seconds, points that are sampled greater than 60 seconds after the
-        /// previous point are no longer favored in the solution.  The default
-        /// value is '30'.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="MatchGraphRequest.Options.DETECT_LOOPS">DETECT_LOOPS</see>:</term>
-        ///         <description>For the <i>incremental_weighted</i> solver
-        /// only. If <i>true</i>, a loop will be detected and traversed even if
-        /// it would make a shorter path to ignore the loop.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="MatchGraphRequest.Options.TRUE">TRUE</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="MatchGraphRequest.Options.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="MatchGraphRequest.Options.TRUE">TRUE</see>.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -338,6 +280,49 @@ namespace kinetica
         /// to the trip cost to the demand location.  The default value is
         /// '0.0'.</description>
         ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="MatchGraphRequest.Options.MAX_NUM_THREADS">MAX_NUM_THREADS</see>:</term>
+        ///         <description>For the <i>markov_chain</i> solver only. If
+        /// specified (greater than zero), the maximum number of threads will
+        /// not be greater than the specified value. It can be lower due to the
+        /// memory and the number cores available. Default value of zero allows
+        /// the algorithm to set the maximal number of threads within these
+        /// constraints.  The default value is '0'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="MatchGraphRequest.Options.TRUCK_SERVICE_LIMIT">TRUCK_SERVICE_LIMIT</see>:</term>
+        ///         <description>For the <i>match_supply_demand</i> solver
+        /// only. If specified (greather than zero), any truck's total service
+        /// cost (distance or time) will be limited by the specified value
+        /// including multiple rounds (if set).  The default value is
+        /// '0.0'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="MatchGraphRequest.Options.ENABLE_TRUCK_REUSE">ENABLE_TRUCK_REUSE</see>:</term>
+        ///         <description>For the <i>match_supply_demand</i> solver
+        /// only. If specified (true), all trucks can be scheduled for second
+        /// rounds from their originating depots.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="MatchGraphRequest.Options.TRUE">TRUE</see>:</term>
+        ///         <description>Allows reusing trucks for scheduling
+        /// again.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="MatchGraphRequest.Options.FALSE">FALSE</see>:</term>
+        ///         <description>Trucks are scheduled only once from their
+        /// depots.</description>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="MatchGraphRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.
         /// A set of string constants for the parameter <see cref="options"
@@ -353,8 +338,7 @@ namespace kinetica
 
             /// <summary>Maximum number of potentially matching road segments
             /// for each sample point. For the <i>markov_chain</i> solver, the
-            /// default is 3; for the <i>incremental_weighted</i>, the default
-            /// is 5.  The default value is ''.</summary>
+            /// default is 3.  The default value is '3'.</summary>
             public const string NUM_SEGMENTS = "num_segments";
 
             /// <summary>Maximum search radius used when snapping sample points
@@ -368,46 +352,6 @@ namespace kinetica
             /// larger the number, the more accurate the solution.  The default
             /// value is '9'.</summary>
             public const string CHAIN_WIDTH = "chain_width";
-
-            /// <summary>For the <i>incremental_weighted</i> solver only.
-            /// Maximum number of samples along the path on which to solve.
-            /// The default value is '200'.</summary>
-            public const string MAX_SOLVE_LENGTH = "max_solve_length";
-
-            /// <summary>For the <i>incremental_weighted</i> solver only. Time
-            /// window, also known as sampling period, in which points are
-            /// favored. To determine the raw window value, the
-            /// <i>time_window_width</i> value is multiplied by the mean sample
-            /// time (in seconds) across all points, e.g., if
-            /// <i>time_window_width</i> is 30 and the mean sample time is 2
-            /// seconds, points that are sampled greater than 60 seconds after
-            /// the previous point are no longer favored in the solution.  The
-            /// default value is '30'.</summary>
-            public const string TIME_WINDOW_WIDTH = "time_window_width";
-
-            /// <summary>For the <i>incremental_weighted</i> solver only. If
-            /// <i>true</i>, a loop will be detected and traversed even if it
-            /// would make a shorter path to ignore the loop.
-            /// Supported values:
-            /// <list type="bullet">
-            ///     <item>
-            ///         <term><see
-            /// cref="MatchGraphRequest.Options.TRUE">TRUE</see></term>
-            ///     </item>
-            ///     <item>
-            ///         <term><see
-            /// cref="MatchGraphRequest.Options.FALSE">FALSE</see></term>
-            ///     </item>
-            /// </list>
-            /// The default value is <see
-            /// cref="MatchGraphRequest.Options.TRUE">TRUE</see>.</summary>
-            public const string DETECT_LOOPS = "detect_loops";
-
-            /// <summary>Filter out the folded paths.</summary>
-            public const string TRUE = "true";
-
-            /// <summary>Do not filter out the folded paths</summary>
-            public const string FALSE = "false";
 
             /// <summary>Optional WKT starting point from <see
             /// cref="sample_points" /> for the solver. The default behavior
@@ -442,6 +386,13 @@ namespace kinetica
             /// The default value is <see
             /// cref="MatchGraphRequest.Options.TRUE">TRUE</see>.</summary>
             public const string PARTIAL_LOADING = "partial_loading";
+
+            /// <summary>Allows reusing trucks for scheduling again.</summary>
+            public const string TRUE = "true";
+
+            /// <summary>Trucks are scheduled only once from their
+            /// depots.</summary>
+            public const string FALSE = "false";
 
             /// <summary>For the <i>match_supply_demand</i> solver only. This
             /// is the cutoff for the number of generated combinations for
@@ -529,6 +480,43 @@ namespace kinetica
             /// over to the trip cost to the demand location.  The default
             /// value is '0.0'.</summary>
             public const string UNIT_UNLOADING_COST = "unit_unloading_cost";
+
+            /// <summary>For the <i>markov_chain</i> solver only. If specified
+            /// (greater than zero), the maximum number of threads will not be
+            /// greater than the specified value. It can be lower due to the
+            /// memory and the number cores available. Default value of zero
+            /// allows the algorithm to set the maximal number of threads
+            /// within these constraints.  The default value is '0'.</summary>
+            public const string MAX_NUM_THREADS = "max_num_threads";
+
+            /// <summary>For the <i>match_supply_demand</i> solver only. If
+            /// specified (greather than zero), any truck's total service cost
+            /// (distance or time) will be limited by the specified value
+            /// including multiple rounds (if set).  The default value is
+            /// '0.0'.</summary>
+            public const string TRUCK_SERVICE_LIMIT = "truck_service_limit";
+
+            /// <summary>For the <i>match_supply_demand</i> solver only. If
+            /// specified (true), all trucks can be scheduled for second rounds
+            /// from their originating depots.
+            /// Supported values:
+            /// <list type="bullet">
+            ///     <item>
+            ///         <term><see
+            /// cref="MatchGraphRequest.Options.TRUE">TRUE</see>:</term>
+            ///         <description>Allows reusing trucks for scheduling
+            /// again.</description>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="MatchGraphRequest.Options.FALSE">FALSE</see>:</term>
+            ///         <description>Trucks are scheduled only once from their
+            /// depots.</description>
+            ///     </item>
+            /// </list>
+            /// The default value is <see
+            /// cref="MatchGraphRequest.Options.FALSE">FALSE</see>.</summary>
+            public const string ENABLE_TRUCK_REUSE = "enable_truck_reuse";
         } // end struct Options
 
 
@@ -565,16 +553,6 @@ namespace kinetica
         /// corrected after each point. This solution type is the most accurate
         /// but also the most computationally intensive. Related options:
         /// <i>num_segments</i> and <i>chain_width</i>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="MatchGraphRequest.SolveMethod.INCREMENTAL_WEIGHTED">INCREMENTAL_WEIGHTED</see>:</term>
-        ///         <description>Matches <paramref
-        /// cref="MatchGraphRequest.sample_points" /> to the graph using time
-        /// and/or distance between points to influence one or more shortest
-        /// paths across the sample points. Related options:
-        /// <i>num_segments</i>, <i>max_solve_length</i>,
-        /// <i>time_window_width</i>, and <i>detect_loops</i>.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -634,8 +612,7 @@ namespace kinetica
         /// cref="MatchGraphRequest.Options.NUM_SEGMENTS">NUM_SEGMENTS</see>:</term>
         ///         <description>Maximum number of potentially matching road
         /// segments for each sample point. For the <i>markov_chain</i> solver,
-        /// the default is 3; for the <i>incremental_weighted</i>, the default
-        /// is 5.  The default value is ''.</description>
+        /// the default is 3.  The default value is '3'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -652,46 +629,6 @@ namespace kinetica
         /// Length of the sample points lookahead window within the Markov
         /// kernel; the larger the number, the more accurate the solution.  The
         /// default value is '9'.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="MatchGraphRequest.Options.MAX_SOLVE_LENGTH">MAX_SOLVE_LENGTH</see>:</term>
-        ///         <description>For the <i>incremental_weighted</i> solver
-        /// only. Maximum number of samples along the path on which to solve.
-        /// The default value is '200'.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="MatchGraphRequest.Options.TIME_WINDOW_WIDTH">TIME_WINDOW_WIDTH</see>:</term>
-        ///         <description>For the <i>incremental_weighted</i> solver
-        /// only. Time window, also known as sampling period, in which points
-        /// are favored. To determine the raw window value, the
-        /// <i>time_window_width</i> value is multiplied by the mean sample
-        /// time (in seconds) across all points, e.g., if
-        /// <i>time_window_width</i> is 30 and the mean sample time is 2
-        /// seconds, points that are sampled greater than 60 seconds after the
-        /// previous point are no longer favored in the solution.  The default
-        /// value is '30'.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="MatchGraphRequest.Options.DETECT_LOOPS">DETECT_LOOPS</see>:</term>
-        ///         <description>For the <i>incremental_weighted</i> solver
-        /// only. If <i>true</i>, a loop will be detected and traversed even if
-        /// it would make a shorter path to ignore the loop.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="MatchGraphRequest.Options.TRUE">TRUE</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="MatchGraphRequest.Options.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="MatchGraphRequest.Options.TRUE">TRUE</see>.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -830,6 +767,49 @@ namespace kinetica
         /// to the trip cost to the demand location.  The default value is
         /// '0.0'.</description>
         ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="MatchGraphRequest.Options.MAX_NUM_THREADS">MAX_NUM_THREADS</see>:</term>
+        ///         <description>For the <i>markov_chain</i> solver only. If
+        /// specified (greater than zero), the maximum number of threads will
+        /// not be greater than the specified value. It can be lower due to the
+        /// memory and the number cores available. Default value of zero allows
+        /// the algorithm to set the maximal number of threads within these
+        /// constraints.  The default value is '0'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="MatchGraphRequest.Options.TRUCK_SERVICE_LIMIT">TRUCK_SERVICE_LIMIT</see>:</term>
+        ///         <description>For the <i>match_supply_demand</i> solver
+        /// only. If specified (greather than zero), any truck's total service
+        /// cost (distance or time) will be limited by the specified value
+        /// including multiple rounds (if set).  The default value is
+        /// '0.0'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="MatchGraphRequest.Options.ENABLE_TRUCK_REUSE">ENABLE_TRUCK_REUSE</see>:</term>
+        ///         <description>For the <i>match_supply_demand</i> solver
+        /// only. If specified (true), all trucks can be scheduled for second
+        /// rounds from their originating depots.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="MatchGraphRequest.Options.TRUE">TRUE</see>:</term>
+        ///         <description>Allows reusing trucks for scheduling
+        /// again.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="MatchGraphRequest.Options.FALSE">FALSE</see>:</term>
+        ///         <description>Trucks are scheduled only once from their
+        /// depots.</description>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="MatchGraphRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.</summary>
         public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
@@ -873,16 +853,6 @@ namespace kinetica
         /// corrected after each point. This solution type is the most accurate
         /// but also the most computationally intensive. Related options:
         /// <i>num_segments</i> and <i>chain_width</i>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="MatchGraphRequest.SolveMethod.INCREMENTAL_WEIGHTED">INCREMENTAL_WEIGHTED</see>:</term>
-        ///         <description>Matches <paramref
-        /// cref="MatchGraphRequest.sample_points" /> to the graph using time
-        /// and/or distance between points to influence one or more shortest
-        /// paths across the sample points. Related options:
-        /// <i>num_segments</i>, <i>max_solve_length</i>,
-        /// <i>time_window_width</i>, and <i>detect_loops</i>.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -938,8 +908,7 @@ namespace kinetica
         /// cref="MatchGraphRequest.Options.NUM_SEGMENTS">NUM_SEGMENTS</see>:</term>
         ///         <description>Maximum number of potentially matching road
         /// segments for each sample point. For the <i>markov_chain</i> solver,
-        /// the default is 3; for the <i>incremental_weighted</i>, the default
-        /// is 5.  The default value is ''.</description>
+        /// the default is 3.  The default value is '3'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -956,46 +925,6 @@ namespace kinetica
         /// Length of the sample points lookahead window within the Markov
         /// kernel; the larger the number, the more accurate the solution.  The
         /// default value is '9'.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="MatchGraphRequest.Options.MAX_SOLVE_LENGTH">MAX_SOLVE_LENGTH</see>:</term>
-        ///         <description>For the <i>incremental_weighted</i> solver
-        /// only. Maximum number of samples along the path on which to solve.
-        /// The default value is '200'.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="MatchGraphRequest.Options.TIME_WINDOW_WIDTH">TIME_WINDOW_WIDTH</see>:</term>
-        ///         <description>For the <i>incremental_weighted</i> solver
-        /// only. Time window, also known as sampling period, in which points
-        /// are favored. To determine the raw window value, the
-        /// <i>time_window_width</i> value is multiplied by the mean sample
-        /// time (in seconds) across all points, e.g., if
-        /// <i>time_window_width</i> is 30 and the mean sample time is 2
-        /// seconds, points that are sampled greater than 60 seconds after the
-        /// previous point are no longer favored in the solution.  The default
-        /// value is '30'.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="MatchGraphRequest.Options.DETECT_LOOPS">DETECT_LOOPS</see>:</term>
-        ///         <description>For the <i>incremental_weighted</i> solver
-        /// only. If <i>true</i>, a loop will be detected and traversed even if
-        /// it would make a shorter path to ignore the loop.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="MatchGraphRequest.Options.TRUE">TRUE</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="MatchGraphRequest.Options.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="MatchGraphRequest.Options.TRUE">TRUE</see>.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -1133,6 +1062,49 @@ namespace kinetica
         /// unit load multiplied by the total dropped load will be added over
         /// to the trip cost to the demand location.  The default value is
         /// '0.0'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="MatchGraphRequest.Options.MAX_NUM_THREADS">MAX_NUM_THREADS</see>:</term>
+        ///         <description>For the <i>markov_chain</i> solver only. If
+        /// specified (greater than zero), the maximum number of threads will
+        /// not be greater than the specified value. It can be lower due to the
+        /// memory and the number cores available. Default value of zero allows
+        /// the algorithm to set the maximal number of threads within these
+        /// constraints.  The default value is '0'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="MatchGraphRequest.Options.TRUCK_SERVICE_LIMIT">TRUCK_SERVICE_LIMIT</see>:</term>
+        ///         <description>For the <i>match_supply_demand</i> solver
+        /// only. If specified (greather than zero), any truck's total service
+        /// cost (distance or time) will be limited by the specified value
+        /// including multiple rounds (if set).  The default value is
+        /// '0.0'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="MatchGraphRequest.Options.ENABLE_TRUCK_REUSE">ENABLE_TRUCK_REUSE</see>:</term>
+        ///         <description>For the <i>match_supply_demand</i> solver
+        /// only. If specified (true), all trucks can be scheduled for second
+        /// rounds from their originating depots.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="MatchGraphRequest.Options.TRUE">TRUE</see>:</term>
+        ///         <description>Allows reusing trucks for scheduling
+        /// again.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="MatchGraphRequest.Options.FALSE">FALSE</see>:</term>
+        ///         <description>Trucks are scheduled only once from their
+        /// depots.</description>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="MatchGraphRequest.Options.FALSE">FALSE</see>.</description>
         ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.</param>

@@ -718,6 +718,12 @@ namespace kinetica
         /// The default value is <see
         /// cref="InsertRecordsFromFilesRequest.Options.FALSE">FALSE</see>.</description>
         ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromFilesRequest.Options.NUM_TASKS_PER_RANK">NUM_TASKS_PER_RANK</see>:</term>
+        ///         <description>Optional: number of tasks for reading file per
+        /// rank. Default will be external_file_reader_num_tasks</description>
+        ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.
         /// A set of string constants for the parameter <see cref="options"
@@ -975,6 +981,10 @@ namespace kinetica
             /// The default value is <see
             /// cref="InsertRecordsFromFilesRequest.Options.FALSE">FALSE</see>.</summary>
             public const string TRUNCATE_TABLE = "truncate_table";
+
+            /// <summary>Optional: number of tasks for reading file per rank.
+            /// Default will be external_file_reader_num_tasks</summary>
+            public const string NUM_TASKS_PER_RANK = "num_tasks_per_rank";
         } // end struct Options
 
 
@@ -1467,6 +1477,12 @@ namespace kinetica
         /// </list>
         /// The default value is <see
         /// cref="InsertRecordsFromFilesRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromFilesRequest.Options.NUM_TASKS_PER_RANK">NUM_TASKS_PER_RANK</see>:</term>
+        ///         <description>Optional: number of tasks for reading file per
+        /// rank. Default will be external_file_reader_num_tasks</description>
         ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.</summary>
@@ -1964,6 +1980,12 @@ namespace kinetica
         /// </list>
         /// The default value is <see
         /// cref="InsertRecordsFromFilesRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromFilesRequest.Options.NUM_TASKS_PER_RANK">NUM_TASKS_PER_RANK</see>:</term>
+        ///         <description>Optional: number of tasks for reading file per
+        /// rank. Default will be external_file_reader_num_tasks</description>
         ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.</param>

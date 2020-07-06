@@ -243,6 +243,11 @@ namespace kinetica
         /// cref="CreateExternalTableRequest.Options.S3_REGION">S3_REGION</see>:</term>
         ///         <description></description>
         ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateExternalTableRequest.Options.NUM_TASKS_PER_RANK">NUM_TASKS_PER_RANK</see>:</term>
+        ///         <description></description>
+        ///     </item>
         /// </list>
         /// <br />
         /// A set of string constants for the parameter <see cref="options"
@@ -411,6 +416,7 @@ namespace kinetica
             public const string EXTERNAL_STORAGE_LOCATION = "external_storage_location";
             public const string S3_BUCKET_NAME = "s3_bucket_name";
             public const string S3_REGION = "s3_region";
+            public const string NUM_TASKS_PER_RANK = "num_tasks_per_rank";
         } // end struct Options
 
         public string table_name { get; set; }
@@ -630,6 +636,11 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="CreateExternalTableRequest.Options.S3_REGION">S3_REGION</see>:</term>
+        ///         <description></description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateExternalTableRequest.Options.NUM_TASKS_PER_RANK">NUM_TASKS_PER_RANK</see>:</term>
         ///         <description></description>
         ///     </item>
         /// </list>
@@ -858,6 +869,11 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="CreateExternalTableRequest.Options.S3_REGION">S3_REGION</see>:</term>
+        ///         <description></description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateExternalTableRequest.Options.NUM_TASKS_PER_RANK">NUM_TASKS_PER_RANK</see>:</term>
         ///         <description></description>
         ///     </item>
         /// </list>
