@@ -12,7 +12,7 @@ namespace kinetica
 {
     /// @cond NO_DOCS
     /// <summary>A set of parameters for <see
-    /// cref="Kinetica.visualizeImageClassbreak(IList{string},IList{string},string,string,string,IList{IList{string}},string,IList{string},string,IList{string},string,IList{string},string,IList{string},double,double,double,double,int,int,string,long,IDictionary{string, IList{string}},IDictionary{string, string},IList{int})"
+    /// cref="Kinetica.visualizeImageClassbreak(IList{string},IList{string},string,string,string,IList{IList{string}},string,IList{string},string,IList{string},string,IList{string},string,IList{string},string,IList{string},double,double,double,double,int,int,string,long,IDictionary{string, IList{string}},IDictionary{string, string},IList{int})"
     /// />.
     /// <br />
     /// </summary>
@@ -155,6 +155,11 @@ namespace kinetica
         ///         <term><see
         /// cref="VisualizeImageClassbreakRequest.StyleOptions.POINTCOLORS">POINTCOLORS</see>:</term>
         ///         <description>  The default value is 'FF0000'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageClassbreakRequest.StyleOptions.CB_POINTALPHAS">CB_POINTALPHAS</see>:</term>
+        ///         <description>  The default value is '255'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -455,6 +460,9 @@ namespace kinetica
             /// <summary>  The default value is 'FF0000'.</summary>
             public const string POINTCOLORS = "pointcolors";
 
+            /// <summary>  The default value is '255'.</summary>
+            public const string CB_POINTALPHAS = "cb_pointalphas";
+
             /// <summary>  The default value is '3'.</summary>
             public const string POINTSIZES = "pointsizes";
 
@@ -652,6 +660,8 @@ namespace kinetica
         public IList<string> cb_vals { get; set; } = new List<string>();
         public string cb_pointcolor_attr { get; set; }
         public IList<string> cb_pointcolor_vals { get; set; } = new List<string>();
+        public string cb_pointalpha_attr { get; set; }
+        public IList<string> cb_pointalpha_vals { get; set; } = new List<string>();
         public string cb_pointsize_attr { get; set; }
         public IList<string> cb_pointsize_vals { get; set; } = new List<string>();
         public string cb_pointshape_attr { get; set; }
@@ -786,6 +796,11 @@ namespace kinetica
         ///         <term><see
         /// cref="VisualizeImageClassbreakRequest.StyleOptions.POINTCOLORS">POINTCOLORS</see>:</term>
         ///         <description>  The default value is 'FF0000'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageClassbreakRequest.StyleOptions.CB_POINTALPHAS">CB_POINTALPHAS</see>:</term>
+        ///         <description>  The default value is '255'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -1034,6 +1049,8 @@ namespace kinetica
         /// <param name="cb_vals"></param>
         /// <param name="cb_pointcolor_attr"></param>
         /// <param name="cb_pointcolor_vals"></param>
+        /// <param name="cb_pointalpha_attr"></param>
+        /// <param name="cb_pointalpha_vals"></param>
         /// <param name="cb_pointsize_attr"></param>
         /// <param name="cb_pointsize_vals"></param>
         /// <param name="cb_pointshape_attr"></param>
@@ -1165,6 +1182,11 @@ namespace kinetica
         ///         <term><see
         /// cref="VisualizeImageClassbreakRequest.StyleOptions.POINTCOLORS">POINTCOLORS</see>:</term>
         ///         <description>  The default value is 'FF0000'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageClassbreakRequest.StyleOptions.CB_POINTALPHAS">CB_POINTALPHAS</see>:</term>
+        ///         <description>  The default value is '255'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -1404,6 +1426,8 @@ namespace kinetica
                                                 IList<string> cb_vals,
                                                 string cb_pointcolor_attr,
                                                 IList<string> cb_pointcolor_vals,
+                                                string cb_pointalpha_attr,
+                                                IList<string> cb_pointalpha_vals,
                                                 string cb_pointsize_attr,
                                                 IList<string> cb_pointsize_vals,
                                                 string cb_pointshape_attr,
@@ -1430,6 +1454,8 @@ namespace kinetica
             this.cb_vals = cb_vals ?? new List<string>();
             this.cb_pointcolor_attr = cb_pointcolor_attr ?? "";
             this.cb_pointcolor_vals = cb_pointcolor_vals ?? new List<string>();
+            this.cb_pointalpha_attr = cb_pointalpha_attr ?? "";
+            this.cb_pointalpha_vals = cb_pointalpha_vals ?? new List<string>();
             this.cb_pointsize_attr = cb_pointsize_attr ?? "";
             this.cb_pointsize_vals = cb_pointsize_vals ?? new List<string>();
             this.cb_pointshape_attr = cb_pointshape_attr ?? "";
@@ -1454,7 +1480,7 @@ namespace kinetica
 
     /// @cond NO_DOCS
     /// <summary>A set of results returned by <see
-    /// cref="Kinetica.visualizeImageClassbreak(IList{string},IList{string},string,string,string,IList{IList{string}},string,IList{string},string,IList{string},string,IList{string},string,IList{string},double,double,double,double,int,int,string,long,IDictionary{string, IList{string}},IDictionary{string, string},IList{int})"
+    /// cref="Kinetica.visualizeImageClassbreak(IList{string},IList{string},string,string,string,IList{IList{string}},string,IList{string},string,IList{string},string,IList{string},string,IList{string},string,IList{string},double,double,double,double,int,int,string,long,IDictionary{string, IList{string}},IDictionary{string, string},IList{int})"
     /// />.</summary>
     public class VisualizeImageClassbreakResponse : KineticaData
     {

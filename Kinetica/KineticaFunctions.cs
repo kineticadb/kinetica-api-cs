@@ -16,7 +16,7 @@ namespace kinetica
     {
 
         // Kinetica Version
-        public const string API_VERSION = "7.0.17.0";
+        public const string API_VERSION = "7.0.18.0";
 
 
 
@@ -14200,7 +14200,14 @@ namespace kinetica
         /// primary key' predicate must be unique within a given request.
         /// These restrictions can be removed by utilizing some available
         /// options through <paramref cref="RawUpdateRecordsRequest.options"
-        /// />.</summary>
+        /// />.Note that this operation can only be run on an original table
+        /// and not on a collection or a result view.
+        /// <br />
+        /// The <i>update_on_existing_pk</i> option specifies the record
+        /// collision policy for tables with a <a
+        /// href="../../concepts/tables.html#primary-keys"
+        /// target="_top">primary key</a>, and is ignored on tables with no
+        /// primary key.</summary>
         /// 
         /// <param name="request_">Request object containing the parameters for
         /// the operation.</param>
@@ -14239,7 +14246,14 @@ namespace kinetica
         /// primary key' predicate must be unique within a given request.
         /// These restrictions can be removed by utilizing some available
         /// options through <paramref cref="RawUpdateRecordsRequest.options"
-        /// />.</summary>
+        /// />.Note that this operation can only be run on an original table
+        /// and not on a collection or a result view.
+        /// <br />
+        /// The <i>update_on_existing_pk</i> option specifies the record
+        /// collision policy for tables with a <a
+        /// href="../../concepts/tables.html#primary-keys"
+        /// target="_top">primary key</a>, and is ignored on tables with no
+        /// primary key.</summary>
         /// 
         /// <typeparam name="T">The type of object being added.</typeparam>
         /// 
@@ -14284,7 +14298,15 @@ namespace kinetica
         /// an equality predicate in the expressions.  Furthermore each 'pure
         /// primary key' predicate must be unique within a given request.
         /// These restrictions can be removed by utilizing some available
-        /// options through <paramref name="options" />.</summary>
+        /// options through <paramref name="options" />.Note that this
+        /// operation can only be run on an original table and not on a
+        /// collection or a result view.
+        /// <br />
+        /// The <i>update_on_existing_pk</i> option specifies the record
+        /// collision policy for tables with a <a
+        /// href="../../concepts/tables.html#primary-keys"
+        /// target="_top">primary key</a>, and is ignored on tables with no
+        /// primary key.</summary>
         /// 
         /// <typeparam name="T">The type of object being added.</typeparam>
         /// 
@@ -14341,18 +14363,31 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="RawUpdateRecordsRequest.Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>:</term>
-        ///         <description>Can be used to customize behavior when the
-        /// updated primary key value already exists as described in
-        /// /insert/records.
+        ///         <description>Specifies the record collision policy for
+        /// tables with a <a href="../../concepts/tables.html#primary-keys"
+        /// target="_top">primary key</a> when updating columns of the <a
+        /// href="../../concepts/tables.html#primary-keys"
+        /// target="_top">primary key</a> or inserting new records.  If
+        /// <i>true</i>, existing records with primary key values that match
+        /// those of a record being updated or inserted will be replaced by the
+        /// updated and new records.  If <i>false</i>, existing records with
+        /// matching primary key values will remain unchanged, and the updated
+        /// or new records with primary key values that match those of existing
+        /// records will be discarded.  If the specified table does not have a
+        /// primary key, then this option has no effect.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
-        /// cref="RawUpdateRecordsRequest.Options.TRUE">TRUE</see></term>
+        /// cref="RawUpdateRecordsRequest.Options.TRUE">TRUE</see>:</term>
+        ///         <description>Overwrite existing records when updated and
+        /// inserted records have the same primary keys</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="RawUpdateRecordsRequest.Options.FALSE">FALSE</see></term>
+        /// cref="RawUpdateRecordsRequest.Options.FALSE">FALSE</see>:</term>
+        ///         <description>Discard updated and inserted records when the
+        /// same primary keys already exist</description>
         ///     </item>
         /// </list>
         /// The default value is <see
@@ -15250,6 +15285,8 @@ namespace kinetica
         /// <param name="cb_vals"></param>
         /// <param name="cb_pointcolor_attr"></param>
         /// <param name="cb_pointcolor_vals"></param>
+        /// <param name="cb_pointalpha_attr"></param>
+        /// <param name="cb_pointalpha_vals"></param>
         /// <param name="cb_pointsize_attr"></param>
         /// <param name="cb_pointsize_vals"></param>
         /// <param name="cb_pointshape_attr"></param>
@@ -15381,6 +15418,11 @@ namespace kinetica
         ///         <term><see
         /// cref="VisualizeImageClassbreakRequest.StyleOptions.POINTCOLORS">POINTCOLORS</see>:</term>
         ///         <description>  The default value is 'FF0000'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageClassbreakRequest.StyleOptions.CB_POINTALPHAS">CB_POINTALPHAS</see>:</term>
+        ///         <description>  The default value is '255'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -15623,6 +15665,8 @@ namespace kinetica
                                                                           IList<string> cb_vals,
                                                                           string cb_pointcolor_attr,
                                                                           IList<string> cb_pointcolor_vals,
+                                                                          string cb_pointalpha_attr,
+                                                                          IList<string> cb_pointalpha_vals,
                                                                           string cb_pointsize_attr,
                                                                           IList<string> cb_pointsize_vals,
                                                                           string cb_pointshape_attr,
@@ -15650,6 +15694,8 @@ namespace kinetica
                                                                                   cb_vals,
                                                                                   cb_pointcolor_attr,
                                                                                   cb_pointcolor_vals,
+                                                                                  cb_pointalpha_attr,
+                                                                                  cb_pointalpha_vals,
                                                                                   cb_pointsize_attr,
                                                                                   cb_pointsize_vals,
                                                                                   cb_pointshape_attr,

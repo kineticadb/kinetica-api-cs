@@ -34,8 +34,14 @@ namespace kinetica
     /// Meaning, all primary key columns must appear in an equality predicate
     /// in the expressions.  Furthermore each 'pure primary key' predicate must
     /// be unique within a given request.  These restrictions can be removed by
-    /// utilizing some available options through <see cref="options"
-    /// />.</summary>
+    /// utilizing some available options through <see cref="options" />.Note
+    /// that this operation can only be run on an original table and not on a
+    /// collection or a result view.
+    /// <br />
+    /// The <i>update_on_existing_pk</i> option specifies the record collision
+    /// policy for tables with a <a
+    /// href="../../concepts/tables.html#primary-keys" target="_top">primary
+    /// key</a>, and is ignored on tables with no primary key.</summary>
     public class RawUpdateRecordsRequest : KineticaData
     {
 
@@ -102,18 +108,31 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="RawUpdateRecordsRequest.Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>:</term>
-        ///         <description>Can be used to customize behavior when the
-        /// updated primary key value already exists as described in
-        /// /insert/records.
+        ///         <description>Specifies the record collision policy for
+        /// tables with a <a href="../../concepts/tables.html#primary-keys"
+        /// target="_top">primary key</a> when updating columns of the <a
+        /// href="../../concepts/tables.html#primary-keys"
+        /// target="_top">primary key</a> or inserting new records.  If
+        /// <i>true</i>, existing records with primary key values that match
+        /// those of a record being updated or inserted will be replaced by the
+        /// updated and new records.  If <i>false</i>, existing records with
+        /// matching primary key values will remain unchanged, and the updated
+        /// or new records with primary key values that match those of existing
+        /// records will be discarded.  If the specified table does not have a
+        /// primary key, then this option has no effect.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
-        /// cref="RawUpdateRecordsRequest.Options.TRUE">TRUE</see></term>
+        /// cref="RawUpdateRecordsRequest.Options.TRUE">TRUE</see>:</term>
+        ///         <description>Overwrite existing records when updated and
+        /// inserted records have the same primary keys</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="RawUpdateRecordsRequest.Options.FALSE">FALSE</see></term>
+        /// cref="RawUpdateRecordsRequest.Options.FALSE">FALSE</see>:</term>
+        ///         <description>Discard updated and inserted records when the
+        /// same primary keys already exist</description>
         ///     </item>
         /// </list>
         /// The default value is <see
@@ -224,19 +243,32 @@ namespace kinetica
             public const string TRUE = "true";
             public const string FALSE = "false";
 
-            /// <summary>Can be used to customize behavior when the updated
-            /// primary key value already exists as described in <see
-            /// cref="Kinetica.insertRecords{T}(string,IList{T},IDictionary{string, string})"
-            /// />.
+            /// <summary>Specifies the record collision policy for tables with
+            /// a <a href="../../concepts/tables.html#primary-keys"
+            /// target="_top">primary key</a> when updating columns of the <a
+            /// href="../../concepts/tables.html#primary-keys"
+            /// target="_top">primary key</a> or inserting new records.  If
+            /// <i>true</i>, existing records with primary key values that
+            /// match those of a record being updated or inserted will be
+            /// replaced by the updated and new records.  If <i>false</i>,
+            /// existing records with matching primary key values will remain
+            /// unchanged, and the updated or new records with primary key
+            /// values that match those of existing records will be discarded.
+            /// If the specified table does not have a primary key, then this
+            /// option has no effect.
             /// Supported values:
             /// <list type="bullet">
             ///     <item>
             ///         <term><see
-            /// cref="RawUpdateRecordsRequest.Options.TRUE">TRUE</see></term>
+            /// cref="RawUpdateRecordsRequest.Options.TRUE">TRUE</see>:</term>
+            ///         <description>Overwrite existing records when updated
+            /// and inserted records have the same primary keys</description>
             ///     </item>
             ///     <item>
             ///         <term><see
-            /// cref="RawUpdateRecordsRequest.Options.FALSE">FALSE</see></term>
+            /// cref="RawUpdateRecordsRequest.Options.FALSE">FALSE</see>:</term>
+            ///         <description>Discard updated and inserted records when
+            /// the same primary keys already exist</description>
             ///     </item>
             /// </list>
             /// The default value is <see
@@ -395,18 +427,31 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="RawUpdateRecordsRequest.Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>:</term>
-        ///         <description>Can be used to customize behavior when the
-        /// updated primary key value already exists as described in
-        /// /insert/records.
+        ///         <description>Specifies the record collision policy for
+        /// tables with a <a href="../../concepts/tables.html#primary-keys"
+        /// target="_top">primary key</a> when updating columns of the <a
+        /// href="../../concepts/tables.html#primary-keys"
+        /// target="_top">primary key</a> or inserting new records.  If
+        /// <i>true</i>, existing records with primary key values that match
+        /// those of a record being updated or inserted will be replaced by the
+        /// updated and new records.  If <i>false</i>, existing records with
+        /// matching primary key values will remain unchanged, and the updated
+        /// or new records with primary key values that match those of existing
+        /// records will be discarded.  If the specified table does not have a
+        /// primary key, then this option has no effect.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
-        /// cref="RawUpdateRecordsRequest.Options.TRUE">TRUE</see></term>
+        /// cref="RawUpdateRecordsRequest.Options.TRUE">TRUE</see>:</term>
+        ///         <description>Overwrite existing records when updated and
+        /// inserted records have the same primary keys</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="RawUpdateRecordsRequest.Options.FALSE">FALSE</see></term>
+        /// cref="RawUpdateRecordsRequest.Options.FALSE">FALSE</see>:</term>
+        ///         <description>Discard updated and inserted records when the
+        /// same primary keys already exist</description>
         ///     </item>
         /// </list>
         /// The default value is <see
@@ -546,18 +591,31 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="RawUpdateRecordsRequest.Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>:</term>
-        ///         <description>Can be used to customize behavior when the
-        /// updated primary key value already exists as described in
-        /// /insert/records.
+        ///         <description>Specifies the record collision policy for
+        /// tables with a <a href="../../concepts/tables.html#primary-keys"
+        /// target="_top">primary key</a> when updating columns of the <a
+        /// href="../../concepts/tables.html#primary-keys"
+        /// target="_top">primary key</a> or inserting new records.  If
+        /// <i>true</i>, existing records with primary key values that match
+        /// those of a record being updated or inserted will be replaced by the
+        /// updated and new records.  If <i>false</i>, existing records with
+        /// matching primary key values will remain unchanged, and the updated
+        /// or new records with primary key values that match those of existing
+        /// records will be discarded.  If the specified table does not have a
+        /// primary key, then this option has no effect.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
-        /// cref="RawUpdateRecordsRequest.Options.TRUE">TRUE</see></term>
+        /// cref="RawUpdateRecordsRequest.Options.TRUE">TRUE</see>:</term>
+        ///         <description>Overwrite existing records when updated and
+        /// inserted records have the same primary keys</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="RawUpdateRecordsRequest.Options.FALSE">FALSE</see></term>
+        /// cref="RawUpdateRecordsRequest.Options.FALSE">FALSE</see>:</term>
+        ///         <description>Discard updated and inserted records when the
+        /// same primary keys already exist</description>
         ///     </item>
         /// </list>
         /// The default value is <see
@@ -729,18 +787,31 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="RawUpdateRecordsRequest.Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>:</term>
-        ///         <description>Can be used to customize behavior when the
-        /// updated primary key value already exists as described in
-        /// /insert/records.
+        ///         <description>Specifies the record collision policy for
+        /// tables with a <a href="../../concepts/tables.html#primary-keys"
+        /// target="_top">primary key</a> when updating columns of the <a
+        /// href="../../concepts/tables.html#primary-keys"
+        /// target="_top">primary key</a> or inserting new records.  If
+        /// <i>true</i>, existing records with primary key values that match
+        /// those of a record being updated or inserted will be replaced by the
+        /// updated and new records.  If <i>false</i>, existing records with
+        /// matching primary key values will remain unchanged, and the updated
+        /// or new records with primary key values that match those of existing
+        /// records will be discarded.  If the specified table does not have a
+        /// primary key, then this option has no effect.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
-        /// cref="RawUpdateRecordsRequest.Options.TRUE">TRUE</see></term>
+        /// cref="RawUpdateRecordsRequest.Options.TRUE">TRUE</see>:</term>
+        ///         <description>Overwrite existing records when updated and
+        /// inserted records have the same primary keys</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="RawUpdateRecordsRequest.Options.FALSE">FALSE</see></term>
+        /// cref="RawUpdateRecordsRequest.Options.FALSE">FALSE</see>:</term>
+        ///         <description>Discard updated and inserted records when the
+        /// same primary keys already exist</description>
         ///     </item>
         /// </list>
         /// The default value is <see
@@ -862,8 +933,14 @@ namespace kinetica
     /// Meaning, all primary key columns must appear in an equality predicate
     /// in the expressions.  Furthermore each 'pure primary key' predicate must
     /// be unique within a given request.  These restrictions can be removed by
-    /// utilizing some available options through <see cref="options"
-    /// />.</summary>
+    /// utilizing some available options through <see cref="options" />.Note
+    /// that this operation can only be run on an original table and not on a
+    /// collection or a result view.
+    /// <br />
+    /// The <i>update_on_existing_pk</i> option specifies the record collision
+    /// policy for tables with a <a
+    /// href="../../concepts/tables.html#primary-keys" target="_top">primary
+    /// key</a>, and is ignored on tables with no primary key.</summary>
     /// 
     /// <typeparam name="T">The type of object being processed.</typeparam>
     /// 
@@ -907,18 +984,31 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="RawUpdateRecordsRequest.Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>:</term>
-        ///         <description>Can be used to customize behavior when the
-        /// updated primary key value already exists as described in
-        /// /insert/records.
+        ///         <description>Specifies the record collision policy for
+        /// tables with a <a href="../../concepts/tables.html#primary-keys"
+        /// target="_top">primary key</a> when updating columns of the <a
+        /// href="../../concepts/tables.html#primary-keys"
+        /// target="_top">primary key</a> or inserting new records.  If
+        /// <i>true</i>, existing records with primary key values that match
+        /// those of a record being updated or inserted will be replaced by the
+        /// updated and new records.  If <i>false</i>, existing records with
+        /// matching primary key values will remain unchanged, and the updated
+        /// or new records with primary key values that match those of existing
+        /// records will be discarded.  If the specified table does not have a
+        /// primary key, then this option has no effect.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
-        /// cref="RawUpdateRecordsRequest.Options.TRUE">TRUE</see></term>
+        /// cref="RawUpdateRecordsRequest.Options.TRUE">TRUE</see>:</term>
+        ///         <description>Overwrite existing records when updated and
+        /// inserted records have the same primary keys</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="RawUpdateRecordsRequest.Options.FALSE">FALSE</see></term>
+        /// cref="RawUpdateRecordsRequest.Options.FALSE">FALSE</see>:</term>
+        ///         <description>Discard updated and inserted records when the
+        /// same primary keys already exist</description>
         ///     </item>
         /// </list>
         /// The default value is <see
@@ -1029,19 +1119,32 @@ namespace kinetica
             public const string TRUE = "true";
             public const string FALSE = "false";
 
-            /// <summary>Can be used to customize behavior when the updated
-            /// primary key value already exists as described in <see
-            /// cref="Kinetica.insertRecords{T}(string,IList{T},IDictionary{string, string})"
-            /// />.
+            /// <summary>Specifies the record collision policy for tables with
+            /// a <a href="../../concepts/tables.html#primary-keys"
+            /// target="_top">primary key</a> when updating columns of the <a
+            /// href="../../concepts/tables.html#primary-keys"
+            /// target="_top">primary key</a> or inserting new records.  If
+            /// <i>true</i>, existing records with primary key values that
+            /// match those of a record being updated or inserted will be
+            /// replaced by the updated and new records.  If <i>false</i>,
+            /// existing records with matching primary key values will remain
+            /// unchanged, and the updated or new records with primary key
+            /// values that match those of existing records will be discarded.
+            /// If the specified table does not have a primary key, then this
+            /// option has no effect.
             /// Supported values:
             /// <list type="bullet">
             ///     <item>
             ///         <term><see
-            /// cref="RawUpdateRecordsRequest.Options.TRUE">TRUE</see></term>
+            /// cref="RawUpdateRecordsRequest.Options.TRUE">TRUE</see>:</term>
+            ///         <description>Overwrite existing records when updated
+            /// and inserted records have the same primary keys</description>
             ///     </item>
             ///     <item>
             ///         <term><see
-            /// cref="RawUpdateRecordsRequest.Options.FALSE">FALSE</see></term>
+            /// cref="RawUpdateRecordsRequest.Options.FALSE">FALSE</see>:</term>
+            ///         <description>Discard updated and inserted records when
+            /// the same primary keys already exist</description>
             ///     </item>
             /// </list>
             /// The default value is <see
@@ -1174,18 +1277,31 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="RawUpdateRecordsRequest.Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>:</term>
-        ///         <description>Can be used to customize behavior when the
-        /// updated primary key value already exists as described in
-        /// /insert/records.
+        ///         <description>Specifies the record collision policy for
+        /// tables with a <a href="../../concepts/tables.html#primary-keys"
+        /// target="_top">primary key</a> when updating columns of the <a
+        /// href="../../concepts/tables.html#primary-keys"
+        /// target="_top">primary key</a> or inserting new records.  If
+        /// <i>true</i>, existing records with primary key values that match
+        /// those of a record being updated or inserted will be replaced by the
+        /// updated and new records.  If <i>false</i>, existing records with
+        /// matching primary key values will remain unchanged, and the updated
+        /// or new records with primary key values that match those of existing
+        /// records will be discarded.  If the specified table does not have a
+        /// primary key, then this option has no effect.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
-        /// cref="RawUpdateRecordsRequest.Options.TRUE">TRUE</see></term>
+        /// cref="RawUpdateRecordsRequest.Options.TRUE">TRUE</see>:</term>
+        ///         <description>Overwrite existing records when updated and
+        /// inserted records have the same primary keys</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="RawUpdateRecordsRequest.Options.FALSE">FALSE</see></term>
+        /// cref="RawUpdateRecordsRequest.Options.FALSE">FALSE</see>:</term>
+        ///         <description>Discard updated and inserted records when the
+        /// same primary keys already exist</description>
         ///     </item>
         /// </list>
         /// The default value is <see
@@ -1325,18 +1441,31 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="RawUpdateRecordsRequest.Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>:</term>
-        ///         <description>Can be used to customize behavior when the
-        /// updated primary key value already exists as described in
-        /// /insert/records.
+        ///         <description>Specifies the record collision policy for
+        /// tables with a <a href="../../concepts/tables.html#primary-keys"
+        /// target="_top">primary key</a> when updating columns of the <a
+        /// href="../../concepts/tables.html#primary-keys"
+        /// target="_top">primary key</a> or inserting new records.  If
+        /// <i>true</i>, existing records with primary key values that match
+        /// those of a record being updated or inserted will be replaced by the
+        /// updated and new records.  If <i>false</i>, existing records with
+        /// matching primary key values will remain unchanged, and the updated
+        /// or new records with primary key values that match those of existing
+        /// records will be discarded.  If the specified table does not have a
+        /// primary key, then this option has no effect.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
-        /// cref="RawUpdateRecordsRequest.Options.TRUE">TRUE</see></term>
+        /// cref="RawUpdateRecordsRequest.Options.TRUE">TRUE</see>:</term>
+        ///         <description>Overwrite existing records when updated and
+        /// inserted records have the same primary keys</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="RawUpdateRecordsRequest.Options.FALSE">FALSE</see></term>
+        /// cref="RawUpdateRecordsRequest.Options.FALSE">FALSE</see>:</term>
+        ///         <description>Discard updated and inserted records when the
+        /// same primary keys already exist</description>
         ///     </item>
         /// </list>
         /// The default value is <see
