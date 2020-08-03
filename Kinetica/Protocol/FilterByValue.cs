@@ -17,14 +17,21 @@ namespace kinetica
     /// <br />
     /// Calculates which objects from a table has a particular value for a
     /// particular column. The input parameters provide a way to specify either
-    /// a String or a Double valued column and a desired value for the column
-    /// on which the filter is performed. The operation is synchronous, meaning
-    /// that a response will not be returned until all the objects are fully
-    /// available. The response payload provides the count of the resulting
-    /// set. A new result view which satisfies the input filter restriction
-    /// specification is also created with a view name passed in as part of the
-    /// input payload.  Although this functionality can also be accomplished
-    /// with the standard filter function, it is more efficient.</summary>
+    /// a String
+    /// or a Double valued column and a desired value for the column on which
+    /// the filter
+    /// is performed. The operation is synchronous, meaning that a response
+    /// will not be
+    /// returned until all the objects are fully available. The response
+    /// payload
+    /// provides the count of the resulting set. A new result view which
+    /// satisfies the
+    /// input filter restriction specification is also created with a view name
+    /// passed
+    /// in as part of the input payload.  Although this functionality can also
+    /// be
+    /// accomplished with the standard filter function, it is more
+    /// efficient.</summary>
     public class FilterByValueRequest : KineticaData
     {
 
@@ -33,10 +40,12 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="FilterByValueRequest.Options.COLLECTION_NAME">COLLECTION_NAME</see>:</term>
-        ///         <description>Name of a collection which is to contain the
-        /// newly created view. If the collection provided is non-existent, the
-        /// collection will be automatically created. If empty, then the newly
-        /// created view will be top-level.</description>
+        ///         <description>[DEPRECATED--please specify the containing
+        /// schema for the view as part of <paramref
+        /// cref="FilterByValueRequest.view_name" /> and use /create/schema to
+        /// create the schema if non-existent]  Name of a schema for the newly
+        /// created view. If the schema is non-existent, it will be
+        /// automatically created.</description>
         ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.
@@ -45,22 +54,29 @@ namespace kinetica
         public struct Options
         {
 
-            /// <summary>Name of a collection which is to contain the newly
-            /// created view. If the collection provided is non-existent, the
-            /// collection will be automatically created. If empty, then the
-            /// newly created view will be top-level.</summary>
+            /// <summary>[DEPRECATED--please specify the containing schema for
+            /// the view as part of <see cref="view_name" /> and use <see
+            /// cref="Kinetica.createSchema(string,IDictionary{string, string})"
+            /// /> to create the schema if non-existent]  Name of a schema for
+            /// the newly created view. If the schema is non-existent, it will
+            /// be automatically created.</summary>
             public const string COLLECTION_NAME = "collection_name";
         } // end struct Options
 
 
         /// <summary>Name of an existing table on which to perform the
-        /// calculation.  </summary>
+        /// calculation, in [schema_name.]table_name format, using standard <a
+        /// href="../../concepts/tables.html#table-name-resolution"
+        /// target="_top">name resolution rules</a>.  </summary>
         public string table_name { get; set; }
 
         /// <summary>If provided, then this will be the name of the view
-        /// containing the results. Has the same naming restrictions as <a
-        /// href="../../concepts/tables.html" target="_top">tables</a>.  The
-        /// default value is ''.</summary>
+        /// containing the results, in [schema_name.]view_name format, using
+        /// standard <a href="../../concepts/tables.html#table-name-resolution"
+        /// target="_top">name resolution rules</a> and meeting <a
+        /// href="../../concepts/tables.html#table-naming-criteria"
+        /// target="_top">table naming criteria</a>.  Must not be an already
+        /// existing table or view.  The default value is ''.</summary>
         public string view_name { get; set; } = "";
 
         /// <summary>Indicates whether the value being searched for is string
@@ -84,10 +100,12 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="FilterByValueRequest.Options.COLLECTION_NAME">COLLECTION_NAME</see>:</term>
-        ///         <description>Name of a collection which is to contain the
-        /// newly created view. If the collection provided is non-existent, the
-        /// collection will be automatically created. If empty, then the newly
-        /// created view will be top-level.</description>
+        ///         <description>[DEPRECATED--please specify the containing
+        /// schema for the view as part of <paramref
+        /// cref="FilterByValueRequest.view_name" /> and use /create/schema to
+        /// create the schema if non-existent]  Name of a schema for the newly
+        /// created view. If the schema is non-existent, it will be
+        /// automatically created.</description>
         ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.</summary>
@@ -102,11 +120,17 @@ namespace kinetica
         /// specified parameters.</summary>
         /// 
         /// <param name="table_name">Name of an existing table on which to
-        /// perform the calculation.  </param>
+        /// perform the calculation, in [schema_name.]table_name format, using
+        /// standard <a href="../../concepts/tables.html#table-name-resolution"
+        /// target="_top">name resolution rules</a>.  </param>
         /// <param name="view_name">If provided, then this will be the name of
-        /// the view containing the results. Has the same naming restrictions
-        /// as <a href="../../concepts/tables.html" target="_top">tables</a>.
-        /// The default value is ''.</param>
+        /// the view containing the results, in [schema_name.]view_name format,
+        /// using standard <a
+        /// href="../../concepts/tables.html#table-name-resolution"
+        /// target="_top">name resolution rules</a> and meeting <a
+        /// href="../../concepts/tables.html#table-naming-criteria"
+        /// target="_top">table naming criteria</a>.  Must not be an already
+        /// existing table or view.  The default value is ''.</param>
         /// <param name="is_string">Indicates whether the value being searched
         /// for is string or numeric.  </param>
         /// <param name="_value">The value to search for.  The default value is
@@ -120,10 +144,12 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="FilterByValueRequest.Options.COLLECTION_NAME">COLLECTION_NAME</see>:</term>
-        ///         <description>Name of a collection which is to contain the
-        /// newly created view. If the collection provided is non-existent, the
-        /// collection will be automatically created. If empty, then the newly
-        /// created view will be top-level.</description>
+        ///         <description>[DEPRECATED--please specify the containing
+        /// schema for the view as part of <paramref
+        /// cref="FilterByValueRequest.view_name" /> and use /create/schema to
+        /// create the schema if non-existent]  Name of a schema for the newly
+        /// created view. If the schema is non-existent, it will be
+        /// automatically created.</description>
         ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.</param>
@@ -155,11 +181,41 @@ namespace kinetica
     public class FilterByValueResponse : KineticaData
     {
 
+        /// <summary>Additional information.
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="FilterByValueResponse.Info.QUALIFIED_VIEW_NAME">QUALIFIED_VIEW_NAME</see>:</term>
+        ///         <description>The fully qualified name of the view (i.e.
+        /// including the schema)</description>
+        ///     </item>
+        /// </list>
+        /// The default value is an empty {@link Dictionary}.
+        /// A set of string constants for the parameter <member name="info"
+        /// />.</summary>
+        public struct Info
+        {
+
+            /// <summary>The fully qualified name of the view (i.e. including
+            /// the schema)</summary>
+            public const string QUALIFIED_VIEW_NAME = "qualified_view_name";
+        } // end struct Info
+
+
         /// <summary>The number of records passing the value filter.
         /// </summary>
         public long count { get; set; }
 
-        /// <summary>Additional information.  </summary>
+        /// <summary>Additional information.
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="FilterByValueResponse.Info.QUALIFIED_VIEW_NAME">QUALIFIED_VIEW_NAME</see>:</term>
+        ///         <description>The fully qualified name of the view (i.e.
+        /// including the schema)</description>
+        ///     </item>
+        /// </list>
+        /// The default value is an empty {@link Dictionary}.</summary>
         public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
 
     } // end class FilterByValueResponse

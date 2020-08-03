@@ -15,11 +15,12 @@ namespace kinetica
     /// cref="Kinetica.filterByString(string,string,string,string,IList{string},IDictionary{string, string})"
     /// />.
     /// <br />
-    /// Calculates which objects from a table, collection, or view match a
-    /// string expression for the given string columns. The options
-    /// 'case_sensitive' can be used to modify the behavior for all modes
-    /// except 'search'. For 'search' mode details and limitations, see <a
-    /// href="../../concepts/full_text_search.html" target="_top">Full Text
+    /// Calculates which objects from a table or view match a string
+    /// expression for the given string columns. Setting
+    /// <i>case_sensitive</i> can modify case sensitivity in matching
+    /// for all modes except <i>search</i>. For
+    /// <i>search</i> mode details and limitations, see
+    /// <a href="../../concepts/full_text_search.html" target="_top">Full Text
     /// Search</a>.</summary>
     public class FilterByStringRequest : KineticaData
     {
@@ -100,16 +101,18 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="FilterByStringRequest.Options.COLLECTION_NAME">COLLECTION_NAME</see>:</term>
-        ///         <description>Name of a collection which is to contain the
-        /// newly created view. If the collection provided is non-existent, the
-        /// collection will be automatically created. If empty, then the newly
-        /// created view will be top-level.</description>
+        ///         <description>[DEPRECATED--please specify the containing
+        /// schema for the view as part of <paramref
+        /// cref="FilterByStringRequest.view_name" /> and use /create/schema to
+        /// create the schema if non-existent]  Name of a schema for the newly
+        /// created view. If the schema is non-existent, it will be
+        /// automatically created.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="FilterByStringRequest.Options.CASE_SENSITIVE">CASE_SENSITIVE</see>:</term>
-        ///         <description>If 'false' then string filtering will ignore
-        /// case. Does not apply to 'search' mode.
+        ///         <description>If <i>false</i> then string filtering will
+        /// ignore case. Does not apply to <i>search</i> mode.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -131,14 +134,16 @@ namespace kinetica
         public struct Options
         {
 
-            /// <summary>Name of a collection which is to contain the newly
-            /// created view. If the collection provided is non-existent, the
-            /// collection will be automatically created. If empty, then the
-            /// newly created view will be top-level.</summary>
+            /// <summary>[DEPRECATED--please specify the containing schema for
+            /// the view as part of <see cref="view_name" /> and use <see
+            /// cref="Kinetica.createSchema(string,IDictionary{string, string})"
+            /// /> to create the schema if non-existent]  Name of a schema for
+            /// the newly created view. If the schema is non-existent, it will
+            /// be automatically created.</summary>
             public const string COLLECTION_NAME = "collection_name";
 
-            /// <summary>If 'false' then string filtering will ignore case.
-            /// Does not apply to 'search' mode.
+            /// <summary>If <i>false</i> then string filtering will ignore
+            /// case. Does not apply to <i>search</i> mode.
             /// Supported values:
             /// <list type="bullet">
             ///     <item>
@@ -159,14 +164,19 @@ namespace kinetica
 
 
         /// <summary>Name of the table on which the filter operation will be
-        /// performed.  Must be an existing table, collection or view.
-        /// </summary>
+        /// performed, in [schema_name.]table_name format, using standard <a
+        /// href="../../concepts/tables.html#table-name-resolution"
+        /// target="_top">name resolution rules</a>.  Must be an existing table
+        /// or view.  </summary>
         public string table_name { get; set; }
 
         /// <summary>If provided, then this will be the name of the view
-        /// containing the results. Has the same naming restrictions as <a
-        /// href="../../concepts/tables.html" target="_top">tables</a>.  The
-        /// default value is ''.</summary>
+        /// containing the results, in [schema_name.]view_name format, using
+        /// standard <a href="../../concepts/tables.html#table-name-resolution"
+        /// target="_top">name resolution rules</a> and meeting <a
+        /// href="../../concepts/tables.html#table-naming-criteria"
+        /// target="_top">table naming criteria</a>.  Must not be an already
+        /// existing table or view.  The default value is ''.</summary>
         public string view_name { get; set; } = "";
 
         /// <summary>The expression with which to filter the table.  </summary>
@@ -215,7 +225,7 @@ namespace kinetica
         public string mode { get; set; }
 
         /// <summary>List of columns on which to apply the filter. Ignored for
-        /// 'search' mode.  </summary>
+        /// <i>search</i> mode.  </summary>
         public IList<string> column_names { get; set; } = new List<string>();
 
         /// <summary>Optional parameters.
@@ -223,16 +233,18 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="FilterByStringRequest.Options.COLLECTION_NAME">COLLECTION_NAME</see>:</term>
-        ///         <description>Name of a collection which is to contain the
-        /// newly created view. If the collection provided is non-existent, the
-        /// collection will be automatically created. If empty, then the newly
-        /// created view will be top-level.</description>
+        ///         <description>[DEPRECATED--please specify the containing
+        /// schema for the view as part of <paramref
+        /// cref="FilterByStringRequest.view_name" /> and use /create/schema to
+        /// create the schema if non-existent]  Name of a schema for the newly
+        /// created view. If the schema is non-existent, it will be
+        /// automatically created.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="FilterByStringRequest.Options.CASE_SENSITIVE">CASE_SENSITIVE</see>:</term>
-        ///         <description>If 'false' then string filtering will ignore
-        /// case. Does not apply to 'search' mode.
+        ///         <description>If <i>false</i> then string filtering will
+        /// ignore case. Does not apply to <i>search</i> mode.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -260,12 +272,19 @@ namespace kinetica
         /// specified parameters.</summary>
         /// 
         /// <param name="table_name">Name of the table on which the filter
-        /// operation will be performed.  Must be an existing table, collection
+        /// operation will be performed, in [schema_name.]table_name format,
+        /// using standard <a
+        /// href="../../concepts/tables.html#table-name-resolution"
+        /// target="_top">name resolution rules</a>.  Must be an existing table
         /// or view.  </param>
         /// <param name="view_name">If provided, then this will be the name of
-        /// the view containing the results. Has the same naming restrictions
-        /// as <a href="../../concepts/tables.html" target="_top">tables</a>.
-        /// The default value is ''.</param>
+        /// the view containing the results, in [schema_name.]view_name format,
+        /// using standard <a
+        /// href="../../concepts/tables.html#table-name-resolution"
+        /// target="_top">name resolution rules</a> and meeting <a
+        /// href="../../concepts/tables.html#table-naming-criteria"
+        /// target="_top">table naming criteria</a>.  Must not be an already
+        /// existing table or view.  The default value is ''.</param>
         /// <param name="expression">The expression with which to filter the
         /// table.  </param>
         /// <param name="mode">The string filtering mode to apply. See below
@@ -310,22 +329,24 @@ namespace kinetica
         ///     </item>
         /// </list>  </param>
         /// <param name="column_names">List of columns on which to apply the
-        /// filter. Ignored for 'search' mode.  </param>
+        /// filter. Ignored for <i>search</i> mode.  </param>
         /// <param name="options">Optional parameters.
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
         /// cref="FilterByStringRequest.Options.COLLECTION_NAME">COLLECTION_NAME</see>:</term>
-        ///         <description>Name of a collection which is to contain the
-        /// newly created view. If the collection provided is non-existent, the
-        /// collection will be automatically created. If empty, then the newly
-        /// created view will be top-level.</description>
+        ///         <description>[DEPRECATED--please specify the containing
+        /// schema for the view as part of <paramref
+        /// cref="FilterByStringRequest.view_name" /> and use /create/schema to
+        /// create the schema if non-existent]  Name of a schema for the newly
+        /// created view. If the schema is non-existent, it will be
+        /// automatically created.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="FilterByStringRequest.Options.CASE_SENSITIVE">CASE_SENSITIVE</see>:</term>
-        ///         <description>If 'false' then string filtering will ignore
-        /// case. Does not apply to 'search' mode.
+        ///         <description>If <i>false</i> then string filtering will
+        /// ignore case. Does not apply to <i>search</i> mode.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -368,11 +389,41 @@ namespace kinetica
     public class FilterByStringResponse : KineticaData
     {
 
+        /// <summary>Additional information.
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="FilterByStringResponse.Info.QUALIFIED_VIEW_NAME">QUALIFIED_VIEW_NAME</see>:</term>
+        ///         <description>The fully qualified name of the view (i.e.
+        /// including the schema)</description>
+        ///     </item>
+        /// </list>
+        /// The default value is an empty {@link Dictionary}.
+        /// A set of string constants for the parameter <member name="info"
+        /// />.</summary>
+        public struct Info
+        {
+
+            /// <summary>The fully qualified name of the view (i.e. including
+            /// the schema)</summary>
+            public const string QUALIFIED_VIEW_NAME = "qualified_view_name";
+        } // end struct Info
+
+
         /// <summary>The number of records that passed the string filter.
         /// </summary>
         public long count { get; set; }
 
-        /// <summary>Additional information.  </summary>
+        /// <summary>Additional information.
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="FilterByStringResponse.Info.QUALIFIED_VIEW_NAME">QUALIFIED_VIEW_NAME</see>:</term>
+        ///         <description>The fully qualified name of the view (i.e.
+        /// including the schema)</description>
+        ///     </item>
+        /// </list>
+        /// The default value is an empty {@link Dictionary}.</summary>
         public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
 
     } // end class FilterByStringResponse

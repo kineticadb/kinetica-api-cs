@@ -15,31 +15,22 @@ namespace kinetica
     /// cref="Kinetica.createTable(string,string,IDictionary{string, string})"
     /// />.
     /// <br />
-    /// Creates a new table or collection. If a new table is being created,
+    /// Creates a new table. If a new table is being created,
     /// the type of the table is given by <see cref="type_id" />, which must be
     /// the ID of
     /// a currently registered type (i.e. one created via <see
     /// cref="Kinetica.createType(string,string,IDictionary{string, IList{string}},IDictionary{string, string})"
-    /// />). The
-    /// table will be created inside a collection if the option
-    /// <i>collection_name</i> is specified. If that collection does
-    /// not already exist, it will be created.
-    /// <br />
-    /// To create a new collection, specify the name of the collection in
-    /// <see cref="table_name" /> and set the <i>is_collection</i> option to
-    /// <i>true</i>; <see cref="type_id" /> will be
-    /// ignored.
+    /// />).
     /// <br />
     /// A table may optionally be designated to use a
     /// <a href="../../concepts/tables.html#replication"
     /// target="_top">replicated</a> distribution scheme,
-    /// have <a href="../../concepts/tables.html#foreign-keys"
-    /// target="_top">foreign keys</a> to other
-    /// tables assigned, be assigned a
-    /// <a href="../../concepts/tables.html#partitioning"
-    /// target="_top">partitioning</a> scheme, or have a
-    /// <a href="../../rm/concepts.html#tier-strategies" target="_top">tier
-    /// strategy</a> assigned.</summary>
+    /// or be assigned: <a href="../../concepts/tables.html#foreign-keys"
+    /// target="_top">foreign keys</a> to
+    /// other tables, a <a href="../../concepts/tables.html#partitioning"
+    /// target="_top">partitioning</a>
+    /// scheme, and/or a <a href="../../rm/concepts.html#tier-strategies"
+    /// target="_top">tier strategy</a>.</summary>
     public class CreateTableRequest : KineticaData
     {
 
@@ -69,16 +60,19 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="CreateTableRequest.Options.COLLECTION_NAME">COLLECTION_NAME</see>:</term>
-        ///         <description>Name of a collection which is to contain the
-        /// newly created table. If the collection provided is non-existent,
-        /// the collection will be automatically created. If empty, then the
-        /// newly created table will be a top-level table.</description>
+        ///         <description>[DEPRECATED--please specify the containing
+        /// schema as part of <paramref cref="CreateTableRequest.table_name" />
+        /// and use /create/schema to create the schema if non-existent]  Name
+        /// of a schema which is to contain the newly created table. If the
+        /// schema is non-existent, it will be automatically
+        /// created.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="CreateTableRequest.Options.IS_COLLECTION">IS_COLLECTION</see>:</term>
-        ///         <description>Indicates whether the new table to be created
-        /// will be a collection.
+        ///         <description>[DEPRECATED--please use /create/schema to
+        /// create a schema instead]  Indicates whether to create a schema
+        /// instead of a table.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -114,15 +108,15 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="CreateTableRequest.Options.IS_REPLICATED">IS_REPLICATED</see>:</term>
-        ///         <description>For a table, affects the <a
+        ///         <description>Affects the <a
         /// href="../../concepts/tables.html#distribution"
         /// target="_top">distribution scheme</a> for the table's data.  If
-        /// true and the given type has no explicit <a
+        /// <i>true</i> and the given type has no explicit <a
         /// href="../../concepts/tables.html#shard-key" target="_top">shard
         /// key</a> defined, the table will be <a
         /// href="../../concepts/tables.html#replication"
-        /// target="_top">replicated</a>.  If false, the table will be <a
-        /// href="../../concepts/tables.html#sharding"
+        /// target="_top">replicated</a>.  If <i>false</i>, the table will be
+        /// <a href="../../concepts/tables.html#sharding"
         /// target="_top">sharded</a> according to the shard key specified in
         /// the given <paramref cref="CreateTableRequest.type_id" />, or <a
         /// href="../../concepts/tables.html#random-sharding"
@@ -223,9 +217,9 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="CreateTableRequest.Options.IS_AUTOMATIC_PARTITION">IS_AUTOMATIC_PARTITION</see>:</term>
-        ///         <description>If true, a new partition will be created for
-        /// values which don't fall into an existing partition.  Currently only
-        /// supported for <a
+        ///         <description>If <i>true</i>, a new partition will be
+        /// created for values which don't fall into an existing partition.
+        /// Currently only supported for <a
         /// href="../../concepts/tables.html#partitioning-by-list"
         /// target="_top">list partitions</a>.
         /// Supported values:
@@ -245,10 +239,9 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="CreateTableRequest.Options.TTL">TTL</see>:</term>
-        ///         <description>For a table, sets the <a
-        /// href="../../concepts/ttl.html" target="_top">TTL</a> of the table
-        /// specified in <paramref cref="CreateTableRequest.table_name"
-        /// />.</description>
+        ///         <description>Sets the <a href="../../concepts/ttl.html"
+        /// target="_top">TTL</a> of the table specified in <paramref
+        /// cref="CreateTableRequest.table_name" />.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -259,10 +252,15 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="CreateTableRequest.Options.IS_RESULT_TABLE">IS_RESULT_TABLE</see>:</term>
-        ///         <description>For a table, indicates whether the table is an
-        /// in-memory table. A result table cannot contain store_only,
-        /// text_search, or string columns (charN columns are acceptable), and
-        /// it will not be retained if the server is restarted.
+        ///         <description>Indicates whether the table is a <a
+        /// href="../../concepts/tables_memory_only.html"
+        /// target="_top">memory-only table</a>. A result table cannot contain
+        /// columns with store_only or text_search <a
+        /// href="../../concepts/types.html#data-handling"
+        /// target="_top">data-handling</a> or that are <a
+        /// href="../../concepts/types.html#primitive-types"
+        /// target="_top">non-charN strings</a>, and it will not be retained if
+        /// the server is restarted.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -316,14 +314,18 @@ namespace kinetica
             public const string TRUE = "true";
             public const string FALSE = "false";
 
-            /// <summary>Name of a collection which is to contain the newly
-            /// created table. If the collection provided is non-existent, the
-            /// collection will be automatically created. If empty, then the
-            /// newly created table will be a top-level table.</summary>
+            /// <summary>[DEPRECATED--please specify the containing schema as
+            /// part of <see cref="table_name" /> and use <see
+            /// cref="Kinetica.createSchema(string,IDictionary{string, string})"
+            /// /> to create the schema if non-existent]  Name of a schema
+            /// which is to contain the newly created table. If the schema is
+            /// non-existent, it will be automatically created.</summary>
             public const string COLLECTION_NAME = "collection_name";
 
-            /// <summary>Indicates whether the new table to be created will be
-            /// a collection.
+            /// <summary>[DEPRECATED--please use <see
+            /// cref="Kinetica.createSchema(string,IDictionary{string, string})"
+            /// /> to create a schema instead]  Indicates whether to create a
+            /// schema instead of a table.
             /// Supported values:
             /// <list type="bullet">
             ///     <item>
@@ -355,15 +357,15 @@ namespace kinetica
             /// cref="CreateTableRequest.Options.FALSE">FALSE</see>.</summary>
             public const string DISALLOW_HOMOGENEOUS_TABLES = "disallow_homogeneous_tables";
 
-            /// <summary>For a table, affects the <a
+            /// <summary>Affects the <a
             /// href="../../concepts/tables.html#distribution"
             /// target="_top">distribution scheme</a> for the table's data.  If
-            /// true and the given type has no explicit <a
+            /// <i>true</i> and the given type has no explicit <a
             /// href="../../concepts/tables.html#shard-key" target="_top">shard
             /// key</a> defined, the table will be <a
             /// href="../../concepts/tables.html#replication"
-            /// target="_top">replicated</a>.  If false, the table will be <a
-            /// href="../../concepts/tables.html#sharding"
+            /// target="_top">replicated</a>.  If <i>false</i>, the table will
+            /// be <a href="../../concepts/tables.html#sharding"
             /// target="_top">sharded</a> according to the shard key specified
             /// in the given <see cref="type_id" />, or <a
             /// href="../../concepts/tables.html#random-sharding"
@@ -472,9 +474,9 @@ namespace kinetica
             /// formats.</summary>
             public const string PARTITION_DEFINITIONS = "partition_definitions";
 
-            /// <summary>If true, a new partition will be created for values
-            /// which don't fall into an existing partition.  Currently only
-            /// supported for <a
+            /// <summary>If <i>true</i>, a new partition will be created for
+            /// values which don't fall into an existing partition.  Currently
+            /// only supported for <a
             /// href="../../concepts/tables.html#partitioning-by-list"
             /// target="_top">list partitions</a>.
             /// Supported values:
@@ -492,19 +494,24 @@ namespace kinetica
             /// cref="CreateTableRequest.Options.FALSE">FALSE</see>.</summary>
             public const string IS_AUTOMATIC_PARTITION = "is_automatic_partition";
 
-            /// <summary>For a table, sets the <a
-            /// href="../../concepts/ttl.html" target="_top">TTL</a> of the
-            /// table specified in <see cref="table_name" />.</summary>
+            /// <summary>Sets the <a href="../../concepts/ttl.html"
+            /// target="_top">TTL</a> of the table specified in <see
+            /// cref="table_name" />.</summary>
             public const string TTL = "ttl";
 
             /// <summary>Indicates the number of records per chunk to be used
             /// for this table.</summary>
             public const string CHUNK_SIZE = "chunk_size";
 
-            /// <summary>For a table, indicates whether the table is an
-            /// in-memory table. A result table cannot contain store_only,
-            /// text_search, or string columns (charN columns are acceptable),
-            /// and it will not be retained if the server is restarted.
+            /// <summary>Indicates whether the table is a <a
+            /// href="../../concepts/tables_memory_only.html"
+            /// target="_top">memory-only table</a>. A result table cannot
+            /// contain columns with store_only or text_search <a
+            /// href="../../concepts/types.html#data-handling"
+            /// target="_top">data-handling</a> or that are <a
+            /// href="../../concepts/types.html#primitive-types"
+            /// target="_top">non-charN strings</a>, and it will not be
+            /// retained if the server is restarted.
             /// Supported values:
             /// <list type="bullet">
             ///     <item>
@@ -530,16 +537,18 @@ namespace kinetica
         } // end struct Options
 
 
-        /// <summary>Name of the table to be created. Error for requests with
+        /// <summary>Name of the table to be created, in
+        /// [schema_name.]table_name format, using standard <a
+        /// href="../../concepts/tables.html#table-name-resolution"
+        /// target="_top">name resolution rules</a> and meeting <a
+        /// href="../../concepts/tables.html#table-naming-criteria"
+        /// target="_top">table naming criteria</a>. Error for requests with
         /// existing table of the same name and type ID may be suppressed by
-        /// using the <i>no_error_if_exists</i> option.  See <a
-        /// href="../../concepts/tables.html" target="_top">Tables</a> for
-        /// naming restrictions.  </summary>
+        /// using the <i>no_error_if_exists</i> option.  </summary>
         public string table_name { get; set; }
 
         /// <summary>ID of a currently registered type. All objects added to
-        /// the newly created table will be of this type.  Ignored if
-        /// <i>is_collection</i> is <i>true</i>.  </summary>
+        /// the newly created table will be of this type.  </summary>
         public string type_id { get; set; }
 
         /// <summary>Optional parameters.
@@ -568,16 +577,19 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="CreateTableRequest.Options.COLLECTION_NAME">COLLECTION_NAME</see>:</term>
-        ///         <description>Name of a collection which is to contain the
-        /// newly created table. If the collection provided is non-existent,
-        /// the collection will be automatically created. If empty, then the
-        /// newly created table will be a top-level table.</description>
+        ///         <description>[DEPRECATED--please specify the containing
+        /// schema as part of <paramref cref="CreateTableRequest.table_name" />
+        /// and use /create/schema to create the schema if non-existent]  Name
+        /// of a schema which is to contain the newly created table. If the
+        /// schema is non-existent, it will be automatically
+        /// created.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="CreateTableRequest.Options.IS_COLLECTION">IS_COLLECTION</see>:</term>
-        ///         <description>Indicates whether the new table to be created
-        /// will be a collection.
+        ///         <description>[DEPRECATED--please use /create/schema to
+        /// create a schema instead]  Indicates whether to create a schema
+        /// instead of a table.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -613,15 +625,15 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="CreateTableRequest.Options.IS_REPLICATED">IS_REPLICATED</see>:</term>
-        ///         <description>For a table, affects the <a
+        ///         <description>Affects the <a
         /// href="../../concepts/tables.html#distribution"
         /// target="_top">distribution scheme</a> for the table's data.  If
-        /// true and the given type has no explicit <a
+        /// <i>true</i> and the given type has no explicit <a
         /// href="../../concepts/tables.html#shard-key" target="_top">shard
         /// key</a> defined, the table will be <a
         /// href="../../concepts/tables.html#replication"
-        /// target="_top">replicated</a>.  If false, the table will be <a
-        /// href="../../concepts/tables.html#sharding"
+        /// target="_top">replicated</a>.  If <i>false</i>, the table will be
+        /// <a href="../../concepts/tables.html#sharding"
         /// target="_top">sharded</a> according to the shard key specified in
         /// the given <paramref cref="CreateTableRequest.type_id" />, or <a
         /// href="../../concepts/tables.html#random-sharding"
@@ -722,9 +734,9 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="CreateTableRequest.Options.IS_AUTOMATIC_PARTITION">IS_AUTOMATIC_PARTITION</see>:</term>
-        ///         <description>If true, a new partition will be created for
-        /// values which don't fall into an existing partition.  Currently only
-        /// supported for <a
+        ///         <description>If <i>true</i>, a new partition will be
+        /// created for values which don't fall into an existing partition.
+        /// Currently only supported for <a
         /// href="../../concepts/tables.html#partitioning-by-list"
         /// target="_top">list partitions</a>.
         /// Supported values:
@@ -744,10 +756,9 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="CreateTableRequest.Options.TTL">TTL</see>:</term>
-        ///         <description>For a table, sets the <a
-        /// href="../../concepts/ttl.html" target="_top">TTL</a> of the table
-        /// specified in <paramref cref="CreateTableRequest.table_name"
-        /// />.</description>
+        ///         <description>Sets the <a href="../../concepts/ttl.html"
+        /// target="_top">TTL</a> of the table specified in <paramref
+        /// cref="CreateTableRequest.table_name" />.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -758,10 +769,15 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="CreateTableRequest.Options.IS_RESULT_TABLE">IS_RESULT_TABLE</see>:</term>
-        ///         <description>For a table, indicates whether the table is an
-        /// in-memory table. A result table cannot contain store_only,
-        /// text_search, or string columns (charN columns are acceptable), and
-        /// it will not be retained if the server is restarted.
+        ///         <description>Indicates whether the table is a <a
+        /// href="../../concepts/tables_memory_only.html"
+        /// target="_top">memory-only table</a>. A result table cannot contain
+        /// columns with store_only or text_search <a
+        /// href="../../concepts/types.html#data-handling"
+        /// target="_top">data-handling</a> or that are <a
+        /// href="../../concepts/types.html#primitive-types"
+        /// target="_top">non-charN strings</a>, and it will not be retained if
+        /// the server is restarted.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -799,14 +815,17 @@ namespace kinetica
         /// <summary>Constructs a CreateTableRequest object with the specified
         /// parameters.</summary>
         /// 
-        /// <param name="table_name">Name of the table to be created. Error for
-        /// requests with existing table of the same name and type ID may be
-        /// suppressed by using the <i>no_error_if_exists</i> option.  See <a
-        /// href="../../concepts/tables.html" target="_top">Tables</a> for
-        /// naming restrictions.  </param>
+        /// <param name="table_name">Name of the table to be created, in
+        /// [schema_name.]table_name format, using standard <a
+        /// href="../../concepts/tables.html#table-name-resolution"
+        /// target="_top">name resolution rules</a> and meeting <a
+        /// href="../../concepts/tables.html#table-naming-criteria"
+        /// target="_top">table naming criteria</a>. Error for requests with
+        /// existing table of the same name and type ID may be suppressed by
+        /// using the <i>no_error_if_exists</i> option.  </param>
         /// <param name="type_id">ID of a currently registered type. All
         /// objects added to the newly created table will be of this type.
-        /// Ignored if <i>is_collection</i> is <i>true</i>.  </param>
+        /// </param>
         /// <param name="options">Optional parameters.
         /// <list type="bullet">
         ///     <item>
@@ -833,16 +852,19 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="CreateTableRequest.Options.COLLECTION_NAME">COLLECTION_NAME</see>:</term>
-        ///         <description>Name of a collection which is to contain the
-        /// newly created table. If the collection provided is non-existent,
-        /// the collection will be automatically created. If empty, then the
-        /// newly created table will be a top-level table.</description>
+        ///         <description>[DEPRECATED--please specify the containing
+        /// schema as part of <paramref cref="CreateTableRequest.table_name" />
+        /// and use /create/schema to create the schema if non-existent]  Name
+        /// of a schema which is to contain the newly created table. If the
+        /// schema is non-existent, it will be automatically
+        /// created.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="CreateTableRequest.Options.IS_COLLECTION">IS_COLLECTION</see>:</term>
-        ///         <description>Indicates whether the new table to be created
-        /// will be a collection.
+        ///         <description>[DEPRECATED--please use /create/schema to
+        /// create a schema instead]  Indicates whether to create a schema
+        /// instead of a table.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -878,15 +900,15 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="CreateTableRequest.Options.IS_REPLICATED">IS_REPLICATED</see>:</term>
-        ///         <description>For a table, affects the <a
+        ///         <description>Affects the <a
         /// href="../../concepts/tables.html#distribution"
         /// target="_top">distribution scheme</a> for the table's data.  If
-        /// true and the given type has no explicit <a
+        /// <i>true</i> and the given type has no explicit <a
         /// href="../../concepts/tables.html#shard-key" target="_top">shard
         /// key</a> defined, the table will be <a
         /// href="../../concepts/tables.html#replication"
-        /// target="_top">replicated</a>.  If false, the table will be <a
-        /// href="../../concepts/tables.html#sharding"
+        /// target="_top">replicated</a>.  If <i>false</i>, the table will be
+        /// <a href="../../concepts/tables.html#sharding"
         /// target="_top">sharded</a> according to the shard key specified in
         /// the given <paramref cref="CreateTableRequest.type_id" />, or <a
         /// href="../../concepts/tables.html#random-sharding"
@@ -987,9 +1009,9 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="CreateTableRequest.Options.IS_AUTOMATIC_PARTITION">IS_AUTOMATIC_PARTITION</see>:</term>
-        ///         <description>If true, a new partition will be created for
-        /// values which don't fall into an existing partition.  Currently only
-        /// supported for <a
+        ///         <description>If <i>true</i>, a new partition will be
+        /// created for values which don't fall into an existing partition.
+        /// Currently only supported for <a
         /// href="../../concepts/tables.html#partitioning-by-list"
         /// target="_top">list partitions</a>.
         /// Supported values:
@@ -1009,10 +1031,9 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="CreateTableRequest.Options.TTL">TTL</see>:</term>
-        ///         <description>For a table, sets the <a
-        /// href="../../concepts/ttl.html" target="_top">TTL</a> of the table
-        /// specified in <paramref cref="CreateTableRequest.table_name"
-        /// />.</description>
+        ///         <description>Sets the <a href="../../concepts/ttl.html"
+        /// target="_top">TTL</a> of the table specified in <paramref
+        /// cref="CreateTableRequest.table_name" />.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -1023,10 +1044,15 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="CreateTableRequest.Options.IS_RESULT_TABLE">IS_RESULT_TABLE</see>:</term>
-        ///         <description>For a table, indicates whether the table is an
-        /// in-memory table. A result table cannot contain store_only,
-        /// text_search, or string columns (charN columns are acceptable), and
-        /// it will not be retained if the server is restarted.
+        ///         <description>Indicates whether the table is a <a
+        /// href="../../concepts/tables_memory_only.html"
+        /// target="_top">memory-only table</a>. A result table cannot contain
+        /// columns with store_only or text_search <a
+        /// href="../../concepts/types.html#data-handling"
+        /// target="_top">data-handling</a> or that are <a
+        /// href="../../concepts/types.html#primitive-types"
+        /// target="_top">non-charN strings</a>, and it will not be retained if
+        /// the server is restarted.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -1074,6 +1100,27 @@ namespace kinetica
     public class CreateTableResponse : KineticaData
     {
 
+        /// <summary>Additional information.
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableResponse.Info.QUALIFIED_TABLE_NAME">QUALIFIED_TABLE_NAME</see>:</term>
+        ///         <description>The fully qualified name of the new table
+        /// (i.e. including the schema)</description>
+        ///     </item>
+        /// </list>
+        /// The default value is an empty {@link Dictionary}.
+        /// A set of string constants for the parameter <member name="info"
+        /// />.</summary>
+        public struct Info
+        {
+
+            /// <summary>The fully qualified name of the new table (i.e.
+            /// including the schema)</summary>
+            public const string QUALIFIED_TABLE_NAME = "qualified_table_name";
+        } // end struct Info
+
+
         /// <summary>Value of <paramref cref="CreateTableRequest.table_name"
         /// />.  </summary>
         public string table_name { get; set; }
@@ -1082,11 +1129,20 @@ namespace kinetica
         /// </summary>
         public string type_id { get; set; }
 
-        /// <summary>Indicates if the created entity is a collection.
-        /// </summary>
+        /// <summary>[DEPRECATED--this will always return false]  Indicates if
+        /// the created entity is a schema.  </summary>
         public bool is_collection { get; set; }
 
-        /// <summary>Additional information.  </summary>
+        /// <summary>Additional information.
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableResponse.Info.QUALIFIED_TABLE_NAME">QUALIFIED_TABLE_NAME</see>:</term>
+        ///         <description>The fully qualified name of the new table
+        /// (i.e. including the schema)</description>
+        ///     </item>
+        /// </list>
+        /// The default value is an empty {@link Dictionary}.</summary>
         public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
 
     } // end class CreateTableResponse

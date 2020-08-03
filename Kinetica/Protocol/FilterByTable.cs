@@ -17,13 +17,18 @@ namespace kinetica
     /// <br />
     /// Filters objects in one table based on objects in another table. The
     /// user must specify matching column types from the two tables (i.e. the
-    /// target table from which objects will be filtered and the source table
-    /// based on which the filter will be created); the column names need not
-    /// be the same. If a <see cref="view_name" /> is specified, then the
-    /// filtered objects will then be put in a newly created view. The
-    /// operation is synchronous, meaning that a response will not be returned
-    /// until all objects are fully available in the result view. The return
-    /// value contains the count (i.e. the size) of the resulting
+    /// target
+    /// table from which objects will be filtered and the source table based on
+    /// which
+    /// the filter will be created); the column names need not be the same. If
+    /// a
+    /// <see cref="view_name" /> is specified, then the filtered objects will
+    /// then be put in a
+    /// newly created view. The operation is synchronous, meaning that a
+    /// response will
+    /// not be returned until all objects are fully available in the result
+    /// view. The
+    /// return value contains the count (i.e. the size) of the resulting
     /// view.</summary>
     public class FilterByTableRequest : KineticaData
     {
@@ -33,10 +38,12 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="FilterByTableRequest.Options.COLLECTION_NAME">COLLECTION_NAME</see>:</term>
-        ///         <description>Name of a collection which is to contain the
-        /// newly created view. If the collection provided is non-existent, the
-        /// collection will be automatically created. If empty, then the newly
-        /// created view will be top-level.</description>
+        ///         <description>[DEPRECATED--please specify the containing
+        /// schema for the view as part of <paramref
+        /// cref="FilterByTableRequest.view_name" /> and use /create/schema to
+        /// create the schema if non-existent]  Name of a schema for the newly
+        /// created view. If the schema is non-existent, it will be
+        /// automatically created.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -138,10 +145,12 @@ namespace kinetica
         public struct Options
         {
 
-            /// <summary>Name of a collection which is to contain the newly
-            /// created view. If the collection provided is non-existent, the
-            /// collection will be automatically created. If empty, then the
-            /// newly created view will be top-level.</summary>
+            /// <summary>[DEPRECATED--please specify the containing schema for
+            /// the view as part of <see cref="view_name" /> and use <see
+            /// cref="Kinetica.createSchema(string,IDictionary{string, string})"
+            /// /> to create the schema if non-existent]  Name of a schema for
+            /// the newly created view. If the schema is non-existent, it will
+            /// be automatically created.</summary>
             public const string COLLECTION_NAME = "collection_name";
 
             /// <summary>String indicating the filter mode, either
@@ -229,14 +238,20 @@ namespace kinetica
         } // end struct Options
 
 
-        /// <summary>Name of the table whose data will be filtered. Must be an
-        /// existing table.  </summary>
+        /// <summary>Name of the table whose data will be filtered, in
+        /// [schema_name.]table_name format, using standard <a
+        /// href="../../concepts/tables.html#table-name-resolution"
+        /// target="_top">name resolution rules</a>.  Must be an existing
+        /// table.  </summary>
         public string table_name { get; set; }
 
         /// <summary>If provided, then this will be the name of the view
-        /// containing the results. Has the same naming restrictions as <a
-        /// href="../../concepts/tables.html" target="_top">tables</a>.  The
-        /// default value is ''.</summary>
+        /// containing the results, in [schema_name.]view_name format, using
+        /// standard <a href="../../concepts/tables.html#table-name-resolution"
+        /// target="_top">name resolution rules</a> and meeting <a
+        /// href="../../concepts/tables.html#table-naming-criteria"
+        /// target="_top">table naming criteria</a>.  Must not be an already
+        /// existing table or view.  The default value is ''.</summary>
         public string view_name { get; set; } = "";
 
         /// <summary>Name of the column by whose value the data will be
@@ -246,7 +261,10 @@ namespace kinetica
 
         /// <summary>Name of the table whose data will be compared against in
         /// the table called <paramref cref="FilterByTableRequest.table_name"
-        /// />. Must be an existing table.  </summary>
+        /// />, in [schema_name.]table_name format, using standard <a
+        /// href="../../concepts/tables.html#table-name-resolution"
+        /// target="_top">name resolution rules</a>.  Must be an existing
+        /// table.  </summary>
         public string source_table_name { get; set; }
 
         /// <summary>Name of the column in the <paramref
@@ -263,10 +281,12 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="FilterByTableRequest.Options.COLLECTION_NAME">COLLECTION_NAME</see>:</term>
-        ///         <description>Name of a collection which is to contain the
-        /// newly created view. If the collection provided is non-existent, the
-        /// collection will be automatically created. If empty, then the newly
-        /// created view will be top-level.</description>
+        ///         <description>[DEPRECATED--please specify the containing
+        /// schema for the view as part of <paramref
+        /// cref="FilterByTableRequest.view_name" /> and use /create/schema to
+        /// create the schema if non-existent]  Name of a schema for the newly
+        /// created view. If the schema is non-existent, it will be
+        /// automatically created.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -374,17 +394,27 @@ namespace kinetica
         /// specified parameters.</summary>
         /// 
         /// <param name="table_name">Name of the table whose data will be
-        /// filtered. Must be an existing table.  </param>
+        /// filtered, in [schema_name.]table_name format, using standard <a
+        /// href="../../concepts/tables.html#table-name-resolution"
+        /// target="_top">name resolution rules</a>.  Must be an existing
+        /// table.  </param>
         /// <param name="view_name">If provided, then this will be the name of
-        /// the view containing the results. Has the same naming restrictions
-        /// as <a href="../../concepts/tables.html" target="_top">tables</a>.
-        /// The default value is ''.</param>
+        /// the view containing the results, in [schema_name.]view_name format,
+        /// using standard <a
+        /// href="../../concepts/tables.html#table-name-resolution"
+        /// target="_top">name resolution rules</a> and meeting <a
+        /// href="../../concepts/tables.html#table-naming-criteria"
+        /// target="_top">table naming criteria</a>.  Must not be an already
+        /// existing table or view.  The default value is ''.</param>
         /// <param name="column_name">Name of the column by whose value the
         /// data will be filtered from the table designated by <paramref
         /// cref="FilterByTableRequest.table_name" />.  </param>
         /// <param name="source_table_name">Name of the table whose data will
         /// be compared against in the table called <paramref
-        /// cref="FilterByTableRequest.table_name" />. Must be an existing
+        /// cref="FilterByTableRequest.table_name" />, in
+        /// [schema_name.]table_name format, using standard <a
+        /// href="../../concepts/tables.html#table-name-resolution"
+        /// target="_top">name resolution rules</a>.  Must be an existing
         /// table.  </param>
         /// <param name="source_table_column_name">Name of the column in the
         /// <paramref cref="FilterByTableRequest.source_table_name" /> whose
@@ -398,10 +428,12 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="FilterByTableRequest.Options.COLLECTION_NAME">COLLECTION_NAME</see>:</term>
-        ///         <description>Name of a collection which is to contain the
-        /// newly created view. If the collection provided is non-existent, the
-        /// collection will be automatically created. If empty, then the newly
-        /// created view will be top-level.</description>
+        ///         <description>[DEPRECATED--please specify the containing
+        /// schema for the view as part of <paramref
+        /// cref="FilterByTableRequest.view_name" /> and use /create/schema to
+        /// create the schema if non-existent]  Name of a schema for the newly
+        /// created view. If the schema is non-existent, it will be
+        /// automatically created.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -524,6 +556,27 @@ namespace kinetica
     public class FilterByTableResponse : KineticaData
     {
 
+        /// <summary>Additional information.
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="FilterByTableResponse.Info.QUALIFIED_VIEW_NAME">QUALIFIED_VIEW_NAME</see>:</term>
+        ///         <description>The fully qualified name of the view (i.e.
+        /// including the schema)</description>
+        ///     </item>
+        /// </list>
+        /// The default value is an empty {@link Dictionary}.
+        /// A set of string constants for the parameter <member name="info"
+        /// />.</summary>
+        public struct Info
+        {
+
+            /// <summary>The fully qualified name of the view (i.e. including
+            /// the schema)</summary>
+            public const string QUALIFIED_VIEW_NAME = "qualified_view_name";
+        } // end struct Info
+
+
         /// <summary>The number of records in <paramref
         /// cref="FilterByTableRequest.table_name" /> that have <paramref
         /// cref="FilterByTableRequest.column_name" /> values matching
@@ -532,7 +585,16 @@ namespace kinetica
         /// />.  </summary>
         public long count { get; set; }
 
-        /// <summary>Additional information.  </summary>
+        /// <summary>Additional information.
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="FilterByTableResponse.Info.QUALIFIED_VIEW_NAME">QUALIFIED_VIEW_NAME</see>:</term>
+        ///         <description>The fully qualified name of the view (i.e.
+        /// including the schema)</description>
+        ///     </item>
+        /// </list>
+        /// The default value is an empty {@link Dictionary}.</summary>
         public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
 
     } // end class FilterByTableResponse

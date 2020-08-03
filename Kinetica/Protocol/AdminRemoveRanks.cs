@@ -12,18 +12,22 @@ namespace kinetica
 {
 
     /// <summary>A set of parameters for <see
-    /// cref="Kinetica.adminRemoveRanks(IList{int},IDictionary{string, string})"
+    /// cref="Kinetica.adminRemoveRanks(IList{string},IDictionary{string, string})"
     /// />.
     /// <br />
-    /// Remove one or more ranks from the cluster. All data in the ranks to be
-    /// removed is rebalanced to other ranks before the node is removed unless
+    /// Remove one or more ranks from an existing Kinetica cluster. All data
+    /// will be rebalanced to other ranks before the rank(s) is removed unless
     /// the <i>rebalance_sharded_data</i> or <i>rebalance_unsharded_data</i>
-    /// parameters are set to <i>false</i> in the <see cref="options" />.
+    /// parameters are set to <i>false</i> in the <see cref="options" />, in
+    /// which case the corresponding <a
+    /// href="../../concepts/tables.html#sharding" target="_top">sharded
+    /// data</a> and/or unsharded data (a.k.a. <a
+    /// href="../../concepts/tables.html#random-sharding"
+    /// target="_top">randomly-sharded</a>) will be deleted.
     /// <br />
-    /// Due to the rebalancing, this endpoint may take a long time to run,
-    /// depending on the amount of data in the system. The API call may time
-    /// out if run directly.  It is recommended to run this endpoint
-    /// asynchronously via <see
+    /// This endpoint's processing time depends on the amount of data in the
+    /// system, thus the API call may time out if run directly.  It is
+    /// recommended to run this endpoint asynchronously via <see
     /// cref="Kinetica.createJob(string,string,byte[],string,IDictionary{string, string})"
     /// />.</summary>
     public class AdminRemoveRanksRequest : KineticaData
@@ -34,10 +38,12 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="AdminRemoveRanksRequest.Options.REBALANCE_SHARDED_DATA">REBALANCE_SHARDED_DATA</see>:</term>
-        ///         <description>When <i>true</i>, data with primary keys or
-        /// shard keys will be rebalanced to other ranks prior to rank removal.
-        /// Note that for big clusters, this data transfer could be time
-        /// consuming and result in delayed query responses.
+        ///         <description>If <i>true</i>, <a
+        /// href="../../concepts/tables.html#sharding" target="_top">sharded
+        /// data</a> will be rebalanced approximately equally across the
+        /// cluster. Note that for clusters with large amounts of sharded data,
+        /// this data transfer could be time consuming and result in delayed
+        /// query responses.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -55,11 +61,12 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="AdminRemoveRanksRequest.Options.REBALANCE_UNSHARDED_DATA">REBALANCE_UNSHARDED_DATA</see>:</term>
-        ///         <description>When <i>true</i>, unsharded data (data without
-        /// primary keys and without shard keys) will be rebalanced to other
-        /// ranks prior to rank removal. Note that for big clusters, this data
-        /// transfer could be time consuming and result in delayed query
-        /// responses.
+        ///         <description>If <i>true</i>, unsharded data (a.k.a. <a
+        /// href="../../concepts/tables.html#random-sharding"
+        /// target="_top">randomly-sharded</a>) will be rebalanced
+        /// approximately equally across the cluster. Note that for clusters
+        /// with large amounts of unsharded data, this data transfer could be
+        /// time consuming and result in delayed query responses.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -77,12 +84,12 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="AdminRemoveRanksRequest.Options.AGGRESSIVENESS">AGGRESSIVENESS</see>:</term>
-        ///         <description>Influences how much data to send per rebalance
-        /// round, during the rebalance portion of removing ranks.  A higher
-        /// aggressiveness setting will complete the rebalance faster.  A lower
-        /// aggressiveness setting will take longer, but allow for better
-        /// interleaving between the rebalance and other queries. Allowed
-        /// values are 1 through 10.  The default value is '1'.</description>
+        ///         <description>Influences how much data is moved at a time
+        /// during rebalance.  A higher <i>aggressiveness</i> will complete the
+        /// rebalance faster.  A lower <i>aggressiveness</i> will take longer
+        /// but allow for better interleaving between the rebalance and other
+        /// queries. Valid values are constants from 1 (lowest) to 10
+        /// (highest).  The default value is '1'.</description>
         ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.
@@ -91,9 +98,11 @@ namespace kinetica
         public struct Options
         {
 
-            /// <summary>When <i>true</i>, data with primary keys or shard keys
-            /// will be rebalanced to other ranks prior to rank removal. Note
-            /// that for big clusters, this data transfer could be time
+            /// <summary>If <i>true</i>, <a
+            /// href="../../concepts/tables.html#sharding"
+            /// target="_top">sharded data</a> will be rebalanced approximately
+            /// equally across the cluster. Note that for clusters with large
+            /// amounts of sharded data, this data transfer could be time
             /// consuming and result in delayed query responses.
             /// Supported values:
             /// <list type="bullet">
@@ -112,9 +121,11 @@ namespace kinetica
             public const string TRUE = "true";
             public const string FALSE = "false";
 
-            /// <summary>When <i>true</i>, unsharded data (data without primary
-            /// keys and without shard keys) will be rebalanced to other ranks
-            /// prior to rank removal. Note that for big clusters, this data
+            /// <summary>If <i>true</i>, unsharded data (a.k.a. <a
+            /// href="../../concepts/tables.html#random-sharding"
+            /// target="_top">randomly-sharded</a>) will be rebalanced
+            /// approximately equally across the cluster. Note that for
+            /// clusters with large amounts of unsharded data, this data
             /// transfer could be time consuming and result in delayed query
             /// responses.
             /// Supported values:
@@ -132,30 +143,37 @@ namespace kinetica
             /// cref="AdminRemoveRanksRequest.Options.TRUE">TRUE</see>.</summary>
             public const string REBALANCE_UNSHARDED_DATA = "rebalance_unsharded_data";
 
-            /// <summary>Influences how much data to send per rebalance round,
-            /// during the rebalance portion of removing ranks.  A higher
-            /// aggressiveness setting will complete the rebalance faster.  A
-            /// lower aggressiveness setting will take longer, but allow for
-            /// better interleaving between the rebalance and other queries.
-            /// Allowed values are 1 through 10.  The default value is
-            /// '1'.</summary>
+            /// <summary>Influences how much data is moved at a time during
+            /// rebalance.  A higher <i>aggressiveness</i> will complete the
+            /// rebalance faster.  A lower <i>aggressiveness</i> will take
+            /// longer but allow for better interleaving between the rebalance
+            /// and other queries. Valid values are constants from 1 (lowest)
+            /// to 10 (highest).  The default value is '1'.</summary>
             public const string AGGRESSIVENESS = "aggressiveness";
         } // end struct Options
 
 
-        /// <summary>Rank numbers of the ranks to be removed from the cluster.
-        /// </summary>
-        public IList<int> ranks { get; set; } = new List<int>();
+        /// <summary>Each array value designates one or more ranks to remove
+        /// from the cluster. Values can be formatted as 'rankN' for a specific
+        /// rank, 'hostN' (from the gpudb.conf file) to remove all ranks on
+        /// that host, or the host IP address (hostN.address from the gpub.conf
+        /// file) which also removes all ranks on that host. Rank 0 (the head
+        /// rank) cannot be removed (but can be moved to another host using
+        /// /admin/switchover). At least one worker rank must be left in the
+        /// cluster after the operation.  </summary>
+        public IList<string> ranks { get; set; } = new List<string>();
 
         /// <summary>Optional parameters.
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
         /// cref="AdminRemoveRanksRequest.Options.REBALANCE_SHARDED_DATA">REBALANCE_SHARDED_DATA</see>:</term>
-        ///         <description>When <i>true</i>, data with primary keys or
-        /// shard keys will be rebalanced to other ranks prior to rank removal.
-        /// Note that for big clusters, this data transfer could be time
-        /// consuming and result in delayed query responses.
+        ///         <description>If <i>true</i>, <a
+        /// href="../../concepts/tables.html#sharding" target="_top">sharded
+        /// data</a> will be rebalanced approximately equally across the
+        /// cluster. Note that for clusters with large amounts of sharded data,
+        /// this data transfer could be time consuming and result in delayed
+        /// query responses.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -173,11 +191,12 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="AdminRemoveRanksRequest.Options.REBALANCE_UNSHARDED_DATA">REBALANCE_UNSHARDED_DATA</see>:</term>
-        ///         <description>When <i>true</i>, unsharded data (data without
-        /// primary keys and without shard keys) will be rebalanced to other
-        /// ranks prior to rank removal. Note that for big clusters, this data
-        /// transfer could be time consuming and result in delayed query
-        /// responses.
+        ///         <description>If <i>true</i>, unsharded data (a.k.a. <a
+        /// href="../../concepts/tables.html#random-sharding"
+        /// target="_top">randomly-sharded</a>) will be rebalanced
+        /// approximately equally across the cluster. Note that for clusters
+        /// with large amounts of unsharded data, this data transfer could be
+        /// time consuming and result in delayed query responses.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -195,12 +214,12 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="AdminRemoveRanksRequest.Options.AGGRESSIVENESS">AGGRESSIVENESS</see>:</term>
-        ///         <description>Influences how much data to send per rebalance
-        /// round, during the rebalance portion of removing ranks.  A higher
-        /// aggressiveness setting will complete the rebalance faster.  A lower
-        /// aggressiveness setting will take longer, but allow for better
-        /// interleaving between the rebalance and other queries. Allowed
-        /// values are 1 through 10.  The default value is '1'.</description>
+        ///         <description>Influences how much data is moved at a time
+        /// during rebalance.  A higher <i>aggressiveness</i> will complete the
+        /// rebalance faster.  A lower <i>aggressiveness</i> will take longer
+        /// but allow for better interleaving between the rebalance and other
+        /// queries. Valid values are constants from 1 (lowest) to 10
+        /// (highest).  The default value is '1'.</description>
         ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.</summary>
@@ -214,17 +233,25 @@ namespace kinetica
         /// <summary>Constructs an AdminRemoveRanksRequest object with the
         /// specified parameters.</summary>
         /// 
-        /// <param name="ranks">Rank numbers of the ranks to be removed from
-        /// the cluster.  </param>
+        /// <param name="ranks">Each array value designates one or more ranks
+        /// to remove from the cluster. Values can be formatted as 'rankN' for
+        /// a specific rank, 'hostN' (from the gpudb.conf file) to remove all
+        /// ranks on that host, or the host IP address (hostN.address from the
+        /// gpub.conf file) which also removes all ranks on that host. Rank 0
+        /// (the head rank) cannot be removed (but can be moved to another host
+        /// using /admin/switchover). At least one worker rank must be left in
+        /// the cluster after the operation.  </param>
         /// <param name="options">Optional parameters.
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
         /// cref="AdminRemoveRanksRequest.Options.REBALANCE_SHARDED_DATA">REBALANCE_SHARDED_DATA</see>:</term>
-        ///         <description>When <i>true</i>, data with primary keys or
-        /// shard keys will be rebalanced to other ranks prior to rank removal.
-        /// Note that for big clusters, this data transfer could be time
-        /// consuming and result in delayed query responses.
+        ///         <description>If <i>true</i>, <a
+        /// href="../../concepts/tables.html#sharding" target="_top">sharded
+        /// data</a> will be rebalanced approximately equally across the
+        /// cluster. Note that for clusters with large amounts of sharded data,
+        /// this data transfer could be time consuming and result in delayed
+        /// query responses.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -242,11 +269,12 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="AdminRemoveRanksRequest.Options.REBALANCE_UNSHARDED_DATA">REBALANCE_UNSHARDED_DATA</see>:</term>
-        ///         <description>When <i>true</i>, unsharded data (data without
-        /// primary keys and without shard keys) will be rebalanced to other
-        /// ranks prior to rank removal. Note that for big clusters, this data
-        /// transfer could be time consuming and result in delayed query
-        /// responses.
+        ///         <description>If <i>true</i>, unsharded data (a.k.a. <a
+        /// href="../../concepts/tables.html#random-sharding"
+        /// target="_top">randomly-sharded</a>) will be rebalanced
+        /// approximately equally across the cluster. Note that for clusters
+        /// with large amounts of unsharded data, this data transfer could be
+        /// time consuming and result in delayed query responses.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -264,20 +292,20 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="AdminRemoveRanksRequest.Options.AGGRESSIVENESS">AGGRESSIVENESS</see>:</term>
-        ///         <description>Influences how much data to send per rebalance
-        /// round, during the rebalance portion of removing ranks.  A higher
-        /// aggressiveness setting will complete the rebalance faster.  A lower
-        /// aggressiveness setting will take longer, but allow for better
-        /// interleaving between the rebalance and other queries. Allowed
-        /// values are 1 through 10.  The default value is '1'.</description>
+        ///         <description>Influences how much data is moved at a time
+        /// during rebalance.  A higher <i>aggressiveness</i> will complete the
+        /// rebalance faster.  A lower <i>aggressiveness</i> will take longer
+        /// but allow for better interleaving between the rebalance and other
+        /// queries. Valid values are constants from 1 (lowest) to 10
+        /// (highest).  The default value is '1'.</description>
         ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.</param>
         /// 
-        public AdminRemoveRanksRequest( IList<int> ranks,
+        public AdminRemoveRanksRequest( IList<string> ranks,
                                         IDictionary<string, string> options = null)
         {
-            this.ranks = ranks ?? new List<int>();
+            this.ranks = ranks ?? new List<string>();
             this.options = options ?? new Dictionary<string, string>();
         } // end constructor
 
@@ -286,20 +314,14 @@ namespace kinetica
 
 
     /// <summary>A set of results returned by <see
-    /// cref="Kinetica.adminRemoveRanks(IList{int},IDictionary{string, string})"
+    /// cref="Kinetica.adminRemoveRanks(IList{string},IDictionary{string, string})"
     /// />.</summary>
     public class AdminRemoveRanksResponse : KineticaData
     {
 
-        /// <summary>Ranks that were removed from the cluster.  May be empty in
-        /// the case of failures.  </summary>
-        public IList<int> removed_ranks { get; set; } = new List<int>();
-
-        /// <summary>Text description of the result of each rank being removed.
-        /// Indicates the reason for any errors that occur. Entries are in the
-        /// same order as the <paramref cref="AdminRemoveRanksRequest.ranks"
-        /// />.  </summary>
-        public IList<string> results { get; set; } = new List<string>();
+        /// <summary>The number assigned to each rank removed from the cluster.
+        /// This array will be empty if the operation fails.  </summary>
+        public IList<string> removed_ranks { get; set; } = new List<string>();
 
         /// <summary>Additional information.  </summary>
         public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();

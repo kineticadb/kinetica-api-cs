@@ -35,6 +35,13 @@ namespace kinetica
         /// The resource group must exist, otherwise, an empty string assigns
         /// the user to the default resource group.</description>
         ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterUserRequest.Action.SET_DEFAULT_SCHEMA">SET_DEFAULT_SCHEMA</see>:</term>
+        ///         <description>Set the default_schema for an internal user.
+        /// An empty string means the user will have no default
+        /// schema.</description>
+        ///     </item>
         /// </list>
         /// A set of string constants for the parameter <see cref="action"
         /// />.</summary>
@@ -49,6 +56,10 @@ namespace kinetica
             /// resource group must exist, otherwise, an empty string assigns
             /// the user to the default resource group.</summary>
             public const string SET_RESOURCE_GROUP = "set_resource_group";
+
+            /// <summary>Set the default_schema for an internal user. An empty
+            /// string means the user will have no default schema.</summary>
+            public const string SET_DEFAULT_SCHEMA = "set_default_schema";
         } // end struct Action
 
 
@@ -71,6 +82,13 @@ namespace kinetica
         ///         <description>Sets the resource group for an internal user.
         /// The resource group must exist, otherwise, an empty string assigns
         /// the user to the default resource group.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterUserRequest.Action.SET_DEFAULT_SCHEMA">SET_DEFAULT_SCHEMA</see>:</term>
+        ///         <description>Set the default_schema for an internal user.
+        /// An empty string means the user will have no default
+        /// schema.</description>
         ///     </item>
         /// </list>  </summary>
         public string action { get; set; }
@@ -109,6 +127,13 @@ namespace kinetica
         ///         <description>Sets the resource group for an internal user.
         /// The resource group must exist, otherwise, an empty string assigns
         /// the user to the default resource group.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterUserRequest.Action.SET_DEFAULT_SCHEMA">SET_DEFAULT_SCHEMA</see>:</term>
+        ///         <description>Set the default_schema for an internal user.
+        /// An empty string means the user will have no default
+        /// schema.</description>
         ///     </item>
         /// </list>  </param>
         /// <param name="_value">The value of the modification, depending on

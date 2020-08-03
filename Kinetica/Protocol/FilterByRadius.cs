@@ -17,15 +17,21 @@ namespace kinetica
     /// <br />
     /// Calculates which objects from a table lie within a circle with the
     /// given radius and center point (i.e. circular NAI). The operation is
-    /// synchronous, meaning that a response will not be returned until all the
-    /// objects are fully available. The response payload provides the count of
-    /// the resulting set. A new resultant set (view) which satisfies the input
-    /// circular NAI restriction specification is also created if a <see
-    /// cref="view_name" /> is passed in as part of the request.
+    /// synchronous,
+    /// meaning that a response will not be returned until all the objects are
+    /// fully
+    /// available. The response payload provides the count of the resulting
+    /// set. A new
+    /// resultant set (view) which satisfies the input circular NAI restriction
+    /// specification is also created if a <see cref="view_name" /> is passed
+    /// in as part of
+    /// the request.
     /// <br />
     /// For track data, all track points that lie within the circle plus one
-    /// point on either side of the circle (if the track goes beyond the
-    /// circle) will be included in the result.</summary>
+    /// point on
+    /// either side of the circle (if the track goes beyond the circle) will be
+    /// included
+    /// in the result.</summary>
     public class FilterByRadiusRequest : KineticaData
     {
 
@@ -34,10 +40,12 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="FilterByRadiusRequest.Options.COLLECTION_NAME">COLLECTION_NAME</see>:</term>
-        ///         <description>Name of a collection which is to contain the
-        /// newly created view. If the collection provided is non-existent, the
-        /// collection will be automatically created. If empty, then the newly
-        /// created view will be top-level.</description>
+        ///         <description>[DEPRECATED--please specify the containing
+        /// schema for the view as part of <paramref
+        /// cref="FilterByRadiusRequest.view_name" /> and use /create/schema to
+        /// create the schema if non-existent]  Name of a schema which is to
+        /// contain the newly created view. If the schema is non-existent, it
+        /// will be automatically created.</description>
         ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.
@@ -46,22 +54,30 @@ namespace kinetica
         public struct Options
         {
 
-            /// <summary>Name of a collection which is to contain the newly
-            /// created view. If the collection provided is non-existent, the
-            /// collection will be automatically created. If empty, then the
-            /// newly created view will be top-level.</summary>
+            /// <summary>[DEPRECATED--please specify the containing schema for
+            /// the view as part of <see cref="view_name" /> and use <see
+            /// cref="Kinetica.createSchema(string,IDictionary{string, string})"
+            /// /> to create the schema if non-existent]  Name of a schema
+            /// which is to contain the newly created view. If the schema is
+            /// non-existent, it will be automatically created.</summary>
             public const string COLLECTION_NAME = "collection_name";
         } // end struct Options
 
 
         /// <summary>Name of the table on which the filter by radius operation
-        /// will be performed.  Must be an existing table.  </summary>
+        /// will be performed, in [schema_name.]table_name format, using
+        /// standard <a href="../../concepts/tables.html#table-name-resolution"
+        /// target="_top">name resolution rules</a>.  Must be an existing
+        /// table.  </summary>
         public string table_name { get; set; }
 
         /// <summary>If provided, then this will be the name of the view
-        /// containing the results. Has the same naming restrictions as <a
-        /// href="../../concepts/tables.html" target="_top">tables</a>.  The
-        /// default value is ''.</summary>
+        /// containing the results, in [schema_name.]view_name format, using
+        /// standard <a href="../../concepts/tables.html#table-name-resolution"
+        /// target="_top">name resolution rules</a> and meeting <a
+        /// href="../../concepts/tables.html#table-naming-criteria"
+        /// target="_top">table naming criteria</a>.  Must not be an already
+        /// existing table or view.  The default value is ''.</summary>
         public string view_name { get; set; } = "";
 
         /// <summary>Name of the column to be used for the x-coordinate (the
@@ -93,10 +109,12 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="FilterByRadiusRequest.Options.COLLECTION_NAME">COLLECTION_NAME</see>:</term>
-        ///         <description>Name of a collection which is to contain the
-        /// newly created view. If the collection provided is non-existent, the
-        /// collection will be automatically created. If empty, then the newly
-        /// created view will be top-level.</description>
+        ///         <description>[DEPRECATED--please specify the containing
+        /// schema for the view as part of <paramref
+        /// cref="FilterByRadiusRequest.view_name" /> and use /create/schema to
+        /// create the schema if non-existent]  Name of a schema which is to
+        /// contain the newly created view. If the schema is non-existent, it
+        /// will be automatically created.</description>
         ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.</summary>
@@ -111,12 +129,19 @@ namespace kinetica
         /// specified parameters.</summary>
         /// 
         /// <param name="table_name">Name of the table on which the filter by
-        /// radius operation will be performed.  Must be an existing table.
-        /// </param>
+        /// radius operation will be performed, in [schema_name.]table_name
+        /// format, using standard <a
+        /// href="../../concepts/tables.html#table-name-resolution"
+        /// target="_top">name resolution rules</a>.  Must be an existing
+        /// table.  </param>
         /// <param name="view_name">If provided, then this will be the name of
-        /// the view containing the results. Has the same naming restrictions
-        /// as <a href="../../concepts/tables.html" target="_top">tables</a>.
-        /// The default value is ''.</param>
+        /// the view containing the results, in [schema_name.]view_name format,
+        /// using standard <a
+        /// href="../../concepts/tables.html#table-name-resolution"
+        /// target="_top">name resolution rules</a> and meeting <a
+        /// href="../../concepts/tables.html#table-naming-criteria"
+        /// target="_top">table naming criteria</a>.  Must not be an already
+        /// existing table or view.  The default value is ''.</param>
         /// <param name="x_column_name">Name of the column to be used for the
         /// x-coordinate (the longitude) of the center.  </param>
         /// <param name="x_center">Value of the longitude of the center. Must
@@ -137,10 +162,12 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="FilterByRadiusRequest.Options.COLLECTION_NAME">COLLECTION_NAME</see>:</term>
-        ///         <description>Name of a collection which is to contain the
-        /// newly created view. If the collection provided is non-existent, the
-        /// collection will be automatically created. If empty, then the newly
-        /// created view will be top-level.</description>
+        ///         <description>[DEPRECATED--please specify the containing
+        /// schema for the view as part of <paramref
+        /// cref="FilterByRadiusRequest.view_name" /> and use /create/schema to
+        /// create the schema if non-existent]  Name of a schema which is to
+        /// contain the newly created view. If the schema is non-existent, it
+        /// will be automatically created.</description>
         ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.</param>
@@ -174,11 +201,41 @@ namespace kinetica
     public class FilterByRadiusResponse : KineticaData
     {
 
+        /// <summary>Additional information.
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="FilterByRadiusResponse.Info.QUALIFIED_VIEW_NAME">QUALIFIED_VIEW_NAME</see>:</term>
+        ///         <description>The fully qualified name of the view (i.e.
+        /// including the schema)</description>
+        ///     </item>
+        /// </list>
+        /// The default value is an empty {@link Dictionary}.
+        /// A set of string constants for the parameter <member name="info"
+        /// />.</summary>
+        public struct Info
+        {
+
+            /// <summary>The fully qualified name of the view (i.e. including
+            /// the schema)</summary>
+            public const string QUALIFIED_VIEW_NAME = "qualified_view_name";
+        } // end struct Info
+
+
         /// <summary>The number of records passing the radius filter.
         /// </summary>
         public long count { get; set; }
 
-        /// <summary>Additional information.  </summary>
+        /// <summary>Additional information.
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="FilterByRadiusResponse.Info.QUALIFIED_VIEW_NAME">QUALIFIED_VIEW_NAME</see>:</term>
+        ///         <description>The fully qualified name of the view (i.e.
+        /// including the schema)</description>
+        ///     </item>
+        /// </list>
+        /// The default value is an empty {@link Dictionary}.</summary>
         public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
 
     } // end class FilterByRadiusResponse

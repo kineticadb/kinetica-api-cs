@@ -129,8 +129,11 @@ namespace kinetica
         /// </list>  </summary>
         public string permission { get; set; }
 
-        /// <summary>Name of the table to which the permission grants access.
-        /// Must be an existing table, collection, or view.  </summary>
+        /// <summary>Name of the table to which the permission grants access,
+        /// in [schema_name.]table_name format, using standard <a
+        /// href="../../concepts/tables.html#table-name-resolution"
+        /// target="_top">name resolution rules</a>.  Must be an existing
+        /// table, view or schema.  </summary>
         public string table_name { get; set; }
 
         /// <summary>Optional parameters.
@@ -188,8 +191,10 @@ namespace kinetica
         ///     </item>
         /// </list>  </param>
         /// <param name="table_name">Name of the table to which the permission
-        /// grants access. Must be an existing table, collection, or view.
-        /// </param>
+        /// grants access, in [schema_name.]table_name format, using standard
+        /// <a href="../../concepts/tables.html#table-name-resolution"
+        /// target="_top">name resolution rules</a>.  Must be an existing
+        /// table, view or schema.  </param>
         /// <param name="options">Optional parameters.
         /// <list type="bullet">
         ///     <item>

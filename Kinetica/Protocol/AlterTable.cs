@@ -15,7 +15,7 @@ namespace kinetica
     /// cref="Kinetica.alterTable(string,string,string,IDictionary{string, string})"
     /// />.
     /// <br />
-    /// Apply various modifications to a table, view, or collection.  The
+    /// Apply various modifications to a table or view.  The
     /// available modifications include the following:
     /// <br />
     /// Manage a table's columns--a column can be added, removed, or have its
@@ -23,6 +23,8 @@ namespace kinetica
     /// properties</a> modified, including
     /// whether it is <a href="../../concepts/compression.html"
     /// target="_top">compressed</a> or not.
+    /// <br />
+    /// External tables cannot be modified except for their refresh method.
     /// <br />
     /// Create or delete an <a href="../../concepts/indexes.html#column-index"
     /// target="_top">index</a> on a
@@ -49,14 +51,13 @@ namespace kinetica
     /// <br />
     /// Refresh and manage the refresh mode of a
     /// <a href="../../concepts/materialized_views.html"
-    /// target="_top">materialized view</a>.
+    /// target="_top">materialized view</a> or an
+    /// <a href="../../concepts/external_tables.html" target="_top">external
+    /// table</a>.
     /// <br />
     /// Set the <a href="../../concepts/ttl.html" target="_top">time-to-live
     /// (TTL)</a>. This can be applied
-    /// to tables, views, or collections.  When applied to collections, every
-    /// contained
-    /// table & view that is not protected will have its TTL set to the given
-    /// value.
+    /// to tables or views.
     /// <br />
     /// Set the global access mode (i.e. locking) for a table. This setting
     /// trumps any
@@ -64,12 +65,8 @@ namespace kinetica
     /// write access
     /// to a table marked read-only will not be able to insert records into it.
     /// The mode
-    /// can be set to read-only, write-only, read/write, and no access.
-    /// <br />
-    /// Change the <a href="../../concepts/protection.html"
-    /// target="_top">protection</a> mode to prevent or
-    /// allow automatic expiration. This can be applied to tables, views, and
-    /// collections.</summary>
+    /// can be set to read-only, write-only, read/write, and no
+    /// access.</summary>
     public class AlterTableRequest : KineticaData
     {
 
@@ -109,36 +106,44 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="AlterTableRequest.Action.MOVE_TO_COLLECTION">MOVE_TO_COLLECTION</see>:</term>
-        ///         <description>Moves a table or view into a collection named
-        /// <paramref cref="AlterTableRequest._value" />.  If the collection
-        /// provided is non-existent, the collection will be automatically
-        /// created. If <paramref cref="AlterTableRequest._value" /> is empty,
-        /// then the table or view will be top-level.</description>
+        ///         <description>[DEPRECATED--please use <i>move_to_schema</i>
+        /// and use /create/schema to create the schema if non-existent]  Moves
+        /// a table or view into a schema named <paramref
+        /// cref="AlterTableRequest._value" />.  If the schema provided is
+        /// non-existent, it will be automatically created.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterTableRequest.Action.MOVE_TO_SCHEMA">MOVE_TO_SCHEMA</see>:</term>
+        ///         <description>Moves a table or view into a schema named
+        /// <paramref cref="AlterTableRequest._value" />.  If the schema
+        /// provided is non-existent, an error will be thrown. If <paramref
+        /// cref="AlterTableRequest._value" /> is empty, then the table or view
+        /// will be placed in the user's default schema.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="AlterTableRequest.Action.PROTECTED">PROTECTED</see>:</term>
-        ///         <description>Sets whether the given <paramref
-        /// cref="AlterTableRequest.table_name" /> should be <a
-        /// href="../../concepts/protection.html" target="_top">protected</a>
-        /// or not. The <paramref cref="AlterTableRequest._value" /> must be
-        /// either 'true' or 'false'.</description>
+        ///         <description>No longer used.  Previously set whether the
+        /// given <paramref cref="AlterTableRequest.table_name" /> should be
+        /// protected or not. The <paramref cref="AlterTableRequest._value" />
+        /// would have been either 'true' or 'false'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="AlterTableRequest.Action.RENAME_TABLE">RENAME_TABLE</see>:</term>
-        ///         <description>Renames a table, view or collection to
-        /// <paramref cref="AlterTableRequest._value" />. Has the same naming
-        /// restrictions as <a href="../../concepts/tables.html"
+        ///         <description>Renames a table or view within its current
+        /// schema to <paramref cref="AlterTableRequest._value" />. Has the
+        /// same naming restrictions as <a href="../../concepts/tables.html"
         /// target="_top">tables</a>.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="AlterTableRequest.Action.TTL">TTL</see>:</term>
         ///         <description>Sets the <a href="../../concepts/ttl.html"
-        /// target="_top">time-to-live</a> in minutes of the table, view, or
-        /// collection specified in <paramref
-        /// cref="AlterTableRequest.table_name" />.</description>
+        /// target="_top">time-to-live</a> in minutes of the table or view
+        /// specified in <paramref cref="AlterTableRequest.table_name"
+        /// />.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -243,19 +248,28 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="AlterTableRequest.Action.REFRESH">REFRESH</see>:</term>
-        ///         <description>Replays all the table creation commands
-        /// required to create this <a
+        ///         <description>For a <a
         /// href="../../concepts/materialized_views.html"
-        /// target="_top">materialized view</a>.</description>
+        /// target="_top">materialized view</a>, replays all the table creation
+        /// commands required to create the view.  For an <a
+        /// href="../../concepts/external_tables.html" target="_top">external
+        /// table</a>, reloads all data in the table from its associated source
+        /// files or <a href="../../concepts/data_sources.html"
+        /// target="_top">data source</a>.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="AlterTableRequest.Action.SET_REFRESH_METHOD">SET_REFRESH_METHOD</see>:</term>
-        ///         <description>Sets the method by which this <a
+        ///         <description>For a <a
         /// href="../../concepts/materialized_views.html"
-        /// target="_top">materialized view</a> is refreshed to the method
-        /// specified in <paramref cref="AlterTableRequest._value" /> - one of
-        /// 'manual', 'periodic', 'on_change'. </description>
+        /// target="_top">materialized view</a>, sets the method by which the
+        /// view is refreshed to the method specified in <paramref
+        /// cref="AlterTableRequest._value" /> - one of 'manual', 'periodic',
+        /// or 'on_change'.  For an <a
+        /// href="../../concepts/external_tables.html" target="_top">external
+        /// table</a>, sets the method by which the table is refreshed to the
+        /// method specified in <paramref cref="AlterTableRequest._value" /> -
+        /// either 'manual' or 'on_start'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -325,28 +339,37 @@ namespace kinetica
             /// index, an error will be returned.</summary>
             public const string DELETE_INDEX = "delete_index";
 
-            /// <summary>Moves a table or view into a collection named <see
-            /// cref="_value" />.  If the collection provided is non-existent,
-            /// the collection will be automatically created. If <see
-            /// cref="_value" /> is empty, then the table or view will be
-            /// top-level.</summary>
+            /// <summary>[DEPRECATED--please use <i>move_to_schema</i> and use
+            /// <see
+            /// cref="Kinetica.createSchema(string,IDictionary{string, string})"
+            /// /> to create the schema if non-existent]  Moves a table or view
+            /// into a schema named <see cref="_value" />.  If the schema
+            /// provided is non-existent, it will be automatically
+            /// created.</summary>
             public const string MOVE_TO_COLLECTION = "move_to_collection";
 
-            /// <summary>Sets whether the given <see cref="table_name" />
-            /// should be <a href="../../concepts/protection.html"
-            /// target="_top">protected</a> or not. The <see cref="_value" />
-            /// must be either 'true' or 'false'.</summary>
+            /// <summary>Moves a table or view into a schema named <see
+            /// cref="_value" />.  If the schema provided is non-existent, an
+            /// error will be thrown. If <see cref="_value" /> is empty, then
+            /// the table or view will be placed in the user's default
+            /// schema.</summary>
+            public const string MOVE_TO_SCHEMA = "move_to_schema";
+
+            /// <summary>No longer used.  Previously set whether the given <see
+            /// cref="table_name" /> should be protected or not. The <see
+            /// cref="_value" /> would have been either 'true' or
+            /// 'false'.</summary>
             public const string PROTECTED = "protected";
 
-            /// <summary>Renames a table, view or collection to <see
-            /// cref="_value" />. Has the same naming restrictions as <a
+            /// <summary>Renames a table or view within its current schema to
+            /// <see cref="_value" />. Has the same naming restrictions as <a
             /// href="../../concepts/tables.html"
             /// target="_top">tables</a>.</summary>
             public const string RENAME_TABLE = "rename_table";
 
             /// <summary>Sets the <a href="../../concepts/ttl.html"
-            /// target="_top">time-to-live</a> in minutes of the table, view,
-            /// or collection specified in <see cref="table_name" />.</summary>
+            /// target="_top">time-to-live</a> in minutes of the table or view
+            /// specified in <see cref="table_name" />.</summary>
             public const string TTL = "ttl";
 
             /// <summary>Adds the column specified in <see cref="_value" /> to
@@ -425,16 +448,24 @@ namespace kinetica
             /// 'read_write'.</summary>
             public const string SET_GLOBAL_ACCESS_MODE = "set_global_access_mode";
 
-            /// <summary>Replays all the table creation commands required to
-            /// create this <a href="../../concepts/materialized_views.html"
-            /// target="_top">materialized view</a>.</summary>
+            /// <summary>For a <a href="../../concepts/materialized_views.html"
+            /// target="_top">materialized view</a>, replays all the table
+            /// creation commands required to create the view.  For an <a
+            /// href="../../concepts/external_tables.html"
+            /// target="_top">external table</a>, reloads all data in the table
+            /// from its associated source files or <a
+            /// href="../../concepts/data_sources.html" target="_top">data
+            /// source</a>.</summary>
             public const string REFRESH = "refresh";
 
-            /// <summary>Sets the method by which this <a
-            /// href="../../concepts/materialized_views.html"
-            /// target="_top">materialized view</a> is refreshed to the method
-            /// specified in <see cref="_value" /> - one of 'manual',
-            /// 'periodic', 'on_change'. </summary>
+            /// <summary>For a <a href="../../concepts/materialized_views.html"
+            /// target="_top">materialized view</a>, sets the method by which
+            /// the view is refreshed to the method specified in <see
+            /// cref="_value" /> - one of 'manual', 'periodic', or 'on_change'.
+            /// For an <a href="../../concepts/external_tables.html"
+            /// target="_top">external table</a>, sets the method by which the
+            /// table is refreshed to the method specified in <see
+            /// cref="_value" /> - either 'manual' or 'on_start'.</summary>
             public const string SET_REFRESH_METHOD = "set_refresh_method";
 
             /// <summary>Sets the time to start periodic refreshes of this <a
@@ -540,8 +571,8 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="AlterTableRequest.Options.COPY_VALUES_FROM_COLUMN">COPY_VALUES_FROM_COLUMN</see>:</term>
-        ///         <description>Deprecated.  Please use
-        /// <i>add_column_expression</i> instead.</description>
+        ///         <description>[DEPRECATED--please use
+        /// <i>add_column_expression</i> instead.]</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -553,21 +584,20 @@ namespace kinetica
         ///         <term><see
         /// cref="AlterTableRequest.Options.VALIDATE_CHANGE_COLUMN">VALIDATE_CHANGE_COLUMN</see>:</term>
         ///         <description>When changing a column, validate the change
-        /// before applying it. If <i>true</i>, then validate all values. A
-        /// value too large (or too long) for the new type will prevent any
-        /// change. If <i>false</i>, then when a value is too large or long, it
-        /// will be truncated.
+        /// before applying it (or not).
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
         /// cref="AlterTableRequest.Options.TRUE">TRUE</see>:</term>
-        ///         <description>true</description>
+        ///         <description>Validate all values. A value too large (or too
+        /// long) for the new type will prevent any change.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="AlterTableRequest.Options.FALSE">FALSE</see>:</term>
-        ///         <description>false</description>
+        ///         <description>When a value is too large or long, it will be
+        /// truncated.</description>
         ///     </item>
         /// </list>
         /// The default value is <see
@@ -705,8 +735,8 @@ namespace kinetica
             public const string LZ4 = "lz4";
             public const string LZ4HC = "lz4hc";
 
-            /// <summary>Deprecated.  Please use <i>add_column_expression</i>
-            /// instead.</summary>
+            /// <summary>[DEPRECATED--please use <i>add_column_expression</i>
+            /// instead.]</summary>
             public const string COPY_VALUES_FROM_COLUMN = "copy_values_from_column";
 
             /// <summary>When changing a column, specify new column
@@ -714,21 +744,21 @@ namespace kinetica
             public const string RENAME_COLUMN = "rename_column";
 
             /// <summary>When changing a column, validate the change before
-            /// applying it. If <i>true</i>, then validate all values. A value
-            /// too large (or too long) for the new type will prevent any
-            /// change. If <i>false</i>, then when a value is too large or
-            /// long, it will be truncated.
+            /// applying it (or not).
             /// Supported values:
             /// <list type="bullet">
             ///     <item>
             ///         <term><see
             /// cref="AlterTableRequest.Options.TRUE">TRUE</see>:</term>
-            ///         <description>true</description>
+            ///         <description>Validate all values. A value too large (or
+            /// too long) for the new type will prevent any
+            /// change.</description>
             ///     </item>
             ///     <item>
             ///         <term><see
             /// cref="AlterTableRequest.Options.FALSE">FALSE</see>:</term>
-            ///         <description>false</description>
+            ///         <description>When a value is too large or long, it will
+            /// be truncated.</description>
             ///     </item>
             /// </list>
             /// The default value is <see
@@ -822,8 +852,11 @@ namespace kinetica
         } // end struct Options
 
 
-        /// <summary>Table on which the operation will be performed. Must be an
-        /// existing table, view, or collection.  </summary>
+        /// <summary>Table on which the operation will be performed, in
+        /// [schema_name.]table_name format, using standard <a
+        /// href="../../concepts/tables.html#table-name-resolution"
+        /// target="_top">name resolution rules</a>.  Must be an existing table
+        /// or view.  </summary>
         public string table_name { get; set; }
 
         /// <summary>Modification operation to be applied
@@ -862,36 +895,44 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="AlterTableRequest.Action.MOVE_TO_COLLECTION">MOVE_TO_COLLECTION</see>:</term>
-        ///         <description>Moves a table or view into a collection named
-        /// <paramref cref="AlterTableRequest._value" />.  If the collection
-        /// provided is non-existent, the collection will be automatically
-        /// created. If <paramref cref="AlterTableRequest._value" /> is empty,
-        /// then the table or view will be top-level.</description>
+        ///         <description>[DEPRECATED--please use <i>move_to_schema</i>
+        /// and use /create/schema to create the schema if non-existent]  Moves
+        /// a table or view into a schema named <paramref
+        /// cref="AlterTableRequest._value" />.  If the schema provided is
+        /// non-existent, it will be automatically created.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterTableRequest.Action.MOVE_TO_SCHEMA">MOVE_TO_SCHEMA</see>:</term>
+        ///         <description>Moves a table or view into a schema named
+        /// <paramref cref="AlterTableRequest._value" />.  If the schema
+        /// provided is non-existent, an error will be thrown. If <paramref
+        /// cref="AlterTableRequest._value" /> is empty, then the table or view
+        /// will be placed in the user's default schema.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="AlterTableRequest.Action.PROTECTED">PROTECTED</see>:</term>
-        ///         <description>Sets whether the given <paramref
-        /// cref="AlterTableRequest.table_name" /> should be <a
-        /// href="../../concepts/protection.html" target="_top">protected</a>
-        /// or not. The <paramref cref="AlterTableRequest._value" /> must be
-        /// either 'true' or 'false'.</description>
+        ///         <description>No longer used.  Previously set whether the
+        /// given <paramref cref="AlterTableRequest.table_name" /> should be
+        /// protected or not. The <paramref cref="AlterTableRequest._value" />
+        /// would have been either 'true' or 'false'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="AlterTableRequest.Action.RENAME_TABLE">RENAME_TABLE</see>:</term>
-        ///         <description>Renames a table, view or collection to
-        /// <paramref cref="AlterTableRequest._value" />. Has the same naming
-        /// restrictions as <a href="../../concepts/tables.html"
+        ///         <description>Renames a table or view within its current
+        /// schema to <paramref cref="AlterTableRequest._value" />. Has the
+        /// same naming restrictions as <a href="../../concepts/tables.html"
         /// target="_top">tables</a>.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="AlterTableRequest.Action.TTL">TTL</see>:</term>
         ///         <description>Sets the <a href="../../concepts/ttl.html"
-        /// target="_top">time-to-live</a> in minutes of the table, view, or
-        /// collection specified in <paramref
-        /// cref="AlterTableRequest.table_name" />.</description>
+        /// target="_top">time-to-live</a> in minutes of the table or view
+        /// specified in <paramref cref="AlterTableRequest.table_name"
+        /// />.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -996,19 +1037,28 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="AlterTableRequest.Action.REFRESH">REFRESH</see>:</term>
-        ///         <description>Replays all the table creation commands
-        /// required to create this <a
+        ///         <description>For a <a
         /// href="../../concepts/materialized_views.html"
-        /// target="_top">materialized view</a>.</description>
+        /// target="_top">materialized view</a>, replays all the table creation
+        /// commands required to create the view.  For an <a
+        /// href="../../concepts/external_tables.html" target="_top">external
+        /// table</a>, reloads all data in the table from its associated source
+        /// files or <a href="../../concepts/data_sources.html"
+        /// target="_top">data source</a>.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="AlterTableRequest.Action.SET_REFRESH_METHOD">SET_REFRESH_METHOD</see>:</term>
-        ///         <description>Sets the method by which this <a
+        ///         <description>For a <a
         /// href="../../concepts/materialized_views.html"
-        /// target="_top">materialized view</a> is refreshed to the method
-        /// specified in <paramref cref="AlterTableRequest._value" /> - one of
-        /// 'manual', 'periodic', 'on_change'. </description>
+        /// target="_top">materialized view</a>, sets the method by which the
+        /// view is refreshed to the method specified in <paramref
+        /// cref="AlterTableRequest._value" /> - one of 'manual', 'periodic',
+        /// or 'on_change'.  For an <a
+        /// href="../../concepts/external_tables.html" target="_top">external
+        /// table</a>, sets the method by which the table is refreshed to the
+        /// method specified in <paramref cref="AlterTableRequest._value" /> -
+        /// either 'manual' or 'on_start'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -1135,8 +1185,8 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="AlterTableRequest.Options.COPY_VALUES_FROM_COLUMN">COPY_VALUES_FROM_COLUMN</see>:</term>
-        ///         <description>Deprecated.  Please use
-        /// <i>add_column_expression</i> instead.</description>
+        ///         <description>[DEPRECATED--please use
+        /// <i>add_column_expression</i> instead.]</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -1148,21 +1198,20 @@ namespace kinetica
         ///         <term><see
         /// cref="AlterTableRequest.Options.VALIDATE_CHANGE_COLUMN">VALIDATE_CHANGE_COLUMN</see>:</term>
         ///         <description>When changing a column, validate the change
-        /// before applying it. If <i>true</i>, then validate all values. A
-        /// value too large (or too long) for the new type will prevent any
-        /// change. If <i>false</i>, then when a value is too large or long, it
-        /// will be truncated.
+        /// before applying it (or not).
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
         /// cref="AlterTableRequest.Options.TRUE">TRUE</see>:</term>
-        ///         <description>true</description>
+        ///         <description>Validate all values. A value too large (or too
+        /// long) for the new type will prevent any change.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="AlterTableRequest.Options.FALSE">FALSE</see>:</term>
-        ///         <description>false</description>
+        ///         <description>When a value is too large or long, it will be
+        /// truncated.</description>
         ///     </item>
         /// </list>
         /// The default value is <see
@@ -1257,8 +1306,10 @@ namespace kinetica
         /// parameters.</summary>
         /// 
         /// <param name="table_name">Table on which the operation will be
-        /// performed. Must be an existing table, view, or collection.
-        /// </param>
+        /// performed, in [schema_name.]table_name format, using standard <a
+        /// href="../../concepts/tables.html#table-name-resolution"
+        /// target="_top">name resolution rules</a>.  Must be an existing table
+        /// or view.  </param>
         /// <param name="action">Modification operation to be applied
         /// Supported values:
         /// <list type="bullet">
@@ -1295,36 +1346,44 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="AlterTableRequest.Action.MOVE_TO_COLLECTION">MOVE_TO_COLLECTION</see>:</term>
-        ///         <description>Moves a table or view into a collection named
-        /// <paramref cref="AlterTableRequest._value" />.  If the collection
-        /// provided is non-existent, the collection will be automatically
-        /// created. If <paramref cref="AlterTableRequest._value" /> is empty,
-        /// then the table or view will be top-level.</description>
+        ///         <description>[DEPRECATED--please use <i>move_to_schema</i>
+        /// and use /create/schema to create the schema if non-existent]  Moves
+        /// a table or view into a schema named <paramref
+        /// cref="AlterTableRequest._value" />.  If the schema provided is
+        /// non-existent, it will be automatically created.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterTableRequest.Action.MOVE_TO_SCHEMA">MOVE_TO_SCHEMA</see>:</term>
+        ///         <description>Moves a table or view into a schema named
+        /// <paramref cref="AlterTableRequest._value" />.  If the schema
+        /// provided is non-existent, an error will be thrown. If <paramref
+        /// cref="AlterTableRequest._value" /> is empty, then the table or view
+        /// will be placed in the user's default schema.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="AlterTableRequest.Action.PROTECTED">PROTECTED</see>:</term>
-        ///         <description>Sets whether the given <paramref
-        /// cref="AlterTableRequest.table_name" /> should be <a
-        /// href="../../concepts/protection.html" target="_top">protected</a>
-        /// or not. The <paramref cref="AlterTableRequest._value" /> must be
-        /// either 'true' or 'false'.</description>
+        ///         <description>No longer used.  Previously set whether the
+        /// given <paramref cref="AlterTableRequest.table_name" /> should be
+        /// protected or not. The <paramref cref="AlterTableRequest._value" />
+        /// would have been either 'true' or 'false'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="AlterTableRequest.Action.RENAME_TABLE">RENAME_TABLE</see>:</term>
-        ///         <description>Renames a table, view or collection to
-        /// <paramref cref="AlterTableRequest._value" />. Has the same naming
-        /// restrictions as <a href="../../concepts/tables.html"
+        ///         <description>Renames a table or view within its current
+        /// schema to <paramref cref="AlterTableRequest._value" />. Has the
+        /// same naming restrictions as <a href="../../concepts/tables.html"
         /// target="_top">tables</a>.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="AlterTableRequest.Action.TTL">TTL</see>:</term>
         ///         <description>Sets the <a href="../../concepts/ttl.html"
-        /// target="_top">time-to-live</a> in minutes of the table, view, or
-        /// collection specified in <paramref
-        /// cref="AlterTableRequest.table_name" />.</description>
+        /// target="_top">time-to-live</a> in minutes of the table or view
+        /// specified in <paramref cref="AlterTableRequest.table_name"
+        /// />.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -1429,19 +1488,28 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="AlterTableRequest.Action.REFRESH">REFRESH</see>:</term>
-        ///         <description>Replays all the table creation commands
-        /// required to create this <a
+        ///         <description>For a <a
         /// href="../../concepts/materialized_views.html"
-        /// target="_top">materialized view</a>.</description>
+        /// target="_top">materialized view</a>, replays all the table creation
+        /// commands required to create the view.  For an <a
+        /// href="../../concepts/external_tables.html" target="_top">external
+        /// table</a>, reloads all data in the table from its associated source
+        /// files or <a href="../../concepts/data_sources.html"
+        /// target="_top">data source</a>.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="AlterTableRequest.Action.SET_REFRESH_METHOD">SET_REFRESH_METHOD</see>:</term>
-        ///         <description>Sets the method by which this <a
+        ///         <description>For a <a
         /// href="../../concepts/materialized_views.html"
-        /// target="_top">materialized view</a> is refreshed to the method
-        /// specified in <paramref cref="AlterTableRequest._value" /> - one of
-        /// 'manual', 'periodic', 'on_change'. </description>
+        /// target="_top">materialized view</a>, sets the method by which the
+        /// view is refreshed to the method specified in <paramref
+        /// cref="AlterTableRequest._value" /> - one of 'manual', 'periodic',
+        /// or 'on_change'.  For an <a
+        /// href="../../concepts/external_tables.html" target="_top">external
+        /// table</a>, sets the method by which the table is refreshed to the
+        /// method specified in <paramref cref="AlterTableRequest._value" /> -
+        /// either 'manual' or 'on_start'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -1564,8 +1632,8 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="AlterTableRequest.Options.COPY_VALUES_FROM_COLUMN">COPY_VALUES_FROM_COLUMN</see>:</term>
-        ///         <description>Deprecated.  Please use
-        /// <i>add_column_expression</i> instead.</description>
+        ///         <description>[DEPRECATED--please use
+        /// <i>add_column_expression</i> instead.]</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -1577,21 +1645,20 @@ namespace kinetica
         ///         <term><see
         /// cref="AlterTableRequest.Options.VALIDATE_CHANGE_COLUMN">VALIDATE_CHANGE_COLUMN</see>:</term>
         ///         <description>When changing a column, validate the change
-        /// before applying it. If <i>true</i>, then validate all values. A
-        /// value too large (or too long) for the new type will prevent any
-        /// change. If <i>false</i>, then when a value is too large or long, it
-        /// will be truncated.
+        /// before applying it (or not).
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
         /// cref="AlterTableRequest.Options.TRUE">TRUE</see>:</term>
-        ///         <description>true</description>
+        ///         <description>Validate all values. A value too large (or too
+        /// long) for the new type will prevent any change.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="AlterTableRequest.Options.FALSE">FALSE</see>:</term>
-        ///         <description>false</description>
+        ///         <description>When a value is too large or long, it will be
+        /// truncated.</description>
         ///     </item>
         /// </list>
         /// The default value is <see

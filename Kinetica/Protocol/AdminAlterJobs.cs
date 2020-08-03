@@ -19,8 +19,8 @@ namespace kinetica
     /// the type of job and the current state of execution, the action may not
     /// be successfully executed. The final result of the attempted actions for
     /// each specified job is returned in the status array of the response. See
-    /// <a href="../../gpudbAdmin/job_manager.html" target="_top">Job
-    /// Manager</a> for more information.</summary>
+    /// <a href="../../admin/job_manager.html" target="_top">Job Manager</a>
+    /// for more information.</summary>
     public class AdminAlterJobsRequest : KineticaData
     {
 
@@ -40,6 +40,26 @@ namespace kinetica
         } // end struct Action
 
 
+        /// <summary>Optional parameters.
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="AdminAlterJobsRequest.Options.JOB_TAG">JOB_TAG</see>:</term>
+        ///         <description>Job tag returned in call to create the
+        /// job</description>
+        ///     </item>
+        /// </list>
+        /// The default value is an empty {@link Dictionary}.
+        /// A set of string constants for the parameter <see cref="options"
+        /// />.</summary>
+        public struct Options
+        {
+
+            /// <summary>Job tag returned in call to create the job</summary>
+            public const string JOB_TAG = "job_tag";
+        } // end struct Options
+
+
         /// <summary>Jobs to be modified.  </summary>
         public IList<long> job_ids { get; set; } = new List<long>();
 
@@ -53,8 +73,16 @@ namespace kinetica
         /// </list>  </summary>
         public string action { get; set; }
 
-        /// <summary>Optional parameters.  The default value is an empty {@link
-        /// Dictionary}.</summary>
+        /// <summary>Optional parameters.
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="AdminAlterJobsRequest.Options.JOB_TAG">JOB_TAG</see>:</term>
+        ///         <description>Job tag returned in call to create the
+        /// job</description>
+        ///     </item>
+        /// </list>
+        /// The default value is an empty {@link Dictionary}.</summary>
         public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
 
 
@@ -75,8 +103,16 @@ namespace kinetica
         /// cref="AdminAlterJobsRequest.Action.CANCEL">CANCEL</see></term>
         ///     </item>
         /// </list>  </param>
-        /// <param name="options">Optional parameters.  The default value is an
-        /// empty {@link Dictionary}.</param>
+        /// <param name="options">Optional parameters.
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="AdminAlterJobsRequest.Options.JOB_TAG">JOB_TAG</see>:</term>
+        ///         <description>Job tag returned in call to create the
+        /// job</description>
+        ///     </item>
+        /// </list>
+        /// The default value is an empty {@link Dictionary}.</param>
         /// 
         public AdminAlterJobsRequest( IList<long> job_ids,
                                       string action,

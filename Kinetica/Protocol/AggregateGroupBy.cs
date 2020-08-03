@@ -124,10 +124,12 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="AggregateGroupByRequest.Options.COLLECTION_NAME">COLLECTION_NAME</see>:</term>
-        ///         <description>Name of a collection which is to contain the
-        /// table specified in <i>result_table</i>. If the collection provided
-        /// is non-existent, the collection will be automatically created. If
-        /// empty, then the table will be a top-level table.</description>
+        ///         <description>[DEPRECATED--please specify the containing
+        /// schema as part of <i>result_table</i> and use /create/schema to
+        /// create the schema if non-existent]  Name of a schema which is to
+        /// contain the table specified in <i>result_table</i>. If the schema
+        /// provided is non-existent, it will be automatically
+        /// created.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -195,14 +197,17 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="AggregateGroupByRequest.Options.RESULT_TABLE">RESULT_TABLE</see>:</term>
-        ///         <description>The name of the table used to store the
-        /// results. Has the same naming restrictions as <a
-        /// href="../../concepts/tables.html" target="_top">tables</a>. Column
-        /// names (group-by and aggregate fields) need to be given aliases e.g.
-        /// ["FChar256 as fchar256", "sum(FDouble) as sfd"].  If present, no
-        /// results are returned in the response.  This option is not available
-        /// if one of the grouping attributes is an unrestricted string (i.e.;
-        /// not charN) type.</description>
+        ///         <description>The name of a table used to store the results,
+        /// in [schema_name.]table_name format, using standard <a
+        /// href="../../concepts/tables.html#table-name-resolution"
+        /// target="_top">name resolution rules</a> and meeting <a
+        /// href="../../concepts/tables.html#table-naming-criteria"
+        /// target="_top">table naming criteria</a>.  Column names (group-by
+        /// and aggregate fields) need to be given aliases e.g. ["FChar256 as
+        /// fchar256", "sum(FDouble) as sfd"].  If present, no results are
+        /// returned in the response.  This option is not available if one of
+        /// the grouping attributes is an unrestricted string (i.e.; not charN)
+        /// type.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -358,10 +363,13 @@ namespace kinetica
         public struct Options
         {
 
-            /// <summary>Name of a collection which is to contain the table
-            /// specified in <i>result_table</i>. If the collection provided is
-            /// non-existent, the collection will be automatically created. If
-            /// empty, then the table will be a top-level table.</summary>
+            /// <summary>[DEPRECATED--please specify the containing schema as
+            /// part of <i>result_table</i> and use <see
+            /// cref="Kinetica.createSchema(string,IDictionary{string, string})"
+            /// /> to create the schema if non-existent]  Name of a schema
+            /// which is to contain the table specified in <i>result_table</i>.
+            /// If the schema provided is non-existent, it will be
+            /// automatically created.</summary>
             public const string COLLECTION_NAME = "collection_name";
 
             /// <summary>Filter expression to apply to the table prior to
@@ -441,14 +449,17 @@ namespace kinetica
             /// etc.</summary>
             public const string VALUE = "value";
 
-            /// <summary>The name of the table used to store the results. Has
-            /// the same naming restrictions as <a
-            /// href="../../concepts/tables.html" target="_top">tables</a>.
-            /// Column names (group-by and aggregate fields) need to be given
-            /// aliases e.g. ["FChar256 as fchar256", "sum(FDouble) as sfd"].
-            /// If present, no results are returned in the response.  This
-            /// option is not available if one of the grouping attributes is an
-            /// unrestricted string (i.e.; not charN) type.</summary>
+            /// <summary>The name of a table used to store the results, in
+            /// [schema_name.]table_name format, using standard <a
+            /// href="../../concepts/tables.html#table-name-resolution"
+            /// target="_top">name resolution rules</a> and meeting <a
+            /// href="../../concepts/tables.html#table-naming-criteria"
+            /// target="_top">table naming criteria</a>.  Column names
+            /// (group-by and aggregate fields) need to be given aliases e.g.
+            /// ["FChar256 as fchar256", "sum(FDouble) as sfd"].  If present,
+            /// no results are returned in the response.  This option is not
+            /// available if one of the grouping attributes is an unrestricted
+            /// string (i.e.; not charN) type.</summary>
             public const string RESULT_TABLE = "result_table";
 
             /// <summary>If <i>true</i>, then the result table specified in
@@ -577,7 +588,9 @@ namespace kinetica
 
 
         /// <summary>Name of an existing table or view on which the operation
-        /// will be performed.  </summary>
+        /// will be performed, in [schema_name.]table_name format, using
+        /// standard <a href="../../concepts/tables.html#table-name-resolution"
+        /// target="_top">name resolution rules</a>.  </summary>
         public string table_name { get; set; }
 
         /// <summary>List of one or more column names, expressions, and
@@ -629,10 +642,12 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="AggregateGroupByRequest.Options.COLLECTION_NAME">COLLECTION_NAME</see>:</term>
-        ///         <description>Name of a collection which is to contain the
-        /// table specified in <i>result_table</i>. If the collection provided
-        /// is non-existent, the collection will be automatically created. If
-        /// empty, then the table will be a top-level table.</description>
+        ///         <description>[DEPRECATED--please specify the containing
+        /// schema as part of <i>result_table</i> and use /create/schema to
+        /// create the schema if non-existent]  Name of a schema which is to
+        /// contain the table specified in <i>result_table</i>. If the schema
+        /// provided is non-existent, it will be automatically
+        /// created.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -700,14 +715,17 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="AggregateGroupByRequest.Options.RESULT_TABLE">RESULT_TABLE</see>:</term>
-        ///         <description>The name of the table used to store the
-        /// results. Has the same naming restrictions as <a
-        /// href="../../concepts/tables.html" target="_top">tables</a>. Column
-        /// names (group-by and aggregate fields) need to be given aliases e.g.
-        /// ["FChar256 as fchar256", "sum(FDouble) as sfd"].  If present, no
-        /// results are returned in the response.  This option is not available
-        /// if one of the grouping attributes is an unrestricted string (i.e.;
-        /// not charN) type.</description>
+        ///         <description>The name of a table used to store the results,
+        /// in [schema_name.]table_name format, using standard <a
+        /// href="../../concepts/tables.html#table-name-resolution"
+        /// target="_top">name resolution rules</a> and meeting <a
+        /// href="../../concepts/tables.html#table-naming-criteria"
+        /// target="_top">table naming criteria</a>.  Column names (group-by
+        /// and aggregate fields) need to be given aliases e.g. ["FChar256 as
+        /// fchar256", "sum(FDouble) as sfd"].  If present, no results are
+        /// returned in the response.  This option is not available if one of
+        /// the grouping attributes is an unrestricted string (i.e.; not charN)
+        /// type.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -869,7 +887,10 @@ namespace kinetica
         /// specified parameters.</summary>
         /// 
         /// <param name="table_name">Name of an existing table or view on which
-        /// the operation will be performed.  </param>
+        /// the operation will be performed, in [schema_name.]table_name
+        /// format, using standard <a
+        /// href="../../concepts/tables.html#table-name-resolution"
+        /// target="_top">name resolution rules</a>.  </param>
         /// <param name="column_names">List of one or more column names,
         /// expressions, and aggregate expressions.  </param>
         /// <param name="offset">A positive integer indicating the number of
@@ -892,10 +913,12 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="AggregateGroupByRequest.Options.COLLECTION_NAME">COLLECTION_NAME</see>:</term>
-        ///         <description>Name of a collection which is to contain the
-        /// table specified in <i>result_table</i>. If the collection provided
-        /// is non-existent, the collection will be automatically created. If
-        /// empty, then the table will be a top-level table.</description>
+        ///         <description>[DEPRECATED--please specify the containing
+        /// schema as part of <i>result_table</i> and use /create/schema to
+        /// create the schema if non-existent]  Name of a schema which is to
+        /// contain the table specified in <i>result_table</i>. If the schema
+        /// provided is non-existent, it will be automatically
+        /// created.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -963,14 +986,17 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="AggregateGroupByRequest.Options.RESULT_TABLE">RESULT_TABLE</see>:</term>
-        ///         <description>The name of the table used to store the
-        /// results. Has the same naming restrictions as <a
-        /// href="../../concepts/tables.html" target="_top">tables</a>. Column
-        /// names (group-by and aggregate fields) need to be given aliases e.g.
-        /// ["FChar256 as fchar256", "sum(FDouble) as sfd"].  If present, no
-        /// results are returned in the response.  This option is not available
-        /// if one of the grouping attributes is an unrestricted string (i.e.;
-        /// not charN) type.</description>
+        ///         <description>The name of a table used to store the results,
+        /// in [schema_name.]table_name format, using standard <a
+        /// href="../../concepts/tables.html#table-name-resolution"
+        /// target="_top">name resolution rules</a> and meeting <a
+        /// href="../../concepts/tables.html#table-naming-criteria"
+        /// target="_top">table naming criteria</a>.  Column names (group-by
+        /// and aggregate fields) need to be given aliases e.g. ["FChar256 as
+        /// fchar256", "sum(FDouble) as sfd"].  If present, no results are
+        /// returned in the response.  This option is not available if one of
+        /// the grouping attributes is an unrestricted string (i.e.; not charN)
+        /// type.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -1141,7 +1167,10 @@ namespace kinetica
         /// specified parameters.</summary>
         /// 
         /// <param name="table_name">Name of an existing table or view on which
-        /// the operation will be performed.  </param>
+        /// the operation will be performed, in [schema_name.]table_name
+        /// format, using standard <a
+        /// href="../../concepts/tables.html#table-name-resolution"
+        /// target="_top">name resolution rules</a>.  </param>
         /// <param name="column_names">List of one or more column names,
         /// expressions, and aggregate expressions.  </param>
         /// <param name="offset">A positive integer indicating the number of
@@ -1183,10 +1212,12 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="AggregateGroupByRequest.Options.COLLECTION_NAME">COLLECTION_NAME</see>:</term>
-        ///         <description>Name of a collection which is to contain the
-        /// table specified in <i>result_table</i>. If the collection provided
-        /// is non-existent, the collection will be automatically created. If
-        /// empty, then the table will be a top-level table.</description>
+        ///         <description>[DEPRECATED--please specify the containing
+        /// schema as part of <i>result_table</i> and use /create/schema to
+        /// create the schema if non-existent]  Name of a schema which is to
+        /// contain the table specified in <i>result_table</i>. If the schema
+        /// provided is non-existent, it will be automatically
+        /// created.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -1254,14 +1285,17 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="AggregateGroupByRequest.Options.RESULT_TABLE">RESULT_TABLE</see>:</term>
-        ///         <description>The name of the table used to store the
-        /// results. Has the same naming restrictions as <a
-        /// href="../../concepts/tables.html" target="_top">tables</a>. Column
-        /// names (group-by and aggregate fields) need to be given aliases e.g.
-        /// ["FChar256 as fchar256", "sum(FDouble) as sfd"].  If present, no
-        /// results are returned in the response.  This option is not available
-        /// if one of the grouping attributes is an unrestricted string (i.e.;
-        /// not charN) type.</description>
+        ///         <description>The name of a table used to store the results,
+        /// in [schema_name.]table_name format, using standard <a
+        /// href="../../concepts/tables.html#table-name-resolution"
+        /// target="_top">name resolution rules</a> and meeting <a
+        /// href="../../concepts/tables.html#table-naming-criteria"
+        /// target="_top">table naming criteria</a>.  Column names (group-by
+        /// and aggregate fields) need to be given aliases e.g. ["FChar256 as
+        /// fchar256", "sum(FDouble) as sfd"].  If present, no results are
+        /// returned in the response.  This option is not available if one of
+        /// the grouping attributes is an unrestricted string (i.e.; not charN)
+        /// type.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -1438,6 +1472,27 @@ namespace kinetica
     public class RawAggregateGroupByResponse : KineticaData
     {
 
+        /// <summary>Additional information.
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="RawAggregateGroupByResponse.Info.QUALIFIED_RESULT_TABLE_NAME">QUALIFIED_RESULT_TABLE_NAME</see>:</term>
+        ///         <description>The fully qualified name of the table (i.e.
+        /// including the schema) used to store the results.</description>
+        ///     </item>
+        /// </list>
+        /// The default value is an empty {@link Dictionary}.
+        /// A set of string constants for the parameter <member name="info"
+        /// />.</summary>
+        public struct Info
+        {
+
+            /// <summary>The fully qualified name of the table (i.e. including
+            /// the schema) used to store the results.</summary>
+            public const string QUALIFIED_RESULT_TABLE_NAME = "qualified_result_table_name";
+        } // end struct Info
+
+
         /// <summary>Avro schema of <member name="binary_encoded_response" />
         /// or <member name="json_encoded_response" />.  </summary>
         public string response_schema_str { get; set; }
@@ -1454,7 +1509,16 @@ namespace kinetica
         /// <summary>Too many records. Returned a partial set.  </summary>
         public bool has_more_records { get; set; }
 
-        /// <summary>Additional information.  </summary>
+        /// <summary>Additional information.
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="RawAggregateGroupByResponse.Info.QUALIFIED_RESULT_TABLE_NAME">QUALIFIED_RESULT_TABLE_NAME</see>:</term>
+        ///         <description>The fully qualified name of the table (i.e.
+        /// including the schema) used to store the results.</description>
+        ///     </item>
+        /// </list>
+        /// The default value is an empty {@link Dictionary}.</summary>
         public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
 
     } // end class RawAggregateGroupByResponse
@@ -1467,6 +1531,27 @@ namespace kinetica
     public class AggregateGroupByResponse : KineticaData
     {
 
+        /// <summary>Additional information.
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="RawAggregateGroupByResponse.Info.QUALIFIED_RESULT_TABLE_NAME">QUALIFIED_RESULT_TABLE_NAME</see>:</term>
+        ///         <description>The fully qualified name of the table (i.e.
+        /// including the schema) used to store the results.</description>
+        ///     </item>
+        /// </list>
+        /// The default value is an empty {@link Dictionary}.
+        /// A set of string constants for the parameter <member name="info"
+        /// />.</summary>
+        public struct Info
+        {
+
+            /// <summary>The fully qualified name of the table (i.e. including
+            /// the schema) used to store the results.</summary>
+            public const string QUALIFIED_RESULT_TABLE_NAME = "qualified_result_table_name";
+        } // end struct Info
+
+
         /// <summary>Avro binary encoded response.  </summary>
         public IList<KineticaRecord> data { get; set; } = new List<KineticaRecord>();
 
@@ -1476,7 +1561,16 @@ namespace kinetica
         /// <summary>Too many records. Returned a partial set.  </summary>
         public bool has_more_records { get; set; }
 
-        /// <summary>Additional information.  </summary>
+        /// <summary>Additional information.
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="RawAggregateGroupByResponse.Info.QUALIFIED_RESULT_TABLE_NAME">QUALIFIED_RESULT_TABLE_NAME</see>:</term>
+        ///         <description>The fully qualified name of the table (i.e.
+        /// including the schema) used to store the results.</description>
+        ///     </item>
+        /// </list>
+        /// The default value is an empty {@link Dictionary}.</summary>
         public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
 
     } // end class AggregateGroupByResponse

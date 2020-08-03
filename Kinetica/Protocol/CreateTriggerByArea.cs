@@ -15,24 +15,29 @@ namespace kinetica
     /// cref="Kinetica.createTriggerByArea(string,IList{string},string,IList{double},string,IList{double},IDictionary{string, string})"
     /// />.
     /// <br />
-    /// Sets up an area trigger mechanism for two column_names for one or more
-    /// tables. (This function is essentially the two-dimensional version of
+    /// Sets up an area trigger mechanism for two column_names for one or
+    /// more tables. (This function is essentially the two-dimensional version
+    /// of
     /// <see
     /// cref="Kinetica.createTriggerByRange(string,IList{string},string,double,double,IDictionary{string, string})"
-    /// />.) Once the trigger has been activated, any record added to the
-    /// listed tables(s) via <see
+    /// />.) Once the trigger has been activated, any
+    /// record added to the listed tables(s) via <see
     /// cref="Kinetica.insertRecords{T}(string,IList{T},IDictionary{string, string})"
-    /// /> with the chosen columns' values falling within the specified region
-    /// will trip the trigger. All such records will be queued at the trigger
-    /// port (by default '9001' but able to be retrieved via <see
+    /// /> with the
+    /// chosen columns' values falling within the specified region will trip
+    /// the
+    /// trigger. All such records will be queued at the trigger port (by
+    /// default '9001'
+    /// but able to be retrieved via <see
     /// cref="Kinetica.showSystemStatus(IDictionary{string, string})" />) for
-    /// any listening client to collect. Active triggers can be cancelled by
-    /// using the <see
-    /// cref="Kinetica.clearTrigger(string,IDictionary{string, string})" />
-    /// endpoint or by clearing all relevant tables.
+    /// any listening
+    /// client to collect. Active triggers can be cancelled by using the
+    /// <see cref="Kinetica.clearTrigger(string,IDictionary{string, string})"
+    /// /> endpoint or by clearing all relevant tables.
     /// <br />
     /// The output returns the trigger handle as well as indicating success or
-    /// failure of the trigger activation.</summary>
+    /// failure
+    /// of the trigger activation.</summary>
     public class CreateTriggerByAreaRequest : KineticaData
     {
 
@@ -42,7 +47,9 @@ namespace kinetica
         public string request_id { get; set; }
 
         /// <summary>Names of the tables on which the trigger will be activated
-        /// and maintained.  </summary>
+        /// and maintained, each in [schema_name.]table_name format, using
+        /// standard <a href="../../concepts/tables.html#table-name-resolution"
+        /// target="_top">name resolution rules</a>.  </summary>
         public IList<string> table_names { get; set; } = new List<string>();
 
         /// <summary>Name of a numeric column on which the trigger is
@@ -80,7 +87,10 @@ namespace kinetica
         /// can be alphanumeric, contain symbols, and must contain at least one
         /// character.  </param>
         /// <param name="table_names">Names of the tables on which the trigger
-        /// will be activated and maintained.  </param>
+        /// will be activated and maintained, each in [schema_name.]table_name
+        /// format, using standard <a
+        /// href="../../concepts/tables.html#table-name-resolution"
+        /// target="_top">name resolution rules</a>.  </param>
         /// <param name="x_column_name">Name of a numeric column on which the
         /// trigger is activated. Usually 'x' for geospatial data points.
         /// </param>

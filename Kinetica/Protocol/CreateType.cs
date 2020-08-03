@@ -15,12 +15,12 @@ namespace kinetica
     /// cref="Kinetica.createType(string,string,IDictionary{string, IList{string}},IDictionary{string, string})"
     /// />.
     /// <br />
-    /// Creates a new type describing the layout or schema of a table. The type
+    /// Creates a new type describing the layout of a table. The type
     /// definition is a JSON string describing the fields (i.e. columns) of the
     /// type. Each field consists of a name and a data type. Supported data
-    /// types are: double, float, int, long, string, and bytes. In addition one
-    /// or more properties can be specified for each column which customize the
-    /// memory usage and query availability of that column.  Note that some
+    /// types are: double, float, int, long, string, and bytes. In addition,
+    /// one or more properties can be specified for each column which customize
+    /// the memory usage and query availability of that column.  Note that some
     /// properties are mutually exclusive--i.e. they cannot be specified for
     /// any given column simultaneously.  One example of mutually exclusive
     /// properties are <i>data</i> and <i>store_only</i>.
@@ -30,7 +30,9 @@ namespace kinetica
     /// href="../../concepts/tables.html#shard-keys" target="_top">shard
     /// key</a> can be set across one or more columns. If a primary key is
     /// specified, then a uniqueness constraint is enforced, in that only a
-    /// single object can exist with a given primary key. When <see
+    /// single object can exist with a given primary key column value (or set
+    /// of values for the key columns, if using a composite primary key). When
+    /// <see
     /// cref="Kinetica.insertRecords{T}(string,IList{T},IDictionary{string, string})">inserting</see>
     /// data into a table with a primary key, depending on the parameters in
     /// the request, incoming objects with primary key values that match
@@ -114,6 +116,13 @@ namespace kinetica
         /// represents an unsigned long integer data type. The string can only
         /// be interpreted as an unsigned long data type with minimum value of
         /// zero, and maximum value of 18446744073709551615.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTypeRequest.Properties.UUID">UUID</see>:</term>
+        ///         <description>Valid only for 'string' columns.  It
+        /// represents an uuid data type. Internally, it is stored as an
+        /// 128-bit ingeger.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -349,6 +358,11 @@ namespace kinetica
             /// zero, and maximum value of 18446744073709551615.</summary>
             public const string ULONG = "ulong";
 
+            /// <summary>Valid only for 'string' columns.  It represents an
+            /// uuid data type. Internally, it is stored as an 128-bit
+            /// ingeger.</summary>
+            public const string UUID = "uuid";
+
             /// <summary>Valid only for 'string' columns.  It represents a SQL
             /// type NUMERIC(19, 4) data type.  There can be up to 15 digits
             /// before the decimal point and up to four digits in the
@@ -556,6 +570,13 @@ namespace kinetica
         /// represents an unsigned long integer data type. The string can only
         /// be interpreted as an unsigned long data type with minimum value of
         /// zero, and maximum value of 18446744073709551615.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTypeRequest.Properties.UUID">UUID</see>:</term>
+        ///         <description>Valid only for 'string' columns.  It
+        /// represents an uuid data type. Internally, it is stored as an
+        /// 128-bit ingeger.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -816,6 +837,13 @@ namespace kinetica
         /// represents an unsigned long integer data type. The string can only
         /// be interpreted as an unsigned long data type with minimum value of
         /// zero, and maximum value of 18446744073709551615.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTypeRequest.Properties.UUID">UUID</see>:</term>
+        ///         <description>Valid only for 'string' columns.  It
+        /// represents an uuid data type. Internally, it is stored as an
+        /// 128-bit ingeger.</description>
         ///     </item>
         ///     <item>
         ///         <term><see

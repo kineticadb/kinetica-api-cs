@@ -14,12 +14,14 @@ namespace kinetica
     /// <summary>A set of parameters for <see
     /// cref="Kinetica.showTable(string,IDictionary{string, string})" />.
     /// <br />
-    /// Retrieves detailed information about a table, view, or collection,
+    /// Retrieves detailed information about a table, view, or schema,
     /// specified in <see cref="table_name" />. If the supplied <see
-    /// cref="table_name" /> is a collection, the call can return information
-    /// about either the collection itself or the tables and views it contains.
-    /// If <see cref="table_name" /> is empty, information about all
-    /// collections and top-level tables and views can be returned.
+    /// cref="table_name" /> is a
+    /// schema the call can return information about either the schema itself
+    /// or the
+    /// tables and views it contains. If <see cref="table_name" /> is empty,
+    /// information about
+    /// all schemas will be returned.
     /// <br />
     /// If the option <i>get_sizes</i> is set to
     /// <i>true</i>, then the number of records
@@ -29,15 +31,19 @@ namespace kinetica
     /// requested tables (in <member name="total_size" /> and <member
     /// name="total_full_size" />).
     /// <br />
-    /// For a collection, setting the <i>show_children</i> option to
-    /// <i>false</i> returns only information about the collection itself;
-    /// setting <i>show_children</i> to <i>true</i> returns a list of tables
-    /// and views contained in the collection, along with their corresponding
-    /// detail.
+    /// For a schema, setting the <i>show_children</i> option to
+    /// <i>false</i> returns only information
+    /// about the schema itself; setting <i>show_children</i> to
+    /// <i>true</i> returns a list of tables and
+    /// views contained in the schema, along with their corresponding detail.
     /// <br />
-    /// To retrieve a list of every table, view, and collection in the
-    /// database, set <see cref="table_name" /> to '*' and <i>show_children</i>
-    /// to <i>true</i>.</summary>
+    /// To retrieve a list of every table, view, and schema in the database,
+    /// set
+    /// <see cref="table_name" /> to '*' and <i>show_children</i> to
+    /// <i>true</i>.  When doing this, the
+    /// returned <member name="total_size" /> and <member
+    /// name="total_full_size" /> will not include the sizes of
+    /// non-base tables (e.g., filters, views, joins, etc.).</summary>
     public class ShowTableRequest : KineticaData
     {
 
@@ -86,12 +92,12 @@ namespace kinetica
         ///         <term><see
         /// cref="ShowTableRequest.Options.SHOW_CHILDREN">SHOW_CHILDREN</see>:</term>
         ///         <description>If <paramref
-        /// cref="ShowTableRequest.table_name" /> is a collection, then
-        /// <i>true</i> will return information about the children of the
-        /// collection, and <i>false</i> will return information about the
-        /// collection itself. If <paramref cref="ShowTableRequest.table_name"
-        /// /> is a table or view, <i>show_children</i> must be <i>false</i>.
-        /// If <paramref cref="ShowTableRequest.table_name" /> is empty, then
+        /// cref="ShowTableRequest.table_name" /> is a schema, then <i>true</i>
+        /// will return information about the tables and views in the schema,
+        /// and <i>false</i> will return information about the schema itself.
+        /// If <paramref cref="ShowTableRequest.table_name" /> is a table or
+        /// view, <i>show_children</i> must be <i>false</i>. If <paramref
+        /// cref="ShowTableRequest.table_name" /> is empty, then
         /// <i>show_children</i> must be <i>true</i>.
         /// Supported values:
         /// <list type="bullet">
@@ -190,10 +196,10 @@ namespace kinetica
             /// cref="ShowTableRequest.Options.FALSE">FALSE</see>.</summary>
             public const string GET_SIZES = "get_sizes";
 
-            /// <summary>If <see cref="table_name" /> is a collection, then
-            /// <i>true</i> will return information about the children of the
-            /// collection, and <i>false</i> will return information about the
-            /// collection itself. If <see cref="table_name" /> is a table or
+            /// <summary>If <see cref="table_name" /> is a schema, then
+            /// <i>true</i> will return information about the tables and views
+            /// in the schema, and <i>false</i> will return information about
+            /// the schema itself. If <see cref="table_name" /> is a table or
             /// view, <i>show_children</i> must be <i>false</i>. If <see
             /// cref="table_name" /> is empty, then <i>show_children</i> must
             /// be <i>true</i>.
@@ -249,9 +255,11 @@ namespace kinetica
         } // end struct Options
 
 
-        /// <summary>Name of the table for which to retrieve the information.
-        /// If blank, then information about all collections and top-level
-        /// tables and views is returned.  </summary>
+        /// <summary>Name of the table for which to retrieve the information,
+        /// in [schema_name.]table_name format, using standard <a
+        /// href="../../concepts/tables.html#table-name-resolution"
+        /// target="_top">name resolution rules</a>.  If blank, then returns
+        /// information about all tables and views.  </summary>
         public string table_name { get; set; }
 
         /// <summary>Optional parameters.
@@ -299,12 +307,12 @@ namespace kinetica
         ///         <term><see
         /// cref="ShowTableRequest.Options.SHOW_CHILDREN">SHOW_CHILDREN</see>:</term>
         ///         <description>If <paramref
-        /// cref="ShowTableRequest.table_name" /> is a collection, then
-        /// <i>true</i> will return information about the children of the
-        /// collection, and <i>false</i> will return information about the
-        /// collection itself. If <paramref cref="ShowTableRequest.table_name"
-        /// /> is a table or view, <i>show_children</i> must be <i>false</i>.
-        /// If <paramref cref="ShowTableRequest.table_name" /> is empty, then
+        /// cref="ShowTableRequest.table_name" /> is a schema, then <i>true</i>
+        /// will return information about the tables and views in the schema,
+        /// and <i>false</i> will return information about the schema itself.
+        /// If <paramref cref="ShowTableRequest.table_name" /> is a table or
+        /// view, <i>show_children</i> must be <i>false</i>. If <paramref
+        /// cref="ShowTableRequest.table_name" /> is empty, then
         /// <i>show_children</i> must be <i>true</i>.
         /// Supported values:
         /// <list type="bullet">
@@ -372,8 +380,10 @@ namespace kinetica
         /// parameters.</summary>
         /// 
         /// <param name="table_name">Name of the table for which to retrieve
-        /// the information. If blank, then information about all collections
-        /// and top-level tables and views is returned.  </param>
+        /// the information, in [schema_name.]table_name format, using standard
+        /// <a href="../../concepts/tables.html#table-name-resolution"
+        /// target="_top">name resolution rules</a>.  If blank, then returns
+        /// information about all tables and views.  </param>
         /// <param name="options">Optional parameters.
         /// <list type="bullet">
         ///     <item>
@@ -419,12 +429,12 @@ namespace kinetica
         ///         <term><see
         /// cref="ShowTableRequest.Options.SHOW_CHILDREN">SHOW_CHILDREN</see>:</term>
         ///         <description>If <paramref
-        /// cref="ShowTableRequest.table_name" /> is a collection, then
-        /// <i>true</i> will return information about the children of the
-        /// collection, and <i>false</i> will return information about the
-        /// collection itself. If <paramref cref="ShowTableRequest.table_name"
-        /// /> is a table or view, <i>show_children</i> must be <i>false</i>.
-        /// If <paramref cref="ShowTableRequest.table_name" /> is empty, then
+        /// cref="ShowTableRequest.table_name" /> is a schema, then <i>true</i>
+        /// will return information about the tables and views in the schema,
+        /// and <i>false</i> will return information about the schema itself.
+        /// If <paramref cref="ShowTableRequest.table_name" /> is a table or
+        /// view, <i>show_children</i> must be <i>false</i>. If <paramref
+        /// cref="ShowTableRequest.table_name" /> is empty, then
         /// <i>show_children</i> must be <i>true</i>.
         /// Supported values:
         /// <list type="bullet">
@@ -509,19 +519,19 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="ShowTableResponse.TableDescriptions.VIEW">VIEW</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="ShowTableResponse.TableDescriptions.REPLICATED">REPLICATED</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
         /// cref="ShowTableResponse.TableDescriptions.JOIN">JOIN</see></term>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="ShowTableResponse.TableDescriptions.RESULT_TABLE">RESULT_TABLE</see></term>
+        /// cref="ShowTableResponse.TableDescriptions.LOGICAL_EXTERNAL_TABLE">LOGICAL_EXTERNAL_TABLE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ShowTableResponse.TableDescriptions.LOGICAL_VIEW">LOGICAL_VIEW</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ShowTableResponse.TableDescriptions.MATERIALIZED_EXTERNAL_TABLE">MATERIALIZED_EXTERNAL_TABLE</see></term>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -535,19 +545,39 @@ namespace kinetica
         ///         <term><see
         /// cref="ShowTableResponse.TableDescriptions.MATERIALIZED_VIEW_UNDER_CONSTRUCTION">MATERIALIZED_VIEW_UNDER_CONSTRUCTION</see></term>
         ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ShowTableResponse.TableDescriptions.REPLICATED">REPLICATED</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ShowTableResponse.TableDescriptions.RESULT_TABLE">RESULT_TABLE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ShowTableResponse.TableDescriptions.SCHEMA">SCHEMA</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ShowTableResponse.TableDescriptions.VIEW">VIEW</see></term>
+        ///     </item>
         /// </list>
         /// A set of string constants for the parameter <member
         /// name="table_descriptions" />.</summary>
         public struct TableDescriptions
         {
             public const string COLLECTION = "COLLECTION";
-            public const string VIEW = "VIEW";
-            public const string REPLICATED = "REPLICATED";
             public const string JOIN = "JOIN";
-            public const string RESULT_TABLE = "RESULT_TABLE";
+            public const string LOGICAL_EXTERNAL_TABLE = "LOGICAL_EXTERNAL_TABLE";
+            public const string LOGICAL_VIEW = "LOGICAL_VIEW";
+            public const string MATERIALIZED_EXTERNAL_TABLE = "MATERIALIZED_EXTERNAL_TABLE";
             public const string MATERIALIZED_VIEW = "MATERIALIZED_VIEW";
             public const string MATERIALIZED_VIEW_MEMBER = "MATERIALIZED_VIEW_MEMBER";
             public const string MATERIALIZED_VIEW_UNDER_CONSTRUCTION = "MATERIALIZED_VIEW_UNDER_CONSTRUCTION";
+            public const string REPLICATED = "REPLICATED";
+            public const string RESULT_TABLE = "RESULT_TABLE";
+            public const string SCHEMA = "SCHEMA";
+            public const string VIEW = "VIEW";
         } // end struct TableDescriptions
 
 
@@ -586,9 +616,8 @@ namespace kinetica
             /// table.  The default value is ''.</summary>
             public const string REQUEST_AVRO_JSON = "request_avro_json";
 
-            /// <summary>Indicates whether the respective table is <a
-            /// href="../../concepts/protection.html"
-            /// target="_top">protected</a> or not.
+            /// <summary>No longer used.  Indicated whether the respective
+            /// table was protected or not.
             /// Supported values:
             /// <list type="bullet">
             ///     <item>
@@ -609,31 +638,36 @@ namespace kinetica
             /// 'data'.</summary>
             public const string RECORD_BYTES = "record_bytes";
 
-            /// <summary>The names of the collections this table is part of.
-            /// Only set if table is part of a collection</summary>
+            /// <summary>[DEPRECATED--use schema_name instead]  This will now
+            /// contain the name of the schema for the table.  There can only
+            /// be one schema for a table.</summary>
             public const string COLLECTION_NAMES = "collection_names";
+
+            /// <summary>The name of the schema for the table.  There can only
+            /// be one schema for a table.</summary>
+            public const string SCHEMA_NAME = "schema_name";
 
             /// <summary>The value of the <a href="../../concepts/ttl.html"
             /// target="_top">time-to-live</a> setting.  Not present for
-            /// collections.</summary>
+            /// schemas.</summary>
             public const string TABLE_TTL = "table_ttl";
 
             /// <summary>The remaining <a href="../../concepts/ttl.html"
             /// target="_top">time-to-live</a>, in minutes, before the
             /// respective table expires (-1 if it will never expire).  Not
-            /// present for collections.</summary>
+            /// present for schemas.</summary>
             public const string REMAINING_TABLE_TTL = "remaining_table_ttl";
 
             /// <summary>Semicolon-separated list of <a
             /// href="../../concepts/tables.html#foreign-key"
             /// target="_top">foreign keys</a>, of the format 'source_column
             /// references target_table(primary_key_column)'. Not present for
-            /// collections.  The default value is ''.</summary>
+            /// schemas.  The default value is ''.</summary>
             public const string FOREIGN_KEYS = "foreign_keys";
 
             /// <summary>Foreign shard key description of the format:
-            /// 'fk_foreign_key references pk_column_name from
-            /// pk_table_name(pk_primary_key)'. Not present for collections.
+            /// <fk_foreign_key> references <pk_column_name> from
+            /// <pk_table_name>(<pk_primary_key>). Not present for schemas.
             /// The default value is ''.</summary>
             public const string FOREIGN_SHARD_KEY = "foreign_shard_key";
 
@@ -708,7 +742,7 @@ namespace kinetica
 
             /// <summary>Semicolon-separated list of columns that have <a
             /// href="../../concepts/indexes.html#column-index"
-            /// target="_top">indexes</a>. Not present for collections.  The
+            /// target="_top">indexes</a>. Not present for schemas.  The
             /// default value is ''.</summary>
             public const string ATTRIBUTE_INDEXES = "attribute_indexes";
 
@@ -716,8 +750,8 @@ namespace kinetica
             /// href="../../concepts/compression.html"
             /// target="_top">compressed</a> columns with the corresponding
             /// compression type for each; e.g.:
-            /// {first_name,snappy};{last_name,lz4hc}. Not present for
-            /// collections.  The default value is ''.</summary>
+            /// {first_name,snappy};{last_name,lz4hc}. Not present for schemas.
+            /// The default value is ''.</summary>
             public const string COMPRESSED_COLUMNS = "compressed_columns";
 
             /// <summary>JSON-encoded string representing a map of column name
@@ -833,14 +867,14 @@ namespace kinetica
         /// <summary>If <paramref cref="ShowTableRequest.table_name" /> is a
         /// table or view, then the single element of the array is <paramref
         /// cref="ShowTableRequest.table_name" />. If <paramref
-        /// cref="ShowTableRequest.table_name" /> is a collection and
+        /// cref="ShowTableRequest.table_name" /> is a schema and
         /// <i>show_children</i> is set to <i>true</i>, then this array is
-        /// populated with the names of all tables and views contained by the
-        /// given collection; if <i>show_children</i> is <i>false</i> then this
-        /// array will only include the collection name itself. If <paramref
+        /// populated with the names of all tables and views in the given
+        /// schema; if <i>show_children</i> is <i>false</i> then this array
+        /// will only include the schema name itself. If <paramref
         /// cref="ShowTableRequest.table_name" /> is an empty string, then the
-        /// array contains the names of all collections and top-level tables.
-        /// </summary>
+        /// array contains the names of all tables in the user's default
+        /// schema.  </summary>
         public IList<string> table_names { get; set; } = new List<string>();
 
         /// <summary>List of descriptions for the respective tables in <member
@@ -853,19 +887,19 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="ShowTableResponse.TableDescriptions.VIEW">VIEW</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="ShowTableResponse.TableDescriptions.REPLICATED">REPLICATED</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
         /// cref="ShowTableResponse.TableDescriptions.JOIN">JOIN</see></term>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="ShowTableResponse.TableDescriptions.RESULT_TABLE">RESULT_TABLE</see></term>
+        /// cref="ShowTableResponse.TableDescriptions.LOGICAL_EXTERNAL_TABLE">LOGICAL_EXTERNAL_TABLE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ShowTableResponse.TableDescriptions.LOGICAL_VIEW">LOGICAL_VIEW</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ShowTableResponse.TableDescriptions.MATERIALIZED_EXTERNAL_TABLE">MATERIALIZED_EXTERNAL_TABLE</see></term>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -878,6 +912,22 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="ShowTableResponse.TableDescriptions.MATERIALIZED_VIEW_UNDER_CONSTRUCTION">MATERIALIZED_VIEW_UNDER_CONSTRUCTION</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ShowTableResponse.TableDescriptions.REPLICATED">REPLICATED</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ShowTableResponse.TableDescriptions.RESULT_TABLE">RESULT_TABLE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ShowTableResponse.TableDescriptions.SCHEMA">SCHEMA</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ShowTableResponse.TableDescriptions.VIEW">VIEW</see></term>
         ///     </item>
         /// </list>  </summary>
         public IList<IList<string>> table_descriptions { get; set; } = new List<IList<string>>();

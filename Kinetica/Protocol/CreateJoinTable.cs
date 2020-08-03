@@ -29,15 +29,17 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="CreateJoinTableRequest.Options.COLLECTION_NAME">COLLECTION_NAME</see>:</term>
-        ///         <description>Name of a collection which is to contain the
-        /// join. If the collection provided is non-existent, the collection
-        /// will be automatically created. If empty, then the join will be at
-        /// the top level.  The default value is ''.</description>
+        ///         <description>[DEPRECATED--please specify the containing
+        /// schema for the join as part of <paramref
+        /// cref="CreateJoinTableRequest.join_table_name" /> and use
+        /// /create/schema to create the schema if non-existent]  Name of a
+        /// schema for the join. If the schema is non-existent, it will be
+        /// automatically created.  The default value is ''.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="CreateJoinTableRequest.Options.MAX_QUERY_DIMENSIONS">MAX_QUERY_DIMENSIONS</see>:</term>
-        ///         <description>Obsolete in GPUdb v7.0</description>
+        ///         <description>No longer used.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -93,13 +95,15 @@ namespace kinetica
         public struct Options
         {
 
-            /// <summary>Name of a collection which is to contain the join. If
-            /// the collection provided is non-existent, the collection will be
-            /// automatically created. If empty, then the join will be at the
-            /// top level.  The default value is ''.</summary>
+            /// <summary>[DEPRECATED--please specify the containing schema for
+            /// the join as part of <see cref="join_table_name" /> and use <see
+            /// cref="Kinetica.createSchema(string,IDictionary{string, string})"
+            /// /> to create the schema if non-existent]  Name of a schema for
+            /// the join. If the schema is non-existent, it will be
+            /// automatically created.  The default value is ''.</summary>
             public const string COLLECTION_NAME = "collection_name";
 
-            /// <summary>Obsolete in GPUdb v7.0</summary>
+            /// <summary>No longer used.</summary>
             public const string MAX_QUERY_DIMENSIONS = "max_query_dimensions";
 
             /// <summary>Use more memory to speed up the joining of tables.
@@ -140,13 +144,19 @@ namespace kinetica
         } // end struct Options
 
 
-        /// <summary>Name of the join table to be created.  Has the same naming
-        /// restrictions as <a href="../../concepts/tables.html"
-        /// target="_top">tables</a>.  </summary>
+        /// <summary>Name of the join table to be created, in
+        /// [schema_name.]table_name format, using standard <a
+        /// href="../../concepts/tables.html#table-name-resolution"
+        /// target="_top">name resolution rules</a> and meeting <a
+        /// href="../../concepts/tables.html#table-naming-criteria"
+        /// target="_top">table naming criteria</a>.  </summary>
         public string join_table_name { get; set; }
 
-        /// <summary>The list of table names composing the join.  Corresponds
-        /// to a SQL statement FROM clause.  </summary>
+        /// <summary>The list of table names composing the join, each in
+        /// [schema_name.]table_name format, using standard <a
+        /// href="../../concepts/tables.html#table-name-resolution"
+        /// target="_top">name resolution rules</a>.  Corresponds to a SQL
+        /// statement FROM clause.  </summary>
         public IList<string> table_names { get; set; } = new List<string>();
 
         /// <summary>List of member table columns or column expressions to be
@@ -172,15 +182,17 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="CreateJoinTableRequest.Options.COLLECTION_NAME">COLLECTION_NAME</see>:</term>
-        ///         <description>Name of a collection which is to contain the
-        /// join. If the collection provided is non-existent, the collection
-        /// will be automatically created. If empty, then the join will be at
-        /// the top level.  The default value is ''.</description>
+        ///         <description>[DEPRECATED--please specify the containing
+        /// schema for the join as part of <paramref
+        /// cref="CreateJoinTableRequest.join_table_name" /> and use
+        /// /create/schema to create the schema if non-existent]  Name of a
+        /// schema for the join. If the schema is non-existent, it will be
+        /// automatically created.  The default value is ''.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="CreateJoinTableRequest.Options.MAX_QUERY_DIMENSIONS">MAX_QUERY_DIMENSIONS</see>:</term>
-        ///         <description>Obsolete in GPUdb v7.0</description>
+        ///         <description>No longer used.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -241,12 +253,17 @@ namespace kinetica
         /// <summary>Constructs a CreateJoinTableRequest object with the
         /// specified parameters.</summary>
         /// 
-        /// <param name="join_table_name">Name of the join table to be created.
-        /// Has the same naming restrictions as <a
-        /// href="../../concepts/tables.html" target="_top">tables</a>.
-        /// </param>
+        /// <param name="join_table_name">Name of the join table to be created,
+        /// in [schema_name.]table_name format, using standard <a
+        /// href="../../concepts/tables.html#table-name-resolution"
+        /// target="_top">name resolution rules</a> and meeting <a
+        /// href="../../concepts/tables.html#table-naming-criteria"
+        /// target="_top">table naming criteria</a>.  </param>
         /// <param name="table_names">The list of table names composing the
-        /// join.  Corresponds to a SQL statement FROM clause.  </param>
+        /// join, each in [schema_name.]table_name format, using standard <a
+        /// href="../../concepts/tables.html#table-name-resolution"
+        /// target="_top">name resolution rules</a>.  Corresponds to a SQL
+        /// statement FROM clause.  </param>
         /// <param name="column_names">List of member table columns or column
         /// expressions to be included in the join. Columns can be prefixed
         /// with 'table_id.column_name', where 'table_id' is the table name or
@@ -267,15 +284,17 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="CreateJoinTableRequest.Options.COLLECTION_NAME">COLLECTION_NAME</see>:</term>
-        ///         <description>Name of a collection which is to contain the
-        /// join. If the collection provided is non-existent, the collection
-        /// will be automatically created. If empty, then the join will be at
-        /// the top level.  The default value is ''.</description>
+        ///         <description>[DEPRECATED--please specify the containing
+        /// schema for the join as part of <paramref
+        /// cref="CreateJoinTableRequest.join_table_name" /> and use
+        /// /create/schema to create the schema if non-existent]  Name of a
+        /// schema for the join. If the schema is non-existent, it will be
+        /// automatically created.  The default value is ''.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="CreateJoinTableRequest.Options.MAX_QUERY_DIMENSIONS">MAX_QUERY_DIMENSIONS</see>:</term>
-        ///         <description>Obsolete in GPUdb v7.0</description>
+        ///         <description>No longer used.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -350,6 +369,27 @@ namespace kinetica
     public class CreateJoinTableResponse : KineticaData
     {
 
+        /// <summary>Additional information.
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateJoinTableResponse.Info.QUALIFIED_JOIN_TABLE_NAME">QUALIFIED_JOIN_TABLE_NAME</see>:</term>
+        ///         <description>The fully qualified name of the join table
+        /// (i.e. including the schema)</description>
+        ///     </item>
+        /// </list>
+        /// The default value is an empty {@link Dictionary}.
+        /// A set of string constants for the parameter <member name="info"
+        /// />.</summary>
+        public struct Info
+        {
+
+            /// <summary>The fully qualified name of the join table (i.e.
+            /// including the schema)</summary>
+            public const string QUALIFIED_JOIN_TABLE_NAME = "qualified_join_table_name";
+        } // end struct Info
+
+
         /// <summary>Value of <paramref
         /// cref="CreateJoinTableRequest.join_table_name" />.  </summary>
         public string join_table_name { get; set; }
@@ -358,7 +398,16 @@ namespace kinetica
         /// given select expression.  </summary>
         public long count { get; set; }
 
-        /// <summary>Additional information.  </summary>
+        /// <summary>Additional information.
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateJoinTableResponse.Info.QUALIFIED_JOIN_TABLE_NAME">QUALIFIED_JOIN_TABLE_NAME</see>:</term>
+        ///         <description>The fully qualified name of the join table
+        /// (i.e. including the schema)</description>
+        ///     </item>
+        /// </list>
+        /// The default value is an empty {@link Dictionary}.</summary>
         public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
 
     } // end class CreateJoinTableResponse

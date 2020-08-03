@@ -15,10 +15,12 @@ namespace kinetica
     /// cref="Kinetica.clearTable(string,string,IDictionary{string, string})"
     /// />.
     /// <br />
-    /// Clears (drops) one or all tables in the database cluster. The operation
-    /// is synchronous meaning that the table will be cleared before the
+    /// Clears (drops) one or all tables in the database cluster. The
+    /// operation is synchronous meaning that the table will be cleared before
+    /// the
     /// function returns. The response payload returns the status of the
-    /// operation along with the name of the table that was cleared.</summary>
+    /// operation along
+    /// with the name of the table that was cleared.</summary>
     public class ClearTableRequest : KineticaData
     {
 
@@ -76,9 +78,12 @@ namespace kinetica
         } // end struct Options
 
 
-        /// <summary>Name of the table to be cleared. Must be an existing
-        /// table. Empty string clears all available tables, though this
-        /// behavior is be prevented by default via gpudb.conf parameter
+        /// <summary>Name of the table to be cleared, in
+        /// [schema_name.]table_name format, using standard <a
+        /// href="../../concepts/tables.html#table-name-resolution"
+        /// target="_top">name resolution rules</a>. Must be an existing table.
+        /// Empty string clears all available tables, though this behavior is
+        /// be prevented by default via gpudb.conf parameter
         /// 'disable_clear_all'.  The default value is ''.</summary>
         public string table_name { get; set; } = "";
 
@@ -122,9 +127,12 @@ namespace kinetica
         /// <summary>Constructs a ClearTableRequest object with the specified
         /// parameters.</summary>
         /// 
-        /// <param name="table_name">Name of the table to be cleared. Must be
-        /// an existing table. Empty string clears all available tables, though
-        /// this behavior is be prevented by default via gpudb.conf parameter
+        /// <param name="table_name">Name of the table to be cleared, in
+        /// [schema_name.]table_name format, using standard <a
+        /// href="../../concepts/tables.html#table-name-resolution"
+        /// target="_top">name resolution rules</a>. Must be an existing table.
+        /// Empty string clears all available tables, though this behavior is
+        /// be prevented by default via gpudb.conf parameter
         /// 'disable_clear_all'.  The default value is ''.</param>
         /// <param name="authorization">No longer used. User can pass an empty
         /// string.  The default value is ''.</param>

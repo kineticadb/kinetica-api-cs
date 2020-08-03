@@ -15,40 +15,49 @@ namespace kinetica
     /// cref="Kinetica.getRecordsByColumn(string,IList{string},long,long,IDictionary{string, string})"
     /// />.
     /// <br />
-    /// For a given table, retrieves the values from the requested column(s).
-    /// Maps of column name to the array of values as well as the column data
+    /// For a given table, retrieves the values from the requested
+    /// column(s). Maps of column name to the array of values as well as the
+    /// column data
     /// type are returned. This endpoint supports pagination with the <see
-    /// cref="offset" /> and <see cref="limit" /> parameters.
+    /// cref="offset" />
+    /// and <see cref="limit" /> parameters.
     /// <br />
     /// <a href="../../concepts/window.html" target="_top">Window
-    /// functions</a>, which can perform operations like moving averages, are
-    /// available through this endpoint as well as <see
+    /// functions</a>, which can perform
+    /// operations like moving averages, are available through this endpoint as
+    /// well as
+    /// <see
     /// cref="Kinetica.createProjection(string,string,IList{string},IDictionary{string, string})"
     /// />.
     /// <br />
     /// When using pagination, if the table (or the underlying table in the
-    /// case of a view) is modified (records are inserted, updated, or deleted)
-    /// during a call to the endpoint, the records or values retrieved may
-    /// differ between calls based on the type of the update, e.g., the
-    /// contiguity across pages cannot be relied upon.
+    /// case of a
+    /// view) is modified (records are inserted, updated, or deleted) during a
+    /// call to
+    /// the endpoint, the records or values retrieved may differ between calls
+    /// based on
+    /// the type of the update, e.g., the contiguity across pages cannot be
+    /// relied upon.
     /// <br />
     /// If <see cref="table_name" /> is empty, selection is performed against a
-    /// single-row virtual table.  This can be useful in executing temporal (<a
-    /// href="../../concepts/expressions.html#date-time-functions"
-    /// target="_top">NOW()</a>), identity (<a
-    /// href="../../concepts/expressions.html#user-security-functions"
-    /// target="_top">USER()</a>), or constant-based functions (<a
-    /// href="../../concepts/expressions.html#scalar-functions"
+    /// single-row
+    /// virtual table.  This can be useful in executing temporal
+    /// (<a href="../../concepts/expressions.html#date-time-functions"
+    /// target="_top">NOW()</a>), identity
+    /// (<a href="../../concepts/expressions.html#user-security-functions"
+    /// target="_top">USER()</a>), or
+    /// constant-based functions
+    /// (<a href="../../concepts/expressions.html#scalar-functions"
     /// target="_top">GEODIST(-77.11, 38.88, -71.06, 42.36)</a>).
     /// <br />
-    /// The response is returned as a dynamic schema. For details see: <a
-    /// href="../../api/index.html#dynamic-schemas" target="_top">dynamic
+    /// The response is returned as a dynamic schema. For details see:
+    /// <a href="../../api/index.html#dynamic-schemas" target="_top">dynamic
     /// schemas documentation</a>.</summary>
     public class GetRecordsByColumnRequest : KineticaData
     {
 
         /// <summary>Specifies the encoding for returned records; either
-        /// 'binary' or 'json'.
+        /// <i>binary</i> or <i>json</i>.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -117,8 +126,8 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="GetRecordsByColumnRequest.Options.CONVERT_WKTS_TO_WKBS">CONVERT_WKTS_TO_WKBS</see>:</term>
-        ///         <description>If true, then WKT string columns will be
-        /// returned as WKB bytes.
+        ///         <description>If <i>true</i>, then WKT string columns will
+        /// be returned as WKB bytes.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -176,8 +185,8 @@ namespace kinetica
             /// default value is ''.</summary>
             public const string ORDER_BY = "order_by";
 
-            /// <summary>If true, then WKT string columns will be returned as
-            /// WKB bytes.
+            /// <summary>If <i>true</i>, then WKT string columns will be
+            /// returned as WKB bytes.
             /// Supported values:
             /// <list type="bullet">
             ///     <item>
@@ -197,11 +206,12 @@ namespace kinetica
         } // end struct Options
 
 
-        /// <summary>Name of the table on which this operation will be
-        /// performed.  An empty table name retrieves one record from a
-        /// single-row virtual table, where columns specified should be
-        /// constants or constant expressions.  The table cannot be a parent
-        /// set.  </summary>
+        /// <summary>Name of the table or view on which this operation will be
+        /// performed, in [schema_name.]table_name format, using standard <a
+        /// href="../../concepts/tables.html#table-name-resolution"
+        /// target="_top">name resolution rules</a>.  An empty table name
+        /// retrieves one record from a single-row virtual table, where columns
+        /// specified should be constants or constant expressions.  </summary>
         public string table_name { get; set; }
 
         /// <summary>The list of column values to retrieve.  </summary>
@@ -227,7 +237,7 @@ namespace kinetica
         public long limit { get; set; } = -9999;
 
         /// <summary>Specifies the encoding for returned records; either
-        /// 'binary' or 'json'.
+        /// <i>binary</i> or <i>json</i>.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -290,8 +300,8 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="GetRecordsByColumnRequest.Options.CONVERT_WKTS_TO_WKBS">CONVERT_WKTS_TO_WKBS</see>:</term>
-        ///         <description>If true, then WKT string columns will be
-        /// returned as WKB bytes.
+        ///         <description>If <i>true</i>, then WKT string columns will
+        /// be returned as WKB bytes.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -318,11 +328,13 @@ namespace kinetica
         /// <summary>Constructs a GetRecordsByColumnRequest object with the
         /// specified parameters.</summary>
         /// 
-        /// <param name="table_name">Name of the table on which this operation
-        /// will be performed.  An empty table name retrieves one record from a
-        /// single-row virtual table, where columns specified should be
-        /// constants or constant expressions.  The table cannot be a parent
-        /// set.  </param>
+        /// <param name="table_name">Name of the table or view on which this
+        /// operation will be performed, in [schema_name.]table_name format,
+        /// using standard <a
+        /// href="../../concepts/tables.html#table-name-resolution"
+        /// target="_top">name resolution rules</a>.  An empty table name
+        /// retrieves one record from a single-row virtual table, where columns
+        /// specified should be constants or constant expressions.  </param>
         /// <param name="column_names">The list of column values to retrieve.
         /// </param>
         /// <param name="offset">A positive integer indicating the number of
@@ -387,8 +399,8 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="GetRecordsByColumnRequest.Options.CONVERT_WKTS_TO_WKBS">CONVERT_WKTS_TO_WKBS</see>:</term>
-        ///         <description>If true, then WKT string columns will be
-        /// returned as WKB bytes.
+        ///         <description>If <i>true</i>, then WKT string columns will
+        /// be returned as WKB bytes.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -424,11 +436,13 @@ namespace kinetica
         /// <summary>Constructs a GetRecordsByColumnRequest object with the
         /// specified parameters.</summary>
         /// 
-        /// <param name="table_name">Name of the table on which this operation
-        /// will be performed.  An empty table name retrieves one record from a
-        /// single-row virtual table, where columns specified should be
-        /// constants or constant expressions.  The table cannot be a parent
-        /// set.  </param>
+        /// <param name="table_name">Name of the table or view on which this
+        /// operation will be performed, in [schema_name.]table_name format,
+        /// using standard <a
+        /// href="../../concepts/tables.html#table-name-resolution"
+        /// target="_top">name resolution rules</a>.  An empty table name
+        /// retrieves one record from a single-row virtual table, where columns
+        /// specified should be constants or constant expressions.  </param>
         /// <param name="column_names">The list of column values to retrieve.
         /// </param>
         /// <param name="offset">A positive integer indicating the number of
@@ -448,7 +462,7 @@ namespace kinetica
         /// cref="GetRecordsByColumnRequest.limit" /> to request subsequent
         /// pages of results.  The default value is -9999.</param>
         /// <param name="encoding">Specifies the encoding for returned records;
-        /// either 'binary' or 'json'.
+        /// either <i>binary</i> or <i>json</i>.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -509,8 +523,8 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="GetRecordsByColumnRequest.Options.CONVERT_WKTS_TO_WKBS">CONVERT_WKTS_TO_WKBS</see>:</term>
-        ///         <description>If true, then WKT string columns will be
-        /// returned as WKB bytes.
+        ///         <description>If <i>true</i>, then WKT string columns will
+        /// be returned as WKB bytes.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>

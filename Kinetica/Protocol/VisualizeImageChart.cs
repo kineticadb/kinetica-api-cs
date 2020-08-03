@@ -444,7 +444,9 @@ namespace kinetica
 
 
         /// <summary>Name of the table containing the data to be drawn as a
-        /// chart.  </summary>
+        /// chart, in [schema_name.]table_name format, using standard <a
+        /// href="../../concepts/tables.html#table-name-resolution"
+        /// target="_top">name resolution rules</a>.  </summary>
         public string table_name { get; set; }
 
         /// <summary>Names of the columns containing the data mapped to the x
@@ -710,7 +712,9 @@ namespace kinetica
         /// specified parameters.</summary>
         /// 
         /// <param name="table_name">Name of the table containing the data to
-        /// be drawn as a chart.  </param>
+        /// be drawn as a chart, in [schema_name.]table_name format, using
+        /// standard <a href="../../concepts/tables.html#table-name-resolution"
+        /// target="_top">name resolution rules</a>.  </param>
         /// <param name="x_column_names">Names of the columns containing the
         /// data mapped to the x axis of a chart.  </param>
         /// <param name="y_column_names">Names of the columns containing the

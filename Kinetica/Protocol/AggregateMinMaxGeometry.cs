@@ -15,13 +15,16 @@ namespace kinetica
     /// cref="Kinetica.aggregateMinMaxGeometry(string,string,IDictionary{string, string})"
     /// />.
     /// <br />
-    /// Calculates and returns the minimum and maximum x- and y-coordinates of
-    /// a particular geospatial geometry column in a table.</summary>
+    /// Calculates and returns the minimum and maximum x- and y-coordinates
+    /// of a particular geospatial geometry column in a table.</summary>
     public class AggregateMinMaxGeometryRequest : KineticaData
     {
 
         /// <summary>Name of the table on which the operation will be
-        /// performed. Must be an existing table.  </summary>
+        /// performed. Must be an existing table, in [schema_name.]table_name
+        /// format, using standard <a
+        /// href="../../concepts/tables.html#table-name-resolution"
+        /// target="_top">name resolution rules</a>.  </summary>
         public string table_name { get; set; }
 
         /// <summary>Name of a geospatial geometry column on which the min-max
@@ -41,7 +44,10 @@ namespace kinetica
         /// the specified parameters.</summary>
         /// 
         /// <param name="table_name">Name of the table on which the operation
-        /// will be performed. Must be an existing table.  </param>
+        /// will be performed. Must be an existing table, in
+        /// [schema_name.]table_name format, using standard <a
+        /// href="../../concepts/tables.html#table-name-resolution"
+        /// target="_top">name resolution rules</a>.  </param>
         /// <param name="column_name">Name of a geospatial geometry column on
         /// which the min-max will be calculated.  </param>
         /// <param name="options">Optional parameters.  The default value is an

@@ -15,25 +15,28 @@ namespace kinetica
     /// cref="Kinetica.getRecordsBySeries{T}(string,string,int,int,IDictionary{string, string})"
     /// />.
     /// <br />
-    /// Retrieves the complete series/track records from the given <see
-    /// cref="world_table_name" /> based on the partial track information
-    /// contained in the <see cref="table_name" />.
+    /// Retrieves the complete series/track records from the given
+    /// <see cref="world_table_name" /> based on the partial track information
+    /// contained in
+    /// the <see cref="table_name" />.
     /// <br />
     /// This operation supports paging through the data via the <see
-    /// cref="offset" /> and <see cref="limit" /> parameters.
+    /// cref="offset" /> and
+    /// <see cref="limit" /> parameters.
     /// <br />
     /// In contrast to <see
     /// cref="Kinetica.getRecords{T}(string,long,long,IDictionary{string, string})"
-    /// /> this returns records grouped by series/track. So if <see
-    /// cref="offset" /> is 0 and <see cref="limit" /> is 5 this operation
+    /// /> this returns records grouped by
+    /// series/track. So if <see cref="offset" /> is 0 and <see cref="limit" />
+    /// is 5 this operation
     /// would return the first 5 series/tracks in <see cref="table_name" />.
-    /// Each series/track will be returned sorted by their TIMESTAMP
-    /// column.</summary>
+    /// Each series/track
+    /// will be returned sorted by their TIMESTAMP column.</summary>
     public class GetRecordsBySeriesRequest : KineticaData
     {
 
         /// <summary>Specifies the encoding for returned records; either
-        /// 'binary' or 'json'.
+        /// <i>binary</i> or <i>json</i>.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -56,16 +59,21 @@ namespace kinetica
         } // end struct Encoding
 
 
-        /// <summary>Name of the collection/table/view for which series/tracks
-        /// will be fetched.  </summary>
+        /// <summary>Name of the table or view for which series/tracks will be
+        /// fetched, in [schema_name.]table_name format, using standard <a
+        /// href="../../concepts/tables.html#table-name-resolution"
+        /// target="_top">name resolution rules</a>.  </summary>
         public string table_name { get; set; }
 
         /// <summary>Name of the table containing the complete series/track
         /// information to be returned for the tracks present in the <paramref
-        /// cref="GetRecordsBySeriesRequest.table_name" />. Typically this is
-        /// used when retrieving series/tracks from a view (which contains
-        /// partial series/tracks) but the user wants to retrieve the entire
-        /// original series/tracks. Can be blank.  </summary>
+        /// cref="GetRecordsBySeriesRequest.table_name" />, in
+        /// [schema_name.]table_name format, using standard <a
+        /// href="../../concepts/tables.html#table-name-resolution"
+        /// target="_top">name resolution rules</a>.  Typically this is used
+        /// when retrieving series/tracks from a view (which contains partial
+        /// series/tracks) but the user wants to retrieve the entire original
+        /// series/tracks. Can be blank.  </summary>
         public string world_table_name { get; set; }
 
         /// <summary>A positive integer indicating the number of initial
@@ -81,7 +89,7 @@ namespace kinetica
         public int limit { get; set; } = 250;
 
         /// <summary>Specifies the encoding for returned records; either
-        /// 'binary' or 'json'.
+        /// <i>binary</i> or <i>json</i>.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -110,15 +118,21 @@ namespace kinetica
         /// <summary>Constructs a GetRecordsBySeriesRequest object with the
         /// specified parameters.</summary>
         /// 
-        /// <param name="table_name">Name of the collection/table/view for
-        /// which series/tracks will be fetched.  </param>
+        /// <param name="table_name">Name of the table or view for which
+        /// series/tracks will be fetched, in [schema_name.]table_name format,
+        /// using standard <a
+        /// href="../../concepts/tables.html#table-name-resolution"
+        /// target="_top">name resolution rules</a>.  </param>
         /// <param name="world_table_name">Name of the table containing the
         /// complete series/track information to be returned for the tracks
         /// present in the <paramref
-        /// cref="GetRecordsBySeriesRequest.table_name" />. Typically this is
-        /// used when retrieving series/tracks from a view (which contains
-        /// partial series/tracks) but the user wants to retrieve the entire
-        /// original series/tracks. Can be blank.  </param>
+        /// cref="GetRecordsBySeriesRequest.table_name" />, in
+        /// [schema_name.]table_name format, using standard <a
+        /// href="../../concepts/tables.html#table-name-resolution"
+        /// target="_top">name resolution rules</a>.  Typically this is used
+        /// when retrieving series/tracks from a view (which contains partial
+        /// series/tracks) but the user wants to retrieve the entire original
+        /// series/tracks. Can be blank.  </param>
         /// <param name="offset">A positive integer indicating the number of
         /// initial series/tracks to skip (useful for paging through the
         /// results).  The default value is 0.The minimum allowed value is 0.
@@ -148,15 +162,21 @@ namespace kinetica
         /// <summary>Constructs a GetRecordsBySeriesRequest object with the
         /// specified parameters.</summary>
         /// 
-        /// <param name="table_name">Name of the collection/table/view for
-        /// which series/tracks will be fetched.  </param>
+        /// <param name="table_name">Name of the table or view for which
+        /// series/tracks will be fetched, in [schema_name.]table_name format,
+        /// using standard <a
+        /// href="../../concepts/tables.html#table-name-resolution"
+        /// target="_top">name resolution rules</a>.  </param>
         /// <param name="world_table_name">Name of the table containing the
         /// complete series/track information to be returned for the tracks
         /// present in the <paramref
-        /// cref="GetRecordsBySeriesRequest.table_name" />. Typically this is
-        /// used when retrieving series/tracks from a view (which contains
-        /// partial series/tracks) but the user wants to retrieve the entire
-        /// original series/tracks. Can be blank.  </param>
+        /// cref="GetRecordsBySeriesRequest.table_name" />, in
+        /// [schema_name.]table_name format, using standard <a
+        /// href="../../concepts/tables.html#table-name-resolution"
+        /// target="_top">name resolution rules</a>.  Typically this is used
+        /// when retrieving series/tracks from a view (which contains partial
+        /// series/tracks) but the user wants to retrieve the entire original
+        /// series/tracks. Can be blank.  </param>
         /// <param name="offset">A positive integer indicating the number of
         /// initial series/tracks to skip (useful for paging through the
         /// results).  The default value is 0.The minimum allowed value is 0.
@@ -166,7 +186,7 @@ namespace kinetica
         /// indicate that the max number of results should be returned.  The
         /// default value is 250.</param>
         /// <param name="encoding">Specifies the encoding for returned records;
-        /// either 'binary' or 'json'.
+        /// either <i>binary</i> or <i>json</i>.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -214,10 +234,7 @@ namespace kinetica
         public IList<string> table_names { get; set; } = new List<string>();
 
         /// <summary>The type IDs (one per series/track) of the returned
-        /// series/tracks. This is useful when <paramref
-        /// cref="GetRecordsBySeriesRequest.table_name" /> is a collection and
-        /// the returned series/tracks belong to tables with different types.
-        /// </summary>
+        /// series/tracks.  </summary>
         public IList<string> type_names { get; set; } = new List<string>();
 
         /// <summary>The type schemas (one per series/track) of the returned
@@ -257,10 +274,7 @@ namespace kinetica
         public IList<string> table_names { get; set; } = new List<string>();
 
         /// <summary>The type IDs (one per series/track) of the returned
-        /// series/tracks. This is useful when <paramref
-        /// cref="GetRecordsBySeriesRequest.table_name" /> is a collection and
-        /// the returned series/tracks belong to tables with different types.
-        /// </summary>
+        /// series/tracks.  </summary>
         public IList<string> type_names { get; set; } = new List<string>();
 
         /// <summary>The type schemas (one per series/track) of the returned

@@ -128,8 +128,10 @@ namespace kinetica
         } // end struct Options
 
 
-        /// <summary>Name of the table to monitor. Must not refer to a
-        /// collection.  </summary>
+        /// <summary>Name of the table to monitor, in [schema_name.]table_name
+        /// format, using standard <a
+        /// href="../../concepts/tables.html#table-name-resolution"
+        /// target="_top">name resolution rules</a>.  </summary>
         public string table_name { get; set; }
 
         /// <summary>Optional parameters.
@@ -177,8 +179,10 @@ namespace kinetica
         /// <summary>Constructs a CreateTableMonitorRequest object with the
         /// specified parameters.</summary>
         /// 
-        /// <param name="table_name">Name of the table to monitor. Must not
-        /// refer to a collection.  </param>
+        /// <param name="table_name">Name of the table to monitor, in
+        /// [schema_name.]table_name format, using standard <a
+        /// href="../../concepts/tables.html#table-name-resolution"
+        /// target="_top">name resolution rules</a>.  </param>
         /// <param name="options">Optional parameters.
         /// <list type="bullet">
         ///     <item>

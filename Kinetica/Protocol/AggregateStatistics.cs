@@ -15,47 +15,66 @@ namespace kinetica
     /// cref="Kinetica.aggregateStatistics(string,string,string,IDictionary{string, string})"
     /// />.
     /// <br />
-    /// Calculates the requested statistics of the given column(s) in a given
-    /// table.
+    /// Calculates the requested statistics of the given column(s) in a
+    /// given table.
     /// <br />
-    /// The available statistics are <i>count</i> (number of total objects),
-    /// <i>mean</i>, <i>stdv</i> (standard deviation), <i>variance</i>,
-    /// <i>skew</i>, <i>kurtosis</i>, <i>sum</i>, <i>min</i>, <i>max</i>,
-    /// <i>weighted_average</i>, <i>cardinality</i> (unique count),
-    /// <i>estimated_cardinality</i>, <i>percentile</i> and
-    /// <i>percentile_rank</i>.
+    /// The available statistics are:
+    ///   <i>count</i> (number of total objects),
+    ///   <i>mean</i>,
+    ///   <i>stdv</i> (standard deviation),
+    ///   <i>variance</i>,
+    ///   <i>skew</i>,
+    ///   <i>kurtosis</i>,
+    ///   <i>sum</i>,
+    ///   <i>min</i>,
+    ///   <i>max</i>,
+    ///   <i>weighted_average</i>,
+    ///   <i>cardinality</i> (unique count),
+    ///   <i>estimated_cardinality</i>,
+    ///   <i>percentile</i>, and
+    ///   <i>percentile_rank</i>.
     /// <br />
     /// Estimated cardinality is calculated by using the hyperloglog
-    /// approximation technique.
+    /// approximation
+    /// technique.
     /// <br />
     /// Percentiles and percentile ranks are approximate and are calculated
-    /// using the t-digest algorithm. They must include the desired
-    /// <i>percentile</i>/<i>percentile_rank</i>. To compute multiple
-    /// percentiles each value must be specified separately (i.e.
+    /// using the
+    /// t-digest algorithm. They must include the desired
+    /// <i>percentile</i>/<i>percentile_rank</i>.
+    /// To compute multiple percentiles each value must be specified separately
+    /// (i.e.
     /// 'percentile(75.0),percentile(99.0),percentile_rank(1234.56),percentile_rank(-5)').
     /// <br />
-    /// A second, comma-separated value can be added to the <i>percentile</i>
-    /// statistic to calculate percentile resolution, e.g., a 50th percentile
-    /// with 200 resolution would be 'percentile(50,200)'.
+    /// A second, comma-separated value can be added to the
+    /// <i>percentile</i> statistic to calculate percentile
+    /// resolution, e.g., a 50th percentile with 200 resolution would be
+    /// 'percentile(50,200)'.
     /// <br />
-    /// The weighted average statistic requires a <i>weight_column_name</i> to
-    /// be specified in <see cref="options" />. The weighted average is then
+    /// The weighted average statistic requires a weight column to be specified
+    /// in
+    /// <i>weight_column_name</i>.  The weighted average is then
     /// defined as the sum of the products of <see cref="column_name" /> times
-    /// the <i>weight_column_name</i> values divided by the sum of the
+    /// the
+    /// <i>weight_column_name</i> values divided by the sum of the
     /// <i>weight_column_name</i> values.
     /// <br />
-    /// Additional columns can be used in the calculation of statistics via the
-    /// <i>additional_column_names</i> option.  Values in these columns will be
-    /// included in the overall aggregate calculation--individual aggregates
-    /// will not be calculated per additional column.  For instance, requesting
-    /// the <i>count</i> & <i>mean</i> of <see cref="column_name" /> x and
-    /// <i>additional_column_names</i> y & z, where x holds the numbers 1-10, y
-    /// holds 11-20, and z holds 21-30, would return the total number of x, y,
-    /// & z values (30), and the single average value across all x, y, & z
-    /// values (15.5).
+    /// Additional columns can be used in the calculation of statistics via
+    /// <i>additional_column_names</i>.  Values in these columns will
+    /// be included in the overall aggregate calculation--individual aggregates
+    /// will not
+    /// be calculated per additional column.  For instance, requesting the
+    /// <i>count</i> & <i>mean</i> of
+    /// <see cref="column_name" /> x and <i>additional_column_names</i>
+    /// y & z, where x holds the numbers 1-10, y holds 11-20, and z holds
+    /// 21-30, would
+    /// return the total number of x, y, & z values (30), and the single
+    /// average value
+    /// across all x, y, & z values (15.5).
     /// <br />
     /// The response includes a list of key/value pairs of each statistic
-    /// requested and its corresponding value.</summary>
+    /// requested and
+    /// its corresponding value.</summary>
     public class AggregateStatisticsRequest : KineticaData
     {
 
@@ -253,7 +272,9 @@ namespace kinetica
 
 
         /// <summary>Name of the table on which the statistics operation will
-        /// be performed.  </summary>
+        /// be performed, in [schema_name.]table_name format, using standard <a
+        /// href="../../concepts/tables.html#table-name-resolution"
+        /// target="_top">name resolution rules</a>.  </summary>
         public string table_name { get; set; }
 
         /// <summary>Name of the primary column for which the statistics are to
@@ -386,7 +407,10 @@ namespace kinetica
         /// specified parameters.</summary>
         /// 
         /// <param name="table_name">Name of the table on which the statistics
-        /// operation will be performed.  </param>
+        /// operation will be performed, in [schema_name.]table_name format,
+        /// using standard <a
+        /// href="../../concepts/tables.html#table-name-resolution"
+        /// target="_top">name resolution rules</a>.  </param>
         /// <param name="column_name">Name of the primary column for which the
         /// statistics are to be calculated.  </param>
         /// <param name="stats">Comma separated list of the statistics to

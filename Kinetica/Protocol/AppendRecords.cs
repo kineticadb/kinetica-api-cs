@@ -15,10 +15,12 @@ namespace kinetica
     /// cref="Kinetica.appendRecords(string,string,IDictionary{string, string},IDictionary{string, string})"
     /// />.
     /// <br />
-    /// Append (or insert) all records from a source table (specified by <see
-    /// cref="source_table_name" />) to a particular target table (specified by
-    /// <see cref="table_name" />). The field map (specified by <see
-    /// cref="field_map" />) holds the user specified map of target table
+    /// Append (or insert) all records from a source table
+    /// (specified by <see cref="source_table_name" />) to a particular target
+    /// table
+    /// (specified by <see cref="table_name" />). The field map
+    /// (specified by <see cref="field_map" />) holds the user specified map of
+    /// target table
     /// column names with their mapped source column names.</summary>
     public class AppendRecordsRequest : KineticaData
     {
@@ -193,12 +195,18 @@ namespace kinetica
         } // end struct Options
 
 
-        /// <summary>The table name for the records to be appended. Must be an
-        /// existing table.  </summary>
+        /// <summary>The table name for the records to be appended, in
+        /// [schema_name.]table_name format, using standard <a
+        /// href="../../concepts/tables.html#table-name-resolution"
+        /// target="_top">name resolution rules</a>.  Must be an existing
+        /// table.  </summary>
         public string table_name { get; set; }
 
-        /// <summary>The source table name to get records from. Must be an
-        /// existing table name.  </summary>
+        /// <summary>The source table name to get records from, in
+        /// [schema_name.]table_name format, using standard <a
+        /// href="../../concepts/tables.html#table-name-resolution"
+        /// target="_top">name resolution rules</a>.  Must be an existing table
+        /// name.  </summary>
         public string source_table_name { get; set; }
 
         /// <summary>Contains the mapping of column names from the target table
@@ -313,9 +321,15 @@ namespace kinetica
         /// specified parameters.</summary>
         /// 
         /// <param name="table_name">The table name for the records to be
-        /// appended. Must be an existing table.  </param>
+        /// appended, in [schema_name.]table_name format, using standard <a
+        /// href="../../concepts/tables.html#table-name-resolution"
+        /// target="_top">name resolution rules</a>.  Must be an existing
+        /// table.  </param>
         /// <param name="source_table_name">The source table name to get
-        /// records from. Must be an existing table name.  </param>
+        /// records from, in [schema_name.]table_name format, using standard <a
+        /// href="../../concepts/tables.html#table-name-resolution"
+        /// target="_top">name resolution rules</a>.  Must be an existing table
+        /// name.  </param>
         /// <param name="field_map">Contains the mapping of column names from
         /// the target table (specified by <paramref
         /// cref="AppendRecordsRequest.table_name" />) as the keys, and

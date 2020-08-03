@@ -15,7 +15,10 @@ namespace kinetica
     /// cref="Kinetica.executeSql(string,long,long,string,IList{byte[]},IDictionary{string, string})"
     /// />.
     /// <br />
-    /// SQL Request</summary>
+    /// Execute a SQL statement (query, DML, or DDL).
+    /// <br />
+    /// See <a href="../../concepts/sql.html" target="_top">SQL Support</a> for
+    /// the complete set of supported SQL commands.</summary>
     public class ExecuteSqlRequest : KineticaData
     {
 
@@ -296,13 +299,11 @@ namespace kinetica
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
-        /// cref="ExecuteSqlRequest.Options.TRUE">TRUE</see>:</term>
-        ///         <description>true</description>
+        /// cref="ExecuteSqlRequest.Options.TRUE">TRUE</see></term>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="ExecuteSqlRequest.Options.FALSE">FALSE</see>:</term>
-        ///         <description>false</description>
+        /// cref="ExecuteSqlRequest.Options.FALSE">FALSE</see></term>
         ///     </item>
         /// </list>
         /// The default value is <see
@@ -327,18 +328,6 @@ namespace kinetica
         /// </list>
         /// The default value is <see
         /// cref="ExecuteSqlRequest.Options.FALSE">FALSE</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="ExecuteSqlRequest.Options.VIEW_ID">VIEW_ID</see>:</term>
-        ///         <description><DEVELOPER>  The default value is
-        /// ''.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="ExecuteSqlRequest.Options.NO_COUNT">NO_COUNT</see>:</term>
-        ///         <description><DEVELOPER>  The default value is
-        /// 'false'.</description>
         ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.
@@ -569,13 +558,11 @@ namespace kinetica
             /// <list type="bullet">
             ///     <item>
             ///         <term><see
-            /// cref="ExecuteSqlRequest.Options.TRUE">TRUE</see>:</term>
-            ///         <description>true</description>
+            /// cref="ExecuteSqlRequest.Options.TRUE">TRUE</see></term>
             ///     </item>
             ///     <item>
             ///         <term><see
-            /// cref="ExecuteSqlRequest.Options.FALSE">FALSE</see>:</term>
-            ///         <description>false</description>
+            /// cref="ExecuteSqlRequest.Options.FALSE">FALSE</see></term>
             ///     </item>
             /// </list>
             /// The default value is <see
@@ -599,12 +586,6 @@ namespace kinetica
             /// The default value is <see
             /// cref="ExecuteSqlRequest.Options.FALSE">FALSE</see>.</summary>
             public const string PREPARE_MODE = "prepare_mode";
-
-            /// <summary><DEVELOPER>  The default value is ''.</summary>
-            public const string VIEW_ID = "view_id";
-
-            /// <summary><DEVELOPER>  The default value is 'false'.</summary>
-            public const string NO_COUNT = "no_count";
         } // end struct Options
 
 
@@ -910,13 +891,11 @@ namespace kinetica
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
-        /// cref="ExecuteSqlRequest.Options.TRUE">TRUE</see>:</term>
-        ///         <description>true</description>
+        /// cref="ExecuteSqlRequest.Options.TRUE">TRUE</see></term>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="ExecuteSqlRequest.Options.FALSE">FALSE</see>:</term>
-        ///         <description>false</description>
+        /// cref="ExecuteSqlRequest.Options.FALSE">FALSE</see></term>
         ///     </item>
         /// </list>
         /// The default value is <see
@@ -941,18 +920,6 @@ namespace kinetica
         /// </list>
         /// The default value is <see
         /// cref="ExecuteSqlRequest.Options.FALSE">FALSE</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="ExecuteSqlRequest.Options.VIEW_ID">VIEW_ID</see>:</term>
-        ///         <description><DEVELOPER>  The default value is
-        /// ''.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="ExecuteSqlRequest.Options.NO_COUNT">NO_COUNT</see>:</term>
-        ///         <description><DEVELOPER>  The default value is
-        /// 'false'.</description>
         ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.</summary>
@@ -1242,13 +1209,11 @@ namespace kinetica
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
-        /// cref="ExecuteSqlRequest.Options.TRUE">TRUE</see>:</term>
-        ///         <description>true</description>
+        /// cref="ExecuteSqlRequest.Options.TRUE">TRUE</see></term>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="ExecuteSqlRequest.Options.FALSE">FALSE</see>:</term>
-        ///         <description>false</description>
+        /// cref="ExecuteSqlRequest.Options.FALSE">FALSE</see></term>
         ///     </item>
         /// </list>
         /// The default value is <see
@@ -1273,18 +1238,6 @@ namespace kinetica
         /// </list>
         /// The default value is <see
         /// cref="ExecuteSqlRequest.Options.FALSE">FALSE</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="ExecuteSqlRequest.Options.VIEW_ID">VIEW_ID</see>:</term>
-        ///         <description><DEVELOPER>  The default value is
-        /// ''.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="ExecuteSqlRequest.Options.NO_COUNT">NO_COUNT</see>:</term>
-        ///         <description><DEVELOPER>  The default value is
-        /// 'false'.</description>
         ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.</param>
@@ -1600,13 +1553,11 @@ namespace kinetica
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
-        /// cref="ExecuteSqlRequest.Options.TRUE">TRUE</see>:</term>
-        ///         <description>true</description>
+        /// cref="ExecuteSqlRequest.Options.TRUE">TRUE</see></term>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="ExecuteSqlRequest.Options.FALSE">FALSE</see>:</term>
-        ///         <description>false</description>
+        /// cref="ExecuteSqlRequest.Options.FALSE">FALSE</see></term>
         ///     </item>
         /// </list>
         /// The default value is <see
@@ -1631,18 +1582,6 @@ namespace kinetica
         /// </list>
         /// The default value is <see
         /// cref="ExecuteSqlRequest.Options.FALSE">FALSE</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="ExecuteSqlRequest.Options.VIEW_ID">VIEW_ID</see>:</term>
-        ///         <description><DEVELOPER>  The default value is
-        /// ''.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="ExecuteSqlRequest.Options.NO_COUNT">NO_COUNT</see>:</term>
-        ///         <description><DEVELOPER>  The default value is
-        /// 'false'.</description>
         ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.</param>

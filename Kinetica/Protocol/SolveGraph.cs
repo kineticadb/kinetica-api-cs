@@ -17,16 +17,19 @@ namespace kinetica
     /// <br />
     /// Solves an existing graph for a type of problem (e.g., shortest path,
     /// page rank, travelling salesman, etc.) using source nodes, destination
-    /// nodes, and additional, optional weights and restrictions.
+    /// nodes, and
+    /// additional, optional weights and restrictions.
     /// <br />
-    /// IMPORTANT: It's highly recommended that you review the <a
-    /// href="../../graph_solver/network_graph_solver.html"
-    /// target="_top">Network Graphs & Solvers</a> concepts documentation, the
+    /// IMPORTANT: It's highly recommended that you review the
+    /// <a href="../../graph_solver/network_graph_solver.html"
+    /// target="_top">Network Graphs & Solvers</a>
+    /// concepts documentation, the
     /// <a href="../../graph_solver/examples/graph_rest_guide.html"
-    /// target="_top">Graph REST Tutorial</a>, and/or some <a
-    /// href="../../graph_solver/examples.html#solve-graph"
-    /// target="_top">/solve/graph examples</a> before using this
-    /// endpoint.</summary>
+    /// target="_top">Graph REST Tutorial</a>,
+    /// and/or some
+    /// <a href="../../graph_solver/examples.html#match-graph"
+    /// target="_top">/match/graph examples</a>
+    /// before using this endpoint.</summary>
     public class SolveGraphRequest : KineticaData
     {
 
@@ -313,6 +316,46 @@ namespace kinetica
         /// The default value is <see
         /// cref="SolveGraphRequest.Options.TRUE">TRUE</see>.</description>
         ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="SolveGraphRequest.Options.OUTPUT_EDGE_PATH">OUTPUT_EDGE_PATH</see>:</term>
+        ///         <description>If true then concatenated edge ids will be
+        /// added as the EDGE path column of the solution table for each source
+        /// and target pair in shortest path solves.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="SolveGraphRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="SolveGraphRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="SolveGraphRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="SolveGraphRequest.Options.OUTPUT_WKT_PATH">OUTPUT_WKT_PATH</see>:</term>
+        ///         <description>If true then concatenated wkt line segments
+        /// will be added as the Wktroute column of the solution table for each
+        /// source and target pair in shortest path solves.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="SolveGraphRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="SolveGraphRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="SolveGraphRequest.Options.TRUE">TRUE</see>.</description>
+        ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.
         /// A set of string constants for the parameter <see cref="options"
@@ -466,6 +509,42 @@ namespace kinetica
             /// The default value is <see
             /// cref="SolveGraphRequest.Options.TRUE">TRUE</see>.</summary>
             public const string ACCURATE_SNAPS = "accurate_snaps";
+
+            /// <summary>If true then concatenated edge ids will be added as
+            /// the EDGE path column of the solution table for each source and
+            /// target pair in shortest path solves.
+            /// Supported values:
+            /// <list type="bullet">
+            ///     <item>
+            ///         <term><see
+            /// cref="SolveGraphRequest.Options.TRUE">TRUE</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="SolveGraphRequest.Options.FALSE">FALSE</see></term>
+            ///     </item>
+            /// </list>
+            /// The default value is <see
+            /// cref="SolveGraphRequest.Options.FALSE">FALSE</see>.</summary>
+            public const string OUTPUT_EDGE_PATH = "output_edge_path";
+
+            /// <summary>If true then concatenated wkt line segments will be
+            /// added as the Wktroute column of the solution table for each
+            /// source and target pair in shortest path solves.
+            /// Supported values:
+            /// <list type="bullet">
+            ///     <item>
+            ///         <term><see
+            /// cref="SolveGraphRequest.Options.TRUE">TRUE</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="SolveGraphRequest.Options.FALSE">FALSE</see></term>
+            ///     </item>
+            /// </list>
+            /// The default value is <see
+            /// cref="SolveGraphRequest.Options.TRUE">TRUE</see>.</summary>
+            public const string OUTPUT_WKT_PATH = "output_wkt_path";
         } // end struct Options
 
 
@@ -588,8 +667,11 @@ namespace kinetica
         /// default value is an empty {@link List}.</summary>
         public IList<string> destination_nodes { get; set; } = new List<string>();
 
-        /// <summary>Name of the table to store the solution.  The default
-        /// value is 'graph_solutions'.</summary>
+        /// <summary>Name of the table to store the solution, in
+        /// [schema_name.]table_name format, using standard <a
+        /// href="../../concepts/tables.html#table-name-resolution"
+        /// target="_top">name resolution rules</a>.  The default value is
+        /// 'graph_solutions'.</summary>
         public string solution_table { get; set; } = "graph_solutions";
 
         /// <summary>Additional parameters
@@ -762,6 +844,46 @@ namespace kinetica
         /// The default value is <see
         /// cref="SolveGraphRequest.Options.TRUE">TRUE</see>.</description>
         ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="SolveGraphRequest.Options.OUTPUT_EDGE_PATH">OUTPUT_EDGE_PATH</see>:</term>
+        ///         <description>If true then concatenated edge ids will be
+        /// added as the EDGE path column of the solution table for each source
+        /// and target pair in shortest path solves.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="SolveGraphRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="SolveGraphRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="SolveGraphRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="SolveGraphRequest.Options.OUTPUT_WKT_PATH">OUTPUT_WKT_PATH</see>:</term>
+        ///         <description>If true then concatenated wkt line segments
+        /// will be added as the Wktroute column of the solution table for each
+        /// source and target pair in shortest path solves.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="SolveGraphRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="SolveGraphRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="SolveGraphRequest.Options.TRUE">TRUE</see>.</description>
+        ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.</summary>
         public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
@@ -884,7 +1006,10 @@ namespace kinetica
         /// For <i>BACKHAUL_ROUTING</i>, this list depicts the remote assets.
         /// The default value is an empty {@link List}.</param>
         /// <param name="solution_table">Name of the table to store the
-        /// solution.  The default value is 'graph_solutions'.</param>
+        /// solution, in [schema_name.]table_name format, using standard <a
+        /// href="../../concepts/tables.html#table-name-resolution"
+        /// target="_top">name resolution rules</a>.  The default value is
+        /// 'graph_solutions'.</param>
         /// <param name="options">Additional parameters
         /// <list type="bullet">
         ///     <item>
@@ -1041,6 +1166,46 @@ namespace kinetica
         /// performance is considered and the difference is well less than 1
         /// percent. In batch runs, since the performance is of utmost
         /// importance, the option is always considered 'false'.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="SolveGraphRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="SolveGraphRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="SolveGraphRequest.Options.TRUE">TRUE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="SolveGraphRequest.Options.OUTPUT_EDGE_PATH">OUTPUT_EDGE_PATH</see>:</term>
+        ///         <description>If true then concatenated edge ids will be
+        /// added as the EDGE path column of the solution table for each source
+        /// and target pair in shortest path solves.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="SolveGraphRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="SolveGraphRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="SolveGraphRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="SolveGraphRequest.Options.OUTPUT_WKT_PATH">OUTPUT_WKT_PATH</see>:</term>
+        ///         <description>If true then concatenated wkt line segments
+        /// will be added as the Wktroute column of the solution table for each
+        /// source and target pair in shortest path solves.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>

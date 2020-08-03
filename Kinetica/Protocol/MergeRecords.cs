@@ -16,22 +16,26 @@ namespace kinetica
     /// />.
     /// <br />
     /// Create a new empty result table (specified by <see cref="table_name"
-    /// />), and insert all records from source tables (specified by <see
-    /// cref="source_table_names" />) based on the field mapping information
-    /// (specified by <see cref="field_maps" />).
+    /// />),
+    /// and insert all records from source tables
+    /// (specified by <see cref="source_table_names" />) based on the field
+    /// mapping
+    /// information (specified by <see cref="field_maps" />).
     /// <br />
-    /// For merge records details and examples, see <a
-    /// href="../../concepts/merge_records.html" target="_top">Merge
-    /// Records</a>.  For limitations, see <a
-    /// href="../../concepts/merge_records.html#limitations-and-cautions"
+    /// For merge records details and examples, see
+    /// <a href="../../concepts/merge_records.html" target="_top">Merge
+    /// Records</a>.  For limitations, see
+    /// <a href="../../concepts/merge_records.html#limitations-and-cautions"
     /// target="_top">Merge Records Limitations and Cautions</a>.
     /// <br />
     /// The field map (specified by <see cref="field_maps" />) holds the
-    /// user-specified maps of target table column names to source table
-    /// columns. The array of <see cref="field_maps" /> must match one-to-one
-    /// with the <see cref="source_table_names" />, e.g., there's a map present
-    /// in <see cref="field_maps" /> for each table listed in <see
-    /// cref="source_table_names" />.</summary>
+    /// user-specified maps
+    /// of target table column names to source table columns. The array of
+    /// <see cref="field_maps" /> must match one-to-one with the <see
+    /// cref="source_table_names" />,
+    /// e.g., there's a map present in <see cref="field_maps" /> for each table
+    /// listed in
+    /// <see cref="source_table_names" />.</summary>
     public class MergeRecordsRequest : KineticaData
     {
 
@@ -40,12 +44,12 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="MergeRecordsRequest.Options.COLLECTION_NAME">COLLECTION_NAME</see>:</term>
-        ///         <description>Name of a collection which is to contain the
-        /// newly created merged table specified by <paramref
-        /// cref="MergeRecordsRequest.table_name" />. If the collection
-        /// provided is non-existent, the collection will be automatically
-        /// created. If empty, then the newly created merged table will be a
-        /// top-level table.</description>
+        ///         <description>[DEPRECATED--please specify the containing
+        /// schema for the merged table as part of <paramref
+        /// cref="MergeRecordsRequest.table_name" /> and use /create/schema to
+        /// create the schema if non-existent]  Name of a schema for the newly
+        /// created merged table specified by <paramref
+        /// cref="MergeRecordsRequest.table_name" />.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -122,11 +126,13 @@ namespace kinetica
         public struct Options
         {
 
-            /// <summary>Name of a collection which is to contain the newly
-            /// created merged table specified by <see cref="table_name" />. If
-            /// the collection provided is non-existent, the collection will be
-            /// automatically created. If empty, then the newly created merged
-            /// table will be a top-level table.</summary>
+            /// <summary>[DEPRECATED--please specify the containing schema for
+            /// the merged table as part of <see cref="table_name" /> and use
+            /// <see
+            /// cref="Kinetica.createSchema(string,IDictionary{string, string})"
+            /// /> to create the schema if non-existent]  Name of a schema for
+            /// the newly created merged table specified by <see
+            /// cref="table_name" />.</summary>
             public const string COLLECTION_NAME = "collection_name";
 
             /// <summary>Indicates the <a
@@ -191,12 +197,20 @@ namespace kinetica
         } // end struct Options
 
 
-        /// <summary>The new result table name for the records to be merged.
-        /// Must NOT be an existing table.  </summary>
+        /// <summary>The name of the new result table for the records to be
+        /// merged into, in [schema_name.]table_name format, using standard <a
+        /// href="../../concepts/tables.html#table-name-resolution"
+        /// target="_top">name resolution rules</a> and meeting <a
+        /// href="../../concepts/tables.html#table-naming-criteria"
+        /// target="_top">table naming criteria</a>.  Must NOT be an existing
+        /// table.  </summary>
         public string table_name { get; set; }
 
-        /// <summary>The list of source table names to get the records from.
-        /// Must be existing table names.  </summary>
+        /// <summary>The list of names of source tables to get the records
+        /// from, each in [schema_name.]table_name format, using standard <a
+        /// href="../../concepts/tables.html#table-name-resolution"
+        /// target="_top">name resolution rules</a>.  Must be existing table
+        /// names.  </summary>
         public IList<string> source_table_names { get; set; } = new List<string>();
 
         /// <summary>Contains a list of source/target column mappings, one
@@ -217,12 +231,12 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="MergeRecordsRequest.Options.COLLECTION_NAME">COLLECTION_NAME</see>:</term>
-        ///         <description>Name of a collection which is to contain the
-        /// newly created merged table specified by <paramref
-        /// cref="MergeRecordsRequest.table_name" />. If the collection
-        /// provided is non-existent, the collection will be automatically
-        /// created. If empty, then the newly created merged table will be a
-        /// top-level table.</description>
+        ///         <description>[DEPRECATED--please specify the containing
+        /// schema for the merged table as part of <paramref
+        /// cref="MergeRecordsRequest.table_name" /> and use /create/schema to
+        /// create the schema if non-existent]  Name of a schema for the newly
+        /// created merged table specified by <paramref
+        /// cref="MergeRecordsRequest.table_name" />.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -304,10 +318,20 @@ namespace kinetica
         /// <summary>Constructs a MergeRecordsRequest object with the specified
         /// parameters.</summary>
         /// 
-        /// <param name="table_name">The new result table name for the records
-        /// to be merged.  Must NOT be an existing table.  </param>
-        /// <param name="source_table_names">The list of source table names to
-        /// get the records from. Must be existing table names.  </param>
+        /// <param name="table_name">The name of the new result table for the
+        /// records to be merged into, in [schema_name.]table_name format,
+        /// using standard <a
+        /// href="../../concepts/tables.html#table-name-resolution"
+        /// target="_top">name resolution rules</a> and meeting <a
+        /// href="../../concepts/tables.html#table-naming-criteria"
+        /// target="_top">table naming criteria</a>.  Must NOT be an existing
+        /// table.  </param>
+        /// <param name="source_table_names">The list of names of source tables
+        /// to get the records from, each in [schema_name.]table_name format,
+        /// using standard <a
+        /// href="../../concepts/tables.html#table-name-resolution"
+        /// target="_top">name resolution rules</a>.  Must be existing table
+        /// names.  </param>
         /// <param name="field_maps">Contains a list of source/target column
         /// mappings, one mapping for each source table listed in <paramref
         /// cref="MergeRecordsRequest.source_table_names" /> being merged into
@@ -324,12 +348,12 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="MergeRecordsRequest.Options.COLLECTION_NAME">COLLECTION_NAME</see>:</term>
-        ///         <description>Name of a collection which is to contain the
-        /// newly created merged table specified by <paramref
-        /// cref="MergeRecordsRequest.table_name" />. If the collection
-        /// provided is non-existent, the collection will be automatically
-        /// created. If empty, then the newly created merged table will be a
-        /// top-level table.</description>
+        ///         <description>[DEPRECATED--please specify the containing
+        /// schema for the merged table as part of <paramref
+        /// cref="MergeRecordsRequest.table_name" /> and use /create/schema to
+        /// create the schema if non-existent]  Name of a schema for the newly
+        /// created merged table specified by <paramref
+        /// cref="MergeRecordsRequest.table_name" />.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -422,9 +446,39 @@ namespace kinetica
     /// />.</summary>
     public class MergeRecordsResponse : KineticaData
     {
+
+        /// <summary>Additional information.
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="MergeRecordsResponse.Info.QUALIFIED_TABLE_NAME">QUALIFIED_TABLE_NAME</see>:</term>
+        ///         <description>The fully qualified name of the result table
+        /// (i.e. including the schema)</description>
+        ///     </item>
+        /// </list>
+        /// The default value is an empty {@link Dictionary}.
+        /// A set of string constants for the parameter <member name="info"
+        /// />.</summary>
+        public struct Info
+        {
+
+            /// <summary>The fully qualified name of the result table (i.e.
+            /// including the schema)</summary>
+            public const string QUALIFIED_TABLE_NAME = "qualified_table_name";
+        } // end struct Info
+
         public string table_name { get; set; }
 
-        /// <summary>Additional information.  </summary>
+        /// <summary>Additional information.
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="MergeRecordsResponse.Info.QUALIFIED_TABLE_NAME">QUALIFIED_TABLE_NAME</see>:</term>
+        ///         <description>The fully qualified name of the result table
+        /// (i.e. including the schema)</description>
+        ///     </item>
+        /// </list>
+        /// The default value is an empty {@link Dictionary}.</summary>
         public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
 
     } // end class MergeRecordsResponse

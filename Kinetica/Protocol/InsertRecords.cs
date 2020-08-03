@@ -17,20 +17,26 @@ namespace kinetica
     /// <br />
     /// Adds multiple records to the specified table. The operation is
     /// synchronous, meaning that a response will not be returned until all the
-    /// records are fully inserted and available. The response payload provides
-    /// the counts of the number of records actually inserted and/or updated,
-    /// and can provide the unique identifier of each added record.
+    /// records
+    /// are fully inserted and available. The response payload provides the
+    /// counts of
+    /// the number of records actually inserted and/or updated, and can provide
+    /// the
+    /// unique identifier of each added record.
     /// <br />
     /// The <see cref="options" /> parameter can be used to customize this
-    /// function's behavior.
+    /// function's
+    /// behavior.
     /// <br />
-    /// The <i>update_on_existing_pk</i> option specifies the record collision
-    /// policy for inserting into a table with a <a
-    /// href="../../concepts/tables.html#primary-keys" target="_top">primary
-    /// key</a>, but is ignored if no primary key exists.
+    /// The <i>update_on_existing_pk</i> option specifies the record
+    /// collision policy for inserting into a table with a
+    /// <a href="../../concepts/tables.html#primary-keys" target="_top">primary
+    /// key</a>, but is ignored if
+    /// no primary key exists.
     /// <br />
-    /// The <i>return_record_ids</i> option indicates that the database should
-    /// return the unique identifiers of inserted records.</summary>
+    /// The <i>return_record_ids</i> option indicates that the
+    /// database should return the unique identifiers of inserted
+    /// records.</summary>
     public class RawInsertRecordsRequest : KineticaData
     {
 
@@ -316,8 +322,11 @@ namespace kinetica
         } // end struct Options
 
 
-        /// <summary>Table to which the records are to be added. Must be an
-        /// existing table.  </summary>
+        /// <summary>Name of table to which the records are to be added, in
+        /// [schema_name.]table_name format, using standard <a
+        /// href="../../concepts/tables.html#table-name-resolution"
+        /// target="_top">name resolution rules</a>.  Must be an existing
+        /// table.  </summary>
         public string table_name { get; set; }
 
         /// <summary>An array of binary-encoded data for the records to be
@@ -493,8 +502,11 @@ namespace kinetica
         /// <summary>Constructs a RawInsertRecordsRequest object with the
         /// specified parameters.</summary>
         /// 
-        /// <param name="table_name">Table to which the records are to be
-        /// added. Must be an existing table.  </param>
+        /// <param name="table_name">Name of table to which the records are to
+        /// be added, in [schema_name.]table_name format, using standard <a
+        /// href="../../concepts/tables.html#table-name-resolution"
+        /// target="_top">name resolution rules</a>.  Must be an existing
+        /// table.  </param>
         /// <param name="list">An array of binary-encoded data for the records
         /// to be added. All records must be of the same type as that of the
         /// table. Empty array if <paramref
@@ -649,8 +661,11 @@ namespace kinetica
         /// <summary>Constructs a RawInsertRecordsRequest object with the
         /// specified parameters.</summary>
         /// 
-        /// <param name="table_name">Table to which the records are to be
-        /// added. Must be an existing table.  </param>
+        /// <param name="table_name">Name of table to which the records are to
+        /// be added, in [schema_name.]table_name format, using standard <a
+        /// href="../../concepts/tables.html#table-name-resolution"
+        /// target="_top">name resolution rules</a>.  Must be an existing
+        /// table.  </param>
         /// <param name="list">An array of binary-encoded data for the records
         /// to be added. All records must be of the same type as that of the
         /// table. Empty array if <paramref
@@ -834,20 +849,26 @@ namespace kinetica
     /// <br />
     /// Adds multiple records to the specified table. The operation is
     /// synchronous, meaning that a response will not be returned until all the
-    /// records are fully inserted and available. The response payload provides
-    /// the counts of the number of records actually inserted and/or updated,
-    /// and can provide the unique identifier of each added record.
+    /// records
+    /// are fully inserted and available. The response payload provides the
+    /// counts of
+    /// the number of records actually inserted and/or updated, and can provide
+    /// the
+    /// unique identifier of each added record.
     /// <br />
     /// The <see cref="options" /> parameter can be used to customize this
-    /// function's behavior.
+    /// function's
+    /// behavior.
     /// <br />
-    /// The <i>update_on_existing_pk</i> option specifies the record collision
-    /// policy for inserting into a table with a <a
-    /// href="../../concepts/tables.html#primary-keys" target="_top">primary
-    /// key</a>, but is ignored if no primary key exists.
+    /// The <i>update_on_existing_pk</i> option specifies the record
+    /// collision policy for inserting into a table with a
+    /// <a href="../../concepts/tables.html#primary-keys" target="_top">primary
+    /// key</a>, but is ignored if
+    /// no primary key exists.
     /// <br />
-    /// The <i>return_record_ids</i> option indicates that the database should
-    /// return the unique identifiers of inserted records.</summary>
+    /// The <i>return_record_ids</i> option indicates that the
+    /// database should return the unique identifiers of inserted
+    /// records.</summary>
     /// 
     /// <typeparam name="T">The type of object being processed.</typeparam>
     /// 
@@ -1113,8 +1134,11 @@ namespace kinetica
         } // end struct Options
 
 
-        /// <summary>Table to which the records are to be added. Must be an
-        /// existing table.  </summary>
+        /// <summary>Name of table to which the records are to be added, in
+        /// [schema_name.]table_name format, using standard <a
+        /// href="../../concepts/tables.html#table-name-resolution"
+        /// target="_top">name resolution rules</a>.  Must be an existing
+        /// table.  </summary>
         public string table_name { get; set; }
 
         /// <summary>An array of binary-encoded data for the records to be
@@ -1267,8 +1291,11 @@ namespace kinetica
         /// <summary>Constructs an InsertRecordsRequest object with the
         /// specified parameters.</summary>
         /// 
-        /// <param name="table_name">Table to which the records are to be
-        /// added. Must be an existing table.  </param>
+        /// <param name="table_name">Name of table to which the records are to
+        /// be added, in [schema_name.]table_name format, using standard <a
+        /// href="../../concepts/tables.html#table-name-resolution"
+        /// target="_top">name resolution rules</a>.  Must be an existing
+        /// table.  </param>
         /// <param name="data">An array of binary-encoded data for the records
         /// to be added. All records must be of the same type as that of the
         /// table. Empty array if <paramref

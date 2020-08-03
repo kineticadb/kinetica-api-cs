@@ -17,20 +17,23 @@ namespace kinetica
     /// <br />
     /// Retrieves records from a given table, optionally filtered by an
     /// expression and/or sorted by a column. This operation can be performed
-    /// on tables, views, or on homogeneous collections (collections containing
-    /// tables of all the same type). Records can be returned encoded as
-    /// binary, json or geojson.
+    /// on tables
+    /// and views. Records can be returned encoded as binary, json, or geojson.
     /// <br />
     /// This operation supports paging through the data via the <see
-    /// cref="offset" /> and <see cref="limit" /> parameters. Note that when
-    /// paging through a table, if the table (or the underlying table in case
-    /// of a view) is updated (records are inserted, deleted or modified) the
-    /// records retrieved may differ between calls based on the updates
-    /// applied.</summary>
+    /// cref="offset" /> and
+    /// <see cref="limit" /> parameters.  Note that when paging through a
+    /// table, if the table
+    /// (or the underlying table in case of a view) is updated (records are
+    /// inserted,
+    /// deleted or modified) the records retrieved may differ between calls
+    /// based on the
+    /// updates applied.</summary>
     public class GetRecordsRequest : KineticaData
     {
 
-        /// <summary>Specifies the encoding for returned records.
+        /// <summary>Specifies the encoding for returned records; one of
+        /// <i>binary</i>, <i>json</i>, or <i>geojson</i>.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -173,8 +176,10 @@ namespace kinetica
         } // end struct Options
 
 
-        /// <summary>Name of the table from which the records will be fetched.
-        /// Must be a table, view or homogeneous collection.  </summary>
+        /// <summary>Name of the table or view from which the records will be
+        /// fetched, in [schema_name.]table_name format, using standard <a
+        /// href="../../concepts/tables.html#table-name-resolution"
+        /// target="_top">name resolution rules</a>.  </summary>
         public string table_name { get; set; }
 
         /// <summary>A positive integer indicating the number of initial
@@ -196,7 +201,8 @@ namespace kinetica
         /// results.  The default value is -9999.</summary>
         public long limit { get; set; } = -9999;
 
-        /// <summary>Specifies the encoding for returned records.
+        /// <summary>Specifies the encoding for returned records; one of
+        /// <i>binary</i>, <i>json</i>, or <i>geojson</i>.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -284,9 +290,10 @@ namespace kinetica
         /// <summary>Constructs a GetRecordsRequest object with the specified
         /// parameters.</summary>
         /// 
-        /// <param name="table_name">Name of the table from which the records
-        /// will be fetched. Must be a table, view or homogeneous collection.
-        /// </param>
+        /// <param name="table_name">Name of the table or view from which the
+        /// records will be fetched, in [schema_name.]table_name format, using
+        /// standard <a href="../../concepts/tables.html#table-name-resolution"
+        /// target="_top">name resolution rules</a>.  </param>
         /// <param name="offset">A positive integer indicating the number of
         /// initial results to skip (this can be useful for paging through the
         /// results).  The default value is 0.The minimum allowed value is 0.
@@ -377,9 +384,10 @@ namespace kinetica
         /// <summary>Constructs a GetRecordsRequest object with the specified
         /// parameters.</summary>
         /// 
-        /// <param name="table_name">Name of the table from which the records
-        /// will be fetched. Must be a table, view or homogeneous collection.
-        /// </param>
+        /// <param name="table_name">Name of the table or view from which the
+        /// records will be fetched, in [schema_name.]table_name format, using
+        /// standard <a href="../../concepts/tables.html#table-name-resolution"
+        /// target="_top">name resolution rules</a>.  </param>
         /// <param name="offset">A positive integer indicating the number of
         /// initial results to skip (this can be useful for paging through the
         /// results).  The default value is 0.The minimum allowed value is 0.
@@ -395,7 +403,8 @@ namespace kinetica
         /// cref="GetRecordsRequest.offset" /> & <paramref
         /// cref="GetRecordsRequest.limit" /> to request subsequent pages of
         /// results.  The default value is -9999.</param>
-        /// <param name="encoding">Specifies the encoding for returned records.
+        /// <param name="encoding">Specifies the encoding for returned records;
+        /// one of <i>binary</i>, <i>json</i>, or <i>geojson</i>.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>

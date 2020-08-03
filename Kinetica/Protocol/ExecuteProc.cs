@@ -135,8 +135,11 @@ namespace kinetica
 
         /// <summary>Names of the tables containing data to be passed to the
         /// proc. Each name specified must be the name of a currently existing
-        /// table. If no table names are specified, no data will be passed to
-        /// the proc.  The default value is an empty {@link List}.</summary>
+        /// table, in [schema_name.]table_name format, using standard <a
+        /// href="../../concepts/tables.html#table-name-resolution"
+        /// target="_top">name resolution rules</a>.  If no table names are
+        /// specified, no data will be passed to the proc.  The default value
+        /// is an empty {@link List}.</summary>
         public IList<string> input_table_names { get; set; } = new List<string>();
 
         /// <summary>Map of table names from <paramref
@@ -150,9 +153,13 @@ namespace kinetica
         public IDictionary<string, IList<string>> input_column_names { get; set; } = new Dictionary<string, IList<string>>();
 
         /// <summary>Names of the tables to which output data from the proc
-        /// will be written. If a specified table does not exist, it will
-        /// automatically be created with the same schema as the corresponding
-        /// table (by order) from <paramref
+        /// will be written, each in [schema_name.]table_name format, using
+        /// standard <a href="../../concepts/tables.html#table-name-resolution"
+        /// target="_top">name resolution rules</a> and meeting <a
+        /// href="../../concepts/tables.html#table-naming-criteria"
+        /// target="_top">table naming criteria</a>. If a specified table does
+        /// not exist, it will automatically be created with the same schema as
+        /// the corresponding table (by order) from <paramref
         /// cref="ExecuteProcRequest.input_table_names" />, excluding any
         /// primary and shard keys. If a specified table is a non-persistent
         /// result table, it must not have primary or shard keys. If no table
@@ -230,9 +237,11 @@ namespace kinetica
         /// Dictionary}.</param>
         /// <param name="input_table_names">Names of the tables containing data
         /// to be passed to the proc. Each name specified must be the name of a
-        /// currently existing table. If no table names are specified, no data
-        /// will be passed to the proc.  The default value is an empty {@link
-        /// List}.</param>
+        /// currently existing table, in [schema_name.]table_name format, using
+        /// standard <a href="../../concepts/tables.html#table-name-resolution"
+        /// target="_top">name resolution rules</a>.  If no table names are
+        /// specified, no data will be passed to the proc.  The default value
+        /// is an empty {@link List}.</param>
         /// <param name="input_column_names">Map of table names from <paramref
         /// cref="ExecuteProcRequest.input_table_names" /> to lists of names of
         /// columns from those tables that will be passed to the proc. Each
@@ -242,9 +251,14 @@ namespace kinetica
         /// columns from that table will be passed to the proc.  The default
         /// value is an empty {@link Dictionary}.</param>
         /// <param name="output_table_names">Names of the tables to which
-        /// output data from the proc will be written. If a specified table
-        /// does not exist, it will automatically be created with the same
-        /// schema as the corresponding table (by order) from <paramref
+        /// output data from the proc will be written, each in
+        /// [schema_name.]table_name format, using standard <a
+        /// href="../../concepts/tables.html#table-name-resolution"
+        /// target="_top">name resolution rules</a> and meeting <a
+        /// href="../../concepts/tables.html#table-naming-criteria"
+        /// target="_top">table naming criteria</a>. If a specified table does
+        /// not exist, it will automatically be created with the same schema as
+        /// the corresponding table (by order) from <paramref
         /// cref="ExecuteProcRequest.input_table_names" />, excluding any
         /// primary and shard keys. If a specified table is a non-persistent
         /// result table, it must not have primary or shard keys. If no table

@@ -15,31 +15,43 @@ namespace kinetica
     /// cref="Kinetica.aggregateStatisticsByRange(string,string,string,string,string,double,double,double,IDictionary{string, string})"
     /// />.
     /// <br />
-    /// Divides the given set into bins and calculates statistics of the values
-    /// of a value-column in each bin.  The bins are based on the values of a
+    /// Divides the given set into bins and calculates statistics of the
+    /// values of a value-column in each bin.  The bins are based on the values
+    /// of a
     /// given binning-column.  The statistics that may be requested are mean,
-    /// stdv (standard deviation), variance, skew, kurtosis, sum, min, max,
-    /// first, last and weighted average. In addition to the requested
-    /// statistics the count of total samples in each bin is returned. This
-    /// counts vector is just the histogram of the column used to divide the
-    /// set members into bins. The weighted average statistic requires a
-    /// weight_column to be specified in <see cref="options" />. The weighted
-    /// average is then defined as the sum of the products of the value column
-    /// times the weight column divided by the sum of the weight column.
+    /// stdv
+    /// (standard deviation), variance, skew, kurtosis, sum, min, max, first,
+    /// last and
+    /// weighted average. In addition to the requested statistics the count of
+    /// total
+    /// samples in each bin is returned. This counts vector is just the
+    /// histogram of the
+    /// column used to divide the set members into bins. The weighted average
+    /// statistic
+    /// requires a weight column to be specified in
+    /// <i>weight_column_name</i>. The weighted average is then
+    /// defined as the sum of the products of the value column times the weight
+    /// column
+    /// divided by the sum of the weight column.
     /// <br />
     /// There are two methods for binning the set members. In the first, which
-    /// can be used for numeric valued binning-columns, a min, max and interval
-    /// are specified. The number of bins, nbins, is the integer upper bound of
-    /// (max-min)/interval. Values that fall in the range
-    /// [min+n*interval,min+(n+1)*interval) are placed in the nth bin where n
-    /// ranges from 0..nbin-2. The final bin is [min+(nbin-1)*interval,max]. In
-    /// the second method, <see cref="options" /> bin_values specifies a list
-    /// of binning column values. Binning-columns whose value matches the nth
-    /// member of the bin_values list are placed in the nth bin. When a list is
-    /// provided the binning-column must be of type string or int.
+    /// can be
+    /// used for numeric valued binning-columns, a min, max and interval are
+    /// specified.
+    /// The number of bins, nbins, is the integer upper bound of
+    /// (max-min)/interval.
+    /// Values that fall in the range [min+n*interval,min+(n+1)*interval) are
+    /// placed in
+    /// the nth bin where n ranges from 0..nbin-2. The final bin is
+    /// [min+(nbin-1)*interval,max]. In the second method,
+    /// <i>bin_values</i> specifies a list of binning column values.
+    /// Binning-columns whose value matches the nth member of the
+    /// <i>bin_values</i> list are placed in the nth bin. When a list
+    /// is provided, the binning-column must be of type string or int.
     /// <br />
     /// NOTE:  The Kinetica instance being accessed must be running a CUDA
-    /// (GPU-based) build to service this request.</summary>
+    /// (GPU-based)
+    /// build to service this request.</summary>
     public class AggregateStatisticsByRangeRequest : KineticaData
     {
 
@@ -99,7 +111,9 @@ namespace kinetica
 
 
         /// <summary>Name of the table on which the ranged-statistics operation
-        /// will be performed.  </summary>
+        /// will be performed, in [schema_name.]table_name format, using
+        /// standard <a href="../../concepts/tables.html#table-name-resolution"
+        /// target="_top">name resolution rules</a>.  </summary>
         public string table_name { get; set; }
 
         /// <summary>For a non-empty expression statistics are calculated for
@@ -172,7 +186,10 @@ namespace kinetica
         /// with the specified parameters.</summary>
         /// 
         /// <param name="table_name">Name of the table on which the
-        /// ranged-statistics operation will be performed.  </param>
+        /// ranged-statistics operation will be performed, in
+        /// [schema_name.]table_name format, using standard <a
+        /// href="../../concepts/tables.html#table-name-resolution"
+        /// target="_top">name resolution rules</a>.  </param>
         /// <param name="select_expression">For a non-empty expression
         /// statistics are calculated for those records for which the
         /// expression is true.  The default value is ''.</param>

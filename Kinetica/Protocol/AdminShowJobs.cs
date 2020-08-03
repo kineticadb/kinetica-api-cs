@@ -142,6 +142,29 @@ namespace kinetica
     /// />.</summary>
     public class AdminShowJobsResponse : KineticaData
     {
+
+        /// <summary>Additional information.
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="AdminShowJobsResponse.Info.JOB_TAG">JOB_TAG</see>:</term>
+        ///         <description>The job tag specified by the user or if
+        /// unspecified by user, an internally generated unique identifier for
+        /// the job across clusters.</description>
+        ///     </item>
+        /// </list>
+        /// The default value is an empty {@link Dictionary}.
+        /// A set of string constants for the parameter <member name="info"
+        /// />.</summary>
+        public struct Info
+        {
+
+            /// <summary>The job tag specified by the user or if unspecified by
+            /// user, an internally generated unique identifier for the job
+            /// across clusters.</summary>
+            public const string JOB_TAG = "job_tag";
+        } // end struct Info
+
         public IList<long> job_id { get; set; } = new List<long>();
         public IList<string> status { get; set; } = new List<string>();
         public IList<string> endpoint_name { get; set; } = new List<string>();
@@ -150,7 +173,17 @@ namespace kinetica
         public IList<string> source_ip { get; set; } = new List<string>();
         public IList<string> user_data { get; set; } = new List<string>();
 
-        /// <summary>Additional information.  </summary>
+        /// <summary>Additional information.
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="AdminShowJobsResponse.Info.JOB_TAG">JOB_TAG</see>:</term>
+        ///         <description>The job tag specified by the user or if
+        /// unspecified by user, an internally generated unique identifier for
+        /// the job across clusters.</description>
+        ///     </item>
+        /// </list>
+        /// The default value is an empty {@link Dictionary}.</summary>
         public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
 
     } // end class AdminShowJobsResponse

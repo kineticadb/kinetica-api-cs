@@ -15,18 +15,21 @@ namespace kinetica
     /// cref="Kinetica.matchGraph(string,IList{string},string,string,IDictionary{string, string})"
     /// />.
     /// <br />
-    /// Matches a directed route implied by a given set of latitude/longitude
-    /// points to an existing underlying road network graph using a given
-    /// solution type.
+    /// Matches a directed route implied by a given set of
+    /// latitude/longitude points to an existing underlying road network graph
+    /// using a
+    /// given solution type.
     /// <br />
-    /// IMPORTANT: It's highly recommended that you review the <a
-    /// href="../../graph_solver/network_graph_solver.html"
-    /// target="_top">Network Graphs & Solvers</a> concepts documentation, the
+    /// IMPORTANT: It's highly recommended that you review the
+    /// <a href="../../graph_solver/network_graph_solver.html"
+    /// target="_top">Network Graphs & Solvers</a>
+    /// concepts documentation, the
     /// <a href="../../graph_solver/examples/graph_rest_guide.html"
-    /// target="_top">Graph REST Tutorial</a>, and/or some <a
-    /// href="../../graph_solver/examples.html#match-graph"
-    /// target="_top">/match/graph examples</a> before using this
-    /// endpoint.</summary>
+    /// target="_top">Graph REST Tutorial</a>,
+    /// and/or some
+    /// <a href="../../graph_solver/examples.html#match-graph"
+    /// target="_top">/match/graph examples</a>
+    /// before using this endpoint.</summary>
     public class MatchGraphRequest : KineticaData
     {
 
@@ -584,17 +587,20 @@ namespace kinetica
         /// </summary>
         public string solve_method { get; set; } = SolveMethod.MARKOV_CHAIN;
 
-        /// <summary>The name of the table used to store the results; this
-        /// table contains a <a
+        /// <summary>The name of the table used to store the results, in
+        /// [schema_name.]table_name format, using standard <a
+        /// href="../../concepts/tables.html#table-name-resolution"
+        /// target="_top">name resolution rules</a> and meeting <a
+        /// href="../../concepts/tables.html#table-naming-criteria"
+        /// target="_top">table naming criteria</a>.  This table contains a <a
         /// href="../../geospatial/geo_objects.html#geospatial-tracks"
         /// target="_top">track</a> of geospatial points for the matched
         /// portion of the graph, a track ID, and a score value. Also outputs a
         /// details table containing a trip ID (that matches the track ID), the
         /// latitude/longitude pair, the timestamp the point was recorded at,
-        /// and an edge ID corresponding to the matched road segment. Has the
-        /// same naming restrictions as <a href="../../concepts/tables.html"
-        /// target="_top">tables</a>. Must not be an existing table of the same
-        /// name.  The default value is ''.</summary>
+        /// and an edge ID corresponding to the matched road segment. Must not
+        /// be an existing table of the same name.  The default value is
+        /// ''.</summary>
         public string solution_table { get; set; } = "";
 
         /// <summary>Additional parameters
@@ -883,16 +889,19 @@ namespace kinetica
         /// cref="MatchGraphRequest.SolveMethod.MARKOV_CHAIN">MARKOV_CHAIN</see>.
         /// </param>
         /// <param name="solution_table">The name of the table used to store
-        /// the results; this table contains a <a
+        /// the results, in [schema_name.]table_name format, using standard <a
+        /// href="../../concepts/tables.html#table-name-resolution"
+        /// target="_top">name resolution rules</a> and meeting <a
+        /// href="../../concepts/tables.html#table-naming-criteria"
+        /// target="_top">table naming criteria</a>.  This table contains a <a
         /// href="../../geospatial/geo_objects.html#geospatial-tracks"
         /// target="_top">track</a> of geospatial points for the matched
         /// portion of the graph, a track ID, and a score value. Also outputs a
         /// details table containing a trip ID (that matches the track ID), the
         /// latitude/longitude pair, the timestamp the point was recorded at,
-        /// and an edge ID corresponding to the matched road segment. Has the
-        /// same naming restrictions as <a href="../../concepts/tables.html"
-        /// target="_top">tables</a>. Must not be an existing table of the same
-        /// name.  The default value is ''.</param>
+        /// and an edge ID corresponding to the matched road segment. Must not
+        /// be an existing table of the same name.  The default value is
+        /// ''.</param>
         /// <param name="options">Additional parameters
         /// <list type="bullet">
         ///     <item>

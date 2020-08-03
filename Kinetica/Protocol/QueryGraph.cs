@@ -18,34 +18,46 @@ namespace kinetica
     /// Employs a topological query on a network graph generated a-priori by
     /// <see
     /// cref="Kinetica.createGraph(string,bool,IList{string},IList{string},IList{string},IList{string},IDictionary{string, string})"
-    /// /> and returns a list of adjacent edge(s) or node(s), also known as an
-    /// adjacency list, depending on what's been provided to the endpoint;
-    /// providing edges will return nodes and providing nodes will return
+    /// /> and returns a list of adjacent edge(s) or node(s),
+    /// also known as an adjacency list, depending on what's been provided to
+    /// the
+    /// endpoint; providing edges will return nodes and providing nodes will
+    /// return
     /// edges.
     /// <br />
     /// To determine the node(s) or edge(s) adjacent to a value from a given
-    /// column, provide a list of values to <see cref="queries" />. This field
-    /// can be populated with column values from any table as long as the type
-    /// is supported by the given identifier. See <a
+    /// column,
+    /// provide a list of values to <see cref="queries" />. This field can be
+    /// populated with
+    /// column values from any table as long as the type is supported by the
+    /// given
+    /// identifier. See
+    /// <a
     /// href="../../graph_solver/network_graph_solver.html#query-identifiers"
-    /// target="_top">Query Identifiers</a> for more information.
+    /// target="_top">Query Identifiers</a>
+    /// for more information.
     /// <br />
     /// To return the adjacency list in the response, leave <see
-    /// cref="adjacency_table" /> empty. To return the adjacency list in a
-    /// table and not in the response, provide a value to <see
-    /// cref="adjacency_table" /> and set <i>export_query_results</i> to
-    /// <i>false</i>. To return the adjacency list both in a table and the
-    /// response, provide a value to <see cref="adjacency_table" /> and set
-    /// <i>export_query_results</i> to <i>true</i>.
+    /// cref="adjacency_table" />
+    /// empty. To return the adjacency list in a table and not in the response,
+    /// provide
+    /// a value to <see cref="adjacency_table" /> and set
+    /// <i>export_query_results</i> to
+    /// <i>false</i>. To return the
+    /// adjacency list both in a table and the response, provide a value to
+    /// <see cref="adjacency_table" /> and set <i>export_query_results</i>
+    /// to <i>true</i>.
     /// <br />
-    /// IMPORTANT: It's highly recommended that you review the <a
-    /// href="../../graph_solver/network_graph_solver.html"
-    /// target="_top">Network Graphs & Solvers</a> concepts documentation, the
+    /// IMPORTANT: It's highly recommended that you review the
+    /// <a href="../../graph_solver/network_graph_solver.html"
+    /// target="_top">Network Graphs & Solvers</a>
+    /// concepts documentation, the
     /// <a href="../../graph_solver/examples/graph_rest_guide.html"
-    /// target="_top">Graph REST Tutorial</a>, and/or some <a
-    /// href="../../graph_solver/examples.html#query-graph"
-    /// target="_top">/query/graph examples</a> before using this
-    /// endpoint.</summary>
+    /// target="_top">Graph REST Tutorial</a>,
+    /// and/or some
+    /// <a href="../../graph_solver/examples.html#match-graph"
+    /// target="_top">/match/graph examples</a>
+    /// before using this endpoint.</summary>
     public class QueryGraphRequest : KineticaData
     {
 
@@ -89,7 +101,12 @@ namespace kinetica
         ///         <term><see
         /// cref="QueryGraphRequest.Options.TARGET_NODES_TABLE">TARGET_NODES_TABLE</see>:</term>
         ///         <description>Name of the table to store the list of the
-        /// final nodes reached during the traversal. If this value is left as
+        /// final nodes reached during the traversal, in
+        /// [schema_name.]table_name format, using standard <a
+        /// href="../../concepts/tables.html#table-name-resolution"
+        /// target="_top">name resolution rules</a> and meeting <a
+        /// href="../../concepts/tables.html#table-naming-criteria"
+        /// target="_top">table naming criteria</a>.  If this value is left as
         /// the default, the table name will default to the <paramref
         /// cref="QueryGraphRequest.adjacency_table" /> value plus a '_nodes'
         /// suffix, e.g., '<adjacency_table_name>_nodes'.  The default value is
@@ -211,8 +228,13 @@ namespace kinetica
             public const string LIMIT = "limit";
 
             /// <summary>Name of the table to store the list of the final nodes
-            /// reached during the traversal. If this value is left as the
-            /// default, the table name will default to the <see
+            /// reached during the traversal, in [schema_name.]table_name
+            /// format, using standard <a
+            /// href="../../concepts/tables.html#table-name-resolution"
+            /// target="_top">name resolution rules</a> and meeting <a
+            /// href="../../concepts/tables.html#table-naming-criteria"
+            /// target="_top">table naming criteria</a>.  If this value is left
+            /// as the default, the table name will default to the <see
             /// cref="adjacency_table" /> value plus a '_nodes' suffix, e.g.,
             /// '<adjacency_table_name>_nodes'.  The default value is
             /// ''.</summary>
@@ -318,15 +340,19 @@ namespace kinetica
         /// combination.  The default value is an empty {@link List}.</summary>
         public IList<string> restrictions { get; set; } = new List<string>();
 
-        /// <summary>Name of the table to store the resulting adjacencies. If
-        /// left blank, the query results are instead returned in the response
-        /// even if <i>export_query_results</i> is set to <i>false</i>. If the
+        /// <summary>Name of the table to store the resulting adjacencies, in
+        /// [schema_name.]table_name format, using standard <a
+        /// href="../../concepts/tables.html#table-name-resolution"
+        /// target="_top">name resolution rules</a> and meeting <a
+        /// href="../../concepts/tables.html#table-naming-criteria"
+        /// target="_top">table naming criteria</a>.  If left blank, the query
+        /// results are instead returned in the response even if
+        /// <i>export_query_results</i> is set to <i>false</i>. If the
         /// 'QUERY_TARGET_NODE_LABEL' <a
         /// href="../../graph_solver/network_graph_solver.html#query-identifiers"
         /// target="_top">query identifier</a> is used in <paramref
         /// cref="QueryGraphRequest.queries" />, then two additional columns
-        /// will be available: 'PATH_ID' and 'RING_ID'. See
-        ///             <a
+        /// will be available: 'PATH_ID' and 'RING_ID'. See <a
         /// href="../../graph_solver/network_graph_solver.html#using-labels"
         /// target="_top">Using Labels</a> for more information.  The default
         /// value is ''.</summary>
@@ -386,7 +412,12 @@ namespace kinetica
         ///         <term><see
         /// cref="QueryGraphRequest.Options.TARGET_NODES_TABLE">TARGET_NODES_TABLE</see>:</term>
         ///         <description>Name of the table to store the list of the
-        /// final nodes reached during the traversal. If this value is left as
+        /// final nodes reached during the traversal, in
+        /// [schema_name.]table_name format, using standard <a
+        /// href="../../concepts/tables.html#table-name-resolution"
+        /// target="_top">name resolution rules</a> and meeting <a
+        /// href="../../concepts/tables.html#table-naming-criteria"
+        /// target="_top">table naming criteria</a>.  If this value is left as
         /// the default, the table name will default to the <paramref
         /// cref="QueryGraphRequest.adjacency_table" /> value plus a '_nodes'
         /// suffix, e.g., '<adjacency_table_name>_nodes'.  The default value is
@@ -507,14 +538,18 @@ namespace kinetica
         /// combination, the number of values specified must match across the
         /// combination.  The default value is an empty {@link List}.</param>
         /// <param name="adjacency_table">Name of the table to store the
-        /// resulting adjacencies. If left blank, the query results are instead
-        /// returned in the response even if <i>export_query_results</i> is set
-        /// to <i>false</i>. If the 'QUERY_TARGET_NODE_LABEL' <a
+        /// resulting adjacencies, in [schema_name.]table_name format, using
+        /// standard <a href="../../concepts/tables.html#table-name-resolution"
+        /// target="_top">name resolution rules</a> and meeting <a
+        /// href="../../concepts/tables.html#table-naming-criteria"
+        /// target="_top">table naming criteria</a>.  If left blank, the query
+        /// results are instead returned in the response even if
+        /// <i>export_query_results</i> is set to <i>false</i>. If the
+        /// 'QUERY_TARGET_NODE_LABEL' <a
         /// href="../../graph_solver/network_graph_solver.html#query-identifiers"
         /// target="_top">query identifier</a> is used in <paramref
         /// cref="QueryGraphRequest.queries" />, then two additional columns
-        /// will be available: 'PATH_ID' and 'RING_ID'. See
-        ///             <a
+        /// will be available: 'PATH_ID' and 'RING_ID'. See <a
         /// href="../../graph_solver/network_graph_solver.html#using-labels"
         /// target="_top">Using Labels</a> for more information.  The default
         /// value is ''.</param>
@@ -570,7 +605,12 @@ namespace kinetica
         ///         <term><see
         /// cref="QueryGraphRequest.Options.TARGET_NODES_TABLE">TARGET_NODES_TABLE</see>:</term>
         ///         <description>Name of the table to store the list of the
-        /// final nodes reached during the traversal. If this value is left as
+        /// final nodes reached during the traversal, in
+        /// [schema_name.]table_name format, using standard <a
+        /// href="../../concepts/tables.html#table-name-resolution"
+        /// target="_top">name resolution rules</a> and meeting <a
+        /// href="../../concepts/tables.html#table-naming-criteria"
+        /// target="_top">table naming criteria</a>.  If this value is left as
         /// the default, the table name will default to the <paramref
         /// cref="QueryGraphRequest.adjacency_table" /> value plus a '_nodes'
         /// suffix, e.g., '<adjacency_table_name>_nodes'.  The default value is

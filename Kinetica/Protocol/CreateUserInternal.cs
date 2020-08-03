@@ -28,6 +28,12 @@ namespace kinetica
         ///         <description>Name of an existing resource group to
         /// associate with this user</description>
         ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateUserInternalRequest.Options.DEFAULT_SCHEMA">DEFAULT_SCHEMA</see>:</term>
+        ///         <description>default schema associate with this
+        /// user</description>
+        ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.
         /// A set of string constants for the parameter <see cref="options"
@@ -38,6 +44,9 @@ namespace kinetica
             /// <summary>Name of an existing resource group to associate with
             /// this user</summary>
             public const string RESOURCE_GROUP = "resource_group";
+
+            /// <summary>default schema associate with this user</summary>
+            public const string DEFAULT_SCHEMA = "default_schema";
         } // end struct Options
 
 
@@ -58,6 +67,12 @@ namespace kinetica
         /// cref="CreateUserInternalRequest.Options.RESOURCE_GROUP">RESOURCE_GROUP</see>:</term>
         ///         <description>Name of an existing resource group to
         /// associate with this user</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateUserInternalRequest.Options.DEFAULT_SCHEMA">DEFAULT_SCHEMA</see>:</term>
+        ///         <description>default schema associate with this
+        /// user</description>
         ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.</summary>
@@ -84,6 +99,12 @@ namespace kinetica
         /// cref="CreateUserInternalRequest.Options.RESOURCE_GROUP">RESOURCE_GROUP</see>:</term>
         ///         <description>Name of an existing resource group to
         /// associate with this user</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateUserInternalRequest.Options.DEFAULT_SCHEMA">DEFAULT_SCHEMA</see>:</term>
+        ///         <description>default schema associate with this
+        /// user</description>
         ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.</param>

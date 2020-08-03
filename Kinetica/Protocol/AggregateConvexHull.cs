@@ -21,7 +21,10 @@ namespace kinetica
     {
 
         /// <summary>Name of table on which the operation will be performed.
-        /// Must be an existing table.  It cannot be a collection.  </summary>
+        /// Must be an existing table, in [schema_name.]table_name format,
+        /// using standard <a
+        /// href="../../concepts/tables.html#table-name-resolution"
+        /// target="_top">name resolution rules</a>.  </summary>
         public string table_name { get; set; }
 
         /// <summary>Name of the column containing the x coordinates of the
@@ -45,8 +48,10 @@ namespace kinetica
         /// specified parameters.</summary>
         /// 
         /// <param name="table_name">Name of table on which the operation will
-        /// be performed. Must be an existing table.  It cannot be a
-        /// collection.  </param>
+        /// be performed. Must be an existing table, in
+        /// [schema_name.]table_name format, using standard <a
+        /// href="../../concepts/tables.html#table-name-resolution"
+        /// target="_top">name resolution rules</a>.  </param>
         /// <param name="x_column_name">Name of the column containing the x
         /// coordinates of the points for the operation being performed.
         /// </param>

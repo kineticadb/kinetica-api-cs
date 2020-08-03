@@ -20,10 +20,10 @@ namespace kinetica
     /// cref="expressions" /> (matching multiple records), a single record
     /// identified by <i>record_id</i> options, or all records when using
     /// <i>delete_all_records</i>.  Note that the three selection criteria are
-    /// mutually exclusive.  This operation cannot be run on a collection or a
-    /// view.  The operation is synchronous meaning that a response will not be
-    /// available until the request is completely processed and all the
-    /// matching records are deleted.</summary>
+    /// mutually exclusive.  This operation cannot be run on a view.  The
+    /// operation is synchronous meaning that a response will not be available
+    /// until the request is completely processed and all the matching records
+    /// are deleted.</summary>
     public class DeleteRecordsRequest : KineticaData
     {
 
@@ -112,9 +112,11 @@ namespace kinetica
         } // end struct Options
 
 
-        /// <summary>Name of the table from which to delete records. The set
-        /// must be a currently existing table and not a collection or a view.
-        /// </summary>
+        /// <summary>Name of the table from which to delete records, in
+        /// [schema_name.]table_name format, using standard <a
+        /// href="../../concepts/tables.html#table-name-resolution"
+        /// target="_top">name resolution rules</a>. Must contain the name of
+        /// an existing table; not applicable to views.  </summary>
         public string table_name { get; set; }
 
         /// <summary>A list of the actual predicates, one for each select;
@@ -179,8 +181,10 @@ namespace kinetica
         /// specified parameters.</summary>
         /// 
         /// <param name="table_name">Name of the table from which to delete
-        /// records. The set must be a currently existing table and not a
-        /// collection or a view.  </param>
+        /// records, in [schema_name.]table_name format, using standard <a
+        /// href="../../concepts/tables.html#table-name-resolution"
+        /// target="_top">name resolution rules</a>. Must contain the name of
+        /// an existing table; not applicable to views.  </param>
         /// <param name="expressions">A list of the actual predicates, one for
         /// each select; format should follow the guidelines provided <a
         /// href="../../concepts/expressions.html" target="_top">here</a>.

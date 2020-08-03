@@ -17,15 +17,18 @@ namespace kinetica
     /// <br />
     /// Updates (adds or changes) metadata for tables. The metadata key and
     /// values must both be strings. This is an easy way to annotate whole
-    /// tables rather than single records within tables.  Some examples of
-    /// metadata are owner of the table, table creation timestamp
-    /// etc.</summary>
+    /// tables rather
+    /// than single records within tables.  Some examples of metadata are owner
+    /// of the
+    /// table, table creation timestamp etc.</summary>
     public class AlterTableMetadataRequest : KineticaData
     {
 
-        /// <summary>Names of the tables whose metadata will be updated. All
-        /// specified tables must exist, or an error will be returned.
-        /// </summary>
+        /// <summary>Names of the tables whose metadata will be updated, in
+        /// [schema_name.]table_name format, using standard <a
+        /// href="../../concepts/tables.html#table-name-resolution"
+        /// target="_top">name resolution rules</a>.  All specified tables must
+        /// exist, or an error will be returned.  </summary>
         public IList<string> table_names { get; set; } = new List<string>();
 
         /// <summary>A map which contains the metadata of the tables that are
@@ -48,8 +51,10 @@ namespace kinetica
         /// specified parameters.</summary>
         /// 
         /// <param name="table_names">Names of the tables whose metadata will
-        /// be updated. All specified tables must exist, or an error will be
-        /// returned.  </param>
+        /// be updated, in [schema_name.]table_name format, using standard <a
+        /// href="../../concepts/tables.html#table-name-resolution"
+        /// target="_top">name resolution rules</a>.  All specified tables must
+        /// exist, or an error will be returned.  </param>
         /// <param name="metadata_map">A map which contains the metadata of the
         /// tables that are to be updated. Note that only one map is provided
         /// for all the tables; so the change will be applied to every table.

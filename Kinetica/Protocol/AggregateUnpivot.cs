@@ -17,20 +17,26 @@ namespace kinetica
     /// <br />
     /// Rotate the column values into rows values.
     /// <br />
-    /// For unpivot details and examples, see <a
-    /// href="../../concepts/unpivot.html" target="_top">Unpivot</a>.  For
-    /// limitations, see <a href="../../concepts/unpivot.html#limitations"
-    /// target="_top">Unpivot Limitations</a>.
+    /// For unpivot details and examples, see
+    /// <a href="../../concepts/unpivot.html" target="_top">Unpivot</a>.  For
+    /// limitations, see
+    /// <a href="../../concepts/unpivot.html#limitations" target="_top">Unpivot
+    /// Limitations</a>.
     /// <br />
     /// Unpivot is used to normalize tables that are built for cross tabular
-    /// reporting purposes. The unpivot operator rotates the column values for
-    /// all the pivoted columns. A variable column, value column and all
-    /// columns from the source table except the unpivot columns are projected
-    /// into the result table. The variable column and value columns in the
-    /// result table indicate the pivoted column name and values respectively.
+    /// reporting
+    /// purposes. The unpivot operator rotates the column values for all the
+    /// pivoted
+    /// columns. A variable column, value column and all columns from the
+    /// source table
+    /// except the unpivot columns are projected into the result table. The
+    /// variable
+    /// column and value columns in the result table indicate the pivoted
+    /// column name
+    /// and values respectively.
     /// <br />
-    /// The response is returned as a dynamic schema. For details see: <a
-    /// href="../../api/index.html#dynamic-schemas" target="_top">dynamic
+    /// The response is returned as a dynamic schema. For details see:
+    /// <a href="../../api/index.html#dynamic-schemas" target="_top">dynamic
     /// schemas documentation</a>.</summary>
     public class AggregateUnpivotRequest : KineticaData
     {
@@ -73,18 +79,22 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="AggregateUnpivotRequest.Options.COLLECTION_NAME">COLLECTION_NAME</see>:</term>
-        ///         <description>Name of a collection which is to contain the
-        /// table specified in <i>result_table</i>. If the collection provided
-        /// is non-existent, the collection will be automatically created. If
-        /// empty, then the table will be a top-level table.</description>
+        ///         <description>[DEPRECATED--please specify the containing
+        /// schema as part of <i>result_table</i> and use /create/schema to
+        /// create the schema if non-existent]  Name of a schema which is to
+        /// contain the table specified in <i>result_table</i>. If the schema
+        /// is non-existent, it will be automatically created.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="AggregateUnpivotRequest.Options.RESULT_TABLE">RESULT_TABLE</see>:</term>
-        ///         <description>The name of the table used to store the
-        /// results. Has the same naming restrictions as <a
-        /// href="../../concepts/tables.html" target="_top">tables</a>. If
-        /// present, no results are returned in the response.</description>
+        ///         <description>The name of a table used to store the results,
+        /// in [schema_name.]table_name format, using standard <a
+        /// href="../../concepts/tables.html#table-name-resolution"
+        /// target="_top">name resolution rules</a> and meeting <a
+        /// href="../../concepts/tables.html#table-naming-criteria"
+        /// target="_top">table naming criteria</a>. If present, no results are
+        /// returned in the response.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -209,16 +219,22 @@ namespace kinetica
         public struct Options
         {
 
-            /// <summary>Name of a collection which is to contain the table
-            /// specified in <i>result_table</i>. If the collection provided is
-            /// non-existent, the collection will be automatically created. If
-            /// empty, then the table will be a top-level table.</summary>
+            /// <summary>[DEPRECATED--please specify the containing schema as
+            /// part of <i>result_table</i> and use <see
+            /// cref="Kinetica.createSchema(string,IDictionary{string, string})"
+            /// /> to create the schema if non-existent]  Name of a schema
+            /// which is to contain the table specified in <i>result_table</i>.
+            /// If the schema is non-existent, it will be automatically
+            /// created.</summary>
             public const string COLLECTION_NAME = "collection_name";
 
-            /// <summary>The name of the table used to store the results. Has
-            /// the same naming restrictions as <a
-            /// href="../../concepts/tables.html" target="_top">tables</a>. If
-            /// present, no results are returned in the response.</summary>
+            /// <summary>The name of a table used to store the results, in
+            /// [schema_name.]table_name format, using standard <a
+            /// href="../../concepts/tables.html#table-name-resolution"
+            /// target="_top">name resolution rules</a> and meeting <a
+            /// href="../../concepts/tables.html#table-naming-criteria"
+            /// target="_top">table naming criteria</a>. If present, no results
+            /// are returned in the response.</summary>
             public const string RESULT_TABLE = "result_table";
 
             /// <summary>If <i>true</i>, then the result table specified in
@@ -323,7 +339,10 @@ namespace kinetica
 
 
         /// <summary>Name of the table on which the operation will be
-        /// performed. Must be an existing table/view.  </summary>
+        /// performed. Must be an existing table/view, in
+        /// [schema_name.]table_name format, using standard <a
+        /// href="../../concepts/tables.html#table-name-resolution"
+        /// target="_top">name resolution rules</a>.  </summary>
         public string table_name { get; set; }
 
         /// <summary>List of column names or expressions. A wildcard '*' can be
@@ -370,18 +389,22 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="AggregateUnpivotRequest.Options.COLLECTION_NAME">COLLECTION_NAME</see>:</term>
-        ///         <description>Name of a collection which is to contain the
-        /// table specified in <i>result_table</i>. If the collection provided
-        /// is non-existent, the collection will be automatically created. If
-        /// empty, then the table will be a top-level table.</description>
+        ///         <description>[DEPRECATED--please specify the containing
+        /// schema as part of <i>result_table</i> and use /create/schema to
+        /// create the schema if non-existent]  Name of a schema which is to
+        /// contain the table specified in <i>result_table</i>. If the schema
+        /// is non-existent, it will be automatically created.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="AggregateUnpivotRequest.Options.RESULT_TABLE">RESULT_TABLE</see>:</term>
-        ///         <description>The name of the table used to store the
-        /// results. Has the same naming restrictions as <a
-        /// href="../../concepts/tables.html" target="_top">tables</a>. If
-        /// present, no results are returned in the response.</description>
+        ///         <description>The name of a table used to store the results,
+        /// in [schema_name.]table_name format, using standard <a
+        /// href="../../concepts/tables.html#table-name-resolution"
+        /// target="_top">name resolution rules</a> and meeting <a
+        /// href="../../concepts/tables.html#table-naming-criteria"
+        /// target="_top">table naming criteria</a>. If present, no results are
+        /// returned in the response.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -512,7 +535,10 @@ namespace kinetica
         /// specified parameters.</summary>
         /// 
         /// <param name="table_name">Name of the table on which the operation
-        /// will be performed. Must be an existing table/view.  </param>
+        /// will be performed. Must be an existing table/view, in
+        /// [schema_name.]table_name format, using standard <a
+        /// href="../../concepts/tables.html#table-name-resolution"
+        /// target="_top">name resolution rules</a>.  </param>
         /// <param name="column_names">List of column names or expressions. A
         /// wildcard '*' can be used to include all the non-pivoted columns
         /// from the source table.  </param>
@@ -528,18 +554,22 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="AggregateUnpivotRequest.Options.COLLECTION_NAME">COLLECTION_NAME</see>:</term>
-        ///         <description>Name of a collection which is to contain the
-        /// table specified in <i>result_table</i>. If the collection provided
-        /// is non-existent, the collection will be automatically created. If
-        /// empty, then the table will be a top-level table.</description>
+        ///         <description>[DEPRECATED--please specify the containing
+        /// schema as part of <i>result_table</i> and use /create/schema to
+        /// create the schema if non-existent]  Name of a schema which is to
+        /// contain the table specified in <i>result_table</i>. If the schema
+        /// is non-existent, it will be automatically created.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="AggregateUnpivotRequest.Options.RESULT_TABLE">RESULT_TABLE</see>:</term>
-        ///         <description>The name of the table used to store the
-        /// results. Has the same naming restrictions as <a
-        /// href="../../concepts/tables.html" target="_top">tables</a>. If
-        /// present, no results are returned in the response.</description>
+        ///         <description>The name of a table used to store the results,
+        /// in [schema_name.]table_name format, using standard <a
+        /// href="../../concepts/tables.html#table-name-resolution"
+        /// target="_top">name resolution rules</a> and meeting <a
+        /// href="../../concepts/tables.html#table-naming-criteria"
+        /// target="_top">table naming criteria</a>. If present, no results are
+        /// returned in the response.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -681,7 +711,10 @@ namespace kinetica
         /// specified parameters.</summary>
         /// 
         /// <param name="table_name">Name of the table on which the operation
-        /// will be performed. Must be an existing table/view.  </param>
+        /// will be performed. Must be an existing table/view, in
+        /// [schema_name.]table_name format, using standard <a
+        /// href="../../concepts/tables.html#table-name-resolution"
+        /// target="_top">name resolution rules</a>.  </param>
         /// <param name="column_names">List of column names or expressions. A
         /// wildcard '*' can be used to include all the non-pivoted columns
         /// from the source table.  </param>
@@ -716,18 +749,22 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="AggregateUnpivotRequest.Options.COLLECTION_NAME">COLLECTION_NAME</see>:</term>
-        ///         <description>Name of a collection which is to contain the
-        /// table specified in <i>result_table</i>. If the collection provided
-        /// is non-existent, the collection will be automatically created. If
-        /// empty, then the table will be a top-level table.</description>
+        ///         <description>[DEPRECATED--please specify the containing
+        /// schema as part of <i>result_table</i> and use /create/schema to
+        /// create the schema if non-existent]  Name of a schema which is to
+        /// contain the table specified in <i>result_table</i>. If the schema
+        /// is non-existent, it will be automatically created.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="AggregateUnpivotRequest.Options.RESULT_TABLE">RESULT_TABLE</see>:</term>
-        ///         <description>The name of the table used to store the
-        /// results. Has the same naming restrictions as <a
-        /// href="../../concepts/tables.html" target="_top">tables</a>. If
-        /// present, no results are returned in the response.</description>
+        ///         <description>The name of a table used to store the results,
+        /// in [schema_name.]table_name format, using standard <a
+        /// href="../../concepts/tables.html#table-name-resolution"
+        /// target="_top">name resolution rules</a> and meeting <a
+        /// href="../../concepts/tables.html#table-naming-criteria"
+        /// target="_top">table naming criteria</a>. If present, no results are
+        /// returned in the response.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -875,6 +912,27 @@ namespace kinetica
     public class RawAggregateUnpivotResponse : KineticaData
     {
 
+        /// <summary>Additional information.
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="RawAggregateUnpivotResponse.Info.QUALIFIED_RESULT_TABLE_NAME">QUALIFIED_RESULT_TABLE_NAME</see>:</term>
+        ///         <description>The fully qualified name of the table (i.e.
+        /// including the schema) used to store the results.</description>
+        ///     </item>
+        /// </list>
+        /// The default value is an empty {@link Dictionary}.
+        /// A set of string constants for the parameter <member name="info"
+        /// />.</summary>
+        public struct Info
+        {
+
+            /// <summary>The fully qualified name of the table (i.e. including
+            /// the schema) used to store the results.</summary>
+            public const string QUALIFIED_RESULT_TABLE_NAME = "qualified_result_table_name";
+        } // end struct Info
+
+
         /// <summary>Typically shows the result-table name if provided in the
         /// request (Ignore otherwise).  </summary>
         public string table_name { get; set; }
@@ -895,7 +953,16 @@ namespace kinetica
         /// <summary>Too many records. Returned a partial set.  </summary>
         public bool has_more_records { get; set; }
 
-        /// <summary>Additional information.  </summary>
+        /// <summary>Additional information.
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="RawAggregateUnpivotResponse.Info.QUALIFIED_RESULT_TABLE_NAME">QUALIFIED_RESULT_TABLE_NAME</see>:</term>
+        ///         <description>The fully qualified name of the table (i.e.
+        /// including the schema) used to store the results.</description>
+        ///     </item>
+        /// </list>
+        /// The default value is an empty {@link Dictionary}.</summary>
         public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
 
     } // end class RawAggregateUnpivotResponse
@@ -907,6 +974,27 @@ namespace kinetica
     /// />.</summary>
     public class AggregateUnpivotResponse : KineticaData
     {
+
+        /// <summary>Additional information.
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="RawAggregateUnpivotResponse.Info.QUALIFIED_RESULT_TABLE_NAME">QUALIFIED_RESULT_TABLE_NAME</see>:</term>
+        ///         <description>The fully qualified name of the table (i.e.
+        /// including the schema) used to store the results.</description>
+        ///     </item>
+        /// </list>
+        /// The default value is an empty {@link Dictionary}.
+        /// A set of string constants for the parameter <member name="info"
+        /// />.</summary>
+        public struct Info
+        {
+
+            /// <summary>The fully qualified name of the table (i.e. including
+            /// the schema) used to store the results.</summary>
+            public const string QUALIFIED_RESULT_TABLE_NAME = "qualified_result_table_name";
+        } // end struct Info
+
 
         /// <summary>Typically shows the result-table name if provided in the
         /// request (Ignore otherwise).  </summary>
@@ -921,7 +1009,16 @@ namespace kinetica
         /// <summary>Too many records. Returned a partial set.  </summary>
         public bool has_more_records { get; set; }
 
-        /// <summary>Additional information.  </summary>
+        /// <summary>Additional information.
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="RawAggregateUnpivotResponse.Info.QUALIFIED_RESULT_TABLE_NAME">QUALIFIED_RESULT_TABLE_NAME</see>:</term>
+        ///         <description>The fully qualified name of the table (i.e.
+        /// including the schema) used to store the results.</description>
+        ///     </item>
+        /// </list>
+        /// The default value is an empty {@link Dictionary}.</summary>
         public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
 
     } // end class AggregateUnpivotResponse

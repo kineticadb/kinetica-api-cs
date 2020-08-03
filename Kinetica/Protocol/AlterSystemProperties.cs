@@ -32,8 +32,8 @@ namespace kinetica
         ///         <term><see
         /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.SM_OMP_THREADS">SM_OMP_THREADS</see>:</term>
         ///         <description>Set the number of OpenMP threads that will be
-        /// used to service filter & aggregation requests against collections
-        /// to the specified integer value.</description>
+        /// used to service filter & aggregation requests to the specified
+        /// integer value.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -129,7 +129,8 @@ namespace kinetica
         /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.SET_MESSAGE_TIMERS_ENABLED">SET_MESSAGE_TIMERS_ENABLED</see>:</term>
         ///         <description>Enables the communicator test to collect
         /// additional timing statistics when the value string is <i>true</i>.
-        /// Disables the collection when the value string is <i>false</i>
+        /// Disables collecting statistics when the value string is
+        /// <i>false</i>
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -218,12 +219,6 @@ namespace kinetica
         ///         <description>Enable overlapped-equi-join filter.  The
         /// default value is 'true'.</description>
         ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.ENABLE_COMPOUND_EQUI_JOIN">ENABLE_COMPOUND_EQUI_JOIN</see>:</term>
-        ///         <description>Enable compound-equi-join filter plan type.
-        /// The default value is 'false'.</description>
-        ///     </item>
         /// </list>
         /// <br />
         /// A set of string constants for the parameter <see
@@ -232,8 +227,8 @@ namespace kinetica
         {
 
             /// <summary>Set the number of OpenMP threads that will be used to
-            /// service filter & aggregation requests against collections to
-            /// the specified integer value.</summary>
+            /// service filter & aggregation requests to the specified integer
+            /// value.</summary>
             public const string SM_OMP_THREADS = "sm_omp_threads";
 
             /// <summary>Set the number of kernel OpenMP threads to the
@@ -310,7 +305,8 @@ namespace kinetica
 
             /// <summary>Enables the communicator test to collect additional
             /// timing statistics when the value string is <i>true</i>.
-            /// Disables the collection when the value string is <i>false</i>
+            /// Disables collecting statistics when the value string is
+            /// <i>false</i>
             /// Supported values:
             /// <list type="bullet">
             ///     <item>
@@ -378,10 +374,6 @@ namespace kinetica
             /// <summary>Enable overlapped-equi-join filter.  The default value
             /// is 'true'.</summary>
             public const string ENABLE_OVERLAPPED_EQUI_JOIN = "enable_overlapped_equi_join";
-
-            /// <summary>Enable compound-equi-join filter plan type.  The
-            /// default value is 'false'.</summary>
-            public const string ENABLE_COMPOUND_EQUI_JOIN = "enable_compound_equi_join";
         } // end struct PropertyUpdatesMap
 
 
@@ -392,8 +384,8 @@ namespace kinetica
         ///         <term><see
         /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.SM_OMP_THREADS">SM_OMP_THREADS</see>:</term>
         ///         <description>Set the number of OpenMP threads that will be
-        /// used to service filter & aggregation requests against collections
-        /// to the specified integer value.</description>
+        /// used to service filter & aggregation requests to the specified
+        /// integer value.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -489,7 +481,8 @@ namespace kinetica
         /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.SET_MESSAGE_TIMERS_ENABLED">SET_MESSAGE_TIMERS_ENABLED</see>:</term>
         ///         <description>Enables the communicator test to collect
         /// additional timing statistics when the value string is <i>true</i>.
-        /// Disables the collection when the value string is <i>false</i>
+        /// Disables collecting statistics when the value string is
+        /// <i>false</i>
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -577,12 +570,6 @@ namespace kinetica
         /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.ENABLE_OVERLAPPED_EQUI_JOIN">ENABLE_OVERLAPPED_EQUI_JOIN</see>:</term>
         ///         <description>Enable overlapped-equi-join filter.  The
         /// default value is 'true'.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.ENABLE_COMPOUND_EQUI_JOIN">ENABLE_COMPOUND_EQUI_JOIN</see>:</term>
-        ///         <description>Enable compound-equi-join filter plan type.
-        /// The default value is 'false'.</description>
         ///     </item>
         /// </list>
         ///   </summary>
@@ -607,8 +594,8 @@ namespace kinetica
         ///         <term><see
         /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.SM_OMP_THREADS">SM_OMP_THREADS</see>:</term>
         ///         <description>Set the number of OpenMP threads that will be
-        /// used to service filter & aggregation requests against collections
-        /// to the specified integer value.</description>
+        /// used to service filter & aggregation requests to the specified
+        /// integer value.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -704,7 +691,8 @@ namespace kinetica
         /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.SET_MESSAGE_TIMERS_ENABLED">SET_MESSAGE_TIMERS_ENABLED</see>:</term>
         ///         <description>Enables the communicator test to collect
         /// additional timing statistics when the value string is <i>true</i>.
-        /// Disables the collection when the value string is <i>false</i>
+        /// Disables collecting statistics when the value string is
+        /// <i>false</i>
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -792,12 +780,6 @@ namespace kinetica
         /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.ENABLE_OVERLAPPED_EQUI_JOIN">ENABLE_OVERLAPPED_EQUI_JOIN</see>:</term>
         ///         <description>Enable overlapped-equi-join filter.  The
         /// default value is 'true'.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.ENABLE_COMPOUND_EQUI_JOIN">ENABLE_COMPOUND_EQUI_JOIN</see>:</term>
-        ///         <description>Enable compound-equi-join filter plan type.
-        /// The default value is 'false'.</description>
         ///     </item>
         /// </list>
         ///   </param>

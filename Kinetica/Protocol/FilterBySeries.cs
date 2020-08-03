@@ -15,21 +15,28 @@ namespace kinetica
     /// cref="Kinetica.filterBySeries(string,string,string,IList{string},IDictionary{string, string})"
     /// />.
     /// <br />
-    /// Filters objects matching all points of the given track (works only on
-    /// track type data).  It allows users to specify a particular track to
-    /// find all other points in the table that fall within specified
-    /// ranges-spatial and temporal-of all points of the given track.
-    /// Additionally, the user can specify another track to see if the two
-    /// intersect (or go close to each other within the specified ranges). The
-    /// user also has the flexibility of using different metrics for the
-    /// spatial distance calculation: Euclidean (flat geometry) or Great Circle
+    /// Filters objects matching all points of the given track (works only
+    /// on track type data).  It allows users to specify a particular track to
+    /// find all
+    /// other points in the table that fall within specified ranges (spatial
+    /// and
+    /// temporal) of all points of the given track. Additionally, the user can
+    /// specify
+    /// another track to see if the two intersect (or go close to each other
+    /// within the
+    /// specified ranges). The user also has the flexibility of using different
+    /// metrics
+    /// for the spatial distance calculation: Euclidean (flat geometry) or
+    /// Great Circle
     /// (spherical geometry to approximate the Earth's surface distances). The
-    /// filtered points are stored in a newly created result set. The return
-    /// value of the function is the number of points in the resultant set
-    /// (view).
+    /// filtered
+    /// points are stored in a newly created result set. The return value of
+    /// the
+    /// function is the number of points in the resultant set (view).
     /// <br />
     /// This operation is synchronous, meaning that a response will not be
-    /// returned until all the objects are fully available.</summary>
+    /// returned
+    /// until all the objects are fully available.</summary>
     public class FilterBySeriesRequest : KineticaData
     {
 
@@ -38,10 +45,12 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="FilterBySeriesRequest.Options.COLLECTION_NAME">COLLECTION_NAME</see>:</term>
-        ///         <description>Name of a collection which is to contain the
-        /// newly created view. If the collection provided is non-existent, the
-        /// collection will be automatically created. If empty, then the newly
-        /// created view will be top-level.</description>
+        ///         <description>[DEPRECATED--please specify the containing
+        /// schema for the view as part of <paramref
+        /// cref="FilterBySeriesRequest.view_name" /> and use /create/schema to
+        /// create the schema if non-existent]  Name of a schema for the newly
+        /// created view. If the schema is non-existent, it will be
+        /// automatically created.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -85,10 +94,12 @@ namespace kinetica
         public struct Options
         {
 
-            /// <summary>Name of a collection which is to contain the newly
-            /// created view. If the collection provided is non-existent, the
-            /// collection will be automatically created. If empty, then the
-            /// newly created view will be top-level.</summary>
+            /// <summary>[DEPRECATED--please specify the containing schema for
+            /// the view as part of <see cref="view_name" /> and use <see
+            /// cref="Kinetica.createSchema(string,IDictionary{string, string})"
+            /// /> to create the schema if non-existent]  Name of a schema for
+            /// the newly created view. If the schema is non-existent, it will
+            /// be automatically created.</summary>
             public const string COLLECTION_NAME = "collection_name";
 
             /// <summary>A positive number passed as a string representing the
@@ -124,15 +135,20 @@ namespace kinetica
 
 
         /// <summary>Name of the table on which the filter by track operation
-        /// will be performed. Must be a currently existing table with a <a
-        /// href="../../geospatial/geo_objects.html" target="_top">track</a>
-        /// present.  </summary>
+        /// will be performed, in [schema_name.]table_name format, using
+        /// standard <a href="../../concepts/tables.html#table-name-resolution"
+        /// target="_top">name resolution rules</a>. Must be a currently
+        /// existing table with a <a href="../../geospatial/geo_objects.html"
+        /// target="_top">track</a> present.  </summary>
         public string table_name { get; set; }
 
         /// <summary>If provided, then this will be the name of the view
-        /// containing the results. Has the same naming restrictions as <a
-        /// href="../../concepts/tables.html" target="_top">tables</a>.  The
-        /// default value is ''.</summary>
+        /// containing the results, in [schema_name.]view_name format, using
+        /// standard <a href="../../concepts/tables.html#table-name-resolution"
+        /// target="_top">name resolution rules</a> and meeting <a
+        /// href="../../concepts/tables.html#table-naming-criteria"
+        /// target="_top">table naming criteria</a>.  Must not be an already
+        /// existing table or view.  The default value is ''.</summary>
         public string view_name { get; set; } = "";
 
         /// <summary>The ID of the track which will act as the filtering
@@ -150,10 +166,12 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="FilterBySeriesRequest.Options.COLLECTION_NAME">COLLECTION_NAME</see>:</term>
-        ///         <description>Name of a collection which is to contain the
-        /// newly created view. If the collection provided is non-existent, the
-        /// collection will be automatically created. If empty, then the newly
-        /// created view will be top-level.</description>
+        ///         <description>[DEPRECATED--please specify the containing
+        /// schema for the view as part of <paramref
+        /// cref="FilterBySeriesRequest.view_name" /> and use /create/schema to
+        /// create the schema if non-existent]  Name of a schema for the newly
+        /// created view. If the schema is non-existent, it will be
+        /// automatically created.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -203,13 +221,20 @@ namespace kinetica
         /// specified parameters.</summary>
         /// 
         /// <param name="table_name">Name of the table on which the filter by
-        /// track operation will be performed. Must be a currently existing
-        /// table with a <a href="../../geospatial/geo_objects.html"
+        /// track operation will be performed, in [schema_name.]table_name
+        /// format, using standard <a
+        /// href="../../concepts/tables.html#table-name-resolution"
+        /// target="_top">name resolution rules</a>. Must be a currently
+        /// existing table with a <a href="../../geospatial/geo_objects.html"
         /// target="_top">track</a> present.  </param>
         /// <param name="view_name">If provided, then this will be the name of
-        /// the view containing the results. Has the same naming restrictions
-        /// as <a href="../../concepts/tables.html" target="_top">tables</a>.
-        /// The default value is ''.</param>
+        /// the view containing the results, in [schema_name.]view_name format,
+        /// using standard <a
+        /// href="../../concepts/tables.html#table-name-resolution"
+        /// target="_top">name resolution rules</a> and meeting <a
+        /// href="../../concepts/tables.html#table-naming-criteria"
+        /// target="_top">table naming criteria</a>.  Must not be an already
+        /// existing table or view.  The default value is ''.</param>
         /// <param name="track_id">The ID of the track which will act as the
         /// filtering points. Must be an existing track within the given table.
         /// </param>
@@ -221,10 +246,12 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="FilterBySeriesRequest.Options.COLLECTION_NAME">COLLECTION_NAME</see>:</term>
-        ///         <description>Name of a collection which is to contain the
-        /// newly created view. If the collection provided is non-existent, the
-        /// collection will be automatically created. If empty, then the newly
-        /// created view will be top-level.</description>
+        ///         <description>[DEPRECATED--please specify the containing
+        /// schema for the view as part of <paramref
+        /// cref="FilterBySeriesRequest.view_name" /> and use /create/schema to
+        /// create the schema if non-existent]  Name of a schema for the newly
+        /// created view. If the schema is non-existent, it will be
+        /// automatically created.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -287,11 +314,41 @@ namespace kinetica
     public class FilterBySeriesResponse : KineticaData
     {
 
+        /// <summary>Additional information.
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="FilterBySeriesResponse.Info.QUALIFIED_VIEW_NAME">QUALIFIED_VIEW_NAME</see>:</term>
+        ///         <description>The fully qualified name of the view (i.e.
+        /// including the schema)</description>
+        ///     </item>
+        /// </list>
+        /// The default value is an empty {@link Dictionary}.
+        /// A set of string constants for the parameter <member name="info"
+        /// />.</summary>
+        public struct Info
+        {
+
+            /// <summary>The fully qualified name of the view (i.e. including
+            /// the schema)</summary>
+            public const string QUALIFIED_VIEW_NAME = "qualified_view_name";
+        } // end struct Info
+
+
         /// <summary>The number of records passing the series filter.
         /// </summary>
         public long count { get; set; }
 
-        /// <summary>Additional information.  </summary>
+        /// <summary>Additional information.
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="FilterBySeriesResponse.Info.QUALIFIED_VIEW_NAME">QUALIFIED_VIEW_NAME</see>:</term>
+        ///         <description>The fully qualified name of the view (i.e.
+        /// including the schema)</description>
+        ///     </item>
+        /// </list>
+        /// The default value is an empty {@link Dictionary}.</summary>
         public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
 
     } // end class FilterBySeriesResponse

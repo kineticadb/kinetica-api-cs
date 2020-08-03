@@ -17,19 +17,24 @@ namespace kinetica
     /// <br />
     /// Sets up a simple range trigger for a column_name for one or more
     /// tables. Once the trigger has been activated, any record added to the
-    /// listed tables(s) via <see
+    /// listed
+    /// tables(s) via <see
     /// cref="Kinetica.insertRecords{T}(string,IList{T},IDictionary{string, string})"
-    /// /> with the chosen column_name's value falling within the specified
-    /// range will trip the trigger. All such records will be queued at the
-    /// trigger port (by default '9001' but able to be retrieved via <see
-    /// cref="Kinetica.showSystemStatus(IDictionary{string, string})" />) for
-    /// any listening client to collect. Active triggers can be cancelled by
-    /// using the <see
+    /// /> with the chosen column_name's value
+    /// falling within the specified range will trip the trigger. All such
+    /// records will
+    /// be queued at the trigger port (by default '9001' but able to be
+    /// retrieved via
+    /// <see cref="Kinetica.showSystemStatus(IDictionary{string, string})"
+    /// />) for any listening client to collect. Active
+    /// triggers can be cancelled by using the <see
     /// cref="Kinetica.clearTrigger(string,IDictionary{string, string})" />
-    /// endpoint or by clearing all relevant tables.
+    /// endpoint or by
+    /// clearing all relevant tables.
     /// <br />
     /// The output returns the trigger handle as well as indicating success or
-    /// failure of the trigger activation.</summary>
+    /// failure
+    /// of the trigger activation.</summary>
     public class CreateTriggerByRangeRequest : KineticaData
     {
 
@@ -38,7 +43,10 @@ namespace kinetica
         /// character.  </summary>
         public string request_id { get; set; }
 
-        /// <summary>Tables on which the trigger will be active.  </summary>
+        /// <summary>Tables on which the trigger will be active, each in
+        /// [schema_name.]table_name format, using standard <a
+        /// href="../../concepts/tables.html#table-name-resolution"
+        /// target="_top">name resolution rules</a>.  </summary>
         public IList<string> table_names { get; set; } = new List<string>();
 
         /// <summary>Name of a numeric column_name on which the trigger is
@@ -69,7 +77,9 @@ namespace kinetica
         /// can be alphanumeric, contain symbols, and must contain at least one
         /// character.  </param>
         /// <param name="table_names">Tables on which the trigger will be
-        /// active.  </param>
+        /// active, each in [schema_name.]table_name format, using standard <a
+        /// href="../../concepts/tables.html#table-name-resolution"
+        /// target="_top">name resolution rules</a>.  </param>
         /// <param name="column_name">Name of a numeric column_name on which
         /// the trigger is activated.  </param>
         /// <param name="min">The lower bound (inclusive) for the trigger

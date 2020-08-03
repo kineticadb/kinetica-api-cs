@@ -16,20 +16,24 @@ namespace kinetica
     /// />.
     /// <br />
     /// Retrieves records from a collection. The operation can optionally
-    /// return the record IDs which can be used in certain queries such as <see
+    /// return the record IDs which can be used in certain queries such as
+    /// <see
     /// cref="Kinetica.deleteRecords(string,IList{string},IDictionary{string, string})"
     /// />.
     /// <br />
     /// This operation supports paging through the data via the <see
-    /// cref="offset" /> and <see cref="limit" /> parameters.
+    /// cref="offset" /> and
+    /// <see cref="limit" /> parameters.
     /// <br />
     /// Note that when using the Java API, it is not possible to retrieve
-    /// records from join tables using this operation.</summary>
+    /// records from
+    /// join views using this operation.
+    /// (DEPRECATED)</summary>
     public class GetRecordsFromCollectionRequest : KineticaData
     {
 
         /// <summary>Specifies the encoding for returned records; either
-        /// 'binary' or 'json'.
+        /// <i>binary</i> or <i>json</i>.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -57,8 +61,8 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="GetRecordsFromCollectionRequest.Options.RETURN_RECORD_IDS">RETURN_RECORD_IDS</see>:</term>
-        ///         <description>If 'true' then return the internal record ID
-        /// along with each returned record. Default is 'false'.
+        ///         <description>If <i>true</i> then return the internal record
+        /// ID along with each returned record.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -80,8 +84,8 @@ namespace kinetica
         public struct Options
         {
 
-            /// <summary>If 'true' then return the internal record ID along
-            /// with each returned record. Default is 'false'.
+            /// <summary>If <i>true</i> then return the internal record ID
+            /// along with each returned record.
             /// Supported values:
             /// <list type="bullet">
             ///     <item>
@@ -102,7 +106,10 @@ namespace kinetica
 
 
         /// <summary>Name of the collection or table from which records are to
-        /// be retrieved. Must be an existing collection or table.  </summary>
+        /// be retrieved, in [schema_name.]table_name format, using standard <a
+        /// href="../../concepts/tables.html#table-name-resolution"
+        /// target="_top">name resolution rules</a>.  Must be an existing
+        /// collection or table.  </summary>
         public string table_name { get; set; }
 
         /// <summary>A positive integer indicating the number of initial
@@ -124,7 +131,7 @@ namespace kinetica
         public long limit { get; set; } = -9999;
 
         /// <summary>Specifies the encoding for returned records; either
-        /// 'binary' or 'json'.
+        /// <i>binary</i> or <i>json</i>.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -146,8 +153,8 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="GetRecordsFromCollectionRequest.Options.RETURN_RECORD_IDS">RETURN_RECORD_IDS</see>:</term>
-        ///         <description>If 'true' then return the internal record ID
-        /// along with each returned record. Default is 'false'.
+        ///         <description>If <i>true</i> then return the internal record
+        /// ID along with each returned record.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -175,8 +182,11 @@ namespace kinetica
         /// the specified parameters.</summary>
         /// 
         /// <param name="table_name">Name of the collection or table from which
-        /// records are to be retrieved. Must be an existing collection or
-        /// table.  </param>
+        /// records are to be retrieved, in [schema_name.]table_name format,
+        /// using standard <a
+        /// href="../../concepts/tables.html#table-name-resolution"
+        /// target="_top">name resolution rules</a>.  Must be an existing
+        /// collection or table.  </param>
         /// <param name="offset">A positive integer indicating the number of
         /// initial results to skip (this can be useful for paging through the
         /// results).  The default value is 0.The minimum allowed value is 0.
@@ -196,8 +206,8 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="GetRecordsFromCollectionRequest.Options.RETURN_RECORD_IDS">RETURN_RECORD_IDS</see>:</term>
-        ///         <description>If 'true' then return the internal record ID
-        /// along with each returned record. Default is 'false'.
+        ///         <description>If <i>true</i> then return the internal record
+        /// ID along with each returned record.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -232,8 +242,11 @@ namespace kinetica
         /// the specified parameters.</summary>
         /// 
         /// <param name="table_name">Name of the collection or table from which
-        /// records are to be retrieved. Must be an existing collection or
-        /// table.  </param>
+        /// records are to be retrieved, in [schema_name.]table_name format,
+        /// using standard <a
+        /// href="../../concepts/tables.html#table-name-resolution"
+        /// target="_top">name resolution rules</a>.  Must be an existing
+        /// collection or table.  </param>
         /// <param name="offset">A positive integer indicating the number of
         /// initial results to skip (this can be useful for paging through the
         /// results).  The default value is 0.The minimum allowed value is 0.
@@ -249,7 +262,7 @@ namespace kinetica
         /// cref="GetRecordsFromCollectionRequest.limit" /> to request
         /// subsequent pages of results.  The default value is -9999.</param>
         /// <param name="encoding">Specifies the encoding for returned records;
-        /// either 'binary' or 'json'.
+        /// either <i>binary</i> or <i>json</i>.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -269,8 +282,8 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="GetRecordsFromCollectionRequest.Options.RETURN_RECORD_IDS">RETURN_RECORD_IDS</see>:</term>
-        ///         <description>If 'true' then return the internal record ID
-        /// along with each returned record. Default is 'false'.
+        ///         <description>If <i>true</i> then return the internal record
+        /// ID along with each returned record.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>

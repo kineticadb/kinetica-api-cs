@@ -81,8 +81,11 @@ namespace kinetica
         } // end struct LockType
 
 
-        /// <summary>Name of the table to be locked. It must be a currently
-        /// existing table, collection, or view.  </summary>
+        /// <summary>Name of the table to be locked, in
+        /// [schema_name.]table_name format, using standard <a
+        /// href="../../concepts/tables.html#table-name-resolution"
+        /// target="_top">name resolution rules</a>.  It must be a currently
+        /// existing table or view.  </summary>
         public string table_name { get; set; }
 
         /// <summary>The type of lock being applied to the table. Setting it to
@@ -132,8 +135,11 @@ namespace kinetica
         /// <summary>Constructs a LockTableRequest object with the specified
         /// parameters.</summary>
         /// 
-        /// <param name="table_name">Name of the table to be locked. It must be
-        /// a currently existing table, collection, or view.  </param>
+        /// <param name="table_name">Name of the table to be locked, in
+        /// [schema_name.]table_name format, using standard <a
+        /// href="../../concepts/tables.html#table-name-resolution"
+        /// target="_top">name resolution rules</a>.  It must be a currently
+        /// existing table or view.  </param>
         /// <param name="lock_type">The type of lock being applied to the
         /// table. Setting it to <i>status</i> will return the current lock
         /// status of the table without changing it.

@@ -17,11 +17,13 @@ namespace kinetica
     /// <br />
     /// Generate an image containing isolines for travel results using an
     /// existing graph. Isolines represent curves of equal cost, with cost
-    /// typically referring to the time or distance assigned as the weights of
-    /// the underlying graph. See <a
-    /// href="../../graph_solver/network_graph_solver.html"
-    /// target="_top">Network Graphs & Solvers</a> for more information on
-    /// graphs.
+    /// typically
+    /// referring to the time or distance assigned as the weights of the
+    /// underlying
+    /// graph. See
+    /// <a href="../../graph_solver/network_graph_solver.html"
+    /// target="_top">Network Graphs & Solvers</a>
+    /// for more information on graphs.
     /// .</summary>
     public class VisualizeIsochroneRequest : KineticaData
     {
@@ -1219,10 +1221,14 @@ namespace kinetica
         ///         <term><see
         /// cref="VisualizeIsochroneRequest.Options.SOLVE_TABLE">SOLVE_TABLE</see>:</term>
         ///         <description>Name of the table to host intermediate solve
-        /// results containing the position and cost for each vertex in the
-        /// graph. If the default value is used, a temporary table is created
-        /// and deleted once the solution is calculated.  The default value is
-        /// ''.</description>
+        /// results, in [schema_name.]table_name format, using standard <a
+        /// href="../../concepts/tables.html#table-name-resolution"
+        /// target="_top">name resolution rules</a> and meeting <a
+        /// href="../../concepts/tables.html#table-naming-criteria"
+        /// target="_top">table naming criteria</a>.  This table will contain
+        /// the position and cost for each vertex in the graph. If the default
+        /// value is used, a temporary table is created and deleted once the
+        /// solution is calculated.  The default value is ''.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -1331,9 +1337,14 @@ namespace kinetica
         public struct Options
         {
 
-            /// <summary>Name of the table to host intermediate solve results
-            /// containing the position and cost for each vertex in the graph.
-            /// If the default value is used, a temporary table is created and
+            /// <summary>Name of the table to host intermediate solve results,
+            /// in [schema_name.]table_name format, using standard <a
+            /// href="../../concepts/tables.html#table-name-resolution"
+            /// target="_top">name resolution rules</a> and meeting <a
+            /// href="../../concepts/tables.html#table-naming-criteria"
+            /// target="_top">table naming criteria</a>.  This table will
+            /// contain the position and cost for each vertex in the graph. If
+            /// the default value is used, a temporary table is created and
             /// deleted once the solution is calculated.  The default value is
             /// ''.</summary>
             public const string SOLVE_TABLE = "solve_table";
@@ -1502,7 +1513,12 @@ namespace kinetica
         /// </summary>
         public bool generate_image { get; set; } = true;
 
-        /// <summary>Name of the table to output the isochrones, containing
+        /// <summary>Name of the table to output the isochrones to, in
+        /// [schema_name.]table_name format, using standard <a
+        /// href="../../concepts/tables.html#table-name-resolution"
+        /// target="_top">name resolution rules</a> and meeting <a
+        /// href="../../concepts/tables.html#table-naming-criteria"
+        /// target="_top">table naming criteria</a>.  The table will contain
         /// levels and their corresponding WKT geometry. If no value is
         /// provided, the table is not generated.  The default value is
         /// ''.</summary>
@@ -2077,10 +2093,14 @@ namespace kinetica
         ///         <term><see
         /// cref="VisualizeIsochroneRequest.Options.SOLVE_TABLE">SOLVE_TABLE</see>:</term>
         ///         <description>Name of the table to host intermediate solve
-        /// results containing the position and cost for each vertex in the
-        /// graph. If the default value is used, a temporary table is created
-        /// and deleted once the solution is calculated.  The default value is
-        /// ''.</description>
+        /// results, in [schema_name.]table_name format, using standard <a
+        /// href="../../concepts/tables.html#table-name-resolution"
+        /// target="_top">name resolution rules</a> and meeting <a
+        /// href="../../concepts/tables.html#table-naming-criteria"
+        /// target="_top">table naming criteria</a>.  This table will contain
+        /// the position and cost for each vertex in the graph. If the default
+        /// value is used, a temporary table is created and deleted once the
+        /// solution is calculated.  The default value is ''.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -2249,9 +2269,14 @@ namespace kinetica
         /// cref="VisualizeIsochroneRequest.GenerateImage.TRUE">TRUE</see>.
         /// </param>
         /// <param name="levels_table">Name of the table to output the
-        /// isochrones, containing levels and their corresponding WKT geometry.
-        /// If no value is provided, the table is not generated.  The default
-        /// value is ''.</param>
+        /// isochrones to, in [schema_name.]table_name format, using standard
+        /// <a href="../../concepts/tables.html#table-name-resolution"
+        /// target="_top">name resolution rules</a> and meeting <a
+        /// href="../../concepts/tables.html#table-naming-criteria"
+        /// target="_top">table naming criteria</a>.  The table will contain
+        /// levels and their corresponding WKT geometry. If no value is
+        /// provided, the table is not generated.  The default value is
+        /// ''.</param>
         /// <param name="style_options">Various style related options of the
         /// isochrone image.
         /// <list type="bullet">
@@ -2816,10 +2841,14 @@ namespace kinetica
         ///         <term><see
         /// cref="VisualizeIsochroneRequest.Options.SOLVE_TABLE">SOLVE_TABLE</see>:</term>
         ///         <description>Name of the table to host intermediate solve
-        /// results containing the position and cost for each vertex in the
-        /// graph. If the default value is used, a temporary table is created
-        /// and deleted once the solution is calculated.  The default value is
-        /// ''.</description>
+        /// results, in [schema_name.]table_name format, using standard <a
+        /// href="../../concepts/tables.html#table-name-resolution"
+        /// target="_top">name resolution rules</a> and meeting <a
+        /// href="../../concepts/tables.html#table-naming-criteria"
+        /// target="_top">table naming criteria</a>.  This table will contain
+        /// the position and cost for each vertex in the graph. If the default
+        /// value is used, a temporary table is created and deleted once the
+        /// solution is calculated.  The default value is ''.</description>
         ///     </item>
         ///     <item>
         ///         <term><see

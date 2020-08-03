@@ -15,25 +15,26 @@ namespace kinetica
     /// cref="Kinetica.adminAddRanks(IList{string},IList{IDictionary{string, string}},IDictionary{string, string})"
     /// />.
     /// <br />
-    /// Add one or more new ranks to the Kinetica cluster. The new ranks will
-    /// not contain any data initially, other than replicated tables, and not
-    /// be assigned any shards. To rebalance data across the cluster, which
-    /// includes shifting some shard key assignments to newly added ranks, see
-    /// <see cref="Kinetica.adminRebalance(IDictionary{string, string})" />.
+    /// Add one or more ranks to an existing Kinetica cluster. The new ranks
+    /// will not contain any data initially (other than replicated tables) and
+    /// will not be assigned any shards. To rebalance data and shards across
+    /// the cluster, use <see
+    /// cref="Kinetica.adminRebalance(IDictionary{string, string})" />.
     /// <br />
     /// For example, if attempting to add three new ranks (two ranks on host
     /// 172.123.45.67 and one rank on host 172.123.45.68) to a Kinetica cluster
     /// with additional configuration parameters:
     /// <br />
-    /// * <see cref="hosts" /> would be an array including 172.123.45.67 in the
-    /// first two indices (signifying two ranks being added to host
-    /// 172.123.45.67) and 172.123.45.68 in the last index (signifying one rank
-    /// being added to host 172.123.45.67)
-    /// <br />
-    /// * <see cref="config_params" /> would be an array of maps, with each map
-    /// corresponding to the ranks being added in <see cref="hosts" />. The key
-    /// of each map would be the configuration parameter name and the value
-    /// would be the parameter's value, e.g. 'rank.gpu':'1'
+    /// * <see cref="hosts" />
+    ///   would be an array including 172.123.45.67 in the first two indices
+    ///   (signifying two ranks being added to host 172.123.45.67) and
+    ///   172.123.45.68 in the last index (signifying one rank being added
+    ///   to host 172.123.45.67)
+    /// * <see cref="config_params" />
+    ///   would be an array of maps, with each map corresponding to the ranks
+    ///   being added in <see cref="hosts" />. The key of each map would be
+    ///   the configuration parameter name and the value would be the
+    ///   parameter's value, e.g. '{"rank.gpu":"1"}'
     /// <br />
     /// This endpoint's processing includes copying all replicated table data
     /// to the new rank(s) and therefore could take a long time. The API call
@@ -93,21 +94,46 @@ namespace kinetica
         } // end struct Options
 
 
-        /// <summary>The IP address of each rank being added to the cluster.
-        /// Insert one entry per rank, even if they are on the same host. The
-        /// order of the hosts in the array only matters as it relates to the
-        /// <paramref cref="AdminAddRanksRequest.config_params" />.  </summary>
+        /// <summary>Array of host IP addresses (matching a hostN.address from
+        /// the gpudb.conf file), or host identifiers (e.g. 'host0' from the
+        /// gpudb.conf file), on which to add ranks to the cluster. The hosts
+        /// must already be in the cluster. If needed beforehand, to add a new
+        /// host to the cluster use /admin/add/host. Include the same entry as
+        /// many times as there are ranks to add to the cluster, e.g., if two
+        /// ranks on host 172.123.45.67 should be added, <paramref
+        /// cref="AdminAddRanksRequest.hosts" /> could look like
+        /// '["172.123.45.67", "172.123.45.67"]'. All ranks will be added
+        /// simultaneously, i.e. they're not added in the order of this array.
+        /// Each entry in this array corresponds to the entry at the same index
+        /// in the <paramref cref="AdminAddRanksRequest.config_params" />.
+        /// </summary>
         public IList<string> hosts { get; set; } = new List<string>();
 
-        /// <summary>Configuration parameters to apply to the new ranks, e.g.,
-        /// which GPU to use. Configuration parameters that start with
-        /// 'rankN.', where N is the rank number, should omit the N, as the new
-        /// rank number(s) are not allocated until the ranks are created. Each
-        /// entry in this array corresponds to the entry at the same array
-        /// index in the <paramref cref="AdminAddRanksRequest.hosts" />. This
-        /// array must either be completely empty or have the same number of
-        /// elements as the hosts array.  An empty array will result in the new
-        /// ranks being set only with default parameters.  </summary>
+        /// <summary>Array of maps containing configuration parameters to apply
+        /// to the new ranks found in <paramref
+        /// cref="AdminAddRanksRequest.hosts" />. For example,
+        /// '{"rank.gpu":"2", "tier.ram.rank.limit":"10000000000"}'. Currently,
+        /// the available parameters are rank-specific parameters in the <a
+        /// href="../../config/index.html#network" target="_top">Network</a>,
+        /// <a href="../../config/index.html#hardware"
+        /// target="_top">Hardware</a>, <a
+        /// href="../../config/index.html#text-search" target="_top">Text
+        /// Search</a>, and <a href="../../config/index.html#ram-tier"
+        /// target="_top">RAM Tiered Storage</a> sections in the gpudb.conf
+        /// file, with the key exception of the 'rankN.host' settings in the
+        /// Network section that will be determined by <paramref
+        /// cref="AdminAddRanksRequest.hosts" /> instead. Though many of these
+        /// configuration parameters typically are affixed with 'rankN' in the
+        /// gpudb.conf file (where N is the rank number), the 'N' should be
+        /// omitted in <paramref cref="AdminAddRanksRequest.config_params" />
+        /// as the new rank number(s) are not allocated until the ranks have
+        /// been added to the cluster. Each entry in this array corresponds to
+        /// the entry at the same index in the <paramref
+        /// cref="AdminAddRanksRequest.hosts" />. This array must either be
+        /// completely empty or have the same number of elements as the
+        /// <paramref cref="AdminAddRanksRequest.hosts" />.  An empty <paramref
+        /// cref="AdminAddRanksRequest.config_params" /> array will result in
+        /// the new ranks being set with default parameters.  </summary>
         public IList<IDictionary<string, string>> config_params { get; set; } = new List<IDictionary<string, string>>();
 
         /// <summary>Optional parameters.
@@ -143,21 +169,44 @@ namespace kinetica
         /// <summary>Constructs an AdminAddRanksRequest object with the
         /// specified parameters.</summary>
         /// 
-        /// <param name="hosts">The IP address of each rank being added to the
-        /// cluster. Insert one entry per rank, even if they are on the same
-        /// host. The order of the hosts in the array only matters as it
-        /// relates to the <paramref cref="AdminAddRanksRequest.config_params"
-        /// />.  </param>
-        /// <param name="config_params">Configuration parameters to apply to
-        /// the new ranks, e.g., which GPU to use. Configuration parameters
-        /// that start with 'rankN.', where N is the rank number, should omit
-        /// the N, as the new rank number(s) are not allocated until the ranks
-        /// are created. Each entry in this array corresponds to the entry at
-        /// the same array index in the <paramref
+        /// <param name="hosts">Array of host IP addresses (matching a
+        /// hostN.address from the gpudb.conf file), or host identifiers (e.g.
+        /// 'host0' from the gpudb.conf file), on which to add ranks to the
+        /// cluster. The hosts must already be in the cluster. If needed
+        /// beforehand, to add a new host to the cluster use /admin/add/host.
+        /// Include the same entry as many times as there are ranks to add to
+        /// the cluster, e.g., if two ranks on host 172.123.45.67 should be
+        /// added, <paramref cref="AdminAddRanksRequest.hosts" /> could look
+        /// like '["172.123.45.67", "172.123.45.67"]'. All ranks will be added
+        /// simultaneously, i.e. they're not added in the order of this array.
+        /// Each entry in this array corresponds to the entry at the same index
+        /// in the <paramref cref="AdminAddRanksRequest.config_params" />.
+        /// </param>
+        /// <param name="config_params">Array of maps containing configuration
+        /// parameters to apply to the new ranks found in <paramref
+        /// cref="AdminAddRanksRequest.hosts" />. For example,
+        /// '{"rank.gpu":"2", "tier.ram.rank.limit":"10000000000"}'. Currently,
+        /// the available parameters are rank-specific parameters in the <a
+        /// href="../../config/index.html#network" target="_top">Network</a>,
+        /// <a href="../../config/index.html#hardware"
+        /// target="_top">Hardware</a>, <a
+        /// href="../../config/index.html#text-search" target="_top">Text
+        /// Search</a>, and <a href="../../config/index.html#ram-tier"
+        /// target="_top">RAM Tiered Storage</a> sections in the gpudb.conf
+        /// file, with the key exception of the 'rankN.host' settings in the
+        /// Network section that will be determined by <paramref
+        /// cref="AdminAddRanksRequest.hosts" /> instead. Though many of these
+        /// configuration parameters typically are affixed with 'rankN' in the
+        /// gpudb.conf file (where N is the rank number), the 'N' should be
+        /// omitted in <paramref cref="AdminAddRanksRequest.config_params" />
+        /// as the new rank number(s) are not allocated until the ranks have
+        /// been added to the cluster. Each entry in this array corresponds to
+        /// the entry at the same index in the <paramref
         /// cref="AdminAddRanksRequest.hosts" />. This array must either be
-        /// completely empty or have the same number of elements as the hosts
-        /// array.  An empty array will result in the new ranks being set only
-        /// with default parameters.  </param>
+        /// completely empty or have the same number of elements as the
+        /// <paramref cref="AdminAddRanksRequest.hosts" />.  An empty <paramref
+        /// cref="AdminAddRanksRequest.config_params" /> array will result in
+        /// the new ranks being set with default parameters.  </param>
         /// <param name="options">Optional parameters.
         /// <list type="bullet">
         ///     <item>
@@ -201,17 +250,11 @@ namespace kinetica
     public class AdminAddRanksResponse : KineticaData
     {
 
-        /// <summary>The number assigned to each newly added rank, in the same
-        /// order as the ranks in the <paramref
-        /// cref="AdminAddRanksRequest.hosts" />. Will be empty if the
-        /// operation fails.  </summary>
-        public IList<int> added_ranks { get; set; } = new List<int>();
-
-        /// <summary>Text description of the result of each rank being added.
-        /// Indicates the reason for any errors that occur. Entries are in the
-        /// same order as the <paramref cref="AdminAddRanksRequest.hosts" />.
-        /// </summary>
-        public IList<string> results { get; set; } = new List<string>();
+        /// <summary>The number assigned to each added rank, formatted as
+        /// 'rankN', in the same order as the ranks in <paramref
+        /// cref="AdminAddRanksRequest.hosts" /> and <paramref
+        /// cref="AdminAddRanksRequest.config_params" />.  </summary>
+        public IList<string> added_ranks { get; set; } = new List<string>();
 
         /// <summary>Additional information.  </summary>
         public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();

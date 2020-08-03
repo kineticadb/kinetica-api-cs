@@ -51,6 +51,61 @@ namespace kinetica
         } // end struct RequestEncoding
 
 
+        /// <summary>Optional parameters.
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateJobRequest.Options.REMOVE_JOB_ON_COMPLETE">REMOVE_JOB_ON_COMPLETE</see>:</term>
+        ///         <description>
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateJobRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateJobRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list></description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateJobRequest.Options.JOB_TAG">JOB_TAG</see>:</term>
+        ///         <description>Tag to use for submitted job. The same tag
+        /// could be used on backup cluster to retrieve response for the job.
+        /// Tags can use letter, numbers, '_' and '-'</description>
+        ///     </item>
+        /// </list>
+        /// The default value is an empty {@link Dictionary}.
+        /// A set of string constants for the parameter <see cref="options"
+        /// />.</summary>
+        public struct Options
+        {
+
+            /// <summary>
+            /// Supported values:
+            /// <list type="bullet">
+            ///     <item>
+            ///         <term><see
+            /// cref="CreateJobRequest.Options.TRUE">TRUE</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="CreateJobRequest.Options.FALSE">FALSE</see></term>
+            ///     </item>
+            /// </list></summary>
+            public const string REMOVE_JOB_ON_COMPLETE = "remove_job_on_complete";
+            public const string TRUE = "true";
+            public const string FALSE = "false";
+
+            /// <summary>Tag to use for submitted job. The same tag could be
+            /// used on backup cluster to retrieve response for the job. Tags
+            /// can use letter, numbers, '_' and '-'</summary>
+            public const string JOB_TAG = "job_tag";
+        } // end struct Options
+
+
         /// <summary>Indicates which endpoint to execute, e.g. '/alter/table'.
         /// </summary>
         public string endpoint { get; set; }
@@ -95,8 +150,33 @@ namespace kinetica
         /// must be <i>json</i>.  </summary>
         public string data_str { get; set; }
 
-        /// <summary>Optional parameters.  The default value is an empty {@link
-        /// Dictionary}.</summary>
+        /// <summary>Optional parameters.
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateJobRequest.Options.REMOVE_JOB_ON_COMPLETE">REMOVE_JOB_ON_COMPLETE</see>:</term>
+        ///         <description>
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateJobRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateJobRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list></description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateJobRequest.Options.JOB_TAG">JOB_TAG</see>:</term>
+        ///         <description>Tag to use for submitted job. The same tag
+        /// could be used on backup cluster to retrieve response for the job.
+        /// Tags can use letter, numbers, '_' and '-'</description>
+        ///     </item>
+        /// </list>
+        /// The default value is an empty {@link Dictionary}.</summary>
         public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
 
 
@@ -145,8 +225,33 @@ namespace kinetica
         /// specified.  If this parameter is used, then <paramref
         /// cref="CreateJobRequest.request_encoding" /> must be <i>json</i>.
         /// </param>
-        /// <param name="options">Optional parameters.  The default value is an
-        /// empty {@link Dictionary}.</param>
+        /// <param name="options">Optional parameters.
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateJobRequest.Options.REMOVE_JOB_ON_COMPLETE">REMOVE_JOB_ON_COMPLETE</see>:</term>
+        ///         <description>
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateJobRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateJobRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list></description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateJobRequest.Options.JOB_TAG">JOB_TAG</see>:</term>
+        ///         <description>Tag to use for submitted job. The same tag
+        /// could be used on backup cluster to retrieve response for the job.
+        /// Tags can use letter, numbers, '_' and '-'</description>
+        ///     </item>
+        /// </list>
+        /// The default value is an empty {@link Dictionary}.</param>
         /// 
         public CreateJobRequest( string endpoint,
                                  string request_encoding,
@@ -171,11 +276,44 @@ namespace kinetica
     public class CreateJobResponse : KineticaData
     {
 
+        /// <summary>Additional information.
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateJobResponse.Info.JOB_TAG">JOB_TAG</see>:</term>
+        ///         <description>The job tag specified by the user or if
+        /// unspecified by user, a unique identifier generated internally for
+        /// the job across clusters.</description>
+        ///     </item>
+        /// </list>
+        /// The default value is an empty {@link Dictionary}.
+        /// A set of string constants for the parameter <member name="info"
+        /// />.</summary>
+        public struct Info
+        {
+
+            /// <summary>The job tag specified by the user or if unspecified by
+            /// user, a unique identifier generated internally for the job
+            /// across clusters.</summary>
+            public const string JOB_TAG = "job_tag";
+        } // end struct Info
+
+
         /// <summary>An identifier for the job created by this call.
         /// </summary>
         public long job_id { get; set; }
 
-        /// <summary>Additional information.  </summary>
+        /// <summary>Additional information.
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateJobResponse.Info.JOB_TAG">JOB_TAG</see>:</term>
+        ///         <description>The job tag specified by the user or if
+        /// unspecified by user, a unique identifier generated internally for
+        /// the job across clusters.</description>
+        ///     </item>
+        /// </list>
+        /// The default value is an empty {@link Dictionary}.</summary>
         public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
 
     } // end class CreateJobResponse

@@ -129,10 +129,12 @@ namespace kinetica
         /// </list>  </summary>
         public string permission { get; set; }
 
-        /// <summary>Name of the table to which the permission grants access.
-        /// Must be an existing table, collection, or view. If a collection,
-        /// the permission also applies to tables and views in the collection.
-        /// </summary>
+        /// <summary>Name of the table to which the permission grants access,
+        /// in [schema_name.]table_name format, using standard <a
+        /// href="../../concepts/tables.html#table-name-resolution"
+        /// target="_top">name resolution rules</a>.  Must be an existing
+        /// table, view, or schema. If a schema, the permission also applies to
+        /// tables and views in the schema.  </summary>
         public string table_name { get; set; }
 
         /// <summary>Optional filter expression to apply to this grant.  Only
@@ -193,9 +195,11 @@ namespace kinetica
         ///     </item>
         /// </list>  </param>
         /// <param name="table_name">Name of the table to which the permission
-        /// grants access. Must be an existing table, collection, or view. If a
-        /// collection, the permission also applies to tables and views in the
-        /// collection.  </param>
+        /// grants access, in [schema_name.]table_name format, using standard
+        /// <a href="../../concepts/tables.html#table-name-resolution"
+        /// target="_top">name resolution rules</a>.  Must be an existing
+        /// table, view, or schema. If a schema, the permission also applies to
+        /// tables and views in the schema.  </param>
         /// <param name="filter_expression">Optional filter expression to apply
         /// to this grant.  Only rows that match the filter will be affected.
         /// The default value is ''.</param>

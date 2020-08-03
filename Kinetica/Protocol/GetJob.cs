@@ -21,12 +21,40 @@ namespace kinetica
     public class GetJobRequest : KineticaData
     {
 
+        /// <summary>Optional parameters.
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="GetJobRequest.Options.JOB_TAG">JOB_TAG</see>:</term>
+        ///         <description>Job tag returned in call to create the
+        /// job</description>
+        ///     </item>
+        /// </list>
+        /// The default value is an empty {@link Dictionary}.
+        /// A set of string constants for the parameter <see cref="options"
+        /// />.</summary>
+        public struct Options
+        {
+
+            /// <summary>Job tag returned in call to create the job</summary>
+            public const string JOB_TAG = "job_tag";
+        } // end struct Options
+
+
         /// <summary>A unique identifier for the job whose status and result is
         /// to be fetched.  </summary>
         public long job_id { get; set; }
 
-        /// <summary>Optional parameters.  The default value is an empty {@link
-        /// Dictionary}.</summary>
+        /// <summary>Optional parameters.
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="GetJobRequest.Options.JOB_TAG">JOB_TAG</see>:</term>
+        ///         <description>Job tag returned in call to create the
+        /// job</description>
+        ///     </item>
+        /// </list>
+        /// The default value is an empty {@link Dictionary}.</summary>
         public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
 
 
@@ -39,8 +67,16 @@ namespace kinetica
         /// 
         /// <param name="job_id">A unique identifier for the job whose status
         /// and result is to be fetched.  </param>
-        /// <param name="options">Optional parameters.  The default value is an
-        /// empty {@link Dictionary}.</param>
+        /// <param name="options">Optional parameters.
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="GetJobRequest.Options.JOB_TAG">JOB_TAG</see>:</term>
+        ///         <description>Job tag returned in call to create the
+        /// job</description>
+        ///     </item>
+        /// </list>
+        /// The default value is an empty {@link Dictionary}.</param>
         /// 
         public GetJobRequest( long job_id,
                               IDictionary<string, string> options = null)

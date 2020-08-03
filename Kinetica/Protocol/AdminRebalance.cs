@@ -14,12 +14,31 @@ namespace kinetica
     /// <summary>A set of parameters for <see
     /// cref="Kinetica.adminRebalance(IDictionary{string, string})" />.
     /// <br />
-    /// Rebalance the cluster so that all the nodes contain approximately an
-    /// equal number of records.  The rebalance will also cause the shards to
-    /// be equally distributed (as much as possible) across all the ranks.
+    /// Rebalance the data in the cluster so that all nodes contain an equal
+    /// number of records approximately and/or rebalance the shards to be
+    /// equally distributed (as much as possible) across all the ranks.
     /// <br />
-    /// This endpoint may take a long time to run, depending on the amount of
-    /// data in the system. The API call may time out if run directly.  It is
+    /// * If <see cref="Kinetica.adminRebalance(IDictionary{string, string})"
+    /// /> is invoked after a change is made to the
+    ///   cluster, e.g., a host was added or removed,
+    ///   <a href="../../concepts/tables.html#sharding" target="_top">sharded
+    /// data</a> will be
+    ///   evenly redistributed across the cluster by number of shards per rank
+    ///   while unsharded data will be redistributed across the cluster by data
+    ///   size per rank
+    /// * If <see cref="Kinetica.adminRebalance(IDictionary{string, string})"
+    /// /> is invoked at some point when unsharded
+    ///   data (a.k.a.
+    ///   <a href="../../concepts/tables.html#random-sharding"
+    /// target="_top">randomly-sharded</a>)
+    ///   in the cluster is unevenly distributed over time, sharded data will
+    ///   not move while unsharded data will be redistributed across the
+    ///   cluster by data size per rank
+    /// <br />
+    /// NOTE: Replicated data will not move as a result of this call
+    /// <br />
+    /// This endpoint's processing time depends on the amount of data in the
+    /// system, thus the API call may time out if run directly.  It is
     /// recommended to run this endpoint asynchronously via <see
     /// cref="Kinetica.createJob(string,string,byte[],string,IDictionary{string, string})"
     /// />.</summary>
@@ -31,10 +50,12 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="AdminRebalanceRequest.Options.REBALANCE_SHARDED_DATA">REBALANCE_SHARDED_DATA</see>:</term>
-        ///         <description>If <i>true</i>, sharded data will be
-        /// rebalanced approximately equally across the cluster. Note that for
-        /// big clusters, this data transfer could be time consuming and result
-        /// in delayed query responses.
+        ///         <description>If <i>true</i>, <a
+        /// href="../../concepts/tables.html#sharding" target="_top">sharded
+        /// data</a> will be rebalanced approximately equally across the
+        /// cluster. Note that for clusters with large amounts of sharded data,
+        /// this data transfer could be time consuming and result in delayed
+        /// query responses.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -52,11 +73,12 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="AdminRebalanceRequest.Options.REBALANCE_UNSHARDED_DATA">REBALANCE_UNSHARDED_DATA</see>:</term>
-        ///         <description>If <i>true</i>, unsharded data (data without
-        /// primary keys and without shard keys) will be rebalanced
-        /// approximately equally across the cluster. Note that for big
-        /// clusters, this data transfer could be time consuming and result in
-        /// delayed query responses.
+        ///         <description>If <i>true</i>, unsharded data (a.k.a. <a
+        /// href="../../concepts/tables.html#random-sharding"
+        /// target="_top">randomly-sharded</a>) will be rebalanced
+        /// approximately equally across the cluster. Note that for clusters
+        /// with large amounts of unsharded data, this data transfer could be
+        /// time consuming and result in delayed query responses.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -73,39 +95,39 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AdminRebalanceRequest.Options.TABLE_WHITELIST">TABLE_WHITELIST</see>:</term>
+        /// cref="AdminRebalanceRequest.Options.TABLE_INCLUDES">TABLE_INCLUDES</see>:</term>
         ///         <description>Comma-separated list of unsharded table names
         /// to rebalance. Not applicable to sharded tables because they are
-        /// always balanced in accordance with their primary key or shard key.
-        /// Cannot be used simultaneously with
-        /// <i>table_blacklist</i>.</description>
+        /// always rebalanced. Cannot be used simultaneously with
+        /// <i>table_excludes</i>. This parameter is ignored if
+        /// <i>rebalance_unsharded_data</i> is <i>false</i>.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AdminRebalanceRequest.Options.TABLE_BLACKLIST">TABLE_BLACKLIST</see>:</term>
+        /// cref="AdminRebalanceRequest.Options.TABLE_EXCLUDES">TABLE_EXCLUDES</see>:</term>
         ///         <description>Comma-separated list of unsharded table names
         /// to not rebalance. Not applicable to sharded tables because they are
-        /// always balanced in accordance with their primary key or shard key.
-        /// Cannot be used simultaneously with
-        /// <i>table_whitelist</i>.</description>
+        /// always rebalanced. Cannot be used simultaneously with
+        /// <i>table_includes</i>. This parameter is ignored if
+        /// <i>rebalance_unsharded_data</i> is <i>false</i>.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="AdminRebalanceRequest.Options.AGGRESSIVENESS">AGGRESSIVENESS</see>:</term>
-        ///         <description>Influences how much data to send per rebalance
-        /// round.  A higher aggressiveness setting will complete the rebalance
-        /// faster.  A lower aggressiveness setting will take longer, but allow
-        /// for better interleaving between the rebalance and other queries.
-        /// Allowed values are 1 through 10.  The default value is
-        /// '1'.</description>
+        ///         <description>Influences how much data is moved at a time
+        /// during rebalance.  A higher <i>aggressiveness</i> will complete the
+        /// rebalance faster.  A lower <i>aggressiveness</i> will take longer
+        /// but allow for better interleaving between the rebalance and other
+        /// queries. Valid values are constants from 1 (lowest) to 10
+        /// (highest).  The default value is '1'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="AdminRebalanceRequest.Options.COMPACT_AFTER_REBALANCE">COMPACT_AFTER_REBALANCE</see>:</term>
         ///         <description>Perform compaction of deleted records once the
-        /// rebalance completes, to reclaim memory and disk space. Default is
-        /// true, unless <i>repair_incorrectly_sharded_data</i> is set to
-        /// <i>true</i>.
+        /// rebalance completes to reclaim memory and disk space. Default is
+        /// <i>true</i>, unless <i>repair_incorrectly_sharded_data</i> is set
+        /// to <i>true</i>.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -123,8 +145,9 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="AdminRebalanceRequest.Options.COMPACT_ONLY">COMPACT_ONLY</see>:</term>
-        ///         <description>Only perform compaction, do not rebalance.
-        /// Default is false.
+        ///         <description>If set to <i>true</i>, ignore rebalance
+        /// options and attempt to perform compaction of deleted records to
+        /// reclaim memory and disk space without rebalancing first.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -143,12 +166,14 @@ namespace kinetica
         ///         <term><see
         /// cref="AdminRebalanceRequest.Options.REPAIR_INCORRECTLY_SHARDED_DATA">REPAIR_INCORRECTLY_SHARDED_DATA</see>:</term>
         ///         <description>Scans for any data sharded incorrectly and
-        /// re-routes the correct location. This can be done as part of a
-        /// typical rebalance after expanding the cluster, or in a standalone
-        /// fashion when it is believed that data is sharded incorrectly
-        /// somewhere in the cluster. Compaction will not be performed by
-        /// default when this is enabled. This option may also lengthen
-        /// rebalance time, and increase the memory used by the rebalance.
+        /// re-routes the data to the correct location. Only necessary if
+        /// /admin/verifydb reports an error in sharding alignment. This can be
+        /// done as part of a typical rebalance after expanding the cluster or
+        /// in a standalone fashion when it is believed that data is sharded
+        /// incorrectly somewhere in the cluster. Compaction will not be
+        /// performed by default when this is enabled. If this option is set to
+        /// <i>true</i>, the time necessary to rebalance and the memory used by
+        /// the rebalance may increase.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -170,10 +195,12 @@ namespace kinetica
         public struct Options
         {
 
-            /// <summary>If <i>true</i>, sharded data will be rebalanced
-            /// approximately equally across the cluster. Note that for big
-            /// clusters, this data transfer could be time consuming and result
-            /// in delayed query responses.
+            /// <summary>If <i>true</i>, <a
+            /// href="../../concepts/tables.html#sharding"
+            /// target="_top">sharded data</a> will be rebalanced approximately
+            /// equally across the cluster. Note that for clusters with large
+            /// amounts of sharded data, this data transfer could be time
+            /// consuming and result in delayed query responses.
             /// Supported values:
             /// <list type="bullet">
             ///     <item>
@@ -191,11 +218,13 @@ namespace kinetica
             public const string TRUE = "true";
             public const string FALSE = "false";
 
-            /// <summary>If <i>true</i>, unsharded data (data without primary
-            /// keys and without shard keys) will be rebalanced approximately
-            /// equally across the cluster. Note that for big clusters, this
-            /// data transfer could be time consuming and result in delayed
-            /// query responses.
+            /// <summary>If <i>true</i>, unsharded data (a.k.a. <a
+            /// href="../../concepts/tables.html#random-sharding"
+            /// target="_top">randomly-sharded</a>) will be rebalanced
+            /// approximately equally across the cluster. Note that for
+            /// clusters with large amounts of unsharded data, this data
+            /// transfer could be time consuming and result in delayed query
+            /// responses.
             /// Supported values:
             /// <list type="bullet">
             ///     <item>
@@ -213,30 +242,30 @@ namespace kinetica
 
             /// <summary>Comma-separated list of unsharded table names to
             /// rebalance. Not applicable to sharded tables because they are
-            /// always balanced in accordance with their primary key or shard
-            /// key. Cannot be used simultaneously with
-            /// <i>table_blacklist</i>.</summary>
-            public const string TABLE_WHITELIST = "table_whitelist";
+            /// always rebalanced. Cannot be used simultaneously with
+            /// <i>table_excludes</i>. This parameter is ignored if
+            /// <i>rebalance_unsharded_data</i> is <i>false</i>.</summary>
+            public const string TABLE_INCLUDES = "table_includes";
 
             /// <summary>Comma-separated list of unsharded table names to not
             /// rebalance. Not applicable to sharded tables because they are
-            /// always balanced in accordance with their primary key or shard
-            /// key. Cannot be used simultaneously with
-            /// <i>table_whitelist</i>.</summary>
-            public const string TABLE_BLACKLIST = "table_blacklist";
+            /// always rebalanced. Cannot be used simultaneously with
+            /// <i>table_includes</i>. This parameter is ignored if
+            /// <i>rebalance_unsharded_data</i> is <i>false</i>.</summary>
+            public const string TABLE_EXCLUDES = "table_excludes";
 
-            /// <summary>Influences how much data to send per rebalance round.
-            /// A higher aggressiveness setting will complete the rebalance
-            /// faster.  A lower aggressiveness setting will take longer, but
-            /// allow for better interleaving between the rebalance and other
-            /// queries. Allowed values are 1 through 10.  The default value is
-            /// '1'.</summary>
+            /// <summary>Influences how much data is moved at a time during
+            /// rebalance.  A higher <i>aggressiveness</i> will complete the
+            /// rebalance faster.  A lower <i>aggressiveness</i> will take
+            /// longer but allow for better interleaving between the rebalance
+            /// and other queries. Valid values are constants from 1 (lowest)
+            /// to 10 (highest).  The default value is '1'.</summary>
             public const string AGGRESSIVENESS = "aggressiveness";
 
             /// <summary>Perform compaction of deleted records once the
-            /// rebalance completes, to reclaim memory and disk space. Default
-            /// is true, unless <i>repair_incorrectly_sharded_data</i> is set
-            /// to <i>true</i>.
+            /// rebalance completes to reclaim memory and disk space. Default
+            /// is <i>true</i>, unless <i>repair_incorrectly_sharded_data</i>
+            /// is set to <i>true</i>.
             /// Supported values:
             /// <list type="bullet">
             ///     <item>
@@ -252,8 +281,9 @@ namespace kinetica
             /// cref="AdminRebalanceRequest.Options.TRUE">TRUE</see>.</summary>
             public const string COMPACT_AFTER_REBALANCE = "compact_after_rebalance";
 
-            /// <summary>Only perform compaction, do not rebalance. Default is
-            /// false.
+            /// <summary>If set to <i>true</i>, ignore rebalance options and
+            /// attempt to perform compaction of deleted records to reclaim
+            /// memory and disk space without rebalancing first.
             /// Supported values:
             /// <list type="bullet">
             ///     <item>
@@ -270,12 +300,15 @@ namespace kinetica
             public const string COMPACT_ONLY = "compact_only";
 
             /// <summary>Scans for any data sharded incorrectly and re-routes
-            /// the correct location. This can be done as part of a typical
-            /// rebalance after expanding the cluster, or in a standalone
-            /// fashion when it is believed that data is sharded incorrectly
-            /// somewhere in the cluster. Compaction will not be performed by
-            /// default when this is enabled. This option may also lengthen
-            /// rebalance time, and increase the memory used by the rebalance.
+            /// the data to the correct location. Only necessary if <see
+            /// cref="Kinetica.adminVerifyDb(IDictionary{string, string})" />
+            /// reports an error in sharding alignment. This can be done as
+            /// part of a typical rebalance after expanding the cluster or in a
+            /// standalone fashion when it is believed that data is sharded
+            /// incorrectly somewhere in the cluster. Compaction will not be
+            /// performed by default when this is enabled. If this option is
+            /// set to <i>true</i>, the time necessary to rebalance and the
+            /// memory used by the rebalance may increase.
             /// Supported values:
             /// <list type="bullet">
             ///     <item>
@@ -298,10 +331,12 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="AdminRebalanceRequest.Options.REBALANCE_SHARDED_DATA">REBALANCE_SHARDED_DATA</see>:</term>
-        ///         <description>If <i>true</i>, sharded data will be
-        /// rebalanced approximately equally across the cluster. Note that for
-        /// big clusters, this data transfer could be time consuming and result
-        /// in delayed query responses.
+        ///         <description>If <i>true</i>, <a
+        /// href="../../concepts/tables.html#sharding" target="_top">sharded
+        /// data</a> will be rebalanced approximately equally across the
+        /// cluster. Note that for clusters with large amounts of sharded data,
+        /// this data transfer could be time consuming and result in delayed
+        /// query responses.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -319,11 +354,12 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="AdminRebalanceRequest.Options.REBALANCE_UNSHARDED_DATA">REBALANCE_UNSHARDED_DATA</see>:</term>
-        ///         <description>If <i>true</i>, unsharded data (data without
-        /// primary keys and without shard keys) will be rebalanced
-        /// approximately equally across the cluster. Note that for big
-        /// clusters, this data transfer could be time consuming and result in
-        /// delayed query responses.
+        ///         <description>If <i>true</i>, unsharded data (a.k.a. <a
+        /// href="../../concepts/tables.html#random-sharding"
+        /// target="_top">randomly-sharded</a>) will be rebalanced
+        /// approximately equally across the cluster. Note that for clusters
+        /// with large amounts of unsharded data, this data transfer could be
+        /// time consuming and result in delayed query responses.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -340,39 +376,39 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AdminRebalanceRequest.Options.TABLE_WHITELIST">TABLE_WHITELIST</see>:</term>
+        /// cref="AdminRebalanceRequest.Options.TABLE_INCLUDES">TABLE_INCLUDES</see>:</term>
         ///         <description>Comma-separated list of unsharded table names
         /// to rebalance. Not applicable to sharded tables because they are
-        /// always balanced in accordance with their primary key or shard key.
-        /// Cannot be used simultaneously with
-        /// <i>table_blacklist</i>.</description>
+        /// always rebalanced. Cannot be used simultaneously with
+        /// <i>table_excludes</i>. This parameter is ignored if
+        /// <i>rebalance_unsharded_data</i> is <i>false</i>.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AdminRebalanceRequest.Options.TABLE_BLACKLIST">TABLE_BLACKLIST</see>:</term>
+        /// cref="AdminRebalanceRequest.Options.TABLE_EXCLUDES">TABLE_EXCLUDES</see>:</term>
         ///         <description>Comma-separated list of unsharded table names
         /// to not rebalance. Not applicable to sharded tables because they are
-        /// always balanced in accordance with their primary key or shard key.
-        /// Cannot be used simultaneously with
-        /// <i>table_whitelist</i>.</description>
+        /// always rebalanced. Cannot be used simultaneously with
+        /// <i>table_includes</i>. This parameter is ignored if
+        /// <i>rebalance_unsharded_data</i> is <i>false</i>.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="AdminRebalanceRequest.Options.AGGRESSIVENESS">AGGRESSIVENESS</see>:</term>
-        ///         <description>Influences how much data to send per rebalance
-        /// round.  A higher aggressiveness setting will complete the rebalance
-        /// faster.  A lower aggressiveness setting will take longer, but allow
-        /// for better interleaving between the rebalance and other queries.
-        /// Allowed values are 1 through 10.  The default value is
-        /// '1'.</description>
+        ///         <description>Influences how much data is moved at a time
+        /// during rebalance.  A higher <i>aggressiveness</i> will complete the
+        /// rebalance faster.  A lower <i>aggressiveness</i> will take longer
+        /// but allow for better interleaving between the rebalance and other
+        /// queries. Valid values are constants from 1 (lowest) to 10
+        /// (highest).  The default value is '1'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="AdminRebalanceRequest.Options.COMPACT_AFTER_REBALANCE">COMPACT_AFTER_REBALANCE</see>:</term>
         ///         <description>Perform compaction of deleted records once the
-        /// rebalance completes, to reclaim memory and disk space. Default is
-        /// true, unless <i>repair_incorrectly_sharded_data</i> is set to
-        /// <i>true</i>.
+        /// rebalance completes to reclaim memory and disk space. Default is
+        /// <i>true</i>, unless <i>repair_incorrectly_sharded_data</i> is set
+        /// to <i>true</i>.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -390,8 +426,9 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="AdminRebalanceRequest.Options.COMPACT_ONLY">COMPACT_ONLY</see>:</term>
-        ///         <description>Only perform compaction, do not rebalance.
-        /// Default is false.
+        ///         <description>If set to <i>true</i>, ignore rebalance
+        /// options and attempt to perform compaction of deleted records to
+        /// reclaim memory and disk space without rebalancing first.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -410,12 +447,14 @@ namespace kinetica
         ///         <term><see
         /// cref="AdminRebalanceRequest.Options.REPAIR_INCORRECTLY_SHARDED_DATA">REPAIR_INCORRECTLY_SHARDED_DATA</see>:</term>
         ///         <description>Scans for any data sharded incorrectly and
-        /// re-routes the correct location. This can be done as part of a
-        /// typical rebalance after expanding the cluster, or in a standalone
-        /// fashion when it is believed that data is sharded incorrectly
-        /// somewhere in the cluster. Compaction will not be performed by
-        /// default when this is enabled. This option may also lengthen
-        /// rebalance time, and increase the memory used by the rebalance.
+        /// re-routes the data to the correct location. Only necessary if
+        /// /admin/verifydb reports an error in sharding alignment. This can be
+        /// done as part of a typical rebalance after expanding the cluster or
+        /// in a standalone fashion when it is believed that data is sharded
+        /// incorrectly somewhere in the cluster. Compaction will not be
+        /// performed by default when this is enabled. If this option is set to
+        /// <i>true</i>, the time necessary to rebalance and the memory used by
+        /// the rebalance may increase.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -447,10 +486,12 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="AdminRebalanceRequest.Options.REBALANCE_SHARDED_DATA">REBALANCE_SHARDED_DATA</see>:</term>
-        ///         <description>If <i>true</i>, sharded data will be
-        /// rebalanced approximately equally across the cluster. Note that for
-        /// big clusters, this data transfer could be time consuming and result
-        /// in delayed query responses.
+        ///         <description>If <i>true</i>, <a
+        /// href="../../concepts/tables.html#sharding" target="_top">sharded
+        /// data</a> will be rebalanced approximately equally across the
+        /// cluster. Note that for clusters with large amounts of sharded data,
+        /// this data transfer could be time consuming and result in delayed
+        /// query responses.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -468,11 +509,12 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="AdminRebalanceRequest.Options.REBALANCE_UNSHARDED_DATA">REBALANCE_UNSHARDED_DATA</see>:</term>
-        ///         <description>If <i>true</i>, unsharded data (data without
-        /// primary keys and without shard keys) will be rebalanced
-        /// approximately equally across the cluster. Note that for big
-        /// clusters, this data transfer could be time consuming and result in
-        /// delayed query responses.
+        ///         <description>If <i>true</i>, unsharded data (a.k.a. <a
+        /// href="../../concepts/tables.html#random-sharding"
+        /// target="_top">randomly-sharded</a>) will be rebalanced
+        /// approximately equally across the cluster. Note that for clusters
+        /// with large amounts of unsharded data, this data transfer could be
+        /// time consuming and result in delayed query responses.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -489,39 +531,39 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AdminRebalanceRequest.Options.TABLE_WHITELIST">TABLE_WHITELIST</see>:</term>
+        /// cref="AdminRebalanceRequest.Options.TABLE_INCLUDES">TABLE_INCLUDES</see>:</term>
         ///         <description>Comma-separated list of unsharded table names
         /// to rebalance. Not applicable to sharded tables because they are
-        /// always balanced in accordance with their primary key or shard key.
-        /// Cannot be used simultaneously with
-        /// <i>table_blacklist</i>.</description>
+        /// always rebalanced. Cannot be used simultaneously with
+        /// <i>table_excludes</i>. This parameter is ignored if
+        /// <i>rebalance_unsharded_data</i> is <i>false</i>.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AdminRebalanceRequest.Options.TABLE_BLACKLIST">TABLE_BLACKLIST</see>:</term>
+        /// cref="AdminRebalanceRequest.Options.TABLE_EXCLUDES">TABLE_EXCLUDES</see>:</term>
         ///         <description>Comma-separated list of unsharded table names
         /// to not rebalance. Not applicable to sharded tables because they are
-        /// always balanced in accordance with their primary key or shard key.
-        /// Cannot be used simultaneously with
-        /// <i>table_whitelist</i>.</description>
+        /// always rebalanced. Cannot be used simultaneously with
+        /// <i>table_includes</i>. This parameter is ignored if
+        /// <i>rebalance_unsharded_data</i> is <i>false</i>.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="AdminRebalanceRequest.Options.AGGRESSIVENESS">AGGRESSIVENESS</see>:</term>
-        ///         <description>Influences how much data to send per rebalance
-        /// round.  A higher aggressiveness setting will complete the rebalance
-        /// faster.  A lower aggressiveness setting will take longer, but allow
-        /// for better interleaving between the rebalance and other queries.
-        /// Allowed values are 1 through 10.  The default value is
-        /// '1'.</description>
+        ///         <description>Influences how much data is moved at a time
+        /// during rebalance.  A higher <i>aggressiveness</i> will complete the
+        /// rebalance faster.  A lower <i>aggressiveness</i> will take longer
+        /// but allow for better interleaving between the rebalance and other
+        /// queries. Valid values are constants from 1 (lowest) to 10
+        /// (highest).  The default value is '1'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="AdminRebalanceRequest.Options.COMPACT_AFTER_REBALANCE">COMPACT_AFTER_REBALANCE</see>:</term>
         ///         <description>Perform compaction of deleted records once the
-        /// rebalance completes, to reclaim memory and disk space. Default is
-        /// true, unless <i>repair_incorrectly_sharded_data</i> is set to
-        /// <i>true</i>.
+        /// rebalance completes to reclaim memory and disk space. Default is
+        /// <i>true</i>, unless <i>repair_incorrectly_sharded_data</i> is set
+        /// to <i>true</i>.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -539,8 +581,9 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="AdminRebalanceRequest.Options.COMPACT_ONLY">COMPACT_ONLY</see>:</term>
-        ///         <description>Only perform compaction, do not rebalance.
-        /// Default is false.
+        ///         <description>If set to <i>true</i>, ignore rebalance
+        /// options and attempt to perform compaction of deleted records to
+        /// reclaim memory and disk space without rebalancing first.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -559,12 +602,14 @@ namespace kinetica
         ///         <term><see
         /// cref="AdminRebalanceRequest.Options.REPAIR_INCORRECTLY_SHARDED_DATA">REPAIR_INCORRECTLY_SHARDED_DATA</see>:</term>
         ///         <description>Scans for any data sharded incorrectly and
-        /// re-routes the correct location. This can be done as part of a
-        /// typical rebalance after expanding the cluster, or in a standalone
-        /// fashion when it is believed that data is sharded incorrectly
-        /// somewhere in the cluster. Compaction will not be performed by
-        /// default when this is enabled. This option may also lengthen
-        /// rebalance time, and increase the memory used by the rebalance.
+        /// re-routes the data to the correct location. Only necessary if
+        /// /admin/verifydb reports an error in sharding alignment. This can be
+        /// done as part of a typical rebalance after expanding the cluster or
+        /// in a standalone fashion when it is believed that data is sharded
+        /// incorrectly somewhere in the cluster. Compaction will not be
+        /// performed by default when this is enabled. If this option is set to
+        /// <i>true</i>, the time necessary to rebalance and the memory used by
+        /// the rebalance may increase.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>

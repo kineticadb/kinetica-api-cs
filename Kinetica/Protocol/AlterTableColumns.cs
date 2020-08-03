@@ -36,20 +36,18 @@ namespace kinetica
     {
 
         /// <summary>Table on which the operation will be performed. Must be an
-        /// existing table or view.  </summary>
+        /// existing table or view, in [schema_name.]table_name format, using
+        /// standard <a href="../../concepts/tables.html#table-name-resolution"
+        /// target="_top">name resolution rules</a>.  </summary>
         public string table_name { get; set; }
 
-        /// <summary>list of alter table add/delete/change column requests -
-        /// all for the same table.
-        ///                 each request is a map that includes 'column_name',
-        /// 'action' and the options specific for the action,
-        ///                 note that the same options as in alter table
-        /// requests but in the same map as the column name and the action. For
-        /// example:
-        /// [{'column_name':'col_1','action':'change_column','rename_column':'col_2'},
-        ///                 {'column_name':'col_1','action':'add_column',
-        /// 'type':'int','default_value':'1'}
-        ///                 ]   </summary>
+        /// <summary>List of alter table add/delete/change column requests -
+        /// all for the same table. Each request is a map that includes
+        /// 'column_name', 'action' and the options specific for the action.
+        /// Note that the same options as in alter table requests but in the
+        /// same map as the column name and the action. For example:
+        /// [{'column_name':'col_1','action':'change_column','rename_column':'col_2'},{'column_name':'col_1','action':'add_column',
+        /// 'type':'int','default_value':'1'}]  </summary>
         public IList<IDictionary<string, string>> column_alterations { get; set; } = new List<IDictionary<string, string>>();
 
         /// <summary>Optional parameters.  </summary>
@@ -64,18 +62,18 @@ namespace kinetica
         /// specified parameters.</summary>
         /// 
         /// <param name="table_name">Table on which the operation will be
-        /// performed. Must be an existing table or view.  </param>
-        /// <param name="column_alterations">list of alter table
-        /// add/delete/change column requests - all for the same table.
-        ///                 each request is a map that includes 'column_name',
-        /// 'action' and the options specific for the action,
-        ///                 note that the same options as in alter table
-        /// requests but in the same map as the column name and the action. For
-        /// example:
-        /// [{'column_name':'col_1','action':'change_column','rename_column':'col_2'},
-        ///                 {'column_name':'col_1','action':'add_column',
-        /// 'type':'int','default_value':'1'}
-        ///                 ]   </param>
+        /// performed. Must be an existing table or view, in
+        /// [schema_name.]table_name format, using standard <a
+        /// href="../../concepts/tables.html#table-name-resolution"
+        /// target="_top">name resolution rules</a>.  </param>
+        /// <param name="column_alterations">List of alter table
+        /// add/delete/change column requests - all for the same table. Each
+        /// request is a map that includes 'column_name', 'action' and the
+        /// options specific for the action. Note that the same options as in
+        /// alter table requests but in the same map as the column name and the
+        /// action. For example:
+        /// [{'column_name':'col_1','action':'change_column','rename_column':'col_2'},{'column_name':'col_1','action':'add_column',
+        /// 'type':'int','default_value':'1'}]  </param>
         /// <param name="options">Optional parameters.  </param>
         /// 
         public AlterTableColumnsRequest( string table_name,
@@ -116,17 +114,13 @@ namespace kinetica
         /// may be created)  </summary>
         public string label { get; set; }
 
-        /// <summary>list of alter table add/delete/change column requests -
-        /// all for the same table.
-        ///                 each request is a map that includes 'column_name',
-        /// 'action' and the options specific for the action,
-        ///                 note that the same options as in alter table
-        /// requests but in the same map as the column name and the action. For
-        /// example:
-        /// [{'column_name':'col_1','action':'change_column','rename_column':'col_2'},
-        ///                 {'column_name':'col_1','action':'add_column',
-        /// 'type':'int','default_value':'1'}
-        ///                 ]   </summary>
+        /// <summary>List of alter table add/delete/change column requests -
+        /// all for the same table. Each request is a map that includes
+        /// 'column_name', 'action' and the options specific for the action.
+        /// Note that the same options as in alter table requests but in the
+        /// same map as the column name and the action. For example:
+        /// [{'column_name':'col_1','action':'change_column','rename_column':'col_2'},{'column_name':'col_1','action':'add_column',
+        /// 'type':'int','default_value':'1'}]  </summary>
         public IList<IDictionary<string, string>> column_alterations { get; set; } = new List<IDictionary<string, string>>();
 
         /// <summary>Additional information.  </summary>

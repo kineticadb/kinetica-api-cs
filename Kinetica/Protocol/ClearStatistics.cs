@@ -20,8 +20,10 @@ namespace kinetica
     public class ClearStatisticsRequest : KineticaData
     {
 
-        /// <summary>Name of a table. Must be an existing table.  The default
-        /// value is ''.</summary>
+        /// <summary>Name of a table, in [schema_name.]table_name format, using
+        /// standard <a href="../../concepts/tables.html#table-name-resolution"
+        /// target="_top">name resolution rules</a>. Must be an existing table.
+        /// The default value is ''.</summary>
         public string table_name { get; set; } = "";
 
         /// <summary>Name of the column in <paramref
@@ -43,8 +45,11 @@ namespace kinetica
         /// <summary>Constructs a ClearStatisticsRequest object with the
         /// specified parameters.</summary>
         /// 
-        /// <param name="table_name">Name of a table. Must be an existing
-        /// table.  The default value is ''.</param>
+        /// <param name="table_name">Name of a table, in
+        /// [schema_name.]table_name format, using standard <a
+        /// href="../../concepts/tables.html#table-name-resolution"
+        /// target="_top">name resolution rules</a>. Must be an existing table.
+        /// The default value is ''.</param>
         /// <param name="column_name">Name of the column in <paramref
         /// cref="ClearStatisticsRequest.table_name" /> for which to clear
         /// statistics. The column must be from an existing table. An empty

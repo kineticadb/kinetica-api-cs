@@ -15,21 +15,28 @@ namespace kinetica
     /// cref="Kinetica.filterByList(string,string,IDictionary{string, IList{string}},IDictionary{string, string})"
     /// />.
     /// <br />
-    /// Calculates which records from a table have values in the given list for
-    /// the corresponding column. The operation is synchronous, meaning that a
+    /// Calculates which records from a table have values in the given list
+    /// for the corresponding column. The operation is synchronous, meaning
+    /// that a
     /// response will not be returned until all the objects are fully
-    /// available. The response payload provides the count of the resulting
-    /// set. A new resultant set (view) which satisfies the input filter
-    /// specification is also created if a <see cref="view_name" /> is passed
-    /// in as part of the request.
+    /// available. The
+    /// response payload provides the count of the resulting set. A new
+    /// resultant set
+    /// (view) which satisfies the input filter specification is also created
+    /// if a
+    /// <see cref="view_name" /> is passed in as part of the request.
     /// <br />
     /// For example, if a type definition has the columns 'x' and 'y', then a
-    /// filter by list query with the column map {"x":["10.1", "2.3"],
-    /// "y":["0.0", "-31.5", "42.0"]} will return the count of all data points
-    /// whose x and y values match both in the respective x- and y-lists, e.g.,
-    /// "x = 10.1 and y = 0.0", "x = 2.3 and y = -31.5", etc. However, a record
-    /// with "x = 10.1 and y = -31.5" or "x = 2.3 and y = 0.0" would not be
-    /// returned because the values in the given lists do not
+    /// filter by
+    /// list query with the column map
+    /// {"x":["10.1", "2.3"], "y":["0.0", "-31.5", "42.0"]} will return
+    /// the count of all data points whose x and y values match both in the
+    /// respective
+    /// x- and y-lists, e.g., "x = 10.1 and y = 0.0", "x = 2.3 and y = -31.5",
+    /// etc.
+    /// However, a record with "x = 10.1 and y = -31.5" or "x = 2.3 and y =
+    /// 0.0"
+    /// would not be returned because the values in the given lists do not
     /// correspond.</summary>
     public class FilterByListRequest : KineticaData
     {
@@ -39,10 +46,12 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="FilterByListRequest.Options.COLLECTION_NAME">COLLECTION_NAME</see>:</term>
-        ///         <description>Name of a collection which is to contain the
-        /// newly created view. If the collection provided is non-existent, the
-        /// collection will be automatically created. If empty, then the newly
-        /// created view will be top-level.</description>
+        ///         <description>[DEPRECATED--please specify the containing
+        /// schema for the view as part of <paramref
+        /// cref="FilterByListRequest.view_name" /> and use /create/schema to
+        /// create the schema if non-existent]  Name of a schema for the newly
+        /// created view. If the schema provided is non-existent, it will be
+        /// automatically created.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -74,10 +83,12 @@ namespace kinetica
         public struct Options
         {
 
-            /// <summary>Name of a collection which is to contain the newly
-            /// created view. If the collection provided is non-existent, the
-            /// collection will be automatically created. If empty, then the
-            /// newly created view will be top-level.</summary>
+            /// <summary>[DEPRECATED--please specify the containing schema for
+            /// the view as part of <see cref="view_name" /> and use <see
+            /// cref="Kinetica.createSchema(string,IDictionary{string, string})"
+            /// /> to create the schema if non-existent]  Name of a schema for
+            /// the newly created view. If the schema provided is non-existent,
+            /// it will be automatically created.</summary>
             public const string COLLECTION_NAME = "collection_name";
 
             /// <summary>String indicating the filter mode, either 'in_list' or
@@ -111,18 +122,20 @@ namespace kinetica
         } // end struct Options
 
 
-        /// <summary>Name of the table to filter.  This may be the name of a
-        /// collection, a table, or a view (when chaining queries).  If
-        /// filtering a collection, all child tables where the filter
-        /// expression is valid will be filtered; the filtered result tables
-        /// will then be placed in a collection specified by <paramref
-        /// cref="FilterByListRequest.view_name" />.  </summary>
+        /// <summary>Name of the table to filter, in [schema_name.]table_name
+        /// format, using standard <a
+        /// href="../../concepts/tables.html#table-name-resolution"
+        /// target="_top">name resolution rules</a>.  This may be the name of a
+        /// table or a view (when chaining queries).  </summary>
         public string table_name { get; set; }
 
         /// <summary>If provided, then this will be the name of the view
-        /// containing the results. Has the same naming restrictions as <a
-        /// href="../../concepts/tables.html" target="_top">tables</a>.  The
-        /// default value is ''.</summary>
+        /// containing the results, in [schema_name.]view_name format, using
+        /// standard <a href="../../concepts/tables.html#table-name-resolution"
+        /// target="_top">name resolution rules</a> and meeting <a
+        /// href="../../concepts/tables.html#table-naming-criteria"
+        /// target="_top">table naming criteria</a>.  Must not be an already
+        /// existing table or view.  The default value is ''.</summary>
         public string view_name { get; set; } = "";
 
         /// <summary>List of values for the corresponding column in the table
@@ -134,10 +147,12 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="FilterByListRequest.Options.COLLECTION_NAME">COLLECTION_NAME</see>:</term>
-        ///         <description>Name of a collection which is to contain the
-        /// newly created view. If the collection provided is non-existent, the
-        /// collection will be automatically created. If empty, then the newly
-        /// created view will be top-level.</description>
+        ///         <description>[DEPRECATED--please specify the containing
+        /// schema for the view as part of <paramref
+        /// cref="FilterByListRequest.view_name" /> and use /create/schema to
+        /// create the schema if non-existent]  Name of a schema for the newly
+        /// created view. If the schema provided is non-existent, it will be
+        /// automatically created.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -174,16 +189,19 @@ namespace kinetica
         /// <summary>Constructs a FilterByListRequest object with the specified
         /// parameters.</summary>
         /// 
-        /// <param name="table_name">Name of the table to filter.  This may be
-        /// the name of a collection, a table, or a view (when chaining
-        /// queries).  If filtering a collection, all child tables where the
-        /// filter expression is valid will be filtered; the filtered result
-        /// tables will then be placed in a collection specified by <paramref
-        /// cref="FilterByListRequest.view_name" />.  </param>
+        /// <param name="table_name">Name of the table to filter, in
+        /// [schema_name.]table_name format, using standard <a
+        /// href="../../concepts/tables.html#table-name-resolution"
+        /// target="_top">name resolution rules</a>.  This may be the name of a
+        /// table or a view (when chaining queries).  </param>
         /// <param name="view_name">If provided, then this will be the name of
-        /// the view containing the results. Has the same naming restrictions
-        /// as <a href="../../concepts/tables.html" target="_top">tables</a>.
-        /// The default value is ''.</param>
+        /// the view containing the results, in [schema_name.]view_name format,
+        /// using standard <a
+        /// href="../../concepts/tables.html#table-name-resolution"
+        /// target="_top">name resolution rules</a> and meeting <a
+        /// href="../../concepts/tables.html#table-naming-criteria"
+        /// target="_top">table naming criteria</a>.  Must not be an already
+        /// existing table or view.  The default value is ''.</param>
         /// <param name="column_values_map">List of values for the
         /// corresponding column in the table  </param>
         /// <param name="options">Optional parameters.
@@ -191,10 +209,12 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="FilterByListRequest.Options.COLLECTION_NAME">COLLECTION_NAME</see>:</term>
-        ///         <description>Name of a collection which is to contain the
-        /// newly created view. If the collection provided is non-existent, the
-        /// collection will be automatically created. If empty, then the newly
-        /// created view will be top-level.</description>
+        ///         <description>[DEPRECATED--please specify the containing
+        /// schema for the view as part of <paramref
+        /// cref="FilterByListRequest.view_name" /> and use /create/schema to
+        /// create the schema if non-existent]  Name of a schema for the newly
+        /// created view. If the schema provided is non-existent, it will be
+        /// automatically created.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -243,10 +263,40 @@ namespace kinetica
     public class FilterByListResponse : KineticaData
     {
 
+        /// <summary>Additional information.
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="FilterByListResponse.Info.QUALIFIED_VIEW_NAME">QUALIFIED_VIEW_NAME</see>:</term>
+        ///         <description>The fully qualified name of the view (i.e.
+        /// including the schema)</description>
+        ///     </item>
+        /// </list>
+        /// The default value is an empty {@link Dictionary}.
+        /// A set of string constants for the parameter <member name="info"
+        /// />.</summary>
+        public struct Info
+        {
+
+            /// <summary>The fully qualified name of the view (i.e. including
+            /// the schema)</summary>
+            public const string QUALIFIED_VIEW_NAME = "qualified_view_name";
+        } // end struct Info
+
+
         /// <summary>The number of records passing the list filter.  </summary>
         public long count { get; set; }
 
-        /// <summary>Additional information.  </summary>
+        /// <summary>Additional information.
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="FilterByListResponse.Info.QUALIFIED_VIEW_NAME">QUALIFIED_VIEW_NAME</see>:</term>
+        ///         <description>The fully qualified name of the view (i.e.
+        /// including the schema)</description>
+        ///     </item>
+        /// </list>
+        /// The default value is an empty {@link Dictionary}.</summary>
         public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
 
     } // end class FilterByListResponse

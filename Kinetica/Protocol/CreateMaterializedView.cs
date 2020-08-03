@@ -19,13 +19,15 @@ namespace kinetica
     /// view's name to prevent other views or tables from being created with
     /// that name.
     /// <br />
-    /// For materialized view details and examples, see <a
-    /// href="../../concepts/materialized_views.html"
+    /// For materialized view details and examples, see
+    /// <a href="../../concepts/materialized_views.html"
     /// target="_top">Materialized Views</a>.
     /// <br />
     /// The response contains <member name="view_id" />, which is used to tag
-    /// each subsequent operation (projection, union, aggregation, filter, or
-    /// join) that will compose the view.</summary>
+    /// each subsequent
+    /// operation (projection, union, aggregation, filter, or join) that will
+    /// compose
+    /// the view.</summary>
     public class CreateMaterializedViewRequest : KineticaData
     {
 
@@ -34,10 +36,13 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="CreateMaterializedViewRequest.Options.COLLECTION_NAME">COLLECTION_NAME</see>:</term>
-        ///         <description>Name of a collection which is to contain the
-        /// newly created view. If the collection provided is non-existent, the
-        /// collection will be automatically created. If empty, then the newly
-        /// created table will be a top-level table.</description>
+        ///         <description>[DEPRECATED--please specify the containing
+        /// schema for the materialized view as part of <paramref
+        /// cref="CreateMaterializedViewRequest.table_name" /> and use
+        /// /create/schema to create the schema if non-existent]  Name of a
+        /// schema which is to contain the newly created view. If the schema
+        /// provided is non-existent, it will be automatically
+        /// created.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -127,10 +132,14 @@ namespace kinetica
         public struct Options
         {
 
-            /// <summary>Name of a collection which is to contain the newly
-            /// created view. If the collection provided is non-existent, the
-            /// collection will be automatically created. If empty, then the
-            /// newly created table will be a top-level table.</summary>
+            /// <summary>[DEPRECATED--please specify the containing schema for
+            /// the materialized view as part of <see cref="table_name" /> and
+            /// use <see
+            /// cref="Kinetica.createSchema(string,IDictionary{string, string})"
+            /// /> to create the schema if non-existent]  Name of a schema
+            /// which is to contain the newly created view. If the schema
+            /// provided is non-existent, it will be automatically
+            /// created.</summary>
             public const string COLLECTION_NAME = "collection_name";
 
             /// <summary>Sets the <a href="../../concepts/ttl.html"
@@ -229,7 +238,12 @@ namespace kinetica
 
 
         /// <summary>Name of the table to be created that is the top-level
-        /// table of the materialized view.  </summary>
+        /// table of the materialized view, in [schema_name.]table_name format,
+        /// using standard <a
+        /// href="../../concepts/tables.html#table-name-resolution"
+        /// target="_top">name resolution rules</a> and meeting <a
+        /// href="../../concepts/tables.html#table-naming-criteria"
+        /// target="_top">table naming criteria</a>.  </summary>
         public string table_name { get; set; }
 
         /// <summary>Optional parameters.
@@ -237,10 +251,13 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="CreateMaterializedViewRequest.Options.COLLECTION_NAME">COLLECTION_NAME</see>:</term>
-        ///         <description>Name of a collection which is to contain the
-        /// newly created view. If the collection provided is non-existent, the
-        /// collection will be automatically created. If empty, then the newly
-        /// created table will be a top-level table.</description>
+        ///         <description>[DEPRECATED--please specify the containing
+        /// schema for the materialized view as part of <paramref
+        /// cref="CreateMaterializedViewRequest.table_name" /> and use
+        /// /create/schema to create the schema if non-existent]  Name of a
+        /// schema which is to contain the newly created view. If the schema
+        /// provided is non-existent, it will be automatically
+        /// created.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -336,16 +353,24 @@ namespace kinetica
         /// specified parameters.</summary>
         /// 
         /// <param name="table_name">Name of the table to be created that is
-        /// the top-level table of the materialized view.  </param>
+        /// the top-level table of the materialized view, in
+        /// [schema_name.]table_name format, using standard <a
+        /// href="../../concepts/tables.html#table-name-resolution"
+        /// target="_top">name resolution rules</a> and meeting <a
+        /// href="../../concepts/tables.html#table-naming-criteria"
+        /// target="_top">table naming criteria</a>.  </param>
         /// <param name="options">Optional parameters.
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
         /// cref="CreateMaterializedViewRequest.Options.COLLECTION_NAME">COLLECTION_NAME</see>:</term>
-        ///         <description>Name of a collection which is to contain the
-        /// newly created view. If the collection provided is non-existent, the
-        /// collection will be automatically created. If empty, then the newly
-        /// created table will be a top-level table.</description>
+        ///         <description>[DEPRECATED--please specify the containing
+        /// schema for the materialized view as part of <paramref
+        /// cref="CreateMaterializedViewRequest.table_name" /> and use
+        /// /create/schema to create the schema if non-existent]  Name of a
+        /// schema which is to contain the newly created view. If the schema
+        /// provided is non-existent, it will be automatically
+        /// created.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -448,6 +473,27 @@ namespace kinetica
     public class CreateMaterializedViewResponse : KineticaData
     {
 
+        /// <summary>Additional information.
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateMaterializedViewResponse.Info.QUALIFIED_TABLE_NAME">QUALIFIED_TABLE_NAME</see>:</term>
+        ///         <description>The fully qualified name of the result table
+        /// (i.e. including the schema)</description>
+        ///     </item>
+        /// </list>
+        /// The default value is an empty {@link Dictionary}.
+        /// A set of string constants for the parameter <member name="info"
+        /// />.</summary>
+        public struct Info
+        {
+
+            /// <summary>The fully qualified name of the result table (i.e.
+            /// including the schema)</summary>
+            public const string QUALIFIED_TABLE_NAME = "qualified_table_name";
+        } // end struct Info
+
+
         /// <summary>Value of <paramref
         /// cref="CreateMaterializedViewRequest.table_name" />.  </summary>
         public string table_name { get; set; }
@@ -455,7 +501,16 @@ namespace kinetica
         /// <summary>Value of view_id.  </summary>
         public string view_id { get; set; }
 
-        /// <summary>Additional information.  </summary>
+        /// <summary>Additional information.
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateMaterializedViewResponse.Info.QUALIFIED_TABLE_NAME">QUALIFIED_TABLE_NAME</see>:</term>
+        ///         <description>The fully qualified name of the result table
+        /// (i.e. including the schema)</description>
+        ///     </item>
+        /// </list>
+        /// The default value is an empty {@link Dictionary}.</summary>
         public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
 
     } // end class CreateMaterializedViewResponse

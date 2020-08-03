@@ -17,18 +17,23 @@ namespace kinetica
     /// <br />
     /// Performs a histogram calculation given a table, a column, and an
     /// interval function. The <see cref="interval" /> is used to produce bins
-    /// of that size and the result, computed over the records falling within
-    /// each bin, is returned.  For each bin, the start value is inclusive, but
-    /// the end value is exclusive--except for the very last bin for which the
-    /// end value is also inclusive.  The value returned for each bin is the
-    /// number of records in it, except when a column name is provided as a
-    /// <i>value_column</i>.  In this latter case the sum of the values
-    /// corresponding to the <i>value_column</i> is used as the result instead.
-    /// The total number of bins requested cannot exceed 10,000.
+    /// of that size
+    /// and the result, computed over the records falling within each bin, is
+    /// returned.
+    /// For each bin, the start value is inclusive, but the end value is
+    /// exclusive--except for the very last bin for which the end value is also
+    /// inclusive.  The value returned for each bin is the number of records in
+    /// it,
+    /// except when a column name is provided as a
+    /// <i>value_column</i>.  In this latter case the sum of the
+    /// values corresponding to the <i>value_column</i> is used as the
+    /// result instead.  The total number of bins requested cannot exceed
+    /// 10,000.
     /// <br />
     /// NOTE:  The Kinetica instance being accessed must be running a CUDA
-    /// (GPU-based) build to service a request that specifies a
-    /// <i>value_column</i> option.</summary>
+    /// (GPU-based)
+    /// build to service a request that specifies a
+    /// <i>value_column</i>.</summary>
     public class AggregateHistogramRequest : KineticaData
     {
 
@@ -56,7 +61,10 @@ namespace kinetica
 
 
         /// <summary>Name of the table on which the operation will be
-        /// performed. Must be an existing table or collection.  </summary>
+        /// performed. Must be an existing table, in [schema_name.]table_name
+        /// format, using standard <a
+        /// href="../../concepts/tables.html#table-name-resolution"
+        /// target="_top">name resolution rules</a>.  </summary>
         public string table_name { get; set; }
 
         /// <summary>Name of a column or an expression of one or more column
@@ -97,8 +105,10 @@ namespace kinetica
         /// specified parameters.</summary>
         /// 
         /// <param name="table_name">Name of the table on which the operation
-        /// will be performed. Must be an existing table or collection.
-        /// </param>
+        /// will be performed. Must be an existing table, in
+        /// [schema_name.]table_name format, using standard <a
+        /// href="../../concepts/tables.html#table-name-resolution"
+        /// target="_top">name resolution rules</a>.  </param>
         /// <param name="column_name">Name of a column or an expression of one
         /// or more column names over which the histogram will be calculated.
         /// </param>

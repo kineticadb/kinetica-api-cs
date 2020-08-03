@@ -53,11 +53,12 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="CreateUnionRequest.Options.COLLECTION_NAME">COLLECTION_NAME</see>:</term>
-        ///         <description>Name of a collection which is to contain the
-        /// output table. If the collection provided is non-existent, the
-        /// collection will be automatically created. If empty, the output
-        /// table will be a top-level table.  The default value is
-        /// ''.</description>
+        ///         <description>[DEPRECATED--please specify the containing
+        /// schema for the projection as part of <paramref
+        /// cref="CreateUnionRequest.table_name" /> and use /create/schema to
+        /// create the schema if non-existent]  Name of the schema for the
+        /// output table. If the schema provided is non-existent, it will be
+        /// automatically created.  The default value is ''.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -230,10 +231,13 @@ namespace kinetica
         public struct Options
         {
 
-            /// <summary>Name of a collection which is to contain the output
-            /// table. If the collection provided is non-existent, the
-            /// collection will be automatically created. If empty, the output
-            /// table will be a top-level table.  The default value is
+            /// <summary>[DEPRECATED--please specify the containing schema for
+            /// the projection as part of <see cref="table_name" /> and use
+            /// <see
+            /// cref="Kinetica.createSchema(string,IDictionary{string, string})"
+            /// /> to create the schema if non-existent]  Name of the schema
+            /// for the output table. If the schema provided is non-existent,
+            /// it will be automatically created.  The default value is
             /// ''.</summary>
             public const string COLLECTION_NAME = "collection_name";
 
@@ -430,13 +434,19 @@ namespace kinetica
         } // end struct Options
 
 
-        /// <summary>Name of the table to be created. Has the same naming
-        /// restrictions as <a href="../../concepts/tables.html"
-        /// target="_top">tables</a>.  </summary>
+        /// <summary>Name of the table to be created, in
+        /// [schema_name.]table_name format, using standard <a
+        /// href="../../concepts/tables.html#table-name-resolution"
+        /// target="_top">name resolution rules</a> and meeting <a
+        /// href="../../concepts/tables.html#table-naming-criteria"
+        /// target="_top">table naming criteria</a>.  </summary>
         public string table_name { get; set; }
 
-        /// <summary>The list of table names to merge. Must contain the names
-        /// of one or more existing tables.  </summary>
+        /// <summary>The list of table names to merge, in
+        /// [schema_name.]table_name format, using standard <a
+        /// href="../../concepts/tables.html#table-name-resolution"
+        /// target="_top">name resolution rules</a>.  Must contain the names of
+        /// one or more existing tables.  </summary>
         public IList<string> table_names { get; set; } = new List<string>();
 
         /// <summary>The list of columns from each of the corresponding input
@@ -452,11 +462,12 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="CreateUnionRequest.Options.COLLECTION_NAME">COLLECTION_NAME</see>:</term>
-        ///         <description>Name of a collection which is to contain the
-        /// output table. If the collection provided is non-existent, the
-        /// collection will be automatically created. If empty, the output
-        /// table will be a top-level table.  The default value is
-        /// ''.</description>
+        ///         <description>[DEPRECATED--please specify the containing
+        /// schema for the projection as part of <paramref
+        /// cref="CreateUnionRequest.table_name" /> and use /create/schema to
+        /// create the schema if non-existent]  Name of the schema for the
+        /// output table. If the schema provided is non-existent, it will be
+        /// automatically created.  The default value is ''.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -634,11 +645,17 @@ namespace kinetica
         /// <summary>Constructs a CreateUnionRequest object with the specified
         /// parameters.</summary>
         /// 
-        /// <param name="table_name">Name of the table to be created. Has the
-        /// same naming restrictions as <a href="../../concepts/tables.html"
-        /// target="_top">tables</a>.  </param>
-        /// <param name="table_names">The list of table names to merge. Must
-        /// contain the names of one or more existing tables.  </param>
+        /// <param name="table_name">Name of the table to be created, in
+        /// [schema_name.]table_name format, using standard <a
+        /// href="../../concepts/tables.html#table-name-resolution"
+        /// target="_top">name resolution rules</a> and meeting <a
+        /// href="../../concepts/tables.html#table-naming-criteria"
+        /// target="_top">table naming criteria</a>.  </param>
+        /// <param name="table_names">The list of table names to merge, in
+        /// [schema_name.]table_name format, using standard <a
+        /// href="../../concepts/tables.html#table-name-resolution"
+        /// target="_top">name resolution rules</a>.  Must contain the names of
+        /// one or more existing tables.  </param>
         /// <param name="input_column_names">The list of columns from each of
         /// the corresponding input tables.  </param>
         /// <param name="output_column_names">The list of names of the columns
@@ -648,11 +665,12 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="CreateUnionRequest.Options.COLLECTION_NAME">COLLECTION_NAME</see>:</term>
-        ///         <description>Name of a collection which is to contain the
-        /// output table. If the collection provided is non-existent, the
-        /// collection will be automatically created. If empty, the output
-        /// table will be a top-level table.  The default value is
-        /// ''.</description>
+        ///         <description>[DEPRECATED--please specify the containing
+        /// schema for the projection as part of <paramref
+        /// cref="CreateUnionRequest.table_name" /> and use /create/schema to
+        /// create the schema if non-existent]  Name of the schema for the
+        /// output table. If the schema provided is non-existent, it will be
+        /// automatically created.  The default value is ''.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -852,6 +870,12 @@ namespace kinetica
         ///         <description>Number of records in the final
         /// table</description>
         ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateUnionResponse.Info.QUALIFIED_TABLE_NAME">QUALIFIED_TABLE_NAME</see>:</term>
+        ///         <description>The fully qualified name of the result table
+        /// (i.e. including the schema)</description>
+        ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.
         /// A set of string constants for the parameter <member name="info"
@@ -861,6 +885,10 @@ namespace kinetica
 
             /// <summary>Number of records in the final table</summary>
             public const string COUNT = "count";
+
+            /// <summary>The fully qualified name of the result table (i.e.
+            /// including the schema)</summary>
+            public const string QUALIFIED_TABLE_NAME = "qualified_table_name";
         } // end struct Info
 
 
@@ -875,6 +903,12 @@ namespace kinetica
         /// cref="CreateUnionResponse.Info.COUNT">COUNT</see>:</term>
         ///         <description>Number of records in the final
         /// table</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateUnionResponse.Info.QUALIFIED_TABLE_NAME">QUALIFIED_TABLE_NAME</see>:</term>
+        ///         <description>The fully qualified name of the result table
+        /// (i.e. including the schema)</description>
         ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.</summary>

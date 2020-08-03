@@ -16,14 +16,18 @@ namespace kinetica
     /// />.
     /// <br />
     /// Generates a specified number of random records and adds them to the
-    /// given table. There is an optional parameter that allows the user to
-    /// customize the ranges of the column values. It also allows the user to
-    /// specify linear profiles for some or all columns in which case linear
-    /// values are generated rather than random ones. Only individual tables
-    /// are supported for this operation.
+    /// given table.
+    /// There is an optional parameter that allows the user to customize the
+    /// ranges of
+    /// the column values. It also allows the user to specify linear profiles
+    /// for some
+    /// or all columns in which case linear values are generated rather than
+    /// random
+    /// ones. Only individual tables are supported for this operation.
     /// <br />
     /// This operation is synchronous, meaning that a response will not be
-    /// returned until all random records are fully available.</summary>
+    /// returned
+    /// until all random records are fully available.</summary>
     public class InsertRecordsRandomRequest : KineticaData
     {
 
@@ -53,7 +57,7 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="InsertRecordsRandomRequest.Options.VALUE">VALUE</see>:</term>
-        ///         <description>Pass the seed value here.</description>
+        ///         <description>The seed value to use</description>
         ///     </item>
         /// </list>
         /// </description>
@@ -278,13 +282,13 @@ namespace kinetica
             ///     <item>
             ///         <term><see
             /// cref="InsertRecordsRandomRequest.Options.VALUE">VALUE</see>:</term>
-            ///         <description>Pass the seed value here.</description>
+            ///         <description>The seed value to use</description>
             ///     </item>
             /// </list>
             /// </summary>
             public const string SEED = "seed";
 
-            /// <summary>Pass the seed value here.</summary>
+            /// <summary>The seed value to use</summary>
             public const string VALUE = "value";
 
             /// <summary>This key indicates that the specifications relayed in
@@ -528,9 +532,11 @@ namespace kinetica
         } // end struct Options
 
 
-        /// <summary>Table to which random records will be added. Must be an
-        /// existing table.  Also, must be an individual table, not a
-        /// collection of tables, nor a view of a table.  </summary>
+        /// <summary>Table to which random records will be added, in
+        /// [schema_name.]table_name format, using standard <a
+        /// href="../../concepts/tables.html#table-name-resolution"
+        /// target="_top">name resolution rules</a>.  Must be an existing
+        /// table, not a view.  </summary>
         public string table_name { get; set; }
 
         /// <summary>Number of records to generate.  </summary>
@@ -562,7 +568,7 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="InsertRecordsRandomRequest.Options.VALUE">VALUE</see>:</term>
-        ///         <description>Pass the seed value here.</description>
+        ///         <description>The seed value to use</description>
         ///     </item>
         /// </list>
         /// </description>
@@ -780,8 +786,10 @@ namespace kinetica
         /// specified parameters.</summary>
         /// 
         /// <param name="table_name">Table to which random records will be
-        /// added. Must be an existing table.  Also, must be an individual
-        /// table, not a collection of tables, nor a view of a table.  </param>
+        /// added, in [schema_name.]table_name format, using standard <a
+        /// href="../../concepts/tables.html#table-name-resolution"
+        /// target="_top">name resolution rules</a>.  Must be an existing
+        /// table, not a view.  </param>
         /// <param name="count">Number of records to generate.  </param>
         /// <param name="options">Optional parameter to pass in specifications
         /// for the randomness of the values.  This map is different from the
@@ -809,7 +817,7 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="InsertRecordsRandomRequest.Options.VALUE">VALUE</see>:</term>
-        ///         <description>Pass the seed value here.</description>
+        ///         <description>The seed value to use</description>
         ///     </item>
         /// </list>
         /// </description>

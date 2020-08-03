@@ -19,7 +19,10 @@ namespace kinetica
     public class CollectStatisticsRequest : KineticaData
     {
 
-        /// <summary>Name of a table. Must be an existing table.  </summary>
+        /// <summary>Name of a table, in [schema_name.]table_name format, using
+        /// standard <a href="../../concepts/tables.html#table-name-resolution"
+        /// target="_top">name resolution rules</a>.  Must be an existing
+        /// table.  </summary>
         public string table_name { get; set; }
 
         /// <summary>List of one or more column names in <paramref
@@ -39,7 +42,10 @@ namespace kinetica
         /// <summary>Constructs a CollectStatisticsRequest object with the
         /// specified parameters.</summary>
         /// 
-        /// <param name="table_name">Name of a table. Must be an existing
+        /// <param name="table_name">Name of a table, in
+        /// [schema_name.]table_name format, using standard <a
+        /// href="../../concepts/tables.html#table-name-resolution"
+        /// target="_top">name resolution rules</a>.  Must be an existing
         /// table.  </param>
         /// <param name="column_names">List of one or more column names in
         /// <paramref cref="CollectStatisticsRequest.table_name" /> for which

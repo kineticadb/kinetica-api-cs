@@ -253,9 +253,15 @@ namespace kinetica
         ///         <term><see
         /// cref="CreateGraphRequest.Options.GRAPH_TABLE">GRAPH_TABLE</see>:</term>
         ///         <description>If specified, the created graph is also
-        /// created as a table with the given name and following identifier
-        /// columns: 'EDGE_ID', 'EDGE_NODE1_ID', 'EDGE_NODE2_ID'. If left
-        /// blank, no table is created.  The default value is ''.</description>
+        /// created as a table with the given name, in [schema_name.]table_name
+        /// format, using standard <a
+        /// href="../../concepts/tables.html#table-name-resolution"
+        /// target="_top">name resolution rules</a> and meeting <a
+        /// href="../../concepts/tables.html#table-naming-criteria"
+        /// target="_top">table naming criteria</a>.  The table will have the
+        /// following identifier columns: 'EDGE_ID', 'EDGE_NODE1_ID',
+        /// 'EDGE_NODE2_ID'. If left blank, no table is created.  The default
+        /// value is ''.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -489,9 +495,15 @@ namespace kinetica
             public const string ADD_TABLE_MONITOR = "add_table_monitor";
 
             /// <summary>If specified, the created graph is also created as a
-            /// table with the given name and following identifier columns:
-            /// 'EDGE_ID', 'EDGE_NODE1_ID', 'EDGE_NODE2_ID'. If left blank, no
-            /// table is created.  The default value is ''.</summary>
+            /// table with the given name, in [schema_name.]table_name format,
+            /// using standard <a
+            /// href="../../concepts/tables.html#table-name-resolution"
+            /// target="_top">name resolution rules</a> and meeting <a
+            /// href="../../concepts/tables.html#table-naming-criteria"
+            /// target="_top">table naming criteria</a>.  The table will have
+            /// the following identifier columns: 'EDGE_ID', 'EDGE_NODE1_ID',
+            /// 'EDGE_NODE2_ID'. If left blank, no table is created.  The
+            /// default value is ''.</summary>
             public const string GRAPH_TABLE = "graph_table";
 
             /// <summary>When RESTRICTIONS on labeled entities requested, if
@@ -821,9 +833,15 @@ namespace kinetica
         ///         <term><see
         /// cref="CreateGraphRequest.Options.GRAPH_TABLE">GRAPH_TABLE</see>:</term>
         ///         <description>If specified, the created graph is also
-        /// created as a table with the given name and following identifier
-        /// columns: 'EDGE_ID', 'EDGE_NODE1_ID', 'EDGE_NODE2_ID'. If left
-        /// blank, no table is created.  The default value is ''.</description>
+        /// created as a table with the given name, in [schema_name.]table_name
+        /// format, using standard <a
+        /// href="../../concepts/tables.html#table-name-resolution"
+        /// target="_top">name resolution rules</a> and meeting <a
+        /// href="../../concepts/tables.html#table-naming-criteria"
+        /// target="_top">table naming criteria</a>.  The table will have the
+        /// following identifier columns: 'EDGE_ID', 'EDGE_NODE1_ID',
+        /// 'EDGE_NODE2_ID'. If left blank, no table is created.  The default
+        /// value is ''.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -1157,9 +1175,15 @@ namespace kinetica
         ///         <term><see
         /// cref="CreateGraphRequest.Options.GRAPH_TABLE">GRAPH_TABLE</see>:</term>
         ///         <description>If specified, the created graph is also
-        /// created as a table with the given name and following identifier
-        /// columns: 'EDGE_ID', 'EDGE_NODE1_ID', 'EDGE_NODE2_ID'. If left
-        /// blank, no table is created.  The default value is ''.</description>
+        /// created as a table with the given name, in [schema_name.]table_name
+        /// format, using standard <a
+        /// href="../../concepts/tables.html#table-name-resolution"
+        /// target="_top">name resolution rules</a> and meeting <a
+        /// href="../../concepts/tables.html#table-naming-criteria"
+        /// target="_top">table naming criteria</a>.  The table will have the
+        /// following identifier columns: 'EDGE_ID', 'EDGE_NODE1_ID',
+        /// 'EDGE_NODE2_ID'. If left blank, no table is created.  The default
+        /// value is ''.</description>
         ///     </item>
         ///     <item>
         ///         <term><see

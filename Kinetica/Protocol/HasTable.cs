@@ -18,7 +18,10 @@ namespace kinetica
     public class HasTableRequest : KineticaData
     {
 
-        /// <summary>Name of the table to check for existence.  </summary>
+        /// <summary>Name of the table to check for existence, in
+        /// [schema_name.]table_name format, using standard <a
+        /// href="../../concepts/tables.html#table-name-resolution"
+        /// target="_top">name resolution rules</a>.  </summary>
         public string table_name { get; set; }
 
         /// <summary>Optional parameters.  The default value is an empty {@link
@@ -33,8 +36,10 @@ namespace kinetica
         /// <summary>Constructs a HasTableRequest object with the specified
         /// parameters.</summary>
         /// 
-        /// <param name="table_name">Name of the table to check for existence.
-        /// </param>
+        /// <param name="table_name">Name of the table to check for existence,
+        /// in [schema_name.]table_name format, using standard <a
+        /// href="../../concepts/tables.html#table-name-resolution"
+        /// target="_top">name resolution rules</a>.  </param>
         /// <param name="options">Optional parameters.  The default value is an
         /// empty {@link Dictionary}.</param>
         /// 

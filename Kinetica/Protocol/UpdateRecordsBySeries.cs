@@ -17,20 +17,29 @@ namespace kinetica
     /// <br />
     /// Updates the view specified by <see cref="table_name" /> to include full
     /// series (track) information from the <see cref="world_table_name" /> for
-    /// the series (tracks) present in the <see cref="view_name" />.</summary>
+    /// the series
+    /// (tracks) present in the <see cref="view_name" />.</summary>
     public class UpdateRecordsBySeriesRequest : KineticaData
     {
 
         /// <summary>Name of the view on which the update operation will be
-        /// performed. Must be an existing view.  </summary>
+        /// performed, in [schema_name.]view_name format, using standard <a
+        /// href="../../concepts/tables.html#table-name-resolution"
+        /// target="_top">name resolution rules</a>.  Must be an existing view.
+        /// </summary>
         public string table_name { get; set; }
 
         /// <summary>Name of the table containing the complete series (track)
-        /// information.  </summary>
+        /// information, in [schema_name.]table_name format, using standard <a
+        /// href="../../concepts/tables.html#table-name-resolution"
+        /// target="_top">name resolution rules</a>.  </summary>
         public string world_table_name { get; set; }
 
-        /// <summary>name of the view containing the series (tracks) which have
-        /// to be updated.  The default value is ''.</summary>
+        /// <summary>Name of the view containing the series (tracks) which have
+        /// to be updated, in [schema_name.]view_name format, using standard <a
+        /// href="../../concepts/tables.html#table-name-resolution"
+        /// target="_top">name resolution rules</a>.  The default value is
+        /// ''.</summary>
         public string view_name { get; set; } = "";
 
         /// <summary>The default value is an empty {@link List}.</summary>
@@ -49,11 +58,21 @@ namespace kinetica
         /// specified parameters.</summary>
         /// 
         /// <param name="table_name">Name of the view on which the update
-        /// operation will be performed. Must be an existing view.  </param>
+        /// operation will be performed, in [schema_name.]view_name format,
+        /// using standard <a
+        /// href="../../concepts/tables.html#table-name-resolution"
+        /// target="_top">name resolution rules</a>.  Must be an existing view.
+        /// </param>
         /// <param name="world_table_name">Name of the table containing the
-        /// complete series (track) information.  </param>
-        /// <param name="view_name">name of the view containing the series
-        /// (tracks) which have to be updated.  The default value is
+        /// complete series (track) information, in [schema_name.]table_name
+        /// format, using standard <a
+        /// href="../../concepts/tables.html#table-name-resolution"
+        /// target="_top">name resolution rules</a>.  </param>
+        /// <param name="view_name">Name of the view containing the series
+        /// (tracks) which have to be updated, in [schema_name.]view_name
+        /// format, using standard <a
+        /// href="../../concepts/tables.html#table-name-resolution"
+        /// target="_top">name resolution rules</a>.  The default value is
         /// ''.</param>
         /// <param name="reserved">The default value is an empty {@link
         /// List}.</param>

@@ -21,7 +21,10 @@ namespace kinetica
     {
 
         /// <summary>Name of the table on which the operation will be
-        /// performed. Must be an existing table.  </summary>
+        /// performed. Must be an existing table, in [schema_name.]table_name
+        /// format, using standard <a
+        /// href="../../concepts/tables.html#table-name-resolution"
+        /// target="_top">name resolution rules</a>.  </summary>
         public string table_name { get; set; }
 
         /// <summary>Name of a column or an expression of one or more column on
@@ -41,7 +44,10 @@ namespace kinetica
         /// specified parameters.</summary>
         /// 
         /// <param name="table_name">Name of the table on which the operation
-        /// will be performed. Must be an existing table.  </param>
+        /// will be performed. Must be an existing table, in
+        /// [schema_name.]table_name format, using standard <a
+        /// href="../../concepts/tables.html#table-name-resolution"
+        /// target="_top">name resolution rules</a>.  </param>
         /// <param name="column_name">Name of a column or an expression of one
         /// or more column on which the min-max will be calculated.  </param>
         /// <param name="options">Optional parameters.  The default value is an

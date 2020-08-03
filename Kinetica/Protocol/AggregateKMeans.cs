@@ -15,18 +15,24 @@ namespace kinetica
     /// cref="Kinetica.aggregateKMeans(string,IList{string},int,double,IDictionary{string, string})"
     /// />.
     /// <br />
-    /// This endpoint runs the k-means algorithm - a heuristic algorithm that
-    /// attempts to do k-means clustering.  An ideal k-means clustering
-    /// algorithm selects k points such that the sum of the mean squared
-    /// distances of each member of the set to the nearest of the k points is
-    /// minimized.  The k-means algorithm however does not necessarily produce
-    /// such an ideal cluster.   It begins with a randomly selected set of k
-    /// points and then refines the location of the points iteratively and
-    /// settles to a local minimum.  Various parameters and options are
+    /// This endpoint runs the k-means algorithm - a heuristic algorithm
+    /// that attempts to do k-means clustering.  An ideal k-means clustering
+    /// algorithm
+    /// selects k points such that the sum of the mean squared distances of
+    /// each member
+    /// of the set to the nearest of the k points is minimized.  The k-means
+    /// algorithm
+    /// however does not necessarily produce such an ideal cluster.   It begins
+    /// with a
+    /// randomly selected set of k points and then refines the location of the
+    /// points
+    /// iteratively and settles to a local minimum.  Various parameters and
+    /// options are
     /// provided to control the heuristic search.
     /// <br />
     /// NOTE:  The Kinetica instance being accessed must be running a CUDA
-    /// (GPU-based) build to service this request.</summary>
+    /// (GPU-based)
+    /// build to service this request.</summary>
     public class AggregateKMeansRequest : KineticaData
     {
 
@@ -74,7 +80,10 @@ namespace kinetica
 
 
         /// <summary>Name of the table on which the operation will be
-        /// performed. Must be an existing table or collection.  </summary>
+        /// performed. Must be an existing table, in [schema_name.]table_name
+        /// format, using standard <a
+        /// href="../../concepts/tables.html#table-name-resolution"
+        /// target="_top">name resolution rules</a>.  </summary>
         public string table_name { get; set; }
 
         /// <summary>List of column names on which the operation would be
@@ -125,8 +134,10 @@ namespace kinetica
         /// specified parameters.</summary>
         /// 
         /// <param name="table_name">Name of the table on which the operation
-        /// will be performed. Must be an existing table or collection.
-        /// </param>
+        /// will be performed. Must be an existing table, in
+        /// [schema_name.]table_name format, using standard <a
+        /// href="../../concepts/tables.html#table-name-resolution"
+        /// target="_top">name resolution rules</a>.  </param>
         /// <param name="column_names">List of column names on which the
         /// operation would be performed. If n columns are provided then each
         /// of the k result points will have n dimensions corresponding to the
