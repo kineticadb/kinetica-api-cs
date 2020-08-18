@@ -119,13 +119,6 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="CreateTypeRequest.Properties.UUID">UUID</see>:</term>
-        ///         <description>Valid only for 'string' columns.  It
-        /// represents an uuid data type. Internally, it is stored as an
-        /// 128-bit ingeger.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
         /// cref="CreateTypeRequest.Properties.DECIMAL">DECIMAL</see>:</term>
         ///         <description>Valid only for 'string' columns.  It
         /// represents a SQL type NUMERIC(19, 4) data type.  There can be up to
@@ -358,11 +351,6 @@ namespace kinetica
             /// zero, and maximum value of 18446744073709551615.</summary>
             public const string ULONG = "ulong";
 
-            /// <summary>Valid only for 'string' columns.  It represents an
-            /// uuid data type. Internally, it is stored as an 128-bit
-            /// ingeger.</summary>
-            public const string UUID = "uuid";
-
             /// <summary>Valid only for 'string' columns.  It represents a SQL
             /// type NUMERIC(19, 4) data type.  There can be up to 15 digits
             /// before the decimal point and up to four digits in the
@@ -570,13 +558,6 @@ namespace kinetica
         /// represents an unsigned long integer data type. The string can only
         /// be interpreted as an unsigned long data type with minimum value of
         /// zero, and maximum value of 18446744073709551615.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateTypeRequest.Properties.UUID">UUID</see>:</term>
-        ///         <description>Valid only for 'string' columns.  It
-        /// represents an uuid data type. Internally, it is stored as an
-        /// 128-bit ingeger.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -837,13 +818,6 @@ namespace kinetica
         /// represents an unsigned long integer data type. The string can only
         /// be interpreted as an unsigned long data type with minimum value of
         /// zero, and maximum value of 18446744073709551615.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateTypeRequest.Properties.UUID">UUID</see>:</term>
-        ///         <description>Valid only for 'string' columns.  It
-        /// represents an uuid data type. Internally, it is stored as an
-        /// 128-bit ingeger.</description>
         ///     </item>
         ///     <item>
         ///         <term><see

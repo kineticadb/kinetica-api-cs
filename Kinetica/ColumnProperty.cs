@@ -57,11 +57,6 @@ namespace kinetica
         /// maximum value of 18446744073709551615.</summary>
         public const string ULONG = "ulong";
 
-        /// <summary>Valid only for 'string' columns.  It represents an uuid
-        /// data type. Internally, it is stored as an 128-bit
-        /// ingeger.</summary>
-        public const string UUID = "uuid";
-
         /// <summary>Valid only for 'string' columns.  It represents a SQL type
         /// NUMERIC(19, 4) data type.  There can be up to 15 digits before the
         /// decimal point and up to four digits in the fractional part.  The

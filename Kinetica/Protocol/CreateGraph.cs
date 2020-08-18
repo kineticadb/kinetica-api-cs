@@ -18,13 +18,15 @@ namespace kinetica
     /// Creates a new graph network using given nodes, edges, weights, and
     /// restrictions.
     /// <br />
-    /// IMPORTANT: It's highly recommended that you review the <a
-    /// href="../../graph_solver/network_graph_solver.html"
-    /// target="_top">Network Graphs & Solvers</a> concepts documentation, the
+    /// IMPORTANT: It's highly recommended that you review the
+    /// <a href="../../graph_solver/network_graph_solver.html"
+    /// target="_top">Network Graphs & Solvers</a>
+    /// concepts documentation, the
     /// <a href="../../graph_solver/examples/graph_rest_guide.html"
-    /// target="_top">Graph REST Tutorial</a>, and/or some <a
-    /// href="../../graph_solver/examples.html" target="_top">graph
-    /// examples</a> before using this endpoint.</summary>
+    /// target="_top">Graph REST Tutorial</a>,
+    /// and/or some <a href="../../graph_solver/examples.html"
+    /// target="_top">graph examples</a> before
+    /// using this endpoint.</summary>
     public class CreateGraphRequest : KineticaData
     {
 
@@ -579,59 +581,76 @@ namespace kinetica
         public bool directed_graph { get; set; } = true;
 
         /// <summary>Nodes represent fundamental topological units of a graph.
-        /// Nodes must be specified using <a
-        /// href="../../graph_solver/network_graph_solver.html#identifiers"
-        /// target="_top">identifiers</a>; identifiers are grouped as <a
-        /// href="../../graph_solver/network_graph_solver.html#id-combos"
-        /// target="_top">combinations</a>. Identifiers can be used with
-        /// existing column names, e.g., 'table.column AS NODE_ID',
-        /// expressions, e.g., 'ST_MAKEPOINT(column1, column2) AS
-        /// NODE_WKTPOINT', or raw values, e.g., '{9, 10, 11} AS NODE_ID'. If
-        /// using raw values in an identifier combination, the number of values
+        /// Nodes must be specified using
+        /// <a href="../../graph_solver/network_graph_solver.html#identifiers"
+        /// target="_top">identifiers</a>;
+        /// identifiers are grouped as
+        /// <a href="../../graph_solver/network_graph_solver.html#id-combos"
+        /// target="_top">combinations</a>.
+        /// Identifiers can be used with existing column names, e.g.,
+        /// 'table.column AS NODE_ID', expressions, e.g.,
+        /// 'ST_MAKEPOINT(column1, column2) AS NODE_WKTPOINT', or constant
+        /// values, e.g.,
+        /// '{9, 10, 11} AS NODE_ID'.
+        /// If using constant values in an identifier combination, the number
+        /// of values
         /// specified must match across the combination.  </summary>
         public IList<string> nodes { get; set; } = new List<string>();
 
         /// <summary>Edges represent the required fundamental topological unit
-        /// of a graph that typically connect nodes. Edges must be specified
-        /// using <a
-        /// href="../../graph_solver/network_graph_solver.html#identifiers"
-        /// target="_top">identifiers</a>; identifiers are grouped as <a
-        /// href="../../graph_solver/network_graph_solver.html#id-combos"
-        /// target="_top">combinations</a>. Identifiers can be used with
-        /// existing column names, e.g., 'table.column AS EDGE_ID',
-        /// expressions, e.g., 'SUBSTR(column, 1, 6) AS EDGE_NODE1_NAME', or
-        /// raw values, e.g., "{'family', 'coworker'} AS EDGE_LABEL". If using
-        /// raw values in an identifier combination, the number of values
+        /// of
+        /// a graph that typically connect nodes. Edges must be specified using
+        /// <a href="../../graph_solver/network_graph_solver.html#identifiers"
+        /// target="_top">identifiers</a>;
+        /// identifiers are grouped as
+        /// <a href="../../graph_solver/network_graph_solver.html#id-combos"
+        /// target="_top">combinations</a>.
+        /// Identifiers can be used with existing column names, e.g.,
+        /// 'table.column AS EDGE_ID', expressions, e.g.,
+        /// 'SUBSTR(column, 1, 6) AS EDGE_NODE1_NAME', or constant values,
+        /// e.g.,
+        /// "{'family', 'coworker'} AS EDGE_LABEL".
+        /// If using constant values in an identifier combination, the number
+        /// of values
         /// specified must match across the combination.  </summary>
         public IList<string> edges { get; set; } = new List<string>();
 
         /// <summary>Weights represent a method of informing the graph solver
-        /// of the cost of including a given edge in a solution. Weights must
-        /// be specified using <a
-        /// href="../../graph_solver/network_graph_solver.html#identifiers"
-        /// target="_top">identifiers</a>; identifiers are grouped as <a
-        /// href="../../graph_solver/network_graph_solver.html#id-combos"
-        /// target="_top">combinations</a>. Identifiers can be used with
-        /// existing column names, e.g., 'table.column AS WEIGHTS_EDGE_ID',
-        /// expressions, e.g., 'ST_LENGTH(wkt) AS WEIGHTS_VALUESPECIFIED', or
-        /// raw values, e.g., '{4, 15} AS WEIGHTS_VALUESPECIFIED'. If using raw
-        /// values in an identifier combination, the number of values specified
+        /// of
+        /// the cost of including a given edge in a solution. Weights must be
+        /// specified
+        /// using
+        /// <a href="../../graph_solver/network_graph_solver.html#identifiers"
+        /// target="_top">identifiers</a>;
+        /// identifiers are grouped as
+        /// <a href="../../graph_solver/network_graph_solver.html#id-combos"
+        /// target="_top">combinations</a>.
+        /// Identifiers can be used with existing column names, e.g.,
+        /// 'table.column AS WEIGHTS_EDGE_ID', expressions, e.g.,
+        /// 'ST_LENGTH(wkt) AS WEIGHTS_VALUESPECIFIED', or constant values,
+        /// e.g.,
+        /// '{4, 15} AS WEIGHTS_VALUESPECIFIED'.
+        /// If using constant values in an identifier combination, the number
+        /// of values specified
         /// must match across the combination.  </summary>
         public IList<string> weights { get; set; } = new List<string>();
 
         /// <summary>Restrictions represent a method of informing the graph
         /// solver which edges and/or nodes should be ignored for the solution.
-        /// Restrictions must be specified using <a
-        /// href="../../graph_solver/network_graph_solver.html#identifiers"
-        /// target="_top">identifiers</a>; identifiers are grouped as <a
-        /// href="../../graph_solver/network_graph_solver.html#id-combos"
-        /// target="_top">combinations</a>. Identifiers can be used with
-        /// existing column names, e.g., 'table.column AS
-        /// RESTRICTIONS_EDGE_ID', expressions, e.g., 'column/2 AS
-        /// RESTRICTIONS_VALUECOMPARED', or raw values, e.g., '{0, 0, 0, 1} AS
-        /// RESTRICTIONS_ONOFFCOMPARED'. If using raw values in an identifier
-        /// combination, the number of values specified must match across the
-        /// combination.  </summary>
+        /// Restrictions
+        /// must be specified using
+        /// <a href="../../graph_solver/network_graph_solver.html#identifiers"
+        /// target="_top">identifiers</a>;
+        /// identifiers are grouped as
+        /// <a href="../../graph_solver/network_graph_solver.html#id-combos"
+        /// target="_top">combinations</a>.
+        /// Identifiers can be used with existing column names, e.g.,
+        /// 'table.column AS RESTRICTIONS_EDGE_ID', expressions, e.g.,
+        /// 'column/2 AS RESTRICTIONS_VALUECOMPARED', or constant values, e.g.,
+        /// '{0, 0, 0, 1} AS RESTRICTIONS_ONOFFCOMPARED'.
+        /// If using constant values in an identifier combination, the number
+        /// of values
+        /// specified must match across the combination.  </summary>
         public IList<string> restrictions { get; set; } = new List<string>();
 
         /// <summary>Optional parameters.
@@ -929,53 +948,72 @@ namespace kinetica
         /// The default value is <see
         /// cref="CreateGraphRequest.DirectedGraph.TRUE">TRUE</see>.  </param>
         /// <param name="nodes">Nodes represent fundamental topological units
-        /// of a graph. Nodes must be specified using <a
-        /// href="../../graph_solver/network_graph_solver.html#identifiers"
-        /// target="_top">identifiers</a>; identifiers are grouped as <a
-        /// href="../../graph_solver/network_graph_solver.html#id-combos"
-        /// target="_top">combinations</a>. Identifiers can be used with
-        /// existing column names, e.g., 'table.column AS NODE_ID',
-        /// expressions, e.g., 'ST_MAKEPOINT(column1, column2) AS
-        /// NODE_WKTPOINT', or raw values, e.g., '{9, 10, 11} AS NODE_ID'. If
-        /// using raw values in an identifier combination, the number of values
+        /// of a graph.
+        /// Nodes must be specified using
+        /// <a href="../../graph_solver/network_graph_solver.html#identifiers"
+        /// target="_top">identifiers</a>;
+        /// identifiers are grouped as
+        /// <a href="../../graph_solver/network_graph_solver.html#id-combos"
+        /// target="_top">combinations</a>.
+        /// Identifiers can be used with existing column names, e.g.,
+        /// 'table.column AS NODE_ID', expressions, e.g.,
+        /// 'ST_MAKEPOINT(column1, column2) AS NODE_WKTPOINT', or constant
+        /// values, e.g.,
+        /// '{9, 10, 11} AS NODE_ID'.
+        /// If using constant values in an identifier combination, the number
+        /// of values
         /// specified must match across the combination.  </param>
         /// <param name="edges">Edges represent the required fundamental
-        /// topological unit of a graph that typically connect nodes. Edges
-        /// must be specified using <a
-        /// href="../../graph_solver/network_graph_solver.html#identifiers"
-        /// target="_top">identifiers</a>; identifiers are grouped as <a
-        /// href="../../graph_solver/network_graph_solver.html#id-combos"
-        /// target="_top">combinations</a>. Identifiers can be used with
-        /// existing column names, e.g., 'table.column AS EDGE_ID',
-        /// expressions, e.g., 'SUBSTR(column, 1, 6) AS EDGE_NODE1_NAME', or
-        /// raw values, e.g., "{'family', 'coworker'} AS EDGE_LABEL". If using
-        /// raw values in an identifier combination, the number of values
+        /// topological unit of
+        /// a graph that typically connect nodes. Edges must be specified using
+        /// <a href="../../graph_solver/network_graph_solver.html#identifiers"
+        /// target="_top">identifiers</a>;
+        /// identifiers are grouped as
+        /// <a href="../../graph_solver/network_graph_solver.html#id-combos"
+        /// target="_top">combinations</a>.
+        /// Identifiers can be used with existing column names, e.g.,
+        /// 'table.column AS EDGE_ID', expressions, e.g.,
+        /// 'SUBSTR(column, 1, 6) AS EDGE_NODE1_NAME', or constant values,
+        /// e.g.,
+        /// "{'family', 'coworker'} AS EDGE_LABEL".
+        /// If using constant values in an identifier combination, the number
+        /// of values
         /// specified must match across the combination.  </param>
         /// <param name="weights">Weights represent a method of informing the
-        /// graph solver of the cost of including a given edge in a solution.
-        /// Weights must be specified using <a
-        /// href="../../graph_solver/network_graph_solver.html#identifiers"
-        /// target="_top">identifiers</a>; identifiers are grouped as <a
-        /// href="../../graph_solver/network_graph_solver.html#id-combos"
-        /// target="_top">combinations</a>. Identifiers can be used with
-        /// existing column names, e.g., 'table.column AS WEIGHTS_EDGE_ID',
-        /// expressions, e.g., 'ST_LENGTH(wkt) AS WEIGHTS_VALUESPECIFIED', or
-        /// raw values, e.g., '{4, 15} AS WEIGHTS_VALUESPECIFIED'. If using raw
-        /// values in an identifier combination, the number of values specified
+        /// graph solver of
+        /// the cost of including a given edge in a solution. Weights must be
+        /// specified
+        /// using
+        /// <a href="../../graph_solver/network_graph_solver.html#identifiers"
+        /// target="_top">identifiers</a>;
+        /// identifiers are grouped as
+        /// <a href="../../graph_solver/network_graph_solver.html#id-combos"
+        /// target="_top">combinations</a>.
+        /// Identifiers can be used with existing column names, e.g.,
+        /// 'table.column AS WEIGHTS_EDGE_ID', expressions, e.g.,
+        /// 'ST_LENGTH(wkt) AS WEIGHTS_VALUESPECIFIED', or constant values,
+        /// e.g.,
+        /// '{4, 15} AS WEIGHTS_VALUESPECIFIED'.
+        /// If using constant values in an identifier combination, the number
+        /// of values specified
         /// must match across the combination.  </param>
         /// <param name="restrictions">Restrictions represent a method of
-        /// informing the graph solver which edges and/or nodes should be
-        /// ignored for the solution. Restrictions must be specified using <a
-        /// href="../../graph_solver/network_graph_solver.html#identifiers"
-        /// target="_top">identifiers</a>; identifiers are grouped as <a
-        /// href="../../graph_solver/network_graph_solver.html#id-combos"
-        /// target="_top">combinations</a>. Identifiers can be used with
-        /// existing column names, e.g., 'table.column AS
-        /// RESTRICTIONS_EDGE_ID', expressions, e.g., 'column/2 AS
-        /// RESTRICTIONS_VALUECOMPARED', or raw values, e.g., '{0, 0, 0, 1} AS
-        /// RESTRICTIONS_ONOFFCOMPARED'. If using raw values in an identifier
-        /// combination, the number of values specified must match across the
-        /// combination.  </param>
+        /// informing the graph
+        /// solver which edges and/or nodes should be ignored for the solution.
+        /// Restrictions
+        /// must be specified using
+        /// <a href="../../graph_solver/network_graph_solver.html#identifiers"
+        /// target="_top">identifiers</a>;
+        /// identifiers are grouped as
+        /// <a href="../../graph_solver/network_graph_solver.html#id-combos"
+        /// target="_top">combinations</a>.
+        /// Identifiers can be used with existing column names, e.g.,
+        /// 'table.column AS RESTRICTIONS_EDGE_ID', expressions, e.g.,
+        /// 'column/2 AS RESTRICTIONS_VALUECOMPARED', or constant values, e.g.,
+        /// '{0, 0, 0, 1} AS RESTRICTIONS_ONOFFCOMPARED'.
+        /// If using constant values in an identifier combination, the number
+        /// of values
+        /// specified must match across the combination.  </param>
         /// <param name="options">Optional parameters.
         /// <list type="bullet">
         ///     <item>

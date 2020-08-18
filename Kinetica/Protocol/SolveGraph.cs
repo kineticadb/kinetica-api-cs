@@ -27,8 +27,8 @@ namespace kinetica
     /// <a href="../../graph_solver/examples/graph_rest_guide.html"
     /// target="_top">Graph REST Tutorial</a>,
     /// and/or some
-    /// <a href="../../graph_solver/examples.html#match-graph"
-    /// target="_top">/match/graph examples</a>
+    /// <a href="../../graph_solver/examples.html#solve-graph"
+    /// target="_top">/solve/graph examples</a>
     /// before using this endpoint.</summary>
     public class SolveGraphRequest : KineticaData
     {
@@ -552,40 +552,50 @@ namespace kinetica
         public string graph_name { get; set; }
 
         /// <summary>Additional weights to apply to the edges of an existing
-        /// graph. Weights must be specified using <a
-        /// href="../../graph_solver/network_graph_solver.html#identifiers"
-        /// target="_top">identifiers</a>; identifiers are grouped as <a
-        /// href="../../graph_solver/network_graph_solver.html#id-combos"
-        /// target="_top">combinations</a>. Identifiers can be used with
-        /// existing column names, e.g., 'table.column AS WEIGHTS_EDGE_ID',
-        /// expressions, e.g., 'ST_LENGTH(wkt) AS WEIGHTS_VALUESPECIFIED', or
-        /// raw values, e.g., '{4, 15, 2} AS WEIGHTS_VALUESPECIFIED'. Any
-        /// provided weights will be added (in the case of
-        /// 'WEIGHTS_VALUESPECIFIED') to or multiplied with (in the case of
-        /// 'WEIGHTS_FACTORSPECIFIED') the existing weight(s). If using raw
-        /// values in an identifier combination, the number of values specified
+        /// graph. Weights must be specified using
+        /// <a href="../../graph_solver/network_graph_solver.html#identifiers"
+        /// target="_top">identifiers</a>;
+        /// identifiers are grouped as
+        /// <a href="../../graph_solver/network_graph_solver.html#id-combos"
+        /// target="_top">combinations</a>.
+        /// Identifiers can be used with existing column names, e.g.,
+        /// 'table.column AS WEIGHTS_EDGE_ID', expressions, e.g.,
+        /// 'ST_LENGTH(wkt) AS WEIGHTS_VALUESPECIFIED', or constant values,
+        /// e.g.,
+        /// '{4, 15, 2} AS WEIGHTS_VALUESPECIFIED'. Any provided weights will
+        /// be added
+        /// (in the case of 'WEIGHTS_VALUESPECIFIED') to or multiplied with
+        /// (in the case of 'WEIGHTS_FACTORSPECIFIED') the existing weight(s).
+        /// If using
+        /// constant values in an identifier combination, the number of values
+        /// specified
         /// must match across the combination.  The default value is an empty
         /// {@link List}.</summary>
         public IList<string> weights_on_edges { get; set; } = new List<string>();
 
         /// <summary>Additional restrictions to apply to the nodes/edges of an
-        /// existing graph. Restrictions must be specified using <a
-        /// href="../../graph_solver/network_graph_solver.html#identifiers"
-        /// target="_top">identifiers</a>; identifiers are grouped as <a
-        /// href="../../graph_solver/network_graph_solver.html#id-combos"
-        /// target="_top">combinations</a>. Identifiers can be used with
-        /// existing column names, e.g., 'table.column AS
-        /// RESTRICTIONS_EDGE_ID', expressions, e.g., 'column/2 AS
-        /// RESTRICTIONS_VALUECOMPARED', or raw values, e.g., '{0, 0, 0, 1} AS
-        /// RESTRICTIONS_ONOFFCOMPARED'. If using raw values in an identifier
-        /// combination, the number of values specified must match across the
-        /// combination. If <i>remove_previous_restrictions</i> is set to
-        /// <i>true</i>, any provided restrictions will replace the existing
-        /// restrictions. If <i>remove_previous_restrictions</i> is set to
-        /// <i>false</i>, any provided restrictions will be added (in the case
-        /// of 'RESTRICTIONS_VALUECOMPARED') to or replaced (in the case of
-        /// 'RESTRICTIONS_ONOFFCOMPARED').  The default value is an empty
-        /// {@link List}.</summary>
+        /// existing graph. Restrictions must be specified using
+        /// <a href="../../graph_solver/network_graph_solver.html#identifiers"
+        /// target="_top">identifiers</a>;
+        /// identifiers are grouped as
+        /// <a href="../../graph_solver/network_graph_solver.html#id-combos"
+        /// target="_top">combinations</a>.
+        /// Identifiers can be used with existing column names, e.g.,
+        /// 'table.column AS RESTRICTIONS_EDGE_ID', expressions, e.g.,
+        /// 'column/2 AS RESTRICTIONS_VALUECOMPARED', or constant values, e.g.,
+        /// '{0, 0, 0, 1} AS RESTRICTIONS_ONOFFCOMPARED'. If using constant
+        /// values in an
+        /// identifier combination, the number of values specified must match
+        /// across the
+        /// combination. If <i>remove_previous_restrictions</i> is set
+        /// to <i>true</i>, any
+        /// provided restrictions will replace the existing restrictions. If
+        /// <i>remove_previous_restrictions</i> is set to
+        /// <i>false</i>, any provided
+        /// restrictions will be added (in the case of
+        /// 'RESTRICTIONS_VALUECOMPARED') to or
+        /// replaced (in the case of 'RESTRICTIONS_ONOFFCOMPARED').  The
+        /// default value is an empty {@link List}.</summary>
         public IList<string> restrictions { get; set; } = new List<string>();
 
         /// <summary>The type of solver to use for the graph.
@@ -899,39 +909,50 @@ namespace kinetica
         /// <param name="graph_name">Name of the graph resource to solve.
         /// </param>
         /// <param name="weights_on_edges">Additional weights to apply to the
-        /// edges of an existing graph. Weights must be specified using <a
-        /// href="../../graph_solver/network_graph_solver.html#identifiers"
-        /// target="_top">identifiers</a>; identifiers are grouped as <a
-        /// href="../../graph_solver/network_graph_solver.html#id-combos"
-        /// target="_top">combinations</a>. Identifiers can be used with
-        /// existing column names, e.g., 'table.column AS WEIGHTS_EDGE_ID',
-        /// expressions, e.g., 'ST_LENGTH(wkt) AS WEIGHTS_VALUESPECIFIED', or
-        /// raw values, e.g., '{4, 15, 2} AS WEIGHTS_VALUESPECIFIED'. Any
-        /// provided weights will be added (in the case of
-        /// 'WEIGHTS_VALUESPECIFIED') to or multiplied with (in the case of
-        /// 'WEIGHTS_FACTORSPECIFIED') the existing weight(s). If using raw
-        /// values in an identifier combination, the number of values specified
+        /// edges of an existing
+        /// graph. Weights must be specified using
+        /// <a href="../../graph_solver/network_graph_solver.html#identifiers"
+        /// target="_top">identifiers</a>;
+        /// identifiers are grouped as
+        /// <a href="../../graph_solver/network_graph_solver.html#id-combos"
+        /// target="_top">combinations</a>.
+        /// Identifiers can be used with existing column names, e.g.,
+        /// 'table.column AS WEIGHTS_EDGE_ID', expressions, e.g.,
+        /// 'ST_LENGTH(wkt) AS WEIGHTS_VALUESPECIFIED', or constant values,
+        /// e.g.,
+        /// '{4, 15, 2} AS WEIGHTS_VALUESPECIFIED'. Any provided weights will
+        /// be added
+        /// (in the case of 'WEIGHTS_VALUESPECIFIED') to or multiplied with
+        /// (in the case of 'WEIGHTS_FACTORSPECIFIED') the existing weight(s).
+        /// If using
+        /// constant values in an identifier combination, the number of values
+        /// specified
         /// must match across the combination.  The default value is an empty
         /// {@link List}.</param>
         /// <param name="restrictions">Additional restrictions to apply to the
-        /// nodes/edges of an existing graph. Restrictions must be specified
-        /// using <a
-        /// href="../../graph_solver/network_graph_solver.html#identifiers"
-        /// target="_top">identifiers</a>; identifiers are grouped as <a
-        /// href="../../graph_solver/network_graph_solver.html#id-combos"
-        /// target="_top">combinations</a>. Identifiers can be used with
-        /// existing column names, e.g., 'table.column AS
-        /// RESTRICTIONS_EDGE_ID', expressions, e.g., 'column/2 AS
-        /// RESTRICTIONS_VALUECOMPARED', or raw values, e.g., '{0, 0, 0, 1} AS
-        /// RESTRICTIONS_ONOFFCOMPARED'. If using raw values in an identifier
-        /// combination, the number of values specified must match across the
-        /// combination. If <i>remove_previous_restrictions</i> is set to
-        /// <i>true</i>, any provided restrictions will replace the existing
-        /// restrictions. If <i>remove_previous_restrictions</i> is set to
-        /// <i>false</i>, any provided restrictions will be added (in the case
-        /// of 'RESTRICTIONS_VALUECOMPARED') to or replaced (in the case of
-        /// 'RESTRICTIONS_ONOFFCOMPARED').  The default value is an empty
-        /// {@link List}.</param>
+        /// nodes/edges of an
+        /// existing graph. Restrictions must be specified using
+        /// <a href="../../graph_solver/network_graph_solver.html#identifiers"
+        /// target="_top">identifiers</a>;
+        /// identifiers are grouped as
+        /// <a href="../../graph_solver/network_graph_solver.html#id-combos"
+        /// target="_top">combinations</a>.
+        /// Identifiers can be used with existing column names, e.g.,
+        /// 'table.column AS RESTRICTIONS_EDGE_ID', expressions, e.g.,
+        /// 'column/2 AS RESTRICTIONS_VALUECOMPARED', or constant values, e.g.,
+        /// '{0, 0, 0, 1} AS RESTRICTIONS_ONOFFCOMPARED'. If using constant
+        /// values in an
+        /// identifier combination, the number of values specified must match
+        /// across the
+        /// combination. If <i>remove_previous_restrictions</i> is set
+        /// to <i>true</i>, any
+        /// provided restrictions will replace the existing restrictions. If
+        /// <i>remove_previous_restrictions</i> is set to
+        /// <i>false</i>, any provided
+        /// restrictions will be added (in the case of
+        /// 'RESTRICTIONS_VALUECOMPARED') to or
+        /// replaced (in the case of 'RESTRICTIONS_ONOFFCOMPARED').  The
+        /// default value is an empty {@link List}.</param>
         /// <param name="solver_type">The type of solver to use for the graph.
         /// Supported values:
         /// <list type="bullet">
