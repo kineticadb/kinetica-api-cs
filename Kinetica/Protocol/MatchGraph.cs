@@ -15,18 +15,21 @@ namespace kinetica
     /// cref="Kinetica.matchGraph(string,IList{string},string,string,IDictionary{string, string})"
     /// />.
     /// <br />
-    /// Matches a directed route implied by a given set of latitude/longitude
-    /// points to an existing underlying road network graph using a given
-    /// solution type.
+    /// Matches a directed route implied by a given set of
+    /// latitude/longitude points to an existing underlying road network graph
+    /// using a
+    /// given solution type.
     /// <br />
-    /// IMPORTANT: It's highly recommended that you review the <a
-    /// href="../../graph_solver/network_graph_solver.html"
-    /// target="_top">Network Graphs & Solvers</a> concepts documentation, the
+    /// IMPORTANT: It's highly recommended that you review the
+    /// <a href="../../graph_solver/network_graph_solver.html"
+    /// target="_top">Network Graphs & Solvers</a>
+    /// concepts documentation, the
     /// <a href="../../graph_solver/examples/graph_rest_guide.html"
-    /// target="_top">Graph REST Tutorial</a>, and/or some <a
-    /// href="../../graph_solver/examples.html#match-graph"
-    /// target="_top">/match/graph examples</a> before using this
-    /// endpoint.</summary>
+    /// target="_top">Graph REST Tutorial</a>,
+    /// and/or some
+    /// <a href="../../graph_solver/examples.html#match-graph"
+    /// target="_top">/match/graph examples</a>
+    /// before using this endpoint.</summary>
     public class MatchGraphRequest : KineticaData
     {
 
@@ -526,15 +529,19 @@ namespace kinetica
         public string graph_name { get; set; }
 
         /// <summary>Sample points used to match to an underlying geospatial
-        /// graph. Sample points must be specified using <a
+        /// graph. Sample points must be specified using
+        /// <a
         /// href="../../graph_solver/network_graph_solver.html#match-identifiers"
-        /// target="_top">identifiers</a>; identifiers are grouped as <a
+        /// target="_top">identifiers</a>;
+        /// identifiers are grouped as
+        /// <a
         /// href="../../graph_solver/network_graph_solver.html#match-combinations"
-        /// target="_top">combinations</a>. Identifiers can be used with:
-        /// existing column names, e.g., 'table.column AS SAMPLE_X';
-        /// expressions, e.g., 'ST_MAKEPOINT(table.x, table.y) AS
-        /// SAMPLE_WKTPOINT'; or raw values, e.g., '{1, 2, 10} AS
-        /// SAMPLE_TRIPID'.  </summary>
+        /// target="_top">combinations</a>.
+        /// Identifiers can be used with: existing column names, e.g.,
+        /// 'table.column AS SAMPLE_X'; expressions, e.g.,
+        /// 'ST_MAKEPOINT(table.x, table.y) AS SAMPLE_WKTPOINT'; or constant
+        /// values, e.g.,
+        /// '{1, 2, 10} AS SAMPLE_TRIPID'.  </summary>
         public IList<string> sample_points { get; set; } = new List<string>();
 
         /// <summary>The type of solver to use for graph matching.
@@ -826,16 +833,20 @@ namespace kinetica
         /// resource to match to using <paramref
         /// cref="MatchGraphRequest.sample_points" />.  </param>
         /// <param name="sample_points">Sample points used to match to an
-        /// underlying geospatial graph. Sample points must be specified using
+        /// underlying geospatial
+        /// graph. Sample points must be specified using
         /// <a
         /// href="../../graph_solver/network_graph_solver.html#match-identifiers"
-        /// target="_top">identifiers</a>; identifiers are grouped as <a
+        /// target="_top">identifiers</a>;
+        /// identifiers are grouped as
+        /// <a
         /// href="../../graph_solver/network_graph_solver.html#match-combinations"
-        /// target="_top">combinations</a>. Identifiers can be used with:
-        /// existing column names, e.g., 'table.column AS SAMPLE_X';
-        /// expressions, e.g., 'ST_MAKEPOINT(table.x, table.y) AS
-        /// SAMPLE_WKTPOINT'; or raw values, e.g., '{1, 2, 10} AS
-        /// SAMPLE_TRIPID'.  </param>
+        /// target="_top">combinations</a>.
+        /// Identifiers can be used with: existing column names, e.g.,
+        /// 'table.column AS SAMPLE_X'; expressions, e.g.,
+        /// 'ST_MAKEPOINT(table.x, table.y) AS SAMPLE_WKTPOINT'; or constant
+        /// values, e.g.,
+        /// '{1, 2, 10} AS SAMPLE_TRIPID'.  </param>
         /// <param name="solve_method">The type of solver to use for graph
         /// matching.
         /// Supported values:

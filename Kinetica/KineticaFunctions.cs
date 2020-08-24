@@ -16,7 +16,7 @@ namespace kinetica
     {
 
         // Kinetica Version
-        public const string API_VERSION = "7.0.18.0";
+        public const string API_VERSION = "7.0.19.0";
 
 
 
@@ -4419,15 +4419,18 @@ namespace kinetica
 
 
         /// <summary>Creates a new graph network using given nodes, edges,
-        /// weights, and restrictions.
+        /// weights, and
+        /// restrictions.
         /// <br />
-        /// IMPORTANT: It's highly recommended that you review the <a
-        /// href="../../graph_solver/network_graph_solver.html"
-        /// target="_top">Network Graphs & Solvers</a> concepts documentation,
-        /// the <a href="../../graph_solver/examples/graph_rest_guide.html"
-        /// target="_top">Graph REST Tutorial</a>, and/or some <a
-        /// href="../../graph_solver/examples.html" target="_top">graph
-        /// examples</a> before using this endpoint.</summary>
+        /// IMPORTANT: It's highly recommended that you review the
+        /// <a href="../../graph_solver/network_graph_solver.html"
+        /// target="_top">Network Graphs & Solvers</a>
+        /// concepts documentation, the
+        /// <a href="../../graph_solver/examples/graph_rest_guide.html"
+        /// target="_top">Graph REST Tutorial</a>,
+        /// and/or some <a href="../../graph_solver/examples.html"
+        /// target="_top">graph examples</a> before
+        /// using this endpoint.</summary>
         /// 
         /// <param name="request_">Request object containing the parameters for
         /// the operation.</param>
@@ -4444,15 +4447,18 @@ namespace kinetica
 
 
         /// <summary>Creates a new graph network using given nodes, edges,
-        /// weights, and restrictions.
+        /// weights, and
+        /// restrictions.
         /// <br />
-        /// IMPORTANT: It's highly recommended that you review the <a
-        /// href="../../graph_solver/network_graph_solver.html"
-        /// target="_top">Network Graphs & Solvers</a> concepts documentation,
-        /// the <a href="../../graph_solver/examples/graph_rest_guide.html"
-        /// target="_top">Graph REST Tutorial</a>, and/or some <a
-        /// href="../../graph_solver/examples.html" target="_top">graph
-        /// examples</a> before using this endpoint.</summary>
+        /// IMPORTANT: It's highly recommended that you review the
+        /// <a href="../../graph_solver/network_graph_solver.html"
+        /// target="_top">Network Graphs & Solvers</a>
+        /// concepts documentation, the
+        /// <a href="../../graph_solver/examples/graph_rest_guide.html"
+        /// target="_top">Graph REST Tutorial</a>,
+        /// and/or some <a href="../../graph_solver/examples.html"
+        /// target="_top">graph examples</a> before
+        /// using this endpoint.</summary>
         /// 
         /// <param name="graph_name">Name of the graph resource to generate.
         /// </param>
@@ -4475,53 +4481,72 @@ namespace kinetica
         /// The default value is <see
         /// cref="CreateGraphRequest.DirectedGraph.TRUE">TRUE</see>.  </param>
         /// <param name="nodes">Nodes represent fundamental topological units
-        /// of a graph. Nodes must be specified using <a
-        /// href="../../graph_solver/network_graph_solver.html#identifiers"
-        /// target="_top">identifiers</a>; identifiers are grouped as <a
-        /// href="../../graph_solver/network_graph_solver.html#id-combos"
-        /// target="_top">combinations</a>. Identifiers can be used with
-        /// existing column names, e.g., 'table.column AS NODE_ID',
-        /// expressions, e.g., 'ST_MAKEPOINT(column1, column2) AS
-        /// NODE_WKTPOINT', or raw values, e.g., '{9, 10, 11} AS NODE_ID'. If
-        /// using raw values in an identifier combination, the number of values
+        /// of a graph.
+        /// Nodes must be specified using
+        /// <a href="../../graph_solver/network_graph_solver.html#identifiers"
+        /// target="_top">identifiers</a>;
+        /// identifiers are grouped as
+        /// <a href="../../graph_solver/network_graph_solver.html#id-combos"
+        /// target="_top">combinations</a>.
+        /// Identifiers can be used with existing column names, e.g.,
+        /// 'table.column AS NODE_ID', expressions, e.g.,
+        /// 'ST_MAKEPOINT(column1, column2) AS NODE_WKTPOINT', or constant
+        /// values, e.g.,
+        /// '{9, 10, 11} AS NODE_ID'.
+        /// If using constant values in an identifier combination, the number
+        /// of values
         /// specified must match across the combination.  </param>
         /// <param name="edges">Edges represent the required fundamental
-        /// topological unit of a graph that typically connect nodes. Edges
-        /// must be specified using <a
-        /// href="../../graph_solver/network_graph_solver.html#identifiers"
-        /// target="_top">identifiers</a>; identifiers are grouped as <a
-        /// href="../../graph_solver/network_graph_solver.html#id-combos"
-        /// target="_top">combinations</a>. Identifiers can be used with
-        /// existing column names, e.g., 'table.column AS EDGE_ID',
-        /// expressions, e.g., 'SUBSTR(column, 1, 6) AS EDGE_NODE1_NAME', or
-        /// raw values, e.g., "{'family', 'coworker'} AS EDGE_LABEL". If using
-        /// raw values in an identifier combination, the number of values
+        /// topological unit of
+        /// a graph that typically connect nodes. Edges must be specified using
+        /// <a href="../../graph_solver/network_graph_solver.html#identifiers"
+        /// target="_top">identifiers</a>;
+        /// identifiers are grouped as
+        /// <a href="../../graph_solver/network_graph_solver.html#id-combos"
+        /// target="_top">combinations</a>.
+        /// Identifiers can be used with existing column names, e.g.,
+        /// 'table.column AS EDGE_ID', expressions, e.g.,
+        /// 'SUBSTR(column, 1, 6) AS EDGE_NODE1_NAME', or constant values,
+        /// e.g.,
+        /// "{'family', 'coworker'} AS EDGE_LABEL".
+        /// If using constant values in an identifier combination, the number
+        /// of values
         /// specified must match across the combination.  </param>
         /// <param name="weights">Weights represent a method of informing the
-        /// graph solver of the cost of including a given edge in a solution.
-        /// Weights must be specified using <a
-        /// href="../../graph_solver/network_graph_solver.html#identifiers"
-        /// target="_top">identifiers</a>; identifiers are grouped as <a
-        /// href="../../graph_solver/network_graph_solver.html#id-combos"
-        /// target="_top">combinations</a>. Identifiers can be used with
-        /// existing column names, e.g., 'table.column AS WEIGHTS_EDGE_ID',
-        /// expressions, e.g., 'ST_LENGTH(wkt) AS WEIGHTS_VALUESPECIFIED', or
-        /// raw values, e.g., '{4, 15} AS WEIGHTS_VALUESPECIFIED'. If using raw
-        /// values in an identifier combination, the number of values specified
+        /// graph solver of
+        /// the cost of including a given edge in a solution. Weights must be
+        /// specified
+        /// using
+        /// <a href="../../graph_solver/network_graph_solver.html#identifiers"
+        /// target="_top">identifiers</a>;
+        /// identifiers are grouped as
+        /// <a href="../../graph_solver/network_graph_solver.html#id-combos"
+        /// target="_top">combinations</a>.
+        /// Identifiers can be used with existing column names, e.g.,
+        /// 'table.column AS WEIGHTS_EDGE_ID', expressions, e.g.,
+        /// 'ST_LENGTH(wkt) AS WEIGHTS_VALUESPECIFIED', or constant values,
+        /// e.g.,
+        /// '{4, 15} AS WEIGHTS_VALUESPECIFIED'.
+        /// If using constant values in an identifier combination, the number
+        /// of values specified
         /// must match across the combination.  </param>
         /// <param name="restrictions">Restrictions represent a method of
-        /// informing the graph solver which edges and/or nodes should be
-        /// ignored for the solution. Restrictions must be specified using <a
-        /// href="../../graph_solver/network_graph_solver.html#identifiers"
-        /// target="_top">identifiers</a>; identifiers are grouped as <a
-        /// href="../../graph_solver/network_graph_solver.html#id-combos"
-        /// target="_top">combinations</a>. Identifiers can be used with
-        /// existing column names, e.g., 'table.column AS
-        /// RESTRICTIONS_EDGE_ID', expressions, e.g., 'column/2 AS
-        /// RESTRICTIONS_VALUECOMPARED', or raw values, e.g., '{0, 0, 0, 1} AS
-        /// RESTRICTIONS_ONOFFCOMPARED'. If using raw values in an identifier
-        /// combination, the number of values specified must match across the
-        /// combination.  </param>
+        /// informing the graph
+        /// solver which edges and/or nodes should be ignored for the solution.
+        /// Restrictions
+        /// must be specified using
+        /// <a href="../../graph_solver/network_graph_solver.html#identifiers"
+        /// target="_top">identifiers</a>;
+        /// identifiers are grouped as
+        /// <a href="../../graph_solver/network_graph_solver.html#id-combos"
+        /// target="_top">combinations</a>.
+        /// Identifiers can be used with existing column names, e.g.,
+        /// 'table.column AS RESTRICTIONS_EDGE_ID', expressions, e.g.,
+        /// 'column/2 AS RESTRICTIONS_VALUECOMPARED', or constant values, e.g.,
+        /// '{0, 0, 0, 1} AS RESTRICTIONS_ONOFFCOMPARED'.
+        /// If using constant values in an identifier combination, the number
+        /// of values
+        /// specified must match across the combination.  </param>
         /// <param name="options">Optional parameters.
         /// <list type="bullet">
         ///     <item>
@@ -11560,16 +11585,19 @@ namespace kinetica
 
         /// <summary>Matches a directed route implied by a given set of
         /// latitude/longitude points to an existing underlying road network
-        /// graph using a given solution type.
+        /// graph using a
+        /// given solution type.
         /// <br />
-        /// IMPORTANT: It's highly recommended that you review the <a
-        /// href="../../graph_solver/network_graph_solver.html"
-        /// target="_top">Network Graphs & Solvers</a> concepts documentation,
-        /// the <a href="../../graph_solver/examples/graph_rest_guide.html"
-        /// target="_top">Graph REST Tutorial</a>, and/or some <a
-        /// href="../../graph_solver/examples.html#match-graph"
-        /// target="_top">/match/graph examples</a> before using this
-        /// endpoint.</summary>
+        /// IMPORTANT: It's highly recommended that you review the
+        /// <a href="../../graph_solver/network_graph_solver.html"
+        /// target="_top">Network Graphs & Solvers</a>
+        /// concepts documentation, the
+        /// <a href="../../graph_solver/examples/graph_rest_guide.html"
+        /// target="_top">Graph REST Tutorial</a>,
+        /// and/or some
+        /// <a href="../../graph_solver/examples.html#match-graph"
+        /// target="_top">/match/graph examples</a>
+        /// before using this endpoint.</summary>
         /// 
         /// <param name="request_">Request object containing the parameters for
         /// the operation.</param>
@@ -11587,31 +11615,38 @@ namespace kinetica
 
         /// <summary>Matches a directed route implied by a given set of
         /// latitude/longitude points to an existing underlying road network
-        /// graph using a given solution type.
+        /// graph using a
+        /// given solution type.
         /// <br />
-        /// IMPORTANT: It's highly recommended that you review the <a
-        /// href="../../graph_solver/network_graph_solver.html"
-        /// target="_top">Network Graphs & Solvers</a> concepts documentation,
-        /// the <a href="../../graph_solver/examples/graph_rest_guide.html"
-        /// target="_top">Graph REST Tutorial</a>, and/or some <a
-        /// href="../../graph_solver/examples.html#match-graph"
-        /// target="_top">/match/graph examples</a> before using this
-        /// endpoint.</summary>
+        /// IMPORTANT: It's highly recommended that you review the
+        /// <a href="../../graph_solver/network_graph_solver.html"
+        /// target="_top">Network Graphs & Solvers</a>
+        /// concepts documentation, the
+        /// <a href="../../graph_solver/examples/graph_rest_guide.html"
+        /// target="_top">Graph REST Tutorial</a>,
+        /// and/or some
+        /// <a href="../../graph_solver/examples.html#match-graph"
+        /// target="_top">/match/graph examples</a>
+        /// before using this endpoint.</summary>
         /// 
         /// <param name="graph_name">Name of the underlying geospatial graph
         /// resource to match to using <paramref
         /// cref="MatchGraphRequest.sample_points" />.  </param>
         /// <param name="sample_points">Sample points used to match to an
-        /// underlying geospatial graph. Sample points must be specified using
+        /// underlying geospatial
+        /// graph. Sample points must be specified using
         /// <a
         /// href="../../graph_solver/network_graph_solver.html#match-identifiers"
-        /// target="_top">identifiers</a>; identifiers are grouped as <a
+        /// target="_top">identifiers</a>;
+        /// identifiers are grouped as
+        /// <a
         /// href="../../graph_solver/network_graph_solver.html#match-combinations"
-        /// target="_top">combinations</a>. Identifiers can be used with:
-        /// existing column names, e.g., 'table.column AS SAMPLE_X';
-        /// expressions, e.g., 'ST_MAKEPOINT(table.x, table.y) AS
-        /// SAMPLE_WKTPOINT'; or raw values, e.g., '{1, 2, 10} AS
-        /// SAMPLE_TRIPID'.  </param>
+        /// target="_top">combinations</a>.
+        /// Identifiers can be used with: existing column names, e.g.,
+        /// 'table.column AS SAMPLE_X'; expressions, e.g.,
+        /// 'ST_MAKEPOINT(table.x, table.y) AS SAMPLE_WKTPOINT'; or constant
+        /// values, e.g.,
+        /// '{1, 2, 10} AS SAMPLE_TRIPID'.  </param>
         /// <param name="solve_method">The type of solver to use for graph
         /// matching.
         /// Supported values:
@@ -12871,6 +12906,43 @@ namespace kinetica
             return revokeRole( new RevokeRoleRequest( role, member, options ) );
         }
 
+        /// @cond NO_DOCS
+        /// 
+        /// <param name="request_">Request object containing the parameters for
+        /// the operation.</param>
+        /// 
+        /// <returns>Response object containing the result of the
+        /// operation.</returns>
+        /// 
+        public ShowFunctionsResponse showFunctions( ShowFunctionsRequest request_ )
+        {
+            ShowFunctionsResponse actualResponse_ = SubmitRequest<ShowFunctionsResponse>("/show/functions", request_, false);
+
+            return actualResponse_;
+        }
+        /// @endcond
+
+        /// @cond NO_DOCS
+        /// 
+        /// <param name="options">
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="ShowFunctionsRequest.Options.PROPERTIES">PROPERTIES</see>:</term>
+        ///         <description></description>
+        ///     </item>
+        /// </list>
+        /// </param>
+        /// 
+        /// <returns>Response object containing the result of the
+        /// operation.</returns>
+        /// 
+        public ShowFunctionsResponse showFunctions( IDictionary<string, string> options = null )
+        {
+            return showFunctions( new ShowFunctionsRequest( options ) );
+        }
+        /// @endcond
+
 
         /// <summary>Shows information and characteristics of graphs that exist
         /// on the graph server.</summary>
@@ -13833,18 +13905,21 @@ namespace kinetica
 
 
         /// <summary>Solves an existing graph for a type of problem (e.g.,
-        /// shortest path, page rank, travelling salesman, etc.) using source
-        /// nodes, destination nodes, and additional, optional weights and
-        /// restrictions.
+        /// shortest path,
+        /// page rank, travelling salesman, etc.) using source nodes,
+        /// destination nodes, and
+        /// additional, optional weights and restrictions.
         /// <br />
-        /// IMPORTANT: It's highly recommended that you review the <a
-        /// href="../../graph_solver/network_graph_solver.html"
-        /// target="_top">Network Graphs & Solvers</a> concepts documentation,
-        /// the <a href="../../graph_solver/examples/graph_rest_guide.html"
-        /// target="_top">Graph REST Tutorial</a>, and/or some <a
-        /// href="../../graph_solver/examples.html#solve-graph"
-        /// target="_top">/solve/graph examples</a> before using this
-        /// endpoint.</summary>
+        /// IMPORTANT: It's highly recommended that you review the
+        /// <a href="../../graph_solver/network_graph_solver.html"
+        /// target="_top">Network Graphs & Solvers</a>
+        /// concepts documentation, the
+        /// <a href="../../graph_solver/examples/graph_rest_guide.html"
+        /// target="_top">Graph REST Tutorial</a>,
+        /// and/or some
+        /// <a href="../../graph_solver/examples.html#solve-graph"
+        /// target="_top">/solve/graph examples</a>
+        /// before using this endpoint.</summary>
         /// 
         /// <param name="request_">Request object containing the parameters for
         /// the operation.</param>
@@ -13861,55 +13936,69 @@ namespace kinetica
 
 
         /// <summary>Solves an existing graph for a type of problem (e.g.,
-        /// shortest path, page rank, travelling salesman, etc.) using source
-        /// nodes, destination nodes, and additional, optional weights and
-        /// restrictions.
+        /// shortest path,
+        /// page rank, travelling salesman, etc.) using source nodes,
+        /// destination nodes, and
+        /// additional, optional weights and restrictions.
         /// <br />
-        /// IMPORTANT: It's highly recommended that you review the <a
-        /// href="../../graph_solver/network_graph_solver.html"
-        /// target="_top">Network Graphs & Solvers</a> concepts documentation,
-        /// the <a href="../../graph_solver/examples/graph_rest_guide.html"
-        /// target="_top">Graph REST Tutorial</a>, and/or some <a
-        /// href="../../graph_solver/examples.html#solve-graph"
-        /// target="_top">/solve/graph examples</a> before using this
-        /// endpoint.</summary>
+        /// IMPORTANT: It's highly recommended that you review the
+        /// <a href="../../graph_solver/network_graph_solver.html"
+        /// target="_top">Network Graphs & Solvers</a>
+        /// concepts documentation, the
+        /// <a href="../../graph_solver/examples/graph_rest_guide.html"
+        /// target="_top">Graph REST Tutorial</a>,
+        /// and/or some
+        /// <a href="../../graph_solver/examples.html#solve-graph"
+        /// target="_top">/solve/graph examples</a>
+        /// before using this endpoint.</summary>
         /// 
         /// <param name="graph_name">Name of the graph resource to solve.
         /// </param>
         /// <param name="weights_on_edges">Additional weights to apply to the
-        /// edges of an existing graph. Weights must be specified using <a
-        /// href="../../graph_solver/network_graph_solver.html#identifiers"
-        /// target="_top">identifiers</a>; identifiers are grouped as <a
-        /// href="../../graph_solver/network_graph_solver.html#id-combos"
-        /// target="_top">combinations</a>. Identifiers can be used with
-        /// existing column names, e.g., 'table.column AS WEIGHTS_EDGE_ID',
-        /// expressions, e.g., 'ST_LENGTH(wkt) AS WEIGHTS_VALUESPECIFIED', or
-        /// raw values, e.g., '{4, 15, 2} AS WEIGHTS_VALUESPECIFIED'. Any
-        /// provided weights will be added (in the case of
-        /// 'WEIGHTS_VALUESPECIFIED') to or multiplied with (in the case of
-        /// 'WEIGHTS_FACTORSPECIFIED') the existing weight(s). If using raw
-        /// values in an identifier combination, the number of values specified
+        /// edges of an existing
+        /// graph. Weights must be specified using
+        /// <a href="../../graph_solver/network_graph_solver.html#identifiers"
+        /// target="_top">identifiers</a>;
+        /// identifiers are grouped as
+        /// <a href="../../graph_solver/network_graph_solver.html#id-combos"
+        /// target="_top">combinations</a>.
+        /// Identifiers can be used with existing column names, e.g.,
+        /// 'table.column AS WEIGHTS_EDGE_ID', expressions, e.g.,
+        /// 'ST_LENGTH(wkt) AS WEIGHTS_VALUESPECIFIED', or constant values,
+        /// e.g.,
+        /// '{4, 15, 2} AS WEIGHTS_VALUESPECIFIED'. Any provided weights will
+        /// be added
+        /// (in the case of 'WEIGHTS_VALUESPECIFIED') to or multiplied with
+        /// (in the case of 'WEIGHTS_FACTORSPECIFIED') the existing weight(s).
+        /// If using
+        /// constant values in an identifier combination, the number of values
+        /// specified
         /// must match across the combination.  The default value is an empty
         /// {@link List}.</param>
         /// <param name="restrictions">Additional restrictions to apply to the
-        /// nodes/edges of an existing graph. Restrictions must be specified
-        /// using <a
-        /// href="../../graph_solver/network_graph_solver.html#identifiers"
-        /// target="_top">identifiers</a>; identifiers are grouped as <a
-        /// href="../../graph_solver/network_graph_solver.html#id-combos"
-        /// target="_top">combinations</a>. Identifiers can be used with
-        /// existing column names, e.g., 'table.column AS
-        /// RESTRICTIONS_EDGE_ID', expressions, e.g., 'column/2 AS
-        /// RESTRICTIONS_VALUECOMPARED', or raw values, e.g., '{0, 0, 0, 1} AS
-        /// RESTRICTIONS_ONOFFCOMPARED'. If using raw values in an identifier
-        /// combination, the number of values specified must match across the
-        /// combination. If <i>remove_previous_restrictions</i> is set to
-        /// <i>true</i>, any provided restrictions will replace the existing
-        /// restrictions. If <i>remove_previous_restrictions</i> is set to
-        /// <i>false</i>, any provided restrictions will be added (in the case
-        /// of 'RESTRICTIONS_VALUECOMPARED') to or replaced (in the case of
-        /// 'RESTRICTIONS_ONOFFCOMPARED').  The default value is an empty
-        /// {@link List}.</param>
+        /// nodes/edges of an
+        /// existing graph. Restrictions must be specified using
+        /// <a href="../../graph_solver/network_graph_solver.html#identifiers"
+        /// target="_top">identifiers</a>;
+        /// identifiers are grouped as
+        /// <a href="../../graph_solver/network_graph_solver.html#id-combos"
+        /// target="_top">combinations</a>.
+        /// Identifiers can be used with existing column names, e.g.,
+        /// 'table.column AS RESTRICTIONS_EDGE_ID', expressions, e.g.,
+        /// 'column/2 AS RESTRICTIONS_VALUECOMPARED', or constant values, e.g.,
+        /// '{0, 0, 0, 1} AS RESTRICTIONS_ONOFFCOMPARED'. If using constant
+        /// values in an
+        /// identifier combination, the number of values specified must match
+        /// across the
+        /// combination. If <i>remove_previous_restrictions</i> is set
+        /// to <i>true</i>, any
+        /// provided restrictions will replace the existing restrictions. If
+        /// <i>remove_previous_restrictions</i> is set to
+        /// <i>false</i>, any provided
+        /// restrictions will be added (in the case of
+        /// 'RESTRICTIONS_VALUECOMPARED') to or
+        /// replaced (in the case of 'RESTRICTIONS_ONOFFCOMPARED').  The
+        /// default value is an empty {@link List}.</param>
         /// <param name="solver_type">The type of solver to use for the graph.
         /// Supported values:
         /// <list type="bullet">
@@ -14141,6 +14230,46 @@ namespace kinetica
         /// performance is considered and the difference is well less than 1
         /// percent. In batch runs, since the performance is of utmost
         /// importance, the option is always considered 'false'.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="SolveGraphRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="SolveGraphRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="SolveGraphRequest.Options.TRUE">TRUE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="SolveGraphRequest.Options.OUTPUT_EDGE_PATH">OUTPUT_EDGE_PATH</see>:</term>
+        ///         <description>If true then concatenated edge ids will be
+        /// added as the EDGE path column of the solution table for each source
+        /// and target pair in shortest path solves.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="SolveGraphRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="SolveGraphRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="SolveGraphRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="SolveGraphRequest.Options.OUTPUT_WKT_PATH">OUTPUT_WKT_PATH</see>:</term>
+        ///         <description>If true then concatenated wkt line segments
+        /// will be added as the Wktroute column of the solution table for each
+        /// source and target pair in shortest path solves.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
