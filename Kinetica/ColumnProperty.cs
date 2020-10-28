@@ -57,6 +57,10 @@ namespace kinetica
         /// maximum value of 18446744073709551615.</summary>
         public const string ULONG = "ulong";
 
+        /// <summary>Valid only for 'string' columns.  It represents an uuid
+        /// data type. Internally, it is stored as a 128-bit integer.</summary>
+        public const string UUID = "uuid";
+
         /// <summary>Valid only for 'string' columns.  It represents a SQL type
         /// NUMERIC(19, 4) data type.  There can be up to 15 digits before the
         /// decimal point and up to four digits in the fractional part.  The
@@ -189,6 +193,10 @@ namespace kinetica
         /// types, replace empty strings and invalid timestamps with 'NOW()'
         /// upon insert.</summary>
         public const string INIT_WITH_NOW = "init_with_now";
+
+        /// <summary>For 'uuid' type,  repalce empty strings and invalid uuid
+        /// values with new_uuid()' upon insert.</summary>
+        public const string INIT_WITH_UUID = "init_with_uuid";
     } // end struct ColumnProperty
 
 

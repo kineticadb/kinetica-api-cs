@@ -120,15 +120,34 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
+        /// cref="AlterDatasourceRequest.DatasourceUpdatesMap.AZURE_STORAGE_ACCOUNT_NAME">AZURE_STORAGE_ACCOUNT_NAME</see>:</term>
+        ///         <description>Name of the Azure storage account to use as
+        /// the data source, this is valid only if tenant_id is
+        /// specified</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="AlterDatasourceRequest.DatasourceUpdatesMap.AZURE_CONTAINER_NAME">AZURE_CONTAINER_NAME</see>:</term>
         ///         <description>Name of the Azure storage container to use as
         /// the data source</description>
         ///     </item>
         ///     <item>
         ///         <term><see
+        /// cref="AlterDatasourceRequest.DatasourceUpdatesMap.AZURE_TENANT_ID">AZURE_TENANT_ID</see>:</term>
+        ///         <description>Active Directory tenant ID (or directory
+        /// ID)</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="AlterDatasourceRequest.DatasourceUpdatesMap.AZURE_SAS_TOKEN">AZURE_SAS_TOKEN</see>:</term>
         ///         <description>Shared access signature token for Azure
         /// storage account to use as the data source</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterDatasourceRequest.DatasourceUpdatesMap.AZURE_OAUTH_TOKEN">AZURE_OAUTH_TOKEN</see>:</term>
+        ///         <description>Oauth token to access given storage
+        /// container</description>
         ///     </item>
         /// </list>
         /// <br />
@@ -208,13 +227,24 @@ namespace kinetica
             /// cref="AlterDatasourceRequest.DatasourceUpdatesMap.FALSE">FALSE</see>.</summary>
             public const string HDFS_USE_KERBEROS = "hdfs_use_kerberos";
 
+            /// <summary>Name of the Azure storage account to use as the data
+            /// source, this is valid only if tenant_id is specified</summary>
+            public const string AZURE_STORAGE_ACCOUNT_NAME = "azure_storage_account_name";
+
             /// <summary>Name of the Azure storage container to use as the data
             /// source</summary>
             public const string AZURE_CONTAINER_NAME = "azure_container_name";
 
+            /// <summary>Active Directory tenant ID (or directory ID)</summary>
+            public const string AZURE_TENANT_ID = "azure_tenant_id";
+
             /// <summary>Shared access signature token for Azure storage
             /// account to use as the data source</summary>
             public const string AZURE_SAS_TOKEN = "azure_sas_token";
+
+            /// <summary>Oauth token to access given storage
+            /// container</summary>
+            public const string AZURE_OAUTH_TOKEN = "azure_oauth_token";
         } // end struct DatasourceUpdatesMap
 
 
@@ -321,15 +351,34 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
+        /// cref="AlterDatasourceRequest.DatasourceUpdatesMap.AZURE_STORAGE_ACCOUNT_NAME">AZURE_STORAGE_ACCOUNT_NAME</see>:</term>
+        ///         <description>Name of the Azure storage account to use as
+        /// the data source, this is valid only if tenant_id is
+        /// specified</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="AlterDatasourceRequest.DatasourceUpdatesMap.AZURE_CONTAINER_NAME">AZURE_CONTAINER_NAME</see>:</term>
         ///         <description>Name of the Azure storage container to use as
         /// the data source</description>
         ///     </item>
         ///     <item>
         ///         <term><see
+        /// cref="AlterDatasourceRequest.DatasourceUpdatesMap.AZURE_TENANT_ID">AZURE_TENANT_ID</see>:</term>
+        ///         <description>Active Directory tenant ID (or directory
+        /// ID)</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="AlterDatasourceRequest.DatasourceUpdatesMap.AZURE_SAS_TOKEN">AZURE_SAS_TOKEN</see>:</term>
         ///         <description>Shared access signature token for Azure
         /// storage account to use as the data source</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterDatasourceRequest.DatasourceUpdatesMap.AZURE_OAUTH_TOKEN">AZURE_OAUTH_TOKEN</see>:</term>
+        ///         <description>Oauth token to access given storage
+        /// container</description>
         ///     </item>
         /// </list>
         ///   </summary>
@@ -446,15 +495,34 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
+        /// cref="AlterDatasourceRequest.DatasourceUpdatesMap.AZURE_STORAGE_ACCOUNT_NAME">AZURE_STORAGE_ACCOUNT_NAME</see>:</term>
+        ///         <description>Name of the Azure storage account to use as
+        /// the data source, this is valid only if tenant_id is
+        /// specified</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="AlterDatasourceRequest.DatasourceUpdatesMap.AZURE_CONTAINER_NAME">AZURE_CONTAINER_NAME</see>:</term>
         ///         <description>Name of the Azure storage container to use as
         /// the data source</description>
         ///     </item>
         ///     <item>
         ///         <term><see
+        /// cref="AlterDatasourceRequest.DatasourceUpdatesMap.AZURE_TENANT_ID">AZURE_TENANT_ID</see>:</term>
+        ///         <description>Active Directory tenant ID (or directory
+        /// ID)</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="AlterDatasourceRequest.DatasourceUpdatesMap.AZURE_SAS_TOKEN">AZURE_SAS_TOKEN</see>:</term>
         ///         <description>Shared access signature token for Azure
         /// storage account to use as the data source</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterDatasourceRequest.DatasourceUpdatesMap.AZURE_OAUTH_TOKEN">AZURE_OAUTH_TOKEN</see>:</term>
+        ///         <description>Oauth token to access given storage
+        /// container</description>
         ///     </item>
         /// </list>
         ///   </param>

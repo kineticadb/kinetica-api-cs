@@ -119,6 +119,13 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
+        /// cref="CreateTypeRequest.Properties.UUID">UUID</see>:</term>
+        ///         <description>Valid only for 'string' columns.  It
+        /// represents an uuid data type. Internally, it is stored as a 128-bit
+        /// integer.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="CreateTypeRequest.Properties.DECIMAL">DECIMAL</see>:</term>
         ///         <description>Valid only for 'string' columns.  It
         /// represents a SQL type NUMERIC(19, 4) data type.  There can be up to
@@ -300,6 +307,12 @@ namespace kinetica
         /// column types, replace empty strings and invalid timestamps with
         /// 'NOW()' upon insert.</description>
         ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTypeRequest.Properties.INIT_WITH_UUID">INIT_WITH_UUID</see>:</term>
+        ///         <description>For 'uuid' type,  repalce empty strings and
+        /// invalid uuid values with new_uuid()' upon insert.</description>
+        ///     </item>
         /// </list>
         /// A set of string constants for the parameter <see cref="properties"
         /// />.</summary>
@@ -350,6 +363,11 @@ namespace kinetica
             /// interpreted as an unsigned long data type with minimum value of
             /// zero, and maximum value of 18446744073709551615.</summary>
             public const string ULONG = "ulong";
+
+            /// <summary>Valid only for 'string' columns.  It represents an
+            /// uuid data type. Internally, it is stored as a 128-bit
+            /// integer.</summary>
+            public const string UUID = "uuid";
 
             /// <summary>Valid only for 'string' columns.  It represents a SQL
             /// type NUMERIC(19, 4) data type.  There can be up to 15 digits
@@ -490,6 +508,10 @@ namespace kinetica
             /// types, replace empty strings and invalid timestamps with
             /// 'NOW()' upon insert.</summary>
             public const string INIT_WITH_NOW = "init_with_now";
+
+            /// <summary>For 'uuid' type,  repalce empty strings and invalid
+            /// uuid values with new_uuid()' upon insert.</summary>
+            public const string INIT_WITH_UUID = "init_with_uuid";
         } // end struct Properties
 
 
@@ -558,6 +580,13 @@ namespace kinetica
         /// represents an unsigned long integer data type. The string can only
         /// be interpreted as an unsigned long data type with minimum value of
         /// zero, and maximum value of 18446744073709551615.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTypeRequest.Properties.UUID">UUID</see>:</term>
+        ///         <description>Valid only for 'string' columns.  It
+        /// represents an uuid data type. Internally, it is stored as a 128-bit
+        /// integer.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -742,6 +771,12 @@ namespace kinetica
         /// column types, replace empty strings and invalid timestamps with
         /// 'NOW()' upon insert.</description>
         ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTypeRequest.Properties.INIT_WITH_UUID">INIT_WITH_UUID</see>:</term>
+        ///         <description>For 'uuid' type,  repalce empty strings and
+        /// invalid uuid values with new_uuid()' upon insert.</description>
+        ///     </item>
         /// </list>  </summary>
         public IDictionary<string, IList<string>> properties { get; set; } = new Dictionary<string, IList<string>>();
 
@@ -818,6 +853,13 @@ namespace kinetica
         /// represents an unsigned long integer data type. The string can only
         /// be interpreted as an unsigned long data type with minimum value of
         /// zero, and maximum value of 18446744073709551615.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTypeRequest.Properties.UUID">UUID</see>:</term>
+        ///         <description>Valid only for 'string' columns.  It
+        /// represents an uuid data type. Internally, it is stored as a 128-bit
+        /// integer.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -1000,6 +1042,12 @@ namespace kinetica
         ///         <description>For 'date', 'time', 'datetime', or 'timestamp'
         /// column types, replace empty strings and invalid timestamps with
         /// 'NOW()' upon insert.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTypeRequest.Properties.INIT_WITH_UUID">INIT_WITH_UUID</see>:</term>
+        ///         <description>For 'uuid' type,  repalce empty strings and
+        /// invalid uuid values with new_uuid()' upon insert.</description>
         ///     </item>
         /// </list>  </param>
         /// <param name="options">Optional parameters.  The default value is an

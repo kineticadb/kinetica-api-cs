@@ -16,7 +16,7 @@ namespace kinetica
     {
 
         // Kinetica Version
-        public const string API_VERSION = "7.1.0.0";
+        public const string API_VERSION = "7.1.1.0";
 
 
 
@@ -3231,15 +3231,34 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
+        /// cref="AlterDatasourceRequest.DatasourceUpdatesMap.AZURE_STORAGE_ACCOUNT_NAME">AZURE_STORAGE_ACCOUNT_NAME</see>:</term>
+        ///         <description>Name of the Azure storage account to use as
+        /// the data source, this is valid only if tenant_id is
+        /// specified</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="AlterDatasourceRequest.DatasourceUpdatesMap.AZURE_CONTAINER_NAME">AZURE_CONTAINER_NAME</see>:</term>
         ///         <description>Name of the Azure storage container to use as
         /// the data source</description>
         ///     </item>
         ///     <item>
         ///         <term><see
+        /// cref="AlterDatasourceRequest.DatasourceUpdatesMap.AZURE_TENANT_ID">AZURE_TENANT_ID</see>:</term>
+        ///         <description>Active Directory tenant ID (or directory
+        /// ID)</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="AlterDatasourceRequest.DatasourceUpdatesMap.AZURE_SAS_TOKEN">AZURE_SAS_TOKEN</see>:</term>
         ///         <description>Shared access signature token for Azure
         /// storage account to use as the data source</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterDatasourceRequest.DatasourceUpdatesMap.AZURE_OAUTH_TOKEN">AZURE_OAUTH_TOKEN</see>:</term>
+        ///         <description>Oauth token to access given storage
+        /// container</description>
         ///     </item>
         /// </list>
         ///   </param>
@@ -5104,15 +5123,34 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
+        /// cref="CreateDatasourceRequest.Options.AZURE_STORAGE_ACCOUNT_NAME">AZURE_STORAGE_ACCOUNT_NAME</see>:</term>
+        ///         <description>Name of the Azure storage account to use as
+        /// the data source, this is valid only if tenant_id is
+        /// specified</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="CreateDatasourceRequest.Options.AZURE_CONTAINER_NAME">AZURE_CONTAINER_NAME</see>:</term>
         ///         <description>Name of the Azure storage container to use as
         /// the data source</description>
         ///     </item>
         ///     <item>
         ///         <term><see
+        /// cref="CreateDatasourceRequest.Options.AZURE_TENANT_ID">AZURE_TENANT_ID</see>:</term>
+        ///         <description>Active Directory tenant ID (or directory
+        /// ID)</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="CreateDatasourceRequest.Options.AZURE_SAS_TOKEN">AZURE_SAS_TOKEN</see>:</term>
         ///         <description>Shared access signature token for Azure
         /// storage account to use as the data source</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateDatasourceRequest.Options.AZURE_OAUTH_TOKEN">AZURE_OAUTH_TOKEN</see>:</term>
+        ///         <description>Oauth token to access given storage
+        /// container</description>
         ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.</param>
@@ -8126,6 +8164,13 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
+        /// cref="CreateTypeRequest.Properties.UUID">UUID</see>:</term>
+        ///         <description>Valid only for 'string' columns.  It
+        /// represents an uuid data type. Internally, it is stored as a 128-bit
+        /// integer.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="CreateTypeRequest.Properties.DECIMAL">DECIMAL</see>:</term>
         ///         <description>Valid only for 'string' columns.  It
         /// represents a SQL type NUMERIC(19, 4) data type.  There can be up to
@@ -8305,6 +8350,12 @@ namespace kinetica
         ///         <description>For 'date', 'time', 'datetime', or 'timestamp'
         /// column types, replace empty strings and invalid timestamps with
         /// 'NOW()' upon insert.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTypeRequest.Properties.INIT_WITH_UUID">INIT_WITH_UUID</see>:</term>
+        ///         <description>For 'uuid' type,  repalce empty strings and
+        /// invalid uuid values with new_uuid()' upon insert.</description>
         ///     </item>
         /// </list>  </param>
         /// <param name="options">Optional parameters.  The default value is an
@@ -13115,7 +13166,7 @@ namespace kinetica
         ///         <term><see
         /// cref="InsertRecordsFromFilesRequest.Options.PARQUET">PARQUET</see>:</term>
         ///         <description>Indicates the file(s) are in Parquet format.
-        /// Parquet files are not supported yet.</description>
+        /// </description>
         ///     </item>
         /// </list>
         /// The default value is <see
@@ -13785,8 +13836,8 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="InsertRecordsFromPayloadRequest.Options.PARQUET">PARQUET</see>:</term>
-        ///         <description>Indicates the file(s) are in Parquet format.
-        /// Parquet files are not supported yet.</description>
+        ///         <description>Indicates the file(s) are in Parquet
+        /// format.</description>
         ///     </item>
         /// </list>
         /// The default value is <see

@@ -637,7 +637,7 @@ namespace kinetica
         ///         <term><see
         /// cref="InsertRecordsFromFilesRequest.Options.PARQUET">PARQUET</see>:</term>
         ///         <description>Indicates the file(s) are in Parquet format.
-        /// Parquet files are not supported yet.</description>
+        /// </description>
         ///     </item>
         /// </list>
         /// The default value is <see
@@ -1051,7 +1051,7 @@ namespace kinetica
             ///         <term><see
             /// cref="InsertRecordsFromFilesRequest.Options.PARQUET">PARQUET</see>:</term>
             ///         <description>Indicates the file(s) are in Parquet
-            /// format. Parquet files are not supported yet.</description>
+            /// format. </description>
             ///     </item>
             /// </list>
             /// The default value is <see
@@ -1062,8 +1062,8 @@ namespace kinetica
             /// e.g., CSV, TSV, PSV, etc.</summary>
             public const string DELIMITED_TEXT = "delimited_text";
 
-            /// <summary>Indicates the file(s) are in Parquet format. Parquet
-            /// files are not supported yet.</summary>
+            /// <summary>Indicates the file(s) are in Parquet format.
+            /// </summary>
             public const string PARQUET = "parquet";
 
             /// <summary>Whether to do a full load, dry run, or perform a type
@@ -1757,7 +1757,7 @@ namespace kinetica
         ///         <term><see
         /// cref="InsertRecordsFromFilesRequest.Options.PARQUET">PARQUET</see>:</term>
         ///         <description>Indicates the file(s) are in Parquet format.
-        /// Parquet files are not supported yet.</description>
+        /// </description>
         ///     </item>
         /// </list>
         /// The default value is <see
@@ -2417,7 +2417,7 @@ namespace kinetica
         ///         <term><see
         /// cref="InsertRecordsFromFilesRequest.Options.PARQUET">PARQUET</see>:</term>
         ///         <description>Indicates the file(s) are in Parquet format.
-        /// Parquet files are not supported yet.</description>
+        /// </description>
         ///     </item>
         /// </list>
         /// The default value is <see
