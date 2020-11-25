@@ -16,7 +16,19 @@ namespace kinetica
     /// />.
     /// <br />
     /// Executes a proc. This endpoint is asynchronous and does not wait for
-    /// the proc to complete before returning.</summary>
+    /// the proc to complete before returning.
+    /// <br />
+    /// If the proc being executed is distributed, <see
+    /// cref="input_table_names" /> &
+    /// <see cref="input_column_names" /> may be passed to the proc to use for
+    /// reading data,
+    /// and <see cref="output_table_names" /> may be passed to the proc to use
+    /// for writing
+    /// data.
+    /// <br />
+    /// If the proc being executed is non-distributed, these table parameters
+    /// will be
+    /// ignored.</summary>
     public class ExecuteProcRequest : KineticaData
     {
 
@@ -135,29 +147,41 @@ namespace kinetica
 
         /// <summary>Names of the tables containing data to be passed to the
         /// proc. Each name specified must be the name of a currently existing
-        /// table. If no table names are specified, no data will be passed to
-        /// the proc.  The default value is an empty {@link List}.</summary>
+        /// table.
+        /// If no table names are specified, no data will be passed to the
+        /// proc.  This
+        /// parameter is ignored if the proc has a non-distributed execution
+        /// mode.  The default value is an empty {@link List}.</summary>
         public IList<string> input_table_names { get; set; } = new List<string>();
 
         /// <summary>Map of table names from <paramref
-        /// cref="ExecuteProcRequest.input_table_names" /> to lists of names of
-        /// columns from those tables that will be passed to the proc. Each
+        /// cref="ExecuteProcRequest.input_table_names" /> to lists
+        /// of names of columns from those tables that will be passed to the
+        /// proc. Each
         /// column name specified must be the name of an existing column in the
         /// corresponding table. If a table name from <paramref
-        /// cref="ExecuteProcRequest.input_table_names" /> is not included, all
-        /// columns from that table will be passed to the proc.  The default
-        /// value is an empty {@link Dictionary}.</summary>
+        /// cref="ExecuteProcRequest.input_table_names" /> is not
+        /// included, all columns from that table will be passed to the proc.
+        /// This
+        /// parameter is ignored if the proc has a non-distributed execution
+        /// mode.  The default value is an empty {@link Dictionary}.</summary>
         public IDictionary<string, IList<string>> input_column_names { get; set; } = new Dictionary<string, IList<string>>();
 
         /// <summary>Names of the tables to which output data from the proc
-        /// will be written. If a specified table does not exist, it will
-        /// automatically be created with the same schema as the corresponding
-        /// table (by order) from <paramref
-        /// cref="ExecuteProcRequest.input_table_names" />, excluding any
-        /// primary and shard keys. If a specified table is a non-persistent
-        /// result table, it must not have primary or shard keys. If no table
-        /// names are specified, no output data can be returned from the proc.
-        /// The default value is an empty {@link List}.</summary>
+        /// will
+        /// be written.  If a specified table does not exist, it will
+        /// automatically be
+        /// created with the same schema as the corresponding table (by order)
+        /// from
+        /// <paramref cref="ExecuteProcRequest.input_table_names" />, excluding
+        /// any primary and shard keys. If a specified
+        /// table is a non-persistent result table, it must not have primary or
+        /// shard keys.
+        /// If no table names are specified, no output data can be returned
+        /// from the proc.
+        /// This parameter is ignored if the proc has a non-distributed
+        /// execution mode.  The default value is an empty {@link
+        /// List}.</summary>
         public IList<string> output_table_names { get; set; } = new List<string>();
 
         /// <summary>Optional parameters.
@@ -229,27 +253,39 @@ namespace kinetica
         /// parameter and its value.  The default value is an empty {@link
         /// Dictionary}.</param>
         /// <param name="input_table_names">Names of the tables containing data
-        /// to be passed to the proc. Each name specified must be the name of a
-        /// currently existing table. If no table names are specified, no data
-        /// will be passed to the proc.  The default value is an empty {@link
-        /// List}.</param>
+        /// to be passed to the
+        /// proc. Each name specified must be the name of a currently existing
+        /// table.
+        /// If no table names are specified, no data will be passed to the
+        /// proc.  This
+        /// parameter is ignored if the proc has a non-distributed execution
+        /// mode.  The default value is an empty {@link List}.</param>
         /// <param name="input_column_names">Map of table names from <paramref
-        /// cref="ExecuteProcRequest.input_table_names" /> to lists of names of
-        /// columns from those tables that will be passed to the proc. Each
+        /// cref="ExecuteProcRequest.input_table_names" /> to lists
+        /// of names of columns from those tables that will be passed to the
+        /// proc. Each
         /// column name specified must be the name of an existing column in the
         /// corresponding table. If a table name from <paramref
-        /// cref="ExecuteProcRequest.input_table_names" /> is not included, all
-        /// columns from that table will be passed to the proc.  The default
-        /// value is an empty {@link Dictionary}.</param>
+        /// cref="ExecuteProcRequest.input_table_names" /> is not
+        /// included, all columns from that table will be passed to the proc.
+        /// This
+        /// parameter is ignored if the proc has a non-distributed execution
+        /// mode.  The default value is an empty {@link Dictionary}.</param>
         /// <param name="output_table_names">Names of the tables to which
-        /// output data from the proc will be written. If a specified table
-        /// does not exist, it will automatically be created with the same
-        /// schema as the corresponding table (by order) from <paramref
-        /// cref="ExecuteProcRequest.input_table_names" />, excluding any
-        /// primary and shard keys. If a specified table is a non-persistent
-        /// result table, it must not have primary or shard keys. If no table
-        /// names are specified, no output data can be returned from the proc.
-        /// The default value is an empty {@link List}.</param>
+        /// output data from the proc will
+        /// be written.  If a specified table does not exist, it will
+        /// automatically be
+        /// created with the same schema as the corresponding table (by order)
+        /// from
+        /// <paramref cref="ExecuteProcRequest.input_table_names" />, excluding
+        /// any primary and shard keys. If a specified
+        /// table is a non-persistent result table, it must not have primary or
+        /// shard keys.
+        /// If no table names are specified, no output data can be returned
+        /// from the proc.
+        /// This parameter is ignored if the proc has a non-distributed
+        /// execution mode.  The default value is an empty {@link
+        /// List}.</param>
         /// <param name="options">Optional parameters.
         /// <list type="bullet">
         ///     <item>

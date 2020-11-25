@@ -420,7 +420,7 @@ namespace kinetica
             public const string HOLLOWCIRCLE = "hollowcircle";
             public const string HOLLOWSQUARE = "hollowsquare";
             public const string HOLLOWDIAMOND = "hollowdiamond";
-            public const string SYMBOLCODE = "SYMBOLCODE";
+            public const string SYMBOLCODE = "symbolcode";
 
             /// <summary>  The default value is '3'.</summary>
             public const string SHAPELINEWIDTHS = "shapelinewidths";

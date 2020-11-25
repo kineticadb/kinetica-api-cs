@@ -12,7 +12,7 @@ namespace kinetica
 {
     /// @cond NO_DOCS
     /// <summary>A set of parameters for <see
-    /// cref="Kinetica.visualizeImageClassbreak(IList{string},IList{string},string,string,string,IList{IList{string}},string,IList{string},string,IList{string},string,IList{string},string,IList{string},string,IList{string},double,double,double,double,int,int,string,long,IDictionary{string, IList{string}},IDictionary{string, string},IList{int})"
+    /// cref="Kinetica.visualizeImageClassbreak(IList{string},IList{string},string,string,string,string,IList{IList{string}},string,IList{string},string,IList{string},string,IList{string},string,IList{string},string,IList{string},double,double,double,double,int,int,string,long,IDictionary{string, IList{string}},IDictionary{string, string},IList{int})"
     /// />.
     /// <br />
     /// </summary>
@@ -220,6 +220,11 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
+        /// cref="VisualizeImageClassbreakRequest.StyleOptions.SYMBOLROTATIONS">SYMBOLROTATIONS</see>:</term>
+        ///         <description>  The default value is '0'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="VisualizeImageClassbreakRequest.StyleOptions.SHAPELINEWIDTHS">SHAPELINEWIDTHS</see>:</term>
         ///         <description>  The default value is '3'.</description>
         ///     </item>
@@ -323,6 +328,14 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="VisualizeImageClassbreakRequest.StyleOptions.HOLLOWDIAMOND">HOLLOWDIAMOND</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageClassbreakRequest.StyleOptions.ORIENTED_ARROW">ORIENTED_ARROW</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageClassbreakRequest.StyleOptions.ORIENTED_TRIANGLE">ORIENTED_TRIANGLE</see></term>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -518,7 +531,10 @@ namespace kinetica
             public const string HOLLOWCIRCLE = "hollowcircle";
             public const string HOLLOWSQUARE = "hollowsquare";
             public const string HOLLOWDIAMOND = "hollowdiamond";
-            public const string SYMBOLCODE = "SYMBOLCODE";
+            public const string SYMBOLCODE = "symbolcode";
+
+            /// <summary>  The default value is '0'.</summary>
+            public const string SYMBOLROTATIONS = "symbolrotations";
 
             /// <summary>  The default value is '3'.</summary>
             public const string SHAPELINEWIDTHS = "shapelinewidths";
@@ -596,12 +612,22 @@ namespace kinetica
             ///     </item>
             ///     <item>
             ///         <term><see
+            /// cref="VisualizeImageClassbreakRequest.StyleOptions.ORIENTED_ARROW">ORIENTED_ARROW</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="VisualizeImageClassbreakRequest.StyleOptions.ORIENTED_TRIANGLE">ORIENTED_TRIANGLE</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
             /// cref="VisualizeImageClassbreakRequest.StyleOptions.SYMBOLCODE">SYMBOLCODE</see></term>
             ///     </item>
             /// </list>
             /// The default value is <see
             /// cref="VisualizeImageClassbreakRequest.StyleOptions.NONE">NONE</see>.</summary>
             public const string TRACKMARKERSHAPES = "trackmarkershapes";
+            public const string ORIENTED_ARROW = "oriented_arrow";
+            public const string ORIENTED_TRIANGLE = "oriented_triangle";
 
             /// <summary>  The default value is 'FFFFFF'.</summary>
             public const string TRACKHEADCOLORS = "trackheadcolors";
@@ -654,6 +680,7 @@ namespace kinetica
         public IList<string> world_table_names { get; set; } = new List<string>();
         public string x_column_name { get; set; }
         public string y_column_name { get; set; }
+        public string symbol_column_name { get; set; }
         public string geometry_column_name { get; set; }
         public IList<IList<string>> track_ids { get; set; } = new List<IList<string>>();
         public string cb_attr { get; set; }
@@ -861,6 +888,11 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
+        /// cref="VisualizeImageClassbreakRequest.StyleOptions.SYMBOLROTATIONS">SYMBOLROTATIONS</see>:</term>
+        ///         <description>  The default value is '0'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="VisualizeImageClassbreakRequest.StyleOptions.SHAPELINEWIDTHS">SHAPELINEWIDTHS</see>:</term>
         ///         <description>  The default value is '3'.</description>
         ///     </item>
@@ -967,6 +999,14 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
+        /// cref="VisualizeImageClassbreakRequest.StyleOptions.ORIENTED_ARROW">ORIENTED_ARROW</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageClassbreakRequest.StyleOptions.ORIENTED_TRIANGLE">ORIENTED_TRIANGLE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="VisualizeImageClassbreakRequest.StyleOptions.SYMBOLCODE">SYMBOLCODE</see></term>
         ///     </item>
         /// </list>
@@ -1043,6 +1083,7 @@ namespace kinetica
         /// <param name="world_table_names"></param>
         /// <param name="x_column_name"></param>
         /// <param name="y_column_name"></param>
+        /// <param name="symbol_column_name"></param>
         /// <param name="geometry_column_name"></param>
         /// <param name="track_ids"></param>
         /// <param name="cb_attr"></param>
@@ -1247,6 +1288,11 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
+        /// cref="VisualizeImageClassbreakRequest.StyleOptions.SYMBOLROTATIONS">SYMBOLROTATIONS</see>:</term>
+        ///         <description>  The default value is '0'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="VisualizeImageClassbreakRequest.StyleOptions.SHAPELINEWIDTHS">SHAPELINEWIDTHS</see>:</term>
         ///         <description>  The default value is '3'.</description>
         ///     </item>
@@ -1353,6 +1399,14 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
+        /// cref="VisualizeImageClassbreakRequest.StyleOptions.ORIENTED_ARROW">ORIENTED_ARROW</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageClassbreakRequest.StyleOptions.ORIENTED_TRIANGLE">ORIENTED_TRIANGLE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="VisualizeImageClassbreakRequest.StyleOptions.SYMBOLCODE">SYMBOLCODE</see></term>
         ///     </item>
         /// </list>
@@ -1420,6 +1474,7 @@ namespace kinetica
                                                 IList<string> world_table_names,
                                                 string x_column_name,
                                                 string y_column_name,
+                                                string symbol_column_name,
                                                 string geometry_column_name,
                                                 IList<IList<string>> track_ids,
                                                 string cb_attr,
@@ -1448,6 +1503,7 @@ namespace kinetica
             this.world_table_names = world_table_names ?? new List<string>();
             this.x_column_name = x_column_name ?? "";
             this.y_column_name = y_column_name ?? "";
+            this.symbol_column_name = symbol_column_name ?? "";
             this.geometry_column_name = geometry_column_name ?? "";
             this.track_ids = track_ids ?? new List<IList<string>>();
             this.cb_attr = cb_attr ?? "";
@@ -1480,7 +1536,7 @@ namespace kinetica
 
     /// @cond NO_DOCS
     /// <summary>A set of results returned by <see
-    /// cref="Kinetica.visualizeImageClassbreak(IList{string},IList{string},string,string,string,IList{IList{string}},string,IList{string},string,IList{string},string,IList{string},string,IList{string},string,IList{string},double,double,double,double,int,int,string,long,IDictionary{string, IList{string}},IDictionary{string, string},IList{int})"
+    /// cref="Kinetica.visualizeImageClassbreak(IList{string},IList{string},string,string,string,string,IList{IList{string}},string,IList{string},string,IList{string},string,IList{string},string,IList{string},string,IList{string},double,double,double,double,int,int,string,long,IDictionary{string, IList{string}},IDictionary{string, string},IList{int})"
     /// />.</summary>
     public class VisualizeImageClassbreakResponse : KineticaData
     {

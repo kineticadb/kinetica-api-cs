@@ -195,6 +195,13 @@ namespace kinetica
         /// href="../../concepts/tables.html#partitioning-by-hash"
         /// target="_top">hash partitioning</a>.</description>
         ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableRequest.Options.SERIES">SERIES</see>:</term>
+        ///         <description>Use <a
+        /// href="../../concepts/tables.html#partitioning-by-series"
+        /// target="_top">series partitioning</a>.</description>
+        ///     </item>
         /// </list></description>
         ///     </item>
         ///     <item>
@@ -430,6 +437,13 @@ namespace kinetica
             /// href="../../concepts/tables.html#partitioning-by-hash"
             /// target="_top">hash partitioning</a>.</description>
             ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="CreateTableRequest.Options.SERIES">SERIES</see>:</term>
+            ///         <description>Use <a
+            /// href="../../concepts/tables.html#partitioning-by-series"
+            /// target="_top">series partitioning</a>.</description>
+            ///     </item>
             /// </list></summary>
             public const string PARTITION_TYPE = "partition_type";
 
@@ -452,6 +466,11 @@ namespace kinetica
             /// href="../../concepts/tables.html#partitioning-by-hash"
             /// target="_top">hash partitioning</a>.</summary>
             public const string HASH = "HASH";
+
+            /// <summary>Use <a
+            /// href="../../concepts/tables.html#partitioning-by-series"
+            /// target="_top">series partitioning</a>.</summary>
+            public const string SERIES = "SERIES";
 
             /// <summary>Comma-separated list of partition keys, which are the
             /// columns or column expressions by which records will be assigned
@@ -693,6 +712,13 @@ namespace kinetica
         ///         <description>Use <a
         /// href="../../concepts/tables.html#partitioning-by-hash"
         /// target="_top">hash partitioning</a>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableRequest.Options.SERIES">SERIES</see>:</term>
+        ///         <description>Use <a
+        /// href="../../concepts/tables.html#partitioning-by-series"
+        /// target="_top">series partitioning</a>.</description>
         ///     </item>
         /// </list></description>
         ///     </item>
@@ -958,6 +984,13 @@ namespace kinetica
         ///         <description>Use <a
         /// href="../../concepts/tables.html#partitioning-by-hash"
         /// target="_top">hash partitioning</a>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableRequest.Options.SERIES">SERIES</see>:</term>
+        ///         <description>Use <a
+        /// href="../../concepts/tables.html#partitioning-by-series"
+        /// target="_top">series partitioning</a>.</description>
         ///     </item>
         /// </list></description>
         ///     </item>

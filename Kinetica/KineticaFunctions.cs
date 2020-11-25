@@ -16,7 +16,7 @@ namespace kinetica
     {
 
         // Kinetica Version
-        public const string API_VERSION = "7.0.19.0";
+        public const string API_VERSION = "7.0.20.0";
 
 
 
@@ -5184,11 +5184,11 @@ namespace kinetica
         }
 
 
-        /// <summary>Creates an instance (proc) of the user-defined function
-        /// (UDF) specified by the given command, options, and files, and makes
-        /// it available for execution.  For details on UDFs, see: <a
-        /// href="../../concepts/udf.html" target="_top">User-Defined
-        /// Functions</a></summary>
+        /// <summary>Creates an instance (proc) of the
+        /// <a href="../../concepts/udf.html" target="_top">user-defined
+        /// functions</a> (UDF) specified by the
+        /// given command, options, and files, and makes it available for
+        /// execution.</summary>
         /// 
         /// <param name="request_">Request object containing the parameters for
         /// the operation.</param>
@@ -5204,11 +5204,11 @@ namespace kinetica
         }
 
 
-        /// <summary>Creates an instance (proc) of the user-defined function
-        /// (UDF) specified by the given command, options, and files, and makes
-        /// it available for execution.  For details on UDFs, see: <a
-        /// href="../../concepts/udf.html" target="_top">User-Defined
-        /// Functions</a></summary>
+        /// <summary>Creates an instance (proc) of the
+        /// <a href="../../concepts/udf.html" target="_top">user-defined
+        /// functions</a> (UDF) specified by the
+        /// given command, options, and files, and makes it available for
+        /// execution.</summary>
         /// 
         /// <param name="proc_name">Name of the proc to be created. Must not be
         /// the name of a currently existing proc.  </param>
@@ -5220,39 +5220,52 @@ namespace kinetica
         /// cref="CreateProcRequest.ExecutionMode.DISTRIBUTED">DISTRIBUTED</see>:</term>
         ///         <description>Input table data will be divided into data
         /// segments that are distributed across all nodes in the cluster, and
-        /// the proc command will be invoked once per data segment in parallel.
-        /// Output table data from each invocation will be saved to the same
-        /// node as the corresponding input data.</description>
+        /// the proc
+        /// command will be invoked once per data segment in parallel. Output
+        /// table data
+        /// from each invocation will be saved to the same node as the
+        /// corresponding input
+        /// data.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="CreateProcRequest.ExecutionMode.NONDISTRIBUTED">NONDISTRIBUTED</see>:</term>
         ///         <description>The proc command will be invoked only once per
-        /// execution, and will not have access to any input or output table
-        /// data.</description>
+        /// execution, and will not have direct access to any tables named as
+        /// input or
+        /// output table parameters in the call to /execute/proc.  It will,
+        /// however, be able to access the database using native API
+        /// calls.</description>
         ///     </item>
         /// </list>
         /// The default value is <see
         /// cref="CreateProcRequest.ExecutionMode.DISTRIBUTED">DISTRIBUTED</see>.
         /// </param>
         /// <param name="files">A map of the files that make up the proc. The
-        /// keys of the map are file names, and the values are the binary
-        /// contents of the files. The file names may include subdirectory
-        /// names (e.g. 'subdir/file') but must not resolve to a directory
-        /// above the root for the proc.  The default value is an empty {@link
-        /// Dictionary}.</param>
+        /// keys of the
+        /// map are file names, and the values are the binary contents of the
+        /// files. The
+        /// file names may include subdirectory names (e.g. 'subdir/file') but
+        /// must not
+        /// resolve to a directory above the root for the proc.  The default
+        /// value is an empty {@link Dictionary}.</param>
         /// <param name="command">The command (excluding arguments) that will
-        /// be invoked when the proc is executed. It will be invoked from the
-        /// directory containing the proc <paramref
-        /// cref="CreateProcRequest.files" /> and may be any command that can
-        /// be resolved from that directory. It need not refer to a file
-        /// actually in that directory; for example, it could be 'java' if the
-        /// proc is a Java application; however, any necessary external
+        /// be invoked when
+        /// the proc is executed. It will be invoked from the directory
+        /// containing the proc
+        /// <paramref cref="CreateProcRequest.files" /> and may be any command
+        /// that can be resolved from that directory.
+        /// It need not refer to a file actually in that directory; for
+        /// example, it could be
+        /// 'java' if the proc is a Java application; however, any necessary
+        /// external
         /// programs must be preinstalled on every database node. If the
-        /// command refers to a file in that directory, it must be preceded
-        /// with './' as per Linux convention. If not specified, and exactly
-        /// one file is provided in <paramref cref="CreateProcRequest.files"
-        /// />, that file will be invoked.  The default value is ''.</param>
+        /// command refers to a
+        /// file in that directory, it must be preceded with './' as per Linux
+        /// convention.
+        /// If not specified, and exactly one file is provided in <paramref
+        /// cref="CreateProcRequest.files" />, that file
+        /// will be invoked.  The default value is ''.</param>
         /// <param name="args">An array of command-line arguments that will be
         /// passed to <paramref cref="CreateProcRequest.command" /> when the
         /// proc is executed.  The default value is an empty {@link
@@ -5952,6 +5965,13 @@ namespace kinetica
         ///         <description>Use <a
         /// href="../../concepts/tables.html#partitioning-by-hash"
         /// target="_top">hash partitioning</a>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableRequest.Options.SERIES">SERIES</see>:</term>
+        ///         <description>Use <a
+        /// href="../../concepts/tables.html#partitioning-by-series"
+        /// target="_top">series partitioning</a>.</description>
         ///     </item>
         /// </list></description>
         ///     </item>
@@ -7375,7 +7395,20 @@ namespace kinetica
 
 
         /// <summary>Executes a proc. This endpoint is asynchronous and does
-        /// not wait for the proc to complete before returning.</summary>
+        /// not wait for
+        /// the proc to complete before returning.
+        /// <br />
+        /// If the proc being executed is distributed, <paramref
+        /// cref="ExecuteProcRequest.input_table_names" /> &
+        /// <paramref cref="ExecuteProcRequest.input_column_names" /> may be
+        /// passed to the proc to use for reading data,
+        /// and <paramref cref="ExecuteProcRequest.output_table_names" /> may
+        /// be passed to the proc to use for writing
+        /// data.
+        /// <br />
+        /// If the proc being executed is non-distributed, these table
+        /// parameters will be
+        /// ignored.</summary>
         /// 
         /// <param name="request_">Request object containing the parameters for
         /// the operation.</param>
@@ -7392,7 +7425,20 @@ namespace kinetica
 
 
         /// <summary>Executes a proc. This endpoint is asynchronous and does
-        /// not wait for the proc to complete before returning.</summary>
+        /// not wait for
+        /// the proc to complete before returning.
+        /// <br />
+        /// If the proc being executed is distributed, <paramref
+        /// name="input_table_names" /> &
+        /// <paramref name="input_column_names" /> may be passed to the proc to
+        /// use for reading data,
+        /// and <paramref name="output_table_names" /> may be passed to the
+        /// proc to use for writing
+        /// data.
+        /// <br />
+        /// If the proc being executed is non-distributed, these table
+        /// parameters will be
+        /// ignored.</summary>
         /// 
         /// <param name="proc_name">Name of the proc to execute. Must be the
         /// name of a currently existing proc.  </param>
@@ -7405,27 +7451,39 @@ namespace kinetica
         /// parameter and its value.  The default value is an empty {@link
         /// Dictionary}.</param>
         /// <param name="input_table_names">Names of the tables containing data
-        /// to be passed to the proc. Each name specified must be the name of a
-        /// currently existing table. If no table names are specified, no data
-        /// will be passed to the proc.  The default value is an empty {@link
-        /// List}.</param>
+        /// to be passed to the
+        /// proc. Each name specified must be the name of a currently existing
+        /// table.
+        /// If no table names are specified, no data will be passed to the
+        /// proc.  This
+        /// parameter is ignored if the proc has a non-distributed execution
+        /// mode.  The default value is an empty {@link List}.</param>
         /// <param name="input_column_names">Map of table names from <paramref
-        /// cref="ExecuteProcRequest.input_table_names" /> to lists of names of
-        /// columns from those tables that will be passed to the proc. Each
+        /// cref="ExecuteProcRequest.input_table_names" /> to lists
+        /// of names of columns from those tables that will be passed to the
+        /// proc. Each
         /// column name specified must be the name of an existing column in the
         /// corresponding table. If a table name from <paramref
-        /// cref="ExecuteProcRequest.input_table_names" /> is not included, all
-        /// columns from that table will be passed to the proc.  The default
-        /// value is an empty {@link Dictionary}.</param>
+        /// cref="ExecuteProcRequest.input_table_names" /> is not
+        /// included, all columns from that table will be passed to the proc.
+        /// This
+        /// parameter is ignored if the proc has a non-distributed execution
+        /// mode.  The default value is an empty {@link Dictionary}.</param>
         /// <param name="output_table_names">Names of the tables to which
-        /// output data from the proc will be written. If a specified table
-        /// does not exist, it will automatically be created with the same
-        /// schema as the corresponding table (by order) from <paramref
-        /// cref="ExecuteProcRequest.input_table_names" />, excluding any
-        /// primary and shard keys. If a specified table is a non-persistent
-        /// result table, it must not have primary or shard keys. If no table
-        /// names are specified, no output data can be returned from the proc.
-        /// The default value is an empty {@link List}.</param>
+        /// output data from the proc will
+        /// be written.  If a specified table does not exist, it will
+        /// automatically be
+        /// created with the same schema as the corresponding table (by order)
+        /// from
+        /// <paramref cref="ExecuteProcRequest.input_table_names" />, excluding
+        /// any primary and shard keys. If a specified
+        /// table is a non-persistent result table, it must not have primary or
+        /// shard keys.
+        /// If no table names are specified, no output data can be returned
+        /// from the proc.
+        /// This parameter is ignored if the proc has a non-distributed
+        /// execution mode.  The default value is an empty {@link
+        /// List}.</param>
         /// <param name="options">Optional parameters.
         /// <list type="bullet">
         ///     <item>
@@ -15408,6 +15466,7 @@ namespace kinetica
         /// <param name="world_table_names"></param>
         /// <param name="x_column_name"></param>
         /// <param name="y_column_name"></param>
+        /// <param name="symbol_column_name"></param>
         /// <param name="geometry_column_name"></param>
         /// <param name="track_ids"></param>
         /// <param name="cb_attr"></param>
@@ -15612,6 +15671,11 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
+        /// cref="VisualizeImageClassbreakRequest.StyleOptions.SYMBOLROTATIONS">SYMBOLROTATIONS</see>:</term>
+        ///         <description>  The default value is '0'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="VisualizeImageClassbreakRequest.StyleOptions.SHAPELINEWIDTHS">SHAPELINEWIDTHS</see>:</term>
         ///         <description>  The default value is '3'.</description>
         ///     </item>
@@ -15718,6 +15782,14 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
+        /// cref="VisualizeImageClassbreakRequest.StyleOptions.ORIENTED_ARROW">ORIENTED_ARROW</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageClassbreakRequest.StyleOptions.ORIENTED_TRIANGLE">ORIENTED_TRIANGLE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="VisualizeImageClassbreakRequest.StyleOptions.SYMBOLCODE">SYMBOLCODE</see></term>
         ///     </item>
         /// </list>
@@ -15788,6 +15860,7 @@ namespace kinetica
                                                                           IList<string> world_table_names,
                                                                           string x_column_name,
                                                                           string y_column_name,
+                                                                          string symbol_column_name,
                                                                           string geometry_column_name,
                                                                           IList<IList<string>> track_ids,
                                                                           string cb_attr,
@@ -15817,6 +15890,7 @@ namespace kinetica
                                                                                   world_table_names,
                                                                                   x_column_name,
                                                                                   y_column_name,
+                                                                                  symbol_column_name,
                                                                                   geometry_column_name,
                                                                                   track_ids,
                                                                                   cb_attr,
