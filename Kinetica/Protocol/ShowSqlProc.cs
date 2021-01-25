@@ -171,6 +171,10 @@ namespace kinetica
             /// <summary>The periodic execution interval in seconds.  The
             /// default value is ''.</summary>
             public const string EXECUTE_INTERVAL = "execute_interval";
+
+            /// <summary>The periodic execution impersonate user.  The default
+            /// value is ''.</summary>
+            public const string EXECUTE_AS = "execute_as";
         } // end struct AdditionalInfo
 
 

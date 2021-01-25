@@ -292,6 +292,14 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
+        /// cref="AlterTableRequest.Action.SET_REFRESH_EXECUTE_AS">SET_REFRESH_EXECUTE_AS</see>:</term>
+        ///         <description>Sets the user name to refresh this <a
+        /// href="../../concepts/materialized_views.html"
+        /// target="_top">materialized view</a> to the value specified in
+        /// <paramref cref="AlterTableRequest._value" />.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="AlterTableRequest.Action.REMOVE_TEXT_SEARCH_ATTRIBUTES">REMOVE_TEXT_SEARCH_ATTRIBUTES</see>:</term>
         ///         <description>Removes <a
         /// href="../../concepts/full_text_search.html" target="_top">text
@@ -482,6 +490,12 @@ namespace kinetica
             /// <see cref="_value" />.  Also, sets the refresh method to
             /// periodic if not already set.</summary>
             public const string SET_REFRESH_PERIOD = "set_refresh_period";
+
+            /// <summary>Sets the user name to refresh this <a
+            /// href="../../concepts/materialized_views.html"
+            /// target="_top">materialized view</a> to the value specified in
+            /// <see cref="_value" />.</summary>
+            public const string SET_REFRESH_EXECUTE_AS = "set_refresh_execute_as";
 
             /// <summary>Removes <a href="../../concepts/full_text_search.html"
             /// target="_top">text search</a> attribute from all
@@ -1081,6 +1095,14 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
+        /// cref="AlterTableRequest.Action.SET_REFRESH_EXECUTE_AS">SET_REFRESH_EXECUTE_AS</see>:</term>
+        ///         <description>Sets the user name to refresh this <a
+        /// href="../../concepts/materialized_views.html"
+        /// target="_top">materialized view</a> to the value specified in
+        /// <paramref cref="AlterTableRequest._value" />.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="AlterTableRequest.Action.REMOVE_TEXT_SEARCH_ATTRIBUTES">REMOVE_TEXT_SEARCH_ATTRIBUTES</see>:</term>
         ///         <description>Removes <a
         /// href="../../concepts/full_text_search.html" target="_top">text
@@ -1529,6 +1551,14 @@ namespace kinetica
         /// target="_top">materialized view</a> to the value specified in
         /// <paramref cref="AlterTableRequest._value" />.  Also, sets the
         /// refresh method to periodic if not already set.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterTableRequest.Action.SET_REFRESH_EXECUTE_AS">SET_REFRESH_EXECUTE_AS</see>:</term>
+        ///         <description>Sets the user name to refresh this <a
+        /// href="../../concepts/materialized_views.html"
+        /// target="_top">materialized view</a> to the value specified in
+        /// <paramref cref="AlterTableRequest._value" />.</description>
         ///     </item>
         ///     <item>
         ///         <term><see

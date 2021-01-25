@@ -18,6 +18,9 @@ namespace kinetica
     /// number of records approximately and/or rebalance the shards to be
     /// equally distributed (as much as possible) across all the ranks.
     /// <br />
+    /// The database must be offline for this operation, see <see
+    /// cref="Kinetica.adminOffline(bool,IDictionary{string, string})" />
+    /// <br />
     /// * If <see cref="Kinetica.adminRebalance(IDictionary{string, string})"
     /// /> is invoked after a change is made to the
     ///   cluster, e.g., a host was added or removed,
@@ -119,7 +122,7 @@ namespace kinetica
         /// rebalance faster.  A lower <i>aggressiveness</i> will take longer
         /// but allow for better interleaving between the rebalance and other
         /// queries. Valid values are constants from 1 (lowest) to 10
-        /// (highest).  The default value is '1'.</description>
+        /// (highest).  The default value is '10'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -259,7 +262,7 @@ namespace kinetica
             /// rebalance faster.  A lower <i>aggressiveness</i> will take
             /// longer but allow for better interleaving between the rebalance
             /// and other queries. Valid values are constants from 1 (lowest)
-            /// to 10 (highest).  The default value is '1'.</summary>
+            /// to 10 (highest).  The default value is '10'.</summary>
             public const string AGGRESSIVENESS = "aggressiveness";
 
             /// <summary>Perform compaction of deleted records once the
@@ -400,7 +403,7 @@ namespace kinetica
         /// rebalance faster.  A lower <i>aggressiveness</i> will take longer
         /// but allow for better interleaving between the rebalance and other
         /// queries. Valid values are constants from 1 (lowest) to 10
-        /// (highest).  The default value is '1'.</description>
+        /// (highest).  The default value is '10'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -555,7 +558,7 @@ namespace kinetica
         /// rebalance faster.  A lower <i>aggressiveness</i> will take longer
         /// but allow for better interleaving between the rebalance and other
         /// queries. Valid values are constants from 1 (lowest) to 10
-        /// (highest).  The default value is '1'.</description>
+        /// (highest).  The default value is '10'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see

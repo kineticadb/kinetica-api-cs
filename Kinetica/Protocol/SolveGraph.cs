@@ -27,8 +27,8 @@ namespace kinetica
     /// <a href="../../graph_solver/examples/graph_rest_guide.html"
     /// target="_top">Graph REST Tutorial</a>,
     /// and/or some
-    /// <a href="../../graph_solver/examples.html#solve-graph"
-    /// target="_top">/solve/graph examples</a>
+    /// <a href="../../graph_solver/examples.html#match-graph"
+    /// target="_top">/match/graph examples</a>
     /// before using this endpoint.</summary>
     public class SolveGraphRequest : KineticaData
     {
@@ -356,6 +356,16 @@ namespace kinetica
         /// The default value is <see
         /// cref="SolveGraphRequest.Options.TRUE">TRUE</see>.</description>
         ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="SolveGraphRequest.Options.SERVER_ID">SERVER_ID</see>:</term>
+        ///         <description>Indicates which graph server(s) to send the
+        /// request to. Default is to send to the server, amongst those
+        /// containing the corresponding graph, that has the most computational
+        /// bandwidth. For SHORTEST_PATH solver type, the input is split
+        /// amongst the server containing the corresponding
+        /// graph.</description>
+        ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.
         /// A set of string constants for the parameter <see cref="options"
@@ -545,6 +555,14 @@ namespace kinetica
             /// The default value is <see
             /// cref="SolveGraphRequest.Options.TRUE">TRUE</see>.</summary>
             public const string OUTPUT_WKT_PATH = "output_wkt_path";
+
+            /// <summary>Indicates which graph server(s) to send the request
+            /// to. Default is to send to the server, amongst those containing
+            /// the corresponding graph, that has the most computational
+            /// bandwidth. For SHORTEST_PATH solver type, the input is split
+            /// amongst the server containing the corresponding
+            /// graph.</summary>
+            public const string SERVER_ID = "server_id";
         } // end struct Options
 
 
@@ -894,6 +912,16 @@ namespace kinetica
         /// The default value is <see
         /// cref="SolveGraphRequest.Options.TRUE">TRUE</see>.</description>
         ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="SolveGraphRequest.Options.SERVER_ID">SERVER_ID</see>:</term>
+        ///         <description>Indicates which graph server(s) to send the
+        /// request to. Default is to send to the server, amongst those
+        /// containing the corresponding graph, that has the most computational
+        /// bandwidth. For SHORTEST_PATH solver type, the input is split
+        /// amongst the server containing the corresponding
+        /// graph.</description>
+        ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.</summary>
         public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
@@ -1241,6 +1269,16 @@ namespace kinetica
         /// The default value is <see
         /// cref="SolveGraphRequest.Options.TRUE">TRUE</see>.</description>
         ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="SolveGraphRequest.Options.SERVER_ID">SERVER_ID</see>:</term>
+        ///         <description>Indicates which graph server(s) to send the
+        /// request to. Default is to send to the server, amongst those
+        /// containing the corresponding graph, that has the most computational
+        /// bandwidth. For SHORTEST_PATH solver type, the input is split
+        /// amongst the server containing the corresponding
+        /// graph.</description>
+        ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.</param>
         /// 
@@ -1273,7 +1311,8 @@ namespace kinetica
     public class SolveGraphResponse : KineticaData
     {
 
-        /// <summary>Indicates a successful solution.  </summary>
+        /// <summary>Indicates a successful solution on all servers.
+        /// </summary>
         public bool result { get; set; }
 
         /// <summary>Cost or Pagerank (based on solver type) for each

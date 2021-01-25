@@ -240,6 +240,16 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
+        /// cref="MatchGraphRequest.Options.OUTPUT_TRACKS">OUTPUT_TRACKS</see>:</term>
+        ///         <description>For the <i>match_supply_demand</i> solver
+        /// only. When it is true (non-default), the output will be in tracks
+        /// format for all the round trips of each truck in which the
+        /// timestamps are populated directly from the edge weights starting
+        /// from their originating depots.  The default value is
+        /// 'false'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="MatchGraphRequest.Options.MAX_TRIP_COST">MAX_TRIP_COST</see>:</term>
         ///         <description>For the <i>match_supply_demand</i> solver
         /// only. If this constraint is greater than zero (default) then the
@@ -297,7 +307,7 @@ namespace kinetica
         ///         <term><see
         /// cref="MatchGraphRequest.Options.TRUCK_SERVICE_LIMIT">TRUCK_SERVICE_LIMIT</see>:</term>
         ///         <description>For the <i>match_supply_demand</i> solver
-        /// only. If specified (greather than zero), any truck's total service
+        /// only. If specified (greater than zero), any truck's total service
         /// cost (distance or time) will be limited by the specified value
         /// including multiple rounds (if set).  The default value is
         /// '0.0'.</description>
@@ -325,6 +335,14 @@ namespace kinetica
         /// </list>
         /// The default value is <see
         /// cref="MatchGraphRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="MatchGraphRequest.Options.SERVER_ID">SERVER_ID</see>:</term>
+        ///         <description>Indicates which graph server(s) to send the
+        /// request to. Default is to send to the server, amongst those
+        /// containing the corresponding graph, that has the most computational
+        /// bandwidth.  The default value is ''.</description>
         ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.
@@ -445,6 +463,14 @@ namespace kinetica
             /// 'true'.</summary>
             public const string AGGREGATED_OUTPUT = "aggregated_output";
 
+            /// <summary>For the <i>match_supply_demand</i> solver only. When
+            /// it is true (non-default), the output will be in tracks format
+            /// for all the round trips of each truck in which the timestamps
+            /// are populated directly from the edge weights starting from
+            /// their originating depots.  The default value is
+            /// 'false'.</summary>
+            public const string OUTPUT_TRACKS = "output_tracks";
+
             /// <summary>For the <i>match_supply_demand</i> solver only. If
             /// this constraint is greater than zero (default) then the trucks
             /// will skip travelling from one demand location to another if the
@@ -493,7 +519,7 @@ namespace kinetica
             public const string MAX_NUM_THREADS = "max_num_threads";
 
             /// <summary>For the <i>match_supply_demand</i> solver only. If
-            /// specified (greather than zero), any truck's total service cost
+            /// specified (greater than zero), any truck's total service cost
             /// (distance or time) will be limited by the specified value
             /// including multiple rounds (if set).  The default value is
             /// '0.0'.</summary>
@@ -520,6 +546,12 @@ namespace kinetica
             /// The default value is <see
             /// cref="MatchGraphRequest.Options.FALSE">FALSE</see>.</summary>
             public const string ENABLE_TRUCK_REUSE = "enable_truck_reuse";
+
+            /// <summary>Indicates which graph server(s) to send the request
+            /// to. Default is to send to the server, amongst those containing
+            /// the corresponding graph, that has the most computational
+            /// bandwidth.  The default value is ''.</summary>
+            public const string SERVER_ID = "server_id";
         } // end struct Options
 
 
@@ -734,6 +766,16 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
+        /// cref="MatchGraphRequest.Options.OUTPUT_TRACKS">OUTPUT_TRACKS</see>:</term>
+        ///         <description>For the <i>match_supply_demand</i> solver
+        /// only. When it is true (non-default), the output will be in tracks
+        /// format for all the round trips of each truck in which the
+        /// timestamps are populated directly from the edge weights starting
+        /// from their originating depots.  The default value is
+        /// 'false'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="MatchGraphRequest.Options.MAX_TRIP_COST">MAX_TRIP_COST</see>:</term>
         ///         <description>For the <i>match_supply_demand</i> solver
         /// only. If this constraint is greater than zero (default) then the
@@ -791,7 +833,7 @@ namespace kinetica
         ///         <term><see
         /// cref="MatchGraphRequest.Options.TRUCK_SERVICE_LIMIT">TRUCK_SERVICE_LIMIT</see>:</term>
         ///         <description>For the <i>match_supply_demand</i> solver
-        /// only. If specified (greather than zero), any truck's total service
+        /// only. If specified (greater than zero), any truck's total service
         /// cost (distance or time) will be limited by the specified value
         /// including multiple rounds (if set).  The default value is
         /// '0.0'.</description>
@@ -819,6 +861,14 @@ namespace kinetica
         /// </list>
         /// The default value is <see
         /// cref="MatchGraphRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="MatchGraphRequest.Options.SERVER_ID">SERVER_ID</see>:</term>
+        ///         <description>Indicates which graph server(s) to send the
+        /// request to. Default is to send to the server, amongst those
+        /// containing the corresponding graph, that has the most computational
+        /// bandwidth.  The default value is ''.</description>
         ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.</summary>
@@ -1037,6 +1087,16 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
+        /// cref="MatchGraphRequest.Options.OUTPUT_TRACKS">OUTPUT_TRACKS</see>:</term>
+        ///         <description>For the <i>match_supply_demand</i> solver
+        /// only. When it is true (non-default), the output will be in tracks
+        /// format for all the round trips of each truck in which the
+        /// timestamps are populated directly from the edge weights starting
+        /// from their originating depots.  The default value is
+        /// 'false'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="MatchGraphRequest.Options.MAX_TRIP_COST">MAX_TRIP_COST</see>:</term>
         ///         <description>For the <i>match_supply_demand</i> solver
         /// only. If this constraint is greater than zero (default) then the
@@ -1094,7 +1154,7 @@ namespace kinetica
         ///         <term><see
         /// cref="MatchGraphRequest.Options.TRUCK_SERVICE_LIMIT">TRUCK_SERVICE_LIMIT</see>:</term>
         ///         <description>For the <i>match_supply_demand</i> solver
-        /// only. If specified (greather than zero), any truck's total service
+        /// only. If specified (greater than zero), any truck's total service
         /// cost (distance or time) will be limited by the specified value
         /// including multiple rounds (if set).  The default value is
         /// '0.0'.</description>
@@ -1122,6 +1182,14 @@ namespace kinetica
         /// </list>
         /// The default value is <see
         /// cref="MatchGraphRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="MatchGraphRequest.Options.SERVER_ID">SERVER_ID</see>:</term>
+        ///         <description>Indicates which graph server(s) to send the
+        /// request to. Default is to send to the server, amongst those
+        /// containing the corresponding graph, that has the most computational
+        /// bandwidth.  The default value is ''.</description>
         ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.</param>

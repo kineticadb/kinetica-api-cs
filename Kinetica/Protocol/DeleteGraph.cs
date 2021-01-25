@@ -43,6 +43,13 @@ namespace kinetica
         /// The default value is <see
         /// cref="DeleteGraphRequest.Options.TRUE">TRUE</see>.</description>
         ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="DeleteGraphRequest.Options.SERVER_ID">SERVER_ID</see>:</term>
+        ///         <description>Indicates which graph server(s) to send the
+        /// request to. Default is to send to get information about all the
+        /// servers.</description>
+        ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.
         /// A set of string constants for the parameter <see cref="options"
@@ -71,6 +78,11 @@ namespace kinetica
             public const string DELETE_PERSIST = "delete_persist";
             public const string TRUE = "true";
             public const string FALSE = "false";
+
+            /// <summary>Indicates which graph server(s) to send the request
+            /// to. Default is to send to get information about all the
+            /// servers.</summary>
+            public const string SERVER_ID = "server_id";
         } // end struct Options
 
 
@@ -100,6 +112,13 @@ namespace kinetica
         /// </list>
         /// The default value is <see
         /// cref="DeleteGraphRequest.Options.TRUE">TRUE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="DeleteGraphRequest.Options.SERVER_ID">SERVER_ID</see>:</term>
+        ///         <description>Indicates which graph server(s) to send the
+        /// request to. Default is to send to get information about all the
+        /// servers.</description>
         ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.</summary>
@@ -137,6 +156,13 @@ namespace kinetica
         /// </list>
         /// The default value is <see
         /// cref="DeleteGraphRequest.Options.TRUE">TRUE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="DeleteGraphRequest.Options.SERVER_ID">SERVER_ID</see>:</term>
+        ///         <description>Indicates which graph server(s) to send the
+        /// request to. Default is to send to get information about all the
+        /// servers.</description>
         ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.</param>

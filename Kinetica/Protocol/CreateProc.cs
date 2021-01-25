@@ -15,10 +15,11 @@ namespace kinetica
     /// cref="Kinetica.createProc(string,string,IDictionary{string, byte[]},string,IList{string},IDictionary{string, string})"
     /// />.
     /// <br />
-    /// Creates an instance (proc) of the user-defined function (UDF) specified
-    /// by the given command, options, and files, and makes it available for
-    /// execution.  For details on UDFs, see: <a href="../../concepts/udf.html"
-    /// target="_top">User-Defined Functions</a></summary>
+    /// Creates an instance (proc) of the
+    /// <a href="../../concepts/udf.html" target="_top">user-defined
+    /// functions</a> (UDF) specified by the
+    /// given command, options, and files, and makes it available for
+    /// execution.</summary>
     public class CreateProcRequest : KineticaData
     {
 
@@ -30,16 +31,22 @@ namespace kinetica
         /// cref="CreateProcRequest.ExecutionMode.DISTRIBUTED">DISTRIBUTED</see>:</term>
         ///         <description>Input table data will be divided into data
         /// segments that are distributed across all nodes in the cluster, and
-        /// the proc command will be invoked once per data segment in parallel.
-        /// Output table data from each invocation will be saved to the same
-        /// node as the corresponding input data.</description>
+        /// the proc
+        /// command will be invoked once per data segment in parallel. Output
+        /// table data
+        /// from each invocation will be saved to the same node as the
+        /// corresponding input
+        /// data.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="CreateProcRequest.ExecutionMode.NONDISTRIBUTED">NONDISTRIBUTED</see>:</term>
         ///         <description>The proc command will be invoked only once per
-        /// execution, and will not have access to any input or output table
-        /// data.</description>
+        /// execution, and will not have direct access to any tables named as
+        /// input or
+        /// output table parameters in the call to /execute/proc.  It will,
+        /// however, be able to access the database using native API
+        /// calls.</description>
         ///     </item>
         /// </list>
         /// The default value is <see
@@ -49,16 +56,24 @@ namespace kinetica
         public struct ExecutionMode
         {
 
-            /// <summary>Input table data will be divided into data segments
-            /// that are distributed across all nodes in the cluster, and the
-            /// proc command will be invoked once per data segment in parallel.
-            /// Output table data from each invocation will be saved to the
-            /// same node as the corresponding input data.</summary>
+            /// <summary>Input table data will be divided into data
+            /// segments that are distributed across all nodes in the cluster,
+            /// and the proc
+            /// command will be invoked once per data segment in parallel.
+            /// Output table data
+            /// from each invocation will be saved to the same node as the
+            /// corresponding input
+            /// data.</summary>
             public const string DISTRIBUTED = "distributed";
 
             /// <summary>The proc command will be invoked only once per
-            /// execution, and will not have access to any input or output
-            /// table data.</summary>
+            /// execution, and will not have direct access to any tables named
+            /// as input or
+            /// output table parameters in the call to <see
+            /// cref="Kinetica.executeProc(string,IDictionary{string, string},IDictionary{string, byte[]},IList{string},IDictionary{string, IList{string}},IList{string},IDictionary{string, string})"
+            /// />.  It will,
+            /// however, be able to access the database using native API
+            /// calls.</summary>
             public const string NONDISTRIBUTED = "nondistributed";
         } // end struct ExecutionMode
 
@@ -98,16 +113,22 @@ namespace kinetica
         /// cref="CreateProcRequest.ExecutionMode.DISTRIBUTED">DISTRIBUTED</see>:</term>
         ///         <description>Input table data will be divided into data
         /// segments that are distributed across all nodes in the cluster, and
-        /// the proc command will be invoked once per data segment in parallel.
-        /// Output table data from each invocation will be saved to the same
-        /// node as the corresponding input data.</description>
+        /// the proc
+        /// command will be invoked once per data segment in parallel. Output
+        /// table data
+        /// from each invocation will be saved to the same node as the
+        /// corresponding input
+        /// data.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="CreateProcRequest.ExecutionMode.NONDISTRIBUTED">NONDISTRIBUTED</see>:</term>
         ///         <description>The proc command will be invoked only once per
-        /// execution, and will not have access to any input or output table
-        /// data.</description>
+        /// execution, and will not have direct access to any tables named as
+        /// input or
+        /// output table parameters in the call to /execute/proc.  It will,
+        /// however, be able to access the database using native API
+        /// calls.</description>
         ///     </item>
         /// </list>
         /// The default value is <see
@@ -117,24 +138,30 @@ namespace kinetica
 
         /// <summary>A map of the files that make up the proc. The keys of the
         /// map are file names, and the values are the binary contents of the
-        /// files. The file names may include subdirectory names (e.g.
-        /// 'subdir/file') but must not resolve to a directory above the root
-        /// for the proc.  The default value is an empty {@link
-        /// Dictionary}.</summary>
+        /// files. The
+        /// file names may include subdirectory names (e.g. 'subdir/file') but
+        /// must not
+        /// resolve to a directory above the root for the proc.  The default
+        /// value is an empty {@link Dictionary}.</summary>
         public IDictionary<string, byte[]> files { get; set; } = new Dictionary<string, byte[]>();
 
         /// <summary>The command (excluding arguments) that will be invoked
-        /// when the proc is executed. It will be invoked from the directory
-        /// containing the proc <paramref cref="CreateProcRequest.files" /> and
-        /// may be any command that can be resolved from that directory. It
-        /// need not refer to a file actually in that directory; for example,
-        /// it could be 'java' if the proc is a Java application; however, any
-        /// necessary external programs must be preinstalled on every database
-        /// node. If the command refers to a file in that directory, it must be
-        /// preceded with './' as per Linux convention. If not specified, and
-        /// exactly one file is provided in <paramref
-        /// cref="CreateProcRequest.files" />, that file will be invoked.  The
-        /// default value is ''.</summary>
+        /// when
+        /// the proc is executed. It will be invoked from the directory
+        /// containing the proc
+        /// <paramref cref="CreateProcRequest.files" /> and may be any command
+        /// that can be resolved from that directory.
+        /// It need not refer to a file actually in that directory; for
+        /// example, it could be
+        /// 'java' if the proc is a Java application; however, any necessary
+        /// external
+        /// programs must be preinstalled on every database node. If the
+        /// command refers to a
+        /// file in that directory, it must be preceded with './' as per Linux
+        /// convention.
+        /// If not specified, and exactly one file is provided in <paramref
+        /// cref="CreateProcRequest.files" />, that file
+        /// will be invoked.  The default value is ''.</summary>
         public string command { get; set; } = "";
 
         /// <summary>An array of command-line arguments that will be passed to
@@ -173,39 +200,52 @@ namespace kinetica
         /// cref="CreateProcRequest.ExecutionMode.DISTRIBUTED">DISTRIBUTED</see>:</term>
         ///         <description>Input table data will be divided into data
         /// segments that are distributed across all nodes in the cluster, and
-        /// the proc command will be invoked once per data segment in parallel.
-        /// Output table data from each invocation will be saved to the same
-        /// node as the corresponding input data.</description>
+        /// the proc
+        /// command will be invoked once per data segment in parallel. Output
+        /// table data
+        /// from each invocation will be saved to the same node as the
+        /// corresponding input
+        /// data.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="CreateProcRequest.ExecutionMode.NONDISTRIBUTED">NONDISTRIBUTED</see>:</term>
         ///         <description>The proc command will be invoked only once per
-        /// execution, and will not have access to any input or output table
-        /// data.</description>
+        /// execution, and will not have direct access to any tables named as
+        /// input or
+        /// output table parameters in the call to /execute/proc.  It will,
+        /// however, be able to access the database using native API
+        /// calls.</description>
         ///     </item>
         /// </list>
         /// The default value is <see
         /// cref="CreateProcRequest.ExecutionMode.DISTRIBUTED">DISTRIBUTED</see>.
         /// </param>
         /// <param name="files">A map of the files that make up the proc. The
-        /// keys of the map are file names, and the values are the binary
-        /// contents of the files. The file names may include subdirectory
-        /// names (e.g. 'subdir/file') but must not resolve to a directory
-        /// above the root for the proc.  The default value is an empty {@link
-        /// Dictionary}.</param>
+        /// keys of the
+        /// map are file names, and the values are the binary contents of the
+        /// files. The
+        /// file names may include subdirectory names (e.g. 'subdir/file') but
+        /// must not
+        /// resolve to a directory above the root for the proc.  The default
+        /// value is an empty {@link Dictionary}.</param>
         /// <param name="command">The command (excluding arguments) that will
-        /// be invoked when the proc is executed. It will be invoked from the
-        /// directory containing the proc <paramref
-        /// cref="CreateProcRequest.files" /> and may be any command that can
-        /// be resolved from that directory. It need not refer to a file
-        /// actually in that directory; for example, it could be 'java' if the
-        /// proc is a Java application; however, any necessary external
+        /// be invoked when
+        /// the proc is executed. It will be invoked from the directory
+        /// containing the proc
+        /// <paramref cref="CreateProcRequest.files" /> and may be any command
+        /// that can be resolved from that directory.
+        /// It need not refer to a file actually in that directory; for
+        /// example, it could be
+        /// 'java' if the proc is a Java application; however, any necessary
+        /// external
         /// programs must be preinstalled on every database node. If the
-        /// command refers to a file in that directory, it must be preceded
-        /// with './' as per Linux convention. If not specified, and exactly
-        /// one file is provided in <paramref cref="CreateProcRequest.files"
-        /// />, that file will be invoked.  The default value is ''.</param>
+        /// command refers to a
+        /// file in that directory, it must be preceded with './' as per Linux
+        /// convention.
+        /// If not specified, and exactly one file is provided in <paramref
+        /// cref="CreateProcRequest.files" />, that file
+        /// will be invoked.  The default value is ''.</param>
         /// <param name="args">An array of command-line arguments that will be
         /// passed to <paramref cref="CreateProcRequest.command" /> when the
         /// proc is executed.  The default value is an empty {@link

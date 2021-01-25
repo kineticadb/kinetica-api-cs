@@ -16,7 +16,7 @@ namespace kinetica
     {
 
         // Kinetica Version
-        public const string API_VERSION = "7.1.1.0";
+        public const string API_VERSION = "7.1.2.0";
 
 
 
@@ -141,6 +141,9 @@ namespace kinetica
         /// rebalance data and shards across the cluster, use <see
         /// cref="Kinetica.adminRebalance(IDictionary{string, string})" />.
         /// <br />
+        /// The database must be offline for this operation, see <see
+        /// cref="Kinetica.adminOffline(bool,IDictionary{string, string})" />
+        /// <br />
         /// For example, if attempting to add three new ranks (two ranks on
         /// host 172.123.45.67 and one rank on host 172.123.45.68) to a
         /// Kinetica cluster with additional configuration parameters:
@@ -185,6 +188,9 @@ namespace kinetica
         /// replicated tables) and will not be assigned any shards. To
         /// rebalance data and shards across the cluster, use <see
         /// cref="Kinetica.adminRebalance(IDictionary{string, string})" />.
+        /// <br />
+        /// The database must be offline for this operation, see <see
+        /// cref="Kinetica.adminOffline(bool,IDictionary{string, string})" />
         /// <br />
         /// For example, if attempting to add three new ranks (two ranks on
         /// host 172.123.45.67 and one rank on host 172.123.45.68) to a
@@ -478,6 +484,9 @@ namespace kinetica
         /// the shards to be equally distributed (as much as possible) across
         /// all the ranks.
         /// <br />
+        /// The database must be offline for this operation, see <see
+        /// cref="Kinetica.adminOffline(bool,IDictionary{string, string})" />
+        /// <br />
         /// * If <see
         /// cref="Kinetica.adminRebalance(IDictionary{string, string})" /> is
         /// invoked after a change is made to the
@@ -526,6 +535,9 @@ namespace kinetica
         /// contain an equal number of records approximately and/or rebalance
         /// the shards to be equally distributed (as much as possible) across
         /// all the ranks.
+        /// <br />
+        /// The database must be offline for this operation, see <see
+        /// cref="Kinetica.adminOffline(bool,IDictionary{string, string})" />
         /// <br />
         /// * If <see
         /// cref="Kinetica.adminRebalance(IDictionary{string, string})" /> is
@@ -631,7 +643,7 @@ namespace kinetica
         /// rebalance faster.  A lower <i>aggressiveness</i> will take longer
         /// but allow for better interleaving between the rebalance and other
         /// queries. Valid values are constants from 1 (lowest) to 10
-        /// (highest).  The default value is '1'.</description>
+        /// (highest).  The default value is '10'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -798,6 +810,9 @@ namespace kinetica
         /// href="../../concepts/tables.html#random-sharding"
         /// target="_top">randomly-sharded</a>) will be deleted.
         /// <br />
+        /// The database must be offline for this operation, see <see
+        /// cref="Kinetica.adminOffline(bool,IDictionary{string, string})" />
+        /// <br />
         /// This endpoint's processing time depends on the amount of data in
         /// the system, thus the API call may time out if run directly.  It is
         /// recommended to run this endpoint asynchronously via <see
@@ -827,6 +842,9 @@ namespace kinetica
         /// data</a> and/or unsharded data (a.k.a. <a
         /// href="../../concepts/tables.html#random-sharding"
         /// target="_top">randomly-sharded</a>) will be deleted.
+        /// <br />
+        /// The database must be offline for this operation, see <see
+        /// cref="Kinetica.adminOffline(bool,IDictionary{string, string})" />
         /// <br />
         /// This endpoint's processing time depends on the amount of data in
         /// the system, thus the API call may time out if run directly.  It is
@@ -898,7 +916,7 @@ namespace kinetica
         /// rebalance faster.  A lower <i>aggressiveness</i> will take longer
         /// but allow for better interleaving between the rebalance and other
         /// queries. Valid values are constants from 1 (lowest) to 10
-        /// (highest).  The default value is '1'.</description>
+        /// (highest).  The default value is '10'.</description>
         ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.</param>
@@ -4116,6 +4134,14 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
+        /// cref="AlterTableRequest.Action.SET_REFRESH_EXECUTE_AS">SET_REFRESH_EXECUTE_AS</see>:</term>
+        ///         <description>Sets the user name to refresh this <a
+        /// href="../../concepts/materialized_views.html"
+        /// target="_top">materialized view</a> to the value specified in
+        /// <paramref cref="AlterTableRequest._value" />.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="AlterTableRequest.Action.REMOVE_TEXT_SEARCH_ATTRIBUTES">REMOVE_TEXT_SEARCH_ATTRIBUTES</see>:</term>
         ///         <description>Removes <a
         /// href="../../concepts/full_text_search.html" target="_top">text
@@ -5561,6 +5587,50 @@ namespace kinetica
         /// threshold for right and left turns; 0 < turn_angle < 90.  The
         /// default value is '60'.</description>
         ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateGraphRequest.Options.IS_PARTITIONED">IS_PARTITIONED</see>:</term>
+        ///         <description>
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateGraphRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateGraphRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="CreateGraphRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateGraphRequest.Options.SERVER_ID">SERVER_ID</see>:</term>
+        ///         <description>Indicates which graph server(s) to send the
+        /// request to. Default is to send to the server with the most
+        /// available memory.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateGraphRequest.Options.USE_RTREE">USE_RTREE</see>:</term>
+        ///         <description>Use an range tree structure to accelerate and
+        /// improve the accuracy of snapping, especially to edges.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateGraphRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateGraphRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="CreateGraphRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.</param>
         /// 
@@ -5974,6 +6044,12 @@ namespace kinetica
         /// is a datetime string with format 'YYYY-MM-DD
         /// HH:MM:SS'.</description>
         ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateMaterializedViewRequest.Options.EXECUTE_AS">EXECUTE_AS</see>:</term>
+        ///         <description>User name to use to run the refresh
+        /// job</description>
+        ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.</param>
         /// 
@@ -5988,11 +6064,11 @@ namespace kinetica
         }
 
 
-        /// <summary>Creates an instance (proc) of the user-defined function
-        /// (UDF) specified by the given command, options, and files, and makes
-        /// it available for execution.  For details on UDFs, see: <a
-        /// href="../../concepts/udf.html" target="_top">User-Defined
-        /// Functions</a></summary>
+        /// <summary>Creates an instance (proc) of the
+        /// <a href="../../concepts/udf.html" target="_top">user-defined
+        /// functions</a> (UDF) specified by the
+        /// given command, options, and files, and makes it available for
+        /// execution.</summary>
         /// 
         /// <param name="request_">Request object containing the parameters for
         /// the operation.</param>
@@ -6008,11 +6084,11 @@ namespace kinetica
         }
 
 
-        /// <summary>Creates an instance (proc) of the user-defined function
-        /// (UDF) specified by the given command, options, and files, and makes
-        /// it available for execution.  For details on UDFs, see: <a
-        /// href="../../concepts/udf.html" target="_top">User-Defined
-        /// Functions</a></summary>
+        /// <summary>Creates an instance (proc) of the
+        /// <a href="../../concepts/udf.html" target="_top">user-defined
+        /// functions</a> (UDF) specified by the
+        /// given command, options, and files, and makes it available for
+        /// execution.</summary>
         /// 
         /// <param name="proc_name">Name of the proc to be created. Must not be
         /// the name of a currently existing proc.  </param>
@@ -6024,39 +6100,52 @@ namespace kinetica
         /// cref="CreateProcRequest.ExecutionMode.DISTRIBUTED">DISTRIBUTED</see>:</term>
         ///         <description>Input table data will be divided into data
         /// segments that are distributed across all nodes in the cluster, and
-        /// the proc command will be invoked once per data segment in parallel.
-        /// Output table data from each invocation will be saved to the same
-        /// node as the corresponding input data.</description>
+        /// the proc
+        /// command will be invoked once per data segment in parallel. Output
+        /// table data
+        /// from each invocation will be saved to the same node as the
+        /// corresponding input
+        /// data.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="CreateProcRequest.ExecutionMode.NONDISTRIBUTED">NONDISTRIBUTED</see>:</term>
         ///         <description>The proc command will be invoked only once per
-        /// execution, and will not have access to any input or output table
-        /// data.</description>
+        /// execution, and will not have direct access to any tables named as
+        /// input or
+        /// output table parameters in the call to /execute/proc.  It will,
+        /// however, be able to access the database using native API
+        /// calls.</description>
         ///     </item>
         /// </list>
         /// The default value is <see
         /// cref="CreateProcRequest.ExecutionMode.DISTRIBUTED">DISTRIBUTED</see>.
         /// </param>
         /// <param name="files">A map of the files that make up the proc. The
-        /// keys of the map are file names, and the values are the binary
-        /// contents of the files. The file names may include subdirectory
-        /// names (e.g. 'subdir/file') but must not resolve to a directory
-        /// above the root for the proc.  The default value is an empty {@link
-        /// Dictionary}.</param>
+        /// keys of the
+        /// map are file names, and the values are the binary contents of the
+        /// files. The
+        /// file names may include subdirectory names (e.g. 'subdir/file') but
+        /// must not
+        /// resolve to a directory above the root for the proc.  The default
+        /// value is an empty {@link Dictionary}.</param>
         /// <param name="command">The command (excluding arguments) that will
-        /// be invoked when the proc is executed. It will be invoked from the
-        /// directory containing the proc <paramref
-        /// cref="CreateProcRequest.files" /> and may be any command that can
-        /// be resolved from that directory. It need not refer to a file
-        /// actually in that directory; for example, it could be 'java' if the
-        /// proc is a Java application; however, any necessary external
+        /// be invoked when
+        /// the proc is executed. It will be invoked from the directory
+        /// containing the proc
+        /// <paramref cref="CreateProcRequest.files" /> and may be any command
+        /// that can be resolved from that directory.
+        /// It need not refer to a file actually in that directory; for
+        /// example, it could be
+        /// 'java' if the proc is a Java application; however, any necessary
+        /// external
         /// programs must be preinstalled on every database node. If the
-        /// command refers to a file in that directory, it must be preceded
-        /// with './' as per Linux convention. If not specified, and exactly
-        /// one file is provided in <paramref cref="CreateProcRequest.files"
-        /// />, that file will be invoked.  The default value is ''.</param>
+        /// command refers to a
+        /// file in that directory, it must be preceded with './' as per Linux
+        /// convention.
+        /// If not specified, and exactly one file is provided in <paramref
+        /// cref="CreateProcRequest.files" />, that file
+        /// will be invoked.  The default value is ''.</param>
         /// <param name="args">An array of command-line arguments that will be
         /// passed to <paramref cref="CreateProcRequest.command" /> when the
         /// proc is executed.  The default value is an empty {@link
@@ -6818,6 +6907,13 @@ namespace kinetica
         /// href="../../concepts/tables.html#partitioning-by-hash"
         /// target="_top">hash partitioning</a>.</description>
         ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableRequest.Options.SERIES">SERIES</see>:</term>
+        ///         <description>Use <a
+        /// href="../../concepts/tables.html#partitioning-by-series"
+        /// target="_top">series partitioning</a>.</description>
+        ///     </item>
         /// </list></description>
         ///     </item>
         ///     <item>
@@ -7052,7 +7148,7 @@ namespace kinetica
         /// given <i>type_id</i>, or
         /// <a href="../../concepts/tables.html#random-sharding"
         /// target="_top">randomly sharded</a>, if no shard key is specified.
-        ///  Note that a type containing a shard key cannot be used to create a
+        /// Note that a type containing a shard key cannot be used to create a
         /// replicated table.
         /// Supported values:
         /// <list type="bullet">
@@ -7651,6 +7747,28 @@ namespace kinetica
         /// cref="CreateTableExternalRequest.Options.NUM_TASKS_PER_RANK">NUM_TASKS_PER_RANK</see>:</term>
         ///         <description>Optional: number of tasks for reading file per
         /// rank. Default will be external_file_reader_num_tasks</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableExternalRequest.Options.TYPE_INFERENCE_MODE">TYPE_INFERENCE_MODE</see>:</term>
+        ///         <description>optimize type inference for:
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableExternalRequest.Options.ACCURACY">ACCURACY</see>:</term>
+        ///         <description>scans all data to get exactly-typed & sized
+        /// columns for all data present</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableExternalRequest.Options.SPEED">SPEED</see>:</term>
+        ///         <description>picks the widest possible column types so that
+        /// 'all' values will fit with minimum data scanned</description>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="CreateTableExternalRequest.Options.ACCURACY">ACCURACY</see>.</description>
         ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.</param>
@@ -8801,6 +8919,13 @@ namespace kinetica
         /// The default value is <see
         /// cref="DeleteGraphRequest.Options.TRUE">TRUE</see>.</description>
         ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="DeleteGraphRequest.Options.SERVER_ID">SERVER_ID</see>:</term>
+        ///         <description>Indicates which graph server(s) to send the
+        /// request to. Default is to send to get information about all the
+        /// servers.</description>
+        ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.</param>
         /// 
@@ -9174,7 +9299,20 @@ namespace kinetica
 
 
         /// <summary>Executes a proc. This endpoint is asynchronous and does
-        /// not wait for the proc to complete before returning.</summary>
+        /// not wait for
+        /// the proc to complete before returning.
+        /// <br />
+        /// If the proc being executed is distributed, <paramref
+        /// cref="ExecuteProcRequest.input_table_names" /> &
+        /// <paramref cref="ExecuteProcRequest.input_column_names" /> may be
+        /// passed to the proc to use for reading data,
+        /// and <paramref cref="ExecuteProcRequest.output_table_names" /> may
+        /// be passed to the proc to use for writing
+        /// data.
+        /// <br />
+        /// If the proc being executed is non-distributed, these table
+        /// parameters will be
+        /// ignored.</summary>
         /// 
         /// <param name="request_">Request object containing the parameters for
         /// the operation.</param>
@@ -9191,7 +9329,20 @@ namespace kinetica
 
 
         /// <summary>Executes a proc. This endpoint is asynchronous and does
-        /// not wait for the proc to complete before returning.</summary>
+        /// not wait for
+        /// the proc to complete before returning.
+        /// <br />
+        /// If the proc being executed is distributed, <paramref
+        /// name="input_table_names" /> &
+        /// <paramref name="input_column_names" /> may be passed to the proc to
+        /// use for reading data,
+        /// and <paramref name="output_table_names" /> may be passed to the
+        /// proc to use for writing
+        /// data.
+        /// <br />
+        /// If the proc being executed is non-distributed, these table
+        /// parameters will be
+        /// ignored.</summary>
         /// 
         /// <param name="proc_name">Name of the proc to execute. Must be the
         /// name of a currently existing proc.  </param>
@@ -9204,34 +9355,47 @@ namespace kinetica
         /// parameter and its value.  The default value is an empty {@link
         /// Dictionary}.</param>
         /// <param name="input_table_names">Names of the tables containing data
-        /// to be passed to the proc. Each name specified must be the name of a
-        /// currently existing table, in [schema_name.]table_name format, using
-        /// standard <a href="../../concepts/tables.html#table-name-resolution"
-        /// target="_top">name resolution rules</a>.  If no table names are
-        /// specified, no data will be passed to the proc.  The default value
-        /// is an empty {@link List}.</param>
+        /// to be passed to the
+        /// proc. Each name specified must be the name of a currently existing
+        /// table, in
+        /// [schema_name.]table_name format, using standard
+        /// <a href="../../concepts/tables.html#table-name-resolution"
+        /// target="_top">name resolution rules</a>.
+        /// If no table names are specified, no data will be passed to the
+        /// proc.  This
+        /// parameter is ignored if the proc has a non-distributed execution
+        /// mode.  The default value is an empty {@link List}.</param>
         /// <param name="input_column_names">Map of table names from <paramref
-        /// cref="ExecuteProcRequest.input_table_names" /> to lists of names of
-        /// columns from those tables that will be passed to the proc. Each
+        /// cref="ExecuteProcRequest.input_table_names" /> to lists
+        /// of names of columns from those tables that will be passed to the
+        /// proc. Each
         /// column name specified must be the name of an existing column in the
         /// corresponding table. If a table name from <paramref
-        /// cref="ExecuteProcRequest.input_table_names" /> is not included, all
-        /// columns from that table will be passed to the proc.  The default
-        /// value is an empty {@link Dictionary}.</param>
+        /// cref="ExecuteProcRequest.input_table_names" /> is not
+        /// included, all columns from that table will be passed to the proc.
+        /// This
+        /// parameter is ignored if the proc has a non-distributed execution
+        /// mode.  The default value is an empty {@link Dictionary}.</param>
         /// <param name="output_table_names">Names of the tables to which
-        /// output data from the proc will be written, each in
-        /// [schema_name.]table_name format, using standard <a
-        /// href="../../concepts/tables.html#table-name-resolution"
-        /// target="_top">name resolution rules</a> and meeting <a
+        /// output data from the proc will
+        /// be written, each in [schema_name.]table_name format, using standard
+        /// <a href="../../concepts/tables.html#table-name-resolution"
+        /// target="_top">name resolution rules</a>
+        /// and meeting <a
         /// href="../../concepts/tables.html#table-naming-criteria"
-        /// target="_top">table naming criteria</a>. If a specified table does
-        /// not exist, it will automatically be created with the same schema as
-        /// the corresponding table (by order) from <paramref
-        /// cref="ExecuteProcRequest.input_table_names" />, excluding any
-        /// primary and shard keys. If a specified table is a non-persistent
-        /// result table, it must not have primary or shard keys. If no table
-        /// names are specified, no output data can be returned from the proc.
-        /// The default value is an empty {@link List}.</param>
+        /// target="_top">table naming criteria</a>.
+        /// If a specified table does not exist, it will automatically be
+        /// created with the
+        /// same schema as the corresponding table (by order) from
+        /// <paramref cref="ExecuteProcRequest.input_table_names" />, excluding
+        /// any primary and shard keys. If a specified
+        /// table is a non-persistent result table, it must not have primary or
+        /// shard keys.
+        /// If no table names are specified, no output data can be returned
+        /// from the proc.
+        /// This parameter is ignored if the proc has a non-distributed
+        /// execution mode.  The default value is an empty {@link
+        /// List}.</param>
         /// <param name="options">Optional parameters.
         /// <list type="bullet">
         ///     <item>
@@ -13394,6 +13558,28 @@ namespace kinetica
         ///         <description>Optional: number of tasks for reading file per
         /// rank. Default will be external_file_reader_num_tasks</description>
         ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromFilesRequest.Options.TYPE_INFERENCE_MODE">TYPE_INFERENCE_MODE</see>:</term>
+        ///         <description>optimize type inference for:
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromFilesRequest.Options.ACCURACY">ACCURACY</see>:</term>
+        ///         <description>scans all data to get exactly-typed & sized
+        /// columns for all data present</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromFilesRequest.Options.SPEED">SPEED</see>:</term>
+        ///         <description>picks the widest possible column types so that
+        /// 'all' values will fit with minimum data scanned</description>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="InsertRecordsFromFilesRequest.Options.ACCURACY">ACCURACY</see>.</description>
+        ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.</param>
         /// 
@@ -13985,6 +14171,28 @@ namespace kinetica
         /// cref="InsertRecordsFromPayloadRequest.Options.NUM_TASKS_PER_RANK">NUM_TASKS_PER_RANK</see>:</term>
         ///         <description>Optional: number of tasks for reading file per
         /// rank. Default will be external_file_reader_num_tasks</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromPayloadRequest.Options.TYPE_INFERENCE_MODE">TYPE_INFERENCE_MODE</see>:</term>
+        ///         <description>optimize type inference for:
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromPayloadRequest.Options.ACCURACY">ACCURACY</see>:</term>
+        ///         <description>scans all data to get exactly-typed & sized
+        /// columns for all data present</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromPayloadRequest.Options.SPEED">SPEED</see>:</term>
+        ///         <description>picks the widest possible column types so that
+        /// 'all' values will fit with minimum data scanned</description>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="InsertRecordsFromPayloadRequest.Options.ACCURACY">ACCURACY</see>.</description>
         ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.</param>
@@ -14801,6 +15009,16 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
+        /// cref="MatchGraphRequest.Options.OUTPUT_TRACKS">OUTPUT_TRACKS</see>:</term>
+        ///         <description>For the <i>match_supply_demand</i> solver
+        /// only. When it is true (non-default), the output will be in tracks
+        /// format for all the round trips of each truck in which the
+        /// timestamps are populated directly from the edge weights starting
+        /// from their originating depots.  The default value is
+        /// 'false'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="MatchGraphRequest.Options.MAX_TRIP_COST">MAX_TRIP_COST</see>:</term>
         ///         <description>For the <i>match_supply_demand</i> solver
         /// only. If this constraint is greater than zero (default) then the
@@ -14858,7 +15076,7 @@ namespace kinetica
         ///         <term><see
         /// cref="MatchGraphRequest.Options.TRUCK_SERVICE_LIMIT">TRUCK_SERVICE_LIMIT</see>:</term>
         ///         <description>For the <i>match_supply_demand</i> solver
-        /// only. If specified (greather than zero), any truck's total service
+        /// only. If specified (greater than zero), any truck's total service
         /// cost (distance or time) will be limited by the specified value
         /// including multiple rounds (if set).  The default value is
         /// '0.0'.</description>
@@ -14886,6 +15104,14 @@ namespace kinetica
         /// </list>
         /// The default value is <see
         /// cref="MatchGraphRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="MatchGraphRequest.Options.SERVER_ID">SERVER_ID</see>:</term>
+        ///         <description>Indicates which graph server(s) to send the
+        /// request to. Default is to send to the server, amongst those
+        /// containing the corresponding graph, that has the most computational
+        /// bandwidth.  The default value is ''.</description>
         ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.</param>
@@ -15685,6 +15911,34 @@ namespace kinetica
         /// The default value is <see
         /// cref="QueryGraphRequest.Options.FALSE">FALSE</see>.</description>
         ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="QueryGraphRequest.Options.EXPORT_SOLVE_RESULTS">EXPORT_SOLVE_RESULTS</see>:</term>
+        ///         <description>Returns solution results inside the <member
+        /// name="adjacency_list_int_array" /> array in the response if set to
+        /// <i>true</i>.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="QueryGraphRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="QueryGraphRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="QueryGraphRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="QueryGraphRequest.Options.SERVER_ID">SERVER_ID</see>:</term>
+        ///         <description>Indicates which graph server(s) to send the
+        /// request to. Default is to send to the server, amongst those
+        /// containing the corresponding graph, that has the most computational
+        /// bandwidth.</description>
+        ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.</param>
         /// 
@@ -16124,6 +16378,13 @@ namespace kinetica
         /// </list>
         /// The default value is <see
         /// cref="ShowGraphRequest.Options.TRUE">TRUE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ShowGraphRequest.Options.SERVER_ID">SERVER_ID</see>:</term>
+        ///         <description>Indicates which graph server(s) to send the
+        /// request to. Default is to send to get information about all the
+        /// servers.</description>
         ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.</param>
@@ -17142,8 +17403,8 @@ namespace kinetica
         /// <a href="../../graph_solver/examples/graph_rest_guide.html"
         /// target="_top">Graph REST Tutorial</a>,
         /// and/or some
-        /// <a href="../../graph_solver/examples.html#solve-graph"
-        /// target="_top">/solve/graph examples</a>
+        /// <a href="../../graph_solver/examples.html#match-graph"
+        /// target="_top">/match/graph examples</a>
         /// before using this endpoint.</summary>
         /// 
         /// <param name="request_">Request object containing the parameters for
@@ -17173,8 +17434,8 @@ namespace kinetica
         /// <a href="../../graph_solver/examples/graph_rest_guide.html"
         /// target="_top">Graph REST Tutorial</a>,
         /// and/or some
-        /// <a href="../../graph_solver/examples.html#solve-graph"
-        /// target="_top">/solve/graph examples</a>
+        /// <a href="../../graph_solver/examples.html#match-graph"
+        /// target="_top">/match/graph examples</a>
         /// before using this endpoint.</summary>
         /// 
         /// <param name="graph_name">Name of the graph resource to solve.
@@ -17511,6 +17772,16 @@ namespace kinetica
         /// </list>
         /// The default value is <see
         /// cref="SolveGraphRequest.Options.TRUE">TRUE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="SolveGraphRequest.Options.SERVER_ID">SERVER_ID</see>:</term>
+        ///         <description>Indicates which graph server(s) to send the
+        /// request to. Default is to send to the server, amongst those
+        /// containing the corresponding graph, that has the most computational
+        /// bandwidth. For SHORTEST_PATH solver type, the input is split
+        /// amongst the server containing the corresponding
+        /// graph.</description>
         ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.</param>
@@ -18680,6 +18951,7 @@ namespace kinetica
         /// <param name="world_table_names"></param>
         /// <param name="x_column_name"></param>
         /// <param name="y_column_name"></param>
+        /// <param name="symbol_column_name"></param>
         /// <param name="geometry_column_name"></param>
         /// <param name="track_ids"></param>
         /// <param name="cb_attr"></param>
@@ -18884,6 +19156,11 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
+        /// cref="VisualizeImageClassbreakRequest.StyleOptions.SYMBOLROTATIONS">SYMBOLROTATIONS</see>:</term>
+        ///         <description>  The default value is '0'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="VisualizeImageClassbreakRequest.StyleOptions.SHAPELINEWIDTHS">SHAPELINEWIDTHS</see>:</term>
         ///         <description>  The default value is '3'.</description>
         ///     </item>
@@ -18990,6 +19267,14 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
+        /// cref="VisualizeImageClassbreakRequest.StyleOptions.ORIENTED_ARROW">ORIENTED_ARROW</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageClassbreakRequest.StyleOptions.ORIENTED_TRIANGLE">ORIENTED_TRIANGLE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="VisualizeImageClassbreakRequest.StyleOptions.SYMBOLCODE">SYMBOLCODE</see></term>
         ///     </item>
         /// </list>
@@ -19060,6 +19345,7 @@ namespace kinetica
                                                                           IList<string> world_table_names,
                                                                           string x_column_name,
                                                                           string y_column_name,
+                                                                          string symbol_column_name,
                                                                           string geometry_column_name,
                                                                           IList<IList<string>> track_ids,
                                                                           string cb_attr,
@@ -19089,6 +19375,7 @@ namespace kinetica
                                                                                   world_table_names,
                                                                                   x_column_name,
                                                                                   y_column_name,
+                                                                                  symbol_column_name,
                                                                                   geometry_column_name,
                                                                                   track_ids,
                                                                                   cb_attr,

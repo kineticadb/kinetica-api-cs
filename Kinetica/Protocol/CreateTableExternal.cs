@@ -84,7 +84,7 @@ namespace kinetica
         /// given <i>type_id</i>, or
         /// <a href="../../concepts/tables.html#random-sharding"
         /// target="_top">randomly sharded</a>, if no shard key is specified.
-        ///  Note that a type containing a shard key cannot be used to create a
+        /// Note that a type containing a shard key cannot be used to create a
         /// replicated table.
         /// Supported values:
         /// <list type="bullet">
@@ -305,7 +305,7 @@ namespace kinetica
             /// <a href="../../concepts/tables.html#random-sharding"
             /// target="_top">randomly sharded</a>, if no shard key is
             /// specified.
-            ///  Note that a type containing a shard key cannot be used to
+            /// Note that a type containing a shard key cannot be used to
             /// create a replicated table.
             /// Supported values:
             /// <list type="bullet">
@@ -927,6 +927,28 @@ namespace kinetica
         ///         <description>Optional: number of tasks for reading file per
         /// rank. Default will be external_file_reader_num_tasks</description>
         ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableExternalRequest.Options.TYPE_INFERENCE_MODE">TYPE_INFERENCE_MODE</see>:</term>
+        ///         <description>optimize type inference for:
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableExternalRequest.Options.ACCURACY">ACCURACY</see>:</term>
+        ///         <description>scans all data to get exactly-typed & sized
+        /// columns for all data present</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableExternalRequest.Options.SPEED">SPEED</see>:</term>
+        ///         <description>picks the widest possible column types so that
+        /// 'all' values will fit with minimum data scanned</description>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="CreateTableExternalRequest.Options.ACCURACY">ACCURACY</see>.</description>
+        ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.
         /// A set of string constants for the parameter <see cref="options"
@@ -1437,6 +1459,35 @@ namespace kinetica
             /// <summary>Optional: number of tasks for reading file per rank.
             /// Default will be external_file_reader_num_tasks</summary>
             public const string NUM_TASKS_PER_RANK = "num_tasks_per_rank";
+
+            /// <summary>optimize type inference for:
+            /// Supported values:
+            /// <list type="bullet">
+            ///     <item>
+            ///         <term><see
+            /// cref="CreateTableExternalRequest.Options.ACCURACY">ACCURACY</see>:</term>
+            ///         <description>scans all data to get exactly-typed &
+            /// sized columns for all data present</description>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="CreateTableExternalRequest.Options.SPEED">SPEED</see>:</term>
+            ///         <description>picks the widest possible column types so
+            /// that 'all' values will fit with minimum data
+            /// scanned</description>
+            ///     </item>
+            /// </list>
+            /// The default value is <see
+            /// cref="CreateTableExternalRequest.Options.ACCURACY">ACCURACY</see>.</summary>
+            public const string TYPE_INFERENCE_MODE = "type_inference_mode";
+
+            /// <summary>scans all data to get exactly-typed & sized columns
+            /// for all data present</summary>
+            public const string ACCURACY = "accuracy";
+
+            /// <summary>picks the widest possible column types so that 'all'
+            /// values will fit with minimum data scanned</summary>
+            public const string SPEED = "speed";
         } // end struct Options
 
 
@@ -1522,7 +1573,7 @@ namespace kinetica
         /// given <i>type_id</i>, or
         /// <a href="../../concepts/tables.html#random-sharding"
         /// target="_top">randomly sharded</a>, if no shard key is specified.
-        ///  Note that a type containing a shard key cannot be used to create a
+        /// Note that a type containing a shard key cannot be used to create a
         /// replicated table.
         /// Supported values:
         /// <list type="bullet">
@@ -2144,6 +2195,28 @@ namespace kinetica
         ///         <description>Optional: number of tasks for reading file per
         /// rank. Default will be external_file_reader_num_tasks</description>
         ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableExternalRequest.Options.TYPE_INFERENCE_MODE">TYPE_INFERENCE_MODE</see>:</term>
+        ///         <description>optimize type inference for:
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableExternalRequest.Options.ACCURACY">ACCURACY</see>:</term>
+        ///         <description>scans all data to get exactly-typed & sized
+        /// columns for all data present</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableExternalRequest.Options.SPEED">SPEED</see>:</term>
+        ///         <description>picks the widest possible column types so that
+        /// 'all' values will fit with minimum data scanned</description>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="CreateTableExternalRequest.Options.ACCURACY">ACCURACY</see>.</description>
+        ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.</summary>
         public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
@@ -2230,7 +2303,7 @@ namespace kinetica
         /// given <i>type_id</i>, or
         /// <a href="../../concepts/tables.html#random-sharding"
         /// target="_top">randomly sharded</a>, if no shard key is specified.
-        ///  Note that a type containing a shard key cannot be used to create a
+        /// Note that a type containing a shard key cannot be used to create a
         /// replicated table.
         /// Supported values:
         /// <list type="bullet">
@@ -2830,6 +2903,28 @@ namespace kinetica
         ///         <description>Optional: number of tasks for reading file per
         /// rank. Default will be external_file_reader_num_tasks</description>
         ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableExternalRequest.Options.TYPE_INFERENCE_MODE">TYPE_INFERENCE_MODE</see>:</term>
+        ///         <description>optimize type inference for:
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableExternalRequest.Options.ACCURACY">ACCURACY</see>:</term>
+        ///         <description>scans all data to get exactly-typed & sized
+        /// columns for all data present</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableExternalRequest.Options.SPEED">SPEED</see>:</term>
+        ///         <description>picks the widest possible column types so that
+        /// 'all' values will fit with minimum data scanned</description>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="CreateTableExternalRequest.Options.ACCURACY">ACCURACY</see>.</description>
+        ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.</param>
         /// 
@@ -2891,6 +2986,10 @@ namespace kinetica
 
         /// <summary>Additional information.  </summary>
         public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
+
+        /// <summary>The default value is an empty {@link
+        /// Dictionary}.</summary>
+        public IList<string> files { get; set; } = new List<string>();
 
     } // end class CreateTableExternalResponse
 

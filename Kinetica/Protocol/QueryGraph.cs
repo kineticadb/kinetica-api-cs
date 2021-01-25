@@ -188,6 +188,34 @@ namespace kinetica
         /// The default value is <see
         /// cref="QueryGraphRequest.Options.FALSE">FALSE</see>.</description>
         ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="QueryGraphRequest.Options.EXPORT_SOLVE_RESULTS">EXPORT_SOLVE_RESULTS</see>:</term>
+        ///         <description>Returns solution results inside the <member
+        /// name="adjacency_list_int_array" /> array in the response if set to
+        /// <i>true</i>.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="QueryGraphRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="QueryGraphRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="QueryGraphRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="QueryGraphRequest.Options.SERVER_ID">SERVER_ID</see>:</term>
+        ///         <description>Indicates which graph server(s) to send the
+        /// request to. Default is to send to the server, amongst those
+        /// containing the corresponding graph, that has the most computational
+        /// bandwidth.</description>
+        ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.
         /// A set of string constants for the parameter <see cref="options"
@@ -308,6 +336,30 @@ namespace kinetica
             /// The default value is <see
             /// cref="QueryGraphRequest.Options.FALSE">FALSE</see>.</summary>
             public const string AND_LABELS = "and_labels";
+
+            /// <summary>Returns solution results inside the <member
+            /// name="adjacency_list_int_array" /> array in the response if set
+            /// to <i>true</i>.
+            /// Supported values:
+            /// <list type="bullet">
+            ///     <item>
+            ///         <term><see
+            /// cref="QueryGraphRequest.Options.TRUE">TRUE</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="QueryGraphRequest.Options.FALSE">FALSE</see></term>
+            ///     </item>
+            /// </list>
+            /// The default value is <see
+            /// cref="QueryGraphRequest.Options.FALSE">FALSE</see>.</summary>
+            public const string EXPORT_SOLVE_RESULTS = "export_solve_results";
+
+            /// <summary>Indicates which graph server(s) to send the request
+            /// to. Default is to send to the server, amongst those containing
+            /// the corresponding graph, that has the most computational
+            /// bandwidth.</summary>
+            public const string SERVER_ID = "server_id";
         } // end struct Options
 
 
@@ -498,6 +550,34 @@ namespace kinetica
         /// </list>
         /// The default value is <see
         /// cref="QueryGraphRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="QueryGraphRequest.Options.EXPORT_SOLVE_RESULTS">EXPORT_SOLVE_RESULTS</see>:</term>
+        ///         <description>Returns solution results inside the <member
+        /// name="adjacency_list_int_array" /> array in the response if set to
+        /// <i>true</i>.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="QueryGraphRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="QueryGraphRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="QueryGraphRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="QueryGraphRequest.Options.SERVER_ID">SERVER_ID</see>:</term>
+        ///         <description>Indicates which graph server(s) to send the
+        /// request to. Default is to send to the server, amongst those
+        /// containing the corresponding graph, that has the most computational
+        /// bandwidth.</description>
         ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.</summary>
@@ -691,6 +771,34 @@ namespace kinetica
         /// </list>
         /// The default value is <see
         /// cref="QueryGraphRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="QueryGraphRequest.Options.EXPORT_SOLVE_RESULTS">EXPORT_SOLVE_RESULTS</see>:</term>
+        ///         <description>Returns solution results inside the <member
+        /// name="adjacency_list_int_array" /> array in the response if set to
+        /// <i>true</i>.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="QueryGraphRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="QueryGraphRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="QueryGraphRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="QueryGraphRequest.Options.SERVER_ID">SERVER_ID</see>:</term>
+        ///         <description>Indicates which graph server(s) to send the
+        /// request to. Default is to send to the server, amongst those
+        /// containing the corresponding graph, that has the most computational
+        /// bandwidth.</description>
         ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.</param>

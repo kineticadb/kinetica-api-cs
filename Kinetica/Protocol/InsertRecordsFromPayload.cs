@@ -774,6 +774,28 @@ namespace kinetica
         ///         <description>Optional: number of tasks for reading file per
         /// rank. Default will be external_file_reader_num_tasks</description>
         ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromPayloadRequest.Options.TYPE_INFERENCE_MODE">TYPE_INFERENCE_MODE</see>:</term>
+        ///         <description>optimize type inference for:
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromPayloadRequest.Options.ACCURACY">ACCURACY</see>:</term>
+        ///         <description>scans all data to get exactly-typed & sized
+        /// columns for all data present</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromPayloadRequest.Options.SPEED">SPEED</see>:</term>
+        ///         <description>picks the widest possible column types so that
+        /// 'all' values will fit with minimum data scanned</description>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="InsertRecordsFromPayloadRequest.Options.ACCURACY">ACCURACY</see>.</description>
+        ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.
         /// A set of string constants for the parameter <see cref="options"
@@ -1102,6 +1124,35 @@ namespace kinetica
             /// <summary>Optional: number of tasks for reading file per rank.
             /// Default will be external_file_reader_num_tasks</summary>
             public const string NUM_TASKS_PER_RANK = "num_tasks_per_rank";
+
+            /// <summary>optimize type inference for:
+            /// Supported values:
+            /// <list type="bullet">
+            ///     <item>
+            ///         <term><see
+            /// cref="InsertRecordsFromPayloadRequest.Options.ACCURACY">ACCURACY</see>:</term>
+            ///         <description>scans all data to get exactly-typed &
+            /// sized columns for all data present</description>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="InsertRecordsFromPayloadRequest.Options.SPEED">SPEED</see>:</term>
+            ///         <description>picks the widest possible column types so
+            /// that 'all' values will fit with minimum data
+            /// scanned</description>
+            ///     </item>
+            /// </list>
+            /// The default value is <see
+            /// cref="InsertRecordsFromPayloadRequest.Options.ACCURACY">ACCURACY</see>.</summary>
+            public const string TYPE_INFERENCE_MODE = "type_inference_mode";
+
+            /// <summary>scans all data to get exactly-typed & sized columns
+            /// for all data present</summary>
+            public const string ACCURACY = "accuracy";
+
+            /// <summary>picks the widest possible column types so that 'all'
+            /// values will fit with minimum data scanned</summary>
+            public const string SPEED = "speed";
         } // end struct Options
 
 
@@ -1668,6 +1719,28 @@ namespace kinetica
         ///         <description>Optional: number of tasks for reading file per
         /// rank. Default will be external_file_reader_num_tasks</description>
         ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromPayloadRequest.Options.TYPE_INFERENCE_MODE">TYPE_INFERENCE_MODE</see>:</term>
+        ///         <description>optimize type inference for:
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromPayloadRequest.Options.ACCURACY">ACCURACY</see>:</term>
+        ///         <description>scans all data to get exactly-typed & sized
+        /// columns for all data present</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromPayloadRequest.Options.SPEED">SPEED</see>:</term>
+        ///         <description>picks the widest possible column types so that
+        /// 'all' values will fit with minimum data scanned</description>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="InsertRecordsFromPayloadRequest.Options.ACCURACY">ACCURACY</see>.</description>
+        ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.</summary>
         public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
@@ -2221,6 +2294,28 @@ namespace kinetica
         /// cref="InsertRecordsFromPayloadRequest.Options.NUM_TASKS_PER_RANK">NUM_TASKS_PER_RANK</see>:</term>
         ///         <description>Optional: number of tasks for reading file per
         /// rank. Default will be external_file_reader_num_tasks</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromPayloadRequest.Options.TYPE_INFERENCE_MODE">TYPE_INFERENCE_MODE</see>:</term>
+        ///         <description>optimize type inference for:
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromPayloadRequest.Options.ACCURACY">ACCURACY</see>:</term>
+        ///         <description>scans all data to get exactly-typed & sized
+        /// columns for all data present</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromPayloadRequest.Options.SPEED">SPEED</see>:</term>
+        ///         <description>picks the widest possible column types so that
+        /// 'all' values will fit with minimum data scanned</description>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="InsertRecordsFromPayloadRequest.Options.ACCURACY">ACCURACY</see>.</description>
         ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.</param>

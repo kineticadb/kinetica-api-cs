@@ -21,6 +21,9 @@ namespace kinetica
     /// the cluster, use <see
     /// cref="Kinetica.adminRebalance(IDictionary{string, string})" />.
     /// <br />
+    /// The database must be offline for this operation, see <see
+    /// cref="Kinetica.adminOffline(bool,IDictionary{string, string})" />
+    /// <br />
     /// For example, if attempting to add three new ranks (two ranks on host
     /// 172.123.45.67 and one rank on host 172.123.45.68) to a Kinetica cluster
     /// with additional configuration parameters:

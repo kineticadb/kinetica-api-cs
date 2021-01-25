@@ -25,6 +25,9 @@ namespace kinetica
     /// href="../../concepts/tables.html#random-sharding"
     /// target="_top">randomly-sharded</a>) will be deleted.
     /// <br />
+    /// The database must be offline for this operation, see <see
+    /// cref="Kinetica.adminOffline(bool,IDictionary{string, string})" />
+    /// <br />
     /// This endpoint's processing time depends on the amount of data in the
     /// system, thus the API call may time out if run directly.  It is
     /// recommended to run this endpoint asynchronously via <see
@@ -89,7 +92,7 @@ namespace kinetica
         /// rebalance faster.  A lower <i>aggressiveness</i> will take longer
         /// but allow for better interleaving between the rebalance and other
         /// queries. Valid values are constants from 1 (lowest) to 10
-        /// (highest).  The default value is '1'.</description>
+        /// (highest).  The default value is '10'.</description>
         ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.
@@ -148,7 +151,7 @@ namespace kinetica
             /// rebalance faster.  A lower <i>aggressiveness</i> will take
             /// longer but allow for better interleaving between the rebalance
             /// and other queries. Valid values are constants from 1 (lowest)
-            /// to 10 (highest).  The default value is '1'.</summary>
+            /// to 10 (highest).  The default value is '10'.</summary>
             public const string AGGRESSIVENESS = "aggressiveness";
         } // end struct Options
 
@@ -219,7 +222,7 @@ namespace kinetica
         /// rebalance faster.  A lower <i>aggressiveness</i> will take longer
         /// but allow for better interleaving between the rebalance and other
         /// queries. Valid values are constants from 1 (lowest) to 10
-        /// (highest).  The default value is '1'.</description>
+        /// (highest).  The default value is '10'.</description>
         ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.</summary>
@@ -297,7 +300,7 @@ namespace kinetica
         /// rebalance faster.  A lower <i>aggressiveness</i> will take longer
         /// but allow for better interleaving between the rebalance and other
         /// queries. Valid values are constants from 1 (lowest) to 10
-        /// (highest).  The default value is '1'.</description>
+        /// (highest).  The default value is '10'.</description>
         ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.</param>

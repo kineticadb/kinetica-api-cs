@@ -888,6 +888,10 @@ namespace kinetica
     public class ModifyGraphResponse : KineticaData
     {
 
+        /// <summary>Indicates a successful modification on all servers.
+        /// </summary>
+        public bool result { get; set; }
+
         /// <summary>Total number of nodes in the graph.  </summary>
         public long num_nodes { get; set; }
 

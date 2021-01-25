@@ -125,6 +125,12 @@ namespace kinetica
         /// is a datetime string with format 'YYYY-MM-DD
         /// HH:MM:SS'.</description>
         ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateMaterializedViewRequest.Options.EXECUTE_AS">EXECUTE_AS</see>:</term>
+        ///         <description>User name to use to run the refresh
+        /// job</description>
+        ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.
         /// A set of string constants for the parameter <see cref="options"
@@ -234,6 +240,9 @@ namespace kinetica
             /// Value is a datetime string with format 'YYYY-MM-DD
             /// HH:MM:SS'.</summary>
             public const string REFRESH_START_TIME = "refresh_start_time";
+
+            /// <summary>User name to use to run the refresh job</summary>
+            public const string EXECUTE_AS = "execute_as";
         } // end struct Options
 
 
@@ -339,6 +348,12 @@ namespace kinetica
         /// specifies the first time at which a refresh is to be done.  Value
         /// is a datetime string with format 'YYYY-MM-DD
         /// HH:MM:SS'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateMaterializedViewRequest.Options.EXECUTE_AS">EXECUTE_AS</see>:</term>
+        ///         <description>User name to use to run the refresh
+        /// job</description>
         ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.</summary>
@@ -452,6 +467,12 @@ namespace kinetica
         /// specifies the first time at which a refresh is to be done.  Value
         /// is a datetime string with format 'YYYY-MM-DD
         /// HH:MM:SS'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateMaterializedViewRequest.Options.EXECUTE_AS">EXECUTE_AS</see>:</term>
+        ///         <description>User name to use to run the refresh
+        /// job</description>
         ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.</param>

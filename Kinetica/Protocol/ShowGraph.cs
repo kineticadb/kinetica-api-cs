@@ -40,6 +40,13 @@ namespace kinetica
         /// The default value is <see
         /// cref="ShowGraphRequest.Options.TRUE">TRUE</see>.</description>
         ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ShowGraphRequest.Options.SERVER_ID">SERVER_ID</see>:</term>
+        ///         <description>Indicates which graph server(s) to send the
+        /// request to. Default is to send to get information about all the
+        /// servers.</description>
+        ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.
         /// A set of string constants for the parameter <see cref="options"
@@ -65,6 +72,11 @@ namespace kinetica
             public const string SHOW_ORIGINAL_REQUEST = "show_original_request";
             public const string TRUE = "true";
             public const string FALSE = "false";
+
+            /// <summary>Indicates which graph server(s) to send the request
+            /// to. Default is to send to get information about all the
+            /// servers.</summary>
+            public const string SERVER_ID = "server_id";
         } // end struct Options
 
 
@@ -93,6 +105,13 @@ namespace kinetica
         /// </list>
         /// The default value is <see
         /// cref="ShowGraphRequest.Options.TRUE">TRUE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ShowGraphRequest.Options.SERVER_ID">SERVER_ID</see>:</term>
+        ///         <description>Indicates which graph server(s) to send the
+        /// request to. Default is to send to get information about all the
+        /// servers.</description>
         ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.</summary>
@@ -130,6 +149,13 @@ namespace kinetica
         /// The default value is <see
         /// cref="ShowGraphRequest.Options.TRUE">TRUE</see>.</description>
         ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ShowGraphRequest.Options.SERVER_ID">SERVER_ID</see>:</term>
+        ///         <description>Indicates which graph server(s) to send the
+        /// request to. Default is to send to get information about all the
+        /// servers.</description>
+        ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.</param>
         /// 
@@ -150,12 +176,22 @@ namespace kinetica
     public class ShowGraphResponse : KineticaData
     {
 
-        /// <summary>Indicates a successf. This call will fails of the graph
+        /// <summary>Indicates a success. This call will fails of the graph
         /// specified in the request does not exist.  </summary>
         public bool result { get; set; }
 
+        /// <summary>A percentage approximating the current computational load
+        /// on the server.  </summary>
+        public IList<int> load { get; set; } = new List<int>();
+
+        /// <summary>Available memory.  </summary>
+        public IList<long> memory { get; set; } = new List<long>();
+
         /// <summary>Name(s) of the graph(s).  </summary>
         public IList<string> graph_names { get; set; } = new List<string>();
+
+        /// <summary>Id(s) of the graph(s).  </summary>
+        public IList<int> graph_server_ids { get; set; } = new List<int>();
 
         /// <summary>Whether or not the edges of the graph have directions
         /// (bi-directional edges can still exist in directed graphs). Consult
