@@ -17,10 +17,10 @@ namespace kinetica
     /// <br />
     /// Creates a table that is the result of a SQL JOIN.
     /// <br />
-    /// For join details and examples see: <a href="../../concepts/joins.html"
+    /// For join details and examples see: <a href="../../../concepts/joins/"
     /// target="_top">Joins</a>.  For limitations, see <a
-    /// href="../../concepts/joins.html#limitations-cautions"
-    /// target="_top">Join Limitations and Cautions</a>.</summary>
+    /// href="../../../concepts/joins/#limitations-cautions" target="_top">Join
+    /// Limitations and Cautions</a>.</summary>
     public class CreateJoinTableRequest : KineticaData
     {
 
@@ -63,7 +63,7 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="CreateJoinTableRequest.Options.TTL">TTL</see>:</term>
-        ///         <description>Sets the <a href="../../concepts/ttl.html"
+        ///         <description>Sets the <a href="../../../concepts/ttl/"
         /// target="_top">TTL</a> of the join table specified in <paramref
         /// cref="CreateJoinTableRequest.join_table_name" />.</description>
         ///     </item>
@@ -124,7 +124,7 @@ namespace kinetica
             public const string TRUE = "true";
             public const string FALSE = "false";
 
-            /// <summary>Sets the <a href="../../concepts/ttl.html"
+            /// <summary>Sets the <a href="../../../concepts/ttl/"
             /// target="_top">TTL</a> of the join table specified in <see
             /// cref="join_table_name" />.</summary>
             public const string TTL = "ttl";
@@ -146,15 +146,15 @@ namespace kinetica
 
         /// <summary>Name of the join table to be created, in
         /// [schema_name.]table_name format, using standard <a
-        /// href="../../concepts/tables.html#table-name-resolution"
+        /// href="../../../concepts/tables/#table-name-resolution"
         /// target="_top">name resolution rules</a> and meeting <a
-        /// href="../../concepts/tables.html#table-naming-criteria"
+        /// href="../../../concepts/tables/#table-naming-criteria"
         /// target="_top">table naming criteria</a>.  </summary>
         public string join_table_name { get; set; }
 
         /// <summary>The list of table names composing the join, each in
         /// [schema_name.]table_name format, using standard <a
-        /// href="../../concepts/tables.html#table-name-resolution"
+        /// href="../../../concepts/tables/#table-name-resolution"
         /// target="_top">name resolution rules</a>.  Corresponds to a SQL
         /// statement FROM clause.  </summary>
         public IList<string> table_names { get; set; } = new List<string>();
@@ -172,7 +172,7 @@ namespace kinetica
 
         /// <summary>An optional list of expressions to combine and filter the
         /// joined tables.  Corresponds to a SQL statement WHERE clause. For
-        /// details see: <a href="../../concepts/expressions.html"
+        /// details see: <a href="../../../concepts/expressions/"
         /// target="_top">expressions</a>.  The default value is an empty
         /// {@link List}.</summary>
         public IList<string> expressions { get; set; } = new List<string>();
@@ -216,7 +216,7 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="CreateJoinTableRequest.Options.TTL">TTL</see>:</term>
-        ///         <description>Sets the <a href="../../concepts/ttl.html"
+        ///         <description>Sets the <a href="../../../concepts/ttl/"
         /// target="_top">TTL</a> of the join table specified in <paramref
         /// cref="CreateJoinTableRequest.join_table_name" />.</description>
         ///     </item>
@@ -255,13 +255,13 @@ namespace kinetica
         /// 
         /// <param name="join_table_name">Name of the join table to be created,
         /// in [schema_name.]table_name format, using standard <a
-        /// href="../../concepts/tables.html#table-name-resolution"
+        /// href="../../../concepts/tables/#table-name-resolution"
         /// target="_top">name resolution rules</a> and meeting <a
-        /// href="../../concepts/tables.html#table-naming-criteria"
+        /// href="../../../concepts/tables/#table-naming-criteria"
         /// target="_top">table naming criteria</a>.  </param>
         /// <param name="table_names">The list of table names composing the
         /// join, each in [schema_name.]table_name format, using standard <a
-        /// href="../../concepts/tables.html#table-name-resolution"
+        /// href="../../../concepts/tables/#table-name-resolution"
         /// target="_top">name resolution rules</a>.  Corresponds to a SQL
         /// statement FROM clause.  </param>
         /// <param name="column_names">List of member table columns or column
@@ -276,7 +276,7 @@ namespace kinetica
         /// <param name="expressions">An optional list of expressions to
         /// combine and filter the joined tables.  Corresponds to a SQL
         /// statement WHERE clause. For details see: <a
-        /// href="../../concepts/expressions.html"
+        /// href="../../../concepts/expressions/"
         /// target="_top">expressions</a>.  The default value is an empty
         /// {@link List}.</param>
         /// <param name="options">Optional parameters.
@@ -318,7 +318,7 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="CreateJoinTableRequest.Options.TTL">TTL</see>:</term>
-        ///         <description>Sets the <a href="../../concepts/ttl.html"
+        ///         <description>Sets the <a href="../../../concepts/ttl/"
         /// target="_top">TTL</a> of the join table specified in <paramref
         /// cref="CreateJoinTableRequest.join_table_name" />.</description>
         ///     </item>

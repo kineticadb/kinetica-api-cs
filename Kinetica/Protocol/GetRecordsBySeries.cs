@@ -61,7 +61,7 @@ namespace kinetica
 
         /// <summary>Name of the table or view for which series/tracks will be
         /// fetched, in [schema_name.]table_name format, using standard <a
-        /// href="../../concepts/tables.html#table-name-resolution"
+        /// href="../../../concepts/tables/#table-name-resolution"
         /// target="_top">name resolution rules</a>.  </summary>
         public string table_name { get; set; }
 
@@ -69,7 +69,7 @@ namespace kinetica
         /// information to be returned for the tracks present in the <paramref
         /// cref="GetRecordsBySeriesRequest.table_name" />, in
         /// [schema_name.]table_name format, using standard <a
-        /// href="../../concepts/tables.html#table-name-resolution"
+        /// href="../../../concepts/tables/#table-name-resolution"
         /// target="_top">name resolution rules</a>.  Typically this is used
         /// when retrieving series/tracks from a view (which contains partial
         /// series/tracks) but the user wants to retrieve the entire original
@@ -121,14 +121,14 @@ namespace kinetica
         /// <param name="table_name">Name of the table or view for which
         /// series/tracks will be fetched, in [schema_name.]table_name format,
         /// using standard <a
-        /// href="../../concepts/tables.html#table-name-resolution"
+        /// href="../../../concepts/tables/#table-name-resolution"
         /// target="_top">name resolution rules</a>.  </param>
         /// <param name="world_table_name">Name of the table containing the
         /// complete series/track information to be returned for the tracks
         /// present in the <paramref
         /// cref="GetRecordsBySeriesRequest.table_name" />, in
         /// [schema_name.]table_name format, using standard <a
-        /// href="../../concepts/tables.html#table-name-resolution"
+        /// href="../../../concepts/tables/#table-name-resolution"
         /// target="_top">name resolution rules</a>.  Typically this is used
         /// when retrieving series/tracks from a view (which contains partial
         /// series/tracks) but the user wants to retrieve the entire original
@@ -165,14 +165,14 @@ namespace kinetica
         /// <param name="table_name">Name of the table or view for which
         /// series/tracks will be fetched, in [schema_name.]table_name format,
         /// using standard <a
-        /// href="../../concepts/tables.html#table-name-resolution"
+        /// href="../../../concepts/tables/#table-name-resolution"
         /// target="_top">name resolution rules</a>.  </param>
         /// <param name="world_table_name">Name of the table containing the
         /// complete series/track information to be returned for the tracks
         /// present in the <paramref
         /// cref="GetRecordsBySeriesRequest.table_name" />, in
         /// [schema_name.]table_name format, using standard <a
-        /// href="../../concepts/tables.html#table-name-resolution"
+        /// href="../../../concepts/tables/#table-name-resolution"
         /// target="_top">name resolution rules</a>.  Typically this is used
         /// when retrieving series/tracks from a view (which contains partial
         /// series/tracks) but the user wants to retrieve the entire original

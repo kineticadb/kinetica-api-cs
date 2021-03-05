@@ -107,7 +107,7 @@ namespace kinetica
 
         /// <summary>Name of the collection or table from which records are to
         /// be retrieved, in [schema_name.]table_name format, using standard <a
-        /// href="../../concepts/tables.html#table-name-resolution"
+        /// href="../../../concepts/tables/#table-name-resolution"
         /// target="_top">name resolution rules</a>.  Must be an existing
         /// collection or table.  </summary>
         public string table_name { get; set; }
@@ -122,7 +122,7 @@ namespace kinetica
         /// results to be returned, or END_OF_SET (-9999) to indicate that the
         /// max number of results should be returned.  The number of records
         /// returned will never exceed the server's own limit, defined by the
-        /// <a href="../../config/index.html#general"
+        /// <a href="../../../config/#general"
         /// target="_top">max_get_records_size</a> parameter in the server
         /// configuration.  Use <paramref
         /// cref="GetRecordsFromCollectionRequest.offset" /> & <paramref
@@ -184,7 +184,7 @@ namespace kinetica
         /// <param name="table_name">Name of the collection or table from which
         /// records are to be retrieved, in [schema_name.]table_name format,
         /// using standard <a
-        /// href="../../concepts/tables.html#table-name-resolution"
+        /// href="../../../concepts/tables/#table-name-resolution"
         /// target="_top">name resolution rules</a>.  Must be an existing
         /// collection or table.  </param>
         /// <param name="offset">A positive integer indicating the number of
@@ -195,7 +195,7 @@ namespace kinetica
         /// number of results to be returned, or END_OF_SET (-9999) to indicate
         /// that the max number of results should be returned.  The number of
         /// records returned will never exceed the server's own limit, defined
-        /// by the <a href="../../config/index.html#general"
+        /// by the <a href="../../../config/#general"
         /// target="_top">max_get_records_size</a> parameter in the server
         /// configuration.  Use <paramref
         /// cref="GetRecordsFromCollectionRequest.offset" /> & <paramref
@@ -244,7 +244,7 @@ namespace kinetica
         /// <param name="table_name">Name of the collection or table from which
         /// records are to be retrieved, in [schema_name.]table_name format,
         /// using standard <a
-        /// href="../../concepts/tables.html#table-name-resolution"
+        /// href="../../../concepts/tables/#table-name-resolution"
         /// target="_top">name resolution rules</a>.  Must be an existing
         /// collection or table.  </param>
         /// <param name="offset">A positive integer indicating the number of
@@ -255,7 +255,7 @@ namespace kinetica
         /// number of results to be returned, or END_OF_SET (-9999) to indicate
         /// that the max number of results should be returned.  The number of
         /// records returned will never exceed the server's own limit, defined
-        /// by the <a href="../../config/index.html#general"
+        /// by the <a href="../../../config/#general"
         /// target="_top">max_get_records_size</a> parameter in the server
         /// configuration.  Use <paramref
         /// cref="GetRecordsFromCollectionRequest.offset" /> & <paramref

@@ -15,12 +15,12 @@ namespace kinetica
     /// cref="Kinetica.alterTier(string,IDictionary{string, string})" />.
     /// <br />
     /// Alters properties of an exisiting
-    /// <a href="../../rm/concepts.html#storage-tiers" target="_top">tier</a>
-    /// to facilitate
-    /// <a href="../../rm/concepts.html" target="_top">resource management</a>.
+    /// <a href="../../../rm/concepts/#storage-tiers" target="_top">tier</a> to
+    /// facilitate
+    /// <a href="../../../rm/concepts/" target="_top">resource management</a>.
     /// <br />
     /// To disable
-    /// <a href="../../rm/concepts.html#watermark-based-eviction"
+    /// <a href="../../../rm/concepts/#watermark-based-eviction"
     /// target="_top">watermark-based eviction</a>,
     /// set both <i>high_watermark</i> and
     /// <i>low_watermark</i> to 100.</summary>

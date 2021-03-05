@@ -20,7 +20,7 @@ namespace kinetica
 
         /// <summary>Name of the table to check for existence, in
         /// [schema_name.]table_name format, using standard <a
-        /// href="../../concepts/tables.html#table-name-resolution"
+        /// href="../../../concepts/tables/#table-name-resolution"
         /// target="_top">name resolution rules</a>.  </summary>
         public string table_name { get; set; }
 
@@ -38,7 +38,7 @@ namespace kinetica
         /// 
         /// <param name="table_name">Name of the table to check for existence,
         /// in [schema_name.]table_name format, using standard <a
-        /// href="../../concepts/tables.html#table-name-resolution"
+        /// href="../../../concepts/tables/#table-name-resolution"
         /// target="_top">name resolution rules</a>.  </param>
         /// <param name="options">Optional parameters.  The default value is an
         /// empty {@link Dictionary}.</param>

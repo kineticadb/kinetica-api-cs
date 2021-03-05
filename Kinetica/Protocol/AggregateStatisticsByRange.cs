@@ -112,7 +112,7 @@ namespace kinetica
 
         /// <summary>Name of the table on which the ranged-statistics operation
         /// will be performed, in [schema_name.]table_name format, using
-        /// standard <a href="../../concepts/tables.html#table-name-resolution"
+        /// standard <a href="../../../concepts/tables/#table-name-resolution"
         /// target="_top">name resolution rules</a>.  </summary>
         public string table_name { get; set; }
 
@@ -188,7 +188,7 @@ namespace kinetica
         /// <param name="table_name">Name of the table on which the
         /// ranged-statistics operation will be performed, in
         /// [schema_name.]table_name format, using standard <a
-        /// href="../../concepts/tables.html#table-name-resolution"
+        /// href="../../../concepts/tables/#table-name-resolution"
         /// target="_top">name resolution rules</a>.  </param>
         /// <param name="select_expression">For a non-empty expression
         /// statistics are calculated for those records for which the

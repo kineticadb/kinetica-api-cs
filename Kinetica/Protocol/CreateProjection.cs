@@ -15,20 +15,20 @@ namespace kinetica
     /// cref="Kinetica.createProjection(string,string,IList{string},IDictionary{string, string})"
     /// />.
     /// <br />
-    /// Creates a new <a href="../../concepts/projections.html"
+    /// Creates a new <a href="../../../concepts/projections/"
     /// target="_top">projection</a> of
     /// an existing table. A projection represents a subset of the columns
     /// (potentially
     /// including derived columns) of a table.
     /// <br />
     /// For projection details and examples, see
-    /// <a href="../../concepts/projections.html"
-    /// target="_top">Projections</a>.  For limitations, see
-    /// <a href="../../concepts/projections.html#limitations-and-cautions"
+    /// <a href="../../../concepts/projections/" target="_top">Projections</a>.
+    /// For limitations, see
+    /// <a href="../../../concepts/projections/#limitations-and-cautions"
     /// target="_top">Projection Limitations and Cautions</a>.
     /// <br />
-    /// <a href="../../concepts/window.html" target="_top">Window
-    /// functions</a>, which can perform
+    /// <a href="../../../concepts/window/" target="_top">Window functions</a>,
+    /// which can perform
     /// operations like moving averages, are available through this endpoint as
     /// well as
     /// <see
@@ -36,7 +36,7 @@ namespace kinetica
     /// />.
     /// <br />
     /// A projection can be created with a different
-    /// <a href="../../concepts/tables.html#shard-keys" target="_top">shard
+    /// <a href="../../../concepts/tables/#shard-keys" target="_top">shard
     /// key</a> than the source table.
     /// By specifying <i>shard_key</i>, the projection will be sharded
     /// according to the specified columns, regardless of how the source table
@@ -46,12 +46,12 @@ namespace kinetica
     /// If <see cref="table_name" /> is empty, selection is performed against a
     /// single-row
     /// virtual table.  This can be useful in executing temporal
-    /// (<a href="../../concepts/expressions.html#date-time-functions"
+    /// (<a href="../../../concepts/expressions/#date-time-functions"
     /// target="_top">NOW()</a>), identity
-    /// (<a href="../../concepts/expressions.html#user-security-functions"
+    /// (<a href="../../../concepts/expressions/#user-security-functions"
     /// target="_top">USER()</a>), or
     /// constant-based functions
-    /// (<a href="../../concepts/expressions.html#scalar-functions"
+    /// (<a href="../../../concepts/expressions/#scalar-functions"
     /// target="_top">GEODIST(-77.11, 38.88, -71.06, 42.36)</a>).</summary>
     public class CreateProjectionRequest : KineticaData
     {
@@ -72,7 +72,7 @@ namespace kinetica
         ///         <term><see
         /// cref="CreateProjectionRequest.Options.EXPRESSION">EXPRESSION</see>:</term>
         ///         <description>An optional filter <a
-        /// href="../../concepts/expressions.html" target="_top">expression</a>
+        /// href="../../../concepts/expressions/" target="_top">expression</a>
         /// to be applied to the source table prior to the projection.  The
         /// default value is ''.</description>
         ///     </item>
@@ -115,11 +115,11 @@ namespace kinetica
         ///         <term><see
         /// cref="CreateProjectionRequest.Options.MATERIALIZE_ON_GPU">MATERIALIZE_ON_GPU</see>:</term>
         ///         <description>No longer used.  See <a
-        /// href="../../rm/concepts.html" target="_top">Resource Management
+        /// href="../../../rm/concepts/" target="_top">Resource Management
         /// Concepts</a> for information about how resources are managed, <a
-        /// href="../../rm/concepts.html" target="_top">Tier Strategy
+        /// href="../../../rm/concepts/" target="_top">Tier Strategy
         /// Concepts</a> for how resources are targeted for VRAM, and <a
-        /// href="../../rm/usage.html#tier-strategies" target="_top">Tier
+        /// href="../../../rm/usage/#tier-strategies" target="_top">Tier
         /// Strategy Usage</a> for how to specify a table's priority in VRAM.
         /// Supported values:
         /// <list type="bullet">
@@ -153,7 +153,7 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="CreateProjectionRequest.Options.TTL">TTL</see>:</term>
-        ///         <description>Sets the <a href="../../concepts/ttl.html"
+        ///         <description>Sets the <a href="../../../concepts/ttl/"
         /// target="_top">TTL</a> of the projection specified in <paramref
         /// cref="CreateProjectionRequest.projection_name" />.</description>
         ///     </item>
@@ -250,7 +250,7 @@ namespace kinetica
             public const string COLLECTION_NAME = "collection_name";
 
             /// <summary>An optional filter <a
-            /// href="../../concepts/expressions.html"
+            /// href="../../../concepts/expressions/"
             /// target="_top">expression</a> to be applied to the source table
             /// prior to the projection.  The default value is ''.</summary>
             public const string EXPRESSION = "expression";
@@ -285,12 +285,12 @@ namespace kinetica
             /// original column name.  The default value is ''.</summary>
             public const string ORDER_BY = "order_by";
 
-            /// <summary>No longer used.  See <a href="../../rm/concepts.html"
+            /// <summary>No longer used.  See <a href="../../../rm/concepts/"
             /// target="_top">Resource Management Concepts</a> for information
             /// about how resources are managed, <a
-            /// href="../../rm/concepts.html" target="_top">Tier Strategy
+            /// href="../../../rm/concepts/" target="_top">Tier Strategy
             /// Concepts</a> for how resources are targeted for VRAM, and <a
-            /// href="../../rm/usage.html#tier-strategies" target="_top">Tier
+            /// href="../../../rm/usage/#tier-strategies" target="_top">Tier
             /// Strategy Usage</a> for how to specify a table's priority in
             /// VRAM.
             /// Supported values:
@@ -319,7 +319,7 @@ namespace kinetica
             /// original column name.</summary>
             public const string CREATE_INDEXES = "create_indexes";
 
-            /// <summary>Sets the <a href="../../concepts/ttl.html"
+            /// <summary>Sets the <a href="../../../concepts/ttl/"
             /// target="_top">TTL</a> of the projection specified in <see
             /// cref="projection_name" />.</summary>
             public const string TTL = "ttl";
@@ -393,7 +393,7 @@ namespace kinetica
 
         /// <summary>Name of the existing table on which the projection is to
         /// be applied, in [schema_name.]table_name format, using standard <a
-        /// href="../../concepts/tables.html#table-name-resolution"
+        /// href="../../../concepts/tables/#table-name-resolution"
         /// target="_top">name resolution rules</a>.  An empty table name
         /// creates a projection from a single-row virtual table, where columns
         /// specified should be constants or constant expressions.  </summary>
@@ -401,9 +401,9 @@ namespace kinetica
 
         /// <summary>Name of the projection to be created, in
         /// [schema_name.]table_name format, using standard <a
-        /// href="../../concepts/tables.html#table-name-resolution"
+        /// href="../../../concepts/tables/#table-name-resolution"
         /// target="_top">name resolution rules</a> and meeting <a
-        /// href="../../concepts/tables.html#table-naming-criteria"
+        /// href="../../../concepts/tables/#table-naming-criteria"
         /// target="_top">table naming criteria</a>.  </summary>
         public string projection_name { get; set; }
 
@@ -429,7 +429,7 @@ namespace kinetica
         ///         <term><see
         /// cref="CreateProjectionRequest.Options.EXPRESSION">EXPRESSION</see>:</term>
         ///         <description>An optional filter <a
-        /// href="../../concepts/expressions.html" target="_top">expression</a>
+        /// href="../../../concepts/expressions/" target="_top">expression</a>
         /// to be applied to the source table prior to the projection.  The
         /// default value is ''.</description>
         ///     </item>
@@ -472,11 +472,11 @@ namespace kinetica
         ///         <term><see
         /// cref="CreateProjectionRequest.Options.MATERIALIZE_ON_GPU">MATERIALIZE_ON_GPU</see>:</term>
         ///         <description>No longer used.  See <a
-        /// href="../../rm/concepts.html" target="_top">Resource Management
+        /// href="../../../rm/concepts/" target="_top">Resource Management
         /// Concepts</a> for information about how resources are managed, <a
-        /// href="../../rm/concepts.html" target="_top">Tier Strategy
+        /// href="../../../rm/concepts/" target="_top">Tier Strategy
         /// Concepts</a> for how resources are targeted for VRAM, and <a
-        /// href="../../rm/usage.html#tier-strategies" target="_top">Tier
+        /// href="../../../rm/usage/#tier-strategies" target="_top">Tier
         /// Strategy Usage</a> for how to specify a table's priority in VRAM.
         /// Supported values:
         /// <list type="bullet">
@@ -510,7 +510,7 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="CreateProjectionRequest.Options.TTL">TTL</see>:</term>
-        ///         <description>Sets the <a href="../../concepts/ttl.html"
+        ///         <description>Sets the <a href="../../../concepts/ttl/"
         /// target="_top">TTL</a> of the projection specified in <paramref
         /// cref="CreateProjectionRequest.projection_name" />.</description>
         ///     </item>
@@ -605,15 +605,15 @@ namespace kinetica
         /// <param name="table_name">Name of the existing table on which the
         /// projection is to be applied, in [schema_name.]table_name format,
         /// using standard <a
-        /// href="../../concepts/tables.html#table-name-resolution"
+        /// href="../../../concepts/tables/#table-name-resolution"
         /// target="_top">name resolution rules</a>.  An empty table name
         /// creates a projection from a single-row virtual table, where columns
         /// specified should be constants or constant expressions.  </param>
         /// <param name="projection_name">Name of the projection to be created,
         /// in [schema_name.]table_name format, using standard <a
-        /// href="../../concepts/tables.html#table-name-resolution"
+        /// href="../../../concepts/tables/#table-name-resolution"
         /// target="_top">name resolution rules</a> and meeting <a
-        /// href="../../concepts/tables.html#table-naming-criteria"
+        /// href="../../../concepts/tables/#table-naming-criteria"
         /// target="_top">table naming criteria</a>.  </param>
         /// <param name="column_names">List of columns from <paramref
         /// cref="CreateProjectionRequest.table_name" /> to be included in the
@@ -635,7 +635,7 @@ namespace kinetica
         ///         <term><see
         /// cref="CreateProjectionRequest.Options.EXPRESSION">EXPRESSION</see>:</term>
         ///         <description>An optional filter <a
-        /// href="../../concepts/expressions.html" target="_top">expression</a>
+        /// href="../../../concepts/expressions/" target="_top">expression</a>
         /// to be applied to the source table prior to the projection.  The
         /// default value is ''.</description>
         ///     </item>
@@ -678,11 +678,11 @@ namespace kinetica
         ///         <term><see
         /// cref="CreateProjectionRequest.Options.MATERIALIZE_ON_GPU">MATERIALIZE_ON_GPU</see>:</term>
         ///         <description>No longer used.  See <a
-        /// href="../../rm/concepts.html" target="_top">Resource Management
+        /// href="../../../rm/concepts/" target="_top">Resource Management
         /// Concepts</a> for information about how resources are managed, <a
-        /// href="../../rm/concepts.html" target="_top">Tier Strategy
+        /// href="../../../rm/concepts/" target="_top">Tier Strategy
         /// Concepts</a> for how resources are targeted for VRAM, and <a
-        /// href="../../rm/usage.html#tier-strategies" target="_top">Tier
+        /// href="../../../rm/usage/#tier-strategies" target="_top">Tier
         /// Strategy Usage</a> for how to specify a table's priority in VRAM.
         /// Supported values:
         /// <list type="bullet">
@@ -716,7 +716,7 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="CreateProjectionRequest.Options.TTL">TTL</see>:</term>
-        ///         <description>Sets the <a href="../../concepts/ttl.html"
+        ///         <description>Sets the <a href="../../../concepts/ttl/"
         /// target="_top">TTL</a> of the projection specified in <paramref
         /// cref="CreateProjectionRequest.projection_name" />.</description>
         ///     </item>

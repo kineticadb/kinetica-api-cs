@@ -15,7 +15,7 @@ namespace kinetica
     /// cref="Kinetica.dropDatasource(string,IDictionary{string, string})"
     /// />.
     /// <br />
-    /// Drops an existing <a href="../../concepts/data_sources.html"
+    /// Drops an existing <a href="../../../concepts/data_sources/"
     /// target="_top">data source</a>.  Any external
     /// tables that depend on the data source must be dropped before it can be
     /// dropped.</summary>

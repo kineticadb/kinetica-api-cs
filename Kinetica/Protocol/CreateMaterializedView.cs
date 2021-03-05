@@ -20,7 +20,7 @@ namespace kinetica
     /// that name.
     /// <br />
     /// For materialized view details and examples, see
-    /// <a href="../../concepts/materialized_views.html"
+    /// <a href="../../../concepts/materialized_views/"
     /// target="_top">Materialized Views</a>.
     /// <br />
     /// The response contains <member name="view_id" />, which is used to tag
@@ -47,7 +47,7 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="CreateMaterializedViewRequest.Options.TTL">TTL</see>:</term>
-        ///         <description>Sets the <a href="../../concepts/ttl.html"
+        ///         <description>Sets the <a href="../../../concepts/ttl/"
         /// target="_top">TTL</a> of the table specified in <paramref
         /// cref="CreateMaterializedViewRequest.table_name" />.</description>
         ///     </item>
@@ -90,7 +90,8 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="CreateMaterializedViewRequest.Options.ON_QUERY">ON_QUERY</see>:</term>
-        ///         <description>For future use.</description>
+        ///         <description>Refresh any time the view is
+        /// queried.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -148,7 +149,7 @@ namespace kinetica
             /// created.</summary>
             public const string COLLECTION_NAME = "collection_name";
 
-            /// <summary>Sets the <a href="../../concepts/ttl.html"
+            /// <summary>Sets the <a href="../../../concepts/ttl/"
             /// target="_top">TTL</a> of the table specified in <see
             /// cref="table_name" />.</summary>
             public const string TTL = "ttl";
@@ -190,7 +191,8 @@ namespace kinetica
             ///     <item>
             ///         <term><see
             /// cref="CreateMaterializedViewRequest.Options.ON_QUERY">ON_QUERY</see>:</term>
-            ///         <description>For future use.</description>
+            ///         <description>Refresh any time the view is
+            /// queried.</description>
             ///     </item>
             ///     <item>
             ///         <term><see
@@ -217,7 +219,7 @@ namespace kinetica
             /// /> with an 'action' of 'refresh'</summary>
             public const string MANUAL = "manual";
 
-            /// <summary>For future use.</summary>
+            /// <summary>Refresh any time the view is queried.</summary>
             public const string ON_QUERY = "on_query";
 
             /// <summary>If possible, incrementally refresh (refresh just those
@@ -249,9 +251,9 @@ namespace kinetica
         /// <summary>Name of the table to be created that is the top-level
         /// table of the materialized view, in [schema_name.]table_name format,
         /// using standard <a
-        /// href="../../concepts/tables.html#table-name-resolution"
+        /// href="../../../concepts/tables/#table-name-resolution"
         /// target="_top">name resolution rules</a> and meeting <a
-        /// href="../../concepts/tables.html#table-naming-criteria"
+        /// href="../../../concepts/tables/#table-naming-criteria"
         /// target="_top">table naming criteria</a>.  </summary>
         public string table_name { get; set; }
 
@@ -271,7 +273,7 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="CreateMaterializedViewRequest.Options.TTL">TTL</see>:</term>
-        ///         <description>Sets the <a href="../../concepts/ttl.html"
+        ///         <description>Sets the <a href="../../../concepts/ttl/"
         /// target="_top">TTL</a> of the table specified in <paramref
         /// cref="CreateMaterializedViewRequest.table_name" />.</description>
         ///     </item>
@@ -314,7 +316,8 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="CreateMaterializedViewRequest.Options.ON_QUERY">ON_QUERY</see>:</term>
-        ///         <description>For future use.</description>
+        ///         <description>Refresh any time the view is
+        /// queried.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -370,9 +373,9 @@ namespace kinetica
         /// <param name="table_name">Name of the table to be created that is
         /// the top-level table of the materialized view, in
         /// [schema_name.]table_name format, using standard <a
-        /// href="../../concepts/tables.html#table-name-resolution"
+        /// href="../../../concepts/tables/#table-name-resolution"
         /// target="_top">name resolution rules</a> and meeting <a
-        /// href="../../concepts/tables.html#table-naming-criteria"
+        /// href="../../../concepts/tables/#table-naming-criteria"
         /// target="_top">table naming criteria</a>.  </param>
         /// <param name="options">Optional parameters.
         /// <list type="bullet">
@@ -390,7 +393,7 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="CreateMaterializedViewRequest.Options.TTL">TTL</see>:</term>
-        ///         <description>Sets the <a href="../../concepts/ttl.html"
+        ///         <description>Sets the <a href="../../../concepts/ttl/"
         /// target="_top">TTL</a> of the table specified in <paramref
         /// cref="CreateMaterializedViewRequest.table_name" />.</description>
         ///     </item>
@@ -433,7 +436,8 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="CreateMaterializedViewRequest.Options.ON_QUERY">ON_QUERY</see>:</term>
-        ///         <description>For future use.</description>
+        ///         <description>Refresh any time the view is
+        /// queried.</description>
         ///     </item>
         ///     <item>
         ///         <term><see

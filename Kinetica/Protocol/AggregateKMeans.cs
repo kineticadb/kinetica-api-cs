@@ -82,7 +82,7 @@ namespace kinetica
         /// <summary>Name of the table on which the operation will be
         /// performed. Must be an existing table, in [schema_name.]table_name
         /// format, using standard <a
-        /// href="../../concepts/tables.html#table-name-resolution"
+        /// href="../../../concepts/tables/#table-name-resolution"
         /// target="_top">name resolution rules</a>.  </summary>
         public string table_name { get; set; }
 
@@ -136,7 +136,7 @@ namespace kinetica
         /// <param name="table_name">Name of the table on which the operation
         /// will be performed. Must be an existing table, in
         /// [schema_name.]table_name format, using standard <a
-        /// href="../../concepts/tables.html#table-name-resolution"
+        /// href="../../../concepts/tables/#table-name-resolution"
         /// target="_top">name resolution rules</a>.  </param>
         /// <param name="column_names">List of column names on which the
         /// operation would be performed. If n columns are provided then each

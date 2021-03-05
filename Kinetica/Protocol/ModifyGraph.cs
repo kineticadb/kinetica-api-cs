@@ -19,13 +19,13 @@ namespace kinetica
     /// restrictions, and options.
     /// <br />
     /// IMPORTANT: It's highly recommended that you review the
-    /// <a href="../../graph_solver/network_graph_solver.html"
+    /// <a href="../../../graph_solver/network_graph_solver/"
     /// target="_top">Network Graphs & Solvers</a>
     /// concepts documentation, the
-    /// <a href="../../graph_solver/examples/graph_rest_guide.html"
+    /// <a href="../../../graph_solver/examples/graph_rest_guide/"
     /// target="_top">Graph REST Tutorial</a>,
     /// and/or some
-    /// <a href="../../graph_solver/examples.html#match-graph"
+    /// <a href="../../../graph_solver/examples/#match-graph"
     /// target="_top">/match/graph examples</a>
     /// before using this endpoint.</summary>
     public class ModifyGraphRequest : KineticaData
@@ -87,7 +87,7 @@ namespace kinetica
         ///         <term><see
         /// cref="ModifyGraphRequest.Options.SAVE_PERSIST">SAVE_PERSIST</see>:</term>
         ///         <description>If set to <i>true</i>, the graph will be saved
-        /// in the persist directory (see the <a href="../../config/index.html"
+        /// in the persist directory (see the <a href="../../../config/"
         /// target="_top">config reference</a> for more information). If set to
         /// <i>false</i>, the graph will be removed when the graph server is
         /// shutdown.
@@ -135,9 +135,9 @@ namespace kinetica
         ///         <description>If specified, the created graph is also
         /// created as a table with the given name, in [schema_name.]table_name
         /// format, using standard <a
-        /// href="../../concepts/tables.html#table-name-resolution"
+        /// href="../../../concepts/tables/#table-name-resolution"
         /// target="_top">name resolution rules</a> and meeting <a
-        /// href="../../concepts/tables.html#table-naming-criteria"
+        /// href="../../../concepts/tables/#table-naming-criteria"
         /// target="_top">table naming criteria</a>.  This table will have the
         /// following identifier columns: 'EDGE_ID', 'EDGE_NODE1_ID',
         /// 'EDGE_NODE2_ID'. If left blank, no table is created.  The default
@@ -250,7 +250,7 @@ namespace kinetica
             public const string ENABLE_GRAPH_DRAW = "enable_graph_draw";
 
             /// <summary>If set to <i>true</i>, the graph will be saved in the
-            /// persist directory (see the <a href="../../config/index.html"
+            /// persist directory (see the <a href="../../../config/"
             /// target="_top">config reference</a> for more information). If
             /// set to <i>false</i>, the graph will be removed when the graph
             /// server is shutdown.
@@ -296,9 +296,9 @@ namespace kinetica
             /// <summary>If specified, the created graph is also created as a
             /// table with the given name, in [schema_name.]table_name format,
             /// using standard <a
-            /// href="../../concepts/tables.html#table-name-resolution"
+            /// href="../../../concepts/tables/#table-name-resolution"
             /// target="_top">name resolution rules</a> and meeting <a
-            /// href="../../concepts/tables.html#table-naming-criteria"
+            /// href="../../../concepts/tables/#table-naming-criteria"
             /// target="_top">table naming criteria</a>.  This table will have
             /// the following identifier columns: 'EDGE_ID', 'EDGE_NODE1_ID',
             /// 'EDGE_NODE2_ID'. If left blank, no table is created.  The
@@ -360,12 +360,12 @@ namespace kinetica
         /// <summary>Nodes with which to update existing <paramref
         /// cref="ModifyGraphRequest.nodes" /> in graph specified by <paramref
         /// cref="ModifyGraphRequest.graph_name" />. Review <a
-        /// href="../../graph_solver/network_graph_solver.html#nodes"
+        /// href="../../../graph_solver/network_graph_solver/#nodes"
         /// target="_top">Nodes</a> for more information. Nodes must be
         /// specified using <a
-        /// href="../../graph_solver/network_graph_solver.html#identifiers"
+        /// href="../../../graph_solver/network_graph_solver/#identifiers"
         /// target="_top">identifiers</a>; identifiers are grouped as <a
-        /// href="../../graph_solver/network_graph_solver.html#id-combos"
+        /// href="../../../graph_solver/network_graph_solver/#id-combos"
         /// target="_top">combinations</a>. Identifiers can be used with
         /// existing column names, e.g., 'table.column AS NODE_ID',
         /// expressions, e.g., 'ST_MAKEPOINT(column1, column2) AS
@@ -381,12 +381,12 @@ namespace kinetica
         /// <summary>Edges with which to update existing <paramref
         /// cref="ModifyGraphRequest.edges" /> in graph specified by <paramref
         /// cref="ModifyGraphRequest.graph_name" />. Review <a
-        /// href="../../graph_solver/network_graph_solver.html#edges"
+        /// href="../../../graph_solver/network_graph_solver/#edges"
         /// target="_top">Edges</a> for more information. Edges must be
         /// specified using <a
-        /// href="../../graph_solver/network_graph_solver.html#identifiers"
+        /// href="../../../graph_solver/network_graph_solver/#identifiers"
         /// target="_top">identifiers</a>; identifiers are grouped as <a
-        /// href="../../graph_solver/network_graph_solver.html#id-combos"
+        /// href="../../../graph_solver/network_graph_solver/#id-combos"
         /// target="_top">combinations</a>. Identifiers can be used with
         /// existing column names, e.g., 'table.column AS EDGE_ID',
         /// expressions, e.g., 'SUBSTR(column, 1, 6) AS EDGE_NODE1_NAME', or
@@ -402,12 +402,12 @@ namespace kinetica
         /// <summary>Weights with which to update existing <paramref
         /// cref="ModifyGraphRequest.weights" /> in graph specified by
         /// <paramref cref="ModifyGraphRequest.graph_name" />. Review <a
-        /// href="../../graph_solver/network_graph_solver.html#graph-weights"
+        /// href="../../../graph_solver/network_graph_solver/#graph-weights"
         /// target="_top">Weights</a> for more information. Weights must be
         /// specified using <a
-        /// href="../../graph_solver/network_graph_solver.html#identifiers"
+        /// href="../../../graph_solver/network_graph_solver/#identifiers"
         /// target="_top">identifiers</a>; identifiers are grouped as <a
-        /// href="../../graph_solver/network_graph_solver.html#id-combos"
+        /// href="../../../graph_solver/network_graph_solver/#id-combos"
         /// target="_top">combinations</a>. Identifiers can be used with
         /// existing column names, e.g., 'table.column AS WEIGHTS_EDGE_ID',
         /// expressions, e.g., 'ST_LENGTH(wkt) AS WEIGHTS_VALUESPECIFIED', or
@@ -422,12 +422,12 @@ namespace kinetica
         /// <summary>Restrictions with which to update existing <paramref
         /// cref="ModifyGraphRequest.restrictions" /> in graph specified by
         /// <paramref cref="ModifyGraphRequest.graph_name" />. Review <a
-        /// href="../../graph_solver/network_graph_solver.html#graph-restrictions"
+        /// href="../../../graph_solver/network_graph_solver/#graph-restrictions"
         /// target="_top">Restrictions</a> for more information. Restrictions
         /// must be specified using <a
-        /// href="../../graph_solver/network_graph_solver.html#identifiers"
+        /// href="../../../graph_solver/network_graph_solver/#identifiers"
         /// target="_top">identifiers</a>; identifiers are grouped as <a
-        /// href="../../graph_solver/network_graph_solver.html#id-combos"
+        /// href="../../../graph_solver/network_graph_solver/#id-combos"
         /// target="_top">combinations</a>. Identifiers can be used with
         /// existing column names, e.g., 'table.column AS
         /// RESTRICTIONS_EDGE_ID', expressions, e.g., 'column/2 AS
@@ -496,7 +496,7 @@ namespace kinetica
         ///         <term><see
         /// cref="ModifyGraphRequest.Options.SAVE_PERSIST">SAVE_PERSIST</see>:</term>
         ///         <description>If set to <i>true</i>, the graph will be saved
-        /// in the persist directory (see the <a href="../../config/index.html"
+        /// in the persist directory (see the <a href="../../../config/"
         /// target="_top">config reference</a> for more information). If set to
         /// <i>false</i>, the graph will be removed when the graph server is
         /// shutdown.
@@ -544,9 +544,9 @@ namespace kinetica
         ///         <description>If specified, the created graph is also
         /// created as a table with the given name, in [schema_name.]table_name
         /// format, using standard <a
-        /// href="../../concepts/tables.html#table-name-resolution"
+        /// href="../../../concepts/tables/#table-name-resolution"
         /// target="_top">name resolution rules</a> and meeting <a
-        /// href="../../concepts/tables.html#table-naming-criteria"
+        /// href="../../../concepts/tables/#table-naming-criteria"
         /// target="_top">table naming criteria</a>.  This table will have the
         /// following identifier columns: 'EDGE_ID', 'EDGE_NODE1_ID',
         /// 'EDGE_NODE2_ID'. If left blank, no table is created.  The default
@@ -622,12 +622,12 @@ namespace kinetica
         /// <param name="nodes">Nodes with which to update existing <paramref
         /// cref="ModifyGraphRequest.nodes" /> in graph specified by <paramref
         /// cref="ModifyGraphRequest.graph_name" />. Review <a
-        /// href="../../graph_solver/network_graph_solver.html#nodes"
+        /// href="../../../graph_solver/network_graph_solver/#nodes"
         /// target="_top">Nodes</a> for more information. Nodes must be
         /// specified using <a
-        /// href="../../graph_solver/network_graph_solver.html#identifiers"
+        /// href="../../../graph_solver/network_graph_solver/#identifiers"
         /// target="_top">identifiers</a>; identifiers are grouped as <a
-        /// href="../../graph_solver/network_graph_solver.html#id-combos"
+        /// href="../../../graph_solver/network_graph_solver/#id-combos"
         /// target="_top">combinations</a>. Identifiers can be used with
         /// existing column names, e.g., 'table.column AS NODE_ID',
         /// expressions, e.g., 'ST_MAKEPOINT(column1, column2) AS
@@ -641,12 +641,12 @@ namespace kinetica
         /// <param name="edges">Edges with which to update existing <paramref
         /// cref="ModifyGraphRequest.edges" /> in graph specified by <paramref
         /// cref="ModifyGraphRequest.graph_name" />. Review <a
-        /// href="../../graph_solver/network_graph_solver.html#edges"
+        /// href="../../../graph_solver/network_graph_solver/#edges"
         /// target="_top">Edges</a> for more information. Edges must be
         /// specified using <a
-        /// href="../../graph_solver/network_graph_solver.html#identifiers"
+        /// href="../../../graph_solver/network_graph_solver/#identifiers"
         /// target="_top">identifiers</a>; identifiers are grouped as <a
-        /// href="../../graph_solver/network_graph_solver.html#id-combos"
+        /// href="../../../graph_solver/network_graph_solver/#id-combos"
         /// target="_top">combinations</a>. Identifiers can be used with
         /// existing column names, e.g., 'table.column AS EDGE_ID',
         /// expressions, e.g., 'SUBSTR(column, 1, 6) AS EDGE_NODE1_NAME', or
@@ -660,12 +660,12 @@ namespace kinetica
         /// <param name="weights">Weights with which to update existing
         /// <paramref cref="ModifyGraphRequest.weights" /> in graph specified
         /// by <paramref cref="ModifyGraphRequest.graph_name" />. Review <a
-        /// href="../../graph_solver/network_graph_solver.html#graph-weights"
+        /// href="../../../graph_solver/network_graph_solver/#graph-weights"
         /// target="_top">Weights</a> for more information. Weights must be
         /// specified using <a
-        /// href="../../graph_solver/network_graph_solver.html#identifiers"
+        /// href="../../../graph_solver/network_graph_solver/#identifiers"
         /// target="_top">identifiers</a>; identifiers are grouped as <a
-        /// href="../../graph_solver/network_graph_solver.html#id-combos"
+        /// href="../../../graph_solver/network_graph_solver/#id-combos"
         /// target="_top">combinations</a>. Identifiers can be used with
         /// existing column names, e.g., 'table.column AS WEIGHTS_EDGE_ID',
         /// expressions, e.g., 'ST_LENGTH(wkt) AS WEIGHTS_VALUESPECIFIED', or
@@ -679,12 +679,12 @@ namespace kinetica
         /// existing <paramref cref="ModifyGraphRequest.restrictions" /> in
         /// graph specified by <paramref cref="ModifyGraphRequest.graph_name"
         /// />. Review <a
-        /// href="../../graph_solver/network_graph_solver.html#graph-restrictions"
+        /// href="../../../graph_solver/network_graph_solver/#graph-restrictions"
         /// target="_top">Restrictions</a> for more information. Restrictions
         /// must be specified using <a
-        /// href="../../graph_solver/network_graph_solver.html#identifiers"
+        /// href="../../../graph_solver/network_graph_solver/#identifiers"
         /// target="_top">identifiers</a>; identifiers are grouped as <a
-        /// href="../../graph_solver/network_graph_solver.html#id-combos"
+        /// href="../../../graph_solver/network_graph_solver/#id-combos"
         /// target="_top">combinations</a>. Identifiers can be used with
         /// existing column names, e.g., 'table.column AS
         /// RESTRICTIONS_EDGE_ID', expressions, e.g., 'column/2 AS
@@ -751,7 +751,7 @@ namespace kinetica
         ///         <term><see
         /// cref="ModifyGraphRequest.Options.SAVE_PERSIST">SAVE_PERSIST</see>:</term>
         ///         <description>If set to <i>true</i>, the graph will be saved
-        /// in the persist directory (see the <a href="../../config/index.html"
+        /// in the persist directory (see the <a href="../../../config/"
         /// target="_top">config reference</a> for more information). If set to
         /// <i>false</i>, the graph will be removed when the graph server is
         /// shutdown.
@@ -799,9 +799,9 @@ namespace kinetica
         ///         <description>If specified, the created graph is also
         /// created as a table with the given name, in [schema_name.]table_name
         /// format, using standard <a
-        /// href="../../concepts/tables.html#table-name-resolution"
+        /// href="../../../concepts/tables/#table-name-resolution"
         /// target="_top">name resolution rules</a> and meeting <a
-        /// href="../../concepts/tables.html#table-naming-criteria"
+        /// href="../../../concepts/tables/#table-naming-criteria"
         /// target="_top">table naming criteria</a>.  This table will have the
         /// following identifier columns: 'EDGE_ID', 'EDGE_NODE1_ID',
         /// 'EDGE_NODE2_ID'. If left blank, no table is created.  The default

@@ -273,7 +273,7 @@ namespace kinetica
 
         /// <summary>Name of the table on which the statistics operation will
         /// be performed, in [schema_name.]table_name format, using standard <a
-        /// href="../../concepts/tables.html#table-name-resolution"
+        /// href="../../../concepts/tables/#table-name-resolution"
         /// target="_top">name resolution rules</a>.  </summary>
         public string table_name { get; set; }
 
@@ -409,7 +409,7 @@ namespace kinetica
         /// <param name="table_name">Name of the table on which the statistics
         /// operation will be performed, in [schema_name.]table_name format,
         /// using standard <a
-        /// href="../../concepts/tables.html#table-name-resolution"
+        /// href="../../../concepts/tables/#table-name-resolution"
         /// target="_top">name resolution rules</a>.  </param>
         /// <param name="column_name">Name of the primary column for which the
         /// statistics are to be calculated.  </param>

@@ -15,13 +15,13 @@ namespace kinetica
     /// cref="Kinetica.createTableExternal(string,IList{string},IDictionary{string, IDictionary{string, string}},IDictionary{string, string},IDictionary{string, string})"
     /// />.
     /// <br />
-    /// Creates a new <a href="../../concepts/external_tables.html"
+    /// Creates a new <a href="../../../concepts/external_tables/"
     /// target="_top">external table</a>, which is a
     /// local database object whose source data is located externally to the
     /// database.  The source data can
     /// be located either on the cluster, accessible to the database; or
     /// remotely, accessible via a
-    /// pre-defined external <a href="../../concepts/data_sources.html"
+    /// pre-defined external <a href="../../../concepts/data_sources/"
     /// target="_top">data source</a>.
     /// <br />
     /// The external table can have its structure defined explicitly, via <see
@@ -41,7 +41,7 @@ namespace kinetica
         ///         <term><see
         /// cref="CreateTableExternalRequest.CreateTableOptions.TYPE_ID">TYPE_ID</see>:</term>
         ///         <description>ID of a currently registered <a
-        /// href="../../concepts/types.html" target="_top">type</a>.  The
+        /// href="../../../concepts/types/" target="_top">type</a>.  The
         /// default value is ''.</description>
         ///     </item>
         ///     <item>
@@ -69,20 +69,20 @@ namespace kinetica
         ///         <term><see
         /// cref="CreateTableExternalRequest.CreateTableOptions.IS_REPLICATED">IS_REPLICATED</see>:</term>
         ///         <description>Affects the <a
-        /// href="../../concepts/tables.html#distribution"
+        /// href="../../../concepts/tables/#distribution"
         /// target="_top">distribution scheme</a>
         /// for the table's data.  If <i>true</i> and the
         /// given table has no explicit <a
-        /// href="../../concepts/tables.html#shard-key" target="_top">shard
+        /// href="../../../concepts/tables/#shard-key" target="_top">shard
         /// key</a> defined, the
-        /// table will be <a href="../../concepts/tables.html#replication"
+        /// table will be <a href="../../../concepts/tables/#replication"
         /// target="_top">replicated</a>.  If
         /// <i>false</i>, the table will be
-        /// <a href="../../concepts/tables.html#sharding"
+        /// <a href="../../../concepts/tables/#sharding"
         /// target="_top">sharded</a> according to the shard key specified in
         /// the
         /// given <i>type_id</i>, or
-        /// <a href="../../concepts/tables.html#random-sharding"
+        /// <a href="../../../concepts/tables/#random-sharding"
         /// target="_top">randomly sharded</a>, if no shard key is specified.
         /// Note that a type containing a shard key cannot be used to create a
         /// replicated table.
@@ -104,7 +104,7 @@ namespace kinetica
         ///         <term><see
         /// cref="CreateTableExternalRequest.CreateTableOptions.FOREIGN_KEYS">FOREIGN_KEYS</see>:</term>
         ///         <description>Semicolon-separated list of
-        /// <a href="../../concepts/tables.html#foreign-keys"
+        /// <a href="../../../concepts/tables/#foreign-keys"
         /// target="_top">foreign keys</a>, of the format
         /// '(source_column_name [, ...]) references
         /// target_table_name(primary_key_column_name [, ...]) [as
@@ -121,7 +121,7 @@ namespace kinetica
         ///         <term><see
         /// cref="CreateTableExternalRequest.CreateTableOptions.PARTITION_TYPE">PARTITION_TYPE</see>:</term>
         ///         <description><a
-        /// href="../../concepts/tables.html#partitioning"
+        /// href="../../../concepts/tables/#partitioning"
         /// target="_top">Partitioning</a> scheme to use.
         /// Supported values:
         /// <list type="bullet">
@@ -129,28 +129,28 @@ namespace kinetica
         ///         <term><see
         /// cref="CreateTableExternalRequest.CreateTableOptions.RANGE">RANGE</see>:</term>
         ///         <description>Use <a
-        /// href="../../concepts/tables.html#partitioning-by-range"
+        /// href="../../../concepts/tables/#partitioning-by-range"
         /// target="_top">range partitioning</a>.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="CreateTableExternalRequest.CreateTableOptions.INTERVAL">INTERVAL</see>:</term>
         ///         <description>Use <a
-        /// href="../../concepts/tables.html#partitioning-by-interval"
+        /// href="../../../concepts/tables/#partitioning-by-interval"
         /// target="_top">interval partitioning</a>.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="CreateTableExternalRequest.CreateTableOptions.LIST">LIST</see>:</term>
         ///         <description>Use <a
-        /// href="../../concepts/tables.html#partitioning-by-list"
+        /// href="../../../concepts/tables/#partitioning-by-list"
         /// target="_top">list partitioning</a>.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="CreateTableExternalRequest.CreateTableOptions.HASH">HASH</see>:</term>
         ///         <description>Use <a
-        /// href="../../concepts/tables.html#partitioning-by-hash"
+        /// href="../../../concepts/tables/#partitioning-by-hash"
         /// target="_top">hash partitioning</a>.</description>
         ///     </item>
         /// </list></description>
@@ -170,13 +170,13 @@ namespace kinetica
         ///         <description>Comma-separated list of partition definitions,
         /// whose format depends
         /// on the choice of <i>partition_type</i>.  See
-        /// <a href="../../concepts/tables.html#partitioning-by-range"
+        /// <a href="../../../concepts/tables/#partitioning-by-range"
         /// target="_top">range partitioning</a>,
-        /// <a href="../../concepts/tables.html#partitioning-by-interval"
+        /// <a href="../../../concepts/tables/#partitioning-by-interval"
         /// target="_top">interval partitioning</a>,
-        /// <a href="../../concepts/tables.html#partitioning-by-list"
+        /// <a href="../../../concepts/tables/#partitioning-by-list"
         /// target="_top">list partitioning</a>, or
-        /// <a href="../../concepts/tables.html#partitioning-by-hash"
+        /// <a href="../../../concepts/tables/#partitioning-by-hash"
         /// target="_top">hash partitioning</a> for example
         /// formats.</description>
         ///     </item>
@@ -187,7 +187,7 @@ namespace kinetica
         /// a new partition will be created for values which don't fall into an
         /// existing partition.  Currently
         /// only supported for <a
-        /// href="../../concepts/tables.html#partitioning-by-list"
+        /// href="../../../concepts/tables/#partitioning-by-list"
         /// target="_top">list partitions</a>.
         /// Supported values:
         /// <list type="bullet">
@@ -206,7 +206,7 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="CreateTableExternalRequest.CreateTableOptions.TTL">TTL</see>:</term>
-        ///         <description>Sets the <a href="../../concepts/ttl.html"
+        ///         <description>Sets the <a href="../../../concepts/ttl/"
         /// target="_top">TTL</a> of the table specified in <paramref
         /// cref="CreateTableExternalRequest.table_name" />.</description>
         ///     </item>
@@ -220,12 +220,12 @@ namespace kinetica
         ///         <term><see
         /// cref="CreateTableExternalRequest.CreateTableOptions.IS_RESULT_TABLE">IS_RESULT_TABLE</see>:</term>
         ///         <description>Indicates whether the table is a
-        /// <a href="../../concepts/tables_memory_only.html"
+        /// <a href="../../../concepts/tables_memory_only/"
         /// target="_top">memory-only table</a>. A result table cannot contain
         /// columns with store_only or text_search
-        /// <a href="../../concepts/types.html#data-handling"
+        /// <a href="../../../concepts/types/#data-handling"
         /// target="_top">data-handling</a> or that are
-        /// <a href="../../concepts/types.html#primitive-types"
+        /// <a href="../../../concepts/types/#primitive-types"
         /// target="_top">non-charN strings</a>, and it will not be retained if
         /// the server is restarted.
         /// Supported values:
@@ -246,12 +246,12 @@ namespace kinetica
         ///         <term><see
         /// cref="CreateTableExternalRequest.CreateTableOptions.STRATEGY_DEFINITION">STRATEGY_DEFINITION</see>:</term>
         ///         <description>The <a
-        /// href="../../rm/concepts.html#tier-strategies" target="_top">tier
+        /// href="../../../rm/concepts/#tier-strategies" target="_top">tier
         /// strategy</a>
         /// for the table and its columns. See
-        /// <a href="../../rm/concepts.html#tier-strategies" target="_top">tier
+        /// <a href="../../../rm/concepts/#tier-strategies" target="_top">tier
         /// strategy usage</a> for format and
-        /// <a href="../../rm/usage.html#tier-strategies" target="_top">tier
+        /// <a href="../../../rm/usage/#tier-strategies" target="_top">tier
         /// strategy examples</a> for examples.</description>
         ///     </item>
         /// </list>
@@ -262,7 +262,7 @@ namespace kinetica
         {
 
             /// <summary>ID of a currently registered <a
-            /// href="../../concepts/types.html" target="_top">type</a>.  The
+            /// href="../../../concepts/types/" target="_top">type</a>.  The
             /// default value is ''.</summary>
             public const string TYPE_ID = "type_id";
 
@@ -289,20 +289,20 @@ namespace kinetica
             public const string FALSE = "false";
 
             /// <summary>Affects the <a
-            /// href="../../concepts/tables.html#distribution"
+            /// href="../../../concepts/tables/#distribution"
             /// target="_top">distribution scheme</a>
             /// for the table's data.  If <i>true</i> and the
             /// given table has no explicit <a
-            /// href="../../concepts/tables.html#shard-key" target="_top">shard
+            /// href="../../../concepts/tables/#shard-key" target="_top">shard
             /// key</a> defined, the
-            /// table will be <a href="../../concepts/tables.html#replication"
+            /// table will be <a href="../../../concepts/tables/#replication"
             /// target="_top">replicated</a>.  If
             /// <i>false</i>, the table will be
-            /// <a href="../../concepts/tables.html#sharding"
+            /// <a href="../../../concepts/tables/#sharding"
             /// target="_top">sharded</a> according to the shard key specified
             /// in the
             /// given <i>type_id</i>, or
-            /// <a href="../../concepts/tables.html#random-sharding"
+            /// <a href="../../../concepts/tables/#random-sharding"
             /// target="_top">randomly sharded</a>, if no shard key is
             /// specified.
             /// Note that a type containing a shard key cannot be used to
@@ -323,7 +323,7 @@ namespace kinetica
             public const string IS_REPLICATED = "is_replicated";
 
             /// <summary>Semicolon-separated list of
-            /// <a href="../../concepts/tables.html#foreign-keys"
+            /// <a href="../../../concepts/tables/#foreign-keys"
             /// target="_top">foreign keys</a>, of the format
             /// '(source_column_name [, ...]) references
             /// target_table_name(primary_key_column_name [, ...]) [as
@@ -335,7 +335,7 @@ namespace kinetica
             /// target_table(primary_key_column)'.</summary>
             public const string FOREIGN_SHARD_KEY = "foreign_shard_key";
 
-            /// <summary><a href="../../concepts/tables.html#partitioning"
+            /// <summary><a href="../../../concepts/tables/#partitioning"
             /// target="_top">Partitioning</a> scheme to use.
             /// Supported values:
             /// <list type="bullet">
@@ -343,50 +343,50 @@ namespace kinetica
             ///         <term><see
             /// cref="CreateTableExternalRequest.CreateTableOptions.RANGE">RANGE</see>:</term>
             ///         <description>Use <a
-            /// href="../../concepts/tables.html#partitioning-by-range"
+            /// href="../../../concepts/tables/#partitioning-by-range"
             /// target="_top">range partitioning</a>.</description>
             ///     </item>
             ///     <item>
             ///         <term><see
             /// cref="CreateTableExternalRequest.CreateTableOptions.INTERVAL">INTERVAL</see>:</term>
             ///         <description>Use <a
-            /// href="../../concepts/tables.html#partitioning-by-interval"
+            /// href="../../../concepts/tables/#partitioning-by-interval"
             /// target="_top">interval partitioning</a>.</description>
             ///     </item>
             ///     <item>
             ///         <term><see
             /// cref="CreateTableExternalRequest.CreateTableOptions.LIST">LIST</see>:</term>
             ///         <description>Use <a
-            /// href="../../concepts/tables.html#partitioning-by-list"
+            /// href="../../../concepts/tables/#partitioning-by-list"
             /// target="_top">list partitioning</a>.</description>
             ///     </item>
             ///     <item>
             ///         <term><see
             /// cref="CreateTableExternalRequest.CreateTableOptions.HASH">HASH</see>:</term>
             ///         <description>Use <a
-            /// href="../../concepts/tables.html#partitioning-by-hash"
+            /// href="../../../concepts/tables/#partitioning-by-hash"
             /// target="_top">hash partitioning</a>.</description>
             ///     </item>
             /// </list></summary>
             public const string PARTITION_TYPE = "partition_type";
 
             /// <summary>Use <a
-            /// href="../../concepts/tables.html#partitioning-by-range"
+            /// href="../../../concepts/tables/#partitioning-by-range"
             /// target="_top">range partitioning</a>.</summary>
             public const string RANGE = "RANGE";
 
             /// <summary>Use <a
-            /// href="../../concepts/tables.html#partitioning-by-interval"
+            /// href="../../../concepts/tables/#partitioning-by-interval"
             /// target="_top">interval partitioning</a>.</summary>
             public const string INTERVAL = "INTERVAL";
 
             /// <summary>Use <a
-            /// href="../../concepts/tables.html#partitioning-by-list"
+            /// href="../../../concepts/tables/#partitioning-by-list"
             /// target="_top">list partitioning</a>.</summary>
             public const string LIST = "LIST";
 
             /// <summary>Use <a
-            /// href="../../concepts/tables.html#partitioning-by-hash"
+            /// href="../../../concepts/tables/#partitioning-by-hash"
             /// target="_top">hash partitioning</a>.</summary>
             public const string HASH = "HASH";
 
@@ -400,13 +400,13 @@ namespace kinetica
             /// <summary>Comma-separated list of partition definitions, whose
             /// format depends
             /// on the choice of <i>partition_type</i>.  See
-            /// <a href="../../concepts/tables.html#partitioning-by-range"
+            /// <a href="../../../concepts/tables/#partitioning-by-range"
             /// target="_top">range partitioning</a>,
-            /// <a href="../../concepts/tables.html#partitioning-by-interval"
+            /// <a href="../../../concepts/tables/#partitioning-by-interval"
             /// target="_top">interval partitioning</a>,
-            /// <a href="../../concepts/tables.html#partitioning-by-list"
+            /// <a href="../../../concepts/tables/#partitioning-by-list"
             /// target="_top">list partitioning</a>, or
-            /// <a href="../../concepts/tables.html#partitioning-by-hash"
+            /// <a href="../../../concepts/tables/#partitioning-by-hash"
             /// target="_top">hash partitioning</a> for example
             /// formats.</summary>
             public const string PARTITION_DEFINITIONS = "partition_definitions";
@@ -415,7 +415,7 @@ namespace kinetica
             /// a new partition will be created for values which don't fall
             /// into an existing partition.  Currently
             /// only supported for <a
-            /// href="../../concepts/tables.html#partitioning-by-list"
+            /// href="../../../concepts/tables/#partitioning-by-list"
             /// target="_top">list partitions</a>.
             /// Supported values:
             /// <list type="bullet">
@@ -432,7 +432,7 @@ namespace kinetica
             /// cref="CreateTableExternalRequest.CreateTableOptions.FALSE">FALSE</see>.</summary>
             public const string IS_AUTOMATIC_PARTITION = "is_automatic_partition";
 
-            /// <summary>Sets the <a href="../../concepts/ttl.html"
+            /// <summary>Sets the <a href="../../../concepts/ttl/"
             /// target="_top">TTL</a> of the table specified in <see
             /// cref="table_name" />.</summary>
             public const string TTL = "ttl";
@@ -442,13 +442,13 @@ namespace kinetica
             public const string CHUNK_SIZE = "chunk_size";
 
             /// <summary>Indicates whether the table is a
-            /// <a href="../../concepts/tables_memory_only.html"
+            /// <a href="../../../concepts/tables_memory_only/"
             /// target="_top">memory-only table</a>. A result table cannot
             /// contain
             /// columns with store_only or text_search
-            /// <a href="../../concepts/types.html#data-handling"
+            /// <a href="../../../concepts/types/#data-handling"
             /// target="_top">data-handling</a> or that are
-            /// <a href="../../concepts/types.html#primitive-types"
+            /// <a href="../../../concepts/types/#primitive-types"
             /// target="_top">non-charN strings</a>, and it will not be
             /// retained if
             /// the server is restarted.
@@ -467,14 +467,13 @@ namespace kinetica
             /// cref="CreateTableExternalRequest.CreateTableOptions.FALSE">FALSE</see>.</summary>
             public const string IS_RESULT_TABLE = "is_result_table";
 
-            /// <summary>The <a href="../../rm/concepts.html#tier-strategies"
+            /// <summary>The <a href="../../../rm/concepts/#tier-strategies"
             /// target="_top">tier strategy</a>
             /// for the table and its columns. See
-            /// <a href="../../rm/concepts.html#tier-strategies"
+            /// <a href="../../../rm/concepts/#tier-strategies"
             /// target="_top">tier strategy usage</a> for format and
-            /// <a href="../../rm/usage.html#tier-strategies"
-            /// target="_top">tier strategy examples</a> for
-            /// examples.</summary>
+            /// <a href="../../../rm/usage/#tier-strategies" target="_top">tier
+            /// strategy examples</a> for examples.</summary>
             public const string STRATEGY_DEFINITION = "strategy_definition";
         } // end struct CreateTableOptions
 
@@ -673,13 +672,18 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="CreateTableExternalRequest.Options.DELIMITED_TEXT">DELIMITED_TEXT</see>:</term>
-        ///         <description>Delimited text format; e.g., CSV, TSV, PSV,
-        /// etc.</description>
+        ///         <description>Delimited text file format; e.g., CSV, TSV,
+        /// PSV, etc.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="CreateTableExternalRequest.Options.PARQUET">PARQUET</see>:</term>
-        ///         <description>Apache Parquet format</description>
+        ///         <description>Apache Parquet file format</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableExternalRequest.Options.JSON">JSON</see>:</term>
+        ///         <description>Json file format</description>
         ///     </item>
         /// </list>
         /// The default value is <see
@@ -887,7 +891,7 @@ namespace kinetica
         ///         <term><see
         /// cref="CreateTableExternalRequest.Options.TEXT_HEADER_PROPERTY_DELIMITER">TEXT_HEADER_PROPERTY_DELIMITER</see>:</term>
         ///         <description>Specifies the delimiter for
-        /// <a href="../../concepts/types.html#column-properties"
+        /// <a href="../../../concepts/types/#column-properties"
         /// target="_top">column properties</a> in the header row (if
         /// present).  Cannot be set to same value as <i>text_delimiter</i>.
         /// <br />
@@ -1146,25 +1150,33 @@ namespace kinetica
             ///     <item>
             ///         <term><see
             /// cref="CreateTableExternalRequest.Options.DELIMITED_TEXT">DELIMITED_TEXT</see>:</term>
-            ///         <description>Delimited text format; e.g., CSV, TSV,
-            /// PSV, etc.</description>
+            ///         <description>Delimited text file format; e.g., CSV,
+            /// TSV, PSV, etc.</description>
             ///     </item>
             ///     <item>
             ///         <term><see
             /// cref="CreateTableExternalRequest.Options.PARQUET">PARQUET</see>:</term>
-            ///         <description>Apache Parquet format</description>
+            ///         <description>Apache Parquet file format</description>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="CreateTableExternalRequest.Options.JSON">JSON</see>:</term>
+            ///         <description>Json file format</description>
             ///     </item>
             /// </list>
             /// The default value is <see
             /// cref="CreateTableExternalRequest.Options.DELIMITED_TEXT">DELIMITED_TEXT</see>.</summary>
             public const string FILE_TYPE = "file_type";
 
-            /// <summary>Delimited text format; e.g., CSV, TSV, PSV,
+            /// <summary>Delimited text file format; e.g., CSV, TSV, PSV,
             /// etc.</summary>
             public const string DELIMITED_TEXT = "delimited_text";
 
-            /// <summary>Apache Parquet format</summary>
+            /// <summary>Apache Parquet file format</summary>
             public const string PARQUET = "parquet";
+
+            /// <summary>Json file format</summary>
+            public const string JSON = "json";
 
             /// <summary>For <i>materialized</i> external tables, whether to do
             /// a full load, dry run, or perform a type inference on the source
@@ -1424,7 +1436,7 @@ namespace kinetica
             public const string FALSE = "false";
 
             /// <summary>Specifies the delimiter for
-            /// <a href="../../concepts/types.html#column-properties"
+            /// <a href="../../../concepts/types/#column-properties"
             /// target="_top">column properties</a> in the header row (if
             /// present).  Cannot be set to same value as
             /// <i>text_delimiter</i>.
@@ -1493,9 +1505,9 @@ namespace kinetica
 
         /// <summary>Name of the table to be created, in
         /// [schema_name.]table_name format, using
-        /// standard <a href="../../concepts/tables.html#table-name-resolution"
+        /// standard <a href="../../../concepts/tables/#table-name-resolution"
         /// target="_top">name resolution rules</a> and meeting
-        /// <a href="../../concepts/tables.html#table-naming-criteria"
+        /// <a href="../../../concepts/tables/#table-naming-criteria"
         /// target="_top">table naming criteria</a>.  </summary>
         public string table_name { get; set; }
 
@@ -1514,7 +1526,7 @@ namespace kinetica
         /// accessible to the gpudb user, residing on the path (or relative to
         /// the path) specified by the
         /// external files directory in the Kinetica
-        /// <a href="../../config/index.html#external-files"
+        /// <a href="../../../config/#external-files"
         /// target="_top">configuration file</a>.  </summary>
         public IList<string> filepaths { get; set; } = new List<string>();
 
@@ -1530,7 +1542,7 @@ namespace kinetica
         ///         <term><see
         /// cref="CreateTableExternalRequest.CreateTableOptions.TYPE_ID">TYPE_ID</see>:</term>
         ///         <description>ID of a currently registered <a
-        /// href="../../concepts/types.html" target="_top">type</a>.  The
+        /// href="../../../concepts/types/" target="_top">type</a>.  The
         /// default value is ''.</description>
         ///     </item>
         ///     <item>
@@ -1558,20 +1570,20 @@ namespace kinetica
         ///         <term><see
         /// cref="CreateTableExternalRequest.CreateTableOptions.IS_REPLICATED">IS_REPLICATED</see>:</term>
         ///         <description>Affects the <a
-        /// href="../../concepts/tables.html#distribution"
+        /// href="../../../concepts/tables/#distribution"
         /// target="_top">distribution scheme</a>
         /// for the table's data.  If <i>true</i> and the
         /// given table has no explicit <a
-        /// href="../../concepts/tables.html#shard-key" target="_top">shard
+        /// href="../../../concepts/tables/#shard-key" target="_top">shard
         /// key</a> defined, the
-        /// table will be <a href="../../concepts/tables.html#replication"
+        /// table will be <a href="../../../concepts/tables/#replication"
         /// target="_top">replicated</a>.  If
         /// <i>false</i>, the table will be
-        /// <a href="../../concepts/tables.html#sharding"
+        /// <a href="../../../concepts/tables/#sharding"
         /// target="_top">sharded</a> according to the shard key specified in
         /// the
         /// given <i>type_id</i>, or
-        /// <a href="../../concepts/tables.html#random-sharding"
+        /// <a href="../../../concepts/tables/#random-sharding"
         /// target="_top">randomly sharded</a>, if no shard key is specified.
         /// Note that a type containing a shard key cannot be used to create a
         /// replicated table.
@@ -1593,7 +1605,7 @@ namespace kinetica
         ///         <term><see
         /// cref="CreateTableExternalRequest.CreateTableOptions.FOREIGN_KEYS">FOREIGN_KEYS</see>:</term>
         ///         <description>Semicolon-separated list of
-        /// <a href="../../concepts/tables.html#foreign-keys"
+        /// <a href="../../../concepts/tables/#foreign-keys"
         /// target="_top">foreign keys</a>, of the format
         /// '(source_column_name [, ...]) references
         /// target_table_name(primary_key_column_name [, ...]) [as
@@ -1610,7 +1622,7 @@ namespace kinetica
         ///         <term><see
         /// cref="CreateTableExternalRequest.CreateTableOptions.PARTITION_TYPE">PARTITION_TYPE</see>:</term>
         ///         <description><a
-        /// href="../../concepts/tables.html#partitioning"
+        /// href="../../../concepts/tables/#partitioning"
         /// target="_top">Partitioning</a> scheme to use.
         /// Supported values:
         /// <list type="bullet">
@@ -1618,28 +1630,28 @@ namespace kinetica
         ///         <term><see
         /// cref="CreateTableExternalRequest.CreateTableOptions.RANGE">RANGE</see>:</term>
         ///         <description>Use <a
-        /// href="../../concepts/tables.html#partitioning-by-range"
+        /// href="../../../concepts/tables/#partitioning-by-range"
         /// target="_top">range partitioning</a>.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="CreateTableExternalRequest.CreateTableOptions.INTERVAL">INTERVAL</see>:</term>
         ///         <description>Use <a
-        /// href="../../concepts/tables.html#partitioning-by-interval"
+        /// href="../../../concepts/tables/#partitioning-by-interval"
         /// target="_top">interval partitioning</a>.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="CreateTableExternalRequest.CreateTableOptions.LIST">LIST</see>:</term>
         ///         <description>Use <a
-        /// href="../../concepts/tables.html#partitioning-by-list"
+        /// href="../../../concepts/tables/#partitioning-by-list"
         /// target="_top">list partitioning</a>.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="CreateTableExternalRequest.CreateTableOptions.HASH">HASH</see>:</term>
         ///         <description>Use <a
-        /// href="../../concepts/tables.html#partitioning-by-hash"
+        /// href="../../../concepts/tables/#partitioning-by-hash"
         /// target="_top">hash partitioning</a>.</description>
         ///     </item>
         /// </list></description>
@@ -1659,13 +1671,13 @@ namespace kinetica
         ///         <description>Comma-separated list of partition definitions,
         /// whose format depends
         /// on the choice of <i>partition_type</i>.  See
-        /// <a href="../../concepts/tables.html#partitioning-by-range"
+        /// <a href="../../../concepts/tables/#partitioning-by-range"
         /// target="_top">range partitioning</a>,
-        /// <a href="../../concepts/tables.html#partitioning-by-interval"
+        /// <a href="../../../concepts/tables/#partitioning-by-interval"
         /// target="_top">interval partitioning</a>,
-        /// <a href="../../concepts/tables.html#partitioning-by-list"
+        /// <a href="../../../concepts/tables/#partitioning-by-list"
         /// target="_top">list partitioning</a>, or
-        /// <a href="../../concepts/tables.html#partitioning-by-hash"
+        /// <a href="../../../concepts/tables/#partitioning-by-hash"
         /// target="_top">hash partitioning</a> for example
         /// formats.</description>
         ///     </item>
@@ -1676,7 +1688,7 @@ namespace kinetica
         /// a new partition will be created for values which don't fall into an
         /// existing partition.  Currently
         /// only supported for <a
-        /// href="../../concepts/tables.html#partitioning-by-list"
+        /// href="../../../concepts/tables/#partitioning-by-list"
         /// target="_top">list partitions</a>.
         /// Supported values:
         /// <list type="bullet">
@@ -1695,7 +1707,7 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="CreateTableExternalRequest.CreateTableOptions.TTL">TTL</see>:</term>
-        ///         <description>Sets the <a href="../../concepts/ttl.html"
+        ///         <description>Sets the <a href="../../../concepts/ttl/"
         /// target="_top">TTL</a> of the table specified in <paramref
         /// cref="CreateTableExternalRequest.table_name" />.</description>
         ///     </item>
@@ -1709,12 +1721,12 @@ namespace kinetica
         ///         <term><see
         /// cref="CreateTableExternalRequest.CreateTableOptions.IS_RESULT_TABLE">IS_RESULT_TABLE</see>:</term>
         ///         <description>Indicates whether the table is a
-        /// <a href="../../concepts/tables_memory_only.html"
+        /// <a href="../../../concepts/tables_memory_only/"
         /// target="_top">memory-only table</a>. A result table cannot contain
         /// columns with store_only or text_search
-        /// <a href="../../concepts/types.html#data-handling"
+        /// <a href="../../../concepts/types/#data-handling"
         /// target="_top">data-handling</a> or that are
-        /// <a href="../../concepts/types.html#primitive-types"
+        /// <a href="../../../concepts/types/#primitive-types"
         /// target="_top">non-charN strings</a>, and it will not be retained if
         /// the server is restarted.
         /// Supported values:
@@ -1735,12 +1747,12 @@ namespace kinetica
         ///         <term><see
         /// cref="CreateTableExternalRequest.CreateTableOptions.STRATEGY_DEFINITION">STRATEGY_DEFINITION</see>:</term>
         ///         <description>The <a
-        /// href="../../rm/concepts.html#tier-strategies" target="_top">tier
+        /// href="../../../rm/concepts/#tier-strategies" target="_top">tier
         /// strategy</a>
         /// for the table and its columns. See
-        /// <a href="../../rm/concepts.html#tier-strategies" target="_top">tier
+        /// <a href="../../../rm/concepts/#tier-strategies" target="_top">tier
         /// strategy usage</a> for format and
-        /// <a href="../../rm/usage.html#tier-strategies" target="_top">tier
+        /// <a href="../../../rm/usage/#tier-strategies" target="_top">tier
         /// strategy examples</a> for examples.</description>
         ///     </item>
         /// </list>
@@ -1941,13 +1953,18 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="CreateTableExternalRequest.Options.DELIMITED_TEXT">DELIMITED_TEXT</see>:</term>
-        ///         <description>Delimited text format; e.g., CSV, TSV, PSV,
-        /// etc.</description>
+        ///         <description>Delimited text file format; e.g., CSV, TSV,
+        /// PSV, etc.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="CreateTableExternalRequest.Options.PARQUET">PARQUET</see>:</term>
-        ///         <description>Apache Parquet format</description>
+        ///         <description>Apache Parquet file format</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableExternalRequest.Options.JSON">JSON</see>:</term>
+        ///         <description>Json file format</description>
         ///     </item>
         /// </list>
         /// The default value is <see
@@ -2155,7 +2172,7 @@ namespace kinetica
         ///         <term><see
         /// cref="CreateTableExternalRequest.Options.TEXT_HEADER_PROPERTY_DELIMITER">TEXT_HEADER_PROPERTY_DELIMITER</see>:</term>
         ///         <description>Specifies the delimiter for
-        /// <a href="../../concepts/types.html#column-properties"
+        /// <a href="../../../concepts/types/#column-properties"
         /// target="_top">column properties</a> in the header row (if
         /// present).  Cannot be set to same value as <i>text_delimiter</i>.
         /// <br />
@@ -2231,9 +2248,9 @@ namespace kinetica
         /// 
         /// <param name="table_name">Name of the table to be created, in
         /// [schema_name.]table_name format, using
-        /// standard <a href="../../concepts/tables.html#table-name-resolution"
+        /// standard <a href="../../../concepts/tables/#table-name-resolution"
         /// target="_top">name resolution rules</a> and meeting
-        /// <a href="../../concepts/tables.html#table-naming-criteria"
+        /// <a href="../../../concepts/tables/#table-naming-criteria"
         /// target="_top">table naming criteria</a>.  </param>
         /// <param name="filepaths">A list of file paths from which data will
         /// be sourced; wildcards (*) can be used
@@ -2248,7 +2265,7 @@ namespace kinetica
         /// accessible to the gpudb user, residing on the path (or relative to
         /// the path) specified by the
         /// external files directory in the Kinetica
-        /// <a href="../../config/index.html#external-files"
+        /// <a href="../../../config/#external-files"
         /// target="_top">configuration file</a>.  </param>
         /// <param name="modify_columns">Not implemented yet.  The default
         /// value is an empty {@link Dictionary}.</param>
@@ -2260,7 +2277,7 @@ namespace kinetica
         ///         <term><see
         /// cref="CreateTableExternalRequest.CreateTableOptions.TYPE_ID">TYPE_ID</see>:</term>
         ///         <description>ID of a currently registered <a
-        /// href="../../concepts/types.html" target="_top">type</a>.  The
+        /// href="../../../concepts/types/" target="_top">type</a>.  The
         /// default value is ''.</description>
         ///     </item>
         ///     <item>
@@ -2288,20 +2305,20 @@ namespace kinetica
         ///         <term><see
         /// cref="CreateTableExternalRequest.CreateTableOptions.IS_REPLICATED">IS_REPLICATED</see>:</term>
         ///         <description>Affects the <a
-        /// href="../../concepts/tables.html#distribution"
+        /// href="../../../concepts/tables/#distribution"
         /// target="_top">distribution scheme</a>
         /// for the table's data.  If <i>true</i> and the
         /// given table has no explicit <a
-        /// href="../../concepts/tables.html#shard-key" target="_top">shard
+        /// href="../../../concepts/tables/#shard-key" target="_top">shard
         /// key</a> defined, the
-        /// table will be <a href="../../concepts/tables.html#replication"
+        /// table will be <a href="../../../concepts/tables/#replication"
         /// target="_top">replicated</a>.  If
         /// <i>false</i>, the table will be
-        /// <a href="../../concepts/tables.html#sharding"
+        /// <a href="../../../concepts/tables/#sharding"
         /// target="_top">sharded</a> according to the shard key specified in
         /// the
         /// given <i>type_id</i>, or
-        /// <a href="../../concepts/tables.html#random-sharding"
+        /// <a href="../../../concepts/tables/#random-sharding"
         /// target="_top">randomly sharded</a>, if no shard key is specified.
         /// Note that a type containing a shard key cannot be used to create a
         /// replicated table.
@@ -2323,7 +2340,7 @@ namespace kinetica
         ///         <term><see
         /// cref="CreateTableExternalRequest.CreateTableOptions.FOREIGN_KEYS">FOREIGN_KEYS</see>:</term>
         ///         <description>Semicolon-separated list of
-        /// <a href="../../concepts/tables.html#foreign-keys"
+        /// <a href="../../../concepts/tables/#foreign-keys"
         /// target="_top">foreign keys</a>, of the format
         /// '(source_column_name [, ...]) references
         /// target_table_name(primary_key_column_name [, ...]) [as
@@ -2340,7 +2357,7 @@ namespace kinetica
         ///         <term><see
         /// cref="CreateTableExternalRequest.CreateTableOptions.PARTITION_TYPE">PARTITION_TYPE</see>:</term>
         ///         <description><a
-        /// href="../../concepts/tables.html#partitioning"
+        /// href="../../../concepts/tables/#partitioning"
         /// target="_top">Partitioning</a> scheme to use.
         /// Supported values:
         /// <list type="bullet">
@@ -2348,28 +2365,28 @@ namespace kinetica
         ///         <term><see
         /// cref="CreateTableExternalRequest.CreateTableOptions.RANGE">RANGE</see>:</term>
         ///         <description>Use <a
-        /// href="../../concepts/tables.html#partitioning-by-range"
+        /// href="../../../concepts/tables/#partitioning-by-range"
         /// target="_top">range partitioning</a>.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="CreateTableExternalRequest.CreateTableOptions.INTERVAL">INTERVAL</see>:</term>
         ///         <description>Use <a
-        /// href="../../concepts/tables.html#partitioning-by-interval"
+        /// href="../../../concepts/tables/#partitioning-by-interval"
         /// target="_top">interval partitioning</a>.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="CreateTableExternalRequest.CreateTableOptions.LIST">LIST</see>:</term>
         ///         <description>Use <a
-        /// href="../../concepts/tables.html#partitioning-by-list"
+        /// href="../../../concepts/tables/#partitioning-by-list"
         /// target="_top">list partitioning</a>.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="CreateTableExternalRequest.CreateTableOptions.HASH">HASH</see>:</term>
         ///         <description>Use <a
-        /// href="../../concepts/tables.html#partitioning-by-hash"
+        /// href="../../../concepts/tables/#partitioning-by-hash"
         /// target="_top">hash partitioning</a>.</description>
         ///     </item>
         /// </list></description>
@@ -2389,13 +2406,13 @@ namespace kinetica
         ///         <description>Comma-separated list of partition definitions,
         /// whose format depends
         /// on the choice of <i>partition_type</i>.  See
-        /// <a href="../../concepts/tables.html#partitioning-by-range"
+        /// <a href="../../../concepts/tables/#partitioning-by-range"
         /// target="_top">range partitioning</a>,
-        /// <a href="../../concepts/tables.html#partitioning-by-interval"
+        /// <a href="../../../concepts/tables/#partitioning-by-interval"
         /// target="_top">interval partitioning</a>,
-        /// <a href="../../concepts/tables.html#partitioning-by-list"
+        /// <a href="../../../concepts/tables/#partitioning-by-list"
         /// target="_top">list partitioning</a>, or
-        /// <a href="../../concepts/tables.html#partitioning-by-hash"
+        /// <a href="../../../concepts/tables/#partitioning-by-hash"
         /// target="_top">hash partitioning</a> for example
         /// formats.</description>
         ///     </item>
@@ -2406,7 +2423,7 @@ namespace kinetica
         /// a new partition will be created for values which don't fall into an
         /// existing partition.  Currently
         /// only supported for <a
-        /// href="../../concepts/tables.html#partitioning-by-list"
+        /// href="../../../concepts/tables/#partitioning-by-list"
         /// target="_top">list partitions</a>.
         /// Supported values:
         /// <list type="bullet">
@@ -2425,7 +2442,7 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="CreateTableExternalRequest.CreateTableOptions.TTL">TTL</see>:</term>
-        ///         <description>Sets the <a href="../../concepts/ttl.html"
+        ///         <description>Sets the <a href="../../../concepts/ttl/"
         /// target="_top">TTL</a> of the table specified in <paramref
         /// cref="CreateTableExternalRequest.table_name" />.</description>
         ///     </item>
@@ -2439,12 +2456,12 @@ namespace kinetica
         ///         <term><see
         /// cref="CreateTableExternalRequest.CreateTableOptions.IS_RESULT_TABLE">IS_RESULT_TABLE</see>:</term>
         ///         <description>Indicates whether the table is a
-        /// <a href="../../concepts/tables_memory_only.html"
+        /// <a href="../../../concepts/tables_memory_only/"
         /// target="_top">memory-only table</a>. A result table cannot contain
         /// columns with store_only or text_search
-        /// <a href="../../concepts/types.html#data-handling"
+        /// <a href="../../../concepts/types/#data-handling"
         /// target="_top">data-handling</a> or that are
-        /// <a href="../../concepts/types.html#primitive-types"
+        /// <a href="../../../concepts/types/#primitive-types"
         /// target="_top">non-charN strings</a>, and it will not be retained if
         /// the server is restarted.
         /// Supported values:
@@ -2465,12 +2482,12 @@ namespace kinetica
         ///         <term><see
         /// cref="CreateTableExternalRequest.CreateTableOptions.STRATEGY_DEFINITION">STRATEGY_DEFINITION</see>:</term>
         ///         <description>The <a
-        /// href="../../rm/concepts.html#tier-strategies" target="_top">tier
+        /// href="../../../rm/concepts/#tier-strategies" target="_top">tier
         /// strategy</a>
         /// for the table and its columns. See
-        /// <a href="../../rm/concepts.html#tier-strategies" target="_top">tier
+        /// <a href="../../../rm/concepts/#tier-strategies" target="_top">tier
         /// strategy usage</a> for format and
-        /// <a href="../../rm/usage.html#tier-strategies" target="_top">tier
+        /// <a href="../../../rm/usage/#tier-strategies" target="_top">tier
         /// strategy examples</a> for examples.</description>
         ///     </item>
         /// </list>
@@ -2664,13 +2681,18 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="CreateTableExternalRequest.Options.DELIMITED_TEXT">DELIMITED_TEXT</see>:</term>
-        ///         <description>Delimited text format; e.g., CSV, TSV, PSV,
-        /// etc.</description>
+        ///         <description>Delimited text file format; e.g., CSV, TSV,
+        /// PSV, etc.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="CreateTableExternalRequest.Options.PARQUET">PARQUET</see>:</term>
-        ///         <description>Apache Parquet format</description>
+        ///         <description>Apache Parquet file format</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableExternalRequest.Options.JSON">JSON</see>:</term>
+        ///         <description>Json file format</description>
         ///     </item>
         /// </list>
         /// The default value is <see
@@ -2866,7 +2888,7 @@ namespace kinetica
         ///         <term><see
         /// cref="CreateTableExternalRequest.Options.TEXT_HEADER_PROPERTY_DELIMITER">TEXT_HEADER_PROPERTY_DELIMITER</see>:</term>
         ///         <description>Specifies the delimiter for
-        /// <a href="../../concepts/types.html#column-properties"
+        /// <a href="../../../concepts/types/#column-properties"
         /// target="_top">column properties</a> in the header row (if
         /// present).  Cannot be set to same value as <i>text_delimiter</i>.
         /// For <i>delimited_text</i> <i>file_type</i> only.  The default value
@@ -2956,7 +2978,7 @@ namespace kinetica
         public string table_name { get; set; }
 
         /// <summary>ID of the currently registered table structure <a
-        /// href="../../concepts/types.html" target="_top">type</a> for this
+        /// href="../../../concepts/types/" target="_top">type</a> for this
         /// external table  </summary>
         public string type_id { get; set; }
 
@@ -2986,9 +3008,6 @@ namespace kinetica
 
         /// <summary>Additional information.  </summary>
         public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
-
-        /// <summary>The default value is an empty {@link
-        /// Dictionary}.</summary>
         public IList<string> files { get; set; } = new List<string>();
 
     } // end class CreateTableExternalResponse

@@ -157,12 +157,12 @@ namespace kinetica
         public const string WKT = "wkt";
 
         /// <summary>This property indicates that this column will be part of
-        /// (or the entire) <a href="../../concepts/tables.html#primary-keys"
+        /// (or the entire) <a href="../../../concepts/tables/#primary-keys"
         /// target="_top">primary key</a>.</summary>
         public const string PRIMARY_KEY = "primary_key";
 
         /// <summary>This property indicates that this column will be part of
-        /// (or the entire) <a href="../../concepts/tables.html#shard-keys"
+        /// (or the entire) <a href="../../../concepts/tables/#shard-keys"
         /// target="_top">shard key</a>.</summary>
         public const string SHARD_KEY = "shard_key";
 
@@ -181,7 +181,7 @@ namespace kinetica
         public const string NULLABLE = "nullable";
 
         /// <summary>This property indicates that this column should be <a
-        /// href="../../concepts/dictionary_encoding.html"
+        /// href="../../../concepts/dictionary_encoding/"
         /// target="_top">dictionary encoded</a>. It can only be used in
         /// conjunction with restricted string (charN), int, long or date
         /// columns. Dictionary encoding is best for columns where the

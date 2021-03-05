@@ -21,15 +21,15 @@ namespace kinetica
     /// BY.
     /// <br />
     /// For aggregation details and examples, see <a
-    /// href="../../concepts/aggregation.html" target="_top">Aggregation</a>.
+    /// href="../../../concepts/aggregation/" target="_top">Aggregation</a>.
     /// For limitations, see <a
-    /// href="../../concepts/aggregation.html#limitations"
+    /// href="../../../concepts/aggregation/#limitations"
     /// target="_top">Aggregation Limitations</a>.
     /// <br />
     /// Any column(s) can be grouped on, and all column types except
     /// unrestricted-length strings may be used for computing applicable
     /// aggregates; columns marked as <a
-    /// href="../../concepts/types.html#data-handling"
+    /// href="../../../concepts/types/#data-handling"
     /// target="_top">store-only</a> are unable to be used in grouping or
     /// aggregation.
     /// <br />
@@ -48,41 +48,41 @@ namespace kinetica
     /// column_names=['x','y','count(*)','sum(z)'].
     /// <br />
     /// Available <a
-    /// href="../../concepts/expressions.html#aggregate-expressions"
+    /// href="../../../concepts/expressions/#aggregate-expressions"
     /// target="_top">aggregation functions</a> are: count(*), sum, min, max,
     /// avg, mean, stddev, stddev_pop, stddev_samp, var, var_pop, var_samp,
     /// arg_min, arg_max and count_distinct.
     /// <br />
-    /// Available grouping functions are <a href="../../concepts/rollup.html"
-    /// target="_top">Rollup</a>, <a href="../../concepts/cube.html"
-    /// target="_top">Cube</a>, and <a href="../../concepts/grouping_sets.html"
+    /// Available grouping functions are <a href="../../../concepts/rollup/"
+    /// target="_top">Rollup</a>, <a href="../../../concepts/cube/"
+    /// target="_top">Cube</a>, and <a href="../../../concepts/grouping_sets/"
     /// target="_top">Grouping Sets</a>
     /// <br />
     /// This service also provides support for <a
-    /// href="../../concepts/pivot.html" target="_top">Pivot</a> operations.
+    /// href="../../../concepts/pivot/" target="_top">Pivot</a> operations.
     /// <br />
     /// Filtering on aggregates is supported via expressions using <a
-    /// href="../../concepts/expressions.html#aggregate-expressions"
+    /// href="../../../concepts/expressions/#aggregate-expressions"
     /// target="_top">aggregation functions</a> supplied to <i>having</i>.
     /// <br />
     /// The response is returned as a dynamic schema. For details see: <a
-    /// href="../../api/index.html#dynamic-schemas" target="_top">dynamic
-    /// schemas documentation</a>.
+    /// href="../../../api/#dynamic-schemas" target="_top">dynamic schemas
+    /// documentation</a>.
     /// <br />
     /// If a <i>result_table</i> name is specified in the <see cref="options"
     /// />, the results are stored in a new table with that name--no results
     /// are returned in the response.  Both the table name and resulting column
-    /// names must adhere to <a href="../../concepts/tables.html#table"
+    /// names must adhere to <a href="../../../concepts/tables/#table"
     /// target="_top">standard naming conventions</a>; column/aggregation
     /// expressions will need to be aliased.  If the source table's <a
-    /// href="../../concepts/tables.html#shard-keys" target="_top">shard
-    /// key</a> is used as the grouping column(s) and all result records are
-    /// selected (<see cref="offset" /> is 0 and <see cref="limit" /> is
-    /// -9999), the result table will be sharded, in all other cases it will be
-    /// replicated.  Sorting will properly function only if the result table is
-    /// replicated or if there is only one processing node and should not be
-    /// relied upon in other cases.  Not available when any of the values of
-    /// <see cref="column_names" /> is an unrestricted-length string.</summary>
+    /// href="../../../concepts/tables/#shard-keys" target="_top">shard key</a>
+    /// is used as the grouping column(s) and all result records are selected
+    /// (<see cref="offset" /> is 0 and <see cref="limit" /> is -9999), the
+    /// result table will be sharded, in all other cases it will be replicated.
+    /// Sorting will properly function only if the result table is replicated
+    /// or if there is only one processing node and should not be relied upon
+    /// in other cases.  Not available when any of the values of <see
+    /// cref="column_names" /> is an unrestricted-length string.</summary>
     public class AggregateGroupByRequest : KineticaData
     {
 
@@ -199,9 +199,9 @@ namespace kinetica
         /// cref="AggregateGroupByRequest.Options.RESULT_TABLE">RESULT_TABLE</see>:</term>
         ///         <description>The name of a table used to store the results,
         /// in [schema_name.]table_name format, using standard <a
-        /// href="../../concepts/tables.html#table-name-resolution"
+        /// href="../../../concepts/tables/#table-name-resolution"
         /// target="_top">name resolution rules</a> and meeting <a
-        /// href="../../concepts/tables.html#table-naming-criteria"
+        /// href="../../../concepts/tables/#table-naming-criteria"
         /// target="_top">table naming criteria</a>.  Column names (group-by
         /// and aggregate fields) need to be given aliases e.g. ["FChar256 as
         /// fchar256", "sum(FDouble) as sfd"].  If present, no results are
@@ -274,7 +274,7 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="AggregateGroupByRequest.Options.TTL">TTL</see>:</term>
-        ///         <description>Sets the <a href="../../concepts/ttl.html"
+        ///         <description>Sets the <a href="../../../concepts/ttl/"
         /// target="_top">TTL</a> of the table specified in
         /// <i>result_table</i>.</description>
         ///     </item>
@@ -302,11 +302,11 @@ namespace kinetica
         ///         <term><see
         /// cref="AggregateGroupByRequest.Options.MATERIALIZE_ON_GPU">MATERIALIZE_ON_GPU</see>:</term>
         ///         <description>No longer used.  See <a
-        /// href="../../rm/concepts.html" target="_top">Resource Management
+        /// href="../../../rm/concepts/" target="_top">Resource Management
         /// Concepts</a> for information about how resources are managed, <a
-        /// href="../../rm/concepts.html" target="_top">Tier Strategy
+        /// href="../../../rm/concepts/" target="_top">Tier Strategy
         /// Concepts</a> for how resources are targeted for VRAM, and <a
-        /// href="../../rm/usage.html#tier-strategies" target="_top">Tier
+        /// href="../../../rm/usage/#tier-strategies" target="_top">Tier
         /// Strategy Usage</a> for how to specify a table's priority in VRAM.
         /// Supported values:
         /// <list type="bullet">
@@ -451,9 +451,9 @@ namespace kinetica
 
             /// <summary>The name of a table used to store the results, in
             /// [schema_name.]table_name format, using standard <a
-            /// href="../../concepts/tables.html#table-name-resolution"
+            /// href="../../../concepts/tables/#table-name-resolution"
             /// target="_top">name resolution rules</a> and meeting <a
-            /// href="../../concepts/tables.html#table-naming-criteria"
+            /// href="../../../concepts/tables/#table-naming-criteria"
             /// target="_top">table naming criteria</a>.  Column names
             /// (group-by and aggregate fields) need to be given aliases e.g.
             /// ["FChar256 as fchar256", "sum(FDouble) as sfd"].  If present,
@@ -520,7 +520,7 @@ namespace kinetica
             /// cref="AggregateGroupByRequest.Options.FALSE">FALSE</see>.</summary>
             public const string RESULT_TABLE_GENERATE_PK = "result_table_generate_pk";
 
-            /// <summary>Sets the <a href="../../concepts/ttl.html"
+            /// <summary>Sets the <a href="../../../concepts/ttl/"
             /// target="_top">TTL</a> of the table specified in
             /// <i>result_table</i>.</summary>
             public const string TTL = "ttl";
@@ -539,12 +539,12 @@ namespace kinetica
             /// The default value is ''.</summary>
             public const string VIEW_ID = "view_id";
 
-            /// <summary>No longer used.  See <a href="../../rm/concepts.html"
+            /// <summary>No longer used.  See <a href="../../../rm/concepts/"
             /// target="_top">Resource Management Concepts</a> for information
             /// about how resources are managed, <a
-            /// href="../../rm/concepts.html" target="_top">Tier Strategy
+            /// href="../../../rm/concepts/" target="_top">Tier Strategy
             /// Concepts</a> for how resources are targeted for VRAM, and <a
-            /// href="../../rm/usage.html#tier-strategies" target="_top">Tier
+            /// href="../../../rm/usage/#tier-strategies" target="_top">Tier
             /// Strategy Usage</a> for how to specify a table's priority in
             /// VRAM.
             /// Supported values:
@@ -589,7 +589,7 @@ namespace kinetica
 
         /// <summary>Name of an existing table or view on which the operation
         /// will be performed, in [schema_name.]table_name format, using
-        /// standard <a href="../../concepts/tables.html#table-name-resolution"
+        /// standard <a href="../../../concepts/tables/#table-name-resolution"
         /// target="_top">name resolution rules</a>.  </summary>
         public string table_name { get; set; }
 
@@ -607,7 +607,7 @@ namespace kinetica
         /// results to be returned, or END_OF_SET (-9999) to indicate that the
         /// max number of results should be returned.  The number of records
         /// returned will never exceed the server's own limit, defined by the
-        /// <a href="../../config/index.html#general"
+        /// <a href="../../../config/#general"
         /// target="_top">max_get_records_size</a> parameter in the server
         /// configuration.  Use <member name="has_more_records" /> to see if
         /// more records exist in the result to be fetched, and <paramref
@@ -717,9 +717,9 @@ namespace kinetica
         /// cref="AggregateGroupByRequest.Options.RESULT_TABLE">RESULT_TABLE</see>:</term>
         ///         <description>The name of a table used to store the results,
         /// in [schema_name.]table_name format, using standard <a
-        /// href="../../concepts/tables.html#table-name-resolution"
+        /// href="../../../concepts/tables/#table-name-resolution"
         /// target="_top">name resolution rules</a> and meeting <a
-        /// href="../../concepts/tables.html#table-naming-criteria"
+        /// href="../../../concepts/tables/#table-naming-criteria"
         /// target="_top">table naming criteria</a>.  Column names (group-by
         /// and aggregate fields) need to be given aliases e.g. ["FChar256 as
         /// fchar256", "sum(FDouble) as sfd"].  If present, no results are
@@ -792,7 +792,7 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="AggregateGroupByRequest.Options.TTL">TTL</see>:</term>
-        ///         <description>Sets the <a href="../../concepts/ttl.html"
+        ///         <description>Sets the <a href="../../../concepts/ttl/"
         /// target="_top">TTL</a> of the table specified in
         /// <i>result_table</i>.</description>
         ///     </item>
@@ -820,11 +820,11 @@ namespace kinetica
         ///         <term><see
         /// cref="AggregateGroupByRequest.Options.MATERIALIZE_ON_GPU">MATERIALIZE_ON_GPU</see>:</term>
         ///         <description>No longer used.  See <a
-        /// href="../../rm/concepts.html" target="_top">Resource Management
+        /// href="../../../rm/concepts/" target="_top">Resource Management
         /// Concepts</a> for information about how resources are managed, <a
-        /// href="../../rm/concepts.html" target="_top">Tier Strategy
+        /// href="../../../rm/concepts/" target="_top">Tier Strategy
         /// Concepts</a> for how resources are targeted for VRAM, and <a
-        /// href="../../rm/usage.html#tier-strategies" target="_top">Tier
+        /// href="../../../rm/usage/#tier-strategies" target="_top">Tier
         /// Strategy Usage</a> for how to specify a table's priority in VRAM.
         /// Supported values:
         /// <list type="bullet">
@@ -889,7 +889,7 @@ namespace kinetica
         /// <param name="table_name">Name of an existing table or view on which
         /// the operation will be performed, in [schema_name.]table_name
         /// format, using standard <a
-        /// href="../../concepts/tables.html#table-name-resolution"
+        /// href="../../../concepts/tables/#table-name-resolution"
         /// target="_top">name resolution rules</a>.  </param>
         /// <param name="column_names">List of one or more column names,
         /// expressions, and aggregate expressions.  </param>
@@ -901,7 +901,7 @@ namespace kinetica
         /// number of results to be returned, or END_OF_SET (-9999) to indicate
         /// that the max number of results should be returned.  The number of
         /// records returned will never exceed the server's own limit, defined
-        /// by the <a href="../../config/index.html#general"
+        /// by the <a href="../../../config/#general"
         /// target="_top">max_get_records_size</a> parameter in the server
         /// configuration.  Use <member name="has_more_records" /> to see if
         /// more records exist in the result to be fetched, and <paramref
@@ -988,9 +988,9 @@ namespace kinetica
         /// cref="AggregateGroupByRequest.Options.RESULT_TABLE">RESULT_TABLE</see>:</term>
         ///         <description>The name of a table used to store the results,
         /// in [schema_name.]table_name format, using standard <a
-        /// href="../../concepts/tables.html#table-name-resolution"
+        /// href="../../../concepts/tables/#table-name-resolution"
         /// target="_top">name resolution rules</a> and meeting <a
-        /// href="../../concepts/tables.html#table-naming-criteria"
+        /// href="../../../concepts/tables/#table-naming-criteria"
         /// target="_top">table naming criteria</a>.  Column names (group-by
         /// and aggregate fields) need to be given aliases e.g. ["FChar256 as
         /// fchar256", "sum(FDouble) as sfd"].  If present, no results are
@@ -1063,7 +1063,7 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="AggregateGroupByRequest.Options.TTL">TTL</see>:</term>
-        ///         <description>Sets the <a href="../../concepts/ttl.html"
+        ///         <description>Sets the <a href="../../../concepts/ttl/"
         /// target="_top">TTL</a> of the table specified in
         /// <i>result_table</i>.</description>
         ///     </item>
@@ -1091,11 +1091,11 @@ namespace kinetica
         ///         <term><see
         /// cref="AggregateGroupByRequest.Options.MATERIALIZE_ON_GPU">MATERIALIZE_ON_GPU</see>:</term>
         ///         <description>No longer used.  See <a
-        /// href="../../rm/concepts.html" target="_top">Resource Management
+        /// href="../../../rm/concepts/" target="_top">Resource Management
         /// Concepts</a> for information about how resources are managed, <a
-        /// href="../../rm/concepts.html" target="_top">Tier Strategy
+        /// href="../../../rm/concepts/" target="_top">Tier Strategy
         /// Concepts</a> for how resources are targeted for VRAM, and <a
-        /// href="../../rm/usage.html#tier-strategies" target="_top">Tier
+        /// href="../../../rm/usage/#tier-strategies" target="_top">Tier
         /// Strategy Usage</a> for how to specify a table's priority in VRAM.
         /// Supported values:
         /// <list type="bullet">
@@ -1169,7 +1169,7 @@ namespace kinetica
         /// <param name="table_name">Name of an existing table or view on which
         /// the operation will be performed, in [schema_name.]table_name
         /// format, using standard <a
-        /// href="../../concepts/tables.html#table-name-resolution"
+        /// href="../../../concepts/tables/#table-name-resolution"
         /// target="_top">name resolution rules</a>.  </param>
         /// <param name="column_names">List of one or more column names,
         /// expressions, and aggregate expressions.  </param>
@@ -1181,7 +1181,7 @@ namespace kinetica
         /// number of results to be returned, or END_OF_SET (-9999) to indicate
         /// that the max number of results should be returned.  The number of
         /// records returned will never exceed the server's own limit, defined
-        /// by the <a href="../../config/index.html#general"
+        /// by the <a href="../../../config/#general"
         /// target="_top">max_get_records_size</a> parameter in the server
         /// configuration.  Use <member name="has_more_records" /> to see if
         /// more records exist in the result to be fetched, and <paramref
@@ -1287,9 +1287,9 @@ namespace kinetica
         /// cref="AggregateGroupByRequest.Options.RESULT_TABLE">RESULT_TABLE</see>:</term>
         ///         <description>The name of a table used to store the results,
         /// in [schema_name.]table_name format, using standard <a
-        /// href="../../concepts/tables.html#table-name-resolution"
+        /// href="../../../concepts/tables/#table-name-resolution"
         /// target="_top">name resolution rules</a> and meeting <a
-        /// href="../../concepts/tables.html#table-naming-criteria"
+        /// href="../../../concepts/tables/#table-naming-criteria"
         /// target="_top">table naming criteria</a>.  Column names (group-by
         /// and aggregate fields) need to be given aliases e.g. ["FChar256 as
         /// fchar256", "sum(FDouble) as sfd"].  If present, no results are
@@ -1362,7 +1362,7 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="AggregateGroupByRequest.Options.TTL">TTL</see>:</term>
-        ///         <description>Sets the <a href="../../concepts/ttl.html"
+        ///         <description>Sets the <a href="../../../concepts/ttl/"
         /// target="_top">TTL</a> of the table specified in
         /// <i>result_table</i>.</description>
         ///     </item>
@@ -1390,11 +1390,11 @@ namespace kinetica
         ///         <term><see
         /// cref="AggregateGroupByRequest.Options.MATERIALIZE_ON_GPU">MATERIALIZE_ON_GPU</see>:</term>
         ///         <description>No longer used.  See <a
-        /// href="../../rm/concepts.html" target="_top">Resource Management
+        /// href="../../../rm/concepts/" target="_top">Resource Management
         /// Concepts</a> for information about how resources are managed, <a
-        /// href="../../rm/concepts.html" target="_top">Tier Strategy
+        /// href="../../../rm/concepts/" target="_top">Tier Strategy
         /// Concepts</a> for how resources are targeted for VRAM, and <a
-        /// href="../../rm/usage.html#tier-strategies" target="_top">Tier
+        /// href="../../../rm/usage/#tier-strategies" target="_top">Tier
         /// Strategy Usage</a> for how to specify a table's priority in VRAM.
         /// Supported values:
         /// <list type="bullet">

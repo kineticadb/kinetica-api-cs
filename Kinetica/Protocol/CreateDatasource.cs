@@ -15,7 +15,7 @@ namespace kinetica
     /// cref="Kinetica.createDatasource(string,string,string,string,IDictionary{string, string})"
     /// />.
     /// <br />
-    /// Creates a <a href="../../concepts/data_sources.html" target="_top">data
+    /// Creates a <a href="../../../concepts/data_sources/" target="_top">data
     /// source</a>, which contains the
     /// location and connection information for a data store that is external
     /// to the database.</summary>
@@ -54,6 +54,12 @@ namespace kinetica
         /// cref="CreateDatasourceRequest.Options.WAIT_TIMEOUT">WAIT_TIMEOUT</see>:</term>
         ///         <description>Timeout in seconds for reading from this
         /// storage provider</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateDatasourceRequest.Options.CREDENTIAL">CREDENTIAL</see>:</term>
+        ///         <description>Name of the Credential object to be used in
+        /// data source</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -162,6 +168,10 @@ namespace kinetica
             /// provider</summary>
             public const string WAIT_TIMEOUT = "wait_timeout";
 
+            /// <summary>Name of the Credential object to be used in data
+            /// source</summary>
+            public const string CREDENTIAL = "credential";
+
             /// <summary>Name of the Amazon S3 bucket to use as the data
             /// source</summary>
             public const string S3_BUCKET_NAME = "s3_bucket_name";
@@ -263,6 +273,12 @@ namespace kinetica
         /// cref="CreateDatasourceRequest.Options.WAIT_TIMEOUT">WAIT_TIMEOUT</see>:</term>
         ///         <description>Timeout in seconds for reading from this
         /// storage provider</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateDatasourceRequest.Options.CREDENTIAL">CREDENTIAL</see>:</term>
+        ///         <description>Name of the Credential object to be used in
+        /// data source</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -390,6 +406,12 @@ namespace kinetica
         /// cref="CreateDatasourceRequest.Options.WAIT_TIMEOUT">WAIT_TIMEOUT</see>:</term>
         ///         <description>Timeout in seconds for reading from this
         /// storage provider</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateDatasourceRequest.Options.CREDENTIAL">CREDENTIAL</see>:</term>
+        ///         <description>Name of the Credential object to be used in
+        /// data source</description>
         ///     </item>
         ///     <item>
         ///         <term><see

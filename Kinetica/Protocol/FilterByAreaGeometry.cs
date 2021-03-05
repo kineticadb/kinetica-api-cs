@@ -60,16 +60,16 @@ namespace kinetica
 
         /// <summary>Name of the table to filter, in [schema_name.]table_name
         /// format, using standard <a
-        /// href="../../concepts/tables.html#table-name-resolution"
+        /// href="../../../concepts/tables/#table-name-resolution"
         /// target="_top">name resolution rules</a>.  This may be the name of a
         /// table or a view (when chaining queries).  </summary>
         public string table_name { get; set; }
 
         /// <summary>If provided, then this will be the name of the view
         /// containing the results, in [schema_name.]view_name format, using
-        /// standard <a href="../../concepts/tables.html#table-name-resolution"
+        /// standard <a href="../../../concepts/tables/#table-name-resolution"
         /// target="_top">name resolution rules</a> and meeting <a
-        /// href="../../concepts/tables.html#table-naming-criteria"
+        /// href="../../../concepts/tables/#table-naming-criteria"
         /// target="_top">table naming criteria</a>.  Must not be an already
         /// existing table or view.  The default value is ''.</summary>
         public string view_name { get; set; } = "";
@@ -112,15 +112,15 @@ namespace kinetica
         /// 
         /// <param name="table_name">Name of the table to filter, in
         /// [schema_name.]table_name format, using standard <a
-        /// href="../../concepts/tables.html#table-name-resolution"
+        /// href="../../../concepts/tables/#table-name-resolution"
         /// target="_top">name resolution rules</a>.  This may be the name of a
         /// table or a view (when chaining queries).  </param>
         /// <param name="view_name">If provided, then this will be the name of
         /// the view containing the results, in [schema_name.]view_name format,
         /// using standard <a
-        /// href="../../concepts/tables.html#table-name-resolution"
+        /// href="../../../concepts/tables/#table-name-resolution"
         /// target="_top">name resolution rules</a> and meeting <a
-        /// href="../../concepts/tables.html#table-naming-criteria"
+        /// href="../../../concepts/tables/#table-naming-criteria"
         /// target="_top">table naming criteria</a>.  Must not be an already
         /// existing table or view.  The default value is ''.</param>
         /// <param name="column_name">Name of the geospatial geometry column to

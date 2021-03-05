@@ -534,7 +534,7 @@ namespace kinetica
 
         /// <summary>Table to which random records will be added, in
         /// [schema_name.]table_name format, using standard <a
-        /// href="../../concepts/tables.html#table-name-resolution"
+        /// href="../../../concepts/tables/#table-name-resolution"
         /// target="_top">name resolution rules</a>.  Must be an existing
         /// table, not a view.  </summary>
         public string table_name { get; set; }
@@ -787,7 +787,7 @@ namespace kinetica
         /// 
         /// <param name="table_name">Table to which random records will be
         /// added, in [schema_name.]table_name format, using standard <a
-        /// href="../../concepts/tables.html#table-name-resolution"
+        /// href="../../../concepts/tables/#table-name-resolution"
         /// target="_top">name resolution rules</a>.  Must be an existing
         /// table, not a view.  </param>
         /// <param name="count">Number of records to generate.  </param>

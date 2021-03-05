@@ -72,23 +72,22 @@ namespace kinetica
         /// <summary>Indicates the process identifier to switchover to another
         /// host. Options are 'hostN' and 'rankN' where 'N' corresponds to the
         /// number associated with a host or rank in the <a
-        /// href="../../config/index.html#network" target="_top">Network</a>
-        /// section of the gpudb.conf file, e.g., 'host[N].address' or
-        /// 'rank[N].host'. If 'hostN' is provided, all processes on that host
-        /// will be moved to another host. Each entry in this array will be
-        /// switched over to the corresponding host entry at the same index in
-        /// <paramref cref="AdminSwitchoverRequest.destinations" />.
-        /// </summary>
+        /// href="../../../config/#network" target="_top">Network</a> section
+        /// of the gpudb.conf file, e.g., 'host[N].address' or 'rank[N].host'.
+        /// If 'hostN' is provided, all processes on that host will be moved to
+        /// another host. Each entry in this array will be switched over to the
+        /// corresponding host entry at the same index in <paramref
+        /// cref="AdminSwitchoverRequest.destinations" />.  </summary>
         public IList<string> processes { get; set; } = new List<string>();
 
         /// <summary>Indicates to which host to switchover each corresponding
         /// process given in <paramref cref="AdminSwitchoverRequest.processes"
         /// />. Each index must be specified as 'hostN' where 'N' corresponds
         /// to the number associated with a host or rank in the <a
-        /// href="../../config/index.html#network" target="_top">Network</a>
-        /// section of the gpudb.conf file, e.g., 'host[N].address'. Each entry
-        /// in this array will receive the corresponding process entry at the
-        /// same index in <paramref cref="AdminSwitchoverRequest.processes" />.
+        /// href="../../../config/#network" target="_top">Network</a> section
+        /// of the gpudb.conf file, e.g., 'host[N].address'. Each entry in this
+        /// array will receive the corresponding process entry at the same
+        /// index in <paramref cref="AdminSwitchoverRequest.processes" />.
         /// </summary>
         public IList<string> destinations { get; set; } = new List<string>();
 
@@ -128,7 +127,7 @@ namespace kinetica
         /// <param name="processes">Indicates the process identifier to
         /// switchover to another host. Options are 'hostN' and 'rankN' where
         /// 'N' corresponds to the number associated with a host or rank in the
-        /// <a href="../../config/index.html#network" target="_top">Network</a>
+        /// <a href="../../../config/#network" target="_top">Network</a>
         /// section of the gpudb.conf file, e.g., 'host[N].address' or
         /// 'rank[N].host'. If 'hostN' is provided, all processes on that host
         /// will be moved to another host. Each entry in this array will be
@@ -138,12 +137,11 @@ namespace kinetica
         /// each corresponding process given in <paramref
         /// cref="AdminSwitchoverRequest.processes" />. Each index must be
         /// specified as 'hostN' where 'N' corresponds to the number associated
-        /// with a host or rank in the <a
-        /// href="../../config/index.html#network" target="_top">Network</a>
-        /// section of the gpudb.conf file, e.g., 'host[N].address'. Each entry
-        /// in this array will receive the corresponding process entry at the
-        /// same index in <paramref cref="AdminSwitchoverRequest.processes" />.
-        /// </param>
+        /// with a host or rank in the <a href="../../../config/#network"
+        /// target="_top">Network</a> section of the gpudb.conf file, e.g.,
+        /// 'host[N].address'. Each entry in this array will receive the
+        /// corresponding process entry at the same index in <paramref
+        /// cref="AdminSwitchoverRequest.processes" />.  </param>
         /// <param name="options">Optional parameters.
         /// <list type="bullet">
         ///     <item>

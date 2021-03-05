@@ -131,7 +131,7 @@ namespace kinetica
 
         /// <summary>Name of the table to which the permission grants access,
         /// in [schema_name.]table_name format, using standard <a
-        /// href="../../concepts/tables.html#table-name-resolution"
+        /// href="../../../concepts/tables/#table-name-resolution"
         /// target="_top">name resolution rules</a>.  Must be an existing
         /// table, view, or schema. If a schema, the permission also applies to
         /// tables and views in the schema.  </summary>
@@ -196,7 +196,7 @@ namespace kinetica
         /// </list>  </param>
         /// <param name="table_name">Name of the table to which the permission
         /// grants access, in [schema_name.]table_name format, using standard
-        /// <a href="../../concepts/tables.html#table-name-resolution"
+        /// <a href="../../../concepts/tables/#table-name-resolution"
         /// target="_top">name resolution rules</a>.  Must be an existing
         /// table, view, or schema. If a schema, the permission also applies to
         /// tables and views in the schema.  </param>

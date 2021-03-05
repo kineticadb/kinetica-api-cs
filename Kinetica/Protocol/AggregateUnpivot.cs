@@ -18,9 +18,9 @@ namespace kinetica
     /// Rotate the column values into rows values.
     /// <br />
     /// For unpivot details and examples, see
-    /// <a href="../../concepts/unpivot.html" target="_top">Unpivot</a>.  For
+    /// <a href="../../../concepts/unpivot/" target="_top">Unpivot</a>.  For
     /// limitations, see
-    /// <a href="../../concepts/unpivot.html#limitations" target="_top">Unpivot
+    /// <a href="../../../concepts/unpivot/#limitations" target="_top">Unpivot
     /// Limitations</a>.
     /// <br />
     /// Unpivot is used to normalize tables that are built for cross tabular
@@ -36,8 +36,8 @@ namespace kinetica
     /// and values respectively.
     /// <br />
     /// The response is returned as a dynamic schema. For details see:
-    /// <a href="../../api/index.html#dynamic-schemas" target="_top">dynamic
-    /// schemas documentation</a>.</summary>
+    /// <a href="../../../api/#dynamic-schemas" target="_top">dynamic schemas
+    /// documentation</a>.</summary>
     public class AggregateUnpivotRequest : KineticaData
     {
 
@@ -90,9 +90,9 @@ namespace kinetica
         /// cref="AggregateUnpivotRequest.Options.RESULT_TABLE">RESULT_TABLE</see>:</term>
         ///         <description>The name of a table used to store the results,
         /// in [schema_name.]table_name format, using standard <a
-        /// href="../../concepts/tables.html#table-name-resolution"
+        /// href="../../../concepts/tables/#table-name-resolution"
         /// target="_top">name resolution rules</a> and meeting <a
-        /// href="../../concepts/tables.html#table-naming-criteria"
+        /// href="../../../concepts/tables/#table-naming-criteria"
         /// target="_top">table naming criteria</a>. If present, no results are
         /// returned in the response.</description>
         ///     </item>
@@ -149,7 +149,7 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="AggregateUnpivotRequest.Options.TTL">TTL</see>:</term>
-        ///         <description>Sets the <a href="../../concepts/ttl.html"
+        ///         <description>Sets the <a href="../../../concepts/ttl/"
         /// target="_top">TTL</a> of the table specified in
         /// <i>result_table</i>.</description>
         ///     </item>
@@ -163,11 +163,11 @@ namespace kinetica
         ///         <term><see
         /// cref="AggregateUnpivotRequest.Options.MATERIALIZE_ON_GPU">MATERIALIZE_ON_GPU</see>:</term>
         ///         <description>No longer used.  See <a
-        /// href="../../rm/concepts.html" target="_top">Resource Management
+        /// href="../../../rm/concepts/" target="_top">Resource Management
         /// Concepts</a> for information about how resources are managed, <a
-        /// href="../../rm/concepts.html" target="_top">Tier Strategy
+        /// href="../../../rm/concepts/" target="_top">Tier Strategy
         /// Concepts</a> for how resources are targeted for VRAM, and <a
-        /// href="../../rm/usage.html#tier-strategies" target="_top">Tier
+        /// href="../../../rm/usage/#tier-strategies" target="_top">Tier
         /// Strategy Usage</a> for how to specify a table's priority in VRAM.
         /// Supported values:
         /// <list type="bullet">
@@ -230,9 +230,9 @@ namespace kinetica
 
             /// <summary>The name of a table used to store the results, in
             /// [schema_name.]table_name format, using standard <a
-            /// href="../../concepts/tables.html#table-name-resolution"
+            /// href="../../../concepts/tables/#table-name-resolution"
             /// target="_top">name resolution rules</a> and meeting <a
-            /// href="../../concepts/tables.html#table-naming-criteria"
+            /// href="../../../concepts/tables/#table-naming-criteria"
             /// target="_top">table naming criteria</a>. If present, no results
             /// are returned in the response.</summary>
             public const string RESULT_TABLE = "result_table";
@@ -279,7 +279,7 @@ namespace kinetica
             /// ''.</summary>
             public const string LIMIT = "limit";
 
-            /// <summary>Sets the <a href="../../concepts/ttl.html"
+            /// <summary>Sets the <a href="../../../concepts/ttl/"
             /// target="_top">TTL</a> of the table specified in
             /// <i>result_table</i>.</summary>
             public const string TTL = "ttl";
@@ -288,12 +288,12 @@ namespace kinetica
             /// is ''.</summary>
             public const string VIEW_ID = "view_id";
 
-            /// <summary>No longer used.  See <a href="../../rm/concepts.html"
+            /// <summary>No longer used.  See <a href="../../../rm/concepts/"
             /// target="_top">Resource Management Concepts</a> for information
             /// about how resources are managed, <a
-            /// href="../../rm/concepts.html" target="_top">Tier Strategy
+            /// href="../../../rm/concepts/" target="_top">Tier Strategy
             /// Concepts</a> for how resources are targeted for VRAM, and <a
-            /// href="../../rm/usage.html#tier-strategies" target="_top">Tier
+            /// href="../../../rm/usage/#tier-strategies" target="_top">Tier
             /// Strategy Usage</a> for how to specify a table's priority in
             /// VRAM.
             /// Supported values:
@@ -341,7 +341,7 @@ namespace kinetica
         /// <summary>Name of the table on which the operation will be
         /// performed. Must be an existing table/view, in
         /// [schema_name.]table_name format, using standard <a
-        /// href="../../concepts/tables.html#table-name-resolution"
+        /// href="../../../concepts/tables/#table-name-resolution"
         /// target="_top">name resolution rules</a>.  </summary>
         public string table_name { get; set; }
 
@@ -400,9 +400,9 @@ namespace kinetica
         /// cref="AggregateUnpivotRequest.Options.RESULT_TABLE">RESULT_TABLE</see>:</term>
         ///         <description>The name of a table used to store the results,
         /// in [schema_name.]table_name format, using standard <a
-        /// href="../../concepts/tables.html#table-name-resolution"
+        /// href="../../../concepts/tables/#table-name-resolution"
         /// target="_top">name resolution rules</a> and meeting <a
-        /// href="../../concepts/tables.html#table-naming-criteria"
+        /// href="../../../concepts/tables/#table-naming-criteria"
         /// target="_top">table naming criteria</a>. If present, no results are
         /// returned in the response.</description>
         ///     </item>
@@ -459,7 +459,7 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="AggregateUnpivotRequest.Options.TTL">TTL</see>:</term>
-        ///         <description>Sets the <a href="../../concepts/ttl.html"
+        ///         <description>Sets the <a href="../../../concepts/ttl/"
         /// target="_top">TTL</a> of the table specified in
         /// <i>result_table</i>.</description>
         ///     </item>
@@ -473,11 +473,11 @@ namespace kinetica
         ///         <term><see
         /// cref="AggregateUnpivotRequest.Options.MATERIALIZE_ON_GPU">MATERIALIZE_ON_GPU</see>:</term>
         ///         <description>No longer used.  See <a
-        /// href="../../rm/concepts.html" target="_top">Resource Management
+        /// href="../../../rm/concepts/" target="_top">Resource Management
         /// Concepts</a> for information about how resources are managed, <a
-        /// href="../../rm/concepts.html" target="_top">Tier Strategy
+        /// href="../../../rm/concepts/" target="_top">Tier Strategy
         /// Concepts</a> for how resources are targeted for VRAM, and <a
-        /// href="../../rm/usage.html#tier-strategies" target="_top">Tier
+        /// href="../../../rm/usage/#tier-strategies" target="_top">Tier
         /// Strategy Usage</a> for how to specify a table's priority in VRAM.
         /// Supported values:
         /// <list type="bullet">
@@ -537,7 +537,7 @@ namespace kinetica
         /// <param name="table_name">Name of the table on which the operation
         /// will be performed. Must be an existing table/view, in
         /// [schema_name.]table_name format, using standard <a
-        /// href="../../concepts/tables.html#table-name-resolution"
+        /// href="../../../concepts/tables/#table-name-resolution"
         /// target="_top">name resolution rules</a>.  </param>
         /// <param name="column_names">List of column names or expressions. A
         /// wildcard '*' can be used to include all the non-pivoted columns
@@ -565,9 +565,9 @@ namespace kinetica
         /// cref="AggregateUnpivotRequest.Options.RESULT_TABLE">RESULT_TABLE</see>:</term>
         ///         <description>The name of a table used to store the results,
         /// in [schema_name.]table_name format, using standard <a
-        /// href="../../concepts/tables.html#table-name-resolution"
+        /// href="../../../concepts/tables/#table-name-resolution"
         /// target="_top">name resolution rules</a> and meeting <a
-        /// href="../../concepts/tables.html#table-naming-criteria"
+        /// href="../../../concepts/tables/#table-naming-criteria"
         /// target="_top">table naming criteria</a>. If present, no results are
         /// returned in the response.</description>
         ///     </item>
@@ -624,7 +624,7 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="AggregateUnpivotRequest.Options.TTL">TTL</see>:</term>
-        ///         <description>Sets the <a href="../../concepts/ttl.html"
+        ///         <description>Sets the <a href="../../../concepts/ttl/"
         /// target="_top">TTL</a> of the table specified in
         /// <i>result_table</i>.</description>
         ///     </item>
@@ -638,11 +638,11 @@ namespace kinetica
         ///         <term><see
         /// cref="AggregateUnpivotRequest.Options.MATERIALIZE_ON_GPU">MATERIALIZE_ON_GPU</see>:</term>
         ///         <description>No longer used.  See <a
-        /// href="../../rm/concepts.html" target="_top">Resource Management
+        /// href="../../../rm/concepts/" target="_top">Resource Management
         /// Concepts</a> for information about how resources are managed, <a
-        /// href="../../rm/concepts.html" target="_top">Tier Strategy
+        /// href="../../../rm/concepts/" target="_top">Tier Strategy
         /// Concepts</a> for how resources are targeted for VRAM, and <a
-        /// href="../../rm/usage.html#tier-strategies" target="_top">Tier
+        /// href="../../../rm/usage/#tier-strategies" target="_top">Tier
         /// Strategy Usage</a> for how to specify a table's priority in VRAM.
         /// Supported values:
         /// <list type="bullet">
@@ -713,7 +713,7 @@ namespace kinetica
         /// <param name="table_name">Name of the table on which the operation
         /// will be performed. Must be an existing table/view, in
         /// [schema_name.]table_name format, using standard <a
-        /// href="../../concepts/tables.html#table-name-resolution"
+        /// href="../../../concepts/tables/#table-name-resolution"
         /// target="_top">name resolution rules</a>.  </param>
         /// <param name="column_names">List of column names or expressions. A
         /// wildcard '*' can be used to include all the non-pivoted columns
@@ -760,9 +760,9 @@ namespace kinetica
         /// cref="AggregateUnpivotRequest.Options.RESULT_TABLE">RESULT_TABLE</see>:</term>
         ///         <description>The name of a table used to store the results,
         /// in [schema_name.]table_name format, using standard <a
-        /// href="../../concepts/tables.html#table-name-resolution"
+        /// href="../../../concepts/tables/#table-name-resolution"
         /// target="_top">name resolution rules</a> and meeting <a
-        /// href="../../concepts/tables.html#table-naming-criteria"
+        /// href="../../../concepts/tables/#table-naming-criteria"
         /// target="_top">table naming criteria</a>. If present, no results are
         /// returned in the response.</description>
         ///     </item>
@@ -819,7 +819,7 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="AggregateUnpivotRequest.Options.TTL">TTL</see>:</term>
-        ///         <description>Sets the <a href="../../concepts/ttl.html"
+        ///         <description>Sets the <a href="../../../concepts/ttl/"
         /// target="_top">TTL</a> of the table specified in
         /// <i>result_table</i>.</description>
         ///     </item>
@@ -833,11 +833,11 @@ namespace kinetica
         ///         <term><see
         /// cref="AggregateUnpivotRequest.Options.MATERIALIZE_ON_GPU">MATERIALIZE_ON_GPU</see>:</term>
         ///         <description>No longer used.  See <a
-        /// href="../../rm/concepts.html" target="_top">Resource Management
+        /// href="../../../rm/concepts/" target="_top">Resource Management
         /// Concepts</a> for information about how resources are managed, <a
-        /// href="../../rm/concepts.html" target="_top">Tier Strategy
+        /// href="../../../rm/concepts/" target="_top">Tier Strategy
         /// Concepts</a> for how resources are targeted for VRAM, and <a
-        /// href="../../rm/usage.html#tier-strategies" target="_top">Tier
+        /// href="../../../rm/usage/#tier-strategies" target="_top">Tier
         /// Strategy Usage</a> for how to specify a table's priority in VRAM.
         /// Supported values:
         /// <list type="bullet">

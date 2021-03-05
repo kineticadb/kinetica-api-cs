@@ -21,29 +21,29 @@ namespace kinetica
     /// The following merges are supported:
     /// <br />
     /// UNION (DISTINCT/ALL) - For data set union details and examples, see <a
-    /// href="../../concepts/unions.html" target="_top">Union</a>.  For
+    /// href="../../../concepts/unions/" target="_top">Union</a>.  For
     /// limitations, see <a
-    /// href="../../concepts/unions.html#limitations-and-cautions"
+    /// href="../../../concepts/unions/#limitations-and-cautions"
     /// target="_top">Union Limitations and Cautions</a>.
     /// <br />
     /// INTERSECT (DISTINCT/ALL) - For data set intersection details and
-    /// examples, see <a href="../../concepts/intersect.html"
+    /// examples, see <a href="../../../concepts/intersect/"
     /// target="_top">Intersect</a>.  For limitations, see <a
-    /// href="../../concepts/intersect.html#limitations"
-    /// target="_top">Intersect Limitations</a>.
+    /// href="../../../concepts/intersect/#limitations" target="_top">Intersect
+    /// Limitations</a>.
     /// <br />
     /// EXCEPT (DISTINCT/ALL) - For data set subtraction details and examples,
-    /// see <a href="../../concepts/except.html" target="_top">Except</a>.  For
-    /// limitations, see <a href="../../concepts/except.html#limitations"
+    /// see <a href="../../../concepts/except/" target="_top">Except</a>.  For
+    /// limitations, see <a href="../../../concepts/except/#limitations"
     /// target="_top">Except Limitations</a>.
     /// <br />
     /// MERGE VIEWS - For a given set of <a
-    /// href="../../concepts/filtered_views.html" target="_top">filtered
+    /// href="../../../concepts/filtered_views/" target="_top">filtered
     /// views</a> on a single table, creates a single filtered view containing
     /// all of the unique records across all of the given filtered data sets.
     /// <br />
     /// Non-charN 'string' and 'bytes' column types cannot be merged, nor can
-    /// columns marked as <a href="../../concepts/types.html#data-handling"
+    /// columns marked as <a href="../../../concepts/types/#data-handling"
     /// target="_top">store-only</a>.</summary>
     public class CreateUnionRequest : KineticaData
     {
@@ -64,11 +64,11 @@ namespace kinetica
         ///         <term><see
         /// cref="CreateUnionRequest.Options.MATERIALIZE_ON_GPU">MATERIALIZE_ON_GPU</see>:</term>
         ///         <description>No longer used.  See <a
-        /// href="../../rm/concepts.html" target="_top">Resource Management
+        /// href="../../../rm/concepts/" target="_top">Resource Management
         /// Concepts</a> for information about how resources are managed, <a
-        /// href="../../rm/concepts.html" target="_top">Tier Strategy
+        /// href="../../../rm/concepts/" target="_top">Tier Strategy
         /// Concepts</a> for how resources are targeted for VRAM, and <a
-        /// href="../../rm/usage.html#tier-strategies" target="_top">Tier
+        /// href="../../../rm/usage/#tier-strategies" target="_top">Tier
         /// Strategy Usage</a> for how to specify a table's priority in VRAM.
         /// Supported values:
         /// <list type="bullet">
@@ -172,7 +172,7 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="CreateUnionRequest.Options.TTL">TTL</see>:</term>
-        ///         <description>Sets the <a href="../../concepts/ttl.html"
+        ///         <description>Sets the <a href="../../../concepts/ttl/"
         /// target="_top">TTL</a> of the output table specified in <paramref
         /// cref="CreateUnionRequest.table_name" />.</description>
         ///     </item>
@@ -241,12 +241,12 @@ namespace kinetica
             /// ''.</summary>
             public const string COLLECTION_NAME = "collection_name";
 
-            /// <summary>No longer used.  See <a href="../../rm/concepts.html"
+            /// <summary>No longer used.  See <a href="../../../rm/concepts/"
             /// target="_top">Resource Management Concepts</a> for information
             /// about how resources are managed, <a
-            /// href="../../rm/concepts.html" target="_top">Tier Strategy
+            /// href="../../../rm/concepts/" target="_top">Tier Strategy
             /// Concepts</a> for how resources are targeted for VRAM, and <a
-            /// href="../../rm/usage.html#tier-strategies" target="_top">Tier
+            /// href="../../../rm/usage/#tier-strategies" target="_top">Tier
             /// Strategy Usage</a> for how to specify a table's priority in
             /// VRAM.
             /// Supported values:
@@ -385,7 +385,7 @@ namespace kinetica
             /// present in <see cref="output_column_names" />.</summary>
             public const string CREATE_INDEXES = "create_indexes";
 
-            /// <summary>Sets the <a href="../../concepts/ttl.html"
+            /// <summary>Sets the <a href="../../../concepts/ttl/"
             /// target="_top">TTL</a> of the output table specified in <see
             /// cref="table_name" />.</summary>
             public const string TTL = "ttl";
@@ -436,15 +436,15 @@ namespace kinetica
 
         /// <summary>Name of the table to be created, in
         /// [schema_name.]table_name format, using standard <a
-        /// href="../../concepts/tables.html#table-name-resolution"
+        /// href="../../../concepts/tables/#table-name-resolution"
         /// target="_top">name resolution rules</a> and meeting <a
-        /// href="../../concepts/tables.html#table-naming-criteria"
+        /// href="../../../concepts/tables/#table-naming-criteria"
         /// target="_top">table naming criteria</a>.  </summary>
         public string table_name { get; set; }
 
         /// <summary>The list of table names to merge, in
         /// [schema_name.]table_name format, using standard <a
-        /// href="../../concepts/tables.html#table-name-resolution"
+        /// href="../../../concepts/tables/#table-name-resolution"
         /// target="_top">name resolution rules</a>.  Must contain the names of
         /// one or more existing tables.  </summary>
         public IList<string> table_names { get; set; } = new List<string>();
@@ -473,11 +473,11 @@ namespace kinetica
         ///         <term><see
         /// cref="CreateUnionRequest.Options.MATERIALIZE_ON_GPU">MATERIALIZE_ON_GPU</see>:</term>
         ///         <description>No longer used.  See <a
-        /// href="../../rm/concepts.html" target="_top">Resource Management
+        /// href="../../../rm/concepts/" target="_top">Resource Management
         /// Concepts</a> for information about how resources are managed, <a
-        /// href="../../rm/concepts.html" target="_top">Tier Strategy
+        /// href="../../../rm/concepts/" target="_top">Tier Strategy
         /// Concepts</a> for how resources are targeted for VRAM, and <a
-        /// href="../../rm/usage.html#tier-strategies" target="_top">Tier
+        /// href="../../../rm/usage/#tier-strategies" target="_top">Tier
         /// Strategy Usage</a> for how to specify a table's priority in VRAM.
         /// Supported values:
         /// <list type="bullet">
@@ -581,7 +581,7 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="CreateUnionRequest.Options.TTL">TTL</see>:</term>
-        ///         <description>Sets the <a href="../../concepts/ttl.html"
+        ///         <description>Sets the <a href="../../../concepts/ttl/"
         /// target="_top">TTL</a> of the output table specified in <paramref
         /// cref="CreateUnionRequest.table_name" />.</description>
         ///     </item>
@@ -647,13 +647,13 @@ namespace kinetica
         /// 
         /// <param name="table_name">Name of the table to be created, in
         /// [schema_name.]table_name format, using standard <a
-        /// href="../../concepts/tables.html#table-name-resolution"
+        /// href="../../../concepts/tables/#table-name-resolution"
         /// target="_top">name resolution rules</a> and meeting <a
-        /// href="../../concepts/tables.html#table-naming-criteria"
+        /// href="../../../concepts/tables/#table-naming-criteria"
         /// target="_top">table naming criteria</a>.  </param>
         /// <param name="table_names">The list of table names to merge, in
         /// [schema_name.]table_name format, using standard <a
-        /// href="../../concepts/tables.html#table-name-resolution"
+        /// href="../../../concepts/tables/#table-name-resolution"
         /// target="_top">name resolution rules</a>.  Must contain the names of
         /// one or more existing tables.  </param>
         /// <param name="input_column_names">The list of columns from each of
@@ -676,11 +676,11 @@ namespace kinetica
         ///         <term><see
         /// cref="CreateUnionRequest.Options.MATERIALIZE_ON_GPU">MATERIALIZE_ON_GPU</see>:</term>
         ///         <description>No longer used.  See <a
-        /// href="../../rm/concepts.html" target="_top">Resource Management
+        /// href="../../../rm/concepts/" target="_top">Resource Management
         /// Concepts</a> for information about how resources are managed, <a
-        /// href="../../rm/concepts.html" target="_top">Tier Strategy
+        /// href="../../../rm/concepts/" target="_top">Tier Strategy
         /// Concepts</a> for how resources are targeted for VRAM, and <a
-        /// href="../../rm/usage.html#tier-strategies" target="_top">Tier
+        /// href="../../../rm/usage/#tier-strategies" target="_top">Tier
         /// Strategy Usage</a> for how to specify a table's priority in VRAM.
         /// Supported values:
         /// <list type="bullet">
@@ -784,7 +784,7 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="CreateUnionRequest.Options.TTL">TTL</see>:</term>
-        ///         <description>Sets the <a href="../../concepts/ttl.html"
+        ///         <description>Sets the <a href="../../../concepts/ttl/"
         /// target="_top">TTL</a> of the output table specified in <paramref
         /// cref="CreateUnionRequest.table_name" />.</description>
         ///     </item>

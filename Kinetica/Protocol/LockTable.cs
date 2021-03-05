@@ -83,7 +83,7 @@ namespace kinetica
 
         /// <summary>Name of the table to be locked, in
         /// [schema_name.]table_name format, using standard <a
-        /// href="../../concepts/tables.html#table-name-resolution"
+        /// href="../../../concepts/tables/#table-name-resolution"
         /// target="_top">name resolution rules</a>.  It must be a currently
         /// existing table or view.  </summary>
         public string table_name { get; set; }
@@ -137,7 +137,7 @@ namespace kinetica
         /// 
         /// <param name="table_name">Name of the table to be locked, in
         /// [schema_name.]table_name format, using standard <a
-        /// href="../../concepts/tables.html#table-name-resolution"
+        /// href="../../../concepts/tables/#table-name-resolution"
         /// target="_top">name resolution rules</a>.  It must be a currently
         /// existing table or view.  </param>
         /// <param name="lock_type">The type of lock being applied to the

@@ -24,7 +24,7 @@ namespace kinetica
     /// * If <see cref="Kinetica.adminRebalance(IDictionary{string, string})"
     /// /> is invoked after a change is made to the
     ///   cluster, e.g., a host was added or removed,
-    ///   <a href="../../concepts/tables.html#sharding" target="_top">sharded
+    ///   <a href="../../../concepts/tables/#sharding" target="_top">sharded
     /// data</a> will be
     ///   evenly redistributed across the cluster by number of shards per rank
     ///   while unsharded data will be redistributed across the cluster by data
@@ -32,7 +32,7 @@ namespace kinetica
     /// * If <see cref="Kinetica.adminRebalance(IDictionary{string, string})"
     /// /> is invoked at some point when unsharded
     ///   data (a.k.a.
-    ///   <a href="../../concepts/tables.html#random-sharding"
+    ///   <a href="../../../concepts/tables/#random-sharding"
     /// target="_top">randomly-sharded</a>)
     ///   in the cluster is unevenly distributed over time, sharded data will
     ///   not move while unsharded data will be redistributed across the
@@ -54,7 +54,7 @@ namespace kinetica
         ///         <term><see
         /// cref="AdminRebalanceRequest.Options.REBALANCE_SHARDED_DATA">REBALANCE_SHARDED_DATA</see>:</term>
         ///         <description>If <i>true</i>, <a
-        /// href="../../concepts/tables.html#sharding" target="_top">sharded
+        /// href="../../../concepts/tables/#sharding" target="_top">sharded
         /// data</a> will be rebalanced approximately equally across the
         /// cluster. Note that for clusters with large amounts of sharded data,
         /// this data transfer could be time consuming and result in delayed
@@ -77,7 +77,7 @@ namespace kinetica
         ///         <term><see
         /// cref="AdminRebalanceRequest.Options.REBALANCE_UNSHARDED_DATA">REBALANCE_UNSHARDED_DATA</see>:</term>
         ///         <description>If <i>true</i>, unsharded data (a.k.a. <a
-        /// href="../../concepts/tables.html#random-sharding"
+        /// href="../../../concepts/tables/#random-sharding"
         /// target="_top">randomly-sharded</a>) will be rebalanced
         /// approximately equally across the cluster. Note that for clusters
         /// with large amounts of unsharded data, this data transfer could be
@@ -199,11 +199,11 @@ namespace kinetica
         {
 
             /// <summary>If <i>true</i>, <a
-            /// href="../../concepts/tables.html#sharding"
-            /// target="_top">sharded data</a> will be rebalanced approximately
-            /// equally across the cluster. Note that for clusters with large
-            /// amounts of sharded data, this data transfer could be time
-            /// consuming and result in delayed query responses.
+            /// href="../../../concepts/tables/#sharding" target="_top">sharded
+            /// data</a> will be rebalanced approximately equally across the
+            /// cluster. Note that for clusters with large amounts of sharded
+            /// data, this data transfer could be time consuming and result in
+            /// delayed query responses.
             /// Supported values:
             /// <list type="bullet">
             ///     <item>
@@ -222,7 +222,7 @@ namespace kinetica
             public const string FALSE = "false";
 
             /// <summary>If <i>true</i>, unsharded data (a.k.a. <a
-            /// href="../../concepts/tables.html#random-sharding"
+            /// href="../../../concepts/tables/#random-sharding"
             /// target="_top">randomly-sharded</a>) will be rebalanced
             /// approximately equally across the cluster. Note that for
             /// clusters with large amounts of unsharded data, this data
@@ -335,7 +335,7 @@ namespace kinetica
         ///         <term><see
         /// cref="AdminRebalanceRequest.Options.REBALANCE_SHARDED_DATA">REBALANCE_SHARDED_DATA</see>:</term>
         ///         <description>If <i>true</i>, <a
-        /// href="../../concepts/tables.html#sharding" target="_top">sharded
+        /// href="../../../concepts/tables/#sharding" target="_top">sharded
         /// data</a> will be rebalanced approximately equally across the
         /// cluster. Note that for clusters with large amounts of sharded data,
         /// this data transfer could be time consuming and result in delayed
@@ -358,7 +358,7 @@ namespace kinetica
         ///         <term><see
         /// cref="AdminRebalanceRequest.Options.REBALANCE_UNSHARDED_DATA">REBALANCE_UNSHARDED_DATA</see>:</term>
         ///         <description>If <i>true</i>, unsharded data (a.k.a. <a
-        /// href="../../concepts/tables.html#random-sharding"
+        /// href="../../../concepts/tables/#random-sharding"
         /// target="_top">randomly-sharded</a>) will be rebalanced
         /// approximately equally across the cluster. Note that for clusters
         /// with large amounts of unsharded data, this data transfer could be
@@ -490,7 +490,7 @@ namespace kinetica
         ///         <term><see
         /// cref="AdminRebalanceRequest.Options.REBALANCE_SHARDED_DATA">REBALANCE_SHARDED_DATA</see>:</term>
         ///         <description>If <i>true</i>, <a
-        /// href="../../concepts/tables.html#sharding" target="_top">sharded
+        /// href="../../../concepts/tables/#sharding" target="_top">sharded
         /// data</a> will be rebalanced approximately equally across the
         /// cluster. Note that for clusters with large amounts of sharded data,
         /// this data transfer could be time consuming and result in delayed
@@ -513,7 +513,7 @@ namespace kinetica
         ///         <term><see
         /// cref="AdminRebalanceRequest.Options.REBALANCE_UNSHARDED_DATA">REBALANCE_UNSHARDED_DATA</see>:</term>
         ///         <description>If <i>true</i>, unsharded data (a.k.a. <a
-        /// href="../../concepts/tables.html#random-sharding"
+        /// href="../../../concepts/tables/#random-sharding"
         /// target="_top">randomly-sharded</a>) will be rebalanced
         /// approximately equally across the cluster. Note that for clusters
         /// with large amounts of unsharded data, this data transfer could be

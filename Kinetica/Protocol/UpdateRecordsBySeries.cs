@@ -24,20 +24,20 @@ namespace kinetica
 
         /// <summary>Name of the view on which the update operation will be
         /// performed, in [schema_name.]view_name format, using standard <a
-        /// href="../../concepts/tables.html#table-name-resolution"
+        /// href="../../../concepts/tables/#table-name-resolution"
         /// target="_top">name resolution rules</a>.  Must be an existing view.
         /// </summary>
         public string table_name { get; set; }
 
         /// <summary>Name of the table containing the complete series (track)
         /// information, in [schema_name.]table_name format, using standard <a
-        /// href="../../concepts/tables.html#table-name-resolution"
+        /// href="../../../concepts/tables/#table-name-resolution"
         /// target="_top">name resolution rules</a>.  </summary>
         public string world_table_name { get; set; }
 
         /// <summary>Name of the view containing the series (tracks) which have
         /// to be updated, in [schema_name.]view_name format, using standard <a
-        /// href="../../concepts/tables.html#table-name-resolution"
+        /// href="../../../concepts/tables/#table-name-resolution"
         /// target="_top">name resolution rules</a>.  The default value is
         /// ''.</summary>
         public string view_name { get; set; } = "";
@@ -60,18 +60,18 @@ namespace kinetica
         /// <param name="table_name">Name of the view on which the update
         /// operation will be performed, in [schema_name.]view_name format,
         /// using standard <a
-        /// href="../../concepts/tables.html#table-name-resolution"
+        /// href="../../../concepts/tables/#table-name-resolution"
         /// target="_top">name resolution rules</a>.  Must be an existing view.
         /// </param>
         /// <param name="world_table_name">Name of the table containing the
         /// complete series (track) information, in [schema_name.]table_name
         /// format, using standard <a
-        /// href="../../concepts/tables.html#table-name-resolution"
+        /// href="../../../concepts/tables/#table-name-resolution"
         /// target="_top">name resolution rules</a>.  </param>
         /// <param name="view_name">Name of the view containing the series
         /// (tracks) which have to be updated, in [schema_name.]view_name
         /// format, using standard <a
-        /// href="../../concepts/tables.html#table-name-resolution"
+        /// href="../../../concepts/tables/#table-name-resolution"
         /// target="_top">name resolution rules</a>.  The default value is
         /// ''.</param>
         /// <param name="reserved">The default value is an empty {@link

@@ -14,7 +14,7 @@ namespace kinetica
     /// <summary>A set of parameters for <see
     /// cref="Kinetica.createSchema(string,IDictionary{string, string})" />.
     /// <br />
-    /// Creates a SQL-style <a href="../../concepts/schemas.html"
+    /// Creates a SQL-style <a href="../../../concepts/schemas/"
     /// target="_top">schema</a>. Schemas are containers for tables and views.
     /// Multiple tables and views can be defined with the same name in
     /// different schemas.</summary>
@@ -71,7 +71,7 @@ namespace kinetica
 
 
         /// <summary>Name of the schema to be created.  Has the same naming
-        /// restrictions as <a href="../../concepts/tables.html"
+        /// restrictions as <a href="../../../concepts/tables/"
         /// target="_top">tables</a>.  </summary>
         public string schema_name { get; set; }
 
@@ -109,9 +109,8 @@ namespace kinetica
         /// parameters.</summary>
         /// 
         /// <param name="schema_name">Name of the schema to be created.  Has
-        /// the same naming restrictions as <a
-        /// href="../../concepts/tables.html" target="_top">tables</a>.
-        /// </param>
+        /// the same naming restrictions as <a href="../../../concepts/tables/"
+        /// target="_top">tables</a>.  </param>
         /// <param name="options">Optional parameters.
         /// <list type="bullet">
         ///     <item>

@@ -149,7 +149,7 @@ namespace kinetica
         /// proc. Each name specified must be the name of a currently existing
         /// table, in
         /// [schema_name.]table_name format, using standard
-        /// <a href="../../concepts/tables.html#table-name-resolution"
+        /// <a href="../../../concepts/tables/#table-name-resolution"
         /// target="_top">name resolution rules</a>.
         /// If no table names are specified, no data will be passed to the
         /// proc.  This
@@ -173,10 +173,10 @@ namespace kinetica
         /// <summary>Names of the tables to which output data from the proc
         /// will
         /// be written, each in [schema_name.]table_name format, using standard
-        /// <a href="../../concepts/tables.html#table-name-resolution"
+        /// <a href="../../../concepts/tables/#table-name-resolution"
         /// target="_top">name resolution rules</a>
         /// and meeting <a
-        /// href="../../concepts/tables.html#table-naming-criteria"
+        /// href="../../../concepts/tables/#table-naming-criteria"
         /// target="_top">table naming criteria</a>.
         /// If a specified table does not exist, it will automatically be
         /// created with the
@@ -265,7 +265,7 @@ namespace kinetica
         /// proc. Each name specified must be the name of a currently existing
         /// table, in
         /// [schema_name.]table_name format, using standard
-        /// <a href="../../concepts/tables.html#table-name-resolution"
+        /// <a href="../../../concepts/tables/#table-name-resolution"
         /// target="_top">name resolution rules</a>.
         /// If no table names are specified, no data will be passed to the
         /// proc.  This
@@ -285,10 +285,10 @@ namespace kinetica
         /// <param name="output_table_names">Names of the tables to which
         /// output data from the proc will
         /// be written, each in [schema_name.]table_name format, using standard
-        /// <a href="../../concepts/tables.html#table-name-resolution"
+        /// <a href="../../../concepts/tables/#table-name-resolution"
         /// target="_top">name resolution rules</a>
         /// and meeting <a
-        /// href="../../concepts/tables.html#table-naming-criteria"
+        /// href="../../../concepts/tables/#table-naming-criteria"
         /// target="_top">table naming criteria</a>.
         /// If a specified table does not exist, it will automatically be
         /// created with the

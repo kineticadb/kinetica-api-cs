@@ -15,7 +15,7 @@ namespace kinetica
     /// cref="Kinetica.revokePermissionDatasource(string,string,string,IDictionary{string, string})"
     /// />.
     /// <br />
-    /// Revokes a <a href="../../concepts/data_sources.html" target="_top">data
+    /// Revokes a <a href="../../../concepts/data_sources/" target="_top">data
     /// source</a> permission from a user or role.</summary>
     public class RevokePermissionDatasourceRequest : KineticaData
     {

@@ -26,7 +26,7 @@ namespace kinetica
     /// <see cref="offset" />
     /// and <see cref="limit" /> parameters.
     /// <br />
-    /// Columns marked as <a href="../../concepts/types.html#data-handling"
+    /// Columns marked as <a href="../../../concepts/types/#data-handling"
     /// target="_top">store-only</a>
     /// are unable to be used with this function.
     /// <br />
@@ -37,8 +37,8 @@ namespace kinetica
     /// {"limit":"10","sort_order":"descending"}.
     /// <br />
     /// The response is returned as a dynamic schema. For details see:
-    /// <a href="../../api/index.html#dynamic-schemas" target="_top">dynamic
-    /// schemas documentation</a>.
+    /// <a href="../../../api/#dynamic-schemas" target="_top">dynamic schemas
+    /// documentation</a>.
     /// <br />
     /// If a <i>result_table</i> name is specified in the
     /// <see cref="options" />, the results are stored in a new table with that
@@ -46,10 +46,10 @@ namespace kinetica
     /// results are returned in the response.  Both the table name and
     /// resulting column
     /// name must adhere to
-    /// <a href="../../concepts/tables.html#table" target="_top">standard
-    /// naming conventions</a>;
+    /// <a href="../../../concepts/tables/#table" target="_top">standard naming
+    /// conventions</a>;
     /// any column expression will need to be aliased.  If the source table's
-    /// <a href="../../concepts/tables.html#shard-keys" target="_top">shard
+    /// <a href="../../../concepts/tables/#shard-keys" target="_top">shard
     /// key</a> is used as the
     /// <see cref="column_name" />, the result table will be sharded, in all
     /// other cases it
@@ -138,9 +138,9 @@ namespace kinetica
         /// cref="AggregateUniqueRequest.Options.RESULT_TABLE">RESULT_TABLE</see>:</term>
         ///         <description>The name of the table used to store the
         /// results, in [schema_name.]table_name format, using standard <a
-        /// href="../../concepts/tables.html#table-name-resolution"
+        /// href="../../../concepts/tables/#table-name-resolution"
         /// target="_top">name resolution rules</a> and meeting <a
-        /// href="../../concepts/tables.html#table-naming-criteria"
+        /// href="../../../concepts/tables/#table-naming-criteria"
         /// target="_top">table naming criteria</a>.  If present, no results
         /// are returned in the response.  Not available if <paramref
         /// cref="AggregateUniqueRequest.column_name" /> is an
@@ -211,7 +211,7 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="AggregateUniqueRequest.Options.TTL">TTL</see>:</term>
-        ///         <description>Sets the <a href="../../concepts/ttl.html"
+        ///         <description>Sets the <a href="../../../concepts/ttl/"
         /// target="_top">TTL</a> of the table specified in
         /// <i>result_table</i>.</description>
         ///     </item>
@@ -269,9 +269,9 @@ namespace kinetica
 
             /// <summary>The name of the table used to store the results, in
             /// [schema_name.]table_name format, using standard <a
-            /// href="../../concepts/tables.html#table-name-resolution"
+            /// href="../../../concepts/tables/#table-name-resolution"
             /// target="_top">name resolution rules</a> and meeting <a
-            /// href="../../concepts/tables.html#table-naming-criteria"
+            /// href="../../../concepts/tables/#table-naming-criteria"
             /// target="_top">table naming criteria</a>.  If present, no
             /// results are returned in the response.  Not available if <see
             /// cref="column_name" /> is an unrestricted-length
@@ -336,7 +336,7 @@ namespace kinetica
             /// cref="AggregateUniqueRequest.Options.FALSE">FALSE</see>.</summary>
             public const string RESULT_TABLE_GENERATE_PK = "result_table_generate_pk";
 
-            /// <summary>Sets the <a href="../../concepts/ttl.html"
+            /// <summary>Sets the <a href="../../../concepts/ttl/"
             /// target="_top">TTL</a> of the table specified in
             /// <i>result_table</i>.</summary>
             public const string TTL = "ttl";
@@ -354,7 +354,7 @@ namespace kinetica
 
         /// <summary>Name of an existing table or view on which the operation
         /// will be performed, in [schema_name.]table_name format, using
-        /// standard <a href="../../concepts/tables.html#table-name-resolution"
+        /// standard <a href="../../../concepts/tables/#table-name-resolution"
         /// target="_top">name resolution rules</a>.  </summary>
         public string table_name { get; set; }
 
@@ -373,7 +373,7 @@ namespace kinetica
         /// results to be returned. Or END_OF_SET (-9999) to indicate that the
         /// max number of results should be returned.  The number of records
         /// returned will never exceed the server's own limit, defined by the
-        /// <a href="../../config/index.html#general"
+        /// <a href="../../../config/#general"
         /// target="_top">max_get_records_size</a> parameter in the server
         /// configuration.  Use <member name="has_more_records" /> to see if
         /// more records exist in the result to be fetched, and <paramref
@@ -445,9 +445,9 @@ namespace kinetica
         /// cref="AggregateUniqueRequest.Options.RESULT_TABLE">RESULT_TABLE</see>:</term>
         ///         <description>The name of the table used to store the
         /// results, in [schema_name.]table_name format, using standard <a
-        /// href="../../concepts/tables.html#table-name-resolution"
+        /// href="../../../concepts/tables/#table-name-resolution"
         /// target="_top">name resolution rules</a> and meeting <a
-        /// href="../../concepts/tables.html#table-naming-criteria"
+        /// href="../../../concepts/tables/#table-naming-criteria"
         /// target="_top">table naming criteria</a>.  If present, no results
         /// are returned in the response.  Not available if <paramref
         /// cref="AggregateUniqueRequest.column_name" /> is an
@@ -518,7 +518,7 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="AggregateUniqueRequest.Options.TTL">TTL</see>:</term>
-        ///         <description>Sets the <a href="../../concepts/ttl.html"
+        ///         <description>Sets the <a href="../../../concepts/ttl/"
         /// target="_top">TTL</a> of the table specified in
         /// <i>result_table</i>.</description>
         ///     </item>
@@ -550,7 +550,7 @@ namespace kinetica
         /// <param name="table_name">Name of an existing table or view on which
         /// the operation will be performed, in [schema_name.]table_name
         /// format, using standard <a
-        /// href="../../concepts/tables.html#table-name-resolution"
+        /// href="../../../concepts/tables/#table-name-resolution"
         /// target="_top">name resolution rules</a>.  </param>
         /// <param name="column_name">Name of the column or an expression
         /// containing one or more column names on which the unique function
@@ -563,7 +563,7 @@ namespace kinetica
         /// number of results to be returned. Or END_OF_SET (-9999) to indicate
         /// that the max number of results should be returned.  The number of
         /// records returned will never exceed the server's own limit, defined
-        /// by the <a href="../../config/index.html#general"
+        /// by the <a href="../../../config/#general"
         /// target="_top">max_get_records_size</a> parameter in the server
         /// configuration.  Use <member name="has_more_records" /> to see if
         /// more records exist in the result to be fetched, and <paramref
@@ -612,9 +612,9 @@ namespace kinetica
         /// cref="AggregateUniqueRequest.Options.RESULT_TABLE">RESULT_TABLE</see>:</term>
         ///         <description>The name of the table used to store the
         /// results, in [schema_name.]table_name format, using standard <a
-        /// href="../../concepts/tables.html#table-name-resolution"
+        /// href="../../../concepts/tables/#table-name-resolution"
         /// target="_top">name resolution rules</a> and meeting <a
-        /// href="../../concepts/tables.html#table-naming-criteria"
+        /// href="../../../concepts/tables/#table-naming-criteria"
         /// target="_top">table naming criteria</a>.  If present, no results
         /// are returned in the response.  Not available if <paramref
         /// cref="AggregateUniqueRequest.column_name" /> is an
@@ -685,7 +685,7 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="AggregateUniqueRequest.Options.TTL">TTL</see>:</term>
-        ///         <description>Sets the <a href="../../concepts/ttl.html"
+        ///         <description>Sets the <a href="../../../concepts/ttl/"
         /// target="_top">TTL</a> of the table specified in
         /// <i>result_table</i>.</description>
         ///     </item>
@@ -726,7 +726,7 @@ namespace kinetica
         /// <param name="table_name">Name of an existing table or view on which
         /// the operation will be performed, in [schema_name.]table_name
         /// format, using standard <a
-        /// href="../../concepts/tables.html#table-name-resolution"
+        /// href="../../../concepts/tables/#table-name-resolution"
         /// target="_top">name resolution rules</a>.  </param>
         /// <param name="column_name">Name of the column or an expression
         /// containing one or more column names on which the unique function
@@ -739,7 +739,7 @@ namespace kinetica
         /// number of results to be returned. Or END_OF_SET (-9999) to indicate
         /// that the max number of results should be returned.  The number of
         /// records returned will never exceed the server's own limit, defined
-        /// by the <a href="../../config/index.html#general"
+        /// by the <a href="../../../config/#general"
         /// target="_top">max_get_records_size</a> parameter in the server
         /// configuration.  Use <member name="has_more_records" /> to see if
         /// more records exist in the result to be fetched, and <paramref
@@ -807,9 +807,9 @@ namespace kinetica
         /// cref="AggregateUniqueRequest.Options.RESULT_TABLE">RESULT_TABLE</see>:</term>
         ///         <description>The name of the table used to store the
         /// results, in [schema_name.]table_name format, using standard <a
-        /// href="../../concepts/tables.html#table-name-resolution"
+        /// href="../../../concepts/tables/#table-name-resolution"
         /// target="_top">name resolution rules</a> and meeting <a
-        /// href="../../concepts/tables.html#table-naming-criteria"
+        /// href="../../../concepts/tables/#table-naming-criteria"
         /// target="_top">table naming criteria</a>.  If present, no results
         /// are returned in the response.  Not available if <paramref
         /// cref="AggregateUniqueRequest.column_name" /> is an
@@ -880,7 +880,7 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="AggregateUniqueRequest.Options.TTL">TTL</see>:</term>
-        ///         <description>Sets the <a href="../../concepts/ttl.html"
+        ///         <description>Sets the <a href="../../../concepts/ttl/"
         /// target="_top">TTL</a> of the table specified in
         /// <i>result_table</i>.</description>
         ///     </item>

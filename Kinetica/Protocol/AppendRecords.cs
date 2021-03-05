@@ -70,15 +70,15 @@ namespace kinetica
         /// cref="AppendRecordsRequest.source_table_name" />) into the target
         /// table (specified by <paramref
         /// cref="AppendRecordsRequest.table_name" />) table with a <a
-        /// href="../../concepts/tables.html#primary-keys"
-        /// target="_top">primary key</a>.  If set to <i>true</i>, any existing
-        /// target table record with primary key values that match those of a
-        /// source table record being inserted will be replaced by that new
-        /// record.  If set to <i>false</i>, any existing target table record
+        /// href="../../../concepts/tables/#primary-keys" target="_top">primary
+        /// key</a>.  If set to <i>true</i>, any existing target table record
         /// with primary key values that match those of a source table record
-        /// being inserted will remain unchanged and the new record discarded.
-        /// If the specified table does not have a primary key, then this
-        /// option is ignored.
+        /// being inserted will be replaced by that new record.  If set to
+        /// <i>false</i>, any existing target table record with primary key
+        /// values that match those of a source table record being inserted
+        /// will remain unchanged and the new record discarded.  If the
+        /// specified table does not have a primary key, then this option is
+        /// ignored.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -149,7 +149,7 @@ namespace kinetica
             /// the source table records (specified by <see
             /// cref="source_table_name" />) into the target table (specified
             /// by <see cref="table_name" />) table with a <a
-            /// href="../../concepts/tables.html#primary-keys"
+            /// href="../../../concepts/tables/#primary-keys"
             /// target="_top">primary key</a>.  If set to <i>true</i>, any
             /// existing target table record with primary key values that match
             /// those of a source table record being inserted will be replaced
@@ -197,14 +197,14 @@ namespace kinetica
 
         /// <summary>The table name for the records to be appended, in
         /// [schema_name.]table_name format, using standard <a
-        /// href="../../concepts/tables.html#table-name-resolution"
+        /// href="../../../concepts/tables/#table-name-resolution"
         /// target="_top">name resolution rules</a>.  Must be an existing
         /// table.  </summary>
         public string table_name { get; set; }
 
         /// <summary>The source table name to get records from, in
         /// [schema_name.]table_name format, using standard <a
-        /// href="../../concepts/tables.html#table-name-resolution"
+        /// href="../../../concepts/tables/#table-name-resolution"
         /// target="_top">name resolution rules</a>.  Must be an existing table
         /// name.  </summary>
         public string source_table_name { get; set; }
@@ -216,7 +216,7 @@ namespace kinetica
         /// cref="AppendRecordsRequest.source_table_name" />). Must be existing
         /// column names in source table and target table, and their types must
         /// be matched. For details on using expressions, see <a
-        /// href="../../concepts/expressions.html"
+        /// href="../../../concepts/expressions/"
         /// target="_top">Expressions</a>.  </summary>
         public IDictionary<string, string> field_map { get; set; } = new Dictionary<string, string>();
 
@@ -265,15 +265,15 @@ namespace kinetica
         /// cref="AppendRecordsRequest.source_table_name" />) into the target
         /// table (specified by <paramref
         /// cref="AppendRecordsRequest.table_name" />) table with a <a
-        /// href="../../concepts/tables.html#primary-keys"
-        /// target="_top">primary key</a>.  If set to <i>true</i>, any existing
-        /// target table record with primary key values that match those of a
-        /// source table record being inserted will be replaced by that new
-        /// record.  If set to <i>false</i>, any existing target table record
+        /// href="../../../concepts/tables/#primary-keys" target="_top">primary
+        /// key</a>.  If set to <i>true</i>, any existing target table record
         /// with primary key values that match those of a source table record
-        /// being inserted will remain unchanged and the new record discarded.
-        /// If the specified table does not have a primary key, then this
-        /// option is ignored.
+        /// being inserted will be replaced by that new record.  If set to
+        /// <i>false</i>, any existing target table record with primary key
+        /// values that match those of a source table record being inserted
+        /// will remain unchanged and the new record discarded.  If the
+        /// specified table does not have a primary key, then this option is
+        /// ignored.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -322,12 +322,12 @@ namespace kinetica
         /// 
         /// <param name="table_name">The table name for the records to be
         /// appended, in [schema_name.]table_name format, using standard <a
-        /// href="../../concepts/tables.html#table-name-resolution"
+        /// href="../../../concepts/tables/#table-name-resolution"
         /// target="_top">name resolution rules</a>.  Must be an existing
         /// table.  </param>
         /// <param name="source_table_name">The source table name to get
         /// records from, in [schema_name.]table_name format, using standard <a
-        /// href="../../concepts/tables.html#table-name-resolution"
+        /// href="../../../concepts/tables/#table-name-resolution"
         /// target="_top">name resolution rules</a>.  Must be an existing table
         /// name.  </param>
         /// <param name="field_map">Contains the mapping of column names from
@@ -338,7 +338,7 @@ namespace kinetica
         /// cref="AppendRecordsRequest.source_table_name" />). Must be existing
         /// column names in source table and target table, and their types must
         /// be matched. For details on using expressions, see <a
-        /// href="../../concepts/expressions.html"
+        /// href="../../../concepts/expressions/"
         /// target="_top">Expressions</a>.  </param>
         /// <param name="options">Optional parameters.
         /// <list type="bullet">
@@ -385,15 +385,15 @@ namespace kinetica
         /// cref="AppendRecordsRequest.source_table_name" />) into the target
         /// table (specified by <paramref
         /// cref="AppendRecordsRequest.table_name" />) table with a <a
-        /// href="../../concepts/tables.html#primary-keys"
-        /// target="_top">primary key</a>.  If set to <i>true</i>, any existing
-        /// target table record with primary key values that match those of a
-        /// source table record being inserted will be replaced by that new
-        /// record.  If set to <i>false</i>, any existing target table record
+        /// href="../../../concepts/tables/#primary-keys" target="_top">primary
+        /// key</a>.  If set to <i>true</i>, any existing target table record
         /// with primary key values that match those of a source table record
-        /// being inserted will remain unchanged and the new record discarded.
-        /// If the specified table does not have a primary key, then this
-        /// option is ignored.
+        /// being inserted will be replaced by that new record.  If set to
+        /// <i>false</i>, any existing target table record with primary key
+        /// values that match those of a source table record being inserted
+        /// will remain unchanged and the new record discarded.  If the
+        /// specified table does not have a primary key, then this option is
+        /// ignored.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>

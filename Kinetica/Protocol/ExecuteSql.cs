@@ -17,7 +17,7 @@ namespace kinetica
     /// <br />
     /// Execute a SQL statement (query, DML, or DDL).
     /// <br />
-    /// See <a href="../../concepts/sql.html" target="_top">SQL Support</a> for
+    /// See <a href="../../../concepts/sql/" target="_top">SQL Support</a> for
     /// the complete set of supported SQL commands.</summary>
     public class ExecuteSqlRequest : KineticaData
     {
@@ -155,7 +155,7 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="ExecuteSqlRequest.Options.PAGING_TABLE_TTL">PAGING_TABLE_TTL</see>:</term>
-        ///         <description>Sets the <a href="../../concepts/ttl.html"
+        ///         <description>Sets the <a href="../../../concepts/ttl/"
         /// target="_top">TTL</a> of the paging table.</description>
         ///     </item>
         ///     <item>
@@ -243,7 +243,7 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="ExecuteSqlRequest.Options.TTL">TTL</see>:</term>
-        ///         <description>Sets the <a href="../../concepts/ttl.html"
+        ///         <description>Sets the <a href="../../../concepts/ttl/"
         /// target="_top">TTL</a> of the intermediate result tables used in
         /// query execution.</description>
         ///     </item>
@@ -430,7 +430,7 @@ namespace kinetica
             /// are returned without evaluating the query.</summary>
             public const string PAGING_TABLE = "paging_table";
 
-            /// <summary>Sets the <a href="../../concepts/ttl.html"
+            /// <summary>Sets the <a href="../../../concepts/ttl/"
             /// target="_top">TTL</a> of the paging table.</summary>
             public const string PAGING_TABLE_TTL = "paging_table_ttl";
 
@@ -508,7 +508,7 @@ namespace kinetica
             /// cref="ExecuteSqlRequest.Options.FALSE">FALSE</see>.</summary>
             public const string LATE_MATERIALIZATION = "late_materialization";
 
-            /// <summary>Sets the <a href="../../concepts/ttl.html"
+            /// <summary>Sets the <a href="../../../concepts/ttl/"
             /// target="_top">TTL</a> of the intermediate result tables used in
             /// query execution.</summary>
             public const string TTL = "ttl";
@@ -603,7 +603,7 @@ namespace kinetica
         /// results to be returned, or END_OF_SET (-9999) to indicate that the
         /// maximum number of results allowed by the server should be returned.
         /// The number of records returned will never exceed the server's own
-        /// limit, defined by the <a href="../../config/index.html#general"
+        /// limit, defined by the <a href="../../../config/#general"
         /// target="_top">max_get_records_size</a> parameter in the server
         /// configuration.  Use <member name="has_more_records" /> to see if
         /// more records exist in the result to be fetched, and <paramref
@@ -747,7 +747,7 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="ExecuteSqlRequest.Options.PAGING_TABLE_TTL">PAGING_TABLE_TTL</see>:</term>
-        ///         <description>Sets the <a href="../../concepts/ttl.html"
+        ///         <description>Sets the <a href="../../../concepts/ttl/"
         /// target="_top">TTL</a> of the paging table.</description>
         ///     </item>
         ///     <item>
@@ -835,7 +835,7 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="ExecuteSqlRequest.Options.TTL">TTL</see>:</term>
-        ///         <description>Sets the <a href="../../concepts/ttl.html"
+        ///         <description>Sets the <a href="../../../concepts/ttl/"
         /// target="_top">TTL</a> of the intermediate result tables used in
         /// query execution.</description>
         ///     </item>
@@ -944,7 +944,7 @@ namespace kinetica
         /// that the maximum number of results allowed by the server should be
         /// returned.  The number of records returned will never exceed the
         /// server's own limit, defined by the <a
-        /// href="../../config/index.html#general"
+        /// href="../../../config/#general"
         /// target="_top">max_get_records_size</a> parameter in the server
         /// configuration.  Use <member name="has_more_records" /> to see if
         /// more records exist in the result to be fetched, and <paramref
@@ -1065,7 +1065,7 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="ExecuteSqlRequest.Options.PAGING_TABLE_TTL">PAGING_TABLE_TTL</see>:</term>
-        ///         <description>Sets the <a href="../../concepts/ttl.html"
+        ///         <description>Sets the <a href="../../../concepts/ttl/"
         /// target="_top">TTL</a> of the paging table.</description>
         ///     </item>
         ///     <item>
@@ -1153,7 +1153,7 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="ExecuteSqlRequest.Options.TTL">TTL</see>:</term>
-        ///         <description>Sets the <a href="../../concepts/ttl.html"
+        ///         <description>Sets the <a href="../../../concepts/ttl/"
         /// target="_top">TTL</a> of the intermediate result tables used in
         /// query execution.</description>
         ///     </item>
@@ -1273,7 +1273,7 @@ namespace kinetica
         /// that the maximum number of results allowed by the server should be
         /// returned.  The number of records returned will never exceed the
         /// server's own limit, defined by the <a
-        /// href="../../config/index.html#general"
+        /// href="../../../config/#general"
         /// target="_top">max_get_records_size</a> parameter in the server
         /// configuration.  Use <member name="has_more_records" /> to see if
         /// more records exist in the result to be fetched, and <paramref
@@ -1409,7 +1409,7 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="ExecuteSqlRequest.Options.PAGING_TABLE_TTL">PAGING_TABLE_TTL</see>:</term>
-        ///         <description>Sets the <a href="../../concepts/ttl.html"
+        ///         <description>Sets the <a href="../../../concepts/ttl/"
         /// target="_top">TTL</a> of the paging table.</description>
         ///     </item>
         ///     <item>
@@ -1497,7 +1497,7 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="ExecuteSqlRequest.Options.TTL">TTL</see>:</term>
-        ///         <description>Sets the <a href="../../concepts/ttl.html"
+        ///         <description>Sets the <a href="../../../concepts/ttl/"
         /// target="_top">TTL</a> of the intermediate result tables used in
         /// query execution.</description>
         ///     </item>

@@ -26,7 +26,7 @@ namespace kinetica
 
         /// <summary>Names of the tables whose metadata will be updated, in
         /// [schema_name.]table_name format, using standard <a
-        /// href="../../concepts/tables.html#table-name-resolution"
+        /// href="../../../concepts/tables/#table-name-resolution"
         /// target="_top">name resolution rules</a>.  All specified tables must
         /// exist, or an error will be returned.  </summary>
         public IList<string> table_names { get; set; } = new List<string>();
@@ -52,7 +52,7 @@ namespace kinetica
         /// 
         /// <param name="table_names">Names of the tables whose metadata will
         /// be updated, in [schema_name.]table_name format, using standard <a
-        /// href="../../concepts/tables.html#table-name-resolution"
+        /// href="../../../concepts/tables/#table-name-resolution"
         /// target="_top">name resolution rules</a>.  All specified tables must
         /// exist, or an error will be returned.  </param>
         /// <param name="metadata_map">A map which contains the metadata of the

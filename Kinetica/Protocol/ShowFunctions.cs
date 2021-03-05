@@ -12,7 +12,8 @@ namespace kinetica
 {
     /// @cond NO_DOCS
     /// <summary>A set of parameters for <see
-    /// cref="Kinetica.showFunctions(IDictionary{string, string})" />.
+    /// cref="Kinetica.showFunctions(IList{string},IDictionary{string, string})"
+    /// />.
     /// <br />
     /// </summary>
     public class ShowFunctionsRequest : KineticaData
@@ -25,6 +26,96 @@ namespace kinetica
         /// cref="ShowFunctionsRequest.Options.PROPERTIES">PROPERTIES</see>:</term>
         ///         <description></description>
         ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ShowFunctionsRequest.Options.SHOW_SCALAR_FUNCTIONS">SHOW_SCALAR_FUNCTIONS</see>:</term>
+        ///         <description>
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="ShowFunctionsRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ShowFunctionsRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="ShowFunctionsRequest.Options.TRUE">TRUE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ShowFunctionsRequest.Options.SHOW_AGGREGATE_FUNCTIONS">SHOW_AGGREGATE_FUNCTIONS</see>:</term>
+        ///         <description>
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="ShowFunctionsRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ShowFunctionsRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="ShowFunctionsRequest.Options.TRUE">TRUE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ShowFunctionsRequest.Options.SHOW_SQL_PROCEDURES">SHOW_SQL_PROCEDURES</see>:</term>
+        ///         <description>
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="ShowFunctionsRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ShowFunctionsRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="ShowFunctionsRequest.Options.TRUE">TRUE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ShowFunctionsRequest.Options.SHOW_USER_DEFINED_FUNCTIONS">SHOW_USER_DEFINED_FUNCTIONS</see>:</term>
+        ///         <description>
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="ShowFunctionsRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ShowFunctionsRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="ShowFunctionsRequest.Options.TRUE">TRUE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ShowFunctionsRequest.Options.SHOW_CAST_FUNCTIONS">SHOW_CAST_FUNCTIONS</see>:</term>
+        ///         <description>
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="ShowFunctionsRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ShowFunctionsRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="ShowFunctionsRequest.Options.TRUE">TRUE</see>.</description>
+        ///     </item>
         /// </list>
         /// <br />
         /// A set of string constants for the parameter <see cref="options"
@@ -32,8 +123,91 @@ namespace kinetica
         public struct Options
         {
             public const string PROPERTIES = "properties";
+
+            /// <summary>
+            /// Supported values:
+            /// <list type="bullet">
+            ///     <item>
+            ///         <term><see
+            /// cref="ShowFunctionsRequest.Options.TRUE">TRUE</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="ShowFunctionsRequest.Options.FALSE">FALSE</see></term>
+            ///     </item>
+            /// </list>
+            /// The default value is <see
+            /// cref="ShowFunctionsRequest.Options.TRUE">TRUE</see>.</summary>
+            public const string SHOW_SCALAR_FUNCTIONS = "show_scalar_functions";
+            public const string TRUE = "true";
+            public const string FALSE = "false";
+
+            /// <summary>
+            /// Supported values:
+            /// <list type="bullet">
+            ///     <item>
+            ///         <term><see
+            /// cref="ShowFunctionsRequest.Options.TRUE">TRUE</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="ShowFunctionsRequest.Options.FALSE">FALSE</see></term>
+            ///     </item>
+            /// </list>
+            /// The default value is <see
+            /// cref="ShowFunctionsRequest.Options.TRUE">TRUE</see>.</summary>
+            public const string SHOW_AGGREGATE_FUNCTIONS = "show_aggregate_functions";
+
+            /// <summary>
+            /// Supported values:
+            /// <list type="bullet">
+            ///     <item>
+            ///         <term><see
+            /// cref="ShowFunctionsRequest.Options.TRUE">TRUE</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="ShowFunctionsRequest.Options.FALSE">FALSE</see></term>
+            ///     </item>
+            /// </list>
+            /// The default value is <see
+            /// cref="ShowFunctionsRequest.Options.TRUE">TRUE</see>.</summary>
+            public const string SHOW_SQL_PROCEDURES = "show_sql_procedures";
+
+            /// <summary>
+            /// Supported values:
+            /// <list type="bullet">
+            ///     <item>
+            ///         <term><see
+            /// cref="ShowFunctionsRequest.Options.TRUE">TRUE</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="ShowFunctionsRequest.Options.FALSE">FALSE</see></term>
+            ///     </item>
+            /// </list>
+            /// The default value is <see
+            /// cref="ShowFunctionsRequest.Options.TRUE">TRUE</see>.</summary>
+            public const string SHOW_USER_DEFINED_FUNCTIONS = "show_user_defined_functions";
+
+            /// <summary>
+            /// Supported values:
+            /// <list type="bullet">
+            ///     <item>
+            ///         <term><see
+            /// cref="ShowFunctionsRequest.Options.TRUE">TRUE</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="ShowFunctionsRequest.Options.FALSE">FALSE</see></term>
+            ///     </item>
+            /// </list>
+            /// The default value is <see
+            /// cref="ShowFunctionsRequest.Options.TRUE">TRUE</see>.</summary>
+            public const string SHOW_CAST_FUNCTIONS = "show_cast_functions";
         } // end struct Options
 
+        public IList<string> names { get; set; } = new List<string>();
 
         /// <summary>
         /// <list type="bullet">
@@ -41,6 +215,96 @@ namespace kinetica
         ///         <term><see
         /// cref="ShowFunctionsRequest.Options.PROPERTIES">PROPERTIES</see>:</term>
         ///         <description></description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ShowFunctionsRequest.Options.SHOW_SCALAR_FUNCTIONS">SHOW_SCALAR_FUNCTIONS</see>:</term>
+        ///         <description>
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="ShowFunctionsRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ShowFunctionsRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="ShowFunctionsRequest.Options.TRUE">TRUE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ShowFunctionsRequest.Options.SHOW_AGGREGATE_FUNCTIONS">SHOW_AGGREGATE_FUNCTIONS</see>:</term>
+        ///         <description>
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="ShowFunctionsRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ShowFunctionsRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="ShowFunctionsRequest.Options.TRUE">TRUE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ShowFunctionsRequest.Options.SHOW_SQL_PROCEDURES">SHOW_SQL_PROCEDURES</see>:</term>
+        ///         <description>
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="ShowFunctionsRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ShowFunctionsRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="ShowFunctionsRequest.Options.TRUE">TRUE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ShowFunctionsRequest.Options.SHOW_USER_DEFINED_FUNCTIONS">SHOW_USER_DEFINED_FUNCTIONS</see>:</term>
+        ///         <description>
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="ShowFunctionsRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ShowFunctionsRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="ShowFunctionsRequest.Options.TRUE">TRUE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ShowFunctionsRequest.Options.SHOW_CAST_FUNCTIONS">SHOW_CAST_FUNCTIONS</see>:</term>
+        ///         <description>
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="ShowFunctionsRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ShowFunctionsRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="ShowFunctionsRequest.Options.TRUE">TRUE</see>.</description>
         ///     </item>
         /// </list>
         /// </summary>
@@ -54,6 +318,7 @@ namespace kinetica
         /// <summary>Constructs a ShowFunctionsRequest object with the
         /// specified parameters.</summary>
         /// 
+        /// <param name="names"></param>
         /// <param name="options">
         /// <list type="bullet">
         ///     <item>
@@ -61,11 +326,103 @@ namespace kinetica
         /// cref="ShowFunctionsRequest.Options.PROPERTIES">PROPERTIES</see>:</term>
         ///         <description></description>
         ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ShowFunctionsRequest.Options.SHOW_SCALAR_FUNCTIONS">SHOW_SCALAR_FUNCTIONS</see>:</term>
+        ///         <description>
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="ShowFunctionsRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ShowFunctionsRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="ShowFunctionsRequest.Options.TRUE">TRUE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ShowFunctionsRequest.Options.SHOW_AGGREGATE_FUNCTIONS">SHOW_AGGREGATE_FUNCTIONS</see>:</term>
+        ///         <description>
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="ShowFunctionsRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ShowFunctionsRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="ShowFunctionsRequest.Options.TRUE">TRUE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ShowFunctionsRequest.Options.SHOW_SQL_PROCEDURES">SHOW_SQL_PROCEDURES</see>:</term>
+        ///         <description>
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="ShowFunctionsRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ShowFunctionsRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="ShowFunctionsRequest.Options.TRUE">TRUE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ShowFunctionsRequest.Options.SHOW_USER_DEFINED_FUNCTIONS">SHOW_USER_DEFINED_FUNCTIONS</see>:</term>
+        ///         <description>
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="ShowFunctionsRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ShowFunctionsRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="ShowFunctionsRequest.Options.TRUE">TRUE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ShowFunctionsRequest.Options.SHOW_CAST_FUNCTIONS">SHOW_CAST_FUNCTIONS</see>:</term>
+        ///         <description>
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="ShowFunctionsRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ShowFunctionsRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="ShowFunctionsRequest.Options.TRUE">TRUE</see>.</description>
+        ///     </item>
         /// </list>
         /// </param>
         /// 
-        public ShowFunctionsRequest( IDictionary<string, string> options = null)
+        public ShowFunctionsRequest( IList<string> names,
+                                     IDictionary<string, string> options = null)
         {
+            this.names = names ?? new List<string>();
             this.options = options ?? new Dictionary<string, string>();
         } // end constructor
 
@@ -76,7 +433,7 @@ namespace kinetica
 
     /// @cond NO_DOCS
     /// <summary>A set of results returned by <see
-    /// cref="Kinetica.showFunctions(IDictionary{string, string})"
+    /// cref="Kinetica.showFunctions(IList{string},IDictionary{string, string})"
     /// />.</summary>
     public class ShowFunctionsResponse : KineticaData
     {
@@ -155,6 +512,8 @@ namespace kinetica
         ///     </item>
         /// </list></summary>
         public IList<int> flags { get; set; } = new List<int>();
+        public IList<string> type_schemas { get; set; } = new List<string>();
+        public IList<IDictionary<string, IList<string>>> properties { get; set; } = new List<IDictionary<string, IList<string>>>();
         public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
 
     } // end class ShowFunctionsResponse

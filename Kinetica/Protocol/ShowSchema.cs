@@ -14,7 +14,7 @@ namespace kinetica
     /// <summary>A set of parameters for <see
     /// cref="Kinetica.showSchema(string,IDictionary{string, string})" />.
     /// <br />
-    /// Retrieves information about a <a href="../../concepts/schemas.html"
+    /// Retrieves information about a <a href="../../../concepts/schemas/"
     /// target="_top">schema</a> (or all schemas), as specified in <see
     /// cref="schema_name" />.</summary>
     public class ShowSchemaRequest : KineticaData

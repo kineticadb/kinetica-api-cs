@@ -48,7 +48,7 @@ namespace kinetica
 
         /// <summary>Names of the tables on which the trigger will be activated
         /// and maintained, each in [schema_name.]table_name format, using
-        /// standard <a href="../../concepts/tables.html#table-name-resolution"
+        /// standard <a href="../../../concepts/tables/#table-name-resolution"
         /// target="_top">name resolution rules</a>.  </summary>
         public IList<string> table_names { get; set; } = new List<string>();
 
@@ -89,7 +89,7 @@ namespace kinetica
         /// <param name="table_names">Names of the tables on which the trigger
         /// will be activated and maintained, each in [schema_name.]table_name
         /// format, using standard <a
-        /// href="../../concepts/tables.html#table-name-resolution"
+        /// href="../../../concepts/tables/#table-name-resolution"
         /// target="_top">name resolution rules</a>.  </param>
         /// <param name="x_column_name">Name of a numeric column on which the
         /// trigger is activated. Usually 'x' for geospatial data points.

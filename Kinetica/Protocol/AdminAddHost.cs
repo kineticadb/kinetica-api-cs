@@ -44,9 +44,8 @@ namespace kinetica
         /// cref="AdminAddHostRequest.Options.ACCEPTS_FAILOVER">ACCEPTS_FAILOVER</see>:</term>
         ///         <description>If set to <i>true</i>, the host will accept
         /// processes (ranks, graph server, etc.) in the event of a failover on
-        /// another node in the cluster. See <a
-        /// href="../../n_plus_1/index.html" target="_top">Cluster
-        /// Resilience</a> for more information.
+        /// another node in the cluster. See <a href="../../../n_plus_1/"
+        /// target="_top">Cluster Resilience</a> for more information.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -75,7 +74,7 @@ namespace kinetica
         ///         <description>The publicly-accessible full path URL to the
         /// host manager on the host being added, e.g.,
         /// 'http://172.123.45.67:9300'. The default host manager port can be
-        /// found in the <a href="../../install/shared/ports.html"
+        /// found in the <a href="../../../install/shared/ports/"
         /// target="_top">list of ports</a> used by Kinetica.</description>
         ///     </item>
         ///     <item>
@@ -126,9 +125,8 @@ namespace kinetica
 
             /// <summary>If set to <i>true</i>, the host will accept processes
             /// (ranks, graph server, etc.) in the event of a failover on
-            /// another node in the cluster. See <a
-            /// href="../../n_plus_1/index.html" target="_top">Cluster
-            /// Resilience</a> for more information.
+            /// another node in the cluster. See <a href="../../../n_plus_1/"
+            /// target="_top">Cluster Resilience</a> for more information.
             /// Supported values:
             /// <list type="bullet">
             ///     <item>
@@ -153,7 +151,7 @@ namespace kinetica
             /// <summary>The publicly-accessible full path URL to the host
             /// manager on the host being added, e.g.,
             /// 'http://172.123.45.67:9300'. The default host manager port can
-            /// be found in the <a href="../../install/shared/ports.html"
+            /// be found in the <a href="../../../install/shared/ports/"
             /// target="_top">list of ports</a> used by Kinetica.</summary>
             public const string HOST_MANAGER_PUBLIC_URL = "host_manager_public_url";
 
@@ -205,9 +203,8 @@ namespace kinetica
         /// cref="AdminAddHostRequest.Options.ACCEPTS_FAILOVER">ACCEPTS_FAILOVER</see>:</term>
         ///         <description>If set to <i>true</i>, the host will accept
         /// processes (ranks, graph server, etc.) in the event of a failover on
-        /// another node in the cluster. See <a
-        /// href="../../n_plus_1/index.html" target="_top">Cluster
-        /// Resilience</a> for more information.
+        /// another node in the cluster. See <a href="../../../n_plus_1/"
+        /// target="_top">Cluster Resilience</a> for more information.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -236,7 +233,7 @@ namespace kinetica
         ///         <description>The publicly-accessible full path URL to the
         /// host manager on the host being added, e.g.,
         /// 'http://172.123.45.67:9300'. The default host manager port can be
-        /// found in the <a href="../../install/shared/ports.html"
+        /// found in the <a href="../../../install/shared/ports/"
         /// target="_top">list of ports</a> used by Kinetica.</description>
         ///     </item>
         ///     <item>
@@ -301,9 +298,8 @@ namespace kinetica
         /// cref="AdminAddHostRequest.Options.ACCEPTS_FAILOVER">ACCEPTS_FAILOVER</see>:</term>
         ///         <description>If set to <i>true</i>, the host will accept
         /// processes (ranks, graph server, etc.) in the event of a failover on
-        /// another node in the cluster. See <a
-        /// href="../../n_plus_1/index.html" target="_top">Cluster
-        /// Resilience</a> for more information.
+        /// another node in the cluster. See <a href="../../../n_plus_1/"
+        /// target="_top">Cluster Resilience</a> for more information.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -332,7 +328,7 @@ namespace kinetica
         ///         <description>The publicly-accessible full path URL to the
         /// host manager on the host being added, e.g.,
         /// 'http://172.123.45.67:9300'. The default host manager port can be
-        /// found in the <a href="../../install/shared/ports.html"
+        /// found in the <a href="../../../install/shared/ports/"
         /// target="_top">list of ports</a> used by Kinetica.</description>
         ///     </item>
         ///     <item>

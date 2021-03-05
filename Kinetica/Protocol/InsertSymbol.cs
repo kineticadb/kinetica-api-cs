@@ -22,7 +22,7 @@ namespace kinetica
     /// color). To have a symbol used for rendering create a table with a
     /// string column named 'SYMBOLCODE' (along with 'x' or 'y' for example).
     /// Then when the table is rendered (via <a
-    /// href="../../api/rest/wms_rest.html" target="_top">WMS</a>) if the
+    /// href="../../../api/rest/wms_rest/" target="_top">WMS</a>) if the
     /// 'dosymbology' parameter is 'true' then the value of the 'SYMBOLCODE'
     /// column is used to pick the symbol displayed for each point.</summary>
     public class InsertSymbolRequest : KineticaData

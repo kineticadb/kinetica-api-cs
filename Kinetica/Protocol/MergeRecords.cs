@@ -23,9 +23,9 @@ namespace kinetica
     /// information (specified by <see cref="field_maps" />).
     /// <br />
     /// For merge records details and examples, see
-    /// <a href="../../concepts/merge_records.html" target="_top">Merge
+    /// <a href="../../../concepts/merge_records/" target="_top">Merge
     /// Records</a>.  For limitations, see
-    /// <a href="../../concepts/merge_records.html#limitations-and-cautions"
+    /// <a href="../../../concepts/merge_records/#limitations-and-cautions"
     /// target="_top">Merge Records Limitations and Cautions</a>.
     /// <br />
     /// The field map (specified by <see cref="field_maps" />) holds the
@@ -55,13 +55,13 @@ namespace kinetica
         ///         <term><see
         /// cref="MergeRecordsRequest.Options.IS_REPLICATED">IS_REPLICATED</see>:</term>
         ///         <description>Indicates the <a
-        /// href="../../concepts/tables.html#distribution"
+        /// href="../../../concepts/tables/#distribution"
         /// target="_top">distribution scheme</a> for the data of the merged
         /// table specified in <paramref cref="MergeRecordsRequest.table_name"
         /// />.  If true, the table will be <a
-        /// href="../../concepts/tables.html#replication"
+        /// href="../../../concepts/tables/#replication"
         /// target="_top">replicated</a>.  If false, the table will be <a
-        /// href="../../concepts/tables.html#random-sharding"
+        /// href="../../../concepts/tables/#random-sharding"
         /// target="_top">randomly sharded</a>.
         /// Supported values:
         /// <list type="bullet">
@@ -80,7 +80,7 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="MergeRecordsRequest.Options.TTL">TTL</see>:</term>
-        ///         <description>Sets the <a href="../../concepts/ttl.html"
+        ///         <description>Sets the <a href="../../../concepts/ttl/"
         /// target="_top">TTL</a> of the merged table specified in <paramref
         /// cref="MergeRecordsRequest.table_name" />.</description>
         ///     </item>
@@ -136,13 +136,13 @@ namespace kinetica
             public const string COLLECTION_NAME = "collection_name";
 
             /// <summary>Indicates the <a
-            /// href="../../concepts/tables.html#distribution"
+            /// href="../../../concepts/tables/#distribution"
             /// target="_top">distribution scheme</a> for the data of the
             /// merged table specified in <see cref="table_name" />.  If true,
             /// the table will be <a
-            /// href="../../concepts/tables.html#replication"
+            /// href="../../../concepts/tables/#replication"
             /// target="_top">replicated</a>.  If false, the table will be <a
-            /// href="../../concepts/tables.html#random-sharding"
+            /// href="../../../concepts/tables/#random-sharding"
             /// target="_top">randomly sharded</a>.
             /// Supported values:
             /// <list type="bullet">
@@ -161,7 +161,7 @@ namespace kinetica
             public const string TRUE = "true";
             public const string FALSE = "false";
 
-            /// <summary>Sets the <a href="../../concepts/ttl.html"
+            /// <summary>Sets the <a href="../../../concepts/ttl/"
             /// target="_top">TTL</a> of the merged table specified in <see
             /// cref="table_name" />.</summary>
             public const string TTL = "ttl";
@@ -199,16 +199,16 @@ namespace kinetica
 
         /// <summary>The name of the new result table for the records to be
         /// merged into, in [schema_name.]table_name format, using standard <a
-        /// href="../../concepts/tables.html#table-name-resolution"
+        /// href="../../../concepts/tables/#table-name-resolution"
         /// target="_top">name resolution rules</a> and meeting <a
-        /// href="../../concepts/tables.html#table-naming-criteria"
+        /// href="../../../concepts/tables/#table-naming-criteria"
         /// target="_top">table naming criteria</a>.  Must NOT be an existing
         /// table.  </summary>
         public string table_name { get; set; }
 
         /// <summary>The list of names of source tables to get the records
         /// from, each in [schema_name.]table_name format, using standard <a
-        /// href="../../concepts/tables.html#table-name-resolution"
+        /// href="../../../concepts/tables/#table-name-resolution"
         /// target="_top">name resolution rules</a>.  Must be existing table
         /// names.  </summary>
         public IList<string> source_table_names { get; set; } = new List<string>();
@@ -219,7 +219,7 @@ namespace kinetica
         /// the target table specified by <paramref
         /// cref="MergeRecordsRequest.table_name" />.  Each mapping contains
         /// the target column names (as keys) that the data in the mapped
-        /// source columns or column <a href="../../concepts/expressions.html"
+        /// source columns or column <a href="../../../concepts/expressions/"
         /// target="_top">expressions</a> (as values) will be merged into.  All
         /// of the source columns being merged into a given target column must
         /// match in type, as that type will determine the type of the new
@@ -242,13 +242,13 @@ namespace kinetica
         ///         <term><see
         /// cref="MergeRecordsRequest.Options.IS_REPLICATED">IS_REPLICATED</see>:</term>
         ///         <description>Indicates the <a
-        /// href="../../concepts/tables.html#distribution"
+        /// href="../../../concepts/tables/#distribution"
         /// target="_top">distribution scheme</a> for the data of the merged
         /// table specified in <paramref cref="MergeRecordsRequest.table_name"
         /// />.  If true, the table will be <a
-        /// href="../../concepts/tables.html#replication"
+        /// href="../../../concepts/tables/#replication"
         /// target="_top">replicated</a>.  If false, the table will be <a
-        /// href="../../concepts/tables.html#random-sharding"
+        /// href="../../../concepts/tables/#random-sharding"
         /// target="_top">randomly sharded</a>.
         /// Supported values:
         /// <list type="bullet">
@@ -267,7 +267,7 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="MergeRecordsRequest.Options.TTL">TTL</see>:</term>
-        ///         <description>Sets the <a href="../../concepts/ttl.html"
+        ///         <description>Sets the <a href="../../../concepts/ttl/"
         /// target="_top">TTL</a> of the merged table specified in <paramref
         /// cref="MergeRecordsRequest.table_name" />.</description>
         ///     </item>
@@ -321,15 +321,15 @@ namespace kinetica
         /// <param name="table_name">The name of the new result table for the
         /// records to be merged into, in [schema_name.]table_name format,
         /// using standard <a
-        /// href="../../concepts/tables.html#table-name-resolution"
+        /// href="../../../concepts/tables/#table-name-resolution"
         /// target="_top">name resolution rules</a> and meeting <a
-        /// href="../../concepts/tables.html#table-naming-criteria"
+        /// href="../../../concepts/tables/#table-naming-criteria"
         /// target="_top">table naming criteria</a>.  Must NOT be an existing
         /// table.  </param>
         /// <param name="source_table_names">The list of names of source tables
         /// to get the records from, each in [schema_name.]table_name format,
         /// using standard <a
-        /// href="../../concepts/tables.html#table-name-resolution"
+        /// href="../../../concepts/tables/#table-name-resolution"
         /// target="_top">name resolution rules</a>.  Must be existing table
         /// names.  </param>
         /// <param name="field_maps">Contains a list of source/target column
@@ -338,7 +338,7 @@ namespace kinetica
         /// the target table specified by <paramref
         /// cref="MergeRecordsRequest.table_name" />.  Each mapping contains
         /// the target column names (as keys) that the data in the mapped
-        /// source columns or column <a href="../../concepts/expressions.html"
+        /// source columns or column <a href="../../../concepts/expressions/"
         /// target="_top">expressions</a> (as values) will be merged into.  All
         /// of the source columns being merged into a given target column must
         /// match in type, as that type will determine the type of the new
@@ -359,13 +359,13 @@ namespace kinetica
         ///         <term><see
         /// cref="MergeRecordsRequest.Options.IS_REPLICATED">IS_REPLICATED</see>:</term>
         ///         <description>Indicates the <a
-        /// href="../../concepts/tables.html#distribution"
+        /// href="../../../concepts/tables/#distribution"
         /// target="_top">distribution scheme</a> for the data of the merged
         /// table specified in <paramref cref="MergeRecordsRequest.table_name"
         /// />.  If true, the table will be <a
-        /// href="../../concepts/tables.html#replication"
+        /// href="../../../concepts/tables/#replication"
         /// target="_top">replicated</a>.  If false, the table will be <a
-        /// href="../../concepts/tables.html#random-sharding"
+        /// href="../../../concepts/tables/#random-sharding"
         /// target="_top">randomly sharded</a>.
         /// Supported values:
         /// <list type="bullet">
@@ -384,7 +384,7 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="MergeRecordsRequest.Options.TTL">TTL</see>:</term>
-        ///         <description>Sets the <a href="../../concepts/ttl.html"
+        ///         <description>Sets the <a href="../../../concepts/ttl/"
         /// target="_top">TTL</a> of the merged table specified in <paramref
         /// cref="MergeRecordsRequest.table_name" />.</description>
         ///     </item>

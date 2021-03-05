@@ -18,7 +18,7 @@ namespace kinetica
     /// Apply various modifications to columns in a table, view.  The available
     /// modifications include the following:
     /// <br />
-    /// Create or delete an <a href="../../concepts/indexes.html#column-index"
+    /// Create or delete an <a href="../../../concepts/indexes/#column-index"
     /// target="_top">index</a> on a
     /// particular column. This can speed up certain operations when using
     /// expressions
@@ -27,17 +27,17 @@ namespace kinetica
     /// applies to tables.
     /// <br />
     /// Manage a table's columns--a column can be added, removed, or have its
-    /// <a href="../../concepts/types.html" target="_top">type and
+    /// <a href="../../../concepts/types/" target="_top">type and
     /// properties</a> modified.
     /// <br />
-    /// Set or unset <a href="../../concepts/compression.html"
+    /// Set or unset <a href="../../../concepts/compression/"
     /// target="_top">compression</a> for a column.</summary>
     public class AlterTableColumnsRequest : KineticaData
     {
 
         /// <summary>Table on which the operation will be performed. Must be an
         /// existing table or view, in [schema_name.]table_name format, using
-        /// standard <a href="../../concepts/tables.html#table-name-resolution"
+        /// standard <a href="../../../concepts/tables/#table-name-resolution"
         /// target="_top">name resolution rules</a>.  </summary>
         public string table_name { get; set; }
 
@@ -64,7 +64,7 @@ namespace kinetica
         /// <param name="table_name">Table on which the operation will be
         /// performed. Must be an existing table or view, in
         /// [schema_name.]table_name format, using standard <a
-        /// href="../../concepts/tables.html#table-name-resolution"
+        /// href="../../../concepts/tables/#table-name-resolution"
         /// target="_top">name resolution rules</a>.  </param>
         /// <param name="column_alterations">List of alter table
         /// add/delete/change column requests - all for the same table. Each

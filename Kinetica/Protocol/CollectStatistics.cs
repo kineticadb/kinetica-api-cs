@@ -20,7 +20,7 @@ namespace kinetica
     {
 
         /// <summary>Name of a table, in [schema_name.]table_name format, using
-        /// standard <a href="../../concepts/tables.html#table-name-resolution"
+        /// standard <a href="../../../concepts/tables/#table-name-resolution"
         /// target="_top">name resolution rules</a>.  Must be an existing
         /// table.  </summary>
         public string table_name { get; set; }
@@ -44,7 +44,7 @@ namespace kinetica
         /// 
         /// <param name="table_name">Name of a table, in
         /// [schema_name.]table_name format, using standard <a
-        /// href="../../concepts/tables.html#table-name-resolution"
+        /// href="../../../concepts/tables/#table-name-resolution"
         /// target="_top">name resolution rules</a>.  Must be an existing
         /// table.  </param>
         /// <param name="column_names">List of one or more column names in

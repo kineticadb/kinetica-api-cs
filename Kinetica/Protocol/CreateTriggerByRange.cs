@@ -45,7 +45,7 @@ namespace kinetica
 
         /// <summary>Tables on which the trigger will be active, each in
         /// [schema_name.]table_name format, using standard <a
-        /// href="../../concepts/tables.html#table-name-resolution"
+        /// href="../../../concepts/tables/#table-name-resolution"
         /// target="_top">name resolution rules</a>.  </summary>
         public IList<string> table_names { get; set; } = new List<string>();
 
@@ -78,7 +78,7 @@ namespace kinetica
         /// character.  </param>
         /// <param name="table_names">Tables on which the trigger will be
         /// active, each in [schema_name.]table_name format, using standard <a
-        /// href="../../concepts/tables.html#table-name-resolution"
+        /// href="../../../concepts/tables/#table-name-resolution"
         /// target="_top">name resolution rules</a>.  </param>
         /// <param name="column_name">Name of a numeric column_name on which
         /// the trigger is activated.  </param>

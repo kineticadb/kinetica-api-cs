@@ -30,7 +30,7 @@ namespace kinetica
     /// <br />
     /// The <i>update_on_existing_pk</i> option specifies the record
     /// collision policy for inserting into a table with a
-    /// <a href="../../concepts/tables.html#primary-keys" target="_top">primary
+    /// <a href="../../../concepts/tables/#primary-keys" target="_top">primary
     /// key</a>, but is ignored if
     /// no primary key exists.
     /// <br />
@@ -70,14 +70,14 @@ namespace kinetica
         /// cref="RawInsertRecordsRequest.Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>:</term>
         ///         <description>Specifies the record collision policy for
         /// inserting into a table with a <a
-        /// href="../../concepts/tables.html#primary-keys"
-        /// target="_top">primary key</a>.  If set to <i>true</i>, any existing
-        /// table record with primary key values that match those of a record
-        /// being inserted will be replaced by that new record.  If set to
-        /// <i>false</i>, any existing table record with primary key values
-        /// that match those of a record being inserted will remain unchanged
-        /// and the new record discarded.  If the specified table does not have
-        /// a primary key, then this option is ignored.
+        /// href="../../../concepts/tables/#primary-keys" target="_top">primary
+        /// key</a>.  If set to <i>true</i>, any existing table record with
+        /// primary key values that match those of a record being inserted will
+        /// be replaced by that new record.  If set to <i>false</i>, any
+        /// existing table record with primary key values that match those of a
+        /// record being inserted will remain unchanged and the new record
+        /// discarded.  If the specified table does not have a primary key,
+        /// then this option is ignored.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -203,7 +203,7 @@ namespace kinetica
 
             /// <summary>Specifies the record collision policy for inserting
             /// into a table with a <a
-            /// href="../../concepts/tables.html#primary-keys"
+            /// href="../../../concepts/tables/#primary-keys"
             /// target="_top">primary key</a>.  If set to <i>true</i>, any
             /// existing table record with primary key values that match those
             /// of a record being inserted will be replaced by that new record.
@@ -324,7 +324,7 @@ namespace kinetica
 
         /// <summary>Name of table to which the records are to be added, in
         /// [schema_name.]table_name format, using standard <a
-        /// href="../../concepts/tables.html#table-name-resolution"
+        /// href="../../../concepts/tables/#table-name-resolution"
         /// target="_top">name resolution rules</a>.  Must be an existing
         /// table.  </summary>
         public string table_name { get; set; }
@@ -366,14 +366,14 @@ namespace kinetica
         /// cref="RawInsertRecordsRequest.Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>:</term>
         ///         <description>Specifies the record collision policy for
         /// inserting into a table with a <a
-        /// href="../../concepts/tables.html#primary-keys"
-        /// target="_top">primary key</a>.  If set to <i>true</i>, any existing
-        /// table record with primary key values that match those of a record
-        /// being inserted will be replaced by that new record.  If set to
-        /// <i>false</i>, any existing table record with primary key values
-        /// that match those of a record being inserted will remain unchanged
-        /// and the new record discarded.  If the specified table does not have
-        /// a primary key, then this option is ignored.
+        /// href="../../../concepts/tables/#primary-keys" target="_top">primary
+        /// key</a>.  If set to <i>true</i>, any existing table record with
+        /// primary key values that match those of a record being inserted will
+        /// be replaced by that new record.  If set to <i>false</i>, any
+        /// existing table record with primary key values that match those of a
+        /// record being inserted will remain unchanged and the new record
+        /// discarded.  If the specified table does not have a primary key,
+        /// then this option is ignored.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -504,7 +504,7 @@ namespace kinetica
         /// 
         /// <param name="table_name">Name of table to which the records are to
         /// be added, in [schema_name.]table_name format, using standard <a
-        /// href="../../concepts/tables.html#table-name-resolution"
+        /// href="../../../concepts/tables/#table-name-resolution"
         /// target="_top">name resolution rules</a>.  Must be an existing
         /// table.  </param>
         /// <param name="list">An array of binary-encoded data for the records
@@ -519,14 +519,14 @@ namespace kinetica
         /// cref="RawInsertRecordsRequest.Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>:</term>
         ///         <description>Specifies the record collision policy for
         /// inserting into a table with a <a
-        /// href="../../concepts/tables.html#primary-keys"
-        /// target="_top">primary key</a>.  If set to <i>true</i>, any existing
-        /// table record with primary key values that match those of a record
-        /// being inserted will be replaced by that new record.  If set to
-        /// <i>false</i>, any existing table record with primary key values
-        /// that match those of a record being inserted will remain unchanged
-        /// and the new record discarded.  If the specified table does not have
-        /// a primary key, then this option is ignored.
+        /// href="../../../concepts/tables/#primary-keys" target="_top">primary
+        /// key</a>.  If set to <i>true</i>, any existing table record with
+        /// primary key values that match those of a record being inserted will
+        /// be replaced by that new record.  If set to <i>false</i>, any
+        /// existing table record with primary key values that match those of a
+        /// record being inserted will remain unchanged and the new record
+        /// discarded.  If the specified table does not have a primary key,
+        /// then this option is ignored.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -663,7 +663,7 @@ namespace kinetica
         /// 
         /// <param name="table_name">Name of table to which the records are to
         /// be added, in [schema_name.]table_name format, using standard <a
-        /// href="../../concepts/tables.html#table-name-resolution"
+        /// href="../../../concepts/tables/#table-name-resolution"
         /// target="_top">name resolution rules</a>.  Must be an existing
         /// table.  </param>
         /// <param name="list">An array of binary-encoded data for the records
@@ -699,14 +699,14 @@ namespace kinetica
         /// cref="RawInsertRecordsRequest.Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>:</term>
         ///         <description>Specifies the record collision policy for
         /// inserting into a table with a <a
-        /// href="../../concepts/tables.html#primary-keys"
-        /// target="_top">primary key</a>.  If set to <i>true</i>, any existing
-        /// table record with primary key values that match those of a record
-        /// being inserted will be replaced by that new record.  If set to
-        /// <i>false</i>, any existing table record with primary key values
-        /// that match those of a record being inserted will remain unchanged
-        /// and the new record discarded.  If the specified table does not have
-        /// a primary key, then this option is ignored.
+        /// href="../../../concepts/tables/#primary-keys" target="_top">primary
+        /// key</a>.  If set to <i>true</i>, any existing table record with
+        /// primary key values that match those of a record being inserted will
+        /// be replaced by that new record.  If set to <i>false</i>, any
+        /// existing table record with primary key values that match those of a
+        /// record being inserted will remain unchanged and the new record
+        /// discarded.  If the specified table does not have a primary key,
+        /// then this option is ignored.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -862,7 +862,7 @@ namespace kinetica
     /// <br />
     /// The <i>update_on_existing_pk</i> option specifies the record
     /// collision policy for inserting into a table with a
-    /// <a href="../../concepts/tables.html#primary-keys" target="_top">primary
+    /// <a href="../../../concepts/tables/#primary-keys" target="_top">primary
     /// key</a>, but is ignored if
     /// no primary key exists.
     /// <br />
@@ -882,14 +882,14 @@ namespace kinetica
         /// cref="RawInsertRecordsRequest.Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>:</term>
         ///         <description>Specifies the record collision policy for
         /// inserting into a table with a <a
-        /// href="../../concepts/tables.html#primary-keys"
-        /// target="_top">primary key</a>.  If set to <i>true</i>, any existing
-        /// table record with primary key values that match those of a record
-        /// being inserted will be replaced by that new record.  If set to
-        /// <i>false</i>, any existing table record with primary key values
-        /// that match those of a record being inserted will remain unchanged
-        /// and the new record discarded.  If the specified table does not have
-        /// a primary key, then this option is ignored.
+        /// href="../../../concepts/tables/#primary-keys" target="_top">primary
+        /// key</a>.  If set to <i>true</i>, any existing table record with
+        /// primary key values that match those of a record being inserted will
+        /// be replaced by that new record.  If set to <i>false</i>, any
+        /// existing table record with primary key values that match those of a
+        /// record being inserted will remain unchanged and the new record
+        /// discarded.  If the specified table does not have a primary key,
+        /// then this option is ignored.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -1015,7 +1015,7 @@ namespace kinetica
 
             /// <summary>Specifies the record collision policy for inserting
             /// into a table with a <a
-            /// href="../../concepts/tables.html#primary-keys"
+            /// href="../../../concepts/tables/#primary-keys"
             /// target="_top">primary key</a>.  If set to <i>true</i>, any
             /// existing table record with primary key values that match those
             /// of a record being inserted will be replaced by that new record.
@@ -1136,7 +1136,7 @@ namespace kinetica
 
         /// <summary>Name of table to which the records are to be added, in
         /// [schema_name.]table_name format, using standard <a
-        /// href="../../concepts/tables.html#table-name-resolution"
+        /// href="../../../concepts/tables/#table-name-resolution"
         /// target="_top">name resolution rules</a>.  Must be an existing
         /// table.  </summary>
         public string table_name { get; set; }
@@ -1155,14 +1155,14 @@ namespace kinetica
         /// cref="RawInsertRecordsRequest.Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>:</term>
         ///         <description>Specifies the record collision policy for
         /// inserting into a table with a <a
-        /// href="../../concepts/tables.html#primary-keys"
-        /// target="_top">primary key</a>.  If set to <i>true</i>, any existing
-        /// table record with primary key values that match those of a record
-        /// being inserted will be replaced by that new record.  If set to
-        /// <i>false</i>, any existing table record with primary key values
-        /// that match those of a record being inserted will remain unchanged
-        /// and the new record discarded.  If the specified table does not have
-        /// a primary key, then this option is ignored.
+        /// href="../../../concepts/tables/#primary-keys" target="_top">primary
+        /// key</a>.  If set to <i>true</i>, any existing table record with
+        /// primary key values that match those of a record being inserted will
+        /// be replaced by that new record.  If set to <i>false</i>, any
+        /// existing table record with primary key values that match those of a
+        /// record being inserted will remain unchanged and the new record
+        /// discarded.  If the specified table does not have a primary key,
+        /// then this option is ignored.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -1293,7 +1293,7 @@ namespace kinetica
         /// 
         /// <param name="table_name">Name of table to which the records are to
         /// be added, in [schema_name.]table_name format, using standard <a
-        /// href="../../concepts/tables.html#table-name-resolution"
+        /// href="../../../concepts/tables/#table-name-resolution"
         /// target="_top">name resolution rules</a>.  Must be an existing
         /// table.  </param>
         /// <param name="data">An array of binary-encoded data for the records
@@ -1308,14 +1308,14 @@ namespace kinetica
         /// cref="RawInsertRecordsRequest.Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>:</term>
         ///         <description>Specifies the record collision policy for
         /// inserting into a table with a <a
-        /// href="../../concepts/tables.html#primary-keys"
-        /// target="_top">primary key</a>.  If set to <i>true</i>, any existing
-        /// table record with primary key values that match those of a record
-        /// being inserted will be replaced by that new record.  If set to
-        /// <i>false</i>, any existing table record with primary key values
-        /// that match those of a record being inserted will remain unchanged
-        /// and the new record discarded.  If the specified table does not have
-        /// a primary key, then this option is ignored.
+        /// href="../../../concepts/tables/#primary-keys" target="_top">primary
+        /// key</a>.  If set to <i>true</i>, any existing table record with
+        /// primary key values that match those of a record being inserted will
+        /// be replaced by that new record.  If set to <i>false</i>, any
+        /// existing table record with primary key values that match those of a
+        /// record being inserted will remain unchanged and the new record
+        /// discarded.  If the specified table does not have a primary key,
+        /// then this option is ignored.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>

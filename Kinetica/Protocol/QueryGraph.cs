@@ -32,8 +32,7 @@ namespace kinetica
     /// column values from any table as long as the type is supported by the
     /// given
     /// identifier. See
-    /// <a
-    /// href="../../graph_solver/network_graph_solver.html#query-identifiers"
+    /// <a href="../../../graph_solver/network_graph_solver/#query-identifiers"
     /// target="_top">Query Identifiers</a>
     /// for more information.
     /// <br />
@@ -49,13 +48,13 @@ namespace kinetica
     /// to <i>true</i>.
     /// <br />
     /// IMPORTANT: It's highly recommended that you review the
-    /// <a href="../../graph_solver/network_graph_solver.html"
+    /// <a href="../../../graph_solver/network_graph_solver/"
     /// target="_top">Network Graphs & Solvers</a>
     /// concepts documentation, the
-    /// <a href="../../graph_solver/examples/graph_rest_guide.html"
+    /// <a href="../../../graph_solver/examples/graph_rest_guide/"
     /// target="_top">Graph REST Tutorial</a>,
     /// and/or some
-    /// <a href="../../graph_solver/examples.html#match-graph"
+    /// <a href="../../../graph_solver/examples/#match-graph"
     /// target="_top">/match/graph examples</a>
     /// before using this endpoint.</summary>
     public class QueryGraphRequest : KineticaData
@@ -72,7 +71,7 @@ namespace kinetica
         /// returned. This parameter is only applicable if the queried graph
         /// <paramref cref="QueryGraphRequest.graph_name" /> is directed and
         /// when querying nodes. Consult <a
-        /// href="../../graph_solver/network_graph_solver.html#directed-graphs"
+        /// href="../../../graph_solver/network_graph_solver/#directed-graphs"
         /// target="_top">Directed Graphs</a> for more details.
         /// Supported values:
         /// <list type="bullet">
@@ -103,9 +102,9 @@ namespace kinetica
         ///         <description>Name of the table to store the list of the
         /// final nodes reached during the traversal, in
         /// [schema_name.]table_name format, using standard <a
-        /// href="../../concepts/tables.html#table-name-resolution"
+        /// href="../../../concepts/tables/#table-name-resolution"
         /// target="_top">name resolution rules</a> and meeting <a
-        /// href="../../concepts/tables.html#table-naming-criteria"
+        /// href="../../../concepts/tables/#table-naming-criteria"
         /// target="_top">table naming criteria</a>.  If this value is left as
         /// the default, the table name will default to the <paramref
         /// cref="QueryGraphRequest.adjacency_table" /> value plus a '_nodes'
@@ -152,9 +151,8 @@ namespace kinetica
         /// cref="QueryGraphRequest.adjacency_table" /> and inputs WKT values
         /// from the source graph (if available) or auto-generated WKT values
         /// (if there are no WKT values in the source graph). A subsequent call
-        /// to the <a href="../../api/rest/wms_rest.html"
-        /// target="_top">/wms</a> endpoint can then be made to display the
-        /// query results on a map.
+        /// to the <a href="../../../api/rest/wms_rest/" target="_top">/wms</a>
+        /// endpoint can then be made to display the query results on a map.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -229,7 +227,7 @@ namespace kinetica
             /// returned. This parameter is only applicable if the queried
             /// graph <see cref="graph_name" /> is directed and when querying
             /// nodes. Consult <a
-            /// href="../../graph_solver/network_graph_solver.html#directed-graphs"
+            /// href="../../../graph_solver/network_graph_solver/#directed-graphs"
             /// target="_top">Directed Graphs</a> for more details.
             /// Supported values:
             /// <list type="bullet">
@@ -258,9 +256,9 @@ namespace kinetica
             /// <summary>Name of the table to store the list of the final nodes
             /// reached during the traversal, in [schema_name.]table_name
             /// format, using standard <a
-            /// href="../../concepts/tables.html#table-name-resolution"
+            /// href="../../../concepts/tables/#table-name-resolution"
             /// target="_top">name resolution rules</a> and meeting <a
-            /// href="../../concepts/tables.html#table-naming-criteria"
+            /// href="../../../concepts/tables/#table-naming-criteria"
             /// target="_top">table naming criteria</a>.  If this value is left
             /// as the default, the table name will default to the <see
             /// cref="adjacency_table" /> value plus a '_nodes' suffix, e.g.,
@@ -302,7 +300,7 @@ namespace kinetica
             /// /> and inputs WKT values from the source graph (if available)
             /// or auto-generated WKT values (if there are no WKT values in the
             /// source graph). A subsequent call to the <a
-            /// href="../../api/rest/wms_rest.html" target="_top">/wms</a>
+            /// href="../../../api/rest/wms_rest/" target="_top">/wms</a>
             /// endpoint can then be made to display the query results on a
             /// map.
             /// Supported values:
@@ -367,7 +365,7 @@ namespace kinetica
         public string graph_name { get; set; }
 
         /// <summary>Nodes or edges to be queried specified using <a
-        /// href="../../graph_solver/network_graph_solver.html#query-identifiers"
+        /// href="../../../graph_solver/network_graph_solver/#query-identifiers"
         /// target="_top">query identifiers</a>. Identifiers can be used with
         /// existing column names, e.g., 'table.column AS QUERY_NODE_ID', raw
         /// values, e.g., '{0, 2} AS QUERY_NODE_ID', or expressions, e.g.,
@@ -380,9 +378,9 @@ namespace kinetica
 
         /// <summary>Additional restrictions to apply to the nodes/edges of an
         /// existing graph. Restrictions must be specified using <a
-        /// href="../../graph_solver/network_graph_solver.html#identifiers"
+        /// href="../../../graph_solver/network_graph_solver/#identifiers"
         /// target="_top">identifiers</a>; identifiers are grouped as <a
-        /// href="../../graph_solver/network_graph_solver.html#id-combos"
+        /// href="../../../graph_solver/network_graph_solver/#id-combos"
         /// target="_top">combinations</a>. Identifiers can be used with
         /// existing column names, e.g., 'table.column AS
         /// RESTRICTIONS_EDGE_ID', expressions, e.g., 'column/2 AS
@@ -394,18 +392,18 @@ namespace kinetica
 
         /// <summary>Name of the table to store the resulting adjacencies, in
         /// [schema_name.]table_name format, using standard <a
-        /// href="../../concepts/tables.html#table-name-resolution"
+        /// href="../../../concepts/tables/#table-name-resolution"
         /// target="_top">name resolution rules</a> and meeting <a
-        /// href="../../concepts/tables.html#table-naming-criteria"
+        /// href="../../../concepts/tables/#table-naming-criteria"
         /// target="_top">table naming criteria</a>.  If left blank, the query
         /// results are instead returned in the response even if
         /// <i>export_query_results</i> is set to <i>false</i>. If the
         /// 'QUERY_TARGET_NODE_LABEL' <a
-        /// href="../../graph_solver/network_graph_solver.html#query-identifiers"
+        /// href="../../../graph_solver/network_graph_solver/#query-identifiers"
         /// target="_top">query identifier</a> is used in <paramref
         /// cref="QueryGraphRequest.queries" />, then two additional columns
         /// will be available: 'PATH_ID' and 'RING_ID'. See <a
-        /// href="../../graph_solver/network_graph_solver.html#using-labels"
+        /// href="../../../graph_solver/network_graph_solver/#using-labels"
         /// target="_top">Using Labels</a> for more information.  The default
         /// value is ''.</summary>
         public string adjacency_table { get; set; } = "";
@@ -435,7 +433,7 @@ namespace kinetica
         /// returned. This parameter is only applicable if the queried graph
         /// <paramref cref="QueryGraphRequest.graph_name" /> is directed and
         /// when querying nodes. Consult <a
-        /// href="../../graph_solver/network_graph_solver.html#directed-graphs"
+        /// href="../../../graph_solver/network_graph_solver/#directed-graphs"
         /// target="_top">Directed Graphs</a> for more details.
         /// Supported values:
         /// <list type="bullet">
@@ -466,9 +464,9 @@ namespace kinetica
         ///         <description>Name of the table to store the list of the
         /// final nodes reached during the traversal, in
         /// [schema_name.]table_name format, using standard <a
-        /// href="../../concepts/tables.html#table-name-resolution"
+        /// href="../../../concepts/tables/#table-name-resolution"
         /// target="_top">name resolution rules</a> and meeting <a
-        /// href="../../concepts/tables.html#table-naming-criteria"
+        /// href="../../../concepts/tables/#table-naming-criteria"
         /// target="_top">table naming criteria</a>.  If this value is left as
         /// the default, the table name will default to the <paramref
         /// cref="QueryGraphRequest.adjacency_table" /> value plus a '_nodes'
@@ -515,9 +513,8 @@ namespace kinetica
         /// cref="QueryGraphRequest.adjacency_table" /> and inputs WKT values
         /// from the source graph (if available) or auto-generated WKT values
         /// (if there are no WKT values in the source graph). A subsequent call
-        /// to the <a href="../../api/rest/wms_rest.html"
-        /// target="_top">/wms</a> endpoint can then be made to display the
-        /// query results on a map.
+        /// to the <a href="../../../api/rest/wms_rest/" target="_top">/wms</a>
+        /// endpoint can then be made to display the query results on a map.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -595,7 +592,7 @@ namespace kinetica
         /// </param>
         /// <param name="queries">Nodes or edges to be queried specified using
         /// <a
-        /// href="../../graph_solver/network_graph_solver.html#query-identifiers"
+        /// href="../../../graph_solver/network_graph_solver/#query-identifiers"
         /// target="_top">query identifiers</a>. Identifiers can be used with
         /// existing column names, e.g., 'table.column AS QUERY_NODE_ID', raw
         /// values, e.g., '{0, 2} AS QUERY_NODE_ID', or expressions, e.g.,
@@ -607,9 +604,9 @@ namespace kinetica
         /// <param name="restrictions">Additional restrictions to apply to the
         /// nodes/edges of an existing graph. Restrictions must be specified
         /// using <a
-        /// href="../../graph_solver/network_graph_solver.html#identifiers"
+        /// href="../../../graph_solver/network_graph_solver/#identifiers"
         /// target="_top">identifiers</a>; identifiers are grouped as <a
-        /// href="../../graph_solver/network_graph_solver.html#id-combos"
+        /// href="../../../graph_solver/network_graph_solver/#id-combos"
         /// target="_top">combinations</a>. Identifiers can be used with
         /// existing column names, e.g., 'table.column AS
         /// RESTRICTIONS_EDGE_ID', expressions, e.g., 'column/2 AS
@@ -619,18 +616,18 @@ namespace kinetica
         /// combination.  The default value is an empty {@link List}.</param>
         /// <param name="adjacency_table">Name of the table to store the
         /// resulting adjacencies, in [schema_name.]table_name format, using
-        /// standard <a href="../../concepts/tables.html#table-name-resolution"
+        /// standard <a href="../../../concepts/tables/#table-name-resolution"
         /// target="_top">name resolution rules</a> and meeting <a
-        /// href="../../concepts/tables.html#table-naming-criteria"
+        /// href="../../../concepts/tables/#table-naming-criteria"
         /// target="_top">table naming criteria</a>.  If left blank, the query
         /// results are instead returned in the response even if
         /// <i>export_query_results</i> is set to <i>false</i>. If the
         /// 'QUERY_TARGET_NODE_LABEL' <a
-        /// href="../../graph_solver/network_graph_solver.html#query-identifiers"
+        /// href="../../../graph_solver/network_graph_solver/#query-identifiers"
         /// target="_top">query identifier</a> is used in <paramref
         /// cref="QueryGraphRequest.queries" />, then two additional columns
         /// will be available: 'PATH_ID' and 'RING_ID'. See <a
-        /// href="../../graph_solver/network_graph_solver.html#using-labels"
+        /// href="../../../graph_solver/network_graph_solver/#using-labels"
         /// target="_top">Using Labels</a> for more information.  The default
         /// value is ''.</param>
         /// <param name="rings">Sets the number of rings around the node to
@@ -656,7 +653,7 @@ namespace kinetica
         /// returned. This parameter is only applicable if the queried graph
         /// <paramref cref="QueryGraphRequest.graph_name" /> is directed and
         /// when querying nodes. Consult <a
-        /// href="../../graph_solver/network_graph_solver.html#directed-graphs"
+        /// href="../../../graph_solver/network_graph_solver/#directed-graphs"
         /// target="_top">Directed Graphs</a> for more details.
         /// Supported values:
         /// <list type="bullet">
@@ -687,9 +684,9 @@ namespace kinetica
         ///         <description>Name of the table to store the list of the
         /// final nodes reached during the traversal, in
         /// [schema_name.]table_name format, using standard <a
-        /// href="../../concepts/tables.html#table-name-resolution"
+        /// href="../../../concepts/tables/#table-name-resolution"
         /// target="_top">name resolution rules</a> and meeting <a
-        /// href="../../concepts/tables.html#table-naming-criteria"
+        /// href="../../../concepts/tables/#table-naming-criteria"
         /// target="_top">table naming criteria</a>.  If this value is left as
         /// the default, the table name will default to the <paramref
         /// cref="QueryGraphRequest.adjacency_table" /> value plus a '_nodes'
@@ -736,9 +733,8 @@ namespace kinetica
         /// cref="QueryGraphRequest.adjacency_table" /> and inputs WKT values
         /// from the source graph (if available) or auto-generated WKT values
         /// (if there are no WKT values in the source graph). A subsequent call
-        /// to the <a href="../../api/rest/wms_rest.html"
-        /// target="_top">/wms</a> endpoint can then be made to display the
-        /// query results on a map.
+        /// to the <a href="../../../api/rest/wms_rest/" target="_top">/wms</a>
+        /// endpoint can then be made to display the query results on a map.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>

@@ -37,7 +37,7 @@ namespace kinetica
     /// />.
     /// <br />
     /// For more information on table monitors, see
-    /// <a href="../../concepts/table_monitors.html" target="_top">Table
+    /// <a href="../../../concepts/table_monitors/" target="_top">Table
     /// Monitors</a>.</summary>
     public class CreateTableMonitorRequest : KineticaData
     {
@@ -130,7 +130,7 @@ namespace kinetica
 
         /// <summary>Name of the table to monitor, in [schema_name.]table_name
         /// format, using standard <a
-        /// href="../../concepts/tables.html#table-name-resolution"
+        /// href="../../../concepts/tables/#table-name-resolution"
         /// target="_top">name resolution rules</a>.  </summary>
         public string table_name { get; set; }
 
@@ -181,7 +181,7 @@ namespace kinetica
         /// 
         /// <param name="table_name">Name of the table to monitor, in
         /// [schema_name.]table_name format, using standard <a
-        /// href="../../concepts/tables.html#table-name-resolution"
+        /// href="../../../concepts/tables/#table-name-resolution"
         /// target="_top">name resolution rules</a>.  </param>
         /// <param name="options">Optional parameters.
         /// <list type="bullet">

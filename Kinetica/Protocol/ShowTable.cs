@@ -257,7 +257,7 @@ namespace kinetica
 
         /// <summary>Name of the table for which to retrieve the information,
         /// in [schema_name.]table_name format, using standard <a
-        /// href="../../concepts/tables.html#table-name-resolution"
+        /// href="../../../concepts/tables/#table-name-resolution"
         /// target="_top">name resolution rules</a>.  If blank, then returns
         /// information about all tables and views.  </summary>
         public string table_name { get; set; }
@@ -381,7 +381,7 @@ namespace kinetica
         /// 
         /// <param name="table_name">Name of the table for which to retrieve
         /// the information, in [schema_name.]table_name format, using standard
-        /// <a href="../../concepts/tables.html#table-name-resolution"
+        /// <a href="../../../concepts/tables/#table-name-resolution"
         /// target="_top">name resolution rules</a>.  If blank, then returns
         /// information about all tables and views.  </param>
         /// <param name="options">Optional parameters.
@@ -647,19 +647,19 @@ namespace kinetica
             /// be one schema for a table.</summary>
             public const string SCHEMA_NAME = "schema_name";
 
-            /// <summary>The value of the <a href="../../concepts/ttl.html"
+            /// <summary>The value of the <a href="../../../concepts/ttl/"
             /// target="_top">time-to-live</a> setting.  Not present for
             /// schemas.</summary>
             public const string TABLE_TTL = "table_ttl";
 
-            /// <summary>The remaining <a href="../../concepts/ttl.html"
+            /// <summary>The remaining <a href="../../../concepts/ttl/"
             /// target="_top">time-to-live</a>, in minutes, before the
             /// respective table expires (-1 if it will never expire).  Not
             /// present for schemas.</summary>
             public const string REMAINING_TABLE_TTL = "remaining_table_ttl";
 
             /// <summary>Semicolon-separated list of <a
-            /// href="../../concepts/tables.html#foreign-key"
+            /// href="../../../concepts/tables/#foreign-key"
             /// target="_top">foreign keys</a>, of the format 'source_column
             /// references target_table(primary_key_column)'. Not present for
             /// schemas.  The default value is ''.</summary>
@@ -671,7 +671,7 @@ namespace kinetica
             /// The default value is ''.</summary>
             public const string FOREIGN_SHARD_KEY = "foreign_shard_key";
 
-            /// <summary><a href="../../concepts/tables.html#partitioning"
+            /// <summary><a href="../../../concepts/tables/#partitioning"
             /// target="_top">Partitioning</a> scheme used for this table
             /// Supported values:
             /// <list type="bullet">
@@ -679,21 +679,21 @@ namespace kinetica
             ///         <term><see
             /// cref="ShowTableResponse.AdditionalInfo.RANGE">RANGE</see>:</term>
             ///         <description>Using <a
-            /// href="../../concepts/tables.html#partitioning-by-range"
+            /// href="../../../concepts/tables/#partitioning-by-range"
             /// target="_top">range partitioning</a></description>
             ///     </item>
             ///     <item>
             ///         <term><see
             /// cref="ShowTableResponse.AdditionalInfo.INTERVAL">INTERVAL</see>:</term>
             ///         <description>Using <a
-            /// href="../../concepts/tables.html#partitioning-by-interval"
+            /// href="../../../concepts/tables/#partitioning-by-interval"
             /// target="_top">interval partitioning</a></description>
             ///     </item>
             ///     <item>
             ///         <term><see
             /// cref="ShowTableResponse.AdditionalInfo.LIST">LIST</see>:</term>
             ///         <description>Using <a
-            /// href="../../concepts/tables.html#partitioning-by-list-manual"
+            /// href="../../../concepts/tables/#partitioning-by-list-manual"
             /// target="_top">manual list partitioning</a></description>
             ///     </item>
             ///     <item>
@@ -707,17 +707,17 @@ namespace kinetica
             public const string PARTITION_TYPE = "partition_type";
 
             /// <summary>Using <a
-            /// href="../../concepts/tables.html#partitioning-by-range"
+            /// href="../../../concepts/tables/#partitioning-by-range"
             /// target="_top">range partitioning</a></summary>
             public const string RANGE = "RANGE";
 
             /// <summary>Using <a
-            /// href="../../concepts/tables.html#partitioning-by-interval"
+            /// href="../../../concepts/tables/#partitioning-by-interval"
             /// target="_top">interval partitioning</a></summary>
             public const string INTERVAL = "INTERVAL";
 
             /// <summary>Using <a
-            /// href="../../concepts/tables.html#partitioning-by-list-manual"
+            /// href="../../../concepts/tables/#partitioning-by-list-manual"
             /// target="_top">manual list partitioning</a></summary>
             public const string LIST = "LIST";
 
@@ -730,7 +730,7 @@ namespace kinetica
 
             /// <summary>Comma-separated list of partition definitions, whose
             /// format depends on the partition_type.  See <a
-            /// href="../../concepts/tables.html#partitioning"
+            /// href="../../../concepts/tables/#partitioning"
             /// target="_top">partitioning</a> documentation for details.  The
             /// default value is ''.</summary>
             public const string PARTITION_DEFINITIONS = "partition_definitions";
@@ -741,13 +741,13 @@ namespace kinetica
             public const string IS_AUTOMATIC_PARTITION = "is_automatic_partition";
 
             /// <summary>Semicolon-separated list of columns that have <a
-            /// href="../../concepts/indexes.html#column-index"
+            /// href="../../../concepts/indexes/#column-index"
             /// target="_top">indexes</a>. Not present for schemas.  The
             /// default value is ''.</summary>
             public const string ATTRIBUTE_INDEXES = "attribute_indexes";
 
             /// <summary>Semicolon-separated list of <a
-            /// href="../../concepts/compression.html"
+            /// href="../../../concepts/compression/"
             /// target="_top">compressed</a> columns with the corresponding
             /// compression type for each; e.g.:
             /// {first_name,snappy};{last_name,lz4hc}. Not present for schemas.

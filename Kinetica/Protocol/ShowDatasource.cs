@@ -16,8 +16,8 @@ namespace kinetica
     /// />.
     /// <br />
     /// Shows information about a specified <a
-    /// href="../../concepts/data_sources.html" target="_top">data source</a>
-    /// or all data sources.</summary>
+    /// href="../../../concepts/data_sources/" target="_top">data source</a> or
+    /// all data sources.</summary>
     public class ShowDatasourceRequest : KineticaData
     {
 

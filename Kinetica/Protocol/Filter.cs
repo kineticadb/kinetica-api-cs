@@ -16,11 +16,11 @@ namespace kinetica
     /// />.
     /// <br />
     /// Filters data based on the specified expression.  The results are
-    /// stored in a <a href="../../concepts/filtered_views.html"
+    /// stored in a <a href="../../../concepts/filtered_views/"
     /// target="_top">result set</a> with the
     /// given <see cref="view_name" />.
     /// <br />
-    /// For details see <a href="../../concepts/expressions.html"
+    /// For details see <a href="../../../concepts/expressions/"
     /// target="_top">Expressions</a>.
     /// <br />
     /// The response message contains the number of points for which the
@@ -51,7 +51,7 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="FilterRequest.Options.TTL">TTL</see>:</term>
-        ///         <description>Sets the <a href="../../concepts/ttl.html"
+        ///         <description>Sets the <a href="../../../concepts/ttl/"
         /// target="_top">TTL</a> of the view specified in <paramref
         /// cref="FilterRequest.view_name" />.</description>
         ///     </item>
@@ -74,7 +74,7 @@ namespace kinetica
             /// is ''.</summary>
             public const string VIEW_ID = "view_id";
 
-            /// <summary>Sets the <a href="../../concepts/ttl.html"
+            /// <summary>Sets the <a href="../../../concepts/ttl/"
             /// target="_top">TTL</a> of the view specified in <see
             /// cref="view_name" />.</summary>
             public const string TTL = "ttl";
@@ -83,22 +83,22 @@ namespace kinetica
 
         /// <summary>Name of the table to filter, in [schema_name.]table_name
         /// format, using standard <a
-        /// href="../../concepts/tables.html#table-name-resolution"
+        /// href="../../../concepts/tables/#table-name-resolution"
         /// target="_top">name resolution rules</a>.  This may be the name of a
         /// table or a view (when chaining queries).  </summary>
         public string table_name { get; set; }
 
         /// <summary>If provided, then this will be the name of the view
         /// containing the results, in [schema_name.]view_name format, using
-        /// standard <a href="../../concepts/tables.html#table-name-resolution"
+        /// standard <a href="../../../concepts/tables/#table-name-resolution"
         /// target="_top">name resolution rules</a> and meeting <a
-        /// href="../../concepts/tables.html#table-naming-criteria"
+        /// href="../../../concepts/tables/#table-naming-criteria"
         /// target="_top">table naming criteria</a>.  Must not be an already
         /// existing table or view.  The default value is ''.</summary>
         public string view_name { get; set; } = "";
 
         /// <summary>The select expression to filter the specified table.  For
-        /// details see <a href="../../concepts/expressions.html"
+        /// details see <a href="../../../concepts/expressions/"
         /// target="_top">Expressions</a>.  </summary>
         public string expression { get; set; }
 
@@ -123,7 +123,7 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="FilterRequest.Options.TTL">TTL</see>:</term>
-        ///         <description>Sets the <a href="../../concepts/ttl.html"
+        ///         <description>Sets the <a href="../../../concepts/ttl/"
         /// target="_top">TTL</a> of the view specified in <paramref
         /// cref="FilterRequest.view_name" />.</description>
         ///     </item>
@@ -141,20 +141,20 @@ namespace kinetica
         /// 
         /// <param name="table_name">Name of the table to filter, in
         /// [schema_name.]table_name format, using standard <a
-        /// href="../../concepts/tables.html#table-name-resolution"
+        /// href="../../../concepts/tables/#table-name-resolution"
         /// target="_top">name resolution rules</a>.  This may be the name of a
         /// table or a view (when chaining queries).  </param>
         /// <param name="view_name">If provided, then this will be the name of
         /// the view containing the results, in [schema_name.]view_name format,
         /// using standard <a
-        /// href="../../concepts/tables.html#table-name-resolution"
+        /// href="../../../concepts/tables/#table-name-resolution"
         /// target="_top">name resolution rules</a> and meeting <a
-        /// href="../../concepts/tables.html#table-naming-criteria"
+        /// href="../../../concepts/tables/#table-naming-criteria"
         /// target="_top">table naming criteria</a>.  Must not be an already
         /// existing table or view.  The default value is ''.</param>
         /// <param name="expression">The select expression to filter the
         /// specified table.  For details see <a
-        /// href="../../concepts/expressions.html"
+        /// href="../../../concepts/expressions/"
         /// target="_top">Expressions</a>.  </param>
         /// <param name="options">Optional parameters.
         /// <list type="bullet">
@@ -177,7 +177,7 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="FilterRequest.Options.TTL">TTL</see>:</term>
-        ///         <description>Sets the <a href="../../concepts/ttl.html"
+        ///         <description>Sets the <a href="../../../concepts/ttl/"
         /// target="_top">TTL</a> of the view specified in <paramref
         /// cref="FilterRequest.view_name" />.</description>
         ///     </item>

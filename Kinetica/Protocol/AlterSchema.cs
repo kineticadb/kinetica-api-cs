@@ -16,7 +16,7 @@ namespace kinetica
     /// />.
     /// <br />
     /// Used to change the name of a SQL-style <a
-    /// href="../../concepts/schemas.html" target="_top">schema</a>, specified
+    /// href="../../../concepts/schemas/" target="_top">schema</a>, specified
     /// in <see cref="schema_name" />.</summary>
     public class AlterSchemaRequest : KineticaData
     {
@@ -29,7 +29,7 @@ namespace kinetica
         /// cref="AlterSchemaRequest.Action.RENAME_SCHEMA">RENAME_SCHEMA</see>:</term>
         ///         <description>Renames a schema to <paramref
         /// cref="AlterSchemaRequest._value" />. Has the same naming
-        /// restrictions as <a href="../../concepts/tables.html"
+        /// restrictions as <a href="../../../concepts/tables/"
         /// target="_top">tables</a>.</description>
         ///     </item>
         /// </list>
@@ -39,8 +39,7 @@ namespace kinetica
         {
 
             /// <summary>Renames a schema to <see cref="_value" />. Has the
-            /// same naming restrictions as <a
-            /// href="../../concepts/tables.html"
+            /// same naming restrictions as <a href="../../../concepts/tables/"
             /// target="_top">tables</a>.</summary>
             public const string RENAME_SCHEMA = "rename_schema";
         } // end struct Action
@@ -57,7 +56,7 @@ namespace kinetica
         /// cref="AlterSchemaRequest.Action.RENAME_SCHEMA">RENAME_SCHEMA</see>:</term>
         ///         <description>Renames a schema to <paramref
         /// cref="AlterSchemaRequest._value" />. Has the same naming
-        /// restrictions as <a href="../../concepts/tables.html"
+        /// restrictions as <a href="../../../concepts/tables/"
         /// target="_top">tables</a>.</description>
         ///     </item>
         /// </list>  </summary>
@@ -92,7 +91,7 @@ namespace kinetica
         /// cref="AlterSchemaRequest.Action.RENAME_SCHEMA">RENAME_SCHEMA</see>:</term>
         ///         <description>Renames a schema to <paramref
         /// cref="AlterSchemaRequest._value" />. Has the same naming
-        /// restrictions as <a href="../../concepts/tables.html"
+        /// restrictions as <a href="../../../concepts/tables/"
         /// target="_top">tables</a>.</description>
         ///     </item>
         /// </list>  </param>

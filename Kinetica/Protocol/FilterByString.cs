@@ -20,7 +20,7 @@ namespace kinetica
     /// <i>case_sensitive</i> can modify case sensitivity in matching
     /// for all modes except <i>search</i>. For
     /// <i>search</i> mode details and limitations, see
-    /// <a href="../../concepts/full_text_search.html" target="_top">Full Text
+    /// <a href="../../../concepts/full_text_search/" target="_top">Full Text
     /// Search</a>.</summary>
     public class FilterByStringRequest : KineticaData
     {
@@ -165,16 +165,16 @@ namespace kinetica
 
         /// <summary>Name of the table on which the filter operation will be
         /// performed, in [schema_name.]table_name format, using standard <a
-        /// href="../../concepts/tables.html#table-name-resolution"
+        /// href="../../../concepts/tables/#table-name-resolution"
         /// target="_top">name resolution rules</a>.  Must be an existing table
         /// or view.  </summary>
         public string table_name { get; set; }
 
         /// <summary>If provided, then this will be the name of the view
         /// containing the results, in [schema_name.]view_name format, using
-        /// standard <a href="../../concepts/tables.html#table-name-resolution"
+        /// standard <a href="../../../concepts/tables/#table-name-resolution"
         /// target="_top">name resolution rules</a> and meeting <a
-        /// href="../../concepts/tables.html#table-naming-criteria"
+        /// href="../../../concepts/tables/#table-naming-criteria"
         /// target="_top">table naming criteria</a>.  Must not be an already
         /// existing table or view.  The default value is ''.</summary>
         public string view_name { get; set; } = "";
@@ -274,15 +274,15 @@ namespace kinetica
         /// <param name="table_name">Name of the table on which the filter
         /// operation will be performed, in [schema_name.]table_name format,
         /// using standard <a
-        /// href="../../concepts/tables.html#table-name-resolution"
+        /// href="../../../concepts/tables/#table-name-resolution"
         /// target="_top">name resolution rules</a>.  Must be an existing table
         /// or view.  </param>
         /// <param name="view_name">If provided, then this will be the name of
         /// the view containing the results, in [schema_name.]view_name format,
         /// using standard <a
-        /// href="../../concepts/tables.html#table-name-resolution"
+        /// href="../../../concepts/tables/#table-name-resolution"
         /// target="_top">name resolution rules</a> and meeting <a
-        /// href="../../concepts/tables.html#table-naming-criteria"
+        /// href="../../../concepts/tables/#table-naming-criteria"
         /// target="_top">table naming criteria</a>.  Must not be an already
         /// existing table or view.  The default value is ''.</param>
         /// <param name="expression">The expression with which to filter the

@@ -16,7 +16,7 @@ namespace kinetica
     {
 
         // Kinetica Version
-        public const string API_VERSION = "7.1.2.0";
+        public const string API_VERSION = "7.1.3.0";
 
 
 
@@ -68,9 +68,8 @@ namespace kinetica
         /// cref="AdminAddHostRequest.Options.ACCEPTS_FAILOVER">ACCEPTS_FAILOVER</see>:</term>
         ///         <description>If set to <i>true</i>, the host will accept
         /// processes (ranks, graph server, etc.) in the event of a failover on
-        /// another node in the cluster. See <a
-        /// href="../../n_plus_1/index.html" target="_top">Cluster
-        /// Resilience</a> for more information.
+        /// another node in the cluster. See <a href="../../../n_plus_1/"
+        /// target="_top">Cluster Resilience</a> for more information.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -99,7 +98,7 @@ namespace kinetica
         ///         <description>The publicly-accessible full path URL to the
         /// host manager on the host being added, e.g.,
         /// 'http://172.123.45.67:9300'. The default host manager port can be
-        /// found in the <a href="../../install/shared/ports.html"
+        /// found in the <a href="../../../install/shared/ports/"
         /// target="_top">list of ports</a> used by Kinetica.</description>
         ///     </item>
         ///     <item>
@@ -235,26 +234,25 @@ namespace kinetica
         /// cref="AdminAddRanksRequest.hosts" />. For example,
         /// '{"rank.gpu":"2", "tier.ram.rank.limit":"10000000000"}'. Currently,
         /// the available parameters are rank-specific parameters in the <a
-        /// href="../../config/index.html#network" target="_top">Network</a>,
-        /// <a href="../../config/index.html#hardware"
-        /// target="_top">Hardware</a>, <a
-        /// href="../../config/index.html#text-search" target="_top">Text
-        /// Search</a>, and <a href="../../config/index.html#ram-tier"
-        /// target="_top">RAM Tiered Storage</a> sections in the gpudb.conf
-        /// file, with the key exception of the 'rankN.host' settings in the
-        /// Network section that will be determined by <paramref
-        /// cref="AdminAddRanksRequest.hosts" /> instead. Though many of these
-        /// configuration parameters typically are affixed with 'rankN' in the
-        /// gpudb.conf file (where N is the rank number), the 'N' should be
-        /// omitted in <paramref cref="AdminAddRanksRequest.config_params" />
-        /// as the new rank number(s) are not allocated until the ranks have
-        /// been added to the cluster. Each entry in this array corresponds to
-        /// the entry at the same index in the <paramref
-        /// cref="AdminAddRanksRequest.hosts" />. This array must either be
-        /// completely empty or have the same number of elements as the
-        /// <paramref cref="AdminAddRanksRequest.hosts" />.  An empty <paramref
-        /// cref="AdminAddRanksRequest.config_params" /> array will result in
-        /// the new ranks being set with default parameters.  </param>
+        /// href="../../../config/#network" target="_top">Network</a>, <a
+        /// href="../../../config/#hardware" target="_top">Hardware</a>, <a
+        /// href="../../../config/#text-search" target="_top">Text Search</a>,
+        /// and <a href="../../../config/#ram-tier" target="_top">RAM Tiered
+        /// Storage</a> sections in the gpudb.conf file, with the key exception
+        /// of the 'rankN.host' settings in the Network section that will be
+        /// determined by <paramref cref="AdminAddRanksRequest.hosts" />
+        /// instead. Though many of these configuration parameters typically
+        /// are affixed with 'rankN' in the gpudb.conf file (where N is the
+        /// rank number), the 'N' should be omitted in <paramref
+        /// cref="AdminAddRanksRequest.config_params" /> as the new rank
+        /// number(s) are not allocated until the ranks have been added to the
+        /// cluster. Each entry in this array corresponds to the entry at the
+        /// same index in the <paramref cref="AdminAddRanksRequest.hosts" />.
+        /// This array must either be completely empty or have the same number
+        /// of elements as the <paramref cref="AdminAddRanksRequest.hosts" />.
+        /// An empty <paramref cref="AdminAddRanksRequest.config_params" />
+        /// array will result in the new ranks being set with default
+        /// parameters.  </param>
         /// <param name="options">Optional parameters.
         /// <list type="bullet">
         ///     <item>
@@ -322,9 +320,8 @@ namespace kinetica
         /// cref="AdminAlterHostRequest.Options.ACCEPTS_FAILOVER">ACCEPTS_FAILOVER</see>:</term>
         ///         <description>If set to <i>true</i>, the host will accept
         /// processes (ranks, graph server, etc.) in the event of a failover on
-        /// another node in the cluster. See <a
-        /// href="../../n_plus_1/index.html" target="_top">Cluster
-        /// Resilience</a> for more information.
+        /// another node in the cluster. See <a href="../../../n_plus_1/"
+        /// target="_top">Cluster Resilience</a> for more information.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -357,7 +354,7 @@ namespace kinetica
         /// execution, the action may not be successfully executed. The final
         /// result of the attempted actions for each specified job is returned
         /// in the status array of the response. See <a
-        /// href="../../admin/job_manager.html" target="_top">Job Manager</a>
+        /// href="../../../admin/job_manager/" target="_top">Job Manager</a>
         /// for more information.</summary>
         /// 
         /// <param name="request_">Request object containing the parameters for
@@ -379,7 +376,7 @@ namespace kinetica
         /// execution, the action may not be successfully executed. The final
         /// result of the attempted actions for each specified job is returned
         /// in the status array of the response. See <a
-        /// href="../../admin/job_manager.html" target="_top">Job Manager</a>
+        /// href="../../../admin/job_manager/" target="_top">Job Manager</a>
         /// for more information.</summary>
         /// 
         /// <param name="job_ids">Jobs to be modified.  </param>
@@ -491,7 +488,7 @@ namespace kinetica
         /// cref="Kinetica.adminRebalance(IDictionary{string, string})" /> is
         /// invoked after a change is made to the
         ///   cluster, e.g., a host was added or removed,
-        ///   <a href="../../concepts/tables.html#sharding"
+        ///   <a href="../../../concepts/tables/#sharding"
         /// target="_top">sharded data</a> will be
         ///   evenly redistributed across the cluster by number of shards per
         /// rank
@@ -502,7 +499,7 @@ namespace kinetica
         /// cref="Kinetica.adminRebalance(IDictionary{string, string})" /> is
         /// invoked at some point when unsharded
         ///   data (a.k.a.
-        ///   <a href="../../concepts/tables.html#random-sharding"
+        ///   <a href="../../../concepts/tables/#random-sharding"
         /// target="_top">randomly-sharded</a>)
         ///   in the cluster is unevenly distributed over time, sharded data
         /// will
@@ -543,7 +540,7 @@ namespace kinetica
         /// cref="Kinetica.adminRebalance(IDictionary{string, string})" /> is
         /// invoked after a change is made to the
         ///   cluster, e.g., a host was added or removed,
-        ///   <a href="../../concepts/tables.html#sharding"
+        ///   <a href="../../../concepts/tables/#sharding"
         /// target="_top">sharded data</a> will be
         ///   evenly redistributed across the cluster by number of shards per
         /// rank
@@ -554,7 +551,7 @@ namespace kinetica
         /// cref="Kinetica.adminRebalance(IDictionary{string, string})" /> is
         /// invoked at some point when unsharded
         ///   data (a.k.a.
-        ///   <a href="../../concepts/tables.html#random-sharding"
+        ///   <a href="../../../concepts/tables/#random-sharding"
         /// target="_top">randomly-sharded</a>)
         ///   in the cluster is unevenly distributed over time, sharded data
         /// will
@@ -575,7 +572,7 @@ namespace kinetica
         ///         <term><see
         /// cref="AdminRebalanceRequest.Options.REBALANCE_SHARDED_DATA">REBALANCE_SHARDED_DATA</see>:</term>
         ///         <description>If <i>true</i>, <a
-        /// href="../../concepts/tables.html#sharding" target="_top">sharded
+        /// href="../../../concepts/tables/#sharding" target="_top">sharded
         /// data</a> will be rebalanced approximately equally across the
         /// cluster. Note that for clusters with large amounts of sharded data,
         /// this data transfer could be time consuming and result in delayed
@@ -598,7 +595,7 @@ namespace kinetica
         ///         <term><see
         /// cref="AdminRebalanceRequest.Options.REBALANCE_UNSHARDED_DATA">REBALANCE_UNSHARDED_DATA</see>:</term>
         ///         <description>If <i>true</i>, unsharded data (a.k.a. <a
-        /// href="../../concepts/tables.html#random-sharding"
+        /// href="../../../concepts/tables/#random-sharding"
         /// target="_top">randomly-sharded</a>) will be rebalanced
         /// approximately equally across the cluster. Note that for clusters
         /// with large amounts of unsharded data, this data transfer could be
@@ -805,9 +802,9 @@ namespace kinetica
         /// <i>rebalance_unsharded_data</i> parameters are set to <i>false</i>
         /// in the <paramref cref="AdminRemoveRanksRequest.options" />, in
         /// which case the corresponding <a
-        /// href="../../concepts/tables.html#sharding" target="_top">sharded
+        /// href="../../../concepts/tables/#sharding" target="_top">sharded
         /// data</a> and/or unsharded data (a.k.a. <a
-        /// href="../../concepts/tables.html#random-sharding"
+        /// href="../../../concepts/tables/#random-sharding"
         /// target="_top">randomly-sharded</a>) will be deleted.
         /// <br />
         /// The database must be offline for this operation, see <see
@@ -838,9 +835,9 @@ namespace kinetica
         /// rank(s) is removed unless the <i>rebalance_sharded_data</i> or
         /// <i>rebalance_unsharded_data</i> parameters are set to <i>false</i>
         /// in the <paramref name="options" />, in which case the corresponding
-        /// <a href="../../concepts/tables.html#sharding" target="_top">sharded
+        /// <a href="../../../concepts/tables/#sharding" target="_top">sharded
         /// data</a> and/or unsharded data (a.k.a. <a
-        /// href="../../concepts/tables.html#random-sharding"
+        /// href="../../../concepts/tables/#random-sharding"
         /// target="_top">randomly-sharded</a>) will be deleted.
         /// <br />
         /// The database must be offline for this operation, see <see
@@ -866,7 +863,7 @@ namespace kinetica
         ///         <term><see
         /// cref="AdminRemoveRanksRequest.Options.REBALANCE_SHARDED_DATA">REBALANCE_SHARDED_DATA</see>:</term>
         ///         <description>If <i>true</i>, <a
-        /// href="../../concepts/tables.html#sharding" target="_top">sharded
+        /// href="../../../concepts/tables/#sharding" target="_top">sharded
         /// data</a> will be rebalanced approximately equally across the
         /// cluster. Note that for clusters with large amounts of sharded data,
         /// this data transfer could be time consuming and result in delayed
@@ -889,7 +886,7 @@ namespace kinetica
         ///         <term><see
         /// cref="AdminRemoveRanksRequest.Options.REBALANCE_UNSHARDED_DATA">REBALANCE_UNSHARDED_DATA</see>:</term>
         ///         <description>If <i>true</i>, unsharded data (a.k.a. <a
-        /// href="../../concepts/tables.html#random-sharding"
+        /// href="../../../concepts/tables/#random-sharding"
         /// target="_top">randomly-sharded</a>) will be rebalanced
         /// approximately equally across the cluster. Note that for clusters
         /// with large amounts of unsharded data, this data transfer could be
@@ -1169,7 +1166,7 @@ namespace kinetica
         /// <param name="processes">Indicates the process identifier to
         /// switchover to another host. Options are 'hostN' and 'rankN' where
         /// 'N' corresponds to the number associated with a host or rank in the
-        /// <a href="../../config/index.html#network" target="_top">Network</a>
+        /// <a href="../../../config/#network" target="_top">Network</a>
         /// section of the gpudb.conf file, e.g., 'host[N].address' or
         /// 'rank[N].host'. If 'hostN' is provided, all processes on that host
         /// will be moved to another host. Each entry in this array will be
@@ -1179,12 +1176,11 @@ namespace kinetica
         /// each corresponding process given in <paramref
         /// cref="AdminSwitchoverRequest.processes" />. Each index must be
         /// specified as 'hostN' where 'N' corresponds to the number associated
-        /// with a host or rank in the <a
-        /// href="../../config/index.html#network" target="_top">Network</a>
-        /// section of the gpudb.conf file, e.g., 'host[N].address'. Each entry
-        /// in this array will receive the corresponding process entry at the
-        /// same index in <paramref cref="AdminSwitchoverRequest.processes" />.
-        /// </param>
+        /// with a host or rank in the <a href="../../../config/#network"
+        /// target="_top">Network</a> section of the gpudb.conf file, e.g.,
+        /// 'host[N].address'. Each entry in this array will receive the
+        /// corresponding process entry at the same index in <paramref
+        /// cref="AdminSwitchoverRequest.processes" />.  </param>
         /// <param name="options">Optional parameters.
         /// <list type="bullet">
         ///     <item>
@@ -1377,7 +1373,7 @@ namespace kinetica
         /// <param name="table_name">Name of table on which the operation will
         /// be performed. Must be an existing table, in
         /// [schema_name.]table_name format, using standard <a
-        /// href="../../concepts/tables.html#table-name-resolution"
+        /// href="../../../concepts/tables/#table-name-resolution"
         /// target="_top">name resolution rules</a>.  </param>
         /// <param name="x_column_name">Name of the column containing the x
         /// coordinates of the points for the operation being performed.
@@ -1409,15 +1405,15 @@ namespace kinetica
         /// SELECT...GROUP BY.
         /// <br />
         /// For aggregation details and examples, see <a
-        /// href="../../concepts/aggregation.html"
+        /// href="../../../concepts/aggregation/"
         /// target="_top">Aggregation</a>.  For limitations, see <a
-        /// href="../../concepts/aggregation.html#limitations"
+        /// href="../../../concepts/aggregation/#limitations"
         /// target="_top">Aggregation Limitations</a>.
         /// <br />
         /// Any column(s) can be grouped on, and all column types except
         /// unrestricted-length strings may be used for computing applicable
         /// aggregates; columns marked as <a
-        /// href="../../concepts/types.html#data-handling"
+        /// href="../../../concepts/types/#data-handling"
         /// target="_top">store-only</a> are unable to be used in grouping or
         /// aggregation.
         /// <br />
@@ -1438,37 +1434,36 @@ namespace kinetica
         /// column_names=['x','y','count(*)','sum(z)'].
         /// <br />
         /// Available <a
-        /// href="../../concepts/expressions.html#aggregate-expressions"
+        /// href="../../../concepts/expressions/#aggregate-expressions"
         /// target="_top">aggregation functions</a> are: count(*), sum, min,
         /// max, avg, mean, stddev, stddev_pop, stddev_samp, var, var_pop,
         /// var_samp, arg_min, arg_max and count_distinct.
         /// <br />
         /// Available grouping functions are <a
-        /// href="../../concepts/rollup.html" target="_top">Rollup</a>, <a
-        /// href="../../concepts/cube.html" target="_top">Cube</a>, and <a
-        /// href="../../concepts/grouping_sets.html" target="_top">Grouping
+        /// href="../../../concepts/rollup/" target="_top">Rollup</a>, <a
+        /// href="../../../concepts/cube/" target="_top">Cube</a>, and <a
+        /// href="../../../concepts/grouping_sets/" target="_top">Grouping
         /// Sets</a>
         /// <br />
         /// This service also provides support for <a
-        /// href="../../concepts/pivot.html" target="_top">Pivot</a>
-        /// operations.
+        /// href="../../../concepts/pivot/" target="_top">Pivot</a> operations.
         /// <br />
         /// Filtering on aggregates is supported via expressions using <a
-        /// href="../../concepts/expressions.html#aggregate-expressions"
+        /// href="../../../concepts/expressions/#aggregate-expressions"
         /// target="_top">aggregation functions</a> supplied to <i>having</i>.
         /// <br />
         /// The response is returned as a dynamic schema. For details see: <a
-        /// href="../../api/index.html#dynamic-schemas" target="_top">dynamic
-        /// schemas documentation</a>.
+        /// href="../../../api/#dynamic-schemas" target="_top">dynamic schemas
+        /// documentation</a>.
         /// <br />
         /// If a <i>result_table</i> name is specified in the <paramref
         /// cref="AggregateGroupByRequest.options" />, the results are stored
         /// in a new table with that name--no results are returned in the
         /// response.  Both the table name and resulting column names must
-        /// adhere to <a href="../../concepts/tables.html#table"
+        /// adhere to <a href="../../../concepts/tables/#table"
         /// target="_top">standard naming conventions</a>; column/aggregation
         /// expressions will need to be aliased.  If the source table's <a
-        /// href="../../concepts/tables.html#shard-keys" target="_top">shard
+        /// href="../../../concepts/tables/#shard-keys" target="_top">shard
         /// key</a> is used as the grouping column(s) and all result records
         /// are selected (<paramref cref="AggregateGroupByRequest.offset" /> is
         /// 0 and <paramref cref="AggregateGroupByRequest.limit" /> is -9999),
@@ -1505,15 +1500,15 @@ namespace kinetica
         /// SELECT...GROUP BY.
         /// <br />
         /// For aggregation details and examples, see <a
-        /// href="../../concepts/aggregation.html"
+        /// href="../../../concepts/aggregation/"
         /// target="_top">Aggregation</a>.  For limitations, see <a
-        /// href="../../concepts/aggregation.html#limitations"
+        /// href="../../../concepts/aggregation/#limitations"
         /// target="_top">Aggregation Limitations</a>.
         /// <br />
         /// Any column(s) can be grouped on, and all column types except
         /// unrestricted-length strings may be used for computing applicable
         /// aggregates; columns marked as <a
-        /// href="../../concepts/types.html#data-handling"
+        /// href="../../../concepts/types/#data-handling"
         /// target="_top">store-only</a> are unable to be used in grouping or
         /// aggregation.
         /// <br />
@@ -1532,37 +1527,36 @@ namespace kinetica
         /// column_names=['x','y','count(*)','sum(z)'].
         /// <br />
         /// Available <a
-        /// href="../../concepts/expressions.html#aggregate-expressions"
+        /// href="../../../concepts/expressions/#aggregate-expressions"
         /// target="_top">aggregation functions</a> are: count(*), sum, min,
         /// max, avg, mean, stddev, stddev_pop, stddev_samp, var, var_pop,
         /// var_samp, arg_min, arg_max and count_distinct.
         /// <br />
         /// Available grouping functions are <a
-        /// href="../../concepts/rollup.html" target="_top">Rollup</a>, <a
-        /// href="../../concepts/cube.html" target="_top">Cube</a>, and <a
-        /// href="../../concepts/grouping_sets.html" target="_top">Grouping
+        /// href="../../../concepts/rollup/" target="_top">Rollup</a>, <a
+        /// href="../../../concepts/cube/" target="_top">Cube</a>, and <a
+        /// href="../../../concepts/grouping_sets/" target="_top">Grouping
         /// Sets</a>
         /// <br />
         /// This service also provides support for <a
-        /// href="../../concepts/pivot.html" target="_top">Pivot</a>
-        /// operations.
+        /// href="../../../concepts/pivot/" target="_top">Pivot</a> operations.
         /// <br />
         /// Filtering on aggregates is supported via expressions using <a
-        /// href="../../concepts/expressions.html#aggregate-expressions"
+        /// href="../../../concepts/expressions/#aggregate-expressions"
         /// target="_top">aggregation functions</a> supplied to <i>having</i>.
         /// <br />
         /// The response is returned as a dynamic schema. For details see: <a
-        /// href="../../api/index.html#dynamic-schemas" target="_top">dynamic
-        /// schemas documentation</a>.
+        /// href="../../../api/#dynamic-schemas" target="_top">dynamic schemas
+        /// documentation</a>.
         /// <br />
         /// If a <i>result_table</i> name is specified in the <paramref
         /// name="options" />, the results are stored in a new table with that
         /// name--no results are returned in the response.  Both the table name
         /// and resulting column names must adhere to <a
-        /// href="../../concepts/tables.html#table" target="_top">standard
+        /// href="../../../concepts/tables/#table" target="_top">standard
         /// naming conventions</a>; column/aggregation expressions will need to
         /// be aliased.  If the source table's <a
-        /// href="../../concepts/tables.html#shard-keys" target="_top">shard
+        /// href="../../../concepts/tables/#shard-keys" target="_top">shard
         /// key</a> is used as the grouping column(s) and all result records
         /// are selected (<paramref name="offset" /> is 0 and <paramref
         /// name="limit" /> is -9999), the result table will be sharded, in all
@@ -1575,7 +1569,7 @@ namespace kinetica
         /// <param name="table_name">Name of an existing table or view on which
         /// the operation will be performed, in [schema_name.]table_name
         /// format, using standard <a
-        /// href="../../concepts/tables.html#table-name-resolution"
+        /// href="../../../concepts/tables/#table-name-resolution"
         /// target="_top">name resolution rules</a>.  </param>
         /// <param name="column_names">List of one or more column names,
         /// expressions, and aggregate expressions.  </param>
@@ -1587,7 +1581,7 @@ namespace kinetica
         /// number of results to be returned, or END_OF_SET (-9999) to indicate
         /// that the max number of results should be returned.  The number of
         /// records returned will never exceed the server's own limit, defined
-        /// by the <a href="../../config/index.html#general"
+        /// by the <a href="../../../config/#general"
         /// target="_top">max_get_records_size</a> parameter in the server
         /// configuration.  Use <member name="has_more_records" /> to see if
         /// more records exist in the result to be fetched, and <paramref
@@ -1674,9 +1668,9 @@ namespace kinetica
         /// cref="AggregateGroupByRequest.Options.RESULT_TABLE">RESULT_TABLE</see>:</term>
         ///         <description>The name of a table used to store the results,
         /// in [schema_name.]table_name format, using standard <a
-        /// href="../../concepts/tables.html#table-name-resolution"
+        /// href="../../../concepts/tables/#table-name-resolution"
         /// target="_top">name resolution rules</a> and meeting <a
-        /// href="../../concepts/tables.html#table-naming-criteria"
+        /// href="../../../concepts/tables/#table-naming-criteria"
         /// target="_top">table naming criteria</a>.  Column names (group-by
         /// and aggregate fields) need to be given aliases e.g. ["FChar256 as
         /// fchar256", "sum(FDouble) as sfd"].  If present, no results are
@@ -1749,7 +1743,7 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="AggregateGroupByRequest.Options.TTL">TTL</see>:</term>
-        ///         <description>Sets the <a href="../../concepts/ttl.html"
+        ///         <description>Sets the <a href="../../../concepts/ttl/"
         /// target="_top">TTL</a> of the table specified in
         /// <i>result_table</i>.</description>
         ///     </item>
@@ -1777,11 +1771,11 @@ namespace kinetica
         ///         <term><see
         /// cref="AggregateGroupByRequest.Options.MATERIALIZE_ON_GPU">MATERIALIZE_ON_GPU</see>:</term>
         ///         <description>No longer used.  See <a
-        /// href="../../rm/concepts.html" target="_top">Resource Management
+        /// href="../../../rm/concepts/" target="_top">Resource Management
         /// Concepts</a> for information about how resources are managed, <a
-        /// href="../../rm/concepts.html" target="_top">Tier Strategy
+        /// href="../../../rm/concepts/" target="_top">Tier Strategy
         /// Concepts</a> for how resources are targeted for VRAM, and <a
-        /// href="../../rm/usage.html#tier-strategies" target="_top">Tier
+        /// href="../../../rm/usage/#tier-strategies" target="_top">Tier
         /// Strategy Usage</a> for how to specify a table's priority in VRAM.
         /// Supported values:
         /// <list type="bullet">
@@ -1911,7 +1905,7 @@ namespace kinetica
         /// <param name="table_name">Name of the table on which the operation
         /// will be performed. Must be an existing table, in
         /// [schema_name.]table_name format, using standard <a
-        /// href="../../concepts/tables.html#table-name-resolution"
+        /// href="../../../concepts/tables/#table-name-resolution"
         /// target="_top">name resolution rules</a>.  </param>
         /// <param name="column_name">Name of a column or an expression of one
         /// or more column names over which the histogram will be calculated.
@@ -2008,7 +2002,7 @@ namespace kinetica
         /// <param name="table_name">Name of the table on which the operation
         /// will be performed. Must be an existing table, in
         /// [schema_name.]table_name format, using standard <a
-        /// href="../../concepts/tables.html#table-name-resolution"
+        /// href="../../../concepts/tables/#table-name-resolution"
         /// target="_top">name resolution rules</a>.  </param>
         /// <param name="column_names">List of column names on which the
         /// operation would be performed. If n columns are provided then each
@@ -2079,7 +2073,7 @@ namespace kinetica
         /// <param name="table_name">Name of the table on which the operation
         /// will be performed. Must be an existing table, in
         /// [schema_name.]table_name format, using standard <a
-        /// href="../../concepts/tables.html#table-name-resolution"
+        /// href="../../../concepts/tables/#table-name-resolution"
         /// target="_top">name resolution rules</a>.  </param>
         /// <param name="column_name">Name of a column or an expression of one
         /// or more column on which the min-max will be calculated.  </param>
@@ -2123,7 +2117,7 @@ namespace kinetica
         /// <param name="table_name">Name of the table on which the operation
         /// will be performed. Must be an existing table, in
         /// [schema_name.]table_name format, using standard <a
-        /// href="../../concepts/tables.html#table-name-resolution"
+        /// href="../../../concepts/tables/#table-name-resolution"
         /// target="_top">name resolution rules</a>.  </param>
         /// <param name="column_name">Name of a geospatial geometry column on
         /// which the min-max will be calculated.  </param>
@@ -2289,7 +2283,7 @@ namespace kinetica
         /// <param name="table_name">Name of the table on which the statistics
         /// operation will be performed, in [schema_name.]table_name format,
         /// using standard <a
-        /// href="../../concepts/tables.html#table-name-resolution"
+        /// href="../../../concepts/tables/#table-name-resolution"
         /// target="_top">name resolution rules</a>.  </param>
         /// <param name="column_name">Name of the primary column for which the
         /// statistics are to be calculated.  </param>
@@ -2516,7 +2510,7 @@ namespace kinetica
         /// <param name="table_name">Name of the table on which the
         /// ranged-statistics operation will be performed, in
         /// [schema_name.]table_name format, using standard <a
-        /// href="../../concepts/tables.html#table-name-resolution"
+        /// href="../../../concepts/tables/#table-name-resolution"
         /// target="_top">name resolution rules</a>.  </param>
         /// <param name="select_expression">For a non-empty expression
         /// statistics are calculated for those records for which the
@@ -2608,7 +2602,7 @@ namespace kinetica
         /// cref="AggregateUniqueRequest.offset" />
         /// and <paramref cref="AggregateUniqueRequest.limit" /> parameters.
         /// <br />
-        /// Columns marked as <a href="../../concepts/types.html#data-handling"
+        /// Columns marked as <a href="../../../concepts/types/#data-handling"
         /// target="_top">store-only</a>
         /// are unable to be used with this function.
         /// <br />
@@ -2619,8 +2613,8 @@ namespace kinetica
         /// {"limit":"10","sort_order":"descending"}.
         /// <br />
         /// The response is returned as a dynamic schema. For details see:
-        /// <a href="../../api/index.html#dynamic-schemas"
-        /// target="_top">dynamic schemas documentation</a>.
+        /// <a href="../../../api/#dynamic-schemas" target="_top">dynamic
+        /// schemas documentation</a>.
         /// <br />
         /// If a <i>result_table</i> name is specified in the
         /// <paramref cref="AggregateUniqueRequest.options" />, the results are
@@ -2628,11 +2622,11 @@ namespace kinetica
         /// results are returned in the response.  Both the table name and
         /// resulting column
         /// name must adhere to
-        /// <a href="../../concepts/tables.html#table" target="_top">standard
+        /// <a href="../../../concepts/tables/#table" target="_top">standard
         /// naming conventions</a>;
         /// any column expression will need to be aliased.  If the source
         /// table's
-        /// <a href="../../concepts/tables.html#shard-keys" target="_top">shard
+        /// <a href="../../../concepts/tables/#shard-keys" target="_top">shard
         /// key</a> is used as the
         /// <paramref cref="AggregateUniqueRequest.column_name" />, the result
         /// table will be sharded, in all other cases it
@@ -2677,7 +2671,7 @@ namespace kinetica
         /// />.  The results can be paged via <paramref name="offset" />
         /// and <paramref name="limit" /> parameters.
         /// <br />
-        /// Columns marked as <a href="../../concepts/types.html#data-handling"
+        /// Columns marked as <a href="../../../concepts/types/#data-handling"
         /// target="_top">store-only</a>
         /// are unable to be used with this function.
         /// <br />
@@ -2688,8 +2682,8 @@ namespace kinetica
         /// {"limit":"10","sort_order":"descending"}.
         /// <br />
         /// The response is returned as a dynamic schema. For details see:
-        /// <a href="../../api/index.html#dynamic-schemas"
-        /// target="_top">dynamic schemas documentation</a>.
+        /// <a href="../../../api/#dynamic-schemas" target="_top">dynamic
+        /// schemas documentation</a>.
         /// <br />
         /// If a <i>result_table</i> name is specified in the
         /// <paramref name="options" />, the results are stored in a new table
@@ -2697,11 +2691,11 @@ namespace kinetica
         /// results are returned in the response.  Both the table name and
         /// resulting column
         /// name must adhere to
-        /// <a href="../../concepts/tables.html#table" target="_top">standard
+        /// <a href="../../../concepts/tables/#table" target="_top">standard
         /// naming conventions</a>;
         /// any column expression will need to be aliased.  If the source
         /// table's
-        /// <a href="../../concepts/tables.html#shard-keys" target="_top">shard
+        /// <a href="../../../concepts/tables/#shard-keys" target="_top">shard
         /// key</a> is used as the
         /// <paramref name="column_name" />, the result table will be sharded,
         /// in all other cases it
@@ -2716,7 +2710,7 @@ namespace kinetica
         /// <param name="table_name">Name of an existing table or view on which
         /// the operation will be performed, in [schema_name.]table_name
         /// format, using standard <a
-        /// href="../../concepts/tables.html#table-name-resolution"
+        /// href="../../../concepts/tables/#table-name-resolution"
         /// target="_top">name resolution rules</a>.  </param>
         /// <param name="column_name">Name of the column or an expression
         /// containing one or more column names on which the unique function
@@ -2729,7 +2723,7 @@ namespace kinetica
         /// number of results to be returned. Or END_OF_SET (-9999) to indicate
         /// that the max number of results should be returned.  The number of
         /// records returned will never exceed the server's own limit, defined
-        /// by the <a href="../../config/index.html#general"
+        /// by the <a href="../../../config/#general"
         /// target="_top">max_get_records_size</a> parameter in the server
         /// configuration.  Use <member name="has_more_records" /> to see if
         /// more records exist in the result to be fetched, and <paramref
@@ -2778,9 +2772,9 @@ namespace kinetica
         /// cref="AggregateUniqueRequest.Options.RESULT_TABLE">RESULT_TABLE</see>:</term>
         ///         <description>The name of the table used to store the
         /// results, in [schema_name.]table_name format, using standard <a
-        /// href="../../concepts/tables.html#table-name-resolution"
+        /// href="../../../concepts/tables/#table-name-resolution"
         /// target="_top">name resolution rules</a> and meeting <a
-        /// href="../../concepts/tables.html#table-naming-criteria"
+        /// href="../../../concepts/tables/#table-naming-criteria"
         /// target="_top">table naming criteria</a>.  If present, no results
         /// are returned in the response.  Not available if <paramref
         /// cref="AggregateUniqueRequest.column_name" /> is an
@@ -2851,7 +2845,7 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="AggregateUniqueRequest.Options.TTL">TTL</see>:</term>
-        ///         <description>Sets the <a href="../../concepts/ttl.html"
+        ///         <description>Sets the <a href="../../../concepts/ttl/"
         /// target="_top">TTL</a> of the table specified in
         /// <i>result_table</i>.</description>
         ///     </item>
@@ -2888,9 +2882,9 @@ namespace kinetica
         /// <summary>Rotate the column values into rows values.
         /// <br />
         /// For unpivot details and examples, see
-        /// <a href="../../concepts/unpivot.html" target="_top">Unpivot</a>.
+        /// <a href="../../../concepts/unpivot/" target="_top">Unpivot</a>.
         /// For limitations, see
-        /// <a href="../../concepts/unpivot.html#limitations"
+        /// <a href="../../../concepts/unpivot/#limitations"
         /// target="_top">Unpivot Limitations</a>.
         /// <br />
         /// Unpivot is used to normalize tables that are built for cross
@@ -2906,8 +2900,8 @@ namespace kinetica
         /// and values respectively.
         /// <br />
         /// The response is returned as a dynamic schema. For details see:
-        /// <a href="../../api/index.html#dynamic-schemas"
-        /// target="_top">dynamic schemas documentation</a>.</summary>
+        /// <a href="../../../api/#dynamic-schemas" target="_top">dynamic
+        /// schemas documentation</a>.</summary>
         /// 
         /// <param name="request_">Request object containing the parameters for
         /// the operation.</param>
@@ -2932,9 +2926,9 @@ namespace kinetica
         /// <summary>Rotate the column values into rows values.
         /// <br />
         /// For unpivot details and examples, see
-        /// <a href="../../concepts/unpivot.html" target="_top">Unpivot</a>.
+        /// <a href="../../../concepts/unpivot/" target="_top">Unpivot</a>.
         /// For limitations, see
-        /// <a href="../../concepts/unpivot.html#limitations"
+        /// <a href="../../../concepts/unpivot/#limitations"
         /// target="_top">Unpivot Limitations</a>.
         /// <br />
         /// Unpivot is used to normalize tables that are built for cross
@@ -2950,13 +2944,13 @@ namespace kinetica
         /// and values respectively.
         /// <br />
         /// The response is returned as a dynamic schema. For details see:
-        /// <a href="../../api/index.html#dynamic-schemas"
-        /// target="_top">dynamic schemas documentation</a>.</summary>
+        /// <a href="../../../api/#dynamic-schemas" target="_top">dynamic
+        /// schemas documentation</a>.</summary>
         /// 
         /// <param name="table_name">Name of the table on which the operation
         /// will be performed. Must be an existing table/view, in
         /// [schema_name.]table_name format, using standard <a
-        /// href="../../concepts/tables.html#table-name-resolution"
+        /// href="../../../concepts/tables/#table-name-resolution"
         /// target="_top">name resolution rules</a>.  </param>
         /// <param name="column_names">List of column names or expressions. A
         /// wildcard '*' can be used to include all the non-pivoted columns
@@ -2984,9 +2978,9 @@ namespace kinetica
         /// cref="AggregateUnpivotRequest.Options.RESULT_TABLE">RESULT_TABLE</see>:</term>
         ///         <description>The name of a table used to store the results,
         /// in [schema_name.]table_name format, using standard <a
-        /// href="../../concepts/tables.html#table-name-resolution"
+        /// href="../../../concepts/tables/#table-name-resolution"
         /// target="_top">name resolution rules</a> and meeting <a
-        /// href="../../concepts/tables.html#table-naming-criteria"
+        /// href="../../../concepts/tables/#table-naming-criteria"
         /// target="_top">table naming criteria</a>. If present, no results are
         /// returned in the response.</description>
         ///     </item>
@@ -3043,7 +3037,7 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="AggregateUnpivotRequest.Options.TTL">TTL</see>:</term>
-        ///         <description>Sets the <a href="../../concepts/ttl.html"
+        ///         <description>Sets the <a href="../../../concepts/ttl/"
         /// target="_top">TTL</a> of the table specified in
         /// <i>result_table</i>.</description>
         ///     </item>
@@ -3057,11 +3051,11 @@ namespace kinetica
         ///         <term><see
         /// cref="AggregateUnpivotRequest.Options.MATERIALIZE_ON_GPU">MATERIALIZE_ON_GPU</see>:</term>
         ///         <description>No longer used.  See <a
-        /// href="../../rm/concepts.html" target="_top">Resource Management
+        /// href="../../../rm/concepts/" target="_top">Resource Management
         /// Concepts</a> for information about how resources are managed, <a
-        /// href="../../rm/concepts.html" target="_top">Tier Strategy
+        /// href="../../../rm/concepts/" target="_top">Tier Strategy
         /// Concepts</a> for how resources are targeted for VRAM, and <a
-        /// href="../../rm/usage.html#tier-strategies" target="_top">Tier
+        /// href="../../../rm/usage/#tier-strategies" target="_top">Tier
         /// Strategy Usage</a> for how to specify a table's priority in VRAM.
         /// Supported values:
         /// <list type="bullet">
@@ -3127,8 +3121,106 @@ namespace kinetica
         }
 
 
+        /// <summary>Alter the properties of an existing <a
+        /// href="../../../concepts/credentials/"
+        /// target="_top">credential</a>.</summary>
+        /// 
+        /// <param name="request_">Request object containing the parameters for
+        /// the operation.</param>
+        /// 
+        /// <returns>Response object containing the result of the
+        /// operation.</returns>
+        /// 
+        public AlterCredentialResponse alterCredential( AlterCredentialRequest request_ )
+        {
+            AlterCredentialResponse actualResponse_ = SubmitRequest<AlterCredentialResponse>("/alter/credential", request_, false);
+
+            return actualResponse_;
+        }
+
+
+        /// <summary>Alter the properties of an existing <a
+        /// href="../../../concepts/credentials/"
+        /// target="_top">credential</a>.</summary>
+        /// 
+        /// <param name="credential_name">Name of the credential to be altered.
+        /// Must be an existing credential.  </param>
+        /// <param name="credential_updates_map">Map containing the properties
+        /// of the credential to be updated. Error if empty.
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterCredentialRequest.CredentialUpdatesMap.TYPE">TYPE</see>:</term>
+        ///         <description>New type for the credential.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterCredentialRequest.CredentialUpdatesMap.AWS_ACCESS_KEY">AWS_ACCESS_KEY</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterCredentialRequest.CredentialUpdatesMap.AWS_IAM_ROLE">AWS_IAM_ROLE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterCredentialRequest.CredentialUpdatesMap.AZURE_AD">AZURE_AD</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterCredentialRequest.CredentialUpdatesMap.AZURE_OAUTH">AZURE_OAUTH</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterCredentialRequest.CredentialUpdatesMap.AZURE_SAS">AZURE_SAS</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterCredentialRequest.CredentialUpdatesMap.AZURE_STORAGE_KEY">AZURE_STORAGE_KEY</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterCredentialRequest.CredentialUpdatesMap.DOCKER">DOCKER</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterCredentialRequest.CredentialUpdatesMap.HDFS">HDFS</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterCredentialRequest.CredentialUpdatesMap.KAFKA">KAFKA</see></term>
+        ///     </item>
+        /// </list></description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterCredentialRequest.CredentialUpdatesMap.IDENTITY">IDENTITY</see>:</term>
+        ///         <description>New user for the credential</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterCredentialRequest.CredentialUpdatesMap.SECRET">SECRET</see>:</term>
+        ///         <description>New password for the credential</description>
+        ///     </item>
+        /// </list>
+        ///   </param>
+        /// <param name="options">Optional parameters.  </param>
+        /// 
+        /// <returns>Response object containing the result of the
+        /// operation.</returns>
+        /// 
+        public AlterCredentialResponse alterCredential( string credential_name,
+                                                        IDictionary<string, string> credential_updates_map,
+                                                        IDictionary<string, string> options )
+        {
+            return alterCredential( new AlterCredentialRequest( credential_name,
+                                                                credential_updates_map,
+                                                                options ) );
+        }
+
+
         /// <summary>Alters the properties of an existing <a
-        /// href="../../concepts/data_sources.html" target="_top">data
+        /// href="../../../concepts/data_sources/" target="_top">data
         /// source</a></summary>
         /// 
         /// <param name="request_">Request object containing the parameters for
@@ -3146,7 +3238,7 @@ namespace kinetica
 
 
         /// <summary>Alters the properties of an existing <a
-        /// href="../../concepts/data_sources.html" target="_top">data
+        /// href="../../../concepts/data_sources/" target="_top">data
         /// source</a></summary>
         /// 
         /// <param name="name">Name of the data source to be altered. Must be
@@ -3203,6 +3295,12 @@ namespace kinetica
         /// cref="AlterDatasourceRequest.DatasourceUpdatesMap.WAIT_TIMEOUT">WAIT_TIMEOUT</see>:</term>
         ///         <description>Timeout in seconds for reading from this
         /// storage provider</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterDatasourceRequest.DatasourceUpdatesMap.CREDENTIAL">CREDENTIAL</see>:</term>
+        ///         <description>Name of the Credential object to be used in
+        /// data source</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -3293,6 +3391,56 @@ namespace kinetica
                                                                 datasource_updates_map,
                                                                 options ) );
         }
+
+        /// @cond NO_DOCS
+        /// 
+        /// <param name="request_">Request object containing the parameters for
+        /// the operation.</param>
+        /// 
+        /// <returns>Response object containing the result of the
+        /// operation.</returns>
+        /// 
+        public AlterModelResponse alterModel( AlterModelRequest request_ )
+        {
+            AlterModelResponse actualResponse_ = SubmitRequest<AlterModelResponse>("/alter/model", request_, false);
+
+            return actualResponse_;
+        }
+        /// @endcond
+
+        /// @cond NO_DOCS
+        /// 
+        /// <param name="model_name"></param>
+        /// <param name="action">
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterModelRequest.Action.CONTAINER">CONTAINER</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterModelRequest.Action.REGISTRY">REGISTRY</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterModelRequest.Action.REFRESH">REFRESH</see></term>
+        ///     </item>
+        /// </list></param>
+        /// <param name="_value"></param>
+        /// <param name="options"></param>
+        /// 
+        /// <returns>Response object containing the result of the
+        /// operation.</returns>
+        /// 
+        public AlterModelResponse alterModel( string model_name,
+                                              string action,
+                                              string _value,
+                                              IDictionary<string, string> options = null )
+        {
+            return alterModel( new AlterModelRequest( model_name, action, _value, options ) );
+        }
+        /// @endcond
 
 
         /// <summary>Alters the properties of an exisiting resource group to
@@ -3482,7 +3630,7 @@ namespace kinetica
 
 
         /// <summary>Used to change the name of a SQL-style <a
-        /// href="../../concepts/schemas.html" target="_top">schema</a>,
+        /// href="../../../concepts/schemas/" target="_top">schema</a>,
         /// specified in <paramref cref="AlterSchemaRequest.schema_name"
         /// />.</summary>
         /// 
@@ -3501,7 +3649,7 @@ namespace kinetica
 
 
         /// <summary>Used to change the name of a SQL-style <a
-        /// href="../../concepts/schemas.html" target="_top">schema</a>,
+        /// href="../../../concepts/schemas/" target="_top">schema</a>,
         /// specified in <paramref name="schema_name" />.</summary>
         /// 
         /// <param name="schema_name">Name of the schema to be altered.
@@ -3514,7 +3662,7 @@ namespace kinetica
         /// cref="AlterSchemaRequest.Action.RENAME_SCHEMA">RENAME_SCHEMA</see>:</term>
         ///         <description>Renames a schema to <paramref
         /// cref="AlterSchemaRequest._value" />. Has the same naming
-        /// restrictions as <a href="../../concepts/tables.html"
+        /// restrictions as <a href="../../../concepts/tables/"
         /// target="_top">tables</a>.</description>
         ///     </item>
         /// </list>  </param>
@@ -3788,15 +3936,15 @@ namespace kinetica
         /// <br />
         /// Manage a table's columns--a column can be added, removed, or have
         /// its
-        /// <a href="../../concepts/types.html" target="_top">type and
+        /// <a href="../../../concepts/types/" target="_top">type and
         /// properties</a> modified, including
-        /// whether it is <a href="../../concepts/compression.html"
+        /// whether it is <a href="../../../concepts/compression/"
         /// target="_top">compressed</a> or not.
         /// <br />
         /// External tables cannot be modified except for their refresh method.
         /// <br />
         /// Create or delete an <a
-        /// href="../../concepts/indexes.html#column-index"
+        /// href="../../../concepts/indexes/#column-index"
         /// target="_top">index</a> on a
         /// particular column. This can speed up certain operations when using
         /// expressions
@@ -3804,29 +3952,29 @@ namespace kinetica
         /// This only
         /// applies to tables.
         /// <br />
-        /// Create or delete a <a href="../../concepts/tables.html#foreign-key"
+        /// Create or delete a <a href="../../../concepts/tables/#foreign-key"
         /// target="_top">foreign key</a>
         /// on a particular column.
         /// <br />
         /// Manage a
-        /// <a href="../../concepts/tables.html#partitioning-by-range"
+        /// <a href="../../../concepts/tables/#partitioning-by-range"
         /// target="_top">range-partitioned</a> or a
-        /// <a href="../../concepts/tables.html#partitioning-by-list-manual"
+        /// <a href="../../../concepts/tables/#partitioning-by-list-manual"
         /// target="_top">manual list-partitioned</a>
         /// table's partitions.
         /// <br />
-        /// Set (or reset) the <a href="../../rm/concepts.html#tier-strategies"
+        /// Set (or reset) the <a href="../../../rm/concepts/#tier-strategies"
         /// target="_top">tier strategy</a>
         /// of a table or view.
         /// <br />
         /// Refresh and manage the refresh mode of a
-        /// <a href="../../concepts/materialized_views.html"
+        /// <a href="../../../concepts/materialized_views/"
         /// target="_top">materialized view</a> or an
-        /// <a href="../../concepts/external_tables.html"
-        /// target="_top">external table</a>.
+        /// <a href="../../../concepts/external_tables/" target="_top">external
+        /// table</a>.
         /// <br />
-        /// Set the <a href="../../concepts/ttl.html"
-        /// target="_top">time-to-live (TTL)</a>. This can be applied
+        /// Set the <a href="../../../concepts/ttl/" target="_top">time-to-live
+        /// (TTL)</a>. This can be applied
         /// to tables or views.
         /// <br />
         /// Set the global access mode (i.e. locking) for a table. This setting
@@ -3857,15 +4005,15 @@ namespace kinetica
         /// <br />
         /// Manage a table's columns--a column can be added, removed, or have
         /// its
-        /// <a href="../../concepts/types.html" target="_top">type and
+        /// <a href="../../../concepts/types/" target="_top">type and
         /// properties</a> modified, including
-        /// whether it is <a href="../../concepts/compression.html"
+        /// whether it is <a href="../../../concepts/compression/"
         /// target="_top">compressed</a> or not.
         /// <br />
         /// External tables cannot be modified except for their refresh method.
         /// <br />
         /// Create or delete an <a
-        /// href="../../concepts/indexes.html#column-index"
+        /// href="../../../concepts/indexes/#column-index"
         /// target="_top">index</a> on a
         /// particular column. This can speed up certain operations when using
         /// expressions
@@ -3873,29 +4021,29 @@ namespace kinetica
         /// This only
         /// applies to tables.
         /// <br />
-        /// Create or delete a <a href="../../concepts/tables.html#foreign-key"
+        /// Create or delete a <a href="../../../concepts/tables/#foreign-key"
         /// target="_top">foreign key</a>
         /// on a particular column.
         /// <br />
         /// Manage a
-        /// <a href="../../concepts/tables.html#partitioning-by-range"
+        /// <a href="../../../concepts/tables/#partitioning-by-range"
         /// target="_top">range-partitioned</a> or a
-        /// <a href="../../concepts/tables.html#partitioning-by-list-manual"
+        /// <a href="../../../concepts/tables/#partitioning-by-list-manual"
         /// target="_top">manual list-partitioned</a>
         /// table's partitions.
         /// <br />
-        /// Set (or reset) the <a href="../../rm/concepts.html#tier-strategies"
+        /// Set (or reset) the <a href="../../../rm/concepts/#tier-strategies"
         /// target="_top">tier strategy</a>
         /// of a table or view.
         /// <br />
         /// Refresh and manage the refresh mode of a
-        /// <a href="../../concepts/materialized_views.html"
+        /// <a href="../../../concepts/materialized_views/"
         /// target="_top">materialized view</a> or an
-        /// <a href="../../concepts/external_tables.html"
-        /// target="_top">external table</a>.
+        /// <a href="../../../concepts/external_tables/" target="_top">external
+        /// table</a>.
         /// <br />
-        /// Set the <a href="../../concepts/ttl.html"
-        /// target="_top">time-to-live (TTL)</a>. This can be applied
+        /// Set the <a href="../../../concepts/ttl/" target="_top">time-to-live
+        /// (TTL)</a>. This can be applied
         /// to tables or views.
         /// <br />
         /// Set the global access mode (i.e. locking) for a table. This setting
@@ -3909,7 +4057,7 @@ namespace kinetica
         /// 
         /// <param name="table_name">Table on which the operation will be
         /// performed, in [schema_name.]table_name format, using standard <a
-        /// href="../../concepts/tables.html#table-name-resolution"
+        /// href="../../../concepts/tables/#table-name-resolution"
         /// target="_top">name resolution rules</a>.  Must be an existing table
         /// or view.  </param>
         /// <param name="action">Modification operation to be applied
@@ -3925,9 +4073,9 @@ namespace kinetica
         ///         <term><see
         /// cref="AlterTableRequest.Action.CREATE_INDEX">CREATE_INDEX</see>:</term>
         ///         <description>Creates either a <a
-        /// href="../../concepts/indexes.html#column-index"
-        /// target="_top">column (attribute) index</a> or <a
-        /// href="../../concepts/indexes.html#chunk-skip-index"
+        /// href="../../../concepts/indexes/#column-index" target="_top">column
+        /// (attribute) index</a> or <a
+        /// href="../../../concepts/indexes/#chunk-skip-index"
         /// target="_top">chunk skip index</a>, depending on the specified
         /// <i>index_type</i>, on the column name specified in <paramref
         /// cref="AlterTableRequest._value" />. If this column already has the
@@ -3937,9 +4085,9 @@ namespace kinetica
         ///         <term><see
         /// cref="AlterTableRequest.Action.DELETE_INDEX">DELETE_INDEX</see>:</term>
         ///         <description>Deletes either a <a
-        /// href="../../concepts/indexes.html#column-index"
-        /// target="_top">column (attribute) index</a> or <a
-        /// href="../../concepts/indexes.html#chunk-skip-index"
+        /// href="../../../concepts/indexes/#column-index" target="_top">column
+        /// (attribute) index</a> or <a
+        /// href="../../../concepts/indexes/#chunk-skip-index"
         /// target="_top">chunk skip index</a>, depending on the specified
         /// <i>index_type</i>, on the column name specified in <paramref
         /// cref="AlterTableRequest._value" />. If this column does not have
@@ -3976,13 +4124,13 @@ namespace kinetica
         /// cref="AlterTableRequest.Action.RENAME_TABLE">RENAME_TABLE</see>:</term>
         ///         <description>Renames a table or view within its current
         /// schema to <paramref cref="AlterTableRequest._value" />. Has the
-        /// same naming restrictions as <a href="../../concepts/tables.html"
+        /// same naming restrictions as <a href="../../../concepts/tables/"
         /// target="_top">tables</a>.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="AlterTableRequest.Action.TTL">TTL</see>:</term>
-        ///         <description>Sets the <a href="../../concepts/ttl.html"
+        ///         <description>Sets the <a href="../../../concepts/ttl/"
         /// target="_top">time-to-live</a> in minutes of the table or view
         /// specified in <paramref cref="AlterTableRequest.table_name"
         /// />.</description>
@@ -4015,10 +4163,10 @@ namespace kinetica
         ///         <term><see
         /// cref="AlterTableRequest.Action.SET_COLUMN_COMPRESSION">SET_COLUMN_COMPRESSION</see>:</term>
         ///         <description>Modifies the <a
-        /// href="../../concepts/compression.html"
-        /// target="_top">compression</a> setting on the column specified in
-        /// <paramref cref="AlterTableRequest._value" /> to the compression
-        /// type specified in <i>compression_type</i>. </description>
+        /// href="../../../concepts/compression/" target="_top">compression</a>
+        /// setting on the column specified in <paramref
+        /// cref="AlterTableRequest._value" /> to the compression type
+        /// specified in <i>compression_type</i>. </description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -4031,7 +4179,7 @@ namespace kinetica
         ///         <term><see
         /// cref="AlterTableRequest.Action.CREATE_FOREIGN_KEY">CREATE_FOREIGN_KEY</see>:</term>
         ///         <description>Creates a <a
-        /// href="../../concepts/tables.html#foreign-key" target="_top">foreign
+        /// href="../../../concepts/tables/#foreign-key" target="_top">foreign
         /// key</a> specified in <paramref cref="AlterTableRequest._value" />
         /// using the format '(source_column_name [, ...]) references
         /// target_table_name(primary_key_column_name [, ...]) [as
@@ -4041,7 +4189,7 @@ namespace kinetica
         ///         <term><see
         /// cref="AlterTableRequest.Action.DELETE_FOREIGN_KEY">DELETE_FOREIGN_KEY</see>:</term>
         ///         <description>Deletes a <a
-        /// href="../../concepts/tables.html#foreign-key" target="_top">foreign
+        /// href="../../../concepts/tables/#foreign-key" target="_top">foreign
         /// key</a>.  The <paramref cref="AlterTableRequest._value" /> should
         /// be the foreign_key_name specified when creating the key or the
         /// complete string used to define it.</description>
@@ -4051,9 +4199,9 @@ namespace kinetica
         /// cref="AlterTableRequest.Action.ADD_PARTITION">ADD_PARTITION</see>:</term>
         ///         <description>Adds the partition specified in <paramref
         /// cref="AlterTableRequest._value" />, to either a <a
-        /// href="../../concepts/tables.html#partitioning-by-range"
+        /// href="../../../concepts/tables/#partitioning-by-range"
         /// target="_top">range-partitioned</a> or <a
-        /// href="../../concepts/tables.html#partitioning-by-list-manual"
+        /// href="../../../concepts/tables/#partitioning-by-list-manual"
         /// target="_top">manual list-partitioned</a> table.</description>
         ///     </item>
         ///     <item>
@@ -4062,9 +4210,9 @@ namespace kinetica
         ///         <description>Removes the partition specified in <paramref
         /// cref="AlterTableRequest._value" /> (and relocates all of its data
         /// to the default partition) from either a <a
-        /// href="../../concepts/tables.html#partitioning-by-range"
+        /// href="../../../concepts/tables/#partitioning-by-range"
         /// target="_top">range-partitioned</a> or <a
-        /// href="../../concepts/tables.html#partitioning-by-list-manual"
+        /// href="../../../concepts/tables/#partitioning-by-list-manual"
         /// target="_top">manual list-partitioned</a> table.</description>
         ///     </item>
         ///     <item>
@@ -4072,9 +4220,9 @@ namespace kinetica
         /// cref="AlterTableRequest.Action.DELETE_PARTITION">DELETE_PARTITION</see>:</term>
         ///         <description>Deletes the partition specified in <paramref
         /// cref="AlterTableRequest._value" /> (and all of its data) from
-        /// either a <a href="../../concepts/tables.html#partitioning-by-range"
+        /// either a <a href="../../../concepts/tables/#partitioning-by-range"
         /// target="_top">range-partitioned</a> or <a
-        /// href="../../concepts/tables.html#partitioning-by-list-manual"
+        /// href="../../../concepts/tables/#partitioning-by-list-manual"
         /// target="_top">manual list-partitioned</a> table.</description>
         ///     </item>
         ///     <item>
@@ -4091,24 +4239,24 @@ namespace kinetica
         ///         <term><see
         /// cref="AlterTableRequest.Action.REFRESH">REFRESH</see>:</term>
         ///         <description>For a <a
-        /// href="../../concepts/materialized_views.html"
+        /// href="../../../concepts/materialized_views/"
         /// target="_top">materialized view</a>, replays all the table creation
         /// commands required to create the view.  For an <a
-        /// href="../../concepts/external_tables.html" target="_top">external
+        /// href="../../../concepts/external_tables/" target="_top">external
         /// table</a>, reloads all data in the table from its associated source
-        /// files or <a href="../../concepts/data_sources.html"
+        /// files or <a href="../../../concepts/data_sources/"
         /// target="_top">data source</a>.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="AlterTableRequest.Action.SET_REFRESH_METHOD">SET_REFRESH_METHOD</see>:</term>
         ///         <description>For a <a
-        /// href="../../concepts/materialized_views.html"
+        /// href="../../../concepts/materialized_views/"
         /// target="_top">materialized view</a>, sets the method by which the
         /// view is refreshed to the method specified in <paramref
         /// cref="AlterTableRequest._value" /> - one of 'manual', 'periodic',
         /// or 'on_change'.  For an <a
-        /// href="../../concepts/external_tables.html" target="_top">external
+        /// href="../../../concepts/external_tables/" target="_top">external
         /// table</a>, sets the method by which the table is refreshed to the
         /// method specified in <paramref cref="AlterTableRequest._value" /> -
         /// either 'manual' or 'on_start'.</description>
@@ -4117,7 +4265,7 @@ namespace kinetica
         ///         <term><see
         /// cref="AlterTableRequest.Action.SET_REFRESH_START_TIME">SET_REFRESH_START_TIME</see>:</term>
         ///         <description>Sets the time to start periodic refreshes of
-        /// this <a href="../../concepts/materialized_views.html"
+        /// this <a href="../../../concepts/materialized_views/"
         /// target="_top">materialized view</a> to the datetime string
         /// specified in <paramref cref="AlterTableRequest._value" /> with
         /// format 'YYYY-MM-DD HH:MM:SS'.  Subsequent refreshes occur at the
@@ -4127,7 +4275,7 @@ namespace kinetica
         ///         <term><see
         /// cref="AlterTableRequest.Action.SET_REFRESH_PERIOD">SET_REFRESH_PERIOD</see>:</term>
         ///         <description>Sets the time interval in seconds at which to
-        /// refresh this <a href="../../concepts/materialized_views.html"
+        /// refresh this <a href="../../../concepts/materialized_views/"
         /// target="_top">materialized view</a> to the value specified in
         /// <paramref cref="AlterTableRequest._value" />.  Also, sets the
         /// refresh method to periodic if not already set.</description>
@@ -4136,7 +4284,7 @@ namespace kinetica
         ///         <term><see
         /// cref="AlterTableRequest.Action.SET_REFRESH_EXECUTE_AS">SET_REFRESH_EXECUTE_AS</see>:</term>
         ///         <description>Sets the user name to refresh this <a
-        /// href="../../concepts/materialized_views.html"
+        /// href="../../../concepts/materialized_views/"
         /// target="_top">materialized view</a> to the value specified in
         /// <paramref cref="AlterTableRequest._value" />.</description>
         ///     </item>
@@ -4144,20 +4292,20 @@ namespace kinetica
         ///         <term><see
         /// cref="AlterTableRequest.Action.REMOVE_TEXT_SEARCH_ATTRIBUTES">REMOVE_TEXT_SEARCH_ATTRIBUTES</see>:</term>
         ///         <description>Removes <a
-        /// href="../../concepts/full_text_search.html" target="_top">text
+        /// href="../../../concepts/full_text_search/" target="_top">text
         /// search</a> attribute from all columns.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="AlterTableRequest.Action.SET_STRATEGY_DEFINITION">SET_STRATEGY_DEFINITION</see>:</term>
         ///         <description>Sets the <a
-        /// href="../../rm/concepts.html#tier-strategies" target="_top">tier
+        /// href="../../../rm/concepts/#tier-strategies" target="_top">tier
         /// strategy</a> for the table and its columns to the one specified in
         /// <paramref cref="AlterTableRequest._value" />, replacing the
         /// existing tier strategy in its entirety. See <a
-        /// href="../../rm/concepts.html#tier-strategies" target="_top">tier
+        /// href="../../../rm/concepts/#tier-strategies" target="_top">tier
         /// strategy usage</a> for format and <a
-        /// href="../../rm/usage.html#tier-strategies" target="_top">tier
+        /// href="../../../rm/usage/#tier-strategies" target="_top">tier
         /// strategy examples</a> for examples.</description>
         ///     </item>
         /// </list>  </param>
@@ -4278,7 +4426,7 @@ namespace kinetica
         ///         <term><see
         /// cref="AlterTableRequest.Options.UPDATE_LAST_ACCESS_TIME">UPDATE_LAST_ACCESS_TIME</see>:</term>
         ///         <description>Indicates whether the <a
-        /// href="../../concepts/ttl.html" target="_top">time-to-live</a> (TTL)
+        /// href="../../../concepts/ttl/" target="_top">time-to-live</a> (TTL)
         /// expiration countdown timer should be reset to the table's TTL.
         /// Supported values:
         /// <list type="bullet">
@@ -4311,14 +4459,14 @@ namespace kinetica
         ///         <term><see
         /// cref="AlterTableRequest.Options.STRATEGY_DEFINITION">STRATEGY_DEFINITION</see>:</term>
         ///         <description>Optional parameter for specifying the <a
-        /// href="../../rm/concepts.html#tier-strategies" target="_top">tier
+        /// href="../../../rm/concepts/#tier-strategies" target="_top">tier
         /// strategy</a> for the table and its columns when <paramref
         /// cref="AlterTableRequest.action" /> is
         /// <i>set_strategy_definition</i>, replacing the existing tier
         /// strategy in its entirety. See <a
-        /// href="../../rm/concepts.html#tier-strategies" target="_top">tier
+        /// href="../../../rm/concepts/#tier-strategies" target="_top">tier
         /// strategy usage</a> for format and <a
-        /// href="../../rm/usage.html#tier-strategies" target="_top">tier
+        /// href="../../../rm/usage/#tier-strategies" target="_top">tier
         /// strategy examples</a> for examples.  This option will be ignored if
         /// <paramref cref="AlterTableRequest._value" /> is also
         /// specified.</description>
@@ -4336,14 +4484,14 @@ namespace kinetica
         ///         <term><see
         /// cref="AlterTableRequest.Options.COLUMN">COLUMN</see>:</term>
         ///         <description>Create or delete a <a
-        /// href="../../concepts/indexes.html#column-index"
-        /// target="_top">column (attribute) index</a>.</description>
+        /// href="../../../concepts/indexes/#column-index" target="_top">column
+        /// (attribute) index</a>.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="AlterTableRequest.Options.CHUNK_SKIP">CHUNK_SKIP</see>:</term>
         ///         <description>Create or delete a <a
-        /// href="../../concepts/indexes.html#chunk-skip-index"
+        /// href="../../../concepts/indexes/#chunk-skip-index"
         /// target="_top">chunk skip index</a>.</description>
         ///     </item>
         /// </list>
@@ -4370,7 +4518,7 @@ namespace kinetica
         /// modifications include the following:
         /// <br />
         /// Create or delete an <a
-        /// href="../../concepts/indexes.html#column-index"
+        /// href="../../../concepts/indexes/#column-index"
         /// target="_top">index</a> on a
         /// particular column. This can speed up certain operations when using
         /// expressions
@@ -4380,10 +4528,10 @@ namespace kinetica
         /// <br />
         /// Manage a table's columns--a column can be added, removed, or have
         /// its
-        /// <a href="../../concepts/types.html" target="_top">type and
+        /// <a href="../../../concepts/types/" target="_top">type and
         /// properties</a> modified.
         /// <br />
-        /// Set or unset <a href="../../concepts/compression.html"
+        /// Set or unset <a href="../../../concepts/compression/"
         /// target="_top">compression</a> for a column.</summary>
         /// 
         /// <param name="request_">Request object containing the parameters for
@@ -4405,7 +4553,7 @@ namespace kinetica
         /// modifications include the following:
         /// <br />
         /// Create or delete an <a
-        /// href="../../concepts/indexes.html#column-index"
+        /// href="../../../concepts/indexes/#column-index"
         /// target="_top">index</a> on a
         /// particular column. This can speed up certain operations when using
         /// expressions
@@ -4415,16 +4563,16 @@ namespace kinetica
         /// <br />
         /// Manage a table's columns--a column can be added, removed, or have
         /// its
-        /// <a href="../../concepts/types.html" target="_top">type and
+        /// <a href="../../../concepts/types/" target="_top">type and
         /// properties</a> modified.
         /// <br />
-        /// Set or unset <a href="../../concepts/compression.html"
+        /// Set or unset <a href="../../../concepts/compression/"
         /// target="_top">compression</a> for a column.</summary>
         /// 
         /// <param name="table_name">Table on which the operation will be
         /// performed. Must be an existing table or view, in
         /// [schema_name.]table_name format, using standard <a
-        /// href="../../concepts/tables.html#table-name-resolution"
+        /// href="../../../concepts/tables/#table-name-resolution"
         /// target="_top">name resolution rules</a>.  </param>
         /// <param name="column_alterations">List of alter table
         /// add/delete/change column requests - all for the same table. Each
@@ -4481,7 +4629,7 @@ namespace kinetica
         /// 
         /// <param name="table_names">Names of the tables whose metadata will
         /// be updated, in [schema_name.]table_name format, using standard <a
-        /// href="../../concepts/tables.html#table-name-resolution"
+        /// href="../../../concepts/tables/#table-name-resolution"
         /// target="_top">name resolution rules</a>.  All specified tables must
         /// exist, or an error will be returned.  </param>
         /// <param name="metadata_map">A map which contains the metadata of the
@@ -4506,13 +4654,13 @@ namespace kinetica
 
 
         /// <summary>Alters properties of an exisiting
-        /// <a href="../../rm/concepts.html#storage-tiers"
+        /// <a href="../../../rm/concepts/#storage-tiers"
         /// target="_top">tier</a> to facilitate
-        /// <a href="../../rm/concepts.html" target="_top">resource
+        /// <a href="../../../rm/concepts/" target="_top">resource
         /// management</a>.
         /// <br />
         /// To disable
-        /// <a href="../../rm/concepts.html#watermark-based-eviction"
+        /// <a href="../../../rm/concepts/#watermark-based-eviction"
         /// target="_top">watermark-based eviction</a>,
         /// set both <i>high_watermark</i> and
         /// <i>low_watermark</i> to 100.</summary>
@@ -4532,13 +4680,13 @@ namespace kinetica
 
 
         /// <summary>Alters properties of an exisiting
-        /// <a href="../../rm/concepts.html#storage-tiers"
+        /// <a href="../../../rm/concepts/#storage-tiers"
         /// target="_top">tier</a> to facilitate
-        /// <a href="../../rm/concepts.html" target="_top">resource
+        /// <a href="../../../rm/concepts/" target="_top">resource
         /// management</a>.
         /// <br />
         /// To disable
-        /// <a href="../../rm/concepts.html#watermark-based-eviction"
+        /// <a href="../../../rm/concepts/#watermark-based-eviction"
         /// target="_top">watermark-based eviction</a>,
         /// set both <i>high_watermark</i> and
         /// <i>low_watermark</i> to 100.</summary>
@@ -4676,12 +4824,12 @@ namespace kinetica
         /// 
         /// <param name="table_name">The table name for the records to be
         /// appended, in [schema_name.]table_name format, using standard <a
-        /// href="../../concepts/tables.html#table-name-resolution"
+        /// href="../../../concepts/tables/#table-name-resolution"
         /// target="_top">name resolution rules</a>.  Must be an existing
         /// table.  </param>
         /// <param name="source_table_name">The source table name to get
         /// records from, in [schema_name.]table_name format, using standard <a
-        /// href="../../concepts/tables.html#table-name-resolution"
+        /// href="../../../concepts/tables/#table-name-resolution"
         /// target="_top">name resolution rules</a>.  Must be an existing table
         /// name.  </param>
         /// <param name="field_map">Contains the mapping of column names from
@@ -4692,7 +4840,7 @@ namespace kinetica
         /// cref="AppendRecordsRequest.source_table_name" />). Must be existing
         /// column names in source table and target table, and their types must
         /// be matched. For details on using expressions, see <a
-        /// href="../../concepts/expressions.html"
+        /// href="../../../concepts/expressions/"
         /// target="_top">Expressions</a>.  </param>
         /// <param name="options">Optional parameters.
         /// <list type="bullet">
@@ -4739,15 +4887,15 @@ namespace kinetica
         /// cref="AppendRecordsRequest.source_table_name" />) into the target
         /// table (specified by <paramref
         /// cref="AppendRecordsRequest.table_name" />) table with a <a
-        /// href="../../concepts/tables.html#primary-keys"
-        /// target="_top">primary key</a>.  If set to <i>true</i>, any existing
-        /// target table record with primary key values that match those of a
-        /// source table record being inserted will be replaced by that new
-        /// record.  If set to <i>false</i>, any existing target table record
+        /// href="../../../concepts/tables/#primary-keys" target="_top">primary
+        /// key</a>.  If set to <i>true</i>, any existing target table record
         /// with primary key values that match those of a source table record
-        /// being inserted will remain unchanged and the new record discarded.
-        /// If the specified table does not have a primary key, then this
-        /// option is ignored.
+        /// being inserted will be replaced by that new record.  If set to
+        /// <i>false</i>, any existing target table record with primary key
+        /// values that match those of a source table record being inserted
+        /// will remain unchanged and the new record discarded.  If the
+        /// specified table does not have a primary key, then this option is
+        /// ignored.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -4820,7 +4968,7 @@ namespace kinetica
         /// 
         /// <param name="table_name">Name of a table, in
         /// [schema_name.]table_name format, using standard <a
-        /// href="../../concepts/tables.html#table-name-resolution"
+        /// href="../../../concepts/tables/#table-name-resolution"
         /// target="_top">name resolution rules</a>. Must be an existing table.
         /// The default value is ''.</param>
         /// <param name="column_name">Name of the column in <paramref
@@ -4875,7 +5023,7 @@ namespace kinetica
         /// 
         /// <param name="table_name">Name of the table to be cleared, in
         /// [schema_name.]table_name format, using standard <a
-        /// href="../../concepts/tables.html#table-name-resolution"
+        /// href="../../../concepts/tables/#table-name-resolution"
         /// target="_top">name resolution rules</a>. Must be an existing table.
         /// Empty string clears all available tables, though this behavior is
         /// be prevented by default via gpudb.conf parameter
@@ -5018,7 +5166,7 @@ namespace kinetica
         /// 
         /// <param name="table_name">Name of a table, in
         /// [schema_name.]table_name format, using standard <a
-        /// href="../../concepts/tables.html#table-name-resolution"
+        /// href="../../../concepts/tables/#table-name-resolution"
         /// target="_top">name resolution rules</a>.  Must be an existing
         /// table.  </param>
         /// <param name="column_names">List of one or more column names in
@@ -5038,8 +5186,151 @@ namespace kinetica
                                                                     column_names, options ) );
         }
 
+        /// @cond NO_DOCS
+        /// 
+        /// <param name="request_">Request object containing the parameters for
+        /// the operation.</param>
+        /// 
+        /// <returns>Response object containing the result of the
+        /// operation.</returns>
+        /// 
+        public CreateContainerRegistryResponse createContainerRegistry( CreateContainerRegistryRequest request_ )
+        {
+            CreateContainerRegistryResponse actualResponse_ = SubmitRequest<CreateContainerRegistryResponse>("/create/container/registry", request_, false);
 
-        /// <summary>Creates a <a href="../../concepts/data_sources.html"
+            return actualResponse_;
+        }
+        /// @endcond
+
+        /// @cond NO_DOCS
+        /// 
+        /// <param name="registry_name"></param>
+        /// <param name="uri"></param>
+        /// <param name="credential"></param>
+        /// <param name="options">
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateContainerRegistryRequest.Options.USER_NAME">USER_NAME</see>:</term>
+        ///         <description>  The default value is ''.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateContainerRegistryRequest.Options.PASSWORD">PASSWORD</see>:</term>
+        ///         <description>  The default value is ''.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateContainerRegistryRequest.Options.EMAIL">EMAIL</see>:</term>
+        ///         <description>  The default value is ''.</description>
+        ///     </item>
+        /// </list>
+        /// </param>
+        /// 
+        /// <returns>Response object containing the result of the
+        /// operation.</returns>
+        /// 
+        public CreateContainerRegistryResponse createContainerRegistry( string registry_name,
+                                                                        string uri,
+                                                                        string credential,
+                                                                        IDictionary<string, string> options = null )
+        {
+            return createContainerRegistry( new CreateContainerRegistryRequest(
+                                                                                registry_name,
+                                                                                uri,
+                                                                                credential,
+                                                                                options ) );
+        }
+        /// @endcond
+
+
+        /// <summary>Create a new <a href="../../../concepts/credentials/"
+        /// target="_top">credential</a>.</summary>
+        /// 
+        /// <param name="request_">Request object containing the parameters for
+        /// the operation.</param>
+        /// 
+        /// <returns>Response object containing the result of the
+        /// operation.</returns>
+        /// 
+        public CreateCredentialResponse createCredential( CreateCredentialRequest request_ )
+        {
+            CreateCredentialResponse actualResponse_ = SubmitRequest<CreateCredentialResponse>("/create/credential", request_, false);
+
+            return actualResponse_;
+        }
+
+
+        /// <summary>Create a new <a href="../../../concepts/credentials/"
+        /// target="_top">credential</a>.</summary>
+        /// 
+        /// <param name="credential_name">Name of the credential to be created.
+        /// Must contain only letters, digits, and underscores, and cannot
+        /// begin with a digit. Must not match an existing credential name.
+        /// </param>
+        /// <param name="type">Type of the credential to be created.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateCredentialRequest.Type.AWS_ACCESS_KEY">AWS_ACCESS_KEY</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateCredentialRequest.Type.AWS_IAM_ROLE">AWS_IAM_ROLE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateCredentialRequest.Type.AZURE_AD">AZURE_AD</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateCredentialRequest.Type.AZURE_OAUTH">AZURE_OAUTH</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateCredentialRequest.Type.AZURE_SAS">AZURE_SAS</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateCredentialRequest.Type.AZURE_STORAGE_KEY">AZURE_STORAGE_KEY</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateCredentialRequest.Type.DOCKER">DOCKER</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateCredentialRequest.Type.HDFS">HDFS</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateCredentialRequest.Type.KAFKA">KAFKA</see></term>
+        ///     </item>
+        /// </list>  </param>
+        /// <param name="identity">User of the credential to be created.
+        /// </param>
+        /// <param name="secret">Password of the credential to be created.
+        /// </param>
+        /// <param name="options">Optional parameters.  The default value is an
+        /// empty {@link Dictionary}.</param>
+        /// 
+        /// <returns>Response object containing the result of the
+        /// operation.</returns>
+        /// 
+        public CreateCredentialResponse createCredential( string credential_name,
+                                                          string type,
+                                                          string identity,
+                                                          string secret,
+                                                          IDictionary<string, string> options = null )
+        {
+            return createCredential( new CreateCredentialRequest( credential_name, type,
+                                                                  identity, secret,
+                                                                  options ) );
+        }
+
+
+        /// <summary>Creates a <a href="../../../concepts/data_sources/"
         /// target="_top">data source</a>, which contains the
         /// location and connection information for a data store that is
         /// external to the database.</summary>
@@ -5058,7 +5349,7 @@ namespace kinetica
         }
 
 
-        /// <summary>Creates a <a href="../../concepts/data_sources.html"
+        /// <summary>Creates a <a href="../../../concepts/data_sources/"
         /// target="_top">data source</a>, which contains the
         /// location and connection information for a data store that is
         /// external to the database.</summary>
@@ -5103,6 +5394,12 @@ namespace kinetica
         /// cref="CreateDatasourceRequest.Options.WAIT_TIMEOUT">WAIT_TIMEOUT</see>:</term>
         ///         <description>Timeout in seconds for reading from this
         /// storage provider</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateDatasourceRequest.Options.CREDENTIAL">CREDENTIAL</see>:</term>
+        ///         <description>Name of the Credential object to be used in
+        /// data source</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -5201,12 +5498,12 @@ namespace kinetica
         /// restrictions.
         /// <br />
         /// IMPORTANT: It's highly recommended that you review the
-        /// <a href="../../graph_solver/network_graph_solver.html"
+        /// <a href="../../../graph_solver/network_graph_solver/"
         /// target="_top">Network Graphs & Solvers</a>
         /// concepts documentation, the
-        /// <a href="../../graph_solver/examples/graph_rest_guide.html"
+        /// <a href="../../../graph_solver/examples/graph_rest_guide/"
         /// target="_top">Graph REST Tutorial</a>,
-        /// and/or some <a href="../../graph_solver/examples.html"
+        /// and/or some <a href="../../../graph_solver/examples/"
         /// target="_top">graph examples</a> before
         /// using this endpoint.</summary>
         /// 
@@ -5229,12 +5526,12 @@ namespace kinetica
         /// restrictions.
         /// <br />
         /// IMPORTANT: It's highly recommended that you review the
-        /// <a href="../../graph_solver/network_graph_solver.html"
+        /// <a href="../../../graph_solver/network_graph_solver/"
         /// target="_top">Network Graphs & Solvers</a>
         /// concepts documentation, the
-        /// <a href="../../graph_solver/examples/graph_rest_guide.html"
+        /// <a href="../../../graph_solver/examples/graph_rest_guide/"
         /// target="_top">Graph REST Tutorial</a>,
-        /// and/or some <a href="../../graph_solver/examples.html"
+        /// and/or some <a href="../../../graph_solver/examples/"
         /// target="_top">graph examples</a> before
         /// using this endpoint.</summary>
         /// 
@@ -5243,7 +5540,7 @@ namespace kinetica
         /// <param name="directed_graph">If set to <i>true</i>, the graph will
         /// be directed. If set to <i>false</i>, the graph will not be
         /// directed. Consult <a
-        /// href="../../graph_solver/network_graph_solver.html#directed-graphs"
+        /// href="../../../graph_solver/network_graph_solver/#directed-graphs"
         /// target="_top">Directed Graphs</a> for more details.
         /// Supported values:
         /// <list type="bullet">
@@ -5261,10 +5558,10 @@ namespace kinetica
         /// <param name="nodes">Nodes represent fundamental topological units
         /// of a graph.
         /// Nodes must be specified using
-        /// <a href="../../graph_solver/network_graph_solver.html#identifiers"
+        /// <a href="../../../graph_solver/network_graph_solver/#identifiers"
         /// target="_top">identifiers</a>;
         /// identifiers are grouped as
-        /// <a href="../../graph_solver/network_graph_solver.html#id-combos"
+        /// <a href="../../../graph_solver/network_graph_solver/#id-combos"
         /// target="_top">combinations</a>.
         /// Identifiers can be used with existing column names, e.g.,
         /// 'table.column AS NODE_ID', expressions, e.g.,
@@ -5277,10 +5574,10 @@ namespace kinetica
         /// <param name="edges">Edges represent the required fundamental
         /// topological unit of
         /// a graph that typically connect nodes. Edges must be specified using
-        /// <a href="../../graph_solver/network_graph_solver.html#identifiers"
+        /// <a href="../../../graph_solver/network_graph_solver/#identifiers"
         /// target="_top">identifiers</a>;
         /// identifiers are grouped as
-        /// <a href="../../graph_solver/network_graph_solver.html#id-combos"
+        /// <a href="../../../graph_solver/network_graph_solver/#id-combos"
         /// target="_top">combinations</a>.
         /// Identifiers can be used with existing column names, e.g.,
         /// 'table.column AS EDGE_ID', expressions, e.g.,
@@ -5295,10 +5592,10 @@ namespace kinetica
         /// the cost of including a given edge in a solution. Weights must be
         /// specified
         /// using
-        /// <a href="../../graph_solver/network_graph_solver.html#identifiers"
+        /// <a href="../../../graph_solver/network_graph_solver/#identifiers"
         /// target="_top">identifiers</a>;
         /// identifiers are grouped as
-        /// <a href="../../graph_solver/network_graph_solver.html#id-combos"
+        /// <a href="../../../graph_solver/network_graph_solver/#id-combos"
         /// target="_top">combinations</a>.
         /// Identifiers can be used with existing column names, e.g.,
         /// 'table.column AS WEIGHTS_EDGE_ID', expressions, e.g.,
@@ -5313,10 +5610,10 @@ namespace kinetica
         /// solver which edges and/or nodes should be ignored for the solution.
         /// Restrictions
         /// must be specified using
-        /// <a href="../../graph_solver/network_graph_solver.html#identifiers"
+        /// <a href="../../../graph_solver/network_graph_solver/#identifiers"
         /// target="_top">identifiers</a>;
         /// identifiers are grouped as
-        /// <a href="../../graph_solver/network_graph_solver.html#id-combos"
+        /// <a href="../../../graph_solver/network_graph_solver/#id-combos"
         /// target="_top">combinations</a>.
         /// Identifiers can be used with existing column names, e.g.,
         /// 'table.column AS RESTRICTIONS_EDGE_ID', expressions, e.g.,
@@ -5455,7 +5752,7 @@ namespace kinetica
         ///         <term><see
         /// cref="CreateGraphRequest.Options.SAVE_PERSIST">SAVE_PERSIST</see>:</term>
         ///         <description>If set to <i>true</i>, the graph will be saved
-        /// in the persist directory (see the <a href="../../config/index.html"
+        /// in the persist directory (see the <a href="../../../config/"
         /// target="_top">config reference</a> for more information). If set to
         /// <i>false</i>, the graph will be removed when the graph server is
         /// shutdown.
@@ -5526,9 +5823,9 @@ namespace kinetica
         ///         <description>If specified, the created graph is also
         /// created as a table with the given name, in [schema_name.]table_name
         /// format, using standard <a
-        /// href="../../concepts/tables.html#table-name-resolution"
+        /// href="../../../concepts/tables/#table-name-resolution"
         /// target="_top">name resolution rules</a> and meeting <a
-        /// href="../../concepts/tables.html#table-naming-criteria"
+        /// href="../../../concepts/tables/#table-naming-criteria"
         /// target="_top">table naming criteria</a>.  The table will have the
         /// following identifier columns: 'EDGE_ID', 'EDGE_NODE1_ID',
         /// 'EDGE_NODE2_ID'. If left blank, no table is created.  The default
@@ -5630,6 +5927,11 @@ namespace kinetica
         /// </list>
         /// The default value is <see
         /// cref="CreateGraphRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateGraphRequest.Options.SQL_REQUEST_AVRO_JSON">SQL_REQUEST_AVRO_JSON</see>:</term>
+        ///         <description>  The default value is ''.</description>
         ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.</param>
@@ -5762,9 +6064,9 @@ namespace kinetica
         /// <summary>Creates a table that is the result of a SQL JOIN.
         /// <br />
         /// For join details and examples see: <a
-        /// href="../../concepts/joins.html" target="_top">Joins</a>.  For
+        /// href="../../../concepts/joins/" target="_top">Joins</a>.  For
         /// limitations, see <a
-        /// href="../../concepts/joins.html#limitations-cautions"
+        /// href="../../../concepts/joins/#limitations-cautions"
         /// target="_top">Join Limitations and Cautions</a>.</summary>
         /// 
         /// <param name="request_">Request object containing the parameters for
@@ -5784,20 +6086,20 @@ namespace kinetica
         /// <summary>Creates a table that is the result of a SQL JOIN.
         /// <br />
         /// For join details and examples see: <a
-        /// href="../../concepts/joins.html" target="_top">Joins</a>.  For
+        /// href="../../../concepts/joins/" target="_top">Joins</a>.  For
         /// limitations, see <a
-        /// href="../../concepts/joins.html#limitations-cautions"
+        /// href="../../../concepts/joins/#limitations-cautions"
         /// target="_top">Join Limitations and Cautions</a>.</summary>
         /// 
         /// <param name="join_table_name">Name of the join table to be created,
         /// in [schema_name.]table_name format, using standard <a
-        /// href="../../concepts/tables.html#table-name-resolution"
+        /// href="../../../concepts/tables/#table-name-resolution"
         /// target="_top">name resolution rules</a> and meeting <a
-        /// href="../../concepts/tables.html#table-naming-criteria"
+        /// href="../../../concepts/tables/#table-naming-criteria"
         /// target="_top">table naming criteria</a>.  </param>
         /// <param name="table_names">The list of table names composing the
         /// join, each in [schema_name.]table_name format, using standard <a
-        /// href="../../concepts/tables.html#table-name-resolution"
+        /// href="../../../concepts/tables/#table-name-resolution"
         /// target="_top">name resolution rules</a>.  Corresponds to a SQL
         /// statement FROM clause.  </param>
         /// <param name="column_names">List of member table columns or column
@@ -5812,7 +6114,7 @@ namespace kinetica
         /// <param name="expressions">An optional list of expressions to
         /// combine and filter the joined tables.  Corresponds to a SQL
         /// statement WHERE clause. For details see: <a
-        /// href="../../concepts/expressions.html"
+        /// href="../../../concepts/expressions/"
         /// target="_top">expressions</a>.  The default value is an empty
         /// {@link List}.</param>
         /// <param name="options">Optional parameters.
@@ -5854,7 +6156,7 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="CreateJoinTableRequest.Options.TTL">TTL</see>:</term>
-        ///         <description>Sets the <a href="../../concepts/ttl.html"
+        ///         <description>Sets the <a href="../../../concepts/ttl/"
         /// target="_top">TTL</a> of the join table specified in <paramref
         /// cref="CreateJoinTableRequest.join_table_name" />.</description>
         ///     </item>
@@ -5903,7 +6205,7 @@ namespace kinetica
         /// with that name.
         /// <br />
         /// For materialized view details and examples, see
-        /// <a href="../../concepts/materialized_views.html"
+        /// <a href="../../../concepts/materialized_views/"
         /// target="_top">Materialized Views</a>.
         /// <br />
         /// The response contains <paramref
@@ -5933,7 +6235,7 @@ namespace kinetica
         /// with that name.
         /// <br />
         /// For materialized view details and examples, see
-        /// <a href="../../concepts/materialized_views.html"
+        /// <a href="../../../concepts/materialized_views/"
         /// target="_top">Materialized Views</a>.
         /// <br />
         /// The response contains <paramref
@@ -5946,9 +6248,9 @@ namespace kinetica
         /// <param name="table_name">Name of the table to be created that is
         /// the top-level table of the materialized view, in
         /// [schema_name.]table_name format, using standard <a
-        /// href="../../concepts/tables.html#table-name-resolution"
+        /// href="../../../concepts/tables/#table-name-resolution"
         /// target="_top">name resolution rules</a> and meeting <a
-        /// href="../../concepts/tables.html#table-naming-criteria"
+        /// href="../../../concepts/tables/#table-naming-criteria"
         /// target="_top">table naming criteria</a>.  </param>
         /// <param name="options">Optional parameters.
         /// <list type="bullet">
@@ -5966,7 +6268,7 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="CreateMaterializedViewRequest.Options.TTL">TTL</see>:</term>
-        ///         <description>Sets the <a href="../../concepts/ttl.html"
+        ///         <description>Sets the <a href="../../../concepts/ttl/"
         /// target="_top">TTL</a> of the table specified in <paramref
         /// cref="CreateMaterializedViewRequest.table_name" />.</description>
         ///     </item>
@@ -6009,7 +6311,8 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="CreateMaterializedViewRequest.Options.ON_QUERY">ON_QUERY</see>:</term>
-        ///         <description>For future use.</description>
+        ///         <description>Refresh any time the view is
+        /// queried.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -6065,7 +6368,7 @@ namespace kinetica
 
 
         /// <summary>Creates an instance (proc) of the
-        /// <a href="../../concepts/udf.html" target="_top">user-defined
+        /// <a href="../../../concepts/udf/" target="_top">user-defined
         /// functions</a> (UDF) specified by the
         /// given command, options, and files, and makes it available for
         /// execution.</summary>
@@ -6085,7 +6388,7 @@ namespace kinetica
 
 
         /// <summary>Creates an instance (proc) of the
-        /// <a href="../../concepts/udf.html" target="_top">user-defined
+        /// <a href="../../../concepts/udf/" target="_top">user-defined
         /// functions</a> (UDF) specified by the
         /// given command, options, and files, and makes it available for
         /// execution.</summary>
@@ -6177,19 +6480,19 @@ namespace kinetica
         }
 
 
-        /// <summary>Creates a new <a href="../../concepts/projections.html"
+        /// <summary>Creates a new <a href="../../../concepts/projections/"
         /// target="_top">projection</a> of
         /// an existing table. A projection represents a subset of the columns
         /// (potentially
         /// including derived columns) of a table.
         /// <br />
         /// For projection details and examples, see
-        /// <a href="../../concepts/projections.html"
+        /// <a href="../../../concepts/projections/"
         /// target="_top">Projections</a>.  For limitations, see
-        /// <a href="../../concepts/projections.html#limitations-and-cautions"
+        /// <a href="../../../concepts/projections/#limitations-and-cautions"
         /// target="_top">Projection Limitations and Cautions</a>.
         /// <br />
-        /// <a href="../../concepts/window.html" target="_top">Window
+        /// <a href="../../../concepts/window/" target="_top">Window
         /// functions</a>, which can perform
         /// operations like moving averages, are available through this
         /// endpoint as well as
@@ -6198,7 +6501,7 @@ namespace kinetica
         /// />.
         /// <br />
         /// A projection can be created with a different
-        /// <a href="../../concepts/tables.html#shard-keys" target="_top">shard
+        /// <a href="../../../concepts/tables/#shard-keys" target="_top">shard
         /// key</a> than the source table.
         /// By specifying <i>shard_key</i>, the projection will be sharded
         /// according to the specified columns, regardless of how the source
@@ -6208,12 +6511,12 @@ namespace kinetica
         /// If <paramref cref="CreateProjectionRequest.table_name" /> is empty,
         /// selection is performed against a single-row
         /// virtual table.  This can be useful in executing temporal
-        /// (<a href="../../concepts/expressions.html#date-time-functions"
+        /// (<a href="../../../concepts/expressions/#date-time-functions"
         /// target="_top">NOW()</a>), identity
-        /// (<a href="../../concepts/expressions.html#user-security-functions"
+        /// (<a href="../../../concepts/expressions/#user-security-functions"
         /// target="_top">USER()</a>), or
         /// constant-based functions
-        /// (<a href="../../concepts/expressions.html#scalar-functions"
+        /// (<a href="../../../concepts/expressions/#scalar-functions"
         /// target="_top">GEODIST(-77.11, 38.88, -71.06, 42.36)</a>).</summary>
         /// 
         /// <param name="request_">Request object containing the parameters for
@@ -6230,19 +6533,19 @@ namespace kinetica
         }
 
 
-        /// <summary>Creates a new <a href="../../concepts/projections.html"
+        /// <summary>Creates a new <a href="../../../concepts/projections/"
         /// target="_top">projection</a> of
         /// an existing table. A projection represents a subset of the columns
         /// (potentially
         /// including derived columns) of a table.
         /// <br />
         /// For projection details and examples, see
-        /// <a href="../../concepts/projections.html"
+        /// <a href="../../../concepts/projections/"
         /// target="_top">Projections</a>.  For limitations, see
-        /// <a href="../../concepts/projections.html#limitations-and-cautions"
+        /// <a href="../../../concepts/projections/#limitations-and-cautions"
         /// target="_top">Projection Limitations and Cautions</a>.
         /// <br />
-        /// <a href="../../concepts/window.html" target="_top">Window
+        /// <a href="../../../concepts/window/" target="_top">Window
         /// functions</a>, which can perform
         /// operations like moving averages, are available through this
         /// endpoint as well as
@@ -6251,7 +6554,7 @@ namespace kinetica
         /// />.
         /// <br />
         /// A projection can be created with a different
-        /// <a href="../../concepts/tables.html#shard-keys" target="_top">shard
+        /// <a href="../../../concepts/tables/#shard-keys" target="_top">shard
         /// key</a> than the source table.
         /// By specifying <i>shard_key</i>, the projection will be sharded
         /// according to the specified columns, regardless of how the source
@@ -6261,26 +6564,26 @@ namespace kinetica
         /// If <paramref name="table_name" /> is empty, selection is performed
         /// against a single-row
         /// virtual table.  This can be useful in executing temporal
-        /// (<a href="../../concepts/expressions.html#date-time-functions"
+        /// (<a href="../../../concepts/expressions/#date-time-functions"
         /// target="_top">NOW()</a>), identity
-        /// (<a href="../../concepts/expressions.html#user-security-functions"
+        /// (<a href="../../../concepts/expressions/#user-security-functions"
         /// target="_top">USER()</a>), or
         /// constant-based functions
-        /// (<a href="../../concepts/expressions.html#scalar-functions"
+        /// (<a href="../../../concepts/expressions/#scalar-functions"
         /// target="_top">GEODIST(-77.11, 38.88, -71.06, 42.36)</a>).</summary>
         /// 
         /// <param name="table_name">Name of the existing table on which the
         /// projection is to be applied, in [schema_name.]table_name format,
         /// using standard <a
-        /// href="../../concepts/tables.html#table-name-resolution"
+        /// href="../../../concepts/tables/#table-name-resolution"
         /// target="_top">name resolution rules</a>.  An empty table name
         /// creates a projection from a single-row virtual table, where columns
         /// specified should be constants or constant expressions.  </param>
         /// <param name="projection_name">Name of the projection to be created,
         /// in [schema_name.]table_name format, using standard <a
-        /// href="../../concepts/tables.html#table-name-resolution"
+        /// href="../../../concepts/tables/#table-name-resolution"
         /// target="_top">name resolution rules</a> and meeting <a
-        /// href="../../concepts/tables.html#table-naming-criteria"
+        /// href="../../../concepts/tables/#table-naming-criteria"
         /// target="_top">table naming criteria</a>.  </param>
         /// <param name="column_names">List of columns from <paramref
         /// cref="CreateProjectionRequest.table_name" /> to be included in the
@@ -6302,7 +6605,7 @@ namespace kinetica
         ///         <term><see
         /// cref="CreateProjectionRequest.Options.EXPRESSION">EXPRESSION</see>:</term>
         ///         <description>An optional filter <a
-        /// href="../../concepts/expressions.html" target="_top">expression</a>
+        /// href="../../../concepts/expressions/" target="_top">expression</a>
         /// to be applied to the source table prior to the projection.  The
         /// default value is ''.</description>
         ///     </item>
@@ -6345,11 +6648,11 @@ namespace kinetica
         ///         <term><see
         /// cref="CreateProjectionRequest.Options.MATERIALIZE_ON_GPU">MATERIALIZE_ON_GPU</see>:</term>
         ///         <description>No longer used.  See <a
-        /// href="../../rm/concepts.html" target="_top">Resource Management
+        /// href="../../../rm/concepts/" target="_top">Resource Management
         /// Concepts</a> for information about how resources are managed, <a
-        /// href="../../rm/concepts.html" target="_top">Tier Strategy
+        /// href="../../../rm/concepts/" target="_top">Tier Strategy
         /// Concepts</a> for how resources are targeted for VRAM, and <a
-        /// href="../../rm/usage.html#tier-strategies" target="_top">Tier
+        /// href="../../../rm/usage/#tier-strategies" target="_top">Tier
         /// Strategy Usage</a> for how to specify a table's priority in VRAM.
         /// Supported values:
         /// <list type="bullet">
@@ -6383,7 +6686,7 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="CreateProjectionRequest.Options.TTL">TTL</see>:</term>
-        ///         <description>Sets the <a href="../../concepts/ttl.html"
+        ///         <description>Sets the <a href="../../../concepts/ttl/"
         /// target="_top">TTL</a> of the projection specified in <paramref
         /// cref="CreateProjectionRequest.projection_name" />.</description>
         ///     </item>
@@ -6631,7 +6934,7 @@ namespace kinetica
         }
 
 
-        /// <summary>Creates a SQL-style <a href="../../concepts/schemas.html"
+        /// <summary>Creates a SQL-style <a href="../../../concepts/schemas/"
         /// target="_top">schema</a>. Schemas are containers for tables and
         /// views.  Multiple tables and views can be defined with the same name
         /// in different schemas.</summary>
@@ -6650,15 +6953,14 @@ namespace kinetica
         }
 
 
-        /// <summary>Creates a SQL-style <a href="../../concepts/schemas.html"
+        /// <summary>Creates a SQL-style <a href="../../../concepts/schemas/"
         /// target="_top">schema</a>. Schemas are containers for tables and
         /// views.  Multiple tables and views can be defined with the same name
         /// in different schemas.</summary>
         /// 
         /// <param name="schema_name">Name of the schema to be created.  Has
-        /// the same naming restrictions as <a
-        /// href="../../concepts/tables.html" target="_top">tables</a>.
-        /// </param>
+        /// the same naming restrictions as <a href="../../../concepts/tables/"
+        /// target="_top">tables</a>.  </param>
         /// <param name="options">Optional parameters.
         /// <list type="bullet">
         ///     <item>
@@ -6701,13 +7003,13 @@ namespace kinetica
         /// />).
         /// <br />
         /// A table may optionally be designated to use a
-        /// <a href="../../concepts/tables.html#replication"
+        /// <a href="../../../concepts/tables/#replication"
         /// target="_top">replicated</a> distribution scheme,
-        /// or be assigned: <a href="../../concepts/tables.html#foreign-keys"
+        /// or be assigned: <a href="../../../concepts/tables/#foreign-keys"
         /// target="_top">foreign keys</a> to
-        /// other tables, a <a href="../../concepts/tables.html#partitioning"
+        /// other tables, a <a href="../../../concepts/tables/#partitioning"
         /// target="_top">partitioning</a>
-        /// scheme, and/or a <a href="../../rm/concepts.html#tier-strategies"
+        /// scheme, and/or a <a href="../../../rm/concepts/#tier-strategies"
         /// target="_top">tier strategy</a>.</summary>
         /// 
         /// <param name="request_">Request object containing the parameters for
@@ -6732,20 +7034,20 @@ namespace kinetica
         /// />).
         /// <br />
         /// A table may optionally be designated to use a
-        /// <a href="../../concepts/tables.html#replication"
+        /// <a href="../../../concepts/tables/#replication"
         /// target="_top">replicated</a> distribution scheme,
-        /// or be assigned: <a href="../../concepts/tables.html#foreign-keys"
+        /// or be assigned: <a href="../../../concepts/tables/#foreign-keys"
         /// target="_top">foreign keys</a> to
-        /// other tables, a <a href="../../concepts/tables.html#partitioning"
+        /// other tables, a <a href="../../../concepts/tables/#partitioning"
         /// target="_top">partitioning</a>
-        /// scheme, and/or a <a href="../../rm/concepts.html#tier-strategies"
+        /// scheme, and/or a <a href="../../../rm/concepts/#tier-strategies"
         /// target="_top">tier strategy</a>.</summary>
         /// 
         /// <param name="table_name">Name of the table to be created, in
         /// [schema_name.]table_name format, using standard <a
-        /// href="../../concepts/tables.html#table-name-resolution"
+        /// href="../../../concepts/tables/#table-name-resolution"
         /// target="_top">name resolution rules</a> and meeting <a
-        /// href="../../concepts/tables.html#table-naming-criteria"
+        /// href="../../../concepts/tables/#table-naming-criteria"
         /// target="_top">table naming criteria</a>. Error for requests with
         /// existing table of the same name and type ID may be suppressed by
         /// using the <i>no_error_if_exists</i> option.  </param>
@@ -6827,17 +7129,17 @@ namespace kinetica
         ///         <term><see
         /// cref="CreateTableRequest.Options.IS_REPLICATED">IS_REPLICATED</see>:</term>
         ///         <description>Affects the <a
-        /// href="../../concepts/tables.html#distribution"
+        /// href="../../../concepts/tables/#distribution"
         /// target="_top">distribution scheme</a> for the table's data.  If
         /// <i>true</i> and the given type has no explicit <a
-        /// href="../../concepts/tables.html#shard-key" target="_top">shard
+        /// href="../../../concepts/tables/#shard-key" target="_top">shard
         /// key</a> defined, the table will be <a
-        /// href="../../concepts/tables.html#replication"
+        /// href="../../../concepts/tables/#replication"
         /// target="_top">replicated</a>.  If <i>false</i>, the table will be
-        /// <a href="../../concepts/tables.html#sharding"
+        /// <a href="../../../concepts/tables/#sharding"
         /// target="_top">sharded</a> according to the shard key specified in
         /// the given <paramref cref="CreateTableRequest.type_id" />, or <a
-        /// href="../../concepts/tables.html#random-sharding"
+        /// href="../../../concepts/tables/#random-sharding"
         /// target="_top">randomly sharded</a>, if no shard key is specified.
         /// Note that a type containing a shard key cannot be used to create a
         /// replicated table.
@@ -6859,10 +7161,10 @@ namespace kinetica
         ///         <term><see
         /// cref="CreateTableRequest.Options.FOREIGN_KEYS">FOREIGN_KEYS</see>:</term>
         ///         <description>Semicolon-separated list of <a
-        /// href="../../concepts/tables.html#foreign-keys"
-        /// target="_top">foreign keys</a>, of the format '(source_column_name
-        /// [, ...]) references target_table_name(primary_key_column_name [,
-        /// ...]) [as foreign_key_name]'.</description>
+        /// href="../../../concepts/tables/#foreign-keys" target="_top">foreign
+        /// keys</a>, of the format '(source_column_name [, ...]) references
+        /// target_table_name(primary_key_column_name [, ...]) [as
+        /// foreign_key_name]'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -6875,7 +7177,7 @@ namespace kinetica
         ///         <term><see
         /// cref="CreateTableRequest.Options.PARTITION_TYPE">PARTITION_TYPE</see>:</term>
         ///         <description><a
-        /// href="../../concepts/tables.html#partitioning"
+        /// href="../../../concepts/tables/#partitioning"
         /// target="_top">Partitioning</a> scheme to use.
         /// Supported values:
         /// <list type="bullet">
@@ -6883,35 +7185,35 @@ namespace kinetica
         ///         <term><see
         /// cref="CreateTableRequest.Options.RANGE">RANGE</see>:</term>
         ///         <description>Use <a
-        /// href="../../concepts/tables.html#partitioning-by-range"
+        /// href="../../../concepts/tables/#partitioning-by-range"
         /// target="_top">range partitioning</a>.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="CreateTableRequest.Options.INTERVAL">INTERVAL</see>:</term>
         ///         <description>Use <a
-        /// href="../../concepts/tables.html#partitioning-by-interval"
+        /// href="../../../concepts/tables/#partitioning-by-interval"
         /// target="_top">interval partitioning</a>.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="CreateTableRequest.Options.LIST">LIST</see>:</term>
         ///         <description>Use <a
-        /// href="../../concepts/tables.html#partitioning-by-list"
+        /// href="../../../concepts/tables/#partitioning-by-list"
         /// target="_top">list partitioning</a>.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="CreateTableRequest.Options.HASH">HASH</see>:</term>
         ///         <description>Use <a
-        /// href="../../concepts/tables.html#partitioning-by-hash"
+        /// href="../../../concepts/tables/#partitioning-by-hash"
         /// target="_top">hash partitioning</a>.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="CreateTableRequest.Options.SERIES">SERIES</see>:</term>
         ///         <description>Use <a
-        /// href="../../concepts/tables.html#partitioning-by-series"
+        /// href="../../../concepts/tables/#partitioning-by-series"
         /// target="_top">series partitioning</a>.</description>
         ///     </item>
         /// </list></description>
@@ -6929,13 +7231,13 @@ namespace kinetica
         /// cref="CreateTableRequest.Options.PARTITION_DEFINITIONS">PARTITION_DEFINITIONS</see>:</term>
         ///         <description>Comma-separated list of partition definitions,
         /// whose format depends on the choice of <i>partition_type</i>.  See
-        /// <a href="../../concepts/tables.html#partitioning-by-range"
+        /// <a href="../../../concepts/tables/#partitioning-by-range"
         /// target="_top">range partitioning</a>, <a
-        /// href="../../concepts/tables.html#partitioning-by-interval"
+        /// href="../../../concepts/tables/#partitioning-by-interval"
         /// target="_top">interval partitioning</a>, <a
-        /// href="../../concepts/tables.html#partitioning-by-list"
+        /// href="../../../concepts/tables/#partitioning-by-list"
         /// target="_top">list partitioning</a>, or <a
-        /// href="../../concepts/tables.html#partitioning-by-hash"
+        /// href="../../../concepts/tables/#partitioning-by-hash"
         /// target="_top">hash partitioning</a> for example
         /// formats.</description>
         ///     </item>
@@ -6945,7 +7247,7 @@ namespace kinetica
         ///         <description>If <i>true</i>, a new partition will be
         /// created for values which don't fall into an existing partition.
         /// Currently only supported for <a
-        /// href="../../concepts/tables.html#partitioning-by-list"
+        /// href="../../../concepts/tables/#partitioning-by-list"
         /// target="_top">list partitions</a>.
         /// Supported values:
         /// <list type="bullet">
@@ -6964,7 +7266,7 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="CreateTableRequest.Options.TTL">TTL</see>:</term>
-        ///         <description>Sets the <a href="../../concepts/ttl.html"
+        ///         <description>Sets the <a href="../../../concepts/ttl/"
         /// target="_top">TTL</a> of the table specified in <paramref
         /// cref="CreateTableRequest.table_name" />.</description>
         ///     </item>
@@ -6978,12 +7280,12 @@ namespace kinetica
         ///         <term><see
         /// cref="CreateTableRequest.Options.IS_RESULT_TABLE">IS_RESULT_TABLE</see>:</term>
         ///         <description>Indicates whether the table is a <a
-        /// href="../../concepts/tables_memory_only.html"
+        /// href="../../../concepts/tables_memory_only/"
         /// target="_top">memory-only table</a>. A result table cannot contain
         /// columns with store_only or text_search <a
-        /// href="../../concepts/types.html#data-handling"
+        /// href="../../../concepts/types/#data-handling"
         /// target="_top">data-handling</a> or that are <a
-        /// href="../../concepts/types.html#primitive-types"
+        /// href="../../../concepts/types/#primitive-types"
         /// target="_top">non-charN strings</a>, and it will not be retained if
         /// the server is restarted.
         /// Supported values:
@@ -7004,11 +7306,11 @@ namespace kinetica
         ///         <term><see
         /// cref="CreateTableRequest.Options.STRATEGY_DEFINITION">STRATEGY_DEFINITION</see>:</term>
         ///         <description>The <a
-        /// href="../../rm/concepts.html#tier-strategies" target="_top">tier
+        /// href="../../../rm/concepts/#tier-strategies" target="_top">tier
         /// strategy</a> for the table and its columns. See <a
-        /// href="../../rm/concepts.html#tier-strategies" target="_top">tier
+        /// href="../../../rm/concepts/#tier-strategies" target="_top">tier
         /// strategy usage</a> for format and <a
-        /// href="../../rm/usage.html#tier-strategies" target="_top">tier
+        /// href="../../../rm/usage/#tier-strategies" target="_top">tier
         /// strategy examples</a> for examples.</description>
         ///     </item>
         /// </list>
@@ -7025,14 +7327,13 @@ namespace kinetica
         }
 
 
-        /// <summary>Creates a new <a
-        /// href="../../concepts/external_tables.html" target="_top">external
-        /// table</a>, which is a
+        /// <summary>Creates a new <a href="../../../concepts/external_tables/"
+        /// target="_top">external table</a>, which is a
         /// local database object whose source data is located externally to
         /// the database.  The source data can
         /// be located either on the cluster, accessible to the database; or
         /// remotely, accessible via a
-        /// pre-defined external <a href="../../concepts/data_sources.html"
+        /// pre-defined external <a href="../../../concepts/data_sources/"
         /// target="_top">data source</a>.
         /// <br />
         /// The external table can have its structure defined explicitly, via
@@ -7057,14 +7358,13 @@ namespace kinetica
         }
 
 
-        /// <summary>Creates a new <a
-        /// href="../../concepts/external_tables.html" target="_top">external
-        /// table</a>, which is a
+        /// <summary>Creates a new <a href="../../../concepts/external_tables/"
+        /// target="_top">external table</a>, which is a
         /// local database object whose source data is located externally to
         /// the database.  The source data can
         /// be located either on the cluster, accessible to the database; or
         /// remotely, accessible via a
-        /// pre-defined external <a href="../../concepts/data_sources.html"
+        /// pre-defined external <a href="../../../concepts/data_sources/"
         /// target="_top">data source</a>.
         /// <br />
         /// The external table can have its structure defined explicitly, via
@@ -7076,9 +7376,9 @@ namespace kinetica
         /// 
         /// <param name="table_name">Name of the table to be created, in
         /// [schema_name.]table_name format, using
-        /// standard <a href="../../concepts/tables.html#table-name-resolution"
+        /// standard <a href="../../../concepts/tables/#table-name-resolution"
         /// target="_top">name resolution rules</a> and meeting
-        /// <a href="../../concepts/tables.html#table-naming-criteria"
+        /// <a href="../../../concepts/tables/#table-naming-criteria"
         /// target="_top">table naming criteria</a>.  </param>
         /// <param name="filepaths">A list of file paths from which data will
         /// be sourced; wildcards (*) can be used
@@ -7093,7 +7393,7 @@ namespace kinetica
         /// accessible to the gpudb user, residing on the path (or relative to
         /// the path) specified by the
         /// external files directory in the Kinetica
-        /// <a href="../../config/index.html#external-files"
+        /// <a href="../../../config/#external-files"
         /// target="_top">configuration file</a>.  </param>
         /// <param name="modify_columns">Not implemented yet.  The default
         /// value is an empty {@link Dictionary}.</param>
@@ -7105,7 +7405,7 @@ namespace kinetica
         ///         <term><see
         /// cref="CreateTableExternalRequest.CreateTableOptions.TYPE_ID">TYPE_ID</see>:</term>
         ///         <description>ID of a currently registered <a
-        /// href="../../concepts/types.html" target="_top">type</a>.  The
+        /// href="../../../concepts/types/" target="_top">type</a>.  The
         /// default value is ''.</description>
         ///     </item>
         ///     <item>
@@ -7133,20 +7433,20 @@ namespace kinetica
         ///         <term><see
         /// cref="CreateTableExternalRequest.CreateTableOptions.IS_REPLICATED">IS_REPLICATED</see>:</term>
         ///         <description>Affects the <a
-        /// href="../../concepts/tables.html#distribution"
+        /// href="../../../concepts/tables/#distribution"
         /// target="_top">distribution scheme</a>
         /// for the table's data.  If <i>true</i> and the
         /// given table has no explicit <a
-        /// href="../../concepts/tables.html#shard-key" target="_top">shard
+        /// href="../../../concepts/tables/#shard-key" target="_top">shard
         /// key</a> defined, the
-        /// table will be <a href="../../concepts/tables.html#replication"
+        /// table will be <a href="../../../concepts/tables/#replication"
         /// target="_top">replicated</a>.  If
         /// <i>false</i>, the table will be
-        /// <a href="../../concepts/tables.html#sharding"
+        /// <a href="../../../concepts/tables/#sharding"
         /// target="_top">sharded</a> according to the shard key specified in
         /// the
         /// given <i>type_id</i>, or
-        /// <a href="../../concepts/tables.html#random-sharding"
+        /// <a href="../../../concepts/tables/#random-sharding"
         /// target="_top">randomly sharded</a>, if no shard key is specified.
         /// Note that a type containing a shard key cannot be used to create a
         /// replicated table.
@@ -7168,7 +7468,7 @@ namespace kinetica
         ///         <term><see
         /// cref="CreateTableExternalRequest.CreateTableOptions.FOREIGN_KEYS">FOREIGN_KEYS</see>:</term>
         ///         <description>Semicolon-separated list of
-        /// <a href="../../concepts/tables.html#foreign-keys"
+        /// <a href="../../../concepts/tables/#foreign-keys"
         /// target="_top">foreign keys</a>, of the format
         /// '(source_column_name [, ...]) references
         /// target_table_name(primary_key_column_name [, ...]) [as
@@ -7185,7 +7485,7 @@ namespace kinetica
         ///         <term><see
         /// cref="CreateTableExternalRequest.CreateTableOptions.PARTITION_TYPE">PARTITION_TYPE</see>:</term>
         ///         <description><a
-        /// href="../../concepts/tables.html#partitioning"
+        /// href="../../../concepts/tables/#partitioning"
         /// target="_top">Partitioning</a> scheme to use.
         /// Supported values:
         /// <list type="bullet">
@@ -7193,28 +7493,28 @@ namespace kinetica
         ///         <term><see
         /// cref="CreateTableExternalRequest.CreateTableOptions.RANGE">RANGE</see>:</term>
         ///         <description>Use <a
-        /// href="../../concepts/tables.html#partitioning-by-range"
+        /// href="../../../concepts/tables/#partitioning-by-range"
         /// target="_top">range partitioning</a>.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="CreateTableExternalRequest.CreateTableOptions.INTERVAL">INTERVAL</see>:</term>
         ///         <description>Use <a
-        /// href="../../concepts/tables.html#partitioning-by-interval"
+        /// href="../../../concepts/tables/#partitioning-by-interval"
         /// target="_top">interval partitioning</a>.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="CreateTableExternalRequest.CreateTableOptions.LIST">LIST</see>:</term>
         ///         <description>Use <a
-        /// href="../../concepts/tables.html#partitioning-by-list"
+        /// href="../../../concepts/tables/#partitioning-by-list"
         /// target="_top">list partitioning</a>.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="CreateTableExternalRequest.CreateTableOptions.HASH">HASH</see>:</term>
         ///         <description>Use <a
-        /// href="../../concepts/tables.html#partitioning-by-hash"
+        /// href="../../../concepts/tables/#partitioning-by-hash"
         /// target="_top">hash partitioning</a>.</description>
         ///     </item>
         /// </list></description>
@@ -7234,13 +7534,13 @@ namespace kinetica
         ///         <description>Comma-separated list of partition definitions,
         /// whose format depends
         /// on the choice of <i>partition_type</i>.  See
-        /// <a href="../../concepts/tables.html#partitioning-by-range"
+        /// <a href="../../../concepts/tables/#partitioning-by-range"
         /// target="_top">range partitioning</a>,
-        /// <a href="../../concepts/tables.html#partitioning-by-interval"
+        /// <a href="../../../concepts/tables/#partitioning-by-interval"
         /// target="_top">interval partitioning</a>,
-        /// <a href="../../concepts/tables.html#partitioning-by-list"
+        /// <a href="../../../concepts/tables/#partitioning-by-list"
         /// target="_top">list partitioning</a>, or
-        /// <a href="../../concepts/tables.html#partitioning-by-hash"
+        /// <a href="../../../concepts/tables/#partitioning-by-hash"
         /// target="_top">hash partitioning</a> for example
         /// formats.</description>
         ///     </item>
@@ -7251,7 +7551,7 @@ namespace kinetica
         /// a new partition will be created for values which don't fall into an
         /// existing partition.  Currently
         /// only supported for <a
-        /// href="../../concepts/tables.html#partitioning-by-list"
+        /// href="../../../concepts/tables/#partitioning-by-list"
         /// target="_top">list partitions</a>.
         /// Supported values:
         /// <list type="bullet">
@@ -7270,7 +7570,7 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="CreateTableExternalRequest.CreateTableOptions.TTL">TTL</see>:</term>
-        ///         <description>Sets the <a href="../../concepts/ttl.html"
+        ///         <description>Sets the <a href="../../../concepts/ttl/"
         /// target="_top">TTL</a> of the table specified in <paramref
         /// cref="CreateTableExternalRequest.table_name" />.</description>
         ///     </item>
@@ -7284,12 +7584,12 @@ namespace kinetica
         ///         <term><see
         /// cref="CreateTableExternalRequest.CreateTableOptions.IS_RESULT_TABLE">IS_RESULT_TABLE</see>:</term>
         ///         <description>Indicates whether the table is a
-        /// <a href="../../concepts/tables_memory_only.html"
+        /// <a href="../../../concepts/tables_memory_only/"
         /// target="_top">memory-only table</a>. A result table cannot contain
         /// columns with store_only or text_search
-        /// <a href="../../concepts/types.html#data-handling"
+        /// <a href="../../../concepts/types/#data-handling"
         /// target="_top">data-handling</a> or that are
-        /// <a href="../../concepts/types.html#primitive-types"
+        /// <a href="../../../concepts/types/#primitive-types"
         /// target="_top">non-charN strings</a>, and it will not be retained if
         /// the server is restarted.
         /// Supported values:
@@ -7310,12 +7610,12 @@ namespace kinetica
         ///         <term><see
         /// cref="CreateTableExternalRequest.CreateTableOptions.STRATEGY_DEFINITION">STRATEGY_DEFINITION</see>:</term>
         ///         <description>The <a
-        /// href="../../rm/concepts.html#tier-strategies" target="_top">tier
+        /// href="../../../rm/concepts/#tier-strategies" target="_top">tier
         /// strategy</a>
         /// for the table and its columns. See
-        /// <a href="../../rm/concepts.html#tier-strategies" target="_top">tier
+        /// <a href="../../../rm/concepts/#tier-strategies" target="_top">tier
         /// strategy usage</a> for format and
-        /// <a href="../../rm/usage.html#tier-strategies" target="_top">tier
+        /// <a href="../../../rm/usage/#tier-strategies" target="_top">tier
         /// strategy examples</a> for examples.</description>
         ///     </item>
         /// </list>
@@ -7509,13 +7809,18 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="CreateTableExternalRequest.Options.DELIMITED_TEXT">DELIMITED_TEXT</see>:</term>
-        ///         <description>Delimited text format; e.g., CSV, TSV, PSV,
-        /// etc.</description>
+        ///         <description>Delimited text file format; e.g., CSV, TSV,
+        /// PSV, etc.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="CreateTableExternalRequest.Options.PARQUET">PARQUET</see>:</term>
-        ///         <description>Apache Parquet format</description>
+        ///         <description>Apache Parquet file format</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableExternalRequest.Options.JSON">JSON</see>:</term>
+        ///         <description>Json file format</description>
         ///     </item>
         /// </list>
         /// The default value is <see
@@ -7711,7 +8016,7 @@ namespace kinetica
         ///         <term><see
         /// cref="CreateTableExternalRequest.Options.TEXT_HEADER_PROPERTY_DELIMITER">TEXT_HEADER_PROPERTY_DELIMITER</see>:</term>
         ///         <description>Specifies the delimiter for
-        /// <a href="../../concepts/types.html#column-properties"
+        /// <a href="../../../concepts/types/#column-properties"
         /// target="_top">column properties</a> in the header row (if
         /// present).  Cannot be set to same value as <i>text_delimiter</i>.
         /// For <i>delimited_text</i> <i>file_type</i> only.  The default value
@@ -7814,7 +8119,7 @@ namespace kinetica
         /// />.
         /// <br />
         /// For more information on table monitors, see
-        /// <a href="../../concepts/table_monitors.html" target="_top">Table
+        /// <a href="../../../concepts/table_monitors/" target="_top">Table
         /// Monitors</a>.</summary>
         /// 
         /// <param name="request_">Request object containing the parameters for
@@ -7855,12 +8160,12 @@ namespace kinetica
         /// />.
         /// <br />
         /// For more information on table monitors, see
-        /// <a href="../../concepts/table_monitors.html" target="_top">Table
+        /// <a href="../../../concepts/table_monitors/" target="_top">Table
         /// Monitors</a>.</summary>
         /// 
         /// <param name="table_name">Name of the table to monitor, in
         /// [schema_name.]table_name format, using standard <a
-        /// href="../../concepts/tables.html#table-name-resolution"
+        /// href="../../../concepts/tables/#table-name-resolution"
         /// target="_top">name resolution rules</a>.  </param>
         /// <param name="options">Optional parameters.
         /// <list type="bullet">
@@ -7980,7 +8285,7 @@ namespace kinetica
         /// <param name="table_names">Names of the tables on which the trigger
         /// will be activated and maintained, each in [schema_name.]table_name
         /// format, using standard <a
-        /// href="../../concepts/tables.html#table-name-resolution"
+        /// href="../../../concepts/tables/#table-name-resolution"
         /// target="_top">name resolution rules</a>.  </param>
         /// <param name="x_column_name">Name of a numeric column on which the
         /// trigger is activated. Usually 'x' for geospatial data points.
@@ -8083,7 +8388,7 @@ namespace kinetica
         /// character.  </param>
         /// <param name="table_names">Tables on which the trigger will be
         /// active, each in [schema_name.]table_name format, using standard <a
-        /// href="../../concepts/tables.html#table-name-resolution"
+        /// href="../../../concepts/tables/#table-name-resolution"
         /// target="_top">name resolution rules</a>.  </param>
         /// <param name="column_name">Name of a numeric column_name on which
         /// the trigger is activated.  </param>
@@ -8123,9 +8428,9 @@ namespace kinetica
         /// simultaneously.  One example of mutually exclusive properties are
         /// <i>data</i> and <i>store_only</i>.
         /// <br />
-        /// A single <a href="../../concepts/tables.html#primary-keys"
+        /// A single <a href="../../../concepts/tables/#primary-keys"
         /// target="_top">primary key</a> and/or single <a
-        /// href="../../concepts/tables.html#shard-keys" target="_top">shard
+        /// href="../../../concepts/tables/#shard-keys" target="_top">shard
         /// key</a> can be set across one or more columns. If a primary key is
         /// specified, then a uniqueness constraint is enforced, in that only a
         /// single object can exist with a given primary key column value (or
@@ -8185,9 +8490,9 @@ namespace kinetica
         /// simultaneously.  One example of mutually exclusive properties are
         /// <i>data</i> and <i>store_only</i>.
         /// <br />
-        /// A single <a href="../../concepts/tables.html#primary-keys"
+        /// A single <a href="../../../concepts/tables/#primary-keys"
         /// target="_top">primary key</a> and/or single <a
-        /// href="../../concepts/tables.html#shard-keys" target="_top">shard
+        /// href="../../../concepts/tables/#shard-keys" target="_top">shard
         /// key</a> can be set across one or more columns. If a primary key is
         /// specified, then a uniqueness constraint is enforced, in that only a
         /// single object can exist with a given primary key column value (or
@@ -8424,15 +8729,15 @@ namespace kinetica
         /// cref="CreateTypeRequest.Properties.PRIMARY_KEY">PRIMARY_KEY</see>:</term>
         ///         <description>This property indicates that this column will
         /// be part of (or the entire) <a
-        /// href="../../concepts/tables.html#primary-keys"
-        /// target="_top">primary key</a>.</description>
+        /// href="../../../concepts/tables/#primary-keys" target="_top">primary
+        /// key</a>.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="CreateTypeRequest.Properties.SHARD_KEY">SHARD_KEY</see>:</term>
         ///         <description>This property indicates that this column will
         /// be part of (or the entire) <a
-        /// href="../../concepts/tables.html#shard-keys" target="_top">shard
+        /// href="../../../concepts/tables/#shard-keys" target="_top">shard
         /// key</a>.</description>
         ///     </item>
         ///     <item>
@@ -8455,7 +8760,7 @@ namespace kinetica
         ///         <term><see
         /// cref="CreateTypeRequest.Properties.DICT">DICT</see>:</term>
         ///         <description>This property indicates that this column
-        /// should be <a href="../../concepts/dictionary_encoding.html"
+        /// should be <a href="../../../concepts/dictionary_encoding/"
         /// target="_top">dictionary encoded</a>. It can only be used in
         /// conjunction with restricted string (charN), int, long or date
         /// columns. Dictionary encoding is best for columns where the
@@ -8498,32 +8803,32 @@ namespace kinetica
         /// The following merges are supported:
         /// <br />
         /// UNION (DISTINCT/ALL) - For data set union details and examples, see
-        /// <a href="../../concepts/unions.html" target="_top">Union</a>.  For
+        /// <a href="../../../concepts/unions/" target="_top">Union</a>.  For
         /// limitations, see <a
-        /// href="../../concepts/unions.html#limitations-and-cautions"
+        /// href="../../../concepts/unions/#limitations-and-cautions"
         /// target="_top">Union Limitations and Cautions</a>.
         /// <br />
         /// INTERSECT (DISTINCT/ALL) - For data set intersection details and
-        /// examples, see <a href="../../concepts/intersect.html"
+        /// examples, see <a href="../../../concepts/intersect/"
         /// target="_top">Intersect</a>.  For limitations, see <a
-        /// href="../../concepts/intersect.html#limitations"
+        /// href="../../../concepts/intersect/#limitations"
         /// target="_top">Intersect Limitations</a>.
         /// <br />
         /// EXCEPT (DISTINCT/ALL) - For data set subtraction details and
-        /// examples, see <a href="../../concepts/except.html"
+        /// examples, see <a href="../../../concepts/except/"
         /// target="_top">Except</a>.  For limitations, see <a
-        /// href="../../concepts/except.html#limitations" target="_top">Except
+        /// href="../../../concepts/except/#limitations" target="_top">Except
         /// Limitations</a>.
         /// <br />
         /// MERGE VIEWS - For a given set of <a
-        /// href="../../concepts/filtered_views.html" target="_top">filtered
+        /// href="../../../concepts/filtered_views/" target="_top">filtered
         /// views</a> on a single table, creates a single filtered view
         /// containing all of the unique records across all of the given
         /// filtered data sets.
         /// <br />
         /// Non-charN 'string' and 'bytes' column types cannot be merged, nor
         /// can columns marked as <a
-        /// href="../../concepts/types.html#data-handling"
+        /// href="../../../concepts/types/#data-handling"
         /// target="_top">store-only</a>.</summary>
         /// 
         /// <param name="request_">Request object containing the parameters for
@@ -8546,43 +8851,43 @@ namespace kinetica
         /// The following merges are supported:
         /// <br />
         /// UNION (DISTINCT/ALL) - For data set union details and examples, see
-        /// <a href="../../concepts/unions.html" target="_top">Union</a>.  For
+        /// <a href="../../../concepts/unions/" target="_top">Union</a>.  For
         /// limitations, see <a
-        /// href="../../concepts/unions.html#limitations-and-cautions"
+        /// href="../../../concepts/unions/#limitations-and-cautions"
         /// target="_top">Union Limitations and Cautions</a>.
         /// <br />
         /// INTERSECT (DISTINCT/ALL) - For data set intersection details and
-        /// examples, see <a href="../../concepts/intersect.html"
+        /// examples, see <a href="../../../concepts/intersect/"
         /// target="_top">Intersect</a>.  For limitations, see <a
-        /// href="../../concepts/intersect.html#limitations"
+        /// href="../../../concepts/intersect/#limitations"
         /// target="_top">Intersect Limitations</a>.
         /// <br />
         /// EXCEPT (DISTINCT/ALL) - For data set subtraction details and
-        /// examples, see <a href="../../concepts/except.html"
+        /// examples, see <a href="../../../concepts/except/"
         /// target="_top">Except</a>.  For limitations, see <a
-        /// href="../../concepts/except.html#limitations" target="_top">Except
+        /// href="../../../concepts/except/#limitations" target="_top">Except
         /// Limitations</a>.
         /// <br />
         /// MERGE VIEWS - For a given set of <a
-        /// href="../../concepts/filtered_views.html" target="_top">filtered
+        /// href="../../../concepts/filtered_views/" target="_top">filtered
         /// views</a> on a single table, creates a single filtered view
         /// containing all of the unique records across all of the given
         /// filtered data sets.
         /// <br />
         /// Non-charN 'string' and 'bytes' column types cannot be merged, nor
         /// can columns marked as <a
-        /// href="../../concepts/types.html#data-handling"
+        /// href="../../../concepts/types/#data-handling"
         /// target="_top">store-only</a>.</summary>
         /// 
         /// <param name="table_name">Name of the table to be created, in
         /// [schema_name.]table_name format, using standard <a
-        /// href="../../concepts/tables.html#table-name-resolution"
+        /// href="../../../concepts/tables/#table-name-resolution"
         /// target="_top">name resolution rules</a> and meeting <a
-        /// href="../../concepts/tables.html#table-naming-criteria"
+        /// href="../../../concepts/tables/#table-naming-criteria"
         /// target="_top">table naming criteria</a>.  </param>
         /// <param name="table_names">The list of table names to merge, in
         /// [schema_name.]table_name format, using standard <a
-        /// href="../../concepts/tables.html#table-name-resolution"
+        /// href="../../../concepts/tables/#table-name-resolution"
         /// target="_top">name resolution rules</a>.  Must contain the names of
         /// one or more existing tables.  </param>
         /// <param name="input_column_names">The list of columns from each of
@@ -8605,11 +8910,11 @@ namespace kinetica
         ///         <term><see
         /// cref="CreateUnionRequest.Options.MATERIALIZE_ON_GPU">MATERIALIZE_ON_GPU</see>:</term>
         ///         <description>No longer used.  See <a
-        /// href="../../rm/concepts.html" target="_top">Resource Management
+        /// href="../../../rm/concepts/" target="_top">Resource Management
         /// Concepts</a> for information about how resources are managed, <a
-        /// href="../../rm/concepts.html" target="_top">Tier Strategy
+        /// href="../../../rm/concepts/" target="_top">Tier Strategy
         /// Concepts</a> for how resources are targeted for VRAM, and <a
-        /// href="../../rm/usage.html#tier-strategies" target="_top">Tier
+        /// href="../../../rm/usage/#tier-strategies" target="_top">Tier
         /// Strategy Usage</a> for how to specify a table's priority in VRAM.
         /// Supported values:
         /// <list type="bullet">
@@ -8713,7 +9018,7 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="CreateUnionRequest.Options.TTL">TTL</see>:</term>
-        ///         <description>Sets the <a href="../../concepts/ttl.html"
+        ///         <description>Sets the <a href="../../../concepts/ttl/"
         /// target="_top">TTL</a> of the output table specified in <paramref
         /// cref="CreateUnionRequest.table_name" />.</description>
         ///     </item>
@@ -9011,12 +9316,12 @@ namespace kinetica
         /// 
         /// <param name="table_name">Name of the table from which to delete
         /// records, in [schema_name.]table_name format, using standard <a
-        /// href="../../concepts/tables.html#table-name-resolution"
+        /// href="../../../concepts/tables/#table-name-resolution"
         /// target="_top">name resolution rules</a>. Must contain the name of
         /// an existing table; not applicable to views.  </param>
         /// <param name="expressions">A list of the actual predicates, one for
         /// each select; format should follow the guidelines provided <a
-        /// href="../../concepts/expressions.html" target="_top">here</a>.
+        /// href="../../../concepts/expressions/" target="_top">here</a>.
         /// Specifying one or more <paramref
         /// cref="DeleteRecordsRequest.expressions" /> is mutually exclusive to
         /// specifying <i>record_id</i> in the <paramref
@@ -9038,7 +9343,7 @@ namespace kinetica
         /// obtained at the time of /insert/records or by calling
         /// /get/records/fromcollection with the *return_record_ids* option.
         /// This option cannot be used to delete records from <a
-        /// href="../../concepts/tables.html#replication"
+        /// href="../../../concepts/tables/#replication"
         /// target="_top">replicated</a> tables.</description>
         ///     </item>
         ///     <item>
@@ -9174,9 +9479,76 @@ namespace kinetica
             return deleteUser( new DeleteUserRequest( name, options ) );
         }
 
+        /// @cond NO_DOCS
+        /// 
+        /// <param name="request_">Request object containing the parameters for
+        /// the operation.</param>
+        /// 
+        /// <returns>Response object containing the result of the
+        /// operation.</returns>
+        /// 
+        public DropContainerRegistryResponse dropContainerRegistry( DropContainerRegistryRequest request_ )
+        {
+            DropContainerRegistryResponse actualResponse_ = SubmitRequest<DropContainerRegistryResponse>("/drop/container/registry", request_, false);
+
+            return actualResponse_;
+        }
+        /// @endcond
+
+        /// @cond NO_DOCS
+        /// 
+        /// <param name="registry_name"></param>
+        /// <param name="options"></param>
+        /// 
+        /// <returns>Response object containing the result of the
+        /// operation.</returns>
+        /// 
+        public DropContainerRegistryResponse dropContainerRegistry( string registry_name,
+                                                                    IDictionary<string, string> options = null )
+        {
+            return dropContainerRegistry( new DropContainerRegistryRequest( registry_name,
+                                                                            options ) );
+        }
+        /// @endcond
+
+
+        /// <summary>Drop an existing <a href="../../../concepts/credentials/"
+        /// target="_top">credential</a>.</summary>
+        /// 
+        /// <param name="request_">Request object containing the parameters for
+        /// the operation.</param>
+        /// 
+        /// <returns>Response object containing the result of the
+        /// operation.</returns>
+        /// 
+        public DropCredentialResponse dropCredential( DropCredentialRequest request_ )
+        {
+            DropCredentialResponse actualResponse_ = SubmitRequest<DropCredentialResponse>("/drop/credential", request_, false);
+
+            return actualResponse_;
+        }
+
+
+        /// <summary>Drop an existing <a href="../../../concepts/credentials/"
+        /// target="_top">credential</a>.</summary>
+        /// 
+        /// <param name="credential_name">Name of the credential to be dropped.
+        /// Must be an existing credential.  </param>
+        /// <param name="options">Optional parameters.  The default value is an
+        /// empty {@link Dictionary}.</param>
+        /// 
+        /// <returns>Response object containing the result of the
+        /// operation.</returns>
+        /// 
+        public DropCredentialResponse dropCredential( string credential_name,
+                                                      IDictionary<string, string> options = null )
+        {
+            return dropCredential( new DropCredentialRequest( credential_name, options ) );
+        }
+
 
         /// <summary>Drops an existing <a
-        /// href="../../concepts/data_sources.html" target="_top">data
+        /// href="../../../concepts/data_sources/" target="_top">data
         /// source</a>.  Any external
         /// tables that depend on the data source must be dropped before it can
         /// be dropped.</summary>
@@ -9196,7 +9568,7 @@ namespace kinetica
 
 
         /// <summary>Drops an existing <a
-        /// href="../../concepts/data_sources.html" target="_top">data
+        /// href="../../../concepts/data_sources/" target="_top">data
         /// source</a>.  Any external
         /// tables that depend on the data source must be dropped before it can
         /// be dropped.</summary>
@@ -9215,9 +9587,40 @@ namespace kinetica
             return dropDatasource( new DropDatasourceRequest( name, options ) );
         }
 
+        /// @cond NO_DOCS
+        /// 
+        /// <param name="request_">Request object containing the parameters for
+        /// the operation.</param>
+        /// 
+        /// <returns>Response object containing the result of the
+        /// operation.</returns>
+        /// 
+        public DropModelResponse dropModel( DropModelRequest request_ )
+        {
+            DropModelResponse actualResponse_ = SubmitRequest<DropModelResponse>("/drop/model", request_, false);
+
+            return actualResponse_;
+        }
+        /// @endcond
+
+        /// @cond NO_DOCS
+        /// 
+        /// <param name="model_name"></param>
+        /// <param name="options"></param>
+        /// 
+        /// <returns>Response object containing the result of the
+        /// operation.</returns>
+        /// 
+        public DropModelResponse dropModel( string model_name,
+                                            IDictionary<string, string> options = null )
+        {
+            return dropModel( new DropModelRequest( model_name, options ) );
+        }
+        /// @endcond
+
 
         /// <summary>Drops an existing SQL-style <a
-        /// href="../../concepts/schemas.html" target="_top">schema</a>,
+        /// href="../../../concepts/schemas/" target="_top">schema</a>,
         /// specified in <paramref cref="DropSchemaRequest.schema_name"
         /// />.</summary>
         /// 
@@ -9236,7 +9639,7 @@ namespace kinetica
 
 
         /// <summary>Drops an existing SQL-style <a
-        /// href="../../concepts/schemas.html" target="_top">schema</a>,
+        /// href="../../../concepts/schemas/" target="_top">schema</a>,
         /// specified in <paramref name="schema_name" />.</summary>
         /// 
         /// <param name="schema_name">Name of the schema to be dropped. Must be
@@ -9296,6 +9699,47 @@ namespace kinetica
         {
             return dropSchema( new DropSchemaRequest( schema_name, options ) );
         }
+
+        /// @cond NO_DOCS
+        /// 
+        /// <param name="request_">Request object containing the parameters for
+        /// the operation.</param>
+        /// 
+        /// <returns>Response object containing the result of the
+        /// operation.</returns>
+        /// 
+        public EvaluateModelResponse evaluateModel( EvaluateModelRequest request_ )
+        {
+            EvaluateModelResponse actualResponse_ = SubmitRequest<EvaluateModelResponse>("/evaluate/model", request_, false);
+
+            return actualResponse_;
+        }
+        /// @endcond
+
+        /// @cond NO_DOCS
+        /// 
+        /// <param name="model_name"></param>
+        /// <param name="replicas"></param>
+        /// <param name="deployment_mode"></param>
+        /// <param name="source_table"></param>
+        /// <param name="destination_table"></param>
+        /// <param name="options"></param>
+        /// 
+        /// <returns>Response object containing the result of the
+        /// operation.</returns>
+        /// 
+        public EvaluateModelResponse evaluateModel( string model_name,
+                                                    int replicas,
+                                                    string deployment_mode,
+                                                    string source_table,
+                                                    string destination_table,
+                                                    IDictionary<string, string> options = null )
+        {
+            return evaluateModel( new EvaluateModelRequest( model_name, replicas,
+                                                            deployment_mode, source_table,
+                                                            destination_table, options ) );
+        }
+        /// @endcond
 
 
         /// <summary>Executes a proc. This endpoint is asynchronous and does
@@ -9359,7 +9803,7 @@ namespace kinetica
         /// proc. Each name specified must be the name of a currently existing
         /// table, in
         /// [schema_name.]table_name format, using standard
-        /// <a href="../../concepts/tables.html#table-name-resolution"
+        /// <a href="../../../concepts/tables/#table-name-resolution"
         /// target="_top">name resolution rules</a>.
         /// If no table names are specified, no data will be passed to the
         /// proc.  This
@@ -9379,10 +9823,10 @@ namespace kinetica
         /// <param name="output_table_names">Names of the tables to which
         /// output data from the proc will
         /// be written, each in [schema_name.]table_name format, using standard
-        /// <a href="../../concepts/tables.html#table-name-resolution"
+        /// <a href="../../../concepts/tables/#table-name-resolution"
         /// target="_top">name resolution rules</a>
         /// and meeting <a
-        /// href="../../concepts/tables.html#table-naming-criteria"
+        /// href="../../../concepts/tables/#table-naming-criteria"
         /// target="_top">table naming criteria</a>.
         /// If a specified table does not exist, it will automatically be
         /// created with the
@@ -9465,7 +9909,7 @@ namespace kinetica
 
         /// <summary>Execute a SQL statement (query, DML, or DDL).
         /// <br />
-        /// See <a href="../../concepts/sql.html" target="_top">SQL Support</a>
+        /// See <a href="../../../concepts/sql/" target="_top">SQL Support</a>
         /// for the complete set of supported SQL commands.</summary>
         /// 
         /// <param name="request_">Request object containing the parameters for
@@ -9491,7 +9935,7 @@ namespace kinetica
 
         /// <summary>Execute a SQL statement (query, DML, or DDL).
         /// <br />
-        /// See <a href="../../concepts/sql.html" target="_top">SQL Support</a>
+        /// See <a href="../../../concepts/sql/" target="_top">SQL Support</a>
         /// for the complete set of supported SQL commands.</summary>
         /// 
         /// <param name="statement">SQL statement (query, DML, or DDL) to be
@@ -9505,7 +9949,7 @@ namespace kinetica
         /// that the maximum number of results allowed by the server should be
         /// returned.  The number of records returned will never exceed the
         /// server's own limit, defined by the <a
-        /// href="../../config/index.html#general"
+        /// href="../../../config/#general"
         /// target="_top">max_get_records_size</a> parameter in the server
         /// configuration.  Use <member name="has_more_records" /> to see if
         /// more records exist in the result to be fetched, and <paramref
@@ -9626,7 +10070,7 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="ExecuteSqlRequest.Options.PAGING_TABLE_TTL">PAGING_TABLE_TTL</see>:</term>
-        ///         <description>Sets the <a href="../../concepts/ttl.html"
+        ///         <description>Sets the <a href="../../../concepts/ttl/"
         /// target="_top">TTL</a> of the paging table.</description>
         ///     </item>
         ///     <item>
@@ -9714,7 +10158,7 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="ExecuteSqlRequest.Options.TTL">TTL</see>:</term>
-        ///         <description>Sets the <a href="../../concepts/ttl.html"
+        ///         <description>Sets the <a href="../../../concepts/ttl/"
         /// target="_top">TTL</a> of the intermediate result tables used in
         /// query execution.</description>
         ///     </item>
@@ -9820,11 +10264,11 @@ namespace kinetica
 
         /// <summary>Filters data based on the specified expression.  The
         /// results are
-        /// stored in a <a href="../../concepts/filtered_views.html"
+        /// stored in a <a href="../../../concepts/filtered_views/"
         /// target="_top">result set</a> with the
         /// given <paramref cref="FilterRequest.view_name" />.
         /// <br />
-        /// For details see <a href="../../concepts/expressions.html"
+        /// For details see <a href="../../../concepts/expressions/"
         /// target="_top">Expressions</a>.
         /// <br />
         /// The response message contains the number of points for which the
@@ -9848,11 +10292,11 @@ namespace kinetica
 
         /// <summary>Filters data based on the specified expression.  The
         /// results are
-        /// stored in a <a href="../../concepts/filtered_views.html"
+        /// stored in a <a href="../../../concepts/filtered_views/"
         /// target="_top">result set</a> with the
         /// given <paramref name="view_name" />.
         /// <br />
-        /// For details see <a href="../../concepts/expressions.html"
+        /// For details see <a href="../../../concepts/expressions/"
         /// target="_top">Expressions</a>.
         /// <br />
         /// The response message contains the number of points for which the
@@ -9862,20 +10306,20 @@ namespace kinetica
         /// 
         /// <param name="table_name">Name of the table to filter, in
         /// [schema_name.]table_name format, using standard <a
-        /// href="../../concepts/tables.html#table-name-resolution"
+        /// href="../../../concepts/tables/#table-name-resolution"
         /// target="_top">name resolution rules</a>.  This may be the name of a
         /// table or a view (when chaining queries).  </param>
         /// <param name="view_name">If provided, then this will be the name of
         /// the view containing the results, in [schema_name.]view_name format,
         /// using standard <a
-        /// href="../../concepts/tables.html#table-name-resolution"
+        /// href="../../../concepts/tables/#table-name-resolution"
         /// target="_top">name resolution rules</a> and meeting <a
-        /// href="../../concepts/tables.html#table-naming-criteria"
+        /// href="../../../concepts/tables/#table-naming-criteria"
         /// target="_top">table naming criteria</a>.  Must not be an already
         /// existing table or view.  The default value is ''.</param>
         /// <param name="expression">The select expression to filter the
         /// specified table.  For details see <a
-        /// href="../../concepts/expressions.html"
+        /// href="../../../concepts/expressions/"
         /// target="_top">Expressions</a>.  </param>
         /// <param name="options">Optional parameters.
         /// <list type="bullet">
@@ -9898,7 +10342,7 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="FilterRequest.Options.TTL">TTL</see>:</term>
-        ///         <description>Sets the <a href="../../concepts/ttl.html"
+        ///         <description>Sets the <a href="../../../concepts/ttl/"
         /// target="_top">TTL</a> of the view specified in <paramref
         /// cref="FilterRequest.view_name" />.</description>
         ///     </item>
@@ -9959,15 +10403,15 @@ namespace kinetica
         /// 
         /// <param name="table_name">Name of the table to filter, in
         /// [schema_name.]table_name format, using standard <a
-        /// href="../../concepts/tables.html#table-name-resolution"
+        /// href="../../../concepts/tables/#table-name-resolution"
         /// target="_top">name resolution rules</a>.  This may be the name of a
         /// table or a view (when chaining queries).  </param>
         /// <param name="view_name">If provided, then this will be the name of
         /// the view containing the results, in [schema_name.]view_name format,
         /// using standard <a
-        /// href="../../concepts/tables.html#table-name-resolution"
+        /// href="../../../concepts/tables/#table-name-resolution"
         /// target="_top">name resolution rules</a> and meeting <a
-        /// href="../../concepts/tables.html#table-naming-criteria"
+        /// href="../../../concepts/tables/#table-naming-criteria"
         /// target="_top">table naming criteria</a>.  Must not be an already
         /// existing table or view.  The default value is ''.</param>
         /// <param name="x_column_name">Name of the column containing the x
@@ -10053,15 +10497,15 @@ namespace kinetica
         /// 
         /// <param name="table_name">Name of the table to filter, in
         /// [schema_name.]table_name format, using standard <a
-        /// href="../../concepts/tables.html#table-name-resolution"
+        /// href="../../../concepts/tables/#table-name-resolution"
         /// target="_top">name resolution rules</a>.  This may be the name of a
         /// table or a view (when chaining queries).  </param>
         /// <param name="view_name">If provided, then this will be the name of
         /// the view containing the results, in [schema_name.]view_name format,
         /// using standard <a
-        /// href="../../concepts/tables.html#table-name-resolution"
+        /// href="../../../concepts/tables/#table-name-resolution"
         /// target="_top">name resolution rules</a> and meeting <a
-        /// href="../../concepts/tables.html#table-naming-criteria"
+        /// href="../../../concepts/tables/#table-naming-criteria"
         /// target="_top">table naming criteria</a>.  Must not be an already
         /// existing table or view.  The default value is ''.</param>
         /// <param name="column_name">Name of the geospatial geometry column to
@@ -10145,15 +10589,15 @@ namespace kinetica
         /// <param name="table_name">Name of the table on which the bounding
         /// box operation will be performed, in [schema_name.]table_name
         /// format, using standard <a
-        /// href="../../concepts/tables.html#table-name-resolution"
+        /// href="../../../concepts/tables/#table-name-resolution"
         /// target="_top">name resolution rules</a>.  Must be an existing
         /// table.  </param>
         /// <param name="view_name">If provided, then this will be the name of
         /// the view containing the results, in [schema_name.]view_name format,
         /// using standard <a
-        /// href="../../concepts/tables.html#table-name-resolution"
+        /// href="../../../concepts/tables/#table-name-resolution"
         /// target="_top">name resolution rules</a> and meeting <a
-        /// href="../../concepts/tables.html#table-naming-criteria"
+        /// href="../../../concepts/tables/#table-naming-criteria"
         /// target="_top">table naming criteria</a>.  Must not be an already
         /// existing table or view.  The default value is ''.</param>
         /// <param name="x_column_name">Name of the column on which to perform
@@ -10248,15 +10692,15 @@ namespace kinetica
         /// <param name="table_name">Name of the table on which the bounding
         /// box operation will be performed, in [schema_name.]table_name
         /// format, using standard <a
-        /// href="../../concepts/tables.html#table-name-resolution"
+        /// href="../../../concepts/tables/#table-name-resolution"
         /// target="_top">name resolution rules</a>. Must be an existing table.
         /// </param>
         /// <param name="view_name">If provided, then this will be the name of
         /// the view containing the results, in [schema_name.]view_name format,
         /// using standard <a
-        /// href="../../concepts/tables.html#table-name-resolution"
+        /// href="../../../concepts/tables/#table-name-resolution"
         /// target="_top">name resolution rules</a> and meeting <a
-        /// href="../../concepts/tables.html#table-naming-criteria"
+        /// href="../../../concepts/tables/#table-naming-criteria"
         /// target="_top">table naming criteria</a>.  Must not be an already
         /// existing table or view.  The default value is ''.</param>
         /// <param name="column_name">Name of the geospatial geometry column to
@@ -10336,15 +10780,15 @@ namespace kinetica
         /// <param name="table_name">Name of the table on which the filter by
         /// geometry will be performed, in [schema_name.]table_name format,
         /// using standard <a
-        /// href="../../concepts/tables.html#table-name-resolution"
+        /// href="../../../concepts/tables/#table-name-resolution"
         /// target="_top">name resolution rules</a>.  Must be an existing table
         /// or view containing a geospatial geometry column.  </param>
         /// <param name="view_name">If provided, then this will be the name of
         /// the view containing the results, in [schema_name.]view_name format,
         /// using standard <a
-        /// href="../../concepts/tables.html#table-name-resolution"
+        /// href="../../../concepts/tables/#table-name-resolution"
         /// target="_top">name resolution rules</a> and meeting <a
-        /// href="../../concepts/tables.html#table-naming-criteria"
+        /// href="../../../concepts/tables/#table-naming-criteria"
         /// target="_top">table naming criteria</a>.  Must not be an already
         /// existing table or view.  The default value is ''.</param>
         /// <param name="column_name">Name of the column to be used in the
@@ -10506,15 +10950,15 @@ namespace kinetica
         /// 
         /// <param name="table_name">Name of the table to filter, in
         /// [schema_name.]table_name format, using standard <a
-        /// href="../../concepts/tables.html#table-name-resolution"
+        /// href="../../../concepts/tables/#table-name-resolution"
         /// target="_top">name resolution rules</a>.  This may be the name of a
         /// table or a view (when chaining queries).  </param>
         /// <param name="view_name">If provided, then this will be the name of
         /// the view containing the results, in [schema_name.]view_name format,
         /// using standard <a
-        /// href="../../concepts/tables.html#table-name-resolution"
+        /// href="../../../concepts/tables/#table-name-resolution"
         /// target="_top">name resolution rules</a> and meeting <a
-        /// href="../../concepts/tables.html#table-naming-criteria"
+        /// href="../../../concepts/tables/#table-naming-criteria"
         /// target="_top">table naming criteria</a>.  Must not be an already
         /// existing table or view.  The default value is ''.</param>
         /// <param name="column_values_map">List of values for the
@@ -10627,15 +11071,15 @@ namespace kinetica
         /// <param name="table_name">Name of the table on which the filter by
         /// radius operation will be performed, in [schema_name.]table_name
         /// format, using standard <a
-        /// href="../../concepts/tables.html#table-name-resolution"
+        /// href="../../../concepts/tables/#table-name-resolution"
         /// target="_top">name resolution rules</a>.  Must be an existing
         /// table.  </param>
         /// <param name="view_name">If provided, then this will be the name of
         /// the view containing the results, in [schema_name.]view_name format,
         /// using standard <a
-        /// href="../../concepts/tables.html#table-name-resolution"
+        /// href="../../../concepts/tables/#table-name-resolution"
         /// target="_top">name resolution rules</a> and meeting <a
-        /// href="../../concepts/tables.html#table-naming-criteria"
+        /// href="../../../concepts/tables/#table-naming-criteria"
         /// target="_top">table naming criteria</a>.  Must not be an already
         /// existing table or view.  The default value is ''.</param>
         /// <param name="x_column_name">Name of the column to be used for the
@@ -10732,15 +11176,15 @@ namespace kinetica
         /// <param name="table_name">Name of the table on which the filter by
         /// radius operation will be performed, in [schema_name.]table_name
         /// format, using standard <a
-        /// href="../../concepts/tables.html#table-name-resolution"
+        /// href="../../../concepts/tables/#table-name-resolution"
         /// target="_top">name resolution rules</a>.  Must be an existing
         /// table.  </param>
         /// <param name="view_name">If provided, then this will be the name of
         /// the view containing the results, in [schema_name.]view_name format,
         /// using standard <a
-        /// href="../../concepts/tables.html#table-name-resolution"
+        /// href="../../../concepts/tables/#table-name-resolution"
         /// target="_top">name resolution rules</a> and meeting <a
-        /// href="../../concepts/tables.html#table-naming-criteria"
+        /// href="../../../concepts/tables/#table-naming-criteria"
         /// target="_top">table naming criteria</a>.  Must not be an already
         /// existing table or view.  The default value is ''.</param>
         /// <param name="column_name">Name of the geospatial geometry column to
@@ -10848,15 +11292,15 @@ namespace kinetica
         /// <param name="table_name">Name of the table on which the filter by
         /// range operation will be performed, in [schema_name.]table_name
         /// format, using standard <a
-        /// href="../../concepts/tables.html#table-name-resolution"
+        /// href="../../../concepts/tables/#table-name-resolution"
         /// target="_top">name resolution rules</a>.  Must be an existing
         /// table.  </param>
         /// <param name="view_name">If provided, then this will be the name of
         /// the view containing the results, in [schema_name.]view_name format,
         /// using standard <a
-        /// href="../../concepts/tables.html#table-name-resolution"
+        /// href="../../../concepts/tables/#table-name-resolution"
         /// target="_top">name resolution rules</a> and meeting <a
-        /// href="../../concepts/tables.html#table-naming-criteria"
+        /// href="../../../concepts/tables/#table-naming-criteria"
         /// target="_top">table naming criteria</a>.  Must not be an already
         /// existing table or view.  The default value is ''.</param>
         /// <param name="column_name">Name of a column on which the operation
@@ -10961,16 +11405,16 @@ namespace kinetica
         /// <param name="table_name">Name of the table on which the filter by
         /// track operation will be performed, in [schema_name.]table_name
         /// format, using standard <a
-        /// href="../../concepts/tables.html#table-name-resolution"
+        /// href="../../../concepts/tables/#table-name-resolution"
         /// target="_top">name resolution rules</a>. Must be a currently
-        /// existing table with a <a href="../../geospatial/geo_objects.html"
+        /// existing table with a <a href="../../../geospatial/geo_objects/"
         /// target="_top">track</a> present.  </param>
         /// <param name="view_name">If provided, then this will be the name of
         /// the view containing the results, in [schema_name.]view_name format,
         /// using standard <a
-        /// href="../../concepts/tables.html#table-name-resolution"
+        /// href="../../../concepts/tables/#table-name-resolution"
         /// target="_top">name resolution rules</a> and meeting <a
-        /// href="../../concepts/tables.html#table-naming-criteria"
+        /// href="../../../concepts/tables/#table-naming-criteria"
         /// target="_top">table naming criteria</a>.  Must not be an already
         /// existing table or view.  The default value is ''.</param>
         /// <param name="track_id">The ID of the track which will act as the
@@ -11050,7 +11494,7 @@ namespace kinetica
         /// <i>case_sensitive</i> can modify case sensitivity in matching
         /// for all modes except <i>search</i>. For
         /// <i>search</i> mode details and limitations, see
-        /// <a href="../../concepts/full_text_search.html" target="_top">Full
+        /// <a href="../../../concepts/full_text_search/" target="_top">Full
         /// Text Search</a>.</summary>
         /// 
         /// <param name="request_">Request object containing the parameters for
@@ -11073,21 +11517,21 @@ namespace kinetica
         /// <i>case_sensitive</i> can modify case sensitivity in matching
         /// for all modes except <i>search</i>. For
         /// <i>search</i> mode details and limitations, see
-        /// <a href="../../concepts/full_text_search.html" target="_top">Full
+        /// <a href="../../../concepts/full_text_search/" target="_top">Full
         /// Text Search</a>.</summary>
         /// 
         /// <param name="table_name">Name of the table on which the filter
         /// operation will be performed, in [schema_name.]table_name format,
         /// using standard <a
-        /// href="../../concepts/tables.html#table-name-resolution"
+        /// href="../../../concepts/tables/#table-name-resolution"
         /// target="_top">name resolution rules</a>.  Must be an existing table
         /// or view.  </param>
         /// <param name="view_name">If provided, then this will be the name of
         /// the view containing the results, in [schema_name.]view_name format,
         /// using standard <a
-        /// href="../../concepts/tables.html#table-name-resolution"
+        /// href="../../../concepts/tables/#table-name-resolution"
         /// target="_top">name resolution rules</a> and meeting <a
-        /// href="../../concepts/tables.html#table-naming-criteria"
+        /// href="../../../concepts/tables/#table-naming-criteria"
         /// target="_top">table naming criteria</a>.  Must not be an already
         /// existing table or view.  The default value is ''.</param>
         /// <param name="expression">The expression with which to filter the
@@ -11235,15 +11679,15 @@ namespace kinetica
         /// 
         /// <param name="table_name">Name of the table whose data will be
         /// filtered, in [schema_name.]table_name format, using standard <a
-        /// href="../../concepts/tables.html#table-name-resolution"
+        /// href="../../../concepts/tables/#table-name-resolution"
         /// target="_top">name resolution rules</a>.  Must be an existing
         /// table.  </param>
         /// <param name="view_name">If provided, then this will be the name of
         /// the view containing the results, in [schema_name.]view_name format,
         /// using standard <a
-        /// href="../../concepts/tables.html#table-name-resolution"
+        /// href="../../../concepts/tables/#table-name-resolution"
         /// target="_top">name resolution rules</a> and meeting <a
-        /// href="../../concepts/tables.html#table-naming-criteria"
+        /// href="../../../concepts/tables/#table-naming-criteria"
         /// target="_top">table naming criteria</a>.  Must not be an already
         /// existing table or view.  The default value is ''.</param>
         /// <param name="column_name">Name of the column by whose value the
@@ -11253,7 +11697,7 @@ namespace kinetica
         /// be compared against in the table called <paramref
         /// cref="FilterByTableRequest.table_name" />, in
         /// [schema_name.]table_name format, using standard <a
-        /// href="../../concepts/tables.html#table-name-resolution"
+        /// href="../../../concepts/tables/#table-name-resolution"
         /// target="_top">name resolution rules</a>.  Must be an existing
         /// table.  </param>
         /// <param name="source_table_column_name">Name of the column in the
@@ -11443,14 +11887,14 @@ namespace kinetica
         /// 
         /// <param name="table_name">Name of an existing table on which to
         /// perform the calculation, in [schema_name.]table_name format, using
-        /// standard <a href="../../concepts/tables.html#table-name-resolution"
+        /// standard <a href="../../../concepts/tables/#table-name-resolution"
         /// target="_top">name resolution rules</a>.  </param>
         /// <param name="view_name">If provided, then this will be the name of
         /// the view containing the results, in [schema_name.]view_name format,
         /// using standard <a
-        /// href="../../concepts/tables.html#table-name-resolution"
+        /// href="../../../concepts/tables/#table-name-resolution"
         /// target="_top">name resolution rules</a> and meeting <a
-        /// href="../../concepts/tables.html#table-naming-criteria"
+        /// href="../../../concepts/tables/#table-naming-criteria"
         /// target="_top">table naming criteria</a>.  Must not be an already
         /// existing table or view.  The default value is ''.</param>
         /// <param name="is_string">Indicates whether the value being searched
@@ -11607,7 +12051,7 @@ namespace kinetica
         /// 
         /// <param name="table_name">Name of the table or view from which the
         /// records will be fetched, in [schema_name.]table_name format, using
-        /// standard <a href="../../concepts/tables.html#table-name-resolution"
+        /// standard <a href="../../../concepts/tables/#table-name-resolution"
         /// target="_top">name resolution rules</a>.  </param>
         /// <param name="offset">A positive integer indicating the number of
         /// initial results to skip (this can be useful for paging through the
@@ -11617,7 +12061,7 @@ namespace kinetica
         /// number of results to be returned. Or END_OF_SET (-9999) to indicate
         /// that the max number of results should be returned.  The number of
         /// records returned will never exceed the server's own limit, defined
-        /// by the <a href="../../config/index.html#general"
+        /// by the <a href="../../../config/#general"
         /// target="_top">max_get_records_size</a> parameter in the server
         /// configuration.  Use <member name="has_more_records" /> to see if
         /// more records exist in the result to be fetched, and <paramref
@@ -11703,7 +12147,7 @@ namespace kinetica
         /// <paramref cref="GetRecordsByColumnRequest.offset" />
         /// and <paramref cref="GetRecordsByColumnRequest.limit" /> parameters.
         /// <br />
-        /// <a href="../../concepts/window.html" target="_top">Window
+        /// <a href="../../../concepts/window/" target="_top">Window
         /// functions</a>, which can perform
         /// operations like moving averages, are available through this
         /// endpoint as well as
@@ -11723,17 +12167,17 @@ namespace kinetica
         /// If <paramref cref="GetRecordsByColumnRequest.table_name" /> is
         /// empty, selection is performed against a single-row
         /// virtual table.  This can be useful in executing temporal
-        /// (<a href="../../concepts/expressions.html#date-time-functions"
+        /// (<a href="../../../concepts/expressions/#date-time-functions"
         /// target="_top">NOW()</a>), identity
-        /// (<a href="../../concepts/expressions.html#user-security-functions"
+        /// (<a href="../../../concepts/expressions/#user-security-functions"
         /// target="_top">USER()</a>), or
         /// constant-based functions
-        /// (<a href="../../concepts/expressions.html#scalar-functions"
+        /// (<a href="../../../concepts/expressions/#scalar-functions"
         /// target="_top">GEODIST(-77.11, 38.88, -71.06, 42.36)</a>).
         /// <br />
         /// The response is returned as a dynamic schema. For details see:
-        /// <a href="../../api/index.html#dynamic-schemas"
-        /// target="_top">dynamic schemas documentation</a>.</summary>
+        /// <a href="../../../api/#dynamic-schemas" target="_top">dynamic
+        /// schemas documentation</a>.</summary>
         /// 
         /// <param name="request_">Request object containing the parameters for
         /// the operation.</param>
@@ -11762,7 +12206,7 @@ namespace kinetica
         /// <paramref name="offset" />
         /// and <paramref name="limit" /> parameters.
         /// <br />
-        /// <a href="../../concepts/window.html" target="_top">Window
+        /// <a href="../../../concepts/window/" target="_top">Window
         /// functions</a>, which can perform
         /// operations like moving averages, are available through this
         /// endpoint as well as
@@ -11782,22 +12226,22 @@ namespace kinetica
         /// If <paramref name="table_name" /> is empty, selection is performed
         /// against a single-row
         /// virtual table.  This can be useful in executing temporal
-        /// (<a href="../../concepts/expressions.html#date-time-functions"
+        /// (<a href="../../../concepts/expressions/#date-time-functions"
         /// target="_top">NOW()</a>), identity
-        /// (<a href="../../concepts/expressions.html#user-security-functions"
+        /// (<a href="../../../concepts/expressions/#user-security-functions"
         /// target="_top">USER()</a>), or
         /// constant-based functions
-        /// (<a href="../../concepts/expressions.html#scalar-functions"
+        /// (<a href="../../../concepts/expressions/#scalar-functions"
         /// target="_top">GEODIST(-77.11, 38.88, -71.06, 42.36)</a>).
         /// <br />
         /// The response is returned as a dynamic schema. For details see:
-        /// <a href="../../api/index.html#dynamic-schemas"
-        /// target="_top">dynamic schemas documentation</a>.</summary>
+        /// <a href="../../../api/#dynamic-schemas" target="_top">dynamic
+        /// schemas documentation</a>.</summary>
         /// 
         /// <param name="table_name">Name of the table or view on which this
         /// operation will be performed, in [schema_name.]table_name format,
         /// using standard <a
-        /// href="../../concepts/tables.html#table-name-resolution"
+        /// href="../../../concepts/tables/#table-name-resolution"
         /// target="_top">name resolution rules</a>.  An empty table name
         /// retrieves one record from a single-row virtual table, where columns
         /// specified should be constants or constant expressions.  </param>
@@ -11812,7 +12256,7 @@ namespace kinetica
         /// that the maximum number of results allowed by the server should be
         /// returned.  The number of records returned will never exceed the
         /// server's own limit, defined by the <a
-        /// href="../../config/index.html#general"
+        /// href="../../../config/#general"
         /// target="_top">max_get_records_size</a> parameter in the server
         /// configuration.  Use <member name="has_more_records" /> to see if
         /// more records exist in the result to be fetched, and <paramref
@@ -11965,14 +12409,14 @@ namespace kinetica
         /// <param name="table_name">Name of the table or view for which
         /// series/tracks will be fetched, in [schema_name.]table_name format,
         /// using standard <a
-        /// href="../../concepts/tables.html#table-name-resolution"
+        /// href="../../../concepts/tables/#table-name-resolution"
         /// target="_top">name resolution rules</a>.  </param>
         /// <param name="world_table_name">Name of the table containing the
         /// complete series/track information to be returned for the tracks
         /// present in the <paramref
         /// cref="GetRecordsBySeriesRequest.table_name" />, in
         /// [schema_name.]table_name format, using standard <a
-        /// href="../../concepts/tables.html#table-name-resolution"
+        /// href="../../../concepts/tables/#table-name-resolution"
         /// target="_top">name resolution rules</a>.  Typically this is used
         /// when retrieving series/tracks from a view (which contains partial
         /// series/tracks) but the user wants to retrieve the entire original
@@ -12065,7 +12509,7 @@ namespace kinetica
         /// <param name="table_name">Name of the collection or table from which
         /// records are to be retrieved, in [schema_name.]table_name format,
         /// using standard <a
-        /// href="../../concepts/tables.html#table-name-resolution"
+        /// href="../../../concepts/tables/#table-name-resolution"
         /// target="_top">name resolution rules</a>.  Must be an existing
         /// collection or table.  </param>
         /// <param name="offset">A positive integer indicating the number of
@@ -12076,7 +12520,7 @@ namespace kinetica
         /// number of results to be returned, or END_OF_SET (-9999) to indicate
         /// that the max number of results should be returned.  The number of
         /// records returned will never exceed the server's own limit, defined
-        /// by the <a href="../../config/index.html#general"
+        /// by the <a href="../../../config/#general"
         /// target="_top">max_get_records_size</a> parameter in the server
         /// configuration.  Use <paramref
         /// cref="GetRecordsFromCollectionRequest.offset" /> & <paramref
@@ -12165,7 +12609,70 @@ namespace kinetica
         /// @endcond
 
 
-        /// <summary>Grants a <a href="../../concepts/data_sources.html"
+        /// <summary>Grants a <a
+        /// href="../../../security/sec_concepts/#security-concepts-permissions-credential"
+        /// target="_top">credential-level permission</a> to a user or
+        /// role.</summary>
+        /// 
+        /// <param name="request_">Request object containing the parameters for
+        /// the operation.</param>
+        /// 
+        /// <returns>Response object containing the result of the
+        /// operation.</returns>
+        /// 
+        public GrantPermissionCredentialResponse grantPermissionCredential( GrantPermissionCredentialRequest request_ )
+        {
+            GrantPermissionCredentialResponse actualResponse_ = SubmitRequest<GrantPermissionCredentialResponse>("/grant/permission/credential", request_, false);
+
+            return actualResponse_;
+        }
+
+
+        /// <summary>Grants a <a
+        /// href="../../../security/sec_concepts/#security-concepts-permissions-credential"
+        /// target="_top">credential-level permission</a> to a user or
+        /// role.</summary>
+        /// 
+        /// <param name="name">Name of the user or role to which the permission
+        /// will be granted. Must be an existing user or role.  </param>
+        /// <param name="permission">Permission to grant to the user or role.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="GrantPermissionCredentialRequest.Permission.CREDENTIAL_ADMIN">CREDENTIAL_ADMIN</see>:</term>
+        ///         <description>Full read/write and administrative access on
+        /// the credential.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="GrantPermissionCredentialRequest.Permission.CREDENTIAL_READ">CREDENTIAL_READ</see>:</term>
+        ///         <description>Ability to read and use the
+        /// credential.</description>
+        ///     </item>
+        /// </list>  </param>
+        /// <param name="credential_name">Name of the credential on which the
+        /// permission will be granted. Must be an existing credential, or an
+        /// empty string to grant access on all credentials.  </param>
+        /// <param name="options">Optional parameters.  The default value is an
+        /// empty {@link Dictionary}.</param>
+        /// 
+        /// <returns>Response object containing the result of the
+        /// operation.</returns>
+        /// 
+        public GrantPermissionCredentialResponse grantPermissionCredential( string name,
+                                                                            string permission,
+                                                                            string credential_name,
+                                                                            IDictionary<string, string> options = null )
+        {
+            return grantPermissionCredential( new GrantPermissionCredentialRequest( name,
+                                                                                    permission,
+                                                                                    credential_name,
+                                                                                    options ) );
+        }
+
+
+        /// <summary>Grants a <a href="../../../concepts/data_sources/"
         /// target="_top">data source</a> permission to a user or
         /// role.</summary>
         /// 
@@ -12183,7 +12690,7 @@ namespace kinetica
         }
 
 
-        /// <summary>Grants a <a href="../../concepts/data_sources.html"
+        /// <summary>Grants a <a href="../../../concepts/data_sources/"
         /// target="_top">data source</a> permission to a user or
         /// role.</summary>
         /// 
@@ -12389,7 +12896,7 @@ namespace kinetica
         /// </list>  </param>
         /// <param name="table_name">Name of the table to which the permission
         /// grants access, in [schema_name.]table_name format, using standard
-        /// <a href="../../concepts/tables.html#table-name-resolution"
+        /// <a href="../../../concepts/tables/#table-name-resolution"
         /// target="_top">name resolution rules</a>.  Must be an existing
         /// table, view, or schema. If a schema, the permission also applies to
         /// tables and views in the schema.  </param>
@@ -12518,7 +13025,7 @@ namespace kinetica
         /// 
         /// <param name="schema_name">Name of the schema to check for
         /// existence, in root, using standard <a
-        /// href="../../concepts/tables.html#table-name-resolution"
+        /// href="../../../concepts/tables/#table-name-resolution"
         /// target="_top">name resolution rules</a>.  </param>
         /// <param name="options">Optional parameters.  The default value is an
         /// empty {@link Dictionary}.</param>
@@ -12555,7 +13062,7 @@ namespace kinetica
         /// 
         /// <param name="table_name">Name of the table to check for existence,
         /// in [schema_name.]table_name format, using standard <a
-        /// href="../../concepts/tables.html#table-name-resolution"
+        /// href="../../../concepts/tables/#table-name-resolution"
         /// target="_top">name resolution rules</a>.  </param>
         /// <param name="options">Optional parameters.  The default value is an
         /// empty {@link Dictionary}.</param>
@@ -12602,6 +13109,55 @@ namespace kinetica
             return hasType( new HasTypeRequest( type_id, options ) );
         }
 
+        /// @cond NO_DOCS
+        /// 
+        /// <param name="request_">Request object containing the parameters for
+        /// the operation.</param>
+        /// 
+        /// <returns>Response object containing the result of the
+        /// operation.</returns>
+        /// 
+        public ImportModelResponse importModel( ImportModelRequest request_ )
+        {
+            ImportModelResponse actualResponse_ = SubmitRequest<ImportModelResponse>("/import/model", request_, false);
+
+            return actualResponse_;
+        }
+        /// @endcond
+
+        /// @cond NO_DOCS
+        /// 
+        /// <param name="model_name"></param>
+        /// <param name="registry_name"></param>
+        /// <param name="container"></param>
+        /// <param name="run_function"></param>
+        /// <param name="model_type"></param>
+        /// <param name="options">
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="ImportModelRequest.Options.MEMORY_LIMIT">MEMORY_LIMIT</see>:</term>
+        ///         <description>  The default value is ''.</description>
+        ///     </item>
+        /// </list>
+        /// </param>
+        /// 
+        /// <returns>Response object containing the result of the
+        /// operation.</returns>
+        /// 
+        public ImportModelResponse importModel( string model_name,
+                                                string registry_name,
+                                                string container,
+                                                string run_function,
+                                                string model_type,
+                                                IDictionary<string, string> options = null )
+        {
+            return importModel( new ImportModelRequest( model_name, registry_name,
+                                                        container, run_function,
+                                                        model_type, options ) );
+        }
+        /// @endcond
+
 
         /// <summary>Adds multiple records to the specified table. The
         /// operation is
@@ -12619,7 +13175,7 @@ namespace kinetica
         /// <br />
         /// The <i>update_on_existing_pk</i> option specifies the record
         /// collision policy for inserting into a table with a
-        /// <a href="../../concepts/tables.html#primary-keys"
+        /// <a href="../../../concepts/tables/#primary-keys"
         /// target="_top">primary key</a>, but is ignored if
         /// no primary key exists.
         /// <br />
@@ -12657,7 +13213,7 @@ namespace kinetica
         /// <br />
         /// The <i>update_on_existing_pk</i> option specifies the record
         /// collision policy for inserting into a table with a
-        /// <a href="../../concepts/tables.html#primary-keys"
+        /// <a href="../../../concepts/tables/#primary-keys"
         /// target="_top">primary key</a>, but is ignored if
         /// no primary key exists.
         /// <br />
@@ -12701,7 +13257,7 @@ namespace kinetica
         /// <br />
         /// The <i>update_on_existing_pk</i> option specifies the record
         /// collision policy for inserting into a table with a
-        /// <a href="../../concepts/tables.html#primary-keys"
+        /// <a href="../../../concepts/tables/#primary-keys"
         /// target="_top">primary key</a>, but is ignored if
         /// no primary key exists.
         /// <br />
@@ -12713,7 +13269,7 @@ namespace kinetica
         /// 
         /// <param name="table_name">Name of table to which the records are to
         /// be added, in [schema_name.]table_name format, using standard <a
-        /// href="../../concepts/tables.html#table-name-resolution"
+        /// href="../../../concepts/tables/#table-name-resolution"
         /// target="_top">name resolution rules</a>.  Must be an existing
         /// table.  </param>
         /// <param name="data">An array of binary-encoded data for the records
@@ -12728,14 +13284,14 @@ namespace kinetica
         /// cref="RawInsertRecordsRequest.Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>:</term>
         ///         <description>Specifies the record collision policy for
         /// inserting into a table with a <a
-        /// href="../../concepts/tables.html#primary-keys"
-        /// target="_top">primary key</a>.  If set to <i>true</i>, any existing
-        /// table record with primary key values that match those of a record
-        /// being inserted will be replaced by that new record.  If set to
-        /// <i>false</i>, any existing table record with primary key values
-        /// that match those of a record being inserted will remain unchanged
-        /// and the new record discarded.  If the specified table does not have
-        /// a primary key, then this option is ignored.
+        /// href="../../../concepts/tables/#primary-keys" target="_top">primary
+        /// key</a>.  If set to <i>true</i>, any existing table record with
+        /// primary key values that match those of a record being inserted will
+        /// be replaced by that new record.  If set to <i>false</i>, any
+        /// existing table record with primary key values that match those of a
+        /// record being inserted will remain unchanged and the new record
+        /// discarded.  If the specified table does not have a primary key,
+        /// then this option is ignored.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -12928,17 +13484,17 @@ namespace kinetica
         /// <param name="table_name">Name of the table into which the data will
         /// be inserted, in
         /// [schema_name.]table_name format, using standard
-        /// <a href="../../concepts/tables.html#table-name-resolution"
+        /// <a href="../../../concepts/tables/#table-name-resolution"
         /// target="_top">name resolution rules</a>.
         /// If the table does not exist, the table will be created using either
         /// an existing
         /// <i>type_id</i> or the type inferred from the
         /// file, and the new table name will have to meet standard
-        /// <a href="../../concepts/tables.html#table-naming-criteria"
+        /// <a href="../../../concepts/tables/#table-naming-criteria"
         /// target="_top">table naming criteria</a>.  </param>
         /// <param name="filepaths">Absolute or relative filepath(s) from where
         /// files will be loaded. Relative filepaths are relative to the
-        /// defined <a href="../../config/index.html#external-files"
+        /// defined <a href="../../../config/#external-files"
         /// target="_top">external_files_directory</a> parameter in the server
         /// configuration. The filepaths may include wildcards (*). If the
         /// first path ends in .tsv, the text delimiter will be defaulted to a
@@ -12953,7 +13509,7 @@ namespace kinetica
         ///         <term><see
         /// cref="InsertRecordsFromFilesRequest.CreateTableOptions.TYPE_ID">TYPE_ID</see>:</term>
         ///         <description>ID of a currently registered <a
-        /// href="../../concepts/types.html" target="_top">type</a>.  The
+        /// href="../../../concepts/types/" target="_top">type</a>.  The
         /// default value is ''.</description>
         ///     </item>
         ///     <item>
@@ -12981,17 +13537,17 @@ namespace kinetica
         ///         <term><see
         /// cref="InsertRecordsFromFilesRequest.CreateTableOptions.IS_REPLICATED">IS_REPLICATED</see>:</term>
         ///         <description>Affects the <a
-        /// href="../../concepts/tables.html#distribution"
+        /// href="../../../concepts/tables/#distribution"
         /// target="_top">distribution scheme</a> for the table's data.  If
         /// <i>true</i> and the given type has no explicit <a
-        /// href="../../concepts/tables.html#shard-key" target="_top">shard
+        /// href="../../../concepts/tables/#shard-key" target="_top">shard
         /// key</a> defined, the table will be <a
-        /// href="../../concepts/tables.html#replication"
+        /// href="../../../concepts/tables/#replication"
         /// target="_top">replicated</a>.  If <i>false</i>, the table will be
-        /// <a href="../../concepts/tables.html#sharding"
+        /// <a href="../../../concepts/tables/#sharding"
         /// target="_top">sharded</a> according to the shard key specified in
         /// the given <i>type_id</i>, or <a
-        /// href="../../concepts/tables.html#random-sharding"
+        /// href="../../../concepts/tables/#random-sharding"
         /// target="_top">randomly sharded</a>, if no shard key is specified.
         /// Note that a type containing a shard key cannot be used to create a
         /// replicated table.
@@ -13013,10 +13569,10 @@ namespace kinetica
         ///         <term><see
         /// cref="InsertRecordsFromFilesRequest.CreateTableOptions.FOREIGN_KEYS">FOREIGN_KEYS</see>:</term>
         ///         <description>Semicolon-separated list of <a
-        /// href="../../concepts/tables.html#foreign-keys"
-        /// target="_top">foreign keys</a>, of the format '(source_column_name
-        /// [, ...]) references target_table_name(primary_key_column_name [,
-        /// ...]) [as foreign_key_name]'.</description>
+        /// href="../../../concepts/tables/#foreign-keys" target="_top">foreign
+        /// keys</a>, of the format '(source_column_name [, ...]) references
+        /// target_table_name(primary_key_column_name [, ...]) [as
+        /// foreign_key_name]'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -13029,7 +13585,7 @@ namespace kinetica
         ///         <term><see
         /// cref="InsertRecordsFromFilesRequest.CreateTableOptions.PARTITION_TYPE">PARTITION_TYPE</see>:</term>
         ///         <description><a
-        /// href="../../concepts/tables.html#partitioning"
+        /// href="../../../concepts/tables/#partitioning"
         /// target="_top">Partitioning</a> scheme to use.
         /// Supported values:
         /// <list type="bullet">
@@ -13037,28 +13593,28 @@ namespace kinetica
         ///         <term><see
         /// cref="InsertRecordsFromFilesRequest.CreateTableOptions.RANGE">RANGE</see>:</term>
         ///         <description>Use <a
-        /// href="../../concepts/tables.html#partitioning-by-range"
+        /// href="../../../concepts/tables/#partitioning-by-range"
         /// target="_top">range partitioning</a>.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="InsertRecordsFromFilesRequest.CreateTableOptions.INTERVAL">INTERVAL</see>:</term>
         ///         <description>Use <a
-        /// href="../../concepts/tables.html#partitioning-by-interval"
+        /// href="../../../concepts/tables/#partitioning-by-interval"
         /// target="_top">interval partitioning</a>.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="InsertRecordsFromFilesRequest.CreateTableOptions.LIST">LIST</see>:</term>
         ///         <description>Use <a
-        /// href="../../concepts/tables.html#partitioning-by-list"
+        /// href="../../../concepts/tables/#partitioning-by-list"
         /// target="_top">list partitioning</a>.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="InsertRecordsFromFilesRequest.CreateTableOptions.HASH">HASH</see>:</term>
         ///         <description>Use <a
-        /// href="../../concepts/tables.html#partitioning-by-hash"
+        /// href="../../../concepts/tables/#partitioning-by-hash"
         /// target="_top">hash partitioning</a>.</description>
         ///     </item>
         /// </list></description>
@@ -13076,13 +13632,13 @@ namespace kinetica
         /// cref="InsertRecordsFromFilesRequest.CreateTableOptions.PARTITION_DEFINITIONS">PARTITION_DEFINITIONS</see>:</term>
         ///         <description>Comma-separated list of partition definitions,
         /// whose format depends on the choice of <i>partition_type</i>.  See
-        /// <a href="../../concepts/tables.html#partitioning-by-range"
+        /// <a href="../../../concepts/tables/#partitioning-by-range"
         /// target="_top">range partitioning</a>, <a
-        /// href="../../concepts/tables.html#partitioning-by-interval"
+        /// href="../../../concepts/tables/#partitioning-by-interval"
         /// target="_top">interval partitioning</a>, <a
-        /// href="../../concepts/tables.html#partitioning-by-list"
+        /// href="../../../concepts/tables/#partitioning-by-list"
         /// target="_top">list partitioning</a>, or <a
-        /// href="../../concepts/tables.html#partitioning-by-hash"
+        /// href="../../../concepts/tables/#partitioning-by-hash"
         /// target="_top">hash partitioning</a> for example
         /// formats.</description>
         ///     </item>
@@ -13092,7 +13648,7 @@ namespace kinetica
         ///         <description>If <i>true</i>, a new partition will be
         /// created for values which don't fall into an existing partition.
         /// Currently only supported for <a
-        /// href="../../concepts/tables.html#partitioning-by-list"
+        /// href="../../../concepts/tables/#partitioning-by-list"
         /// target="_top">list partitions</a>.
         /// Supported values:
         /// <list type="bullet">
@@ -13111,7 +13667,7 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="InsertRecordsFromFilesRequest.CreateTableOptions.TTL">TTL</see>:</term>
-        ///         <description>Sets the <a href="../../concepts/ttl.html"
+        ///         <description>Sets the <a href="../../../concepts/ttl/"
         /// target="_top">TTL</a> of the table specified in <paramref
         /// cref="InsertRecordsFromFilesRequest.table_name" />.</description>
         ///     </item>
@@ -13125,12 +13681,12 @@ namespace kinetica
         ///         <term><see
         /// cref="InsertRecordsFromFilesRequest.CreateTableOptions.IS_RESULT_TABLE">IS_RESULT_TABLE</see>:</term>
         ///         <description>Indicates whether the table is a <a
-        /// href="../../concepts/tables_memory_only.html"
+        /// href="../../../concepts/tables_memory_only/"
         /// target="_top">memory-only table</a>. A result table cannot contain
         /// columns with store_only or text_search <a
-        /// href="../../concepts/types.html#data-handling"
+        /// href="../../../concepts/types/#data-handling"
         /// target="_top">data-handling</a> or that are <a
-        /// href="../../concepts/types.html#primitive-types"
+        /// href="../../../concepts/types/#primitive-types"
         /// target="_top">non-charN strings</a>, and it will not be retained if
         /// the server is restarted.
         /// Supported values:
@@ -13151,11 +13707,11 @@ namespace kinetica
         ///         <term><see
         /// cref="InsertRecordsFromFilesRequest.CreateTableOptions.STRATEGY_DEFINITION">STRATEGY_DEFINITION</see>:</term>
         ///         <description>The <a
-        /// href="../../rm/concepts.html#tier-strategies" target="_top">tier
+        /// href="../../../rm/concepts/#tier-strategies" target="_top">tier
         /// strategy</a> for the table and its columns. See <a
-        /// href="../../rm/concepts.html#tier-strategies" target="_top">tier
+        /// href="../../../rm/concepts/#tier-strategies" target="_top">tier
         /// strategy usage</a> for format and <a
-        /// href="../../rm/usage.html#tier-strategies" target="_top">tier
+        /// href="../../../rm/usage/#tier-strategies" target="_top">tier
         /// strategy examples</a> for examples.</description>
         ///     </item>
         /// </list>
@@ -13323,14 +13879,18 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="InsertRecordsFromFilesRequest.Options.DELIMITED_TEXT">DELIMITED_TEXT</see>:</term>
-        ///         <description>Indicates the file(s) are in delimited text
-        /// format; e.g., CSV, TSV, PSV, etc.</description>
+        ///         <description>Delimited text file format; e.g., CSV, TSV,
+        /// PSV, etc.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="InsertRecordsFromFilesRequest.Options.PARQUET">PARQUET</see>:</term>
-        ///         <description>Indicates the file(s) are in Parquet format.
-        /// </description>
+        ///         <description>Apache Parquet file format</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromFilesRequest.Options.JSON">JSON</see>:</term>
+        ///         <description>Json file format</description>
         ///     </item>
         /// </list>
         /// The default value is <see
@@ -13500,7 +14060,7 @@ namespace kinetica
         ///         <term><see
         /// cref="InsertRecordsFromFilesRequest.Options.TEXT_HEADER_PROPERTY_DELIMITER">TEXT_HEADER_PROPERTY_DELIMITER</see>:</term>
         ///         <description>Specifies the delimiter for
-        /// <a href="../../concepts/types.html#column-properties"
+        /// <a href="../../../concepts/types/#column-properties"
         /// target="_top">column properties</a> in the header row (if
         /// present).  Cannot be set to same value as <i>text_delimiter</i>.
         /// For <i>delimited_text</i> <i>file_type</i> only.  The default value
@@ -13633,13 +14193,13 @@ namespace kinetica
         /// <param name="table_name">Name of the table into which the data will
         /// be inserted, in
         /// [schema_name.]table_name format, using standard
-        /// <a href="../../concepts/tables.html#table-name-resolution"
+        /// <a href="../../../concepts/tables/#table-name-resolution"
         /// target="_top">name resolution rules</a>.
         /// If the table does not exist, the table will be created using either
         /// an existing
         /// <i>type_id</i> or the type inferred from the
         /// payload, and the new table name will have to meet standard
-        /// <a href="../../concepts/tables.html#table-naming-criteria"
+        /// <a href="../../../concepts/tables/#table-naming-criteria"
         /// target="_top">table naming criteria</a>.  </param>
         /// <param name="data_text">Records formatted as delimited text
         /// </param>
@@ -13654,7 +14214,7 @@ namespace kinetica
         ///         <term><see
         /// cref="InsertRecordsFromPayloadRequest.CreateTableOptions.TYPE_ID">TYPE_ID</see>:</term>
         ///         <description>ID of a currently registered <a
-        /// href="../../concepts/types.html" target="_top">type</a>.  The
+        /// href="../../../concepts/types/" target="_top">type</a>.  The
         /// default value is ''.</description>
         ///     </item>
         ///     <item>
@@ -13682,17 +14242,17 @@ namespace kinetica
         ///         <term><see
         /// cref="InsertRecordsFromPayloadRequest.CreateTableOptions.IS_REPLICATED">IS_REPLICATED</see>:</term>
         ///         <description>Affects the <a
-        /// href="../../concepts/tables.html#distribution"
+        /// href="../../../concepts/tables/#distribution"
         /// target="_top">distribution scheme</a> for the table's data.  If
         /// <i>true</i> and the given type has no explicit <a
-        /// href="../../concepts/tables.html#shard-key" target="_top">shard
+        /// href="../../../concepts/tables/#shard-key" target="_top">shard
         /// key</a> defined, the table will be <a
-        /// href="../../concepts/tables.html#replication"
+        /// href="../../../concepts/tables/#replication"
         /// target="_top">replicated</a>.  If <i>false</i>, the table will be
-        /// <a href="../../concepts/tables.html#sharding"
+        /// <a href="../../../concepts/tables/#sharding"
         /// target="_top">sharded</a> according to the shard key specified in
         /// the given <i>type_id</i>, or <a
-        /// href="../../concepts/tables.html#random-sharding"
+        /// href="../../../concepts/tables/#random-sharding"
         /// target="_top">randomly sharded</a>, if no shard key is specified.
         /// Note that a type containing a shard key cannot be used to create a
         /// replicated table.
@@ -13714,10 +14274,10 @@ namespace kinetica
         ///         <term><see
         /// cref="InsertRecordsFromPayloadRequest.CreateTableOptions.FOREIGN_KEYS">FOREIGN_KEYS</see>:</term>
         ///         <description>Semicolon-separated list of <a
-        /// href="../../concepts/tables.html#foreign-keys"
-        /// target="_top">foreign keys</a>, of the format '(source_column_name
-        /// [, ...]) references target_table_name(primary_key_column_name [,
-        /// ...]) [as foreign_key_name]'.</description>
+        /// href="../../../concepts/tables/#foreign-keys" target="_top">foreign
+        /// keys</a>, of the format '(source_column_name [, ...]) references
+        /// target_table_name(primary_key_column_name [, ...]) [as
+        /// foreign_key_name]'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -13730,7 +14290,7 @@ namespace kinetica
         ///         <term><see
         /// cref="InsertRecordsFromPayloadRequest.CreateTableOptions.PARTITION_TYPE">PARTITION_TYPE</see>:</term>
         ///         <description><a
-        /// href="../../concepts/tables.html#partitioning"
+        /// href="../../../concepts/tables/#partitioning"
         /// target="_top">Partitioning</a> scheme to use.
         /// Supported values:
         /// <list type="bullet">
@@ -13738,28 +14298,28 @@ namespace kinetica
         ///         <term><see
         /// cref="InsertRecordsFromPayloadRequest.CreateTableOptions.RANGE">RANGE</see>:</term>
         ///         <description>Use <a
-        /// href="../../concepts/tables.html#partitioning-by-range"
+        /// href="../../../concepts/tables/#partitioning-by-range"
         /// target="_top">range partitioning</a>.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="InsertRecordsFromPayloadRequest.CreateTableOptions.INTERVAL">INTERVAL</see>:</term>
         ///         <description>Use <a
-        /// href="../../concepts/tables.html#partitioning-by-interval"
+        /// href="../../../concepts/tables/#partitioning-by-interval"
         /// target="_top">interval partitioning</a>.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="InsertRecordsFromPayloadRequest.CreateTableOptions.LIST">LIST</see>:</term>
         ///         <description>Use <a
-        /// href="../../concepts/tables.html#partitioning-by-list"
+        /// href="../../../concepts/tables/#partitioning-by-list"
         /// target="_top">list partitioning</a>.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="InsertRecordsFromPayloadRequest.CreateTableOptions.HASH">HASH</see>:</term>
         ///         <description>Use <a
-        /// href="../../concepts/tables.html#partitioning-by-hash"
+        /// href="../../../concepts/tables/#partitioning-by-hash"
         /// target="_top">hash partitioning</a>.</description>
         ///     </item>
         /// </list></description>
@@ -13777,13 +14337,13 @@ namespace kinetica
         /// cref="InsertRecordsFromPayloadRequest.CreateTableOptions.PARTITION_DEFINITIONS">PARTITION_DEFINITIONS</see>:</term>
         ///         <description>Comma-separated list of partition definitions,
         /// whose format depends on the choice of <i>partition_type</i>.  See
-        /// <a href="../../concepts/tables.html#partitioning-by-range"
+        /// <a href="../../../concepts/tables/#partitioning-by-range"
         /// target="_top">range partitioning</a>, <a
-        /// href="../../concepts/tables.html#partitioning-by-interval"
+        /// href="../../../concepts/tables/#partitioning-by-interval"
         /// target="_top">interval partitioning</a>, <a
-        /// href="../../concepts/tables.html#partitioning-by-list"
+        /// href="../../../concepts/tables/#partitioning-by-list"
         /// target="_top">list partitioning</a>, or <a
-        /// href="../../concepts/tables.html#partitioning-by-hash"
+        /// href="../../../concepts/tables/#partitioning-by-hash"
         /// target="_top">hash partitioning</a> for example
         /// formats.</description>
         ///     </item>
@@ -13793,7 +14353,7 @@ namespace kinetica
         ///         <description>If <i>true</i>, a new partition will be
         /// created for values which don't fall into an existing partition.
         /// Currently only supported for <a
-        /// href="../../concepts/tables.html#partitioning-by-list"
+        /// href="../../../concepts/tables/#partitioning-by-list"
         /// target="_top">list partitions</a>.
         /// Supported values:
         /// <list type="bullet">
@@ -13812,7 +14372,7 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="InsertRecordsFromPayloadRequest.CreateTableOptions.TTL">TTL</see>:</term>
-        ///         <description>Sets the <a href="../../concepts/ttl.html"
+        ///         <description>Sets the <a href="../../../concepts/ttl/"
         /// target="_top">TTL</a> of the table specified in <paramref
         /// cref="InsertRecordsFromPayloadRequest.table_name" />.</description>
         ///     </item>
@@ -13826,12 +14386,12 @@ namespace kinetica
         ///         <term><see
         /// cref="InsertRecordsFromPayloadRequest.CreateTableOptions.IS_RESULT_TABLE">IS_RESULT_TABLE</see>:</term>
         ///         <description>Indicates whether the table is a <a
-        /// href="../../concepts/tables_memory_only.html"
+        /// href="../../../concepts/tables_memory_only/"
         /// target="_top">memory-only table</a>. A result table cannot contain
         /// columns with store_only or text_search <a
-        /// href="../../concepts/types.html#data-handling"
+        /// href="../../../concepts/types/#data-handling"
         /// target="_top">data-handling</a> or that are <a
-        /// href="../../concepts/types.html#primitive-types"
+        /// href="../../../concepts/types/#primitive-types"
         /// target="_top">non-charN strings</a>, and it will not be retained if
         /// the server is restarted.
         /// Supported values:
@@ -13852,11 +14412,11 @@ namespace kinetica
         ///         <term><see
         /// cref="InsertRecordsFromPayloadRequest.CreateTableOptions.STRATEGY_DEFINITION">STRATEGY_DEFINITION</see>:</term>
         ///         <description>The <a
-        /// href="../../rm/concepts.html#tier-strategies" target="_top">tier
+        /// href="../../../rm/concepts/#tier-strategies" target="_top">tier
         /// strategy</a> for the table and its columns. See <a
-        /// href="../../rm/concepts.html#tier-strategies" target="_top">tier
+        /// href="../../../rm/concepts/#tier-strategies" target="_top">tier
         /// strategy usage</a> for format and <a
-        /// href="../../rm/usage.html#tier-strategies" target="_top">tier
+        /// href="../../../rm/usage/#tier-strategies" target="_top">tier
         /// strategy examples</a> for examples.</description>
         ///     </item>
         /// </list>
@@ -14016,14 +14576,18 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="InsertRecordsFromPayloadRequest.Options.DELIMITED_TEXT">DELIMITED_TEXT</see>:</term>
-        ///         <description>Indicates the file(s) are in delimited text
-        /// format; e.g., CSV, TSV, PSV, etc.</description>
+        ///         <description>Delimited text file format; e.g., CSV, TSV,
+        /// PSV, etc.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="InsertRecordsFromPayloadRequest.Options.PARQUET">PARQUET</see>:</term>
-        ///         <description>Indicates the file(s) are in Parquet
-        /// format.</description>
+        ///         <description>Apache Parquet file format</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromPayloadRequest.Options.JSON">JSON</see>:</term>
+        ///         <description>Json file format</description>
         ///     </item>
         /// </list>
         /// The default value is <see
@@ -14135,7 +14699,7 @@ namespace kinetica
         ///         <term><see
         /// cref="InsertRecordsFromPayloadRequest.Options.TEXT_HEADER_PROPERTY_DELIMITER">TEXT_HEADER_PROPERTY_DELIMITER</see>:</term>
         ///         <description>Specifies the delimiter for
-        /// <a href="../../concepts/types.html#column-properties"
+        /// <a href="../../../concepts/types/#column-properties"
         /// target="_top">column properties</a> in the header row (if
         /// present).  Cannot be set to same value as <i>text_delimiter</i>.
         /// For <i>delimited_text</i> <i>file_type</i> only.  The default value
@@ -14261,7 +14825,7 @@ namespace kinetica
         /// 
         /// <param name="table_name">Table to which random records will be
         /// added, in [schema_name.]table_name format, using standard <a
-        /// href="../../concepts/tables.html#table-name-resolution"
+        /// href="../../../concepts/tables/#table-name-resolution"
         /// target="_top">name resolution rules</a>.  Must be an existing
         /// table, not a view.  </param>
         /// <param name="count">Number of records to generate.  </param>
@@ -14510,7 +15074,7 @@ namespace kinetica
         /// optional parameter (e.g. color). To have a symbol used for
         /// rendering create a table with a string column named 'SYMBOLCODE'
         /// (along with 'x' or 'y' for example). Then when the table is
-        /// rendered (via <a href="../../api/rest/wms_rest.html"
+        /// rendered (via <a href="../../../api/rest/wms_rest/"
         /// target="_top">WMS</a>) if the 'dosymbology' parameter is 'true'
         /// then the value of the 'SYMBOLCODE' column is used to pick the
         /// symbol displayed for each point.</summary>
@@ -14536,7 +15100,7 @@ namespace kinetica
         /// optional parameter (e.g. color). To have a symbol used for
         /// rendering create a table with a string column named 'SYMBOLCODE'
         /// (along with 'x' or 'y' for example). Then when the table is
-        /// rendered (via <a href="../../api/rest/wms_rest.html"
+        /// rendered (via <a href="../../../api/rest/wms_rest/"
         /// target="_top">WMS</a>) if the 'dosymbology' parameter is 'true'
         /// then the value of the 'SYMBOLCODE' column is used to pick the
         /// symbol displayed for each point.</summary>
@@ -14708,7 +15272,7 @@ namespace kinetica
         /// 
         /// <param name="table_name">Name of the table to be locked, in
         /// [schema_name.]table_name format, using standard <a
-        /// href="../../concepts/tables.html#table-name-resolution"
+        /// href="../../../concepts/tables/#table-name-resolution"
         /// target="_top">name resolution rules</a>.  It must be a currently
         /// existing table or view.  </param>
         /// <param name="lock_type">The type of lock being applied to the
@@ -14764,13 +15328,13 @@ namespace kinetica
         /// given solution type.
         /// <br />
         /// IMPORTANT: It's highly recommended that you review the
-        /// <a href="../../graph_solver/network_graph_solver.html"
+        /// <a href="../../../graph_solver/network_graph_solver/"
         /// target="_top">Network Graphs & Solvers</a>
         /// concepts documentation, the
-        /// <a href="../../graph_solver/examples/graph_rest_guide.html"
+        /// <a href="../../../graph_solver/examples/graph_rest_guide/"
         /// target="_top">Graph REST Tutorial</a>,
         /// and/or some
-        /// <a href="../../graph_solver/examples.html#match-graph"
+        /// <a href="../../../graph_solver/examples/#match-graph"
         /// target="_top">/match/graph examples</a>
         /// before using this endpoint.</summary>
         /// 
@@ -14794,13 +15358,13 @@ namespace kinetica
         /// given solution type.
         /// <br />
         /// IMPORTANT: It's highly recommended that you review the
-        /// <a href="../../graph_solver/network_graph_solver.html"
+        /// <a href="../../../graph_solver/network_graph_solver/"
         /// target="_top">Network Graphs & Solvers</a>
         /// concepts documentation, the
-        /// <a href="../../graph_solver/examples/graph_rest_guide.html"
+        /// <a href="../../../graph_solver/examples/graph_rest_guide/"
         /// target="_top">Graph REST Tutorial</a>,
         /// and/or some
-        /// <a href="../../graph_solver/examples.html#match-graph"
+        /// <a href="../../../graph_solver/examples/#match-graph"
         /// target="_top">/match/graph examples</a>
         /// before using this endpoint.</summary>
         /// 
@@ -14811,11 +15375,11 @@ namespace kinetica
         /// underlying geospatial
         /// graph. Sample points must be specified using
         /// <a
-        /// href="../../graph_solver/network_graph_solver.html#match-identifiers"
+        /// href="../../../graph_solver/network_graph_solver/#match-identifiers"
         /// target="_top">identifiers</a>;
         /// identifiers are grouped as
         /// <a
-        /// href="../../graph_solver/network_graph_solver.html#match-combinations"
+        /// href="../../../graph_solver/network_graph_solver/#match-combinations"
         /// target="_top">combinations</a>.
         /// Identifiers can be used with: existing column names, e.g.,
         /// 'table.column AS SAMPLE_X'; expressions, e.g.,
@@ -14870,11 +15434,11 @@ namespace kinetica
         /// </param>
         /// <param name="solution_table">The name of the table used to store
         /// the results, in [schema_name.]table_name format, using standard <a
-        /// href="../../concepts/tables.html#table-name-resolution"
+        /// href="../../../concepts/tables/#table-name-resolution"
         /// target="_top">name resolution rules</a> and meeting <a
-        /// href="../../concepts/tables.html#table-naming-criteria"
+        /// href="../../../concepts/tables/#table-naming-criteria"
         /// target="_top">table naming criteria</a>.  This table contains a <a
-        /// href="../../geospatial/geo_objects.html#geospatial-tracks"
+        /// href="../../../geospatial/geo_objects/#geospatial-tracks"
         /// target="_top">track</a> of geospatial points for the matched
         /// portion of the graph, a track ID, and a score value. Also outputs a
         /// details table containing a trip ID (that matches the track ID), the
@@ -15141,10 +15705,9 @@ namespace kinetica
         /// cref="MergeRecordsRequest.field_maps" />).
         /// <br />
         /// For merge records details and examples, see
-        /// <a href="../../concepts/merge_records.html" target="_top">Merge
+        /// <a href="../../../concepts/merge_records/" target="_top">Merge
         /// Records</a>.  For limitations, see
-        /// <a
-        /// href="../../concepts/merge_records.html#limitations-and-cautions"
+        /// <a href="../../../concepts/merge_records/#limitations-and-cautions"
         /// target="_top">Merge Records Limitations and Cautions</a>.
         /// <br />
         /// The field map (specified by <paramref
@@ -15181,10 +15744,9 @@ namespace kinetica
         /// information (specified by <paramref name="field_maps" />).
         /// <br />
         /// For merge records details and examples, see
-        /// <a href="../../concepts/merge_records.html" target="_top">Merge
+        /// <a href="../../../concepts/merge_records/" target="_top">Merge
         /// Records</a>.  For limitations, see
-        /// <a
-        /// href="../../concepts/merge_records.html#limitations-and-cautions"
+        /// <a href="../../../concepts/merge_records/#limitations-and-cautions"
         /// target="_top">Merge Records Limitations and Cautions</a>.
         /// <br />
         /// The field map (specified by <paramref name="field_maps" />) holds
@@ -15199,15 +15761,15 @@ namespace kinetica
         /// <param name="table_name">The name of the new result table for the
         /// records to be merged into, in [schema_name.]table_name format,
         /// using standard <a
-        /// href="../../concepts/tables.html#table-name-resolution"
+        /// href="../../../concepts/tables/#table-name-resolution"
         /// target="_top">name resolution rules</a> and meeting <a
-        /// href="../../concepts/tables.html#table-naming-criteria"
+        /// href="../../../concepts/tables/#table-naming-criteria"
         /// target="_top">table naming criteria</a>.  Must NOT be an existing
         /// table.  </param>
         /// <param name="source_table_names">The list of names of source tables
         /// to get the records from, each in [schema_name.]table_name format,
         /// using standard <a
-        /// href="../../concepts/tables.html#table-name-resolution"
+        /// href="../../../concepts/tables/#table-name-resolution"
         /// target="_top">name resolution rules</a>.  Must be existing table
         /// names.  </param>
         /// <param name="field_maps">Contains a list of source/target column
@@ -15216,7 +15778,7 @@ namespace kinetica
         /// the target table specified by <paramref
         /// cref="MergeRecordsRequest.table_name" />.  Each mapping contains
         /// the target column names (as keys) that the data in the mapped
-        /// source columns or column <a href="../../concepts/expressions.html"
+        /// source columns or column <a href="../../../concepts/expressions/"
         /// target="_top">expressions</a> (as values) will be merged into.  All
         /// of the source columns being merged into a given target column must
         /// match in type, as that type will determine the type of the new
@@ -15237,13 +15799,13 @@ namespace kinetica
         ///         <term><see
         /// cref="MergeRecordsRequest.Options.IS_REPLICATED">IS_REPLICATED</see>:</term>
         ///         <description>Indicates the <a
-        /// href="../../concepts/tables.html#distribution"
+        /// href="../../../concepts/tables/#distribution"
         /// target="_top">distribution scheme</a> for the data of the merged
         /// table specified in <paramref cref="MergeRecordsRequest.table_name"
         /// />.  If true, the table will be <a
-        /// href="../../concepts/tables.html#replication"
+        /// href="../../../concepts/tables/#replication"
         /// target="_top">replicated</a>.  If false, the table will be <a
-        /// href="../../concepts/tables.html#random-sharding"
+        /// href="../../../concepts/tables/#random-sharding"
         /// target="_top">randomly sharded</a>.
         /// Supported values:
         /// <list type="bullet">
@@ -15262,7 +15824,7 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="MergeRecordsRequest.Options.TTL">TTL</see>:</term>
-        ///         <description>Sets the <a href="../../concepts/ttl.html"
+        ///         <description>Sets the <a href="../../../concepts/ttl/"
         /// target="_top">TTL</a> of the merged table specified in <paramref
         /// cref="MergeRecordsRequest.table_name" />.</description>
         ///     </item>
@@ -15322,13 +15884,13 @@ namespace kinetica
         /// restrictions, and options.
         /// <br />
         /// IMPORTANT: It's highly recommended that you review the
-        /// <a href="../../graph_solver/network_graph_solver.html"
+        /// <a href="../../../graph_solver/network_graph_solver/"
         /// target="_top">Network Graphs & Solvers</a>
         /// concepts documentation, the
-        /// <a href="../../graph_solver/examples/graph_rest_guide.html"
+        /// <a href="../../../graph_solver/examples/graph_rest_guide/"
         /// target="_top">Graph REST Tutorial</a>,
         /// and/or some
-        /// <a href="../../graph_solver/examples.html#match-graph"
+        /// <a href="../../../graph_solver/examples/#match-graph"
         /// target="_top">/match/graph examples</a>
         /// before using this endpoint.</summary>
         /// 
@@ -15351,13 +15913,13 @@ namespace kinetica
         /// restrictions, and options.
         /// <br />
         /// IMPORTANT: It's highly recommended that you review the
-        /// <a href="../../graph_solver/network_graph_solver.html"
+        /// <a href="../../../graph_solver/network_graph_solver/"
         /// target="_top">Network Graphs & Solvers</a>
         /// concepts documentation, the
-        /// <a href="../../graph_solver/examples/graph_rest_guide.html"
+        /// <a href="../../../graph_solver/examples/graph_rest_guide/"
         /// target="_top">Graph REST Tutorial</a>,
         /// and/or some
-        /// <a href="../../graph_solver/examples.html#match-graph"
+        /// <a href="../../../graph_solver/examples/#match-graph"
         /// target="_top">/match/graph examples</a>
         /// before using this endpoint.</summary>
         /// 
@@ -15366,12 +15928,12 @@ namespace kinetica
         /// <param name="nodes">Nodes with which to update existing <paramref
         /// cref="ModifyGraphRequest.nodes" /> in graph specified by <paramref
         /// cref="ModifyGraphRequest.graph_name" />. Review <a
-        /// href="../../graph_solver/network_graph_solver.html#nodes"
+        /// href="../../../graph_solver/network_graph_solver/#nodes"
         /// target="_top">Nodes</a> for more information. Nodes must be
         /// specified using <a
-        /// href="../../graph_solver/network_graph_solver.html#identifiers"
+        /// href="../../../graph_solver/network_graph_solver/#identifiers"
         /// target="_top">identifiers</a>; identifiers are grouped as <a
-        /// href="../../graph_solver/network_graph_solver.html#id-combos"
+        /// href="../../../graph_solver/network_graph_solver/#id-combos"
         /// target="_top">combinations</a>. Identifiers can be used with
         /// existing column names, e.g., 'table.column AS NODE_ID',
         /// expressions, e.g., 'ST_MAKEPOINT(column1, column2) AS
@@ -15385,12 +15947,12 @@ namespace kinetica
         /// <param name="edges">Edges with which to update existing <paramref
         /// cref="ModifyGraphRequest.edges" /> in graph specified by <paramref
         /// cref="ModifyGraphRequest.graph_name" />. Review <a
-        /// href="../../graph_solver/network_graph_solver.html#edges"
+        /// href="../../../graph_solver/network_graph_solver/#edges"
         /// target="_top">Edges</a> for more information. Edges must be
         /// specified using <a
-        /// href="../../graph_solver/network_graph_solver.html#identifiers"
+        /// href="../../../graph_solver/network_graph_solver/#identifiers"
         /// target="_top">identifiers</a>; identifiers are grouped as <a
-        /// href="../../graph_solver/network_graph_solver.html#id-combos"
+        /// href="../../../graph_solver/network_graph_solver/#id-combos"
         /// target="_top">combinations</a>. Identifiers can be used with
         /// existing column names, e.g., 'table.column AS EDGE_ID',
         /// expressions, e.g., 'SUBSTR(column, 1, 6) AS EDGE_NODE1_NAME', or
@@ -15404,12 +15966,12 @@ namespace kinetica
         /// <param name="weights">Weights with which to update existing
         /// <paramref cref="ModifyGraphRequest.weights" /> in graph specified
         /// by <paramref cref="ModifyGraphRequest.graph_name" />. Review <a
-        /// href="../../graph_solver/network_graph_solver.html#graph-weights"
+        /// href="../../../graph_solver/network_graph_solver/#graph-weights"
         /// target="_top">Weights</a> for more information. Weights must be
         /// specified using <a
-        /// href="../../graph_solver/network_graph_solver.html#identifiers"
+        /// href="../../../graph_solver/network_graph_solver/#identifiers"
         /// target="_top">identifiers</a>; identifiers are grouped as <a
-        /// href="../../graph_solver/network_graph_solver.html#id-combos"
+        /// href="../../../graph_solver/network_graph_solver/#id-combos"
         /// target="_top">combinations</a>. Identifiers can be used with
         /// existing column names, e.g., 'table.column AS WEIGHTS_EDGE_ID',
         /// expressions, e.g., 'ST_LENGTH(wkt) AS WEIGHTS_VALUESPECIFIED', or
@@ -15423,12 +15985,12 @@ namespace kinetica
         /// existing <paramref cref="ModifyGraphRequest.restrictions" /> in
         /// graph specified by <paramref cref="ModifyGraphRequest.graph_name"
         /// />. Review <a
-        /// href="../../graph_solver/network_graph_solver.html#graph-restrictions"
+        /// href="../../../graph_solver/network_graph_solver/#graph-restrictions"
         /// target="_top">Restrictions</a> for more information. Restrictions
         /// must be specified using <a
-        /// href="../../graph_solver/network_graph_solver.html#identifiers"
+        /// href="../../../graph_solver/network_graph_solver/#identifiers"
         /// target="_top">identifiers</a>; identifiers are grouped as <a
-        /// href="../../graph_solver/network_graph_solver.html#id-combos"
+        /// href="../../../graph_solver/network_graph_solver/#id-combos"
         /// target="_top">combinations</a>. Identifiers can be used with
         /// existing column names, e.g., 'table.column AS
         /// RESTRICTIONS_EDGE_ID', expressions, e.g., 'column/2 AS
@@ -15495,7 +16057,7 @@ namespace kinetica
         ///         <term><see
         /// cref="ModifyGraphRequest.Options.SAVE_PERSIST">SAVE_PERSIST</see>:</term>
         ///         <description>If set to <i>true</i>, the graph will be saved
-        /// in the persist directory (see the <a href="../../config/index.html"
+        /// in the persist directory (see the <a href="../../../config/"
         /// target="_top">config reference</a> for more information). If set to
         /// <i>false</i>, the graph will be removed when the graph server is
         /// shutdown.
@@ -15543,9 +16105,9 @@ namespace kinetica
         ///         <description>If specified, the created graph is also
         /// created as a table with the given name, in [schema_name.]table_name
         /// format, using standard <a
-        /// href="../../concepts/tables.html#table-name-resolution"
+        /// href="../../../concepts/tables/#table-name-resolution"
         /// target="_top">name resolution rules</a> and meeting <a
-        /// href="../../concepts/tables.html#table-naming-criteria"
+        /// href="../../../concepts/tables/#table-naming-criteria"
         /// target="_top">table naming criteria</a>.  This table will have the
         /// following identifier columns: 'EDGE_ID', 'EDGE_NODE1_ID',
         /// 'EDGE_NODE2_ID'. If left blank, no table is created.  The default
@@ -15642,7 +16204,7 @@ namespace kinetica
         /// the given
         /// identifier. See
         /// <a
-        /// href="../../graph_solver/network_graph_solver.html#query-identifiers"
+        /// href="../../../graph_solver/network_graph_solver/#query-identifiers"
         /// target="_top">Query Identifiers</a>
         /// for more information.
         /// <br />
@@ -15660,13 +16222,13 @@ namespace kinetica
         /// to <i>true</i>.
         /// <br />
         /// IMPORTANT: It's highly recommended that you review the
-        /// <a href="../../graph_solver/network_graph_solver.html"
+        /// <a href="../../../graph_solver/network_graph_solver/"
         /// target="_top">Network Graphs & Solvers</a>
         /// concepts documentation, the
-        /// <a href="../../graph_solver/examples/graph_rest_guide.html"
+        /// <a href="../../../graph_solver/examples/graph_rest_guide/"
         /// target="_top">Graph REST Tutorial</a>,
         /// and/or some
-        /// <a href="../../graph_solver/examples.html#match-graph"
+        /// <a href="../../../graph_solver/examples/#match-graph"
         /// target="_top">/match/graph examples</a>
         /// before using this endpoint.</summary>
         /// 
@@ -15703,7 +16265,7 @@ namespace kinetica
         /// the given
         /// identifier. See
         /// <a
-        /// href="../../graph_solver/network_graph_solver.html#query-identifiers"
+        /// href="../../../graph_solver/network_graph_solver/#query-identifiers"
         /// target="_top">Query Identifiers</a>
         /// for more information.
         /// <br />
@@ -15720,13 +16282,13 @@ namespace kinetica
         /// to <i>true</i>.
         /// <br />
         /// IMPORTANT: It's highly recommended that you review the
-        /// <a href="../../graph_solver/network_graph_solver.html"
+        /// <a href="../../../graph_solver/network_graph_solver/"
         /// target="_top">Network Graphs & Solvers</a>
         /// concepts documentation, the
-        /// <a href="../../graph_solver/examples/graph_rest_guide.html"
+        /// <a href="../../../graph_solver/examples/graph_rest_guide/"
         /// target="_top">Graph REST Tutorial</a>,
         /// and/or some
-        /// <a href="../../graph_solver/examples.html#match-graph"
+        /// <a href="../../../graph_solver/examples/#match-graph"
         /// target="_top">/match/graph examples</a>
         /// before using this endpoint.</summary>
         /// 
@@ -15734,7 +16296,7 @@ namespace kinetica
         /// </param>
         /// <param name="queries">Nodes or edges to be queried specified using
         /// <a
-        /// href="../../graph_solver/network_graph_solver.html#query-identifiers"
+        /// href="../../../graph_solver/network_graph_solver/#query-identifiers"
         /// target="_top">query identifiers</a>. Identifiers can be used with
         /// existing column names, e.g., 'table.column AS QUERY_NODE_ID', raw
         /// values, e.g., '{0, 2} AS QUERY_NODE_ID', or expressions, e.g.,
@@ -15746,9 +16308,9 @@ namespace kinetica
         /// <param name="restrictions">Additional restrictions to apply to the
         /// nodes/edges of an existing graph. Restrictions must be specified
         /// using <a
-        /// href="../../graph_solver/network_graph_solver.html#identifiers"
+        /// href="../../../graph_solver/network_graph_solver/#identifiers"
         /// target="_top">identifiers</a>; identifiers are grouped as <a
-        /// href="../../graph_solver/network_graph_solver.html#id-combos"
+        /// href="../../../graph_solver/network_graph_solver/#id-combos"
         /// target="_top">combinations</a>. Identifiers can be used with
         /// existing column names, e.g., 'table.column AS
         /// RESTRICTIONS_EDGE_ID', expressions, e.g., 'column/2 AS
@@ -15758,18 +16320,18 @@ namespace kinetica
         /// combination.  The default value is an empty {@link List}.</param>
         /// <param name="adjacency_table">Name of the table to store the
         /// resulting adjacencies, in [schema_name.]table_name format, using
-        /// standard <a href="../../concepts/tables.html#table-name-resolution"
+        /// standard <a href="../../../concepts/tables/#table-name-resolution"
         /// target="_top">name resolution rules</a> and meeting <a
-        /// href="../../concepts/tables.html#table-naming-criteria"
+        /// href="../../../concepts/tables/#table-naming-criteria"
         /// target="_top">table naming criteria</a>.  If left blank, the query
         /// results are instead returned in the response even if
         /// <i>export_query_results</i> is set to <i>false</i>. If the
         /// 'QUERY_TARGET_NODE_LABEL' <a
-        /// href="../../graph_solver/network_graph_solver.html#query-identifiers"
+        /// href="../../../graph_solver/network_graph_solver/#query-identifiers"
         /// target="_top">query identifier</a> is used in <paramref
         /// cref="QueryGraphRequest.queries" />, then two additional columns
         /// will be available: 'PATH_ID' and 'RING_ID'. See <a
-        /// href="../../graph_solver/network_graph_solver.html#using-labels"
+        /// href="../../../graph_solver/network_graph_solver/#using-labels"
         /// target="_top">Using Labels</a> for more information.  The default
         /// value is ''.</param>
         /// <param name="rings">Sets the number of rings around the node to
@@ -15795,7 +16357,7 @@ namespace kinetica
         /// returned. This parameter is only applicable if the queried graph
         /// <paramref cref="QueryGraphRequest.graph_name" /> is directed and
         /// when querying nodes. Consult <a
-        /// href="../../graph_solver/network_graph_solver.html#directed-graphs"
+        /// href="../../../graph_solver/network_graph_solver/#directed-graphs"
         /// target="_top">Directed Graphs</a> for more details.
         /// Supported values:
         /// <list type="bullet">
@@ -15826,9 +16388,9 @@ namespace kinetica
         ///         <description>Name of the table to store the list of the
         /// final nodes reached during the traversal, in
         /// [schema_name.]table_name format, using standard <a
-        /// href="../../concepts/tables.html#table-name-resolution"
+        /// href="../../../concepts/tables/#table-name-resolution"
         /// target="_top">name resolution rules</a> and meeting <a
-        /// href="../../concepts/tables.html#table-naming-criteria"
+        /// href="../../../concepts/tables/#table-naming-criteria"
         /// target="_top">table naming criteria</a>.  If this value is left as
         /// the default, the table name will default to the <paramref
         /// cref="QueryGraphRequest.adjacency_table" /> value plus a '_nodes'
@@ -15875,9 +16437,8 @@ namespace kinetica
         /// cref="QueryGraphRequest.adjacency_table" /> and inputs WKT values
         /// from the source graph (if available) or auto-generated WKT values
         /// (if there are no WKT values in the source graph). A subsequent call
-        /// to the <a href="../../api/rest/wms_rest.html"
-        /// target="_top">/wms</a> endpoint can then be made to display the
-        /// query results on a map.
+        /// to the <a href="../../../api/rest/wms_rest/" target="_top">/wms</a>
+        /// endpoint can then be made to display the query results on a map.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -15957,7 +16518,73 @@ namespace kinetica
         }
 
 
-        /// <summary>Revokes a <a href="../../concepts/data_sources.html"
+        /// <summary>Revokes a <a
+        /// href="../../../security/sec_concepts/#security-concepts-permissions-credential"
+        /// target="_top">credential-level permission</a> from a user or
+        /// role.</summary>
+        /// 
+        /// <param name="request_">Request object containing the parameters for
+        /// the operation.</param>
+        /// 
+        /// <returns>Response object containing the result of the
+        /// operation.</returns>
+        /// 
+        public RevokePermissionCredentialResponse revokePermissionCredential( RevokePermissionCredentialRequest request_ )
+        {
+            RevokePermissionCredentialResponse actualResponse_ = SubmitRequest<RevokePermissionCredentialResponse>("/revoke/permission/credential", request_, false);
+
+            return actualResponse_;
+        }
+
+
+        /// <summary>Revokes a <a
+        /// href="../../../security/sec_concepts/#security-concepts-permissions-credential"
+        /// target="_top">credential-level permission</a> from a user or
+        /// role.</summary>
+        /// 
+        /// <param name="name">Name of the user or role from which the
+        /// permission will be revoked. Must be an existing user or role.
+        /// </param>
+        /// <param name="permission">Permission to revoke from the user or
+        /// role.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="RevokePermissionCredentialRequest.Permission.CREDENTIAL_ADMIN">CREDENTIAL_ADMIN</see>:</term>
+        ///         <description>Full read/write and administrative access on
+        /// the credential.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="RevokePermissionCredentialRequest.Permission.CREDENTIAL_READ">CREDENTIAL_READ</see>:</term>
+        ///         <description>Ability to read and use the
+        /// credential.</description>
+        ///     </item>
+        /// </list>  </param>
+        /// <param name="credential_name">Name of the credential on which the
+        /// permission will be revoked. Must be an existing credential, or an
+        /// empty string to revoke access on all credentials.  </param>
+        /// <param name="options">Optional parameters.  The default value is an
+        /// empty {@link Dictionary}.</param>
+        /// 
+        /// <returns>Response object containing the result of the
+        /// operation.</returns>
+        /// 
+        public RevokePermissionCredentialResponse revokePermissionCredential( string name,
+                                                                              string permission,
+                                                                              string credential_name,
+                                                                              IDictionary<string, string> options = null )
+        {
+            return revokePermissionCredential( new RevokePermissionCredentialRequest(
+                                                                                      name,
+                                                                                      permission,
+                                                                                      credential_name,
+                                                                                      options ) );
+        }
+
+
+        /// <summary>Revokes a <a href="../../../concepts/data_sources/"
         /// target="_top">data source</a> permission from a user or
         /// role.</summary>
         /// 
@@ -15975,7 +16602,7 @@ namespace kinetica
         }
 
 
-        /// <summary>Revokes a <a href="../../concepts/data_sources.html"
+        /// <summary>Revokes a <a href="../../../concepts/data_sources/"
         /// target="_top">data source</a> permission from a user or
         /// role.</summary>
         /// 
@@ -16191,7 +16818,7 @@ namespace kinetica
         /// </list>  </param>
         /// <param name="table_name">Name of the table to which the permission
         /// grants access, in [schema_name.]table_name format, using standard
-        /// <a href="../../concepts/tables.html#table-name-resolution"
+        /// <a href="../../../concepts/tables/#table-name-resolution"
         /// target="_top">name resolution rules</a>.  Must be an existing
         /// table, view or schema.  </param>
         /// <param name="options">Optional parameters.
@@ -16258,9 +16885,80 @@ namespace kinetica
             return revokeRole( new RevokeRoleRequest( role, member, options ) );
         }
 
+        /// @cond NO_DOCS
+        /// 
+        /// <param name="request_">Request object containing the parameters for
+        /// the operation.</param>
+        /// 
+        /// <returns>Response object containing the result of the
+        /// operation.</returns>
+        /// 
+        public ShowContainerRegistryResponse showContainerRegistry( ShowContainerRegistryRequest request_ )
+        {
+            ShowContainerRegistryResponse actualResponse_ = SubmitRequest<ShowContainerRegistryResponse>("/show/container/registry", request_, false);
+
+            return actualResponse_;
+        }
+        /// @endcond
+
+        /// @cond NO_DOCS
+        /// 
+        /// <param name="registry_name"></param>
+        /// <param name="options"></param>
+        /// 
+        /// <returns>Response object containing the result of the
+        /// operation.</returns>
+        /// 
+        public ShowContainerRegistryResponse showContainerRegistry( string registry_name,
+                                                                    IDictionary<string, string> options = null )
+        {
+            return showContainerRegistry( new ShowContainerRegistryRequest( registry_name,
+                                                                            options ) );
+        }
+        /// @endcond
+
 
         /// <summary>Shows information about a specified <a
-        /// href="../../concepts/data_sources.html" target="_top">data
+        /// href="../../../concepts/credentials/" target="_top">credential</a>
+        /// or all credentials.</summary>
+        /// 
+        /// <param name="request_">Request object containing the parameters for
+        /// the operation.</param>
+        /// 
+        /// <returns>Response object containing the result of the
+        /// operation.</returns>
+        /// 
+        public ShowCredentialResponse showCredential( ShowCredentialRequest request_ )
+        {
+            ShowCredentialResponse actualResponse_ = SubmitRequest<ShowCredentialResponse>("/show/credential", request_, false);
+
+            return actualResponse_;
+        }
+
+
+        /// <summary>Shows information about a specified <a
+        /// href="../../../concepts/credentials/" target="_top">credential</a>
+        /// or all credentials.</summary>
+        /// 
+        /// <param name="credential_name">Name of the credential on which to
+        /// retrieve information. The name must refer to a currently existing
+        /// credential. If '*' is specified, information about all credentials
+        /// will be returned.  </param>
+        /// <param name="options">Optional parameters.  The default value is an
+        /// empty {@link Dictionary}.</param>
+        /// 
+        /// <returns>Response object containing the result of the
+        /// operation.</returns>
+        /// 
+        public ShowCredentialResponse showCredential( string credential_name,
+                                                      IDictionary<string, string> options = null )
+        {
+            return showCredential( new ShowCredentialRequest( credential_name, options ) );
+        }
+
+
+        /// <summary>Shows information about a specified <a
+        /// href="../../../concepts/data_sources/" target="_top">data
         /// source</a> or all data sources.</summary>
         /// 
         /// <param name="request_">Request object containing the parameters for
@@ -16278,7 +16976,7 @@ namespace kinetica
 
 
         /// <summary>Shows information about a specified <a
-        /// href="../../concepts/data_sources.html" target="_top">data
+        /// href="../../../concepts/data_sources/" target="_top">data
         /// source</a> or all data sources.</summary>
         /// 
         /// <param name="name">Name of the data source for which to retrieve
@@ -16315,6 +17013,7 @@ namespace kinetica
 
         /// @cond NO_DOCS
         /// 
+        /// <param name="names"></param>
         /// <param name="options">
         /// <list type="bullet">
         ///     <item>
@@ -16322,15 +17021,106 @@ namespace kinetica
         /// cref="ShowFunctionsRequest.Options.PROPERTIES">PROPERTIES</see>:</term>
         ///         <description></description>
         ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ShowFunctionsRequest.Options.SHOW_SCALAR_FUNCTIONS">SHOW_SCALAR_FUNCTIONS</see>:</term>
+        ///         <description>
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="ShowFunctionsRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ShowFunctionsRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="ShowFunctionsRequest.Options.TRUE">TRUE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ShowFunctionsRequest.Options.SHOW_AGGREGATE_FUNCTIONS">SHOW_AGGREGATE_FUNCTIONS</see>:</term>
+        ///         <description>
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="ShowFunctionsRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ShowFunctionsRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="ShowFunctionsRequest.Options.TRUE">TRUE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ShowFunctionsRequest.Options.SHOW_SQL_PROCEDURES">SHOW_SQL_PROCEDURES</see>:</term>
+        ///         <description>
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="ShowFunctionsRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ShowFunctionsRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="ShowFunctionsRequest.Options.TRUE">TRUE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ShowFunctionsRequest.Options.SHOW_USER_DEFINED_FUNCTIONS">SHOW_USER_DEFINED_FUNCTIONS</see>:</term>
+        ///         <description>
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="ShowFunctionsRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ShowFunctionsRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="ShowFunctionsRequest.Options.TRUE">TRUE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ShowFunctionsRequest.Options.SHOW_CAST_FUNCTIONS">SHOW_CAST_FUNCTIONS</see>:</term>
+        ///         <description>
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="ShowFunctionsRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ShowFunctionsRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="ShowFunctionsRequest.Options.TRUE">TRUE</see>.</description>
+        ///     </item>
         /// </list>
         /// </param>
         /// 
         /// <returns>Response object containing the result of the
         /// operation.</returns>
         /// 
-        public ShowFunctionsResponse showFunctions( IDictionary<string, string> options = null )
+        public ShowFunctionsResponse showFunctions( IList<string> names,
+                                                    IDictionary<string, string> options = null )
         {
-            return showFunctions( new ShowFunctionsRequest( options ) );
+            return showFunctions( new ShowFunctionsRequest( names, options ) );
         }
         /// @endcond
 
@@ -16424,6 +17214,37 @@ namespace kinetica
         public ShowGraphGrammarResponse showGraphGrammar( IDictionary<string, string> options = null )
         {
             return showGraphGrammar( new ShowGraphGrammarRequest( options ) );
+        }
+        /// @endcond
+
+        /// @cond NO_DOCS
+        /// 
+        /// <param name="request_">Request object containing the parameters for
+        /// the operation.</param>
+        /// 
+        /// <returns>Response object containing the result of the
+        /// operation.</returns>
+        /// 
+        public ShowModelResponse showModel( ShowModelRequest request_ )
+        {
+            ShowModelResponse actualResponse_ = SubmitRequest<ShowModelResponse>("/show/model", request_, false);
+
+            return actualResponse_;
+        }
+        /// @endcond
+
+        /// @cond NO_DOCS
+        /// 
+        /// <param name="model_names"></param>
+        /// <param name="options"></param>
+        /// 
+        /// <returns>Response object containing the result of the
+        /// operation.</returns>
+        /// 
+        public ShowModelResponse showModel( IList<string> model_names = null,
+                                            IDictionary<string, string> options = null )
+        {
+            return showModel( new ShowModelRequest( model_names, options ) );
         }
         /// @endcond
 
@@ -16674,7 +17495,7 @@ namespace kinetica
 
 
         /// <summary>Retrieves information about a <a
-        /// href="../../concepts/schemas.html" target="_top">schema</a> (or all
+        /// href="../../../concepts/schemas/" target="_top">schema</a> (or all
         /// schemas), as specified in <paramref
         /// cref="ShowSchemaRequest.schema_name" />.</summary>
         /// 
@@ -16693,7 +17514,7 @@ namespace kinetica
 
 
         /// <summary>Retrieves information about a <a
-        /// href="../../concepts/schemas.html" target="_top">schema</a> (or all
+        /// href="../../../concepts/schemas/" target="_top">schema</a> (or all
         /// schemas), as specified in <paramref name="schema_name"
         /// />.</summary>
         /// 
@@ -16855,7 +17676,7 @@ namespace kinetica
         /// 
         /// <param name="table_names">Names of tables whose metadata will be
         /// fetched, each in [schema_name.]table_name format, using standard <a
-        /// href="../../concepts/tables.html#table-name-resolution"
+        /// href="../../../concepts/tables/#table-name-resolution"
         /// target="_top">name resolution rules</a>.  All provided tables must
         /// exist, or an error is returned.  </param>
         /// <param name="options">Optional parameters.  The default value is an
@@ -17078,7 +17899,7 @@ namespace kinetica
         /// 
         /// <param name="table_name">Name of the table for which to retrieve
         /// the information, in [schema_name.]table_name format, using standard
-        /// <a href="../../concepts/tables.html#table-name-resolution"
+        /// <a href="../../../concepts/tables/#table-name-resolution"
         /// target="_top">name resolution rules</a>.  If blank, then returns
         /// information about all tables and views.  </param>
         /// <param name="options">Optional parameters.
@@ -17221,7 +18042,7 @@ namespace kinetica
         /// 
         /// <param name="table_names">Names of tables whose metadata will be
         /// fetched, in [schema_name.]table_name format, using standard <a
-        /// href="../../concepts/tables.html#table-name-resolution"
+        /// href="../../../concepts/tables/#table-name-resolution"
         /// target="_top">name resolution rules</a>.  All provided tables must
         /// exist, or an error is returned.  </param>
         /// <param name="options">Optional parameters.  The default value is an
@@ -17397,13 +18218,13 @@ namespace kinetica
         /// additional, optional weights and restrictions.
         /// <br />
         /// IMPORTANT: It's highly recommended that you review the
-        /// <a href="../../graph_solver/network_graph_solver.html"
+        /// <a href="../../../graph_solver/network_graph_solver/"
         /// target="_top">Network Graphs & Solvers</a>
         /// concepts documentation, the
-        /// <a href="../../graph_solver/examples/graph_rest_guide.html"
+        /// <a href="../../../graph_solver/examples/graph_rest_guide/"
         /// target="_top">Graph REST Tutorial</a>,
         /// and/or some
-        /// <a href="../../graph_solver/examples.html#match-graph"
+        /// <a href="../../../graph_solver/examples/#match-graph"
         /// target="_top">/match/graph examples</a>
         /// before using this endpoint.</summary>
         /// 
@@ -17428,13 +18249,13 @@ namespace kinetica
         /// additional, optional weights and restrictions.
         /// <br />
         /// IMPORTANT: It's highly recommended that you review the
-        /// <a href="../../graph_solver/network_graph_solver.html"
+        /// <a href="../../../graph_solver/network_graph_solver/"
         /// target="_top">Network Graphs & Solvers</a>
         /// concepts documentation, the
-        /// <a href="../../graph_solver/examples/graph_rest_guide.html"
+        /// <a href="../../../graph_solver/examples/graph_rest_guide/"
         /// target="_top">Graph REST Tutorial</a>,
         /// and/or some
-        /// <a href="../../graph_solver/examples.html#match-graph"
+        /// <a href="../../../graph_solver/examples/#match-graph"
         /// target="_top">/match/graph examples</a>
         /// before using this endpoint.</summary>
         /// 
@@ -17443,10 +18264,10 @@ namespace kinetica
         /// <param name="weights_on_edges">Additional weights to apply to the
         /// edges of an existing
         /// graph. Weights must be specified using
-        /// <a href="../../graph_solver/network_graph_solver.html#identifiers"
+        /// <a href="../../../graph_solver/network_graph_solver/#identifiers"
         /// target="_top">identifiers</a>;
         /// identifiers are grouped as
-        /// <a href="../../graph_solver/network_graph_solver.html#id-combos"
+        /// <a href="../../../graph_solver/network_graph_solver/#id-combos"
         /// target="_top">combinations</a>.
         /// Identifiers can be used with existing column names, e.g.,
         /// 'table.column AS WEIGHTS_EDGE_ID', expressions, e.g.,
@@ -17464,10 +18285,10 @@ namespace kinetica
         /// <param name="restrictions">Additional restrictions to apply to the
         /// nodes/edges of an
         /// existing graph. Restrictions must be specified using
-        /// <a href="../../graph_solver/network_graph_solver.html#identifiers"
+        /// <a href="../../../graph_solver/network_graph_solver/#identifiers"
         /// target="_top">identifiers</a>;
         /// identifiers are grouped as
-        /// <a href="../../graph_solver/network_graph_solver.html#id-combos"
+        /// <a href="../../../graph_solver/network_graph_solver/#id-combos"
         /// target="_top">combinations</a>.
         /// Identifiers can be used with existing column names, e.g.,
         /// 'table.column AS RESTRICTIONS_EDGE_ID', expressions, e.g.,
@@ -17560,7 +18381,7 @@ namespace kinetica
         /// The default value is an empty {@link List}.</param>
         /// <param name="solution_table">Name of the table to store the
         /// solution, in [schema_name.]table_name format, using standard <a
-        /// href="../../concepts/tables.html#table-name-resolution"
+        /// href="../../../concepts/tables/#table-name-resolution"
         /// target="_top">name resolution rules</a>.  The default value is
         /// 'graph_solutions'.</param>
         /// <param name="options">Additional parameters
@@ -17842,8 +18663,8 @@ namespace kinetica
         /// <br />
         /// The <i>update_on_existing_pk</i> option specifies the record
         /// collision policy for tables with a <a
-        /// href="../../concepts/tables.html#primary-keys"
-        /// target="_top">primary key</a>, and
+        /// href="../../../concepts/tables/#primary-keys" target="_top">primary
+        /// key</a>, and
         /// is ignored on tables with no primary key.</summary>
         /// 
         /// <param name="request_">Request object containing the parameters for
@@ -17897,8 +18718,8 @@ namespace kinetica
         /// <br />
         /// The <i>update_on_existing_pk</i> option specifies the record
         /// collision policy for tables with a <a
-        /// href="../../concepts/tables.html#primary-keys"
-        /// target="_top">primary key</a>, and
+        /// href="../../../concepts/tables/#primary-keys" target="_top">primary
+        /// key</a>, and
         /// is ignored on tables with no primary key.</summary>
         /// 
         /// <typeparam name="T">The type of object being added.</typeparam>
@@ -17959,15 +18780,15 @@ namespace kinetica
         /// <br />
         /// The <i>update_on_existing_pk</i> option specifies the record
         /// collision policy for tables with a <a
-        /// href="../../concepts/tables.html#primary-keys"
-        /// target="_top">primary key</a>, and
+        /// href="../../../concepts/tables/#primary-keys" target="_top">primary
+        /// key</a>, and
         /// is ignored on tables with no primary key.</summary>
         /// 
         /// <typeparam name="T">The type of object being added.</typeparam>
         /// 
         /// <param name="table_name">Name of table to be updated, in
         /// [schema_name.]table_name format, using standard <a
-        /// href="../../concepts/tables.html#table-name-resolution"
+        /// href="../../../concepts/tables/#table-name-resolution"
         /// target="_top">name resolution rules</a>.  Must be a currently
         /// existing table and not a view.  </param>
         /// <param name="expressions">A list of the actual predicates, one for
@@ -18022,17 +18843,17 @@ namespace kinetica
         ///         <term><see
         /// cref="RawUpdateRecordsRequest.Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>:</term>
         ///         <description>Specifies the record collision policy for
-        /// tables with a <a href="../../concepts/tables.html#primary-keys"
+        /// tables with a <a href="../../../concepts/tables/#primary-keys"
         /// target="_top">primary key</a> when updating columns of the <a
-        /// href="../../concepts/tables.html#primary-keys"
-        /// target="_top">primary key</a> or inserting new records.  If
-        /// <i>true</i>, existing records with primary key values that match
-        /// those of a record being updated or inserted will be replaced by the
-        /// updated and new records.  If <i>false</i>, existing records with
-        /// matching primary key values will remain unchanged, and the updated
-        /// or new records with primary key values that match those of existing
-        /// records will be discarded.  If the specified table does not have a
-        /// primary key, then this option has no effect.
+        /// href="../../../concepts/tables/#primary-keys" target="_top">primary
+        /// key</a> or inserting new records.  If <i>true</i>, existing records
+        /// with primary key values that match those of a record being updated
+        /// or inserted will be replaced by the updated and new records.  If
+        /// <i>false</i>, existing records with matching primary key values
+        /// will remain unchanged, and the updated or new records with primary
+        /// key values that match those of existing records will be discarded.
+        /// If the specified table does not have a primary key, then this
+        /// option has no effect.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -18169,18 +18990,18 @@ namespace kinetica
         /// <param name="table_name">Name of the view on which the update
         /// operation will be performed, in [schema_name.]view_name format,
         /// using standard <a
-        /// href="../../concepts/tables.html#table-name-resolution"
+        /// href="../../../concepts/tables/#table-name-resolution"
         /// target="_top">name resolution rules</a>.  Must be an existing view.
         /// </param>
         /// <param name="world_table_name">Name of the table containing the
         /// complete series (track) information, in [schema_name.]table_name
         /// format, using standard <a
-        /// href="../../concepts/tables.html#table-name-resolution"
+        /// href="../../../concepts/tables/#table-name-resolution"
         /// target="_top">name resolution rules</a>.  </param>
         /// <param name="view_name">Name of the view containing the series
         /// (tracks) which have to be updated, in [schema_name.]view_name
         /// format, using standard <a
-        /// href="../../concepts/tables.html#table-name-resolution"
+        /// href="../../../concepts/tables/#table-name-resolution"
         /// target="_top">name resolution rules</a>.  The default value is
         /// ''.</param>
         /// <param name="reserved">The default value is an empty {@link
@@ -18664,7 +19485,7 @@ namespace kinetica
         /// 
         /// <param name="table_name">Name of the table containing the data to
         /// be drawn as a chart, in [schema_name.]table_name format, using
-        /// standard <a href="../../concepts/tables.html#table-name-resolution"
+        /// standard <a href="../../../concepts/tables/#table-name-resolution"
         /// target="_top">name resolution rules</a>.  </param>
         /// <param name="x_column_names">Names of the columns containing the
         /// data mapped to the x axis of a chart.  </param>
@@ -20588,7 +21409,7 @@ namespace kinetica
         /// referring to the time or distance assigned as the weights of the
         /// underlying
         /// graph. See
-        /// <a href="../../graph_solver/network_graph_solver.html"
+        /// <a href="../../../graph_solver/network_graph_solver/"
         /// target="_top">Network Graphs & Solvers</a>
         /// for more information on graphs.
         /// .</summary>
@@ -20614,7 +21435,7 @@ namespace kinetica
         /// referring to the time or distance assigned as the weights of the
         /// underlying
         /// graph. See
-        /// <a href="../../graph_solver/network_graph_solver.html"
+        /// <a href="../../../graph_solver/network_graph_solver/"
         /// target="_top">Network Graphs & Solvers</a>
         /// for more information on graphs.
         /// .</summary>
@@ -20629,9 +21450,9 @@ namespace kinetica
         /// -1.0.</param>
         /// <param name="weights_on_edges">Additional weights to apply to the
         /// edges of an existing graph. Weights must be specified using <a
-        /// href="../../graph_solver/network_graph_solver.html#identifiers"
+        /// href="../../../graph_solver/network_graph_solver/#identifiers"
         /// target="_top">identifiers</a>; identifiers are grouped as <a
-        /// href="../../graph_solver/network_graph_solver.html#id-combos"
+        /// href="../../../graph_solver/network_graph_solver/#id-combos"
         /// target="_top">combinations</a>. Identifiers can be used with
         /// existing column names, e.g., 'table.column AS WEIGHTS_EDGE_ID', or
         /// expressions, e.g., 'ST_LENGTH(wkt) AS WEIGHTS_VALUESPECIFIED'. Any
@@ -20642,9 +21463,9 @@ namespace kinetica
         /// <param name="restrictions">Additional restrictions to apply to the
         /// nodes/edges of an existing graph. Restrictions must be specified
         /// using <a
-        /// href="../../graph_solver/network_graph_solver.html#identifiers"
+        /// href="../../../graph_solver/network_graph_solver/#identifiers"
         /// target="_top">identifiers</a>; identifiers are grouped as <a
-        /// href="../../graph_solver/network_graph_solver.html#id-combos"
+        /// href="../../../graph_solver/network_graph_solver/#id-combos"
         /// target="_top">combinations</a>. Identifiers can be used with
         /// existing column names, e.g., 'table.column AS
         /// RESTRICTIONS_EDGE_ID', or expressions, e.g., 'column/2 AS
@@ -20675,9 +21496,9 @@ namespace kinetica
         /// </param>
         /// <param name="levels_table">Name of the table to output the
         /// isochrones to, in [schema_name.]table_name format, using standard
-        /// <a href="../../concepts/tables.html#table-name-resolution"
+        /// <a href="../../../concepts/tables/#table-name-resolution"
         /// target="_top">name resolution rules</a> and meeting <a
-        /// href="../../concepts/tables.html#table-naming-criteria"
+        /// href="../../../concepts/tables/#table-naming-criteria"
         /// target="_top">table naming criteria</a>.  The table will contain
         /// levels and their corresponding WKT geometry. If no value is
         /// provided, the table is not generated.  The default value is
@@ -21247,9 +22068,9 @@ namespace kinetica
         /// cref="VisualizeIsochroneRequest.Options.SOLVE_TABLE">SOLVE_TABLE</see>:</term>
         ///         <description>Name of the table to host intermediate solve
         /// results, in [schema_name.]table_name format, using standard <a
-        /// href="../../concepts/tables.html#table-name-resolution"
+        /// href="../../../concepts/tables/#table-name-resolution"
         /// target="_top">name resolution rules</a> and meeting <a
-        /// href="../../concepts/tables.html#table-naming-criteria"
+        /// href="../../../concepts/tables/#table-naming-criteria"
         /// target="_top">table naming criteria</a>.  This table will contain
         /// the position and cost for each vertex in the graph. If the default
         /// value is used, a temporary table is created and deleted once the

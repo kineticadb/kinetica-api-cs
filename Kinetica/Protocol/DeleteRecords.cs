@@ -44,7 +44,7 @@ namespace kinetica
         /// obtained at the time of /insert/records or by calling
         /// /get/records/fromcollection with the *return_record_ids* option.
         /// This option cannot be used to delete records from <a
-        /// href="../../concepts/tables.html#replication"
+        /// href="../../../concepts/tables/#replication"
         /// target="_top">replicated</a> tables.</description>
         ///     </item>
         ///     <item>
@@ -86,7 +86,7 @@ namespace kinetica
             /// cref="Kinetica.getRecordsFromCollection{T}(string,long,long,IDictionary{string, string})"
             /// /> with the *return_record_ids* option. This option cannot be
             /// used to delete records from <a
-            /// href="../../concepts/tables.html#replication"
+            /// href="../../../concepts/tables/#replication"
             /// target="_top">replicated</a> tables.</summary>
             public const string RECORD_ID = "record_id";
 
@@ -114,14 +114,14 @@ namespace kinetica
 
         /// <summary>Name of the table from which to delete records, in
         /// [schema_name.]table_name format, using standard <a
-        /// href="../../concepts/tables.html#table-name-resolution"
+        /// href="../../../concepts/tables/#table-name-resolution"
         /// target="_top">name resolution rules</a>. Must contain the name of
         /// an existing table; not applicable to views.  </summary>
         public string table_name { get; set; }
 
         /// <summary>A list of the actual predicates, one for each select;
         /// format should follow the guidelines provided <a
-        /// href="../../concepts/expressions.html" target="_top">here</a>.
+        /// href="../../../concepts/expressions/" target="_top">here</a>.
         /// Specifying one or more <paramref
         /// cref="DeleteRecordsRequest.expressions" /> is mutually exclusive to
         /// specifying <i>record_id</i> in the <paramref
@@ -145,7 +145,7 @@ namespace kinetica
         /// obtained at the time of /insert/records or by calling
         /// /get/records/fromcollection with the *return_record_ids* option.
         /// This option cannot be used to delete records from <a
-        /// href="../../concepts/tables.html#replication"
+        /// href="../../../concepts/tables/#replication"
         /// target="_top">replicated</a> tables.</description>
         ///     </item>
         ///     <item>
@@ -182,12 +182,12 @@ namespace kinetica
         /// 
         /// <param name="table_name">Name of the table from which to delete
         /// records, in [schema_name.]table_name format, using standard <a
-        /// href="../../concepts/tables.html#table-name-resolution"
+        /// href="../../../concepts/tables/#table-name-resolution"
         /// target="_top">name resolution rules</a>. Must contain the name of
         /// an existing table; not applicable to views.  </param>
         /// <param name="expressions">A list of the actual predicates, one for
         /// each select; format should follow the guidelines provided <a
-        /// href="../../concepts/expressions.html" target="_top">here</a>.
+        /// href="../../../concepts/expressions/" target="_top">here</a>.
         /// Specifying one or more <paramref
         /// cref="DeleteRecordsRequest.expressions" /> is mutually exclusive to
         /// specifying <i>record_id</i> in the <paramref
@@ -209,7 +209,7 @@ namespace kinetica
         /// obtained at the time of /insert/records or by calling
         /// /get/records/fromcollection with the *return_record_ids* option.
         /// This option cannot be used to delete records from <a
-        /// href="../../concepts/tables.html#replication"
+        /// href="../../../concepts/tables/#replication"
         /// target="_top">replicated</a> tables.</description>
         ///     </item>
         ///     <item>

@@ -15,7 +15,7 @@ namespace kinetica
     /// cref="Kinetica.grantPermissionDatasource(string,string,string,IDictionary{string, string})"
     /// />.
     /// <br />
-    /// Grants a <a href="../../concepts/data_sources.html" target="_top">data
+    /// Grants a <a href="../../../concepts/data_sources/" target="_top">data
     /// source</a> permission to a user or role.</summary>
     public class GrantPermissionDatasourceRequest : KineticaData
     {

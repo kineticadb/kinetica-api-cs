@@ -14,7 +14,7 @@ namespace kinetica
     /// <summary>A set of parameters for <see
     /// cref="Kinetica.dropSchema(string,IDictionary{string, string})" />.
     /// <br />
-    /// Drops an existing SQL-style <a href="../../concepts/schemas.html"
+    /// Drops an existing SQL-style <a href="../../../concepts/schemas/"
     /// target="_top">schema</a>, specified in <see cref="schema_name"
     /// />.</summary>
     public class DropSchemaRequest : KineticaData
