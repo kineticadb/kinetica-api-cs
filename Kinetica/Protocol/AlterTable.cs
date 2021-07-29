@@ -312,11 +312,28 @@ namespace kinetica
         /// href="../../../rm/concepts/#tier-strategies" target="_top">tier
         /// strategy</a> for the table and its columns to the one specified in
         /// <paramref cref="AlterTableRequest._value" />, replacing the
-        /// existing tier strategy in its entirety. See <a
-        /// href="../../../rm/concepts/#tier-strategies" target="_top">tier
-        /// strategy usage</a> for format and <a
-        /// href="../../../rm/usage/#tier-strategies" target="_top">tier
-        /// strategy examples</a> for examples.</description>
+        /// existing tier strategy in its entirety.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterTableRequest.Action.CANCEL_DATASOURCE_SUBSCRIPTION">CANCEL_DATASOURCE_SUBSCRIPTION</see>:</term>
+        ///         <description>Permanently unsubscribe a data source that is
+        /// loading continuously as a stream. The data source can be kafka / S3
+        /// / Azure.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterTableRequest.Action.PAUSE_DATASOURCE_SUBSCRIPTION">PAUSE_DATASOURCE_SUBSCRIPTION</see>:</term>
+        ///         <description>Temporarily unsubscribe a data source that is
+        /// loading continuously as a stream. The data source can be kafka / S3
+        /// / Azure.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterTableRequest.Action.RESUME_DATASOURCE_SUBSCRIPTION">RESUME_DATASOURCE_SUBSCRIPTION</see>:</term>
+        ///         <description>Resubscribe to a paused data source
+        /// subscription. The data source can be kafka / S3 /
+        /// Azure.</description>
         ///     </item>
         /// </list>
         /// A set of string constants for the parameter <see cref="action"
@@ -506,12 +523,22 @@ namespace kinetica
             /// href="../../../rm/concepts/#tier-strategies" target="_top">tier
             /// strategy</a> for the table and its columns to the one specified
             /// in <see cref="_value" />, replacing the existing tier strategy
-            /// in its entirety. See <a
-            /// href="../../../rm/concepts/#tier-strategies" target="_top">tier
-            /// strategy usage</a> for format and <a
-            /// href="../../../rm/usage/#tier-strategies" target="_top">tier
-            /// strategy examples</a> for examples.</summary>
+            /// in its entirety.</summary>
             public const string SET_STRATEGY_DEFINITION = "set_strategy_definition";
+
+            /// <summary>Permanently unsubscribe a data source that is loading
+            /// continuously as a stream. The data source can be kafka / S3 /
+            /// Azure.</summary>
+            public const string CANCEL_DATASOURCE_SUBSCRIPTION = "cancel_datasource_subscription";
+
+            /// <summary>Temporarily unsubscribe a data source that is loading
+            /// continuously as a stream. The data source can be kafka / S3 /
+            /// Azure.</summary>
+            public const string PAUSE_DATASOURCE_SUBSCRIPTION = "pause_datasource_subscription";
+
+            /// <summary>Resubscribe to a paused data source subscription. The
+            /// data source can be kafka / S3 / Azure.</summary>
+            public const string RESUME_DATASOURCE_SUBSCRIPTION = "resume_datasource_subscription";
         } // end struct Action
 
 
@@ -658,13 +685,7 @@ namespace kinetica
         /// strategy</a> for the table and its columns when <paramref
         /// cref="AlterTableRequest.action" /> is
         /// <i>set_strategy_definition</i>, replacing the existing tier
-        /// strategy in its entirety. See <a
-        /// href="../../../rm/concepts/#tier-strategies" target="_top">tier
-        /// strategy usage</a> for format and <a
-        /// href="../../../rm/usage/#tier-strategies" target="_top">tier
-        /// strategy examples</a> for examples.  This option will be ignored if
-        /// <paramref cref="AlterTableRequest._value" /> is also
-        /// specified.</description>
+        /// strategy in its entirety.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -821,12 +842,7 @@ namespace kinetica
             /// href="../../../rm/concepts/#tier-strategies" target="_top">tier
             /// strategy</a> for the table and its columns when <see
             /// cref="action" /> is <i>set_strategy_definition</i>, replacing
-            /// the existing tier strategy in its entirety. See <a
-            /// href="../../../rm/concepts/#tier-strategies" target="_top">tier
-            /// strategy usage</a> for format and <a
-            /// href="../../../rm/usage/#tier-strategies" target="_top">tier
-            /// strategy examples</a> for examples.  This option will be
-            /// ignored if <see cref="_value" /> is also specified.</summary>
+            /// the existing tier strategy in its entirety.</summary>
             public const string STRATEGY_DEFINITION = "strategy_definition";
 
             /// <summary>Type of index to create, when <see cref="action" /> is
@@ -1114,11 +1130,28 @@ namespace kinetica
         /// href="../../../rm/concepts/#tier-strategies" target="_top">tier
         /// strategy</a> for the table and its columns to the one specified in
         /// <paramref cref="AlterTableRequest._value" />, replacing the
-        /// existing tier strategy in its entirety. See <a
-        /// href="../../../rm/concepts/#tier-strategies" target="_top">tier
-        /// strategy usage</a> for format and <a
-        /// href="../../../rm/usage/#tier-strategies" target="_top">tier
-        /// strategy examples</a> for examples.</description>
+        /// existing tier strategy in its entirety.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterTableRequest.Action.CANCEL_DATASOURCE_SUBSCRIPTION">CANCEL_DATASOURCE_SUBSCRIPTION</see>:</term>
+        ///         <description>Permanently unsubscribe a data source that is
+        /// loading continuously as a stream. The data source can be kafka / S3
+        /// / Azure.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterTableRequest.Action.PAUSE_DATASOURCE_SUBSCRIPTION">PAUSE_DATASOURCE_SUBSCRIPTION</see>:</term>
+        ///         <description>Temporarily unsubscribe a data source that is
+        /// loading continuously as a stream. The data source can be kafka / S3
+        /// / Azure.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterTableRequest.Action.RESUME_DATASOURCE_SUBSCRIPTION">RESUME_DATASOURCE_SUBSCRIPTION</see>:</term>
+        ///         <description>Resubscribe to a paused data source
+        /// subscription. The data source can be kafka / S3 /
+        /// Azure.</description>
         ///     </item>
         /// </list>  </summary>
         public string action { get; set; }
@@ -1279,13 +1312,7 @@ namespace kinetica
         /// strategy</a> for the table and its columns when <paramref
         /// cref="AlterTableRequest.action" /> is
         /// <i>set_strategy_definition</i>, replacing the existing tier
-        /// strategy in its entirety. See <a
-        /// href="../../../rm/concepts/#tier-strategies" target="_top">tier
-        /// strategy usage</a> for format and <a
-        /// href="../../../rm/usage/#tier-strategies" target="_top">tier
-        /// strategy examples</a> for examples.  This option will be ignored if
-        /// <paramref cref="AlterTableRequest._value" /> is also
-        /// specified.</description>
+        /// strategy in its entirety.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -1573,11 +1600,28 @@ namespace kinetica
         /// href="../../../rm/concepts/#tier-strategies" target="_top">tier
         /// strategy</a> for the table and its columns to the one specified in
         /// <paramref cref="AlterTableRequest._value" />, replacing the
-        /// existing tier strategy in its entirety. See <a
-        /// href="../../../rm/concepts/#tier-strategies" target="_top">tier
-        /// strategy usage</a> for format and <a
-        /// href="../../../rm/usage/#tier-strategies" target="_top">tier
-        /// strategy examples</a> for examples.</description>
+        /// existing tier strategy in its entirety.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterTableRequest.Action.CANCEL_DATASOURCE_SUBSCRIPTION">CANCEL_DATASOURCE_SUBSCRIPTION</see>:</term>
+        ///         <description>Permanently unsubscribe a data source that is
+        /// loading continuously as a stream. The data source can be kafka / S3
+        /// / Azure.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterTableRequest.Action.PAUSE_DATASOURCE_SUBSCRIPTION">PAUSE_DATASOURCE_SUBSCRIPTION</see>:</term>
+        ///         <description>Temporarily unsubscribe a data source that is
+        /// loading continuously as a stream. The data source can be kafka / S3
+        /// / Azure.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterTableRequest.Action.RESUME_DATASOURCE_SUBSCRIPTION">RESUME_DATASOURCE_SUBSCRIPTION</see>:</term>
+        ///         <description>Resubscribe to a paused data source
+        /// subscription. The data source can be kafka / S3 /
+        /// Azure.</description>
         ///     </item>
         /// </list>  </param>
         /// <param name="_value">The value of the modification, depending on
@@ -1734,13 +1778,7 @@ namespace kinetica
         /// strategy</a> for the table and its columns when <paramref
         /// cref="AlterTableRequest.action" /> is
         /// <i>set_strategy_definition</i>, replacing the existing tier
-        /// strategy in its entirety. See <a
-        /// href="../../../rm/concepts/#tier-strategies" target="_top">tier
-        /// strategy usage</a> for format and <a
-        /// href="../../../rm/usage/#tier-strategies" target="_top">tier
-        /// strategy examples</a> for examples.  This option will be ignored if
-        /// <paramref cref="AlterTableRequest._value" /> is also
-        /// specified.</description>
+        /// strategy in its entirety.</description>
         ///     </item>
         ///     <item>
         ///         <term><see

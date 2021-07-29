@@ -62,30 +62,6 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="CreateUnionRequest.Options.MATERIALIZE_ON_GPU">MATERIALIZE_ON_GPU</see>:</term>
-        ///         <description>No longer used.  See <a
-        /// href="../../../rm/concepts/" target="_top">Resource Management
-        /// Concepts</a> for information about how resources are managed, <a
-        /// href="../../../rm/concepts/" target="_top">Tier Strategy
-        /// Concepts</a> for how resources are targeted for VRAM, and <a
-        /// href="../../../rm/usage/#tier-strategies" target="_top">Tier
-        /// Strategy Usage</a> for how to specify a table's priority in VRAM.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateUnionRequest.Options.TRUE">TRUE</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateUnionRequest.Options.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="CreateUnionRequest.Options.FALSE">FALSE</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
         /// cref="CreateUnionRequest.Options.MODE">MODE</see>:</term>
         ///         <description>If <i>merge_views</i>, then this operation
         /// will merge the provided views. All <paramref
@@ -241,31 +217,6 @@ namespace kinetica
             /// ''.</summary>
             public const string COLLECTION_NAME = "collection_name";
 
-            /// <summary>No longer used.  See <a href="../../../rm/concepts/"
-            /// target="_top">Resource Management Concepts</a> for information
-            /// about how resources are managed, <a
-            /// href="../../../rm/concepts/" target="_top">Tier Strategy
-            /// Concepts</a> for how resources are targeted for VRAM, and <a
-            /// href="../../../rm/usage/#tier-strategies" target="_top">Tier
-            /// Strategy Usage</a> for how to specify a table's priority in
-            /// VRAM.
-            /// Supported values:
-            /// <list type="bullet">
-            ///     <item>
-            ///         <term><see
-            /// cref="CreateUnionRequest.Options.TRUE">TRUE</see></term>
-            ///     </item>
-            ///     <item>
-            ///         <term><see
-            /// cref="CreateUnionRequest.Options.FALSE">FALSE</see></term>
-            ///     </item>
-            /// </list>
-            /// The default value is <see
-            /// cref="CreateUnionRequest.Options.FALSE">FALSE</see>.</summary>
-            public const string MATERIALIZE_ON_GPU = "materialize_on_gpu";
-            public const string TRUE = "true";
-            public const string FALSE = "false";
-
             /// <summary>If <i>merge_views</i>, then this operation will merge
             /// the provided views. All <see cref="table_names" /> must be
             /// views from the same underlying base table.
@@ -409,6 +360,8 @@ namespace kinetica
             /// The default value is <see
             /// cref="CreateUnionRequest.Options.FALSE">FALSE</see>.</summary>
             public const string PERSIST = "persist";
+            public const string TRUE = "true";
+            public const string FALSE = "false";
 
             /// <summary>ID of view of which this output table is a member.
             /// The default value is ''.</summary>
@@ -468,30 +421,6 @@ namespace kinetica
         /// create the schema if non-existent]  Name of the schema for the
         /// output table. If the schema provided is non-existent, it will be
         /// automatically created.  The default value is ''.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateUnionRequest.Options.MATERIALIZE_ON_GPU">MATERIALIZE_ON_GPU</see>:</term>
-        ///         <description>No longer used.  See <a
-        /// href="../../../rm/concepts/" target="_top">Resource Management
-        /// Concepts</a> for information about how resources are managed, <a
-        /// href="../../../rm/concepts/" target="_top">Tier Strategy
-        /// Concepts</a> for how resources are targeted for VRAM, and <a
-        /// href="../../../rm/usage/#tier-strategies" target="_top">Tier
-        /// Strategy Usage</a> for how to specify a table's priority in VRAM.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateUnionRequest.Options.TRUE">TRUE</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateUnionRequest.Options.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="CreateUnionRequest.Options.FALSE">FALSE</see>.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -671,30 +600,6 @@ namespace kinetica
         /// create the schema if non-existent]  Name of the schema for the
         /// output table. If the schema provided is non-existent, it will be
         /// automatically created.  The default value is ''.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateUnionRequest.Options.MATERIALIZE_ON_GPU">MATERIALIZE_ON_GPU</see>:</term>
-        ///         <description>No longer used.  See <a
-        /// href="../../../rm/concepts/" target="_top">Resource Management
-        /// Concepts</a> for information about how resources are managed, <a
-        /// href="../../../rm/concepts/" target="_top">Tier Strategy
-        /// Concepts</a> for how resources are targeted for VRAM, and <a
-        /// href="../../../rm/usage/#tier-strategies" target="_top">Tier
-        /// Strategy Usage</a> for how to specify a table's priority in VRAM.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateUnionRequest.Options.TRUE">TRUE</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateUnionRequest.Options.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="CreateUnionRequest.Options.FALSE">FALSE</see>.</description>
         ///     </item>
         ///     <item>
         ///         <term><see

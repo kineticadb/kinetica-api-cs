@@ -75,6 +75,13 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
+        /// cref="CreateDatasourceRequest.Options.S3_AWS_ROLE_ARN">S3_AWS_ROLE_ARN</see>:</term>
+        ///         <description>Amazon IAM Role ARN which has required S3
+        /// permissions that can be assumed for the given S3 IAM
+        /// user</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="CreateDatasourceRequest.Options.HDFS_KERBEROS_KEYTAB">HDFS_KERBEROS_KEYTAB</see>:</term>
         ///         <description>Kerberos keytab file location for the given
         /// HDFS user</description>
@@ -135,6 +142,31 @@ namespace kinetica
         ///         <description>Oauth token to access given storage
         /// container</description>
         ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateDatasourceRequest.Options.IS_STREAM">IS_STREAM</see>:</term>
+        ///         <description>To load from S3/Azure as a stream
+        /// continuously.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateDatasourceRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateDatasourceRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="CreateDatasourceRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateDatasourceRequest.Options.KAFKA_TOPIC_NAME">KAFKA_TOPIC_NAME</see>:</term>
+        ///         <description>Name of the Kafka topic to use as the data
+        /// source</description>
+        ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.
         /// A set of string constants for the parameter <see cref="options"
@@ -180,6 +212,10 @@ namespace kinetica
             /// located</summary>
             public const string S3_REGION = "s3_region";
 
+            /// <summary>Amazon IAM Role ARN which has required S3 permissions
+            /// that can be assumed for the given S3 IAM user</summary>
+            public const string S3_AWS_ROLE_ARN = "s3_aws_role_arn";
+
             /// <summary>Kerberos keytab file location for the given HDFS
             /// user</summary>
             public const string HDFS_KERBEROS_KEYTAB = "hdfs_kerberos_keytab";
@@ -221,6 +257,26 @@ namespace kinetica
             /// <summary>Oauth token to access given storage
             /// container</summary>
             public const string AZURE_OAUTH_TOKEN = "azure_oauth_token";
+
+            /// <summary>To load from S3/Azure as a stream continuously.
+            /// Supported values:
+            /// <list type="bullet">
+            ///     <item>
+            ///         <term><see
+            /// cref="CreateDatasourceRequest.Options.TRUE">TRUE</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="CreateDatasourceRequest.Options.FALSE">FALSE</see></term>
+            ///     </item>
+            /// </list>
+            /// The default value is <see
+            /// cref="CreateDatasourceRequest.Options.FALSE">FALSE</see>.</summary>
+            public const string IS_STREAM = "is_stream";
+
+            /// <summary>Name of the Kafka topic to use as the data
+            /// source</summary>
+            public const string KAFKA_TOPIC_NAME = "kafka_topic_name";
         } // end struct Options
 
 
@@ -294,6 +350,13 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
+        /// cref="CreateDatasourceRequest.Options.S3_AWS_ROLE_ARN">S3_AWS_ROLE_ARN</see>:</term>
+        ///         <description>Amazon IAM Role ARN which has required S3
+        /// permissions that can be assumed for the given S3 IAM
+        /// user</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="CreateDatasourceRequest.Options.HDFS_KERBEROS_KEYTAB">HDFS_KERBEROS_KEYTAB</see>:</term>
         ///         <description>Kerberos keytab file location for the given
         /// HDFS user</description>
@@ -353,6 +416,31 @@ namespace kinetica
         /// cref="CreateDatasourceRequest.Options.AZURE_OAUTH_TOKEN">AZURE_OAUTH_TOKEN</see>:</term>
         ///         <description>Oauth token to access given storage
         /// container</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateDatasourceRequest.Options.IS_STREAM">IS_STREAM</see>:</term>
+        ///         <description>To load from S3/Azure as a stream
+        /// continuously.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateDatasourceRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateDatasourceRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="CreateDatasourceRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateDatasourceRequest.Options.KAFKA_TOPIC_NAME">KAFKA_TOPIC_NAME</see>:</term>
+        ///         <description>Name of the Kafka topic to use as the data
+        /// source</description>
         ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.</summary>
@@ -427,6 +515,13 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
+        /// cref="CreateDatasourceRequest.Options.S3_AWS_ROLE_ARN">S3_AWS_ROLE_ARN</see>:</term>
+        ///         <description>Amazon IAM Role ARN which has required S3
+        /// permissions that can be assumed for the given S3 IAM
+        /// user</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="CreateDatasourceRequest.Options.HDFS_KERBEROS_KEYTAB">HDFS_KERBEROS_KEYTAB</see>:</term>
         ///         <description>Kerberos keytab file location for the given
         /// HDFS user</description>
@@ -486,6 +581,31 @@ namespace kinetica
         /// cref="CreateDatasourceRequest.Options.AZURE_OAUTH_TOKEN">AZURE_OAUTH_TOKEN</see>:</term>
         ///         <description>Oauth token to access given storage
         /// container</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateDatasourceRequest.Options.IS_STREAM">IS_STREAM</see>:</term>
+        ///         <description>To load from S3/Azure as a stream
+        /// continuously.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateDatasourceRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateDatasourceRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="CreateDatasourceRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateDatasourceRequest.Options.KAFKA_TOPIC_NAME">KAFKA_TOPIC_NAME</see>:</term>
+        ///         <description>Name of the Kafka topic to use as the data
+        /// source</description>
         ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.</param>

@@ -139,6 +139,13 @@ namespace kinetica
         /// href="../../../concepts/tables/#partitioning-by-hash"
         /// target="_top">hash partitioning</a>.</description>
         ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromPayloadRequest.CreateTableOptions.SERIES">SERIES</see>:</term>
+        ///         <description>Use <a
+        /// href="../../../concepts/tables/#partitioning-by-series"
+        /// target="_top">series partitioning</a>.</description>
+        ///     </item>
         /// </list></description>
         ///     </item>
         ///     <item>
@@ -159,9 +166,11 @@ namespace kinetica
         /// href="../../../concepts/tables/#partitioning-by-interval"
         /// target="_top">interval partitioning</a>, <a
         /// href="../../../concepts/tables/#partitioning-by-list"
-        /// target="_top">list partitioning</a>, or <a
+        /// target="_top">list partitioning</a>, <a
         /// href="../../../concepts/tables/#partitioning-by-hash"
-        /// target="_top">hash partitioning</a> for example
+        /// target="_top">hash partitioning</a>, or <a
+        /// href="../../../concepts/tables/#partitioning-by-series"
+        /// target="_top">series partitioning</a> for example
         /// formats.</description>
         ///     </item>
         ///     <item>
@@ -230,11 +239,7 @@ namespace kinetica
         /// cref="InsertRecordsFromPayloadRequest.CreateTableOptions.STRATEGY_DEFINITION">STRATEGY_DEFINITION</see>:</term>
         ///         <description>The <a
         /// href="../../../rm/concepts/#tier-strategies" target="_top">tier
-        /// strategy</a> for the table and its columns. See <a
-        /// href="../../../rm/concepts/#tier-strategies" target="_top">tier
-        /// strategy usage</a> for format and <a
-        /// href="../../../rm/usage/#tier-strategies" target="_top">tier
-        /// strategy examples</a> for examples.</description>
+        /// strategy</a> for the table and its columns.</description>
         ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.
@@ -344,6 +349,13 @@ namespace kinetica
             /// href="../../../concepts/tables/#partitioning-by-hash"
             /// target="_top">hash partitioning</a>.</description>
             ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="InsertRecordsFromPayloadRequest.CreateTableOptions.SERIES">SERIES</see>:</term>
+            ///         <description>Use <a
+            /// href="../../../concepts/tables/#partitioning-by-series"
+            /// target="_top">series partitioning</a>.</description>
+            ///     </item>
             /// </list></summary>
             public const string PARTITION_TYPE = "partition_type";
 
@@ -367,6 +379,11 @@ namespace kinetica
             /// target="_top">hash partitioning</a>.</summary>
             public const string HASH = "HASH";
 
+            /// <summary>Use <a
+            /// href="../../../concepts/tables/#partitioning-by-series"
+            /// target="_top">series partitioning</a>.</summary>
+            public const string SERIES = "SERIES";
+
             /// <summary>Comma-separated list of partition keys, which are the
             /// columns or column expressions by which records will be assigned
             /// to partitions defined by
@@ -380,9 +397,11 @@ namespace kinetica
             /// href="../../../concepts/tables/#partitioning-by-interval"
             /// target="_top">interval partitioning</a>, <a
             /// href="../../../concepts/tables/#partitioning-by-list"
-            /// target="_top">list partitioning</a>, or <a
+            /// target="_top">list partitioning</a>, <a
             /// href="../../../concepts/tables/#partitioning-by-hash"
-            /// target="_top">hash partitioning</a> for example
+            /// target="_top">hash partitioning</a>, or <a
+            /// href="../../../concepts/tables/#partitioning-by-series"
+            /// target="_top">series partitioning</a> for example
             /// formats.</summary>
             public const string PARTITION_DEFINITIONS = "partition_definitions";
 
@@ -440,11 +459,8 @@ namespace kinetica
             public const string IS_RESULT_TABLE = "is_result_table";
 
             /// <summary>The <a href="../../../rm/concepts/#tier-strategies"
-            /// target="_top">tier strategy</a> for the table and its columns.
-            /// See <a href="../../../rm/concepts/#tier-strategies"
-            /// target="_top">tier strategy usage</a> for format and <a
-            /// href="../../../rm/usage/#tier-strategies" target="_top">tier
-            /// strategy examples</a> for examples.</summary>
+            /// target="_top">tier strategy</a> for the table and its
+            /// columns.</summary>
             public const string STRATEGY_DEFINITION = "strategy_definition";
         } // end struct CreateTableOptions
 
@@ -622,6 +638,11 @@ namespace kinetica
         /// cref="InsertRecordsFromPayloadRequest.Options.JSON">JSON</see>:</term>
         ///         <description>Json file format</description>
         ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromPayloadRequest.Options.SHAPEFILE">SHAPEFILE</see>:</term>
+        ///         <description>ShapeFile file format</description>
+        ///     </item>
         /// </list>
         /// The default value is <see
         /// cref="InsertRecordsFromPayloadRequest.Options.DELIMITED_TEXT">DELIMITED_TEXT</see>.</description>
@@ -798,7 +819,22 @@ namespace kinetica
         ///     </item>
         /// </list>
         /// The default value is <see
-        /// cref="InsertRecordsFromPayloadRequest.Options.ACCURACY">ACCURACY</see>.</description>
+        /// cref="InsertRecordsFromPayloadRequest.Options.SPEED">SPEED</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromPayloadRequest.Options.TEXT_SEARCH_COLUMNS">TEXT_SEARCH_COLUMNS</see>:</term>
+        ///         <description>Add 'text_search' property to internally
+        /// inferenced string columns. Comma seperated list of column names or
+        /// '*' for all columns. To add text_search property only to string
+        /// columns of minimum size, set also the option
+        /// 'text_search_min_column_length'</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromPayloadRequest.Options.TEXT_SEARCH_MIN_COLUMN_LENGTH">TEXT_SEARCH_MIN_COLUMN_LENGTH</see>:</term>
+        ///         <description>Set minimum column size. Used only when
+        /// 'text_search_columns' has a value.</description>
         ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.
@@ -972,6 +1008,11 @@ namespace kinetica
             /// cref="InsertRecordsFromPayloadRequest.Options.JSON">JSON</see>:</term>
             ///         <description>Json file format</description>
             ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="InsertRecordsFromPayloadRequest.Options.SHAPEFILE">SHAPEFILE</see>:</term>
+            ///         <description>ShapeFile file format</description>
+            ///     </item>
             /// </list>
             /// The default value is <see
             /// cref="InsertRecordsFromPayloadRequest.Options.DELIMITED_TEXT">DELIMITED_TEXT</see>.</summary>
@@ -986,6 +1027,9 @@ namespace kinetica
 
             /// <summary>Json file format</summary>
             public const string JSON = "json";
+
+            /// <summary>ShapeFile file format</summary>
+            public const string SHAPEFILE = "shapefile";
 
             /// <summary>Whether to do a full load, dry run, or perform a type
             /// inference on the source data.
@@ -1154,7 +1198,7 @@ namespace kinetica
             ///     </item>
             /// </list>
             /// The default value is <see
-            /// cref="InsertRecordsFromPayloadRequest.Options.ACCURACY">ACCURACY</see>.</summary>
+            /// cref="InsertRecordsFromPayloadRequest.Options.SPEED">SPEED</see>.</summary>
             public const string TYPE_INFERENCE_MODE = "type_inference_mode";
 
             /// <summary>scans all data to get exactly-typed & sized columns
@@ -1164,6 +1208,17 @@ namespace kinetica
             /// <summary>picks the widest possible column types so that 'all'
             /// values will fit with minimum data scanned</summary>
             public const string SPEED = "speed";
+
+            /// <summary>Add 'text_search' property to internally inferenced
+            /// string columns. Comma seperated list of column names or '*' for
+            /// all columns. To add text_search property only to string columns
+            /// of minimum size, set also the option
+            /// 'text_search_min_column_length'</summary>
+            public const string TEXT_SEARCH_COLUMNS = "text_search_columns";
+
+            /// <summary>Set minimum column size. Used only when
+            /// 'text_search_columns' has a value.</summary>
+            public const string TEXT_SEARCH_MIN_COLUMN_LENGTH = "text_search_min_column_length";
         } // end struct Options
 
 
@@ -1304,6 +1359,13 @@ namespace kinetica
         /// href="../../../concepts/tables/#partitioning-by-hash"
         /// target="_top">hash partitioning</a>.</description>
         ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromPayloadRequest.CreateTableOptions.SERIES">SERIES</see>:</term>
+        ///         <description>Use <a
+        /// href="../../../concepts/tables/#partitioning-by-series"
+        /// target="_top">series partitioning</a>.</description>
+        ///     </item>
         /// </list></description>
         ///     </item>
         ///     <item>
@@ -1324,9 +1386,11 @@ namespace kinetica
         /// href="../../../concepts/tables/#partitioning-by-interval"
         /// target="_top">interval partitioning</a>, <a
         /// href="../../../concepts/tables/#partitioning-by-list"
-        /// target="_top">list partitioning</a>, or <a
+        /// target="_top">list partitioning</a>, <a
         /// href="../../../concepts/tables/#partitioning-by-hash"
-        /// target="_top">hash partitioning</a> for example
+        /// target="_top">hash partitioning</a>, or <a
+        /// href="../../../concepts/tables/#partitioning-by-series"
+        /// target="_top">series partitioning</a> for example
         /// formats.</description>
         ///     </item>
         ///     <item>
@@ -1395,11 +1459,7 @@ namespace kinetica
         /// cref="InsertRecordsFromPayloadRequest.CreateTableOptions.STRATEGY_DEFINITION">STRATEGY_DEFINITION</see>:</term>
         ///         <description>The <a
         /// href="../../../rm/concepts/#tier-strategies" target="_top">tier
-        /// strategy</a> for the table and its columns. See <a
-        /// href="../../../rm/concepts/#tier-strategies" target="_top">tier
-        /// strategy usage</a> for format and <a
-        /// href="../../../rm/usage/#tier-strategies" target="_top">tier
-        /// strategy examples</a> for examples.</description>
+        /// strategy</a> for the table and its columns.</description>
         ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.</summary>
@@ -1578,6 +1638,11 @@ namespace kinetica
         /// cref="InsertRecordsFromPayloadRequest.Options.JSON">JSON</see>:</term>
         ///         <description>Json file format</description>
         ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromPayloadRequest.Options.SHAPEFILE">SHAPEFILE</see>:</term>
+        ///         <description>ShapeFile file format</description>
+        ///     </item>
         /// </list>
         /// The default value is <see
         /// cref="InsertRecordsFromPayloadRequest.Options.DELIMITED_TEXT">DELIMITED_TEXT</see>.</description>
@@ -1754,7 +1819,22 @@ namespace kinetica
         ///     </item>
         /// </list>
         /// The default value is <see
-        /// cref="InsertRecordsFromPayloadRequest.Options.ACCURACY">ACCURACY</see>.</description>
+        /// cref="InsertRecordsFromPayloadRequest.Options.SPEED">SPEED</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromPayloadRequest.Options.TEXT_SEARCH_COLUMNS">TEXT_SEARCH_COLUMNS</see>:</term>
+        ///         <description>Add 'text_search' property to internally
+        /// inferenced string columns. Comma seperated list of column names or
+        /// '*' for all columns. To add text_search property only to string
+        /// columns of minimum size, set also the option
+        /// 'text_search_min_column_length'</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromPayloadRequest.Options.TEXT_SEARCH_MIN_COLUMN_LENGTH">TEXT_SEARCH_MIN_COLUMN_LENGTH</see>:</term>
+        ///         <description>Set minimum column size. Used only when
+        /// 'text_search_columns' has a value.</description>
         ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.</summary>
@@ -1900,6 +1980,13 @@ namespace kinetica
         /// href="../../../concepts/tables/#partitioning-by-hash"
         /// target="_top">hash partitioning</a>.</description>
         ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromPayloadRequest.CreateTableOptions.SERIES">SERIES</see>:</term>
+        ///         <description>Use <a
+        /// href="../../../concepts/tables/#partitioning-by-series"
+        /// target="_top">series partitioning</a>.</description>
+        ///     </item>
         /// </list></description>
         ///     </item>
         ///     <item>
@@ -1920,9 +2007,11 @@ namespace kinetica
         /// href="../../../concepts/tables/#partitioning-by-interval"
         /// target="_top">interval partitioning</a>, <a
         /// href="../../../concepts/tables/#partitioning-by-list"
-        /// target="_top">list partitioning</a>, or <a
+        /// target="_top">list partitioning</a>, <a
         /// href="../../../concepts/tables/#partitioning-by-hash"
-        /// target="_top">hash partitioning</a> for example
+        /// target="_top">hash partitioning</a>, or <a
+        /// href="../../../concepts/tables/#partitioning-by-series"
+        /// target="_top">series partitioning</a> for example
         /// formats.</description>
         ///     </item>
         ///     <item>
@@ -1991,11 +2080,7 @@ namespace kinetica
         /// cref="InsertRecordsFromPayloadRequest.CreateTableOptions.STRATEGY_DEFINITION">STRATEGY_DEFINITION</see>:</term>
         ///         <description>The <a
         /// href="../../../rm/concepts/#tier-strategies" target="_top">tier
-        /// strategy</a> for the table and its columns. See <a
-        /// href="../../../rm/concepts/#tier-strategies" target="_top">tier
-        /// strategy usage</a> for format and <a
-        /// href="../../../rm/usage/#tier-strategies" target="_top">tier
-        /// strategy examples</a> for examples.</description>
+        /// strategy</a> for the table and its columns.</description>
         ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.</param>
@@ -2167,6 +2252,11 @@ namespace kinetica
         /// cref="InsertRecordsFromPayloadRequest.Options.JSON">JSON</see>:</term>
         ///         <description>Json file format</description>
         ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromPayloadRequest.Options.SHAPEFILE">SHAPEFILE</see>:</term>
+        ///         <description>ShapeFile file format</description>
+        ///     </item>
         /// </list>
         /// The default value is <see
         /// cref="InsertRecordsFromPayloadRequest.Options.DELIMITED_TEXT">DELIMITED_TEXT</see>.</description>
@@ -2334,7 +2424,22 @@ namespace kinetica
         ///     </item>
         /// </list>
         /// The default value is <see
-        /// cref="InsertRecordsFromPayloadRequest.Options.ACCURACY">ACCURACY</see>.</description>
+        /// cref="InsertRecordsFromPayloadRequest.Options.SPEED">SPEED</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromPayloadRequest.Options.TEXT_SEARCH_COLUMNS">TEXT_SEARCH_COLUMNS</see>:</term>
+        ///         <description>Add 'text_search' property to internally
+        /// inferenced string columns. Comma seperated list of column names or
+        /// '*' for all columns. To add text_search property only to string
+        /// columns of minimum size, set also the option
+        /// 'text_search_min_column_length'</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromPayloadRequest.Options.TEXT_SEARCH_MIN_COLUMN_LENGTH">TEXT_SEARCH_MIN_COLUMN_LENGTH</see>:</term>
+        ///         <description>Set minimum column size. Used only when
+        /// 'text_search_columns' has a value.</description>
         ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.</param>

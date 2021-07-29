@@ -300,30 +300,6 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AggregateGroupByRequest.Options.MATERIALIZE_ON_GPU">MATERIALIZE_ON_GPU</see>:</term>
-        ///         <description>No longer used.  See <a
-        /// href="../../../rm/concepts/" target="_top">Resource Management
-        /// Concepts</a> for information about how resources are managed, <a
-        /// href="../../../rm/concepts/" target="_top">Tier Strategy
-        /// Concepts</a> for how resources are targeted for VRAM, and <a
-        /// href="../../../rm/usage/#tier-strategies" target="_top">Tier
-        /// Strategy Usage</a> for how to specify a table's priority in VRAM.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="AggregateGroupByRequest.Options.TRUE">TRUE</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AggregateGroupByRequest.Options.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="AggregateGroupByRequest.Options.FALSE">FALSE</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
         /// cref="AggregateGroupByRequest.Options.PIVOT">PIVOT</see>:</term>
         ///         <description>pivot column</description>
         ///     </item>
@@ -538,29 +514,6 @@ namespace kinetica
             /// <summary>ID of view of which the result table will be a member.
             /// The default value is ''.</summary>
             public const string VIEW_ID = "view_id";
-
-            /// <summary>No longer used.  See <a href="../../../rm/concepts/"
-            /// target="_top">Resource Management Concepts</a> for information
-            /// about how resources are managed, <a
-            /// href="../../../rm/concepts/" target="_top">Tier Strategy
-            /// Concepts</a> for how resources are targeted for VRAM, and <a
-            /// href="../../../rm/usage/#tier-strategies" target="_top">Tier
-            /// Strategy Usage</a> for how to specify a table's priority in
-            /// VRAM.
-            /// Supported values:
-            /// <list type="bullet">
-            ///     <item>
-            ///         <term><see
-            /// cref="AggregateGroupByRequest.Options.TRUE">TRUE</see></term>
-            ///     </item>
-            ///     <item>
-            ///         <term><see
-            /// cref="AggregateGroupByRequest.Options.FALSE">FALSE</see></term>
-            ///     </item>
-            /// </list>
-            /// The default value is <see
-            /// cref="AggregateGroupByRequest.Options.FALSE">FALSE</see>.</summary>
-            public const string MATERIALIZE_ON_GPU = "materialize_on_gpu";
 
             /// <summary>pivot column</summary>
             public const string PIVOT = "pivot";
@@ -818,30 +771,6 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AggregateGroupByRequest.Options.MATERIALIZE_ON_GPU">MATERIALIZE_ON_GPU</see>:</term>
-        ///         <description>No longer used.  See <a
-        /// href="../../../rm/concepts/" target="_top">Resource Management
-        /// Concepts</a> for information about how resources are managed, <a
-        /// href="../../../rm/concepts/" target="_top">Tier Strategy
-        /// Concepts</a> for how resources are targeted for VRAM, and <a
-        /// href="../../../rm/usage/#tier-strategies" target="_top">Tier
-        /// Strategy Usage</a> for how to specify a table's priority in VRAM.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="AggregateGroupByRequest.Options.TRUE">TRUE</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AggregateGroupByRequest.Options.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="AggregateGroupByRequest.Options.FALSE">FALSE</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
         /// cref="AggregateGroupByRequest.Options.PIVOT">PIVOT</see>:</term>
         ///         <description>pivot column</description>
         ///     </item>
@@ -1086,30 +1015,6 @@ namespace kinetica
         /// cref="AggregateGroupByRequest.Options.VIEW_ID">VIEW_ID</see>:</term>
         ///         <description>ID of view of which the result table will be a
         /// member.  The default value is ''.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AggregateGroupByRequest.Options.MATERIALIZE_ON_GPU">MATERIALIZE_ON_GPU</see>:</term>
-        ///         <description>No longer used.  See <a
-        /// href="../../../rm/concepts/" target="_top">Resource Management
-        /// Concepts</a> for information about how resources are managed, <a
-        /// href="../../../rm/concepts/" target="_top">Tier Strategy
-        /// Concepts</a> for how resources are targeted for VRAM, and <a
-        /// href="../../../rm/usage/#tier-strategies" target="_top">Tier
-        /// Strategy Usage</a> for how to specify a table's priority in VRAM.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="AggregateGroupByRequest.Options.TRUE">TRUE</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AggregateGroupByRequest.Options.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="AggregateGroupByRequest.Options.FALSE">FALSE</see>.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -1385,30 +1290,6 @@ namespace kinetica
         /// cref="AggregateGroupByRequest.Options.VIEW_ID">VIEW_ID</see>:</term>
         ///         <description>ID of view of which the result table will be a
         /// member.  The default value is ''.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AggregateGroupByRequest.Options.MATERIALIZE_ON_GPU">MATERIALIZE_ON_GPU</see>:</term>
-        ///         <description>No longer used.  See <a
-        /// href="../../../rm/concepts/" target="_top">Resource Management
-        /// Concepts</a> for information about how resources are managed, <a
-        /// href="../../../rm/concepts/" target="_top">Tier Strategy
-        /// Concepts</a> for how resources are targeted for VRAM, and <a
-        /// href="../../../rm/usage/#tier-strategies" target="_top">Tier
-        /// Strategy Usage</a> for how to specify a table's priority in VRAM.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="AggregateGroupByRequest.Options.TRUE">TRUE</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AggregateGroupByRequest.Options.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="AggregateGroupByRequest.Options.FALSE">FALSE</see>.</description>
         ///     </item>
         ///     <item>
         ///         <term><see

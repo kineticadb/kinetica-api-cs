@@ -216,9 +216,11 @@ namespace kinetica
         /// href="../../../concepts/tables/#partitioning-by-interval"
         /// target="_top">interval partitioning</a>, <a
         /// href="../../../concepts/tables/#partitioning-by-list"
-        /// target="_top">list partitioning</a>, or <a
+        /// target="_top">list partitioning</a>, <a
         /// href="../../../concepts/tables/#partitioning-by-hash"
-        /// target="_top">hash partitioning</a> for example
+        /// target="_top">hash partitioning</a>, or <a
+        /// href="../../../concepts/tables/#partitioning-by-series"
+        /// target="_top">series partitioning</a> for example
         /// formats.</description>
         ///     </item>
         ///     <item>
@@ -287,11 +289,12 @@ namespace kinetica
         /// cref="CreateTableRequest.Options.STRATEGY_DEFINITION">STRATEGY_DEFINITION</see>:</term>
         ///         <description>The <a
         /// href="../../../rm/concepts/#tier-strategies" target="_top">tier
-        /// strategy</a> for the table and its columns. See <a
-        /// href="../../../rm/concepts/#tier-strategies" target="_top">tier
-        /// strategy usage</a> for format and <a
-        /// href="../../../rm/usage/#tier-strategies" target="_top">tier
-        /// strategy examples</a> for examples.</description>
+        /// strategy</a> for the table and its columns.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableRequest.Options.IS_VIRTUAL_UNION">IS_VIRTUAL_UNION</see>:</term>
+        ///         <description><DEVELOPER></description>
         ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.
@@ -487,9 +490,11 @@ namespace kinetica
             /// href="../../../concepts/tables/#partitioning-by-interval"
             /// target="_top">interval partitioning</a>, <a
             /// href="../../../concepts/tables/#partitioning-by-list"
-            /// target="_top">list partitioning</a>, or <a
+            /// target="_top">list partitioning</a>, <a
             /// href="../../../concepts/tables/#partitioning-by-hash"
-            /// target="_top">hash partitioning</a> for example
+            /// target="_top">hash partitioning</a>, or <a
+            /// href="../../../concepts/tables/#partitioning-by-series"
+            /// target="_top">series partitioning</a> for example
             /// formats.</summary>
             public const string PARTITION_DEFINITIONS = "partition_definitions";
 
@@ -547,12 +552,12 @@ namespace kinetica
             public const string IS_RESULT_TABLE = "is_result_table";
 
             /// <summary>The <a href="../../../rm/concepts/#tier-strategies"
-            /// target="_top">tier strategy</a> for the table and its columns.
-            /// See <a href="../../../rm/concepts/#tier-strategies"
-            /// target="_top">tier strategy usage</a> for format and <a
-            /// href="../../../rm/usage/#tier-strategies" target="_top">tier
-            /// strategy examples</a> for examples.</summary>
+            /// target="_top">tier strategy</a> for the table and its
+            /// columns.</summary>
             public const string STRATEGY_DEFINITION = "strategy_definition";
+
+            /// <summary><DEVELOPER></summary>
+            public const string IS_VIRTUAL_UNION = "is_virtual_union";
         } // end struct Options
 
 
@@ -752,9 +757,11 @@ namespace kinetica
         /// href="../../../concepts/tables/#partitioning-by-interval"
         /// target="_top">interval partitioning</a>, <a
         /// href="../../../concepts/tables/#partitioning-by-list"
-        /// target="_top">list partitioning</a>, or <a
+        /// target="_top">list partitioning</a>, <a
         /// href="../../../concepts/tables/#partitioning-by-hash"
-        /// target="_top">hash partitioning</a> for example
+        /// target="_top">hash partitioning</a>, or <a
+        /// href="../../../concepts/tables/#partitioning-by-series"
+        /// target="_top">series partitioning</a> for example
         /// formats.</description>
         ///     </item>
         ///     <item>
@@ -823,11 +830,12 @@ namespace kinetica
         /// cref="CreateTableRequest.Options.STRATEGY_DEFINITION">STRATEGY_DEFINITION</see>:</term>
         ///         <description>The <a
         /// href="../../../rm/concepts/#tier-strategies" target="_top">tier
-        /// strategy</a> for the table and its columns. See <a
-        /// href="../../../rm/concepts/#tier-strategies" target="_top">tier
-        /// strategy usage</a> for format and <a
-        /// href="../../../rm/usage/#tier-strategies" target="_top">tier
-        /// strategy examples</a> for examples.</description>
+        /// strategy</a> for the table and its columns.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableRequest.Options.IS_VIRTUAL_UNION">IS_VIRTUAL_UNION</see>:</term>
+        ///         <description><DEVELOPER></description>
         ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.</summary>
@@ -1034,9 +1042,11 @@ namespace kinetica
         /// href="../../../concepts/tables/#partitioning-by-interval"
         /// target="_top">interval partitioning</a>, <a
         /// href="../../../concepts/tables/#partitioning-by-list"
-        /// target="_top">list partitioning</a>, or <a
+        /// target="_top">list partitioning</a>, <a
         /// href="../../../concepts/tables/#partitioning-by-hash"
-        /// target="_top">hash partitioning</a> for example
+        /// target="_top">hash partitioning</a>, or <a
+        /// href="../../../concepts/tables/#partitioning-by-series"
+        /// target="_top">series partitioning</a> for example
         /// formats.</description>
         ///     </item>
         ///     <item>
@@ -1105,11 +1115,12 @@ namespace kinetica
         /// cref="CreateTableRequest.Options.STRATEGY_DEFINITION">STRATEGY_DEFINITION</see>:</term>
         ///         <description>The <a
         /// href="../../../rm/concepts/#tier-strategies" target="_top">tier
-        /// strategy</a> for the table and its columns. See <a
-        /// href="../../../rm/concepts/#tier-strategies" target="_top">tier
-        /// strategy usage</a> for format and <a
-        /// href="../../../rm/usage/#tier-strategies" target="_top">tier
-        /// strategy examples</a> for examples.</description>
+        /// strategy</a> for the table and its columns.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableRequest.Options.IS_VIRTUAL_UNION">IS_VIRTUAL_UNION</see>:</term>
+        ///         <description><DEVELOPER></description>
         ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.</param>

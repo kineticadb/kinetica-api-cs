@@ -24,11 +24,11 @@ namespace kinetica
     /// <a href="../../../graph_solver/network_graph_solver/"
     /// target="_top">Network Graphs & Solvers</a>
     /// concepts documentation, the
-    /// <a href="../../../graph_solver/examples/graph_rest_guide/"
-    /// target="_top">Graph REST Tutorial</a>,
+    /// <a href="../../../guides/graph_rest_guide/" target="_top">Graph REST
+    /// Tutorial</a>,
     /// and/or some
-    /// <a href="../../../graph_solver/examples/#match-graph"
-    /// target="_top">/match/graph examples</a>
+    /// <a href="../../../guide-tags/graph-match/" target="_top">/match/graph
+    /// examples</a>
     /// before using this endpoint.</summary>
     public class MatchGraphRequest : KineticaData
     {
@@ -74,6 +74,13 @@ namespace kinetica
         /// cref="MatchGraphRequest.sample_points" /> source and destination
         /// pairs for the shortest path solves in batch mode.</description>
         ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="MatchGraphRequest.SolveMethod.MATCH_LOOPS">MATCH_LOOPS</see>:</term>
+        ///         <description>Matches closed loops (Eulerian paths)
+        /// originating and ending at each graph node within min and max hops
+        /// (levels).</description>
+        ///     </item>
         /// </list>
         /// The default value is <see
         /// cref="MatchGraphRequest.SolveMethod.MARKOV_CHAIN">MARKOV_CHAIN</see>.
@@ -110,6 +117,11 @@ namespace kinetica
             /// destination pairs for the shortest path solves in batch
             /// mode.</summary>
             public const string MATCH_BATCH_SOLVES = "match_batch_solves";
+
+            /// <summary>Matches closed loops (Eulerian paths) originating and
+            /// ending at each graph node within min and max hops
+            /// (levels).</summary>
+            public const string MATCH_LOOPS = "match_loops";
         } // end struct SolveMethod
 
 
@@ -338,11 +350,74 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
+        /// cref="MatchGraphRequest.Options.MAX_TRUCK_STOPS">MAX_TRUCK_STOPS</see>:</term>
+        ///         <description>For the <i>match_supply_demand</i> solver
+        /// only. If specified (greater than zero), a truck can at most have
+        /// this many stops (demand locations) in one round trip. Otherwise, it
+        /// is unlimited. If 'enable_truck_reuse' is on, this condition will be
+        /// applied separately at each round trip use of the same truck.  The
+        /// default value is '0'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="MatchGraphRequest.Options.SERVER_ID">SERVER_ID</see>:</term>
         ///         <description>Indicates which graph server(s) to send the
         /// request to. Default is to send to the server, amongst those
         /// containing the corresponding graph, that has the most computational
         /// bandwidth.  The default value is ''.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="MatchGraphRequest.Options.INVERSE_SOLVE">INVERSE_SOLVE</see>:</term>
+        ///         <description>For the <i>match_batch_solves</i> solver only.
+        /// Solves source-destination pairs using inverse shortest path solver.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="MatchGraphRequest.Options.TRUE">TRUE</see>:</term>
+        ///         <description>Solves using inverse shortest path
+        /// solver.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="MatchGraphRequest.Options.FALSE">FALSE</see>:</term>
+        ///         <description>Solves using direct shortest path
+        /// solver.</description>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="MatchGraphRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="MatchGraphRequest.Options.MIN_LOOP_LEVEL">MIN_LOOP_LEVEL</see>:</term>
+        ///         <description>For the <i>match_loops</i> solver only. Finds
+        /// closed loops around each node deducible not less than this minimal
+        /// hop (level) deep.  The default value is '0'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="MatchGraphRequest.Options.MAX_LOOP_LEVEL">MAX_LOOP_LEVEL</see>:</term>
+        ///         <description>For the <i>match_loops</i> solver only. Finds
+        /// closed loops around each node deducible not more than this maximal
+        /// hop (level) deep.  The default value is '5'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="MatchGraphRequest.Options.SEARCH_LIMIT">SEARCH_LIMIT</see>:</term>
+        ///         <description>For the <i>match_loops</i> solver only.
+        /// Searches within this limit of nodes per vertex to detect loops. The
+        /// value zero means there is no limit.  The default value is
+        /// '10000'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="MatchGraphRequest.Options.OUTPUT_BATCH_SIZE">OUTPUT_BATCH_SIZE</see>:</term>
+        ///         <description>For the <i>match_loops</i> solver only. Uses
+        /// this value as the batch size of the number of loops in
+        /// flushing(inserting) to the output table.  The default value is
+        /// '1000'.</description>
         ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.
@@ -408,11 +483,10 @@ namespace kinetica
             /// cref="MatchGraphRequest.Options.TRUE">TRUE</see>.</summary>
             public const string PARTIAL_LOADING = "partial_loading";
 
-            /// <summary>Allows reusing trucks for scheduling again.</summary>
+            /// <summary>Solves using inverse shortest path solver.</summary>
             public const string TRUE = "true";
 
-            /// <summary>Trucks are scheduled only once from their
-            /// depots.</summary>
+            /// <summary>Solves using direct shortest path solver.</summary>
             public const string FALSE = "false";
 
             /// <summary>For the <i>match_supply_demand</i> solver only. This
@@ -547,11 +621,62 @@ namespace kinetica
             /// cref="MatchGraphRequest.Options.FALSE">FALSE</see>.</summary>
             public const string ENABLE_TRUCK_REUSE = "enable_truck_reuse";
 
+            /// <summary>For the <i>match_supply_demand</i> solver only. If
+            /// specified (greater than zero), a truck can at most have this
+            /// many stops (demand locations) in one round trip. Otherwise, it
+            /// is unlimited. If 'enable_truck_reuse' is on, this condition
+            /// will be applied separately at each round trip use of the same
+            /// truck.  The default value is '0'.</summary>
+            public const string MAX_TRUCK_STOPS = "max_truck_stops";
+
             /// <summary>Indicates which graph server(s) to send the request
             /// to. Default is to send to the server, amongst those containing
             /// the corresponding graph, that has the most computational
             /// bandwidth.  The default value is ''.</summary>
             public const string SERVER_ID = "server_id";
+
+            /// <summary>For the <i>match_batch_solves</i> solver only. Solves
+            /// source-destination pairs using inverse shortest path solver.
+            /// Supported values:
+            /// <list type="bullet">
+            ///     <item>
+            ///         <term><see
+            /// cref="MatchGraphRequest.Options.TRUE">TRUE</see>:</term>
+            ///         <description>Solves using inverse shortest path
+            /// solver.</description>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="MatchGraphRequest.Options.FALSE">FALSE</see>:</term>
+            ///         <description>Solves using direct shortest path
+            /// solver.</description>
+            ///     </item>
+            /// </list>
+            /// The default value is <see
+            /// cref="MatchGraphRequest.Options.FALSE">FALSE</see>.</summary>
+            public const string INVERSE_SOLVE = "inverse_solve";
+
+            /// <summary>For the <i>match_loops</i> solver only. Finds closed
+            /// loops around each node deducible not less than this minimal hop
+            /// (level) deep.  The default value is '0'.</summary>
+            public const string MIN_LOOP_LEVEL = "min_loop_level";
+
+            /// <summary>For the <i>match_loops</i> solver only. Finds closed
+            /// loops around each node deducible not more than this maximal hop
+            /// (level) deep.  The default value is '5'.</summary>
+            public const string MAX_LOOP_LEVEL = "max_loop_level";
+
+            /// <summary>For the <i>match_loops</i> solver only. Searches
+            /// within this limit of nodes per vertex to detect loops. The
+            /// value zero means there is no limit.  The default value is
+            /// '10000'.</summary>
+            public const string SEARCH_LIMIT = "search_limit";
+
+            /// <summary>For the <i>match_loops</i> solver only. Uses this
+            /// value as the batch size of the number of loops in
+            /// flushing(inserting) to the output table.  The default value is
+            /// '1000'.</summary>
+            public const string OUTPUT_BATCH_SIZE = "output_batch_size";
         } // end struct Options
 
 
@@ -616,6 +741,13 @@ namespace kinetica
         ///         <description>Matches <paramref
         /// cref="MatchGraphRequest.sample_points" /> source and destination
         /// pairs for the shortest path solves in batch mode.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="MatchGraphRequest.SolveMethod.MATCH_LOOPS">MATCH_LOOPS</see>:</term>
+        ///         <description>Matches closed loops (Eulerian paths)
+        /// originating and ending at each graph node within min and max hops
+        /// (levels).</description>
         ///     </item>
         /// </list>
         /// The default value is <see
@@ -864,11 +996,74 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
+        /// cref="MatchGraphRequest.Options.MAX_TRUCK_STOPS">MAX_TRUCK_STOPS</see>:</term>
+        ///         <description>For the <i>match_supply_demand</i> solver
+        /// only. If specified (greater than zero), a truck can at most have
+        /// this many stops (demand locations) in one round trip. Otherwise, it
+        /// is unlimited. If 'enable_truck_reuse' is on, this condition will be
+        /// applied separately at each round trip use of the same truck.  The
+        /// default value is '0'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="MatchGraphRequest.Options.SERVER_ID">SERVER_ID</see>:</term>
         ///         <description>Indicates which graph server(s) to send the
         /// request to. Default is to send to the server, amongst those
         /// containing the corresponding graph, that has the most computational
         /// bandwidth.  The default value is ''.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="MatchGraphRequest.Options.INVERSE_SOLVE">INVERSE_SOLVE</see>:</term>
+        ///         <description>For the <i>match_batch_solves</i> solver only.
+        /// Solves source-destination pairs using inverse shortest path solver.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="MatchGraphRequest.Options.TRUE">TRUE</see>:</term>
+        ///         <description>Solves using inverse shortest path
+        /// solver.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="MatchGraphRequest.Options.FALSE">FALSE</see>:</term>
+        ///         <description>Solves using direct shortest path
+        /// solver.</description>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="MatchGraphRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="MatchGraphRequest.Options.MIN_LOOP_LEVEL">MIN_LOOP_LEVEL</see>:</term>
+        ///         <description>For the <i>match_loops</i> solver only. Finds
+        /// closed loops around each node deducible not less than this minimal
+        /// hop (level) deep.  The default value is '0'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="MatchGraphRequest.Options.MAX_LOOP_LEVEL">MAX_LOOP_LEVEL</see>:</term>
+        ///         <description>For the <i>match_loops</i> solver only. Finds
+        /// closed loops around each node deducible not more than this maximal
+        /// hop (level) deep.  The default value is '5'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="MatchGraphRequest.Options.SEARCH_LIMIT">SEARCH_LIMIT</see>:</term>
+        ///         <description>For the <i>match_loops</i> solver only.
+        /// Searches within this limit of nodes per vertex to detect loops. The
+        /// value zero means there is no limit.  The default value is
+        /// '10000'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="MatchGraphRequest.Options.OUTPUT_BATCH_SIZE">OUTPUT_BATCH_SIZE</see>:</term>
+        ///         <description>For the <i>match_loops</i> solver only. Uses
+        /// this value as the batch size of the number of loops in
+        /// flushing(inserting) to the output table.  The default value is
+        /// '1000'.</description>
         ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.</summary>
@@ -941,6 +1136,13 @@ namespace kinetica
         ///         <description>Matches <paramref
         /// cref="MatchGraphRequest.sample_points" /> source and destination
         /// pairs for the shortest path solves in batch mode.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="MatchGraphRequest.SolveMethod.MATCH_LOOPS">MATCH_LOOPS</see>:</term>
+        ///         <description>Matches closed loops (Eulerian paths)
+        /// originating and ending at each graph node within min and max hops
+        /// (levels).</description>
         ///     </item>
         /// </list>
         /// The default value is <see
@@ -1185,11 +1387,74 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
+        /// cref="MatchGraphRequest.Options.MAX_TRUCK_STOPS">MAX_TRUCK_STOPS</see>:</term>
+        ///         <description>For the <i>match_supply_demand</i> solver
+        /// only. If specified (greater than zero), a truck can at most have
+        /// this many stops (demand locations) in one round trip. Otherwise, it
+        /// is unlimited. If 'enable_truck_reuse' is on, this condition will be
+        /// applied separately at each round trip use of the same truck.  The
+        /// default value is '0'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="MatchGraphRequest.Options.SERVER_ID">SERVER_ID</see>:</term>
         ///         <description>Indicates which graph server(s) to send the
         /// request to. Default is to send to the server, amongst those
         /// containing the corresponding graph, that has the most computational
         /// bandwidth.  The default value is ''.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="MatchGraphRequest.Options.INVERSE_SOLVE">INVERSE_SOLVE</see>:</term>
+        ///         <description>For the <i>match_batch_solves</i> solver only.
+        /// Solves source-destination pairs using inverse shortest path solver.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="MatchGraphRequest.Options.TRUE">TRUE</see>:</term>
+        ///         <description>Solves using inverse shortest path
+        /// solver.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="MatchGraphRequest.Options.FALSE">FALSE</see>:</term>
+        ///         <description>Solves using direct shortest path
+        /// solver.</description>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="MatchGraphRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="MatchGraphRequest.Options.MIN_LOOP_LEVEL">MIN_LOOP_LEVEL</see>:</term>
+        ///         <description>For the <i>match_loops</i> solver only. Finds
+        /// closed loops around each node deducible not less than this minimal
+        /// hop (level) deep.  The default value is '0'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="MatchGraphRequest.Options.MAX_LOOP_LEVEL">MAX_LOOP_LEVEL</see>:</term>
+        ///         <description>For the <i>match_loops</i> solver only. Finds
+        /// closed loops around each node deducible not more than this maximal
+        /// hop (level) deep.  The default value is '5'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="MatchGraphRequest.Options.SEARCH_LIMIT">SEARCH_LIMIT</see>:</term>
+        ///         <description>For the <i>match_loops</i> solver only.
+        /// Searches within this limit of nodes per vertex to detect loops. The
+        /// value zero means there is no limit.  The default value is
+        /// '10000'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="MatchGraphRequest.Options.OUTPUT_BATCH_SIZE">OUTPUT_BATCH_SIZE</see>:</term>
+        ///         <description>For the <i>match_loops</i> solver only. Uses
+        /// this value as the batch size of the number of loops in
+        /// flushing(inserting) to the output table.  The default value is
+        /// '1000'.</description>
         ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.</param>

@@ -161,30 +161,6 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AggregateUnpivotRequest.Options.MATERIALIZE_ON_GPU">MATERIALIZE_ON_GPU</see>:</term>
-        ///         <description>No longer used.  See <a
-        /// href="../../../rm/concepts/" target="_top">Resource Management
-        /// Concepts</a> for information about how resources are managed, <a
-        /// href="../../../rm/concepts/" target="_top">Tier Strategy
-        /// Concepts</a> for how resources are targeted for VRAM, and <a
-        /// href="../../../rm/usage/#tier-strategies" target="_top">Tier
-        /// Strategy Usage</a> for how to specify a table's priority in VRAM.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="AggregateUnpivotRequest.Options.TRUE">TRUE</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AggregateUnpivotRequest.Options.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="AggregateUnpivotRequest.Options.FALSE">FALSE</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
         /// cref="AggregateUnpivotRequest.Options.CREATE_INDEXES">CREATE_INDEXES</see>:</term>
         ///         <description>Comma-separated list of columns on which to
         /// create indexes on the table specified in <i>result_table</i>. The
@@ -287,29 +263,6 @@ namespace kinetica
             /// <summary>view this result table is part of.  The default value
             /// is ''.</summary>
             public const string VIEW_ID = "view_id";
-
-            /// <summary>No longer used.  See <a href="../../../rm/concepts/"
-            /// target="_top">Resource Management Concepts</a> for information
-            /// about how resources are managed, <a
-            /// href="../../../rm/concepts/" target="_top">Tier Strategy
-            /// Concepts</a> for how resources are targeted for VRAM, and <a
-            /// href="../../../rm/usage/#tier-strategies" target="_top">Tier
-            /// Strategy Usage</a> for how to specify a table's priority in
-            /// VRAM.
-            /// Supported values:
-            /// <list type="bullet">
-            ///     <item>
-            ///         <term><see
-            /// cref="AggregateUnpivotRequest.Options.TRUE">TRUE</see></term>
-            ///     </item>
-            ///     <item>
-            ///         <term><see
-            /// cref="AggregateUnpivotRequest.Options.FALSE">FALSE</see></term>
-            ///     </item>
-            /// </list>
-            /// The default value is <see
-            /// cref="AggregateUnpivotRequest.Options.FALSE">FALSE</see>.</summary>
-            public const string MATERIALIZE_ON_GPU = "materialize_on_gpu";
 
             /// <summary>Comma-separated list of columns on which to create
             /// indexes on the table specified in <i>result_table</i>. The
@@ -471,30 +424,6 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AggregateUnpivotRequest.Options.MATERIALIZE_ON_GPU">MATERIALIZE_ON_GPU</see>:</term>
-        ///         <description>No longer used.  See <a
-        /// href="../../../rm/concepts/" target="_top">Resource Management
-        /// Concepts</a> for information about how resources are managed, <a
-        /// href="../../../rm/concepts/" target="_top">Tier Strategy
-        /// Concepts</a> for how resources are targeted for VRAM, and <a
-        /// href="../../../rm/usage/#tier-strategies" target="_top">Tier
-        /// Strategy Usage</a> for how to specify a table's priority in VRAM.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="AggregateUnpivotRequest.Options.TRUE">TRUE</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AggregateUnpivotRequest.Options.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="AggregateUnpivotRequest.Options.FALSE">FALSE</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
         /// cref="AggregateUnpivotRequest.Options.CREATE_INDEXES">CREATE_INDEXES</see>:</term>
         ///         <description>Comma-separated list of columns on which to
         /// create indexes on the table specified in <i>result_table</i>. The
@@ -633,30 +562,6 @@ namespace kinetica
         /// cref="AggregateUnpivotRequest.Options.VIEW_ID">VIEW_ID</see>:</term>
         ///         <description>view this result table is part of.  The
         /// default value is ''.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AggregateUnpivotRequest.Options.MATERIALIZE_ON_GPU">MATERIALIZE_ON_GPU</see>:</term>
-        ///         <description>No longer used.  See <a
-        /// href="../../../rm/concepts/" target="_top">Resource Management
-        /// Concepts</a> for information about how resources are managed, <a
-        /// href="../../../rm/concepts/" target="_top">Tier Strategy
-        /// Concepts</a> for how resources are targeted for VRAM, and <a
-        /// href="../../../rm/usage/#tier-strategies" target="_top">Tier
-        /// Strategy Usage</a> for how to specify a table's priority in VRAM.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="AggregateUnpivotRequest.Options.TRUE">TRUE</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AggregateUnpivotRequest.Options.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="AggregateUnpivotRequest.Options.FALSE">FALSE</see>.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -828,30 +733,6 @@ namespace kinetica
         /// cref="AggregateUnpivotRequest.Options.VIEW_ID">VIEW_ID</see>:</term>
         ///         <description>view this result table is part of.  The
         /// default value is ''.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AggregateUnpivotRequest.Options.MATERIALIZE_ON_GPU">MATERIALIZE_ON_GPU</see>:</term>
-        ///         <description>No longer used.  See <a
-        /// href="../../../rm/concepts/" target="_top">Resource Management
-        /// Concepts</a> for information about how resources are managed, <a
-        /// href="../../../rm/concepts/" target="_top">Tier Strategy
-        /// Concepts</a> for how resources are targeted for VRAM, and <a
-        /// href="../../../rm/usage/#tier-strategies" target="_top">Tier
-        /// Strategy Usage</a> for how to specify a table's priority in VRAM.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="AggregateUnpivotRequest.Options.TRUE">TRUE</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AggregateUnpivotRequest.Options.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="AggregateUnpivotRequest.Options.FALSE">FALSE</see>.</description>
         ///     </item>
         ///     <item>
         ///         <term><see

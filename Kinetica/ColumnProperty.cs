@@ -16,8 +16,10 @@ namespace kinetica
         /// makes the column available for GPU queries.</summary>
         public const string DATA = "data";
 
-        /// <summary>Valid only for 'string' columns. Enables full text search
-        /// for string columns. Can be set independently of <i>data</i> and
+        /// <summary>Valid only for select 'string' columns. Enables full text
+        /// search--see <a href="../../../concepts/full_text_search/"
+        /// target="_top">Full Text Search</a> for details and applicable
+        /// string column types. Can be set independently of <i>data</i> and
         /// <i>store_only</i>.</summary>
         public const string TEXT_SEARCH = "text_search";
 

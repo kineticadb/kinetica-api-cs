@@ -51,11 +51,11 @@ namespace kinetica
     /// <a href="../../../graph_solver/network_graph_solver/"
     /// target="_top">Network Graphs & Solvers</a>
     /// concepts documentation, the
-    /// <a href="../../../graph_solver/examples/graph_rest_guide/"
-    /// target="_top">Graph REST Tutorial</a>,
+    /// <a href="../../../guides/graph_rest_guide/" target="_top">Graph REST
+    /// Tutorial</a>,
     /// and/or some
-    /// <a href="../../../graph_solver/examples/#match-graph"
-    /// target="_top">/match/graph examples</a>
+    /// <a href="../../../guide-tags/graph-query" target="_top">/match/graph
+    /// examples</a>
     /// before using this endpoint.</summary>
     public class QueryGraphRequest : KineticaData
     {
@@ -172,26 +172,6 @@ namespace kinetica
         /// cref="QueryGraphRequest.Options.AND_LABELS">AND_LABELS</see>:</term>
         ///         <description>If set to <i>true</i>, the result of the query
         /// has entities that satisfy all of the target labels, instead of any.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="QueryGraphRequest.Options.TRUE">TRUE</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="QueryGraphRequest.Options.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="QueryGraphRequest.Options.FALSE">FALSE</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="QueryGraphRequest.Options.EXPORT_SOLVE_RESULTS">EXPORT_SOLVE_RESULTS</see>:</term>
-        ///         <description>Returns solution results inside the <member
-        /// name="adjacency_list_int_array" /> array in the response if set to
-        /// <i>true</i>.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -334,24 +314,6 @@ namespace kinetica
             /// The default value is <see
             /// cref="QueryGraphRequest.Options.FALSE">FALSE</see>.</summary>
             public const string AND_LABELS = "and_labels";
-
-            /// <summary>Returns solution results inside the <member
-            /// name="adjacency_list_int_array" /> array in the response if set
-            /// to <i>true</i>.
-            /// Supported values:
-            /// <list type="bullet">
-            ///     <item>
-            ///         <term><see
-            /// cref="QueryGraphRequest.Options.TRUE">TRUE</see></term>
-            ///     </item>
-            ///     <item>
-            ///         <term><see
-            /// cref="QueryGraphRequest.Options.FALSE">FALSE</see></term>
-            ///     </item>
-            /// </list>
-            /// The default value is <see
-            /// cref="QueryGraphRequest.Options.FALSE">FALSE</see>.</summary>
-            public const string EXPORT_SOLVE_RESULTS = "export_solve_results";
 
             /// <summary>Indicates which graph server(s) to send the request
             /// to. Default is to send to the server, amongst those containing
@@ -534,26 +496,6 @@ namespace kinetica
         /// cref="QueryGraphRequest.Options.AND_LABELS">AND_LABELS</see>:</term>
         ///         <description>If set to <i>true</i>, the result of the query
         /// has entities that satisfy all of the target labels, instead of any.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="QueryGraphRequest.Options.TRUE">TRUE</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="QueryGraphRequest.Options.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="QueryGraphRequest.Options.FALSE">FALSE</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="QueryGraphRequest.Options.EXPORT_SOLVE_RESULTS">EXPORT_SOLVE_RESULTS</see>:</term>
-        ///         <description>Returns solution results inside the <member
-        /// name="adjacency_list_int_array" /> array in the response if set to
-        /// <i>true</i>.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -754,26 +696,6 @@ namespace kinetica
         /// cref="QueryGraphRequest.Options.AND_LABELS">AND_LABELS</see>:</term>
         ///         <description>If set to <i>true</i>, the result of the query
         /// has entities that satisfy all of the target labels, instead of any.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="QueryGraphRequest.Options.TRUE">TRUE</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="QueryGraphRequest.Options.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="QueryGraphRequest.Options.FALSE">FALSE</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="QueryGraphRequest.Options.EXPORT_SOLVE_RESULTS">EXPORT_SOLVE_RESULTS</see>:</term>
-        ///         <description>Returns solution results inside the <member
-        /// name="adjacency_list_int_array" /> array in the response if set to
-        /// <i>true</i>.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>

@@ -141,8 +141,12 @@ namespace kinetica
         /// files. The
         /// file names may include subdirectory names (e.g. 'subdir/file') but
         /// must not
-        /// resolve to a directory above the root for the proc.  The default
-        /// value is an empty {@link Dictionary}.</summary>
+        /// resolve to a directory above the root for the proc.
+        /// <br />
+        /// Files may be loaded from existing files in KiFS. Those file names
+        /// should be
+        /// prefixed with the uri kifs:// and the values in the map should be
+        /// empty.  The default value is an empty {@link Dictionary}.</summary>
         public IDictionary<string, byte[]> files { get; set; } = new Dictionary<string, byte[]>();
 
         /// <summary>The command (excluding arguments) that will be invoked
@@ -227,8 +231,11 @@ namespace kinetica
         /// files. The
         /// file names may include subdirectory names (e.g. 'subdir/file') but
         /// must not
-        /// resolve to a directory above the root for the proc.  The default
-        /// value is an empty {@link Dictionary}.</param>
+        /// resolve to a directory above the root for the proc.
+        /// Files may be loaded from existing files in KiFS. Those file names
+        /// should be
+        /// prefixed with the uri kifs:// and the values in the map should be
+        /// empty.  The default value is an empty {@link Dictionary}.</param>
         /// <param name="command">The command (excluding arguments) that will
         /// be invoked when
         /// the proc is executed. It will be invoked from the directory

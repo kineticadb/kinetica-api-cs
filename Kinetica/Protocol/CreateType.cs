@@ -76,9 +76,12 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="CreateTypeRequest.Properties.TEXT_SEARCH">TEXT_SEARCH</see>:</term>
-        ///         <description>Valid only for 'string' columns. Enables full
-        /// text search for string columns. Can be set independently of
-        /// <i>data</i> and <i>store_only</i>.</description>
+        ///         <description>Valid only for select 'string' columns.
+        /// Enables full text search--see <a
+        /// href="../../../concepts/full_text_search/" target="_top">Full Text
+        /// Search</a> for details and applicable string column types. Can be
+        /// set independently of <i>data</i> and
+        /// <i>store_only</i>.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -322,9 +325,11 @@ namespace kinetica
             /// columns; makes the column available for GPU queries.</summary>
             public const string DATA = "data";
 
-            /// <summary>Valid only for 'string' columns. Enables full text
-            /// search for string columns. Can be set independently of
-            /// <i>data</i> and <i>store_only</i>.</summary>
+            /// <summary>Valid only for select 'string' columns. Enables full
+            /// text search--see <a href="../../../concepts/full_text_search/"
+            /// target="_top">Full Text Search</a> for details and applicable
+            /// string column types. Can be set independently of <i>data</i>
+            /// and <i>store_only</i>.</summary>
             public const string TEXT_SEARCH = "text_search";
 
             /// <summary>Persist the column value but do not make it available
@@ -540,9 +545,12 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="CreateTypeRequest.Properties.TEXT_SEARCH">TEXT_SEARCH</see>:</term>
-        ///         <description>Valid only for 'string' columns. Enables full
-        /// text search for string columns. Can be set independently of
-        /// <i>data</i> and <i>store_only</i>.</description>
+        ///         <description>Valid only for select 'string' columns.
+        /// Enables full text search--see <a
+        /// href="../../../concepts/full_text_search/" target="_top">Full Text
+        /// Search</a> for details and applicable string column types. Can be
+        /// set independently of <i>data</i> and
+        /// <i>store_only</i>.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -813,9 +821,12 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="CreateTypeRequest.Properties.TEXT_SEARCH">TEXT_SEARCH</see>:</term>
-        ///         <description>Valid only for 'string' columns. Enables full
-        /// text search for string columns. Can be set independently of
-        /// <i>data</i> and <i>store_only</i>.</description>
+        ///         <description>Valid only for select 'string' columns.
+        /// Enables full text search--see <a
+        /// href="../../../concepts/full_text_search/" target="_top">Full Text
+        /// Search</a> for details and applicable string column types. Can be
+        /// set independently of <i>data</i> and
+        /// <i>store_only</i>.</description>
         ///     </item>
         ///     <item>
         ///         <term><see

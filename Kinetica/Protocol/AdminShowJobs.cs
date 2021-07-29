@@ -172,6 +172,7 @@ namespace kinetica
         public IList<string> auth_id { get; set; } = new List<string>();
         public IList<string> source_ip { get; set; } = new List<string>();
         public IList<string> user_data { get; set; } = new List<string>();
+        public IList<string> flags { get; set; } = new List<string>();
 
         /// <summary>Additional information.
         /// <list type="bullet">

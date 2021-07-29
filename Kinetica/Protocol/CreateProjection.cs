@@ -113,30 +113,6 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="CreateProjectionRequest.Options.MATERIALIZE_ON_GPU">MATERIALIZE_ON_GPU</see>:</term>
-        ///         <description>No longer used.  See <a
-        /// href="../../../rm/concepts/" target="_top">Resource Management
-        /// Concepts</a> for information about how resources are managed, <a
-        /// href="../../../rm/concepts/" target="_top">Tier Strategy
-        /// Concepts</a> for how resources are targeted for VRAM, and <a
-        /// href="../../../rm/usage/#tier-strategies" target="_top">Tier
-        /// Strategy Usage</a> for how to specify a table's priority in VRAM.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateProjectionRequest.Options.TRUE">TRUE</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateProjectionRequest.Options.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="CreateProjectionRequest.Options.FALSE">FALSE</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
         /// cref="CreateProjectionRequest.Options.CHUNK_SIZE">CHUNK_SIZE</see>:</term>
         ///         <description>Indicates the number of records per chunk to
         /// be used for this projection.</description>
@@ -284,29 +260,6 @@ namespace kinetica
             /// for any column name, the alias must be used, rather than the
             /// original column name.  The default value is ''.</summary>
             public const string ORDER_BY = "order_by";
-
-            /// <summary>No longer used.  See <a href="../../../rm/concepts/"
-            /// target="_top">Resource Management Concepts</a> for information
-            /// about how resources are managed, <a
-            /// href="../../../rm/concepts/" target="_top">Tier Strategy
-            /// Concepts</a> for how resources are targeted for VRAM, and <a
-            /// href="../../../rm/usage/#tier-strategies" target="_top">Tier
-            /// Strategy Usage</a> for how to specify a table's priority in
-            /// VRAM.
-            /// Supported values:
-            /// <list type="bullet">
-            ///     <item>
-            ///         <term><see
-            /// cref="CreateProjectionRequest.Options.TRUE">TRUE</see></term>
-            ///     </item>
-            ///     <item>
-            ///         <term><see
-            /// cref="CreateProjectionRequest.Options.FALSE">FALSE</see></term>
-            ///     </item>
-            /// </list>
-            /// The default value is <see
-            /// cref="CreateProjectionRequest.Options.FALSE">FALSE</see>.</summary>
-            public const string MATERIALIZE_ON_GPU = "materialize_on_gpu";
 
             /// <summary>Indicates the number of records per chunk to be used
             /// for this projection.</summary>
@@ -467,30 +420,6 @@ namespace kinetica
         /// cref="CreateProjectionRequest.column_names" />.  If any alias is
         /// given for any column name, the alias must be used, rather than the
         /// original column name.  The default value is ''.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateProjectionRequest.Options.MATERIALIZE_ON_GPU">MATERIALIZE_ON_GPU</see>:</term>
-        ///         <description>No longer used.  See <a
-        /// href="../../../rm/concepts/" target="_top">Resource Management
-        /// Concepts</a> for information about how resources are managed, <a
-        /// href="../../../rm/concepts/" target="_top">Tier Strategy
-        /// Concepts</a> for how resources are targeted for VRAM, and <a
-        /// href="../../../rm/usage/#tier-strategies" target="_top">Tier
-        /// Strategy Usage</a> for how to specify a table's priority in VRAM.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateProjectionRequest.Options.TRUE">TRUE</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateProjectionRequest.Options.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="CreateProjectionRequest.Options.FALSE">FALSE</see>.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -673,30 +602,6 @@ namespace kinetica
         /// cref="CreateProjectionRequest.column_names" />.  If any alias is
         /// given for any column name, the alias must be used, rather than the
         /// original column name.  The default value is ''.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateProjectionRequest.Options.MATERIALIZE_ON_GPU">MATERIALIZE_ON_GPU</see>:</term>
-        ///         <description>No longer used.  See <a
-        /// href="../../../rm/concepts/" target="_top">Resource Management
-        /// Concepts</a> for information about how resources are managed, <a
-        /// href="../../../rm/concepts/" target="_top">Tier Strategy
-        /// Concepts</a> for how resources are targeted for VRAM, and <a
-        /// href="../../../rm/usage/#tier-strategies" target="_top">Tier
-        /// Strategy Usage</a> for how to specify a table's priority in VRAM.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateProjectionRequest.Options.TRUE">TRUE</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateProjectionRequest.Options.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="CreateProjectionRequest.Options.FALSE">FALSE</see>.</description>
         ///     </item>
         ///     <item>
         ///         <term><see

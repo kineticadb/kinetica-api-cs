@@ -63,20 +63,18 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="ExecuteProcRequest.Options.KIFS_INPUT_DIRS">KIFS_INPUT_DIRS</see>:</term>
-        ///         <description>A comma-delimited list of KiFS directories
-        /// whose local files will be made directly accessible to the proc
-        /// through the API. (All KiFS files, local or not, are also accessible
-        /// through the file system below the KiFS mount point.) Each name
-        /// specified must the name of an existing KiFS directory.  The default
-        /// value is ''.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
         /// cref="ExecuteProcRequest.Options.RUN_TAG">RUN_TAG</see>:</term>
         ///         <description>A string that, if not empty, can be used in
         /// subsequent calls to /show/proc/status or /kill/proc to identify the
         /// proc instance.  The default value is ''.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ExecuteProcRequest.Options.MAX_OUTPUT_LINES">MAX_OUTPUT_LINES</see>:</term>
+        ///         <description>The maximum number of lines of output from
+        /// stdout and stderr to return via /show/proc/status. If the number of
+        /// lines output exceeds the maximum, earlier lines are discarded.  The
+        /// default value is '100'.</description>
         ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.
@@ -112,14 +110,6 @@ namespace kinetica
             /// is ''.</summary>
             public const string USE_CACHED_INPUT = "use_cached_input";
 
-            /// <summary>A comma-delimited list of KiFS directories whose local
-            /// files will be made directly accessible to the proc through the
-            /// API. (All KiFS files, local or not, are also accessible through
-            /// the file system below the KiFS mount point.) Each name
-            /// specified must the name of an existing KiFS directory.  The
-            /// default value is ''.</summary>
-            public const string KIFS_INPUT_DIRS = "kifs_input_dirs";
-
             /// <summary>A string that, if not empty, can be used in subsequent
             /// calls to <see
             /// cref="Kinetica.showProcStatus(string,IDictionary{string, string})"
@@ -128,6 +118,13 @@ namespace kinetica
             /// /> to identify the proc instance.  The default value is
             /// ''.</summary>
             public const string RUN_TAG = "run_tag";
+
+            /// <summary>The maximum number of lines of output from stdout and
+            /// stderr to return via <see
+            /// cref="Kinetica.showProcStatus(string,IDictionary{string, string})"
+            /// />. If the number of lines output exceeds the maximum, earlier
+            /// lines are discarded.  The default value is '100'.</summary>
+            public const string MAX_OUTPUT_LINES = "max_output_lines";
         } // end struct Options
 
 
@@ -223,20 +220,18 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="ExecuteProcRequest.Options.KIFS_INPUT_DIRS">KIFS_INPUT_DIRS</see>:</term>
-        ///         <description>A comma-delimited list of KiFS directories
-        /// whose local files will be made directly accessible to the proc
-        /// through the API. (All KiFS files, local or not, are also accessible
-        /// through the file system below the KiFS mount point.) Each name
-        /// specified must the name of an existing KiFS directory.  The default
-        /// value is ''.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
         /// cref="ExecuteProcRequest.Options.RUN_TAG">RUN_TAG</see>:</term>
         ///         <description>A string that, if not empty, can be used in
         /// subsequent calls to /show/proc/status or /kill/proc to identify the
         /// proc instance.  The default value is ''.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ExecuteProcRequest.Options.MAX_OUTPUT_LINES">MAX_OUTPUT_LINES</see>:</term>
+        ///         <description>The maximum number of lines of output from
+        /// stdout and stderr to return via /show/proc/status. If the number of
+        /// lines output exceeds the maximum, earlier lines are discarded.  The
+        /// default value is '100'.</description>
         ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.</summary>
@@ -333,20 +328,18 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="ExecuteProcRequest.Options.KIFS_INPUT_DIRS">KIFS_INPUT_DIRS</see>:</term>
-        ///         <description>A comma-delimited list of KiFS directories
-        /// whose local files will be made directly accessible to the proc
-        /// through the API. (All KiFS files, local or not, are also accessible
-        /// through the file system below the KiFS mount point.) Each name
-        /// specified must the name of an existing KiFS directory.  The default
-        /// value is ''.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
         /// cref="ExecuteProcRequest.Options.RUN_TAG">RUN_TAG</see>:</term>
         ///         <description>A string that, if not empty, can be used in
         /// subsequent calls to /show/proc/status or /kill/proc to identify the
         /// proc instance.  The default value is ''.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ExecuteProcRequest.Options.MAX_OUTPUT_LINES">MAX_OUTPUT_LINES</see>:</term>
+        ///         <description>The maximum number of lines of output from
+        /// stdout and stderr to return via /show/proc/status. If the number of
+        /// lines output exceeds the maximum, earlier lines are discarded.  The
+        /// default value is '100'.</description>
         ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.</param>

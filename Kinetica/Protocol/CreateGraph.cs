@@ -22,10 +22,10 @@ namespace kinetica
     /// <a href="../../../graph_solver/network_graph_solver/"
     /// target="_top">Network Graphs & Solvers</a>
     /// concepts documentation, the
-    /// <a href="../../../graph_solver/examples/graph_rest_guide/"
-    /// target="_top">Graph REST Tutorial</a>,
-    /// and/or some <a href="../../../graph_solver/examples/"
-    /// target="_top">graph examples</a> before
+    /// <a href="../../../guides/graph_rest_guide/" target="_top">Graph REST
+    /// Tutorial</a>,
+    /// and/or some <a href="../../../guide-tags/graph/" target="_top">graph
+    /// examples</a> before
     /// using this endpoint.</summary>
     public class CreateGraphRequest : KineticaData
     {
@@ -186,7 +186,8 @@ namespace kinetica
         ///         <term><see
         /// cref="CreateGraphRequest.Options.SAVE_PERSIST">SAVE_PERSIST</see>:</term>
         ///         <description>If set to <i>true</i>, the graph will be saved
-        /// in the persist directory (see the <a href="../../../config/"
+        /// in the persist directory (see the <a
+        /// href="../../../config/#config-main-persistence"
         /// target="_top">config reference</a> for more information). If set to
         /// <i>false</i>, the graph will be removed when the graph server is
         /// shutdown.
@@ -481,7 +482,8 @@ namespace kinetica
             public const string ENABLE_GRAPH_DRAW = "enable_graph_draw";
 
             /// <summary>If set to <i>true</i>, the graph will be saved in the
-            /// persist directory (see the <a href="../../../config/"
+            /// persist directory (see the <a
+            /// href="../../../config/#config-main-persistence"
             /// target="_top">config reference</a> for more information). If
             /// set to <i>false</i>, the graph will be removed when the graph
             /// server is shutdown.
@@ -873,7 +875,8 @@ namespace kinetica
         ///         <term><see
         /// cref="CreateGraphRequest.Options.SAVE_PERSIST">SAVE_PERSIST</see>:</term>
         ///         <description>If set to <i>true</i>, the graph will be saved
-        /// in the persist directory (see the <a href="../../../config/"
+        /// in the persist directory (see the <a
+        /// href="../../../config/#config-main-persistence"
         /// target="_top">config reference</a> for more information). If set to
         /// <i>false</i>, the graph will be removed when the graph server is
         /// shutdown.
@@ -1283,7 +1286,8 @@ namespace kinetica
         ///         <term><see
         /// cref="CreateGraphRequest.Options.SAVE_PERSIST">SAVE_PERSIST</see>:</term>
         ///         <description>If set to <i>true</i>, the graph will be saved
-        /// in the persist directory (see the <a href="../../../config/"
+        /// in the persist directory (see the <a
+        /// href="../../../config/#config-main-persistence"
         /// target="_top">config reference</a> for more information). If set to
         /// <i>false</i>, the graph will be removed when the graph server is
         /// shutdown.

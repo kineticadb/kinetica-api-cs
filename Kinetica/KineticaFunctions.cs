@@ -16,11 +16,13 @@ namespace kinetica
     {
 
         // Kinetica Version
-        public const string API_VERSION = "7.1.3.0";
+        public const string API_VERSION = "7.1.4.0";
 
 
 
         /// <summary>Adds a host to an existing cluster.</summary>
+        /// <remarks>This method should be used for on-premise deployments
+        /// only.</remarks>
         /// 
         /// <param name="request_">Request object containing the parameters for
         /// the operation.</param>
@@ -37,6 +39,8 @@ namespace kinetica
 
 
         /// <summary>Adds a host to an existing cluster.</summary>
+        /// <remarks>This method should be used for on-premise deployments
+        /// only.</remarks>
         /// 
         /// <param name="host_address">IP address of the host that will be
         /// added to the cluster. This host must have installed the same
@@ -167,6 +171,8 @@ namespace kinetica
         /// this endpoint asynchronously via <see
         /// cref="Kinetica.createJob(string,string,byte[],string,IDictionary{string, string})"
         /// />.</summary>
+        /// <remarks>This method should be used for on-premise deployments
+        /// only.</remarks>
         /// 
         /// <param name="request_">Request object containing the parameters for
         /// the operation.</param>
@@ -215,6 +221,8 @@ namespace kinetica
         /// this endpoint asynchronously via <see
         /// cref="Kinetica.createJob(string,string,byte[],string,IDictionary{string, string})"
         /// />.</summary>
+        /// <remarks>This method should be used for on-premise deployments
+        /// only.</remarks>
         /// 
         /// <param name="hosts">Array of host IP addresses (matching a
         /// hostN.address from the gpudb.conf file), or host identifiers (e.g.
@@ -350,11 +358,13 @@ namespace kinetica
 
 
         /// <summary>Perform the requested action on a list of one or more
-        /// job(s). Based on the type of job and the current state of
-        /// execution, the action may not be successfully executed. The final
-        /// result of the attempted actions for each specified job is returned
-        /// in the status array of the response. See <a
-        /// href="../../../admin/job_manager/" target="_top">Job Manager</a>
+        /// job(s). Based
+        /// on the type of job and the current state of execution, the action
+        /// may not be
+        /// successfully executed. The final result of the attempted actions
+        /// for each
+        /// specified job is returned in the status array of the response. See
+        /// <a href="../../../admin/job_manager/" target="_top">Job Manager</a>
         /// for more information.</summary>
         /// 
         /// <param name="request_">Request object containing the parameters for
@@ -372,11 +382,13 @@ namespace kinetica
 
 
         /// <summary>Perform the requested action on a list of one or more
-        /// job(s). Based on the type of job and the current state of
-        /// execution, the action may not be successfully executed. The final
-        /// result of the attempted actions for each specified job is returned
-        /// in the status array of the response. See <a
-        /// href="../../../admin/job_manager/" target="_top">Job Manager</a>
+        /// job(s). Based
+        /// on the type of job and the current state of execution, the action
+        /// may not be
+        /// successfully executed. The final result of the attempted actions
+        /// for each
+        /// specified job is returned in the status array of the response. See
+        /// <a href="../../../admin/job_manager/" target="_top">Job Manager</a>
         /// for more information.</summary>
         /// 
         /// <param name="job_ids">Jobs to be modified.  </param>
@@ -408,6 +420,82 @@ namespace kinetica
                                                       IDictionary<string, string> options = null )
         {
             return adminAlterJobs( new AdminAlterJobsRequest( job_ids, action, options ) );
+        }
+
+
+        /// <summary>Prepares the system for a backup by closing all open file
+        /// handles after allowing current active jobs to complete. When the
+        /// database is in backup mode, queries that result in a disk write
+        /// operation will be blocked until backup mode has been completed by
+        /// using <see
+        /// cref="Kinetica.adminBackupEnd(IDictionary{string, string})"
+        /// />.</summary>
+        /// 
+        /// <param name="request_">Request object containing the parameters for
+        /// the operation.</param>
+        /// 
+        /// <returns>Response object containing the result of the
+        /// operation.</returns>
+        /// 
+        public AdminBackupBeginResponse adminBackupBegin( AdminBackupBeginRequest request_ )
+        {
+            AdminBackupBeginResponse actualResponse_ = SubmitRequest<AdminBackupBeginResponse>("/admin/backup/begin", request_, false);
+
+            return actualResponse_;
+        }
+
+
+        /// <summary>Prepares the system for a backup by closing all open file
+        /// handles after allowing current active jobs to complete. When the
+        /// database is in backup mode, queries that result in a disk write
+        /// operation will be blocked until backup mode has been completed by
+        /// using <see
+        /// cref="Kinetica.adminBackupEnd(IDictionary{string, string})"
+        /// />.</summary>
+        /// 
+        /// <param name="options">Optional parameters.  The default value is an
+        /// empty {@link Dictionary}.</param>
+        /// 
+        /// <returns>Response object containing the result of the
+        /// operation.</returns>
+        /// 
+        public AdminBackupBeginResponse adminBackupBegin( IDictionary<string, string> options = null )
+        {
+            return adminBackupBegin( new AdminBackupBeginRequest( options ) );
+        }
+
+
+        /// <summary>Restores the system to normal operating mode after a
+        /// backup has completed, allowing any queries that were blocked to
+        /// complete.</summary>
+        /// 
+        /// <param name="request_">Request object containing the parameters for
+        /// the operation.</param>
+        /// 
+        /// <returns>Response object containing the result of the
+        /// operation.</returns>
+        /// 
+        public AdminBackupEndResponse adminBackupEnd( AdminBackupEndRequest request_ )
+        {
+            AdminBackupEndResponse actualResponse_ = SubmitRequest<AdminBackupEndResponse>("/admin/backup/end", request_, false);
+
+            return actualResponse_;
+        }
+
+
+        /// <summary>Restores the system to normal operating mode after a
+        /// backup has completed, allowing any queries that were blocked to
+        /// complete.</summary>
+        /// 
+        /// <param name="options">Optional parameters.  The default value is an
+        /// empty {@link Dictionary}.</param>
+        /// 
+        /// <returns>Response object containing the result of the
+        /// operation.</returns>
+        /// 
+        public AdminBackupEndResponse adminBackupEnd( IDictionary<string, string> options = null )
+        {
+            return adminBackupEnd( new AdminBackupEndRequest( options ) );
         }
 
 
@@ -477,9 +565,10 @@ namespace kinetica
 
 
         /// <summary>Rebalance the data in the cluster so that all nodes
-        /// contain an equal number of records approximately and/or rebalance
-        /// the shards to be equally distributed (as much as possible) across
-        /// all the ranks.
+        /// contain an equal
+        /// number of records approximately and/or rebalance the shards to be
+        /// equally
+        /// distributed (as much as possible) across all the ranks.
         /// <br />
         /// The database must be offline for this operation, see <see
         /// cref="Kinetica.adminOffline(bool,IDictionary{string, string})" />
@@ -509,8 +598,10 @@ namespace kinetica
         /// NOTE: Replicated data will not move as a result of this call
         /// <br />
         /// This endpoint's processing time depends on the amount of data in
-        /// the system, thus the API call may time out if run directly.  It is
-        /// recommended to run this endpoint asynchronously via <see
+        /// the system,
+        /// thus the API call may time out if run directly.  It is recommended
+        /// to run this
+        /// endpoint asynchronously via <see
         /// cref="Kinetica.createJob(string,string,byte[],string,IDictionary{string, string})"
         /// />.</summary>
         /// 
@@ -529,9 +620,10 @@ namespace kinetica
 
 
         /// <summary>Rebalance the data in the cluster so that all nodes
-        /// contain an equal number of records approximately and/or rebalance
-        /// the shards to be equally distributed (as much as possible) across
-        /// all the ranks.
+        /// contain an equal
+        /// number of records approximately and/or rebalance the shards to be
+        /// equally
+        /// distributed (as much as possible) across all the ranks.
         /// <br />
         /// The database must be offline for this operation, see <see
         /// cref="Kinetica.adminOffline(bool,IDictionary{string, string})" />
@@ -561,8 +653,10 @@ namespace kinetica
         /// NOTE: Replicated data will not move as a result of this call
         /// <br />
         /// This endpoint's processing time depends on the amount of data in
-        /// the system, thus the API call may time out if run directly.  It is
-        /// recommended to run this endpoint asynchronously via <see
+        /// the system,
+        /// thus the API call may time out if run directly.  It is recommended
+        /// to run this
+        /// endpoint asynchronously via <see
         /// cref="Kinetica.createJob(string,string,byte[],string,IDictionary{string, string})"
         /// />.</summary>
         /// 
@@ -732,6 +826,8 @@ namespace kinetica
         /// switched over to a new host using <see
         /// cref="Kinetica.adminSwitchover(IList{string},IList{string},IDictionary{string, string})"
         /// />.</summary>
+        /// <remarks>This method should be used for on-premise deployments
+        /// only.</remarks>
         /// 
         /// <param name="request_">Request object containing the parameters for
         /// the operation.</param>
@@ -758,6 +854,8 @@ namespace kinetica
         /// switched over to a new host using <see
         /// cref="Kinetica.adminSwitchover(IList{string},IList{string},IDictionary{string, string})"
         /// />.</summary>
+        /// <remarks>This method should be used for on-premise deployments
+        /// only.</remarks>
         /// 
         /// <param name="host">Identifies the host this applies to. Can be the
         /// host address, or formatted as 'hostN' where N is the host number as
@@ -797,24 +895,31 @@ namespace kinetica
 
 
         /// <summary>Remove one or more ranks from an existing Kinetica
-        /// cluster. All data will be rebalanced to other ranks before the
-        /// rank(s) is removed unless the <i>rebalance_sharded_data</i> or
-        /// <i>rebalance_unsharded_data</i> parameters are set to <i>false</i>
-        /// in the <paramref cref="AdminRemoveRanksRequest.options" />, in
-        /// which case the corresponding <a
-        /// href="../../../concepts/tables/#sharding" target="_top">sharded
-        /// data</a> and/or unsharded data (a.k.a. <a
-        /// href="../../../concepts/tables/#random-sharding"
+        /// cluster. All data
+        /// will be rebalanced to other ranks before the rank(s) is removed
+        /// unless the
+        /// <i>rebalance_sharded_data</i> or
+        /// <i>rebalance_unsharded_data</i> parameters are set to
+        /// <i>false</i> in the
+        /// <paramref cref="AdminRemoveRanksRequest.options" />, in which case
+        /// the corresponding
+        /// <a href="../../../concepts/tables/#sharding" target="_top">sharded
+        /// data</a> and/or unsharded data (a.k.a.
+        /// <a href="../../../concepts/tables/#random-sharding"
         /// target="_top">randomly-sharded</a>) will be deleted.
         /// <br />
         /// The database must be offline for this operation, see <see
         /// cref="Kinetica.adminOffline(bool,IDictionary{string, string})" />
         /// <br />
         /// This endpoint's processing time depends on the amount of data in
-        /// the system, thus the API call may time out if run directly.  It is
-        /// recommended to run this endpoint asynchronously via <see
+        /// the system,
+        /// thus the API call may time out if run directly.  It is recommended
+        /// to run this
+        /// endpoint asynchronously via <see
         /// cref="Kinetica.createJob(string,string,byte[],string,IDictionary{string, string})"
         /// />.</summary>
+        /// <remarks>This method should be used for on-premise deployments
+        /// only.</remarks>
         /// 
         /// <param name="request_">Request object containing the parameters for
         /// the operation.</param>
@@ -831,23 +936,30 @@ namespace kinetica
 
 
         /// <summary>Remove one or more ranks from an existing Kinetica
-        /// cluster. All data will be rebalanced to other ranks before the
-        /// rank(s) is removed unless the <i>rebalance_sharded_data</i> or
-        /// <i>rebalance_unsharded_data</i> parameters are set to <i>false</i>
-        /// in the <paramref name="options" />, in which case the corresponding
+        /// cluster. All data
+        /// will be rebalanced to other ranks before the rank(s) is removed
+        /// unless the
+        /// <i>rebalance_sharded_data</i> or
+        /// <i>rebalance_unsharded_data</i> parameters are set to
+        /// <i>false</i> in the
+        /// <paramref name="options" />, in which case the corresponding
         /// <a href="../../../concepts/tables/#sharding" target="_top">sharded
-        /// data</a> and/or unsharded data (a.k.a. <a
-        /// href="../../../concepts/tables/#random-sharding"
+        /// data</a> and/or unsharded data (a.k.a.
+        /// <a href="../../../concepts/tables/#random-sharding"
         /// target="_top">randomly-sharded</a>) will be deleted.
         /// <br />
         /// The database must be offline for this operation, see <see
         /// cref="Kinetica.adminOffline(bool,IDictionary{string, string})" />
         /// <br />
         /// This endpoint's processing time depends on the amount of data in
-        /// the system, thus the API call may time out if run directly.  It is
-        /// recommended to run this endpoint asynchronously via <see
+        /// the system,
+        /// thus the API call may time out if run directly.  It is recommended
+        /// to run this
+        /// endpoint asynchronously via <see
         /// cref="Kinetica.createJob(string,string,byte[],string,IDictionary{string, string})"
         /// />.</summary>
+        /// <remarks>This method should be used for on-premise deployments
+        /// only.</remarks>
         /// 
         /// <param name="ranks">Each array value designates one or more ranks
         /// to remove from the cluster. Values can be formatted as 'rankN' for
@@ -1144,6 +1256,8 @@ namespace kinetica
         /// <summary>Manually switchover one or more processes to another host.
         /// Individual ranks or entire hosts may be moved to another
         /// host.</summary>
+        /// <remarks>This method should be used for on-premise deployments
+        /// only.</remarks>
         /// 
         /// <param name="request_">Request object containing the parameters for
         /// the operation.</param>
@@ -1162,6 +1276,8 @@ namespace kinetica
         /// <summary>Manually switchover one or more processes to another host.
         /// Individual ranks or entire hosts may be moved to another
         /// host.</summary>
+        /// <remarks>This method should be used for on-premise deployments
+        /// only.</remarks>
         /// 
         /// <param name="processes">Indicates the process identifier to
         /// switchover to another host. Options are 'hostN' and 'rankN' where
@@ -1766,30 +1882,6 @@ namespace kinetica
         /// cref="AggregateGroupByRequest.Options.VIEW_ID">VIEW_ID</see>:</term>
         ///         <description>ID of view of which the result table will be a
         /// member.  The default value is ''.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AggregateGroupByRequest.Options.MATERIALIZE_ON_GPU">MATERIALIZE_ON_GPU</see>:</term>
-        ///         <description>No longer used.  See <a
-        /// href="../../../rm/concepts/" target="_top">Resource Management
-        /// Concepts</a> for information about how resources are managed, <a
-        /// href="../../../rm/concepts/" target="_top">Tier Strategy
-        /// Concepts</a> for how resources are targeted for VRAM, and <a
-        /// href="../../../rm/usage/#tier-strategies" target="_top">Tier
-        /// Strategy Usage</a> for how to specify a table's priority in VRAM.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="AggregateGroupByRequest.Options.TRUE">TRUE</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AggregateGroupByRequest.Options.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="AggregateGroupByRequest.Options.FALSE">FALSE</see>.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -3049,30 +3141,6 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AggregateUnpivotRequest.Options.MATERIALIZE_ON_GPU">MATERIALIZE_ON_GPU</see>:</term>
-        ///         <description>No longer used.  See <a
-        /// href="../../../rm/concepts/" target="_top">Resource Management
-        /// Concepts</a> for information about how resources are managed, <a
-        /// href="../../../rm/concepts/" target="_top">Tier Strategy
-        /// Concepts</a> for how resources are targeted for VRAM, and <a
-        /// href="../../../rm/usage/#tier-strategies" target="_top">Tier
-        /// Strategy Usage</a> for how to specify a table's priority in VRAM.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="AggregateUnpivotRequest.Options.TRUE">TRUE</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AggregateUnpivotRequest.Options.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="AggregateUnpivotRequest.Options.FALSE">FALSE</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
         /// cref="AggregateUnpivotRequest.Options.CREATE_INDEXES">CREATE_INDEXES</see>:</term>
         ///         <description>Comma-separated list of columns on which to
         /// create indexes on the table specified in <i>result_table</i>. The
@@ -3316,6 +3384,13 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
+        /// cref="AlterDatasourceRequest.DatasourceUpdatesMap.S3_AWS_ROLE_ARN">S3_AWS_ROLE_ARN</see>:</term>
+        ///         <description>Amazon IAM Role ARN which has required S3
+        /// permissions that can be assumed for the given S3 IAM
+        /// user</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="AlterDatasourceRequest.DatasourceUpdatesMap.HDFS_KERBEROS_KEYTAB">HDFS_KERBEROS_KEYTAB</see>:</term>
         ///         <description>Kerberos keytab file location for the given
         /// HDFS user</description>
@@ -3375,6 +3450,18 @@ namespace kinetica
         /// cref="AlterDatasourceRequest.DatasourceUpdatesMap.AZURE_OAUTH_TOKEN">AZURE_OAUTH_TOKEN</see>:</term>
         ///         <description>Oauth token to access given storage
         /// container</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterDatasourceRequest.DatasourceUpdatesMap.KAFKA_URL">KAFKA_URL</see>:</term>
+        ///         <description>The publicly-accessible full path URL to the
+        /// kafka broker, e.g., 'http://172.123.45.67:9300'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterDatasourceRequest.DatasourceUpdatesMap.KAFKA_TOPIC_NAME">KAFKA_TOPIC_NAME</see>:</term>
+        ///         <description>Name of the Kafka topic to use as the data
+        /// source</description>
         ///     </item>
         /// </list>
         ///   </param>
@@ -3914,6 +4001,26 @@ namespace kinetica
         ///         <description>Enable overlapped-equi-join filter.  The
         /// default value is 'true'.</description>
         ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.KAFKA_BATCH_SIZE">KAFKA_BATCH_SIZE</see>:</term>
+        ///         <description>Maximum number of records to be read in a
+        /// single kafka batched request.  The default value is
+        /// '1000'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.KAFKA_WAIT_TIME">KAFKA_WAIT_TIME</see>:</term>
+        ///         <description>Maximum number of seconds to wait in a single
+        /// kafka batched request.  The default value is '30'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.KAFKA_TIMEOUT">KAFKA_TIMEOUT</see>:</term>
+        ///         <description>Number of seconds after which kakfa poll will
+        /// timeout if datasource has no records.  The default value is
+        /// '5'.</description>
+        ///     </item>
         /// </list>
         ///   </param>
         /// <param name="options">Optional parameters.  The default value is an
@@ -4302,11 +4409,28 @@ namespace kinetica
         /// href="../../../rm/concepts/#tier-strategies" target="_top">tier
         /// strategy</a> for the table and its columns to the one specified in
         /// <paramref cref="AlterTableRequest._value" />, replacing the
-        /// existing tier strategy in its entirety. See <a
-        /// href="../../../rm/concepts/#tier-strategies" target="_top">tier
-        /// strategy usage</a> for format and <a
-        /// href="../../../rm/usage/#tier-strategies" target="_top">tier
-        /// strategy examples</a> for examples.</description>
+        /// existing tier strategy in its entirety.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterTableRequest.Action.CANCEL_DATASOURCE_SUBSCRIPTION">CANCEL_DATASOURCE_SUBSCRIPTION</see>:</term>
+        ///         <description>Permanently unsubscribe a data source that is
+        /// loading continuously as a stream. The data source can be kafka / S3
+        /// / Azure.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterTableRequest.Action.PAUSE_DATASOURCE_SUBSCRIPTION">PAUSE_DATASOURCE_SUBSCRIPTION</see>:</term>
+        ///         <description>Temporarily unsubscribe a data source that is
+        /// loading continuously as a stream. The data source can be kafka / S3
+        /// / Azure.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterTableRequest.Action.RESUME_DATASOURCE_SUBSCRIPTION">RESUME_DATASOURCE_SUBSCRIPTION</see>:</term>
+        ///         <description>Resubscribe to a paused data source
+        /// subscription. The data source can be kafka / S3 /
+        /// Azure.</description>
         ///     </item>
         /// </list>  </param>
         /// <param name="_value">The value of the modification, depending on
@@ -4463,13 +4587,7 @@ namespace kinetica
         /// strategy</a> for the table and its columns when <paramref
         /// cref="AlterTableRequest.action" /> is
         /// <i>set_strategy_definition</i>, replacing the existing tier
-        /// strategy in its entirety. See <a
-        /// href="../../../rm/concepts/#tier-strategies" target="_top">tier
-        /// strategy usage</a> for format and <a
-        /// href="../../../rm/usage/#tier-strategies" target="_top">tier
-        /// strategy examples</a> for examples.  This option will be ignored if
-        /// <paramref cref="AlterTableRequest._value" /> is also
-        /// specified.</description>
+        /// strategy in its entirety.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -4787,6 +4905,47 @@ namespace kinetica
                                             IDictionary<string, string> options = null )
         {
             return alterUser( new AlterUserRequest( name, action, _value, options ) );
+        }
+
+
+        /// <summary>Alters a video.</summary>
+        /// 
+        /// <param name="request_">Request object containing the parameters for
+        /// the operation.</param>
+        /// 
+        /// <returns>Response object containing the result of the
+        /// operation.</returns>
+        /// 
+        public AlterVideoResponse alterVideo( AlterVideoRequest request_ )
+        {
+            AlterVideoResponse actualResponse_ = SubmitRequest<AlterVideoResponse>("/alter/video", request_, false);
+
+            return actualResponse_;
+        }
+
+
+        /// <summary>Alters a video.</summary>
+        /// 
+        /// <param name="path">Fully-qualified <a href="../../../tools/kifs/"
+        /// target="_top">KiFS</a> path to the video to be altered.  </param>
+        /// <param name="options">Optional parameters.
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterVideoRequest.Options.TTL">TTL</see>:</term>
+        ///         <description>Sets the <a href="../../../concepts/ttl/"
+        /// target="_top">TTL</a> of the video.</description>
+        ///     </item>
+        /// </list>
+        /// The default value is an empty {@link Dictionary}.</param>
+        /// 
+        /// <returns>Response object containing the result of the
+        /// operation.</returns>
+        /// 
+        public AlterVideoResponse alterVideo( string path,
+                                              IDictionary<string, string> options = null )
+        {
+            return alterVideo( new AlterVideoRequest( path, options ) );
         }
 
 
@@ -5415,6 +5574,13 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
+        /// cref="CreateDatasourceRequest.Options.S3_AWS_ROLE_ARN">S3_AWS_ROLE_ARN</see>:</term>
+        ///         <description>Amazon IAM Role ARN which has required S3
+        /// permissions that can be assumed for the given S3 IAM
+        /// user</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="CreateDatasourceRequest.Options.HDFS_KERBEROS_KEYTAB">HDFS_KERBEROS_KEYTAB</see>:</term>
         ///         <description>Kerberos keytab file location for the given
         /// HDFS user</description>
@@ -5475,6 +5641,31 @@ namespace kinetica
         ///         <description>Oauth token to access given storage
         /// container</description>
         ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateDatasourceRequest.Options.IS_STREAM">IS_STREAM</see>:</term>
+        ///         <description>To load from S3/Azure as a stream
+        /// continuously.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateDatasourceRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateDatasourceRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="CreateDatasourceRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateDatasourceRequest.Options.KAFKA_TOPIC_NAME">KAFKA_TOPIC_NAME</see>:</term>
+        ///         <description>Name of the Kafka topic to use as the data
+        /// source</description>
+        ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.</param>
         /// 
@@ -5493,6 +5684,72 @@ namespace kinetica
         }
 
 
+        /// <summary>Creates a new directory in <a href="../../../tools/kifs/"
+        /// target="_top">KiFS</a>. The new
+        /// directory serves as a location in which the user can upload files
+        /// using
+        /// <see
+        /// cref="Kinetica.uploadFiles(IList{string},IList{byte[]},IDictionary{string, string})"
+        /// />.</summary>
+        /// 
+        /// <param name="request_">Request object containing the parameters for
+        /// the operation.</param>
+        /// 
+        /// <returns>Response object containing the result of the
+        /// operation.</returns>
+        /// 
+        public CreateDirectoryResponse createDirectory( CreateDirectoryRequest request_ )
+        {
+            CreateDirectoryResponse actualResponse_ = SubmitRequest<CreateDirectoryResponse>("/create/directory", request_, false);
+
+            return actualResponse_;
+        }
+
+
+        /// <summary>Creates a new directory in <a href="../../../tools/kifs/"
+        /// target="_top">KiFS</a>. The new
+        /// directory serves as a location in which the user can upload files
+        /// using
+        /// <see
+        /// cref="Kinetica.uploadFiles(IList{string},IList{byte[]},IDictionary{string, string})"
+        /// />.</summary>
+        /// 
+        /// <param name="directory_name">Name of the directory in KiFS to be
+        /// created.  </param>
+        /// <param name="options">Optional parameters.
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateDirectoryRequest.Options.NO_ERROR_IF_EXISTS">NO_ERROR_IF_EXISTS</see>:</term>
+        ///         <description>If <i>true</i>, does not return an error if
+        /// the directory already exists
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateDirectoryRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateDirectoryRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="CreateDirectoryRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        /// </list>
+        /// The default value is an empty {@link Dictionary}.</param>
+        /// 
+        /// <returns>Response object containing the result of the
+        /// operation.</returns>
+        /// 
+        public CreateDirectoryResponse createDirectory( string directory_name,
+                                                        IDictionary<string, string> options = null )
+        {
+            return createDirectory( new CreateDirectoryRequest( directory_name, options ) );
+        }
+
+
         /// <summary>Creates a new graph network using given nodes, edges,
         /// weights, and
         /// restrictions.
@@ -5501,9 +5758,9 @@ namespace kinetica
         /// <a href="../../../graph_solver/network_graph_solver/"
         /// target="_top">Network Graphs & Solvers</a>
         /// concepts documentation, the
-        /// <a href="../../../graph_solver/examples/graph_rest_guide/"
-        /// target="_top">Graph REST Tutorial</a>,
-        /// and/or some <a href="../../../graph_solver/examples/"
+        /// <a href="../../../guides/graph_rest_guide/" target="_top">Graph
+        /// REST Tutorial</a>,
+        /// and/or some <a href="../../../guide-tags/graph/"
         /// target="_top">graph examples</a> before
         /// using this endpoint.</summary>
         /// 
@@ -5529,9 +5786,9 @@ namespace kinetica
         /// <a href="../../../graph_solver/network_graph_solver/"
         /// target="_top">Network Graphs & Solvers</a>
         /// concepts documentation, the
-        /// <a href="../../../graph_solver/examples/graph_rest_guide/"
-        /// target="_top">Graph REST Tutorial</a>,
-        /// and/or some <a href="../../../graph_solver/examples/"
+        /// <a href="../../../guides/graph_rest_guide/" target="_top">Graph
+        /// REST Tutorial</a>,
+        /// and/or some <a href="../../../guide-tags/graph/"
         /// target="_top">graph examples</a> before
         /// using this endpoint.</summary>
         /// 
@@ -5752,7 +6009,8 @@ namespace kinetica
         ///         <term><see
         /// cref="CreateGraphRequest.Options.SAVE_PERSIST">SAVE_PERSIST</see>:</term>
         ///         <description>If set to <i>true</i>, the graph will be saved
-        /// in the persist directory (see the <a href="../../../config/"
+        /// in the persist directory (see the <a
+        /// href="../../../config/#config-main-persistence"
         /// target="_top">config reference</a> for more information). If set to
         /// <i>false</i>, the graph will be removed when the graph server is
         /// shutdown.
@@ -6366,6 +6624,40 @@ namespace kinetica
                                                                               options ) );
         }
 
+        /// @cond NO_DOCS
+        /// 
+        /// <param name="request_">Request object containing the parameters for
+        /// the operation.</param>
+        /// 
+        /// <returns>Response object containing the result of the
+        /// operation.</returns>
+        /// 
+        public CreateMonitorTableResponse createMonitorTable( CreateMonitorTableRequest request_ )
+        {
+            CreateMonitorTableResponse actualResponse_ = SubmitRequest<CreateMonitorTableResponse>("/create/monitortable", request_, false);
+
+            return actualResponse_;
+        }
+        /// @endcond
+
+        /// @cond NO_DOCS
+        /// 
+        /// <param name="monitor_table_name"></param>
+        /// <param name="table_name"></param>
+        /// <param name="options"></param>
+        /// 
+        /// <returns>Response object containing the result of the
+        /// operation.</returns>
+        /// 
+        public CreateMonitorTableResponse createMonitorTable( string monitor_table_name,
+                                                              string table_name,
+                                                              IDictionary<string, string> options = null )
+        {
+            return createMonitorTable( new CreateMonitorTableRequest( monitor_table_name,
+                                                                      table_name, options ) );
+        }
+        /// @endcond
+
 
         /// <summary>Creates an instance (proc) of the
         /// <a href="../../../concepts/udf/" target="_top">user-defined
@@ -6430,8 +6722,11 @@ namespace kinetica
         /// files. The
         /// file names may include subdirectory names (e.g. 'subdir/file') but
         /// must not
-        /// resolve to a directory above the root for the proc.  The default
-        /// value is an empty {@link Dictionary}.</param>
+        /// resolve to a directory above the root for the proc.
+        /// Files may be loaded from existing files in KiFS. Those file names
+        /// should be
+        /// prefixed with the uri kifs:// and the values in the map should be
+        /// empty.  The default value is an empty {@link Dictionary}.</param>
         /// <param name="command">The command (excluding arguments) that will
         /// be invoked when
         /// the proc is executed. It will be invoked from the directory
@@ -6643,30 +6938,6 @@ namespace kinetica
         /// cref="CreateProjectionRequest.column_names" />.  If any alias is
         /// given for any column name, the alias must be used, rather than the
         /// original column name.  The default value is ''.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateProjectionRequest.Options.MATERIALIZE_ON_GPU">MATERIALIZE_ON_GPU</see>:</term>
-        ///         <description>No longer used.  See <a
-        /// href="../../../rm/concepts/" target="_top">Resource Management
-        /// Concepts</a> for information about how resources are managed, <a
-        /// href="../../../rm/concepts/" target="_top">Tier Strategy
-        /// Concepts</a> for how resources are targeted for VRAM, and <a
-        /// href="../../../rm/usage/#tier-strategies" target="_top">Tier
-        /// Strategy Usage</a> for how to specify a table's priority in VRAM.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateProjectionRequest.Options.TRUE">TRUE</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateProjectionRequest.Options.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="CreateProjectionRequest.Options.FALSE">FALSE</see>.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -6892,6 +7163,8 @@ namespace kinetica
 
 
         /// <summary>Creates a new role.</summary>
+        /// <remarks>This method should be used for on-premise deployments
+        /// only.</remarks>
         /// 
         /// <param name="request_">Request object containing the parameters for
         /// the operation.</param>
@@ -6908,6 +7181,8 @@ namespace kinetica
 
 
         /// <summary>Creates a new role.</summary>
+        /// <remarks>This method should be used for on-premise deployments
+        /// only.</remarks>
         /// 
         /// <param name="name">Name of the role to be created. Must contain
         /// only lowercase letters, digits, and underscores, and cannot begin
@@ -6993,6 +7268,43 @@ namespace kinetica
         {
             return createSchema( new CreateSchemaRequest( schema_name, options ) );
         }
+
+        /// @cond NO_DOCS
+        /// 
+        /// <param name="request_">Request object containing the parameters for
+        /// the operation.</param>
+        /// 
+        /// <returns>Response object containing the result of the
+        /// operation.</returns>
+        /// 
+        public CreateStateTableResponse createStateTable( CreateStateTableRequest request_ )
+        {
+            CreateStateTableResponse actualResponse_ = SubmitRequest<CreateStateTableResponse>("/create/statetable", request_, false);
+
+            return actualResponse_;
+        }
+        /// @endcond
+
+        /// @cond NO_DOCS
+        /// 
+        /// <param name="table_name"></param>
+        /// <param name="input_table_name"></param>
+        /// <param name="init_table_name"></param>
+        /// <param name="options"></param>
+        /// 
+        /// <returns>Response object containing the result of the
+        /// operation.</returns>
+        /// 
+        public CreateStateTableResponse createStateTable( string table_name,
+                                                          string input_table_name,
+                                                          string init_table_name,
+                                                          IDictionary<string, string> options = null )
+        {
+            return createStateTable( new CreateStateTableRequest( table_name,
+                                                                  input_table_name,
+                                                                  init_table_name, options ) );
+        }
+        /// @endcond
 
 
         /// <summary>Creates a new table. If a new table is being created,
@@ -7236,9 +7548,11 @@ namespace kinetica
         /// href="../../../concepts/tables/#partitioning-by-interval"
         /// target="_top">interval partitioning</a>, <a
         /// href="../../../concepts/tables/#partitioning-by-list"
-        /// target="_top">list partitioning</a>, or <a
+        /// target="_top">list partitioning</a>, <a
         /// href="../../../concepts/tables/#partitioning-by-hash"
-        /// target="_top">hash partitioning</a> for example
+        /// target="_top">hash partitioning</a>, or <a
+        /// href="../../../concepts/tables/#partitioning-by-series"
+        /// target="_top">series partitioning</a> for example
         /// formats.</description>
         ///     </item>
         ///     <item>
@@ -7307,11 +7621,12 @@ namespace kinetica
         /// cref="CreateTableRequest.Options.STRATEGY_DEFINITION">STRATEGY_DEFINITION</see>:</term>
         ///         <description>The <a
         /// href="../../../rm/concepts/#tier-strategies" target="_top">tier
-        /// strategy</a> for the table and its columns. See <a
-        /// href="../../../rm/concepts/#tier-strategies" target="_top">tier
-        /// strategy usage</a> for format and <a
-        /// href="../../../rm/usage/#tier-strategies" target="_top">tier
-        /// strategy examples</a> for examples.</description>
+        /// strategy</a> for the table and its columns.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableRequest.Options.IS_VIRTUAL_UNION">IS_VIRTUAL_UNION</see>:</term>
+        ///         <description><DEVELOPER></description>
         ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.</param>
@@ -7383,6 +7698,8 @@ namespace kinetica
         /// <param name="filepaths">A list of file paths from which data will
         /// be sourced; wildcards (*) can be used
         /// to specify a group of files.
+        /// For paths in KiFS, use the uri prefix of kifs:// followed by the
+        /// full path to a file or directory.
         /// If an external data source is specified in <i>datasource_name</i>,
         /// these file
         /// paths must resolve to accessible files at that data source
@@ -7517,6 +7834,13 @@ namespace kinetica
         /// href="../../../concepts/tables/#partitioning-by-hash"
         /// target="_top">hash partitioning</a>.</description>
         ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableExternalRequest.CreateTableOptions.SERIES">SERIES</see>:</term>
+        ///         <description>Use <a
+        /// href="../../../concepts/tables/#partitioning-by-series"
+        /// target="_top">series partitioning</a>.</description>
+        ///     </item>
         /// </list></description>
         ///     </item>
         ///     <item>
@@ -7612,11 +7936,7 @@ namespace kinetica
         ///         <description>The <a
         /// href="../../../rm/concepts/#tier-strategies" target="_top">tier
         /// strategy</a>
-        /// for the table and its columns. See
-        /// <a href="../../../rm/concepts/#tier-strategies" target="_top">tier
-        /// strategy usage</a> for format and
-        /// <a href="../../../rm/usage/#tier-strategies" target="_top">tier
-        /// strategy examples</a> for examples.</description>
+        /// for the table and its columns.</description>
         ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.</param>
@@ -7822,6 +8142,11 @@ namespace kinetica
         /// cref="CreateTableExternalRequest.Options.JSON">JSON</see>:</term>
         ///         <description>Json file format</description>
         ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableExternalRequest.Options.SHAPEFILE">SHAPEFILE</see>:</term>
+        ///         <description>ShapeFile file format</description>
+        ///     </item>
         /// </list>
         /// The default value is <see
         /// cref="CreateTableExternalRequest.Options.DELIMITED_TEXT">DELIMITED_TEXT</see>.</description>
@@ -7957,6 +8282,32 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
+        /// cref="CreateTableExternalRequest.Options.SUBSCRIBE">SUBSCRIBE</see>:</term>
+        ///         <description>Continuously poll the data source to check for
+        /// new data and load it into the table.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableExternalRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableExternalRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="CreateTableExternalRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableExternalRequest.Options.POLL_INTERVAL">POLL_INTERVAL</see>:</term>
+        ///         <description>If <i>true</i>, the number of seconds between
+        /// attempts to load external files into the table. If zero, polling
+        /// will be continuous.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="CreateTableExternalRequest.Options.TEXT_COMMENT_STRING">TEXT_COMMENT_STRING</see>:</term>
         ///         <description>Specifies the character string that should be
         /// interpreted as a comment line
@@ -8073,7 +8424,50 @@ namespace kinetica
         ///     </item>
         /// </list>
         /// The default value is <see
-        /// cref="CreateTableExternalRequest.Options.ACCURACY">ACCURACY</see>.</description>
+        /// cref="CreateTableExternalRequest.Options.SPEED">SPEED</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableExternalRequest.Options.TABLE_INSERT_MODE">TABLE_INSERT_MODE</see>:</term>
+        ///         <description>Optional: table_insert_mode. When inserting
+        /// records from multiple files: if table_per_file then insert from
+        /// each file into a new table. Currently supported only for
+        /// shapefiles.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableExternalRequest.Options.SINGLE">SINGLE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableExternalRequest.Options.TABLE_PER_FILE">TABLE_PER_FILE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="CreateTableExternalRequest.Options.SINGLE">SINGLE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableExternalRequest.Options.KAFKA_GROUP_ID">KAFKA_GROUP_ID</see>:</term>
+        ///         <description>The group id to be used consuming data from a
+        /// kakfa topic (valid only for kafka datasource
+        /// subscriptions).</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableExternalRequest.Options.TEXT_SEARCH_COLUMNS">TEXT_SEARCH_COLUMNS</see>:</term>
+        ///         <description>Add 'text_search' property to internally
+        /// inferenced string columns. Comma seperated list of column names or
+        /// '*' for all columns. To add text_search property only to string
+        /// columns of minimum size, set also the option
+        /// 'text_search_min_column_length'</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableExternalRequest.Options.TEXT_SEARCH_MIN_COLUMN_LENGTH">TEXT_SEARCH_MIN_COLUMN_LENGTH</see>:</term>
+        ///         <description>Set minimum column size. Used only when
+        /// 'text_search_columns' has a value.</description>
         ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.</param>
@@ -8545,9 +8939,12 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="CreateTypeRequest.Properties.TEXT_SEARCH">TEXT_SEARCH</see>:</term>
-        ///         <description>Valid only for 'string' columns. Enables full
-        /// text search for string columns. Can be set independently of
-        /// <i>data</i> and <i>store_only</i>.</description>
+        ///         <description>Valid only for select 'string' columns.
+        /// Enables full text search--see <a
+        /// href="../../../concepts/full_text_search/" target="_top">Full Text
+        /// Search</a> for details and applicable string column types. Can be
+        /// set independently of <i>data</i> and
+        /// <i>store_only</i>.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -8908,30 +9305,6 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="CreateUnionRequest.Options.MATERIALIZE_ON_GPU">MATERIALIZE_ON_GPU</see>:</term>
-        ///         <description>No longer used.  See <a
-        /// href="../../../rm/concepts/" target="_top">Resource Management
-        /// Concepts</a> for information about how resources are managed, <a
-        /// href="../../../rm/concepts/" target="_top">Tier Strategy
-        /// Concepts</a> for how resources are targeted for VRAM, and <a
-        /// href="../../../rm/usage/#tier-strategies" target="_top">Tier
-        /// Strategy Usage</a> for how to specify a table's priority in VRAM.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateUnionRequest.Options.TRUE">TRUE</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateUnionRequest.Options.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="CreateUnionRequest.Options.FALSE">FALSE</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
         /// cref="CreateUnionRequest.Options.MODE">MODE</see>:</term>
         ///         <description>If <i>merge_views</i>, then this operation
         /// will merge the provided views. All <paramref
@@ -9090,6 +9463,8 @@ namespace kinetica
 
         /// <summary>Creates a new external user (a user whose credentials are
         /// managed by an external LDAP).</summary>
+        /// <remarks>This method should be used for on-premise deployments
+        /// only.</remarks>
         /// 
         /// <param name="request_">Request object containing the parameters for
         /// the operation.</param>
@@ -9107,6 +9482,8 @@ namespace kinetica
 
         /// <summary>Creates a new external user (a user whose credentials are
         /// managed by an external LDAP).</summary>
+        /// <remarks>This method should be used for on-premise deployments
+        /// only.</remarks>
         /// 
         /// <param name="name">Name of the user to be created. Must exactly
         /// match the user's name in the external LDAP, prefixed with a @. Must
@@ -9176,6 +9553,294 @@ namespace kinetica
         {
             return createUserInternal( new CreateUserInternalRequest( name, password,
                                                                       options ) );
+        }
+
+
+        /// <summary>Creates a job to generate a sequence of raster images that
+        /// visualize data over a specified time.</summary>
+        /// 
+        /// <param name="request_">Request object containing the parameters for
+        /// the operation.</param>
+        /// 
+        /// <returns>Response object containing the result of the
+        /// operation.</returns>
+        /// 
+        public CreateVideoResponse createVideo( CreateVideoRequest request_ )
+        {
+            CreateVideoResponse actualResponse_ = SubmitRequest<CreateVideoResponse>("/create/video", request_, false);
+
+            return actualResponse_;
+        }
+
+
+        /// <summary>Creates a job to generate a sequence of raster images that
+        /// visualize data over a specified time.</summary>
+        /// 
+        /// <param name="attribute">The animated attribute to map to the
+        /// video's frames. Must be present in the LAYERS specified for the
+        /// visualization. This is often a time-related field but may be any
+        /// numeric type.  </param>
+        /// <param name="begin">The start point for the video. Accepts an
+        /// expression evaluable over the <paramref
+        /// cref="CreateVideoRequest.attribute" />.  </param>
+        /// <param name="duration_seconds">Seconds of video to produce
+        /// </param>
+        /// <param name="end">The end point for the video. Accepts an
+        /// expression evaluable over the <paramref
+        /// cref="CreateVideoRequest.attribute" />.  </param>
+        /// <param name="frames_per_second">The presentation frame rate of the
+        /// encoded video in frames per second.  </param>
+        /// <param name="style">The name of the visualize mode; should
+        /// correspond to the schema used for the <paramref
+        /// cref="CreateVideoRequest.style_parameters" /> field.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateVideoRequest.Style.CHART">CHART</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateVideoRequest.Style.RASTER">RASTER</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateVideoRequest.Style.CLASSBREAK">CLASSBREAK</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateVideoRequest.Style.CONTOUR">CONTOUR</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateVideoRequest.Style.HEATMAP">HEATMAP</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateVideoRequest.Style.LABELS">LABELS</see></term>
+        ///     </item>
+        /// </list>  </param>
+        /// <param name="path">Fully-qualified <a href="../../../tools/kifs/"
+        /// target="_top">KiFS</a> path.  Write access is required. A file must
+        /// not exist at that path, unless <i>replace_if_exists</i> is
+        /// <i>true</i>.  </param>
+        /// <param name="style_parameters">A string containing the JSON-encoded
+        /// visualize request.  Must correspond to the visualize mode specified
+        /// in the <paramref cref="CreateVideoRequest.style" /> field.
+        /// </param>
+        /// <param name="options">Optional parameters.
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateVideoRequest.Options.TTL">TTL</see>:</term>
+        ///         <description>Sets the <a href="../../../concepts/ttl/"
+        /// target="_top">TTL</a> of the video.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateVideoRequest.Options.WINDOW">WINDOW</see>:</term>
+        ///         <description>Specified using the data-type corresponding to
+        /// the <paramref cref="CreateVideoRequest.attribute" />. For a window
+        /// of size W, a video frame rendered for time t will visualize data in
+        /// the interval [t-W,t]. The minimum window size is the interval
+        /// between successive frames.  The minimum value is the default.  If a
+        /// value less than the minimum value is specified, it is replaced with
+        /// the minimum window size.  Larger values will make changes
+        /// throughout the video appear more smooth while smaller values will
+        /// capture fast variations in the data.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateVideoRequest.Options.NO_ERROR_IF_EXISTS">NO_ERROR_IF_EXISTS</see>:</term>
+        ///         <description>If <i>true</i>, does not return an error if
+        /// the video already exists.  Ignored if <i>replace_if_exists</i> is
+        /// <i>true</i>.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateVideoRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateVideoRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="CreateVideoRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateVideoRequest.Options.REPLACE_IF_EXISTS">REPLACE_IF_EXISTS</see>:</term>
+        ///         <description>If <i>true</i>, deletes any existing video
+        /// with the same path before creating a new video.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateVideoRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateVideoRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="CreateVideoRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        /// </list>
+        /// The default value is an empty {@link Dictionary}.</param>
+        /// 
+        /// <returns>Response object containing the result of the
+        /// operation.</returns>
+        /// 
+        public CreateVideoResponse createVideo( string attribute,
+                                                string begin,
+                                                double duration_seconds,
+                                                string end,
+                                                double frames_per_second,
+                                                string style,
+                                                string path,
+                                                string style_parameters,
+                                                IDictionary<string, string> options = null )
+        {
+            return createVideo( new CreateVideoRequest( attribute, begin,
+                                                        duration_seconds, end,
+                                                        frames_per_second, style, path,
+                                                        style_parameters, options ) );
+        }
+
+
+        /// <summary>Deletes a directory from <a href="../../../tools/kifs/"
+        /// target="_top">KiFS</a>.</summary>
+        /// 
+        /// <param name="request_">Request object containing the parameters for
+        /// the operation.</param>
+        /// 
+        /// <returns>Response object containing the result of the
+        /// operation.</returns>
+        /// 
+        public DeleteDirectoryResponse deleteDirectory( DeleteDirectoryRequest request_ )
+        {
+            DeleteDirectoryResponse actualResponse_ = SubmitRequest<DeleteDirectoryResponse>("/delete/directory", request_, false);
+
+            return actualResponse_;
+        }
+
+
+        /// <summary>Deletes a directory from <a href="../../../tools/kifs/"
+        /// target="_top">KiFS</a>.</summary>
+        /// 
+        /// <param name="directory_name">Name of the directory in KiFS to be
+        /// deleted. The directory must contain no files, unless
+        /// <i>recursive</i> is <i>true</i>  </param>
+        /// <param name="options">Optional parameters.
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="DeleteDirectoryRequest.Options.RECURSIVE">RECURSIVE</see>:</term>
+        ///         <description>If <i>true</i>, will delete directory and all
+        /// files residing in it. If false, directory must be empty for
+        /// deletion.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="DeleteDirectoryRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="DeleteDirectoryRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="DeleteDirectoryRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="DeleteDirectoryRequest.Options.NO_ERROR_IF_NOT_EXISTS">NO_ERROR_IF_NOT_EXISTS</see>:</term>
+        ///         <description>If <i>true</i>, no error is returned if
+        /// specified directory does not exist
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="DeleteDirectoryRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="DeleteDirectoryRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="DeleteDirectoryRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        /// </list>
+        /// The default value is an empty {@link Dictionary}.</param>
+        /// 
+        /// <returns>Response object containing the result of the
+        /// operation.</returns>
+        /// 
+        public DeleteDirectoryResponse deleteDirectory( string directory_name,
+                                                        IDictionary<string, string> options = null )
+        {
+            return deleteDirectory( new DeleteDirectoryRequest( directory_name, options ) );
+        }
+
+
+        /// <summary>Deletes one or more files from <a
+        /// href="../../../tools/kifs/" target="_top">KiFS</a>.</summary>
+        /// 
+        /// <param name="request_">Request object containing the parameters for
+        /// the operation.</param>
+        /// 
+        /// <returns>Response object containing the result of the
+        /// operation.</returns>
+        /// 
+        public DeleteFilesResponse deleteFiles( DeleteFilesRequest request_ )
+        {
+            DeleteFilesResponse actualResponse_ = SubmitRequest<DeleteFilesResponse>("/delete/files", request_, false);
+
+            return actualResponse_;
+        }
+
+
+        /// <summary>Deletes one or more files from <a
+        /// href="../../../tools/kifs/" target="_top">KiFS</a>.</summary>
+        /// 
+        /// <param name="file_names">An array of names of files to be deleted.
+        /// </param>
+        /// <param name="options">Optional parameters.
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="DeleteFilesRequest.Options.NO_ERROR_IF_NOT_EXISTS">NO_ERROR_IF_NOT_EXISTS</see>:</term>
+        ///         <description>If <i>true</i>, no error is returned if a
+        /// specified file does not exist
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="DeleteFilesRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="DeleteFilesRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="DeleteFilesRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        /// </list>
+        /// The default value is an empty {@link Dictionary}.</param>
+        /// 
+        /// <returns>Response object containing the result of the
+        /// operation.</returns>
+        /// 
+        public DeleteFilesResponse deleteFiles( IList<string> file_names,
+                                                IDictionary<string, string> options = null )
+        {
+            return deleteFiles( new DeleteFilesRequest( file_names, options ) );
         }
 
 
@@ -9415,6 +10080,8 @@ namespace kinetica
 
 
         /// <summary>Deletes an existing role.</summary>
+        /// <remarks>This method should be used for on-premise deployments
+        /// only.</remarks>
         /// 
         /// <param name="request_">Request object containing the parameters for
         /// the operation.</param>
@@ -9431,6 +10098,8 @@ namespace kinetica
 
 
         /// <summary>Deletes an existing role.</summary>
+        /// <remarks>This method should be used for on-premise deployments
+        /// only.</remarks>
         /// 
         /// <param name="name">Name of the role to be deleted. Must be an
         /// existing role.  </param>
@@ -9448,6 +10117,8 @@ namespace kinetica
 
 
         /// <summary>Deletes an existing user.</summary>
+        /// <remarks>This method should be used for on-premise deployments
+        /// only.</remarks>
         /// 
         /// <param name="request_">Request object containing the parameters for
         /// the operation.</param>
@@ -9464,6 +10135,8 @@ namespace kinetica
 
 
         /// <summary>Deletes an existing user.</summary>
+        /// <remarks>This method should be used for on-premise deployments
+        /// only.</remarks>
         /// 
         /// <param name="name">Name of the user to be deleted. Must be an
         /// existing user.  </param>
@@ -9477,6 +10150,86 @@ namespace kinetica
                                               IDictionary<string, string> options = null )
         {
             return deleteUser( new DeleteUserRequest( name, options ) );
+        }
+
+
+        /// <summary>Downloads one or more files from <a
+        /// href="../../../tools/kifs/" target="_top">KiFS</a>.</summary>
+        /// 
+        /// <param name="request_">Request object containing the parameters for
+        /// the operation.</param>
+        /// 
+        /// <returns>Response object containing the result of the
+        /// operation.</returns>
+        /// 
+        public DownloadFilesResponse downloadFiles( DownloadFilesRequest request_ )
+        {
+            DownloadFilesResponse actualResponse_ = SubmitRequest<DownloadFilesResponse>("/download/files", request_, false);
+
+            return actualResponse_;
+        }
+
+
+        /// <summary>Downloads one or more files from <a
+        /// href="../../../tools/kifs/" target="_top">KiFS</a>.</summary>
+        /// 
+        /// <param name="file_names">An array of the file names to download
+        /// from KiFS. The full path must be provided.  </param>
+        /// <param name="read_offsets">An array of starting byte offsets from
+        /// which to read each
+        /// respective file in <paramref cref="DownloadFilesRequest.file_names"
+        /// />. Must either be empty or the same length
+        /// as <paramref cref="DownloadFilesRequest.file_names" />. If empty,
+        /// files are downloaded in their entirety. If not
+        /// empty, <paramref cref="DownloadFilesRequest.read_lengths" /> must
+        /// also not be empty.  </param>
+        /// <param name="read_lengths">Array of number of bytes to read from
+        /// each respective file
+        /// in <paramref cref="DownloadFilesRequest.file_names" />. Must either
+        /// be empty or the same length as
+        /// <paramref cref="DownloadFilesRequest.file_names" />. If empty,
+        /// files are downloaded in their entirety. If not
+        /// empty, <paramref cref="DownloadFilesRequest.read_offsets" /> must
+        /// also not be empty.  </param>
+        /// <param name="options">Optional parameters.
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="DownloadFilesRequest.Options.FILE_ENCODING">FILE_ENCODING</see>:</term>
+        ///         <description>Encoding to be applied to the output file
+        /// data. When using JSON serialization it is recommended to specify
+        /// this as <i>base64</i>.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="DownloadFilesRequest.Options.BASE64">BASE64</see>:</term>
+        ///         <description>Apply base64 encoding to the output file
+        /// data.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="DownloadFilesRequest.Options.NONE">NONE</see>:</term>
+        ///         <description>Do not apply any encoding to the output file
+        /// data.</description>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="DownloadFilesRequest.Options.NONE">NONE</see>.</description>
+        ///     </item>
+        /// </list>
+        /// The default value is an empty {@link Dictionary}.</param>
+        /// 
+        /// <returns>Response object containing the result of the
+        /// operation.</returns>
+        /// 
+        public DownloadFilesResponse downloadFiles( IList<string> file_names,
+                                                    IList<long> read_offsets,
+                                                    IList<long> read_lengths,
+                                                    IDictionary<string, string> options = null )
+        {
+            return downloadFiles( new DownloadFilesRequest( file_names, read_offsets,
+                                                            read_lengths, options ) );
         }
 
         /// @cond NO_DOCS
@@ -9871,20 +10624,18 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="ExecuteProcRequest.Options.KIFS_INPUT_DIRS">KIFS_INPUT_DIRS</see>:</term>
-        ///         <description>A comma-delimited list of KiFS directories
-        /// whose local files will be made directly accessible to the proc
-        /// through the API. (All KiFS files, local or not, are also accessible
-        /// through the file system below the KiFS mount point.) Each name
-        /// specified must the name of an existing KiFS directory.  The default
-        /// value is ''.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
         /// cref="ExecuteProcRequest.Options.RUN_TAG">RUN_TAG</see>:</term>
         ///         <description>A string that, if not empty, can be used in
         /// subsequent calls to /show/proc/status or /kill/proc to identify the
         /// proc instance.  The default value is ''.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ExecuteProcRequest.Options.MAX_OUTPUT_LINES">MAX_OUTPUT_LINES</see>:</term>
+        ///         <description>The maximum number of lines of output from
+        /// stdout and stderr to return via /show/proc/status. If the number of
+        /// lines output exceeds the maximum, earlier lines are discarded.  The
+        /// default value is '100'.</description>
         ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.</param>
@@ -12727,6 +13478,69 @@ namespace kinetica
         }
 
 
+        /// <summary>Grants a <a href="../../../tools/kifs/"
+        /// target="_top">KiFS</a> directory-level permission to a user or
+        /// role.</summary>
+        /// 
+        /// <param name="request_">Request object containing the parameters for
+        /// the operation.</param>
+        /// 
+        /// <returns>Response object containing the result of the
+        /// operation.</returns>
+        /// 
+        public GrantPermissionDirectoryResponse grantPermissionDirectory( GrantPermissionDirectoryRequest request_ )
+        {
+            GrantPermissionDirectoryResponse actualResponse_ = SubmitRequest<GrantPermissionDirectoryResponse>("/grant/permission/directory", request_, false);
+
+            return actualResponse_;
+        }
+
+
+        /// <summary>Grants a <a href="../../../tools/kifs/"
+        /// target="_top">KiFS</a> directory-level permission to a user or
+        /// role.</summary>
+        /// 
+        /// <param name="name">Name of the user or role to which the permission
+        /// will be granted. Must be an existing user or role.  </param>
+        /// <param name="permission">Permission to grant to the user or role.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="GrantPermissionDirectoryRequest.Permission.DIRECTORY_READ">DIRECTORY_READ</see>:</term>
+        ///         <description>For files in the directory, access to list
+        /// files, download files, or use files in server side
+        /// functions</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="GrantPermissionDirectoryRequest.Permission.DIRECTORY_WRITE">DIRECTORY_WRITE</see>:</term>
+        ///         <description>Access to upload files to, or delete files
+        /// from, the directory. A user or role with write access automatically
+        /// has read access</description>
+        ///     </item>
+        /// </list>  </param>
+        /// <param name="directory_name">Name of the KiFS directory to which
+        /// the permission grants access. An empty directory name grants access
+        /// to all KiFS directories  </param>
+        /// <param name="options">Optional parameters.  The default value is an
+        /// empty {@link Dictionary}.</param>
+        /// 
+        /// <returns>Response object containing the result of the
+        /// operation.</returns>
+        /// 
+        public GrantPermissionDirectoryResponse grantPermissionDirectory( string name,
+                                                                          string permission,
+                                                                          string directory_name,
+                                                                          IDictionary<string, string> options = null )
+        {
+            return grantPermissionDirectory( new GrantPermissionDirectoryRequest( name,
+                                                                                  permission,
+                                                                                  directory_name,
+                                                                                  options ) );
+        }
+
+
         /// <summary>Grants a proc-level permission to a user or
         /// role.</summary>
         /// 
@@ -12965,6 +13779,172 @@ namespace kinetica
                                             IDictionary<string, string> options = null )
         {
             return grantRole( new GrantRoleRequest( role, member, options ) );
+        }
+
+
+        /// <summary>Checks if the specified user has the specified permission
+        /// on the specified object.</summary>
+        /// 
+        /// <param name="request_">Request object containing the parameters for
+        /// the operation.</param>
+        /// 
+        /// <returns>Response object containing the result of the
+        /// operation.</returns>
+        /// 
+        public HasPermissionResponse hasPermission( HasPermissionRequest request_ )
+        {
+            HasPermissionResponse actualResponse_ = SubmitRequest<HasPermissionResponse>("/has/permission", request_, false);
+
+            return actualResponse_;
+        }
+
+
+        /// <summary>Checks if the specified user has the specified permission
+        /// on the specified object.</summary>
+        /// 
+        /// <param name="name">Name of the user for which the permission is
+        /// being checked. Must be an existing user. If blank, will use the
+        /// current user.  The default value is ''.</param>
+        /// <param name="target">Name of object to check for the requested
+        /// permission.  It is recommended to use a fully-qualified name when
+        /// possible.  </param>
+        /// <param name="permission">Permission to check for.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="HasPermissionRequest.Permission.CONNECT">CONNECT</see>:</term>
+        ///         <description>Connect access on the given data
+        /// source</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="HasPermissionRequest.Permission.CREDENTIAL_ADMIN">CREDENTIAL_ADMIN</see>:</term>
+        ///         <description>Full read/write and administrative access on
+        /// the credential.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="HasPermissionRequest.Permission.CREDENTIAL_READ">CREDENTIAL_READ</see>:</term>
+        ///         <description>Ability to read and use the
+        /// credential.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="HasPermissionRequest.Permission.DIRECTORY_READ">DIRECTORY_READ</see>:</term>
+        ///         <description>For files in the directory, access to list
+        /// files, download files, or use files in server side
+        /// functions</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="HasPermissionRequest.Permission.DIRECTORY_WRITE">DIRECTORY_WRITE</see>:</term>
+        ///         <description>Access to upload files to, or delete files
+        /// from, the directory. A user with write access automatically has
+        /// read access</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="HasPermissionRequest.Permission.PROC_EXECUTE">PROC_EXECUTE</see>:</term>
+        ///         <description>Execute access to the UDF.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="HasPermissionRequest.Permission.ROLE">ROLE</see>:</term>
+        ///         <description>User is a member of this role (including
+        /// indirectly).</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="HasPermissionRequest.Permission.SQL_PROC_EXECUTE">SQL_PROC_EXECUTE</see>:</term>
+        ///         <description>Execute access to the SQL proc.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="HasPermissionRequest.Permission.SYSTEM_ADMIN">SYSTEM_ADMIN</see>:</term>
+        ///         <description>Full access to all data and system
+        /// functions.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="HasPermissionRequest.Permission.SYSTEM_READ">SYSTEM_READ</see>:</term>
+        ///         <description>Read-only access to all tables.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="HasPermissionRequest.Permission.SYSTEM_USER_ADMIN">SYSTEM_USER_ADMIN</see>:</term>
+        ///         <description>Access to administer users and roles that do
+        /// not have system_admin permission.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="HasPermissionRequest.Permission.SYSTEM_WRITE">SYSTEM_WRITE</see>:</term>
+        ///         <description>Read and write access to all
+        /// tables.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="HasPermissionRequest.Permission.TABLE_ADMIN">TABLE_ADMIN</see>:</term>
+        ///         <description>Full read/write and administrative access to
+        /// the table.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="HasPermissionRequest.Permission.TABLE_DELETE">TABLE_DELETE</see>:</term>
+        ///         <description>Delete access to the table.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="HasPermissionRequest.Permission.TABLE_INSERT">TABLE_INSERT</see>:</term>
+        ///         <description>Insert access to the table.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="HasPermissionRequest.Permission.TABLE_READ">TABLE_READ</see>:</term>
+        ///         <description>Read access to the table.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="HasPermissionRequest.Permission.TABLE_UPDATE">TABLE_UPDATE</see>:</term>
+        ///         <description>Update access to the table.</description>
+        ///     </item>
+        /// </list>  </param>
+        /// <param name="options">Optional parameters.
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="HasPermissionRequest.Options.NO_ERROR_IF_NOT_EXISTS">NO_ERROR_IF_NOT_EXISTS</see>:</term>
+        ///         <description>If <i>false</i> will return an error if the
+        /// provided <paramref cref="HasPermissionRequest.target" /> does not
+        /// exist or is blank. If <i>true</i> then it will return <i>false</i>
+        /// for <member name="has_permission" />.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="HasPermissionRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="HasPermissionRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="HasPermissionRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        /// </list>
+        /// The default value is an empty {@link Dictionary}.</param>
+        /// 
+        /// <returns>Response object containing the result of the
+        /// operation.</returns>
+        /// 
+        public HasPermissionResponse hasPermission( string name,
+                                                    string target,
+                                                    string permission,
+                                                    IDictionary<string, string> options = null )
+        {
+            return hasPermission( new HasPermissionRequest( name, target, permission,
+                                                            options ) );
         }
 
 
@@ -13499,7 +14479,10 @@ namespace kinetica
         /// configuration. The filepaths may include wildcards (*). If the
         /// first path ends in .tsv, the text delimiter will be defaulted to a
         /// tab character. If the first path ends in .psv, the text delimiter
-        /// will be defaulted to a pipe character (|).  </param>
+        /// will be defaulted to a pipe character (|).
+        /// For paths in <a href="../../../tools/kifs/" target="_top">KiFS</a>,
+        /// use the uri prefix of kifs:// followed by the full path to a file
+        /// or directory  </param>
         /// <param name="modify_columns">Not implemented yet.  The default
         /// value is an empty {@link Dictionary}.</param>
         /// <param name="create_table_options">Options used when creating the
@@ -13617,6 +14600,13 @@ namespace kinetica
         /// href="../../../concepts/tables/#partitioning-by-hash"
         /// target="_top">hash partitioning</a>.</description>
         ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromFilesRequest.CreateTableOptions.SERIES">SERIES</see>:</term>
+        ///         <description>Use <a
+        /// href="../../../concepts/tables/#partitioning-by-series"
+        /// target="_top">series partitioning</a>.</description>
+        ///     </item>
         /// </list></description>
         ///     </item>
         ///     <item>
@@ -13637,9 +14627,11 @@ namespace kinetica
         /// href="../../../concepts/tables/#partitioning-by-interval"
         /// target="_top">interval partitioning</a>, <a
         /// href="../../../concepts/tables/#partitioning-by-list"
-        /// target="_top">list partitioning</a>, or <a
+        /// target="_top">list partitioning</a>, <a
         /// href="../../../concepts/tables/#partitioning-by-hash"
-        /// target="_top">hash partitioning</a> for example
+        /// target="_top">hash partitioning</a>, or <a
+        /// href="../../../concepts/tables/#partitioning-by-series"
+        /// target="_top">series partitioning</a> for example
         /// formats.</description>
         ///     </item>
         ///     <item>
@@ -13708,11 +14700,7 @@ namespace kinetica
         /// cref="InsertRecordsFromFilesRequest.CreateTableOptions.STRATEGY_DEFINITION">STRATEGY_DEFINITION</see>:</term>
         ///         <description>The <a
         /// href="../../../rm/concepts/#tier-strategies" target="_top">tier
-        /// strategy</a> for the table and its columns. See <a
-        /// href="../../../rm/concepts/#tier-strategies" target="_top">tier
-        /// strategy usage</a> for format and <a
-        /// href="../../../rm/usage/#tier-strategies" target="_top">tier
-        /// strategy examples</a> for examples.</description>
+        /// strategy</a> for the table and its columns.</description>
         ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.</param>
@@ -13892,6 +14880,11 @@ namespace kinetica
         /// cref="InsertRecordsFromFilesRequest.Options.JSON">JSON</see>:</term>
         ///         <description>Json file format</description>
         ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromFilesRequest.Options.SHAPEFILE">SHAPEFILE</see>:</term>
+        ///         <description>ShapeFile file format</description>
+        ///     </item>
         /// </list>
         /// The default value is <see
         /// cref="InsertRecordsFromFilesRequest.Options.DELIMITED_TEXT">DELIMITED_TEXT</see>.</description>
@@ -13998,6 +14991,34 @@ namespace kinetica
         ///         <description>Optional: comma separated list of column
         /// names, to set as primary keys, when not specified in the type.  The
         /// default value is ''.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromFilesRequest.Options.SUBSCRIBE">SUBSCRIBE</see>:</term>
+        ///         <description>Continuously poll the data source to check for
+        /// new data and load it into the table.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromFilesRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromFilesRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="InsertRecordsFromFilesRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromFilesRequest.Options.POLL_INTERVAL">POLL_INTERVAL</see>:</term>
+        ///         <description>If <i>true</i>, the number of seconds between
+        /// attempts to load external files into the table.  If zero, polling
+        /// will be continuous as long as data is found.  If no data is found,
+        /// the interval will steadily increase to a maximum of 60
+        /// seconds.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -14138,7 +15159,50 @@ namespace kinetica
         ///     </item>
         /// </list>
         /// The default value is <see
-        /// cref="InsertRecordsFromFilesRequest.Options.ACCURACY">ACCURACY</see>.</description>
+        /// cref="InsertRecordsFromFilesRequest.Options.SPEED">SPEED</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromFilesRequest.Options.TABLE_INSERT_MODE">TABLE_INSERT_MODE</see>:</term>
+        ///         <description>Optional: table_insert_mode. When inserting
+        /// records from multiple files: if table_per_file then insert from
+        /// each file into a new table. Currently supported only for
+        /// shapefiles.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromFilesRequest.Options.SINGLE">SINGLE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromFilesRequest.Options.TABLE_PER_FILE">TABLE_PER_FILE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="InsertRecordsFromFilesRequest.Options.SINGLE">SINGLE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromFilesRequest.Options.KAFKA_GROUP_ID">KAFKA_GROUP_ID</see>:</term>
+        ///         <description>The group id to be used consuming data from a
+        /// kakfa topic (valid only for kafka datasource
+        /// subscriptions).</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromFilesRequest.Options.TEXT_SEARCH_COLUMNS">TEXT_SEARCH_COLUMNS</see>:</term>
+        ///         <description>Add 'text_search' property to internally
+        /// inferenced string columns. Comma seperated list of column names or
+        /// '*' for all columns. To add text_search property only to string
+        /// columns of minimum size, set also the option
+        /// 'text_search_min_column_length'</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromFilesRequest.Options.TEXT_SEARCH_MIN_COLUMN_LENGTH">TEXT_SEARCH_MIN_COLUMN_LENGTH</see>:</term>
+        ///         <description>Set minimum column size. Used only when
+        /// 'text_search_columns' has a value.</description>
         ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.</param>
@@ -14322,6 +15386,13 @@ namespace kinetica
         /// href="../../../concepts/tables/#partitioning-by-hash"
         /// target="_top">hash partitioning</a>.</description>
         ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromPayloadRequest.CreateTableOptions.SERIES">SERIES</see>:</term>
+        ///         <description>Use <a
+        /// href="../../../concepts/tables/#partitioning-by-series"
+        /// target="_top">series partitioning</a>.</description>
+        ///     </item>
         /// </list></description>
         ///     </item>
         ///     <item>
@@ -14342,9 +15413,11 @@ namespace kinetica
         /// href="../../../concepts/tables/#partitioning-by-interval"
         /// target="_top">interval partitioning</a>, <a
         /// href="../../../concepts/tables/#partitioning-by-list"
-        /// target="_top">list partitioning</a>, or <a
+        /// target="_top">list partitioning</a>, <a
         /// href="../../../concepts/tables/#partitioning-by-hash"
-        /// target="_top">hash partitioning</a> for example
+        /// target="_top">hash partitioning</a>, or <a
+        /// href="../../../concepts/tables/#partitioning-by-series"
+        /// target="_top">series partitioning</a> for example
         /// formats.</description>
         ///     </item>
         ///     <item>
@@ -14413,11 +15486,7 @@ namespace kinetica
         /// cref="InsertRecordsFromPayloadRequest.CreateTableOptions.STRATEGY_DEFINITION">STRATEGY_DEFINITION</see>:</term>
         ///         <description>The <a
         /// href="../../../rm/concepts/#tier-strategies" target="_top">tier
-        /// strategy</a> for the table and its columns. See <a
-        /// href="../../../rm/concepts/#tier-strategies" target="_top">tier
-        /// strategy usage</a> for format and <a
-        /// href="../../../rm/usage/#tier-strategies" target="_top">tier
-        /// strategy examples</a> for examples.</description>
+        /// strategy</a> for the table and its columns.</description>
         ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.</param>
@@ -14589,6 +15658,11 @@ namespace kinetica
         /// cref="InsertRecordsFromPayloadRequest.Options.JSON">JSON</see>:</term>
         ///         <description>Json file format</description>
         ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromPayloadRequest.Options.SHAPEFILE">SHAPEFILE</see>:</term>
+        ///         <description>ShapeFile file format</description>
+        ///     </item>
         /// </list>
         /// The default value is <see
         /// cref="InsertRecordsFromPayloadRequest.Options.DELIMITED_TEXT">DELIMITED_TEXT</see>.</description>
@@ -14756,7 +15830,22 @@ namespace kinetica
         ///     </item>
         /// </list>
         /// The default value is <see
-        /// cref="InsertRecordsFromPayloadRequest.Options.ACCURACY">ACCURACY</see>.</description>
+        /// cref="InsertRecordsFromPayloadRequest.Options.SPEED">SPEED</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromPayloadRequest.Options.TEXT_SEARCH_COLUMNS">TEXT_SEARCH_COLUMNS</see>:</term>
+        ///         <description>Add 'text_search' property to internally
+        /// inferenced string columns. Comma seperated list of column names or
+        /// '*' for all columns. To add text_search property only to string
+        /// columns of minimum size, set also the option
+        /// 'text_search_min_column_length'</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromPayloadRequest.Options.TEXT_SEARCH_MIN_COLUMN_LENGTH">TEXT_SEARCH_MIN_COLUMN_LENGTH</see>:</term>
+        ///         <description>Set minimum column size. Used only when
+        /// 'text_search_columns' has a value.</description>
         ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.</param>
@@ -15331,10 +16420,10 @@ namespace kinetica
         /// <a href="../../../graph_solver/network_graph_solver/"
         /// target="_top">Network Graphs & Solvers</a>
         /// concepts documentation, the
-        /// <a href="../../../graph_solver/examples/graph_rest_guide/"
-        /// target="_top">Graph REST Tutorial</a>,
+        /// <a href="../../../guides/graph_rest_guide/" target="_top">Graph
+        /// REST Tutorial</a>,
         /// and/or some
-        /// <a href="../../../graph_solver/examples/#match-graph"
+        /// <a href="../../../guide-tags/graph-match/"
         /// target="_top">/match/graph examples</a>
         /// before using this endpoint.</summary>
         /// 
@@ -15361,10 +16450,10 @@ namespace kinetica
         /// <a href="../../../graph_solver/network_graph_solver/"
         /// target="_top">Network Graphs & Solvers</a>
         /// concepts documentation, the
-        /// <a href="../../../graph_solver/examples/graph_rest_guide/"
-        /// target="_top">Graph REST Tutorial</a>,
+        /// <a href="../../../guides/graph_rest_guide/" target="_top">Graph
+        /// REST Tutorial</a>,
         /// and/or some
-        /// <a href="../../../graph_solver/examples/#match-graph"
+        /// <a href="../../../guide-tags/graph-match/"
         /// target="_top">/match/graph examples</a>
         /// before using this endpoint.</summary>
         /// 
@@ -15427,6 +16516,13 @@ namespace kinetica
         ///         <description>Matches <paramref
         /// cref="MatchGraphRequest.sample_points" /> source and destination
         /// pairs for the shortest path solves in batch mode.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="MatchGraphRequest.SolveMethod.MATCH_LOOPS">MATCH_LOOPS</see>:</term>
+        ///         <description>Matches closed loops (Eulerian paths)
+        /// originating and ending at each graph node within min and max hops
+        /// (levels).</description>
         ///     </item>
         /// </list>
         /// The default value is <see
@@ -15671,11 +16767,74 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
+        /// cref="MatchGraphRequest.Options.MAX_TRUCK_STOPS">MAX_TRUCK_STOPS</see>:</term>
+        ///         <description>For the <i>match_supply_demand</i> solver
+        /// only. If specified (greater than zero), a truck can at most have
+        /// this many stops (demand locations) in one round trip. Otherwise, it
+        /// is unlimited. If 'enable_truck_reuse' is on, this condition will be
+        /// applied separately at each round trip use of the same truck.  The
+        /// default value is '0'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="MatchGraphRequest.Options.SERVER_ID">SERVER_ID</see>:</term>
         ///         <description>Indicates which graph server(s) to send the
         /// request to. Default is to send to the server, amongst those
         /// containing the corresponding graph, that has the most computational
         /// bandwidth.  The default value is ''.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="MatchGraphRequest.Options.INVERSE_SOLVE">INVERSE_SOLVE</see>:</term>
+        ///         <description>For the <i>match_batch_solves</i> solver only.
+        /// Solves source-destination pairs using inverse shortest path solver.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="MatchGraphRequest.Options.TRUE">TRUE</see>:</term>
+        ///         <description>Solves using inverse shortest path
+        /// solver.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="MatchGraphRequest.Options.FALSE">FALSE</see>:</term>
+        ///         <description>Solves using direct shortest path
+        /// solver.</description>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="MatchGraphRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="MatchGraphRequest.Options.MIN_LOOP_LEVEL">MIN_LOOP_LEVEL</see>:</term>
+        ///         <description>For the <i>match_loops</i> solver only. Finds
+        /// closed loops around each node deducible not less than this minimal
+        /// hop (level) deep.  The default value is '0'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="MatchGraphRequest.Options.MAX_LOOP_LEVEL">MAX_LOOP_LEVEL</see>:</term>
+        ///         <description>For the <i>match_loops</i> solver only. Finds
+        /// closed loops around each node deducible not more than this maximal
+        /// hop (level) deep.  The default value is '5'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="MatchGraphRequest.Options.SEARCH_LIMIT">SEARCH_LIMIT</see>:</term>
+        ///         <description>For the <i>match_loops</i> solver only.
+        /// Searches within this limit of nodes per vertex to detect loops. The
+        /// value zero means there is no limit.  The default value is
+        /// '10000'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="MatchGraphRequest.Options.OUTPUT_BATCH_SIZE">OUTPUT_BATCH_SIZE</see>:</term>
+        ///         <description>For the <i>match_loops</i> solver only. Uses
+        /// this value as the batch size of the number of loops in
+        /// flushing(inserting) to the output table.  The default value is
+        /// '1000'.</description>
         ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.</param>
@@ -15886,12 +17045,9 @@ namespace kinetica
         /// IMPORTANT: It's highly recommended that you review the
         /// <a href="../../../graph_solver/network_graph_solver/"
         /// target="_top">Network Graphs & Solvers</a>
-        /// concepts documentation, the
-        /// <a href="../../../graph_solver/examples/graph_rest_guide/"
-        /// target="_top">Graph REST Tutorial</a>,
-        /// and/or some
-        /// <a href="../../../graph_solver/examples/#match-graph"
-        /// target="_top">/match/graph examples</a>
+        /// concepts documentation and
+        /// <a href="../../../guides/graph_rest_guide/" target="_top">Graph
+        /// REST Tutorial</a>
         /// before using this endpoint.</summary>
         /// 
         /// <param name="request_">Request object containing the parameters for
@@ -15915,12 +17071,9 @@ namespace kinetica
         /// IMPORTANT: It's highly recommended that you review the
         /// <a href="../../../graph_solver/network_graph_solver/"
         /// target="_top">Network Graphs & Solvers</a>
-        /// concepts documentation, the
-        /// <a href="../../../graph_solver/examples/graph_rest_guide/"
-        /// target="_top">Graph REST Tutorial</a>,
-        /// and/or some
-        /// <a href="../../../graph_solver/examples/#match-graph"
-        /// target="_top">/match/graph examples</a>
+        /// concepts documentation and
+        /// <a href="../../../guides/graph_rest_guide/" target="_top">Graph
+        /// REST Tutorial</a>
         /// before using this endpoint.</summary>
         /// 
         /// <param name="graph_name">Name of the graph resource to modify.
@@ -16225,10 +17378,10 @@ namespace kinetica
         /// <a href="../../../graph_solver/network_graph_solver/"
         /// target="_top">Network Graphs & Solvers</a>
         /// concepts documentation, the
-        /// <a href="../../../graph_solver/examples/graph_rest_guide/"
-        /// target="_top">Graph REST Tutorial</a>,
+        /// <a href="../../../guides/graph_rest_guide/" target="_top">Graph
+        /// REST Tutorial</a>,
         /// and/or some
-        /// <a href="../../../graph_solver/examples/#match-graph"
+        /// <a href="../../../guide-tags/graph-query"
         /// target="_top">/match/graph examples</a>
         /// before using this endpoint.</summary>
         /// 
@@ -16285,10 +17438,10 @@ namespace kinetica
         /// <a href="../../../graph_solver/network_graph_solver/"
         /// target="_top">Network Graphs & Solvers</a>
         /// concepts documentation, the
-        /// <a href="../../../graph_solver/examples/graph_rest_guide/"
-        /// target="_top">Graph REST Tutorial</a>,
+        /// <a href="../../../guides/graph_rest_guide/" target="_top">Graph
+        /// REST Tutorial</a>,
         /// and/or some
-        /// <a href="../../../graph_solver/examples/#match-graph"
+        /// <a href="../../../guide-tags/graph-query"
         /// target="_top">/match/graph examples</a>
         /// before using this endpoint.</summary>
         /// 
@@ -16474,26 +17627,6 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="QueryGraphRequest.Options.EXPORT_SOLVE_RESULTS">EXPORT_SOLVE_RESULTS</see>:</term>
-        ///         <description>Returns solution results inside the <member
-        /// name="adjacency_list_int_array" /> array in the response if set to
-        /// <i>true</i>.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="QueryGraphRequest.Options.TRUE">TRUE</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="QueryGraphRequest.Options.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="QueryGraphRequest.Options.FALSE">FALSE</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
         /// cref="QueryGraphRequest.Options.SERVER_ID">SERVER_ID</see>:</term>
         ///         <description>Indicates which graph server(s) to send the
         /// request to. Default is to send to the server, amongst those
@@ -16516,6 +17649,43 @@ namespace kinetica
             return queryGraph( new QueryGraphRequest( graph_name, queries, restrictions,
                                                       adjacency_table, rings, options ) );
         }
+
+        /// @cond NO_DOCS
+        /// 
+        /// <param name="request_">Request object containing the parameters for
+        /// the operation.</param>
+        /// 
+        /// <returns>Response object containing the result of the
+        /// operation.</returns>
+        /// 
+        public ReserveResourceResponse reserveResource( ReserveResourceRequest request_ )
+        {
+            ReserveResourceResponse actualResponse_ = SubmitRequest<ReserveResourceResponse>("/reserve/resource", request_, false);
+
+            return actualResponse_;
+        }
+        /// @endcond
+
+        /// @cond NO_DOCS
+        /// 
+        /// <param name="component"></param>
+        /// <param name="bytes_requested"></param>
+        /// <param name="options">
+        /// <list type="bullet">
+        /// </list>
+        /// </param>
+        /// 
+        /// <returns>Response object containing the result of the
+        /// operation.</returns>
+        /// 
+        public ReserveResourceResponse reserveResource( string component,
+                                                        long bytes_requested,
+                                                        IDictionary<string, string> options = null )
+        {
+            return reserveResource( new ReserveResourceRequest( component,
+                                                                bytes_requested, options ) );
+        }
+        /// @endcond
 
 
         /// <summary>Revokes a <a
@@ -16638,6 +17808,70 @@ namespace kinetica
                                                                                       permission,
                                                                                       datasource_name,
                                                                                       options ) );
+        }
+
+
+        /// <summary>Revokes a <a href="../../../tools/kifs/"
+        /// target="_top">KiFS</a> directory-level permission from a user or
+        /// role.</summary>
+        /// 
+        /// <param name="request_">Request object containing the parameters for
+        /// the operation.</param>
+        /// 
+        /// <returns>Response object containing the result of the
+        /// operation.</returns>
+        /// 
+        public RevokePermissionDirectoryResponse revokePermissionDirectory( RevokePermissionDirectoryRequest request_ )
+        {
+            RevokePermissionDirectoryResponse actualResponse_ = SubmitRequest<RevokePermissionDirectoryResponse>("/revoke/permission/directory", request_, false);
+
+            return actualResponse_;
+        }
+
+
+        /// <summary>Revokes a <a href="../../../tools/kifs/"
+        /// target="_top">KiFS</a> directory-level permission from a user or
+        /// role.</summary>
+        /// 
+        /// <param name="name">Name of the user or role from which the
+        /// permission will be revoked. Must be an existing user or role.
+        /// </param>
+        /// <param name="permission">Permission to revoke from the user or
+        /// role.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="RevokePermissionDirectoryRequest.Permission.DIRECTORY_READ">DIRECTORY_READ</see>:</term>
+        ///         <description>For files in the directory, access to list
+        /// files, download files, or use files in server side
+        /// functions</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="RevokePermissionDirectoryRequest.Permission.DIRECTORY_WRITE">DIRECTORY_WRITE</see>:</term>
+        ///         <description>Access to upload files to, or delete files
+        /// from, the directory. A user or role with write access automatically
+        /// has read acceess</description>
+        ///     </item>
+        /// </list>  </param>
+        /// <param name="directory_name">Name of the KiFS directory to which
+        /// the permission revokes access  </param>
+        /// <param name="options">Optional parameters.  The default value is an
+        /// empty {@link Dictionary}.</param>
+        /// 
+        /// <returns>Response object containing the result of the
+        /// operation.</returns>
+        /// 
+        public RevokePermissionDirectoryResponse revokePermissionDirectory( string name,
+                                                                            string permission,
+                                                                            string directory_name,
+                                                                            IDictionary<string, string> options = null )
+        {
+            return revokePermissionDirectory( new RevokePermissionDirectoryRequest( name,
+                                                                                    permission,
+                                                                                    directory_name,
+                                                                                    options ) );
         }
 
 
@@ -16993,6 +18227,82 @@ namespace kinetica
                                                       IDictionary<string, string> options = null )
         {
             return showDatasource( new ShowDatasourceRequest( name, options ) );
+        }
+
+
+        /// <summary>Shows information about directories in <a
+        /// href="../../../tools/kifs/" target="_top">KiFS</a>. Can be used to
+        /// show a single directory, or all directories.</summary>
+        /// 
+        /// <param name="request_">Request object containing the parameters for
+        /// the operation.</param>
+        /// 
+        /// <returns>Response object containing the result of the
+        /// operation.</returns>
+        /// 
+        public ShowDirectoriesResponse showDirectories( ShowDirectoriesRequest request_ )
+        {
+            ShowDirectoriesResponse actualResponse_ = SubmitRequest<ShowDirectoriesResponse>("/show/directories", request_, false);
+
+            return actualResponse_;
+        }
+
+
+        /// <summary>Shows information about directories in <a
+        /// href="../../../tools/kifs/" target="_top">KiFS</a>. Can be used to
+        /// show a single directory, or all directories.</summary>
+        /// 
+        /// <param name="directory_name">The KiFS directory name to show. If
+        /// empty, shows all directories.  The default value is ''.</param>
+        /// <param name="options">Optional parameters.  The default value is an
+        /// empty {@link Dictionary}.</param>
+        /// 
+        /// <returns>Response object containing the result of the
+        /// operation.</returns>
+        /// 
+        public ShowDirectoriesResponse showDirectories( string directory_name = "",
+                                                        IDictionary<string, string> options = null )
+        {
+            return showDirectories( new ShowDirectoriesRequest( directory_name, options ) );
+        }
+
+
+        /// <summary>Shows information about files in <a
+        /// href="../../../tools/kifs/" target="_top">KiFS</a>. Can be used for
+        /// individual files, or to show all files in a given
+        /// directory.</summary>
+        /// 
+        /// <param name="request_">Request object containing the parameters for
+        /// the operation.</param>
+        /// 
+        /// <returns>Response object containing the result of the
+        /// operation.</returns>
+        /// 
+        public ShowFilesResponse showFiles( ShowFilesRequest request_ )
+        {
+            ShowFilesResponse actualResponse_ = SubmitRequest<ShowFilesResponse>("/show/files", request_, false);
+
+            return actualResponse_;
+        }
+
+
+        /// <summary>Shows information about files in <a
+        /// href="../../../tools/kifs/" target="_top">KiFS</a>. Can be used for
+        /// individual files, or to show all files in a given
+        /// directory.</summary>
+        /// 
+        /// <param name="paths">File paths to show. Each path can be a KiFS
+        /// directory name, or a full path to a KiFS file.  </param>
+        /// <param name="options">Optional parameters.  The default value is an
+        /// empty {@link Dictionary}.</param>
+        /// 
+        /// <returns>Response object containing the result of the
+        /// operation.</returns>
+        /// 
+        public ShowFilesResponse showFiles( IList<string> paths,
+                                            IDictionary<string, string> options = null )
+        {
+            return showFiles( new ShowFilesRequest( paths, options ) );
         }
 
         /// @cond NO_DOCS
@@ -18211,6 +19521,40 @@ namespace kinetica
         }
 
 
+        /// <summary>Retrieves information about rendered videos.</summary>
+        /// 
+        /// <param name="request_">Request object containing the parameters for
+        /// the operation.</param>
+        /// 
+        /// <returns>Response object containing the result of the
+        /// operation.</returns>
+        /// 
+        public ShowVideoResponse showVideo( ShowVideoRequest request_ )
+        {
+            ShowVideoResponse actualResponse_ = SubmitRequest<ShowVideoResponse>("/show/video", request_, false);
+
+            return actualResponse_;
+        }
+
+
+        /// <summary>Retrieves information about rendered videos.</summary>
+        /// 
+        /// <param name="paths">The fully-qualified <a
+        /// href="../../../tools/kifs/" target="_top">KiFS</a> paths for the
+        /// videos to show. If empty, shows all videos.  </param>
+        /// <param name="options">Optional parameters.  The default value is an
+        /// empty {@link Dictionary}.</param>
+        /// 
+        /// <returns>Response object containing the result of the
+        /// operation.</returns>
+        /// 
+        public ShowVideoResponse showVideo( IList<string> paths,
+                                            IDictionary<string, string> options = null )
+        {
+            return showVideo( new ShowVideoRequest( paths, options ) );
+        }
+
+
         /// <summary>Solves an existing graph for a type of problem (e.g.,
         /// shortest path,
         /// page rank, travelling salesman, etc.) using source nodes,
@@ -18221,11 +19565,11 @@ namespace kinetica
         /// <a href="../../../graph_solver/network_graph_solver/"
         /// target="_top">Network Graphs & Solvers</a>
         /// concepts documentation, the
-        /// <a href="../../../graph_solver/examples/graph_rest_guide/"
-        /// target="_top">Graph REST Tutorial</a>,
+        /// <a href="../../../guides/graph_rest_guide/" target="_top">Graph
+        /// REST Tutorial</a>,
         /// and/or some
-        /// <a href="../../../graph_solver/examples/#match-graph"
-        /// target="_top">/match/graph examples</a>
+        /// <a href="../../../guide-tags/graph-solve"
+        /// target="_top">/solve/graph examples</a>
         /// before using this endpoint.</summary>
         /// 
         /// <param name="request_">Request object containing the parameters for
@@ -18252,11 +19596,11 @@ namespace kinetica
         /// <a href="../../../graph_solver/network_graph_solver/"
         /// target="_top">Network Graphs & Solvers</a>
         /// concepts documentation, the
-        /// <a href="../../../graph_solver/examples/graph_rest_guide/"
-        /// target="_top">Graph REST Tutorial</a>,
+        /// <a href="../../../guides/graph_rest_guide/" target="_top">Graph
+        /// REST Tutorial</a>,
         /// and/or some
-        /// <a href="../../../graph_solver/examples/#match-graph"
-        /// target="_top">/match/graph examples</a>
+        /// <a href="../../../guide-tags/graph-solve"
+        /// target="_top">/solve/graph examples</a>
         /// before using this endpoint.</summary>
         /// 
         /// <param name="graph_name">Name of the graph resource to solve.
@@ -18367,6 +19711,20 @@ namespace kinetica
         /// 'max_solution_targets' option. Min cost shoudl be >= shortest_path
         /// cost.</description>
         ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="SolveGraphRequest.SolverType.STATS_ALL">STATS_ALL</see>:</term>
+        ///         <description>Solves for graph statistics such as graph
+        /// diameter, longest pairs, vertex valences, topology numbers, average
+        /// and max cluster sizes, etc.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="SolveGraphRequest.SolverType.CLOSENESS">CLOSENESS</see>:</term>
+        ///         <description>Solves for the centrality closeness score per
+        /// node as the sum of the inverse shortest path costs to all nodes in
+        /// the graph.</description>
+        ///     </item>
         /// </list>
         /// The default value is <see
         /// cref="SolveGraphRequest.SolverType.SHORTEST_PATH">SHORTEST_PATH</see>.
@@ -18389,7 +19747,7 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="SolveGraphRequest.Options.MAX_SOLUTION_RADIUS">MAX_SOLUTION_RADIUS</see>:</term>
-        ///         <description>For <i>SHORTEST_PATH</i> and
+        ///         <description>For <i>ALLPATHS</i>, <i>SHORTEST_PATH</i> and
         /// <i>INVERSE_SHORTEST_PATH</i> solvers only. Sets the maximum
         /// solution cost radius, which ignores the <paramref
         /// cref="SolveGraphRequest.destination_nodes" /> list and instead
@@ -18400,7 +19758,7 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="SolveGraphRequest.Options.MIN_SOLUTION_RADIUS">MIN_SOLUTION_RADIUS</see>:</term>
-        ///         <description>For <i>SHORTEST_PATH</i> and
+        ///         <description>For <i>ALLPATHS</i>, <i>SHORTEST_PATH</i> and
         /// <i>INVERSE_SHORTEST_PATH</i> solvers only. Applicable only when
         /// <i>max_solution_radius</i> is set. Sets the minimum solution cost
         /// radius, which ignores the <paramref
@@ -18412,13 +19770,13 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="SolveGraphRequest.Options.MAX_SOLUTION_TARGETS">MAX_SOLUTION_TARGETS</see>:</term>
-        ///         <description>For <i>SHORTEST_PATH</i> and
+        ///         <description>For <i>ALLPATHS</i>, <i>SHORTEST_PATH</i> and
         /// <i>INVERSE_SHORTEST_PATH</i> solvers only. Sets the maximum number
         /// of solution targets, which ignores the <paramref
         /// cref="SolveGraphRequest.destination_nodes" /> list and instead
         /// outputs no more than n number of nodes sorted by ascending cost
         /// where n is equal to the setting value. If set to 0, the setting is
-        /// ignored.  The default value is '0'.</description>
+        /// ignored.  The default value is '1000'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -18603,6 +19961,55 @@ namespace kinetica
         /// bandwidth. For SHORTEST_PATH solver type, the input is split
         /// amongst the server containing the corresponding
         /// graph.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="SolveGraphRequest.Options.CONVERGENCE_LIMIT">CONVERGENCE_LIMIT</see>:</term>
+        ///         <description>For <i>PAGE_RANK</i> solvers only; Maximum
+        /// percent relative threshold on the pagerank scores of each node
+        /// between consecutive iterations to satisfy convergence. Default
+        /// value is 1 (one) percent.  The default value is
+        /// '1.0'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="SolveGraphRequest.Options.MAX_ITERATIONS">MAX_ITERATIONS</see>:</term>
+        ///         <description>For <i>PAGE_RANK</i> solvers only; Maximum
+        /// number of pagerank iterations for satisfying convergence. Default
+        /// value is 100.  The default value is '100'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="SolveGraphRequest.Options.MAX_RUNS">MAX_RUNS</see>:</term>
+        ///         <description>For all <i>CENTRALITY</i> solvers only; Sets
+        /// the maximum number of shortest path runs; maximum possible value is
+        /// the number of nodes in the graph. Default value of 0 enables this
+        /// value to be auto computed by the solver.  The default value is
+        /// '0'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="SolveGraphRequest.Options.OUTPUT_CLUSTERS">OUTPUT_CLUSTERS</see>:</term>
+        ///         <description>For <i>STATS_ALL</i> solvers only; the cluster
+        /// index for each node will be inserted as an additional column in the
+        /// output.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="SolveGraphRequest.Options.TRUE">TRUE</see>:</term>
+        ///         <description>An additional column 'CLUSTER' will be added
+        /// for each node</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="SolveGraphRequest.Options.FALSE">FALSE</see>:</term>
+        ///         <description>No extra cluster info per node will be
+        /// available in the output</description>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="SolveGraphRequest.Options.FALSE">FALSE</see>.</description>
         ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.</param>
@@ -19023,6 +20430,276 @@ namespace kinetica
                                                                             view_name,
                                                                             reserved,
                                                                             options ) );
+        }
+
+
+        /// <summary>Uploads one or more files to <a
+        /// href="../../../tools/kifs/" target="_top">KiFS</a>. There are
+        /// two methods for uploading files: load files in their entirety, or
+        /// load files in
+        /// parts. The latter is recommeded for files of approximately 60 MB or
+        /// larger.
+        /// <br />
+        /// To upload files in their entirety, populate <paramref
+        /// cref="UploadFilesRequest.file_names" /> with the file
+        /// names to upload into on KiFS, and their respective byte content in
+        /// <paramref cref="UploadFilesRequest.file_data" />.
+        /// <br />
+        /// Multiple steps are involved when uploading in multiple parts. Only
+        /// one file at a
+        /// time can be uploaded in this manner. A user-provided UUID is
+        /// utilized to tie all
+        /// the upload steps together for a given file.  To upload a file in
+        /// multiple parts:
+        /// <br />
+        /// 1. Provide the file name in <paramref
+        /// cref="UploadFilesRequest.file_names" />, the UUID in
+        ///    the <i>multipart_upload_uuid</i> key in <paramref
+        /// cref="UploadFilesRequest.options" />, and
+        ///    a <i>multipart_operation</i> value of
+        ///    <i>init</i>.
+        /// 2. Upload one or more parts by providing the file name, the part
+        /// data
+        ///    in <paramref cref="UploadFilesRequest.file_data" />, the UUID, a
+        /// <i>multipart_operation</i>
+        ///    value of <i>upload_part</i>, and
+        ///    the part number in the <i>multipart_upload_part_number</i>.
+        ///    The part numbers must start at 1 and increase incrementally.
+        ///    Parts may not be uploaded out of order.
+        /// 3. Complete the upload by providing the file name, the UUID, and a
+        ///    <i>multipart_operation</i> value of
+        ///    <i>complete</i>.
+        /// <br />
+        /// Multipart uploads in progress may be canceled by providing the file
+        /// name, the
+        /// UUID, and a <i>multipart_operation</i> value of
+        /// <i>cancel</i>.  If an new upload is
+        /// initialized with a different UUID for an existing upload in
+        /// progress, the
+        /// pre-existing upload is automatically canceled in favor of the new
+        /// upload.
+        /// <br />
+        /// The multipart upload must be completed for the file to be usable in
+        /// KiFS.
+        /// Information about multipart uploads in progress is available in
+        /// <see
+        /// cref="Kinetica.showFiles(IList{string},IDictionary{string, string})"
+        /// />.
+        /// <br />
+        /// File data may be pre-encoded using base64 encoding. This should be
+        /// indicated
+        /// using the <i>file_encoding</i> option, and is recommended when
+        /// using JSON serialization.
+        /// <br />
+        /// Each file path must reside in a top-level KiFS directory, i.e. one
+        /// of the
+        /// directories listed in <see
+        /// cref="Kinetica.showDirectories(string,IDictionary{string, string})"
+        /// />. The user must have write
+        /// permission on the directory. Nested directories are permitted in
+        /// file name
+        /// paths. Directories are deliniated with the directory separator of
+        /// '/'.  For
+        /// example, given the file path '/a/b/c/d.txt', 'a' must be a KiFS
+        /// directory.
+        /// <br />
+        /// These characters are allowed in file name paths: letters, numbers,
+        /// spaces, the
+        /// path delimiter of '/', and the characters: '.' '-' ':' '[' ']' '('
+        /// ')' '#' '='.</summary>
+        /// 
+        /// <param name="request_">Request object containing the parameters for
+        /// the operation.</param>
+        /// 
+        /// <returns>Response object containing the result of the
+        /// operation.</returns>
+        /// 
+        public UploadFilesResponse uploadFiles( UploadFilesRequest request_ )
+        {
+            UploadFilesResponse actualResponse_ = SubmitRequest<UploadFilesResponse>("/upload/files", request_, false);
+
+            return actualResponse_;
+        }
+
+
+        /// <summary>Uploads one or more files to <a
+        /// href="../../../tools/kifs/" target="_top">KiFS</a>. There are
+        /// two methods for uploading files: load files in their entirety, or
+        /// load files in
+        /// parts. The latter is recommeded for files of approximately 60 MB or
+        /// larger.
+        /// <br />
+        /// To upload files in their entirety, populate <paramref
+        /// name="file_names" /> with the file
+        /// names to upload into on KiFS, and their respective byte content in
+        /// <paramref name="file_data" />.
+        /// <br />
+        /// Multiple steps are involved when uploading in multiple parts. Only
+        /// one file at a
+        /// time can be uploaded in this manner. A user-provided UUID is
+        /// utilized to tie all
+        /// the upload steps together for a given file.  To upload a file in
+        /// multiple parts:
+        /// <br />
+        /// 1. Provide the file name in <paramref name="file_names" />, the
+        /// UUID in
+        ///    the <i>multipart_upload_uuid</i> key in <paramref name="options"
+        /// />, and
+        ///    a <i>multipart_operation</i> value of
+        ///    <i>init</i>.
+        /// 2. Upload one or more parts by providing the file name, the part
+        /// data
+        ///    in <paramref name="file_data" />, the UUID, a
+        /// <i>multipart_operation</i>
+        ///    value of <i>upload_part</i>, and
+        ///    the part number in the <i>multipart_upload_part_number</i>.
+        ///    The part numbers must start at 1 and increase incrementally.
+        ///    Parts may not be uploaded out of order.
+        /// 3. Complete the upload by providing the file name, the UUID, and a
+        ///    <i>multipart_operation</i> value of
+        ///    <i>complete</i>.
+        /// <br />
+        /// Multipart uploads in progress may be canceled by providing the file
+        /// name, the
+        /// UUID, and a <i>multipart_operation</i> value of
+        /// <i>cancel</i>.  If an new upload is
+        /// initialized with a different UUID for an existing upload in
+        /// progress, the
+        /// pre-existing upload is automatically canceled in favor of the new
+        /// upload.
+        /// <br />
+        /// The multipart upload must be completed for the file to be usable in
+        /// KiFS.
+        /// Information about multipart uploads in progress is available in
+        /// <see
+        /// cref="Kinetica.showFiles(IList{string},IDictionary{string, string})"
+        /// />.
+        /// <br />
+        /// File data may be pre-encoded using base64 encoding. This should be
+        /// indicated
+        /// using the <i>file_encoding</i> option, and is recommended when
+        /// using JSON serialization.
+        /// <br />
+        /// Each file path must reside in a top-level KiFS directory, i.e. one
+        /// of the
+        /// directories listed in <see
+        /// cref="Kinetica.showDirectories(string,IDictionary{string, string})"
+        /// />. The user must have write
+        /// permission on the directory. Nested directories are permitted in
+        /// file name
+        /// paths. Directories are deliniated with the directory separator of
+        /// '/'.  For
+        /// example, given the file path '/a/b/c/d.txt', 'a' must be a KiFS
+        /// directory.
+        /// <br />
+        /// These characters are allowed in file name paths: letters, numbers,
+        /// spaces, the
+        /// path delimiter of '/', and the characters: '.' '-' ':' '[' ']' '('
+        /// ')' '#' '='.</summary>
+        /// 
+        /// <param name="file_names">An array of full file name paths to be
+        /// used for the files
+        /// uploaded to KiFS. File names may have any number of nested
+        /// directories in their
+        /// paths, but the top-level directory must be an existing KiFS
+        /// directory. Each file
+        /// must reside in or under a top-level directory. A full file name
+        /// path cannot be
+        /// larger than 1024 characters.  </param>
+        /// <param name="file_data">File data for the files being uploaded, for
+        /// the respective files in <paramref
+        /// cref="UploadFilesRequest.file_names" />.  </param>
+        /// <param name="options">Optional parameters.
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="UploadFilesRequest.Options.FILE_ENCODING">FILE_ENCODING</see>:</term>
+        ///         <description>Encoding that has been applied to the uploaded
+        /// file data. When using JSON serialization it is recommended to
+        /// utilize
+        /// <i>base64</i>. The caller is responsible
+        /// for encoding the data provided in this payload
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="UploadFilesRequest.Options.BASE64">BASE64</see>:</term>
+        ///         <description>Specifies that the file data being uploaded
+        /// has been base64 encoded.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="UploadFilesRequest.Options.NONE">NONE</see>:</term>
+        ///         <description>The uploaded file data has not been
+        /// encoded.</description>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="UploadFilesRequest.Options.NONE">NONE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="UploadFilesRequest.Options.MULTIPART_OPERATION">MULTIPART_OPERATION</see>:</term>
+        ///         <description>Multipart upload operation to perform
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="UploadFilesRequest.Options.NONE">NONE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="UploadFilesRequest.Options.INIT">INIT</see>:</term>
+        ///         <description>Initialize a multipart file
+        /// upload</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="UploadFilesRequest.Options.UPLOAD_PART">UPLOAD_PART</see>:</term>
+        ///         <description>Upload one or more parts of the specified
+        /// multipart file upload</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="UploadFilesRequest.Options.COMPLETE">COMPLETE</see>:</term>
+        ///         <description>Complete the specified multipart file
+        /// upload</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="UploadFilesRequest.Options.CANCEL">CANCEL</see>:</term>
+        ///         <description>Cancel the specified multipart file
+        /// upload</description>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="UploadFilesRequest.Options.NONE">NONE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="UploadFilesRequest.Options.MULTIPART_UPLOAD_UUID">MULTIPART_UPLOAD_UUID</see>:</term>
+        ///         <description>UUID to uniquely identify a multipart
+        /// upload</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="UploadFilesRequest.Options.MULTIPART_UPLOAD_PART_NUMBER">MULTIPART_UPLOAD_PART_NUMBER</see>:</term>
+        ///         <description>Incremental part number for each part in a
+        /// multipart upload. Part numbers start at 1, increment by 1, and must
+        /// be uploaded
+        /// sequentially</description>
+        ///     </item>
+        /// </list>
+        /// The default value is an empty {@link Dictionary}.</param>
+        /// 
+        /// <returns>Response object containing the result of the
+        /// operation.</returns>
+        /// 
+        public UploadFilesResponse uploadFiles( IList<string> file_names,
+                                                IList<byte[]> file_data,
+                                                IDictionary<string, string> options = null )
+        {
+            return uploadFiles( new UploadFilesRequest( file_names, file_data, options ) );
         }
 
         /// @cond NO_DOCS
@@ -22208,541 +23885,6 @@ namespace kinetica
                                                                       contour_options,
                                                                       options ) );
         }
-
-        /// @cond NO_DOCS
-        /// 
-        /// <param name="request_">Request object containing the parameters for
-        /// the operation.</param>
-        /// 
-        /// <returns>Response object containing the result of the
-        /// operation.</returns>
-        /// 
-        public VisualizeVideoResponse visualizeVideo( VisualizeVideoRequest request_ )
-        {
-            VisualizeVideoResponse actualResponse_ = SubmitRequest<VisualizeVideoResponse>("/visualize/video", request_, false);
-
-            return actualResponse_;
-        }
-        /// @endcond
-
-        /// @cond NO_DOCS
-        /// 
-        /// <param name="table_names"></param>
-        /// <param name="world_table_names"></param>
-        /// <param name="track_ids"></param>
-        /// <param name="x_column_name"></param>
-        /// <param name="y_column_name"></param>
-        /// <param name="geometry_column_name"></param>
-        /// <param name="min_x"></param>
-        /// <param name="max_x"></param>
-        /// <param name="min_y"></param>
-        /// <param name="max_y"></param>
-        /// <param name="width"></param>
-        /// <param name="height"></param>
-        /// <param name="projection">
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="VisualizeVideoRequest.Projection.EPSG_4326">EPSG_4326</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="VisualizeVideoRequest.Projection.PLATE_CARREE">PLATE_CARREE</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="VisualizeVideoRequest.Projection._900913">_900913</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="VisualizeVideoRequest.Projection.EPSG_900913">EPSG_900913</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="VisualizeVideoRequest.Projection._102100">_102100</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="VisualizeVideoRequest.Projection.EPSG_102100">EPSG_102100</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="VisualizeVideoRequest.Projection._3857">_3857</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="VisualizeVideoRequest.Projection.EPSG_3857">EPSG_3857</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="VisualizeVideoRequest.Projection.WEB_MERCATOR">WEB_MERCATOR</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="VisualizeVideoRequest.Projection.PLATE_CARREE">PLATE_CARREE</see>.</param>
-        /// <param name="bg_color"></param>
-        /// <param name="time_intervals"></param>
-        /// <param name="video_style"></param>
-        /// <param name="session_key"></param>
-        /// <param name="style_options">
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="VisualizeVideoRequest.StyleOptions.DO_POINTS">DO_POINTS</see>:</term>
-        ///         <description>
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="VisualizeVideoRequest.StyleOptions.TRUE">TRUE</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="VisualizeVideoRequest.StyleOptions.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="VisualizeVideoRequest.StyleOptions.TRUE">TRUE</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="VisualizeVideoRequest.StyleOptions.DO_SHAPES">DO_SHAPES</see>:</term>
-        ///         <description>
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="VisualizeVideoRequest.StyleOptions.TRUE">TRUE</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="VisualizeVideoRequest.StyleOptions.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="VisualizeVideoRequest.StyleOptions.TRUE">TRUE</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="VisualizeVideoRequest.StyleOptions.DO_TRACKS">DO_TRACKS</see>:</term>
-        ///         <description>
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="VisualizeVideoRequest.StyleOptions.TRUE">TRUE</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="VisualizeVideoRequest.StyleOptions.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="VisualizeVideoRequest.StyleOptions.TRUE">TRUE</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="VisualizeVideoRequest.StyleOptions.POINTCOLORS">POINTCOLORS</see>:</term>
-        ///         <description>  The default value is 'FF0000'.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="VisualizeVideoRequest.StyleOptions.POINTSIZES">POINTSIZES</see>:</term>
-        ///         <description>  The default value is '3'.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="VisualizeVideoRequest.StyleOptions.POINTSHAPES">POINTSHAPES</see>:</term>
-        ///         <description>
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="VisualizeVideoRequest.StyleOptions.NONE">NONE</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="VisualizeVideoRequest.StyleOptions.CIRCLE">CIRCLE</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="VisualizeVideoRequest.StyleOptions.SQUARE">SQUARE</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="VisualizeVideoRequest.StyleOptions.DIAMOND">DIAMOND</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="VisualizeVideoRequest.StyleOptions.HOLLOWCIRCLE">HOLLOWCIRCLE</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="VisualizeVideoRequest.StyleOptions.HOLLOWSQUARE">HOLLOWSQUARE</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="VisualizeVideoRequest.StyleOptions.HOLLOWDIAMOND">HOLLOWDIAMOND</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="VisualizeVideoRequest.StyleOptions.SYMBOLCODE">SYMBOLCODE</see></term>
-        ///     </item>
-        /// </list></description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="VisualizeVideoRequest.StyleOptions.SHAPELINEWIDTHS">SHAPELINEWIDTHS</see>:</term>
-        ///         <description>  The default value is '3'.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="VisualizeVideoRequest.StyleOptions.SHAPELINECOLORS">SHAPELINECOLORS</see>:</term>
-        ///         <description>  The default value is 'FFFF00
-        /// '.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="VisualizeVideoRequest.StyleOptions.SHAPEFILLCOLORS">SHAPEFILLCOLORS</see>:</term>
-        ///         <description>  The default value is '-1'.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="VisualizeVideoRequest.StyleOptions.TRACKLINEWIDTHS">TRACKLINEWIDTHS</see>:</term>
-        ///         <description>  The default value is '3'.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="VisualizeVideoRequest.StyleOptions.TRACKLINECOLORS">TRACKLINECOLORS</see>:</term>
-        ///         <description>  The default value is '00FF00'.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="VisualizeVideoRequest.StyleOptions.TRACKMARKERSIZES">TRACKMARKERSIZES</see>:</term>
-        ///         <description>  The default value is '3'.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="VisualizeVideoRequest.StyleOptions.TRACKMARKERCOLORS">TRACKMARKERCOLORS</see>:</term>
-        ///         <description>  The default value is '0000FF'.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="VisualizeVideoRequest.StyleOptions.TRACKMARKERSHAPES">TRACKMARKERSHAPES</see>:</term>
-        ///         <description>
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="VisualizeVideoRequest.StyleOptions.NONE">NONE</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="VisualizeVideoRequest.StyleOptions.CIRCLE">CIRCLE</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="VisualizeVideoRequest.StyleOptions.SQUARE">SQUARE</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="VisualizeVideoRequest.StyleOptions.DIAMOND">DIAMOND</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="VisualizeVideoRequest.StyleOptions.HOLLOWCIRCLE">HOLLOWCIRCLE</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="VisualizeVideoRequest.StyleOptions.HOLLOWSQUARE">HOLLOWSQUARE</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="VisualizeVideoRequest.StyleOptions.HOLLOWDIAMOND">HOLLOWDIAMOND</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="VisualizeVideoRequest.StyleOptions.SYMBOLCODE">SYMBOLCODE</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="VisualizeVideoRequest.StyleOptions.NONE">NONE</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="VisualizeVideoRequest.StyleOptions.TRACKHEADCOLORS">TRACKHEADCOLORS</see>:</term>
-        ///         <description>  The default value is 'FFFFFF'.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="VisualizeVideoRequest.StyleOptions.TRACKHEADSIZES">TRACKHEADSIZES</see>:</term>
-        ///         <description>  The default value is '10'.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="VisualizeVideoRequest.StyleOptions.TRACKHEADSHAPES">TRACKHEADSHAPES</see>:</term>
-        ///         <description>
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="VisualizeVideoRequest.StyleOptions.NONE">NONE</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="VisualizeVideoRequest.StyleOptions.CIRCLE">CIRCLE</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="VisualizeVideoRequest.StyleOptions.SQUARE">SQUARE</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="VisualizeVideoRequest.StyleOptions.DIAMOND">DIAMOND</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="VisualizeVideoRequest.StyleOptions.HOLLOWCIRCLE">HOLLOWCIRCLE</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="VisualizeVideoRequest.StyleOptions.HOLLOWSQUARE">HOLLOWSQUARE</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="VisualizeVideoRequest.StyleOptions.HOLLOWDIAMOND">HOLLOWDIAMOND</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="VisualizeVideoRequest.StyleOptions.SYMBOLCODE">SYMBOLCODE</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="VisualizeVideoRequest.StyleOptions.CIRCLE">CIRCLE</see>.</description>
-        ///     </item>
-        /// </list>
-        /// </param>
-        /// <param name="options"></param>
-        /// 
-        /// <returns>Response object containing the result of the
-        /// operation.</returns>
-        /// 
-        public VisualizeVideoResponse visualizeVideo( IList<string> table_names,
-                                                      IList<string> world_table_names,
-                                                      IList<IList<string>> track_ids,
-                                                      string x_column_name,
-                                                      string y_column_name,
-                                                      string geometry_column_name,
-                                                      double min_x,
-                                                      double max_x,
-                                                      double min_y,
-                                                      double max_y,
-                                                      int width,
-                                                      int height,
-                                                      string projection,
-                                                      long bg_color,
-                                                      IList<IList<double>> time_intervals,
-                                                      string video_style,
-                                                      string session_key,
-                                                      IDictionary<string, IList<string>> style_options,
-                                                      IDictionary<string, string> options = null )
-        {
-            return visualizeVideo( new VisualizeVideoRequest( table_names,
-                                                              world_table_names,
-                                                              track_ids, x_column_name,
-                                                              y_column_name,
-                                                              geometry_column_name, min_x,
-                                                              max_x, min_y, max_y, width,
-                                                              height, projection,
-                                                              bg_color, time_intervals,
-                                                              video_style, session_key,
-                                                              style_options, options ) );
-        }
-        /// @endcond
-
-        /// @cond NO_DOCS
-        /// 
-        /// <param name="request_">Request object containing the parameters for
-        /// the operation.</param>
-        /// 
-        /// <returns>Response object containing the result of the
-        /// operation.</returns>
-        /// 
-        public VisualizeVideoHeatmapResponse visualizeVideoHeatmap( VisualizeVideoHeatmapRequest request_ )
-        {
-            VisualizeVideoHeatmapResponse actualResponse_ = SubmitRequest<VisualizeVideoHeatmapResponse>("/visualize/video/heatmap", request_, false);
-
-            return actualResponse_;
-        }
-        /// @endcond
-
-        /// @cond NO_DOCS
-        /// 
-        /// <param name="table_names"></param>
-        /// <param name="x_column_name"></param>
-        /// <param name="y_column_name"></param>
-        /// <param name="min_x"></param>
-        /// <param name="max_x"></param>
-        /// <param name="min_y"></param>
-        /// <param name="max_y"></param>
-        /// <param name="time_intervals"></param>
-        /// <param name="width"></param>
-        /// <param name="height"></param>
-        /// <param name="projection">
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="VisualizeVideoHeatmapRequest.Projection.EPSG_4326">EPSG_4326</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="VisualizeVideoHeatmapRequest.Projection.PLATE_CARREE">PLATE_CARREE</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="VisualizeVideoHeatmapRequest.Projection._900913">_900913</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="VisualizeVideoHeatmapRequest.Projection.EPSG_900913">EPSG_900913</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="VisualizeVideoHeatmapRequest.Projection._102100">_102100</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="VisualizeVideoHeatmapRequest.Projection.EPSG_102100">EPSG_102100</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="VisualizeVideoHeatmapRequest.Projection._3857">_3857</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="VisualizeVideoHeatmapRequest.Projection.EPSG_3857">EPSG_3857</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="VisualizeVideoHeatmapRequest.Projection.WEB_MERCATOR">WEB_MERCATOR</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="VisualizeVideoHeatmapRequest.Projection.PLATE_CARREE">PLATE_CARREE</see>.</param>
-        /// <param name="video_style"></param>
-        /// <param name="session_key"></param>
-        /// <param name="style_options">
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="VisualizeVideoHeatmapRequest.StyleOptions.COLORMAP">COLORMAP</see>:</term>
-        ///         <description>
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="VisualizeVideoHeatmapRequest.StyleOptions.JET">JET</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="VisualizeVideoHeatmapRequest.StyleOptions.HOT">HOT</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="VisualizeVideoHeatmapRequest.StyleOptions.HSV">HSV</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="VisualizeVideoHeatmapRequest.StyleOptions.GRAY">GRAY</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="VisualizeVideoHeatmapRequest.StyleOptions.BLUES">BLUES</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="VisualizeVideoHeatmapRequest.StyleOptions.GREENS">GREENS</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="VisualizeVideoHeatmapRequest.StyleOptions.GREYS">GREYS</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="VisualizeVideoHeatmapRequest.StyleOptions.ORANGES">ORANGES</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="VisualizeVideoHeatmapRequest.StyleOptions.PURPLES">PURPLES</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="VisualizeVideoHeatmapRequest.StyleOptions.REDS">REDS</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="VisualizeVideoHeatmapRequest.StyleOptions.REDS">REDS</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="VisualizeVideoHeatmapRequest.StyleOptions.BLUR_RADIUS">BLUR_RADIUS</see>:</term>
-        ///         <description>  The default value is '5'.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="VisualizeVideoHeatmapRequest.StyleOptions.BG_COLOR">BG_COLOR</see>:</term>
-        ///         <description>  The default value is
-        /// 'FF000000'.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="VisualizeVideoHeatmapRequest.StyleOptions.GRADIENT_START_COLOR">GRADIENT_START_COLOR</see>:</term>
-        ///         <description>  The default value is 'FFFFFF'.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="VisualizeVideoHeatmapRequest.StyleOptions.GRADIENT_END_COLOR">GRADIENT_END_COLOR</see>:</term>
-        ///         <description>  The default value is 'FF0000'.</description>
-        ///     </item>
-        /// </list>
-        /// </param>
-        /// <param name="options"></param>
-        /// 
-        /// <returns>Response object containing the result of the
-        /// operation.</returns>
-        /// 
-        public VisualizeVideoHeatmapResponse visualizeVideoHeatmap( IList<string> table_names,
-                                                                    string x_column_name,
-                                                                    string y_column_name,
-                                                                    double min_x,
-                                                                    double max_x,
-                                                                    double min_y,
-                                                                    double max_y,
-                                                                    IList<IList<double>> time_intervals,
-                                                                    int width,
-                                                                    int height,
-                                                                    string projection,
-                                                                    string video_style,
-                                                                    string session_key,
-                                                                    IDictionary<string, string> style_options,
-                                                                    IDictionary<string, string> options = null )
-        {
-            return visualizeVideoHeatmap( new VisualizeVideoHeatmapRequest( table_names,
-                                                                            x_column_name,
-                                                                            y_column_name,
-                                                                            min_x, max_x,
-                                                                            min_y, max_y,
-                                                                            time_intervals,
-                                                                            width, height,
-                                                                            projection,
-                                                                            video_style,
-                                                                            session_key,
-                                                                            style_options,
-                                                                            options ) );
-        }
-        /// @endcond
 
 
     }  // end class Kinetica

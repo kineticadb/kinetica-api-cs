@@ -95,6 +95,13 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
+        /// cref="AlterDatasourceRequest.DatasourceUpdatesMap.S3_AWS_ROLE_ARN">S3_AWS_ROLE_ARN</see>:</term>
+        ///         <description>Amazon IAM Role ARN which has required S3
+        /// permissions that can be assumed for the given S3 IAM
+        /// user</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="AlterDatasourceRequest.DatasourceUpdatesMap.HDFS_KERBEROS_KEYTAB">HDFS_KERBEROS_KEYTAB</see>:</term>
         ///         <description>Kerberos keytab file location for the given
         /// HDFS user</description>
@@ -155,6 +162,18 @@ namespace kinetica
         ///         <description>Oauth token to access given storage
         /// container</description>
         ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterDatasourceRequest.DatasourceUpdatesMap.KAFKA_URL">KAFKA_URL</see>:</term>
+        ///         <description>The publicly-accessible full path URL to the
+        /// kafka broker, e.g., 'http://172.123.45.67:9300'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterDatasourceRequest.DatasourceUpdatesMap.KAFKA_TOPIC_NAME">KAFKA_TOPIC_NAME</see>:</term>
+        ///         <description>Name of the Kafka topic to use as the data
+        /// source</description>
+        ///     </item>
         /// </list>
         /// <br />
         /// A set of string constants for the parameter <see
@@ -214,6 +233,10 @@ namespace kinetica
             /// located</summary>
             public const string S3_REGION = "s3_region";
 
+            /// <summary>Amazon IAM Role ARN which has required S3 permissions
+            /// that can be assumed for the given S3 IAM user</summary>
+            public const string S3_AWS_ROLE_ARN = "s3_aws_role_arn";
+
             /// <summary>Kerberos keytab file location for the given HDFS
             /// user</summary>
             public const string HDFS_KERBEROS_KEYTAB = "hdfs_kerberos_keytab";
@@ -255,6 +278,14 @@ namespace kinetica
             /// <summary>Oauth token to access given storage
             /// container</summary>
             public const string AZURE_OAUTH_TOKEN = "azure_oauth_token";
+
+            /// <summary>The publicly-accessible full path URL to the kafka
+            /// broker, e.g., 'http://172.123.45.67:9300'.</summary>
+            public const string KAFKA_URL = "kafka_url";
+
+            /// <summary>Name of the Kafka topic to use as the data
+            /// source</summary>
+            public const string KAFKA_TOPIC_NAME = "kafka_topic_name";
         } // end struct DatasourceUpdatesMap
 
 
@@ -336,6 +367,13 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
+        /// cref="AlterDatasourceRequest.DatasourceUpdatesMap.S3_AWS_ROLE_ARN">S3_AWS_ROLE_ARN</see>:</term>
+        ///         <description>Amazon IAM Role ARN which has required S3
+        /// permissions that can be assumed for the given S3 IAM
+        /// user</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="AlterDatasourceRequest.DatasourceUpdatesMap.HDFS_KERBEROS_KEYTAB">HDFS_KERBEROS_KEYTAB</see>:</term>
         ///         <description>Kerberos keytab file location for the given
         /// HDFS user</description>
@@ -395,6 +433,18 @@ namespace kinetica
         /// cref="AlterDatasourceRequest.DatasourceUpdatesMap.AZURE_OAUTH_TOKEN">AZURE_OAUTH_TOKEN</see>:</term>
         ///         <description>Oauth token to access given storage
         /// container</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterDatasourceRequest.DatasourceUpdatesMap.KAFKA_URL">KAFKA_URL</see>:</term>
+        ///         <description>The publicly-accessible full path URL to the
+        /// kafka broker, e.g., 'http://172.123.45.67:9300'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterDatasourceRequest.DatasourceUpdatesMap.KAFKA_TOPIC_NAME">KAFKA_TOPIC_NAME</see>:</term>
+        ///         <description>Name of the Kafka topic to use as the data
+        /// source</description>
         ///     </item>
         /// </list>
         ///   </summary>
@@ -486,6 +536,13 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
+        /// cref="AlterDatasourceRequest.DatasourceUpdatesMap.S3_AWS_ROLE_ARN">S3_AWS_ROLE_ARN</see>:</term>
+        ///         <description>Amazon IAM Role ARN which has required S3
+        /// permissions that can be assumed for the given S3 IAM
+        /// user</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="AlterDatasourceRequest.DatasourceUpdatesMap.HDFS_KERBEROS_KEYTAB">HDFS_KERBEROS_KEYTAB</see>:</term>
         ///         <description>Kerberos keytab file location for the given
         /// HDFS user</description>
@@ -545,6 +602,18 @@ namespace kinetica
         /// cref="AlterDatasourceRequest.DatasourceUpdatesMap.AZURE_OAUTH_TOKEN">AZURE_OAUTH_TOKEN</see>:</term>
         ///         <description>Oauth token to access given storage
         /// container</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterDatasourceRequest.DatasourceUpdatesMap.KAFKA_URL">KAFKA_URL</see>:</term>
+        ///         <description>The publicly-accessible full path URL to the
+        /// kafka broker, e.g., 'http://172.123.45.67:9300'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterDatasourceRequest.DatasourceUpdatesMap.KAFKA_TOPIC_NAME">KAFKA_TOPIC_NAME</see>:</term>
+        ///         <description>Name of the Kafka topic to use as the data
+        /// source</description>
         ///     </item>
         /// </list>
         ///   </param>

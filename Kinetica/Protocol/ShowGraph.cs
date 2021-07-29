@@ -206,9 +206,16 @@ namespace kinetica
         /// <summary>Total number of edges in the graph.  </summary>
         public IList<long> num_edges { get; set; } = new List<long>();
 
+        /// <summary>Memory this graph uses in bytes.  </summary>
+        public IList<long> num_bytes { get; set; } = new List<long>();
+
         /// <summary>Shows whether or not the graph is persisted (saved and
         /// loaded on launch).  </summary>
         public IList<bool> is_persisted { get; set; } = new List<bool>();
+
+        /// <summary>Indicated if the graph data data is distributed across all
+        /// available servers.  </summary>
+        public IList<bool> is_partitioned { get; set; } = new List<bool>();
 
         /// <summary>Shows whether or not the graph is linked to the original
         /// tables that created it, and will potentially be re-created instead
@@ -219,7 +226,7 @@ namespace kinetica
         /// attached to it.  </summary>
         public IList<bool> has_insert_table_monitor { get; set; } = new List<bool>();
 
-        /// <summary>The orignal client request used to create the graph
+        /// <summary>The original client request used to create the graph
         /// (before any expression evaluation or separator processing).
         /// </summary>
         public IList<string> original_request { get; set; } = new List<string>();

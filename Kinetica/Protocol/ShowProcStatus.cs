@@ -284,6 +284,24 @@ namespace kinetica
         } // end struct Statuses
 
 
+        /// <summary>Output lines for the returned run IDs, grouped by data
+        /// segment ID.
+        /// Valid values are:
+        /// <list type="bullet">
+        /// </list>
+        /// A set of string constants for the parameter <member name="output"
+        /// />.</summary>
+        public struct Output
+        {
+
+            /// <summary>Output lines from stdout.</summary>
+            public const string STDOUT = "stdout";
+
+            /// <summary>Output lines from stderr.</summary>
+            public const string STDERR = "stderr";
+        } // end struct Output
+
+
         /// <summary>The proc names corresponding to the returned run IDs.
         /// </summary>
         public IDictionary<string, string> proc_names { get; set; } = new Dictionary<string, string>();
@@ -365,6 +383,13 @@ namespace kinetica
         /// <summary>Binary results for the returned run IDs, grouped by data
         /// segment ID.  </summary>
         public IDictionary<string, IDictionary<string, IDictionary<string, byte[]>>> bin_results { get; set; } = new Dictionary<string, IDictionary<string, IDictionary<string, byte[]>>>();
+
+        /// <summary>Output lines for the returned run IDs, grouped by data
+        /// segment ID.
+        /// Valid values are:
+        /// <list type="bullet">
+        /// </list>  </summary>
+        public IDictionary<string, IDictionary<string, IDictionary<string, IList<string>>>> output { get; set; } = new Dictionary<string, IDictionary<string, IDictionary<string, IList<string>>>>();
 
         /// <summary>Timing information for the returned run IDs, grouped by
         /// data segment ID.  </summary>

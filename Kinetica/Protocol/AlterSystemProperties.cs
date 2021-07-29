@@ -219,6 +219,26 @@ namespace kinetica
         ///         <description>Enable overlapped-equi-join filter.  The
         /// default value is 'true'.</description>
         ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.KAFKA_BATCH_SIZE">KAFKA_BATCH_SIZE</see>:</term>
+        ///         <description>Maximum number of records to be read in a
+        /// single kafka batched request.  The default value is
+        /// '1000'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.KAFKA_WAIT_TIME">KAFKA_WAIT_TIME</see>:</term>
+        ///         <description>Maximum number of seconds to wait in a single
+        /// kafka batched request.  The default value is '30'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.KAFKA_TIMEOUT">KAFKA_TIMEOUT</see>:</term>
+        ///         <description>Number of seconds after which kakfa poll will
+        /// timeout if datasource has no records.  The default value is
+        /// '5'.</description>
+        ///     </item>
         /// </list>
         /// <br />
         /// A set of string constants for the parameter <see
@@ -374,6 +394,19 @@ namespace kinetica
             /// <summary>Enable overlapped-equi-join filter.  The default value
             /// is 'true'.</summary>
             public const string ENABLE_OVERLAPPED_EQUI_JOIN = "enable_overlapped_equi_join";
+
+            /// <summary>Maximum number of records to be read in a single kafka
+            /// batched request.  The default value is '1000'.</summary>
+            public const string KAFKA_BATCH_SIZE = "kafka_batch_size";
+
+            /// <summary>Maximum number of seconds to wait in a single kafka
+            /// batched request.  The default value is '30'.</summary>
+            public const string KAFKA_WAIT_TIME = "kafka_wait_time";
+
+            /// <summary>Number of seconds after which kakfa poll will timeout
+            /// if datasource has no records.  The default value is
+            /// '5'.</summary>
+            public const string KAFKA_TIMEOUT = "kafka_timeout";
         } // end struct PropertyUpdatesMap
 
 
@@ -570,6 +603,26 @@ namespace kinetica
         /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.ENABLE_OVERLAPPED_EQUI_JOIN">ENABLE_OVERLAPPED_EQUI_JOIN</see>:</term>
         ///         <description>Enable overlapped-equi-join filter.  The
         /// default value is 'true'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.KAFKA_BATCH_SIZE">KAFKA_BATCH_SIZE</see>:</term>
+        ///         <description>Maximum number of records to be read in a
+        /// single kafka batched request.  The default value is
+        /// '1000'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.KAFKA_WAIT_TIME">KAFKA_WAIT_TIME</see>:</term>
+        ///         <description>Maximum number of seconds to wait in a single
+        /// kafka batched request.  The default value is '30'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.KAFKA_TIMEOUT">KAFKA_TIMEOUT</see>:</term>
+        ///         <description>Number of seconds after which kakfa poll will
+        /// timeout if datasource has no records.  The default value is
+        /// '5'.</description>
         ///     </item>
         /// </list>
         ///   </summary>
@@ -780,6 +833,26 @@ namespace kinetica
         /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.ENABLE_OVERLAPPED_EQUI_JOIN">ENABLE_OVERLAPPED_EQUI_JOIN</see>:</term>
         ///         <description>Enable overlapped-equi-join filter.  The
         /// default value is 'true'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.KAFKA_BATCH_SIZE">KAFKA_BATCH_SIZE</see>:</term>
+        ///         <description>Maximum number of records to be read in a
+        /// single kafka batched request.  The default value is
+        /// '1000'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.KAFKA_WAIT_TIME">KAFKA_WAIT_TIME</see>:</term>
+        ///         <description>Maximum number of seconds to wait in a single
+        /// kafka batched request.  The default value is '30'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.KAFKA_TIMEOUT">KAFKA_TIMEOUT</see>:</term>
+        ///         <description>Number of seconds after which kakfa poll will
+        /// timeout if datasource has no records.  The default value is
+        /// '5'.</description>
         ///     </item>
         /// </list>
         ///   </param>

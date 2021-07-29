@@ -16,7 +16,8 @@ namespace kinetica
     /// <br />
     /// Rebalance the data in the cluster so that all nodes contain an equal
     /// number of records approximately and/or rebalance the shards to be
-    /// equally distributed (as much as possible) across all the ranks.
+    /// equally
+    /// distributed (as much as possible) across all the ranks.
     /// <br />
     /// The database must be offline for this operation, see <see
     /// cref="Kinetica.adminOffline(bool,IDictionary{string, string})" />
@@ -41,8 +42,10 @@ namespace kinetica
     /// NOTE: Replicated data will not move as a result of this call
     /// <br />
     /// This endpoint's processing time depends on the amount of data in the
-    /// system, thus the API call may time out if run directly.  It is
-    /// recommended to run this endpoint asynchronously via <see
+    /// system,
+    /// thus the API call may time out if run directly.  It is recommended to
+    /// run this
+    /// endpoint asynchronously via <see
     /// cref="Kinetica.createJob(string,string,byte[],string,IDictionary{string, string})"
     /// />.</summary>
     public class AdminRebalanceRequest : KineticaData

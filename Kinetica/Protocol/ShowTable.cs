@@ -698,6 +698,20 @@ namespace kinetica
             ///     </item>
             ///     <item>
             ///         <term><see
+            /// cref="ShowTableResponse.AdditionalInfo.HASH">HASH</see>:</term>
+            ///         <description>Using <a
+            /// href="../../../concepts/tables/#partitioning-by-hash"
+            /// target="_top">hash partitioning</a>.</description>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="ShowTableResponse.AdditionalInfo.SERIES">SERIES</see>:</term>
+            ///         <description>Using <a
+            /// href="../../../concepts/tables/#partitioning-by-series"
+            /// target="_top">series partitioning</a>.</description>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
             /// cref="ShowTableResponse.AdditionalInfo.NONE">NONE</see>:</term>
             ///         <description>Using no partitioning</description>
             ///     </item>
@@ -720,6 +734,16 @@ namespace kinetica
             /// href="../../../concepts/tables/#partitioning-by-list-manual"
             /// target="_top">manual list partitioning</a></summary>
             public const string LIST = "LIST";
+
+            /// <summary>Using <a
+            /// href="../../../concepts/tables/#partitioning-by-hash"
+            /// target="_top">hash partitioning</a>.</summary>
+            public const string HASH = "HASH";
+
+            /// <summary>Using <a
+            /// href="../../../concepts/tables/#partitioning-by-series"
+            /// target="_top">series partitioning</a>.</summary>
+            public const string SERIES = "SERIES";
 
             /// <summary>Using no partitioning</summary>
             public const string NONE = "NONE";
@@ -857,6 +881,10 @@ namespace kinetica
             /// equated in joins (applicable for join tables).  The default
             /// value is ''.</summary>
             public const string ALTERNATE_SHARD_KEYS = "alternate_shard_keys";
+
+            /// <summary>Semicolon-separated list of datasource names the table
+            /// has subscribed to.  The default value is ''.</summary>
+            public const string DATASOURCE_SUBSCRIPTIONS = "datasource_subscriptions";
         } // end struct AdditionalInfo
 
 
