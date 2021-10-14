@@ -75,6 +75,83 @@ namespace kinetica
         /// The default value is <see
         /// cref="CreateTableMonitorRequest.Options.INSERT">INSERT</see>.</description>
         ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableMonitorRequest.Options.MONITOR_ID">MONITOR_ID</see>:</term>
+        ///         <description>ID to to use for this monitor instead of a
+        /// randomly generated one</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableMonitorRequest.Options.DATASINK_NAME">DATASINK_NAME</see>:</term>
+        ///         <description>Name of an existing <a
+        /// href="../../../concepts/data_sinks/" target="_top">data sink</a> to
+        /// send change data notifications to</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableMonitorRequest.Options.DESTINATION">DESTINATION</see>:</term>
+        ///         <description>Destination for the output data in format
+        /// 'destination_type://path[:port]'. Supported destination types are
+        /// 'http', 'https' and 'kafka'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableMonitorRequest.Options.KAFKA_TOPIC_NAME">KAFKA_TOPIC_NAME</see>:</term>
+        ///         <description>Name of the Kafka topic to publish to if
+        /// <i>destination</i> in <paramref
+        /// cref="CreateTableMonitorRequest.options" /> is specified and is a
+        /// Kafka broker</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableMonitorRequest.Options.INCREASING_COLUMN">INCREASING_COLUMN</see>:</term>
+        ///         <description>Column on subscribed table that will increase
+        /// for new records (e.g., TIMESTAMP).</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableMonitorRequest.Options.EXPRESSION">EXPRESSION</see>:</term>
+        ///         <description>Filter expression to limit records for
+        /// notification</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableMonitorRequest.Options.REFRESH_METHOD">REFRESH_METHOD</see>:</term>
+        ///         <description>Method controlling when the table monitor
+        /// reports changes to the <paramref
+        /// cref="CreateTableMonitorRequest.table_name" />.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableMonitorRequest.Options.ON_CHANGE">ON_CHANGE</see>:</term>
+        ///         <description>Report changes as they occur.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableMonitorRequest.Options.PERIODIC">PERIODIC</see>:</term>
+        ///         <description>Report changes periodically at rate specified
+        /// by <i>refresh_period</i>.</description>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="CreateTableMonitorRequest.Options.ON_CHANGE">ON_CHANGE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableMonitorRequest.Options.REFRESH_PERIOD">REFRESH_PERIOD</see>:</term>
+        ///         <description>When <i>refresh_method</i> is <i>periodic</i>,
+        /// specifies the period in seconds at which changes are
+        /// reported.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableMonitorRequest.Options.REFRESH_START_TIME">REFRESH_START_TIME</see>:</term>
+        ///         <description>When <i>refresh_method</i> is <i>periodic</i>,
+        /// specifies the first time at which changes are reported.  Value is a
+        /// datetime string with format 'YYYY-MM-DD HH:MM:SS'.</description>
+        ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.
         /// A set of string constants for the parameter <see cref="options"
@@ -125,6 +202,72 @@ namespace kinetica
             /// row count information is forwarded to the
             /// subscribers.</summary>
             public const string DELETE = "delete";
+
+            /// <summary>ID to to use for this monitor instead of a randomly
+            /// generated one</summary>
+            public const string MONITOR_ID = "monitor_id";
+
+            /// <summary>Name of an existing <a
+            /// href="../../../concepts/data_sinks/" target="_top">data
+            /// sink</a> to send change data notifications to</summary>
+            public const string DATASINK_NAME = "datasink_name";
+
+            /// <summary>Destination for the output data in format
+            /// 'destination_type://path[:port]'. Supported destination types
+            /// are 'http', 'https' and 'kafka'.</summary>
+            public const string DESTINATION = "destination";
+
+            /// <summary>Name of the Kafka topic to publish to if
+            /// <i>destination</i> in <see cref="options" /> is specified and
+            /// is a Kafka broker</summary>
+            public const string KAFKA_TOPIC_NAME = "kafka_topic_name";
+
+            /// <summary>Column on subscribed table that will increase for new
+            /// records (e.g., TIMESTAMP).</summary>
+            public const string INCREASING_COLUMN = "increasing_column";
+
+            /// <summary>Filter expression to limit records for
+            /// notification</summary>
+            public const string EXPRESSION = "expression";
+
+            /// <summary>Method controlling when the table monitor reports
+            /// changes to the <see cref="table_name" />.
+            /// Supported values:
+            /// <list type="bullet">
+            ///     <item>
+            ///         <term><see
+            /// cref="CreateTableMonitorRequest.Options.ON_CHANGE">ON_CHANGE</see>:</term>
+            ///         <description>Report changes as they
+            /// occur.</description>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="CreateTableMonitorRequest.Options.PERIODIC">PERIODIC</see>:</term>
+            ///         <description>Report changes periodically at rate
+            /// specified by <i>refresh_period</i>.</description>
+            ///     </item>
+            /// </list>
+            /// The default value is <see
+            /// cref="CreateTableMonitorRequest.Options.ON_CHANGE">ON_CHANGE</see>.</summary>
+            public const string REFRESH_METHOD = "refresh_method";
+
+            /// <summary>Report changes as they occur.</summary>
+            public const string ON_CHANGE = "on_change";
+
+            /// <summary>Report changes periodically at rate specified by
+            /// <i>refresh_period</i>.</summary>
+            public const string PERIODIC = "periodic";
+
+            /// <summary>When <i>refresh_method</i> is <i>periodic</i>,
+            /// specifies the period in seconds at which changes are
+            /// reported.</summary>
+            public const string REFRESH_PERIOD = "refresh_period";
+
+            /// <summary>When <i>refresh_method</i> is <i>periodic</i>,
+            /// specifies the first time at which changes are reported.  Value
+            /// is a datetime string with format 'YYYY-MM-DD
+            /// HH:MM:SS'.</summary>
+            public const string REFRESH_START_TIME = "refresh_start_time";
         } // end struct Options
 
 
@@ -166,6 +309,83 @@ namespace kinetica
         /// </list>
         /// The default value is <see
         /// cref="CreateTableMonitorRequest.Options.INSERT">INSERT</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableMonitorRequest.Options.MONITOR_ID">MONITOR_ID</see>:</term>
+        ///         <description>ID to to use for this monitor instead of a
+        /// randomly generated one</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableMonitorRequest.Options.DATASINK_NAME">DATASINK_NAME</see>:</term>
+        ///         <description>Name of an existing <a
+        /// href="../../../concepts/data_sinks/" target="_top">data sink</a> to
+        /// send change data notifications to</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableMonitorRequest.Options.DESTINATION">DESTINATION</see>:</term>
+        ///         <description>Destination for the output data in format
+        /// 'destination_type://path[:port]'. Supported destination types are
+        /// 'http', 'https' and 'kafka'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableMonitorRequest.Options.KAFKA_TOPIC_NAME">KAFKA_TOPIC_NAME</see>:</term>
+        ///         <description>Name of the Kafka topic to publish to if
+        /// <i>destination</i> in <paramref
+        /// cref="CreateTableMonitorRequest.options" /> is specified and is a
+        /// Kafka broker</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableMonitorRequest.Options.INCREASING_COLUMN">INCREASING_COLUMN</see>:</term>
+        ///         <description>Column on subscribed table that will increase
+        /// for new records (e.g., TIMESTAMP).</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableMonitorRequest.Options.EXPRESSION">EXPRESSION</see>:</term>
+        ///         <description>Filter expression to limit records for
+        /// notification</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableMonitorRequest.Options.REFRESH_METHOD">REFRESH_METHOD</see>:</term>
+        ///         <description>Method controlling when the table monitor
+        /// reports changes to the <paramref
+        /// cref="CreateTableMonitorRequest.table_name" />.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableMonitorRequest.Options.ON_CHANGE">ON_CHANGE</see>:</term>
+        ///         <description>Report changes as they occur.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableMonitorRequest.Options.PERIODIC">PERIODIC</see>:</term>
+        ///         <description>Report changes periodically at rate specified
+        /// by <i>refresh_period</i>.</description>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="CreateTableMonitorRequest.Options.ON_CHANGE">ON_CHANGE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableMonitorRequest.Options.REFRESH_PERIOD">REFRESH_PERIOD</see>:</term>
+        ///         <description>When <i>refresh_method</i> is <i>periodic</i>,
+        /// specifies the period in seconds at which changes are
+        /// reported.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableMonitorRequest.Options.REFRESH_START_TIME">REFRESH_START_TIME</see>:</term>
+        ///         <description>When <i>refresh_method</i> is <i>periodic</i>,
+        /// specifies the first time at which changes are reported.  Value is a
+        /// datetime string with format 'YYYY-MM-DD HH:MM:SS'.</description>
         ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.</summary>
@@ -216,6 +436,83 @@ namespace kinetica
         /// The default value is <see
         /// cref="CreateTableMonitorRequest.Options.INSERT">INSERT</see>.</description>
         ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableMonitorRequest.Options.MONITOR_ID">MONITOR_ID</see>:</term>
+        ///         <description>ID to to use for this monitor instead of a
+        /// randomly generated one</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableMonitorRequest.Options.DATASINK_NAME">DATASINK_NAME</see>:</term>
+        ///         <description>Name of an existing <a
+        /// href="../../../concepts/data_sinks/" target="_top">data sink</a> to
+        /// send change data notifications to</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableMonitorRequest.Options.DESTINATION">DESTINATION</see>:</term>
+        ///         <description>Destination for the output data in format
+        /// 'destination_type://path[:port]'. Supported destination types are
+        /// 'http', 'https' and 'kafka'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableMonitorRequest.Options.KAFKA_TOPIC_NAME">KAFKA_TOPIC_NAME</see>:</term>
+        ///         <description>Name of the Kafka topic to publish to if
+        /// <i>destination</i> in <paramref
+        /// cref="CreateTableMonitorRequest.options" /> is specified and is a
+        /// Kafka broker</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableMonitorRequest.Options.INCREASING_COLUMN">INCREASING_COLUMN</see>:</term>
+        ///         <description>Column on subscribed table that will increase
+        /// for new records (e.g., TIMESTAMP).</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableMonitorRequest.Options.EXPRESSION">EXPRESSION</see>:</term>
+        ///         <description>Filter expression to limit records for
+        /// notification</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableMonitorRequest.Options.REFRESH_METHOD">REFRESH_METHOD</see>:</term>
+        ///         <description>Method controlling when the table monitor
+        /// reports changes to the <paramref
+        /// cref="CreateTableMonitorRequest.table_name" />.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableMonitorRequest.Options.ON_CHANGE">ON_CHANGE</see>:</term>
+        ///         <description>Report changes as they occur.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableMonitorRequest.Options.PERIODIC">PERIODIC</see>:</term>
+        ///         <description>Report changes periodically at rate specified
+        /// by <i>refresh_period</i>.</description>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="CreateTableMonitorRequest.Options.ON_CHANGE">ON_CHANGE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableMonitorRequest.Options.REFRESH_PERIOD">REFRESH_PERIOD</see>:</term>
+        ///         <description>When <i>refresh_method</i> is <i>periodic</i>,
+        /// specifies the period in seconds at which changes are
+        /// reported.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableMonitorRequest.Options.REFRESH_START_TIME">REFRESH_START_TIME</see>:</term>
+        ///         <description>When <i>refresh_method</i> is <i>periodic</i>,
+        /// specifies the first time at which changes are reported.  Value is a
+        /// datetime string with format 'YYYY-MM-DD HH:MM:SS'.</description>
+        ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.</param>
         /// 
@@ -236,7 +533,76 @@ namespace kinetica
     public class CreateTableMonitorResponse : KineticaData
     {
 
-        /// <summary>The ZMQ topic ID to subscribe to for inserted records.
+        /// <summary>Additional information.
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableMonitorResponse.Info.INSERT_TOPIC_ID">INSERT_TOPIC_ID</see>:</term>
+        ///         <description>The topic id for 'insert' <i>event</i> in
+        /// <paramref cref="CreateTableMonitorRequest.options" /></description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableMonitorResponse.Info.UPDATE_TOPIC_ID">UPDATE_TOPIC_ID</see>:</term>
+        ///         <description>The topic id for 'update' <i>event</i> in
+        /// <paramref cref="CreateTableMonitorRequest.options" /></description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableMonitorResponse.Info.DELETE_TOPIC_ID">DELETE_TOPIC_ID</see>:</term>
+        ///         <description>The topic id for 'delete' <i>event</i> in
+        /// <paramref cref="CreateTableMonitorRequest.options" /></description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableMonitorResponse.Info.INSERT_TYPE_SCHEMA">INSERT_TYPE_SCHEMA</see>:</term>
+        ///         <description>The JSON Avro schema of the table in <member
+        /// name="table_name" /></description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableMonitorResponse.Info.UPDATE_TYPE_SCHEMA">UPDATE_TYPE_SCHEMA</see>:</term>
+        ///         <description>The JSON Avro schema for 'update'
+        /// events</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableMonitorResponse.Info.DELETE_TYPE_SCHEMA">DELETE_TYPE_SCHEMA</see>:</term>
+        ///         <description>The JSON Avro schema for 'delete'
+        /// events</description>
+        ///     </item>
+        /// </list>
+        /// The default value is an empty {@link Dictionary}.
+        /// A set of string constants for the parameter <member name="info"
+        /// />.</summary>
+        public struct Info
+        {
+
+            /// <summary>The topic id for 'insert' <i>event</i> in <see
+            /// cref="options" /></summary>
+            public const string INSERT_TOPIC_ID = "insert_topic_id";
+
+            /// <summary>The topic id for 'update' <i>event</i> in <see
+            /// cref="options" /></summary>
+            public const string UPDATE_TOPIC_ID = "update_topic_id";
+
+            /// <summary>The topic id for 'delete' <i>event</i> in <see
+            /// cref="options" /></summary>
+            public const string DELETE_TOPIC_ID = "delete_topic_id";
+
+            /// <summary>The JSON Avro schema of the table in <member
+            /// name="table_name" /></summary>
+            public const string INSERT_TYPE_SCHEMA = "insert_type_schema";
+
+            /// <summary>The JSON Avro schema for 'update' events</summary>
+            public const string UPDATE_TYPE_SCHEMA = "update_type_schema";
+
+            /// <summary>The JSON Avro schema for 'delete' events</summary>
+            public const string DELETE_TYPE_SCHEMA = "delete_type_schema";
+        } // end struct Info
+
+
+        /// <summary>The ZMQ topic ID to subscribe to for table events.
         /// </summary>
         public string topic_id { get; set; }
 
@@ -248,7 +614,46 @@ namespace kinetica
         /// published records.  </summary>
         public string type_schema { get; set; }
 
-        /// <summary>Additional information.  </summary>
+        /// <summary>Additional information.
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableMonitorResponse.Info.INSERT_TOPIC_ID">INSERT_TOPIC_ID</see>:</term>
+        ///         <description>The topic id for 'insert' <i>event</i> in
+        /// <paramref cref="CreateTableMonitorRequest.options" /></description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableMonitorResponse.Info.UPDATE_TOPIC_ID">UPDATE_TOPIC_ID</see>:</term>
+        ///         <description>The topic id for 'update' <i>event</i> in
+        /// <paramref cref="CreateTableMonitorRequest.options" /></description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableMonitorResponse.Info.DELETE_TOPIC_ID">DELETE_TOPIC_ID</see>:</term>
+        ///         <description>The topic id for 'delete' <i>event</i> in
+        /// <paramref cref="CreateTableMonitorRequest.options" /></description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableMonitorResponse.Info.INSERT_TYPE_SCHEMA">INSERT_TYPE_SCHEMA</see>:</term>
+        ///         <description>The JSON Avro schema of the table in <member
+        /// name="table_name" /></description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableMonitorResponse.Info.UPDATE_TYPE_SCHEMA">UPDATE_TYPE_SCHEMA</see>:</term>
+        ///         <description>The JSON Avro schema for 'update'
+        /// events</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableMonitorResponse.Info.DELETE_TYPE_SCHEMA">DELETE_TYPE_SCHEMA</see>:</term>
+        ///         <description>The JSON Avro schema for 'delete'
+        /// events</description>
+        ///     </item>
+        /// </list>
+        /// The default value is an empty {@link Dictionary}.</summary>
         public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
 
     } // end class CreateTableMonitorResponse

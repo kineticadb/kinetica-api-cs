@@ -3288,6 +3288,119 @@ namespace kinetica
 
 
         /// <summary>Alters the properties of an existing <a
+        /// href="../../../concepts/data_sinks/" target="_top">data
+        /// sink</a></summary>
+        /// 
+        /// <param name="request_">Request object containing the parameters for
+        /// the operation.</param>
+        /// 
+        /// <returns>Response object containing the result of the
+        /// operation.</returns>
+        /// 
+        public AlterDatasinkResponse alterDatasink( AlterDatasinkRequest request_ )
+        {
+            AlterDatasinkResponse actualResponse_ = SubmitRequest<AlterDatasinkResponse>("/alter/datasink", request_, false);
+
+            return actualResponse_;
+        }
+
+
+        /// <summary>Alters the properties of an existing <a
+        /// href="../../../concepts/data_sinks/" target="_top">data
+        /// sink</a></summary>
+        /// 
+        /// <param name="name">Name of the data sink to be altered. Must be an
+        /// existing data sink.  </param>
+        /// <param name="datasink_updates_map">Map containing the properties of
+        /// the data sink to be updated. Error if empty.
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.DESTINATION">DESTINATION</see>:</term>
+        ///         <description>Destination for the output data in format
+        /// 'destination_type://path[:port]'.
+        /// Supported destination types are 'http', 'https' and
+        /// 'kafka'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.DESTINATION_TYPE">DESTINATION_TYPE</see>:</term>
+        ///         <description>Destination type for the output
+        /// data</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.USER_NAME">USER_NAME</see>:</term>
+        ///         <description>Name of the remote system user; may be an
+        /// empty string</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.PASSWORD">PASSWORD</see>:</term>
+        ///         <description>Password for the remote system user; may be an
+        /// empty string</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.CONNECTION_TIMEOUT">CONNECTION_TIMEOUT</see>:</term>
+        ///         <description>Timeout in seconds for connecting to this
+        /// sink</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.WAIT_TIMEOUT">WAIT_TIMEOUT</see>:</term>
+        ///         <description>Timeout in seconds for waiting for a response
+        /// from this sink</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.CREDENTIAL">CREDENTIAL</see>:</term>
+        ///         <description>Name of the <a
+        /// href="../../../concepts/credentials/" target="_top">credential</a>
+        /// object to be used in this data sink</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.KAFKA_TOPIC_NAME">KAFKA_TOPIC_NAME</see>:</term>
+        ///         <description>Name of the Kafka topic to use for this data
+        /// sink, if it references a Kafka broker</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.SKIP_VALIDATION">SKIP_VALIDATION</see>:</term>
+        ///         <description>Bypass validation of connection to this data
+        /// sink.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.FALSE">FALSE</see>.</description>
+        ///     </item>
+        /// </list>
+        ///   </param>
+        /// <param name="options">Optional parameters.  </param>
+        /// 
+        /// <returns>Response object containing the result of the
+        /// operation.</returns>
+        /// 
+        public AlterDatasinkResponse alterDatasink( string name,
+                                                    IDictionary<string, string> datasink_updates_map,
+                                                    IDictionary<string, string> options )
+        {
+            return alterDatasink( new AlterDatasinkRequest( name, datasink_updates_map,
+                                                            options ) );
+        }
+
+
+        /// <summary>Alters the properties of an existing <a
         /// href="../../../concepts/data_sources/" target="_top">data
         /// source</a></summary>
         /// 
@@ -3463,6 +3576,44 @@ namespace kinetica
         ///         <description>Name of the Kafka topic to use as the data
         /// source</description>
         ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterDatasourceRequest.DatasourceUpdatesMap.ANONYMOUS">ANONYMOUS</see>:</term>
+        ///         <description>Create an anonymous connection to the storage
+        /// provider
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterDatasourceRequest.DatasourceUpdatesMap.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterDatasourceRequest.DatasourceUpdatesMap.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="AlterDatasourceRequest.DatasourceUpdatesMap.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterDatasourceRequest.DatasourceUpdatesMap.USE_HTTPS">USE_HTTPS</see>:</term>
+        ///         <description>Use https to connect to datasource if true,
+        /// otherwise use http
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterDatasourceRequest.DatasourceUpdatesMap.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterDatasourceRequest.DatasourceUpdatesMap.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="AlterDatasourceRequest.DatasourceUpdatesMap.TRUE">TRUE</see>.</description>
+        ///     </item>
         /// </list>
         ///   </param>
         /// <param name="options">Optional parameters.  </param>
@@ -3477,6 +3628,117 @@ namespace kinetica
             return alterDatasource( new AlterDatasourceRequest( name,
                                                                 datasource_updates_map,
                                                                 options ) );
+        }
+
+
+        /// <summary>For internal use only: Graph server admin command.
+        /// For internal use only: Graph server admin command.</summary>
+        /// 
+        /// <param name="request_">Request object containing the parameters for
+        /// the operation.</param>
+        /// 
+        /// <returns>Response object containing the result of the
+        /// operation.</returns>
+        /// 
+        public AlterGraphResponse alterGraph( AlterGraphRequest request_ )
+        {
+            AlterGraphResponse actualResponse_ = SubmitRequest<AlterGraphResponse>("/alter/graph", request_, false);
+
+            return actualResponse_;
+        }
+
+
+        /// <summary>For internal use only: Graph server admin command.
+        /// For internal use only: Graph server admin command.</summary>
+        /// 
+        /// <param name="graph_name">Graph on which the operation should be
+        /// applied.
+        /// If empty then it will apply to all graphs.
+        /// This request can be sent from the graph server to the graph client,
+        /// or from the client to the server depending on the type of
+        /// operation.  </param>
+        /// <param name="action">Operation to be applied
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterGraphRequest.Action.ADD_TABLE_MONITOR">ADD_TABLE_MONITOR</see>:</term>
+        ///         <description>Add a table monitor to a graph. The table name
+        /// is specified as the action argment.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterGraphRequest.Action.RESET_CLIENT">RESET_CLIENT</see>:</term>
+        ///         <description>Reset all current operations on the client
+        /// side. Used when the graph server is restarted to recover from a
+        /// failure.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterGraphRequest.Action.RESET_SERVER">RESET_SERVER</see>:</term>
+        ///         <description>Reset all current operations on the server
+        /// side. This is also sent on (re)start.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterGraphRequest.Action.CANCEL_TASK">CANCEL_TASK</see>:</term>
+        ///         <description>Cancel a specific task on the graph
+        /// server.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterGraphRequest.Action.ALTER_LOGGER">ALTER_LOGGER</see>:</term>
+        ///         <description>Change the server side log level; e.g.,
+        /// 'GraphServer.GraphSolver=DEBUG'</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterGraphRequest.Action.DELETE_ALL">DELETE_ALL</see>:</term>
+        ///         <description>Delete all graphs, and remove any persistence
+        /// info.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterGraphRequest.Action.STATUS">STATUS</see>:</term>
+        ///         <description>Current status of the graph client (db
+        /// side).</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterGraphRequest.Action.COLLECT_GRAPHS">COLLECT_GRAPHS</see>:</term>
+        ///         <description>Get the create command for all persisted
+        /// graphs.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterGraphRequest.Action.RESTORE_GRAPHS">RESTORE_GRAPHS</see>:</term>
+        ///         <description>Re-creates all graphs from persist info on
+        /// rank0.</description>
+        ///     </item>
+        /// </list>  </param>
+        /// <param name="action_arg">Action specific argument.  </param>
+        /// <param name="options">Optional parameters.
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterGraphRequest.Options.SERVER_ID">SERVER_ID</see>:</term>
+        ///         <description>Indicates which graph server(s) to send the
+        /// request to. Default is to send to get information about all the
+        /// servers.</description>
+        ///     </item>
+        /// </list>
+        /// The default value is an empty {@link Dictionary}.</param>
+        /// 
+        /// <returns>Response object containing the result of the
+        /// operation.</returns>
+        /// 
+        public AlterGraphResponse alterGraph( string graph_name,
+                                              string action,
+                                              string action_arg,
+                                              IDictionary<string, string> options = null )
+        {
+            return alterGraph( new AlterGraphRequest( graph_name, action, action_arg,
+                                                      options ) );
         }
 
         /// @cond NO_DOCS
@@ -5251,8 +5513,51 @@ namespace kinetica
         /// 
         /// <param name="topic_id">The topic ID returned by
         /// /create/tablemonitor.  </param>
-        /// <param name="options">Optional parameters.  The default value is an
-        /// empty {@link Dictionary}.</param>
+        /// <param name="options">Optional parameters.
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="ClearTableMonitorRequest.Options.KEEP_AUTOGENERATED_SINK">KEEP_AUTOGENERATED_SINK</see>:</term>
+        ///         <description>If <i>true</i>, the auto-generated <a
+        /// href="../../../concepts/data_sinks/" target="_top">datasink</a>
+        /// associated with this monitor, if there is one, will be retained for
+        /// further use. If <i>false</i>, then the auto-generated sink will be
+        /// dropped if there are no other monitors referencing it.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="ClearTableMonitorRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ClearTableMonitorRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="ClearTableMonitorRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ClearTableMonitorRequest.Options.CLEAR_ALL_REFERENCES">CLEAR_ALL_REFERENCES</see>:</term>
+        ///         <description>If <i>true</i>, all references that share the
+        /// same {@input topic_id} will be cleared.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="ClearTableMonitorRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ClearTableMonitorRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="ClearTableMonitorRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        /// </list>
+        /// The default value is an empty {@link Dictionary}.</param>
         /// 
         /// <returns>Response object containing the result of the
         /// operation.</returns>
@@ -5489,6 +5794,96 @@ namespace kinetica
         }
 
 
+        /// <summary>Creates a <a href="../../../concepts/data_sinks/"
+        /// target="_top">data sink</a>, which contains the
+        /// destination information for a data sink that is external to the
+        /// database.</summary>
+        /// 
+        /// <param name="request_">Request object containing the parameters for
+        /// the operation.</param>
+        /// 
+        /// <returns>Response object containing the result of the
+        /// operation.</returns>
+        /// 
+        public CreateDatasinkResponse createDatasink( CreateDatasinkRequest request_ )
+        {
+            CreateDatasinkResponse actualResponse_ = SubmitRequest<CreateDatasinkResponse>("/create/datasink", request_, false);
+
+            return actualResponse_;
+        }
+
+
+        /// <summary>Creates a <a href="../../../concepts/data_sinks/"
+        /// target="_top">data sink</a>, which contains the
+        /// destination information for a data sink that is external to the
+        /// database.</summary>
+        /// 
+        /// <param name="name">Name of the data sink to be created.  </param>
+        /// <param name="destination">Destination for the output data in format
+        /// 'destination_type://path[:port]'.
+        /// Supported destination types are 'http', 'https' and 'kafka'.
+        /// </param>
+        /// <param name="options">Optional parameters.
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateDatasinkRequest.Options.CONNECTION_TIMEOUT">CONNECTION_TIMEOUT</see>:</term>
+        ///         <description>Timeout in seconds for connecting to this data
+        /// sink</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateDatasinkRequest.Options.WAIT_TIMEOUT">WAIT_TIMEOUT</see>:</term>
+        ///         <description>Timeout in seconds for waiting for a response
+        /// from this data sink</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateDatasinkRequest.Options.CREDENTIAL">CREDENTIAL</see>:</term>
+        ///         <description>Name of the <a
+        /// href="../../../concepts/credentials/" target="_top">credential</a>
+        /// object to be used in this data sink</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateDatasinkRequest.Options.KAFKA_TOPIC_NAME">KAFKA_TOPIC_NAME</see>:</term>
+        ///         <description>Name of the Kafka topic to publish to if
+        /// <paramref cref="CreateDatasinkRequest.destination" /> is a Kafka
+        /// broker</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateDatasinkRequest.Options.SKIP_VALIDATION">SKIP_VALIDATION</see>:</term>
+        ///         <description>Bypass validation of connection to this data
+        /// sink.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateDatasinkRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateDatasinkRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="CreateDatasinkRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        /// </list>
+        /// The default value is an empty {@link Dictionary}.</param>
+        /// 
+        /// <returns>Response object containing the result of the
+        /// operation.</returns>
+        /// 
+        public CreateDatasinkResponse createDatasink( string name,
+                                                      string destination,
+                                                      IDictionary<string, string> options = null )
+        {
+            return createDatasink( new CreateDatasinkRequest( name, destination, options ) );
+        }
+
+
         /// <summary>Creates a <a href="../../../concepts/data_sources/"
         /// target="_top">data source</a>, which contains the
         /// location and connection information for a data store that is
@@ -5666,6 +6061,43 @@ namespace kinetica
         ///         <description>Name of the Kafka topic to use as the data
         /// source</description>
         ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateDatasourceRequest.Options.ANONYMOUS">ANONYMOUS</see>:</term>
+        ///         <description>Use anonymous connection to storage provider
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateDatasourceRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateDatasourceRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="CreateDatasourceRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateDatasourceRequest.Options.USE_HTTPS">USE_HTTPS</see>:</term>
+        ///         <description>Use https to connect to datasource if true,
+        /// otherwise use http
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateDatasourceRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateDatasourceRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="CreateDatasourceRequest.Options.TRUE">TRUE</see>.</description>
+        ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.</param>
         /// 
@@ -5682,6 +6114,40 @@ namespace kinetica
                                                                   user_name, password,
                                                                   options ) );
         }
+
+        /// @cond NO_DOCS
+        /// 
+        /// <param name="request_">Request object containing the parameters for
+        /// the operation.</param>
+        /// 
+        /// <returns>Response object containing the result of the
+        /// operation.</returns>
+        /// 
+        public CreateDeltaTableResponse createDeltaTable( CreateDeltaTableRequest request_ )
+        {
+            CreateDeltaTableResponse actualResponse_ = SubmitRequest<CreateDeltaTableResponse>("/create/deltatable", request_, false);
+
+            return actualResponse_;
+        }
+        /// @endcond
+
+        /// @cond NO_DOCS
+        /// 
+        /// <param name="delta_table_name"></param>
+        /// <param name="table_name"></param>
+        /// <param name="options"></param>
+        /// 
+        /// <returns>Response object containing the result of the
+        /// operation.</returns>
+        /// 
+        public CreateDeltaTableResponse createDeltaTable( string delta_table_name,
+                                                          string table_name,
+                                                          IDictionary<string, string> options = null )
+        {
+            return createDeltaTable( new CreateDeltaTableRequest( delta_table_name,
+                                                                  table_name, options ) );
+        }
+        /// @endcond
 
 
         /// <summary>Creates a new directory in <a href="../../../tools/kifs/"
@@ -6623,40 +7089,6 @@ namespace kinetica
             return createMaterializedView( new CreateMaterializedViewRequest( table_name,
                                                                               options ) );
         }
-
-        /// @cond NO_DOCS
-        /// 
-        /// <param name="request_">Request object containing the parameters for
-        /// the operation.</param>
-        /// 
-        /// <returns>Response object containing the result of the
-        /// operation.</returns>
-        /// 
-        public CreateMonitorTableResponse createMonitorTable( CreateMonitorTableRequest request_ )
-        {
-            CreateMonitorTableResponse actualResponse_ = SubmitRequest<CreateMonitorTableResponse>("/create/monitortable", request_, false);
-
-            return actualResponse_;
-        }
-        /// @endcond
-
-        /// @cond NO_DOCS
-        /// 
-        /// <param name="monitor_table_name"></param>
-        /// <param name="table_name"></param>
-        /// <param name="options"></param>
-        /// 
-        /// <returns>Response object containing the result of the
-        /// operation.</returns>
-        /// 
-        public CreateMonitorTableResponse createMonitorTable( string monitor_table_name,
-                                                              string table_name,
-                                                              IDictionary<string, string> options = null )
-        {
-            return createMonitorTable( new CreateMonitorTableRequest( monitor_table_name,
-                                                                      table_name, options ) );
-        }
-        /// @endcond
 
 
         /// <summary>Creates an instance (proc) of the
@@ -8594,6 +9026,83 @@ namespace kinetica
         /// The default value is <see
         /// cref="CreateTableMonitorRequest.Options.INSERT">INSERT</see>.</description>
         ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableMonitorRequest.Options.MONITOR_ID">MONITOR_ID</see>:</term>
+        ///         <description>ID to to use for this monitor instead of a
+        /// randomly generated one</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableMonitorRequest.Options.DATASINK_NAME">DATASINK_NAME</see>:</term>
+        ///         <description>Name of an existing <a
+        /// href="../../../concepts/data_sinks/" target="_top">data sink</a> to
+        /// send change data notifications to</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableMonitorRequest.Options.DESTINATION">DESTINATION</see>:</term>
+        ///         <description>Destination for the output data in format
+        /// 'destination_type://path[:port]'. Supported destination types are
+        /// 'http', 'https' and 'kafka'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableMonitorRequest.Options.KAFKA_TOPIC_NAME">KAFKA_TOPIC_NAME</see>:</term>
+        ///         <description>Name of the Kafka topic to publish to if
+        /// <i>destination</i> in <paramref
+        /// cref="CreateTableMonitorRequest.options" /> is specified and is a
+        /// Kafka broker</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableMonitorRequest.Options.INCREASING_COLUMN">INCREASING_COLUMN</see>:</term>
+        ///         <description>Column on subscribed table that will increase
+        /// for new records (e.g., TIMESTAMP).</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableMonitorRequest.Options.EXPRESSION">EXPRESSION</see>:</term>
+        ///         <description>Filter expression to limit records for
+        /// notification</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableMonitorRequest.Options.REFRESH_METHOD">REFRESH_METHOD</see>:</term>
+        ///         <description>Method controlling when the table monitor
+        /// reports changes to the <paramref
+        /// cref="CreateTableMonitorRequest.table_name" />.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableMonitorRequest.Options.ON_CHANGE">ON_CHANGE</see>:</term>
+        ///         <description>Report changes as they occur.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableMonitorRequest.Options.PERIODIC">PERIODIC</see>:</term>
+        ///         <description>Report changes periodically at rate specified
+        /// by <i>refresh_period</i>.</description>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="CreateTableMonitorRequest.Options.ON_CHANGE">ON_CHANGE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableMonitorRequest.Options.REFRESH_PERIOD">REFRESH_PERIOD</see>:</term>
+        ///         <description>When <i>refresh_method</i> is <i>periodic</i>,
+        /// specifies the period in seconds at which changes are
+        /// reported.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableMonitorRequest.Options.REFRESH_START_TIME">REFRESH_START_TIME</see>:</term>
+        ///         <description>When <i>refresh_method</i> is <i>periodic</i>,
+        /// specifies the first time at which changes are reported.  Value is a
+        /// datetime string with format 'YYYY-MM-DD HH:MM:SS'.</description>
+        ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.</param>
         /// 
@@ -10297,6 +10806,75 @@ namespace kinetica
                                                       IDictionary<string, string> options = null )
         {
             return dropCredential( new DropCredentialRequest( credential_name, options ) );
+        }
+
+
+        /// <summary>Drops an existing <a href="../../../concepts/data_sinks/"
+        /// target="_top">data sink</a>.
+        /// <br />
+        /// By default, if any <a href="../../../concepts/table_monitors"
+        /// target="_top">table monitors</a> use this
+        /// sink as a destination, the request will be blocked unless option
+        /// <i>clear_table_monitors</i> is
+        /// <i>true</i>.</summary>
+        /// 
+        /// <param name="request_">Request object containing the parameters for
+        /// the operation.</param>
+        /// 
+        /// <returns>Response object containing the result of the
+        /// operation.</returns>
+        /// 
+        public DropDatasinkResponse dropDatasink( DropDatasinkRequest request_ )
+        {
+            DropDatasinkResponse actualResponse_ = SubmitRequest<DropDatasinkResponse>("/drop/datasink", request_, false);
+
+            return actualResponse_;
+        }
+
+
+        /// <summary>Drops an existing <a href="../../../concepts/data_sinks/"
+        /// target="_top">data sink</a>.
+        /// <br />
+        /// By default, if any <a href="../../../concepts/table_monitors"
+        /// target="_top">table monitors</a> use this
+        /// sink as a destination, the request will be blocked unless option
+        /// <i>clear_table_monitors</i> is
+        /// <i>true</i>.</summary>
+        /// 
+        /// <param name="name">Name of the data sink to be dropped. Must be an
+        /// existing data sink.  </param>
+        /// <param name="options">Optional parameters.
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="DropDatasinkRequest.Options.CLEAR_TABLE_MONITORS">CLEAR_TABLE_MONITORS</see>:</term>
+        ///         <description>If <i>true</i>, any <a
+        /// href="../../../concepts/table_monitors/" target="_top">table
+        /// monitors</a> that use this data sink will be cleared.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="DropDatasinkRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="DropDatasinkRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="DropDatasinkRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        /// </list>
+        /// The default value is an empty {@link Dictionary}.</param>
+        /// 
+        /// <returns>Response object containing the result of the
+        /// operation.</returns>
+        /// 
+        public DropDatasinkResponse dropDatasink( string name,
+                                                  IDictionary<string, string> options = null )
+        {
+            return dropDatasink( new DropDatasinkRequest( name, options ) );
         }
 
 
@@ -13360,6 +13938,174 @@ namespace kinetica
         /// @endcond
 
 
+        /// <summary>Grant user or role the specified permission on the
+        /// specified object.</summary>
+        /// 
+        /// <param name="request_">Request object containing the parameters for
+        /// the operation.</param>
+        /// 
+        /// <returns>Response object containing the result of the
+        /// operation.</returns>
+        /// 
+        public GrantPermissionResponse grantPermission( GrantPermissionRequest request_ )
+        {
+            GrantPermissionResponse actualResponse_ = SubmitRequest<GrantPermissionResponse>("/grant/permission", request_, false);
+
+            return actualResponse_;
+        }
+
+
+        /// <summary>Grant user or role the specified permission on the
+        /// specified object.</summary>
+        /// 
+        /// <param name="principal">Name of the user or role for which the
+        /// permission is being granted.  Must be an existing user or role.
+        /// The default value is ''.</param>
+        /// <param name="_object">Name of object permission is being granted
+        /// to.  It is recommended to use a fully-qualified name when possible.
+        /// </param>
+        /// <param name="object_type">The type of object being granted to
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="GrantPermissionRequest.ObjectType.CREDENTIAL">CREDENTIAL</see>:</term>
+        ///         <description>Credential</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="GrantPermissionRequest.ObjectType.DATASINK">DATASINK</see>:</term>
+        ///         <description>Data Sink</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="GrantPermissionRequest.ObjectType.DATASOURCE">DATASOURCE</see>:</term>
+        ///         <description>Data Source</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="GrantPermissionRequest.ObjectType.DIRECTORY">DIRECTORY</see>:</term>
+        ///         <description>KIFS File Directory</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="GrantPermissionRequest.ObjectType.GRAPH">GRAPH</see>:</term>
+        ///         <description>A Graph object</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="GrantPermissionRequest.ObjectType.PROC">PROC</see>:</term>
+        ///         <description>UDF Procedure</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="GrantPermissionRequest.ObjectType.SCHEMA">SCHEMA</see>:</term>
+        ///         <description>Schema</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="GrantPermissionRequest.ObjectType.SQL_PROC">SQL_PROC</see>:</term>
+        ///         <description>SQL Procedure</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="GrantPermissionRequest.ObjectType.SYSTEM">SYSTEM</see>:</term>
+        ///         <description>System-level access</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="GrantPermissionRequest.ObjectType.TABLE">TABLE</see>:</term>
+        ///         <description>Database Table</description>
+        ///     </item>
+        /// </list>  </param>
+        /// <param name="permission">Permission being granted.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="GrantPermissionRequest.Permission.ADMIN">ADMIN</see>:</term>
+        ///         <description>Full read/write and administrative access on
+        /// the object.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="GrantPermissionRequest.Permission.CONNECT">CONNECT</see>:</term>
+        ///         <description>Connect access on the given data source or
+        /// data sink.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="GrantPermissionRequest.Permission.DELETE">DELETE</see>:</term>
+        ///         <description>Delete rows from tables.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="GrantPermissionRequest.Permission.EXECUTE">EXECUTE</see>:</term>
+        ///         <description>Ability to Execute the Procedure
+        /// object.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="GrantPermissionRequest.Permission.INSERT">INSERT</see>:</term>
+        ///         <description>Insert access to tables.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="GrantPermissionRequest.Permission.READ">READ</see>:</term>
+        ///         <description>Ability to read, list and use the
+        /// object.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="GrantPermissionRequest.Permission.UPDATE">UPDATE</see>:</term>
+        ///         <description>Update access to the table.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="GrantPermissionRequest.Permission.USER_ADMIN">USER_ADMIN</see>:</term>
+        ///         <description>Access to administer users and roles that do
+        /// not have system_admin permission.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="GrantPermissionRequest.Permission.WRITE">WRITE</see>:</term>
+        ///         <description>Access to write, change and delete
+        /// objects.</description>
+        ///     </item>
+        /// </list>  </param>
+        /// <param name="options">Optional parameters.
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="GrantPermissionRequest.Options.COLUMNS">COLUMNS</see>:</term>
+        ///         <description>Apply table security to these columns,
+        /// comma-separated.  The default value is ''.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="GrantPermissionRequest.Options.FILTER_EXPRESSION">FILTER_EXPRESSION</see>:</term>
+        ///         <description>Optional filter expression to apply to this
+        /// grant.  Only rows that match the filter will be affected.  The
+        /// default value is ''.</description>
+        ///     </item>
+        /// </list>
+        /// The default value is an empty {@link Dictionary}.</param>
+        /// 
+        /// <returns>Response object containing the result of the
+        /// operation.</returns>
+        /// 
+        public GrantPermissionResponse grantPermission( string principal,
+                                                        string _object,
+                                                        string object_type,
+                                                        string permission,
+                                                        IDictionary<string, string> options = null )
+        {
+            return grantPermission( new GrantPermissionRequest( principal, _object,
+                                                                object_type, permission,
+                                                                options ) );
+        }
+
+
         /// <summary>Grants a <a
         /// href="../../../security/sec_concepts/#security-concepts-permissions-credential"
         /// target="_top">credential-level permission</a> to a user or
@@ -13802,111 +14548,119 @@ namespace kinetica
         /// <summary>Checks if the specified user has the specified permission
         /// on the specified object.</summary>
         /// 
-        /// <param name="name">Name of the user for which the permission is
-        /// being checked. Must be an existing user. If blank, will use the
+        /// <param name="principal">Name of the user for which the permission
+        /// is being checked. Must be an existing user. If blank, will use the
         /// current user.  The default value is ''.</param>
-        /// <param name="target">Name of object to check for the requested
+        /// <param name="_object">Name of object to check for the requested
         /// permission.  It is recommended to use a fully-qualified name when
         /// possible.  </param>
+        /// <param name="object_type">The type of object being checked
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="HasPermissionRequest.ObjectType.CREDENTIAL">CREDENTIAL</see>:</term>
+        ///         <description>Credential</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="HasPermissionRequest.ObjectType.DATASINK">DATASINK</see>:</term>
+        ///         <description>Data Sink</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="HasPermissionRequest.ObjectType.DATASOURCE">DATASOURCE</see>:</term>
+        ///         <description>Data Source</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="HasPermissionRequest.ObjectType.DIRECTORY">DIRECTORY</see>:</term>
+        ///         <description>KiFS File Directory</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="HasPermissionRequest.ObjectType.GRAPH">GRAPH</see>:</term>
+        ///         <description>A Graph object</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="HasPermissionRequest.ObjectType.PROC">PROC</see>:</term>
+        ///         <description>UDF Procedure</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="HasPermissionRequest.ObjectType.SCHEMA">SCHEMA</see>:</term>
+        ///         <description>Schema</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="HasPermissionRequest.ObjectType.SQL_PROC">SQL_PROC</see>:</term>
+        ///         <description>SQL Procedure</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="HasPermissionRequest.ObjectType.SYSTEM">SYSTEM</see>:</term>
+        ///         <description>System-level access</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="HasPermissionRequest.ObjectType.TABLE">TABLE</see>:</term>
+        ///         <description>Database Table</description>
+        ///     </item>
+        /// </list>  </param>
         /// <param name="permission">Permission to check for.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
-        /// cref="HasPermissionRequest.Permission.CONNECT">CONNECT</see>:</term>
-        ///         <description>Connect access on the given data
-        /// source</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="HasPermissionRequest.Permission.CREDENTIAL_ADMIN">CREDENTIAL_ADMIN</see>:</term>
+        /// cref="HasPermissionRequest.Permission.ADMIN">ADMIN</see>:</term>
         ///         <description>Full read/write and administrative access on
-        /// the credential.</description>
+        /// the object.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="HasPermissionRequest.Permission.CREDENTIAL_READ">CREDENTIAL_READ</see>:</term>
-        ///         <description>Ability to read and use the
-        /// credential.</description>
+        /// cref="HasPermissionRequest.Permission.CONNECT">CONNECT</see>:</term>
+        ///         <description>Connect access on the given data source or
+        /// data sink.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="HasPermissionRequest.Permission.DIRECTORY_READ">DIRECTORY_READ</see>:</term>
-        ///         <description>For files in the directory, access to list
-        /// files, download files, or use files in server side
-        /// functions</description>
+        /// cref="HasPermissionRequest.Permission.DELETE">DELETE</see>:</term>
+        ///         <description>Delete rows from tables.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="HasPermissionRequest.Permission.DIRECTORY_WRITE">DIRECTORY_WRITE</see>:</term>
-        ///         <description>Access to upload files to, or delete files
-        /// from, the directory. A user with write access automatically has
-        /// read access</description>
+        /// cref="HasPermissionRequest.Permission.EXECUTE">EXECUTE</see>:</term>
+        ///         <description>Ability to Execute the Procedure
+        /// object.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="HasPermissionRequest.Permission.PROC_EXECUTE">PROC_EXECUTE</see>:</term>
-        ///         <description>Execute access to the UDF.</description>
+        /// cref="HasPermissionRequest.Permission.INSERT">INSERT</see>:</term>
+        ///         <description>Insert access to tables.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="HasPermissionRequest.Permission.ROLE">ROLE</see>:</term>
-        ///         <description>User is a member of this role (including
-        /// indirectly).</description>
+        /// cref="HasPermissionRequest.Permission.READ">READ</see>:</term>
+        ///         <description>Ability to read, list and use the
+        /// object.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="HasPermissionRequest.Permission.SQL_PROC_EXECUTE">SQL_PROC_EXECUTE</see>:</term>
-        ///         <description>Execute access to the SQL proc.</description>
+        /// cref="HasPermissionRequest.Permission.UPDATE">UPDATE</see>:</term>
+        ///         <description>Update access to the table.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="HasPermissionRequest.Permission.SYSTEM_ADMIN">SYSTEM_ADMIN</see>:</term>
-        ///         <description>Full access to all data and system
-        /// functions.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="HasPermissionRequest.Permission.SYSTEM_READ">SYSTEM_READ</see>:</term>
-        ///         <description>Read-only access to all tables.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="HasPermissionRequest.Permission.SYSTEM_USER_ADMIN">SYSTEM_USER_ADMIN</see>:</term>
+        /// cref="HasPermissionRequest.Permission.USER_ADMIN">USER_ADMIN</see>:</term>
         ///         <description>Access to administer users and roles that do
         /// not have system_admin permission.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="HasPermissionRequest.Permission.SYSTEM_WRITE">SYSTEM_WRITE</see>:</term>
-        ///         <description>Read and write access to all
-        /// tables.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="HasPermissionRequest.Permission.TABLE_ADMIN">TABLE_ADMIN</see>:</term>
-        ///         <description>Full read/write and administrative access to
-        /// the table.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="HasPermissionRequest.Permission.TABLE_DELETE">TABLE_DELETE</see>:</term>
-        ///         <description>Delete access to the table.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="HasPermissionRequest.Permission.TABLE_INSERT">TABLE_INSERT</see>:</term>
-        ///         <description>Insert access to the table.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="HasPermissionRequest.Permission.TABLE_READ">TABLE_READ</see>:</term>
-        ///         <description>Read access to the table.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="HasPermissionRequest.Permission.TABLE_UPDATE">TABLE_UPDATE</see>:</term>
-        ///         <description>Update access to the table.</description>
+        /// cref="HasPermissionRequest.Permission.WRITE">WRITE</see>:</term>
+        ///         <description>Access to write, change and delete
+        /// objects.</description>
         ///     </item>
         /// </list>  </param>
         /// <param name="options">Optional parameters.
@@ -13915,7 +14669,7 @@ namespace kinetica
         ///         <term><see
         /// cref="HasPermissionRequest.Options.NO_ERROR_IF_NOT_EXISTS">NO_ERROR_IF_NOT_EXISTS</see>:</term>
         ///         <description>If <i>false</i> will return an error if the
-        /// provided <paramref cref="HasPermissionRequest.target" /> does not
+        /// provided <paramref cref="HasPermissionRequest._object" /> does not
         /// exist or is blank. If <i>true</i> then it will return <i>false</i>
         /// for <member name="has_permission" />.
         /// Supported values:
@@ -13938,12 +14692,14 @@ namespace kinetica
         /// <returns>Response object containing the result of the
         /// operation.</returns>
         /// 
-        public HasPermissionResponse hasPermission( string name,
-                                                    string target,
+        public HasPermissionResponse hasPermission( string principal,
+                                                    string _object,
+                                                    string object_type,
                                                     string permission,
                                                     IDictionary<string, string> options = null )
         {
-            return hasPermission( new HasPermissionRequest( name, target, permission,
+            return hasPermission( new HasPermissionRequest( principal, _object,
+                                                            object_type, permission,
                                                             options ) );
         }
 
@@ -13980,6 +14736,89 @@ namespace kinetica
                                         IDictionary<string, string> options = null )
         {
             return hasProc( new HasProcRequest( proc_name, options ) );
+        }
+
+
+        /// <summary>Checks if the specified user has the specified
+        /// role.</summary>
+        /// 
+        /// <param name="request_">Request object containing the parameters for
+        /// the operation.</param>
+        /// 
+        /// <returns>Response object containing the result of the
+        /// operation.</returns>
+        /// 
+        public HasRoleResponse hasRole( HasRoleRequest request_ )
+        {
+            HasRoleResponse actualResponse_ = SubmitRequest<HasRoleResponse>("/has/role", request_, false);
+
+            return actualResponse_;
+        }
+
+
+        /// <summary>Checks if the specified user has the specified
+        /// role.</summary>
+        /// 
+        /// <param name="principal">Name of the user for which role membersih
+        /// is being checked. Must be an existing user. If blank, will use the
+        /// current user.  The default value is ''.</param>
+        /// <param name="role">Name of role to check for membership.  </param>
+        /// <param name="options">Optional parameters.
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="HasRoleRequest.Options.NO_ERROR_IF_NOT_EXISTS">NO_ERROR_IF_NOT_EXISTS</see>:</term>
+        ///         <description>If <i>false</i> will return an error if the
+        /// provided <paramref cref="HasRoleRequest.role" /> does not exist or
+        /// is blank. If <i>true</i> then it will return <i>false</i> for
+        /// <member name="has_role" />.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="HasRoleRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="HasRoleRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="HasRoleRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="HasRoleRequest.Options.ONLY_DIRECT">ONLY_DIRECT</see>:</term>
+        ///         <description>If <i>false</i> will search recursively if the
+        /// <paramref cref="HasRoleRequest.principal" /> is a member of
+        /// <paramref cref="HasRoleRequest.role" />.  If <i>true</i> then
+        /// <paramref cref="HasRoleRequest.principal" /> must directly be a
+        /// member of <paramref cref="HasRoleRequest.role" />.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="HasRoleRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="HasRoleRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="HasRoleRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        /// </list>
+        /// The default value is an empty {@link Dictionary}.</param>
+        /// 
+        /// <returns>Response object containing the result of the
+        /// operation.</returns>
+        /// 
+        public HasRoleResponse hasRole( string principal,
+                                        string role,
+                                        IDictionary<string, string> options = null )
+        {
+            return hasRole( new HasRoleRequest( principal, role, options ) );
         }
 
 
@@ -17688,6 +18527,167 @@ namespace kinetica
         /// @endcond
 
 
+        /// <summary>Revoke user or role the specified permission on the
+        /// specified object.</summary>
+        /// 
+        /// <param name="request_">Request object containing the parameters for
+        /// the operation.</param>
+        /// 
+        /// <returns>Response object containing the result of the
+        /// operation.</returns>
+        /// 
+        public RevokePermissionResponse revokePermission( RevokePermissionRequest request_ )
+        {
+            RevokePermissionResponse actualResponse_ = SubmitRequest<RevokePermissionResponse>("/revoke/permission", request_, false);
+
+            return actualResponse_;
+        }
+
+
+        /// <summary>Revoke user or role the specified permission on the
+        /// specified object.</summary>
+        /// 
+        /// <param name="principal">Name of the user or role for which the
+        /// permission is being revoked.  Must be an existing user or role.
+        /// The default value is ''.</param>
+        /// <param name="_object">Name of object permission is being revoked
+        /// from.  It is recommended to use a fully-qualified name when
+        /// possible.  </param>
+        /// <param name="object_type">The type of object being revoked
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="RevokePermissionRequest.ObjectType.CREDENTIAL">CREDENTIAL</see>:</term>
+        ///         <description>Credential</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="RevokePermissionRequest.ObjectType.DATASINK">DATASINK</see>:</term>
+        ///         <description>Data Sink</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="RevokePermissionRequest.ObjectType.DATASOURCE">DATASOURCE</see>:</term>
+        ///         <description>Data Source</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="RevokePermissionRequest.ObjectType.DIRECTORY">DIRECTORY</see>:</term>
+        ///         <description>KIFS File Directory</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="RevokePermissionRequest.ObjectType.GRAPH">GRAPH</see>:</term>
+        ///         <description>A Graph object</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="RevokePermissionRequest.ObjectType.PROC">PROC</see>:</term>
+        ///         <description>UDF Procedure</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="RevokePermissionRequest.ObjectType.SCHEMA">SCHEMA</see>:</term>
+        ///         <description>Schema</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="RevokePermissionRequest.ObjectType.SQL_PROC">SQL_PROC</see>:</term>
+        ///         <description>SQL Procedure</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="RevokePermissionRequest.ObjectType.SYSTEM">SYSTEM</see>:</term>
+        ///         <description>System-level access</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="RevokePermissionRequest.ObjectType.TABLE">TABLE</see>:</term>
+        ///         <description>Database Table</description>
+        ///     </item>
+        /// </list>  </param>
+        /// <param name="permission">Permission being revoked.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="RevokePermissionRequest.Permission.ADMIN">ADMIN</see>:</term>
+        ///         <description>Full read/write and administrative access on
+        /// the object.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="RevokePermissionRequest.Permission.CONNECT">CONNECT</see>:</term>
+        ///         <description>Connect access on the given data source or
+        /// data sink.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="RevokePermissionRequest.Permission.DELETE">DELETE</see>:</term>
+        ///         <description>Delete rows from tables.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="RevokePermissionRequest.Permission.EXECUTE">EXECUTE</see>:</term>
+        ///         <description>Ability to Execute the Procedure
+        /// object.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="RevokePermissionRequest.Permission.INSERT">INSERT</see>:</term>
+        ///         <description>Insert access to tables.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="RevokePermissionRequest.Permission.READ">READ</see>:</term>
+        ///         <description>Ability to read, list and use the
+        /// object.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="RevokePermissionRequest.Permission.UPDATE">UPDATE</see>:</term>
+        ///         <description>Update access to the table.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="RevokePermissionRequest.Permission.USER_ADMIN">USER_ADMIN</see>:</term>
+        ///         <description>Access to administer users and roles that do
+        /// not have system_admin permission.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="RevokePermissionRequest.Permission.WRITE">WRITE</see>:</term>
+        ///         <description>Access to write, change and delete
+        /// objects.</description>
+        ///     </item>
+        /// </list>  </param>
+        /// <param name="options">Optional parameters.
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="RevokePermissionRequest.Options.COLUMNS">COLUMNS</see>:</term>
+        ///         <description>Revoke table security from these columns,
+        /// comma-separated.  The default value is ''.</description>
+        ///     </item>
+        /// </list>
+        /// The default value is an empty {@link Dictionary}.</param>
+        /// 
+        /// <returns>Response object containing the result of the
+        /// operation.</returns>
+        /// 
+        public RevokePermissionResponse revokePermission( string principal,
+                                                          string _object,
+                                                          string object_type,
+                                                          string permission,
+                                                          IDictionary<string, string> options = null )
+        {
+            return revokePermission( new RevokePermissionRequest( principal, _object,
+                                                                  object_type, permission,
+                                                                  options ) );
+        }
+
+
         /// <summary>Revokes a <a
         /// href="../../../security/sec_concepts/#security-concepts-permissions-credential"
         /// target="_top">credential-level permission</a> from a user or
@@ -18188,6 +19188,45 @@ namespace kinetica
                                                       IDictionary<string, string> options = null )
         {
             return showCredential( new ShowCredentialRequest( credential_name, options ) );
+        }
+
+
+        /// <summary>Shows information about a specified <a
+        /// href="../../../concepts/data_sinks/" target="_top">data sink</a> or
+        /// all data sinks.</summary>
+        /// 
+        /// <param name="request_">Request object containing the parameters for
+        /// the operation.</param>
+        /// 
+        /// <returns>Response object containing the result of the
+        /// operation.</returns>
+        /// 
+        public ShowDatasinkResponse showDatasink( ShowDatasinkRequest request_ )
+        {
+            ShowDatasinkResponse actualResponse_ = SubmitRequest<ShowDatasinkResponse>("/show/datasink", request_, false);
+
+            return actualResponse_;
+        }
+
+
+        /// <summary>Shows information about a specified <a
+        /// href="../../../concepts/data_sinks/" target="_top">data sink</a> or
+        /// all data sinks.</summary>
+        /// 
+        /// <param name="name">Name of the data sink for which to retrieve
+        /// information. The name must refer to a currently existing data sink.
+        /// If '*' is specified, information about all data sinks will be
+        /// returned.  </param>
+        /// <param name="options">Optional parameters.  The default value is an
+        /// empty {@link Dictionary}.</param>
+        /// 
+        /// <returns>Response object containing the result of the
+        /// operation.</returns>
+        /// 
+        public ShowDatasinkResponse showDatasink( string name,
+                                                  IDictionary<string, string> options = null )
+        {
+            return showDatasink( new ShowDatasinkRequest( name, options ) );
         }
 
 
@@ -19365,6 +20404,50 @@ namespace kinetica
                                                             IDictionary<string, string> options = null )
         {
             return showTableMetadata( new ShowTableMetadataRequest( table_names, options ) );
+        }
+
+
+        /// <summary>Show table monitors and their properties. Table monitors
+        /// are created using <see
+        /// cref="Kinetica.createTableMonitor(string,IDictionary{string, string})"
+        /// />.
+        /// Returns detailed information about existing table
+        /// monitors.</summary>
+        /// 
+        /// <param name="request_">Request object containing the parameters for
+        /// the operation.</param>
+        /// 
+        /// <returns>Response object containing the result of the
+        /// operation.</returns>
+        /// 
+        public ShowTableMonitorsResponse showTableMonitors( ShowTableMonitorsRequest request_ )
+        {
+            ShowTableMonitorsResponse actualResponse_ = SubmitRequest<ShowTableMonitorsResponse>("/show/tablemonitors", request_, false);
+
+            return actualResponse_;
+        }
+
+
+        /// <summary>Show table monitors and their properties. Table monitors
+        /// are created using <see
+        /// cref="Kinetica.createTableMonitor(string,IDictionary{string, string})"
+        /// />.
+        /// Returns detailed information about existing table
+        /// monitors.</summary>
+        /// 
+        /// <param name="monitor_ids">List of monitors to be shown. An empty
+        /// list or a single entry with an empty string returns all table
+        /// monitors.  </param>
+        /// <param name="options">Optional parameters.  The default value is an
+        /// empty {@link Dictionary}.</param>
+        /// 
+        /// <returns>Response object containing the result of the
+        /// operation.</returns>
+        /// 
+        public ShowTableMonitorsResponse showTableMonitors( IList<string> monitor_ids,
+                                                            IDictionary<string, string> options = null )
+        {
+            return showTableMonitors( new ShowTableMonitorsRequest( monitor_ids, options ) );
         }
 
 
@@ -20645,7 +21728,9 @@ namespace kinetica
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
-        /// cref="UploadFilesRequest.Options.NONE">NONE</see></term>
+        /// cref="UploadFilesRequest.Options.NONE">NONE</see>:</term>
+        ///         <description>Default, indicates this is not a multipart
+        /// upload</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -20656,8 +21741,8 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="UploadFilesRequest.Options.UPLOAD_PART">UPLOAD_PART</see>:</term>
-        ///         <description>Upload one or more parts of the specified
-        /// multipart file upload</description>
+        ///         <description>Uploads a part of the specified multipart file
+        /// upload</description>
         ///     </item>
         ///     <item>
         ///         <term><see

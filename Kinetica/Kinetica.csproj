@@ -89,7 +89,9 @@
     <Compile Include="Protocol\AggregateUnique.cs" />
     <Compile Include="Protocol\AggregateUnpivot.cs" />
     <Compile Include="Protocol\AlterCredential.cs" />
+    <Compile Include="Protocol\AlterDatasink.cs" />
     <Compile Include="Protocol\AlterDatasource.cs" />
+    <Compile Include="Protocol\AlterGraph.cs" />
     <Compile Include="Protocol\AlterModel.cs" />
     <Compile Include="Protocol\AlterResourceGroup.cs" />
     <Compile Include="Protocol\AlterRole.cs" />
@@ -109,13 +111,14 @@
     <Compile Include="Protocol\CollectStatistics.cs" />
     <Compile Include="Protocol\CreateContainerRegistry.cs" />
     <Compile Include="Protocol\CreateCredential.cs" />
+    <Compile Include="Protocol\CreateDatasink.cs" />
     <Compile Include="Protocol\CreateDatasource.cs" />
+    <Compile Include="Protocol\CreateDeltaTable.cs" />
     <Compile Include="Protocol\CreateDirectory.cs" />
     <Compile Include="Protocol\CreateGraph.cs" />
     <Compile Include="Protocol\CreateJob.cs" />
     <Compile Include="Protocol\CreateJoinTable.cs" />
     <Compile Include="Protocol\CreateMaterializedView.cs" />
-    <Compile Include="Protocol\CreateMonitorTable.cs" />
     <Compile Include="Protocol\CreateProc.cs" />
     <Compile Include="Protocol\CreateProjection.cs" />
     <Compile Include="Protocol\CreateResourceGroup.cs" />
@@ -143,6 +146,7 @@
     <Compile Include="Protocol\DownloadFiles.cs" />
     <Compile Include="Protocol\DropContainerRegistry.cs" />
     <Compile Include="Protocol\DropCredential.cs" />
+    <Compile Include="Protocol\DropDatasink.cs" />
     <Compile Include="Protocol\DropDatasource.cs" />
     <Compile Include="Protocol\DropModel.cs" />
     <Compile Include="Protocol\DropSchema.cs" />
@@ -169,6 +173,7 @@
     <Compile Include="Protocol\GetRecordsBySeries.cs" />
     <Compile Include="Protocol\GetRecordsFromCollection.cs" />
     <Compile Include="Protocol\GetVectortile.cs" />
+    <Compile Include="Protocol\GrantPermission.cs" />
     <Compile Include="Protocol\GrantPermissionCredential.cs" />
     <Compile Include="Protocol\GrantPermissionDatasource.cs" />
     <Compile Include="Protocol\GrantPermissionDirectory.cs" />
@@ -178,6 +183,7 @@
     <Compile Include="Protocol\GrantRole.cs" />
     <Compile Include="Protocol\HasPermission.cs" />
     <Compile Include="Protocol\HasProc.cs" />
+    <Compile Include="Protocol\HasRole.cs" />
     <Compile Include="Protocol\HasSchema.cs" />
     <Compile Include="Protocol\HasTable.cs" />
     <Compile Include="Protocol\HasType.cs" />
@@ -196,6 +202,7 @@
     <Compile Include="Protocol\QueryGraph.cs" />
     <Compile Include="Protocol\RawKineticaResponse.cs" />
     <Compile Include="Protocol\ReserveResource.cs" />
+    <Compile Include="Protocol\RevokePermission.cs" />
     <Compile Include="Protocol\RevokePermissionCredential.cs" />
     <Compile Include="Protocol\RevokePermissionDatasource.cs" />
     <Compile Include="Protocol\RevokePermissionDirectory.cs" />
@@ -205,6 +212,7 @@
     <Compile Include="Protocol\RevokeRole.cs" />
     <Compile Include="Protocol\ShowContainerRegistry.cs" />
     <Compile Include="Protocol\ShowCredential.cs" />
+    <Compile Include="Protocol\ShowDatasink.cs" />
     <Compile Include="Protocol\ShowDatasource.cs" />
     <Compile Include="Protocol\ShowDirectories.cs" />
     <Compile Include="Protocol\ShowFiles.cs" />
@@ -225,6 +233,7 @@
     <Compile Include="Protocol\ShowSystemTiming.cs" />
     <Compile Include="Protocol\ShowTable.cs" />
     <Compile Include="Protocol\ShowTableMetadata.cs" />
+    <Compile Include="Protocol\ShowTableMonitors.cs" />
     <Compile Include="Protocol\ShowTablesByType.cs" />
     <Compile Include="Protocol\ShowTriggers.cs" />
     <Compile Include="Protocol\ShowTypes.cs" />

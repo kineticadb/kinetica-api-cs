@@ -12,65 +12,65 @@ namespace kinetica
 {
 
     /// <summary>A set of parameters for <see
-    /// cref="Kinetica.hasPermission(string,string,string,string,IDictionary{string, string})"
+    /// cref="Kinetica.revokePermission(string,string,string,string,IDictionary{string, string})"
     /// />.
     /// <br />
-    /// Checks if the specified user has the specified permission on the
-    /// specified object.</summary>
-    public class HasPermissionRequest : KineticaData
+    /// Revoke user or role the specified permission on the specified
+    /// object.</summary>
+    public class RevokePermissionRequest : KineticaData
     {
 
-        /// <summary>The type of object being checked
+        /// <summary>The type of object being revoked
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
-        /// cref="HasPermissionRequest.ObjectType.CREDENTIAL">CREDENTIAL</see>:</term>
+        /// cref="RevokePermissionRequest.ObjectType.CREDENTIAL">CREDENTIAL</see>:</term>
         ///         <description>Credential</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="HasPermissionRequest.ObjectType.DATASINK">DATASINK</see>:</term>
+        /// cref="RevokePermissionRequest.ObjectType.DATASINK">DATASINK</see>:</term>
         ///         <description>Data Sink</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="HasPermissionRequest.ObjectType.DATASOURCE">DATASOURCE</see>:</term>
+        /// cref="RevokePermissionRequest.ObjectType.DATASOURCE">DATASOURCE</see>:</term>
         ///         <description>Data Source</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="HasPermissionRequest.ObjectType.DIRECTORY">DIRECTORY</see>:</term>
-        ///         <description>KiFS File Directory</description>
+        /// cref="RevokePermissionRequest.ObjectType.DIRECTORY">DIRECTORY</see>:</term>
+        ///         <description>KIFS File Directory</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="HasPermissionRequest.ObjectType.GRAPH">GRAPH</see>:</term>
+        /// cref="RevokePermissionRequest.ObjectType.GRAPH">GRAPH</see>:</term>
         ///         <description>A Graph object</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="HasPermissionRequest.ObjectType.PROC">PROC</see>:</term>
+        /// cref="RevokePermissionRequest.ObjectType.PROC">PROC</see>:</term>
         ///         <description>UDF Procedure</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="HasPermissionRequest.ObjectType.SCHEMA">SCHEMA</see>:</term>
+        /// cref="RevokePermissionRequest.ObjectType.SCHEMA">SCHEMA</see>:</term>
         ///         <description>Schema</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="HasPermissionRequest.ObjectType.SQL_PROC">SQL_PROC</see>:</term>
+        /// cref="RevokePermissionRequest.ObjectType.SQL_PROC">SQL_PROC</see>:</term>
         ///         <description>SQL Procedure</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="HasPermissionRequest.ObjectType.SYSTEM">SYSTEM</see>:</term>
+        /// cref="RevokePermissionRequest.ObjectType.SYSTEM">SYSTEM</see>:</term>
         ///         <description>System-level access</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="HasPermissionRequest.ObjectType.TABLE">TABLE</see>:</term>
+        /// cref="RevokePermissionRequest.ObjectType.TABLE">TABLE</see>:</term>
         ///         <description>Database Table</description>
         ///     </item>
         /// </list>
@@ -88,7 +88,7 @@ namespace kinetica
             /// <summary>Data Source</summary>
             public const string DATASOURCE = "datasource";
 
-            /// <summary>KiFS File Directory</summary>
+            /// <summary>KIFS File Directory</summary>
             public const string DIRECTORY = "directory";
 
             /// <summary>A Graph object</summary>
@@ -111,57 +111,57 @@ namespace kinetica
         } // end struct ObjectType
 
 
-        /// <summary>Permission to check for.
+        /// <summary>Permission being revoked.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
-        /// cref="HasPermissionRequest.Permission.ADMIN">ADMIN</see>:</term>
+        /// cref="RevokePermissionRequest.Permission.ADMIN">ADMIN</see>:</term>
         ///         <description>Full read/write and administrative access on
         /// the object.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="HasPermissionRequest.Permission.CONNECT">CONNECT</see>:</term>
+        /// cref="RevokePermissionRequest.Permission.CONNECT">CONNECT</see>:</term>
         ///         <description>Connect access on the given data source or
         /// data sink.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="HasPermissionRequest.Permission.DELETE">DELETE</see>:</term>
+        /// cref="RevokePermissionRequest.Permission.DELETE">DELETE</see>:</term>
         ///         <description>Delete rows from tables.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="HasPermissionRequest.Permission.EXECUTE">EXECUTE</see>:</term>
+        /// cref="RevokePermissionRequest.Permission.EXECUTE">EXECUTE</see>:</term>
         ///         <description>Ability to Execute the Procedure
         /// object.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="HasPermissionRequest.Permission.INSERT">INSERT</see>:</term>
+        /// cref="RevokePermissionRequest.Permission.INSERT">INSERT</see>:</term>
         ///         <description>Insert access to tables.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="HasPermissionRequest.Permission.READ">READ</see>:</term>
+        /// cref="RevokePermissionRequest.Permission.READ">READ</see>:</term>
         ///         <description>Ability to read, list and use the
         /// object.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="HasPermissionRequest.Permission.UPDATE">UPDATE</see>:</term>
+        /// cref="RevokePermissionRequest.Permission.UPDATE">UPDATE</see>:</term>
         ///         <description>Update access to the table.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="HasPermissionRequest.Permission.USER_ADMIN">USER_ADMIN</see>:</term>
+        /// cref="RevokePermissionRequest.Permission.USER_ADMIN">USER_ADMIN</see>:</term>
         ///         <description>Access to administer users and roles that do
         /// not have system_admin permission.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="HasPermissionRequest.Permission.WRITE">WRITE</see>:</term>
+        /// cref="RevokePermissionRequest.Permission.WRITE">WRITE</see>:</term>
         ///         <description>Access to write, change and delete
         /// objects.</description>
         ///     </item>
@@ -207,24 +207,9 @@ namespace kinetica
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
-        /// cref="HasPermissionRequest.Options.NO_ERROR_IF_NOT_EXISTS">NO_ERROR_IF_NOT_EXISTS</see>:</term>
-        ///         <description>If <i>false</i> will return an error if the
-        /// provided <paramref cref="HasPermissionRequest._object" /> does not
-        /// exist or is blank. If <i>true</i> then it will return <i>false</i>
-        /// for <member name="has_permission" />.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="HasPermissionRequest.Options.TRUE">TRUE</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="HasPermissionRequest.Options.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="HasPermissionRequest.Options.FALSE">FALSE</see>.</description>
+        /// cref="RevokePermissionRequest.Options.COLUMNS">COLUMNS</see>:</term>
+        ///         <description>Revoke table security from these columns,
+        /// comma-separated.  The default value is ''.</description>
         ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.
@@ -233,146 +218,129 @@ namespace kinetica
         public struct Options
         {
 
-            /// <summary>If <i>false</i> will return an error if the provided
-            /// <see cref="_object" /> does not exist or is blank. If
-            /// <i>true</i> then it will return <i>false</i> for <member
-            /// name="has_permission" />.
-            /// Supported values:
-            /// <list type="bullet">
-            ///     <item>
-            ///         <term><see
-            /// cref="HasPermissionRequest.Options.TRUE">TRUE</see></term>
-            ///     </item>
-            ///     <item>
-            ///         <term><see
-            /// cref="HasPermissionRequest.Options.FALSE">FALSE</see></term>
-            ///     </item>
-            /// </list>
-            /// The default value is <see
-            /// cref="HasPermissionRequest.Options.FALSE">FALSE</see>.</summary>
-            public const string NO_ERROR_IF_NOT_EXISTS = "no_error_if_not_exists";
-            public const string TRUE = "true";
-            public const string FALSE = "false";
+            /// <summary>Revoke table security from these columns,
+            /// comma-separated.  The default value is ''.</summary>
+            public const string COLUMNS = "columns";
         } // end struct Options
 
 
-        /// <summary>Name of the user for which the permission is being
-        /// checked. Must be an existing user. If blank, will use the current
-        /// user.  The default value is ''.</summary>
+        /// <summary>Name of the user or role for which the permission is being
+        /// revoked.  Must be an existing user or role.  The default value is
+        /// ''.</summary>
         public string principal { get; set; } = "";
 
-        /// <summary>Name of object to check for the requested permission.  It
-        /// is recommended to use a fully-qualified name when possible.
+        /// <summary>Name of object permission is being revoked from.  It is
+        /// recommended to use a fully-qualified name when possible.
         /// </summary>
         public string _object { get; set; }
 
-        /// <summary>The type of object being checked
+        /// <summary>The type of object being revoked
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
-        /// cref="HasPermissionRequest.ObjectType.CREDENTIAL">CREDENTIAL</see>:</term>
+        /// cref="RevokePermissionRequest.ObjectType.CREDENTIAL">CREDENTIAL</see>:</term>
         ///         <description>Credential</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="HasPermissionRequest.ObjectType.DATASINK">DATASINK</see>:</term>
+        /// cref="RevokePermissionRequest.ObjectType.DATASINK">DATASINK</see>:</term>
         ///         <description>Data Sink</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="HasPermissionRequest.ObjectType.DATASOURCE">DATASOURCE</see>:</term>
+        /// cref="RevokePermissionRequest.ObjectType.DATASOURCE">DATASOURCE</see>:</term>
         ///         <description>Data Source</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="HasPermissionRequest.ObjectType.DIRECTORY">DIRECTORY</see>:</term>
-        ///         <description>KiFS File Directory</description>
+        /// cref="RevokePermissionRequest.ObjectType.DIRECTORY">DIRECTORY</see>:</term>
+        ///         <description>KIFS File Directory</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="HasPermissionRequest.ObjectType.GRAPH">GRAPH</see>:</term>
+        /// cref="RevokePermissionRequest.ObjectType.GRAPH">GRAPH</see>:</term>
         ///         <description>A Graph object</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="HasPermissionRequest.ObjectType.PROC">PROC</see>:</term>
+        /// cref="RevokePermissionRequest.ObjectType.PROC">PROC</see>:</term>
         ///         <description>UDF Procedure</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="HasPermissionRequest.ObjectType.SCHEMA">SCHEMA</see>:</term>
+        /// cref="RevokePermissionRequest.ObjectType.SCHEMA">SCHEMA</see>:</term>
         ///         <description>Schema</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="HasPermissionRequest.ObjectType.SQL_PROC">SQL_PROC</see>:</term>
+        /// cref="RevokePermissionRequest.ObjectType.SQL_PROC">SQL_PROC</see>:</term>
         ///         <description>SQL Procedure</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="HasPermissionRequest.ObjectType.SYSTEM">SYSTEM</see>:</term>
+        /// cref="RevokePermissionRequest.ObjectType.SYSTEM">SYSTEM</see>:</term>
         ///         <description>System-level access</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="HasPermissionRequest.ObjectType.TABLE">TABLE</see>:</term>
+        /// cref="RevokePermissionRequest.ObjectType.TABLE">TABLE</see>:</term>
         ///         <description>Database Table</description>
         ///     </item>
         /// </list>  </summary>
         public string object_type { get; set; }
 
-        /// <summary>Permission to check for.
+        /// <summary>Permission being revoked.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
-        /// cref="HasPermissionRequest.Permission.ADMIN">ADMIN</see>:</term>
+        /// cref="RevokePermissionRequest.Permission.ADMIN">ADMIN</see>:</term>
         ///         <description>Full read/write and administrative access on
         /// the object.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="HasPermissionRequest.Permission.CONNECT">CONNECT</see>:</term>
+        /// cref="RevokePermissionRequest.Permission.CONNECT">CONNECT</see>:</term>
         ///         <description>Connect access on the given data source or
         /// data sink.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="HasPermissionRequest.Permission.DELETE">DELETE</see>:</term>
+        /// cref="RevokePermissionRequest.Permission.DELETE">DELETE</see>:</term>
         ///         <description>Delete rows from tables.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="HasPermissionRequest.Permission.EXECUTE">EXECUTE</see>:</term>
+        /// cref="RevokePermissionRequest.Permission.EXECUTE">EXECUTE</see>:</term>
         ///         <description>Ability to Execute the Procedure
         /// object.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="HasPermissionRequest.Permission.INSERT">INSERT</see>:</term>
+        /// cref="RevokePermissionRequest.Permission.INSERT">INSERT</see>:</term>
         ///         <description>Insert access to tables.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="HasPermissionRequest.Permission.READ">READ</see>:</term>
+        /// cref="RevokePermissionRequest.Permission.READ">READ</see>:</term>
         ///         <description>Ability to read, list and use the
         /// object.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="HasPermissionRequest.Permission.UPDATE">UPDATE</see>:</term>
+        /// cref="RevokePermissionRequest.Permission.UPDATE">UPDATE</see>:</term>
         ///         <description>Update access to the table.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="HasPermissionRequest.Permission.USER_ADMIN">USER_ADMIN</see>:</term>
+        /// cref="RevokePermissionRequest.Permission.USER_ADMIN">USER_ADMIN</see>:</term>
         ///         <description>Access to administer users and roles that do
         /// not have system_admin permission.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="HasPermissionRequest.Permission.WRITE">WRITE</see>:</term>
+        /// cref="RevokePermissionRequest.Permission.WRITE">WRITE</see>:</term>
         ///         <description>Access to write, change and delete
         /// objects.</description>
         ///     </item>
@@ -383,148 +351,133 @@ namespace kinetica
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
-        /// cref="HasPermissionRequest.Options.NO_ERROR_IF_NOT_EXISTS">NO_ERROR_IF_NOT_EXISTS</see>:</term>
-        ///         <description>If <i>false</i> will return an error if the
-        /// provided <paramref cref="HasPermissionRequest._object" /> does not
-        /// exist or is blank. If <i>true</i> then it will return <i>false</i>
-        /// for <member name="has_permission" />.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="HasPermissionRequest.Options.TRUE">TRUE</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="HasPermissionRequest.Options.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="HasPermissionRequest.Options.FALSE">FALSE</see>.</description>
+        /// cref="RevokePermissionRequest.Options.COLUMNS">COLUMNS</see>:</term>
+        ///         <description>Revoke table security from these columns,
+        /// comma-separated.  The default value is ''.</description>
         ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.</summary>
         public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
 
 
-        /// <summary>Constructs a HasPermissionRequest object with default
+        /// <summary>Constructs a RevokePermissionRequest object with default
         /// parameters.</summary>
-        public HasPermissionRequest() { }
+        public RevokePermissionRequest() { }
 
-        /// <summary>Constructs a HasPermissionRequest object with the
+        /// <summary>Constructs a RevokePermissionRequest object with the
         /// specified parameters.</summary>
         /// 
-        /// <param name="principal">Name of the user for which the permission
-        /// is being checked. Must be an existing user. If blank, will use the
-        /// current user.  The default value is ''.</param>
-        /// <param name="_object">Name of object to check for the requested
-        /// permission.  It is recommended to use a fully-qualified name when
+        /// <param name="principal">Name of the user or role for which the
+        /// permission is being revoked.  Must be an existing user or role.
+        /// The default value is ''.</param>
+        /// <param name="_object">Name of object permission is being revoked
+        /// from.  It is recommended to use a fully-qualified name when
         /// possible.  </param>
-        /// <param name="object_type">The type of object being checked
+        /// <param name="object_type">The type of object being revoked
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
-        /// cref="HasPermissionRequest.ObjectType.CREDENTIAL">CREDENTIAL</see>:</term>
+        /// cref="RevokePermissionRequest.ObjectType.CREDENTIAL">CREDENTIAL</see>:</term>
         ///         <description>Credential</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="HasPermissionRequest.ObjectType.DATASINK">DATASINK</see>:</term>
+        /// cref="RevokePermissionRequest.ObjectType.DATASINK">DATASINK</see>:</term>
         ///         <description>Data Sink</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="HasPermissionRequest.ObjectType.DATASOURCE">DATASOURCE</see>:</term>
+        /// cref="RevokePermissionRequest.ObjectType.DATASOURCE">DATASOURCE</see>:</term>
         ///         <description>Data Source</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="HasPermissionRequest.ObjectType.DIRECTORY">DIRECTORY</see>:</term>
-        ///         <description>KiFS File Directory</description>
+        /// cref="RevokePermissionRequest.ObjectType.DIRECTORY">DIRECTORY</see>:</term>
+        ///         <description>KIFS File Directory</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="HasPermissionRequest.ObjectType.GRAPH">GRAPH</see>:</term>
+        /// cref="RevokePermissionRequest.ObjectType.GRAPH">GRAPH</see>:</term>
         ///         <description>A Graph object</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="HasPermissionRequest.ObjectType.PROC">PROC</see>:</term>
+        /// cref="RevokePermissionRequest.ObjectType.PROC">PROC</see>:</term>
         ///         <description>UDF Procedure</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="HasPermissionRequest.ObjectType.SCHEMA">SCHEMA</see>:</term>
+        /// cref="RevokePermissionRequest.ObjectType.SCHEMA">SCHEMA</see>:</term>
         ///         <description>Schema</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="HasPermissionRequest.ObjectType.SQL_PROC">SQL_PROC</see>:</term>
+        /// cref="RevokePermissionRequest.ObjectType.SQL_PROC">SQL_PROC</see>:</term>
         ///         <description>SQL Procedure</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="HasPermissionRequest.ObjectType.SYSTEM">SYSTEM</see>:</term>
+        /// cref="RevokePermissionRequest.ObjectType.SYSTEM">SYSTEM</see>:</term>
         ///         <description>System-level access</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="HasPermissionRequest.ObjectType.TABLE">TABLE</see>:</term>
+        /// cref="RevokePermissionRequest.ObjectType.TABLE">TABLE</see>:</term>
         ///         <description>Database Table</description>
         ///     </item>
         /// </list>  </param>
-        /// <param name="permission">Permission to check for.
+        /// <param name="permission">Permission being revoked.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
-        /// cref="HasPermissionRequest.Permission.ADMIN">ADMIN</see>:</term>
+        /// cref="RevokePermissionRequest.Permission.ADMIN">ADMIN</see>:</term>
         ///         <description>Full read/write and administrative access on
         /// the object.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="HasPermissionRequest.Permission.CONNECT">CONNECT</see>:</term>
+        /// cref="RevokePermissionRequest.Permission.CONNECT">CONNECT</see>:</term>
         ///         <description>Connect access on the given data source or
         /// data sink.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="HasPermissionRequest.Permission.DELETE">DELETE</see>:</term>
+        /// cref="RevokePermissionRequest.Permission.DELETE">DELETE</see>:</term>
         ///         <description>Delete rows from tables.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="HasPermissionRequest.Permission.EXECUTE">EXECUTE</see>:</term>
+        /// cref="RevokePermissionRequest.Permission.EXECUTE">EXECUTE</see>:</term>
         ///         <description>Ability to Execute the Procedure
         /// object.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="HasPermissionRequest.Permission.INSERT">INSERT</see>:</term>
+        /// cref="RevokePermissionRequest.Permission.INSERT">INSERT</see>:</term>
         ///         <description>Insert access to tables.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="HasPermissionRequest.Permission.READ">READ</see>:</term>
+        /// cref="RevokePermissionRequest.Permission.READ">READ</see>:</term>
         ///         <description>Ability to read, list and use the
         /// object.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="HasPermissionRequest.Permission.UPDATE">UPDATE</see>:</term>
+        /// cref="RevokePermissionRequest.Permission.UPDATE">UPDATE</see>:</term>
         ///         <description>Update access to the table.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="HasPermissionRequest.Permission.USER_ADMIN">USER_ADMIN</see>:</term>
+        /// cref="RevokePermissionRequest.Permission.USER_ADMIN">USER_ADMIN</see>:</term>
         ///         <description>Access to administer users and roles that do
         /// not have system_admin permission.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="HasPermissionRequest.Permission.WRITE">WRITE</see>:</term>
+        /// cref="RevokePermissionRequest.Permission.WRITE">WRITE</see>:</term>
         ///         <description>Access to write, change and delete
         /// objects.</description>
         ///     </item>
@@ -533,33 +486,18 @@ namespace kinetica
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
-        /// cref="HasPermissionRequest.Options.NO_ERROR_IF_NOT_EXISTS">NO_ERROR_IF_NOT_EXISTS</see>:</term>
-        ///         <description>If <i>false</i> will return an error if the
-        /// provided <paramref cref="HasPermissionRequest._object" /> does not
-        /// exist or is blank. If <i>true</i> then it will return <i>false</i>
-        /// for <member name="has_permission" />.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="HasPermissionRequest.Options.TRUE">TRUE</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="HasPermissionRequest.Options.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="HasPermissionRequest.Options.FALSE">FALSE</see>.</description>
+        /// cref="RevokePermissionRequest.Options.COLUMNS">COLUMNS</see>:</term>
+        ///         <description>Revoke table security from these columns,
+        /// comma-separated.  The default value is ''.</description>
         ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.</param>
         /// 
-        public HasPermissionRequest( string principal,
-                                     string _object,
-                                     string object_type,
-                                     string permission,
-                                     IDictionary<string, string> options = null)
+        public RevokePermissionRequest( string principal,
+                                        string _object,
+                                        string object_type,
+                                        string permission,
+                                        IDictionary<string, string> options = null)
         {
             this.principal = principal ?? "";
             this._object = _object ?? "";
@@ -568,88 +506,36 @@ namespace kinetica
             this.options = options ?? new Dictionary<string, string>();
         } // end constructor
 
-    } // end class HasPermissionRequest
+    } // end class RevokePermissionRequest
 
 
 
     /// <summary>A set of results returned by <see
-    /// cref="Kinetica.hasPermission(string,string,string,string,IDictionary{string, string})"
+    /// cref="Kinetica.revokePermission(string,string,string,string,IDictionary{string, string})"
     /// />.</summary>
-    public class HasPermissionResponse : KineticaData
+    public class RevokePermissionResponse : KineticaData
     {
 
-        /// <summary>Indicates whether the specified user has the specified
-        /// permission on the specified target.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="HasPermissionResponse.HasPermission.TRUE">TRUE</see>:</term>
-        ///         <description>User has the effective queried
-        /// permission</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="HasPermissionResponse.HasPermission.FALSE">FALSE</see>:</term>
-        ///         <description>User does not have the queried
-        /// permission</description>
-        ///     </item>
-        /// </list>
-        /// A set of string constants for the parameter <member
-        /// name="has_permission" />.</summary>
-        public struct HasPermission
-        {
-
-            /// <summary>User has the effective queried permission</summary>
-            public const string TRUE = "true";
-
-            /// <summary>User does not have the queried permission</summary>
-            public const string FALSE = "false";
-        } // end struct HasPermission
-
-
-        /// <summary>Value of <paramref cref="HasPermissionRequest.principal"
-        /// />  </summary>
+        /// <summary>Value of <paramref
+        /// cref="RevokePermissionRequest.principal" />.  </summary>
         public string principal { get; set; }
 
-        /// <summary>Fully-qualified value of <paramref
-        /// cref="HasPermissionRequest._object" />  </summary>
+        /// <summary>Value of <paramref cref="RevokePermissionRequest._object"
+        /// />.  </summary>
         public string _object { get; set; }
 
-        /// <summary>Value of <paramref cref="HasPermissionRequest.object_type"
-        /// />  </summary>
+        /// <summary>Value of <paramref
+        /// cref="RevokePermissionRequest.object_type" />.  </summary>
         public string object_type { get; set; }
 
-        /// <summary>Value of <paramref cref="HasPermissionRequest.permission"
-        /// />  </summary>
+        /// <summary>Value of <paramref
+        /// cref="RevokePermissionRequest.permission" />.  </summary>
         public string permission { get; set; }
-
-        /// <summary>Indicates whether the specified user has the specified
-        /// permission on the specified target.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="HasPermissionResponse.HasPermission.TRUE">TRUE</see>:</term>
-        ///         <description>User has the effective queried
-        /// permission</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="HasPermissionResponse.HasPermission.FALSE">FALSE</see>:</term>
-        ///         <description>User does not have the queried
-        /// permission</description>
-        ///     </item>
-        /// </list>  </summary>
-        public bool has_permission { get; set; }
-
-        /// <summary>Map of column/filters that have been granted.  </summary>
-        public IDictionary<string, string> filters { get; set; } = new Dictionary<string, string>();
 
         /// <summary>Additional information.  </summary>
         public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
 
-    } // end class HasPermissionResponse
+    } // end class RevokePermissionResponse
 
 
 
