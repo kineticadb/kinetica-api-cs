@@ -89,7 +89,8 @@ namespace kinetica
         /// <summary>User that created the file  </summary>
         public IList<string> users { get; set; } = new List<string>();
 
-        /// <summary>Timestamp at creation time for each file  </summary>
+        /// <summary>Creation time for each file, in milliseconds since epoch
+        /// </summary>
         public IList<long> creation_times { get; set; } = new List<long>();
 
         /// <summary>Additional information.

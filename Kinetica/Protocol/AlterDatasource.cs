@@ -174,6 +174,44 @@ namespace kinetica
         ///         <description>Name of the Kafka topic to use as the data
         /// source</description>
         ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterDatasourceRequest.DatasourceUpdatesMap.ANONYMOUS">ANONYMOUS</see>:</term>
+        ///         <description>Create an anonymous connection to the storage
+        /// provider
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterDatasourceRequest.DatasourceUpdatesMap.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterDatasourceRequest.DatasourceUpdatesMap.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="AlterDatasourceRequest.DatasourceUpdatesMap.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterDatasourceRequest.DatasourceUpdatesMap.USE_HTTPS">USE_HTTPS</see>:</term>
+        ///         <description>Use https to connect to datasource if true,
+        /// otherwise use http
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterDatasourceRequest.DatasourceUpdatesMap.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterDatasourceRequest.DatasourceUpdatesMap.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="AlterDatasourceRequest.DatasourceUpdatesMap.TRUE">TRUE</see>.</description>
+        ///     </item>
         /// </list>
         /// <br />
         /// A set of string constants for the parameter <see
@@ -286,6 +324,39 @@ namespace kinetica
             /// <summary>Name of the Kafka topic to use as the data
             /// source</summary>
             public const string KAFKA_TOPIC_NAME = "kafka_topic_name";
+
+            /// <summary>Create an anonymous connection to the storage provider
+            /// Supported values:
+            /// <list type="bullet">
+            ///     <item>
+            ///         <term><see
+            /// cref="AlterDatasourceRequest.DatasourceUpdatesMap.TRUE">TRUE</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="AlterDatasourceRequest.DatasourceUpdatesMap.FALSE">FALSE</see></term>
+            ///     </item>
+            /// </list>
+            /// The default value is <see
+            /// cref="AlterDatasourceRequest.DatasourceUpdatesMap.FALSE">FALSE</see>.</summary>
+            public const string ANONYMOUS = "anonymous";
+
+            /// <summary>Use https to connect to datasource if true, otherwise
+            /// use http
+            /// Supported values:
+            /// <list type="bullet">
+            ///     <item>
+            ///         <term><see
+            /// cref="AlterDatasourceRequest.DatasourceUpdatesMap.TRUE">TRUE</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="AlterDatasourceRequest.DatasourceUpdatesMap.FALSE">FALSE</see></term>
+            ///     </item>
+            /// </list>
+            /// The default value is <see
+            /// cref="AlterDatasourceRequest.DatasourceUpdatesMap.TRUE">TRUE</see>.</summary>
+            public const string USE_HTTPS = "use_https";
         } // end struct DatasourceUpdatesMap
 
 
@@ -445,6 +516,44 @@ namespace kinetica
         /// cref="AlterDatasourceRequest.DatasourceUpdatesMap.KAFKA_TOPIC_NAME">KAFKA_TOPIC_NAME</see>:</term>
         ///         <description>Name of the Kafka topic to use as the data
         /// source</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterDatasourceRequest.DatasourceUpdatesMap.ANONYMOUS">ANONYMOUS</see>:</term>
+        ///         <description>Create an anonymous connection to the storage
+        /// provider
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterDatasourceRequest.DatasourceUpdatesMap.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterDatasourceRequest.DatasourceUpdatesMap.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="AlterDatasourceRequest.DatasourceUpdatesMap.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterDatasourceRequest.DatasourceUpdatesMap.USE_HTTPS">USE_HTTPS</see>:</term>
+        ///         <description>Use https to connect to datasource if true,
+        /// otherwise use http
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterDatasourceRequest.DatasourceUpdatesMap.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterDatasourceRequest.DatasourceUpdatesMap.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="AlterDatasourceRequest.DatasourceUpdatesMap.TRUE">TRUE</see>.</description>
         ///     </item>
         /// </list>
         ///   </summary>
@@ -614,6 +723,44 @@ namespace kinetica
         /// cref="AlterDatasourceRequest.DatasourceUpdatesMap.KAFKA_TOPIC_NAME">KAFKA_TOPIC_NAME</see>:</term>
         ///         <description>Name of the Kafka topic to use as the data
         /// source</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterDatasourceRequest.DatasourceUpdatesMap.ANONYMOUS">ANONYMOUS</see>:</term>
+        ///         <description>Create an anonymous connection to the storage
+        /// provider
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterDatasourceRequest.DatasourceUpdatesMap.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterDatasourceRequest.DatasourceUpdatesMap.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="AlterDatasourceRequest.DatasourceUpdatesMap.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterDatasourceRequest.DatasourceUpdatesMap.USE_HTTPS">USE_HTTPS</see>:</term>
+        ///         <description>Use https to connect to datasource if true,
+        /// otherwise use http
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterDatasourceRequest.DatasourceUpdatesMap.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterDatasourceRequest.DatasourceUpdatesMap.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="AlterDatasourceRequest.DatasourceUpdatesMap.TRUE">TRUE</see>.</description>
         ///     </item>
         /// </list>
         ///   </param>

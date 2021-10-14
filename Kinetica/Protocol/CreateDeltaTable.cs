@@ -12,52 +12,52 @@ namespace kinetica
 {
     /// @cond NO_DOCS
     /// <summary>A set of parameters for <see
-    /// cref="Kinetica.createMonitorTable(string,string,IDictionary{string, string})"
+    /// cref="Kinetica.createDeltaTable(string,string,IDictionary{string, string})"
     /// />.
     /// <br />
     /// </summary>
-    public class CreateMonitorTableRequest : KineticaData
+    public class CreateDeltaTableRequest : KineticaData
     {
-        public string monitor_table_name { get; set; }
+        public string delta_table_name { get; set; }
         public string table_name { get; set; }
         public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
 
 
-        /// <summary>Constructs a CreateMonitorTableRequest object with default
+        /// <summary>Constructs a CreateDeltaTableRequest object with default
         /// parameters.</summary>
-        public CreateMonitorTableRequest() { }
+        public CreateDeltaTableRequest() { }
 
-        /// <summary>Constructs a CreateMonitorTableRequest object with the
+        /// <summary>Constructs a CreateDeltaTableRequest object with the
         /// specified parameters.</summary>
         /// 
-        /// <param name="monitor_table_name"></param>
+        /// <param name="delta_table_name"></param>
         /// <param name="table_name"></param>
         /// <param name="options"></param>
         /// 
-        public CreateMonitorTableRequest( string monitor_table_name,
-                                          string table_name,
-                                          IDictionary<string, string> options = null)
+        public CreateDeltaTableRequest( string delta_table_name,
+                                        string table_name,
+                                        IDictionary<string, string> options = null)
         {
-            this.monitor_table_name = monitor_table_name ?? "";
+            this.delta_table_name = delta_table_name ?? "";
             this.table_name = table_name ?? "";
             this.options = options ?? new Dictionary<string, string>();
         } // end constructor
 
-    } // end class CreateMonitorTableRequest
+    } // end class CreateDeltaTableRequest
     /// @endcond
 
 
 
     /// @cond NO_DOCS
     /// <summary>A set of results returned by <see
-    /// cref="Kinetica.createMonitorTable(string,string,IDictionary{string, string})"
+    /// cref="Kinetica.createDeltaTable(string,string,IDictionary{string, string})"
     /// />.</summary>
-    public class CreateMonitorTableResponse : KineticaData
+    public class CreateDeltaTableResponse : KineticaData
     {
-        public string monitor_table_name { get; set; }
+        public string delta_table_name { get; set; }
         public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
 
-    } // end class CreateMonitorTableResponse
+    } // end class CreateDeltaTableResponse
     /// @endcond
 
 

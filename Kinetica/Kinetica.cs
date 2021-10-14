@@ -14,7 +14,7 @@ using System.Text;
 ///
 /// </br>
 ///
-/// The source code can be found <a href="https://github.com/kineticadb/kinetica-api-cs">here</a>.
+/// The source code can be found <a href="https://github.com/kineticadb/kinetica-api-cs" target="_top">here</a>.
 ///
 /// </br>
 ///

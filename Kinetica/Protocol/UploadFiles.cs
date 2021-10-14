@@ -124,7 +124,9 @@ namespace kinetica
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
-        /// cref="UploadFilesRequest.Options.NONE">NONE</see></term>
+        /// cref="UploadFilesRequest.Options.NONE">NONE</see>:</term>
+        ///         <description>Default, indicates this is not a multipart
+        /// upload</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -135,8 +137,8 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="UploadFilesRequest.Options.UPLOAD_PART">UPLOAD_PART</see>:</term>
-        ///         <description>Upload one or more parts of the specified
-        /// multipart file upload</description>
+        ///         <description>Uploads a part of the specified multipart file
+        /// upload</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -202,6 +204,9 @@ namespace kinetica
             /// <summary>Specifies that the file data being uploaded has been
             /// base64 encoded.</summary>
             public const string BASE64 = "base64";
+
+            /// <summary>Default, indicates this is not a multipart
+            /// upload</summary>
             public const string NONE = "none";
 
             /// <summary>Multipart upload operation to perform
@@ -209,7 +214,9 @@ namespace kinetica
             /// <list type="bullet">
             ///     <item>
             ///         <term><see
-            /// cref="UploadFilesRequest.Options.NONE">NONE</see></term>
+            /// cref="UploadFilesRequest.Options.NONE">NONE</see>:</term>
+            ///         <description>Default, indicates this is not a multipart
+            /// upload</description>
             ///     </item>
             ///     <item>
             ///         <term><see
@@ -220,8 +227,8 @@ namespace kinetica
             ///     <item>
             ///         <term><see
             /// cref="UploadFilesRequest.Options.UPLOAD_PART">UPLOAD_PART</see>:</term>
-            ///         <description>Upload one or more parts of the specified
-            /// multipart file upload</description>
+            ///         <description>Uploads a part of the specified multipart
+            /// file upload</description>
             ///     </item>
             ///     <item>
             ///         <term><see
@@ -243,8 +250,8 @@ namespace kinetica
             /// <summary>Initialize a multipart file upload</summary>
             public const string INIT = "init";
 
-            /// <summary>Upload one or more parts of the specified multipart
-            /// file upload</summary>
+            /// <summary>Uploads a part of the specified multipart file
+            /// upload</summary>
             public const string UPLOAD_PART = "upload_part";
 
             /// <summary>Complete the specified multipart file upload</summary>
@@ -315,7 +322,9 @@ namespace kinetica
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
-        /// cref="UploadFilesRequest.Options.NONE">NONE</see></term>
+        /// cref="UploadFilesRequest.Options.NONE">NONE</see>:</term>
+        ///         <description>Default, indicates this is not a multipart
+        /// upload</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -326,8 +335,8 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="UploadFilesRequest.Options.UPLOAD_PART">UPLOAD_PART</see>:</term>
-        ///         <description>Upload one or more parts of the specified
-        /// multipart file upload</description>
+        ///         <description>Uploads a part of the specified multipart file
+        /// upload</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -419,7 +428,9 @@ namespace kinetica
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
-        /// cref="UploadFilesRequest.Options.NONE">NONE</see></term>
+        /// cref="UploadFilesRequest.Options.NONE">NONE</see>:</term>
+        ///         <description>Default, indicates this is not a multipart
+        /// upload</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -430,8 +441,8 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="UploadFilesRequest.Options.UPLOAD_PART">UPLOAD_PART</see>:</term>
-        ///         <description>Upload one or more parts of the specified
-        /// multipart file upload</description>
+        ///         <description>Uploads a part of the specified multipart file
+        /// upload</description>
         ///     </item>
         ///     <item>
         ///         <term><see

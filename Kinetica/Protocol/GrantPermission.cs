@@ -12,65 +12,65 @@ namespace kinetica
 {
 
     /// <summary>A set of parameters for <see
-    /// cref="Kinetica.hasPermission(string,string,string,string,IDictionary{string, string})"
+    /// cref="Kinetica.grantPermission(string,string,string,string,IDictionary{string, string})"
     /// />.
     /// <br />
-    /// Checks if the specified user has the specified permission on the
-    /// specified object.</summary>
-    public class HasPermissionRequest : KineticaData
+    /// Grant user or role the specified permission on the specified
+    /// object.</summary>
+    public class GrantPermissionRequest : KineticaData
     {
 
-        /// <summary>The type of object being checked
+        /// <summary>The type of object being granted to
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
-        /// cref="HasPermissionRequest.ObjectType.CREDENTIAL">CREDENTIAL</see>:</term>
+        /// cref="GrantPermissionRequest.ObjectType.CREDENTIAL">CREDENTIAL</see>:</term>
         ///         <description>Credential</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="HasPermissionRequest.ObjectType.DATASINK">DATASINK</see>:</term>
+        /// cref="GrantPermissionRequest.ObjectType.DATASINK">DATASINK</see>:</term>
         ///         <description>Data Sink</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="HasPermissionRequest.ObjectType.DATASOURCE">DATASOURCE</see>:</term>
+        /// cref="GrantPermissionRequest.ObjectType.DATASOURCE">DATASOURCE</see>:</term>
         ///         <description>Data Source</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="HasPermissionRequest.ObjectType.DIRECTORY">DIRECTORY</see>:</term>
-        ///         <description>KiFS File Directory</description>
+        /// cref="GrantPermissionRequest.ObjectType.DIRECTORY">DIRECTORY</see>:</term>
+        ///         <description>KIFS File Directory</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="HasPermissionRequest.ObjectType.GRAPH">GRAPH</see>:</term>
+        /// cref="GrantPermissionRequest.ObjectType.GRAPH">GRAPH</see>:</term>
         ///         <description>A Graph object</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="HasPermissionRequest.ObjectType.PROC">PROC</see>:</term>
+        /// cref="GrantPermissionRequest.ObjectType.PROC">PROC</see>:</term>
         ///         <description>UDF Procedure</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="HasPermissionRequest.ObjectType.SCHEMA">SCHEMA</see>:</term>
+        /// cref="GrantPermissionRequest.ObjectType.SCHEMA">SCHEMA</see>:</term>
         ///         <description>Schema</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="HasPermissionRequest.ObjectType.SQL_PROC">SQL_PROC</see>:</term>
+        /// cref="GrantPermissionRequest.ObjectType.SQL_PROC">SQL_PROC</see>:</term>
         ///         <description>SQL Procedure</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="HasPermissionRequest.ObjectType.SYSTEM">SYSTEM</see>:</term>
+        /// cref="GrantPermissionRequest.ObjectType.SYSTEM">SYSTEM</see>:</term>
         ///         <description>System-level access</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="HasPermissionRequest.ObjectType.TABLE">TABLE</see>:</term>
+        /// cref="GrantPermissionRequest.ObjectType.TABLE">TABLE</see>:</term>
         ///         <description>Database Table</description>
         ///     </item>
         /// </list>
@@ -88,7 +88,7 @@ namespace kinetica
             /// <summary>Data Source</summary>
             public const string DATASOURCE = "datasource";
 
-            /// <summary>KiFS File Directory</summary>
+            /// <summary>KIFS File Directory</summary>
             public const string DIRECTORY = "directory";
 
             /// <summary>A Graph object</summary>
@@ -111,57 +111,57 @@ namespace kinetica
         } // end struct ObjectType
 
 
-        /// <summary>Permission to check for.
+        /// <summary>Permission being granted.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
-        /// cref="HasPermissionRequest.Permission.ADMIN">ADMIN</see>:</term>
+        /// cref="GrantPermissionRequest.Permission.ADMIN">ADMIN</see>:</term>
         ///         <description>Full read/write and administrative access on
         /// the object.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="HasPermissionRequest.Permission.CONNECT">CONNECT</see>:</term>
+        /// cref="GrantPermissionRequest.Permission.CONNECT">CONNECT</see>:</term>
         ///         <description>Connect access on the given data source or
         /// data sink.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="HasPermissionRequest.Permission.DELETE">DELETE</see>:</term>
+        /// cref="GrantPermissionRequest.Permission.DELETE">DELETE</see>:</term>
         ///         <description>Delete rows from tables.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="HasPermissionRequest.Permission.EXECUTE">EXECUTE</see>:</term>
+        /// cref="GrantPermissionRequest.Permission.EXECUTE">EXECUTE</see>:</term>
         ///         <description>Ability to Execute the Procedure
         /// object.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="HasPermissionRequest.Permission.INSERT">INSERT</see>:</term>
+        /// cref="GrantPermissionRequest.Permission.INSERT">INSERT</see>:</term>
         ///         <description>Insert access to tables.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="HasPermissionRequest.Permission.READ">READ</see>:</term>
+        /// cref="GrantPermissionRequest.Permission.READ">READ</see>:</term>
         ///         <description>Ability to read, list and use the
         /// object.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="HasPermissionRequest.Permission.UPDATE">UPDATE</see>:</term>
+        /// cref="GrantPermissionRequest.Permission.UPDATE">UPDATE</see>:</term>
         ///         <description>Update access to the table.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="HasPermissionRequest.Permission.USER_ADMIN">USER_ADMIN</see>:</term>
+        /// cref="GrantPermissionRequest.Permission.USER_ADMIN">USER_ADMIN</see>:</term>
         ///         <description>Access to administer users and roles that do
         /// not have system_admin permission.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="HasPermissionRequest.Permission.WRITE">WRITE</see>:</term>
+        /// cref="GrantPermissionRequest.Permission.WRITE">WRITE</see>:</term>
         ///         <description>Access to write, change and delete
         /// objects.</description>
         ///     </item>
@@ -207,24 +207,16 @@ namespace kinetica
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
-        /// cref="HasPermissionRequest.Options.NO_ERROR_IF_NOT_EXISTS">NO_ERROR_IF_NOT_EXISTS</see>:</term>
-        ///         <description>If <i>false</i> will return an error if the
-        /// provided <paramref cref="HasPermissionRequest._object" /> does not
-        /// exist or is blank. If <i>true</i> then it will return <i>false</i>
-        /// for <member name="has_permission" />.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="HasPermissionRequest.Options.TRUE">TRUE</see></term>
+        /// cref="GrantPermissionRequest.Options.COLUMNS">COLUMNS</see>:</term>
+        ///         <description>Apply table security to these columns,
+        /// comma-separated.  The default value is ''.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="HasPermissionRequest.Options.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="HasPermissionRequest.Options.FALSE">FALSE</see>.</description>
+        /// cref="GrantPermissionRequest.Options.FILTER_EXPRESSION">FILTER_EXPRESSION</see>:</term>
+        ///         <description>Optional filter expression to apply to this
+        /// grant.  Only rows that match the filter will be affected.  The
+        /// default value is ''.</description>
         ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.
@@ -233,146 +225,134 @@ namespace kinetica
         public struct Options
         {
 
-            /// <summary>If <i>false</i> will return an error if the provided
-            /// <see cref="_object" /> does not exist or is blank. If
-            /// <i>true</i> then it will return <i>false</i> for <member
-            /// name="has_permission" />.
-            /// Supported values:
-            /// <list type="bullet">
-            ///     <item>
-            ///         <term><see
-            /// cref="HasPermissionRequest.Options.TRUE">TRUE</see></term>
-            ///     </item>
-            ///     <item>
-            ///         <term><see
-            /// cref="HasPermissionRequest.Options.FALSE">FALSE</see></term>
-            ///     </item>
-            /// </list>
-            /// The default value is <see
-            /// cref="HasPermissionRequest.Options.FALSE">FALSE</see>.</summary>
-            public const string NO_ERROR_IF_NOT_EXISTS = "no_error_if_not_exists";
-            public const string TRUE = "true";
-            public const string FALSE = "false";
+            /// <summary>Apply table security to these columns,
+            /// comma-separated.  The default value is ''.</summary>
+            public const string COLUMNS = "columns";
+
+            /// <summary>Optional filter expression to apply to this grant.
+            /// Only rows that match the filter will be affected.  The default
+            /// value is ''.</summary>
+            public const string FILTER_EXPRESSION = "filter_expression";
         } // end struct Options
 
 
-        /// <summary>Name of the user for which the permission is being
-        /// checked. Must be an existing user. If blank, will use the current
-        /// user.  The default value is ''.</summary>
+        /// <summary>Name of the user or role for which the permission is being
+        /// granted.  Must be an existing user or role.  The default value is
+        /// ''.</summary>
         public string principal { get; set; } = "";
 
-        /// <summary>Name of object to check for the requested permission.  It
-        /// is recommended to use a fully-qualified name when possible.
+        /// <summary>Name of object permission is being granted to.  It is
+        /// recommended to use a fully-qualified name when possible.
         /// </summary>
         public string _object { get; set; }
 
-        /// <summary>The type of object being checked
+        /// <summary>The type of object being granted to
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
-        /// cref="HasPermissionRequest.ObjectType.CREDENTIAL">CREDENTIAL</see>:</term>
+        /// cref="GrantPermissionRequest.ObjectType.CREDENTIAL">CREDENTIAL</see>:</term>
         ///         <description>Credential</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="HasPermissionRequest.ObjectType.DATASINK">DATASINK</see>:</term>
+        /// cref="GrantPermissionRequest.ObjectType.DATASINK">DATASINK</see>:</term>
         ///         <description>Data Sink</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="HasPermissionRequest.ObjectType.DATASOURCE">DATASOURCE</see>:</term>
+        /// cref="GrantPermissionRequest.ObjectType.DATASOURCE">DATASOURCE</see>:</term>
         ///         <description>Data Source</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="HasPermissionRequest.ObjectType.DIRECTORY">DIRECTORY</see>:</term>
-        ///         <description>KiFS File Directory</description>
+        /// cref="GrantPermissionRequest.ObjectType.DIRECTORY">DIRECTORY</see>:</term>
+        ///         <description>KIFS File Directory</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="HasPermissionRequest.ObjectType.GRAPH">GRAPH</see>:</term>
+        /// cref="GrantPermissionRequest.ObjectType.GRAPH">GRAPH</see>:</term>
         ///         <description>A Graph object</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="HasPermissionRequest.ObjectType.PROC">PROC</see>:</term>
+        /// cref="GrantPermissionRequest.ObjectType.PROC">PROC</see>:</term>
         ///         <description>UDF Procedure</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="HasPermissionRequest.ObjectType.SCHEMA">SCHEMA</see>:</term>
+        /// cref="GrantPermissionRequest.ObjectType.SCHEMA">SCHEMA</see>:</term>
         ///         <description>Schema</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="HasPermissionRequest.ObjectType.SQL_PROC">SQL_PROC</see>:</term>
+        /// cref="GrantPermissionRequest.ObjectType.SQL_PROC">SQL_PROC</see>:</term>
         ///         <description>SQL Procedure</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="HasPermissionRequest.ObjectType.SYSTEM">SYSTEM</see>:</term>
+        /// cref="GrantPermissionRequest.ObjectType.SYSTEM">SYSTEM</see>:</term>
         ///         <description>System-level access</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="HasPermissionRequest.ObjectType.TABLE">TABLE</see>:</term>
+        /// cref="GrantPermissionRequest.ObjectType.TABLE">TABLE</see>:</term>
         ///         <description>Database Table</description>
         ///     </item>
         /// </list>  </summary>
         public string object_type { get; set; }
 
-        /// <summary>Permission to check for.
+        /// <summary>Permission being granted.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
-        /// cref="HasPermissionRequest.Permission.ADMIN">ADMIN</see>:</term>
+        /// cref="GrantPermissionRequest.Permission.ADMIN">ADMIN</see>:</term>
         ///         <description>Full read/write and administrative access on
         /// the object.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="HasPermissionRequest.Permission.CONNECT">CONNECT</see>:</term>
+        /// cref="GrantPermissionRequest.Permission.CONNECT">CONNECT</see>:</term>
         ///         <description>Connect access on the given data source or
         /// data sink.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="HasPermissionRequest.Permission.DELETE">DELETE</see>:</term>
+        /// cref="GrantPermissionRequest.Permission.DELETE">DELETE</see>:</term>
         ///         <description>Delete rows from tables.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="HasPermissionRequest.Permission.EXECUTE">EXECUTE</see>:</term>
+        /// cref="GrantPermissionRequest.Permission.EXECUTE">EXECUTE</see>:</term>
         ///         <description>Ability to Execute the Procedure
         /// object.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="HasPermissionRequest.Permission.INSERT">INSERT</see>:</term>
+        /// cref="GrantPermissionRequest.Permission.INSERT">INSERT</see>:</term>
         ///         <description>Insert access to tables.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="HasPermissionRequest.Permission.READ">READ</see>:</term>
+        /// cref="GrantPermissionRequest.Permission.READ">READ</see>:</term>
         ///         <description>Ability to read, list and use the
         /// object.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="HasPermissionRequest.Permission.UPDATE">UPDATE</see>:</term>
+        /// cref="GrantPermissionRequest.Permission.UPDATE">UPDATE</see>:</term>
         ///         <description>Update access to the table.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="HasPermissionRequest.Permission.USER_ADMIN">USER_ADMIN</see>:</term>
+        /// cref="GrantPermissionRequest.Permission.USER_ADMIN">USER_ADMIN</see>:</term>
         ///         <description>Access to administer users and roles that do
         /// not have system_admin permission.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="HasPermissionRequest.Permission.WRITE">WRITE</see>:</term>
+        /// cref="GrantPermissionRequest.Permission.WRITE">WRITE</see>:</term>
         ///         <description>Access to write, change and delete
         /// objects.</description>
         ///     </item>
@@ -383,148 +363,140 @@ namespace kinetica
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
-        /// cref="HasPermissionRequest.Options.NO_ERROR_IF_NOT_EXISTS">NO_ERROR_IF_NOT_EXISTS</see>:</term>
-        ///         <description>If <i>false</i> will return an error if the
-        /// provided <paramref cref="HasPermissionRequest._object" /> does not
-        /// exist or is blank. If <i>true</i> then it will return <i>false</i>
-        /// for <member name="has_permission" />.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="HasPermissionRequest.Options.TRUE">TRUE</see></term>
+        /// cref="GrantPermissionRequest.Options.COLUMNS">COLUMNS</see>:</term>
+        ///         <description>Apply table security to these columns,
+        /// comma-separated.  The default value is ''.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="HasPermissionRequest.Options.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="HasPermissionRequest.Options.FALSE">FALSE</see>.</description>
+        /// cref="GrantPermissionRequest.Options.FILTER_EXPRESSION">FILTER_EXPRESSION</see>:</term>
+        ///         <description>Optional filter expression to apply to this
+        /// grant.  Only rows that match the filter will be affected.  The
+        /// default value is ''.</description>
         ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.</summary>
         public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
 
 
-        /// <summary>Constructs a HasPermissionRequest object with default
+        /// <summary>Constructs a GrantPermissionRequest object with default
         /// parameters.</summary>
-        public HasPermissionRequest() { }
+        public GrantPermissionRequest() { }
 
-        /// <summary>Constructs a HasPermissionRequest object with the
+        /// <summary>Constructs a GrantPermissionRequest object with the
         /// specified parameters.</summary>
         /// 
-        /// <param name="principal">Name of the user for which the permission
-        /// is being checked. Must be an existing user. If blank, will use the
-        /// current user.  The default value is ''.</param>
-        /// <param name="_object">Name of object to check for the requested
-        /// permission.  It is recommended to use a fully-qualified name when
-        /// possible.  </param>
-        /// <param name="object_type">The type of object being checked
+        /// <param name="principal">Name of the user or role for which the
+        /// permission is being granted.  Must be an existing user or role.
+        /// The default value is ''.</param>
+        /// <param name="_object">Name of object permission is being granted
+        /// to.  It is recommended to use a fully-qualified name when possible.
+        /// </param>
+        /// <param name="object_type">The type of object being granted to
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
-        /// cref="HasPermissionRequest.ObjectType.CREDENTIAL">CREDENTIAL</see>:</term>
+        /// cref="GrantPermissionRequest.ObjectType.CREDENTIAL">CREDENTIAL</see>:</term>
         ///         <description>Credential</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="HasPermissionRequest.ObjectType.DATASINK">DATASINK</see>:</term>
+        /// cref="GrantPermissionRequest.ObjectType.DATASINK">DATASINK</see>:</term>
         ///         <description>Data Sink</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="HasPermissionRequest.ObjectType.DATASOURCE">DATASOURCE</see>:</term>
+        /// cref="GrantPermissionRequest.ObjectType.DATASOURCE">DATASOURCE</see>:</term>
         ///         <description>Data Source</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="HasPermissionRequest.ObjectType.DIRECTORY">DIRECTORY</see>:</term>
-        ///         <description>KiFS File Directory</description>
+        /// cref="GrantPermissionRequest.ObjectType.DIRECTORY">DIRECTORY</see>:</term>
+        ///         <description>KIFS File Directory</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="HasPermissionRequest.ObjectType.GRAPH">GRAPH</see>:</term>
+        /// cref="GrantPermissionRequest.ObjectType.GRAPH">GRAPH</see>:</term>
         ///         <description>A Graph object</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="HasPermissionRequest.ObjectType.PROC">PROC</see>:</term>
+        /// cref="GrantPermissionRequest.ObjectType.PROC">PROC</see>:</term>
         ///         <description>UDF Procedure</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="HasPermissionRequest.ObjectType.SCHEMA">SCHEMA</see>:</term>
+        /// cref="GrantPermissionRequest.ObjectType.SCHEMA">SCHEMA</see>:</term>
         ///         <description>Schema</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="HasPermissionRequest.ObjectType.SQL_PROC">SQL_PROC</see>:</term>
+        /// cref="GrantPermissionRequest.ObjectType.SQL_PROC">SQL_PROC</see>:</term>
         ///         <description>SQL Procedure</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="HasPermissionRequest.ObjectType.SYSTEM">SYSTEM</see>:</term>
+        /// cref="GrantPermissionRequest.ObjectType.SYSTEM">SYSTEM</see>:</term>
         ///         <description>System-level access</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="HasPermissionRequest.ObjectType.TABLE">TABLE</see>:</term>
+        /// cref="GrantPermissionRequest.ObjectType.TABLE">TABLE</see>:</term>
         ///         <description>Database Table</description>
         ///     </item>
         /// </list>  </param>
-        /// <param name="permission">Permission to check for.
+        /// <param name="permission">Permission being granted.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
-        /// cref="HasPermissionRequest.Permission.ADMIN">ADMIN</see>:</term>
+        /// cref="GrantPermissionRequest.Permission.ADMIN">ADMIN</see>:</term>
         ///         <description>Full read/write and administrative access on
         /// the object.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="HasPermissionRequest.Permission.CONNECT">CONNECT</see>:</term>
+        /// cref="GrantPermissionRequest.Permission.CONNECT">CONNECT</see>:</term>
         ///         <description>Connect access on the given data source or
         /// data sink.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="HasPermissionRequest.Permission.DELETE">DELETE</see>:</term>
+        /// cref="GrantPermissionRequest.Permission.DELETE">DELETE</see>:</term>
         ///         <description>Delete rows from tables.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="HasPermissionRequest.Permission.EXECUTE">EXECUTE</see>:</term>
+        /// cref="GrantPermissionRequest.Permission.EXECUTE">EXECUTE</see>:</term>
         ///         <description>Ability to Execute the Procedure
         /// object.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="HasPermissionRequest.Permission.INSERT">INSERT</see>:</term>
+        /// cref="GrantPermissionRequest.Permission.INSERT">INSERT</see>:</term>
         ///         <description>Insert access to tables.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="HasPermissionRequest.Permission.READ">READ</see>:</term>
+        /// cref="GrantPermissionRequest.Permission.READ">READ</see>:</term>
         ///         <description>Ability to read, list and use the
         /// object.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="HasPermissionRequest.Permission.UPDATE">UPDATE</see>:</term>
+        /// cref="GrantPermissionRequest.Permission.UPDATE">UPDATE</see>:</term>
         ///         <description>Update access to the table.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="HasPermissionRequest.Permission.USER_ADMIN">USER_ADMIN</see>:</term>
+        /// cref="GrantPermissionRequest.Permission.USER_ADMIN">USER_ADMIN</see>:</term>
         ///         <description>Access to administer users and roles that do
         /// not have system_admin permission.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="HasPermissionRequest.Permission.WRITE">WRITE</see>:</term>
+        /// cref="GrantPermissionRequest.Permission.WRITE">WRITE</see>:</term>
         ///         <description>Access to write, change and delete
         /// objects.</description>
         ///     </item>
@@ -533,33 +505,25 @@ namespace kinetica
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
-        /// cref="HasPermissionRequest.Options.NO_ERROR_IF_NOT_EXISTS">NO_ERROR_IF_NOT_EXISTS</see>:</term>
-        ///         <description>If <i>false</i> will return an error if the
-        /// provided <paramref cref="HasPermissionRequest._object" /> does not
-        /// exist or is blank. If <i>true</i> then it will return <i>false</i>
-        /// for <member name="has_permission" />.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="HasPermissionRequest.Options.TRUE">TRUE</see></term>
+        /// cref="GrantPermissionRequest.Options.COLUMNS">COLUMNS</see>:</term>
+        ///         <description>Apply table security to these columns,
+        /// comma-separated.  The default value is ''.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="HasPermissionRequest.Options.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="HasPermissionRequest.Options.FALSE">FALSE</see>.</description>
+        /// cref="GrantPermissionRequest.Options.FILTER_EXPRESSION">FILTER_EXPRESSION</see>:</term>
+        ///         <description>Optional filter expression to apply to this
+        /// grant.  Only rows that match the filter will be affected.  The
+        /// default value is ''.</description>
         ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.</param>
         /// 
-        public HasPermissionRequest( string principal,
-                                     string _object,
-                                     string object_type,
-                                     string permission,
-                                     IDictionary<string, string> options = null)
+        public GrantPermissionRequest( string principal,
+                                       string _object,
+                                       string object_type,
+                                       string permission,
+                                       IDictionary<string, string> options = null)
         {
             this.principal = principal ?? "";
             this._object = _object ?? "";
@@ -568,88 +532,36 @@ namespace kinetica
             this.options = options ?? new Dictionary<string, string>();
         } // end constructor
 
-    } // end class HasPermissionRequest
+    } // end class GrantPermissionRequest
 
 
 
     /// <summary>A set of results returned by <see
-    /// cref="Kinetica.hasPermission(string,string,string,string,IDictionary{string, string})"
+    /// cref="Kinetica.grantPermission(string,string,string,string,IDictionary{string, string})"
     /// />.</summary>
-    public class HasPermissionResponse : KineticaData
+    public class GrantPermissionResponse : KineticaData
     {
 
-        /// <summary>Indicates whether the specified user has the specified
-        /// permission on the specified target.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="HasPermissionResponse.HasPermission.TRUE">TRUE</see>:</term>
-        ///         <description>User has the effective queried
-        /// permission</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="HasPermissionResponse.HasPermission.FALSE">FALSE</see>:</term>
-        ///         <description>User does not have the queried
-        /// permission</description>
-        ///     </item>
-        /// </list>
-        /// A set of string constants for the parameter <member
-        /// name="has_permission" />.</summary>
-        public struct HasPermission
-        {
-
-            /// <summary>User has the effective queried permission</summary>
-            public const string TRUE = "true";
-
-            /// <summary>User does not have the queried permission</summary>
-            public const string FALSE = "false";
-        } // end struct HasPermission
-
-
-        /// <summary>Value of <paramref cref="HasPermissionRequest.principal"
-        /// />  </summary>
+        /// <summary>Value of <paramref cref="GrantPermissionRequest.principal"
+        /// />.  </summary>
         public string principal { get; set; }
 
-        /// <summary>Fully-qualified value of <paramref
-        /// cref="HasPermissionRequest._object" />  </summary>
+        /// <summary>Value of <paramref cref="GrantPermissionRequest._object"
+        /// />.  </summary>
         public string _object { get; set; }
 
-        /// <summary>Value of <paramref cref="HasPermissionRequest.object_type"
-        /// />  </summary>
+        /// <summary>Value of <paramref
+        /// cref="GrantPermissionRequest.object_type" />.  </summary>
         public string object_type { get; set; }
 
-        /// <summary>Value of <paramref cref="HasPermissionRequest.permission"
-        /// />  </summary>
+        /// <summary>Value of <paramref
+        /// cref="GrantPermissionRequest.permission" />.  </summary>
         public string permission { get; set; }
-
-        /// <summary>Indicates whether the specified user has the specified
-        /// permission on the specified target.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="HasPermissionResponse.HasPermission.TRUE">TRUE</see>:</term>
-        ///         <description>User has the effective queried
-        /// permission</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="HasPermissionResponse.HasPermission.FALSE">FALSE</see>:</term>
-        ///         <description>User does not have the queried
-        /// permission</description>
-        ///     </item>
-        /// </list>  </summary>
-        public bool has_permission { get; set; }
-
-        /// <summary>Map of column/filters that have been granted.  </summary>
-        public IDictionary<string, string> filters { get; set; } = new Dictionary<string, string>();
 
         /// <summary>Additional information.  </summary>
         public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
 
-    } // end class HasPermissionResponse
+    } // end class GrantPermissionResponse
 
 
 

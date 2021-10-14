@@ -66,7 +66,7 @@ namespace kinetica
         /// directories in <member name="directories" />  </summary>
         public IList<string> users { get; set; } = new List<string>();
 
-        /// <summary>The creation time for each directory in seconds since
+        /// <summary>The creation time for each directory in milliseconds since
         /// epoch, for the respective directories in <member name="directories"
         /// />  </summary>
         public IList<long> creation_times { get; set; } = new List<long>();
