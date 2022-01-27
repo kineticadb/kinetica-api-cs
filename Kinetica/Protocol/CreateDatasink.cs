@@ -52,6 +52,40 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
+        /// cref="CreateDatasinkRequest.Options.MAX_BATCH_SIZE">MAX_BATCH_SIZE</see>:</term>
+        ///         <description>Maximum number of records per notification
+        /// message.  The default value is '1'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateDatasinkRequest.Options.MAX_MESSAGE_SIZE">MAX_MESSAGE_SIZE</see>:</term>
+        ///         <description>Maximum size in bytes of each notification
+        /// message.  The default value is '1000000'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateDatasinkRequest.Options.JSON_FORMAT">JSON_FORMAT</see>:</term>
+        ///         <description>The desired format of JSON encoded
+        /// notifications message.
+        /// <br />
+        /// If <i>nested</i>, records are returned as an array. Otherwise, only
+        /// a single record per messages is returned.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateDatasinkRequest.Options.FLAT">FLAT</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateDatasinkRequest.Options.NESTED">NESTED</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="CreateDatasinkRequest.Options.FLAT">FLAT</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="CreateDatasinkRequest.Options.SKIP_VALIDATION">SKIP_VALIDATION</see>:</term>
         ///         <description>Bypass validation of connection to this data
         /// sink.
@@ -92,6 +126,36 @@ namespace kinetica
             /// <summary>Name of the Kafka topic to publish to if <see
             /// cref="destination" /> is a Kafka broker</summary>
             public const string KAFKA_TOPIC_NAME = "kafka_topic_name";
+
+            /// <summary>Maximum number of records per notification message.
+            /// The default value is '1'.</summary>
+            public const string MAX_BATCH_SIZE = "max_batch_size";
+
+            /// <summary>Maximum size in bytes of each notification message.
+            /// The default value is '1000000'.</summary>
+            public const string MAX_MESSAGE_SIZE = "max_message_size";
+
+            /// <summary>The desired format of JSON encoded notifications
+            /// message.
+            /// <br />
+            /// If <i>nested</i>, records are returned as an array. Otherwise,
+            /// only a single record per messages is returned.
+            /// Supported values:
+            /// <list type="bullet">
+            ///     <item>
+            ///         <term><see
+            /// cref="CreateDatasinkRequest.Options.FLAT">FLAT</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="CreateDatasinkRequest.Options.NESTED">NESTED</see></term>
+            ///     </item>
+            /// </list>
+            /// The default value is <see
+            /// cref="CreateDatasinkRequest.Options.FLAT">FLAT</see>.</summary>
+            public const string JSON_FORMAT = "json_format";
+            public const string FLAT = "flat";
+            public const string NESTED = "nested";
 
             /// <summary>Bypass validation of connection to this data sink.
             /// Supported values:
@@ -150,6 +214,40 @@ namespace kinetica
         ///         <description>Name of the Kafka topic to publish to if
         /// <paramref cref="CreateDatasinkRequest.destination" /> is a Kafka
         /// broker</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateDatasinkRequest.Options.MAX_BATCH_SIZE">MAX_BATCH_SIZE</see>:</term>
+        ///         <description>Maximum number of records per notification
+        /// message.  The default value is '1'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateDatasinkRequest.Options.MAX_MESSAGE_SIZE">MAX_MESSAGE_SIZE</see>:</term>
+        ///         <description>Maximum size in bytes of each notification
+        /// message.  The default value is '1000000'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateDatasinkRequest.Options.JSON_FORMAT">JSON_FORMAT</see>:</term>
+        ///         <description>The desired format of JSON encoded
+        /// notifications message.
+        /// <br />
+        /// If <i>nested</i>, records are returned as an array. Otherwise, only
+        /// a single record per messages is returned.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateDatasinkRequest.Options.FLAT">FLAT</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateDatasinkRequest.Options.NESTED">NESTED</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="CreateDatasinkRequest.Options.FLAT">FLAT</see>.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -214,6 +312,39 @@ namespace kinetica
         ///         <description>Name of the Kafka topic to publish to if
         /// <paramref cref="CreateDatasinkRequest.destination" /> is a Kafka
         /// broker</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateDatasinkRequest.Options.MAX_BATCH_SIZE">MAX_BATCH_SIZE</see>:</term>
+        ///         <description>Maximum number of records per notification
+        /// message.  The default value is '1'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateDatasinkRequest.Options.MAX_MESSAGE_SIZE">MAX_MESSAGE_SIZE</see>:</term>
+        ///         <description>Maximum size in bytes of each notification
+        /// message.  The default value is '1000000'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateDatasinkRequest.Options.JSON_FORMAT">JSON_FORMAT</see>:</term>
+        ///         <description>The desired format of JSON encoded
+        /// notifications message.
+        /// If <i>nested</i>, records are returned as an array. Otherwise, only
+        /// a single record per messages is returned.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateDatasinkRequest.Options.FLAT">FLAT</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateDatasinkRequest.Options.NESTED">NESTED</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="CreateDatasinkRequest.Options.FLAT">FLAT</see>.</description>
         ///     </item>
         ///     <item>
         ///         <term><see

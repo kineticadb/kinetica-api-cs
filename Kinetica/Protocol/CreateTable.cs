@@ -59,6 +59,29 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
+        /// cref="CreateTableRequest.Options.CREATE_TEMP_TABLE">CREATE_TEMP_TABLE</see>:</term>
+        ///         <description>If <i>true</i>, a unique temporary table name
+        /// will be generated in the sys_temp schema and used in place of
+        /// <paramref cref="CreateTableRequest.table_name" />. If
+        /// <i>is_result_table</i> is <i>true</i>, then this is always allowed
+        /// even if the caller does not have permission to create tables. The
+        /// generated name is returned in <i>qualified_table_name</i>.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="CreateTableRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="CreateTableRequest.Options.COLLECTION_NAME">COLLECTION_NAME</see>:</term>
         ///         <description>[DEPRECATED--please specify the containing
         /// schema as part of <paramref cref="CreateTableRequest.table_name" />
@@ -291,11 +314,6 @@ namespace kinetica
         /// href="../../../rm/concepts/#tier-strategies" target="_top">tier
         /// strategy</a> for the table and its columns.</description>
         ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateTableRequest.Options.IS_VIRTUAL_UNION">IS_VIRTUAL_UNION</see>:</term>
-        ///         <description><DEVELOPER></description>
-        ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.
         /// A set of string constants for the parameter <see cref="options"
@@ -323,6 +341,27 @@ namespace kinetica
             public const string NO_ERROR_IF_EXISTS = "no_error_if_exists";
             public const string TRUE = "true";
             public const string FALSE = "false";
+
+            /// <summary>If <i>true</i>, a unique temporary table name will be
+            /// generated in the sys_temp schema and used in place of <see
+            /// cref="table_name" />. If <i>is_result_table</i> is <i>true</i>,
+            /// then this is always allowed even if the caller does not have
+            /// permission to create tables. The generated name is returned in
+            /// <i>qualified_table_name</i>.
+            /// Supported values:
+            /// <list type="bullet">
+            ///     <item>
+            ///         <term><see
+            /// cref="CreateTableRequest.Options.TRUE">TRUE</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="CreateTableRequest.Options.FALSE">FALSE</see></term>
+            ///     </item>
+            /// </list>
+            /// The default value is <see
+            /// cref="CreateTableRequest.Options.FALSE">FALSE</see>.</summary>
+            public const string CREATE_TEMP_TABLE = "create_temp_table";
 
             /// <summary>[DEPRECATED--please specify the containing schema as
             /// part of <see cref="table_name" /> and use <see
@@ -555,9 +594,6 @@ namespace kinetica
             /// target="_top">tier strategy</a> for the table and its
             /// columns.</summary>
             public const string STRATEGY_DEFINITION = "strategy_definition";
-
-            /// <summary><DEVELOPER></summary>
-            public const string IS_VIRTUAL_UNION = "is_virtual_union";
         } // end struct Options
 
 
@@ -584,6 +620,29 @@ namespace kinetica
         /// occurring if the table already exists and is of the given type.  If
         /// a table with the same ID but a different type exists, it is still
         /// an error.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="CreateTableRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableRequest.Options.CREATE_TEMP_TABLE">CREATE_TEMP_TABLE</see>:</term>
+        ///         <description>If <i>true</i>, a unique temporary table name
+        /// will be generated in the sys_temp schema and used in place of
+        /// <paramref cref="CreateTableRequest.table_name" />. If
+        /// <i>is_result_table</i> is <i>true</i>, then this is always allowed
+        /// even if the caller does not have permission to create tables. The
+        /// generated name is returned in <i>qualified_table_name</i>.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -831,11 +890,6 @@ namespace kinetica
         ///         <description>The <a
         /// href="../../../rm/concepts/#tier-strategies" target="_top">tier
         /// strategy</a> for the table and its columns.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateTableRequest.Options.IS_VIRTUAL_UNION">IS_VIRTUAL_UNION</see>:</term>
-        ///         <description><DEVELOPER></description>
         ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.</summary>
@@ -885,6 +939,29 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
+        /// cref="CreateTableRequest.Options.CREATE_TEMP_TABLE">CREATE_TEMP_TABLE</see>:</term>
+        ///         <description>If <i>true</i>, a unique temporary table name
+        /// will be generated in the sys_temp schema and used in place of
+        /// <paramref cref="CreateTableRequest.table_name" />. If
+        /// <i>is_result_table</i> is <i>true</i>, then this is always allowed
+        /// even if the caller does not have permission to create tables. The
+        /// generated name is returned in <i>qualified_table_name</i>.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="CreateTableRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="CreateTableRequest.Options.COLLECTION_NAME">COLLECTION_NAME</see>:</term>
         ///         <description>[DEPRECATED--please specify the containing
         /// schema as part of <paramref cref="CreateTableRequest.table_name" />
@@ -1116,11 +1193,6 @@ namespace kinetica
         ///         <description>The <a
         /// href="../../../rm/concepts/#tier-strategies" target="_top">tier
         /// strategy</a> for the table and its columns.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateTableRequest.Options.IS_VIRTUAL_UNION">IS_VIRTUAL_UNION</see>:</term>
-        ///         <description><DEVELOPER></description>
         ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.</param>

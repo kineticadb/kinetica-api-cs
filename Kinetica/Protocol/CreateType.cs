@@ -312,8 +312,9 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="CreateTypeRequest.Properties.INIT_WITH_UUID">INIT_WITH_UUID</see>:</term>
-        ///         <description>For 'uuid' type,  repalce empty strings and
-        /// invalid uuid values with new_uuid()' upon insert.</description>
+        ///         <description>For 'uuid' type, replace empty strings and
+        /// invalid UUID values with randomly-generated UUIDs upon
+        /// insert.</description>
         ///     </item>
         /// </list>
         /// A set of string constants for the parameter <see cref="properties"
@@ -513,8 +514,9 @@ namespace kinetica
             /// 'NOW()' upon insert.</summary>
             public const string INIT_WITH_NOW = "init_with_now";
 
-            /// <summary>For 'uuid' type,  repalce empty strings and invalid
-            /// uuid values with new_uuid()' upon insert.</summary>
+            /// <summary>For 'uuid' type, replace empty strings and invalid
+            /// UUID values with randomly-generated UUIDs upon
+            /// insert.</summary>
             public const string INIT_WITH_UUID = "init_with_uuid";
         } // end struct Properties
 
@@ -781,8 +783,9 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="CreateTypeRequest.Properties.INIT_WITH_UUID">INIT_WITH_UUID</see>:</term>
-        ///         <description>For 'uuid' type,  repalce empty strings and
-        /// invalid uuid values with new_uuid()' upon insert.</description>
+        ///         <description>For 'uuid' type, replace empty strings and
+        /// invalid UUID values with randomly-generated UUIDs upon
+        /// insert.</description>
         ///     </item>
         /// </list>  </summary>
         public IDictionary<string, IList<string>> properties { get; set; } = new Dictionary<string, IList<string>>();
@@ -1056,8 +1059,9 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="CreateTypeRequest.Properties.INIT_WITH_UUID">INIT_WITH_UUID</see>:</term>
-        ///         <description>For 'uuid' type,  repalce empty strings and
-        /// invalid uuid values with new_uuid()' upon insert.</description>
+        ///         <description>For 'uuid' type, replace empty strings and
+        /// invalid UUID values with randomly-generated UUIDs upon
+        /// insert.</description>
         ///     </item>
         /// </list>  </param>
         /// <param name="options">Optional parameters.  The default value is an

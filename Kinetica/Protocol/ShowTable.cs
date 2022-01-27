@@ -877,6 +877,10 @@ namespace kinetica
             /// ''.</summary>
             public const string USER_CHUNK_SIZE = "user_chunk_size";
 
+            /// <summary>Name of the owner resource group.  The default value
+            /// is ''.</summary>
+            public const string OWNER_RESOURCE_GROUP = "owner_resource_group";
+
             /// <summary>Semicolon-separated list of shard keys that were
             /// equated in joins (applicable for join tables).  The default
             /// value is ''.</summary>

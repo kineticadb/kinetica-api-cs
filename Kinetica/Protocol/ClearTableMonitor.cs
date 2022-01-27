@@ -49,7 +49,8 @@ namespace kinetica
         ///         <term><see
         /// cref="ClearTableMonitorRequest.Options.CLEAR_ALL_REFERENCES">CLEAR_ALL_REFERENCES</see>:</term>
         ///         <description>If <i>true</i>, all references that share the
-        /// same {@input topic_id} will be cleared.
+        /// same <paramref cref="ClearTableMonitorRequest.topic_id" /> will be
+        /// cleared.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -94,7 +95,7 @@ namespace kinetica
             public const string FALSE = "false";
 
             /// <summary>If <i>true</i>, all references that share the same
-            /// {@input topic_id} will be cleared.
+            /// <see cref="topic_id" /> will be cleared.
             /// Supported values:
             /// <list type="bullet">
             ///     <item>
@@ -143,7 +144,8 @@ namespace kinetica
         ///         <term><see
         /// cref="ClearTableMonitorRequest.Options.CLEAR_ALL_REFERENCES">CLEAR_ALL_REFERENCES</see>:</term>
         ///         <description>If <i>true</i>, all references that share the
-        /// same {@input topic_id} will be cleared.
+        /// same <paramref cref="ClearTableMonitorRequest.topic_id" /> will be
+        /// cleared.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -200,7 +202,8 @@ namespace kinetica
         ///         <term><see
         /// cref="ClearTableMonitorRequest.Options.CLEAR_ALL_REFERENCES">CLEAR_ALL_REFERENCES</see>:</term>
         ///         <description>If <i>true</i>, all references that share the
-        /// same {@input topic_id} will be cleared.
+        /// same <paramref cref="ClearTableMonitorRequest.topic_id" /> will be
+        /// cleared.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>

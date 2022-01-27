@@ -73,6 +73,11 @@ namespace kinetica
         /// cref="HasPermissionRequest.ObjectType.TABLE">TABLE</see>:</term>
         ///         <description>Database Table</description>
         ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="HasPermissionRequest.ObjectType.TABLE_MONITOR">TABLE_MONITOR</see>:</term>
+        ///         <description>Table monitor</description>
+        ///     </item>
         /// </list>
         /// A set of string constants for the parameter <see cref="object_type"
         /// />.</summary>
@@ -108,6 +113,9 @@ namespace kinetica
 
             /// <summary>Database Table</summary>
             public const string TABLE = "table";
+
+            /// <summary>Table monitor</summary>
+            public const string TABLE_MONITOR = "table_monitor";
         } // end struct ObjectType
 
 
@@ -319,6 +327,11 @@ namespace kinetica
         /// cref="HasPermissionRequest.ObjectType.TABLE">TABLE</see>:</term>
         ///         <description>Database Table</description>
         ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="HasPermissionRequest.ObjectType.TABLE_MONITOR">TABLE_MONITOR</see>:</term>
+        ///         <description>Table monitor</description>
+        ///     </item>
         /// </list>  </summary>
         public string object_type { get; set; }
 
@@ -472,6 +485,11 @@ namespace kinetica
         ///         <term><see
         /// cref="HasPermissionRequest.ObjectType.TABLE">TABLE</see>:</term>
         ///         <description>Database Table</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="HasPermissionRequest.ObjectType.TABLE_MONITOR">TABLE_MONITOR</see>:</term>
+        ///         <description>Table monitor</description>
         ///     </item>
         /// </list>  </param>
         /// <param name="permission">Permission to check for.

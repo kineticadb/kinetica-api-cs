@@ -28,6 +28,14 @@ namespace kinetica
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
+        /// cref="CreateDirectoryRequest.Options.CREATE_HOME_DIRECTORY">CREATE_HOME_DIRECTORY</see>:</term>
+        ///         <description>When set, a home directory is created for the
+        /// user name provided in the value. The <paramref
+        /// cref="CreateDirectoryRequest.directory_name" /> must be an empty
+        /// string in this case. The user must exist.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="CreateDirectoryRequest.Options.NO_ERROR_IF_EXISTS">NO_ERROR_IF_EXISTS</see>:</term>
         ///         <description>If <i>true</i>, does not return an error if
         /// the directory already exists
@@ -51,6 +59,12 @@ namespace kinetica
         /// />.</summary>
         public struct Options
         {
+
+            /// <summary>When set, a home directory is created for the user
+            /// name provided in the value. The <see cref="directory_name" />
+            /// must be an empty string in this case. The user must
+            /// exist.</summary>
+            public const string CREATE_HOME_DIRECTORY = "create_home_directory";
 
             /// <summary>If <i>true</i>, does not return an error if the
             /// directory already exists
@@ -78,6 +92,14 @@ namespace kinetica
 
         /// <summary>Optional parameters.
         /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateDirectoryRequest.Options.CREATE_HOME_DIRECTORY">CREATE_HOME_DIRECTORY</see>:</term>
+        ///         <description>When set, a home directory is created for the
+        /// user name provided in the value. The <paramref
+        /// cref="CreateDirectoryRequest.directory_name" /> must be an empty
+        /// string in this case. The user must exist.</description>
+        ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="CreateDirectoryRequest.Options.NO_ERROR_IF_EXISTS">NO_ERROR_IF_EXISTS</see>:</term>
@@ -113,6 +135,14 @@ namespace kinetica
         /// created.  </param>
         /// <param name="options">Optional parameters.
         /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateDirectoryRequest.Options.CREATE_HOME_DIRECTORY">CREATE_HOME_DIRECTORY</see>:</term>
+        ///         <description>When set, a home directory is created for the
+        /// user name provided in the value. The <paramref
+        /// cref="CreateDirectoryRequest.directory_name" /> must be an empty
+        /// string in this case. The user must exist.</description>
+        ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="CreateDirectoryRequest.Options.NO_ERROR_IF_EXISTS">NO_ERROR_IF_EXISTS</see>:</term>

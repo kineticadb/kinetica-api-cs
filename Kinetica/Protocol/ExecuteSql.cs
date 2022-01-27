@@ -17,8 +17,8 @@ namespace kinetica
     /// <br />
     /// Execute a SQL statement (query, DML, or DDL).
     /// <br />
-    /// See <a href="../../../concepts/sql/" target="_top">SQL Support</a> for
-    /// the complete set of supported SQL commands.</summary>
+    /// See <a href="../../../sql/" target="_top">SQL Support</a> for the
+    /// complete set of supported SQL commands.</summary>
     public class ExecuteSqlRequest : KineticaData
     {
 

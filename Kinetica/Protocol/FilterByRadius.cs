@@ -39,6 +39,29 @@ namespace kinetica
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
+        /// cref="FilterByRadiusRequest.Options.CREATE_TEMP_TABLE">CREATE_TEMP_TABLE</see>:</term>
+        ///         <description>If <i>true</i>, a unique temporary table name
+        /// will be generated in the sys_temp schema and used in place of
+        /// <paramref cref="FilterByRadiusRequest.view_name" />. This is always
+        /// allowed even if the caller does not have permission to create
+        /// tables. The generated name is returned in
+        /// <i>qualified_view_name</i>.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="FilterByRadiusRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="FilterByRadiusRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="FilterByRadiusRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="FilterByRadiusRequest.Options.COLLECTION_NAME">COLLECTION_NAME</see>:</term>
         ///         <description>[DEPRECATED--please specify the containing
         /// schema for the view as part of <paramref
@@ -53,6 +76,28 @@ namespace kinetica
         /// />.</summary>
         public struct Options
         {
+
+            /// <summary>If <i>true</i>, a unique temporary table name will be
+            /// generated in the sys_temp schema and used in place of <see
+            /// cref="view_name" />. This is always allowed even if the caller
+            /// does not have permission to create tables. The generated name
+            /// is returned in <i>qualified_view_name</i>.
+            /// Supported values:
+            /// <list type="bullet">
+            ///     <item>
+            ///         <term><see
+            /// cref="FilterByRadiusRequest.Options.TRUE">TRUE</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="FilterByRadiusRequest.Options.FALSE">FALSE</see></term>
+            ///     </item>
+            /// </list>
+            /// The default value is <see
+            /// cref="FilterByRadiusRequest.Options.FALSE">FALSE</see>.</summary>
+            public const string CREATE_TEMP_TABLE = "create_temp_table";
+            public const string TRUE = "true";
+            public const string FALSE = "false";
 
             /// <summary>[DEPRECATED--please specify the containing schema for
             /// the view as part of <see cref="view_name" /> and use <see
@@ -108,6 +153,29 @@ namespace kinetica
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
+        /// cref="FilterByRadiusRequest.Options.CREATE_TEMP_TABLE">CREATE_TEMP_TABLE</see>:</term>
+        ///         <description>If <i>true</i>, a unique temporary table name
+        /// will be generated in the sys_temp schema and used in place of
+        /// <paramref cref="FilterByRadiusRequest.view_name" />. This is always
+        /// allowed even if the caller does not have permission to create
+        /// tables. The generated name is returned in
+        /// <i>qualified_view_name</i>.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="FilterByRadiusRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="FilterByRadiusRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="FilterByRadiusRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="FilterByRadiusRequest.Options.COLLECTION_NAME">COLLECTION_NAME</see>:</term>
         ///         <description>[DEPRECATED--please specify the containing
         /// schema for the view as part of <paramref
@@ -159,6 +227,29 @@ namespace kinetica
         /// </param>
         /// <param name="options">Optional parameters.
         /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="FilterByRadiusRequest.Options.CREATE_TEMP_TABLE">CREATE_TEMP_TABLE</see>:</term>
+        ///         <description>If <i>true</i>, a unique temporary table name
+        /// will be generated in the sys_temp schema and used in place of
+        /// <paramref cref="FilterByRadiusRequest.view_name" />. This is always
+        /// allowed even if the caller does not have permission to create
+        /// tables. The generated name is returned in
+        /// <i>qualified_view_name</i>.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="FilterByRadiusRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="FilterByRadiusRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="FilterByRadiusRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="FilterByRadiusRequest.Options.COLLECTION_NAME">COLLECTION_NAME</see>:</term>

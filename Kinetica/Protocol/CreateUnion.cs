@@ -52,6 +52,30 @@ namespace kinetica
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
+        /// cref="CreateUnionRequest.Options.CREATE_TEMP_TABLE">CREATE_TEMP_TABLE</see>:</term>
+        ///         <description>If <i>true</i>, a unique temporary table name
+        /// will be generated in the sys_temp schema and used in place of
+        /// <paramref cref="CreateUnionRequest.table_name" />. If
+        /// <i>persist</i> is <i>false</i> (or unspecified), then this is
+        /// always allowed even if the caller does not have permission to
+        /// create tables. The generated name is returned in
+        /// <i>qualified_table_name</i>.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateUnionRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateUnionRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="CreateUnionRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="CreateUnionRequest.Options.COLLECTION_NAME">COLLECTION_NAME</see>:</term>
         ///         <description>[DEPRECATED--please specify the containing
         /// schema for the projection as part of <paramref
@@ -207,6 +231,29 @@ namespace kinetica
         public struct Options
         {
 
+            /// <summary>If <i>true</i>, a unique temporary table name will be
+            /// generated in the sys_temp schema and used in place of <see
+            /// cref="table_name" />. If <i>persist</i> is <i>false</i> (or
+            /// unspecified), then this is always allowed even if the caller
+            /// does not have permission to create tables. The generated name
+            /// is returned in <i>qualified_table_name</i>.
+            /// Supported values:
+            /// <list type="bullet">
+            ///     <item>
+            ///         <term><see
+            /// cref="CreateUnionRequest.Options.TRUE">TRUE</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="CreateUnionRequest.Options.FALSE">FALSE</see></term>
+            ///     </item>
+            /// </list>
+            /// The default value is <see
+            /// cref="CreateUnionRequest.Options.FALSE">FALSE</see>.</summary>
+            public const string CREATE_TEMP_TABLE = "create_temp_table";
+            public const string TRUE = "true";
+            public const string FALSE = "false";
+
             /// <summary>[DEPRECATED--please specify the containing schema for
             /// the projection as part of <see cref="table_name" /> and use
             /// <see
@@ -360,8 +407,6 @@ namespace kinetica
             /// The default value is <see
             /// cref="CreateUnionRequest.Options.FALSE">FALSE</see>.</summary>
             public const string PERSIST = "persist";
-            public const string TRUE = "true";
-            public const string FALSE = "false";
 
             /// <summary>ID of view of which this output table is a member.
             /// The default value is ''.</summary>
@@ -412,6 +457,30 @@ namespace kinetica
 
         /// <summary>Optional parameters.
         /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateUnionRequest.Options.CREATE_TEMP_TABLE">CREATE_TEMP_TABLE</see>:</term>
+        ///         <description>If <i>true</i>, a unique temporary table name
+        /// will be generated in the sys_temp schema and used in place of
+        /// <paramref cref="CreateUnionRequest.table_name" />. If
+        /// <i>persist</i> is <i>false</i> (or unspecified), then this is
+        /// always allowed even if the caller does not have permission to
+        /// create tables. The generated name is returned in
+        /// <i>qualified_table_name</i>.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateUnionRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateUnionRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="CreateUnionRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="CreateUnionRequest.Options.COLLECTION_NAME">COLLECTION_NAME</see>:</term>
@@ -591,6 +660,30 @@ namespace kinetica
         /// to be stored in the output table.  </param>
         /// <param name="options">Optional parameters.
         /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateUnionRequest.Options.CREATE_TEMP_TABLE">CREATE_TEMP_TABLE</see>:</term>
+        ///         <description>If <i>true</i>, a unique temporary table name
+        /// will be generated in the sys_temp schema and used in place of
+        /// <paramref cref="CreateUnionRequest.table_name" />. If
+        /// <i>persist</i> is <i>false</i> (or unspecified), then this is
+        /// always allowed even if the caller does not have permission to
+        /// create tables. The generated name is returned in
+        /// <i>qualified_table_name</i>.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateUnionRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateUnionRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="CreateUnionRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="CreateUnionRequest.Options.COLLECTION_NAME">COLLECTION_NAME</see>:</term>

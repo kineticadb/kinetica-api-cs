@@ -19,7 +19,8 @@ namespace kinetica
     /// target="_top">external table</a>, which is a
     /// local database object whose source data is located externally to the
     /// database.  The source data can
-    /// be located either on the cluster, accessible to the database; or
+    /// be located either in <a href="../../../tools/kifs/"
+    /// target="_top">KiFS</a>; on the cluster, accessible to the database; or
     /// remotely, accessible via a
     /// pre-defined external <a href="../../../concepts/data_sources/"
     /// target="_top">data source</a>.
@@ -510,22 +511,21 @@ namespace kinetica
         ///         <term><see
         /// cref="CreateTableExternalRequest.Options.BATCH_SIZE">BATCH_SIZE</see>:</term>
         ///         <description>Internal tuning parameter--number of records
-        /// per batch when inserting data</description>
+        /// per batch when inserting data.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="CreateTableExternalRequest.Options.COLUMN_FORMATS">COLUMN_FORMATS</see>:</term>
         ///         <description>For each target column specified, applies the
-        /// column-property-bound
-        /// format to the source data loaded into that column.  Each column
-        /// format will contain a mapping of one
-        /// or more of its column properties to an appropriate format for each
-        /// property.  Currently supported
-        /// column properties include date, time, & datetime. The parameter
-        /// value must be formatted as a JSON
-        /// string of maps of column names to maps of column properties to
-        /// their corresponding column formats,
-        /// e.g.,
+        /// column-property-bound format to the source data
+        /// loaded into that column.  Each column format will contain a mapping
+        /// of one or more of its column
+        /// properties to an appropriate format for each property.  Currently
+        /// supported column properties
+        /// include date, time, & datetime. The parameter value must be
+        /// formatted as a JSON string of maps of
+        /// column names to maps of column properties to their corresponding
+        /// column formats, e.g.,
         /// '{ "order_date" : { "date" : "%Y.%m.%d" }, "order_time" : { "time"
         /// : "%H:%M:%S" } }'.
         /// <br />
@@ -629,7 +629,7 @@ namespace kinetica
         ///         <term><see
         /// cref="CreateTableExternalRequest.Options.PERMISSIVE">PERMISSIVE</see>:</term>
         ///         <description>Records with missing columns are populated
-        /// with nulls if possible; otherwise, malformed records are
+        /// with nulls if possible; otherwise, the malformed records are
         /// skipped.</description>
         ///     </item>
         ///     <item>
@@ -640,14 +640,13 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="CreateTableExternalRequest.Options.ABORT">ABORT</see>:</term>
-        ///         <description>Current insertion is stopped and entire
-        /// operation is aborted when an error is encountered.  Primary key
-        /// collisions are considered abortable errors in this
-        /// mode.</description>
+        ///         <description>Stops current insertion and aborts entire
+        /// operation when an error is encountered.  Primary key collisions are
+        /// considered abortable errors in this mode.</description>
         ///     </item>
         /// </list>
         /// The default value is <see
-        /// cref="CreateTableExternalRequest.Options.PERMISSIVE">PERMISSIVE</see>.</description>
+        /// cref="CreateTableExternalRequest.Options.ABORT">ABORT</see>.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -676,10 +675,15 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="CreateTableExternalRequest.Options.FILE_TYPE">FILE_TYPE</see>:</term>
-        ///         <description>Specifies the type of the external data
-        /// file(s) used as the source of data for this table.
+        ///         <description>Specifies the type of the file(s) whose
+        /// records will be inserted.
         /// Supported values:
         /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableExternalRequest.Options.AVRO">AVRO</see>:</term>
+        ///         <description>Avro file format</description>
+        ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="CreateTableExternalRequest.Options.DELIMITED_TEXT">DELIMITED_TEXT</see>:</term>
@@ -688,13 +692,13 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="CreateTableExternalRequest.Options.PARQUET">PARQUET</see>:</term>
-        ///         <description>Apache Parquet file format</description>
+        /// cref="CreateTableExternalRequest.Options.JSON">JSON</see>:</term>
+        ///         <description>Json file format</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="CreateTableExternalRequest.Options.JSON">JSON</see>:</term>
-        ///         <description>Json file format</description>
+        /// cref="CreateTableExternalRequest.Options.PARQUET">PARQUET</see>:</term>
+        ///         <description>Apache Parquet file format</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -708,9 +712,8 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="CreateTableExternalRequest.Options.INGESTION_MODE">INGESTION_MODE</see>:</term>
-        ///         <description>For <i>materialized</i> external tables,
-        /// whether to do a full load, dry run, or perform a type inference on
-        /// the source data.
+        ///         <description>Whether to do a full load, dry run, or perform
+        /// a type inference on the source data.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -730,8 +733,8 @@ namespace kinetica
         ///         <term><see
         /// cref="CreateTableExternalRequest.Options.TYPE_INFERENCE_ONLY">TYPE_INFERENCE_ONLY</see>:</term>
         ///         <description>Infer the type of the source data and return,
-        /// without creating the table and ingesting data.  The inferred type
-        /// is returned in the response.</description>
+        /// without ingesting any data.  The inferred type is returned in the
+        /// response.</description>
         ///     </item>
         /// </list>
         /// The default value is <see
@@ -739,9 +742,17 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
+        /// cref="CreateTableExternalRequest.Options.KAFKA_GROUP_ID">KAFKA_GROUP_ID</see>:</term>
+        ///         <description>The group id to be used consuming data from a
+        /// kakfa topic (valid only for kafka datasource
+        /// subscriptions).</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="CreateTableExternalRequest.Options.LOADING_MODE">LOADING_MODE</see>:</term>
         ///         <description>Scheme for distributing the extraction and
-        /// loading of data from the source data file(s).
+        /// loading of data from the source data file(s). This option applies
+        /// only when loading files that are local to the database
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -783,15 +794,11 @@ namespace kinetica
         /// <br />
         /// NOTE:
         /// <br />
-        /// If the table's columns aren't defined, table structure will be
+        /// If the target table doesn't exist, the table structure will be
         /// determined by the head node. If the
         /// head node has no files local to it, it will be unable to determine
         /// the structure and the request
         /// will fail.
-        /// <br />
-        /// This mode should not be used in conjunction with a data source, as
-        /// data sources are seen by all
-        /// worker processes as shared resources with no 'local' component.
         /// <br />
         /// If the head node is configured to have no worker processes, no data
         /// strictly accessible to the head
@@ -803,14 +810,27 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="CreateTableExternalRequest.Options.PRIMARY_KEYS">PRIMARY_KEYS</see>:</term>
-        ///         <description>Optional: comma separated list of column
-        /// names, to set as primary keys, when not specified in the type.  The
-        /// default value is ''.</description>
+        /// cref="CreateTableExternalRequest.Options.LOCAL_TIME_OFFSET">LOCAL_TIME_OFFSET</see>:</term>
+        ///         <description>For Avro local timestamp columns</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="CreateTableExternalRequest.Options.SHARD_KEYS">SHARD_KEYS</see>:</term>
+        /// cref="CreateTableExternalRequest.Options.NUM_TASKS_PER_RANK">NUM_TASKS_PER_RANK</see>:</term>
+        ///         <description>Optional: number of tasks for reading file per
+        /// rank. Default will be external_file_reader_num_tasks</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableExternalRequest.Options.POLL_INTERVAL">POLL_INTERVAL</see>:</term>
+        ///         <description>If <i>true</i>, the number of seconds between
+        /// attempts to load external files into the table.  If zero, polling
+        /// will be continuous as long as data is found.  If no data is found,
+        /// the interval will steadily increase to a maximum of 60
+        /// seconds.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableExternalRequest.Options.PRIMARY_KEYS">PRIMARY_KEYS</see>:</term>
         ///         <description>Optional: comma separated list of column
         /// names, to set as primary keys, when not specified in the type.  The
         /// default value is ''.</description>
@@ -842,6 +862,19 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
+        /// cref="CreateTableExternalRequest.Options.SHARD_KEYS">SHARD_KEYS</see>:</term>
+        ///         <description>Optional: comma separated list of column
+        /// names, to set as primary keys, when not specified in the type.  The
+        /// default value is ''.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableExternalRequest.Options.SKIP_LINES">SKIP_LINES</see>:</term>
+        ///         <description>Skip number of lines from begining of
+        /// file.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="CreateTableExternalRequest.Options.SUBSCRIBE">SUBSCRIBE</see>:</term>
         ///         <description>Continuously poll the data source to check for
         /// new data and load it into the table.
@@ -861,10 +894,24 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="CreateTableExternalRequest.Options.POLL_INTERVAL">POLL_INTERVAL</see>:</term>
-        ///         <description>If <i>true</i>, the number of seconds between
-        /// attempts to load external files into the table. If zero, polling
-        /// will be continuous.</description>
+        /// cref="CreateTableExternalRequest.Options.TABLE_INSERT_MODE">TABLE_INSERT_MODE</see>:</term>
+        ///         <description>Optional: table_insert_mode. When inserting
+        /// records from multiple files: if table_per_file then insert from
+        /// each file into a new table. Currently supported only for
+        /// shapefiles.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableExternalRequest.Options.SINGLE">SINGLE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableExternalRequest.Options.TABLE_PER_FILE">TABLE_PER_FILE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="CreateTableExternalRequest.Options.SINGLE">SINGLE</see>.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -948,7 +995,7 @@ namespace kinetica
         /// value in the source data.
         /// <br />
         /// For <i>delimited_text</i> <i>file_type</i> only.  The default value
-        /// is ''.</description>
+        /// is '\\N'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -969,9 +1016,38 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="CreateTableExternalRequest.Options.NUM_TASKS_PER_RANK">NUM_TASKS_PER_RANK</see>:</term>
-        ///         <description>Optional: number of tasks for reading file per
-        /// rank. Default will be external_file_reader_num_tasks</description>
+        /// cref="CreateTableExternalRequest.Options.TEXT_SEARCH_COLUMNS">TEXT_SEARCH_COLUMNS</see>:</term>
+        ///         <description>Add 'text_search' property to internally
+        /// inferenced string columns. Comma seperated list of column names or
+        /// '*' for all columns. To add text_search property only to string
+        /// columns of minimum size, set also the option
+        /// 'text_search_min_column_length'</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableExternalRequest.Options.TEXT_SEARCH_MIN_COLUMN_LENGTH">TEXT_SEARCH_MIN_COLUMN_LENGTH</see>:</term>
+        ///         <description>Set minimum column size. Used only when
+        /// 'text_search_columns' has a value.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableExternalRequest.Options.TRUNCATE_TABLE">TRUNCATE_TABLE</see>:</term>
+        ///         <description>If set to <i>true</i>, truncates the table
+        /// specified by <paramref cref="CreateTableExternalRequest.table_name"
+        /// /> prior to loading the file(s).
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableExternalRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableExternalRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="CreateTableExternalRequest.Options.FALSE">FALSE</see>.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -995,49 +1071,6 @@ namespace kinetica
         /// The default value is <see
         /// cref="CreateTableExternalRequest.Options.SPEED">SPEED</see>.</description>
         ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateTableExternalRequest.Options.TABLE_INSERT_MODE">TABLE_INSERT_MODE</see>:</term>
-        ///         <description>Optional: table_insert_mode. When inserting
-        /// records from multiple files: if table_per_file then insert from
-        /// each file into a new table. Currently supported only for
-        /// shapefiles.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateTableExternalRequest.Options.SINGLE">SINGLE</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateTableExternalRequest.Options.TABLE_PER_FILE">TABLE_PER_FILE</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="CreateTableExternalRequest.Options.SINGLE">SINGLE</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateTableExternalRequest.Options.KAFKA_GROUP_ID">KAFKA_GROUP_ID</see>:</term>
-        ///         <description>The group id to be used consuming data from a
-        /// kakfa topic (valid only for kafka datasource
-        /// subscriptions).</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateTableExternalRequest.Options.TEXT_SEARCH_COLUMNS">TEXT_SEARCH_COLUMNS</see>:</term>
-        ///         <description>Add 'text_search' property to internally
-        /// inferenced string columns. Comma seperated list of column names or
-        /// '*' for all columns. To add text_search property only to string
-        /// columns of minimum size, set also the option
-        /// 'text_search_min_column_length'</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateTableExternalRequest.Options.TEXT_SEARCH_MIN_COLUMN_LENGTH">TEXT_SEARCH_MIN_COLUMN_LENGTH</see>:</term>
-        ///         <description>Set minimum column size. Used only when
-        /// 'text_search_columns' has a value.</description>
-        ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.
         /// A set of string constants for the parameter <see cref="options"
@@ -1057,20 +1090,19 @@ namespace kinetica
             public const string BAD_RECORD_TABLE_LIMIT = "bad_record_table_limit";
 
             /// <summary>Internal tuning parameter--number of records per batch
-            /// when inserting data</summary>
+            /// when inserting data.</summary>
             public const string BATCH_SIZE = "batch_size";
 
             /// <summary>For each target column specified, applies the
-            /// column-property-bound
-            /// format to the source data loaded into that column.  Each column
-            /// format will contain a mapping of one
-            /// or more of its column properties to an appropriate format for
-            /// each property.  Currently supported
-            /// column properties include date, time, & datetime. The parameter
-            /// value must be formatted as a JSON
-            /// string of maps of column names to maps of column properties to
-            /// their corresponding column formats,
-            /// e.g.,
+            /// column-property-bound format to the source data
+            /// loaded into that column.  Each column format will contain a
+            /// mapping of one or more of its column
+            /// properties to an appropriate format for each property.
+            /// Currently supported column properties
+            /// include date, time, & datetime. The parameter value must be
+            /// formatted as a JSON string of maps of
+            /// column names to maps of column properties to their
+            /// corresponding column formats, e.g.,
             /// '{ "order_date" : { "date" : "%Y.%m.%d" }, "order_time" : {
             /// "time" : "%H:%M:%S" } }'.
             /// <br />
@@ -1162,7 +1194,7 @@ namespace kinetica
             ///         <term><see
             /// cref="CreateTableExternalRequest.Options.PERMISSIVE">PERMISSIVE</see>:</term>
             ///         <description>Records with missing columns are populated
-            /// with nulls if possible; otherwise, malformed records are
+            /// with nulls if possible; otherwise, the malformed records are
             /// skipped.</description>
             ///     </item>
             ///     <item>
@@ -1174,27 +1206,26 @@ namespace kinetica
             ///     <item>
             ///         <term><see
             /// cref="CreateTableExternalRequest.Options.ABORT">ABORT</see>:</term>
-            ///         <description>Current insertion is stopped and entire
-            /// operation is aborted when an error is encountered.  Primary key
-            /// collisions are considered abortable errors in this
-            /// mode.</description>
+            ///         <description>Stops current insertion and aborts entire
+            /// operation when an error is encountered.  Primary key collisions
+            /// are considered abortable errors in this mode.</description>
             ///     </item>
             /// </list>
             /// The default value is <see
-            /// cref="CreateTableExternalRequest.Options.PERMISSIVE">PERMISSIVE</see>.</summary>
+            /// cref="CreateTableExternalRequest.Options.ABORT">ABORT</see>.</summary>
             public const string ERROR_HANDLING = "error_handling";
 
             /// <summary>Records with missing columns are populated with nulls
-            /// if possible; otherwise, malformed records are
+            /// if possible; otherwise, the malformed records are
             /// skipped.</summary>
             public const string PERMISSIVE = "permissive";
 
             /// <summary>Malformed records are skipped.</summary>
             public const string IGNORE_BAD_RECORDS = "ignore_bad_records";
 
-            /// <summary>Current insertion is stopped and entire operation is
-            /// aborted when an error is encountered.  Primary key collisions
-            /// are considered abortable errors in this mode.</summary>
+            /// <summary>Stops current insertion and aborts entire operation
+            /// when an error is encountered.  Primary key collisions are
+            /// considered abortable errors in this mode.</summary>
             public const string ABORT = "abort";
 
             /// <summary>Specifies whether the external table holds a local
@@ -1228,10 +1259,15 @@ namespace kinetica
             /// query against the external table</summary>
             public const string LOGICAL = "logical";
 
-            /// <summary>Specifies the type of the external data file(s) used
-            /// as the source of data for this table.
+            /// <summary>Specifies the type of the file(s) whose records will
+            /// be inserted.
             /// Supported values:
             /// <list type="bullet">
+            ///     <item>
+            ///         <term><see
+            /// cref="CreateTableExternalRequest.Options.AVRO">AVRO</see>:</term>
+            ///         <description>Avro file format</description>
+            ///     </item>
             ///     <item>
             ///         <term><see
             /// cref="CreateTableExternalRequest.Options.DELIMITED_TEXT">DELIMITED_TEXT</see>:</term>
@@ -1240,13 +1276,13 @@ namespace kinetica
             ///     </item>
             ///     <item>
             ///         <term><see
-            /// cref="CreateTableExternalRequest.Options.PARQUET">PARQUET</see>:</term>
-            ///         <description>Apache Parquet file format</description>
+            /// cref="CreateTableExternalRequest.Options.JSON">JSON</see>:</term>
+            ///         <description>Json file format</description>
             ///     </item>
             ///     <item>
             ///         <term><see
-            /// cref="CreateTableExternalRequest.Options.JSON">JSON</see>:</term>
-            ///         <description>Json file format</description>
+            /// cref="CreateTableExternalRequest.Options.PARQUET">PARQUET</see>:</term>
+            ///         <description>Apache Parquet file format</description>
             ///     </item>
             ///     <item>
             ///         <term><see
@@ -1258,22 +1294,24 @@ namespace kinetica
             /// cref="CreateTableExternalRequest.Options.DELIMITED_TEXT">DELIMITED_TEXT</see>.</summary>
             public const string FILE_TYPE = "file_type";
 
+            /// <summary>Avro file format</summary>
+            public const string AVRO = "avro";
+
             /// <summary>Delimited text file format; e.g., CSV, TSV, PSV,
             /// etc.</summary>
             public const string DELIMITED_TEXT = "delimited_text";
 
-            /// <summary>Apache Parquet file format</summary>
-            public const string PARQUET = "parquet";
-
             /// <summary>Json file format</summary>
             public const string JSON = "json";
+
+            /// <summary>Apache Parquet file format</summary>
+            public const string PARQUET = "parquet";
 
             /// <summary>ShapeFile file format</summary>
             public const string SHAPEFILE = "shapefile";
 
-            /// <summary>For <i>materialized</i> external tables, whether to do
-            /// a full load, dry run, or perform a type inference on the source
-            /// data.
+            /// <summary>Whether to do a full load, dry run, or perform a type
+            /// inference on the source data.
             /// Supported values:
             /// <list type="bullet">
             ///     <item>
@@ -1294,8 +1332,8 @@ namespace kinetica
             ///         <term><see
             /// cref="CreateTableExternalRequest.Options.TYPE_INFERENCE_ONLY">TYPE_INFERENCE_ONLY</see>:</term>
             ///         <description>Infer the type of the source data and
-            /// return, without creating the table and ingesting data.  The
-            /// inferred type is returned in the response.</description>
+            /// return, without ingesting any data.  The inferred type is
+            /// returned in the response.</description>
             ///     </item>
             /// </list>
             /// The default value is <see
@@ -1312,12 +1350,18 @@ namespace kinetica
             public const string DRY_RUN = "dry_run";
 
             /// <summary>Infer the type of the source data and return, without
-            /// creating the table and ingesting data.  The inferred type is
-            /// returned in the response.</summary>
+            /// ingesting any data.  The inferred type is returned in the
+            /// response.</summary>
             public const string TYPE_INFERENCE_ONLY = "type_inference_only";
 
+            /// <summary>The group id to be used consuming data from a kakfa
+            /// topic (valid only for kafka datasource
+            /// subscriptions).</summary>
+            public const string KAFKA_GROUP_ID = "kafka_group_id";
+
             /// <summary>Scheme for distributing the extraction and loading of
-            /// data from the source data file(s).
+            /// data from the source data file(s). This option applies only
+            /// when loading files that are local to the database
             /// Supported values:
             /// <list type="bullet">
             ///     <item>
@@ -1359,15 +1403,11 @@ namespace kinetica
             /// <br />
             /// NOTE:
             /// <br />
-            /// If the table's columns aren't defined, table structure will be
+            /// If the target table doesn't exist, the table structure will be
             /// determined by the head node. If the
             /// head node has no files local to it, it will be unable to
             /// determine the structure and the request
             /// will fail.
-            /// <br />
-            /// This mode should not be used in conjunction with a data source,
-            /// as data sources are seen by all
-            /// worker processes as shared resources with no 'local' component.
             /// <br />
             /// If the head node is configured to have no worker processes, no
             /// data strictly accessible to the head
@@ -1408,30 +1448,35 @@ namespace kinetica
             /// <br />
             /// NOTE:
             /// <br />
-            /// If the table's columns aren't defined, table structure will be
+            /// If the target table doesn't exist, the table structure will be
             /// determined by the head node. If the
             /// head node has no files local to it, it will be unable to
             /// determine the structure and the request
             /// will fail.
-            /// <br />
-            /// This mode should not be used in conjunction with a data source,
-            /// as data sources are seen by all
-            /// worker processes as shared resources with no 'local' component.
             /// <br />
             /// If the head node is configured to have no worker processes, no
             /// data strictly accessible to the head
             /// node will be loaded.</summary>
             public const string DISTRIBUTED_LOCAL = "distributed_local";
 
-            /// <summary>Optional: comma separated list of column names, to set
-            /// as primary keys, when not specified in the type.  The default
-            /// value is ''.</summary>
-            public const string PRIMARY_KEYS = "primary_keys";
+            /// <summary>For Avro local timestamp columns</summary>
+            public const string LOCAL_TIME_OFFSET = "local_time_offset";
+
+            /// <summary>Optional: number of tasks for reading file per rank.
+            /// Default will be external_file_reader_num_tasks</summary>
+            public const string NUM_TASKS_PER_RANK = "num_tasks_per_rank";
+
+            /// <summary>If <i>true</i>, the number of seconds between attempts
+            /// to load external files into the table.  If zero, polling will
+            /// be continuous as long as data is found.  If no data is found,
+            /// the interval will steadily increase to a maximum of 60
+            /// seconds.</summary>
+            public const string POLL_INTERVAL = "poll_interval";
 
             /// <summary>Optional: comma separated list of column names, to set
             /// as primary keys, when not specified in the type.  The default
             /// value is ''.</summary>
-            public const string SHARD_KEYS = "shard_keys";
+            public const string PRIMARY_KEYS = "primary_keys";
 
             /// <summary>Method by which the table can be refreshed from its
             /// source data.
@@ -1470,6 +1515,14 @@ namespace kinetica
             /// /> on this table.</summary>
             public const string ON_START = "on_start";
 
+            /// <summary>Optional: comma separated list of column names, to set
+            /// as primary keys, when not specified in the type.  The default
+            /// value is ''.</summary>
+            public const string SHARD_KEYS = "shard_keys";
+
+            /// <summary>Skip number of lines from begining of file.</summary>
+            public const string SKIP_LINES = "skip_lines";
+
             /// <summary>Continuously poll the data source to check for new
             /// data and load it into the table.
             /// Supported values:
@@ -1489,10 +1542,25 @@ namespace kinetica
             public const string TRUE = "true";
             public const string FALSE = "false";
 
-            /// <summary>If <i>true</i>, the number of seconds between attempts
-            /// to load external files into the table. If zero, polling will be
-            /// continuous.</summary>
-            public const string POLL_INTERVAL = "poll_interval";
+            /// <summary>Optional: table_insert_mode. When inserting records
+            /// from multiple files: if table_per_file then insert from each
+            /// file into a new table. Currently supported only for shapefiles.
+            /// Supported values:
+            /// <list type="bullet">
+            ///     <item>
+            ///         <term><see
+            /// cref="CreateTableExternalRequest.Options.SINGLE">SINGLE</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="CreateTableExternalRequest.Options.TABLE_PER_FILE">TABLE_PER_FILE</see></term>
+            ///     </item>
+            /// </list>
+            /// The default value is <see
+            /// cref="CreateTableExternalRequest.Options.SINGLE">SINGLE</see>.</summary>
+            public const string TABLE_INSERT_MODE = "table_insert_mode";
+            public const string SINGLE = "single";
+            public const string TABLE_PER_FILE = "table_per_file";
 
             /// <summary>Specifies the character string that should be
             /// interpreted as a comment line
@@ -1565,7 +1633,7 @@ namespace kinetica
             /// value in the source data.
             /// <br />
             /// For <i>delimited_text</i> <i>file_type</i> only.  The default
-            /// value is ''.</summary>
+            /// value is '\\N'.</summary>
             public const string TEXT_NULL_STRING = "text_null_string";
 
             /// <summary>Specifies the character that should be interpreted as
@@ -1583,9 +1651,33 @@ namespace kinetica
             /// value is '"'.</summary>
             public const string TEXT_QUOTE_CHARACTER = "text_quote_character";
 
-            /// <summary>Optional: number of tasks for reading file per rank.
-            /// Default will be external_file_reader_num_tasks</summary>
-            public const string NUM_TASKS_PER_RANK = "num_tasks_per_rank";
+            /// <summary>Add 'text_search' property to internally inferenced
+            /// string columns. Comma seperated list of column names or '*' for
+            /// all columns. To add text_search property only to string columns
+            /// of minimum size, set also the option
+            /// 'text_search_min_column_length'</summary>
+            public const string TEXT_SEARCH_COLUMNS = "text_search_columns";
+
+            /// <summary>Set minimum column size. Used only when
+            /// 'text_search_columns' has a value.</summary>
+            public const string TEXT_SEARCH_MIN_COLUMN_LENGTH = "text_search_min_column_length";
+
+            /// <summary>If set to <i>true</i>, truncates the table specified
+            /// by <see cref="table_name" /> prior to loading the file(s).
+            /// Supported values:
+            /// <list type="bullet">
+            ///     <item>
+            ///         <term><see
+            /// cref="CreateTableExternalRequest.Options.TRUE">TRUE</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="CreateTableExternalRequest.Options.FALSE">FALSE</see></term>
+            ///     </item>
+            /// </list>
+            /// The default value is <see
+            /// cref="CreateTableExternalRequest.Options.FALSE">FALSE</see>.</summary>
+            public const string TRUNCATE_TABLE = "truncate_table";
 
             /// <summary>optimize type inference for:
             /// Supported values:
@@ -1615,42 +1707,6 @@ namespace kinetica
             /// <summary>picks the widest possible column types so that 'all'
             /// values will fit with minimum data scanned</summary>
             public const string SPEED = "speed";
-
-            /// <summary>Optional: table_insert_mode. When inserting records
-            /// from multiple files: if table_per_file then insert from each
-            /// file into a new table. Currently supported only for shapefiles.
-            /// Supported values:
-            /// <list type="bullet">
-            ///     <item>
-            ///         <term><see
-            /// cref="CreateTableExternalRequest.Options.SINGLE">SINGLE</see></term>
-            ///     </item>
-            ///     <item>
-            ///         <term><see
-            /// cref="CreateTableExternalRequest.Options.TABLE_PER_FILE">TABLE_PER_FILE</see></term>
-            ///     </item>
-            /// </list>
-            /// The default value is <see
-            /// cref="CreateTableExternalRequest.Options.SINGLE">SINGLE</see>.</summary>
-            public const string TABLE_INSERT_MODE = "table_insert_mode";
-            public const string SINGLE = "single";
-            public const string TABLE_PER_FILE = "table_per_file";
-
-            /// <summary>The group id to be used consuming data from a kakfa
-            /// topic (valid only for kafka datasource
-            /// subscriptions).</summary>
-            public const string KAFKA_GROUP_ID = "kafka_group_id";
-
-            /// <summary>Add 'text_search' property to internally inferenced
-            /// string columns. Comma seperated list of column names or '*' for
-            /// all columns. To add text_search property only to string columns
-            /// of minimum size, set also the option
-            /// 'text_search_min_column_length'</summary>
-            public const string TEXT_SEARCH_COLUMNS = "text_search_columns";
-
-            /// <summary>Set minimum column size. Used only when
-            /// 'text_search_columns' has a value.</summary>
-            public const string TEXT_SEARCH_MIN_COLUMN_LENGTH = "text_search_min_column_length";
         } // end struct Options
 
 
@@ -1663,17 +1719,20 @@ namespace kinetica
         public string table_name { get; set; }
 
         /// <summary>A list of file paths from which data will be sourced;
-        /// wildcards (*) can be used
-        /// to specify a group of files.
         /// <br />
-        /// For paths in KiFS, use the uri prefix of kifs:// followed by the
-        /// full path to a file or directory.
+        /// For paths in <a href="../../../tools/kifs/" target="_top">KiFS</a>,
+        /// use the uri prefix of kifs:// followed by the path to
+        /// a file or directory. File matching by prefix is supported, e.g.
+        /// kifs://dir/file would match dir/file_1
+        /// and dir/file_2. When prefix matching is used, the path must start
+        /// with a full, valid KiFS directory name.
         /// <br />
         /// If an external data source is specified in <i>datasource_name</i>,
         /// these file
         /// paths must resolve to accessible files at that data source
-        /// location. Also, wildcards will only work
-        /// when used within the file name, not the path.
+        /// location. Prefix matching is supported.
+        /// If the data source is hdfs, prefixes must be aligned with
+        /// directories, i.e. partial file names will not match.
         /// <br />
         /// If no data source is specified, the files are assumed to be local
         /// to the database and must all be
@@ -1681,7 +1740,15 @@ namespace kinetica
         /// the path) specified by the
         /// external files directory in the Kinetica
         /// <a href="../../../config/#external-files"
-        /// target="_top">configuration file</a>.  </summary>
+        /// target="_top">configuration file</a>. Wildcards (*) can be used to
+        /// specify a group of files
+        /// Prefix matching is supported, the prefixes must be aligned with
+        /// directories.
+        /// <br />
+        /// If the first path ends in .tsv, the text delimiter will be
+        /// defaulted to a tab character.
+        /// If the first path ends in .psv, the text delimiter will be
+        /// defaulted to a pipe character (|).  </summary>
         public IList<string> filepaths { get; set; } = new List<string>();
 
         /// <summary>Not implemented yet.  The default value is an empty {@link
@@ -1937,22 +2004,21 @@ namespace kinetica
         ///         <term><see
         /// cref="CreateTableExternalRequest.Options.BATCH_SIZE">BATCH_SIZE</see>:</term>
         ///         <description>Internal tuning parameter--number of records
-        /// per batch when inserting data</description>
+        /// per batch when inserting data.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="CreateTableExternalRequest.Options.COLUMN_FORMATS">COLUMN_FORMATS</see>:</term>
         ///         <description>For each target column specified, applies the
-        /// column-property-bound
-        /// format to the source data loaded into that column.  Each column
-        /// format will contain a mapping of one
-        /// or more of its column properties to an appropriate format for each
-        /// property.  Currently supported
-        /// column properties include date, time, & datetime. The parameter
-        /// value must be formatted as a JSON
-        /// string of maps of column names to maps of column properties to
-        /// their corresponding column formats,
-        /// e.g.,
+        /// column-property-bound format to the source data
+        /// loaded into that column.  Each column format will contain a mapping
+        /// of one or more of its column
+        /// properties to an appropriate format for each property.  Currently
+        /// supported column properties
+        /// include date, time, & datetime. The parameter value must be
+        /// formatted as a JSON string of maps of
+        /// column names to maps of column properties to their corresponding
+        /// column formats, e.g.,
         /// '{ "order_date" : { "date" : "%Y.%m.%d" }, "order_time" : { "time"
         /// : "%H:%M:%S" } }'.
         /// <br />
@@ -2056,7 +2122,7 @@ namespace kinetica
         ///         <term><see
         /// cref="CreateTableExternalRequest.Options.PERMISSIVE">PERMISSIVE</see>:</term>
         ///         <description>Records with missing columns are populated
-        /// with nulls if possible; otherwise, malformed records are
+        /// with nulls if possible; otherwise, the malformed records are
         /// skipped.</description>
         ///     </item>
         ///     <item>
@@ -2067,14 +2133,13 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="CreateTableExternalRequest.Options.ABORT">ABORT</see>:</term>
-        ///         <description>Current insertion is stopped and entire
-        /// operation is aborted when an error is encountered.  Primary key
-        /// collisions are considered abortable errors in this
-        /// mode.</description>
+        ///         <description>Stops current insertion and aborts entire
+        /// operation when an error is encountered.  Primary key collisions are
+        /// considered abortable errors in this mode.</description>
         ///     </item>
         /// </list>
         /// The default value is <see
-        /// cref="CreateTableExternalRequest.Options.PERMISSIVE">PERMISSIVE</see>.</description>
+        /// cref="CreateTableExternalRequest.Options.ABORT">ABORT</see>.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -2103,10 +2168,15 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="CreateTableExternalRequest.Options.FILE_TYPE">FILE_TYPE</see>:</term>
-        ///         <description>Specifies the type of the external data
-        /// file(s) used as the source of data for this table.
+        ///         <description>Specifies the type of the file(s) whose
+        /// records will be inserted.
         /// Supported values:
         /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableExternalRequest.Options.AVRO">AVRO</see>:</term>
+        ///         <description>Avro file format</description>
+        ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="CreateTableExternalRequest.Options.DELIMITED_TEXT">DELIMITED_TEXT</see>:</term>
@@ -2115,13 +2185,13 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="CreateTableExternalRequest.Options.PARQUET">PARQUET</see>:</term>
-        ///         <description>Apache Parquet file format</description>
+        /// cref="CreateTableExternalRequest.Options.JSON">JSON</see>:</term>
+        ///         <description>Json file format</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="CreateTableExternalRequest.Options.JSON">JSON</see>:</term>
-        ///         <description>Json file format</description>
+        /// cref="CreateTableExternalRequest.Options.PARQUET">PARQUET</see>:</term>
+        ///         <description>Apache Parquet file format</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -2135,9 +2205,8 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="CreateTableExternalRequest.Options.INGESTION_MODE">INGESTION_MODE</see>:</term>
-        ///         <description>For <i>materialized</i> external tables,
-        /// whether to do a full load, dry run, or perform a type inference on
-        /// the source data.
+        ///         <description>Whether to do a full load, dry run, or perform
+        /// a type inference on the source data.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -2157,8 +2226,8 @@ namespace kinetica
         ///         <term><see
         /// cref="CreateTableExternalRequest.Options.TYPE_INFERENCE_ONLY">TYPE_INFERENCE_ONLY</see>:</term>
         ///         <description>Infer the type of the source data and return,
-        /// without creating the table and ingesting data.  The inferred type
-        /// is returned in the response.</description>
+        /// without ingesting any data.  The inferred type is returned in the
+        /// response.</description>
         ///     </item>
         /// </list>
         /// The default value is <see
@@ -2166,9 +2235,17 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
+        /// cref="CreateTableExternalRequest.Options.KAFKA_GROUP_ID">KAFKA_GROUP_ID</see>:</term>
+        ///         <description>The group id to be used consuming data from a
+        /// kakfa topic (valid only for kafka datasource
+        /// subscriptions).</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="CreateTableExternalRequest.Options.LOADING_MODE">LOADING_MODE</see>:</term>
         ///         <description>Scheme for distributing the extraction and
-        /// loading of data from the source data file(s).
+        /// loading of data from the source data file(s). This option applies
+        /// only when loading files that are local to the database
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -2210,15 +2287,11 @@ namespace kinetica
         /// <br />
         /// NOTE:
         /// <br />
-        /// If the table's columns aren't defined, table structure will be
+        /// If the target table doesn't exist, the table structure will be
         /// determined by the head node. If the
         /// head node has no files local to it, it will be unable to determine
         /// the structure and the request
         /// will fail.
-        /// <br />
-        /// This mode should not be used in conjunction with a data source, as
-        /// data sources are seen by all
-        /// worker processes as shared resources with no 'local' component.
         /// <br />
         /// If the head node is configured to have no worker processes, no data
         /// strictly accessible to the head
@@ -2230,14 +2303,27 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="CreateTableExternalRequest.Options.PRIMARY_KEYS">PRIMARY_KEYS</see>:</term>
-        ///         <description>Optional: comma separated list of column
-        /// names, to set as primary keys, when not specified in the type.  The
-        /// default value is ''.</description>
+        /// cref="CreateTableExternalRequest.Options.LOCAL_TIME_OFFSET">LOCAL_TIME_OFFSET</see>:</term>
+        ///         <description>For Avro local timestamp columns</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="CreateTableExternalRequest.Options.SHARD_KEYS">SHARD_KEYS</see>:</term>
+        /// cref="CreateTableExternalRequest.Options.NUM_TASKS_PER_RANK">NUM_TASKS_PER_RANK</see>:</term>
+        ///         <description>Optional: number of tasks for reading file per
+        /// rank. Default will be external_file_reader_num_tasks</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableExternalRequest.Options.POLL_INTERVAL">POLL_INTERVAL</see>:</term>
+        ///         <description>If <i>true</i>, the number of seconds between
+        /// attempts to load external files into the table.  If zero, polling
+        /// will be continuous as long as data is found.  If no data is found,
+        /// the interval will steadily increase to a maximum of 60
+        /// seconds.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableExternalRequest.Options.PRIMARY_KEYS">PRIMARY_KEYS</see>:</term>
         ///         <description>Optional: comma separated list of column
         /// names, to set as primary keys, when not specified in the type.  The
         /// default value is ''.</description>
@@ -2269,6 +2355,19 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
+        /// cref="CreateTableExternalRequest.Options.SHARD_KEYS">SHARD_KEYS</see>:</term>
+        ///         <description>Optional: comma separated list of column
+        /// names, to set as primary keys, when not specified in the type.  The
+        /// default value is ''.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableExternalRequest.Options.SKIP_LINES">SKIP_LINES</see>:</term>
+        ///         <description>Skip number of lines from begining of
+        /// file.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="CreateTableExternalRequest.Options.SUBSCRIBE">SUBSCRIBE</see>:</term>
         ///         <description>Continuously poll the data source to check for
         /// new data and load it into the table.
@@ -2288,10 +2387,24 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="CreateTableExternalRequest.Options.POLL_INTERVAL">POLL_INTERVAL</see>:</term>
-        ///         <description>If <i>true</i>, the number of seconds between
-        /// attempts to load external files into the table. If zero, polling
-        /// will be continuous.</description>
+        /// cref="CreateTableExternalRequest.Options.TABLE_INSERT_MODE">TABLE_INSERT_MODE</see>:</term>
+        ///         <description>Optional: table_insert_mode. When inserting
+        /// records from multiple files: if table_per_file then insert from
+        /// each file into a new table. Currently supported only for
+        /// shapefiles.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableExternalRequest.Options.SINGLE">SINGLE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableExternalRequest.Options.TABLE_PER_FILE">TABLE_PER_FILE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="CreateTableExternalRequest.Options.SINGLE">SINGLE</see>.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -2375,7 +2488,7 @@ namespace kinetica
         /// value in the source data.
         /// <br />
         /// For <i>delimited_text</i> <i>file_type</i> only.  The default value
-        /// is ''.</description>
+        /// is '\\N'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -2396,9 +2509,38 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="CreateTableExternalRequest.Options.NUM_TASKS_PER_RANK">NUM_TASKS_PER_RANK</see>:</term>
-        ///         <description>Optional: number of tasks for reading file per
-        /// rank. Default will be external_file_reader_num_tasks</description>
+        /// cref="CreateTableExternalRequest.Options.TEXT_SEARCH_COLUMNS">TEXT_SEARCH_COLUMNS</see>:</term>
+        ///         <description>Add 'text_search' property to internally
+        /// inferenced string columns. Comma seperated list of column names or
+        /// '*' for all columns. To add text_search property only to string
+        /// columns of minimum size, set also the option
+        /// 'text_search_min_column_length'</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableExternalRequest.Options.TEXT_SEARCH_MIN_COLUMN_LENGTH">TEXT_SEARCH_MIN_COLUMN_LENGTH</see>:</term>
+        ///         <description>Set minimum column size. Used only when
+        /// 'text_search_columns' has a value.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableExternalRequest.Options.TRUNCATE_TABLE">TRUNCATE_TABLE</see>:</term>
+        ///         <description>If set to <i>true</i>, truncates the table
+        /// specified by <paramref cref="CreateTableExternalRequest.table_name"
+        /// /> prior to loading the file(s).
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableExternalRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableExternalRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="CreateTableExternalRequest.Options.FALSE">FALSE</see>.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -2422,49 +2564,6 @@ namespace kinetica
         /// The default value is <see
         /// cref="CreateTableExternalRequest.Options.SPEED">SPEED</see>.</description>
         ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateTableExternalRequest.Options.TABLE_INSERT_MODE">TABLE_INSERT_MODE</see>:</term>
-        ///         <description>Optional: table_insert_mode. When inserting
-        /// records from multiple files: if table_per_file then insert from
-        /// each file into a new table. Currently supported only for
-        /// shapefiles.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateTableExternalRequest.Options.SINGLE">SINGLE</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateTableExternalRequest.Options.TABLE_PER_FILE">TABLE_PER_FILE</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="CreateTableExternalRequest.Options.SINGLE">SINGLE</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateTableExternalRequest.Options.KAFKA_GROUP_ID">KAFKA_GROUP_ID</see>:</term>
-        ///         <description>The group id to be used consuming data from a
-        /// kakfa topic (valid only for kafka datasource
-        /// subscriptions).</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateTableExternalRequest.Options.TEXT_SEARCH_COLUMNS">TEXT_SEARCH_COLUMNS</see>:</term>
-        ///         <description>Add 'text_search' property to internally
-        /// inferenced string columns. Comma seperated list of column names or
-        /// '*' for all columns. To add text_search property only to string
-        /// columns of minimum size, set also the option
-        /// 'text_search_min_column_length'</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateTableExternalRequest.Options.TEXT_SEARCH_MIN_COLUMN_LENGTH">TEXT_SEARCH_MIN_COLUMN_LENGTH</see>:</term>
-        ///         <description>Set minimum column size. Used only when
-        /// 'text_search_columns' has a value.</description>
-        ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.</summary>
         public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
@@ -2484,22 +2583,33 @@ namespace kinetica
         /// <a href="../../../concepts/tables/#table-naming-criteria"
         /// target="_top">table naming criteria</a>.  </param>
         /// <param name="filepaths">A list of file paths from which data will
-        /// be sourced; wildcards (*) can be used
-        /// to specify a group of files.
-        /// For paths in KiFS, use the uri prefix of kifs:// followed by the
-        /// full path to a file or directory.
+        /// be sourced;
+        /// For paths in <a href="../../../tools/kifs/" target="_top">KiFS</a>,
+        /// use the uri prefix of kifs:// followed by the path to
+        /// a file or directory. File matching by prefix is supported, e.g.
+        /// kifs://dir/file would match dir/file_1
+        /// and dir/file_2. When prefix matching is used, the path must start
+        /// with a full, valid KiFS directory name.
         /// If an external data source is specified in <i>datasource_name</i>,
         /// these file
         /// paths must resolve to accessible files at that data source
-        /// location. Also, wildcards will only work
-        /// when used within the file name, not the path.
+        /// location. Prefix matching is supported.
+        /// If the data source is hdfs, prefixes must be aligned with
+        /// directories, i.e. partial file names will not match.
         /// If no data source is specified, the files are assumed to be local
         /// to the database and must all be
         /// accessible to the gpudb user, residing on the path (or relative to
         /// the path) specified by the
         /// external files directory in the Kinetica
         /// <a href="../../../config/#external-files"
-        /// target="_top">configuration file</a>.  </param>
+        /// target="_top">configuration file</a>. Wildcards (*) can be used to
+        /// specify a group of files
+        /// Prefix matching is supported, the prefixes must be aligned with
+        /// directories.
+        /// If the first path ends in .tsv, the text delimiter will be
+        /// defaulted to a tab character.
+        /// If the first path ends in .psv, the text delimiter will be
+        /// defaulted to a pipe character (|).  </param>
         /// <param name="modify_columns">Not implemented yet.  The default
         /// value is an empty {@link Dictionary}.</param>
         /// <param name="create_table_options">Options from /create/table,
@@ -2749,22 +2859,21 @@ namespace kinetica
         ///         <term><see
         /// cref="CreateTableExternalRequest.Options.BATCH_SIZE">BATCH_SIZE</see>:</term>
         ///         <description>Internal tuning parameter--number of records
-        /// per batch when inserting data</description>
+        /// per batch when inserting data.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="CreateTableExternalRequest.Options.COLUMN_FORMATS">COLUMN_FORMATS</see>:</term>
         ///         <description>For each target column specified, applies the
-        /// column-property-bound
-        /// format to the source data loaded into that column.  Each column
-        /// format will contain a mapping of one
-        /// or more of its column properties to an appropriate format for each
-        /// property.  Currently supported
-        /// column properties include date, time, & datetime. The parameter
-        /// value must be formatted as a JSON
-        /// string of maps of column names to maps of column properties to
-        /// their corresponding column formats,
-        /// e.g.,
+        /// column-property-bound format to the source data
+        /// loaded into that column.  Each column format will contain a mapping
+        /// of one or more of its column
+        /// properties to an appropriate format for each property.  Currently
+        /// supported column properties
+        /// include date, time, & datetime. The parameter value must be
+        /// formatted as a JSON string of maps of
+        /// column names to maps of column properties to their corresponding
+        /// column formats, e.g.,
         /// '{ "order_date" : { "date" : "%Y.%m.%d" }, "order_time" : { "time"
         /// : "%H:%M:%S" } }'.
         /// See <i>default_column_formats</i> for valid format
@@ -2863,7 +2972,7 @@ namespace kinetica
         ///         <term><see
         /// cref="CreateTableExternalRequest.Options.PERMISSIVE">PERMISSIVE</see>:</term>
         ///         <description>Records with missing columns are populated
-        /// with nulls if possible; otherwise, malformed records are
+        /// with nulls if possible; otherwise, the malformed records are
         /// skipped.</description>
         ///     </item>
         ///     <item>
@@ -2874,14 +2983,13 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="CreateTableExternalRequest.Options.ABORT">ABORT</see>:</term>
-        ///         <description>Current insertion is stopped and entire
-        /// operation is aborted when an error is encountered.  Primary key
-        /// collisions are considered abortable errors in this
-        /// mode.</description>
+        ///         <description>Stops current insertion and aborts entire
+        /// operation when an error is encountered.  Primary key collisions are
+        /// considered abortable errors in this mode.</description>
         ///     </item>
         /// </list>
         /// The default value is <see
-        /// cref="CreateTableExternalRequest.Options.PERMISSIVE">PERMISSIVE</see>.</description>
+        /// cref="CreateTableExternalRequest.Options.ABORT">ABORT</see>.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -2910,10 +3018,15 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="CreateTableExternalRequest.Options.FILE_TYPE">FILE_TYPE</see>:</term>
-        ///         <description>Specifies the type of the external data
-        /// file(s) used as the source of data for this table.
+        ///         <description>Specifies the type of the file(s) whose
+        /// records will be inserted.
         /// Supported values:
         /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableExternalRequest.Options.AVRO">AVRO</see>:</term>
+        ///         <description>Avro file format</description>
+        ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="CreateTableExternalRequest.Options.DELIMITED_TEXT">DELIMITED_TEXT</see>:</term>
@@ -2922,13 +3035,13 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="CreateTableExternalRequest.Options.PARQUET">PARQUET</see>:</term>
-        ///         <description>Apache Parquet file format</description>
+        /// cref="CreateTableExternalRequest.Options.JSON">JSON</see>:</term>
+        ///         <description>Json file format</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="CreateTableExternalRequest.Options.JSON">JSON</see>:</term>
-        ///         <description>Json file format</description>
+        /// cref="CreateTableExternalRequest.Options.PARQUET">PARQUET</see>:</term>
+        ///         <description>Apache Parquet file format</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -2942,9 +3055,8 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="CreateTableExternalRequest.Options.INGESTION_MODE">INGESTION_MODE</see>:</term>
-        ///         <description>For <i>materialized</i> external tables,
-        /// whether to do a full load, dry run, or perform a type inference on
-        /// the source data.
+        ///         <description>Whether to do a full load, dry run, or perform
+        /// a type inference on the source data.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -2964,8 +3076,8 @@ namespace kinetica
         ///         <term><see
         /// cref="CreateTableExternalRequest.Options.TYPE_INFERENCE_ONLY">TYPE_INFERENCE_ONLY</see>:</term>
         ///         <description>Infer the type of the source data and return,
-        /// without creating the table and ingesting data.  The inferred type
-        /// is returned in the response.</description>
+        /// without ingesting any data.  The inferred type is returned in the
+        /// response.</description>
         ///     </item>
         /// </list>
         /// The default value is <see
@@ -2973,9 +3085,17 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
+        /// cref="CreateTableExternalRequest.Options.KAFKA_GROUP_ID">KAFKA_GROUP_ID</see>:</term>
+        ///         <description>The group id to be used consuming data from a
+        /// kakfa topic (valid only for kafka datasource
+        /// subscriptions).</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="CreateTableExternalRequest.Options.LOADING_MODE">LOADING_MODE</see>:</term>
         ///         <description>Scheme for distributing the extraction and
-        /// loading of data from the source data file(s).
+        /// loading of data from the source data file(s). This option applies
+        /// only when loading files that are local to the database
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -3013,14 +3133,11 @@ namespace kinetica
         /// will allow the worker to
         /// automatically deduplicate data).
         /// NOTE:
-        /// If the table's columns aren't defined, table structure will be
+        /// If the target table doesn't exist, the table structure will be
         /// determined by the head node. If the
         /// head node has no files local to it, it will be unable to determine
         /// the structure and the request
         /// will fail.
-        /// This mode should not be used in conjunction with a data source, as
-        /// data sources are seen by all
-        /// worker processes as shared resources with no 'local' component.
         /// If the head node is configured to have no worker processes, no data
         /// strictly accessible to the head
         /// node will be loaded.</description>
@@ -3031,14 +3148,27 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="CreateTableExternalRequest.Options.PRIMARY_KEYS">PRIMARY_KEYS</see>:</term>
-        ///         <description>Optional: comma separated list of column
-        /// names, to set as primary keys, when not specified in the type.  The
-        /// default value is ''.</description>
+        /// cref="CreateTableExternalRequest.Options.LOCAL_TIME_OFFSET">LOCAL_TIME_OFFSET</see>:</term>
+        ///         <description>For Avro local timestamp columns</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="CreateTableExternalRequest.Options.SHARD_KEYS">SHARD_KEYS</see>:</term>
+        /// cref="CreateTableExternalRequest.Options.NUM_TASKS_PER_RANK">NUM_TASKS_PER_RANK</see>:</term>
+        ///         <description>Optional: number of tasks for reading file per
+        /// rank. Default will be external_file_reader_num_tasks</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableExternalRequest.Options.POLL_INTERVAL">POLL_INTERVAL</see>:</term>
+        ///         <description>If <i>true</i>, the number of seconds between
+        /// attempts to load external files into the table.  If zero, polling
+        /// will be continuous as long as data is found.  If no data is found,
+        /// the interval will steadily increase to a maximum of 60
+        /// seconds.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableExternalRequest.Options.PRIMARY_KEYS">PRIMARY_KEYS</see>:</term>
         ///         <description>Optional: comma separated list of column
         /// names, to set as primary keys, when not specified in the type.  The
         /// default value is ''.</description>
@@ -3070,6 +3200,19 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
+        /// cref="CreateTableExternalRequest.Options.SHARD_KEYS">SHARD_KEYS</see>:</term>
+        ///         <description>Optional: comma separated list of column
+        /// names, to set as primary keys, when not specified in the type.  The
+        /// default value is ''.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableExternalRequest.Options.SKIP_LINES">SKIP_LINES</see>:</term>
+        ///         <description>Skip number of lines from begining of
+        /// file.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="CreateTableExternalRequest.Options.SUBSCRIBE">SUBSCRIBE</see>:</term>
         ///         <description>Continuously poll the data source to check for
         /// new data and load it into the table.
@@ -3089,10 +3232,24 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="CreateTableExternalRequest.Options.POLL_INTERVAL">POLL_INTERVAL</see>:</term>
-        ///         <description>If <i>true</i>, the number of seconds between
-        /// attempts to load external files into the table. If zero, polling
-        /// will be continuous.</description>
+        /// cref="CreateTableExternalRequest.Options.TABLE_INSERT_MODE">TABLE_INSERT_MODE</see>:</term>
+        ///         <description>Optional: table_insert_mode. When inserting
+        /// records from multiple files: if table_per_file then insert from
+        /// each file into a new table. Currently supported only for
+        /// shapefiles.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableExternalRequest.Options.SINGLE">SINGLE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableExternalRequest.Options.TABLE_PER_FILE">TABLE_PER_FILE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="CreateTableExternalRequest.Options.SINGLE">SINGLE</see>.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -3168,7 +3325,7 @@ namespace kinetica
         /// interpreted as a null
         /// value in the source data.
         /// For <i>delimited_text</i> <i>file_type</i> only.  The default value
-        /// is ''.</description>
+        /// is '\\N'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -3188,9 +3345,38 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="CreateTableExternalRequest.Options.NUM_TASKS_PER_RANK">NUM_TASKS_PER_RANK</see>:</term>
-        ///         <description>Optional: number of tasks for reading file per
-        /// rank. Default will be external_file_reader_num_tasks</description>
+        /// cref="CreateTableExternalRequest.Options.TEXT_SEARCH_COLUMNS">TEXT_SEARCH_COLUMNS</see>:</term>
+        ///         <description>Add 'text_search' property to internally
+        /// inferenced string columns. Comma seperated list of column names or
+        /// '*' for all columns. To add text_search property only to string
+        /// columns of minimum size, set also the option
+        /// 'text_search_min_column_length'</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableExternalRequest.Options.TEXT_SEARCH_MIN_COLUMN_LENGTH">TEXT_SEARCH_MIN_COLUMN_LENGTH</see>:</term>
+        ///         <description>Set minimum column size. Used only when
+        /// 'text_search_columns' has a value.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableExternalRequest.Options.TRUNCATE_TABLE">TRUNCATE_TABLE</see>:</term>
+        ///         <description>If set to <i>true</i>, truncates the table
+        /// specified by <paramref cref="CreateTableExternalRequest.table_name"
+        /// /> prior to loading the file(s).
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableExternalRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableExternalRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="CreateTableExternalRequest.Options.FALSE">FALSE</see>.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -3213,49 +3399,6 @@ namespace kinetica
         /// </list>
         /// The default value is <see
         /// cref="CreateTableExternalRequest.Options.SPEED">SPEED</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateTableExternalRequest.Options.TABLE_INSERT_MODE">TABLE_INSERT_MODE</see>:</term>
-        ///         <description>Optional: table_insert_mode. When inserting
-        /// records from multiple files: if table_per_file then insert from
-        /// each file into a new table. Currently supported only for
-        /// shapefiles.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateTableExternalRequest.Options.SINGLE">SINGLE</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateTableExternalRequest.Options.TABLE_PER_FILE">TABLE_PER_FILE</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="CreateTableExternalRequest.Options.SINGLE">SINGLE</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateTableExternalRequest.Options.KAFKA_GROUP_ID">KAFKA_GROUP_ID</see>:</term>
-        ///         <description>The group id to be used consuming data from a
-        /// kakfa topic (valid only for kafka datasource
-        /// subscriptions).</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateTableExternalRequest.Options.TEXT_SEARCH_COLUMNS">TEXT_SEARCH_COLUMNS</see>:</term>
-        ///         <description>Add 'text_search' property to internally
-        /// inferenced string columns. Comma seperated list of column names or
-        /// '*' for all columns. To add text_search property only to string
-        /// columns of minimum size, set also the option
-        /// 'text_search_min_column_length'</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateTableExternalRequest.Options.TEXT_SEARCH_MIN_COLUMN_LENGTH">TEXT_SEARCH_MIN_COLUMN_LENGTH</see>:</term>
-        ///         <description>Set minimum column size. Used only when
-        /// 'text_search_columns' has a value.</description>
         ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.</param>

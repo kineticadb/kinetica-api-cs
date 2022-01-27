@@ -196,6 +196,12 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
+        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.AUDIT_RESPONSE">AUDIT_RESPONSE</see>:</term>
+        ///         <description>Enable or disable auditing of response
+        /// information.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.SHADOW_AGG_SIZE">SHADOW_AGG_SIZE</see>:</term>
         ///         <description>Size of the shadow aggregate chunk cache in
         /// bytes.  The default value is '10000000'.</description>
@@ -203,8 +209,8 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.SHADOW_FILTER_SIZE">SHADOW_FILTER_SIZE</see>:</term>
-        ///         <description>Size of the shdow filter chunk cache in bytes.
-        /// The default value is '10000000'.</description>
+        ///         <description>Size of the shadow filter chunk cache in
+        /// bytes.  The default value is '10000000'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -378,11 +384,15 @@ namespace kinetica
             /// <summary>Enable or disable auditing of request data.</summary>
             public const string AUDIT_DATA = "audit_data";
 
+            /// <summary>Enable or disable auditing of response
+            /// information.</summary>
+            public const string AUDIT_RESPONSE = "audit_response";
+
             /// <summary>Size of the shadow aggregate chunk cache in bytes.
             /// The default value is '10000000'.</summary>
             public const string SHADOW_AGG_SIZE = "shadow_agg_size";
 
-            /// <summary>Size of the shdow filter chunk cache in bytes.  The
+            /// <summary>Size of the shadow filter chunk cache in bytes.  The
             /// default value is '10000000'.</summary>
             public const string SHADOW_FILTER_SIZE = "shadow_filter_size";
 
@@ -581,6 +591,12 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
+        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.AUDIT_RESPONSE">AUDIT_RESPONSE</see>:</term>
+        ///         <description>Enable or disable auditing of response
+        /// information.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.SHADOW_AGG_SIZE">SHADOW_AGG_SIZE</see>:</term>
         ///         <description>Size of the shadow aggregate chunk cache in
         /// bytes.  The default value is '10000000'.</description>
@@ -588,8 +604,8 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.SHADOW_FILTER_SIZE">SHADOW_FILTER_SIZE</see>:</term>
-        ///         <description>Size of the shdow filter chunk cache in bytes.
-        /// The default value is '10000000'.</description>
+        ///         <description>Size of the shadow filter chunk cache in
+        /// bytes.  The default value is '10000000'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -811,6 +827,12 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
+        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.AUDIT_RESPONSE">AUDIT_RESPONSE</see>:</term>
+        ///         <description>Enable or disable auditing of response
+        /// information.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.SHADOW_AGG_SIZE">SHADOW_AGG_SIZE</see>:</term>
         ///         <description>Size of the shadow aggregate chunk cache in
         /// bytes.  The default value is '10000000'.</description>
@@ -818,8 +840,8 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.SHADOW_FILTER_SIZE">SHADOW_FILTER_SIZE</see>:</term>
-        ///         <description>Size of the shdow filter chunk cache in bytes.
-        /// The default value is '10000000'.</description>
+        ///         <description>Size of the shadow filter chunk cache in
+        /// bytes.  The default value is '10000000'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see

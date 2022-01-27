@@ -10,223 +10,141 @@ using System.Collections.Generic;
 
 namespace kinetica
 {
-
+    /// @cond NO_DOCS
     /// <summary>A set of parameters for <see
     /// cref="Kinetica.alterGraph(string,string,string,IDictionary{string, string})"
     /// />.
     /// <br />
-    /// For internal use only: Graph server admin command.
-    /// For internal use only: Graph server admin command.</summary>
+    /// </summary>
     public class AlterGraphRequest : KineticaData
     {
 
-        /// <summary>Operation to be applied
+        /// <summary>
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
-        /// cref="AlterGraphRequest.Action.ADD_TABLE_MONITOR">ADD_TABLE_MONITOR</see>:</term>
-        ///         <description>Add a table monitor to a graph. The table name
-        /// is specified as the action argment.</description>
+        /// cref="AlterGraphRequest.Action.ADD_TABLE_MONITOR">ADD_TABLE_MONITOR</see></term>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AlterGraphRequest.Action.RESET_CLIENT">RESET_CLIENT</see>:</term>
-        ///         <description>Reset all current operations on the client
-        /// side. Used when the graph server is restarted to recover from a
-        /// failure.</description>
+        /// cref="AlterGraphRequest.Action.RESET_CLIENT">RESET_CLIENT</see></term>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AlterGraphRequest.Action.RESET_SERVER">RESET_SERVER</see>:</term>
-        ///         <description>Reset all current operations on the server
-        /// side. This is also sent on (re)start.</description>
+        /// cref="AlterGraphRequest.Action.RESET_SERVER">RESET_SERVER</see></term>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AlterGraphRequest.Action.CANCEL_TASK">CANCEL_TASK</see>:</term>
-        ///         <description>Cancel a specific task on the graph
-        /// server.</description>
+        /// cref="AlterGraphRequest.Action.CANCEL_TASK">CANCEL_TASK</see></term>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AlterGraphRequest.Action.ALTER_LOGGER">ALTER_LOGGER</see>:</term>
-        ///         <description>Change the server side log level; e.g.,
-        /// 'GraphServer.GraphSolver=DEBUG'</description>
+        /// cref="AlterGraphRequest.Action.ALTER_LOGGER">ALTER_LOGGER</see></term>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AlterGraphRequest.Action.DELETE_ALL">DELETE_ALL</see>:</term>
-        ///         <description>Delete all graphs, and remove any persistence
-        /// info.</description>
+        /// cref="AlterGraphRequest.Action.DELETE_ALL">DELETE_ALL</see></term>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AlterGraphRequest.Action.STATUS">STATUS</see>:</term>
-        ///         <description>Current status of the graph client (db
-        /// side).</description>
+        /// cref="AlterGraphRequest.Action.STATUS">STATUS</see></term>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AlterGraphRequest.Action.COLLECT_GRAPHS">COLLECT_GRAPHS</see>:</term>
-        ///         <description>Get the create command for all persisted
-        /// graphs.</description>
+        /// cref="AlterGraphRequest.Action.COLLECT_GRAPHS">COLLECT_GRAPHS</see></term>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AlterGraphRequest.Action.RESTORE_GRAPHS">RESTORE_GRAPHS</see>:</term>
-        ///         <description>Re-creates all graphs from persist info on
-        /// rank0.</description>
+        /// cref="AlterGraphRequest.Action.RESTORE_GRAPHS">RESTORE_GRAPHS</see></term>
         ///     </item>
         /// </list>
         /// A set of string constants for the parameter <see cref="action"
         /// />.</summary>
         public struct Action
         {
-
-            /// <summary>Add a table monitor to a graph. The table name is
-            /// specified as the action argment.</summary>
             public const string ADD_TABLE_MONITOR = "add_table_monitor";
-
-            /// <summary>Reset all current operations on the client side. Used
-            /// when the graph server is restarted to recover from a
-            /// failure.</summary>
             public const string RESET_CLIENT = "reset_client";
-
-            /// <summary>Reset all current operations on the server side. This
-            /// is also sent on (re)start.</summary>
             public const string RESET_SERVER = "reset_server";
-
-            /// <summary>Cancel a specific task on the graph server.</summary>
             public const string CANCEL_TASK = "cancel_task";
-
-            /// <summary>Change the server side log level; e.g.,
-            /// 'GraphServer.GraphSolver=DEBUG'</summary>
             public const string ALTER_LOGGER = "alter_logger";
-
-            /// <summary>Delete all graphs, and remove any persistence
-            /// info.</summary>
             public const string DELETE_ALL = "delete_all";
-
-            /// <summary>Current status of the graph client (db
-            /// side).</summary>
             public const string STATUS = "status";
-
-            /// <summary>Get the create command for all persisted
-            /// graphs.</summary>
             public const string COLLECT_GRAPHS = "collect_graphs";
-
-            /// <summary>Re-creates all graphs from persist info on
-            /// rank0.</summary>
             public const string RESTORE_GRAPHS = "restore_graphs";
         } // end struct Action
 
 
-        /// <summary>Optional parameters.
+        /// <summary>
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
         /// cref="AlterGraphRequest.Options.SERVER_ID">SERVER_ID</see>:</term>
-        ///         <description>Indicates which graph server(s) to send the
-        /// request to. Default is to send to get information about all the
-        /// servers.</description>
+        ///         <description></description>
         ///     </item>
         /// </list>
-        /// The default value is an empty {@link Dictionary}.
+        /// <br />
         /// A set of string constants for the parameter <see cref="options"
         /// />.</summary>
         public struct Options
         {
-
-            /// <summary>Indicates which graph server(s) to send the request
-            /// to. Default is to send to get information about all the
-            /// servers.</summary>
             public const string SERVER_ID = "server_id";
         } // end struct Options
 
-
-        /// <summary>Graph on which the operation should be applied.
-        /// If empty then it will apply to all graphs.
-        /// This request can be sent from the graph server to the graph client,
-        /// or from the client to the server depending on the type of
-        /// operation.  </summary>
         public string graph_name { get; set; }
 
-        /// <summary>Operation to be applied
+        /// <summary>
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
-        /// cref="AlterGraphRequest.Action.ADD_TABLE_MONITOR">ADD_TABLE_MONITOR</see>:</term>
-        ///         <description>Add a table monitor to a graph. The table name
-        /// is specified as the action argment.</description>
+        /// cref="AlterGraphRequest.Action.ADD_TABLE_MONITOR">ADD_TABLE_MONITOR</see></term>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AlterGraphRequest.Action.RESET_CLIENT">RESET_CLIENT</see>:</term>
-        ///         <description>Reset all current operations on the client
-        /// side. Used when the graph server is restarted to recover from a
-        /// failure.</description>
+        /// cref="AlterGraphRequest.Action.RESET_CLIENT">RESET_CLIENT</see></term>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AlterGraphRequest.Action.RESET_SERVER">RESET_SERVER</see>:</term>
-        ///         <description>Reset all current operations on the server
-        /// side. This is also sent on (re)start.</description>
+        /// cref="AlterGraphRequest.Action.RESET_SERVER">RESET_SERVER</see></term>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AlterGraphRequest.Action.CANCEL_TASK">CANCEL_TASK</see>:</term>
-        ///         <description>Cancel a specific task on the graph
-        /// server.</description>
+        /// cref="AlterGraphRequest.Action.CANCEL_TASK">CANCEL_TASK</see></term>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AlterGraphRequest.Action.ALTER_LOGGER">ALTER_LOGGER</see>:</term>
-        ///         <description>Change the server side log level; e.g.,
-        /// 'GraphServer.GraphSolver=DEBUG'</description>
+        /// cref="AlterGraphRequest.Action.ALTER_LOGGER">ALTER_LOGGER</see></term>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AlterGraphRequest.Action.DELETE_ALL">DELETE_ALL</see>:</term>
-        ///         <description>Delete all graphs, and remove any persistence
-        /// info.</description>
+        /// cref="AlterGraphRequest.Action.DELETE_ALL">DELETE_ALL</see></term>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AlterGraphRequest.Action.STATUS">STATUS</see>:</term>
-        ///         <description>Current status of the graph client (db
-        /// side).</description>
+        /// cref="AlterGraphRequest.Action.STATUS">STATUS</see></term>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AlterGraphRequest.Action.COLLECT_GRAPHS">COLLECT_GRAPHS</see>:</term>
-        ///         <description>Get the create command for all persisted
-        /// graphs.</description>
+        /// cref="AlterGraphRequest.Action.COLLECT_GRAPHS">COLLECT_GRAPHS</see></term>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AlterGraphRequest.Action.RESTORE_GRAPHS">RESTORE_GRAPHS</see>:</term>
-        ///         <description>Re-creates all graphs from persist info on
-        /// rank0.</description>
+        /// cref="AlterGraphRequest.Action.RESTORE_GRAPHS">RESTORE_GRAPHS</see></term>
         ///     </item>
-        /// </list>  </summary>
+        /// </list></summary>
         public string action { get; set; }
-
-        /// <summary>Action specific argument.  </summary>
         public string action_arg { get; set; }
 
-        /// <summary>Optional parameters.
+        /// <summary>
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
         /// cref="AlterGraphRequest.Options.SERVER_ID">SERVER_ID</see>:</term>
-        ///         <description>Indicates which graph server(s) to send the
-        /// request to. Default is to send to get information about all the
-        /// servers.</description>
+        ///         <description></description>
         ///     </item>
         /// </list>
-        /// The default value is an empty {@link Dictionary}.</summary>
+        /// </summary>
         public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
 
 
@@ -237,83 +155,57 @@ namespace kinetica
         /// <summary>Constructs an AlterGraphRequest object with the specified
         /// parameters.</summary>
         /// 
-        /// <param name="graph_name">Graph on which the operation should be
-        /// applied.
-        /// If empty then it will apply to all graphs.
-        /// This request can be sent from the graph server to the graph client,
-        /// or from the client to the server depending on the type of
-        /// operation.  </param>
-        /// <param name="action">Operation to be applied
+        /// <param name="graph_name"></param>
+        /// <param name="action">
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
-        /// cref="AlterGraphRequest.Action.ADD_TABLE_MONITOR">ADD_TABLE_MONITOR</see>:</term>
-        ///         <description>Add a table monitor to a graph. The table name
-        /// is specified as the action argment.</description>
+        /// cref="AlterGraphRequest.Action.ADD_TABLE_MONITOR">ADD_TABLE_MONITOR</see></term>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AlterGraphRequest.Action.RESET_CLIENT">RESET_CLIENT</see>:</term>
-        ///         <description>Reset all current operations on the client
-        /// side. Used when the graph server is restarted to recover from a
-        /// failure.</description>
+        /// cref="AlterGraphRequest.Action.RESET_CLIENT">RESET_CLIENT</see></term>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AlterGraphRequest.Action.RESET_SERVER">RESET_SERVER</see>:</term>
-        ///         <description>Reset all current operations on the server
-        /// side. This is also sent on (re)start.</description>
+        /// cref="AlterGraphRequest.Action.RESET_SERVER">RESET_SERVER</see></term>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AlterGraphRequest.Action.CANCEL_TASK">CANCEL_TASK</see>:</term>
-        ///         <description>Cancel a specific task on the graph
-        /// server.</description>
+        /// cref="AlterGraphRequest.Action.CANCEL_TASK">CANCEL_TASK</see></term>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AlterGraphRequest.Action.ALTER_LOGGER">ALTER_LOGGER</see>:</term>
-        ///         <description>Change the server side log level; e.g.,
-        /// 'GraphServer.GraphSolver=DEBUG'</description>
+        /// cref="AlterGraphRequest.Action.ALTER_LOGGER">ALTER_LOGGER</see></term>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AlterGraphRequest.Action.DELETE_ALL">DELETE_ALL</see>:</term>
-        ///         <description>Delete all graphs, and remove any persistence
-        /// info.</description>
+        /// cref="AlterGraphRequest.Action.DELETE_ALL">DELETE_ALL</see></term>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AlterGraphRequest.Action.STATUS">STATUS</see>:</term>
-        ///         <description>Current status of the graph client (db
-        /// side).</description>
+        /// cref="AlterGraphRequest.Action.STATUS">STATUS</see></term>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AlterGraphRequest.Action.COLLECT_GRAPHS">COLLECT_GRAPHS</see>:</term>
-        ///         <description>Get the create command for all persisted
-        /// graphs.</description>
+        /// cref="AlterGraphRequest.Action.COLLECT_GRAPHS">COLLECT_GRAPHS</see></term>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AlterGraphRequest.Action.RESTORE_GRAPHS">RESTORE_GRAPHS</see>:</term>
-        ///         <description>Re-creates all graphs from persist info on
-        /// rank0.</description>
+        /// cref="AlterGraphRequest.Action.RESTORE_GRAPHS">RESTORE_GRAPHS</see></term>
         ///     </item>
-        /// </list>  </param>
-        /// <param name="action_arg">Action specific argument.  </param>
-        /// <param name="options">Optional parameters.
+        /// </list></param>
+        /// <param name="action_arg"></param>
+        /// <param name="options">
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
         /// cref="AlterGraphRequest.Options.SERVER_ID">SERVER_ID</see>:</term>
-        ///         <description>Indicates which graph server(s) to send the
-        /// request to. Default is to send to get information about all the
-        /// servers.</description>
+        ///         <description></description>
         ///     </item>
         /// </list>
-        /// The default value is an empty {@link Dictionary}.</param>
+        /// </param>
         /// 
         public AlterGraphRequest( string graph_name,
                                   string action,
@@ -327,26 +219,23 @@ namespace kinetica
         } // end constructor
 
     } // end class AlterGraphRequest
+    /// @endcond
 
 
 
+    /// @cond NO_DOCS
     /// <summary>A set of results returned by <see
     /// cref="Kinetica.alterGraph(string,string,string,IDictionary{string, string})"
     /// />.</summary>
     public class AlterGraphResponse : KineticaData
     {
-
-        /// <summary>Context specific feedback or action to be taken by the
-        /// client  </summary>
         public string action { get; set; }
-
-        /// <summary>Action specific argument.  </summary>
         public string action_arg { get; set; }
-
-        /// <summary>Additional information.  </summary>
         public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
 
     } // end class AlterGraphResponse
+    /// @endcond
+
 
 
 

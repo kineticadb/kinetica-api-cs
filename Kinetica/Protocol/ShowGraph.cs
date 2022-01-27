@@ -193,6 +193,13 @@ namespace kinetica
         /// <summary>Id(s) of the graph(s).  </summary>
         public IList<int> graph_server_ids { get; set; } = new List<int>();
 
+        /// <summary>Owner the graph(s) and associated solution table(s).
+        /// </summary>
+        public IList<string> graph_owner_user_names { get; set; } = new List<string>();
+
+        /// <summary>Owner resource groups(s) of the graph(s).  </summary>
+        public IList<string> graph_owner_resource_groups { get; set; } = new List<string>();
+
         /// <summary>Whether or not the edges of the graph have directions
         /// (bi-directional edges can still exist in directed graphs). Consult
         /// <a
@@ -208,6 +215,9 @@ namespace kinetica
 
         /// <summary>Memory this graph uses in bytes.  </summary>
         public IList<long> num_bytes { get; set; } = new List<long>();
+
+        /// <summary>Memory this graph uses in bytes.  </summary>
+        public IList<long> resource_capacity { get; set; } = new List<long>();
 
         /// <summary>Shows whether or not the graph is persisted (saved and
         /// loaded on launch).  </summary>

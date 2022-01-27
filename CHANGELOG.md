@@ -1,6 +1,13 @@
 # GPUdb C# API Changelog
 
+
 ## Version 7.1
+
+### Version 7.1.6.0 - 2022-01-27
+
+#### Notes
+-   Check CHANGELOG-FUNCTIONS.md for endpoint related changes.
+
 
 ### Version 7.1.5.0 - 2021-10-13
 

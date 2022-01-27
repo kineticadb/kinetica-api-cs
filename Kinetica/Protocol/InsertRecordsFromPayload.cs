@@ -596,7 +596,7 @@ namespace kinetica
         ///         <term><see
         /// cref="InsertRecordsFromPayloadRequest.Options.PERMISSIVE">PERMISSIVE</see>:</term>
         ///         <description>Records with missing columns are populated
-        /// with nulls if possible; otherwise, malformed records are
+        /// with nulls if possible; otherwise, the malformed records are
         /// skipped.</description>
         ///     </item>
         ///     <item>
@@ -613,7 +613,7 @@ namespace kinetica
         ///     </item>
         /// </list>
         /// The default value is <see
-        /// cref="InsertRecordsFromPayloadRequest.Options.PERMISSIVE">PERMISSIVE</see>.</description>
+        /// cref="InsertRecordsFromPayloadRequest.Options.ABORT">ABORT</see>.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -624,19 +624,24 @@ namespace kinetica
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
+        /// cref="InsertRecordsFromPayloadRequest.Options.AVRO">AVRO</see>:</term>
+        ///         <description>Avro file format</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="InsertRecordsFromPayloadRequest.Options.DELIMITED_TEXT">DELIMITED_TEXT</see>:</term>
         ///         <description>Delimited text file format; e.g., CSV, TSV,
         /// PSV, etc.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="InsertRecordsFromPayloadRequest.Options.PARQUET">PARQUET</see>:</term>
-        ///         <description>Apache Parquet file format</description>
+        /// cref="InsertRecordsFromPayloadRequest.Options.JSON">JSON</see>:</term>
+        ///         <description>Json file format</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="InsertRecordsFromPayloadRequest.Options.JSON">JSON</see>:</term>
-        ///         <description>Json file format</description>
+        /// cref="InsertRecordsFromPayloadRequest.Options.PARQUET">PARQUET</see>:</term>
+        ///         <description>Apache Parquet file format</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -680,6 +685,87 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
+        /// cref="InsertRecordsFromPayloadRequest.Options.LOADING_MODE">LOADING_MODE</see>:</term>
+        ///         <description>Scheme for distributing the extraction and
+        /// loading of data from the source data file(s). This option applies
+        /// only when loading files that are local to the database
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromPayloadRequest.Options.HEAD">HEAD</see>:</term>
+        ///         <description>The head node loads all data. All files must
+        /// be available to the head node.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromPayloadRequest.Options.DISTRIBUTED_SHARED">DISTRIBUTED_SHARED</see>:</term>
+        ///         <description>The head node coordinates loading data by
+        /// worker
+        /// processes across all nodes from shared files available to all
+        /// workers.
+        /// <br />
+        /// NOTE:
+        /// <br />
+        /// Instead of existing on a shared source, the files can be duplicated
+        /// on a source local to each host
+        /// to improve performance, though the files must appear as the same
+        /// data set from the perspective of
+        /// all hosts performing the load.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromPayloadRequest.Options.DISTRIBUTED_LOCAL">DISTRIBUTED_LOCAL</see>:</term>
+        ///         <description>A single worker process on each node loads all
+        /// files
+        /// that are available to it. This option works best when each worker
+        /// loads files from its own file
+        /// system, to maximize performance. In order to avoid data
+        /// duplication, either each worker performing
+        /// the load needs to have visibility to a set of files unique to it
+        /// (no file is visible to more than
+        /// one node) or the target table needs to have a primary key (which
+        /// will allow the worker to
+        /// automatically deduplicate data).
+        /// <br />
+        /// NOTE:
+        /// <br />
+        /// If the target table doesn't exist, the table structure will be
+        /// determined by the head node. If the
+        /// head node has no files local to it, it will be unable to determine
+        /// the structure and the request
+        /// will fail.
+        /// <br />
+        /// If the head node is configured to have no worker processes, no data
+        /// strictly accessible to the head
+        /// node will be loaded.</description>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="InsertRecordsFromPayloadRequest.Options.HEAD">HEAD</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromPayloadRequest.Options.LOCAL_TIME_OFFSET">LOCAL_TIME_OFFSET</see>:</term>
+        ///         <description>For Avro local timestamp columns</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromPayloadRequest.Options.NUM_TASKS_PER_RANK">NUM_TASKS_PER_RANK</see>:</term>
+        ///         <description>Optional: number of tasks for reading file per
+        /// rank. Default will be external_file_reader_num_tasks</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromPayloadRequest.Options.POLL_INTERVAL">POLL_INTERVAL</see>:</term>
+        ///         <description>If <i>true</i>, the number of seconds between
+        /// attempts to load external files into the table.  If zero, polling
+        /// will be continuous as long as data is found.  If no data is found,
+        /// the interval will steadily increase to a maximum of 60
+        /// seconds.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="InsertRecordsFromPayloadRequest.Options.PRIMARY_KEYS">PRIMARY_KEYS</see>:</term>
         ///         <description>Optional: comma separated list of column
         /// names, to set as primary keys, when not specified in the type.  The
@@ -691,6 +777,52 @@ namespace kinetica
         ///         <description>Optional: comma separated list of column
         /// names, to set as primary keys, when not specified in the type.  The
         /// default value is ''.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromPayloadRequest.Options.SKIP_LINES">SKIP_LINES</see>:</term>
+        ///         <description>Skip number of lines from begining of
+        /// file.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromPayloadRequest.Options.SUBSCRIBE">SUBSCRIBE</see>:</term>
+        ///         <description>Continuously poll the data source to check for
+        /// new data and load it into the table.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromPayloadRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromPayloadRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="InsertRecordsFromPayloadRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromPayloadRequest.Options.TABLE_INSERT_MODE">TABLE_INSERT_MODE</see>:</term>
+        ///         <description>Optional: table_insert_mode. When inserting
+        /// records from multiple files: if table_per_file then insert from
+        /// each file into a new table. Currently supported only for
+        /// shapefiles.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromPayloadRequest.Options.SINGLE">SINGLE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromPayloadRequest.Options.TABLE_PER_FILE">TABLE_PER_FILE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="InsertRecordsFromPayloadRequest.Options.SINGLE">SINGLE</see>.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -774,7 +906,7 @@ namespace kinetica
         /// value in the source data.
         /// <br />
         /// For <i>delimited_text</i> <i>file_type</i> only.  The default value
-        /// is ''.</description>
+        /// is '\\N'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -795,9 +927,39 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="InsertRecordsFromPayloadRequest.Options.NUM_TASKS_PER_RANK">NUM_TASKS_PER_RANK</see>:</term>
-        ///         <description>Optional: number of tasks for reading file per
-        /// rank. Default will be external_file_reader_num_tasks</description>
+        /// cref="InsertRecordsFromPayloadRequest.Options.TEXT_SEARCH_COLUMNS">TEXT_SEARCH_COLUMNS</see>:</term>
+        ///         <description>Add 'text_search' property to internally
+        /// inferenced string columns. Comma seperated list of column names or
+        /// '*' for all columns. To add text_search property only to string
+        /// columns of minimum size, set also the option
+        /// 'text_search_min_column_length'</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromPayloadRequest.Options.TEXT_SEARCH_MIN_COLUMN_LENGTH">TEXT_SEARCH_MIN_COLUMN_LENGTH</see>:</term>
+        ///         <description>Set minimum column size. Used only when
+        /// 'text_search_columns' has a value.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromPayloadRequest.Options.TRUNCATE_TABLE">TRUNCATE_TABLE</see>:</term>
+        ///         <description>If set to <i>true</i>, truncates the table
+        /// specified by <paramref
+        /// cref="InsertRecordsFromPayloadRequest.table_name" /> prior to
+        /// loading the file(s).
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromPayloadRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromPayloadRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="InsertRecordsFromPayloadRequest.Options.FALSE">FALSE</see>.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -820,21 +982,6 @@ namespace kinetica
         /// </list>
         /// The default value is <see
         /// cref="InsertRecordsFromPayloadRequest.Options.SPEED">SPEED</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="InsertRecordsFromPayloadRequest.Options.TEXT_SEARCH_COLUMNS">TEXT_SEARCH_COLUMNS</see>:</term>
-        ///         <description>Add 'text_search' property to internally
-        /// inferenced string columns. Comma seperated list of column names or
-        /// '*' for all columns. To add text_search property only to string
-        /// columns of minimum size, set also the option
-        /// 'text_search_min_column_length'</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="InsertRecordsFromPayloadRequest.Options.TEXT_SEARCH_MIN_COLUMN_LENGTH">TEXT_SEARCH_MIN_COLUMN_LENGTH</see>:</term>
-        ///         <description>Set minimum column size. Used only when
-        /// 'text_search_columns' has a value.</description>
         ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.
@@ -954,7 +1101,7 @@ namespace kinetica
             ///         <term><see
             /// cref="InsertRecordsFromPayloadRequest.Options.PERMISSIVE">PERMISSIVE</see>:</term>
             ///         <description>Records with missing columns are populated
-            /// with nulls if possible; otherwise, malformed records are
+            /// with nulls if possible; otherwise, the malformed records are
             /// skipped.</description>
             ///     </item>
             ///     <item>
@@ -972,11 +1119,11 @@ namespace kinetica
             ///     </item>
             /// </list>
             /// The default value is <see
-            /// cref="InsertRecordsFromPayloadRequest.Options.PERMISSIVE">PERMISSIVE</see>.</summary>
+            /// cref="InsertRecordsFromPayloadRequest.Options.ABORT">ABORT</see>.</summary>
             public const string ERROR_HANDLING = "error_handling";
 
             /// <summary>Records with missing columns are populated with nulls
-            /// if possible; otherwise, malformed records are
+            /// if possible; otherwise, the malformed records are
             /// skipped.</summary>
             public const string PERMISSIVE = "permissive";
 
@@ -994,19 +1141,24 @@ namespace kinetica
             /// <list type="bullet">
             ///     <item>
             ///         <term><see
+            /// cref="InsertRecordsFromPayloadRequest.Options.AVRO">AVRO</see>:</term>
+            ///         <description>Avro file format</description>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
             /// cref="InsertRecordsFromPayloadRequest.Options.DELIMITED_TEXT">DELIMITED_TEXT</see>:</term>
             ///         <description>Delimited text file format; e.g., CSV,
             /// TSV, PSV, etc.</description>
             ///     </item>
             ///     <item>
             ///         <term><see
-            /// cref="InsertRecordsFromPayloadRequest.Options.PARQUET">PARQUET</see>:</term>
-            ///         <description>Apache Parquet file format</description>
+            /// cref="InsertRecordsFromPayloadRequest.Options.JSON">JSON</see>:</term>
+            ///         <description>Json file format</description>
             ///     </item>
             ///     <item>
             ///         <term><see
-            /// cref="InsertRecordsFromPayloadRequest.Options.JSON">JSON</see>:</term>
-            ///         <description>Json file format</description>
+            /// cref="InsertRecordsFromPayloadRequest.Options.PARQUET">PARQUET</see>:</term>
+            ///         <description>Apache Parquet file format</description>
             ///     </item>
             ///     <item>
             ///         <term><see
@@ -1018,15 +1170,18 @@ namespace kinetica
             /// cref="InsertRecordsFromPayloadRequest.Options.DELIMITED_TEXT">DELIMITED_TEXT</see>.</summary>
             public const string FILE_TYPE = "file_type";
 
+            /// <summary>Avro file format</summary>
+            public const string AVRO = "avro";
+
             /// <summary>Delimited text file format; e.g., CSV, TSV, PSV,
             /// etc.</summary>
             public const string DELIMITED_TEXT = "delimited_text";
 
-            /// <summary>Apache Parquet file format</summary>
-            public const string PARQUET = "parquet";
-
             /// <summary>Json file format</summary>
             public const string JSON = "json";
+
+            /// <summary>Apache Parquet file format</summary>
+            public const string PARQUET = "parquet";
 
             /// <summary>ShapeFile file format</summary>
             public const string SHAPEFILE = "shapefile";
@@ -1075,6 +1230,120 @@ namespace kinetica
             /// response.</summary>
             public const string TYPE_INFERENCE_ONLY = "type_inference_only";
 
+            /// <summary>Scheme for distributing the extraction and loading of
+            /// data from the source data file(s). This option applies only
+            /// when loading files that are local to the database
+            /// Supported values:
+            /// <list type="bullet">
+            ///     <item>
+            ///         <term><see
+            /// cref="InsertRecordsFromPayloadRequest.Options.HEAD">HEAD</see>:</term>
+            ///         <description>The head node loads all data. All files
+            /// must be available to the head node.</description>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="InsertRecordsFromPayloadRequest.Options.DISTRIBUTED_SHARED">DISTRIBUTED_SHARED</see>:</term>
+            ///         <description>The head node coordinates loading data by
+            /// worker
+            /// processes across all nodes from shared files available to all
+            /// workers.
+            /// <br />
+            /// NOTE:
+            /// <br />
+            /// Instead of existing on a shared source, the files can be
+            /// duplicated on a source local to each host
+            /// to improve performance, though the files must appear as the
+            /// same data set from the perspective of
+            /// all hosts performing the load.</description>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="InsertRecordsFromPayloadRequest.Options.DISTRIBUTED_LOCAL">DISTRIBUTED_LOCAL</see>:</term>
+            ///         <description>A single worker process on each node loads
+            /// all files
+            /// that are available to it. This option works best when each
+            /// worker loads files from its own file
+            /// system, to maximize performance. In order to avoid data
+            /// duplication, either each worker performing
+            /// the load needs to have visibility to a set of files unique to
+            /// it (no file is visible to more than
+            /// one node) or the target table needs to have a primary key
+            /// (which will allow the worker to
+            /// automatically deduplicate data).
+            /// <br />
+            /// NOTE:
+            /// <br />
+            /// If the target table doesn't exist, the table structure will be
+            /// determined by the head node. If the
+            /// head node has no files local to it, it will be unable to
+            /// determine the structure and the request
+            /// will fail.
+            /// <br />
+            /// If the head node is configured to have no worker processes, no
+            /// data strictly accessible to the head
+            /// node will be loaded.</description>
+            ///     </item>
+            /// </list>
+            /// The default value is <see
+            /// cref="InsertRecordsFromPayloadRequest.Options.HEAD">HEAD</see>.</summary>
+            public const string LOADING_MODE = "loading_mode";
+
+            /// <summary>The head node loads all data. All files must be
+            /// available to the head node.</summary>
+            public const string HEAD = "head";
+
+            /// <summary>The head node coordinates loading data by worker
+            /// processes across all nodes from shared files available to all
+            /// workers.
+            /// <br />
+            /// NOTE:
+            /// <br />
+            /// Instead of existing on a shared source, the files can be
+            /// duplicated on a source local to each host
+            /// to improve performance, though the files must appear as the
+            /// same data set from the perspective of
+            /// all hosts performing the load.</summary>
+            public const string DISTRIBUTED_SHARED = "distributed_shared";
+
+            /// <summary>A single worker process on each node loads all files
+            /// that are available to it. This option works best when each
+            /// worker loads files from its own file
+            /// system, to maximize performance. In order to avoid data
+            /// duplication, either each worker performing
+            /// the load needs to have visibility to a set of files unique to
+            /// it (no file is visible to more than
+            /// one node) or the target table needs to have a primary key
+            /// (which will allow the worker to
+            /// automatically deduplicate data).
+            /// <br />
+            /// NOTE:
+            /// <br />
+            /// If the target table doesn't exist, the table structure will be
+            /// determined by the head node. If the
+            /// head node has no files local to it, it will be unable to
+            /// determine the structure and the request
+            /// will fail.
+            /// <br />
+            /// If the head node is configured to have no worker processes, no
+            /// data strictly accessible to the head
+            /// node will be loaded.</summary>
+            public const string DISTRIBUTED_LOCAL = "distributed_local";
+
+            /// <summary>For Avro local timestamp columns</summary>
+            public const string LOCAL_TIME_OFFSET = "local_time_offset";
+
+            /// <summary>Optional: number of tasks for reading file per rank.
+            /// Default will be external_file_reader_num_tasks</summary>
+            public const string NUM_TASKS_PER_RANK = "num_tasks_per_rank";
+
+            /// <summary>If <i>true</i>, the number of seconds between attempts
+            /// to load external files into the table.  If zero, polling will
+            /// be continuous as long as data is found.  If no data is found,
+            /// the interval will steadily increase to a maximum of 60
+            /// seconds.</summary>
+            public const string POLL_INTERVAL = "poll_interval";
+
             /// <summary>Optional: comma separated list of column names, to set
             /// as primary keys, when not specified in the type.  The default
             /// value is ''.</summary>
@@ -1084,6 +1353,48 @@ namespace kinetica
             /// as primary keys, when not specified in the type.  The default
             /// value is ''.</summary>
             public const string SHARD_KEYS = "shard_keys";
+
+            /// <summary>Skip number of lines from begining of file.</summary>
+            public const string SKIP_LINES = "skip_lines";
+
+            /// <summary>Continuously poll the data source to check for new
+            /// data and load it into the table.
+            /// Supported values:
+            /// <list type="bullet">
+            ///     <item>
+            ///         <term><see
+            /// cref="InsertRecordsFromPayloadRequest.Options.TRUE">TRUE</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="InsertRecordsFromPayloadRequest.Options.FALSE">FALSE</see></term>
+            ///     </item>
+            /// </list>
+            /// The default value is <see
+            /// cref="InsertRecordsFromPayloadRequest.Options.FALSE">FALSE</see>.</summary>
+            public const string SUBSCRIBE = "subscribe";
+            public const string TRUE = "true";
+            public const string FALSE = "false";
+
+            /// <summary>Optional: table_insert_mode. When inserting records
+            /// from multiple files: if table_per_file then insert from each
+            /// file into a new table. Currently supported only for shapefiles.
+            /// Supported values:
+            /// <list type="bullet">
+            ///     <item>
+            ///         <term><see
+            /// cref="InsertRecordsFromPayloadRequest.Options.SINGLE">SINGLE</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="InsertRecordsFromPayloadRequest.Options.TABLE_PER_FILE">TABLE_PER_FILE</see></term>
+            ///     </item>
+            /// </list>
+            /// The default value is <see
+            /// cref="InsertRecordsFromPayloadRequest.Options.SINGLE">SINGLE</see>.</summary>
+            public const string TABLE_INSERT_MODE = "table_insert_mode";
+            public const string SINGLE = "single";
+            public const string TABLE_PER_FILE = "table_per_file";
 
             /// <summary>Specifies the character string that should be
             /// interpreted as a comment line
@@ -1140,8 +1451,6 @@ namespace kinetica
             /// The default value is <see
             /// cref="InsertRecordsFromPayloadRequest.Options.TRUE">TRUE</see>.</summary>
             public const string TEXT_HAS_HEADER = "text_has_header";
-            public const string TRUE = "true";
-            public const string FALSE = "false";
 
             /// <summary>Specifies the delimiter for
             /// <a href="../../../concepts/types/#column-properties"
@@ -1158,7 +1467,7 @@ namespace kinetica
             /// value in the source data.
             /// <br />
             /// For <i>delimited_text</i> <i>file_type</i> only.  The default
-            /// value is ''.</summary>
+            /// value is '\\N'.</summary>
             public const string TEXT_NULL_STRING = "text_null_string";
 
             /// <summary>Specifies the character that should be interpreted as
@@ -1176,9 +1485,33 @@ namespace kinetica
             /// value is '"'.</summary>
             public const string TEXT_QUOTE_CHARACTER = "text_quote_character";
 
-            /// <summary>Optional: number of tasks for reading file per rank.
-            /// Default will be external_file_reader_num_tasks</summary>
-            public const string NUM_TASKS_PER_RANK = "num_tasks_per_rank";
+            /// <summary>Add 'text_search' property to internally inferenced
+            /// string columns. Comma seperated list of column names or '*' for
+            /// all columns. To add text_search property only to string columns
+            /// of minimum size, set also the option
+            /// 'text_search_min_column_length'</summary>
+            public const string TEXT_SEARCH_COLUMNS = "text_search_columns";
+
+            /// <summary>Set minimum column size. Used only when
+            /// 'text_search_columns' has a value.</summary>
+            public const string TEXT_SEARCH_MIN_COLUMN_LENGTH = "text_search_min_column_length";
+
+            /// <summary>If set to <i>true</i>, truncates the table specified
+            /// by <see cref="table_name" /> prior to loading the file(s).
+            /// Supported values:
+            /// <list type="bullet">
+            ///     <item>
+            ///         <term><see
+            /// cref="InsertRecordsFromPayloadRequest.Options.TRUE">TRUE</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="InsertRecordsFromPayloadRequest.Options.FALSE">FALSE</see></term>
+            ///     </item>
+            /// </list>
+            /// The default value is <see
+            /// cref="InsertRecordsFromPayloadRequest.Options.FALSE">FALSE</see>.</summary>
+            public const string TRUNCATE_TABLE = "truncate_table";
 
             /// <summary>optimize type inference for:
             /// Supported values:
@@ -1208,17 +1541,6 @@ namespace kinetica
             /// <summary>picks the widest possible column types so that 'all'
             /// values will fit with minimum data scanned</summary>
             public const string SPEED = "speed";
-
-            /// <summary>Add 'text_search' property to internally inferenced
-            /// string columns. Comma seperated list of column names or '*' for
-            /// all columns. To add text_search property only to string columns
-            /// of minimum size, set also the option
-            /// 'text_search_min_column_length'</summary>
-            public const string TEXT_SEARCH_COLUMNS = "text_search_columns";
-
-            /// <summary>Set minimum column size. Used only when
-            /// 'text_search_columns' has a value.</summary>
-            public const string TEXT_SEARCH_MIN_COLUMN_LENGTH = "text_search_min_column_length";
         } // end struct Options
 
 
@@ -1596,7 +1918,7 @@ namespace kinetica
         ///         <term><see
         /// cref="InsertRecordsFromPayloadRequest.Options.PERMISSIVE">PERMISSIVE</see>:</term>
         ///         <description>Records with missing columns are populated
-        /// with nulls if possible; otherwise, malformed records are
+        /// with nulls if possible; otherwise, the malformed records are
         /// skipped.</description>
         ///     </item>
         ///     <item>
@@ -1613,7 +1935,7 @@ namespace kinetica
         ///     </item>
         /// </list>
         /// The default value is <see
-        /// cref="InsertRecordsFromPayloadRequest.Options.PERMISSIVE">PERMISSIVE</see>.</description>
+        /// cref="InsertRecordsFromPayloadRequest.Options.ABORT">ABORT</see>.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -1624,19 +1946,24 @@ namespace kinetica
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
+        /// cref="InsertRecordsFromPayloadRequest.Options.AVRO">AVRO</see>:</term>
+        ///         <description>Avro file format</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="InsertRecordsFromPayloadRequest.Options.DELIMITED_TEXT">DELIMITED_TEXT</see>:</term>
         ///         <description>Delimited text file format; e.g., CSV, TSV,
         /// PSV, etc.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="InsertRecordsFromPayloadRequest.Options.PARQUET">PARQUET</see>:</term>
-        ///         <description>Apache Parquet file format</description>
+        /// cref="InsertRecordsFromPayloadRequest.Options.JSON">JSON</see>:</term>
+        ///         <description>Json file format</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="InsertRecordsFromPayloadRequest.Options.JSON">JSON</see>:</term>
-        ///         <description>Json file format</description>
+        /// cref="InsertRecordsFromPayloadRequest.Options.PARQUET">PARQUET</see>:</term>
+        ///         <description>Apache Parquet file format</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -1680,6 +2007,87 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
+        /// cref="InsertRecordsFromPayloadRequest.Options.LOADING_MODE">LOADING_MODE</see>:</term>
+        ///         <description>Scheme for distributing the extraction and
+        /// loading of data from the source data file(s). This option applies
+        /// only when loading files that are local to the database
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromPayloadRequest.Options.HEAD">HEAD</see>:</term>
+        ///         <description>The head node loads all data. All files must
+        /// be available to the head node.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromPayloadRequest.Options.DISTRIBUTED_SHARED">DISTRIBUTED_SHARED</see>:</term>
+        ///         <description>The head node coordinates loading data by
+        /// worker
+        /// processes across all nodes from shared files available to all
+        /// workers.
+        /// <br />
+        /// NOTE:
+        /// <br />
+        /// Instead of existing on a shared source, the files can be duplicated
+        /// on a source local to each host
+        /// to improve performance, though the files must appear as the same
+        /// data set from the perspective of
+        /// all hosts performing the load.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromPayloadRequest.Options.DISTRIBUTED_LOCAL">DISTRIBUTED_LOCAL</see>:</term>
+        ///         <description>A single worker process on each node loads all
+        /// files
+        /// that are available to it. This option works best when each worker
+        /// loads files from its own file
+        /// system, to maximize performance. In order to avoid data
+        /// duplication, either each worker performing
+        /// the load needs to have visibility to a set of files unique to it
+        /// (no file is visible to more than
+        /// one node) or the target table needs to have a primary key (which
+        /// will allow the worker to
+        /// automatically deduplicate data).
+        /// <br />
+        /// NOTE:
+        /// <br />
+        /// If the target table doesn't exist, the table structure will be
+        /// determined by the head node. If the
+        /// head node has no files local to it, it will be unable to determine
+        /// the structure and the request
+        /// will fail.
+        /// <br />
+        /// If the head node is configured to have no worker processes, no data
+        /// strictly accessible to the head
+        /// node will be loaded.</description>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="InsertRecordsFromPayloadRequest.Options.HEAD">HEAD</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromPayloadRequest.Options.LOCAL_TIME_OFFSET">LOCAL_TIME_OFFSET</see>:</term>
+        ///         <description>For Avro local timestamp columns</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromPayloadRequest.Options.NUM_TASKS_PER_RANK">NUM_TASKS_PER_RANK</see>:</term>
+        ///         <description>Optional: number of tasks for reading file per
+        /// rank. Default will be external_file_reader_num_tasks</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromPayloadRequest.Options.POLL_INTERVAL">POLL_INTERVAL</see>:</term>
+        ///         <description>If <i>true</i>, the number of seconds between
+        /// attempts to load external files into the table.  If zero, polling
+        /// will be continuous as long as data is found.  If no data is found,
+        /// the interval will steadily increase to a maximum of 60
+        /// seconds.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="InsertRecordsFromPayloadRequest.Options.PRIMARY_KEYS">PRIMARY_KEYS</see>:</term>
         ///         <description>Optional: comma separated list of column
         /// names, to set as primary keys, when not specified in the type.  The
@@ -1691,6 +2099,52 @@ namespace kinetica
         ///         <description>Optional: comma separated list of column
         /// names, to set as primary keys, when not specified in the type.  The
         /// default value is ''.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromPayloadRequest.Options.SKIP_LINES">SKIP_LINES</see>:</term>
+        ///         <description>Skip number of lines from begining of
+        /// file.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromPayloadRequest.Options.SUBSCRIBE">SUBSCRIBE</see>:</term>
+        ///         <description>Continuously poll the data source to check for
+        /// new data and load it into the table.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromPayloadRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromPayloadRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="InsertRecordsFromPayloadRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromPayloadRequest.Options.TABLE_INSERT_MODE">TABLE_INSERT_MODE</see>:</term>
+        ///         <description>Optional: table_insert_mode. When inserting
+        /// records from multiple files: if table_per_file then insert from
+        /// each file into a new table. Currently supported only for
+        /// shapefiles.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromPayloadRequest.Options.SINGLE">SINGLE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromPayloadRequest.Options.TABLE_PER_FILE">TABLE_PER_FILE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="InsertRecordsFromPayloadRequest.Options.SINGLE">SINGLE</see>.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -1774,7 +2228,7 @@ namespace kinetica
         /// value in the source data.
         /// <br />
         /// For <i>delimited_text</i> <i>file_type</i> only.  The default value
-        /// is ''.</description>
+        /// is '\\N'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -1795,9 +2249,39 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="InsertRecordsFromPayloadRequest.Options.NUM_TASKS_PER_RANK">NUM_TASKS_PER_RANK</see>:</term>
-        ///         <description>Optional: number of tasks for reading file per
-        /// rank. Default will be external_file_reader_num_tasks</description>
+        /// cref="InsertRecordsFromPayloadRequest.Options.TEXT_SEARCH_COLUMNS">TEXT_SEARCH_COLUMNS</see>:</term>
+        ///         <description>Add 'text_search' property to internally
+        /// inferenced string columns. Comma seperated list of column names or
+        /// '*' for all columns. To add text_search property only to string
+        /// columns of minimum size, set also the option
+        /// 'text_search_min_column_length'</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromPayloadRequest.Options.TEXT_SEARCH_MIN_COLUMN_LENGTH">TEXT_SEARCH_MIN_COLUMN_LENGTH</see>:</term>
+        ///         <description>Set minimum column size. Used only when
+        /// 'text_search_columns' has a value.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromPayloadRequest.Options.TRUNCATE_TABLE">TRUNCATE_TABLE</see>:</term>
+        ///         <description>If set to <i>true</i>, truncates the table
+        /// specified by <paramref
+        /// cref="InsertRecordsFromPayloadRequest.table_name" /> prior to
+        /// loading the file(s).
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromPayloadRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromPayloadRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="InsertRecordsFromPayloadRequest.Options.FALSE">FALSE</see>.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -1820,21 +2304,6 @@ namespace kinetica
         /// </list>
         /// The default value is <see
         /// cref="InsertRecordsFromPayloadRequest.Options.SPEED">SPEED</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="InsertRecordsFromPayloadRequest.Options.TEXT_SEARCH_COLUMNS">TEXT_SEARCH_COLUMNS</see>:</term>
-        ///         <description>Add 'text_search' property to internally
-        /// inferenced string columns. Comma seperated list of column names or
-        /// '*' for all columns. To add text_search property only to string
-        /// columns of minimum size, set also the option
-        /// 'text_search_min_column_length'</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="InsertRecordsFromPayloadRequest.Options.TEXT_SEARCH_MIN_COLUMN_LENGTH">TEXT_SEARCH_MIN_COLUMN_LENGTH</see>:</term>
-        ///         <description>Set minimum column size. Used only when
-        /// 'text_search_columns' has a value.</description>
         ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.</summary>
@@ -2210,7 +2679,7 @@ namespace kinetica
         ///         <term><see
         /// cref="InsertRecordsFromPayloadRequest.Options.PERMISSIVE">PERMISSIVE</see>:</term>
         ///         <description>Records with missing columns are populated
-        /// with nulls if possible; otherwise, malformed records are
+        /// with nulls if possible; otherwise, the malformed records are
         /// skipped.</description>
         ///     </item>
         ///     <item>
@@ -2227,7 +2696,7 @@ namespace kinetica
         ///     </item>
         /// </list>
         /// The default value is <see
-        /// cref="InsertRecordsFromPayloadRequest.Options.PERMISSIVE">PERMISSIVE</see>.</description>
+        /// cref="InsertRecordsFromPayloadRequest.Options.ABORT">ABORT</see>.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -2238,19 +2707,24 @@ namespace kinetica
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
+        /// cref="InsertRecordsFromPayloadRequest.Options.AVRO">AVRO</see>:</term>
+        ///         <description>Avro file format</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="InsertRecordsFromPayloadRequest.Options.DELIMITED_TEXT">DELIMITED_TEXT</see>:</term>
         ///         <description>Delimited text file format; e.g., CSV, TSV,
         /// PSV, etc.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="InsertRecordsFromPayloadRequest.Options.PARQUET">PARQUET</see>:</term>
-        ///         <description>Apache Parquet file format</description>
+        /// cref="InsertRecordsFromPayloadRequest.Options.JSON">JSON</see>:</term>
+        ///         <description>Json file format</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="InsertRecordsFromPayloadRequest.Options.JSON">JSON</see>:</term>
-        ///         <description>Json file format</description>
+        /// cref="InsertRecordsFromPayloadRequest.Options.PARQUET">PARQUET</see>:</term>
+        ///         <description>Apache Parquet file format</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -2294,6 +2768,82 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
+        /// cref="InsertRecordsFromPayloadRequest.Options.LOADING_MODE">LOADING_MODE</see>:</term>
+        ///         <description>Scheme for distributing the extraction and
+        /// loading of data from the source data file(s). This option applies
+        /// only when loading files that are local to the database
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromPayloadRequest.Options.HEAD">HEAD</see>:</term>
+        ///         <description>The head node loads all data. All files must
+        /// be available to the head node.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromPayloadRequest.Options.DISTRIBUTED_SHARED">DISTRIBUTED_SHARED</see>:</term>
+        ///         <description>The head node coordinates loading data by
+        /// worker
+        /// processes across all nodes from shared files available to all
+        /// workers.
+        /// NOTE:
+        /// Instead of existing on a shared source, the files can be duplicated
+        /// on a source local to each host
+        /// to improve performance, though the files must appear as the same
+        /// data set from the perspective of
+        /// all hosts performing the load.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromPayloadRequest.Options.DISTRIBUTED_LOCAL">DISTRIBUTED_LOCAL</see>:</term>
+        ///         <description>A single worker process on each node loads all
+        /// files
+        /// that are available to it. This option works best when each worker
+        /// loads files from its own file
+        /// system, to maximize performance. In order to avoid data
+        /// duplication, either each worker performing
+        /// the load needs to have visibility to a set of files unique to it
+        /// (no file is visible to more than
+        /// one node) or the target table needs to have a primary key (which
+        /// will allow the worker to
+        /// automatically deduplicate data).
+        /// NOTE:
+        /// If the target table doesn't exist, the table structure will be
+        /// determined by the head node. If the
+        /// head node has no files local to it, it will be unable to determine
+        /// the structure and the request
+        /// will fail.
+        /// If the head node is configured to have no worker processes, no data
+        /// strictly accessible to the head
+        /// node will be loaded.</description>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="InsertRecordsFromPayloadRequest.Options.HEAD">HEAD</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromPayloadRequest.Options.LOCAL_TIME_OFFSET">LOCAL_TIME_OFFSET</see>:</term>
+        ///         <description>For Avro local timestamp columns</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromPayloadRequest.Options.NUM_TASKS_PER_RANK">NUM_TASKS_PER_RANK</see>:</term>
+        ///         <description>Optional: number of tasks for reading file per
+        /// rank. Default will be external_file_reader_num_tasks</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromPayloadRequest.Options.POLL_INTERVAL">POLL_INTERVAL</see>:</term>
+        ///         <description>If <i>true</i>, the number of seconds between
+        /// attempts to load external files into the table.  If zero, polling
+        /// will be continuous as long as data is found.  If no data is found,
+        /// the interval will steadily increase to a maximum of 60
+        /// seconds.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="InsertRecordsFromPayloadRequest.Options.PRIMARY_KEYS">PRIMARY_KEYS</see>:</term>
         ///         <description>Optional: comma separated list of column
         /// names, to set as primary keys, when not specified in the type.  The
@@ -2305,6 +2855,52 @@ namespace kinetica
         ///         <description>Optional: comma separated list of column
         /// names, to set as primary keys, when not specified in the type.  The
         /// default value is ''.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromPayloadRequest.Options.SKIP_LINES">SKIP_LINES</see>:</term>
+        ///         <description>Skip number of lines from begining of
+        /// file.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromPayloadRequest.Options.SUBSCRIBE">SUBSCRIBE</see>:</term>
+        ///         <description>Continuously poll the data source to check for
+        /// new data and load it into the table.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromPayloadRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromPayloadRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="InsertRecordsFromPayloadRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromPayloadRequest.Options.TABLE_INSERT_MODE">TABLE_INSERT_MODE</see>:</term>
+        ///         <description>Optional: table_insert_mode. When inserting
+        /// records from multiple files: if table_per_file then insert from
+        /// each file into a new table. Currently supported only for
+        /// shapefiles.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromPayloadRequest.Options.SINGLE">SINGLE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromPayloadRequest.Options.TABLE_PER_FILE">TABLE_PER_FILE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="InsertRecordsFromPayloadRequest.Options.SINGLE">SINGLE</see>.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -2380,7 +2976,7 @@ namespace kinetica
         /// interpreted as a null
         /// value in the source data.
         /// For <i>delimited_text</i> <i>file_type</i> only.  The default value
-        /// is ''.</description>
+        /// is '\\N'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -2400,9 +2996,39 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="InsertRecordsFromPayloadRequest.Options.NUM_TASKS_PER_RANK">NUM_TASKS_PER_RANK</see>:</term>
-        ///         <description>Optional: number of tasks for reading file per
-        /// rank. Default will be external_file_reader_num_tasks</description>
+        /// cref="InsertRecordsFromPayloadRequest.Options.TEXT_SEARCH_COLUMNS">TEXT_SEARCH_COLUMNS</see>:</term>
+        ///         <description>Add 'text_search' property to internally
+        /// inferenced string columns. Comma seperated list of column names or
+        /// '*' for all columns. To add text_search property only to string
+        /// columns of minimum size, set also the option
+        /// 'text_search_min_column_length'</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromPayloadRequest.Options.TEXT_SEARCH_MIN_COLUMN_LENGTH">TEXT_SEARCH_MIN_COLUMN_LENGTH</see>:</term>
+        ///         <description>Set minimum column size. Used only when
+        /// 'text_search_columns' has a value.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromPayloadRequest.Options.TRUNCATE_TABLE">TRUNCATE_TABLE</see>:</term>
+        ///         <description>If set to <i>true</i>, truncates the table
+        /// specified by <paramref
+        /// cref="InsertRecordsFromPayloadRequest.table_name" /> prior to
+        /// loading the file(s).
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromPayloadRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromPayloadRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="InsertRecordsFromPayloadRequest.Options.FALSE">FALSE</see>.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -2425,21 +3051,6 @@ namespace kinetica
         /// </list>
         /// The default value is <see
         /// cref="InsertRecordsFromPayloadRequest.Options.SPEED">SPEED</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="InsertRecordsFromPayloadRequest.Options.TEXT_SEARCH_COLUMNS">TEXT_SEARCH_COLUMNS</see>:</term>
-        ///         <description>Add 'text_search' property to internally
-        /// inferenced string columns. Comma seperated list of column names or
-        /// '*' for all columns. To add text_search property only to string
-        /// columns of minimum size, set also the option
-        /// 'text_search_min_column_length'</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="InsertRecordsFromPayloadRequest.Options.TEXT_SEARCH_MIN_COLUMN_LENGTH">TEXT_SEARCH_MIN_COLUMN_LENGTH</see>:</term>
-        ///         <description>Set minimum column size. Used only when
-        /// 'text_search_columns' has a value.</description>
         ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.</param>
