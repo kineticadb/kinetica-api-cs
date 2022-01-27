@@ -201,6 +201,7 @@
     <Compile Include="Protocol\ModifyGraph.cs" />
     <Compile Include="Protocol\QueryGraph.cs" />
     <Compile Include="Protocol\RawKineticaResponse.cs" />
+    <Compile Include="Protocol\RepartitionGraph.cs" />
     <Compile Include="Protocol\ReserveResource.cs" />
     <Compile Include="Protocol\RevokePermission.cs" />
     <Compile Include="Protocol\RevokePermissionCredential.cs" />
@@ -223,6 +224,7 @@
     <Compile Include="Protocol\ShowProc.cs" />
     <Compile Include="Protocol\ShowProcStatus.cs" />
     <Compile Include="Protocol\ShowResourceGroups.cs" />
+    <Compile Include="Protocol\ShowResourceObjects.cs" />
     <Compile Include="Protocol\ShowResourceStatistics.cs" />
     <Compile Include="Protocol\ShowSchema.cs" />
     <Compile Include="Protocol\ShowSecurity.cs" />

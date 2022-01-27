@@ -74,6 +74,7 @@ namespace kinetica
         public IList<string> registry_list { get; set; } = new List<string>();
         public IList<string> container_list { get; set; } = new List<string>();
         public IList<string> run_function_list { get; set; } = new List<string>();
+        public IList<string> deployments { get; set; } = new List<string>();
 
         /// <summary>
         /// <list type="bullet">

@@ -45,8 +45,9 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="ShowResourceGroupsRequest.Options.SHOW_DEFAULT_GROUP">SHOW_DEFAULT_GROUP</see>:</term>
-        ///         <description>If <i>true</i> include the default resource
-        /// group in the response.
+        ///         <description>If <i>true</i> include the default and system
+        /// resource groups in the response. This value defaults to false if an
+        /// explicit list of group names is provided, and true otherwise.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -60,6 +61,25 @@ namespace kinetica
         /// </list>
         /// The default value is <see
         /// cref="ShowResourceGroupsRequest.Options.TRUE">TRUE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ShowResourceGroupsRequest.Options.SHOW_TIER_USAGE">SHOW_TIER_USAGE</see>:</term>
+        ///         <description>If <i>true</i> include the resource group
+        /// usage on the worker ranks in the response.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="ShowResourceGroupsRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ShowResourceGroupsRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="ShowResourceGroupsRequest.Options.FALSE">FALSE</see>.</description>
         ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.
@@ -87,8 +107,9 @@ namespace kinetica
             public const string TRUE = "true";
             public const string FALSE = "false";
 
-            /// <summary>If <i>true</i> include the default resource group in
-            /// the response.
+            /// <summary>If <i>true</i> include the default and system resource
+            /// groups in the response. This value defaults to false if an
+            /// explicit list of group names is provided, and true otherwise.
             /// Supported values:
             /// <list type="bullet">
             ///     <item>
@@ -103,6 +124,23 @@ namespace kinetica
             /// The default value is <see
             /// cref="ShowResourceGroupsRequest.Options.TRUE">TRUE</see>.</summary>
             public const string SHOW_DEFAULT_GROUP = "show_default_group";
+
+            /// <summary>If <i>true</i> include the resource group usage on the
+            /// worker ranks in the response.
+            /// Supported values:
+            /// <list type="bullet">
+            ///     <item>
+            ///         <term><see
+            /// cref="ShowResourceGroupsRequest.Options.TRUE">TRUE</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="ShowResourceGroupsRequest.Options.FALSE">FALSE</see></term>
+            ///     </item>
+            /// </list>
+            /// The default value is <see
+            /// cref="ShowResourceGroupsRequest.Options.FALSE">FALSE</see>.</summary>
+            public const string SHOW_TIER_USAGE = "show_tier_usage";
         } // end struct Options
 
 
@@ -134,8 +172,9 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="ShowResourceGroupsRequest.Options.SHOW_DEFAULT_GROUP">SHOW_DEFAULT_GROUP</see>:</term>
-        ///         <description>If <i>true</i> include the default resource
-        /// group in the response.
+        ///         <description>If <i>true</i> include the default and system
+        /// resource groups in the response. This value defaults to false if an
+        /// explicit list of group names is provided, and true otherwise.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -149,6 +188,25 @@ namespace kinetica
         /// </list>
         /// The default value is <see
         /// cref="ShowResourceGroupsRequest.Options.TRUE">TRUE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ShowResourceGroupsRequest.Options.SHOW_TIER_USAGE">SHOW_TIER_USAGE</see>:</term>
+        ///         <description>If <i>true</i> include the resource group
+        /// usage on the worker ranks in the response.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="ShowResourceGroupsRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ShowResourceGroupsRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="ShowResourceGroupsRequest.Options.FALSE">FALSE</see>.</description>
         ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.</summary>
@@ -188,8 +246,9 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="ShowResourceGroupsRequest.Options.SHOW_DEFAULT_GROUP">SHOW_DEFAULT_GROUP</see>:</term>
-        ///         <description>If <i>true</i> include the default resource
-        /// group in the response.
+        ///         <description>If <i>true</i> include the default and system
+        /// resource groups in the response. This value defaults to false if an
+        /// explicit list of group names is provided, and true otherwise.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -203,6 +262,25 @@ namespace kinetica
         /// </list>
         /// The default value is <see
         /// cref="ShowResourceGroupsRequest.Options.TRUE">TRUE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ShowResourceGroupsRequest.Options.SHOW_TIER_USAGE">SHOW_TIER_USAGE</see>:</term>
+        ///         <description>If <i>true</i> include the resource group
+        /// usage on the worker ranks in the response.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="ShowResourceGroupsRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ShowResourceGroupsRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="ShowResourceGroupsRequest.Options.FALSE">FALSE</see>.</description>
         ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.</param>
@@ -226,6 +304,11 @@ namespace kinetica
 
         /// <summary>Map of resource group information.  </summary>
         public IList<IDictionary<string, string>> groups { get; set; } = new List<IDictionary<string, string>>();
+
+        /// <summary>Tier usage across ranks. Layout is:
+        /// response.rank_usage[rank_number][resource_group_name] = group_usage
+        /// (as stringified json)  </summary>
+        public IDictionary<string, string> rank_usage { get; set; } = new Dictionary<string, string>();
 
         /// <summary>Additional information.  </summary>
         public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();

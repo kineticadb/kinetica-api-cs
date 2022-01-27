@@ -196,8 +196,8 @@ namespace kinetica
         /// upon insert.</summary>
         public const string INIT_WITH_NOW = "init_with_now";
 
-        /// <summary>For 'uuid' type,  repalce empty strings and invalid uuid
-        /// values with new_uuid()' upon insert.</summary>
+        /// <summary>For 'uuid' type, replace empty strings and invalid UUID
+        /// values with randomly-generated UUIDs upon insert.</summary>
         public const string INIT_WITH_UUID = "init_with_uuid";
     } // end struct ColumnProperty
 

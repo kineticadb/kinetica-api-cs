@@ -335,6 +335,12 @@ namespace kinetica
         /// subscription. The data source can be kafka / S3 /
         /// Azure.</description>
         ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterTableRequest.Action.CHANGE_OWNER">CHANGE_OWNER</see>:</term>
+        ///         <description>Change the owner resource group of the
+        /// table.</description>
+        ///     </item>
         /// </list>
         /// A set of string constants for the parameter <see cref="action"
         /// />.</summary>
@@ -539,6 +545,10 @@ namespace kinetica
             /// <summary>Resubscribe to a paused data source subscription. The
             /// data source can be kafka / S3 / Azure.</summary>
             public const string RESUME_DATASOURCE_SUBSCRIPTION = "resume_datasource_subscription";
+
+            /// <summary>Change the owner resource group of the
+            /// table.</summary>
+            public const string CHANGE_OWNER = "change_owner";
         } // end struct Action
 
 
@@ -1153,6 +1163,12 @@ namespace kinetica
         /// subscription. The data source can be kafka / S3 /
         /// Azure.</description>
         ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterTableRequest.Action.CHANGE_OWNER">CHANGE_OWNER</see>:</term>
+        ///         <description>Change the owner resource group of the
+        /// table.</description>
+        ///     </item>
         /// </list>  </summary>
         public string action { get; set; }
 
@@ -1622,6 +1638,12 @@ namespace kinetica
         ///         <description>Resubscribe to a paused data source
         /// subscription. The data source can be kafka / S3 /
         /// Azure.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterTableRequest.Action.CHANGE_OWNER">CHANGE_OWNER</see>:</term>
+        ///         <description>Change the owner resource group of the
+        /// table.</description>
         ///     </item>
         /// </list>  </param>
         /// <param name="_value">The value of the modification, depending on

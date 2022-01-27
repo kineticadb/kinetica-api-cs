@@ -15,9 +15,12 @@ namespace kinetica
     /// cref="Kinetica.insertRecordsFromFiles(string,IList{string},IDictionary{string, IDictionary{string, string}},IDictionary{string, string},IDictionary{string, string})"
     /// />.
     /// <br />
-    /// Reads from one or more files located on the server and inserts the data
-    /// into a new or
+    /// Reads from one or more files and inserts the data into a new or
     /// existing table.
+    /// The source data can be located either in <a href="../../../tools/kifs/"
+    /// target="_top">KiFS</a>; on the cluster, accessible to the database; or
+    /// remotely, accessible via a pre-defined external <a
+    /// href="../../../concepts/data_sources/" target="_top">data source</a>.
     /// <br />
     /// For delimited text files, there are two loading schemes: positional and
     /// name-based. The name-based
@@ -33,6 +36,13 @@ namespace kinetica
     /// the file header's names may be provided to <i>columns_to_load</i>
     /// instead of
     /// numbers, but ranges are not supported.
+    /// <br />
+    /// Note: Due to data being loaded in parallel, there is no insertion order
+    /// guaranteed.  For tables with
+    /// primary keys, in the case of a primary key collision, this means it is
+    /// indeterminate which record
+    /// will be inserted first and remain, while the rest of the colliding key
+    /// records are discarded.
     /// <br />
     /// Returns once all files are processed.</summary>
     public class InsertRecordsFromFilesRequest : KineticaData
@@ -486,7 +496,8 @@ namespace kinetica
         ///         <description>Optional name of a table to which records that
         /// were rejected are written.  The bad-record-table has the following
         /// columns: line_number (long), line_rejected (string), error_message
-        /// (string).</description>
+        /// (string). When error handling is Abort, bad records table is not
+        /// populated.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -634,7 +645,7 @@ namespace kinetica
         ///     </item>
         /// </list>
         /// The default value is <see
-        /// cref="InsertRecordsFromFilesRequest.Options.PERMISSIVE">PERMISSIVE</see>.</description>
+        /// cref="InsertRecordsFromFilesRequest.Options.ABORT">ABORT</see>.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -645,19 +656,24 @@ namespace kinetica
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
+        /// cref="InsertRecordsFromFilesRequest.Options.AVRO">AVRO</see>:</term>
+        ///         <description>Avro file format</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="InsertRecordsFromFilesRequest.Options.DELIMITED_TEXT">DELIMITED_TEXT</see>:</term>
         ///         <description>Delimited text file format; e.g., CSV, TSV,
         /// PSV, etc.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="InsertRecordsFromFilesRequest.Options.PARQUET">PARQUET</see>:</term>
-        ///         <description>Apache Parquet file format</description>
+        /// cref="InsertRecordsFromFilesRequest.Options.JSON">JSON</see>:</term>
+        ///         <description>Json file format</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="InsertRecordsFromFilesRequest.Options.JSON">JSON</see>:</term>
-        ///         <description>Json file format</description>
+        /// cref="InsertRecordsFromFilesRequest.Options.PARQUET">PARQUET</see>:</term>
+        ///         <description>Apache Parquet file format</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -701,9 +717,17 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
+        /// cref="InsertRecordsFromFilesRequest.Options.KAFKA_GROUP_ID">KAFKA_GROUP_ID</see>:</term>
+        ///         <description>The group id to be used consuming data from a
+        /// kakfa topic (valid only for kafka datasource
+        /// subscriptions).</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="InsertRecordsFromFilesRequest.Options.LOADING_MODE">LOADING_MODE</see>:</term>
         ///         <description>Scheme for distributing the extraction and
-        /// loading of data from the source data file(s).
+        /// loading of data from the source data file(s). This option applies
+        /// only when loading files that are local to the database
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -751,10 +775,6 @@ namespace kinetica
         /// the structure and the request
         /// will fail.
         /// <br />
-        /// This mode should not be used in conjuction with a data source, as
-        /// data sources are seen by all
-        /// worker processes as shared resources with no 'local' component.
-        /// <br />
         /// If the head node is configured to have no worker processes, no data
         /// strictly accessible to the head
         /// node will be loaded.</description>
@@ -762,6 +782,26 @@ namespace kinetica
         /// </list>
         /// The default value is <see
         /// cref="InsertRecordsFromFilesRequest.Options.HEAD">HEAD</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromFilesRequest.Options.LOCAL_TIME_OFFSET">LOCAL_TIME_OFFSET</see>:</term>
+        ///         <description>For Avro local timestamp columns</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromFilesRequest.Options.NUM_TASKS_PER_RANK">NUM_TASKS_PER_RANK</see>:</term>
+        ///         <description>Optional: number of tasks for reading file per
+        /// rank. Default will be external_file_reader_num_tasks</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromFilesRequest.Options.POLL_INTERVAL">POLL_INTERVAL</see>:</term>
+        ///         <description>If <i>true</i>, the number of seconds between
+        /// attempts to load external files into the table.  If zero, polling
+        /// will be continuous as long as data is found.  If no data is found,
+        /// the interval will steadily increase to a maximum of 60
+        /// seconds.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -776,6 +816,12 @@ namespace kinetica
         ///         <description>Optional: comma separated list of column
         /// names, to set as primary keys, when not specified in the type.  The
         /// default value is ''.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromFilesRequest.Options.SKIP_LINES">SKIP_LINES</see>:</term>
+        ///         <description>Skip number of lines from begining of
+        /// file.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -798,12 +844,24 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="InsertRecordsFromFilesRequest.Options.POLL_INTERVAL">POLL_INTERVAL</see>:</term>
-        ///         <description>If <i>true</i>, the number of seconds between
-        /// attempts to load external files into the table.  If zero, polling
-        /// will be continuous as long as data is found.  If no data is found,
-        /// the interval will steadily increase to a maximum of 60
-        /// seconds.</description>
+        /// cref="InsertRecordsFromFilesRequest.Options.TABLE_INSERT_MODE">TABLE_INSERT_MODE</see>:</term>
+        ///         <description>Optional: table_insert_mode. When inserting
+        /// records from multiple files: if table_per_file then insert from
+        /// each file into a new table. Currently supported only for
+        /// shapefiles.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromFilesRequest.Options.SINGLE">SINGLE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromFilesRequest.Options.TABLE_PER_FILE">TABLE_PER_FILE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="InsertRecordsFromFilesRequest.Options.SINGLE">SINGLE</see>.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -887,7 +945,7 @@ namespace kinetica
         /// value in the source data.
         /// <br />
         /// For <i>delimited_text</i> <i>file_type</i> only.  The default value
-        /// is ''.</description>
+        /// is '\\N'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -905,6 +963,21 @@ namespace kinetica
         /// <br />
         /// For <i>delimited_text</i> <i>file_type</i> only.  The default value
         /// is '"'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromFilesRequest.Options.TEXT_SEARCH_COLUMNS">TEXT_SEARCH_COLUMNS</see>:</term>
+        ///         <description>Add 'text_search' property to internally
+        /// inferenced string columns. Comma seperated list of column names or
+        /// '*' for all columns. To add text_search property only to string
+        /// columns of minimum size, set also the option
+        /// 'text_search_min_column_length'</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromFilesRequest.Options.TEXT_SEARCH_MIN_COLUMN_LENGTH">TEXT_SEARCH_MIN_COLUMN_LENGTH</see>:</term>
+        ///         <description>Set minimum column size. Used only when
+        /// 'text_search_columns' has a value.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -929,12 +1002,6 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="InsertRecordsFromFilesRequest.Options.NUM_TASKS_PER_RANK">NUM_TASKS_PER_RANK</see>:</term>
-        ///         <description>Optional: number of tasks for reading file per
-        /// rank. Default will be external_file_reader_num_tasks</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
         /// cref="InsertRecordsFromFilesRequest.Options.TYPE_INFERENCE_MODE">TYPE_INFERENCE_MODE</see>:</term>
         ///         <description>optimize type inference for:
         /// Supported values:
@@ -955,49 +1022,6 @@ namespace kinetica
         /// The default value is <see
         /// cref="InsertRecordsFromFilesRequest.Options.SPEED">SPEED</see>.</description>
         ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="InsertRecordsFromFilesRequest.Options.TABLE_INSERT_MODE">TABLE_INSERT_MODE</see>:</term>
-        ///         <description>Optional: table_insert_mode. When inserting
-        /// records from multiple files: if table_per_file then insert from
-        /// each file into a new table. Currently supported only for
-        /// shapefiles.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="InsertRecordsFromFilesRequest.Options.SINGLE">SINGLE</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="InsertRecordsFromFilesRequest.Options.TABLE_PER_FILE">TABLE_PER_FILE</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="InsertRecordsFromFilesRequest.Options.SINGLE">SINGLE</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="InsertRecordsFromFilesRequest.Options.KAFKA_GROUP_ID">KAFKA_GROUP_ID</see>:</term>
-        ///         <description>The group id to be used consuming data from a
-        /// kakfa topic (valid only for kafka datasource
-        /// subscriptions).</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="InsertRecordsFromFilesRequest.Options.TEXT_SEARCH_COLUMNS">TEXT_SEARCH_COLUMNS</see>:</term>
-        ///         <description>Add 'text_search' property to internally
-        /// inferenced string columns. Comma seperated list of column names or
-        /// '*' for all columns. To add text_search property only to string
-        /// columns of minimum size, set also the option
-        /// 'text_search_min_column_length'</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="InsertRecordsFromFilesRequest.Options.TEXT_SEARCH_MIN_COLUMN_LENGTH">TEXT_SEARCH_MIN_COLUMN_LENGTH</see>:</term>
-        ///         <description>Set minimum column size. Used only when
-        /// 'text_search_columns' has a value.</description>
-        ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.
         /// A set of string constants for the parameter <see cref="options"
@@ -1008,7 +1032,8 @@ namespace kinetica
             /// <summary>Optional name of a table to which records that were
             /// rejected are written.  The bad-record-table has the following
             /// columns: line_number (long), line_rejected (string),
-            /// error_message (string).</summary>
+            /// error_message (string). When error handling is Abort, bad
+            /// records table is not populated.</summary>
             public const string BAD_RECORD_TABLE_NAME = "bad_record_table_name";
 
             /// <summary>A positive integer indicating the maximum number of
@@ -1139,7 +1164,7 @@ namespace kinetica
             ///     </item>
             /// </list>
             /// The default value is <see
-            /// cref="InsertRecordsFromFilesRequest.Options.PERMISSIVE">PERMISSIVE</see>.</summary>
+            /// cref="InsertRecordsFromFilesRequest.Options.ABORT">ABORT</see>.</summary>
             public const string ERROR_HANDLING = "error_handling";
 
             /// <summary>Records with missing columns are populated with nulls
@@ -1161,19 +1186,24 @@ namespace kinetica
             /// <list type="bullet">
             ///     <item>
             ///         <term><see
+            /// cref="InsertRecordsFromFilesRequest.Options.AVRO">AVRO</see>:</term>
+            ///         <description>Avro file format</description>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
             /// cref="InsertRecordsFromFilesRequest.Options.DELIMITED_TEXT">DELIMITED_TEXT</see>:</term>
             ///         <description>Delimited text file format; e.g., CSV,
             /// TSV, PSV, etc.</description>
             ///     </item>
             ///     <item>
             ///         <term><see
-            /// cref="InsertRecordsFromFilesRequest.Options.PARQUET">PARQUET</see>:</term>
-            ///         <description>Apache Parquet file format</description>
+            /// cref="InsertRecordsFromFilesRequest.Options.JSON">JSON</see>:</term>
+            ///         <description>Json file format</description>
             ///     </item>
             ///     <item>
             ///         <term><see
-            /// cref="InsertRecordsFromFilesRequest.Options.JSON">JSON</see>:</term>
-            ///         <description>Json file format</description>
+            /// cref="InsertRecordsFromFilesRequest.Options.PARQUET">PARQUET</see>:</term>
+            ///         <description>Apache Parquet file format</description>
             ///     </item>
             ///     <item>
             ///         <term><see
@@ -1185,15 +1215,18 @@ namespace kinetica
             /// cref="InsertRecordsFromFilesRequest.Options.DELIMITED_TEXT">DELIMITED_TEXT</see>.</summary>
             public const string FILE_TYPE = "file_type";
 
+            /// <summary>Avro file format</summary>
+            public const string AVRO = "avro";
+
             /// <summary>Delimited text file format; e.g., CSV, TSV, PSV,
             /// etc.</summary>
             public const string DELIMITED_TEXT = "delimited_text";
 
-            /// <summary>Apache Parquet file format</summary>
-            public const string PARQUET = "parquet";
-
             /// <summary>Json file format</summary>
             public const string JSON = "json";
+
+            /// <summary>Apache Parquet file format</summary>
+            public const string PARQUET = "parquet";
 
             /// <summary>ShapeFile file format</summary>
             public const string SHAPEFILE = "shapefile";
@@ -1242,8 +1275,14 @@ namespace kinetica
             /// response.</summary>
             public const string TYPE_INFERENCE_ONLY = "type_inference_only";
 
+            /// <summary>The group id to be used consuming data from a kakfa
+            /// topic (valid only for kafka datasource
+            /// subscriptions).</summary>
+            public const string KAFKA_GROUP_ID = "kafka_group_id";
+
             /// <summary>Scheme for distributing the extraction and loading of
-            /// data from the source data file(s).
+            /// data from the source data file(s). This option applies only
+            /// when loading files that are local to the database
             /// Supported values:
             /// <list type="bullet">
             ///     <item>
@@ -1291,10 +1330,6 @@ namespace kinetica
             /// determine the structure and the request
             /// will fail.
             /// <br />
-            /// This mode should not be used in conjuction with a data source,
-            /// as data sources are seen by all
-            /// worker processes as shared resources with no 'local' component.
-            /// <br />
             /// If the head node is configured to have no worker processes, no
             /// data strictly accessible to the head
             /// node will be loaded.</description>
@@ -1340,14 +1375,24 @@ namespace kinetica
             /// determine the structure and the request
             /// will fail.
             /// <br />
-            /// This mode should not be used in conjuction with a data source,
-            /// as data sources are seen by all
-            /// worker processes as shared resources with no 'local' component.
-            /// <br />
             /// If the head node is configured to have no worker processes, no
             /// data strictly accessible to the head
             /// node will be loaded.</summary>
             public const string DISTRIBUTED_LOCAL = "distributed_local";
+
+            /// <summary>For Avro local timestamp columns</summary>
+            public const string LOCAL_TIME_OFFSET = "local_time_offset";
+
+            /// <summary>Optional: number of tasks for reading file per rank.
+            /// Default will be external_file_reader_num_tasks</summary>
+            public const string NUM_TASKS_PER_RANK = "num_tasks_per_rank";
+
+            /// <summary>If <i>true</i>, the number of seconds between attempts
+            /// to load external files into the table.  If zero, polling will
+            /// be continuous as long as data is found.  If no data is found,
+            /// the interval will steadily increase to a maximum of 60
+            /// seconds.</summary>
+            public const string POLL_INTERVAL = "poll_interval";
 
             /// <summary>Optional: comma separated list of column names, to set
             /// as primary keys, when not specified in the type.  The default
@@ -1358,6 +1403,9 @@ namespace kinetica
             /// as primary keys, when not specified in the type.  The default
             /// value is ''.</summary>
             public const string SHARD_KEYS = "shard_keys";
+
+            /// <summary>Skip number of lines from begining of file.</summary>
+            public const string SKIP_LINES = "skip_lines";
 
             /// <summary>Continuously poll the data source to check for new
             /// data and load it into the table.
@@ -1378,12 +1426,25 @@ namespace kinetica
             public const string TRUE = "true";
             public const string FALSE = "false";
 
-            /// <summary>If <i>true</i>, the number of seconds between attempts
-            /// to load external files into the table.  If zero, polling will
-            /// be continuous as long as data is found.  If no data is found,
-            /// the interval will steadily increase to a maximum of 60
-            /// seconds.</summary>
-            public const string POLL_INTERVAL = "poll_interval";
+            /// <summary>Optional: table_insert_mode. When inserting records
+            /// from multiple files: if table_per_file then insert from each
+            /// file into a new table. Currently supported only for shapefiles.
+            /// Supported values:
+            /// <list type="bullet">
+            ///     <item>
+            ///         <term><see
+            /// cref="InsertRecordsFromFilesRequest.Options.SINGLE">SINGLE</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="InsertRecordsFromFilesRequest.Options.TABLE_PER_FILE">TABLE_PER_FILE</see></term>
+            ///     </item>
+            /// </list>
+            /// The default value is <see
+            /// cref="InsertRecordsFromFilesRequest.Options.SINGLE">SINGLE</see>.</summary>
+            public const string TABLE_INSERT_MODE = "table_insert_mode";
+            public const string SINGLE = "single";
+            public const string TABLE_PER_FILE = "table_per_file";
 
             /// <summary>Specifies the character string that should be
             /// interpreted as a comment line
@@ -1456,7 +1517,7 @@ namespace kinetica
             /// value in the source data.
             /// <br />
             /// For <i>delimited_text</i> <i>file_type</i> only.  The default
-            /// value is ''.</summary>
+            /// value is '\\N'.</summary>
             public const string TEXT_NULL_STRING = "text_null_string";
 
             /// <summary>Specifies the character that should be interpreted as
@@ -1474,6 +1535,17 @@ namespace kinetica
             /// value is '"'.</summary>
             public const string TEXT_QUOTE_CHARACTER = "text_quote_character";
 
+            /// <summary>Add 'text_search' property to internally inferenced
+            /// string columns. Comma seperated list of column names or '*' for
+            /// all columns. To add text_search property only to string columns
+            /// of minimum size, set also the option
+            /// 'text_search_min_column_length'</summary>
+            public const string TEXT_SEARCH_COLUMNS = "text_search_columns";
+
+            /// <summary>Set minimum column size. Used only when
+            /// 'text_search_columns' has a value.</summary>
+            public const string TEXT_SEARCH_MIN_COLUMN_LENGTH = "text_search_min_column_length";
+
             /// <summary>If set to <i>true</i>, truncates the table specified
             /// by <see cref="table_name" /> prior to loading the file(s).
             /// Supported values:
@@ -1490,10 +1562,6 @@ namespace kinetica
             /// The default value is <see
             /// cref="InsertRecordsFromFilesRequest.Options.FALSE">FALSE</see>.</summary>
             public const string TRUNCATE_TABLE = "truncate_table";
-
-            /// <summary>Optional: number of tasks for reading file per rank.
-            /// Default will be external_file_reader_num_tasks</summary>
-            public const string NUM_TASKS_PER_RANK = "num_tasks_per_rank";
 
             /// <summary>optimize type inference for:
             /// Supported values:
@@ -1523,42 +1591,6 @@ namespace kinetica
             /// <summary>picks the widest possible column types so that 'all'
             /// values will fit with minimum data scanned</summary>
             public const string SPEED = "speed";
-
-            /// <summary>Optional: table_insert_mode. When inserting records
-            /// from multiple files: if table_per_file then insert from each
-            /// file into a new table. Currently supported only for shapefiles.
-            /// Supported values:
-            /// <list type="bullet">
-            ///     <item>
-            ///         <term><see
-            /// cref="InsertRecordsFromFilesRequest.Options.SINGLE">SINGLE</see></term>
-            ///     </item>
-            ///     <item>
-            ///         <term><see
-            /// cref="InsertRecordsFromFilesRequest.Options.TABLE_PER_FILE">TABLE_PER_FILE</see></term>
-            ///     </item>
-            /// </list>
-            /// The default value is <see
-            /// cref="InsertRecordsFromFilesRequest.Options.SINGLE">SINGLE</see>.</summary>
-            public const string TABLE_INSERT_MODE = "table_insert_mode";
-            public const string SINGLE = "single";
-            public const string TABLE_PER_FILE = "table_per_file";
-
-            /// <summary>The group id to be used consuming data from a kakfa
-            /// topic (valid only for kafka datasource
-            /// subscriptions).</summary>
-            public const string KAFKA_GROUP_ID = "kafka_group_id";
-
-            /// <summary>Add 'text_search' property to internally inferenced
-            /// string columns. Comma seperated list of column names or '*' for
-            /// all columns. To add text_search property only to string columns
-            /// of minimum size, set also the option
-            /// 'text_search_min_column_length'</summary>
-            public const string TEXT_SEARCH_COLUMNS = "text_search_columns";
-
-            /// <summary>Set minimum column size. Used only when
-            /// 'text_search_columns' has a value.</summary>
-            public const string TEXT_SEARCH_MIN_COLUMN_LENGTH = "text_search_min_column_length";
         } // end struct Options
 
 
@@ -1574,18 +1606,37 @@ namespace kinetica
         /// target="_top">table naming criteria</a>.  </summary>
         public string table_name { get; set; }
 
-        /// <summary>Absolute or relative filepath(s) from where files will be
-        /// loaded. Relative filepaths are relative to the defined <a
-        /// href="../../../config/#external-files"
-        /// target="_top">external_files_directory</a> parameter in the server
-        /// configuration. The filepaths may include wildcards (*). If the
-        /// first path ends in .tsv, the text delimiter will be defaulted to a
-        /// tab character. If the first path ends in .psv, the text delimiter
-        /// will be defaulted to a pipe character (|).
+        /// <summary>A list of file paths from which data will be sourced;
         /// <br />
         /// For paths in <a href="../../../tools/kifs/" target="_top">KiFS</a>,
-        /// use the uri prefix of kifs:// followed by the full path to a file
-        /// or directory  </summary>
+        /// use the uri prefix of kifs:// followed by the path to
+        /// a file or directory. File matching by prefix is supported, e.g.
+        /// kifs://dir/file would match dir/file_1
+        /// and dir/file_2. When prefix matching is used, the path must start
+        /// with a full, valid KiFS directory name.
+        /// <br />
+        /// If an external data source is specified in <i>datasource_name</i>,
+        /// these file
+        /// paths must resolve to accessible files at that data source
+        /// location. Prefix matching is is supported.
+        /// If the data source is hdfs, prefixes must be aligned with
+        /// directories, i.e. partial file names will not match.
+        /// <br />
+        /// If no data source is specified, the files are assumed to be local
+        /// to the database and must all be
+        /// accessible to the gpudb user, residing on the path (or relative to
+        /// the path) specified by the
+        /// external files directory in the Kinetica
+        /// <a href="../../../config/#external-files"
+        /// target="_top">configuration file</a>. Wildcards (*) can be used to
+        /// specify a group of files.
+        /// Prefix matching is supported, the prefixes must be aligned with
+        /// directories.
+        /// <br />
+        /// If the first path ends in .tsv, the text delimiter will be
+        /// defaulted to a tab character.
+        /// If the first path ends in .psv, the text delimiter will be
+        /// defaulted to a pipe character (|).   </summary>
         public IList<string> filepaths { get; set; } = new List<string>();
 
         /// <summary>Not implemented yet.  The default value is an empty {@link
@@ -1820,7 +1871,8 @@ namespace kinetica
         ///         <description>Optional name of a table to which records that
         /// were rejected are written.  The bad-record-table has the following
         /// columns: line_number (long), line_rejected (string), error_message
-        /// (string).</description>
+        /// (string). When error handling is Abort, bad records table is not
+        /// populated.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -1968,7 +2020,7 @@ namespace kinetica
         ///     </item>
         /// </list>
         /// The default value is <see
-        /// cref="InsertRecordsFromFilesRequest.Options.PERMISSIVE">PERMISSIVE</see>.</description>
+        /// cref="InsertRecordsFromFilesRequest.Options.ABORT">ABORT</see>.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -1979,19 +2031,24 @@ namespace kinetica
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
+        /// cref="InsertRecordsFromFilesRequest.Options.AVRO">AVRO</see>:</term>
+        ///         <description>Avro file format</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="InsertRecordsFromFilesRequest.Options.DELIMITED_TEXT">DELIMITED_TEXT</see>:</term>
         ///         <description>Delimited text file format; e.g., CSV, TSV,
         /// PSV, etc.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="InsertRecordsFromFilesRequest.Options.PARQUET">PARQUET</see>:</term>
-        ///         <description>Apache Parquet file format</description>
+        /// cref="InsertRecordsFromFilesRequest.Options.JSON">JSON</see>:</term>
+        ///         <description>Json file format</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="InsertRecordsFromFilesRequest.Options.JSON">JSON</see>:</term>
-        ///         <description>Json file format</description>
+        /// cref="InsertRecordsFromFilesRequest.Options.PARQUET">PARQUET</see>:</term>
+        ///         <description>Apache Parquet file format</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -2035,9 +2092,17 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
+        /// cref="InsertRecordsFromFilesRequest.Options.KAFKA_GROUP_ID">KAFKA_GROUP_ID</see>:</term>
+        ///         <description>The group id to be used consuming data from a
+        /// kakfa topic (valid only for kafka datasource
+        /// subscriptions).</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="InsertRecordsFromFilesRequest.Options.LOADING_MODE">LOADING_MODE</see>:</term>
         ///         <description>Scheme for distributing the extraction and
-        /// loading of data from the source data file(s).
+        /// loading of data from the source data file(s). This option applies
+        /// only when loading files that are local to the database
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -2085,10 +2150,6 @@ namespace kinetica
         /// the structure and the request
         /// will fail.
         /// <br />
-        /// This mode should not be used in conjuction with a data source, as
-        /// data sources are seen by all
-        /// worker processes as shared resources with no 'local' component.
-        /// <br />
         /// If the head node is configured to have no worker processes, no data
         /// strictly accessible to the head
         /// node will be loaded.</description>
@@ -2096,6 +2157,26 @@ namespace kinetica
         /// </list>
         /// The default value is <see
         /// cref="InsertRecordsFromFilesRequest.Options.HEAD">HEAD</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromFilesRequest.Options.LOCAL_TIME_OFFSET">LOCAL_TIME_OFFSET</see>:</term>
+        ///         <description>For Avro local timestamp columns</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromFilesRequest.Options.NUM_TASKS_PER_RANK">NUM_TASKS_PER_RANK</see>:</term>
+        ///         <description>Optional: number of tasks for reading file per
+        /// rank. Default will be external_file_reader_num_tasks</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromFilesRequest.Options.POLL_INTERVAL">POLL_INTERVAL</see>:</term>
+        ///         <description>If <i>true</i>, the number of seconds between
+        /// attempts to load external files into the table.  If zero, polling
+        /// will be continuous as long as data is found.  If no data is found,
+        /// the interval will steadily increase to a maximum of 60
+        /// seconds.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -2110,6 +2191,12 @@ namespace kinetica
         ///         <description>Optional: comma separated list of column
         /// names, to set as primary keys, when not specified in the type.  The
         /// default value is ''.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromFilesRequest.Options.SKIP_LINES">SKIP_LINES</see>:</term>
+        ///         <description>Skip number of lines from begining of
+        /// file.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -2132,12 +2219,24 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="InsertRecordsFromFilesRequest.Options.POLL_INTERVAL">POLL_INTERVAL</see>:</term>
-        ///         <description>If <i>true</i>, the number of seconds between
-        /// attempts to load external files into the table.  If zero, polling
-        /// will be continuous as long as data is found.  If no data is found,
-        /// the interval will steadily increase to a maximum of 60
-        /// seconds.</description>
+        /// cref="InsertRecordsFromFilesRequest.Options.TABLE_INSERT_MODE">TABLE_INSERT_MODE</see>:</term>
+        ///         <description>Optional: table_insert_mode. When inserting
+        /// records from multiple files: if table_per_file then insert from
+        /// each file into a new table. Currently supported only for
+        /// shapefiles.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromFilesRequest.Options.SINGLE">SINGLE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromFilesRequest.Options.TABLE_PER_FILE">TABLE_PER_FILE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="InsertRecordsFromFilesRequest.Options.SINGLE">SINGLE</see>.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -2221,7 +2320,7 @@ namespace kinetica
         /// value in the source data.
         /// <br />
         /// For <i>delimited_text</i> <i>file_type</i> only.  The default value
-        /// is ''.</description>
+        /// is '\\N'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -2239,6 +2338,21 @@ namespace kinetica
         /// <br />
         /// For <i>delimited_text</i> <i>file_type</i> only.  The default value
         /// is '"'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromFilesRequest.Options.TEXT_SEARCH_COLUMNS">TEXT_SEARCH_COLUMNS</see>:</term>
+        ///         <description>Add 'text_search' property to internally
+        /// inferenced string columns. Comma seperated list of column names or
+        /// '*' for all columns. To add text_search property only to string
+        /// columns of minimum size, set also the option
+        /// 'text_search_min_column_length'</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromFilesRequest.Options.TEXT_SEARCH_MIN_COLUMN_LENGTH">TEXT_SEARCH_MIN_COLUMN_LENGTH</see>:</term>
+        ///         <description>Set minimum column size. Used only when
+        /// 'text_search_columns' has a value.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -2263,12 +2377,6 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="InsertRecordsFromFilesRequest.Options.NUM_TASKS_PER_RANK">NUM_TASKS_PER_RANK</see>:</term>
-        ///         <description>Optional: number of tasks for reading file per
-        /// rank. Default will be external_file_reader_num_tasks</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
         /// cref="InsertRecordsFromFilesRequest.Options.TYPE_INFERENCE_MODE">TYPE_INFERENCE_MODE</see>:</term>
         ///         <description>optimize type inference for:
         /// Supported values:
@@ -2288,49 +2396,6 @@ namespace kinetica
         /// </list>
         /// The default value is <see
         /// cref="InsertRecordsFromFilesRequest.Options.SPEED">SPEED</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="InsertRecordsFromFilesRequest.Options.TABLE_INSERT_MODE">TABLE_INSERT_MODE</see>:</term>
-        ///         <description>Optional: table_insert_mode. When inserting
-        /// records from multiple files: if table_per_file then insert from
-        /// each file into a new table. Currently supported only for
-        /// shapefiles.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="InsertRecordsFromFilesRequest.Options.SINGLE">SINGLE</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="InsertRecordsFromFilesRequest.Options.TABLE_PER_FILE">TABLE_PER_FILE</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="InsertRecordsFromFilesRequest.Options.SINGLE">SINGLE</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="InsertRecordsFromFilesRequest.Options.KAFKA_GROUP_ID">KAFKA_GROUP_ID</see>:</term>
-        ///         <description>The group id to be used consuming data from a
-        /// kakfa topic (valid only for kafka datasource
-        /// subscriptions).</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="InsertRecordsFromFilesRequest.Options.TEXT_SEARCH_COLUMNS">TEXT_SEARCH_COLUMNS</see>:</term>
-        ///         <description>Add 'text_search' property to internally
-        /// inferenced string columns. Comma seperated list of column names or
-        /// '*' for all columns. To add text_search property only to string
-        /// columns of minimum size, set also the option
-        /// 'text_search_min_column_length'</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="InsertRecordsFromFilesRequest.Options.TEXT_SEARCH_MIN_COLUMN_LENGTH">TEXT_SEARCH_MIN_COLUMN_LENGTH</see>:</term>
-        ///         <description>Set minimum column size. Used only when
-        /// 'text_search_columns' has a value.</description>
         ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.</summary>
@@ -2355,17 +2420,34 @@ namespace kinetica
         /// file, and the new table name will have to meet standard
         /// <a href="../../../concepts/tables/#table-naming-criteria"
         /// target="_top">table naming criteria</a>.  </param>
-        /// <param name="filepaths">Absolute or relative filepath(s) from where
-        /// files will be loaded. Relative filepaths are relative to the
-        /// defined <a href="../../../config/#external-files"
-        /// target="_top">external_files_directory</a> parameter in the server
-        /// configuration. The filepaths may include wildcards (*). If the
-        /// first path ends in .tsv, the text delimiter will be defaulted to a
-        /// tab character. If the first path ends in .psv, the text delimiter
-        /// will be defaulted to a pipe character (|).
+        /// <param name="filepaths">A list of file paths from which data will
+        /// be sourced;
         /// For paths in <a href="../../../tools/kifs/" target="_top">KiFS</a>,
-        /// use the uri prefix of kifs:// followed by the full path to a file
-        /// or directory  </param>
+        /// use the uri prefix of kifs:// followed by the path to
+        /// a file or directory. File matching by prefix is supported, e.g.
+        /// kifs://dir/file would match dir/file_1
+        /// and dir/file_2. When prefix matching is used, the path must start
+        /// with a full, valid KiFS directory name.
+        /// If an external data source is specified in <i>datasource_name</i>,
+        /// these file
+        /// paths must resolve to accessible files at that data source
+        /// location. Prefix matching is is supported.
+        /// If the data source is hdfs, prefixes must be aligned with
+        /// directories, i.e. partial file names will not match.
+        /// If no data source is specified, the files are assumed to be local
+        /// to the database and must all be
+        /// accessible to the gpudb user, residing on the path (or relative to
+        /// the path) specified by the
+        /// external files directory in the Kinetica
+        /// <a href="../../../config/#external-files"
+        /// target="_top">configuration file</a>. Wildcards (*) can be used to
+        /// specify a group of files.
+        /// Prefix matching is supported, the prefixes must be aligned with
+        /// directories.
+        /// If the first path ends in .tsv, the text delimiter will be
+        /// defaulted to a tab character.
+        /// If the first path ends in .psv, the text delimiter will be
+        /// defaulted to a pipe character (|).   </param>
         /// <param name="modify_columns">Not implemented yet.  The default
         /// value is an empty {@link Dictionary}.</param>
         /// <param name="create_table_options">Options used when creating the
@@ -2595,7 +2677,8 @@ namespace kinetica
         ///         <description>Optional name of a table to which records that
         /// were rejected are written.  The bad-record-table has the following
         /// columns: line_number (long), line_rejected (string), error_message
-        /// (string).</description>
+        /// (string). When error handling is Abort, bad records table is not
+        /// populated.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -2738,7 +2821,7 @@ namespace kinetica
         ///     </item>
         /// </list>
         /// The default value is <see
-        /// cref="InsertRecordsFromFilesRequest.Options.PERMISSIVE">PERMISSIVE</see>.</description>
+        /// cref="InsertRecordsFromFilesRequest.Options.ABORT">ABORT</see>.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -2749,19 +2832,24 @@ namespace kinetica
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
+        /// cref="InsertRecordsFromFilesRequest.Options.AVRO">AVRO</see>:</term>
+        ///         <description>Avro file format</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="InsertRecordsFromFilesRequest.Options.DELIMITED_TEXT">DELIMITED_TEXT</see>:</term>
         ///         <description>Delimited text file format; e.g., CSV, TSV,
         /// PSV, etc.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="InsertRecordsFromFilesRequest.Options.PARQUET">PARQUET</see>:</term>
-        ///         <description>Apache Parquet file format</description>
+        /// cref="InsertRecordsFromFilesRequest.Options.JSON">JSON</see>:</term>
+        ///         <description>Json file format</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="InsertRecordsFromFilesRequest.Options.JSON">JSON</see>:</term>
-        ///         <description>Json file format</description>
+        /// cref="InsertRecordsFromFilesRequest.Options.PARQUET">PARQUET</see>:</term>
+        ///         <description>Apache Parquet file format</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -2805,9 +2893,17 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
+        /// cref="InsertRecordsFromFilesRequest.Options.KAFKA_GROUP_ID">KAFKA_GROUP_ID</see>:</term>
+        ///         <description>The group id to be used consuming data from a
+        /// kakfa topic (valid only for kafka datasource
+        /// subscriptions).</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="InsertRecordsFromFilesRequest.Options.LOADING_MODE">LOADING_MODE</see>:</term>
         ///         <description>Scheme for distributing the extraction and
-        /// loading of data from the source data file(s).
+        /// loading of data from the source data file(s). This option applies
+        /// only when loading files that are local to the database
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -2850,9 +2946,6 @@ namespace kinetica
         /// head node has no files local to it, it will be unable to determine
         /// the structure and the request
         /// will fail.
-        /// This mode should not be used in conjuction with a data source, as
-        /// data sources are seen by all
-        /// worker processes as shared resources with no 'local' component.
         /// If the head node is configured to have no worker processes, no data
         /// strictly accessible to the head
         /// node will be loaded.</description>
@@ -2860,6 +2953,26 @@ namespace kinetica
         /// </list>
         /// The default value is <see
         /// cref="InsertRecordsFromFilesRequest.Options.HEAD">HEAD</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromFilesRequest.Options.LOCAL_TIME_OFFSET">LOCAL_TIME_OFFSET</see>:</term>
+        ///         <description>For Avro local timestamp columns</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromFilesRequest.Options.NUM_TASKS_PER_RANK">NUM_TASKS_PER_RANK</see>:</term>
+        ///         <description>Optional: number of tasks for reading file per
+        /// rank. Default will be external_file_reader_num_tasks</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromFilesRequest.Options.POLL_INTERVAL">POLL_INTERVAL</see>:</term>
+        ///         <description>If <i>true</i>, the number of seconds between
+        /// attempts to load external files into the table.  If zero, polling
+        /// will be continuous as long as data is found.  If no data is found,
+        /// the interval will steadily increase to a maximum of 60
+        /// seconds.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -2874,6 +2987,12 @@ namespace kinetica
         ///         <description>Optional: comma separated list of column
         /// names, to set as primary keys, when not specified in the type.  The
         /// default value is ''.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromFilesRequest.Options.SKIP_LINES">SKIP_LINES</see>:</term>
+        ///         <description>Skip number of lines from begining of
+        /// file.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -2896,12 +3015,24 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="InsertRecordsFromFilesRequest.Options.POLL_INTERVAL">POLL_INTERVAL</see>:</term>
-        ///         <description>If <i>true</i>, the number of seconds between
-        /// attempts to load external files into the table.  If zero, polling
-        /// will be continuous as long as data is found.  If no data is found,
-        /// the interval will steadily increase to a maximum of 60
-        /// seconds.</description>
+        /// cref="InsertRecordsFromFilesRequest.Options.TABLE_INSERT_MODE">TABLE_INSERT_MODE</see>:</term>
+        ///         <description>Optional: table_insert_mode. When inserting
+        /// records from multiple files: if table_per_file then insert from
+        /// each file into a new table. Currently supported only for
+        /// shapefiles.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromFilesRequest.Options.SINGLE">SINGLE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromFilesRequest.Options.TABLE_PER_FILE">TABLE_PER_FILE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="InsertRecordsFromFilesRequest.Options.SINGLE">SINGLE</see>.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -2977,7 +3108,7 @@ namespace kinetica
         /// interpreted as a null
         /// value in the source data.
         /// For <i>delimited_text</i> <i>file_type</i> only.  The default value
-        /// is ''.</description>
+        /// is '\\N'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -2994,6 +3125,21 @@ namespace kinetica
         /// specify an empty string.
         /// For <i>delimited_text</i> <i>file_type</i> only.  The default value
         /// is '"'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromFilesRequest.Options.TEXT_SEARCH_COLUMNS">TEXT_SEARCH_COLUMNS</see>:</term>
+        ///         <description>Add 'text_search' property to internally
+        /// inferenced string columns. Comma seperated list of column names or
+        /// '*' for all columns. To add text_search property only to string
+        /// columns of minimum size, set also the option
+        /// 'text_search_min_column_length'</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromFilesRequest.Options.TEXT_SEARCH_MIN_COLUMN_LENGTH">TEXT_SEARCH_MIN_COLUMN_LENGTH</see>:</term>
+        ///         <description>Set minimum column size. Used only when
+        /// 'text_search_columns' has a value.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -3018,12 +3164,6 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="InsertRecordsFromFilesRequest.Options.NUM_TASKS_PER_RANK">NUM_TASKS_PER_RANK</see>:</term>
-        ///         <description>Optional: number of tasks for reading file per
-        /// rank. Default will be external_file_reader_num_tasks</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
         /// cref="InsertRecordsFromFilesRequest.Options.TYPE_INFERENCE_MODE">TYPE_INFERENCE_MODE</see>:</term>
         ///         <description>optimize type inference for:
         /// Supported values:
@@ -3043,49 +3183,6 @@ namespace kinetica
         /// </list>
         /// The default value is <see
         /// cref="InsertRecordsFromFilesRequest.Options.SPEED">SPEED</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="InsertRecordsFromFilesRequest.Options.TABLE_INSERT_MODE">TABLE_INSERT_MODE</see>:</term>
-        ///         <description>Optional: table_insert_mode. When inserting
-        /// records from multiple files: if table_per_file then insert from
-        /// each file into a new table. Currently supported only for
-        /// shapefiles.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="InsertRecordsFromFilesRequest.Options.SINGLE">SINGLE</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="InsertRecordsFromFilesRequest.Options.TABLE_PER_FILE">TABLE_PER_FILE</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="InsertRecordsFromFilesRequest.Options.SINGLE">SINGLE</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="InsertRecordsFromFilesRequest.Options.KAFKA_GROUP_ID">KAFKA_GROUP_ID</see>:</term>
-        ///         <description>The group id to be used consuming data from a
-        /// kakfa topic (valid only for kafka datasource
-        /// subscriptions).</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="InsertRecordsFromFilesRequest.Options.TEXT_SEARCH_COLUMNS">TEXT_SEARCH_COLUMNS</see>:</term>
-        ///         <description>Add 'text_search' property to internally
-        /// inferenced string columns. Comma seperated list of column names or
-        /// '*' for all columns. To add text_search property only to string
-        /// columns of minimum size, set also the option
-        /// 'text_search_min_column_length'</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="InsertRecordsFromFilesRequest.Options.TEXT_SEARCH_MIN_COLUMN_LENGTH">TEXT_SEARCH_MIN_COLUMN_LENGTH</see>:</term>
-        ///         <description>Set minimum column size. Used only when
-        /// 'text_search_columns' has a value.</description>
         ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.</param>

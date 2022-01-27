@@ -101,6 +101,12 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
+        /// cref="AlterResourceGroupRequest.Options.MAX_DATA">MAX_DATA</see>:</term>
+        ///         <description>Maximum amount of cumulative ram usage
+        /// regardless of tier status for this group.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="AlterResourceGroupRequest.Options.MAX_SCHEDULING_PRIORITY">MAX_SCHEDULING_PRIORITY</see>:</term>
         ///         <description>Maximum priority of a scheduled task for this
         /// group.</description>
@@ -142,6 +148,10 @@ namespace kinetica
             /// <summary>Maximum number of simultaneous threads that will be
             /// used to execute a request for this group.</summary>
             public const string MAX_CPU_CONCURRENCY = "max_cpu_concurrency";
+
+            /// <summary>Maximum amount of cumulative ram usage regardless of
+            /// tier status for this group.</summary>
+            public const string MAX_DATA = "max_data";
 
             /// <summary>Maximum priority of a scheduled task for this
             /// group.</summary>
@@ -244,6 +254,12 @@ namespace kinetica
         /// cref="AlterResourceGroupRequest.Options.MAX_CPU_CONCURRENCY">MAX_CPU_CONCURRENCY</see>:</term>
         ///         <description>Maximum number of simultaneous threads that
         /// will be used to execute a request for this group.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterResourceGroupRequest.Options.MAX_DATA">MAX_DATA</see>:</term>
+        ///         <description>Maximum amount of cumulative ram usage
+        /// regardless of tier status for this group.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -353,6 +369,12 @@ namespace kinetica
         /// cref="AlterResourceGroupRequest.Options.MAX_CPU_CONCURRENCY">MAX_CPU_CONCURRENCY</see>:</term>
         ///         <description>Maximum number of simultaneous threads that
         /// will be used to execute a request for this group.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterResourceGroupRequest.Options.MAX_DATA">MAX_DATA</see>:</term>
+        ///         <description>Maximum amount of cumulative ram usage
+        /// regardless of tier status for this group.</description>
         ///     </item>
         ///     <item>
         ///         <term><see

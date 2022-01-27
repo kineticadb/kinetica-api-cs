@@ -365,6 +365,14 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
+        /// cref="CreateGraphRequest.Options.LABEL_DELIMITER">LABEL_DELIMITER</see>:</term>
+        ///         <description>If provided the label string will be split
+        /// according to this delimiter and each sub-string will be applied as
+        /// a separate label onto the specified edge.  The default value is
+        /// ''.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="CreateGraphRequest.Options.SQL_REQUEST_AVRO_JSON">SQL_REQUEST_AVRO_JSON</see>:</term>
         ///         <description>  The default value is ''.</description>
         ///     </item>
@@ -643,6 +651,12 @@ namespace kinetica
             /// The default value is <see
             /// cref="CreateGraphRequest.Options.FALSE">FALSE</see>.</summary>
             public const string USE_RTREE = "use_rtree";
+
+            /// <summary>If provided the label string will be split according
+            /// to this delimiter and each sub-string will be applied as a
+            /// separate label onto the specified edge.  The default value is
+            /// ''.</summary>
+            public const string LABEL_DELIMITER = "label_delimiter";
 
             /// <summary>  The default value is ''.</summary>
             public const string SQL_REQUEST_AVRO_JSON = "sql_request_avro_json";
@@ -1054,6 +1068,14 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
+        /// cref="CreateGraphRequest.Options.LABEL_DELIMITER">LABEL_DELIMITER</see>:</term>
+        ///         <description>If provided the label string will be split
+        /// according to this delimiter and each sub-string will be applied as
+        /// a separate label onto the specified edge.  The default value is
+        /// ''.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="CreateGraphRequest.Options.SQL_REQUEST_AVRO_JSON">SQL_REQUEST_AVRO_JSON</see>:</term>
         ///         <description>  The default value is ''.</description>
         ///     </item>
@@ -1462,6 +1484,14 @@ namespace kinetica
         /// </list>
         /// The default value is <see
         /// cref="CreateGraphRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateGraphRequest.Options.LABEL_DELIMITER">LABEL_DELIMITER</see>:</term>
+        ///         <description>If provided the label string will be split
+        /// according to this delimiter and each sub-string will be applied as
+        /// a separate label onto the specified edge.  The default value is
+        /// ''.</description>
         ///     </item>
         ///     <item>
         ///         <term><see

@@ -20,13 +20,83 @@ namespace kinetica
     public class CreateUserExternalRequest : KineticaData
     {
 
+        /// <summary>Optional parameters.
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateUserExternalRequest.Options.CREATE_HOME_DIRECTORY">CREATE_HOME_DIRECTORY</see>:</term>
+        ///         <description>when true, a home directory in KiFS is created
+        /// for this user
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateUserExternalRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateUserExternalRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="CreateUserExternalRequest.Options.TRUE">TRUE</see>.</description>
+        ///     </item>
+        /// </list>
+        /// The default value is an empty {@link Dictionary}.
+        /// A set of string constants for the parameter <see cref="options"
+        /// />.</summary>
+        public struct Options
+        {
+
+            /// <summary>when true, a home directory in KiFS is created for
+            /// this user
+            /// Supported values:
+            /// <list type="bullet">
+            ///     <item>
+            ///         <term><see
+            /// cref="CreateUserExternalRequest.Options.TRUE">TRUE</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="CreateUserExternalRequest.Options.FALSE">FALSE</see></term>
+            ///     </item>
+            /// </list>
+            /// The default value is <see
+            /// cref="CreateUserExternalRequest.Options.TRUE">TRUE</see>.</summary>
+            public const string CREATE_HOME_DIRECTORY = "create_home_directory";
+            public const string TRUE = "true";
+            public const string FALSE = "false";
+        } // end struct Options
+
+
         /// <summary>Name of the user to be created. Must exactly match the
         /// user's name in the external LDAP, prefixed with a @. Must not be
         /// the same name as an existing user.  </summary>
         public string name { get; set; }
 
-        /// <summary>Optional parameters.  The default value is an empty {@link
-        /// Dictionary}.</summary>
+        /// <summary>Optional parameters.
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateUserExternalRequest.Options.CREATE_HOME_DIRECTORY">CREATE_HOME_DIRECTORY</see>:</term>
+        ///         <description>when true, a home directory in KiFS is created
+        /// for this user
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateUserExternalRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateUserExternalRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="CreateUserExternalRequest.Options.TRUE">TRUE</see>.</description>
+        ///     </item>
+        /// </list>
+        /// The default value is an empty {@link Dictionary}.</summary>
         public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
 
 
@@ -40,8 +110,29 @@ namespace kinetica
         /// <param name="name">Name of the user to be created. Must exactly
         /// match the user's name in the external LDAP, prefixed with a @. Must
         /// not be the same name as an existing user.  </param>
-        /// <param name="options">Optional parameters.  The default value is an
-        /// empty {@link Dictionary}.</param>
+        /// <param name="options">Optional parameters.
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateUserExternalRequest.Options.CREATE_HOME_DIRECTORY">CREATE_HOME_DIRECTORY</see>:</term>
+        ///         <description>when true, a home directory in KiFS is created
+        /// for this user
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateUserExternalRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateUserExternalRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="CreateUserExternalRequest.Options.TRUE">TRUE</see>.</description>
+        ///     </item>
+        /// </list>
+        /// The default value is an empty {@link Dictionary}.</param>
         /// 
         public CreateUserExternalRequest( string name,
                                           IDictionary<string, string> options = null)

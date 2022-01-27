@@ -43,6 +43,29 @@ namespace kinetica
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
+        /// cref="MergeRecordsRequest.Options.CREATE_TEMP_TABLE">CREATE_TEMP_TABLE</see>:</term>
+        ///         <description>If <i>true</i>, a unique temporary table name
+        /// will be generated in the sys_temp schema and used in place of
+        /// <paramref cref="MergeRecordsRequest.table_name" />. If
+        /// <i>persist</i> is <i>false</i>, then this is always allowed even if
+        /// the caller does not have permission to create tables. The generated
+        /// name is returned in <i>qualified_table_name</i>.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="MergeRecordsRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="MergeRecordsRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="MergeRecordsRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="MergeRecordsRequest.Options.COLLECTION_NAME">COLLECTION_NAME</see>:</term>
         ///         <description>[DEPRECATED--please specify the containing
         /// schema for the merged table as part of <paramref
@@ -126,6 +149,29 @@ namespace kinetica
         public struct Options
         {
 
+            /// <summary>If <i>true</i>, a unique temporary table name will be
+            /// generated in the sys_temp schema and used in place of <see
+            /// cref="table_name" />. If <i>persist</i> is <i>false</i>, then
+            /// this is always allowed even if the caller does not have
+            /// permission to create tables. The generated name is returned in
+            /// <i>qualified_table_name</i>.
+            /// Supported values:
+            /// <list type="bullet">
+            ///     <item>
+            ///         <term><see
+            /// cref="MergeRecordsRequest.Options.TRUE">TRUE</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="MergeRecordsRequest.Options.FALSE">FALSE</see></term>
+            ///     </item>
+            /// </list>
+            /// The default value is <see
+            /// cref="MergeRecordsRequest.Options.FALSE">FALSE</see>.</summary>
+            public const string CREATE_TEMP_TABLE = "create_temp_table";
+            public const string TRUE = "true";
+            public const string FALSE = "false";
+
             /// <summary>[DEPRECATED--please specify the containing schema for
             /// the merged table as part of <see cref="table_name" /> and use
             /// <see
@@ -158,8 +204,6 @@ namespace kinetica
             /// The default value is <see
             /// cref="MergeRecordsRequest.Options.FALSE">FALSE</see>.</summary>
             public const string IS_REPLICATED = "is_replicated";
-            public const string TRUE = "true";
-            public const string FALSE = "false";
 
             /// <summary>Sets the <a href="../../../concepts/ttl/"
             /// target="_top">TTL</a> of the merged table specified in <see
@@ -228,6 +272,29 @@ namespace kinetica
 
         /// <summary>Optional parameters.
         /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="MergeRecordsRequest.Options.CREATE_TEMP_TABLE">CREATE_TEMP_TABLE</see>:</term>
+        ///         <description>If <i>true</i>, a unique temporary table name
+        /// will be generated in the sys_temp schema and used in place of
+        /// <paramref cref="MergeRecordsRequest.table_name" />. If
+        /// <i>persist</i> is <i>false</i>, then this is always allowed even if
+        /// the caller does not have permission to create tables. The generated
+        /// name is returned in <i>qualified_table_name</i>.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="MergeRecordsRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="MergeRecordsRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="MergeRecordsRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="MergeRecordsRequest.Options.COLLECTION_NAME">COLLECTION_NAME</see>:</term>
@@ -345,6 +412,29 @@ namespace kinetica
         /// target column.  </param>
         /// <param name="options">Optional parameters.
         /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="MergeRecordsRequest.Options.CREATE_TEMP_TABLE">CREATE_TEMP_TABLE</see>:</term>
+        ///         <description>If <i>true</i>, a unique temporary table name
+        /// will be generated in the sys_temp schema and used in place of
+        /// <paramref cref="MergeRecordsRequest.table_name" />. If
+        /// <i>persist</i> is <i>false</i>, then this is always allowed even if
+        /// the caller does not have permission to create tables. The generated
+        /// name is returned in <i>qualified_table_name</i>.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="MergeRecordsRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="MergeRecordsRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="MergeRecordsRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="MergeRecordsRequest.Options.COLLECTION_NAME">COLLECTION_NAME</see>:</term>

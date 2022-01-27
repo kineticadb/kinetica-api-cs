@@ -178,7 +178,28 @@ namespace kinetica
         ///         <term><see
         /// cref="AlterDatasourceRequest.DatasourceUpdatesMap.ANONYMOUS">ANONYMOUS</see>:</term>
         ///         <description>Create an anonymous connection to the storage
-        /// provider
+        /// provider--DEPRECATED: this is now the default.  Specify
+        /// use_managed_credentials for non-anonymous connection
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterDatasourceRequest.DatasourceUpdatesMap.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterDatasourceRequest.DatasourceUpdatesMap.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="AlterDatasourceRequest.DatasourceUpdatesMap.TRUE">TRUE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterDatasourceRequest.DatasourceUpdatesMap.USE_MANAGED_CREDENTIALS">USE_MANAGED_CREDENTIALS</see>:</term>
+        ///         <description>When no credentials are supplied, we use
+        /// anonymous access by default.  If this is set, we will use cloud
+        /// provider user settings.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -325,7 +346,27 @@ namespace kinetica
             /// source</summary>
             public const string KAFKA_TOPIC_NAME = "kafka_topic_name";
 
-            /// <summary>Create an anonymous connection to the storage provider
+            /// <summary>Create an anonymous connection to the storage
+            /// provider--DEPRECATED: this is now the default.  Specify
+            /// use_managed_credentials for non-anonymous connection
+            /// Supported values:
+            /// <list type="bullet">
+            ///     <item>
+            ///         <term><see
+            /// cref="AlterDatasourceRequest.DatasourceUpdatesMap.TRUE">TRUE</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="AlterDatasourceRequest.DatasourceUpdatesMap.FALSE">FALSE</see></term>
+            ///     </item>
+            /// </list>
+            /// The default value is <see
+            /// cref="AlterDatasourceRequest.DatasourceUpdatesMap.TRUE">TRUE</see>.</summary>
+            public const string ANONYMOUS = "anonymous";
+
+            /// <summary>When no credentials are supplied, we use anonymous
+            /// access by default.  If this is set, we will use cloud provider
+            /// user settings.
             /// Supported values:
             /// <list type="bullet">
             ///     <item>
@@ -339,7 +380,7 @@ namespace kinetica
             /// </list>
             /// The default value is <see
             /// cref="AlterDatasourceRequest.DatasourceUpdatesMap.FALSE">FALSE</see>.</summary>
-            public const string ANONYMOUS = "anonymous";
+            public const string USE_MANAGED_CREDENTIALS = "use_managed_credentials";
 
             /// <summary>Use https to connect to datasource if true, otherwise
             /// use http
@@ -521,7 +562,28 @@ namespace kinetica
         ///         <term><see
         /// cref="AlterDatasourceRequest.DatasourceUpdatesMap.ANONYMOUS">ANONYMOUS</see>:</term>
         ///         <description>Create an anonymous connection to the storage
-        /// provider
+        /// provider--DEPRECATED: this is now the default.  Specify
+        /// use_managed_credentials for non-anonymous connection
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterDatasourceRequest.DatasourceUpdatesMap.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterDatasourceRequest.DatasourceUpdatesMap.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="AlterDatasourceRequest.DatasourceUpdatesMap.TRUE">TRUE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterDatasourceRequest.DatasourceUpdatesMap.USE_MANAGED_CREDENTIALS">USE_MANAGED_CREDENTIALS</see>:</term>
+        ///         <description>When no credentials are supplied, we use
+        /// anonymous access by default.  If this is set, we will use cloud
+        /// provider user settings.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -728,7 +790,28 @@ namespace kinetica
         ///         <term><see
         /// cref="AlterDatasourceRequest.DatasourceUpdatesMap.ANONYMOUS">ANONYMOUS</see>:</term>
         ///         <description>Create an anonymous connection to the storage
-        /// provider
+        /// provider--DEPRECATED: this is now the default.  Specify
+        /// use_managed_credentials for non-anonymous connection
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterDatasourceRequest.DatasourceUpdatesMap.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterDatasourceRequest.DatasourceUpdatesMap.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="AlterDatasourceRequest.DatasourceUpdatesMap.TRUE">TRUE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterDatasourceRequest.DatasourceUpdatesMap.USE_MANAGED_CREDENTIALS">USE_MANAGED_CREDENTIALS</see>:</term>
+        ///         <description>When no credentials are supplied, we use
+        /// anonymous access by default.  If this is set, we will use cloud
+        /// provider user settings.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>

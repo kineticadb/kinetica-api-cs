@@ -170,7 +170,29 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="CreateDatasourceRequest.Options.ANONYMOUS">ANONYMOUS</see>:</term>
-        ///         <description>Use anonymous connection to storage provider
+        ///         <description>Use anonymous connection to storage
+        /// provider--DEPRECATED: this is now the default.  Specify
+        /// use_managed_credentials for non-anonymous connection.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateDatasourceRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateDatasourceRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="CreateDatasourceRequest.Options.TRUE">TRUE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateDatasourceRequest.Options.USE_MANAGED_CREDENTIALS">USE_MANAGED_CREDENTIALS</see>:</term>
+        ///         <description>When no credentials are supplied, we use
+        /// anonymous access by default.  If this is set, we will use cloud
+        /// provider user settings.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -315,7 +337,27 @@ namespace kinetica
             /// source</summary>
             public const string KAFKA_TOPIC_NAME = "kafka_topic_name";
 
-            /// <summary>Use anonymous connection to storage provider
+            /// <summary>Use anonymous connection to storage
+            /// provider--DEPRECATED: this is now the default.  Specify
+            /// use_managed_credentials for non-anonymous connection.
+            /// Supported values:
+            /// <list type="bullet">
+            ///     <item>
+            ///         <term><see
+            /// cref="CreateDatasourceRequest.Options.TRUE">TRUE</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="CreateDatasourceRequest.Options.FALSE">FALSE</see></term>
+            ///     </item>
+            /// </list>
+            /// The default value is <see
+            /// cref="CreateDatasourceRequest.Options.TRUE">TRUE</see>.</summary>
+            public const string ANONYMOUS = "anonymous";
+
+            /// <summary>When no credentials are supplied, we use anonymous
+            /// access by default.  If this is set, we will use cloud provider
+            /// user settings.
             /// Supported values:
             /// <list type="bullet">
             ///     <item>
@@ -329,7 +371,7 @@ namespace kinetica
             /// </list>
             /// The default value is <see
             /// cref="CreateDatasourceRequest.Options.FALSE">FALSE</see>.</summary>
-            public const string ANONYMOUS = "anonymous";
+            public const string USE_MANAGED_CREDENTIALS = "use_managed_credentials";
 
             /// <summary>Use https to connect to datasource if true, otherwise
             /// use http
@@ -356,7 +398,8 @@ namespace kinetica
         /// <summary>Location of the remote storage in
         /// 'storage_provider_type://[storage_path[:storage_port]]' format.
         /// <br />
-        /// Supported storage provider types are 'hdfs' and 's3'.  </summary>
+        /// Supported storage provider types are 'azure','hdfs','kafka' and
+        /// 's3'.  </summary>
         public string location { get; set; }
 
         /// <summary>Name of the remote system user; may be an empty string
@@ -515,7 +558,29 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="CreateDatasourceRequest.Options.ANONYMOUS">ANONYMOUS</see>:</term>
-        ///         <description>Use anonymous connection to storage provider
+        ///         <description>Use anonymous connection to storage
+        /// provider--DEPRECATED: this is now the default.  Specify
+        /// use_managed_credentials for non-anonymous connection.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateDatasourceRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateDatasourceRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="CreateDatasourceRequest.Options.TRUE">TRUE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateDatasourceRequest.Options.USE_MANAGED_CREDENTIALS">USE_MANAGED_CREDENTIALS</see>:</term>
+        ///         <description>When no credentials are supplied, we use
+        /// anonymous access by default.  If this is set, we will use cloud
+        /// provider user settings.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -564,7 +629,8 @@ namespace kinetica
         /// <param name="name">Name of the data source to be created.  </param>
         /// <param name="location">Location of the remote storage in
         /// 'storage_provider_type://[storage_path[:storage_port]]' format.
-        /// Supported storage provider types are 'hdfs' and 's3'.  </param>
+        /// Supported storage provider types are 'azure','hdfs','kafka' and
+        /// 's3'.  </param>
         /// <param name="user_name">Name of the remote system user; may be an
         /// empty string  </param>
         /// <param name="password">Password for the remote system user; may be
@@ -717,7 +783,29 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="CreateDatasourceRequest.Options.ANONYMOUS">ANONYMOUS</see>:</term>
-        ///         <description>Use anonymous connection to storage provider
+        ///         <description>Use anonymous connection to storage
+        /// provider--DEPRECATED: this is now the default.  Specify
+        /// use_managed_credentials for non-anonymous connection.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateDatasourceRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateDatasourceRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="CreateDatasourceRequest.Options.TRUE">TRUE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateDatasourceRequest.Options.USE_MANAGED_CREDENTIALS">USE_MANAGED_CREDENTIALS</see>:</term>
+        ///         <description>When no credentials are supplied, we use
+        /// anonymous access by default.  If this is set, we will use cloud
+        /// provider user settings.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>

@@ -16,7 +16,7 @@ namespace kinetica
     {
 
         // Kinetica Version
-        public const string API_VERSION = "7.1.4.0";
+        public const string API_VERSION = "7.1.5.0";
 
 
 
@@ -571,31 +571,31 @@ namespace kinetica
         /// distributed (as much as possible) across all the ranks.
         /// <br />
         /// The database must be offline for this operation, see <see
-        /// cref="Kinetica.adminOffline(bool,IDictionary{string, string})" />
+        /// cref="Kinetica.adminOffline(bool,IDictionary{string, string})"
+        /// />.
         /// <br />
-        /// * If <see
+        /// If <see
         /// cref="Kinetica.adminRebalance(IDictionary{string, string})" /> is
         /// invoked after a change is made to the
-        ///   cluster, e.g., a host was added or removed,
-        ///   <a href="../../../concepts/tables/#sharding"
-        /// target="_top">sharded data</a> will be
-        ///   evenly redistributed across the cluster by number of shards per
+        /// cluster, e.g., a host was added or removed,
+        /// <a href="../../../concepts/tables/#sharding" target="_top">sharded
+        /// data</a> will be
+        /// evenly redistributed across the cluster by number of shards per
         /// rank
-        ///   while unsharded data will be redistributed across the cluster by
+        /// while unsharded data will be redistributed across the cluster by
         /// data
-        ///   size per rank
-        /// * If <see
+        /// size per rank.
+        /// <br />
+        /// If <see
         /// cref="Kinetica.adminRebalance(IDictionary{string, string})" /> is
         /// invoked at some point when unsharded
-        ///   data (a.k.a.
-        ///   <a href="../../../concepts/tables/#random-sharding"
+        /// data (a.k.a. <a href="../../../concepts/tables/#random-sharding"
         /// target="_top">randomly-sharded</a>)
-        ///   in the cluster is unevenly distributed over time, sharded data
-        /// will
-        ///   not move while unsharded data will be redistributed across the
-        ///   cluster by data size per rank
+        /// in the cluster is unevenly distributed over time, sharded data will
+        /// not move while unsharded data will be redistributed across the
+        /// cluster by data size per rank.
         /// <br />
-        /// NOTE: Replicated data will not move as a result of this call
+        /// NOTE: Replicated data will not move as a result of this call.
         /// <br />
         /// This endpoint's processing time depends on the amount of data in
         /// the system,
@@ -626,31 +626,31 @@ namespace kinetica
         /// distributed (as much as possible) across all the ranks.
         /// <br />
         /// The database must be offline for this operation, see <see
-        /// cref="Kinetica.adminOffline(bool,IDictionary{string, string})" />
+        /// cref="Kinetica.adminOffline(bool,IDictionary{string, string})"
+        /// />.
         /// <br />
-        /// * If <see
+        /// If <see
         /// cref="Kinetica.adminRebalance(IDictionary{string, string})" /> is
         /// invoked after a change is made to the
-        ///   cluster, e.g., a host was added or removed,
-        ///   <a href="../../../concepts/tables/#sharding"
-        /// target="_top">sharded data</a> will be
-        ///   evenly redistributed across the cluster by number of shards per
+        /// cluster, e.g., a host was added or removed,
+        /// <a href="../../../concepts/tables/#sharding" target="_top">sharded
+        /// data</a> will be
+        /// evenly redistributed across the cluster by number of shards per
         /// rank
-        ///   while unsharded data will be redistributed across the cluster by
+        /// while unsharded data will be redistributed across the cluster by
         /// data
-        ///   size per rank
-        /// * If <see
+        /// size per rank.
+        /// <br />
+        /// If <see
         /// cref="Kinetica.adminRebalance(IDictionary{string, string})" /> is
         /// invoked at some point when unsharded
-        ///   data (a.k.a.
-        ///   <a href="../../../concepts/tables/#random-sharding"
+        /// data (a.k.a. <a href="../../../concepts/tables/#random-sharding"
         /// target="_top">randomly-sharded</a>)
-        ///   in the cluster is unevenly distributed over time, sharded data
-        /// will
-        ///   not move while unsharded data will be redistributed across the
-        ///   cluster by data size per rank
+        /// in the cluster is unevenly distributed over time, sharded data will
+        /// not move while unsharded data will be redistributed across the
+        /// cluster by data size per rank.
         /// <br />
-        /// NOTE: Replicated data will not move as a result of this call
+        /// NOTE: Replicated data will not move as a result of this call.
         /// <br />
         /// This endpoint's processing time depends on the amount of data in
         /// the system,
@@ -1569,8 +1569,8 @@ namespace kinetica
         /// target="_top">aggregation functions</a> supplied to <i>having</i>.
         /// <br />
         /// The response is returned as a dynamic schema. For details see: <a
-        /// href="../../../api/#dynamic-schemas" target="_top">dynamic schemas
-        /// documentation</a>.
+        /// href="../../../api/concepts/#dynamic-schemas" target="_top">dynamic
+        /// schemas documentation</a>.
         /// <br />
         /// If a <i>result_table</i> name is specified in the <paramref
         /// cref="AggregateGroupByRequest.options" />, the results are stored
@@ -1662,8 +1662,8 @@ namespace kinetica
         /// target="_top">aggregation functions</a> supplied to <i>having</i>.
         /// <br />
         /// The response is returned as a dynamic schema. For details see: <a
-        /// href="../../../api/#dynamic-schemas" target="_top">dynamic schemas
-        /// documentation</a>.
+        /// href="../../../api/concepts/#dynamic-schemas" target="_top">dynamic
+        /// schemas documentation</a>.
         /// <br />
         /// If a <i>result_table</i> name is specified in the <paramref
         /// name="options" />, the results are stored in a new table with that
@@ -1706,6 +1706,29 @@ namespace kinetica
         /// of results.  The default value is -9999.</param>
         /// <param name="options">Optional parameters.
         /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="AggregateGroupByRequest.Options.CREATE_TEMP_TABLE">CREATE_TEMP_TABLE</see>:</term>
+        ///         <description>If <i>true</i>, a unique temporary table name
+        /// will be generated in the sys_temp schema and used in place of
+        /// <i>result_table</i>. If <i>result_table_persist</i> is <i>false</i>
+        /// (or unspecified), then this is always allowed even if the caller
+        /// does not have permission to create tables. The generated name is
+        /// returned in <i>qualified_result_table_name</i>.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="AggregateGroupByRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AggregateGroupByRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="AggregateGroupByRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="AggregateGroupByRequest.Options.COLLECTION_NAME">COLLECTION_NAME</see>:</term>
@@ -2705,8 +2728,8 @@ namespace kinetica
         /// {"limit":"10","sort_order":"descending"}.
         /// <br />
         /// The response is returned as a dynamic schema. For details see:
-        /// <a href="../../../api/#dynamic-schemas" target="_top">dynamic
-        /// schemas documentation</a>.
+        /// <a href="../../../api/concepts/#dynamic-schemas"
+        /// target="_top">dynamic schemas documentation</a>.
         /// <br />
         /// If a <i>result_table</i> name is specified in the
         /// <paramref cref="AggregateUniqueRequest.options" />, the results are
@@ -2774,8 +2797,8 @@ namespace kinetica
         /// {"limit":"10","sort_order":"descending"}.
         /// <br />
         /// The response is returned as a dynamic schema. For details see:
-        /// <a href="../../../api/#dynamic-schemas" target="_top">dynamic
-        /// schemas documentation</a>.
+        /// <a href="../../../api/concepts/#dynamic-schemas"
+        /// target="_top">dynamic schemas documentation</a>.
         /// <br />
         /// If a <i>result_table</i> name is specified in the
         /// <paramref name="options" />, the results are stored in a new table
@@ -2824,6 +2847,29 @@ namespace kinetica
         /// of results.  The default value is -9999.</param>
         /// <param name="options">Optional parameters.
         /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="AggregateUniqueRequest.Options.CREATE_TEMP_TABLE">CREATE_TEMP_TABLE</see>:</term>
+        ///         <description>If <i>true</i>, a unique temporary table name
+        /// will be generated in the sys_temp schema and used in place of
+        /// <i>result_table</i>. If <i>result_table_persist</i> is <i>false</i>
+        /// (or unspecified), then this is always allowed even if the caller
+        /// does not have permission to create tables. The generated name is
+        /// returned in <i>qualified_result_table_name</i>.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="AggregateUniqueRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AggregateUniqueRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="AggregateUniqueRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="AggregateUniqueRequest.Options.COLLECTION_NAME">COLLECTION_NAME</see>:</term>
@@ -2992,8 +3038,8 @@ namespace kinetica
         /// and values respectively.
         /// <br />
         /// The response is returned as a dynamic schema. For details see:
-        /// <a href="../../../api/#dynamic-schemas" target="_top">dynamic
-        /// schemas documentation</a>.</summary>
+        /// <a href="../../../api/concepts/#dynamic-schemas"
+        /// target="_top">dynamic schemas documentation</a>.</summary>
         /// 
         /// <param name="request_">Request object containing the parameters for
         /// the operation.</param>
@@ -3036,8 +3082,8 @@ namespace kinetica
         /// and values respectively.
         /// <br />
         /// The response is returned as a dynamic schema. For details see:
-        /// <a href="../../../api/#dynamic-schemas" target="_top">dynamic
-        /// schemas documentation</a>.</summary>
+        /// <a href="../../../api/concepts/#dynamic-schemas"
+        /// target="_top">dynamic schemas documentation</a>.</summary>
         /// 
         /// <param name="table_name">Name of the table on which the operation
         /// will be performed. Must be an existing table/view, in
@@ -3056,6 +3102,29 @@ namespace kinetica
         /// table must have the same data type.  </param>
         /// <param name="options">Optional parameters.
         /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="AggregateUnpivotRequest.Options.CREATE_TEMP_TABLE">CREATE_TEMP_TABLE</see>:</term>
+        ///         <description>If <i>true</i>, a unique temporary table name
+        /// will be generated in the sys_temp schema and used in place of
+        /// <i>result_table</i>. If <i>result_table_persist</i> is <i>false</i>
+        /// (or unspecified), then this is always allowed even if the caller
+        /// does not have permission to create tables. The generated name is
+        /// returned in <i>qualified_result_table_name</i>.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="AggregateUnpivotRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AggregateUnpivotRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="AggregateUnpivotRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="AggregateUnpivotRequest.Options.COLLECTION_NAME">COLLECTION_NAME</see>:</term>
@@ -3324,24 +3393,6 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.DESTINATION_TYPE">DESTINATION_TYPE</see>:</term>
-        ///         <description>Destination type for the output
-        /// data</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.USER_NAME">USER_NAME</see>:</term>
-        ///         <description>Name of the remote system user; may be an
-        /// empty string</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.PASSWORD">PASSWORD</see>:</term>
-        ///         <description>Password for the remote system user; may be an
-        /// empty string</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
         /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.CONNECTION_TIMEOUT">CONNECTION_TIMEOUT</see>:</term>
         ///         <description>Timeout in seconds for connecting to this
         /// sink</description>
@@ -3364,6 +3415,39 @@ namespace kinetica
         /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.KAFKA_TOPIC_NAME">KAFKA_TOPIC_NAME</see>:</term>
         ///         <description>Name of the Kafka topic to use for this data
         /// sink, if it references a Kafka broker</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.MAX_BATCH_SIZE">MAX_BATCH_SIZE</see>:</term>
+        ///         <description>Maximum number of records per notification
+        /// message.  The default value is '1'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.MAX_MESSAGE_SIZE">MAX_MESSAGE_SIZE</see>:</term>
+        ///         <description>Maximum size in bytes of each notification
+        /// message.  The default value is '1000000'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.JSON_FORMAT">JSON_FORMAT</see>:</term>
+        ///         <description>The desired format of JSON encoded
+        /// notifications message.
+        /// If <i>nested</i>, records are returned as an array.
+        /// Otherwise, only a single record per messages is returned.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.FLAT">FLAT</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.NESTED">NESTED</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.FLAT">FLAT</see>.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -3580,7 +3664,28 @@ namespace kinetica
         ///         <term><see
         /// cref="AlterDatasourceRequest.DatasourceUpdatesMap.ANONYMOUS">ANONYMOUS</see>:</term>
         ///         <description>Create an anonymous connection to the storage
-        /// provider
+        /// provider--DEPRECATED: this is now the default.  Specify
+        /// use_managed_credentials for non-anonymous connection
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterDatasourceRequest.DatasourceUpdatesMap.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterDatasourceRequest.DatasourceUpdatesMap.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="AlterDatasourceRequest.DatasourceUpdatesMap.TRUE">TRUE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterDatasourceRequest.DatasourceUpdatesMap.USE_MANAGED_CREDENTIALS">USE_MANAGED_CREDENTIALS</see>:</term>
+        ///         <description>When no credentials are supplied, we use
+        /// anonymous access by default.  If this is set, we will use cloud
+        /// provider user settings.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -3630,9 +3735,7 @@ namespace kinetica
                                                                 options ) );
         }
 
-
-        /// <summary>For internal use only: Graph server admin command.
-        /// For internal use only: Graph server admin command.</summary>
+        /// @cond NO_DOCS
         /// 
         /// <param name="request_">Request object containing the parameters for
         /// the operation.</param>
@@ -3646,88 +3749,61 @@ namespace kinetica
 
             return actualResponse_;
         }
+        /// @endcond
 
-
-        /// <summary>For internal use only: Graph server admin command.
-        /// For internal use only: Graph server admin command.</summary>
+        /// @cond NO_DOCS
         /// 
-        /// <param name="graph_name">Graph on which the operation should be
-        /// applied.
-        /// If empty then it will apply to all graphs.
-        /// This request can be sent from the graph server to the graph client,
-        /// or from the client to the server depending on the type of
-        /// operation.  </param>
-        /// <param name="action">Operation to be applied
+        /// <param name="graph_name"></param>
+        /// <param name="action">
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
-        /// cref="AlterGraphRequest.Action.ADD_TABLE_MONITOR">ADD_TABLE_MONITOR</see>:</term>
-        ///         <description>Add a table monitor to a graph. The table name
-        /// is specified as the action argment.</description>
+        /// cref="AlterGraphRequest.Action.ADD_TABLE_MONITOR">ADD_TABLE_MONITOR</see></term>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AlterGraphRequest.Action.RESET_CLIENT">RESET_CLIENT</see>:</term>
-        ///         <description>Reset all current operations on the client
-        /// side. Used when the graph server is restarted to recover from a
-        /// failure.</description>
+        /// cref="AlterGraphRequest.Action.RESET_CLIENT">RESET_CLIENT</see></term>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AlterGraphRequest.Action.RESET_SERVER">RESET_SERVER</see>:</term>
-        ///         <description>Reset all current operations on the server
-        /// side. This is also sent on (re)start.</description>
+        /// cref="AlterGraphRequest.Action.RESET_SERVER">RESET_SERVER</see></term>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AlterGraphRequest.Action.CANCEL_TASK">CANCEL_TASK</see>:</term>
-        ///         <description>Cancel a specific task on the graph
-        /// server.</description>
+        /// cref="AlterGraphRequest.Action.CANCEL_TASK">CANCEL_TASK</see></term>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AlterGraphRequest.Action.ALTER_LOGGER">ALTER_LOGGER</see>:</term>
-        ///         <description>Change the server side log level; e.g.,
-        /// 'GraphServer.GraphSolver=DEBUG'</description>
+        /// cref="AlterGraphRequest.Action.ALTER_LOGGER">ALTER_LOGGER</see></term>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AlterGraphRequest.Action.DELETE_ALL">DELETE_ALL</see>:</term>
-        ///         <description>Delete all graphs, and remove any persistence
-        /// info.</description>
+        /// cref="AlterGraphRequest.Action.DELETE_ALL">DELETE_ALL</see></term>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AlterGraphRequest.Action.STATUS">STATUS</see>:</term>
-        ///         <description>Current status of the graph client (db
-        /// side).</description>
+        /// cref="AlterGraphRequest.Action.STATUS">STATUS</see></term>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AlterGraphRequest.Action.COLLECT_GRAPHS">COLLECT_GRAPHS</see>:</term>
-        ///         <description>Get the create command for all persisted
-        /// graphs.</description>
+        /// cref="AlterGraphRequest.Action.COLLECT_GRAPHS">COLLECT_GRAPHS</see></term>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AlterGraphRequest.Action.RESTORE_GRAPHS">RESTORE_GRAPHS</see>:</term>
-        ///         <description>Re-creates all graphs from persist info on
-        /// rank0.</description>
+        /// cref="AlterGraphRequest.Action.RESTORE_GRAPHS">RESTORE_GRAPHS</see></term>
         ///     </item>
-        /// </list>  </param>
-        /// <param name="action_arg">Action specific argument.  </param>
-        /// <param name="options">Optional parameters.
+        /// </list></param>
+        /// <param name="action_arg"></param>
+        /// <param name="options">
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
         /// cref="AlterGraphRequest.Options.SERVER_ID">SERVER_ID</see>:</term>
-        ///         <description>Indicates which graph server(s) to send the
-        /// request to. Default is to send to get information about all the
-        /// servers.</description>
+        ///         <description></description>
         ///     </item>
         /// </list>
-        /// The default value is an empty {@link Dictionary}.</param>
+        /// </param>
         /// 
         /// <returns>Response object containing the result of the
         /// operation.</returns>
@@ -3740,6 +3816,7 @@ namespace kinetica
             return alterGraph( new AlterGraphRequest( graph_name, action, action_arg,
                                                       options ) );
         }
+        /// @endcond
 
         /// @cond NO_DOCS
         /// 
@@ -3774,6 +3851,10 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="AlterModelRequest.Action.REFRESH">REFRESH</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterModelRequest.Action.STOP_DEPLOYMENT">STOP_DEPLOYMENT</see></term>
         ///     </item>
         /// </list></param>
         /// <param name="_value"></param>
@@ -3875,6 +3956,12 @@ namespace kinetica
         /// cref="AlterResourceGroupRequest.Options.MAX_CPU_CONCURRENCY">MAX_CPU_CONCURRENCY</see>:</term>
         ///         <description>Maximum number of simultaneous threads that
         /// will be used to execute a request for this group.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterResourceGroupRequest.Options.MAX_DATA">MAX_DATA</see>:</term>
+        ///         <description>Maximum amount of cumulative ram usage
+        /// regardless of tier status for this group.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -4240,6 +4327,12 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
+        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.AUDIT_RESPONSE">AUDIT_RESPONSE</see>:</term>
+        ///         <description>Enable or disable auditing of response
+        /// information.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.SHADOW_AGG_SIZE">SHADOW_AGG_SIZE</see>:</term>
         ///         <description>Size of the shadow aggregate chunk cache in
         /// bytes.  The default value is '10000000'.</description>
@@ -4247,8 +4340,8 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.SHADOW_FILTER_SIZE">SHADOW_FILTER_SIZE</see>:</term>
-        ///         <description>Size of the shdow filter chunk cache in bytes.
-        /// The default value is '10000000'.</description>
+        ///         <description>Size of the shadow filter chunk cache in
+        /// bytes.  The default value is '10000000'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -4693,6 +4786,12 @@ namespace kinetica
         ///         <description>Resubscribe to a paused data source
         /// subscription. The data source can be kafka / S3 /
         /// Azure.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterTableRequest.Action.CHANGE_OWNER">CHANGE_OWNER</see>:</term>
+        ///         <description>Change the owner resource group of the
+        /// table.</description>
         ///     </item>
         /// </list>  </param>
         /// <param name="_value">The value of the modification, depending on
@@ -5541,7 +5640,8 @@ namespace kinetica
         ///         <term><see
         /// cref="ClearTableMonitorRequest.Options.CLEAR_ALL_REFERENCES">CLEAR_ALL_REFERENCES</see>:</term>
         ///         <description>If <i>true</i>, all references that share the
-        /// same {@input topic_id} will be cleared.
+        /// same <paramref cref="ClearTableMonitorRequest.topic_id" /> will be
+        /// cleared.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -5853,6 +5953,39 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
+        /// cref="CreateDatasinkRequest.Options.MAX_BATCH_SIZE">MAX_BATCH_SIZE</see>:</term>
+        ///         <description>Maximum number of records per notification
+        /// message.  The default value is '1'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateDatasinkRequest.Options.MAX_MESSAGE_SIZE">MAX_MESSAGE_SIZE</see>:</term>
+        ///         <description>Maximum size in bytes of each notification
+        /// message.  The default value is '1000000'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateDatasinkRequest.Options.JSON_FORMAT">JSON_FORMAT</see>:</term>
+        ///         <description>The desired format of JSON encoded
+        /// notifications message.
+        /// If <i>nested</i>, records are returned as an array. Otherwise, only
+        /// a single record per messages is returned.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateDatasinkRequest.Options.FLAT">FLAT</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateDatasinkRequest.Options.NESTED">NESTED</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="CreateDatasinkRequest.Options.FLAT">FLAT</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="CreateDatasinkRequest.Options.SKIP_VALIDATION">SKIP_VALIDATION</see>:</term>
         ///         <description>Bypass validation of connection to this data
         /// sink.
@@ -5911,7 +6044,8 @@ namespace kinetica
         /// <param name="name">Name of the data source to be created.  </param>
         /// <param name="location">Location of the remote storage in
         /// 'storage_provider_type://[storage_path[:storage_port]]' format.
-        /// Supported storage provider types are 'hdfs' and 's3'.  </param>
+        /// Supported storage provider types are 'azure','hdfs','kafka' and
+        /// 's3'.  </param>
         /// <param name="user_name">Name of the remote system user; may be an
         /// empty string  </param>
         /// <param name="password">Password for the remote system user; may be
@@ -6064,7 +6198,29 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="CreateDatasourceRequest.Options.ANONYMOUS">ANONYMOUS</see>:</term>
-        ///         <description>Use anonymous connection to storage provider
+        ///         <description>Use anonymous connection to storage
+        /// provider--DEPRECATED: this is now the default.  Specify
+        /// use_managed_credentials for non-anonymous connection.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateDatasourceRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateDatasourceRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="CreateDatasourceRequest.Options.TRUE">TRUE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateDatasourceRequest.Options.USE_MANAGED_CREDENTIALS">USE_MANAGED_CREDENTIALS</see>:</term>
+        ///         <description>When no credentials are supplied, we use
+        /// anonymous access by default.  If this is set, we will use cloud
+        /// provider user settings.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -6184,6 +6340,14 @@ namespace kinetica
         /// created.  </param>
         /// <param name="options">Optional parameters.
         /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateDirectoryRequest.Options.CREATE_HOME_DIRECTORY">CREATE_HOME_DIRECTORY</see>:</term>
+        ///         <description>When set, a home directory is created for the
+        /// user name provided in the value. The <paramref
+        /// cref="CreateDirectoryRequest.directory_name" /> must be an empty
+        /// string in this case. The user must exist.</description>
+        ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="CreateDirectoryRequest.Options.NO_ERROR_IF_EXISTS">NO_ERROR_IF_EXISTS</see>:</term>
@@ -6654,6 +6818,14 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
+        /// cref="CreateGraphRequest.Options.LABEL_DELIMITER">LABEL_DELIMITER</see>:</term>
+        ///         <description>If provided the label string will be split
+        /// according to this delimiter and each sub-string will be applied as
+        /// a separate label onto the specified edge.  The default value is
+        /// ''.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="CreateGraphRequest.Options.SQL_REQUEST_AVRO_JSON">SQL_REQUEST_AVRO_JSON</see>:</term>
         ///         <description>  The default value is ''.</description>
         ///     </item>
@@ -6843,6 +7015,29 @@ namespace kinetica
         /// {@link List}.</param>
         /// <param name="options">Optional parameters.
         /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateJoinTableRequest.Options.CREATE_TEMP_TABLE">CREATE_TEMP_TABLE</see>:</term>
+        ///         <description>If <i>true</i>, a unique temporary table name
+        /// will be generated in the sys_temp schema and used in place of
+        /// <paramref cref="CreateJoinTableRequest.join_table_name" />. This is
+        /// always allowed even if the caller does not have permission to
+        /// create tables. The generated name is returned in
+        /// <i>qualified_join_table_name</i>.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateJoinTableRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateJoinTableRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="CreateJoinTableRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="CreateJoinTableRequest.Options.COLLECTION_NAME">COLLECTION_NAME</see>:</term>
@@ -7320,6 +7515,30 @@ namespace kinetica
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
+        /// cref="CreateProjectionRequest.Options.CREATE_TEMP_TABLE">CREATE_TEMP_TABLE</see>:</term>
+        ///         <description>If <i>true</i>, a unique temporary table name
+        /// will be generated in the sys_temp schema and used in place of
+        /// <paramref cref="CreateProjectionRequest.projection_name" />. If
+        /// <i>persist</i> is <i>false</i> (or unspecified), then this is
+        /// always allowed even if the caller does not have permission to
+        /// create tables. The generated name is returned in
+        /// <i>qualified_projection_name</i>.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateProjectionRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateProjectionRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="CreateProjectionRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="CreateProjectionRequest.Options.COLLECTION_NAME">COLLECTION_NAME</see>:</term>
         ///         <description>[DEPRECATED--please specify the containing
         /// schema for the projection as part of <paramref
@@ -7561,6 +7780,12 @@ namespace kinetica
         /// cref="CreateResourceGroupRequest.Options.MAX_CPU_CONCURRENCY">MAX_CPU_CONCURRENCY</see>:</term>
         ///         <description>Maximum number of simultaneous threads that
         /// will be used to execute a request for this group.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateResourceGroupRequest.Options.MAX_DATA">MAX_DATA</see>:</term>
+        ///         <description>Maximum amount of cumulative ram usage
+        /// regardless of tier status for this group.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -7823,6 +8048,29 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
+        /// cref="CreateTableRequest.Options.CREATE_TEMP_TABLE">CREATE_TEMP_TABLE</see>:</term>
+        ///         <description>If <i>true</i>, a unique temporary table name
+        /// will be generated in the sys_temp schema and used in place of
+        /// <paramref cref="CreateTableRequest.table_name" />. If
+        /// <i>is_result_table</i> is <i>true</i>, then this is always allowed
+        /// even if the caller does not have permission to create tables. The
+        /// generated name is returned in <i>qualified_table_name</i>.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="CreateTableRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="CreateTableRequest.Options.COLLECTION_NAME">COLLECTION_NAME</see>:</term>
         ///         <description>[DEPRECATED--please specify the containing
         /// schema as part of <paramref cref="CreateTableRequest.table_name" />
@@ -8055,11 +8303,6 @@ namespace kinetica
         /// href="../../../rm/concepts/#tier-strategies" target="_top">tier
         /// strategy</a> for the table and its columns.</description>
         ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateTableRequest.Options.IS_VIRTUAL_UNION">IS_VIRTUAL_UNION</see>:</term>
-        ///         <description><DEVELOPER></description>
-        ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.</param>
         /// 
@@ -8078,8 +8321,9 @@ namespace kinetica
         /// target="_top">external table</a>, which is a
         /// local database object whose source data is located externally to
         /// the database.  The source data can
-        /// be located either on the cluster, accessible to the database; or
-        /// remotely, accessible via a
+        /// be located either in <a href="../../../tools/kifs/"
+        /// target="_top">KiFS</a>; on the cluster, accessible to the database;
+        /// or remotely, accessible via a
         /// pre-defined external <a href="../../../concepts/data_sources/"
         /// target="_top">data source</a>.
         /// <br />
@@ -8109,8 +8353,9 @@ namespace kinetica
         /// target="_top">external table</a>, which is a
         /// local database object whose source data is located externally to
         /// the database.  The source data can
-        /// be located either on the cluster, accessible to the database; or
-        /// remotely, accessible via a
+        /// be located either in <a href="../../../tools/kifs/"
+        /// target="_top">KiFS</a>; on the cluster, accessible to the database;
+        /// or remotely, accessible via a
         /// pre-defined external <a href="../../../concepts/data_sources/"
         /// target="_top">data source</a>.
         /// <br />
@@ -8128,22 +8373,33 @@ namespace kinetica
         /// <a href="../../../concepts/tables/#table-naming-criteria"
         /// target="_top">table naming criteria</a>.  </param>
         /// <param name="filepaths">A list of file paths from which data will
-        /// be sourced; wildcards (*) can be used
-        /// to specify a group of files.
-        /// For paths in KiFS, use the uri prefix of kifs:// followed by the
-        /// full path to a file or directory.
+        /// be sourced;
+        /// For paths in <a href="../../../tools/kifs/" target="_top">KiFS</a>,
+        /// use the uri prefix of kifs:// followed by the path to
+        /// a file or directory. File matching by prefix is supported, e.g.
+        /// kifs://dir/file would match dir/file_1
+        /// and dir/file_2. When prefix matching is used, the path must start
+        /// with a full, valid KiFS directory name.
         /// If an external data source is specified in <i>datasource_name</i>,
         /// these file
         /// paths must resolve to accessible files at that data source
-        /// location. Also, wildcards will only work
-        /// when used within the file name, not the path.
+        /// location. Prefix matching is supported.
+        /// If the data source is hdfs, prefixes must be aligned with
+        /// directories, i.e. partial file names will not match.
         /// If no data source is specified, the files are assumed to be local
         /// to the database and must all be
         /// accessible to the gpudb user, residing on the path (or relative to
         /// the path) specified by the
         /// external files directory in the Kinetica
         /// <a href="../../../config/#external-files"
-        /// target="_top">configuration file</a>.  </param>
+        /// target="_top">configuration file</a>. Wildcards (*) can be used to
+        /// specify a group of files
+        /// Prefix matching is supported, the prefixes must be aligned with
+        /// directories.
+        /// If the first path ends in .tsv, the text delimiter will be
+        /// defaulted to a tab character.
+        /// If the first path ends in .psv, the text delimiter will be
+        /// defaulted to a pipe character (|).  </param>
         /// <param name="modify_columns">Not implemented yet.  The default
         /// value is an empty {@link Dictionary}.</param>
         /// <param name="create_table_options">Options from /create/table,
@@ -8393,22 +8649,21 @@ namespace kinetica
         ///         <term><see
         /// cref="CreateTableExternalRequest.Options.BATCH_SIZE">BATCH_SIZE</see>:</term>
         ///         <description>Internal tuning parameter--number of records
-        /// per batch when inserting data</description>
+        /// per batch when inserting data.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="CreateTableExternalRequest.Options.COLUMN_FORMATS">COLUMN_FORMATS</see>:</term>
         ///         <description>For each target column specified, applies the
-        /// column-property-bound
-        /// format to the source data loaded into that column.  Each column
-        /// format will contain a mapping of one
-        /// or more of its column properties to an appropriate format for each
-        /// property.  Currently supported
-        /// column properties include date, time, & datetime. The parameter
-        /// value must be formatted as a JSON
-        /// string of maps of column names to maps of column properties to
-        /// their corresponding column formats,
-        /// e.g.,
+        /// column-property-bound format to the source data
+        /// loaded into that column.  Each column format will contain a mapping
+        /// of one or more of its column
+        /// properties to an appropriate format for each property.  Currently
+        /// supported column properties
+        /// include date, time, & datetime. The parameter value must be
+        /// formatted as a JSON string of maps of
+        /// column names to maps of column properties to their corresponding
+        /// column formats, e.g.,
         /// '{ "order_date" : { "date" : "%Y.%m.%d" }, "order_time" : { "time"
         /// : "%H:%M:%S" } }'.
         /// See <i>default_column_formats</i> for valid format
@@ -8507,7 +8762,7 @@ namespace kinetica
         ///         <term><see
         /// cref="CreateTableExternalRequest.Options.PERMISSIVE">PERMISSIVE</see>:</term>
         ///         <description>Records with missing columns are populated
-        /// with nulls if possible; otherwise, malformed records are
+        /// with nulls if possible; otherwise, the malformed records are
         /// skipped.</description>
         ///     </item>
         ///     <item>
@@ -8518,14 +8773,13 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="CreateTableExternalRequest.Options.ABORT">ABORT</see>:</term>
-        ///         <description>Current insertion is stopped and entire
-        /// operation is aborted when an error is encountered.  Primary key
-        /// collisions are considered abortable errors in this
-        /// mode.</description>
+        ///         <description>Stops current insertion and aborts entire
+        /// operation when an error is encountered.  Primary key collisions are
+        /// considered abortable errors in this mode.</description>
         ///     </item>
         /// </list>
         /// The default value is <see
-        /// cref="CreateTableExternalRequest.Options.PERMISSIVE">PERMISSIVE</see>.</description>
+        /// cref="CreateTableExternalRequest.Options.ABORT">ABORT</see>.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -8554,10 +8808,15 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="CreateTableExternalRequest.Options.FILE_TYPE">FILE_TYPE</see>:</term>
-        ///         <description>Specifies the type of the external data
-        /// file(s) used as the source of data for this table.
+        ///         <description>Specifies the type of the file(s) whose
+        /// records will be inserted.
         /// Supported values:
         /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableExternalRequest.Options.AVRO">AVRO</see>:</term>
+        ///         <description>Avro file format</description>
+        ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="CreateTableExternalRequest.Options.DELIMITED_TEXT">DELIMITED_TEXT</see>:</term>
@@ -8566,13 +8825,13 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="CreateTableExternalRequest.Options.PARQUET">PARQUET</see>:</term>
-        ///         <description>Apache Parquet file format</description>
+        /// cref="CreateTableExternalRequest.Options.JSON">JSON</see>:</term>
+        ///         <description>Json file format</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="CreateTableExternalRequest.Options.JSON">JSON</see>:</term>
-        ///         <description>Json file format</description>
+        /// cref="CreateTableExternalRequest.Options.PARQUET">PARQUET</see>:</term>
+        ///         <description>Apache Parquet file format</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -8586,9 +8845,8 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="CreateTableExternalRequest.Options.INGESTION_MODE">INGESTION_MODE</see>:</term>
-        ///         <description>For <i>materialized</i> external tables,
-        /// whether to do a full load, dry run, or perform a type inference on
-        /// the source data.
+        ///         <description>Whether to do a full load, dry run, or perform
+        /// a type inference on the source data.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -8608,8 +8866,8 @@ namespace kinetica
         ///         <term><see
         /// cref="CreateTableExternalRequest.Options.TYPE_INFERENCE_ONLY">TYPE_INFERENCE_ONLY</see>:</term>
         ///         <description>Infer the type of the source data and return,
-        /// without creating the table and ingesting data.  The inferred type
-        /// is returned in the response.</description>
+        /// without ingesting any data.  The inferred type is returned in the
+        /// response.</description>
         ///     </item>
         /// </list>
         /// The default value is <see
@@ -8617,9 +8875,17 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
+        /// cref="CreateTableExternalRequest.Options.KAFKA_GROUP_ID">KAFKA_GROUP_ID</see>:</term>
+        ///         <description>The group id to be used consuming data from a
+        /// kakfa topic (valid only for kafka datasource
+        /// subscriptions).</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="CreateTableExternalRequest.Options.LOADING_MODE">LOADING_MODE</see>:</term>
         ///         <description>Scheme for distributing the extraction and
-        /// loading of data from the source data file(s).
+        /// loading of data from the source data file(s). This option applies
+        /// only when loading files that are local to the database
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -8657,14 +8923,11 @@ namespace kinetica
         /// will allow the worker to
         /// automatically deduplicate data).
         /// NOTE:
-        /// If the table's columns aren't defined, table structure will be
+        /// If the target table doesn't exist, the table structure will be
         /// determined by the head node. If the
         /// head node has no files local to it, it will be unable to determine
         /// the structure and the request
         /// will fail.
-        /// This mode should not be used in conjunction with a data source, as
-        /// data sources are seen by all
-        /// worker processes as shared resources with no 'local' component.
         /// If the head node is configured to have no worker processes, no data
         /// strictly accessible to the head
         /// node will be loaded.</description>
@@ -8675,14 +8938,27 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="CreateTableExternalRequest.Options.PRIMARY_KEYS">PRIMARY_KEYS</see>:</term>
-        ///         <description>Optional: comma separated list of column
-        /// names, to set as primary keys, when not specified in the type.  The
-        /// default value is ''.</description>
+        /// cref="CreateTableExternalRequest.Options.LOCAL_TIME_OFFSET">LOCAL_TIME_OFFSET</see>:</term>
+        ///         <description>For Avro local timestamp columns</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="CreateTableExternalRequest.Options.SHARD_KEYS">SHARD_KEYS</see>:</term>
+        /// cref="CreateTableExternalRequest.Options.NUM_TASKS_PER_RANK">NUM_TASKS_PER_RANK</see>:</term>
+        ///         <description>Optional: number of tasks for reading file per
+        /// rank. Default will be external_file_reader_num_tasks</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableExternalRequest.Options.POLL_INTERVAL">POLL_INTERVAL</see>:</term>
+        ///         <description>If <i>true</i>, the number of seconds between
+        /// attempts to load external files into the table.  If zero, polling
+        /// will be continuous as long as data is found.  If no data is found,
+        /// the interval will steadily increase to a maximum of 60
+        /// seconds.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableExternalRequest.Options.PRIMARY_KEYS">PRIMARY_KEYS</see>:</term>
         ///         <description>Optional: comma separated list of column
         /// names, to set as primary keys, when not specified in the type.  The
         /// default value is ''.</description>
@@ -8714,6 +8990,19 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
+        /// cref="CreateTableExternalRequest.Options.SHARD_KEYS">SHARD_KEYS</see>:</term>
+        ///         <description>Optional: comma separated list of column
+        /// names, to set as primary keys, when not specified in the type.  The
+        /// default value is ''.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableExternalRequest.Options.SKIP_LINES">SKIP_LINES</see>:</term>
+        ///         <description>Skip number of lines from begining of
+        /// file.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="CreateTableExternalRequest.Options.SUBSCRIBE">SUBSCRIBE</see>:</term>
         ///         <description>Continuously poll the data source to check for
         /// new data and load it into the table.
@@ -8733,10 +9022,24 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="CreateTableExternalRequest.Options.POLL_INTERVAL">POLL_INTERVAL</see>:</term>
-        ///         <description>If <i>true</i>, the number of seconds between
-        /// attempts to load external files into the table. If zero, polling
-        /// will be continuous.</description>
+        /// cref="CreateTableExternalRequest.Options.TABLE_INSERT_MODE">TABLE_INSERT_MODE</see>:</term>
+        ///         <description>Optional: table_insert_mode. When inserting
+        /// records from multiple files: if table_per_file then insert from
+        /// each file into a new table. Currently supported only for
+        /// shapefiles.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableExternalRequest.Options.SINGLE">SINGLE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableExternalRequest.Options.TABLE_PER_FILE">TABLE_PER_FILE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="CreateTableExternalRequest.Options.SINGLE">SINGLE</see>.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -8812,7 +9115,7 @@ namespace kinetica
         /// interpreted as a null
         /// value in the source data.
         /// For <i>delimited_text</i> <i>file_type</i> only.  The default value
-        /// is ''.</description>
+        /// is '\\N'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -8832,9 +9135,38 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="CreateTableExternalRequest.Options.NUM_TASKS_PER_RANK">NUM_TASKS_PER_RANK</see>:</term>
-        ///         <description>Optional: number of tasks for reading file per
-        /// rank. Default will be external_file_reader_num_tasks</description>
+        /// cref="CreateTableExternalRequest.Options.TEXT_SEARCH_COLUMNS">TEXT_SEARCH_COLUMNS</see>:</term>
+        ///         <description>Add 'text_search' property to internally
+        /// inferenced string columns. Comma seperated list of column names or
+        /// '*' for all columns. To add text_search property only to string
+        /// columns of minimum size, set also the option
+        /// 'text_search_min_column_length'</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableExternalRequest.Options.TEXT_SEARCH_MIN_COLUMN_LENGTH">TEXT_SEARCH_MIN_COLUMN_LENGTH</see>:</term>
+        ///         <description>Set minimum column size. Used only when
+        /// 'text_search_columns' has a value.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableExternalRequest.Options.TRUNCATE_TABLE">TRUNCATE_TABLE</see>:</term>
+        ///         <description>If set to <i>true</i>, truncates the table
+        /// specified by <paramref cref="CreateTableExternalRequest.table_name"
+        /// /> prior to loading the file(s).
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableExternalRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableExternalRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="CreateTableExternalRequest.Options.FALSE">FALSE</see>.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -8857,49 +9189,6 @@ namespace kinetica
         /// </list>
         /// The default value is <see
         /// cref="CreateTableExternalRequest.Options.SPEED">SPEED</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateTableExternalRequest.Options.TABLE_INSERT_MODE">TABLE_INSERT_MODE</see>:</term>
-        ///         <description>Optional: table_insert_mode. When inserting
-        /// records from multiple files: if table_per_file then insert from
-        /// each file into a new table. Currently supported only for
-        /// shapefiles.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateTableExternalRequest.Options.SINGLE">SINGLE</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateTableExternalRequest.Options.TABLE_PER_FILE">TABLE_PER_FILE</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="CreateTableExternalRequest.Options.SINGLE">SINGLE</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateTableExternalRequest.Options.KAFKA_GROUP_ID">KAFKA_GROUP_ID</see>:</term>
-        ///         <description>The group id to be used consuming data from a
-        /// kakfa topic (valid only for kafka datasource
-        /// subscriptions).</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateTableExternalRequest.Options.TEXT_SEARCH_COLUMNS">TEXT_SEARCH_COLUMNS</see>:</term>
-        ///         <description>Add 'text_search' property to internally
-        /// inferenced string columns. Comma seperated list of column names or
-        /// '*' for all columns. To add text_search property only to string
-        /// columns of minimum size, set also the option
-        /// 'text_search_min_column_length'</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateTableExternalRequest.Options.TEXT_SEARCH_MIN_COLUMN_LENGTH">TEXT_SEARCH_MIN_COLUMN_LENGTH</see>:</term>
-        ///         <description>Set minimum column size. Used only when
-        /// 'text_search_columns' has a value.</description>
         ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.</param>
@@ -9683,8 +9972,9 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="CreateTypeRequest.Properties.INIT_WITH_UUID">INIT_WITH_UUID</see>:</term>
-        ///         <description>For 'uuid' type,  repalce empty strings and
-        /// invalid uuid values with new_uuid()' upon insert.</description>
+        ///         <description>For 'uuid' type, replace empty strings and
+        /// invalid UUID values with randomly-generated UUIDs upon
+        /// insert.</description>
         ///     </item>
         /// </list>  </param>
         /// <param name="options">Optional parameters.  The default value is an
@@ -9802,6 +10092,30 @@ namespace kinetica
         /// to be stored in the output table.  </param>
         /// <param name="options">Optional parameters.
         /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateUnionRequest.Options.CREATE_TEMP_TABLE">CREATE_TEMP_TABLE</see>:</term>
+        ///         <description>If <i>true</i>, a unique temporary table name
+        /// will be generated in the sys_temp schema and used in place of
+        /// <paramref cref="CreateUnionRequest.table_name" />. If
+        /// <i>persist</i> is <i>false</i> (or unspecified), then this is
+        /// always allowed even if the caller does not have permission to
+        /// create tables. The generated name is returned in
+        /// <i>qualified_table_name</i>.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateUnionRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateUnionRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="CreateUnionRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="CreateUnionRequest.Options.COLLECTION_NAME">COLLECTION_NAME</see>:</term>
@@ -9997,8 +10311,29 @@ namespace kinetica
         /// <param name="name">Name of the user to be created. Must exactly
         /// match the user's name in the external LDAP, prefixed with a @. Must
         /// not be the same name as an existing user.  </param>
-        /// <param name="options">Optional parameters.  The default value is an
-        /// empty {@link Dictionary}.</param>
+        /// <param name="options">Optional parameters.
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateUserExternalRequest.Options.CREATE_HOME_DIRECTORY">CREATE_HOME_DIRECTORY</see>:</term>
+        ///         <description>when true, a home directory in KiFS is created
+        /// for this user
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateUserExternalRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateUserExternalRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="CreateUserExternalRequest.Options.TRUE">TRUE</see>.</description>
+        ///     </item>
+        /// </list>
+        /// The default value is an empty {@link Dictionary}.</param>
         /// 
         /// <returns>Response object containing the result of the
         /// operation.</returns>
@@ -10049,6 +10384,25 @@ namespace kinetica
         /// cref="CreateUserInternalRequest.Options.DEFAULT_SCHEMA">DEFAULT_SCHEMA</see>:</term>
         ///         <description>default schema associate with this
         /// user</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateUserInternalRequest.Options.CREATE_HOME_DIRECTORY">CREATE_HOME_DIRECTORY</see>:</term>
+        ///         <description>when true, a home directory in KiFS is created
+        /// for this user
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateUserInternalRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateUserInternalRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="CreateUserInternalRequest.Options.TRUE">TRUE</see>.</description>
         ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.</param>
@@ -10575,8 +10929,30 @@ namespace kinetica
         /// 
         /// <param name="name">Name of the resource group to be deleted.
         /// </param>
-        /// <param name="options">Optional parameters.  The default value is an
-        /// empty {@link Dictionary}.</param>
+        /// <param name="options">Optional parameters.
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="DeleteResourceGroupRequest.Options.CASCADE_DELETE">CASCADE_DELETE</see>:</term>
+        ///         <description>If <i>true</i>, delete any existing entities
+        /// owned by this group. Otherwise this request will return an error of
+        /// any such entities exist.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="DeleteResourceGroupRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="DeleteResourceGroupRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="DeleteResourceGroupRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        /// </list>
+        /// The default value is an empty {@link Dictionary}.</param>
         /// 
         /// <returns>Response object containing the result of the
         /// operation.</returns>
@@ -11238,8 +11614,8 @@ namespace kinetica
 
         /// <summary>Execute a SQL statement (query, DML, or DDL).
         /// <br />
-        /// See <a href="../../../concepts/sql/" target="_top">SQL Support</a>
-        /// for the complete set of supported SQL commands.</summary>
+        /// See <a href="../../../sql/" target="_top">SQL Support</a> for the
+        /// complete set of supported SQL commands.</summary>
         /// 
         /// <param name="request_">Request object containing the parameters for
         /// the operation.</param>
@@ -11264,8 +11640,8 @@ namespace kinetica
 
         /// <summary>Execute a SQL statement (query, DML, or DDL).
         /// <br />
-        /// See <a href="../../../concepts/sql/" target="_top">SQL Support</a>
-        /// for the complete set of supported SQL commands.</summary>
+        /// See <a href="../../../sql/" target="_top">SQL Support</a> for the
+        /// complete set of supported SQL commands.</summary>
         /// 
         /// <param name="statement">SQL statement (query, DML, or DDL) to be
         /// executed  </param>
@@ -11654,6 +12030,28 @@ namespace kinetica
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
+        /// cref="FilterRequest.Options.CREATE_TEMP_TABLE">CREATE_TEMP_TABLE</see>:</term>
+        ///         <description>If <i>true</i>, a unique temporary table name
+        /// will be generated in the sys_temp schema and used in place of
+        /// <paramref cref="FilterRequest.view_name" />. This is always allowed
+        /// even if the caller does not have permission to create tables. The
+        /// generated name is returned in <i>qualified_view_name</i>.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="FilterRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="FilterRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="FilterRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="FilterRequest.Options.COLLECTION_NAME">COLLECTION_NAME</see>:</term>
         ///         <description>[DEPRECATED--please specify the containing
         /// schema for the view as part of <paramref
@@ -11755,6 +12153,29 @@ namespace kinetica
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
+        /// cref="FilterByAreaRequest.Options.CREATE_TEMP_TABLE">CREATE_TEMP_TABLE</see>:</term>
+        ///         <description>If <i>true</i>, a unique temporary table name
+        /// will be generated in the sys_temp schema and used in place of
+        /// <paramref cref="FilterByAreaRequest.view_name" />. This is always
+        /// allowed even if the caller does not have permission to create
+        /// tables. The generated name is returned in
+        /// <i>qualified_view_name</i>.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="FilterByAreaRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="FilterByAreaRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="FilterByAreaRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="FilterByAreaRequest.Options.COLLECTION_NAME">COLLECTION_NAME</see>:</term>
         ///         <description>[DEPRECATED--please specify the containing
         /// schema for the view as part of <paramref
@@ -11845,6 +12266,29 @@ namespace kinetica
         /// polygon representing the area to be filtered.  </param>
         /// <param name="options">Optional parameters.
         /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="FilterByAreaGeometryRequest.Options.CREATE_TEMP_TABLE">CREATE_TEMP_TABLE</see>:</term>
+        ///         <description>If <i>true</i>, a unique temporary table name
+        /// will be generated in the sys_temp schema and used in place of
+        /// <paramref cref="FilterByAreaGeometryRequest.view_name" />. This is
+        /// always allowed even if the caller does not have permission to
+        /// create tables. The generated name is returned in
+        /// <i>qualified_view_name</i>.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="FilterByAreaGeometryRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="FilterByAreaGeometryRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="FilterByAreaGeometryRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="FilterByAreaGeometryRequest.Options.COLLECTION_NAME">COLLECTION_NAME</see>:</term>
@@ -11949,6 +12393,29 @@ namespace kinetica
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
+        /// cref="FilterByBoxRequest.Options.CREATE_TEMP_TABLE">CREATE_TEMP_TABLE</see>:</term>
+        ///         <description>If <i>true</i>, a unique temporary table name
+        /// will be generated in the sys_temp schema and used in place of
+        /// <paramref cref="FilterByBoxRequest.view_name" />. This is always
+        /// allowed even if the caller does not have permission to create
+        /// tables. The generated name is returned in
+        /// <i>qualified_view_name</i>.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="FilterByBoxRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="FilterByBoxRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="FilterByBoxRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="FilterByBoxRequest.Options.COLLECTION_NAME">COLLECTION_NAME</see>:</term>
         ///         <description>[DEPRECATED--please specify the containing
         /// schema for the view as part of <paramref
@@ -12048,6 +12515,29 @@ namespace kinetica
         /// cref="FilterByBoxGeometryRequest.min_y" />.  </param>
         /// <param name="options">Optional parameters.
         /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="FilterByBoxGeometryRequest.Options.CREATE_TEMP_TABLE">CREATE_TEMP_TABLE</see>:</term>
+        ///         <description>If <i>true</i>, a unique temporary table name
+        /// will be generated in the sys_temp schema and used in place of
+        /// <paramref cref="FilterByBoxGeometryRequest.view_name" />. This is
+        /// always allowed even if the caller does not have permission to
+        /// create tables. The generated name is returned in
+        /// <i>qualified_view_name</i>.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="FilterByBoxGeometryRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="FilterByBoxGeometryRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="FilterByBoxGeometryRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="FilterByBoxGeometryRequest.Options.COLLECTION_NAME">COLLECTION_NAME</see>:</term>
@@ -12185,6 +12675,29 @@ namespace kinetica
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
+        /// cref="FilterByGeometryRequest.Options.CREATE_TEMP_TABLE">CREATE_TEMP_TABLE</see>:</term>
+        ///         <description>If <i>true</i>, a unique temporary table name
+        /// will be generated in the sys_temp schema and used in place of
+        /// <paramref cref="FilterByGeometryRequest.view_name" />. This is
+        /// always allowed even if the caller does not have permission to
+        /// create tables. The generated name is returned in
+        /// <i>qualified_view_name</i>.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="FilterByGeometryRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="FilterByGeometryRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="FilterByGeometryRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="FilterByGeometryRequest.Options.COLLECTION_NAME">COLLECTION_NAME</see>:</term>
         ///         <description>[DEPRECATED--please specify the containing
         /// schema for the view as part of <paramref
@@ -12294,6 +12807,29 @@ namespace kinetica
         /// corresponding column in the table  </param>
         /// <param name="options">Optional parameters.
         /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="FilterByListRequest.Options.CREATE_TEMP_TABLE">CREATE_TEMP_TABLE</see>:</term>
+        ///         <description>If <i>true</i>, a unique temporary table name
+        /// will be generated in the sys_temp schema and used in place of
+        /// <paramref cref="FilterByListRequest.view_name" />. This is always
+        /// allowed even if the caller does not have permission to create
+        /// tables. The generated name is returned in
+        /// <i>qualified_view_name</i>.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="FilterByListRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="FilterByListRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="FilterByListRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="FilterByListRequest.Options.COLLECTION_NAME">COLLECTION_NAME</see>:</term>
@@ -12430,6 +12966,29 @@ namespace kinetica
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
+        /// cref="FilterByRadiusRequest.Options.CREATE_TEMP_TABLE">CREATE_TEMP_TABLE</see>:</term>
+        ///         <description>If <i>true</i>, a unique temporary table name
+        /// will be generated in the sys_temp schema and used in place of
+        /// <paramref cref="FilterByRadiusRequest.view_name" />. This is always
+        /// allowed even if the caller does not have permission to create
+        /// tables. The generated name is returned in
+        /// <i>qualified_view_name</i>.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="FilterByRadiusRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="FilterByRadiusRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="FilterByRadiusRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="FilterByRadiusRequest.Options.COLLECTION_NAME">COLLECTION_NAME</see>:</term>
         ///         <description>[DEPRECATED--please specify the containing
         /// schema for the view as part of <paramref
@@ -12531,6 +13090,29 @@ namespace kinetica
         /// </param>
         /// <param name="options">Optional parameters.
         /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="FilterByRadiusGeometryRequest.Options.CREATE_TEMP_TABLE">CREATE_TEMP_TABLE</see>:</term>
+        ///         <description>If <i>true</i>, a unique temporary table name
+        /// will be generated in the sys_temp schema and used in place of
+        /// <paramref cref="FilterByRadiusGeometryRequest.view_name" />. This
+        /// is always allowed even if the caller does not have permission to
+        /// create tables. The generated name is returned in
+        /// <i>qualified_view_name</i>.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="FilterByRadiusGeometryRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="FilterByRadiusGeometryRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="FilterByRadiusGeometryRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="FilterByRadiusGeometryRequest.Options.COLLECTION_NAME">COLLECTION_NAME</see>:</term>
@@ -12640,6 +13222,29 @@ namespace kinetica
         /// </param>
         /// <param name="options">Optional parameters.
         /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="FilterByRangeRequest.Options.CREATE_TEMP_TABLE">CREATE_TEMP_TABLE</see>:</term>
+        ///         <description>If <i>true</i>, a unique temporary table name
+        /// will be generated in the sys_temp schema and used in place of
+        /// <paramref cref="FilterByRangeRequest.view_name" />. This is always
+        /// allowed even if the caller does not have permission to create
+        /// tables. The generated name is returned in
+        /// <i>qualified_view_name</i>.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="FilterByRangeRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="FilterByRangeRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="FilterByRangeRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="FilterByRangeRequest.Options.COLLECTION_NAME">COLLECTION_NAME</see>:</term>
@@ -12754,6 +13359,29 @@ namespace kinetica
         /// within the given set.  </param>
         /// <param name="options">Optional parameters.
         /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="FilterBySeriesRequest.Options.CREATE_TEMP_TABLE">CREATE_TEMP_TABLE</see>:</term>
+        ///         <description>If <i>true</i>, a unique temporary table name
+        /// will be generated in the sys_temp schema and used in place of
+        /// <paramref cref="FilterBySeriesRequest.view_name" />. This is always
+        /// allowed even if the caller does not have permission to create
+        /// tables. The generated name is returned in
+        /// <i>qualified_view_name</i>.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="FilterBySeriesRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="FilterBySeriesRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="FilterBySeriesRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="FilterBySeriesRequest.Options.COLLECTION_NAME">COLLECTION_NAME</see>:</term>
@@ -12912,6 +13540,29 @@ namespace kinetica
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
+        /// cref="FilterByStringRequest.Options.CREATE_TEMP_TABLE">CREATE_TEMP_TABLE</see>:</term>
+        ///         <description>If <i>true</i>, a unique temporary table name
+        /// will be generated in the sys_temp schema and used in place of
+        /// <paramref cref="FilterByStringRequest.view_name" />. This is always
+        /// allowed even if the caller does not have permission to create
+        /// tables. The generated name is returned in
+        /// <i>qualified_view_name</i>.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="FilterByStringRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="FilterByStringRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="FilterByStringRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="FilterByStringRequest.Options.COLLECTION_NAME">COLLECTION_NAME</see>:</term>
         ///         <description>[DEPRECATED--please specify the containing
         /// schema for the view as part of <paramref
@@ -13038,6 +13689,29 @@ namespace kinetica
         /// </param>
         /// <param name="options">Optional parameters.
         /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="FilterByTableRequest.Options.CREATE_TEMP_TABLE">CREATE_TEMP_TABLE</see>:</term>
+        ///         <description>If <i>true</i>, a unique temporary table name
+        /// will be generated in the sys_temp schema and used in place of
+        /// <paramref cref="FilterByTableRequest.view_name" />. This is always
+        /// allowed even if the caller does not have permission to create
+        /// tables. The generated name is returned in
+        /// <i>qualified_view_name</i>.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="FilterByTableRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="FilterByTableRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="FilterByTableRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="FilterByTableRequest.Options.COLLECTION_NAME">COLLECTION_NAME</see>:</term>
@@ -13236,6 +13910,29 @@ namespace kinetica
         /// value would be applied.  </param>
         /// <param name="options">Optional parameters.
         /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="FilterByValueRequest.Options.CREATE_TEMP_TABLE">CREATE_TEMP_TABLE</see>:</term>
+        ///         <description>If <i>true</i>, a unique temporary table name
+        /// will be generated in the sys_temp schema and used in place of
+        /// <paramref cref="FilterByValueRequest.view_name" />. This is always
+        /// allowed even if the caller does not have permission to create
+        /// tables. The generated name is returned in
+        /// <i>qualified_view_name</i>.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="FilterByValueRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="FilterByValueRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="FilterByValueRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="FilterByValueRequest.Options.COLLECTION_NAME">COLLECTION_NAME</see>:</term>
@@ -13505,8 +14202,8 @@ namespace kinetica
         /// target="_top">GEODIST(-77.11, 38.88, -71.06, 42.36)</a>).
         /// <br />
         /// The response is returned as a dynamic schema. For details see:
-        /// <a href="../../../api/#dynamic-schemas" target="_top">dynamic
-        /// schemas documentation</a>.</summary>
+        /// <a href="../../../api/concepts/#dynamic-schemas"
+        /// target="_top">dynamic schemas documentation</a>.</summary>
         /// 
         /// <param name="request_">Request object containing the parameters for
         /// the operation.</param>
@@ -13564,8 +14261,8 @@ namespace kinetica
         /// target="_top">GEODIST(-77.11, 38.88, -71.06, 42.36)</a>).
         /// <br />
         /// The response is returned as a dynamic schema. For details see:
-        /// <a href="../../../api/#dynamic-schemas" target="_top">dynamic
-        /// schemas documentation</a>.</summary>
+        /// <a href="../../../api/concepts/#dynamic-schemas"
+        /// target="_top">dynamic schemas documentation</a>.</summary>
         /// 
         /// <param name="table_name">Name of the table or view on which this
         /// operation will be performed, in [schema_name.]table_name format,
@@ -14016,6 +14713,11 @@ namespace kinetica
         ///         <term><see
         /// cref="GrantPermissionRequest.ObjectType.TABLE">TABLE</see>:</term>
         ///         <description>Database Table</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="GrantPermissionRequest.ObjectType.TABLE_MONITOR">TABLE_MONITOR</see>:</term>
+        ///         <description>Table monitor</description>
         ///     </item>
         /// </list>  </param>
         /// <param name="permission">Permission being granted.
@@ -14606,6 +15308,11 @@ namespace kinetica
         ///         <term><see
         /// cref="HasPermissionRequest.ObjectType.TABLE">TABLE</see>:</term>
         ///         <description>Database Table</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="HasPermissionRequest.ObjectType.TABLE_MONITOR">TABLE_MONITOR</see>:</term>
+        ///         <description>Table monitor</description>
         ///     </item>
         /// </list>  </param>
         /// <param name="permission">Permission to check for.
@@ -15242,9 +15949,14 @@ namespace kinetica
         }
 
 
-        /// <summary>Reads from one or more files located on the server and
-        /// inserts the data into a new or
-        /// existing table.
+        /// <summary>Reads from one or more files and inserts the data into a
+        /// new or existing table.
+        /// The source data can be located either in <a
+        /// href="../../../tools/kifs/" target="_top">KiFS</a>; on the cluster,
+        /// accessible to the database; or
+        /// remotely, accessible via a pre-defined external <a
+        /// href="../../../concepts/data_sources/" target="_top">data
+        /// source</a>.
         /// <br />
         /// For delimited text files, there are two loading schemes: positional
         /// and name-based. The name-based
@@ -15261,6 +15973,13 @@ namespace kinetica
         /// the file header's names may be provided to <i>columns_to_load</i>
         /// instead of
         /// numbers, but ranges are not supported.
+        /// <br />
+        /// Note: Due to data being loaded in parallel, there is no insertion
+        /// order guaranteed.  For tables with
+        /// primary keys, in the case of a primary key collision, this means it
+        /// is indeterminate which record
+        /// will be inserted first and remain, while the rest of the colliding
+        /// key records are discarded.
         /// <br />
         /// Returns once all files are processed.</summary>
         /// 
@@ -15278,9 +15997,14 @@ namespace kinetica
         }
 
 
-        /// <summary>Reads from one or more files located on the server and
-        /// inserts the data into a new or
-        /// existing table.
+        /// <summary>Reads from one or more files and inserts the data into a
+        /// new or existing table.
+        /// The source data can be located either in <a
+        /// href="../../../tools/kifs/" target="_top">KiFS</a>; on the cluster,
+        /// accessible to the database; or
+        /// remotely, accessible via a pre-defined external <a
+        /// href="../../../concepts/data_sources/" target="_top">data
+        /// source</a>.
         /// <br />
         /// For delimited text files, there are two loading schemes: positional
         /// and name-based. The name-based
@@ -15298,6 +16022,13 @@ namespace kinetica
         /// instead of
         /// numbers, but ranges are not supported.
         /// <br />
+        /// Note: Due to data being loaded in parallel, there is no insertion
+        /// order guaranteed.  For tables with
+        /// primary keys, in the case of a primary key collision, this means it
+        /// is indeterminate which record
+        /// will be inserted first and remain, while the rest of the colliding
+        /// key records are discarded.
+        /// <br />
         /// Returns once all files are processed.</summary>
         /// 
         /// <param name="table_name">Name of the table into which the data will
@@ -15311,17 +16042,34 @@ namespace kinetica
         /// file, and the new table name will have to meet standard
         /// <a href="../../../concepts/tables/#table-naming-criteria"
         /// target="_top">table naming criteria</a>.  </param>
-        /// <param name="filepaths">Absolute or relative filepath(s) from where
-        /// files will be loaded. Relative filepaths are relative to the
-        /// defined <a href="../../../config/#external-files"
-        /// target="_top">external_files_directory</a> parameter in the server
-        /// configuration. The filepaths may include wildcards (*). If the
-        /// first path ends in .tsv, the text delimiter will be defaulted to a
-        /// tab character. If the first path ends in .psv, the text delimiter
-        /// will be defaulted to a pipe character (|).
+        /// <param name="filepaths">A list of file paths from which data will
+        /// be sourced;
         /// For paths in <a href="../../../tools/kifs/" target="_top">KiFS</a>,
-        /// use the uri prefix of kifs:// followed by the full path to a file
-        /// or directory  </param>
+        /// use the uri prefix of kifs:// followed by the path to
+        /// a file or directory. File matching by prefix is supported, e.g.
+        /// kifs://dir/file would match dir/file_1
+        /// and dir/file_2. When prefix matching is used, the path must start
+        /// with a full, valid KiFS directory name.
+        /// If an external data source is specified in <i>datasource_name</i>,
+        /// these file
+        /// paths must resolve to accessible files at that data source
+        /// location. Prefix matching is is supported.
+        /// If the data source is hdfs, prefixes must be aligned with
+        /// directories, i.e. partial file names will not match.
+        /// If no data source is specified, the files are assumed to be local
+        /// to the database and must all be
+        /// accessible to the gpudb user, residing on the path (or relative to
+        /// the path) specified by the
+        /// external files directory in the Kinetica
+        /// <a href="../../../config/#external-files"
+        /// target="_top">configuration file</a>. Wildcards (*) can be used to
+        /// specify a group of files.
+        /// Prefix matching is supported, the prefixes must be aligned with
+        /// directories.
+        /// If the first path ends in .tsv, the text delimiter will be
+        /// defaulted to a tab character.
+        /// If the first path ends in .psv, the text delimiter will be
+        /// defaulted to a pipe character (|).   </param>
         /// <param name="modify_columns">Not implemented yet.  The default
         /// value is an empty {@link Dictionary}.</param>
         /// <param name="create_table_options">Options used when creating the
@@ -15551,7 +16299,8 @@ namespace kinetica
         ///         <description>Optional name of a table to which records that
         /// were rejected are written.  The bad-record-table has the following
         /// columns: line_number (long), line_rejected (string), error_message
-        /// (string).</description>
+        /// (string). When error handling is Abort, bad records table is not
+        /// populated.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -15694,7 +16443,7 @@ namespace kinetica
         ///     </item>
         /// </list>
         /// The default value is <see
-        /// cref="InsertRecordsFromFilesRequest.Options.PERMISSIVE">PERMISSIVE</see>.</description>
+        /// cref="InsertRecordsFromFilesRequest.Options.ABORT">ABORT</see>.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -15705,19 +16454,24 @@ namespace kinetica
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
+        /// cref="InsertRecordsFromFilesRequest.Options.AVRO">AVRO</see>:</term>
+        ///         <description>Avro file format</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="InsertRecordsFromFilesRequest.Options.DELIMITED_TEXT">DELIMITED_TEXT</see>:</term>
         ///         <description>Delimited text file format; e.g., CSV, TSV,
         /// PSV, etc.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="InsertRecordsFromFilesRequest.Options.PARQUET">PARQUET</see>:</term>
-        ///         <description>Apache Parquet file format</description>
+        /// cref="InsertRecordsFromFilesRequest.Options.JSON">JSON</see>:</term>
+        ///         <description>Json file format</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="InsertRecordsFromFilesRequest.Options.JSON">JSON</see>:</term>
-        ///         <description>Json file format</description>
+        /// cref="InsertRecordsFromFilesRequest.Options.PARQUET">PARQUET</see>:</term>
+        ///         <description>Apache Parquet file format</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -15761,9 +16515,17 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
+        /// cref="InsertRecordsFromFilesRequest.Options.KAFKA_GROUP_ID">KAFKA_GROUP_ID</see>:</term>
+        ///         <description>The group id to be used consuming data from a
+        /// kakfa topic (valid only for kafka datasource
+        /// subscriptions).</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="InsertRecordsFromFilesRequest.Options.LOADING_MODE">LOADING_MODE</see>:</term>
         ///         <description>Scheme for distributing the extraction and
-        /// loading of data from the source data file(s).
+        /// loading of data from the source data file(s). This option applies
+        /// only when loading files that are local to the database
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -15806,9 +16568,6 @@ namespace kinetica
         /// head node has no files local to it, it will be unable to determine
         /// the structure and the request
         /// will fail.
-        /// This mode should not be used in conjuction with a data source, as
-        /// data sources are seen by all
-        /// worker processes as shared resources with no 'local' component.
         /// If the head node is configured to have no worker processes, no data
         /// strictly accessible to the head
         /// node will be loaded.</description>
@@ -15816,6 +16575,26 @@ namespace kinetica
         /// </list>
         /// The default value is <see
         /// cref="InsertRecordsFromFilesRequest.Options.HEAD">HEAD</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromFilesRequest.Options.LOCAL_TIME_OFFSET">LOCAL_TIME_OFFSET</see>:</term>
+        ///         <description>For Avro local timestamp columns</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromFilesRequest.Options.NUM_TASKS_PER_RANK">NUM_TASKS_PER_RANK</see>:</term>
+        ///         <description>Optional: number of tasks for reading file per
+        /// rank. Default will be external_file_reader_num_tasks</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromFilesRequest.Options.POLL_INTERVAL">POLL_INTERVAL</see>:</term>
+        ///         <description>If <i>true</i>, the number of seconds between
+        /// attempts to load external files into the table.  If zero, polling
+        /// will be continuous as long as data is found.  If no data is found,
+        /// the interval will steadily increase to a maximum of 60
+        /// seconds.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -15830,6 +16609,12 @@ namespace kinetica
         ///         <description>Optional: comma separated list of column
         /// names, to set as primary keys, when not specified in the type.  The
         /// default value is ''.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromFilesRequest.Options.SKIP_LINES">SKIP_LINES</see>:</term>
+        ///         <description>Skip number of lines from begining of
+        /// file.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -15852,12 +16637,24 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="InsertRecordsFromFilesRequest.Options.POLL_INTERVAL">POLL_INTERVAL</see>:</term>
-        ///         <description>If <i>true</i>, the number of seconds between
-        /// attempts to load external files into the table.  If zero, polling
-        /// will be continuous as long as data is found.  If no data is found,
-        /// the interval will steadily increase to a maximum of 60
-        /// seconds.</description>
+        /// cref="InsertRecordsFromFilesRequest.Options.TABLE_INSERT_MODE">TABLE_INSERT_MODE</see>:</term>
+        ///         <description>Optional: table_insert_mode. When inserting
+        /// records from multiple files: if table_per_file then insert from
+        /// each file into a new table. Currently supported only for
+        /// shapefiles.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromFilesRequest.Options.SINGLE">SINGLE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromFilesRequest.Options.TABLE_PER_FILE">TABLE_PER_FILE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="InsertRecordsFromFilesRequest.Options.SINGLE">SINGLE</see>.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -15933,7 +16730,7 @@ namespace kinetica
         /// interpreted as a null
         /// value in the source data.
         /// For <i>delimited_text</i> <i>file_type</i> only.  The default value
-        /// is ''.</description>
+        /// is '\\N'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -15950,6 +16747,21 @@ namespace kinetica
         /// specify an empty string.
         /// For <i>delimited_text</i> <i>file_type</i> only.  The default value
         /// is '"'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromFilesRequest.Options.TEXT_SEARCH_COLUMNS">TEXT_SEARCH_COLUMNS</see>:</term>
+        ///         <description>Add 'text_search' property to internally
+        /// inferenced string columns. Comma seperated list of column names or
+        /// '*' for all columns. To add text_search property only to string
+        /// columns of minimum size, set also the option
+        /// 'text_search_min_column_length'</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromFilesRequest.Options.TEXT_SEARCH_MIN_COLUMN_LENGTH">TEXT_SEARCH_MIN_COLUMN_LENGTH</see>:</term>
+        ///         <description>Set minimum column size. Used only when
+        /// 'text_search_columns' has a value.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -15974,12 +16786,6 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="InsertRecordsFromFilesRequest.Options.NUM_TASKS_PER_RANK">NUM_TASKS_PER_RANK</see>:</term>
-        ///         <description>Optional: number of tasks for reading file per
-        /// rank. Default will be external_file_reader_num_tasks</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
         /// cref="InsertRecordsFromFilesRequest.Options.TYPE_INFERENCE_MODE">TYPE_INFERENCE_MODE</see>:</term>
         ///         <description>optimize type inference for:
         /// Supported values:
@@ -15999,49 +16805,6 @@ namespace kinetica
         /// </list>
         /// The default value is <see
         /// cref="InsertRecordsFromFilesRequest.Options.SPEED">SPEED</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="InsertRecordsFromFilesRequest.Options.TABLE_INSERT_MODE">TABLE_INSERT_MODE</see>:</term>
-        ///         <description>Optional: table_insert_mode. When inserting
-        /// records from multiple files: if table_per_file then insert from
-        /// each file into a new table. Currently supported only for
-        /// shapefiles.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="InsertRecordsFromFilesRequest.Options.SINGLE">SINGLE</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="InsertRecordsFromFilesRequest.Options.TABLE_PER_FILE">TABLE_PER_FILE</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="InsertRecordsFromFilesRequest.Options.SINGLE">SINGLE</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="InsertRecordsFromFilesRequest.Options.KAFKA_GROUP_ID">KAFKA_GROUP_ID</see>:</term>
-        ///         <description>The group id to be used consuming data from a
-        /// kakfa topic (valid only for kafka datasource
-        /// subscriptions).</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="InsertRecordsFromFilesRequest.Options.TEXT_SEARCH_COLUMNS">TEXT_SEARCH_COLUMNS</see>:</term>
-        ///         <description>Add 'text_search' property to internally
-        /// inferenced string columns. Comma seperated list of column names or
-        /// '*' for all columns. To add text_search property only to string
-        /// columns of minimum size, set also the option
-        /// 'text_search_min_column_length'</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="InsertRecordsFromFilesRequest.Options.TEXT_SEARCH_MIN_COLUMN_LENGTH">TEXT_SEARCH_MIN_COLUMN_LENGTH</see>:</term>
-        ///         <description>Set minimum column size. Used only when
-        /// 'text_search_columns' has a value.</description>
         ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.</param>
@@ -16455,7 +17218,7 @@ namespace kinetica
         ///         <term><see
         /// cref="InsertRecordsFromPayloadRequest.Options.PERMISSIVE">PERMISSIVE</see>:</term>
         ///         <description>Records with missing columns are populated
-        /// with nulls if possible; otherwise, malformed records are
+        /// with nulls if possible; otherwise, the malformed records are
         /// skipped.</description>
         ///     </item>
         ///     <item>
@@ -16472,7 +17235,7 @@ namespace kinetica
         ///     </item>
         /// </list>
         /// The default value is <see
-        /// cref="InsertRecordsFromPayloadRequest.Options.PERMISSIVE">PERMISSIVE</see>.</description>
+        /// cref="InsertRecordsFromPayloadRequest.Options.ABORT">ABORT</see>.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -16483,19 +17246,24 @@ namespace kinetica
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
+        /// cref="InsertRecordsFromPayloadRequest.Options.AVRO">AVRO</see>:</term>
+        ///         <description>Avro file format</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="InsertRecordsFromPayloadRequest.Options.DELIMITED_TEXT">DELIMITED_TEXT</see>:</term>
         ///         <description>Delimited text file format; e.g., CSV, TSV,
         /// PSV, etc.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="InsertRecordsFromPayloadRequest.Options.PARQUET">PARQUET</see>:</term>
-        ///         <description>Apache Parquet file format</description>
+        /// cref="InsertRecordsFromPayloadRequest.Options.JSON">JSON</see>:</term>
+        ///         <description>Json file format</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="InsertRecordsFromPayloadRequest.Options.JSON">JSON</see>:</term>
-        ///         <description>Json file format</description>
+        /// cref="InsertRecordsFromPayloadRequest.Options.PARQUET">PARQUET</see>:</term>
+        ///         <description>Apache Parquet file format</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -16539,6 +17307,82 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
+        /// cref="InsertRecordsFromPayloadRequest.Options.LOADING_MODE">LOADING_MODE</see>:</term>
+        ///         <description>Scheme for distributing the extraction and
+        /// loading of data from the source data file(s). This option applies
+        /// only when loading files that are local to the database
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromPayloadRequest.Options.HEAD">HEAD</see>:</term>
+        ///         <description>The head node loads all data. All files must
+        /// be available to the head node.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromPayloadRequest.Options.DISTRIBUTED_SHARED">DISTRIBUTED_SHARED</see>:</term>
+        ///         <description>The head node coordinates loading data by
+        /// worker
+        /// processes across all nodes from shared files available to all
+        /// workers.
+        /// NOTE:
+        /// Instead of existing on a shared source, the files can be duplicated
+        /// on a source local to each host
+        /// to improve performance, though the files must appear as the same
+        /// data set from the perspective of
+        /// all hosts performing the load.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromPayloadRequest.Options.DISTRIBUTED_LOCAL">DISTRIBUTED_LOCAL</see>:</term>
+        ///         <description>A single worker process on each node loads all
+        /// files
+        /// that are available to it. This option works best when each worker
+        /// loads files from its own file
+        /// system, to maximize performance. In order to avoid data
+        /// duplication, either each worker performing
+        /// the load needs to have visibility to a set of files unique to it
+        /// (no file is visible to more than
+        /// one node) or the target table needs to have a primary key (which
+        /// will allow the worker to
+        /// automatically deduplicate data).
+        /// NOTE:
+        /// If the target table doesn't exist, the table structure will be
+        /// determined by the head node. If the
+        /// head node has no files local to it, it will be unable to determine
+        /// the structure and the request
+        /// will fail.
+        /// If the head node is configured to have no worker processes, no data
+        /// strictly accessible to the head
+        /// node will be loaded.</description>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="InsertRecordsFromPayloadRequest.Options.HEAD">HEAD</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromPayloadRequest.Options.LOCAL_TIME_OFFSET">LOCAL_TIME_OFFSET</see>:</term>
+        ///         <description>For Avro local timestamp columns</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromPayloadRequest.Options.NUM_TASKS_PER_RANK">NUM_TASKS_PER_RANK</see>:</term>
+        ///         <description>Optional: number of tasks for reading file per
+        /// rank. Default will be external_file_reader_num_tasks</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromPayloadRequest.Options.POLL_INTERVAL">POLL_INTERVAL</see>:</term>
+        ///         <description>If <i>true</i>, the number of seconds between
+        /// attempts to load external files into the table.  If zero, polling
+        /// will be continuous as long as data is found.  If no data is found,
+        /// the interval will steadily increase to a maximum of 60
+        /// seconds.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="InsertRecordsFromPayloadRequest.Options.PRIMARY_KEYS">PRIMARY_KEYS</see>:</term>
         ///         <description>Optional: comma separated list of column
         /// names, to set as primary keys, when not specified in the type.  The
@@ -16550,6 +17394,52 @@ namespace kinetica
         ///         <description>Optional: comma separated list of column
         /// names, to set as primary keys, when not specified in the type.  The
         /// default value is ''.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromPayloadRequest.Options.SKIP_LINES">SKIP_LINES</see>:</term>
+        ///         <description>Skip number of lines from begining of
+        /// file.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromPayloadRequest.Options.SUBSCRIBE">SUBSCRIBE</see>:</term>
+        ///         <description>Continuously poll the data source to check for
+        /// new data and load it into the table.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromPayloadRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromPayloadRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="InsertRecordsFromPayloadRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromPayloadRequest.Options.TABLE_INSERT_MODE">TABLE_INSERT_MODE</see>:</term>
+        ///         <description>Optional: table_insert_mode. When inserting
+        /// records from multiple files: if table_per_file then insert from
+        /// each file into a new table. Currently supported only for
+        /// shapefiles.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromPayloadRequest.Options.SINGLE">SINGLE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromPayloadRequest.Options.TABLE_PER_FILE">TABLE_PER_FILE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="InsertRecordsFromPayloadRequest.Options.SINGLE">SINGLE</see>.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -16625,7 +17515,7 @@ namespace kinetica
         /// interpreted as a null
         /// value in the source data.
         /// For <i>delimited_text</i> <i>file_type</i> only.  The default value
-        /// is ''.</description>
+        /// is '\\N'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -16645,9 +17535,39 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="InsertRecordsFromPayloadRequest.Options.NUM_TASKS_PER_RANK">NUM_TASKS_PER_RANK</see>:</term>
-        ///         <description>Optional: number of tasks for reading file per
-        /// rank. Default will be external_file_reader_num_tasks</description>
+        /// cref="InsertRecordsFromPayloadRequest.Options.TEXT_SEARCH_COLUMNS">TEXT_SEARCH_COLUMNS</see>:</term>
+        ///         <description>Add 'text_search' property to internally
+        /// inferenced string columns. Comma seperated list of column names or
+        /// '*' for all columns. To add text_search property only to string
+        /// columns of minimum size, set also the option
+        /// 'text_search_min_column_length'</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromPayloadRequest.Options.TEXT_SEARCH_MIN_COLUMN_LENGTH">TEXT_SEARCH_MIN_COLUMN_LENGTH</see>:</term>
+        ///         <description>Set minimum column size. Used only when
+        /// 'text_search_columns' has a value.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromPayloadRequest.Options.TRUNCATE_TABLE">TRUNCATE_TABLE</see>:</term>
+        ///         <description>If set to <i>true</i>, truncates the table
+        /// specified by <paramref
+        /// cref="InsertRecordsFromPayloadRequest.table_name" /> prior to
+        /// loading the file(s).
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromPayloadRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromPayloadRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="InsertRecordsFromPayloadRequest.Options.FALSE">FALSE</see>.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -16670,21 +17590,6 @@ namespace kinetica
         /// </list>
         /// The default value is <see
         /// cref="InsertRecordsFromPayloadRequest.Options.SPEED">SPEED</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="InsertRecordsFromPayloadRequest.Options.TEXT_SEARCH_COLUMNS">TEXT_SEARCH_COLUMNS</see>:</term>
-        ///         <description>Add 'text_search' property to internally
-        /// inferenced string columns. Comma seperated list of column names or
-        /// '*' for all columns. To add text_search property only to string
-        /// columns of minimum size, set also the option
-        /// 'text_search_min_column_length'</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="InsertRecordsFromPayloadRequest.Options.TEXT_SEARCH_MIN_COLUMN_LENGTH">TEXT_SEARCH_MIN_COLUMN_LENGTH</see>:</term>
-        ///         <description>Set minimum column size. Used only when
-        /// 'text_search_columns' has a value.</description>
         ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.</param>
@@ -17785,6 +18690,29 @@ namespace kinetica
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
+        /// cref="MergeRecordsRequest.Options.CREATE_TEMP_TABLE">CREATE_TEMP_TABLE</see>:</term>
+        ///         <description>If <i>true</i>, a unique temporary table name
+        /// will be generated in the sys_temp schema and used in place of
+        /// <paramref cref="MergeRecordsRequest.table_name" />. If
+        /// <i>persist</i> is <i>false</i>, then this is always allowed even if
+        /// the caller does not have permission to create tables. The generated
+        /// name is returned in <i>qualified_table_name</i>.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="MergeRecordsRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="MergeRecordsRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="MergeRecordsRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="MergeRecordsRequest.Options.COLLECTION_NAME">COLLECTION_NAME</see>:</term>
         ///         <description>[DEPRECATED--please specify the containing
         /// schema for the merged table as part of <paramref
@@ -18489,6 +19417,90 @@ namespace kinetica
                                                       adjacency_table, rings, options ) );
         }
 
+
+        /// <summary>Rebalances an existing partitioned graph.
+        /// <br />
+        /// IMPORTANT: It's highly recommended that you review the
+        /// <a href="../../../graph_solver/network_graph_solver/"
+        /// target="_top">Network Graphs & Solvers</a>
+        /// concepts documentation, the
+        /// <a href="../../../guides/graph_rest_guide/" target="_top">Graph
+        /// REST Tutorial</a>,
+        /// and/or some <a href="../../../guide-tags/graph/"
+        /// target="_top">graph examples</a> before
+        /// using this endpoint.</summary>
+        /// 
+        /// <param name="request_">Request object containing the parameters for
+        /// the operation.</param>
+        /// 
+        /// <returns>Response object containing the result of the
+        /// operation.</returns>
+        /// 
+        public RepartitionGraphResponse repartitionGraph( RepartitionGraphRequest request_ )
+        {
+            RepartitionGraphResponse actualResponse_ = SubmitRequest<RepartitionGraphResponse>("/repartition/graph", request_, false);
+
+            return actualResponse_;
+        }
+
+
+        /// <summary>Rebalances an existing partitioned graph.
+        /// <br />
+        /// IMPORTANT: It's highly recommended that you review the
+        /// <a href="../../../graph_solver/network_graph_solver/"
+        /// target="_top">Network Graphs & Solvers</a>
+        /// concepts documentation, the
+        /// <a href="../../../guides/graph_rest_guide/" target="_top">Graph
+        /// REST Tutorial</a>,
+        /// and/or some <a href="../../../guide-tags/graph/"
+        /// target="_top">graph examples</a> before
+        /// using this endpoint.</summary>
+        /// 
+        /// <param name="graph_name">Name of the graph resource to rebalance.
+        /// </param>
+        /// <param name="options">Optional parameters.
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="RepartitionGraphRequest.Options.NEW_GRAPH_NAME">NEW_GRAPH_NAME</see>:</term>
+        ///         <description>If a non-empty value is specified, the
+        /// original graph will be kept
+        /// (non-default behaviour) and a new balanced graph will be created
+        /// under this given name.  When the
+        /// value is empty (default), the generated 'balanced' graph will
+        /// replace the original 'unbalanced'
+        /// graph under the same graph name.  The default value is
+        /// ''.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="RepartitionGraphRequest.Options.SOURCE_NODE">SOURCE_NODE</see>:</term>
+        ///         <description>The distributed shortest path solve is run
+        /// from this source node to
+        /// all the nodes in the graph to create balaced partitions using the
+        /// iso-distance levels of the
+        /// solution.  The source node is selected by the rebalance algorithm
+        /// automatically (default case when
+        /// the value is an empty string). Otherwise, the user specified node
+        /// is used as the source.  The default value is ''.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="RepartitionGraphRequest.Options.SQL_REQUEST_AVRO_JSON">SQL_REQUEST_AVRO_JSON</see>:</term>
+        ///         <description>  The default value is ''.</description>
+        ///     </item>
+        /// </list>
+        /// The default value is an empty {@link Dictionary}.</param>
+        /// 
+        /// <returns>Response object containing the result of the
+        /// operation.</returns>
+        /// 
+        public RepartitionGraphResponse repartitionGraph( string graph_name,
+                                                          IDictionary<string, string> options = null )
+        {
+            return repartitionGraph( new RepartitionGraphRequest( graph_name, options ) );
+        }
+
         /// @cond NO_DOCS
         /// 
         /// <param name="request_">Request object containing the parameters for
@@ -18508,7 +19520,37 @@ namespace kinetica
         /// @cond NO_DOCS
         /// 
         /// <param name="component"></param>
+        /// <param name="name"></param>
+        /// <param name="action">
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="ReserveResourceRequest.Action.GET_SIZE">GET_SIZE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ReserveResourceRequest.Action.NOTIFY_UNTIERED">NOTIFY_UNTIERED</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ReserveResourceRequest.Action.TIER">TIER</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ReserveResourceRequest.Action.EVICT">EVICT</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ReserveResourceRequest.Action.DELETE">DELETE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ReserveResourceRequest.Action.CHANGE_OWNER">CHANGE_OWNER</see></term>
+        ///     </item>
+        /// </list></param>
         /// <param name="bytes_requested"></param>
+        /// <param name="owner_id"></param>
         /// <param name="options">
         /// <list type="bullet">
         /// </list>
@@ -18518,11 +19560,15 @@ namespace kinetica
         /// operation.</returns>
         /// 
         public ReserveResourceResponse reserveResource( string component,
-                                                        long bytes_requested,
+                                                        string name,
+                                                        string action,
+                                                        long bytes_requested = 0,
+                                                        long owner_id = 0,
                                                         IDictionary<string, string> options = null )
         {
-            return reserveResource( new ReserveResourceRequest( component,
-                                                                bytes_requested, options ) );
+            return reserveResource( new ReserveResourceRequest( component, name, action,
+                                                                bytes_requested, owner_id,
+                                                                options ) );
         }
         /// @endcond
 
@@ -18605,6 +19651,11 @@ namespace kinetica
         ///         <term><see
         /// cref="RevokePermissionRequest.ObjectType.TABLE">TABLE</see>:</term>
         ///         <description>Database Table</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="RevokePermissionRequest.ObjectType.TABLE_MONITOR">TABLE_MONITOR</see>:</term>
+        ///         <description>Table monitor</description>
         ///     </item>
         /// </list>  </param>
         /// <param name="permission">Permission being revoked.
@@ -19732,6 +20783,124 @@ namespace kinetica
         }
 
 
+        /// <summary>Returns information about the internal sub-components
+        /// (tiered objects)
+        /// which use resources of the system. The request can either return
+        /// results from
+        /// actively used objects (default) or it can be used to query the
+        /// status of the
+        /// objects of a given list of tables.
+        /// Returns detailed information about the requested resource
+        /// objects.</summary>
+        /// 
+        /// <param name="request_">Request object containing the parameters for
+        /// the operation.</param>
+        /// 
+        /// <returns>Response object containing the result of the
+        /// operation.</returns>
+        /// 
+        public ShowResourceObjectsResponse showResourceObjects( ShowResourceObjectsRequest request_ )
+        {
+            ShowResourceObjectsResponse actualResponse_ = SubmitRequest<ShowResourceObjectsResponse>("/show/resource/objects", request_, false);
+
+            return actualResponse_;
+        }
+
+
+        /// <summary>Returns information about the internal sub-components
+        /// (tiered objects)
+        /// which use resources of the system. The request can either return
+        /// results from
+        /// actively used objects (default) or it can be used to query the
+        /// status of the
+        /// objects of a given list of tables.
+        /// Returns detailed information about the requested resource
+        /// objects.</summary>
+        /// 
+        /// <param name="options">Optional parameters.
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="ShowResourceObjectsRequest.Options.TIERS">TIERS</see>:</term>
+        ///         <description>Comma-separated list of tiers to query, leave
+        /// blank for all tiers.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ShowResourceObjectsRequest.Options.EXPRESSION">EXPRESSION</see>:</term>
+        ///         <description>An expression to filter the returned objects.
+        /// Expression is
+        /// limited to the following operators:
+        /// =,!=,<,<=,>,>=,+,-,*,AND,OR,LIKE. For details see
+        /// <a href="../../../concepts/expressions/"
+        /// target="_top">Expressions</a>. To use a more complex expression,
+        /// query the
+        /// ki_catalog.ki_tiered_objects table directly.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ShowResourceObjectsRequest.Options.ORDER_BY">ORDER_BY</see>:</term>
+        ///         <description>Single column to be sorted by as well as the
+        /// sort direction, e.g., 'size asc'.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="ShowResourceObjectsRequest.Options.SIZE">SIZE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ShowResourceObjectsRequest.Options.ID">ID</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ShowResourceObjectsRequest.Options.PRIORITY">PRIORITY</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ShowResourceObjectsRequest.Options.TIER">TIER</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ShowResourceObjectsRequest.Options.EVICTABLE">EVICTABLE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ShowResourceObjectsRequest.Options.OWNER_RESOURCE_GROUP">OWNER_RESOURCE_GROUP</see></term>
+        ///     </item>
+        /// </list></description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ShowResourceObjectsRequest.Options.LIMIT">LIMIT</see>:</term>
+        ///         <description>An integer indicating the maximum number of
+        /// results to be
+        /// returned, per rank, or (-1) to indicate that the maximum number of
+        /// results allowed by the server
+        /// should be returned.  The number of records returned will never
+        /// exceed the server's own limit,
+        /// defined by the <a href="../../../config/#general"
+        /// target="_top">max_get_records_size</a> parameter in the server
+        /// configuration.  The default value is '100'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ShowResourceObjectsRequest.Options.TABLE_NAMES">TABLE_NAMES</see>:</term>
+        ///         <description>Comma-separated list of tables to restrict the
+        /// results to. Use '*' to show all tables.</description>
+        ///     </item>
+        /// </list>
+        /// The default value is an empty {@link Dictionary}.</param>
+        /// 
+        /// <returns>Response object containing the result of the
+        /// operation.</returns>
+        /// 
+        public ShowResourceObjectsResponse showResourceObjects( IDictionary<string, string> options = null )
+        {
+            return showResourceObjects( new ShowResourceObjectsRequest( options ) );
+        }
+
+
         /// <summary>Requests various statistics for storage/memory tiers and
         /// resource groups.
         /// Returns statistics on a per-rank basis.</summary>
@@ -19814,8 +20983,9 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="ShowResourceGroupsRequest.Options.SHOW_DEFAULT_GROUP">SHOW_DEFAULT_GROUP</see>:</term>
-        ///         <description>If <i>true</i> include the default resource
-        /// group in the response.
+        ///         <description>If <i>true</i> include the default and system
+        /// resource groups in the response. This value defaults to false if an
+        /// explicit list of group names is provided, and true otherwise.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -19829,6 +20999,25 @@ namespace kinetica
         /// </list>
         /// The default value is <see
         /// cref="ShowResourceGroupsRequest.Options.TRUE">TRUE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ShowResourceGroupsRequest.Options.SHOW_TIER_USAGE">SHOW_TIER_USAGE</see>:</term>
+        ///         <description>If <i>true</i> include the resource group
+        /// usage on the worker ranks in the response.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="ShowResourceGroupsRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ShowResourceGroupsRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="ShowResourceGroupsRequest.Options.FALSE">FALSE</see>.</description>
         ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.</param>

@@ -36,8 +36,8 @@ namespace kinetica
     /// and values respectively.
     /// <br />
     /// The response is returned as a dynamic schema. For details see:
-    /// <a href="../../../api/#dynamic-schemas" target="_top">dynamic schemas
-    /// documentation</a>.</summary>
+    /// <a href="../../../api/concepts/#dynamic-schemas" target="_top">dynamic
+    /// schemas documentation</a>.</summary>
     public class AggregateUnpivotRequest : KineticaData
     {
 
@@ -76,6 +76,29 @@ namespace kinetica
 
         /// <summary>Optional parameters.
         /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="AggregateUnpivotRequest.Options.CREATE_TEMP_TABLE">CREATE_TEMP_TABLE</see>:</term>
+        ///         <description>If <i>true</i>, a unique temporary table name
+        /// will be generated in the sys_temp schema and used in place of
+        /// <i>result_table</i>. If <i>result_table_persist</i> is <i>false</i>
+        /// (or unspecified), then this is always allowed even if the caller
+        /// does not have permission to create tables. The generated name is
+        /// returned in <i>qualified_result_table_name</i>.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="AggregateUnpivotRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AggregateUnpivotRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="AggregateUnpivotRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="AggregateUnpivotRequest.Options.COLLECTION_NAME">COLLECTION_NAME</see>:</term>
@@ -195,6 +218,30 @@ namespace kinetica
         public struct Options
         {
 
+            /// <summary>If <i>true</i>, a unique temporary table name will be
+            /// generated in the sys_temp schema and used in place of
+            /// <i>result_table</i>. If <i>result_table_persist</i> is
+            /// <i>false</i> (or unspecified), then this is always allowed even
+            /// if the caller does not have permission to create tables. The
+            /// generated name is returned in
+            /// <i>qualified_result_table_name</i>.
+            /// Supported values:
+            /// <list type="bullet">
+            ///     <item>
+            ///         <term><see
+            /// cref="AggregateUnpivotRequest.Options.TRUE">TRUE</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="AggregateUnpivotRequest.Options.FALSE">FALSE</see></term>
+            ///     </item>
+            /// </list>
+            /// The default value is <see
+            /// cref="AggregateUnpivotRequest.Options.FALSE">FALSE</see>.</summary>
+            public const string CREATE_TEMP_TABLE = "create_temp_table";
+            public const string TRUE = "true";
+            public const string FALSE = "false";
+
             /// <summary>[DEPRECATED--please specify the containing schema as
             /// part of <i>result_table</i> and use <see
             /// cref="Kinetica.createSchema(string,IDictionary{string, string})"
@@ -232,8 +279,6 @@ namespace kinetica
             /// The default value is <see
             /// cref="AggregateUnpivotRequest.Options.FALSE">FALSE</see>.</summary>
             public const string RESULT_TABLE_PERSIST = "result_table_persist";
-            public const string TRUE = "true";
-            public const string FALSE = "false";
 
             /// <summary>Filter expression to apply to the table prior to
             /// unpivot processing.</summary>
@@ -339,6 +384,29 @@ namespace kinetica
 
         /// <summary>Optional parameters.
         /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="AggregateUnpivotRequest.Options.CREATE_TEMP_TABLE">CREATE_TEMP_TABLE</see>:</term>
+        ///         <description>If <i>true</i>, a unique temporary table name
+        /// will be generated in the sys_temp schema and used in place of
+        /// <i>result_table</i>. If <i>result_table_persist</i> is <i>false</i>
+        /// (or unspecified), then this is always allowed even if the caller
+        /// does not have permission to create tables. The generated name is
+        /// returned in <i>qualified_result_table_name</i>.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="AggregateUnpivotRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AggregateUnpivotRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="AggregateUnpivotRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="AggregateUnpivotRequest.Options.COLLECTION_NAME">COLLECTION_NAME</see>:</term>
@@ -480,6 +548,29 @@ namespace kinetica
         /// table must have the same data type.  </param>
         /// <param name="options">Optional parameters.
         /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="AggregateUnpivotRequest.Options.CREATE_TEMP_TABLE">CREATE_TEMP_TABLE</see>:</term>
+        ///         <description>If <i>true</i>, a unique temporary table name
+        /// will be generated in the sys_temp schema and used in place of
+        /// <i>result_table</i>. If <i>result_table_persist</i> is <i>false</i>
+        /// (or unspecified), then this is always allowed even if the caller
+        /// does not have permission to create tables. The generated name is
+        /// returned in <i>qualified_result_table_name</i>.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="AggregateUnpivotRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AggregateUnpivotRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="AggregateUnpivotRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="AggregateUnpivotRequest.Options.COLLECTION_NAME">COLLECTION_NAME</see>:</term>
@@ -651,6 +742,29 @@ namespace kinetica
         /// </param>
         /// <param name="options">Optional parameters.
         /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="AggregateUnpivotRequest.Options.CREATE_TEMP_TABLE">CREATE_TEMP_TABLE</see>:</term>
+        ///         <description>If <i>true</i>, a unique temporary table name
+        /// will be generated in the sys_temp schema and used in place of
+        /// <i>result_table</i>. If <i>result_table_persist</i> is <i>false</i>
+        /// (or unspecified), then this is always allowed even if the caller
+        /// does not have permission to create tables. The generated name is
+        /// returned in <i>qualified_result_table_name</i>.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="AggregateUnpivotRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AggregateUnpivotRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="AggregateUnpivotRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="AggregateUnpivotRequest.Options.COLLECTION_NAME">COLLECTION_NAME</see>:</term>

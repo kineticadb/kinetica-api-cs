@@ -35,24 +35,6 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.DESTINATION_TYPE">DESTINATION_TYPE</see>:</term>
-        ///         <description>Destination type for the output
-        /// data</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.USER_NAME">USER_NAME</see>:</term>
-        ///         <description>Name of the remote system user; may be an
-        /// empty string</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.PASSWORD">PASSWORD</see>:</term>
-        ///         <description>Password for the remote system user; may be an
-        /// empty string</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
         /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.CONNECTION_TIMEOUT">CONNECTION_TIMEOUT</see>:</term>
         ///         <description>Timeout in seconds for connecting to this
         /// sink</description>
@@ -75,6 +57,40 @@ namespace kinetica
         /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.KAFKA_TOPIC_NAME">KAFKA_TOPIC_NAME</see>:</term>
         ///         <description>Name of the Kafka topic to use for this data
         /// sink, if it references a Kafka broker</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.MAX_BATCH_SIZE">MAX_BATCH_SIZE</see>:</term>
+        ///         <description>Maximum number of records per notification
+        /// message.  The default value is '1'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.MAX_MESSAGE_SIZE">MAX_MESSAGE_SIZE</see>:</term>
+        ///         <description>Maximum size in bytes of each notification
+        /// message.  The default value is '1000000'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.JSON_FORMAT">JSON_FORMAT</see>:</term>
+        ///         <description>The desired format of JSON encoded
+        /// notifications message.
+        /// <br />
+        /// If <i>nested</i>, records are returned as an array.
+        /// Otherwise, only a single record per messages is returned.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.FLAT">FLAT</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.NESTED">NESTED</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.FLAT">FLAT</see>.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -109,17 +125,6 @@ namespace kinetica
             /// 'kafka'.</summary>
             public const string DESTINATION = "destination";
 
-            /// <summary>Destination type for the output data</summary>
-            public const string DESTINATION_TYPE = "destination_type";
-
-            /// <summary>Name of the remote system user; may be an empty
-            /// string</summary>
-            public const string USER_NAME = "user_name";
-
-            /// <summary>Password for the remote system user; may be an empty
-            /// string</summary>
-            public const string PASSWORD = "password";
-
             /// <summary>Timeout in seconds for connecting to this
             /// sink</summary>
             public const string CONNECTION_TIMEOUT = "connection_timeout";
@@ -136,6 +141,36 @@ namespace kinetica
             /// <summary>Name of the Kafka topic to use for this data sink, if
             /// it references a Kafka broker</summary>
             public const string KAFKA_TOPIC_NAME = "kafka_topic_name";
+
+            /// <summary>Maximum number of records per notification message.
+            /// The default value is '1'.</summary>
+            public const string MAX_BATCH_SIZE = "max_batch_size";
+
+            /// <summary>Maximum size in bytes of each notification message.
+            /// The default value is '1000000'.</summary>
+            public const string MAX_MESSAGE_SIZE = "max_message_size";
+
+            /// <summary>The desired format of JSON encoded notifications
+            /// message.
+            /// <br />
+            /// If <i>nested</i>, records are returned as an array.
+            /// Otherwise, only a single record per messages is returned.
+            /// Supported values:
+            /// <list type="bullet">
+            ///     <item>
+            ///         <term><see
+            /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.FLAT">FLAT</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.NESTED">NESTED</see></term>
+            ///     </item>
+            /// </list>
+            /// The default value is <see
+            /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.FLAT">FLAT</see>.</summary>
+            public const string JSON_FORMAT = "json_format";
+            public const string FLAT = "flat";
+            public const string NESTED = "nested";
 
             /// <summary>Bypass validation of connection to this data sink.
             /// Supported values:
@@ -175,24 +210,6 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.DESTINATION_TYPE">DESTINATION_TYPE</see>:</term>
-        ///         <description>Destination type for the output
-        /// data</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.USER_NAME">USER_NAME</see>:</term>
-        ///         <description>Name of the remote system user; may be an
-        /// empty string</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.PASSWORD">PASSWORD</see>:</term>
-        ///         <description>Password for the remote system user; may be an
-        /// empty string</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
         /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.CONNECTION_TIMEOUT">CONNECTION_TIMEOUT</see>:</term>
         ///         <description>Timeout in seconds for connecting to this
         /// sink</description>
@@ -215,6 +232,40 @@ namespace kinetica
         /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.KAFKA_TOPIC_NAME">KAFKA_TOPIC_NAME</see>:</term>
         ///         <description>Name of the Kafka topic to use for this data
         /// sink, if it references a Kafka broker</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.MAX_BATCH_SIZE">MAX_BATCH_SIZE</see>:</term>
+        ///         <description>Maximum number of records per notification
+        /// message.  The default value is '1'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.MAX_MESSAGE_SIZE">MAX_MESSAGE_SIZE</see>:</term>
+        ///         <description>Maximum size in bytes of each notification
+        /// message.  The default value is '1000000'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.JSON_FORMAT">JSON_FORMAT</see>:</term>
+        ///         <description>The desired format of JSON encoded
+        /// notifications message.
+        /// <br />
+        /// If <i>nested</i>, records are returned as an array.
+        /// Otherwise, only a single record per messages is returned.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.FLAT">FLAT</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.NESTED">NESTED</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.FLAT">FLAT</see>.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -265,24 +316,6 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.DESTINATION_TYPE">DESTINATION_TYPE</see>:</term>
-        ///         <description>Destination type for the output
-        /// data</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.USER_NAME">USER_NAME</see>:</term>
-        ///         <description>Name of the remote system user; may be an
-        /// empty string</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.PASSWORD">PASSWORD</see>:</term>
-        ///         <description>Password for the remote system user; may be an
-        /// empty string</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
         /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.CONNECTION_TIMEOUT">CONNECTION_TIMEOUT</see>:</term>
         ///         <description>Timeout in seconds for connecting to this
         /// sink</description>
@@ -305,6 +338,39 @@ namespace kinetica
         /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.KAFKA_TOPIC_NAME">KAFKA_TOPIC_NAME</see>:</term>
         ///         <description>Name of the Kafka topic to use for this data
         /// sink, if it references a Kafka broker</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.MAX_BATCH_SIZE">MAX_BATCH_SIZE</see>:</term>
+        ///         <description>Maximum number of records per notification
+        /// message.  The default value is '1'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.MAX_MESSAGE_SIZE">MAX_MESSAGE_SIZE</see>:</term>
+        ///         <description>Maximum size in bytes of each notification
+        /// message.  The default value is '1000000'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.JSON_FORMAT">JSON_FORMAT</see>:</term>
+        ///         <description>The desired format of JSON encoded
+        /// notifications message.
+        /// If <i>nested</i>, records are returned as an array.
+        /// Otherwise, only a single record per messages is returned.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.FLAT">FLAT</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.NESTED">NESTED</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.FLAT">FLAT</see>.</description>
         ///     </item>
         ///     <item>
         ///         <term><see

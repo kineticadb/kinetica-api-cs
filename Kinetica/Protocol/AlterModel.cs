@@ -34,6 +34,10 @@ namespace kinetica
         ///         <term><see
         /// cref="AlterModelRequest.Action.REFRESH">REFRESH</see></term>
         ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterModelRequest.Action.STOP_DEPLOYMENT">STOP_DEPLOYMENT</see></term>
+        ///     </item>
         /// </list>
         /// A set of string constants for the parameter <see cref="action"
         /// />.</summary>
@@ -42,6 +46,7 @@ namespace kinetica
             public const string CONTAINER = "container";
             public const string REGISTRY = "registry";
             public const string REFRESH = "refresh";
+            public const string STOP_DEPLOYMENT = "stop_deployment";
         } // end struct Action
 
         public string model_name { get; set; }
@@ -60,6 +65,10 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="AlterModelRequest.Action.REFRESH">REFRESH</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterModelRequest.Action.STOP_DEPLOYMENT">STOP_DEPLOYMENT</see></term>
         ///     </item>
         /// </list></summary>
         public string action { get; set; }
@@ -89,6 +98,10 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="AlterModelRequest.Action.REFRESH">REFRESH</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterModelRequest.Action.STOP_DEPLOYMENT">STOP_DEPLOYMENT</see></term>
         ///     </item>
         /// </list></param>
         /// <param name="_value"></param>
