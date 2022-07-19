@@ -15,7 +15,7 @@ namespace kinetica
     /// cref="Kinetica.adminSwitchover(IList{string},IList{string},IDictionary{string, string})"
     /// />.
     /// <br />
-    /// Manually switchover one or more processes to another host. Individual
+    /// Manually switch over one or more processes to another host. Individual
     /// ranks or entire hosts may be moved to another host.</summary>
     public class AdminSwitchoverRequest : KineticaData
     {
@@ -69,26 +69,31 @@ namespace kinetica
         } // end struct Options
 
 
-        /// <summary>Indicates the process identifier to switchover to another
-        /// host. Options are 'hostN' and 'rankN' where 'N' corresponds to the
-        /// number associated with a host or rank in the <a
-        /// href="../../../config/#network" target="_top">Network</a> section
-        /// of the gpudb.conf file, e.g., 'host[N].address' or 'rank[N].host'.
-        /// If 'hostN' is provided, all processes on that host will be moved to
-        /// another host. Each entry in this array will be switched over to the
-        /// corresponding host entry at the same index in <paramref
+        /// <summary>Indicates the process identifier to switch over to another
+        /// host. Options are
+        /// 'hostN' and 'rankN' where 'N' corresponds to the number associated
+        /// with a host or rank in the
+        /// <a href="../../../config/#config-main-network"
+        /// target="_top">Network</a> section of the gpudb.conf file; e.g.,
+        /// 'host[N].address' or 'rank[N].host'. If 'hostN' is provided, all
+        /// processes on that host will be
+        /// moved to another host. Each entry in this array will be switched
+        /// over to the corresponding host
+        /// entry at the same index in <paramref
         /// cref="AdminSwitchoverRequest.destinations" />.  </summary>
         public IList<string> processes { get; set; } = new List<string>();
 
-        /// <summary>Indicates to which host to switchover each corresponding
-        /// process given in <paramref cref="AdminSwitchoverRequest.processes"
-        /// />. Each index must be specified as 'hostN' where 'N' corresponds
-        /// to the number associated with a host or rank in the <a
-        /// href="../../../config/#network" target="_top">Network</a> section
-        /// of the gpudb.conf file, e.g., 'host[N].address'. Each entry in this
-        /// array will receive the corresponding process entry at the same
-        /// index in <paramref cref="AdminSwitchoverRequest.processes" />.
-        /// </summary>
+        /// <summary>Indicates to which host to switch over each corresponding
+        /// process given in
+        /// <paramref cref="AdminSwitchoverRequest.processes" />. Each index
+        /// must be specified as 'hostN' where 'N' corresponds to the number
+        /// associated with a host or rank in the <a
+        /// href="../../../config/#config-main-network"
+        /// target="_top">Network</a> section of the
+        /// gpudb.conf file; e.g., 'host[N].address'. Each entry in this array
+        /// will receive the corresponding
+        /// process entry at the same index in <paramref
+        /// cref="AdminSwitchoverRequest.processes" />.  </summary>
         public IList<string> destinations { get; set; } = new List<string>();
 
         /// <summary>Optional parameters.
@@ -124,23 +129,28 @@ namespace kinetica
         /// <summary>Constructs an AdminSwitchoverRequest object with the
         /// specified parameters.</summary>
         /// 
-        /// <param name="processes">Indicates the process identifier to
-        /// switchover to another host. Options are 'hostN' and 'rankN' where
-        /// 'N' corresponds to the number associated with a host or rank in the
-        /// <a href="../../../config/#network" target="_top">Network</a>
-        /// section of the gpudb.conf file, e.g., 'host[N].address' or
-        /// 'rank[N].host'. If 'hostN' is provided, all processes on that host
-        /// will be moved to another host. Each entry in this array will be
-        /// switched over to the corresponding host entry at the same index in
-        /// <paramref cref="AdminSwitchoverRequest.destinations" />.  </param>
-        /// <param name="destinations">Indicates to which host to switchover
-        /// each corresponding process given in <paramref
-        /// cref="AdminSwitchoverRequest.processes" />. Each index must be
-        /// specified as 'hostN' where 'N' corresponds to the number associated
-        /// with a host or rank in the <a href="../../../config/#network"
-        /// target="_top">Network</a> section of the gpudb.conf file, e.g.,
-        /// 'host[N].address'. Each entry in this array will receive the
-        /// corresponding process entry at the same index in <paramref
+        /// <param name="processes">Indicates the process identifier to switch
+        /// over to another host. Options are
+        /// 'hostN' and 'rankN' where 'N' corresponds to the number associated
+        /// with a host or rank in the
+        /// <a href="../../../config/#config-main-network"
+        /// target="_top">Network</a> section of the gpudb.conf file; e.g.,
+        /// 'host[N].address' or 'rank[N].host'. If 'hostN' is provided, all
+        /// processes on that host will be
+        /// moved to another host. Each entry in this array will be switched
+        /// over to the corresponding host
+        /// entry at the same index in <paramref
+        /// cref="AdminSwitchoverRequest.destinations" />.  </param>
+        /// <param name="destinations">Indicates to which host to switch over
+        /// each corresponding process given in
+        /// <paramref cref="AdminSwitchoverRequest.processes" />. Each index
+        /// must be specified as 'hostN' where 'N' corresponds to the number
+        /// associated with a host or rank in the <a
+        /// href="../../../config/#config-main-network"
+        /// target="_top">Network</a> section of the
+        /// gpudb.conf file; e.g., 'host[N].address'. Each entry in this array
+        /// will receive the corresponding
+        /// process entry at the same index in <paramref
         /// cref="AdminSwitchoverRequest.processes" />.  </param>
         /// <param name="options">Optional parameters.
         /// <list type="bullet">

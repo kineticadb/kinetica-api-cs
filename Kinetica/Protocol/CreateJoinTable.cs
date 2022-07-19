@@ -99,8 +99,8 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="CreateJoinTableRequest.Options.NO_COUNT">NO_COUNT</see>:</term>
-        ///         <description>return a count of 0 for the join table for
-        /// logging and for show_table. optimization needed for large
+        ///         <description>Return a count of 0 for the join table for
+        /// logging and for /show/table; optimization needed for large
         /// overlapped equi-join stencils.  The default value is
         /// 'false'.</description>
         ///     </item>
@@ -176,9 +176,11 @@ namespace kinetica
             /// ''.</summary>
             public const string VIEW_ID = "view_id";
 
-            /// <summary>return a count of 0 for the join table for logging and
-            /// for show_table. optimization needed for large overlapped
-            /// equi-join stencils.  The default value is 'false'.</summary>
+            /// <summary>Return a count of 0 for the join table for logging and
+            /// for <see
+            /// cref="Kinetica.showTable(string,IDictionary{string, string})"
+            /// />; optimization needed for large overlapped equi-join
+            /// stencils.  The default value is 'false'.</summary>
             public const string NO_COUNT = "no_count";
 
             /// <summary>Maximum number of records per joined-chunk for this
@@ -295,8 +297,8 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="CreateJoinTableRequest.Options.NO_COUNT">NO_COUNT</see>:</term>
-        ///         <description>return a count of 0 for the join table for
-        /// logging and for show_table. optimization needed for large
+        ///         <description>Return a count of 0 for the join table for
+        /// logging and for /show/table; optimization needed for large
         /// overlapped equi-join stencils.  The default value is
         /// 'false'.</description>
         ///     </item>
@@ -420,8 +422,8 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="CreateJoinTableRequest.Options.NO_COUNT">NO_COUNT</see>:</term>
-        ///         <description>return a count of 0 for the join table for
-        /// logging and for show_table. optimization needed for large
+        ///         <description>Return a count of 0 for the join table for
+        /// logging and for /show/table; optimization needed for large
         /// overlapped equi-join stencils.  The default value is
         /// 'false'.</description>
         ///     </item>

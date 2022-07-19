@@ -420,6 +420,59 @@ namespace kinetica
         } // end struct PropertyUpdatesMap
 
 
+        /// <summary>Optional parameters.
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterSystemPropertiesRequest.Options.PERSIST">PERSIST</see>:</term>
+        ///         <description>If <i>true</i> the system configuration will
+        /// be written to disk upon successful application of this request.
+        /// This will commit the changes from this request and any additional
+        /// in-memory modifications.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterSystemPropertiesRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterSystemPropertiesRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="AlterSystemPropertiesRequest.Options.TRUE">TRUE</see>.</description>
+        ///     </item>
+        /// </list>
+        /// The default value is an empty {@link Dictionary}.
+        /// A set of string constants for the parameter <see cref="options"
+        /// />.</summary>
+        public struct Options
+        {
+
+            /// <summary>If <i>true</i> the system configuration will be
+            /// written to disk upon successful application of this request.
+            /// This will commit the changes from this request and any
+            /// additional in-memory modifications.
+            /// Supported values:
+            /// <list type="bullet">
+            ///     <item>
+            ///         <term><see
+            /// cref="AlterSystemPropertiesRequest.Options.TRUE">TRUE</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="AlterSystemPropertiesRequest.Options.FALSE">FALSE</see></term>
+            ///     </item>
+            /// </list>
+            /// The default value is <see
+            /// cref="AlterSystemPropertiesRequest.Options.TRUE">TRUE</see>.</summary>
+            public const string PERSIST = "persist";
+            public const string TRUE = "true";
+            public const string FALSE = "false";
+        } // end struct Options
+
+
         /// <summary>Map containing the properties of the system to be updated.
         /// Error if empty.
         /// <list type="bullet">
@@ -644,8 +697,31 @@ namespace kinetica
         ///   </summary>
         public IDictionary<string, string> property_updates_map { get; set; } = new Dictionary<string, string>();
 
-        /// <summary>Optional parameters.  The default value is an empty {@link
-        /// Dictionary}.</summary>
+        /// <summary>Optional parameters.
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterSystemPropertiesRequest.Options.PERSIST">PERSIST</see>:</term>
+        ///         <description>If <i>true</i> the system configuration will
+        /// be written to disk upon successful application of this request.
+        /// This will commit the changes from this request and any additional
+        /// in-memory modifications.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterSystemPropertiesRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterSystemPropertiesRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="AlterSystemPropertiesRequest.Options.TRUE">TRUE</see>.</description>
+        ///     </item>
+        /// </list>
+        /// The default value is an empty {@link Dictionary}.</summary>
         public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
 
 
@@ -878,8 +954,31 @@ namespace kinetica
         ///     </item>
         /// </list>
         ///   </param>
-        /// <param name="options">Optional parameters.  The default value is an
-        /// empty {@link Dictionary}.</param>
+        /// <param name="options">Optional parameters.
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterSystemPropertiesRequest.Options.PERSIST">PERSIST</see>:</term>
+        ///         <description>If <i>true</i> the system configuration will
+        /// be written to disk upon successful application of this request.
+        /// This will commit the changes from this request and any additional
+        /// in-memory modifications.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterSystemPropertiesRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterSystemPropertiesRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="AlterSystemPropertiesRequest.Options.TRUE">TRUE</see>.</description>
+        ///     </item>
+        /// </list>
+        /// The default value is an empty {@link Dictionary}.</param>
         /// 
         public AlterSystemPropertiesRequest( IDictionary<string, string> property_updates_map,
                                              IDictionary<string, string> options = null)

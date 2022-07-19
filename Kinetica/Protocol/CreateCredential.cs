@@ -53,7 +53,19 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
+        /// cref="CreateCredentialRequest.Type.GCS_SERVICE_ACCOUNT_ID">GCS_SERVICE_ACCOUNT_ID</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateCredentialRequest.Type.GCS_SERVICE_ACCOUNT_KEYS">GCS_SERVICE_ACCOUNT_KEYS</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="CreateCredentialRequest.Type.HDFS">HDFS</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateCredentialRequest.Type.JDBC">JDBC</see></term>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -71,7 +83,10 @@ namespace kinetica
             public const string AZURE_SAS = "azure_sas";
             public const string AZURE_STORAGE_KEY = "azure_storage_key";
             public const string DOCKER = "docker";
+            public const string GCS_SERVICE_ACCOUNT_ID = "gcs_service_account_id";
+            public const string GCS_SERVICE_ACCOUNT_KEYS = "gcs_service_account_keys";
             public const string HDFS = "hdfs";
+            public const string JDBC = "jdbc";
             public const string KAFKA = "kafka";
         } // end struct Type
 
@@ -114,7 +129,19 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
+        /// cref="CreateCredentialRequest.Type.GCS_SERVICE_ACCOUNT_ID">GCS_SERVICE_ACCOUNT_ID</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateCredentialRequest.Type.GCS_SERVICE_ACCOUNT_KEYS">GCS_SERVICE_ACCOUNT_KEYS</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="CreateCredentialRequest.Type.HDFS">HDFS</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateCredentialRequest.Type.JDBC">JDBC</see></term>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -178,7 +205,19 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
+        /// cref="CreateCredentialRequest.Type.GCS_SERVICE_ACCOUNT_ID">GCS_SERVICE_ACCOUNT_ID</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateCredentialRequest.Type.GCS_SERVICE_ACCOUNT_KEYS">GCS_SERVICE_ACCOUNT_KEYS</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="CreateCredentialRequest.Type.HDFS">HDFS</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateCredentialRequest.Type.JDBC">JDBC</see></term>
         ///     </item>
         ///     <item>
         ///         <term><see

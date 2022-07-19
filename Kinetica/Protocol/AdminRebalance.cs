@@ -20,26 +20,26 @@ namespace kinetica
     /// distributed (as much as possible) across all the ranks.
     /// <br />
     /// The database must be offline for this operation, see <see
-    /// cref="Kinetica.adminOffline(bool,IDictionary{string, string})" />.
+    /// cref="Kinetica.adminOffline(bool,IDictionary{string, string})" />
     /// <br />
-    /// If <see cref="Kinetica.adminRebalance(IDictionary{string, string})"
-    /// /> is invoked after a change is made to the
-    /// cluster, e.g., a host was added or removed,
-    /// <a href="../../../concepts/tables/#sharding" target="_top">sharded
+    /// * If <see cref="Kinetica.adminRebalance(IDictionary{string, string})"
+    /// /> is invoked after a change is
+    ///   made to the cluster, e.g., a host was added or removed,
+    ///   <a href="../../../concepts/tables/#sharding" target="_top">sharded
     /// data</a> will be
-    /// evenly redistributed across the cluster by number of shards per rank
-    /// while unsharded data will be redistributed across the cluster by data
-    /// size per rank.
-    /// <br />
-    /// If <see cref="Kinetica.adminRebalance(IDictionary{string, string})"
-    /// /> is invoked at some point when unsharded
-    /// data (a.k.a. <a href="../../../concepts/tables/#random-sharding"
+    ///   evenly redistributed across the cluster by number of shards per rank
+    ///   while unsharded data will be redistributed across the cluster by data
+    ///   size per rank
+    /// * If <see cref="Kinetica.adminRebalance(IDictionary{string, string})"
+    /// />
+    ///   is invoked at some point when unsharded data (a.k.a.
+    ///   <a href="../../../concepts/tables/#random-sharding"
     /// target="_top">randomly-sharded</a>)
-    /// in the cluster is unevenly distributed over time, sharded data will
-    /// not move while unsharded data will be redistributed across the
-    /// cluster by data size per rank.
+    ///   in the cluster is unevenly distributed over time, sharded data will
+    ///   not move while unsharded data will be redistributed across the
+    ///   cluster by data size per rank
     /// <br />
-    /// NOTE: Replicated data will not move as a result of this call.
+    /// NOTE: Replicated data will not move as a result of this call
     /// <br />
     /// This endpoint's processing time depends on the amount of data in the
     /// system,

@@ -676,6 +676,29 @@ namespace kinetica
             public const string TRACKHEADSHAPES = "trackheadshapes";
         } // end struct StyleOptions
 
+
+        /// <summary>
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageClassbreakRequest.Options.TRACK_ID_COLUMN_NAME">TRACK_ID_COLUMN_NAME</see>:</term>
+        ///         <description></description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageClassbreakRequest.Options.TRACK_ORDER_COLUMN_NAME">TRACK_ORDER_COLUMN_NAME</see>:</term>
+        ///         <description></description>
+        ///     </item>
+        /// </list>
+        /// <br />
+        /// A set of string constants for the parameter <see cref="options"
+        /// />.</summary>
+        public struct Options
+        {
+            public const string TRACK_ID_COLUMN_NAME = "track_id_column_name";
+            public const string TRACK_ORDER_COLUMN_NAME = "track_order_column_name";
+        } // end struct Options
+
         public IList<string> table_names { get; set; } = new List<string>();
         public IList<string> world_table_names { get; set; } = new List<string>();
         public string x_column_name { get; set; }
@@ -1068,6 +1091,21 @@ namespace kinetica
         /// </list>
         /// </summary>
         public IDictionary<string, IList<string>> style_options { get; set; } = new Dictionary<string, IList<string>>();
+
+        /// <summary>
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageClassbreakRequest.Options.TRACK_ID_COLUMN_NAME">TRACK_ID_COLUMN_NAME</see>:</term>
+        ///         <description></description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageClassbreakRequest.Options.TRACK_ORDER_COLUMN_NAME">TRACK_ORDER_COLUMN_NAME</see>:</term>
+        ///         <description></description>
+        ///     </item>
+        /// </list>
+        /// </summary>
         public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
         public IList<int> cb_transparency_vec { get; set; } = new List<int>();
 
@@ -1467,7 +1505,20 @@ namespace kinetica
         ///     </item>
         /// </list>
         /// </param>
-        /// <param name="options"></param>
+        /// <param name="options">
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageClassbreakRequest.Options.TRACK_ID_COLUMN_NAME">TRACK_ID_COLUMN_NAME</see>:</term>
+        ///         <description></description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageClassbreakRequest.Options.TRACK_ORDER_COLUMN_NAME">TRACK_ORDER_COLUMN_NAME</see>:</term>
+        ///         <description></description>
+        ///     </item>
+        /// </list>
+        /// </param>
         /// <param name="cb_transparency_vec"></param>
         /// 
         public VisualizeImageClassbreakRequest( IList<string> table_names,

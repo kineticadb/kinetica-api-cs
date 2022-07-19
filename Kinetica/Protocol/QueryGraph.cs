@@ -38,14 +38,7 @@ namespace kinetica
     /// <br />
     /// To return the adjacency list in the response, leave <see
     /// cref="adjacency_table" />
-    /// empty. To return the adjacency list in a table and not in the response,
-    /// provide
-    /// a value to <see cref="adjacency_table" /> and set
-    /// <i>export_query_results</i> to
-    /// <i>false</i>. To return the
-    /// adjacency list both in a table and the response, provide a value to
-    /// <see cref="adjacency_table" /> and set <i>export_query_results</i>
-    /// to <i>true</i>.
+    /// empty.
     /// <br />
     /// IMPORTANT: It's highly recommended that you review the
     /// <a href="../../../graph_solver/network_graph_solver/"
@@ -91,44 +84,15 @@ namespace kinetica
         ///         <term><see
         /// cref="QueryGraphRequest.Options.LIMIT">LIMIT</see>:</term>
         ///         <description>When specified, limits the number of query
-        /// results. Note that if the <i>target_nodes_table</i> is provided,
-        /// the size of the corresponding table will be limited by the
+        /// results. The size of the nodes table will be limited by the
         /// <i>limit</i> value.  The default value is an empty {@link
         /// Dictionary}.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="QueryGraphRequest.Options.TARGET_NODES_TABLE">TARGET_NODES_TABLE</see>:</term>
-        ///         <description>Name of the table to store the list of the
-        /// final nodes reached during the traversal, in
-        /// [schema_name.]table_name format, using standard <a
-        /// href="../../../concepts/tables/#table-name-resolution"
-        /// target="_top">name resolution rules</a> and meeting <a
-        /// href="../../../concepts/tables/#table-naming-criteria"
-        /// target="_top">table naming criteria</a>.  If this value is left as
-        /// the default, the table name will default to the <paramref
-        /// cref="QueryGraphRequest.adjacency_table" /> value plus a '_nodes'
-        /// suffix, e.g., '<adjacency_table_name>_nodes'.  The default value is
-        /// ''.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="QueryGraphRequest.Options.RESTRICTION_THRESHOLD_VALUE">RESTRICTION_THRESHOLD_VALUE</see>:</term>
-        ///         <description>Value-based restriction comparison. Any node
-        /// or edge with a RESTRICTIONS_VALUECOMPARED value greater than the
-        /// <i>restriction_threshold_value</i> will not be included in the
-        /// solution.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="QueryGraphRequest.Options.EXPORT_QUERY_RESULTS">EXPORT_QUERY_RESULTS</see>:</term>
-        ///         <description>Returns query results in the response. If set
-        /// to <i>true</i>, the <member name="adjacency_list_int_array" /> (if
-        /// the query was based on IDs), <member
-        /// name="adjacency_list_string_array" /> (if the query was based on
-        /// names), or <member name="adjacency_list_wkt_array" /> (if the query
-        /// was based on WKTs) will be populated with the results. If set to
-        /// <i>false</i>, none of the arrays will be populated.
+        /// cref="QueryGraphRequest.Options.OUTPUT_WKT_PATH">OUTPUT_WKT_PATH</see>:</term>
+        ///         <description>If true then concatenated wkt line segments
+        /// will be added as the WKT column of the adjacency table.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -141,31 +105,7 @@ namespace kinetica
         ///     </item>
         /// </list>
         /// The default value is <see
-        /// cref="QueryGraphRequest.Options.FALSE">FALSE</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="QueryGraphRequest.Options.ENABLE_GRAPH_DRAW">ENABLE_GRAPH_DRAW</see>:</term>
-        ///         <description>If set to <i>true</i>, adds a WKT-type column
-        /// named 'QUERY_EDGE_WKTLINE' to the given <paramref
-        /// cref="QueryGraphRequest.adjacency_table" /> and inputs WKT values
-        /// from the source graph (if available) or auto-generated WKT values
-        /// (if there are no WKT values in the source graph). A subsequent call
-        /// to the <a href="../../../api/rest/wms_rest/" target="_top">/wms</a>
-        /// endpoint can then be made to display the query results on a map.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="QueryGraphRequest.Options.TRUE">TRUE</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="QueryGraphRequest.Options.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="QueryGraphRequest.Options.FALSE">FALSE</see>.</description>
+        /// cref="QueryGraphRequest.Options.TRUE">TRUE</see>.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -227,39 +167,13 @@ namespace kinetica
             public const string FALSE = "false";
 
             /// <summary>When specified, limits the number of query results.
-            /// Note that if the <i>target_nodes_table</i> is provided, the
-            /// size of the corresponding table will be limited by the
-            /// <i>limit</i> value.  The default value is an empty {@link
+            /// The size of the nodes table will be limited by the <i>limit</i>
+            /// value.  The default value is an empty {@link
             /// Dictionary}.</summary>
             public const string LIMIT = "limit";
 
-            /// <summary>Name of the table to store the list of the final nodes
-            /// reached during the traversal, in [schema_name.]table_name
-            /// format, using standard <a
-            /// href="../../../concepts/tables/#table-name-resolution"
-            /// target="_top">name resolution rules</a> and meeting <a
-            /// href="../../../concepts/tables/#table-naming-criteria"
-            /// target="_top">table naming criteria</a>.  If this value is left
-            /// as the default, the table name will default to the <see
-            /// cref="adjacency_table" /> value plus a '_nodes' suffix, e.g.,
-            /// '<adjacency_table_name>_nodes'.  The default value is
-            /// ''.</summary>
-            public const string TARGET_NODES_TABLE = "target_nodes_table";
-
-            /// <summary>Value-based restriction comparison. Any node or edge
-            /// with a RESTRICTIONS_VALUECOMPARED value greater than the
-            /// <i>restriction_threshold_value</i> will not be included in the
-            /// solution.</summary>
-            public const string RESTRICTION_THRESHOLD_VALUE = "restriction_threshold_value";
-
-            /// <summary>Returns query results in the response. If set to
-            /// <i>true</i>, the <member name="adjacency_list_int_array" /> (if
-            /// the query was based on IDs), <member
-            /// name="adjacency_list_string_array" /> (if the query was based
-            /// on names), or <member name="adjacency_list_wkt_array" /> (if
-            /// the query was based on WKTs) will be populated with the
-            /// results. If set to <i>false</i>, none of the arrays will be
-            /// populated.
+            /// <summary>If true then concatenated wkt line segments will be
+            /// added as the WKT column of the adjacency table.
             /// Supported values:
             /// <list type="bullet">
             ///     <item>
@@ -272,31 +186,8 @@ namespace kinetica
             ///     </item>
             /// </list>
             /// The default value is <see
-            /// cref="QueryGraphRequest.Options.FALSE">FALSE</see>.</summary>
-            public const string EXPORT_QUERY_RESULTS = "export_query_results";
-
-            /// <summary>If set to <i>true</i>, adds a WKT-type column named
-            /// 'QUERY_EDGE_WKTLINE' to the given <see cref="adjacency_table"
-            /// /> and inputs WKT values from the source graph (if available)
-            /// or auto-generated WKT values (if there are no WKT values in the
-            /// source graph). A subsequent call to the <a
-            /// href="../../../api/rest/wms_rest/" target="_top">/wms</a>
-            /// endpoint can then be made to display the query results on a
-            /// map.
-            /// Supported values:
-            /// <list type="bullet">
-            ///     <item>
-            ///         <term><see
-            /// cref="QueryGraphRequest.Options.TRUE">TRUE</see></term>
-            ///     </item>
-            ///     <item>
-            ///         <term><see
-            /// cref="QueryGraphRequest.Options.FALSE">FALSE</see></term>
-            ///     </item>
-            /// </list>
-            /// The default value is <see
-            /// cref="QueryGraphRequest.Options.FALSE">FALSE</see>.</summary>
-            public const string ENABLE_GRAPH_DRAW = "enable_graph_draw";
+            /// cref="QueryGraphRequest.Options.TRUE">TRUE</see>.</summary>
+            public const string OUTPUT_WKT_PATH = "output_wkt_path";
 
             /// <summary>If set to <i>true</i>, the result of the query has
             /// entities that satisfy all of the target labels, instead of any.
@@ -358,8 +249,7 @@ namespace kinetica
         /// target="_top">name resolution rules</a> and meeting <a
         /// href="../../../concepts/tables/#table-naming-criteria"
         /// target="_top">table naming criteria</a>.  If left blank, the query
-        /// results are instead returned in the response even if
-        /// <i>export_query_results</i> is set to <i>false</i>. If the
+        /// results are instead returned in the response. If the
         /// 'QUERY_TARGET_NODE_LABEL' <a
         /// href="../../../graph_solver/network_graph_solver/#query-identifiers"
         /// target="_top">query identifier</a> is used in <paramref
@@ -415,44 +305,15 @@ namespace kinetica
         ///         <term><see
         /// cref="QueryGraphRequest.Options.LIMIT">LIMIT</see>:</term>
         ///         <description>When specified, limits the number of query
-        /// results. Note that if the <i>target_nodes_table</i> is provided,
-        /// the size of the corresponding table will be limited by the
+        /// results. The size of the nodes table will be limited by the
         /// <i>limit</i> value.  The default value is an empty {@link
         /// Dictionary}.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="QueryGraphRequest.Options.TARGET_NODES_TABLE">TARGET_NODES_TABLE</see>:</term>
-        ///         <description>Name of the table to store the list of the
-        /// final nodes reached during the traversal, in
-        /// [schema_name.]table_name format, using standard <a
-        /// href="../../../concepts/tables/#table-name-resolution"
-        /// target="_top">name resolution rules</a> and meeting <a
-        /// href="../../../concepts/tables/#table-naming-criteria"
-        /// target="_top">table naming criteria</a>.  If this value is left as
-        /// the default, the table name will default to the <paramref
-        /// cref="QueryGraphRequest.adjacency_table" /> value plus a '_nodes'
-        /// suffix, e.g., '<adjacency_table_name>_nodes'.  The default value is
-        /// ''.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="QueryGraphRequest.Options.RESTRICTION_THRESHOLD_VALUE">RESTRICTION_THRESHOLD_VALUE</see>:</term>
-        ///         <description>Value-based restriction comparison. Any node
-        /// or edge with a RESTRICTIONS_VALUECOMPARED value greater than the
-        /// <i>restriction_threshold_value</i> will not be included in the
-        /// solution.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="QueryGraphRequest.Options.EXPORT_QUERY_RESULTS">EXPORT_QUERY_RESULTS</see>:</term>
-        ///         <description>Returns query results in the response. If set
-        /// to <i>true</i>, the <member name="adjacency_list_int_array" /> (if
-        /// the query was based on IDs), <member
-        /// name="adjacency_list_string_array" /> (if the query was based on
-        /// names), or <member name="adjacency_list_wkt_array" /> (if the query
-        /// was based on WKTs) will be populated with the results. If set to
-        /// <i>false</i>, none of the arrays will be populated.
+        /// cref="QueryGraphRequest.Options.OUTPUT_WKT_PATH">OUTPUT_WKT_PATH</see>:</term>
+        ///         <description>If true then concatenated wkt line segments
+        /// will be added as the WKT column of the adjacency table.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -465,31 +326,7 @@ namespace kinetica
         ///     </item>
         /// </list>
         /// The default value is <see
-        /// cref="QueryGraphRequest.Options.FALSE">FALSE</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="QueryGraphRequest.Options.ENABLE_GRAPH_DRAW">ENABLE_GRAPH_DRAW</see>:</term>
-        ///         <description>If set to <i>true</i>, adds a WKT-type column
-        /// named 'QUERY_EDGE_WKTLINE' to the given <paramref
-        /// cref="QueryGraphRequest.adjacency_table" /> and inputs WKT values
-        /// from the source graph (if available) or auto-generated WKT values
-        /// (if there are no WKT values in the source graph). A subsequent call
-        /// to the <a href="../../../api/rest/wms_rest/" target="_top">/wms</a>
-        /// endpoint can then be made to display the query results on a map.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="QueryGraphRequest.Options.TRUE">TRUE</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="QueryGraphRequest.Options.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="QueryGraphRequest.Options.FALSE">FALSE</see>.</description>
+        /// cref="QueryGraphRequest.Options.TRUE">TRUE</see>.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -562,8 +399,7 @@ namespace kinetica
         /// target="_top">name resolution rules</a> and meeting <a
         /// href="../../../concepts/tables/#table-naming-criteria"
         /// target="_top">table naming criteria</a>.  If left blank, the query
-        /// results are instead returned in the response even if
-        /// <i>export_query_results</i> is set to <i>false</i>. If the
+        /// results are instead returned in the response. If the
         /// 'QUERY_TARGET_NODE_LABEL' <a
         /// href="../../../graph_solver/network_graph_solver/#query-identifiers"
         /// target="_top">query identifier</a> is used in <paramref
@@ -615,44 +451,15 @@ namespace kinetica
         ///         <term><see
         /// cref="QueryGraphRequest.Options.LIMIT">LIMIT</see>:</term>
         ///         <description>When specified, limits the number of query
-        /// results. Note that if the <i>target_nodes_table</i> is provided,
-        /// the size of the corresponding table will be limited by the
+        /// results. The size of the nodes table will be limited by the
         /// <i>limit</i> value.  The default value is an empty {@link
         /// Dictionary}.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="QueryGraphRequest.Options.TARGET_NODES_TABLE">TARGET_NODES_TABLE</see>:</term>
-        ///         <description>Name of the table to store the list of the
-        /// final nodes reached during the traversal, in
-        /// [schema_name.]table_name format, using standard <a
-        /// href="../../../concepts/tables/#table-name-resolution"
-        /// target="_top">name resolution rules</a> and meeting <a
-        /// href="../../../concepts/tables/#table-naming-criteria"
-        /// target="_top">table naming criteria</a>.  If this value is left as
-        /// the default, the table name will default to the <paramref
-        /// cref="QueryGraphRequest.adjacency_table" /> value plus a '_nodes'
-        /// suffix, e.g., '<adjacency_table_name>_nodes'.  The default value is
-        /// ''.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="QueryGraphRequest.Options.RESTRICTION_THRESHOLD_VALUE">RESTRICTION_THRESHOLD_VALUE</see>:</term>
-        ///         <description>Value-based restriction comparison. Any node
-        /// or edge with a RESTRICTIONS_VALUECOMPARED value greater than the
-        /// <i>restriction_threshold_value</i> will not be included in the
-        /// solution.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="QueryGraphRequest.Options.EXPORT_QUERY_RESULTS">EXPORT_QUERY_RESULTS</see>:</term>
-        ///         <description>Returns query results in the response. If set
-        /// to <i>true</i>, the <member name="adjacency_list_int_array" /> (if
-        /// the query was based on IDs), <member
-        /// name="adjacency_list_string_array" /> (if the query was based on
-        /// names), or <member name="adjacency_list_wkt_array" /> (if the query
-        /// was based on WKTs) will be populated with the results. If set to
-        /// <i>false</i>, none of the arrays will be populated.
+        /// cref="QueryGraphRequest.Options.OUTPUT_WKT_PATH">OUTPUT_WKT_PATH</see>:</term>
+        ///         <description>If true then concatenated wkt line segments
+        /// will be added as the WKT column of the adjacency table.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -665,31 +472,7 @@ namespace kinetica
         ///     </item>
         /// </list>
         /// The default value is <see
-        /// cref="QueryGraphRequest.Options.FALSE">FALSE</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="QueryGraphRequest.Options.ENABLE_GRAPH_DRAW">ENABLE_GRAPH_DRAW</see>:</term>
-        ///         <description>If set to <i>true</i>, adds a WKT-type column
-        /// named 'QUERY_EDGE_WKTLINE' to the given <paramref
-        /// cref="QueryGraphRequest.adjacency_table" /> and inputs WKT values
-        /// from the source graph (if available) or auto-generated WKT values
-        /// (if there are no WKT values in the source graph). A subsequent call
-        /// to the <a href="../../../api/rest/wms_rest/" target="_top">/wms</a>
-        /// endpoint can then be made to display the query results on a map.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="QueryGraphRequest.Options.TRUE">TRUE</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="QueryGraphRequest.Options.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="QueryGraphRequest.Options.FALSE">FALSE</see>.</description>
+        /// cref="QueryGraphRequest.Options.TRUE">TRUE</see>.</description>
         ///     </item>
         ///     <item>
         ///         <term><see

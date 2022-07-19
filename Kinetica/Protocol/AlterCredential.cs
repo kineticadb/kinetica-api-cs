@@ -66,6 +66,14 @@ namespace kinetica
         ///         <term><see
         /// cref="AlterCredentialRequest.CredentialUpdatesMap.KAFKA">KAFKA</see></term>
         ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterCredentialRequest.CredentialUpdatesMap.GCS_SERVICE_ACCOUNT_ID">GCS_SERVICE_ACCOUNT_ID</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterCredentialRequest.CredentialUpdatesMap.GCS_SERVICE_ACCOUNT_KEYS">GCS_SERVICE_ACCOUNT_KEYS</see></term>
+        ///     </item>
         /// </list></description>
         ///     </item>
         ///     <item>
@@ -77,6 +85,15 @@ namespace kinetica
         ///         <term><see
         /// cref="AlterCredentialRequest.CredentialUpdatesMap.SECRET">SECRET</see>:</term>
         ///         <description>New password for the credential</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterCredentialRequest.CredentialUpdatesMap.SCHEMA_NAME">SCHEMA_NAME</see>:</term>
+        ///         <description>Updates the schema name.  If
+        /// <i>schema_name</i>
+        /// doesn't exist, an error will be thrown. If <i>schema_name</i> is
+        /// empty, then the user's
+        /// default schema will be used.</description>
         ///     </item>
         /// </list>
         /// <br />
@@ -124,6 +141,14 @@ namespace kinetica
             ///         <term><see
             /// cref="AlterCredentialRequest.CredentialUpdatesMap.KAFKA">KAFKA</see></term>
             ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="AlterCredentialRequest.CredentialUpdatesMap.GCS_SERVICE_ACCOUNT_ID">GCS_SERVICE_ACCOUNT_ID</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="AlterCredentialRequest.CredentialUpdatesMap.GCS_SERVICE_ACCOUNT_KEYS">GCS_SERVICE_ACCOUNT_KEYS</see></term>
+            ///     </item>
             /// </list></summary>
             public const string TYPE = "type";
             public const string AWS_ACCESS_KEY = "aws_access_key";
@@ -135,12 +160,20 @@ namespace kinetica
             public const string DOCKER = "docker";
             public const string HDFS = "hdfs";
             public const string KAFKA = "kafka";
+            public const string GCS_SERVICE_ACCOUNT_ID = "gcs_service_account_id";
+            public const string GCS_SERVICE_ACCOUNT_KEYS = "gcs_service_account_keys";
 
             /// <summary>New user for the credential</summary>
             public const string IDENTITY = "identity";
 
             /// <summary>New password for the credential</summary>
             public const string SECRET = "secret";
+
+            /// <summary>Updates the schema name.  If <i>schema_name</i>
+            /// doesn't exist, an error will be thrown. If <i>schema_name</i>
+            /// is empty, then the user's
+            /// default schema will be used.</summary>
+            public const string SCHEMA_NAME = "schema_name";
         } // end struct CredentialUpdatesMap
 
 
@@ -193,6 +226,14 @@ namespace kinetica
         ///         <term><see
         /// cref="AlterCredentialRequest.CredentialUpdatesMap.KAFKA">KAFKA</see></term>
         ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterCredentialRequest.CredentialUpdatesMap.GCS_SERVICE_ACCOUNT_ID">GCS_SERVICE_ACCOUNT_ID</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterCredentialRequest.CredentialUpdatesMap.GCS_SERVICE_ACCOUNT_KEYS">GCS_SERVICE_ACCOUNT_KEYS</see></term>
+        ///     </item>
         /// </list></description>
         ///     </item>
         ///     <item>
@@ -204,6 +245,15 @@ namespace kinetica
         ///         <term><see
         /// cref="AlterCredentialRequest.CredentialUpdatesMap.SECRET">SECRET</see>:</term>
         ///         <description>New password for the credential</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterCredentialRequest.CredentialUpdatesMap.SCHEMA_NAME">SCHEMA_NAME</see>:</term>
+        ///         <description>Updates the schema name.  If
+        /// <i>schema_name</i>
+        /// doesn't exist, an error will be thrown. If <i>schema_name</i> is
+        /// empty, then the user's
+        /// default schema will be used.</description>
         ///     </item>
         /// </list>
         ///   </summary>
@@ -267,6 +317,14 @@ namespace kinetica
         ///         <term><see
         /// cref="AlterCredentialRequest.CredentialUpdatesMap.KAFKA">KAFKA</see></term>
         ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterCredentialRequest.CredentialUpdatesMap.GCS_SERVICE_ACCOUNT_ID">GCS_SERVICE_ACCOUNT_ID</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterCredentialRequest.CredentialUpdatesMap.GCS_SERVICE_ACCOUNT_KEYS">GCS_SERVICE_ACCOUNT_KEYS</see></term>
+        ///     </item>
         /// </list></description>
         ///     </item>
         ///     <item>
@@ -278,6 +336,15 @@ namespace kinetica
         ///         <term><see
         /// cref="AlterCredentialRequest.CredentialUpdatesMap.SECRET">SECRET</see>:</term>
         ///         <description>New password for the credential</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterCredentialRequest.CredentialUpdatesMap.SCHEMA_NAME">SCHEMA_NAME</see>:</term>
+        ///         <description>Updates the schema name.  If
+        /// <i>schema_name</i>
+        /// doesn't exist, an error will be thrown. If <i>schema_name</i> is
+        /// empty, then the user's
+        /// default schema will be used.</description>
         ///     </item>
         /// </list>
         ///   </param>

@@ -111,6 +111,15 @@ namespace kinetica
         /// The default value is <see
         /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.FALSE">FALSE</see>.</description>
         ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.SCHEMA_NAME">SCHEMA_NAME</see>:</term>
+        ///         <description>Updates the schema name.  If
+        /// <i>schema_name</i>
+        /// doesn't exist, an error will be thrown. If <i>schema_name</i> is
+        /// empty, then the user's
+        /// default schema will be used.</description>
+        ///     </item>
         /// </list>
         /// <br />
         /// A set of string constants for the parameter <see
@@ -189,6 +198,12 @@ namespace kinetica
             public const string SKIP_VALIDATION = "skip_validation";
             public const string TRUE = "true";
             public const string FALSE = "false";
+
+            /// <summary>Updates the schema name.  If <i>schema_name</i>
+            /// doesn't exist, an error will be thrown. If <i>schema_name</i>
+            /// is empty, then the user's
+            /// default schema will be used.</summary>
+            public const string SCHEMA_NAME = "schema_name";
         } // end struct DatasinkUpdatesMap
 
 
@@ -285,6 +300,15 @@ namespace kinetica
         /// </list>
         /// The default value is <see
         /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.SCHEMA_NAME">SCHEMA_NAME</see>:</term>
+        ///         <description>Updates the schema name.  If
+        /// <i>schema_name</i>
+        /// doesn't exist, an error will be thrown. If <i>schema_name</i> is
+        /// empty, then the user's
+        /// default schema will be used.</description>
         ///     </item>
         /// </list>
         ///   </summary>
@@ -390,6 +414,15 @@ namespace kinetica
         /// </list>
         /// The default value is <see
         /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.SCHEMA_NAME">SCHEMA_NAME</see>:</term>
+        ///         <description>Updates the schema name.  If
+        /// <i>schema_name</i>
+        /// doesn't exist, an error will be thrown. If <i>schema_name</i> is
+        /// empty, then the user's
+        /// default schema will be used.</description>
         ///     </item>
         /// </list>
         ///   </param>

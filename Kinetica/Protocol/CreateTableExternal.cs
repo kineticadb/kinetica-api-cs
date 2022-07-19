@@ -509,6 +509,15 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
+        /// cref="CreateTableExternalRequest.Options.BAD_RECORD_TABLE_LIMIT_PER_INPUT">BAD_RECORD_TABLE_LIMIT_PER_INPUT</see>:</term>
+        ///         <description>For subscriptions: A positive integer
+        /// indicating the maximum number of records that can be written to the
+        /// bad-record-table per file/payload. Default value will be
+        /// 'bad_record_table_limit' and total size of the table per rank is
+        /// limited to 'bad_record_table_limit'</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="CreateTableExternalRequest.Options.BATCH_SIZE">BATCH_SIZE</see>:</term>
         ///         <description>Internal tuning parameter--number of records
         /// per batch when inserting data.</description>
@@ -1071,6 +1080,19 @@ namespace kinetica
         /// The default value is <see
         /// cref="CreateTableExternalRequest.Options.SPEED">SPEED</see>.</description>
         ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableExternalRequest.Options.REMOTE_QUERY">REMOTE_QUERY</see>:</term>
+        ///         <description>Remote SQL query from which data will be
+        /// sourced</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableExternalRequest.Options.REMOTE_QUERY_FILTER_COLUMN">REMOTE_QUERY_FILTER_COLUMN</see>:</term>
+        ///         <description>Name of column to be used for splitting the
+        /// query into multiple sub-queries.  The default value is
+        /// ''.</description>
+        ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.
         /// A set of string constants for the parameter <see cref="options"
@@ -1088,6 +1110,13 @@ namespace kinetica
             /// records that can be  written to the bad-record-table.   Default
             /// value is 10000</summary>
             public const string BAD_RECORD_TABLE_LIMIT = "bad_record_table_limit";
+
+            /// <summary>For subscriptions: A positive integer indicating the
+            /// maximum number of records that can be written to the
+            /// bad-record-table per file/payload. Default value will be
+            /// 'bad_record_table_limit' and total size of the table per rank
+            /// is limited to 'bad_record_table_limit'</summary>
+            public const string BAD_RECORD_TABLE_LIMIT_PER_INPUT = "bad_record_table_limit_per_input";
 
             /// <summary>Internal tuning parameter--number of records per batch
             /// when inserting data.</summary>
@@ -1707,6 +1736,14 @@ namespace kinetica
             /// <summary>picks the widest possible column types so that 'all'
             /// values will fit with minimum data scanned</summary>
             public const string SPEED = "speed";
+
+            /// <summary>Remote SQL query from which data will be
+            /// sourced</summary>
+            public const string REMOTE_QUERY = "remote_query";
+
+            /// <summary>Name of column to be used for splitting the query into
+            /// multiple sub-queries.  The default value is ''.</summary>
+            public const string REMOTE_QUERY_FILTER_COLUMN = "remote_query_filter_column";
         } // end struct Options
 
 
@@ -1739,10 +1776,10 @@ namespace kinetica
         /// accessible to the gpudb user, residing on the path (or relative to
         /// the path) specified by the
         /// external files directory in the Kinetica
-        /// <a href="../../../config/#external-files"
+        /// <a href="../../../config/#config-main-external-files"
         /// target="_top">configuration file</a>. Wildcards (*) can be used to
-        /// specify a group of files
-        /// Prefix matching is supported, the prefixes must be aligned with
+        /// specify a group of files.  Prefix matching is supported, the
+        /// prefixes must be aligned with
         /// directories.
         /// <br />
         /// If the first path ends in .tsv, the text delimiter will be
@@ -2002,6 +2039,15 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
+        /// cref="CreateTableExternalRequest.Options.BAD_RECORD_TABLE_LIMIT_PER_INPUT">BAD_RECORD_TABLE_LIMIT_PER_INPUT</see>:</term>
+        ///         <description>For subscriptions: A positive integer
+        /// indicating the maximum number of records that can be written to the
+        /// bad-record-table per file/payload. Default value will be
+        /// 'bad_record_table_limit' and total size of the table per rank is
+        /// limited to 'bad_record_table_limit'</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="CreateTableExternalRequest.Options.BATCH_SIZE">BATCH_SIZE</see>:</term>
         ///         <description>Internal tuning parameter--number of records
         /// per batch when inserting data.</description>
@@ -2564,6 +2610,19 @@ namespace kinetica
         /// The default value is <see
         /// cref="CreateTableExternalRequest.Options.SPEED">SPEED</see>.</description>
         ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableExternalRequest.Options.REMOTE_QUERY">REMOTE_QUERY</see>:</term>
+        ///         <description>Remote SQL query from which data will be
+        /// sourced</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableExternalRequest.Options.REMOTE_QUERY_FILTER_COLUMN">REMOTE_QUERY_FILTER_COLUMN</see>:</term>
+        ///         <description>Name of column to be used for splitting the
+        /// query into multiple sub-queries.  The default value is
+        /// ''.</description>
+        ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.</summary>
         public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
@@ -2601,10 +2660,10 @@ namespace kinetica
         /// accessible to the gpudb user, residing on the path (or relative to
         /// the path) specified by the
         /// external files directory in the Kinetica
-        /// <a href="../../../config/#external-files"
+        /// <a href="../../../config/#config-main-external-files"
         /// target="_top">configuration file</a>. Wildcards (*) can be used to
-        /// specify a group of files
-        /// Prefix matching is supported, the prefixes must be aligned with
+        /// specify a group of files.  Prefix matching is supported, the
+        /// prefixes must be aligned with
         /// directories.
         /// If the first path ends in .tsv, the text delimiter will be
         /// defaulted to a tab character.
@@ -2857,6 +2916,15 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
+        /// cref="CreateTableExternalRequest.Options.BAD_RECORD_TABLE_LIMIT_PER_INPUT">BAD_RECORD_TABLE_LIMIT_PER_INPUT</see>:</term>
+        ///         <description>For subscriptions: A positive integer
+        /// indicating the maximum number of records that can be written to the
+        /// bad-record-table per file/payload. Default value will be
+        /// 'bad_record_table_limit' and total size of the table per rank is
+        /// limited to 'bad_record_table_limit'</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="CreateTableExternalRequest.Options.BATCH_SIZE">BATCH_SIZE</see>:</term>
         ///         <description>Internal tuning parameter--number of records
         /// per batch when inserting data.</description>
@@ -3399,6 +3467,19 @@ namespace kinetica
         /// </list>
         /// The default value is <see
         /// cref="CreateTableExternalRequest.Options.SPEED">SPEED</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableExternalRequest.Options.REMOTE_QUERY">REMOTE_QUERY</see>:</term>
+        ///         <description>Remote SQL query from which data will be
+        /// sourced</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableExternalRequest.Options.REMOTE_QUERY_FILTER_COLUMN">REMOTE_QUERY_FILTER_COLUMN</see>:</term>
+        ///         <description>Name of column to be used for splitting the
+        /// query into multiple sub-queries.  The default value is
+        /// ''.</description>
         ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.</param>

@@ -60,44 +60,12 @@ namespace kinetica
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
-        /// cref="CreateGraphRequest.Options.RESTRICTION_THRESHOLD_VALUE">RESTRICTION_THRESHOLD_VALUE</see>:</term>
-        ///         <description>Value-based restriction comparison. Any node
-        /// or edge with a RESTRICTIONS_VALUECOMPARED value greater than the
-        /// <i>restriction_threshold_value</i> will not be included in the
-        /// graph.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
         /// cref="CreateGraphRequest.Options.MERGE_TOLERANCE">MERGE_TOLERANCE</see>:</term>
         ///         <description>If node geospatial positions are input (e.g.,
         /// WKTPOINT, X, Y), determines the minimum separation allowed between
         /// unique nodes. If nodes are within the tolerance of each other, they
         /// will be merged as a single node.  The default value is
-        /// '1.0E-4'.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateGraphRequest.Options.MIN_X">MIN_X</see>:</term>
-        ///         <description>Minimum x (longitude) value for spatial graph
-        /// associations.  The default value is '-180.0'.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateGraphRequest.Options.MAX_X">MAX_X</see>:</term>
-        ///         <description>Maximum x (longitude) value for spatial graph
-        /// associations.  The default value is '180.0'.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateGraphRequest.Options.MIN_Y">MIN_Y</see>:</term>
-        ///         <description>Minimum y (latitude) value for spatial graph
-        /// associations.  The default value is '-90.0'.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateGraphRequest.Options.MAX_Y">MAX_Y</see>:</term>
-        ///         <description>Maximum y (latitude) value for spatial graph
-        /// associations.  The default value is '90.0'.</description>
+        /// '1.0E-5'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -121,69 +89,6 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="CreateGraphRequest.Options.MODIFY">MODIFY</see>:</term>
-        ///         <description>If set to <i>true</i>, <i>recreate</i> is set
-        /// to <i>true</i>, and the graph (specified using <paramref
-        /// cref="CreateGraphRequest.graph_name" />) already exists, the graph
-        /// is updated with the given components.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateGraphRequest.Options.TRUE">TRUE</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateGraphRequest.Options.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="CreateGraphRequest.Options.FALSE">FALSE</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateGraphRequest.Options.EXPORT_CREATE_RESULTS">EXPORT_CREATE_RESULTS</see>:</term>
-        ///         <description>If set to <i>true</i>, returns the graph
-        /// topology in the response as arrays.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateGraphRequest.Options.TRUE">TRUE</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateGraphRequest.Options.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="CreateGraphRequest.Options.FALSE">FALSE</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateGraphRequest.Options.ENABLE_GRAPH_DRAW">ENABLE_GRAPH_DRAW</see>:</term>
-        ///         <description>If set to <i>true</i>, adds a 'EDGE_WKTLINE'
-        /// column identifier to the specified <i>graph_table</i> so the graph
-        /// can be viewed via WMS; for social and non-geospatial graphs, the
-        /// 'EDGE_WKTLINE' column identifier will be populated with spatial
-        /// coordinates derived from a flattening layout algorithm so the graph
-        /// can still be viewed.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateGraphRequest.Options.TRUE">TRUE</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateGraphRequest.Options.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="CreateGraphRequest.Options.FALSE">FALSE</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
         /// cref="CreateGraphRequest.Options.SAVE_PERSIST">SAVE_PERSIST</see>:</term>
         ///         <description>If set to <i>true</i>, the graph will be saved
         /// in the persist directory (see the <a
@@ -191,29 +96,6 @@ namespace kinetica
         /// target="_top">config reference</a> for more information). If set to
         /// <i>false</i>, the graph will be removed when the graph server is
         /// shutdown.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateGraphRequest.Options.TRUE">TRUE</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateGraphRequest.Options.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="CreateGraphRequest.Options.FALSE">FALSE</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateGraphRequest.Options.SYNC_DB">SYNC_DB</see>:</term>
-        ///         <description>If set to <i>true</i> and <i>save_persist</i>
-        /// is set to <i>true</i>, the graph will be fully reconstructed upon a
-        /// database restart and be updated to align with any source table(s)
-        /// updates made since the creation of the graph. If dynamic graph
-        /// updates upon table inserts are desired, use
-        /// <i>add_table_monitor</i> instead.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -268,27 +150,6 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="CreateGraphRequest.Options.REMOVE_LABEL_ONLY">REMOVE_LABEL_ONLY</see>:</term>
-        ///         <description>When RESTRICTIONS on labeled entities
-        /// requested, if set to true this will NOT delete the entity but only
-        /// the label associated with the entity. Otherwise (default), it'll
-        /// delete the label AND the entity.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateGraphRequest.Options.TRUE">TRUE</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateGraphRequest.Options.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="CreateGraphRequest.Options.FALSE">FALSE</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
         /// cref="CreateGraphRequest.Options.ADD_TURNS">ADD_TURNS</see>:</term>
         ///         <description>Adds dummy 'pillowed' edges around
         /// intersection nodes where there are more than three edges so that
@@ -307,17 +168,6 @@ namespace kinetica
         /// </list>
         /// The default value is <see
         /// cref="CreateGraphRequest.Options.FALSE">FALSE</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateGraphRequest.Options.TURN_ANGLE">TURN_ANGLE</see>:</term>
-        ///         <description>Value in degrees modifies the thresholds for
-        /// attributing right, left, sharp turns, and intersections. It is the
-        /// vertical deviation angle from the incoming edge to the intersection
-        /// node. The larger the value, the larger the threshold for sharp
-        /// turns and intersections; the smaller the value, the larger the
-        /// threshold for right and left turns; 0 < turn_angle < 90.  The
-        /// default value is '60'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -361,7 +211,7 @@ namespace kinetica
         ///     </item>
         /// </list>
         /// The default value is <see
-        /// cref="CreateGraphRequest.Options.FALSE">FALSE</see>.</description>
+        /// cref="CreateGraphRequest.Options.TRUE">TRUE</see>.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -371,11 +221,6 @@ namespace kinetica
         /// a separate label onto the specified edge.  The default value is
         /// ''.</description>
         ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateGraphRequest.Options.SQL_REQUEST_AVRO_JSON">SQL_REQUEST_AVRO_JSON</see>:</term>
-        ///         <description>  The default value is ''.</description>
-        ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.
         /// A set of string constants for the parameter <see cref="options"
@@ -383,34 +228,12 @@ namespace kinetica
         public struct Options
         {
 
-            /// <summary>Value-based restriction comparison. Any node or edge
-            /// with a RESTRICTIONS_VALUECOMPARED value greater than the
-            /// <i>restriction_threshold_value</i> will not be included in the
-            /// graph.</summary>
-            public const string RESTRICTION_THRESHOLD_VALUE = "restriction_threshold_value";
-
             /// <summary>If node geospatial positions are input (e.g.,
             /// WKTPOINT, X, Y), determines the minimum separation allowed
             /// between unique nodes. If nodes are within the tolerance of each
             /// other, they will be merged as a single node.  The default value
-            /// is '1.0E-4'.</summary>
+            /// is '1.0E-5'.</summary>
             public const string MERGE_TOLERANCE = "merge_tolerance";
-
-            /// <summary>Minimum x (longitude) value for spatial graph
-            /// associations.  The default value is '-180.0'.</summary>
-            public const string MIN_X = "min_x";
-
-            /// <summary>Maximum x (longitude) value for spatial graph
-            /// associations.  The default value is '180.0'.</summary>
-            public const string MAX_X = "max_x";
-
-            /// <summary>Minimum y (latitude) value for spatial graph
-            /// associations.  The default value is '-90.0'.</summary>
-            public const string MIN_Y = "min_y";
-
-            /// <summary>Maximum y (latitude) value for spatial graph
-            /// associations.  The default value is '90.0'.</summary>
-            public const string MAX_Y = "max_y";
 
             /// <summary>If set to <i>true</i> and the graph (using <see
             /// cref="graph_name" />) already exists, the graph is deleted and
@@ -432,63 +255,6 @@ namespace kinetica
             public const string TRUE = "true";
             public const string FALSE = "false";
 
-            /// <summary>If set to <i>true</i>, <i>recreate</i> is set to
-            /// <i>true</i>, and the graph (specified using <see
-            /// cref="graph_name" />) already exists, the graph is updated with
-            /// the given components.
-            /// Supported values:
-            /// <list type="bullet">
-            ///     <item>
-            ///         <term><see
-            /// cref="CreateGraphRequest.Options.TRUE">TRUE</see></term>
-            ///     </item>
-            ///     <item>
-            ///         <term><see
-            /// cref="CreateGraphRequest.Options.FALSE">FALSE</see></term>
-            ///     </item>
-            /// </list>
-            /// The default value is <see
-            /// cref="CreateGraphRequest.Options.FALSE">FALSE</see>.</summary>
-            public const string MODIFY = "modify";
-
-            /// <summary>If set to <i>true</i>, returns the graph topology in
-            /// the response as arrays.
-            /// Supported values:
-            /// <list type="bullet">
-            ///     <item>
-            ///         <term><see
-            /// cref="CreateGraphRequest.Options.TRUE">TRUE</see></term>
-            ///     </item>
-            ///     <item>
-            ///         <term><see
-            /// cref="CreateGraphRequest.Options.FALSE">FALSE</see></term>
-            ///     </item>
-            /// </list>
-            /// The default value is <see
-            /// cref="CreateGraphRequest.Options.FALSE">FALSE</see>.</summary>
-            public const string EXPORT_CREATE_RESULTS = "export_create_results";
-
-            /// <summary>If set to <i>true</i>, adds a 'EDGE_WKTLINE' column
-            /// identifier to the specified <i>graph_table</i> so the graph can
-            /// be viewed via WMS; for social and non-geospatial graphs, the
-            /// 'EDGE_WKTLINE' column identifier will be populated with spatial
-            /// coordinates derived from a flattening layout algorithm so the
-            /// graph can still be viewed.
-            /// Supported values:
-            /// <list type="bullet">
-            ///     <item>
-            ///         <term><see
-            /// cref="CreateGraphRequest.Options.TRUE">TRUE</see></term>
-            ///     </item>
-            ///     <item>
-            ///         <term><see
-            /// cref="CreateGraphRequest.Options.FALSE">FALSE</see></term>
-            ///     </item>
-            /// </list>
-            /// The default value is <see
-            /// cref="CreateGraphRequest.Options.FALSE">FALSE</see>.</summary>
-            public const string ENABLE_GRAPH_DRAW = "enable_graph_draw";
-
             /// <summary>If set to <i>true</i>, the graph will be saved in the
             /// persist directory (see the <a
             /// href="../../../config/#config-main-persistence"
@@ -509,27 +275,6 @@ namespace kinetica
             /// The default value is <see
             /// cref="CreateGraphRequest.Options.FALSE">FALSE</see>.</summary>
             public const string SAVE_PERSIST = "save_persist";
-
-            /// <summary>If set to <i>true</i> and <i>save_persist</i> is set
-            /// to <i>true</i>, the graph will be fully reconstructed upon a
-            /// database restart and be updated to align with any source
-            /// table(s) updates made since the creation of the graph. If
-            /// dynamic graph updates upon table inserts are desired, use
-            /// <i>add_table_monitor</i> instead.
-            /// Supported values:
-            /// <list type="bullet">
-            ///     <item>
-            ///         <term><see
-            /// cref="CreateGraphRequest.Options.TRUE">TRUE</see></term>
-            ///     </item>
-            ///     <item>
-            ///         <term><see
-            /// cref="CreateGraphRequest.Options.FALSE">FALSE</see></term>
-            ///     </item>
-            /// </list>
-            /// The default value is <see
-            /// cref="CreateGraphRequest.Options.FALSE">FALSE</see>.</summary>
-            public const string SYNC_DB = "sync_db";
 
             /// <summary>Adds a table monitor to every table used in the
             /// creation of the graph; this table monitor will trigger the
@@ -567,25 +312,6 @@ namespace kinetica
             /// default value is ''.</summary>
             public const string GRAPH_TABLE = "graph_table";
 
-            /// <summary>When RESTRICTIONS on labeled entities requested, if
-            /// set to true this will NOT delete the entity but only the label
-            /// associated with the entity. Otherwise (default), it'll delete
-            /// the label AND the entity.
-            /// Supported values:
-            /// <list type="bullet">
-            ///     <item>
-            ///         <term><see
-            /// cref="CreateGraphRequest.Options.TRUE">TRUE</see></term>
-            ///     </item>
-            ///     <item>
-            ///         <term><see
-            /// cref="CreateGraphRequest.Options.FALSE">FALSE</see></term>
-            ///     </item>
-            /// </list>
-            /// The default value is <see
-            /// cref="CreateGraphRequest.Options.FALSE">FALSE</see>.</summary>
-            public const string REMOVE_LABEL_ONLY = "remove_label_only";
-
             /// <summary>Adds dummy 'pillowed' edges around intersection nodes
             /// where there are more than three edges so that additional weight
             /// penalties can be imposed by the solve endpoints. (increases the
@@ -604,15 +330,6 @@ namespace kinetica
             /// The default value is <see
             /// cref="CreateGraphRequest.Options.FALSE">FALSE</see>.</summary>
             public const string ADD_TURNS = "add_turns";
-
-            /// <summary>Value in degrees modifies the thresholds for
-            /// attributing right, left, sharp turns, and intersections. It is
-            /// the vertical deviation angle from the incoming edge to the
-            /// intersection node. The larger the value, the larger the
-            /// threshold for sharp turns and intersections; the smaller the
-            /// value, the larger the threshold for right and left turns; 0 <
-            /// turn_angle < 90.  The default value is '60'.</summary>
-            public const string TURN_ANGLE = "turn_angle";
 
             /// <summary>
             /// Supported values:
@@ -649,7 +366,7 @@ namespace kinetica
             ///     </item>
             /// </list>
             /// The default value is <see
-            /// cref="CreateGraphRequest.Options.FALSE">FALSE</see>.</summary>
+            /// cref="CreateGraphRequest.Options.TRUE">TRUE</see>.</summary>
             public const string USE_RTREE = "use_rtree";
 
             /// <summary>If provided the label string will be split according
@@ -657,9 +374,6 @@ namespace kinetica
             /// separate label onto the specified edge.  The default value is
             /// ''.</summary>
             public const string LABEL_DELIMITER = "label_delimiter";
-
-            /// <summary>  The default value is ''.</summary>
-            public const string SQL_REQUEST_AVRO_JSON = "sql_request_avro_json";
         } // end struct Options
 
 
@@ -763,44 +477,12 @@ namespace kinetica
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
-        /// cref="CreateGraphRequest.Options.RESTRICTION_THRESHOLD_VALUE">RESTRICTION_THRESHOLD_VALUE</see>:</term>
-        ///         <description>Value-based restriction comparison. Any node
-        /// or edge with a RESTRICTIONS_VALUECOMPARED value greater than the
-        /// <i>restriction_threshold_value</i> will not be included in the
-        /// graph.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
         /// cref="CreateGraphRequest.Options.MERGE_TOLERANCE">MERGE_TOLERANCE</see>:</term>
         ///         <description>If node geospatial positions are input (e.g.,
         /// WKTPOINT, X, Y), determines the minimum separation allowed between
         /// unique nodes. If nodes are within the tolerance of each other, they
         /// will be merged as a single node.  The default value is
-        /// '1.0E-4'.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateGraphRequest.Options.MIN_X">MIN_X</see>:</term>
-        ///         <description>Minimum x (longitude) value for spatial graph
-        /// associations.  The default value is '-180.0'.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateGraphRequest.Options.MAX_X">MAX_X</see>:</term>
-        ///         <description>Maximum x (longitude) value for spatial graph
-        /// associations.  The default value is '180.0'.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateGraphRequest.Options.MIN_Y">MIN_Y</see>:</term>
-        ///         <description>Minimum y (latitude) value for spatial graph
-        /// associations.  The default value is '-90.0'.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateGraphRequest.Options.MAX_Y">MAX_Y</see>:</term>
-        ///         <description>Maximum y (latitude) value for spatial graph
-        /// associations.  The default value is '90.0'.</description>
+        /// '1.0E-5'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -824,69 +506,6 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="CreateGraphRequest.Options.MODIFY">MODIFY</see>:</term>
-        ///         <description>If set to <i>true</i>, <i>recreate</i> is set
-        /// to <i>true</i>, and the graph (specified using <paramref
-        /// cref="CreateGraphRequest.graph_name" />) already exists, the graph
-        /// is updated with the given components.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateGraphRequest.Options.TRUE">TRUE</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateGraphRequest.Options.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="CreateGraphRequest.Options.FALSE">FALSE</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateGraphRequest.Options.EXPORT_CREATE_RESULTS">EXPORT_CREATE_RESULTS</see>:</term>
-        ///         <description>If set to <i>true</i>, returns the graph
-        /// topology in the response as arrays.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateGraphRequest.Options.TRUE">TRUE</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateGraphRequest.Options.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="CreateGraphRequest.Options.FALSE">FALSE</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateGraphRequest.Options.ENABLE_GRAPH_DRAW">ENABLE_GRAPH_DRAW</see>:</term>
-        ///         <description>If set to <i>true</i>, adds a 'EDGE_WKTLINE'
-        /// column identifier to the specified <i>graph_table</i> so the graph
-        /// can be viewed via WMS; for social and non-geospatial graphs, the
-        /// 'EDGE_WKTLINE' column identifier will be populated with spatial
-        /// coordinates derived from a flattening layout algorithm so the graph
-        /// can still be viewed.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateGraphRequest.Options.TRUE">TRUE</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateGraphRequest.Options.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="CreateGraphRequest.Options.FALSE">FALSE</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
         /// cref="CreateGraphRequest.Options.SAVE_PERSIST">SAVE_PERSIST</see>:</term>
         ///         <description>If set to <i>true</i>, the graph will be saved
         /// in the persist directory (see the <a
@@ -894,29 +513,6 @@ namespace kinetica
         /// target="_top">config reference</a> for more information). If set to
         /// <i>false</i>, the graph will be removed when the graph server is
         /// shutdown.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateGraphRequest.Options.TRUE">TRUE</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateGraphRequest.Options.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="CreateGraphRequest.Options.FALSE">FALSE</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateGraphRequest.Options.SYNC_DB">SYNC_DB</see>:</term>
-        ///         <description>If set to <i>true</i> and <i>save_persist</i>
-        /// is set to <i>true</i>, the graph will be fully reconstructed upon a
-        /// database restart and be updated to align with any source table(s)
-        /// updates made since the creation of the graph. If dynamic graph
-        /// updates upon table inserts are desired, use
-        /// <i>add_table_monitor</i> instead.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -971,27 +567,6 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="CreateGraphRequest.Options.REMOVE_LABEL_ONLY">REMOVE_LABEL_ONLY</see>:</term>
-        ///         <description>When RESTRICTIONS on labeled entities
-        /// requested, if set to true this will NOT delete the entity but only
-        /// the label associated with the entity. Otherwise (default), it'll
-        /// delete the label AND the entity.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateGraphRequest.Options.TRUE">TRUE</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateGraphRequest.Options.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="CreateGraphRequest.Options.FALSE">FALSE</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
         /// cref="CreateGraphRequest.Options.ADD_TURNS">ADD_TURNS</see>:</term>
         ///         <description>Adds dummy 'pillowed' edges around
         /// intersection nodes where there are more than three edges so that
@@ -1010,17 +585,6 @@ namespace kinetica
         /// </list>
         /// The default value is <see
         /// cref="CreateGraphRequest.Options.FALSE">FALSE</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateGraphRequest.Options.TURN_ANGLE">TURN_ANGLE</see>:</term>
-        ///         <description>Value in degrees modifies the thresholds for
-        /// attributing right, left, sharp turns, and intersections. It is the
-        /// vertical deviation angle from the incoming edge to the intersection
-        /// node. The larger the value, the larger the threshold for sharp
-        /// turns and intersections; the smaller the value, the larger the
-        /// threshold for right and left turns; 0 < turn_angle < 90.  The
-        /// default value is '60'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -1064,7 +628,7 @@ namespace kinetica
         ///     </item>
         /// </list>
         /// The default value is <see
-        /// cref="CreateGraphRequest.Options.FALSE">FALSE</see>.</description>
+        /// cref="CreateGraphRequest.Options.TRUE">TRUE</see>.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -1073,11 +637,6 @@ namespace kinetica
         /// according to this delimiter and each sub-string will be applied as
         /// a separate label onto the specified edge.  The default value is
         /// ''.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateGraphRequest.Options.SQL_REQUEST_AVRO_JSON">SQL_REQUEST_AVRO_JSON</see>:</term>
-        ///         <description>  The default value is ''.</description>
         ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.</summary>
@@ -1182,44 +741,12 @@ namespace kinetica
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
-        /// cref="CreateGraphRequest.Options.RESTRICTION_THRESHOLD_VALUE">RESTRICTION_THRESHOLD_VALUE</see>:</term>
-        ///         <description>Value-based restriction comparison. Any node
-        /// or edge with a RESTRICTIONS_VALUECOMPARED value greater than the
-        /// <i>restriction_threshold_value</i> will not be included in the
-        /// graph.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
         /// cref="CreateGraphRequest.Options.MERGE_TOLERANCE">MERGE_TOLERANCE</see>:</term>
         ///         <description>If node geospatial positions are input (e.g.,
         /// WKTPOINT, X, Y), determines the minimum separation allowed between
         /// unique nodes. If nodes are within the tolerance of each other, they
         /// will be merged as a single node.  The default value is
-        /// '1.0E-4'.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateGraphRequest.Options.MIN_X">MIN_X</see>:</term>
-        ///         <description>Minimum x (longitude) value for spatial graph
-        /// associations.  The default value is '-180.0'.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateGraphRequest.Options.MAX_X">MAX_X</see>:</term>
-        ///         <description>Maximum x (longitude) value for spatial graph
-        /// associations.  The default value is '180.0'.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateGraphRequest.Options.MIN_Y">MIN_Y</see>:</term>
-        ///         <description>Minimum y (latitude) value for spatial graph
-        /// associations.  The default value is '-90.0'.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateGraphRequest.Options.MAX_Y">MAX_Y</see>:</term>
-        ///         <description>Maximum y (latitude) value for spatial graph
-        /// associations.  The default value is '90.0'.</description>
+        /// '1.0E-5'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -1243,69 +770,6 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="CreateGraphRequest.Options.MODIFY">MODIFY</see>:</term>
-        ///         <description>If set to <i>true</i>, <i>recreate</i> is set
-        /// to <i>true</i>, and the graph (specified using <paramref
-        /// cref="CreateGraphRequest.graph_name" />) already exists, the graph
-        /// is updated with the given components.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateGraphRequest.Options.TRUE">TRUE</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateGraphRequest.Options.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="CreateGraphRequest.Options.FALSE">FALSE</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateGraphRequest.Options.EXPORT_CREATE_RESULTS">EXPORT_CREATE_RESULTS</see>:</term>
-        ///         <description>If set to <i>true</i>, returns the graph
-        /// topology in the response as arrays.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateGraphRequest.Options.TRUE">TRUE</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateGraphRequest.Options.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="CreateGraphRequest.Options.FALSE">FALSE</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateGraphRequest.Options.ENABLE_GRAPH_DRAW">ENABLE_GRAPH_DRAW</see>:</term>
-        ///         <description>If set to <i>true</i>, adds a 'EDGE_WKTLINE'
-        /// column identifier to the specified <i>graph_table</i> so the graph
-        /// can be viewed via WMS; for social and non-geospatial graphs, the
-        /// 'EDGE_WKTLINE' column identifier will be populated with spatial
-        /// coordinates derived from a flattening layout algorithm so the graph
-        /// can still be viewed.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateGraphRequest.Options.TRUE">TRUE</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateGraphRequest.Options.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="CreateGraphRequest.Options.FALSE">FALSE</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
         /// cref="CreateGraphRequest.Options.SAVE_PERSIST">SAVE_PERSIST</see>:</term>
         ///         <description>If set to <i>true</i>, the graph will be saved
         /// in the persist directory (see the <a
@@ -1313,29 +777,6 @@ namespace kinetica
         /// target="_top">config reference</a> for more information). If set to
         /// <i>false</i>, the graph will be removed when the graph server is
         /// shutdown.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateGraphRequest.Options.TRUE">TRUE</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateGraphRequest.Options.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="CreateGraphRequest.Options.FALSE">FALSE</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateGraphRequest.Options.SYNC_DB">SYNC_DB</see>:</term>
-        ///         <description>If set to <i>true</i> and <i>save_persist</i>
-        /// is set to <i>true</i>, the graph will be fully reconstructed upon a
-        /// database restart and be updated to align with any source table(s)
-        /// updates made since the creation of the graph. If dynamic graph
-        /// updates upon table inserts are desired, use
-        /// <i>add_table_monitor</i> instead.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -1390,27 +831,6 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="CreateGraphRequest.Options.REMOVE_LABEL_ONLY">REMOVE_LABEL_ONLY</see>:</term>
-        ///         <description>When RESTRICTIONS on labeled entities
-        /// requested, if set to true this will NOT delete the entity but only
-        /// the label associated with the entity. Otherwise (default), it'll
-        /// delete the label AND the entity.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateGraphRequest.Options.TRUE">TRUE</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateGraphRequest.Options.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="CreateGraphRequest.Options.FALSE">FALSE</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
         /// cref="CreateGraphRequest.Options.ADD_TURNS">ADD_TURNS</see>:</term>
         ///         <description>Adds dummy 'pillowed' edges around
         /// intersection nodes where there are more than three edges so that
@@ -1429,17 +849,6 @@ namespace kinetica
         /// </list>
         /// The default value is <see
         /// cref="CreateGraphRequest.Options.FALSE">FALSE</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateGraphRequest.Options.TURN_ANGLE">TURN_ANGLE</see>:</term>
-        ///         <description>Value in degrees modifies the thresholds for
-        /// attributing right, left, sharp turns, and intersections. It is the
-        /// vertical deviation angle from the incoming edge to the intersection
-        /// node. The larger the value, the larger the threshold for sharp
-        /// turns and intersections; the smaller the value, the larger the
-        /// threshold for right and left turns; 0 < turn_angle < 90.  The
-        /// default value is '60'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -1483,7 +892,7 @@ namespace kinetica
         ///     </item>
         /// </list>
         /// The default value is <see
-        /// cref="CreateGraphRequest.Options.FALSE">FALSE</see>.</description>
+        /// cref="CreateGraphRequest.Options.TRUE">TRUE</see>.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -1492,11 +901,6 @@ namespace kinetica
         /// according to this delimiter and each sub-string will be applied as
         /// a separate label onto the specified edge.  The default value is
         /// ''.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateGraphRequest.Options.SQL_REQUEST_AVRO_JSON">SQL_REQUEST_AVRO_JSON</see>:</term>
-        ///         <description>  The default value is ''.</description>
         ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.</param>
@@ -1538,8 +942,9 @@ namespace kinetica
         /// <summary>Total number of edges created.  </summary>
         public long num_edges { get; set; }
 
-        /// <summary>Edges given as pairs of node indices. Only populated if
-        /// <i>export_create_results</i> is set to <i>true</i>.  </summary>
+        /// <summary>[Deprecated] Edges given as pairs of node indices. Only
+        /// populated if export_create_results internal option is set to true.
+        /// </summary>
         public IList<long> edges_ids { get; set; } = new List<long>();
 
         /// <summary>Additional information.  </summary>

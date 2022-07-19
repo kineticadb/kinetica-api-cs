@@ -57,6 +57,70 @@ namespace kinetica
         /// with a different randomly selected starting points - helps avoid
         /// local minimum. Default is 1.</description>
         ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AggregateKMeansRequest.Options.CREATE_TEMP_TABLE">CREATE_TEMP_TABLE</see>:</term>
+        ///         <description>If <i>true</i>, a unique temporary table name
+        /// will be generated in the sys_temp schema and used in place of
+        /// <i>result_table</i>. If <i>result_table_persist</i> is <i>false</i>
+        /// (or unspecified), then this is always allowed even if the caller
+        /// does not have permission to create tables. The generated name is
+        /// returned in <i>qualified_result_table_name</i>.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="AggregateKMeansRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AggregateKMeansRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="AggregateKMeansRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AggregateKMeansRequest.Options.RESULT_TABLE">RESULT_TABLE</see>:</term>
+        ///         <description>The name of a table used to store the results,
+        /// in [schema_name.]table_name format, using standard <a
+        /// href="../../../concepts/tables/#table-name-resolution"
+        /// target="_top">name resolution rules</a> and meeting <a
+        /// href="../../../concepts/tables/#table-naming-criteria"
+        /// target="_top">table naming criteria</a>.  If this option is
+        /// specified, the results are not returned in the
+        /// response.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AggregateKMeansRequest.Options.RESULT_TABLE_PERSIST">RESULT_TABLE_PERSIST</see>:</term>
+        ///         <description>If <i>true</i>, then the result table
+        /// specified in <i>result_table</i> will be persisted and will not
+        /// expire unless a <i>ttl</i> is specified.   If <i>false</i>, then
+        /// the result table will be an in-memory table and will expire unless
+        /// a <i>ttl</i> is specified otherwise.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="AggregateKMeansRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AggregateKMeansRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="AggregateKMeansRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AggregateKMeansRequest.Options.TTL">TTL</see>:</term>
+        ///         <description>Sets the <a href="../../../concepts/ttl/"
+        /// target="_top">TTL</a> of the table specified in
+        /// <i>result_table</i>.</description>
+        ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.
         /// A set of string constants for the parameter <see cref="options"
@@ -76,6 +140,65 @@ namespace kinetica
             /// different randomly selected starting points - helps avoid local
             /// minimum. Default is 1.</summary>
             public const string NUM_TRIES = "num_tries";
+
+            /// <summary>If <i>true</i>, a unique temporary table name will be
+            /// generated in the sys_temp schema and used in place of
+            /// <i>result_table</i>. If <i>result_table_persist</i> is
+            /// <i>false</i> (or unspecified), then this is always allowed even
+            /// if the caller does not have permission to create tables. The
+            /// generated name is returned in
+            /// <i>qualified_result_table_name</i>.
+            /// Supported values:
+            /// <list type="bullet">
+            ///     <item>
+            ///         <term><see
+            /// cref="AggregateKMeansRequest.Options.TRUE">TRUE</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="AggregateKMeansRequest.Options.FALSE">FALSE</see></term>
+            ///     </item>
+            /// </list>
+            /// The default value is <see
+            /// cref="AggregateKMeansRequest.Options.FALSE">FALSE</see>.</summary>
+            public const string CREATE_TEMP_TABLE = "create_temp_table";
+            public const string TRUE = "true";
+            public const string FALSE = "false";
+
+            /// <summary>The name of a table used to store the results, in
+            /// [schema_name.]table_name format, using standard <a
+            /// href="../../../concepts/tables/#table-name-resolution"
+            /// target="_top">name resolution rules</a> and meeting <a
+            /// href="../../../concepts/tables/#table-naming-criteria"
+            /// target="_top">table naming criteria</a>.  If this option is
+            /// specified, the results are not returned in the
+            /// response.</summary>
+            public const string RESULT_TABLE = "result_table";
+
+            /// <summary>If <i>true</i>, then the result table specified in
+            /// <i>result_table</i> will be persisted and will not expire
+            /// unless a <i>ttl</i> is specified.   If <i>false</i>, then the
+            /// result table will be an in-memory table and will expire unless
+            /// a <i>ttl</i> is specified otherwise.
+            /// Supported values:
+            /// <list type="bullet">
+            ///     <item>
+            ///         <term><see
+            /// cref="AggregateKMeansRequest.Options.TRUE">TRUE</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="AggregateKMeansRequest.Options.FALSE">FALSE</see></term>
+            ///     </item>
+            /// </list>
+            /// The default value is <see
+            /// cref="AggregateKMeansRequest.Options.FALSE">FALSE</see>.</summary>
+            public const string RESULT_TABLE_PERSIST = "result_table_persist";
+
+            /// <summary>Sets the <a href="../../../concepts/ttl/"
+            /// target="_top">TTL</a> of the table specified in
+            /// <i>result_table</i>.</summary>
+            public const string TTL = "ttl";
         } // end struct Options
 
 
@@ -120,6 +243,70 @@ namespace kinetica
         ///         <description>Number of times to run the k-means algorithm
         /// with a different randomly selected starting points - helps avoid
         /// local minimum. Default is 1.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AggregateKMeansRequest.Options.CREATE_TEMP_TABLE">CREATE_TEMP_TABLE</see>:</term>
+        ///         <description>If <i>true</i>, a unique temporary table name
+        /// will be generated in the sys_temp schema and used in place of
+        /// <i>result_table</i>. If <i>result_table_persist</i> is <i>false</i>
+        /// (or unspecified), then this is always allowed even if the caller
+        /// does not have permission to create tables. The generated name is
+        /// returned in <i>qualified_result_table_name</i>.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="AggregateKMeansRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AggregateKMeansRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="AggregateKMeansRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AggregateKMeansRequest.Options.RESULT_TABLE">RESULT_TABLE</see>:</term>
+        ///         <description>The name of a table used to store the results,
+        /// in [schema_name.]table_name format, using standard <a
+        /// href="../../../concepts/tables/#table-name-resolution"
+        /// target="_top">name resolution rules</a> and meeting <a
+        /// href="../../../concepts/tables/#table-naming-criteria"
+        /// target="_top">table naming criteria</a>.  If this option is
+        /// specified, the results are not returned in the
+        /// response.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AggregateKMeansRequest.Options.RESULT_TABLE_PERSIST">RESULT_TABLE_PERSIST</see>:</term>
+        ///         <description>If <i>true</i>, then the result table
+        /// specified in <i>result_table</i> will be persisted and will not
+        /// expire unless a <i>ttl</i> is specified.   If <i>false</i>, then
+        /// the result table will be an in-memory table and will expire unless
+        /// a <i>ttl</i> is specified otherwise.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="AggregateKMeansRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AggregateKMeansRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="AggregateKMeansRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AggregateKMeansRequest.Options.TTL">TTL</see>:</term>
+        ///         <description>Sets the <a href="../../../concepts/ttl/"
+        /// target="_top">TTL</a> of the table specified in
+        /// <i>result_table</i>.</description>
         ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.</summary>
@@ -167,6 +354,70 @@ namespace kinetica
         /// with a different randomly selected starting points - helps avoid
         /// local minimum. Default is 1.</description>
         ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AggregateKMeansRequest.Options.CREATE_TEMP_TABLE">CREATE_TEMP_TABLE</see>:</term>
+        ///         <description>If <i>true</i>, a unique temporary table name
+        /// will be generated in the sys_temp schema and used in place of
+        /// <i>result_table</i>. If <i>result_table_persist</i> is <i>false</i>
+        /// (or unspecified), then this is always allowed even if the caller
+        /// does not have permission to create tables. The generated name is
+        /// returned in <i>qualified_result_table_name</i>.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="AggregateKMeansRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AggregateKMeansRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="AggregateKMeansRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AggregateKMeansRequest.Options.RESULT_TABLE">RESULT_TABLE</see>:</term>
+        ///         <description>The name of a table used to store the results,
+        /// in [schema_name.]table_name format, using standard <a
+        /// href="../../../concepts/tables/#table-name-resolution"
+        /// target="_top">name resolution rules</a> and meeting <a
+        /// href="../../../concepts/tables/#table-naming-criteria"
+        /// target="_top">table naming criteria</a>.  If this option is
+        /// specified, the results are not returned in the
+        /// response.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AggregateKMeansRequest.Options.RESULT_TABLE_PERSIST">RESULT_TABLE_PERSIST</see>:</term>
+        ///         <description>If <i>true</i>, then the result table
+        /// specified in <i>result_table</i> will be persisted and will not
+        /// expire unless a <i>ttl</i> is specified.   If <i>false</i>, then
+        /// the result table will be an in-memory table and will expire unless
+        /// a <i>ttl</i> is specified otherwise.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="AggregateKMeansRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AggregateKMeansRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="AggregateKMeansRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AggregateKMeansRequest.Options.TTL">TTL</see>:</term>
+        ///         <description>Sets the <a href="../../../concepts/ttl/"
+        /// target="_top">TTL</a> of the table specified in
+        /// <i>result_table</i>.</description>
+        ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.</param>
         /// 
@@ -192,6 +443,28 @@ namespace kinetica
     /// />.</summary>
     public class AggregateKMeansResponse : KineticaData
     {
+
+        /// <summary>Additional information.
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="AggregateKMeansResponse.Info.QUALIFIED_RESULT_TABLE_NAME">QUALIFIED_RESULT_TABLE_NAME</see>:</term>
+        ///         <description>The fully qualified name of the result table
+        /// (i.e. including the schema) used to store the
+        /// results.</description>
+        ///     </item>
+        /// </list>
+        /// The default value is an empty {@link Dictionary}.
+        /// A set of string constants for the parameter <member name="info"
+        /// />.</summary>
+        public struct Info
+        {
+
+            /// <summary>The fully qualified name of the result table (i.e.
+            /// including the schema) used to store the results.</summary>
+            public const string QUALIFIED_RESULT_TABLE_NAME = "qualified_result_table_name";
+        } // end struct Info
+
 
         /// <summary>The k-mean values found.  </summary>
         public IList<IList<double>> means { get; set; } = new List<IList<double>>();
@@ -220,7 +493,17 @@ namespace kinetica
         /// quit.  </summary>
         public int num_iters { get; set; }
 
-        /// <summary>Additional information.  </summary>
+        /// <summary>Additional information.
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="AggregateKMeansResponse.Info.QUALIFIED_RESULT_TABLE_NAME">QUALIFIED_RESULT_TABLE_NAME</see>:</term>
+        ///         <description>The fully qualified name of the result table
+        /// (i.e. including the schema) used to store the
+        /// results.</description>
+        ///     </item>
+        /// </list>
+        /// The default value is an empty {@link Dictionary}.</summary>
         public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
 
     } // end class AggregateKMeansResponse

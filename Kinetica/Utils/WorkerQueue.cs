@@ -22,8 +22,6 @@ namespace kinetica.Utils
         {
             this.url = url;
             this.capacity = 1;
-            this.has_primary_key = false;
-            this.update_on_existing_pk = false;
 
             queue = new List<T>();
         }  // end constructor WorkerQueue<T>
@@ -41,15 +39,9 @@ namespace kinetica.Utils
         {
             this.url = url;
             this.capacity = capacity;
-            this.has_primary_key = has_primary_key;
-            this.update_on_existing_pk = update_on_existing_pk;
 
             queue = new List<T>();
 
-            // If the type has primary keys, then initialize with a
-            // capacity of 75% of the final capacity
-            if (this.has_primary_key)
-                primary_key_map = new Dictionary<RecordKey, int>((int)Math.Round(this.capacity / 0.75));
         }  // end constructor WorkerQueue<T>
 
 
@@ -62,10 +54,6 @@ namespace kinetica.Utils
         {
             IList<T> old_queue = this.queue;
             queue = new List<T>(this.capacity);
-
-            // Clear the primary key map if one exists
-            if (this.primary_key_map != null)
-                this.primary_key_map.Clear();
 
             return old_queue;
         }  // end flush
@@ -81,40 +69,7 @@ namespace kinetica.Utils
         /// <returns>The list of records (if the queue is full), or null.</returns>
         public IList<T> insert(T record, RecordKey key)
         {
-            if (this.has_primary_key && key.isValid())
-            {
-                // We are to update the record even if the primary key already exists
-                if (this.update_on_existing_pk)
-                {
-                    int key_idx;
-
-                    if (this.primary_key_map.TryGetValue(key, out key_idx))
-                    {
-                        // Key exists, so we need to replace the associated record
-                        this.queue[key_idx] = record;
-                    }
-                    else  // key does not exist; add the record and
-                    {     // update the key->record mapping
-                        this.queue.Add(record);
-                        this.primary_key_map.Add(key, (this.queue.Count - 1));
-                    }
-                }
-                else // do NOT update/add the record if the key already exists
-                {
-                    if (this.primary_key_map.ContainsKey(key))
-                        return null;  // yup, the key already exists
-
-                    // The key does not exist, so add the record and
-                    // update the key->record map
-                    this.queue.Add(record);
-                    this.primary_key_map.Add(key, (this.queue.Count - 1));
-                }
-            }
-            else  // simply add the record
-            {
-                queue.Add(record);
-            }
-
+            queue.Add(record);
             // If the queue is full, then flush and return the 'old' queue
             if (queue.Count == capacity)
                 return flush();

@@ -208,54 +208,6 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="SolveGraphRequest.Options.EXPORT_SOLVE_RESULTS">EXPORT_SOLVE_RESULTS</see>:</term>
-        ///         <description>Returns solution results inside the <member
-        /// name="result_per_destination_node" /> array in the response if set
-        /// to <i>true</i>.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="SolveGraphRequest.Options.TRUE">TRUE</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="SolveGraphRequest.Options.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="SolveGraphRequest.Options.FALSE">FALSE</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="SolveGraphRequest.Options.REMOVE_PREVIOUS_RESTRICTIONS">REMOVE_PREVIOUS_RESTRICTIONS</see>:</term>
-        ///         <description>Ignore the restrictions applied to the graph
-        /// during the creation stage and only use the restrictions specified
-        /// in this request if set to <i>true</i>.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="SolveGraphRequest.Options.TRUE">TRUE</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="SolveGraphRequest.Options.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="SolveGraphRequest.Options.FALSE">FALSE</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="SolveGraphRequest.Options.RESTRICTION_THRESHOLD_VALUE">RESTRICTION_THRESHOLD_VALUE</see>:</term>
-        ///         <description>Value-based restriction comparison. Any node
-        /// or edge with a RESTRICTIONS_VALUECOMPARED value greater than the
-        /// <i>restriction_threshold_value</i> will not be included in the
-        /// solution.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
         /// cref="SolveGraphRequest.Options.UNIFORM_WEIGHTS">UNIFORM_WEIGHTS</see>:</term>
         ///         <description>When specified, assigns the given value to all
         /// the edges in the graph. Note that weights provided in <paramref
@@ -312,33 +264,6 @@ namespace kinetica
         /// value of two millions is overridden to a lesser value, it can
         /// potentially speed up the solver.  The default value is
         /// '2000000'.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="SolveGraphRequest.Options.ACCURATE_SNAPS">ACCURATE_SNAPS</see>:</term>
-        ///         <description>Valid for single source destination pair
-        /// solves if points are described in NODE_WKTPOINT identifier types:
-        /// When true (default), it snaps to the nearest node of the graph;
-        /// otherwise, it searches for the closest entity that could be an
-        /// edge. For the latter case (false), the solver modifies the
-        /// resulting cost with the weights proportional to the ratio of the
-        /// snap location within the edge. This may be an over-kill when the
-        /// performance is considered and the difference is well less than 1
-        /// percent. In batch runs, since the performance is of utmost
-        /// importance, the option is always considered 'false'.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="SolveGraphRequest.Options.TRUE">TRUE</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="SolveGraphRequest.Options.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="SolveGraphRequest.Options.TRUE">TRUE</see>.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -439,6 +364,36 @@ namespace kinetica
         /// The default value is <see
         /// cref="SolveGraphRequest.Options.FALSE">FALSE</see>.</description>
         ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="SolveGraphRequest.Options.SOLVE_HEURISTIC">SOLVE_HEURISTIC</see>:</term>
+        ///         <description>Specify heuristic search criterion only for
+        /// the geo graphs and shortest path solves towards a single target
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="SolveGraphRequest.Options.ASTAR">ASTAR</see>:</term>
+        ///         <description>Employs A-STAR heuristics to speed up the
+        /// shortest path traversal</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="SolveGraphRequest.Options.NONE">NONE</see>:</term>
+        ///         <description>No heuristics are applied</description>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="SolveGraphRequest.Options.NONE">NONE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="SolveGraphRequest.Options.ASTAR_RADIUS">ASTAR_RADIUS</see>:</term>
+        ///         <description>For path solvers only when 'solve_heuristic'
+        /// option is 'astar'. The shortest path traversal front includes nodes
+        /// only within this radius (kilometers) as it moves towards the target
+        /// location.  The default value is '70'.</description>
+        ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.
         /// A set of string constants for the parameter <see cref="options"
@@ -471,56 +426,6 @@ namespace kinetica
             /// equal to the setting value. If set to 0, the setting is
             /// ignored.  The default value is '1000'.</summary>
             public const string MAX_SOLUTION_TARGETS = "max_solution_targets";
-
-            /// <summary>Returns solution results inside the <member
-            /// name="result_per_destination_node" /> array in the response if
-            /// set to <i>true</i>.
-            /// Supported values:
-            /// <list type="bullet">
-            ///     <item>
-            ///         <term><see
-            /// cref="SolveGraphRequest.Options.TRUE">TRUE</see></term>
-            ///     </item>
-            ///     <item>
-            ///         <term><see
-            /// cref="SolveGraphRequest.Options.FALSE">FALSE</see></term>
-            ///     </item>
-            /// </list>
-            /// The default value is <see
-            /// cref="SolveGraphRequest.Options.FALSE">FALSE</see>.</summary>
-            public const string EXPORT_SOLVE_RESULTS = "export_solve_results";
-
-            /// <summary>An additional column 'CLUSTER' will be added for each
-            /// node</summary>
-            public const string TRUE = "true";
-
-            /// <summary>No extra cluster info per node will be available in
-            /// the output</summary>
-            public const string FALSE = "false";
-
-            /// <summary>Ignore the restrictions applied to the graph during
-            /// the creation stage and only use the restrictions specified in
-            /// this request if set to <i>true</i>.
-            /// Supported values:
-            /// <list type="bullet">
-            ///     <item>
-            ///         <term><see
-            /// cref="SolveGraphRequest.Options.TRUE">TRUE</see></term>
-            ///     </item>
-            ///     <item>
-            ///         <term><see
-            /// cref="SolveGraphRequest.Options.FALSE">FALSE</see></term>
-            ///     </item>
-            /// </list>
-            /// The default value is <see
-            /// cref="SolveGraphRequest.Options.FALSE">FALSE</see>.</summary>
-            public const string REMOVE_PREVIOUS_RESTRICTIONS = "remove_previous_restrictions";
-
-            /// <summary>Value-based restriction comparison. Any node or edge
-            /// with a RESTRICTIONS_VALUECOMPARED value greater than the
-            /// <i>restriction_threshold_value</i> will not be included in the
-            /// solution.</summary>
-            public const string RESTRICTION_THRESHOLD_VALUE = "restriction_threshold_value";
 
             /// <summary>When specified, assigns the given value to all the
             /// edges in the graph. Note that weights provided in <see
@@ -574,31 +479,6 @@ namespace kinetica
             /// '2000000'.</summary>
             public const string MAX_NUM_COMBINATIONS = "max_num_combinations";
 
-            /// <summary>Valid for single source destination pair solves if
-            /// points are described in NODE_WKTPOINT identifier types: When
-            /// true (default), it snaps to the nearest node of the graph;
-            /// otherwise, it searches for the closest entity that could be an
-            /// edge. For the latter case (false), the solver modifies the
-            /// resulting cost with the weights proportional to the ratio of
-            /// the snap location within the edge. This may be an over-kill
-            /// when the performance is considered and the difference is well
-            /// less than 1 percent. In batch runs, since the performance is of
-            /// utmost importance, the option is always considered 'false'.
-            /// Supported values:
-            /// <list type="bullet">
-            ///     <item>
-            ///         <term><see
-            /// cref="SolveGraphRequest.Options.TRUE">TRUE</see></term>
-            ///     </item>
-            ///     <item>
-            ///         <term><see
-            /// cref="SolveGraphRequest.Options.FALSE">FALSE</see></term>
-            ///     </item>
-            /// </list>
-            /// The default value is <see
-            /// cref="SolveGraphRequest.Options.TRUE">TRUE</see>.</summary>
-            public const string ACCURATE_SNAPS = "accurate_snaps";
-
             /// <summary>If true then concatenated edge ids will be added as
             /// the EDGE path column of the solution table for each source and
             /// target pair in shortest path solves.
@@ -616,6 +496,14 @@ namespace kinetica
             /// The default value is <see
             /// cref="SolveGraphRequest.Options.FALSE">FALSE</see>.</summary>
             public const string OUTPUT_EDGE_PATH = "output_edge_path";
+
+            /// <summary>An additional column 'CLUSTER' will be added for each
+            /// node</summary>
+            public const string TRUE = "true";
+
+            /// <summary>No extra cluster info per node will be available in
+            /// the output</summary>
+            public const string FALSE = "false";
 
             /// <summary>If true then concatenated wkt line segments will be
             /// added as the Wktroute column of the solution table for each
@@ -682,6 +570,39 @@ namespace kinetica
             /// The default value is <see
             /// cref="SolveGraphRequest.Options.FALSE">FALSE</see>.</summary>
             public const string OUTPUT_CLUSTERS = "output_clusters";
+
+            /// <summary>Specify heuristic search criterion only for the geo
+            /// graphs and shortest path solves towards a single target
+            /// Supported values:
+            /// <list type="bullet">
+            ///     <item>
+            ///         <term><see
+            /// cref="SolveGraphRequest.Options.ASTAR">ASTAR</see>:</term>
+            ///         <description>Employs A-STAR heuristics to speed up the
+            /// shortest path traversal</description>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="SolveGraphRequest.Options.NONE">NONE</see>:</term>
+            ///         <description>No heuristics are applied</description>
+            ///     </item>
+            /// </list>
+            /// The default value is <see
+            /// cref="SolveGraphRequest.Options.NONE">NONE</see>.</summary>
+            public const string SOLVE_HEURISTIC = "solve_heuristic";
+
+            /// <summary>Employs A-STAR heuristics to speed up the shortest
+            /// path traversal</summary>
+            public const string ASTAR = "astar";
+
+            /// <summary>No heuristics are applied</summary>
+            public const string NONE = "none";
+
+            /// <summary>For path solvers only when 'solve_heuristic' option is
+            /// 'astar'. The shortest path traversal front includes nodes only
+            /// within this radius (kilometers) as it moves towards the target
+            /// location.  The default value is '70'.</summary>
+            public const string ASTAR_RADIUS = "astar_radius";
         } // end struct Options
 
 
@@ -724,11 +645,10 @@ namespace kinetica
         /// values in an
         /// identifier combination, the number of values specified must match
         /// across the
-        /// combination. If <i>remove_previous_restrictions</i> is set
-        /// to <i>true</i>, any
-        /// provided restrictions will replace the existing restrictions. If
-        /// <i>remove_previous_restrictions</i> is set to
-        /// <i>false</i>, any provided
+        /// combination. If remove_previous_restrictions option is set
+        /// to true, any
+        /// provided restrictions will replace the existing restrictions.
+        /// Otherwise, any provided
         /// restrictions will be added (in the case of
         /// 'RESTRICTIONS_VALUECOMPARED') to or
         /// replaced (in the case of 'RESTRICTIONS_ONOFFCOMPARED').  The
@@ -873,54 +793,6 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="SolveGraphRequest.Options.EXPORT_SOLVE_RESULTS">EXPORT_SOLVE_RESULTS</see>:</term>
-        ///         <description>Returns solution results inside the <member
-        /// name="result_per_destination_node" /> array in the response if set
-        /// to <i>true</i>.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="SolveGraphRequest.Options.TRUE">TRUE</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="SolveGraphRequest.Options.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="SolveGraphRequest.Options.FALSE">FALSE</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="SolveGraphRequest.Options.REMOVE_PREVIOUS_RESTRICTIONS">REMOVE_PREVIOUS_RESTRICTIONS</see>:</term>
-        ///         <description>Ignore the restrictions applied to the graph
-        /// during the creation stage and only use the restrictions specified
-        /// in this request if set to <i>true</i>.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="SolveGraphRequest.Options.TRUE">TRUE</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="SolveGraphRequest.Options.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="SolveGraphRequest.Options.FALSE">FALSE</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="SolveGraphRequest.Options.RESTRICTION_THRESHOLD_VALUE">RESTRICTION_THRESHOLD_VALUE</see>:</term>
-        ///         <description>Value-based restriction comparison. Any node
-        /// or edge with a RESTRICTIONS_VALUECOMPARED value greater than the
-        /// <i>restriction_threshold_value</i> will not be included in the
-        /// solution.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
         /// cref="SolveGraphRequest.Options.UNIFORM_WEIGHTS">UNIFORM_WEIGHTS</see>:</term>
         ///         <description>When specified, assigns the given value to all
         /// the edges in the graph. Note that weights provided in <paramref
@@ -977,33 +849,6 @@ namespace kinetica
         /// value of two millions is overridden to a lesser value, it can
         /// potentially speed up the solver.  The default value is
         /// '2000000'.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="SolveGraphRequest.Options.ACCURATE_SNAPS">ACCURATE_SNAPS</see>:</term>
-        ///         <description>Valid for single source destination pair
-        /// solves if points are described in NODE_WKTPOINT identifier types:
-        /// When true (default), it snaps to the nearest node of the graph;
-        /// otherwise, it searches for the closest entity that could be an
-        /// edge. For the latter case (false), the solver modifies the
-        /// resulting cost with the weights proportional to the ratio of the
-        /// snap location within the edge. This may be an over-kill when the
-        /// performance is considered and the difference is well less than 1
-        /// percent. In batch runs, since the performance is of utmost
-        /// importance, the option is always considered 'false'.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="SolveGraphRequest.Options.TRUE">TRUE</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="SolveGraphRequest.Options.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="SolveGraphRequest.Options.TRUE">TRUE</see>.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -1104,6 +949,36 @@ namespace kinetica
         /// The default value is <see
         /// cref="SolveGraphRequest.Options.FALSE">FALSE</see>.</description>
         ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="SolveGraphRequest.Options.SOLVE_HEURISTIC">SOLVE_HEURISTIC</see>:</term>
+        ///         <description>Specify heuristic search criterion only for
+        /// the geo graphs and shortest path solves towards a single target
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="SolveGraphRequest.Options.ASTAR">ASTAR</see>:</term>
+        ///         <description>Employs A-STAR heuristics to speed up the
+        /// shortest path traversal</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="SolveGraphRequest.Options.NONE">NONE</see>:</term>
+        ///         <description>No heuristics are applied</description>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="SolveGraphRequest.Options.NONE">NONE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="SolveGraphRequest.Options.ASTAR_RADIUS">ASTAR_RADIUS</see>:</term>
+        ///         <description>For path solvers only when 'solve_heuristic'
+        /// option is 'astar'. The shortest path traversal front includes nodes
+        /// only within this radius (kilometers) as it moves towards the target
+        /// location.  The default value is '70'.</description>
+        ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.</summary>
         public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
@@ -1154,11 +1029,10 @@ namespace kinetica
         /// values in an
         /// identifier combination, the number of values specified must match
         /// across the
-        /// combination. If <i>remove_previous_restrictions</i> is set
-        /// to <i>true</i>, any
-        /// provided restrictions will replace the existing restrictions. If
-        /// <i>remove_previous_restrictions</i> is set to
-        /// <i>false</i>, any provided
+        /// combination. If remove_previous_restrictions option is set
+        /// to true, any
+        /// provided restrictions will replace the existing restrictions.
+        /// Otherwise, any provided
         /// restrictions will be added (in the case of
         /// 'RESTRICTIONS_VALUECOMPARED') to or
         /// replaced (in the case of 'RESTRICTIONS_ONOFFCOMPARED').  The
@@ -1293,54 +1167,6 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="SolveGraphRequest.Options.EXPORT_SOLVE_RESULTS">EXPORT_SOLVE_RESULTS</see>:</term>
-        ///         <description>Returns solution results inside the <member
-        /// name="result_per_destination_node" /> array in the response if set
-        /// to <i>true</i>.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="SolveGraphRequest.Options.TRUE">TRUE</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="SolveGraphRequest.Options.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="SolveGraphRequest.Options.FALSE">FALSE</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="SolveGraphRequest.Options.REMOVE_PREVIOUS_RESTRICTIONS">REMOVE_PREVIOUS_RESTRICTIONS</see>:</term>
-        ///         <description>Ignore the restrictions applied to the graph
-        /// during the creation stage and only use the restrictions specified
-        /// in this request if set to <i>true</i>.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="SolveGraphRequest.Options.TRUE">TRUE</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="SolveGraphRequest.Options.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="SolveGraphRequest.Options.FALSE">FALSE</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="SolveGraphRequest.Options.RESTRICTION_THRESHOLD_VALUE">RESTRICTION_THRESHOLD_VALUE</see>:</term>
-        ///         <description>Value-based restriction comparison. Any node
-        /// or edge with a RESTRICTIONS_VALUECOMPARED value greater than the
-        /// <i>restriction_threshold_value</i> will not be included in the
-        /// solution.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
         /// cref="SolveGraphRequest.Options.UNIFORM_WEIGHTS">UNIFORM_WEIGHTS</see>:</term>
         ///         <description>When specified, assigns the given value to all
         /// the edges in the graph. Note that weights provided in <paramref
@@ -1397,33 +1223,6 @@ namespace kinetica
         /// value of two millions is overridden to a lesser value, it can
         /// potentially speed up the solver.  The default value is
         /// '2000000'.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="SolveGraphRequest.Options.ACCURATE_SNAPS">ACCURATE_SNAPS</see>:</term>
-        ///         <description>Valid for single source destination pair
-        /// solves if points are described in NODE_WKTPOINT identifier types:
-        /// When true (default), it snaps to the nearest node of the graph;
-        /// otherwise, it searches for the closest entity that could be an
-        /// edge. For the latter case (false), the solver modifies the
-        /// resulting cost with the weights proportional to the ratio of the
-        /// snap location within the edge. This may be an over-kill when the
-        /// performance is considered and the difference is well less than 1
-        /// percent. In batch runs, since the performance is of utmost
-        /// importance, the option is always considered 'false'.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="SolveGraphRequest.Options.TRUE">TRUE</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="SolveGraphRequest.Options.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="SolveGraphRequest.Options.TRUE">TRUE</see>.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -1524,6 +1323,36 @@ namespace kinetica
         /// The default value is <see
         /// cref="SolveGraphRequest.Options.FALSE">FALSE</see>.</description>
         ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="SolveGraphRequest.Options.SOLVE_HEURISTIC">SOLVE_HEURISTIC</see>:</term>
+        ///         <description>Specify heuristic search criterion only for
+        /// the geo graphs and shortest path solves towards a single target
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="SolveGraphRequest.Options.ASTAR">ASTAR</see>:</term>
+        ///         <description>Employs A-STAR heuristics to speed up the
+        /// shortest path traversal</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="SolveGraphRequest.Options.NONE">NONE</see>:</term>
+        ///         <description>No heuristics are applied</description>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="SolveGraphRequest.Options.NONE">NONE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="SolveGraphRequest.Options.ASTAR_RADIUS">ASTAR_RADIUS</see>:</term>
+        ///         <description>For path solvers only when 'solve_heuristic'
+        /// option is 'astar'. The shortest path traversal front includes nodes
+        /// only within this radius (kilometers) as it moves towards the target
+        /// location.  The default value is '70'.</description>
+        ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.</param>
         /// 
@@ -1562,7 +1391,7 @@ namespace kinetica
 
         /// <summary>Cost or Pagerank (based on solver type) for each
         /// destination node requested. Only populated if
-        /// <i>export_solve_results</i> is set to <i>true</i>.  </summary>
+        /// 'export_solve_results' option is set to true.  </summary>
         public IList<float> result_per_destination_node { get; set; } = new List<float>();
 
         /// <summary>Additional information.  </summary>

@@ -770,12 +770,8 @@ namespace kinetica
             /// default value is ''.</summary>
             public const string ATTRIBUTE_INDEXES = "attribute_indexes";
 
-            /// <summary>Semicolon-separated list of <a
-            /// href="../../../concepts/compression/"
-            /// target="_top">compressed</a> columns with the corresponding
-            /// compression type for each; e.g.:
-            /// {first_name,snappy};{last_name,lz4hc}. Not present for schemas.
-            /// The default value is ''.</summary>
+            /// <summary>No longer supported.  The default value is
+            /// ''.</summary>
             public const string COMPRESSED_COLUMNS = "compressed_columns";
 
             /// <summary>JSON-encoded string representing a map of column name

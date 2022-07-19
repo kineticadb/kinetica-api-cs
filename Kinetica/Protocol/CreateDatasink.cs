@@ -86,6 +86,16 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
+        /// cref="CreateDatasinkRequest.Options.JDBC_DRIVER_JAR_PATH">JDBC_DRIVER_JAR_PATH</see>:</term>
+        ///         <description>JDBC driver jar file location</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateDatasinkRequest.Options.JDBC_DRIVER_CLASS_NAME">JDBC_DRIVER_CLASS_NAME</see>:</term>
+        ///         <description>Name of the JDBC driver class</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="CreateDatasinkRequest.Options.SKIP_VALIDATION">SKIP_VALIDATION</see>:</term>
         ///         <description>Bypass validation of connection to this data
         /// sink.
@@ -156,6 +166,12 @@ namespace kinetica
             public const string JSON_FORMAT = "json_format";
             public const string FLAT = "flat";
             public const string NESTED = "nested";
+
+            /// <summary>JDBC driver jar file location</summary>
+            public const string JDBC_DRIVER_JAR_PATH = "jdbc_driver_jar_path";
+
+            /// <summary>Name of the JDBC driver class</summary>
+            public const string JDBC_DRIVER_CLASS_NAME = "jdbc_driver_class_name";
 
             /// <summary>Bypass validation of connection to this data sink.
             /// Supported values:
@@ -248,6 +264,16 @@ namespace kinetica
         /// </list>
         /// The default value is <see
         /// cref="CreateDatasinkRequest.Options.FLAT">FLAT</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateDatasinkRequest.Options.JDBC_DRIVER_JAR_PATH">JDBC_DRIVER_JAR_PATH</see>:</term>
+        ///         <description>JDBC driver jar file location</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateDatasinkRequest.Options.JDBC_DRIVER_CLASS_NAME">JDBC_DRIVER_CLASS_NAME</see>:</term>
+        ///         <description>Name of the JDBC driver class</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -345,6 +371,16 @@ namespace kinetica
         /// </list>
         /// The default value is <see
         /// cref="CreateDatasinkRequest.Options.FLAT">FLAT</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateDatasinkRequest.Options.JDBC_DRIVER_JAR_PATH">JDBC_DRIVER_JAR_PATH</see>:</term>
+        ///         <description>JDBC driver jar file location</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateDatasinkRequest.Options.JDBC_DRIVER_CLASS_NAME">JDBC_DRIVER_CLASS_NAME</see>:</term>
+        ///         <description>Name of the JDBC driver class</description>
         ///     </item>
         ///     <item>
         ///         <term><see

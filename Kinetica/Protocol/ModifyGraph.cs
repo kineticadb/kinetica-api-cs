@@ -193,6 +193,25 @@ namespace kinetica
         /// threshold for right and left turns; 0 < turn_angle < 90.  The
         /// default value is '60'.</description>
         ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ModifyGraphRequest.Options.USE_RTREE">USE_RTREE</see>:</term>
+        ///         <description>Use an range tree structure to accelerate and
+        /// improve the accuracy of snapping, especially to edges.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="ModifyGraphRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ModifyGraphRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="ModifyGraphRequest.Options.TRUE">TRUE</see>.</description>
+        ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.
         /// A set of string constants for the parameter <see cref="options"
@@ -348,6 +367,23 @@ namespace kinetica
             /// value, the larger the threshold for right and left turns; 0 <
             /// turn_angle < 90.  The default value is '60'.</summary>
             public const string TURN_ANGLE = "turn_angle";
+
+            /// <summary>Use an range tree structure to accelerate and improve
+            /// the accuracy of snapping, especially to edges.
+            /// Supported values:
+            /// <list type="bullet">
+            ///     <item>
+            ///         <term><see
+            /// cref="ModifyGraphRequest.Options.TRUE">TRUE</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="ModifyGraphRequest.Options.FALSE">FALSE</see></term>
+            ///     </item>
+            /// </list>
+            /// The default value is <see
+            /// cref="ModifyGraphRequest.Options.TRUE">TRUE</see>.</summary>
+            public const string USE_RTREE = "use_rtree";
         } // end struct Options
 
 
@@ -601,6 +637,25 @@ namespace kinetica
         /// turns and intersections; the smaller the value, the larger the
         /// threshold for right and left turns; 0 < turn_angle < 90.  The
         /// default value is '60'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ModifyGraphRequest.Options.USE_RTREE">USE_RTREE</see>:</term>
+        ///         <description>Use an range tree structure to accelerate and
+        /// improve the accuracy of snapping, especially to edges.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="ModifyGraphRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ModifyGraphRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="ModifyGraphRequest.Options.TRUE">TRUE</see>.</description>
         ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.</summary>
@@ -856,6 +911,25 @@ namespace kinetica
         /// turns and intersections; the smaller the value, the larger the
         /// threshold for right and left turns; 0 < turn_angle < 90.  The
         /// default value is '60'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ModifyGraphRequest.Options.USE_RTREE">USE_RTREE</see>:</term>
+        ///         <description>Use an range tree structure to accelerate and
+        /// improve the accuracy of snapping, especially to edges.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="ModifyGraphRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ModifyGraphRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="ModifyGraphRequest.Options.TRUE">TRUE</see>.</description>
         ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.</param>

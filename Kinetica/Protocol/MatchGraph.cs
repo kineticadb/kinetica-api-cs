@@ -81,6 +81,13 @@ namespace kinetica
         /// originating and ending at each graph node within min and max hops
         /// (levels).</description>
         ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="MatchGraphRequest.SolveMethod.MATCH_CHARGING_STATIONS">MATCH_CHARGING_STATIONS</see>:</term>
+        ///         <description>Matches an optimal path across a number of
+        /// ev-charging stations between source and target
+        /// locations.</description>
+        ///     </item>
         /// </list>
         /// The default value is <see
         /// cref="MatchGraphRequest.SolveMethod.MARKOV_CHAIN">MARKOV_CHAIN</see>.
@@ -122,6 +129,10 @@ namespace kinetica
             /// ending at each graph node within min and max hops
             /// (levels).</summary>
             public const string MATCH_LOOPS = "match_loops";
+
+            /// <summary>Matches an optimal path across a number of ev-charging
+            /// stations between source and target locations.</summary>
+            public const string MATCH_CHARGING_STATIONS = "match_charging_stations";
         } // end struct SolveMethod
 
 
@@ -419,6 +430,29 @@ namespace kinetica
         /// flushing(inserting) to the output table.  The default value is
         /// '1000'.</description>
         ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="MatchGraphRequest.Options.CHARGING_CAPACITY">CHARGING_CAPACITY</see>:</term>
+        ///         <description>For the <i>match_charging_stations</i> solver
+        /// only. This is the maximum ev-charging capacity of a vehicle
+        /// (distance in meters or time in seconds depending on the unit of the
+        /// graph weights).  The default value is '300000.0'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="MatchGraphRequest.Options.CHARGING_CANDIDATES">CHARGING_CANDIDATES</see>:</term>
+        ///         <description>For the <i>match_charging_stations</i> solver
+        /// only. Solver searches for this many number of stations closest
+        /// around each base charging location found by capacity.  The default
+        /// value is '10'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="MatchGraphRequest.Options.CHARGING_PENALTY">CHARGING_PENALTY</see>:</term>
+        ///         <description>For the <i>match_charging_stations</i> solver
+        /// only. This is the penalty for full charging.  The default value is
+        /// '30000.0'.</description>
+        ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.
         /// A set of string constants for the parameter <see cref="options"
@@ -677,6 +711,23 @@ namespace kinetica
             /// flushing(inserting) to the output table.  The default value is
             /// '1000'.</summary>
             public const string OUTPUT_BATCH_SIZE = "output_batch_size";
+
+            /// <summary>For the <i>match_charging_stations</i> solver only.
+            /// This is the maximum ev-charging capacity of a vehicle (distance
+            /// in meters or time in seconds depending on the unit of the graph
+            /// weights).  The default value is '300000.0'.</summary>
+            public const string CHARGING_CAPACITY = "charging_capacity";
+
+            /// <summary>For the <i>match_charging_stations</i> solver only.
+            /// Solver searches for this many number of stations closest around
+            /// each base charging location found by capacity.  The default
+            /// value is '10'.</summary>
+            public const string CHARGING_CANDIDATES = "charging_candidates";
+
+            /// <summary>For the <i>match_charging_stations</i> solver only.
+            /// This is the penalty for full charging.  The default value is
+            /// '30000.0'.</summary>
+            public const string CHARGING_PENALTY = "charging_penalty";
         } // end struct Options
 
 
@@ -748,6 +799,13 @@ namespace kinetica
         ///         <description>Matches closed loops (Eulerian paths)
         /// originating and ending at each graph node within min and max hops
         /// (levels).</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="MatchGraphRequest.SolveMethod.MATCH_CHARGING_STATIONS">MATCH_CHARGING_STATIONS</see>:</term>
+        ///         <description>Matches an optimal path across a number of
+        /// ev-charging stations between source and target
+        /// locations.</description>
         ///     </item>
         /// </list>
         /// The default value is <see
@@ -1065,6 +1123,29 @@ namespace kinetica
         /// flushing(inserting) to the output table.  The default value is
         /// '1000'.</description>
         ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="MatchGraphRequest.Options.CHARGING_CAPACITY">CHARGING_CAPACITY</see>:</term>
+        ///         <description>For the <i>match_charging_stations</i> solver
+        /// only. This is the maximum ev-charging capacity of a vehicle
+        /// (distance in meters or time in seconds depending on the unit of the
+        /// graph weights).  The default value is '300000.0'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="MatchGraphRequest.Options.CHARGING_CANDIDATES">CHARGING_CANDIDATES</see>:</term>
+        ///         <description>For the <i>match_charging_stations</i> solver
+        /// only. Solver searches for this many number of stations closest
+        /// around each base charging location found by capacity.  The default
+        /// value is '10'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="MatchGraphRequest.Options.CHARGING_PENALTY">CHARGING_PENALTY</see>:</term>
+        ///         <description>For the <i>match_charging_stations</i> solver
+        /// only. This is the penalty for full charging.  The default value is
+        /// '30000.0'.</description>
+        ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.</summary>
         public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
@@ -1143,6 +1224,13 @@ namespace kinetica
         ///         <description>Matches closed loops (Eulerian paths)
         /// originating and ending at each graph node within min and max hops
         /// (levels).</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="MatchGraphRequest.SolveMethod.MATCH_CHARGING_STATIONS">MATCH_CHARGING_STATIONS</see>:</term>
+        ///         <description>Matches an optimal path across a number of
+        /// ev-charging stations between source and target
+        /// locations.</description>
         ///     </item>
         /// </list>
         /// The default value is <see
@@ -1455,6 +1543,29 @@ namespace kinetica
         /// this value as the batch size of the number of loops in
         /// flushing(inserting) to the output table.  The default value is
         /// '1000'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="MatchGraphRequest.Options.CHARGING_CAPACITY">CHARGING_CAPACITY</see>:</term>
+        ///         <description>For the <i>match_charging_stations</i> solver
+        /// only. This is the maximum ev-charging capacity of a vehicle
+        /// (distance in meters or time in seconds depending on the unit of the
+        /// graph weights).  The default value is '300000.0'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="MatchGraphRequest.Options.CHARGING_CANDIDATES">CHARGING_CANDIDATES</see>:</term>
+        ///         <description>For the <i>match_charging_stations</i> solver
+        /// only. Solver searches for this many number of stations closest
+        /// around each base charging location found by capacity.  The default
+        /// value is '10'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="MatchGraphRequest.Options.CHARGING_PENALTY">CHARGING_PENALTY</see>:</term>
+        ///         <description>For the <i>match_charging_stations</i> solver
+        /// only. This is the penalty for full charging.  The default value is
+        /// '30000.0'.</description>
         ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.</param>
