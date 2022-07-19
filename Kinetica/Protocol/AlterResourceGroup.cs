@@ -138,6 +138,28 @@ namespace kinetica
         /// The default value is <see
         /// cref="AlterResourceGroupRequest.Options.FALSE">FALSE</see>.</description>
         ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterResourceGroupRequest.Options.PERSIST">PERSIST</see>:</term>
+        ///         <description>If <i>true</i> and a system-level change was
+        /// requested, the system configuration will be written to disk upon
+        /// successful application of this request. This will commit the
+        /// changes from this request and any additional in-memory
+        /// modifications.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterResourceGroupRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterResourceGroupRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="AlterResourceGroupRequest.Options.TRUE">TRUE</see>.</description>
+        ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.
         /// A set of string constants for the parameter <see cref="options"
@@ -181,11 +203,32 @@ namespace kinetica
             public const string IS_DEFAULT_GROUP = "is_default_group";
             public const string TRUE = "true";
             public const string FALSE = "false";
+
+            /// <summary>If <i>true</i> and a system-level change was
+            /// requested, the system configuration will be written to disk
+            /// upon successful application of this request. This will commit
+            /// the changes from this request and any additional in-memory
+            /// modifications.
+            /// Supported values:
+            /// <list type="bullet">
+            ///     <item>
+            ///         <term><see
+            /// cref="AlterResourceGroupRequest.Options.TRUE">TRUE</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="AlterResourceGroupRequest.Options.FALSE">FALSE</see></term>
+            ///     </item>
+            /// </list>
+            /// The default value is <see
+            /// cref="AlterResourceGroupRequest.Options.TRUE">TRUE</see>.</summary>
+            public const string PERSIST = "persist";
         } // end struct Options
 
 
         /// <summary>Name of the group to be altered. Must be an existing
-        /// resource group name.  </summary>
+        /// resource group name or an empty string when used inconjunction with
+        /// the is_default_group option.  </summary>
         public string name { get; set; }
 
         /// <summary>Optional map containing tier names and their respective
@@ -294,6 +337,28 @@ namespace kinetica
         /// The default value is <see
         /// cref="AlterResourceGroupRequest.Options.FALSE">FALSE</see>.</description>
         ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterResourceGroupRequest.Options.PERSIST">PERSIST</see>:</term>
+        ///         <description>If <i>true</i> and a system-level change was
+        /// requested, the system configuration will be written to disk upon
+        /// successful application of this request. This will commit the
+        /// changes from this request and any additional in-memory
+        /// modifications.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterResourceGroupRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterResourceGroupRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="AlterResourceGroupRequest.Options.TRUE">TRUE</see>.</description>
+        ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.</summary>
         public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
@@ -307,7 +372,8 @@ namespace kinetica
         /// specified parameters.</summary>
         /// 
         /// <param name="name">Name of the group to be altered. Must be an
-        /// existing resource group name.  </param>
+        /// existing resource group name or an empty string when used
+        /// inconjunction with the is_default_group option.  </param>
         /// <param name="tier_attributes">Optional map containing tier names
         /// and their respective attribute group limits.  The only valid
         /// attribute limit that can be set is max_memory (in bytes) for the
@@ -408,6 +474,28 @@ namespace kinetica
         /// </list>
         /// The default value is <see
         /// cref="AlterResourceGroupRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterResourceGroupRequest.Options.PERSIST">PERSIST</see>:</term>
+        ///         <description>If <i>true</i> and a system-level change was
+        /// requested, the system configuration will be written to disk upon
+        /// successful application of this request. This will commit the
+        /// changes from this request and any additional in-memory
+        /// modifications.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterResourceGroupRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterResourceGroupRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="AlterResourceGroupRequest.Options.TRUE">TRUE</see>.</description>
         ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.</param>

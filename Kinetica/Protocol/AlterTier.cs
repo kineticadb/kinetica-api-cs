@@ -39,15 +39,36 @@ namespace kinetica
         ///         <term><see
         /// cref="AlterTierRequest.Options.HIGH_WATERMARK">HIGH_WATERMARK</see>:</term>
         ///         <description>Threshold of usage of this tier's resource
-        /// that, once exceeded, will trigger watermark-based eviction from
-        /// this tier.</description>
+        /// that once exceeded, will trigger watermark-based eviction from this
+        /// tier.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="AlterTierRequest.Options.LOW_WATERMARK">LOW_WATERMARK</see>:</term>
-        ///         <description>Threshold of resource usage that, once fallen
+        ///         <description>Threshold of resource usage that once fallen
         /// below after crossing the <i>high_watermark</i>, will cease
         /// watermark-based eviction from this tier.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterTierRequest.Options.PERSIST">PERSIST</see>:</term>
+        ///         <description>If <i>true</i> the system configuration will
+        /// be written to disk upon successful application of this request.
+        /// This will commit the changes from this request and any additional
+        /// in-memory modifications.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterTierRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterTierRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="AlterTierRequest.Options.TRUE">TRUE</see>.</description>
         ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.
@@ -60,15 +81,36 @@ namespace kinetica
             /// once.</summary>
             public const string CAPACITY = "capacity";
 
-            /// <summary>Threshold of usage of this tier's resource that, once
+            /// <summary>Threshold of usage of this tier's resource that once
             /// exceeded, will trigger watermark-based eviction from this
             /// tier.</summary>
             public const string HIGH_WATERMARK = "high_watermark";
 
-            /// <summary>Threshold of resource usage that, once fallen below
+            /// <summary>Threshold of resource usage that once fallen below
             /// after crossing the <i>high_watermark</i>, will cease
             /// watermark-based eviction from this tier.</summary>
             public const string LOW_WATERMARK = "low_watermark";
+
+            /// <summary>If <i>true</i> the system configuration will be
+            /// written to disk upon successful application of this request.
+            /// This will commit the changes from this request and any
+            /// additional in-memory modifications.
+            /// Supported values:
+            /// <list type="bullet">
+            ///     <item>
+            ///         <term><see
+            /// cref="AlterTierRequest.Options.TRUE">TRUE</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="AlterTierRequest.Options.FALSE">FALSE</see></term>
+            ///     </item>
+            /// </list>
+            /// The default value is <see
+            /// cref="AlterTierRequest.Options.TRUE">TRUE</see>.</summary>
+            public const string PERSIST = "persist";
+            public const string TRUE = "true";
+            public const string FALSE = "false";
         } // end struct Options
 
 
@@ -88,15 +130,36 @@ namespace kinetica
         ///         <term><see
         /// cref="AlterTierRequest.Options.HIGH_WATERMARK">HIGH_WATERMARK</see>:</term>
         ///         <description>Threshold of usage of this tier's resource
-        /// that, once exceeded, will trigger watermark-based eviction from
-        /// this tier.</description>
+        /// that once exceeded, will trigger watermark-based eviction from this
+        /// tier.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="AlterTierRequest.Options.LOW_WATERMARK">LOW_WATERMARK</see>:</term>
-        ///         <description>Threshold of resource usage that, once fallen
+        ///         <description>Threshold of resource usage that once fallen
         /// below after crossing the <i>high_watermark</i>, will cease
         /// watermark-based eviction from this tier.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterTierRequest.Options.PERSIST">PERSIST</see>:</term>
+        ///         <description>If <i>true</i> the system configuration will
+        /// be written to disk upon successful application of this request.
+        /// This will commit the changes from this request and any additional
+        /// in-memory modifications.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterTierRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterTierRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="AlterTierRequest.Options.TRUE">TRUE</see>.</description>
         ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.</summary>
@@ -124,15 +187,36 @@ namespace kinetica
         ///         <term><see
         /// cref="AlterTierRequest.Options.HIGH_WATERMARK">HIGH_WATERMARK</see>:</term>
         ///         <description>Threshold of usage of this tier's resource
-        /// that, once exceeded, will trigger watermark-based eviction from
-        /// this tier.</description>
+        /// that once exceeded, will trigger watermark-based eviction from this
+        /// tier.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="AlterTierRequest.Options.LOW_WATERMARK">LOW_WATERMARK</see>:</term>
-        ///         <description>Threshold of resource usage that, once fallen
+        ///         <description>Threshold of resource usage that once fallen
         /// below after crossing the <i>high_watermark</i>, will cease
         /// watermark-based eviction from this tier.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterTierRequest.Options.PERSIST">PERSIST</see>:</term>
+        ///         <description>If <i>true</i> the system configuration will
+        /// be written to disk upon successful application of this request.
+        /// This will commit the changes from this request and any additional
+        /// in-memory modifications.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterTierRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterTierRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="AlterTierRequest.Options.TRUE">TRUE</see>.</description>
         ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.</param>

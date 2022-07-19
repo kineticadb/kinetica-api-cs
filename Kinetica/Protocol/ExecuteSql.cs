@@ -600,14 +600,17 @@ namespace kinetica
         public long offset { get; set; } = 0;
 
         /// <summary>A positive integer indicating the maximum number of
-        /// results to be returned, or END_OF_SET (-9999) to indicate that the
-        /// maximum number of results allowed by the server should be returned.
-        /// The number of records returned will never exceed the server's own
-        /// limit, defined by the <a href="../../../config/#general"
+        /// results to be returned, or
+        /// END_OF_SET (-9999) to indicate that the maximum number of results
+        /// allowed by the server should be
+        /// returned.  The number of records returned will never exceed the
+        /// server's own limit, defined by the
+        /// <a href="../../../config/#config-main-general"
         /// target="_top">max_get_records_size</a> parameter in the server
-        /// configuration.  Use <member name="has_more_records" /> to see if
-        /// more records exist in the result to be fetched, and <paramref
-        /// cref="ExecuteSqlRequest.offset" /> & <paramref
+        /// configuration.
+        /// Use <member name="has_more_records" /> to see if more records exist
+        /// in the result to be fetched, and
+        /// <paramref cref="ExecuteSqlRequest.offset" /> & <paramref
         /// cref="ExecuteSqlRequest.limit" /> to request subsequent pages of
         /// results.  The default value is -9999.</summary>
         public long limit { get; set; } = -9999;
@@ -940,15 +943,17 @@ namespace kinetica
         /// results).  The default value is 0.The minimum allowed value is 0.
         /// The maximum allowed value is MAX_INT. </param>
         /// <param name="limit">A positive integer indicating the maximum
-        /// number of results to be returned, or END_OF_SET (-9999) to indicate
-        /// that the maximum number of results allowed by the server should be
+        /// number of results to be returned, or
+        /// END_OF_SET (-9999) to indicate that the maximum number of results
+        /// allowed by the server should be
         /// returned.  The number of records returned will never exceed the
-        /// server's own limit, defined by the <a
-        /// href="../../../config/#general"
+        /// server's own limit, defined by the
+        /// <a href="../../../config/#config-main-general"
         /// target="_top">max_get_records_size</a> parameter in the server
-        /// configuration.  Use <member name="has_more_records" /> to see if
-        /// more records exist in the result to be fetched, and <paramref
-        /// cref="ExecuteSqlRequest.offset" /> & <paramref
+        /// configuration.
+        /// Use <member name="has_more_records" /> to see if more records exist
+        /// in the result to be fetched, and
+        /// <paramref cref="ExecuteSqlRequest.offset" /> & <paramref
         /// cref="ExecuteSqlRequest.limit" /> to request subsequent pages of
         /// results.  The default value is -9999.</param>
         /// <param name="request_schema_str">Avro schema of <paramref
@@ -1269,15 +1274,17 @@ namespace kinetica
         /// results).  The default value is 0.The minimum allowed value is 0.
         /// The maximum allowed value is MAX_INT. </param>
         /// <param name="limit">A positive integer indicating the maximum
-        /// number of results to be returned, or END_OF_SET (-9999) to indicate
-        /// that the maximum number of results allowed by the server should be
+        /// number of results to be returned, or
+        /// END_OF_SET (-9999) to indicate that the maximum number of results
+        /// allowed by the server should be
         /// returned.  The number of records returned will never exceed the
-        /// server's own limit, defined by the <a
-        /// href="../../../config/#general"
+        /// server's own limit, defined by the
+        /// <a href="../../../config/#config-main-general"
         /// target="_top">max_get_records_size</a> parameter in the server
-        /// configuration.  Use <member name="has_more_records" /> to see if
-        /// more records exist in the result to be fetched, and <paramref
-        /// cref="ExecuteSqlRequest.offset" /> & <paramref
+        /// configuration.
+        /// Use <member name="has_more_records" /> to see if more records exist
+        /// in the result to be fetched, and
+        /// <paramref cref="ExecuteSqlRequest.offset" /> & <paramref
         /// cref="ExecuteSqlRequest.limit" /> to request subsequent pages of
         /// results.  The default value is -9999.</param>
         /// <param name="encoding">Specifies the encoding for returned records;

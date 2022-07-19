@@ -3,6 +3,16 @@
 
 ## Version 7.1
 
+### Version 7.1.7.0 - 2022-07-18
+
+#### Changed
+-   Removed client-side primary key check, to improve performance and make
+    returned errors more consistently delivered
+
+#### Notes
+-   Check CHANGELOG-FUNCTIONS.md for endpoint related changes.
+
+
 ### Version 7.1.6.0 - 2022-01-27
 
 #### Notes

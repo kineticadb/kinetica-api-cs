@@ -77,6 +77,12 @@ namespace kinetica
         /// The default value is <see
         /// cref="GetRecordsFromCollectionRequest.Options.FALSE">FALSE</see>.</description>
         ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="GetRecordsFromCollectionRequest.Options.EXPRESSION">EXPRESSION</see>:</term>
+        ///         <description>Optional filter expression to apply to the
+        /// table.  The default value is ''.</description>
+        ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.
         /// A set of string constants for the parameter <see cref="options"
@@ -102,6 +108,10 @@ namespace kinetica
             public const string RETURN_RECORD_IDS = "return_record_ids";
             public const string TRUE = "true";
             public const string FALSE = "false";
+
+            /// <summary>Optional filter expression to apply to the table.  The
+            /// default value is ''.</summary>
+            public const string EXPRESSION = "expression";
         } // end struct Options
 
 
@@ -119,15 +129,18 @@ namespace kinetica
         public long offset { get; set; } = 0;
 
         /// <summary>A positive integer indicating the maximum number of
-        /// results to be returned, or END_OF_SET (-9999) to indicate that the
-        /// max number of results should be returned.  The number of records
-        /// returned will never exceed the server's own limit, defined by the
-        /// <a href="../../../config/#general"
+        /// results to be returned, or
+        /// END_OF_SET (-9999) to indicate that the maximum number of results
+        /// allowed by the server should be
+        /// returned.  The number of records returned will never exceed the
+        /// server's own limit, defined by the
+        /// <a href="../../../config/#config-main-general"
         /// target="_top">max_get_records_size</a> parameter in the server
-        /// configuration.  Use <paramref
-        /// cref="GetRecordsFromCollectionRequest.offset" /> & <paramref
-        /// cref="GetRecordsFromCollectionRequest.limit" /> to request
-        /// subsequent pages of results.  The default value is -9999.</summary>
+        /// configuration.
+        /// Use <paramref cref="GetRecordsFromCollectionRequest.offset" /> &
+        /// <paramref cref="GetRecordsFromCollectionRequest.limit" /> to
+        /// request subsequent pages of results.  The default value is
+        /// -9999.</summary>
         public long limit { get; set; } = -9999;
 
         /// <summary>Specifies the encoding for returned records; either
@@ -169,6 +182,12 @@ namespace kinetica
         /// The default value is <see
         /// cref="GetRecordsFromCollectionRequest.Options.FALSE">FALSE</see>.</description>
         ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="GetRecordsFromCollectionRequest.Options.EXPRESSION">EXPRESSION</see>:</term>
+        ///         <description>Optional filter expression to apply to the
+        /// table.  The default value is ''.</description>
+        ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.</summary>
         public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
@@ -192,15 +211,18 @@ namespace kinetica
         /// results).  The default value is 0.The minimum allowed value is 0.
         /// The maximum allowed value is MAX_INT. </param>
         /// <param name="limit">A positive integer indicating the maximum
-        /// number of results to be returned, or END_OF_SET (-9999) to indicate
-        /// that the max number of results should be returned.  The number of
-        /// records returned will never exceed the server's own limit, defined
-        /// by the <a href="../../../config/#general"
+        /// number of results to be returned, or
+        /// END_OF_SET (-9999) to indicate that the maximum number of results
+        /// allowed by the server should be
+        /// returned.  The number of records returned will never exceed the
+        /// server's own limit, defined by the
+        /// <a href="../../../config/#config-main-general"
         /// target="_top">max_get_records_size</a> parameter in the server
-        /// configuration.  Use <paramref
-        /// cref="GetRecordsFromCollectionRequest.offset" /> & <paramref
-        /// cref="GetRecordsFromCollectionRequest.limit" /> to request
-        /// subsequent pages of results.  The default value is -9999.</param>
+        /// configuration.
+        /// Use <paramref cref="GetRecordsFromCollectionRequest.offset" /> &
+        /// <paramref cref="GetRecordsFromCollectionRequest.limit" /> to
+        /// request subsequent pages of results.  The default value is
+        /// -9999.</param>
         /// <param name="options">
         /// <list type="bullet">
         ///     <item>
@@ -221,6 +243,12 @@ namespace kinetica
         /// </list>
         /// The default value is <see
         /// cref="GetRecordsFromCollectionRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="GetRecordsFromCollectionRequest.Options.EXPRESSION">EXPRESSION</see>:</term>
+        ///         <description>Optional filter expression to apply to the
+        /// table.  The default value is ''.</description>
         ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.</param>
@@ -252,15 +280,18 @@ namespace kinetica
         /// results).  The default value is 0.The minimum allowed value is 0.
         /// The maximum allowed value is MAX_INT. </param>
         /// <param name="limit">A positive integer indicating the maximum
-        /// number of results to be returned, or END_OF_SET (-9999) to indicate
-        /// that the max number of results should be returned.  The number of
-        /// records returned will never exceed the server's own limit, defined
-        /// by the <a href="../../../config/#general"
+        /// number of results to be returned, or
+        /// END_OF_SET (-9999) to indicate that the maximum number of results
+        /// allowed by the server should be
+        /// returned.  The number of records returned will never exceed the
+        /// server's own limit, defined by the
+        /// <a href="../../../config/#config-main-general"
         /// target="_top">max_get_records_size</a> parameter in the server
-        /// configuration.  Use <paramref
-        /// cref="GetRecordsFromCollectionRequest.offset" /> & <paramref
-        /// cref="GetRecordsFromCollectionRequest.limit" /> to request
-        /// subsequent pages of results.  The default value is -9999.</param>
+        /// configuration.
+        /// Use <paramref cref="GetRecordsFromCollectionRequest.offset" /> &
+        /// <paramref cref="GetRecordsFromCollectionRequest.limit" /> to
+        /// request subsequent pages of results.  The default value is
+        /// -9999.</param>
         /// <param name="encoding">Specifies the encoding for returned records;
         /// either <i>binary</i> or <i>json</i>.
         /// Supported values:
@@ -297,6 +328,12 @@ namespace kinetica
         /// </list>
         /// The default value is <see
         /// cref="GetRecordsFromCollectionRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="GetRecordsFromCollectionRequest.Options.EXPRESSION">EXPRESSION</see>:</term>
+        ///         <description>Optional filter expression to apply to the
+        /// table.  The default value is ''.</description>
         ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.</param>

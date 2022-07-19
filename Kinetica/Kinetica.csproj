@@ -32,10 +32,6 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Newtonsoft.Json, Version=9.0.0.0, Culture=neutral, PublicKeyToken=30ad4fe6b2a6aeed, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\Avro\lib\main\Newtonsoft.Json.dll</HintPath>
-    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xml.Linq" />
@@ -43,6 +39,9 @@
     <Reference Include="Microsoft.CSharp" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />
+    <Reference Include="Newtonsoft.Json">
+      <HintPath>..\packages\Newtonsoft.Json.13.0.1\lib\net45\Newtonsoft.Json.dll</HintPath>
+    </Reference>
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Kinetica.cs" />
@@ -100,6 +99,7 @@
     <Compile Include="Protocol\AlterTable.cs" />
     <Compile Include="Protocol\AlterTableColumns.cs" />
     <Compile Include="Protocol\AlterTableMetadata.cs" />
+    <Compile Include="Protocol\AlterTableMonitor.cs" />
     <Compile Include="Protocol\AlterTier.cs" />
     <Compile Include="Protocol\AlterUser.cs" />
     <Compile Include="Protocol\AlterVideo.cs" />
@@ -153,6 +153,7 @@
     <Compile Include="Protocol\EvaluateModel.cs" />
     <Compile Include="Protocol\ExecuteProc.cs" />
     <Compile Include="Protocol\ExecuteSql.cs" />
+    <Compile Include="Protocol\ExportRecordsToTable.cs" />
     <Compile Include="Protocol\Filter.cs" />
     <Compile Include="Protocol\FilterByArea.cs" />
     <Compile Include="Protocol\FilterByAreaGeometry.cs" />
@@ -191,6 +192,7 @@
     <Compile Include="Protocol\InsertRecords.cs" />
     <Compile Include="Protocol\InsertRecordsFromFiles.cs" />
     <Compile Include="Protocol\InsertRecordsFromPayload.cs" />
+    <Compile Include="Protocol\InsertRecordsFromQuery.cs" />
     <Compile Include="Protocol\InsertRecordsRandom.cs" />
     <Compile Include="Protocol\InsertSymbol.cs" />
     <Compile Include="Protocol\KillProc.cs" />
@@ -244,6 +246,7 @@
     <Compile Include="Protocol\UpdateRecords.cs" />
     <Compile Include="Protocol\UpdateRecordsBySeries.cs" />
     <Compile Include="Protocol\UploadFiles.cs" />
+    <Compile Include="Protocol\UploadFilesFromurl.cs" />
     <Compile Include="Protocol\VisualizeImage.cs" />
     <Compile Include="Protocol\VisualizeImageChart.cs" />
     <Compile Include="Protocol\VisualizeImageClassbreak.cs" />

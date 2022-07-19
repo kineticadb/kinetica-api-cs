@@ -508,6 +508,15 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
+        /// cref="InsertRecordsFromFilesRequest.Options.BAD_RECORD_TABLE_LIMIT_PER_INPUT">BAD_RECORD_TABLE_LIMIT_PER_INPUT</see>:</term>
+        ///         <description>For subscriptions: A positive integer
+        /// indicating the maximum number of records that can be written to the
+        /// bad-record-table per file/payload. Default value will be
+        /// 'bad_record_table_limit' and total size of the table per rank is
+        /// limited to 'bad_record_table_limit'</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="InsertRecordsFromFilesRequest.Options.BATCH_SIZE">BATCH_SIZE</see>:</term>
         ///         <description>Internal tuning parameter--number of records
         /// per batch when inserting data.</description>
@@ -1040,6 +1049,13 @@ namespace kinetica
             /// records that can be  written to the bad-record-table.   Default
             /// value is 10000</summary>
             public const string BAD_RECORD_TABLE_LIMIT = "bad_record_table_limit";
+
+            /// <summary>For subscriptions: A positive integer indicating the
+            /// maximum number of records that can be written to the
+            /// bad-record-table per file/payload. Default value will be
+            /// 'bad_record_table_limit' and total size of the table per rank
+            /// is limited to 'bad_record_table_limit'</summary>
+            public const string BAD_RECORD_TABLE_LIMIT_PER_INPUT = "bad_record_table_limit_per_input";
 
             /// <summary>Internal tuning parameter--number of records per batch
             /// when inserting data.</summary>
@@ -1618,19 +1634,20 @@ namespace kinetica
         /// If an external data source is specified in <i>datasource_name</i>,
         /// these file
         /// paths must resolve to accessible files at that data source
-        /// location. Prefix matching is is supported.
+        /// location. Prefix matching is supported.
         /// If the data source is hdfs, prefixes must be aligned with
-        /// directories, i.e. partial file names will not match.
+        /// directories, i.e. partial file names will
+        /// not match.
         /// <br />
         /// If no data source is specified, the files are assumed to be local
         /// to the database and must all be
         /// accessible to the gpudb user, residing on the path (or relative to
         /// the path) specified by the
         /// external files directory in the Kinetica
-        /// <a href="../../../config/#external-files"
+        /// <a href="../../../config/#config-main-external-files"
         /// target="_top">configuration file</a>. Wildcards (*) can be used to
-        /// specify a group of files.
-        /// Prefix matching is supported, the prefixes must be aligned with
+        /// specify a group of files.  Prefix matching is supported, the
+        /// prefixes must be aligned with
         /// directories.
         /// <br />
         /// If the first path ends in .tsv, the text delimiter will be
@@ -1880,6 +1897,15 @@ namespace kinetica
         ///         <description>A positive integer indicating the maximum
         /// number of records that can be  written to the bad-record-table.
         /// Default value is 10000</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromFilesRequest.Options.BAD_RECORD_TABLE_LIMIT_PER_INPUT">BAD_RECORD_TABLE_LIMIT_PER_INPUT</see>:</term>
+        ///         <description>For subscriptions: A positive integer
+        /// indicating the maximum number of records that can be written to the
+        /// bad-record-table per file/payload. Default value will be
+        /// 'bad_record_table_limit' and total size of the table per rank is
+        /// limited to 'bad_record_table_limit'</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -2431,18 +2457,19 @@ namespace kinetica
         /// If an external data source is specified in <i>datasource_name</i>,
         /// these file
         /// paths must resolve to accessible files at that data source
-        /// location. Prefix matching is is supported.
+        /// location. Prefix matching is supported.
         /// If the data source is hdfs, prefixes must be aligned with
-        /// directories, i.e. partial file names will not match.
+        /// directories, i.e. partial file names will
+        /// not match.
         /// If no data source is specified, the files are assumed to be local
         /// to the database and must all be
         /// accessible to the gpudb user, residing on the path (or relative to
         /// the path) specified by the
         /// external files directory in the Kinetica
-        /// <a href="../../../config/#external-files"
+        /// <a href="../../../config/#config-main-external-files"
         /// target="_top">configuration file</a>. Wildcards (*) can be used to
-        /// specify a group of files.
-        /// Prefix matching is supported, the prefixes must be aligned with
+        /// specify a group of files.  Prefix matching is supported, the
+        /// prefixes must be aligned with
         /// directories.
         /// If the first path ends in .tsv, the text delimiter will be
         /// defaulted to a tab character.
@@ -2686,6 +2713,15 @@ namespace kinetica
         ///         <description>A positive integer indicating the maximum
         /// number of records that can be  written to the bad-record-table.
         /// Default value is 10000</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromFilesRequest.Options.BAD_RECORD_TABLE_LIMIT_PER_INPUT">BAD_RECORD_TABLE_LIMIT_PER_INPUT</see>:</term>
+        ///         <description>For subscriptions: A positive integer
+        /// indicating the maximum number of records that can be written to the
+        /// bad-record-table per file/payload. Default value will be
+        /// 'bad_record_table_limit' and total size of the table per rank is
+        /// limited to 'bad_record_table_limit'</description>
         ///     </item>
         ///     <item>
         ///         <term><see

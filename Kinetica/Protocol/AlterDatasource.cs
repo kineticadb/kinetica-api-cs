@@ -30,7 +30,8 @@ namespace kinetica
         ///         <description>Location of the remote storage in
         /// 'storage_provider_type://[storage_path[:storage_port]]' format.
         /// <br />
-        /// Supported storage provider types are 'hdfs' and 's3'.</description>
+        /// Supported storage provider types are 'azure','gcs','hdfs','kafka'
+        /// and 's3'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -164,6 +165,24 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
+        /// cref="AlterDatasourceRequest.DatasourceUpdatesMap.GCS_BUCKET_NAME">GCS_BUCKET_NAME</see>:</term>
+        ///         <description>Name of the Google Cloud Storage bucket to use
+        /// as the data source</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterDatasourceRequest.DatasourceUpdatesMap.GCS_PROJECT_ID">GCS_PROJECT_ID</see>:</term>
+        ///         <description>Name of the Google Cloud project to use as the
+        /// data source</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterDatasourceRequest.DatasourceUpdatesMap.GCS_SERVICE_ACCOUNT_KEYS">GCS_SERVICE_ACCOUNT_KEYS</see>:</term>
+        ///         <description>Google Cloud service account keys to use for
+        /// authenticating the data source</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="AlterDatasourceRequest.DatasourceUpdatesMap.KAFKA_URL">KAFKA_URL</see>:</term>
         ///         <description>The publicly-accessible full path URL to the
         /// kafka broker, e.g., 'http://172.123.45.67:9300'.</description>
@@ -233,6 +252,15 @@ namespace kinetica
         /// The default value is <see
         /// cref="AlterDatasourceRequest.DatasourceUpdatesMap.TRUE">TRUE</see>.</description>
         ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterDatasourceRequest.DatasourceUpdatesMap.SCHEMA_NAME">SCHEMA_NAME</see>:</term>
+        ///         <description>Updates the schema name.  If
+        /// <i>schema_name</i>
+        /// doesn't exist, an error will be thrown. If <i>schema_name</i> is
+        /// empty, then the user's
+        /// default schema will be used.</description>
+        ///     </item>
         /// </list>
         /// <br />
         /// A set of string constants for the parameter <see
@@ -243,7 +271,8 @@ namespace kinetica
             /// <summary>Location of the remote storage in
             /// 'storage_provider_type://[storage_path[:storage_port]]' format.
             /// <br />
-            /// Supported storage provider types are 'hdfs' and 's3'.</summary>
+            /// Supported storage provider types are
+            /// 'azure','gcs','hdfs','kafka' and 's3'.</summary>
             public const string LOCATION = "location";
 
             /// <summary>Name of the remote system user; may be an empty
@@ -338,6 +367,18 @@ namespace kinetica
             /// container</summary>
             public const string AZURE_OAUTH_TOKEN = "azure_oauth_token";
 
+            /// <summary>Name of the Google Cloud Storage bucket to use as the
+            /// data source</summary>
+            public const string GCS_BUCKET_NAME = "gcs_bucket_name";
+
+            /// <summary>Name of the Google Cloud project to use as the data
+            /// source</summary>
+            public const string GCS_PROJECT_ID = "gcs_project_id";
+
+            /// <summary>Google Cloud service account keys to use for
+            /// authenticating the data source</summary>
+            public const string GCS_SERVICE_ACCOUNT_KEYS = "gcs_service_account_keys";
+
             /// <summary>The publicly-accessible full path URL to the kafka
             /// broker, e.g., 'http://172.123.45.67:9300'.</summary>
             public const string KAFKA_URL = "kafka_url";
@@ -398,6 +439,12 @@ namespace kinetica
             /// The default value is <see
             /// cref="AlterDatasourceRequest.DatasourceUpdatesMap.TRUE">TRUE</see>.</summary>
             public const string USE_HTTPS = "use_https";
+
+            /// <summary>Updates the schema name.  If <i>schema_name</i>
+            /// doesn't exist, an error will be thrown. If <i>schema_name</i>
+            /// is empty, then the user's
+            /// default schema will be used.</summary>
+            public const string SCHEMA_NAME = "schema_name";
         } // end struct DatasourceUpdatesMap
 
 
@@ -414,7 +461,8 @@ namespace kinetica
         ///         <description>Location of the remote storage in
         /// 'storage_provider_type://[storage_path[:storage_port]]' format.
         /// <br />
-        /// Supported storage provider types are 'hdfs' and 's3'.</description>
+        /// Supported storage provider types are 'azure','gcs','hdfs','kafka'
+        /// and 's3'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -548,6 +596,24 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
+        /// cref="AlterDatasourceRequest.DatasourceUpdatesMap.GCS_BUCKET_NAME">GCS_BUCKET_NAME</see>:</term>
+        ///         <description>Name of the Google Cloud Storage bucket to use
+        /// as the data source</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterDatasourceRequest.DatasourceUpdatesMap.GCS_PROJECT_ID">GCS_PROJECT_ID</see>:</term>
+        ///         <description>Name of the Google Cloud project to use as the
+        /// data source</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterDatasourceRequest.DatasourceUpdatesMap.GCS_SERVICE_ACCOUNT_KEYS">GCS_SERVICE_ACCOUNT_KEYS</see>:</term>
+        ///         <description>Google Cloud service account keys to use for
+        /// authenticating the data source</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="AlterDatasourceRequest.DatasourceUpdatesMap.KAFKA_URL">KAFKA_URL</see>:</term>
         ///         <description>The publicly-accessible full path URL to the
         /// kafka broker, e.g., 'http://172.123.45.67:9300'.</description>
@@ -616,6 +682,15 @@ namespace kinetica
         /// </list>
         /// The default value is <see
         /// cref="AlterDatasourceRequest.DatasourceUpdatesMap.TRUE">TRUE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterDatasourceRequest.DatasourceUpdatesMap.SCHEMA_NAME">SCHEMA_NAME</see>:</term>
+        ///         <description>Updates the schema name.  If
+        /// <i>schema_name</i>
+        /// doesn't exist, an error will be thrown. If <i>schema_name</i> is
+        /// empty, then the user's
+        /// default schema will be used.</description>
         ///     </item>
         /// </list>
         ///   </summary>
@@ -642,7 +717,8 @@ namespace kinetica
         /// cref="AlterDatasourceRequest.DatasourceUpdatesMap.LOCATION">LOCATION</see>:</term>
         ///         <description>Location of the remote storage in
         /// 'storage_provider_type://[storage_path[:storage_port]]' format.
-        /// Supported storage provider types are 'hdfs' and 's3'.</description>
+        /// Supported storage provider types are 'azure','gcs','hdfs','kafka'
+        /// and 's3'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -776,6 +852,24 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
+        /// cref="AlterDatasourceRequest.DatasourceUpdatesMap.GCS_BUCKET_NAME">GCS_BUCKET_NAME</see>:</term>
+        ///         <description>Name of the Google Cloud Storage bucket to use
+        /// as the data source</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterDatasourceRequest.DatasourceUpdatesMap.GCS_PROJECT_ID">GCS_PROJECT_ID</see>:</term>
+        ///         <description>Name of the Google Cloud project to use as the
+        /// data source</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterDatasourceRequest.DatasourceUpdatesMap.GCS_SERVICE_ACCOUNT_KEYS">GCS_SERVICE_ACCOUNT_KEYS</see>:</term>
+        ///         <description>Google Cloud service account keys to use for
+        /// authenticating the data source</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="AlterDatasourceRequest.DatasourceUpdatesMap.KAFKA_URL">KAFKA_URL</see>:</term>
         ///         <description>The publicly-accessible full path URL to the
         /// kafka broker, e.g., 'http://172.123.45.67:9300'.</description>
@@ -844,6 +938,15 @@ namespace kinetica
         /// </list>
         /// The default value is <see
         /// cref="AlterDatasourceRequest.DatasourceUpdatesMap.TRUE">TRUE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterDatasourceRequest.DatasourceUpdatesMap.SCHEMA_NAME">SCHEMA_NAME</see>:</term>
+        ///         <description>Updates the schema name.  If
+        /// <i>schema_name</i>
+        /// doesn't exist, an error will be thrown. If <i>schema_name</i> is
+        /// empty, then the user's
+        /// default schema will be used.</description>
         ///     </item>
         /// </list>
         ///   </param>

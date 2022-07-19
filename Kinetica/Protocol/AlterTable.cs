@@ -20,9 +20,9 @@ namespace kinetica
     /// <br />
     /// Manage a table's columns--a column can be added, removed, or have its
     /// <a href="../../../concepts/types/" target="_top">type and
-    /// properties</a> modified, including
-    /// whether it is <a href="../../../concepts/compression/"
-    /// target="_top">compressed</a> or not.
+    /// properties</a> modified, including whether it is
+    /// <a href="../../../concepts/dictionary_encoding/"
+    /// target="_top">dictionary encoded</a> or not.
     /// <br />
     /// External tables cannot be modified except for their refresh method.
     /// <br />
@@ -117,7 +117,7 @@ namespace kinetica
         /// cref="AlterTableRequest.Action.MOVE_TO_SCHEMA">MOVE_TO_SCHEMA</see>:</term>
         ///         <description>Moves a table or view into a schema named
         /// <paramref cref="AlterTableRequest._value" />.  If the schema
-        /// provided is non-existent, an error will be thrown. If <paramref
+        /// provided is nonexistent, an error will be thrown. If <paramref
         /// cref="AlterTableRequest._value" /> is empty, then the table or view
         /// will be placed in the user's default schema.</description>
         ///     </item>
@@ -172,11 +172,8 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="AlterTableRequest.Action.SET_COLUMN_COMPRESSION">SET_COLUMN_COMPRESSION</see>:</term>
-        ///         <description>Modifies the <a
-        /// href="../../../concepts/compression/" target="_top">compression</a>
-        /// setting on the column specified in <paramref
-        /// cref="AlterTableRequest._value" /> to the compression type
-        /// specified in <i>compression_type</i>. </description>
+        ///         <description>No longer supported; action will be
+        /// ignored.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -380,7 +377,7 @@ namespace kinetica
             public const string MOVE_TO_COLLECTION = "move_to_collection";
 
             /// <summary>Moves a table or view into a schema named <see
-            /// cref="_value" />.  If the schema provided is non-existent, an
+            /// cref="_value" />.  If the schema provided is nonexistent, an
             /// error will be thrown. If <see cref="_value" /> is empty, then
             /// the table or view will be placed in the user's default
             /// schema.</summary>
@@ -421,10 +418,7 @@ namespace kinetica
             /// cref="options" /> map.</summary>
             public const string CHANGE_COLUMN = "change_column";
 
-            /// <summary>Modifies the <a href="../../../concepts/compression/"
-            /// target="_top">compression</a> setting on the column specified
-            /// in <see cref="_value" /> to the compression type specified in
-            /// <i>compression_type</i>. </summary>
+            /// <summary>No longer supported; action will be ignored.</summary>
             public const string SET_COLUMN_COMPRESSION = "set_column_compression";
 
             /// <summary>Deletes the column specified in <see cref="_value" />
@@ -593,10 +587,7 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="AlterTableRequest.Options.COMPRESSION_TYPE">COMPRESSION_TYPE</see>:</term>
-        ///         <description>When setting column compression
-        /// (<i>set_column_compression</i> for <paramref
-        /// cref="AlterTableRequest.action" />), compression type to use:
-        /// <i>none</i> (to use no compression) or a valid compression type.
+        ///         <description>No longer supported; option will be ignored.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -720,6 +711,12 @@ namespace kinetica
         /// href="../../../concepts/indexes/#chunk-skip-index"
         /// target="_top">chunk skip index</a>.</description>
         ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterTableRequest.Options.GEOSPATIAL">GEOSPATIAL</see>:</term>
+        ///         <description>Create or delete a geospatial
+        /// index</description>
+        ///     </item>
         /// </list>
         /// The default value is <see
         /// cref="AlterTableRequest.Options.COLUMN">COLUMN</see>.</description>
@@ -749,10 +746,7 @@ namespace kinetica
             /// etc).</summary>
             public const string COLUMN_TYPE = "column_type";
 
-            /// <summary>When setting column compression
-            /// (<i>set_column_compression</i> for <see cref="action" />),
-            /// compression type to use: <i>none</i> (to use no compression) or
-            /// a valid compression type.
+            /// <summary>No longer supported; option will be ignored.
             /// Supported values:
             /// <list type="bullet">
             ///     <item>
@@ -874,6 +868,12 @@ namespace kinetica
             /// href="../../../concepts/indexes/#chunk-skip-index"
             /// target="_top">chunk skip index</a>.</description>
             ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="AlterTableRequest.Options.GEOSPATIAL">GEOSPATIAL</see>:</term>
+            ///         <description>Create or delete a geospatial
+            /// index</description>
+            ///     </item>
             /// </list>
             /// The default value is <see
             /// cref="AlterTableRequest.Options.COLUMN">COLUMN</see>.</summary>
@@ -888,6 +888,9 @@ namespace kinetica
             /// href="../../../concepts/indexes/#chunk-skip-index"
             /// target="_top">chunk skip index</a>.</summary>
             public const string CHUNK_SKIP = "chunk_skip";
+
+            /// <summary>Create or delete a geospatial index</summary>
+            public const string GEOSPATIAL = "geospatial";
         } // end struct Options
 
 
@@ -945,7 +948,7 @@ namespace kinetica
         /// cref="AlterTableRequest.Action.MOVE_TO_SCHEMA">MOVE_TO_SCHEMA</see>:</term>
         ///         <description>Moves a table or view into a schema named
         /// <paramref cref="AlterTableRequest._value" />.  If the schema
-        /// provided is non-existent, an error will be thrown. If <paramref
+        /// provided is nonexistent, an error will be thrown. If <paramref
         /// cref="AlterTableRequest._value" /> is empty, then the table or view
         /// will be placed in the user's default schema.</description>
         ///     </item>
@@ -1000,11 +1003,8 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="AlterTableRequest.Action.SET_COLUMN_COMPRESSION">SET_COLUMN_COMPRESSION</see>:</term>
-        ///         <description>Modifies the <a
-        /// href="../../../concepts/compression/" target="_top">compression</a>
-        /// setting on the column specified in <paramref
-        /// cref="AlterTableRequest._value" /> to the compression type
-        /// specified in <i>compression_type</i>. </description>
+        ///         <description>No longer supported; action will be
+        /// ignored.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -1226,10 +1226,7 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="AlterTableRequest.Options.COMPRESSION_TYPE">COMPRESSION_TYPE</see>:</term>
-        ///         <description>When setting column compression
-        /// (<i>set_column_compression</i> for <paramref
-        /// cref="AlterTableRequest.action" />), compression type to use:
-        /// <i>none</i> (to use no compression) or a valid compression type.
+        ///         <description>No longer supported; option will be ignored.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -1353,6 +1350,12 @@ namespace kinetica
         /// href="../../../concepts/indexes/#chunk-skip-index"
         /// target="_top">chunk skip index</a>.</description>
         ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterTableRequest.Options.GEOSPATIAL">GEOSPATIAL</see>:</term>
+        ///         <description>Create or delete a geospatial
+        /// index</description>
+        ///     </item>
         /// </list>
         /// The default value is <see
         /// cref="AlterTableRequest.Options.COLUMN">COLUMN</see>.</description>
@@ -1421,7 +1424,7 @@ namespace kinetica
         /// cref="AlterTableRequest.Action.MOVE_TO_SCHEMA">MOVE_TO_SCHEMA</see>:</term>
         ///         <description>Moves a table or view into a schema named
         /// <paramref cref="AlterTableRequest._value" />.  If the schema
-        /// provided is non-existent, an error will be thrown. If <paramref
+        /// provided is nonexistent, an error will be thrown. If <paramref
         /// cref="AlterTableRequest._value" /> is empty, then the table or view
         /// will be placed in the user's default schema.</description>
         ///     </item>
@@ -1476,11 +1479,8 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="AlterTableRequest.Action.SET_COLUMN_COMPRESSION">SET_COLUMN_COMPRESSION</see>:</term>
-        ///         <description>Modifies the <a
-        /// href="../../../concepts/compression/" target="_top">compression</a>
-        /// setting on the column specified in <paramref
-        /// cref="AlterTableRequest._value" /> to the compression type
-        /// specified in <i>compression_type</i>. </description>
+        ///         <description>No longer supported; action will be
+        /// ignored.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -1698,10 +1698,7 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="AlterTableRequest.Options.COMPRESSION_TYPE">COMPRESSION_TYPE</see>:</term>
-        ///         <description>When setting column compression
-        /// (<i>set_column_compression</i> for <paramref
-        /// cref="AlterTableRequest.action" />), compression type to use:
-        /// <i>none</i> (to use no compression) or a valid compression type.
+        ///         <description>No longer supported; option will be ignored.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -1824,6 +1821,12 @@ namespace kinetica
         ///         <description>Create or delete a <a
         /// href="../../../concepts/indexes/#chunk-skip-index"
         /// target="_top">chunk skip index</a>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterTableRequest.Options.GEOSPATIAL">GEOSPATIAL</see>:</term>
+        ///         <description>Create or delete a geospatial
+        /// index</description>
         ///     </item>
         /// </list>
         /// The default value is <see
