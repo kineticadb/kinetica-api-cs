@@ -573,14 +573,17 @@ namespace kinetica
         /// with columns in that order.  If
         /// the target table exists, the column names must match the source
         /// data field names for a name-mapping
-        /// to be successful.</description>
+        /// to be successful.
+        /// <br />
+        /// Mutually exclusive with <i>columns_to_skip</i>.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="CreateTableExternalRequest.Options.COLUMNS_TO_SKIP">COLUMNS_TO_SKIP</see>:</term>
         ///         <description>Specifies a comma-delimited list of columns
         /// from the source data to
-        /// skip.  Mutually exclusive to columns_to_load. </description>
+        /// skip.  Mutually exclusive with
+        /// <i>columns_to_load</i>.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -748,6 +751,12 @@ namespace kinetica
         /// </list>
         /// The default value is <see
         /// cref="CreateTableExternalRequest.Options.FULL">FULL</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableExternalRequest.Options.JDBC_FETCH_SIZE">JDBC_FETCH_SIZE</see>:</term>
+        ///         <description>The JDBC fetch size, which determines how many
+        /// rows to fetch per round trip.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -1090,8 +1099,32 @@ namespace kinetica
         ///         <term><see
         /// cref="CreateTableExternalRequest.Options.REMOTE_QUERY_FILTER_COLUMN">REMOTE_QUERY_FILTER_COLUMN</see>:</term>
         ///         <description>Name of column to be used for splitting the
-        /// query into multiple sub-queries.  The default value is
-        /// ''.</description>
+        /// query into multiple sub-queries using the data distribution of
+        /// given column.  The default value is ''.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableExternalRequest.Options.REMOTE_QUERY_PARTITION_COLUMN">REMOTE_QUERY_PARTITION_COLUMN</see>:</term>
+        ///         <description>Alias name for remote_query_filter_column.
+        /// The default value is ''.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableExternalRequest.Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>:</term>
+        ///         <description>
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableExternalRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableExternalRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="CreateTableExternalRequest.Options.FALSE">FALSE</see>.</description>
         ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.
@@ -1168,12 +1201,15 @@ namespace kinetica
             /// created with columns in that order.  If
             /// the target table exists, the column names must match the source
             /// data field names for a name-mapping
-            /// to be successful.</summary>
+            /// to be successful.
+            /// <br />
+            /// Mutually exclusive with <i>columns_to_skip</i>.</summary>
             public const string COLUMNS_TO_LOAD = "columns_to_load";
 
             /// <summary>Specifies a comma-delimited list of columns from the
             /// source data to
-            /// skip.  Mutually exclusive to columns_to_load. </summary>
+            /// skip.  Mutually exclusive with
+            /// <i>columns_to_load</i>.</summary>
             public const string COLUMNS_TO_SKIP = "columns_to_skip";
 
             /// <summary>Name of an existing external data source from which
@@ -1382,6 +1418,10 @@ namespace kinetica
             /// ingesting any data.  The inferred type is returned in the
             /// response.</summary>
             public const string TYPE_INFERENCE_ONLY = "type_inference_only";
+
+            /// <summary>The JDBC fetch size, which determines how many rows to
+            /// fetch per round trip.</summary>
+            public const string JDBC_FETCH_SIZE = "jdbc_fetch_size";
 
             /// <summary>The group id to be used consuming data from a kakfa
             /// topic (valid only for kafka datasource
@@ -1742,8 +1782,29 @@ namespace kinetica
             public const string REMOTE_QUERY = "remote_query";
 
             /// <summary>Name of column to be used for splitting the query into
-            /// multiple sub-queries.  The default value is ''.</summary>
+            /// multiple sub-queries using the data distribution of given
+            /// column.  The default value is ''.</summary>
             public const string REMOTE_QUERY_FILTER_COLUMN = "remote_query_filter_column";
+
+            /// <summary>Alias name for remote_query_filter_column.  The
+            /// default value is ''.</summary>
+            public const string REMOTE_QUERY_PARTITION_COLUMN = "remote_query_partition_column";
+
+            /// <summary>
+            /// Supported values:
+            /// <list type="bullet">
+            ///     <item>
+            ///         <term><see
+            /// cref="CreateTableExternalRequest.Options.TRUE">TRUE</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="CreateTableExternalRequest.Options.FALSE">FALSE</see></term>
+            ///     </item>
+            /// </list>
+            /// The default value is <see
+            /// cref="CreateTableExternalRequest.Options.FALSE">FALSE</see>.</summary>
+            public const string UPDATE_ON_EXISTING_PK = "update_on_existing_pk";
         } // end struct Options
 
 
@@ -2103,14 +2164,17 @@ namespace kinetica
         /// with columns in that order.  If
         /// the target table exists, the column names must match the source
         /// data field names for a name-mapping
-        /// to be successful.</description>
+        /// to be successful.
+        /// <br />
+        /// Mutually exclusive with <i>columns_to_skip</i>.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="CreateTableExternalRequest.Options.COLUMNS_TO_SKIP">COLUMNS_TO_SKIP</see>:</term>
         ///         <description>Specifies a comma-delimited list of columns
         /// from the source data to
-        /// skip.  Mutually exclusive to columns_to_load. </description>
+        /// skip.  Mutually exclusive with
+        /// <i>columns_to_load</i>.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -2278,6 +2342,12 @@ namespace kinetica
         /// </list>
         /// The default value is <see
         /// cref="CreateTableExternalRequest.Options.FULL">FULL</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableExternalRequest.Options.JDBC_FETCH_SIZE">JDBC_FETCH_SIZE</see>:</term>
+        ///         <description>The JDBC fetch size, which determines how many
+        /// rows to fetch per round trip.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -2620,8 +2690,32 @@ namespace kinetica
         ///         <term><see
         /// cref="CreateTableExternalRequest.Options.REMOTE_QUERY_FILTER_COLUMN">REMOTE_QUERY_FILTER_COLUMN</see>:</term>
         ///         <description>Name of column to be used for splitting the
-        /// query into multiple sub-queries.  The default value is
-        /// ''.</description>
+        /// query into multiple sub-queries using the data distribution of
+        /// given column.  The default value is ''.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableExternalRequest.Options.REMOTE_QUERY_PARTITION_COLUMN">REMOTE_QUERY_PARTITION_COLUMN</see>:</term>
+        ///         <description>Alias name for remote_query_filter_column.
+        /// The default value is ''.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableExternalRequest.Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>:</term>
+        ///         <description>
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableExternalRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableExternalRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="CreateTableExternalRequest.Options.FALSE">FALSE</see>.</description>
         ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.</summary>
@@ -2977,14 +3071,16 @@ namespace kinetica
         /// with columns in that order.  If
         /// the target table exists, the column names must match the source
         /// data field names for a name-mapping
-        /// to be successful.</description>
+        /// to be successful.
+        /// Mutually exclusive with <i>columns_to_skip</i>.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="CreateTableExternalRequest.Options.COLUMNS_TO_SKIP">COLUMNS_TO_SKIP</see>:</term>
         ///         <description>Specifies a comma-delimited list of columns
         /// from the source data to
-        /// skip.  Mutually exclusive to columns_to_load. </description>
+        /// skip.  Mutually exclusive with
+        /// <i>columns_to_load</i>.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -3150,6 +3246,12 @@ namespace kinetica
         /// </list>
         /// The default value is <see
         /// cref="CreateTableExternalRequest.Options.FULL">FULL</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableExternalRequest.Options.JDBC_FETCH_SIZE">JDBC_FETCH_SIZE</see>:</term>
+        ///         <description>The JDBC fetch size, which determines how many
+        /// rows to fetch per round trip.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -3478,8 +3580,32 @@ namespace kinetica
         ///         <term><see
         /// cref="CreateTableExternalRequest.Options.REMOTE_QUERY_FILTER_COLUMN">REMOTE_QUERY_FILTER_COLUMN</see>:</term>
         ///         <description>Name of column to be used for splitting the
-        /// query into multiple sub-queries.  The default value is
-        /// ''.</description>
+        /// query into multiple sub-queries using the data distribution of
+        /// given column.  The default value is ''.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableExternalRequest.Options.REMOTE_QUERY_PARTITION_COLUMN">REMOTE_QUERY_PARTITION_COLUMN</see>:</term>
+        ///         <description>Alias name for remote_query_filter_column.
+        /// The default value is ''.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableExternalRequest.Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>:</term>
+        ///         <description>
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableExternalRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableExternalRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="CreateTableExternalRequest.Options.FALSE">FALSE</see>.</description>
         ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.</param>

@@ -245,6 +245,31 @@ namespace kinetica
         /// timeout if datasource has no records.  The default value is
         /// '5'.</description>
         ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.EGRESS_SINGLE_FILE_MAX_SIZE">EGRESS_SINGLE_FILE_MAX_SIZE</see>:</term>
+        ///         <description>Max file size (in MB) to allow saving to a
+        /// single file. May be overridden by target limitations.  The default
+        /// value is '100'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.MAX_CONCURRENT_KERNELS">MAX_CONCURRENT_KERNELS</see>:</term>
+        ///         <description>Sets the max_concurrent_kernels value of the
+        /// conf.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.TCS_PER_TOM">TCS_PER_TOM</see>:</term>
+        ///         <description>Sets the tcs_per_tom value of the
+        /// conf.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.TPS_PER_TOM">TPS_PER_TOM</see>:</term>
+        ///         <description>Sets the tps_per_tom value of the
+        /// conf.</description>
+        ///     </item>
         /// </list>
         /// <br />
         /// A set of string constants for the parameter <see
@@ -417,6 +442,21 @@ namespace kinetica
             /// if datasource has no records.  The default value is
             /// '5'.</summary>
             public const string KAFKA_TIMEOUT = "kafka_timeout";
+
+            /// <summary>Max file size (in MB) to allow saving to a single
+            /// file. May be overridden by target limitations.  The default
+            /// value is '100'.</summary>
+            public const string EGRESS_SINGLE_FILE_MAX_SIZE = "egress_single_file_max_size";
+
+            /// <summary>Sets the max_concurrent_kernels value of the
+            /// conf.</summary>
+            public const string MAX_CONCURRENT_KERNELS = "max_concurrent_kernels";
+
+            /// <summary>Sets the tcs_per_tom value of the conf.</summary>
+            public const string TCS_PER_TOM = "tcs_per_tom";
+
+            /// <summary>Sets the tps_per_tom value of the conf.</summary>
+            public const string TPS_PER_TOM = "tps_per_tom";
         } // end struct PropertyUpdatesMap
 
 
@@ -693,6 +733,31 @@ namespace kinetica
         /// timeout if datasource has no records.  The default value is
         /// '5'.</description>
         ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.EGRESS_SINGLE_FILE_MAX_SIZE">EGRESS_SINGLE_FILE_MAX_SIZE</see>:</term>
+        ///         <description>Max file size (in MB) to allow saving to a
+        /// single file. May be overridden by target limitations.  The default
+        /// value is '100'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.MAX_CONCURRENT_KERNELS">MAX_CONCURRENT_KERNELS</see>:</term>
+        ///         <description>Sets the max_concurrent_kernels value of the
+        /// conf.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.TCS_PER_TOM">TCS_PER_TOM</see>:</term>
+        ///         <description>Sets the tcs_per_tom value of the
+        /// conf.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.TPS_PER_TOM">TPS_PER_TOM</see>:</term>
+        ///         <description>Sets the tps_per_tom value of the
+        /// conf.</description>
+        ///     </item>
         /// </list>
         ///   </summary>
         public IDictionary<string, string> property_updates_map { get; set; } = new Dictionary<string, string>();
@@ -951,6 +1016,31 @@ namespace kinetica
         ///         <description>Number of seconds after which kakfa poll will
         /// timeout if datasource has no records.  The default value is
         /// '5'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.EGRESS_SINGLE_FILE_MAX_SIZE">EGRESS_SINGLE_FILE_MAX_SIZE</see>:</term>
+        ///         <description>Max file size (in MB) to allow saving to a
+        /// single file. May be overridden by target limitations.  The default
+        /// value is '100'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.MAX_CONCURRENT_KERNELS">MAX_CONCURRENT_KERNELS</see>:</term>
+        ///         <description>Sets the max_concurrent_kernels value of the
+        /// conf.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.TCS_PER_TOM">TCS_PER_TOM</see>:</term>
+        ///         <description>Sets the tcs_per_tom value of the
+        /// conf.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.TPS_PER_TOM">TPS_PER_TOM</see>:</term>
+        ///         <description>Sets the tps_per_tom value of the
+        /// conf.</description>
         ///     </item>
         /// </list>
         ///   </param>

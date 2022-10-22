@@ -54,9 +54,173 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
+        /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.S3_BUCKET_NAME">S3_BUCKET_NAME</see>:</term>
+        ///         <description>Name of the Amazon S3 bucket to use as the
+        /// data sink</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.S3_REGION">S3_REGION</see>:</term>
+        ///         <description>Name of the Amazon S3 region where the given
+        /// bucket is located</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.S3_AWS_ROLE_ARN">S3_AWS_ROLE_ARN</see>:</term>
+        ///         <description>Amazon IAM Role ARN which has required S3
+        /// permissions that can be assumed for the given S3 IAM
+        /// user</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.HDFS_KERBEROS_KEYTAB">HDFS_KERBEROS_KEYTAB</see>:</term>
+        ///         <description>Kerberos keytab file location for the given
+        /// HDFS user.  This may be a KIFS file.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.HDFS_DELEGATION_TOKEN">HDFS_DELEGATION_TOKEN</see>:</term>
+        ///         <description>Delegation token for the given HDFS
+        /// user</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.HDFS_USE_KERBEROS">HDFS_USE_KERBEROS</see>:</term>
+        ///         <description>Use kerberos authentication for the given HDFS
+        /// cluster
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.AZURE_STORAGE_ACCOUNT_NAME">AZURE_STORAGE_ACCOUNT_NAME</see>:</term>
+        ///         <description>Name of the Azure storage account to use as
+        /// the data sink, this is valid only if tenant_id is
+        /// specified</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.AZURE_CONTAINER_NAME">AZURE_CONTAINER_NAME</see>:</term>
+        ///         <description>Name of the Azure storage container to use as
+        /// the data sink</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.AZURE_TENANT_ID">AZURE_TENANT_ID</see>:</term>
+        ///         <description>Active Directory tenant ID (or directory
+        /// ID)</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.AZURE_SAS_TOKEN">AZURE_SAS_TOKEN</see>:</term>
+        ///         <description>Shared access signature token for Azure
+        /// storage account to use as the data sink</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.AZURE_OAUTH_TOKEN">AZURE_OAUTH_TOKEN</see>:</term>
+        ///         <description>Oauth token to access given storage
+        /// container</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.GCS_BUCKET_NAME">GCS_BUCKET_NAME</see>:</term>
+        ///         <description>Name of the Google Cloud Storage bucket to use
+        /// as the data sink</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.GCS_PROJECT_ID">GCS_PROJECT_ID</see>:</term>
+        ///         <description>Name of the Google Cloud project to use as the
+        /// data sink</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.GCS_SERVICE_ACCOUNT_KEYS">GCS_SERVICE_ACCOUNT_KEYS</see>:</term>
+        ///         <description>Google Cloud service account keys to use for
+        /// authenticating the data sink</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.KAFKA_URL">KAFKA_URL</see>:</term>
+        ///         <description>The publicly-accessible full path URL to the
+        /// kafka broker, e.g., 'http://172.123.45.67:9300'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.KAFKA_TOPIC_NAME">KAFKA_TOPIC_NAME</see>:</term>
         ///         <description>Name of the Kafka topic to use for this data
         /// sink, if it references a Kafka broker</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.ANONYMOUS">ANONYMOUS</see>:</term>
+        ///         <description>Create an anonymous connection to the storage
+        /// provider--DEPRECATED: this is now the default.  Specify
+        /// use_managed_credentials for non-anonymous connection
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.TRUE">TRUE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.USE_MANAGED_CREDENTIALS">USE_MANAGED_CREDENTIALS</see>:</term>
+        ///         <description>When no credentials are supplied, we use
+        /// anonymous access by default.  If this is set, we will use cloud
+        /// provider user settings.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.USE_HTTPS">USE_HTTPS</see>:</term>
+        ///         <description>Use https to connect to datasink if true,
+        /// otherwise use http
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.TRUE">TRUE</see>.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -147,9 +311,134 @@ namespace kinetica
             /// sink</summary>
             public const string CREDENTIAL = "credential";
 
+            /// <summary>Name of the Amazon S3 bucket to use as the data
+            /// sink</summary>
+            public const string S3_BUCKET_NAME = "s3_bucket_name";
+
+            /// <summary>Name of the Amazon S3 region where the given bucket is
+            /// located</summary>
+            public const string S3_REGION = "s3_region";
+
+            /// <summary>Amazon IAM Role ARN which has required S3 permissions
+            /// that can be assumed for the given S3 IAM user</summary>
+            public const string S3_AWS_ROLE_ARN = "s3_aws_role_arn";
+
+            /// <summary>Kerberos keytab file location for the given HDFS user.
+            /// This may be a KIFS file.</summary>
+            public const string HDFS_KERBEROS_KEYTAB = "hdfs_kerberos_keytab";
+
+            /// <summary>Delegation token for the given HDFS user</summary>
+            public const string HDFS_DELEGATION_TOKEN = "hdfs_delegation_token";
+
+            /// <summary>Use kerberos authentication for the given HDFS cluster
+            /// Supported values:
+            /// <list type="bullet">
+            ///     <item>
+            ///         <term><see
+            /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.TRUE">TRUE</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.FALSE">FALSE</see></term>
+            ///     </item>
+            /// </list>
+            /// The default value is <see
+            /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.FALSE">FALSE</see>.</summary>
+            public const string HDFS_USE_KERBEROS = "hdfs_use_kerberos";
+            public const string TRUE = "true";
+            public const string FALSE = "false";
+
+            /// <summary>Name of the Azure storage account to use as the data
+            /// sink, this is valid only if tenant_id is specified</summary>
+            public const string AZURE_STORAGE_ACCOUNT_NAME = "azure_storage_account_name";
+
+            /// <summary>Name of the Azure storage container to use as the data
+            /// sink</summary>
+            public const string AZURE_CONTAINER_NAME = "azure_container_name";
+
+            /// <summary>Active Directory tenant ID (or directory ID)</summary>
+            public const string AZURE_TENANT_ID = "azure_tenant_id";
+
+            /// <summary>Shared access signature token for Azure storage
+            /// account to use as the data sink</summary>
+            public const string AZURE_SAS_TOKEN = "azure_sas_token";
+
+            /// <summary>Oauth token to access given storage
+            /// container</summary>
+            public const string AZURE_OAUTH_TOKEN = "azure_oauth_token";
+
+            /// <summary>Name of the Google Cloud Storage bucket to use as the
+            /// data sink</summary>
+            public const string GCS_BUCKET_NAME = "gcs_bucket_name";
+
+            /// <summary>Name of the Google Cloud project to use as the data
+            /// sink</summary>
+            public const string GCS_PROJECT_ID = "gcs_project_id";
+
+            /// <summary>Google Cloud service account keys to use for
+            /// authenticating the data sink</summary>
+            public const string GCS_SERVICE_ACCOUNT_KEYS = "gcs_service_account_keys";
+
+            /// <summary>The publicly-accessible full path URL to the kafka
+            /// broker, e.g., 'http://172.123.45.67:9300'.</summary>
+            public const string KAFKA_URL = "kafka_url";
+
             /// <summary>Name of the Kafka topic to use for this data sink, if
             /// it references a Kafka broker</summary>
             public const string KAFKA_TOPIC_NAME = "kafka_topic_name";
+
+            /// <summary>Create an anonymous connection to the storage
+            /// provider--DEPRECATED: this is now the default.  Specify
+            /// use_managed_credentials for non-anonymous connection
+            /// Supported values:
+            /// <list type="bullet">
+            ///     <item>
+            ///         <term><see
+            /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.TRUE">TRUE</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.FALSE">FALSE</see></term>
+            ///     </item>
+            /// </list>
+            /// The default value is <see
+            /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.TRUE">TRUE</see>.</summary>
+            public const string ANONYMOUS = "anonymous";
+
+            /// <summary>When no credentials are supplied, we use anonymous
+            /// access by default.  If this is set, we will use cloud provider
+            /// user settings.
+            /// Supported values:
+            /// <list type="bullet">
+            ///     <item>
+            ///         <term><see
+            /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.TRUE">TRUE</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.FALSE">FALSE</see></term>
+            ///     </item>
+            /// </list>
+            /// The default value is <see
+            /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.FALSE">FALSE</see>.</summary>
+            public const string USE_MANAGED_CREDENTIALS = "use_managed_credentials";
+
+            /// <summary>Use https to connect to datasink if true, otherwise
+            /// use http
+            /// Supported values:
+            /// <list type="bullet">
+            ///     <item>
+            ///         <term><see
+            /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.TRUE">TRUE</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.FALSE">FALSE</see></term>
+            ///     </item>
+            /// </list>
+            /// The default value is <see
+            /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.TRUE">TRUE</see>.</summary>
+            public const string USE_HTTPS = "use_https";
 
             /// <summary>Maximum number of records per notification message.
             /// The default value is '1'.</summary>
@@ -196,8 +485,6 @@ namespace kinetica
             /// The default value is <see
             /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.FALSE">FALSE</see>.</summary>
             public const string SKIP_VALIDATION = "skip_validation";
-            public const string TRUE = "true";
-            public const string FALSE = "false";
 
             /// <summary>Updates the schema name.  If <i>schema_name</i>
             /// doesn't exist, an error will be thrown. If <i>schema_name</i>
@@ -244,9 +531,173 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
+        /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.S3_BUCKET_NAME">S3_BUCKET_NAME</see>:</term>
+        ///         <description>Name of the Amazon S3 bucket to use as the
+        /// data sink</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.S3_REGION">S3_REGION</see>:</term>
+        ///         <description>Name of the Amazon S3 region where the given
+        /// bucket is located</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.S3_AWS_ROLE_ARN">S3_AWS_ROLE_ARN</see>:</term>
+        ///         <description>Amazon IAM Role ARN which has required S3
+        /// permissions that can be assumed for the given S3 IAM
+        /// user</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.HDFS_KERBEROS_KEYTAB">HDFS_KERBEROS_KEYTAB</see>:</term>
+        ///         <description>Kerberos keytab file location for the given
+        /// HDFS user.  This may be a KIFS file.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.HDFS_DELEGATION_TOKEN">HDFS_DELEGATION_TOKEN</see>:</term>
+        ///         <description>Delegation token for the given HDFS
+        /// user</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.HDFS_USE_KERBEROS">HDFS_USE_KERBEROS</see>:</term>
+        ///         <description>Use kerberos authentication for the given HDFS
+        /// cluster
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.AZURE_STORAGE_ACCOUNT_NAME">AZURE_STORAGE_ACCOUNT_NAME</see>:</term>
+        ///         <description>Name of the Azure storage account to use as
+        /// the data sink, this is valid only if tenant_id is
+        /// specified</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.AZURE_CONTAINER_NAME">AZURE_CONTAINER_NAME</see>:</term>
+        ///         <description>Name of the Azure storage container to use as
+        /// the data sink</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.AZURE_TENANT_ID">AZURE_TENANT_ID</see>:</term>
+        ///         <description>Active Directory tenant ID (or directory
+        /// ID)</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.AZURE_SAS_TOKEN">AZURE_SAS_TOKEN</see>:</term>
+        ///         <description>Shared access signature token for Azure
+        /// storage account to use as the data sink</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.AZURE_OAUTH_TOKEN">AZURE_OAUTH_TOKEN</see>:</term>
+        ///         <description>Oauth token to access given storage
+        /// container</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.GCS_BUCKET_NAME">GCS_BUCKET_NAME</see>:</term>
+        ///         <description>Name of the Google Cloud Storage bucket to use
+        /// as the data sink</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.GCS_PROJECT_ID">GCS_PROJECT_ID</see>:</term>
+        ///         <description>Name of the Google Cloud project to use as the
+        /// data sink</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.GCS_SERVICE_ACCOUNT_KEYS">GCS_SERVICE_ACCOUNT_KEYS</see>:</term>
+        ///         <description>Google Cloud service account keys to use for
+        /// authenticating the data sink</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.KAFKA_URL">KAFKA_URL</see>:</term>
+        ///         <description>The publicly-accessible full path URL to the
+        /// kafka broker, e.g., 'http://172.123.45.67:9300'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.KAFKA_TOPIC_NAME">KAFKA_TOPIC_NAME</see>:</term>
         ///         <description>Name of the Kafka topic to use for this data
         /// sink, if it references a Kafka broker</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.ANONYMOUS">ANONYMOUS</see>:</term>
+        ///         <description>Create an anonymous connection to the storage
+        /// provider--DEPRECATED: this is now the default.  Specify
+        /// use_managed_credentials for non-anonymous connection
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.TRUE">TRUE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.USE_MANAGED_CREDENTIALS">USE_MANAGED_CREDENTIALS</see>:</term>
+        ///         <description>When no credentials are supplied, we use
+        /// anonymous access by default.  If this is set, we will use cloud
+        /// provider user settings.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.USE_HTTPS">USE_HTTPS</see>:</term>
+        ///         <description>Use https to connect to datasink if true,
+        /// otherwise use http
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.TRUE">TRUE</see>.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -359,9 +810,173 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
+        /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.S3_BUCKET_NAME">S3_BUCKET_NAME</see>:</term>
+        ///         <description>Name of the Amazon S3 bucket to use as the
+        /// data sink</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.S3_REGION">S3_REGION</see>:</term>
+        ///         <description>Name of the Amazon S3 region where the given
+        /// bucket is located</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.S3_AWS_ROLE_ARN">S3_AWS_ROLE_ARN</see>:</term>
+        ///         <description>Amazon IAM Role ARN which has required S3
+        /// permissions that can be assumed for the given S3 IAM
+        /// user</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.HDFS_KERBEROS_KEYTAB">HDFS_KERBEROS_KEYTAB</see>:</term>
+        ///         <description>Kerberos keytab file location for the given
+        /// HDFS user.  This may be a KIFS file.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.HDFS_DELEGATION_TOKEN">HDFS_DELEGATION_TOKEN</see>:</term>
+        ///         <description>Delegation token for the given HDFS
+        /// user</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.HDFS_USE_KERBEROS">HDFS_USE_KERBEROS</see>:</term>
+        ///         <description>Use kerberos authentication for the given HDFS
+        /// cluster
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.AZURE_STORAGE_ACCOUNT_NAME">AZURE_STORAGE_ACCOUNT_NAME</see>:</term>
+        ///         <description>Name of the Azure storage account to use as
+        /// the data sink, this is valid only if tenant_id is
+        /// specified</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.AZURE_CONTAINER_NAME">AZURE_CONTAINER_NAME</see>:</term>
+        ///         <description>Name of the Azure storage container to use as
+        /// the data sink</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.AZURE_TENANT_ID">AZURE_TENANT_ID</see>:</term>
+        ///         <description>Active Directory tenant ID (or directory
+        /// ID)</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.AZURE_SAS_TOKEN">AZURE_SAS_TOKEN</see>:</term>
+        ///         <description>Shared access signature token for Azure
+        /// storage account to use as the data sink</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.AZURE_OAUTH_TOKEN">AZURE_OAUTH_TOKEN</see>:</term>
+        ///         <description>Oauth token to access given storage
+        /// container</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.GCS_BUCKET_NAME">GCS_BUCKET_NAME</see>:</term>
+        ///         <description>Name of the Google Cloud Storage bucket to use
+        /// as the data sink</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.GCS_PROJECT_ID">GCS_PROJECT_ID</see>:</term>
+        ///         <description>Name of the Google Cloud project to use as the
+        /// data sink</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.GCS_SERVICE_ACCOUNT_KEYS">GCS_SERVICE_ACCOUNT_KEYS</see>:</term>
+        ///         <description>Google Cloud service account keys to use for
+        /// authenticating the data sink</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.KAFKA_URL">KAFKA_URL</see>:</term>
+        ///         <description>The publicly-accessible full path URL to the
+        /// kafka broker, e.g., 'http://172.123.45.67:9300'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.KAFKA_TOPIC_NAME">KAFKA_TOPIC_NAME</see>:</term>
         ///         <description>Name of the Kafka topic to use for this data
         /// sink, if it references a Kafka broker</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.ANONYMOUS">ANONYMOUS</see>:</term>
+        ///         <description>Create an anonymous connection to the storage
+        /// provider--DEPRECATED: this is now the default.  Specify
+        /// use_managed_credentials for non-anonymous connection
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.TRUE">TRUE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.USE_MANAGED_CREDENTIALS">USE_MANAGED_CREDENTIALS</see>:</term>
+        ///         <description>When no credentials are supplied, we use
+        /// anonymous access by default.  If this is set, we will use cloud
+        /// provider user settings.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.USE_HTTPS">USE_HTTPS</see>:</term>
+        ///         <description>Use https to connect to datasink if true,
+        /// otherwise use http
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.TRUE">TRUE</see>.</description>
         ///     </item>
         ///     <item>
         ///         <term><see

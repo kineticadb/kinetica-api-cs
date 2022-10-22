@@ -139,6 +139,11 @@ namespace kinetica
 
         /// <summary>This property provides optimized memory and query
         /// performance for int columns. Ints with this property must be
+        /// between 0 and 1(inclusive)</summary>
+        public const string BOOLEAN = "boolean";
+
+        /// <summary>This property provides optimized memory and query
+        /// performance for int columns. Ints with this property must be
         /// between -128 and +127 (inclusive)</summary>
         public const string INT8 = "int8";
 

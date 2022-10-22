@@ -572,14 +572,17 @@ namespace kinetica
         /// with columns in that order.  If
         /// the target table exists, the column names must match the source
         /// data field names for a name-mapping
-        /// to be successful.</description>
+        /// to be successful.
+        /// <br />
+        /// Mutually exclusive with <i>columns_to_skip</i>.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="InsertRecordsFromFilesRequest.Options.COLUMNS_TO_SKIP">COLUMNS_TO_SKIP</see>:</term>
         ///         <description>Specifies a comma-delimited list of columns
         /// from the source data to
-        /// skip.  Mutually exclusive to columns_to_load. </description>
+        /// skip.  Mutually exclusive with
+        /// <i>columns_to_load</i>.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -1031,6 +1034,24 @@ namespace kinetica
         /// The default value is <see
         /// cref="InsertRecordsFromFilesRequest.Options.SPEED">SPEED</see>.</description>
         ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromFilesRequest.Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>:</term>
+        ///         <description>
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromFilesRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromFilesRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="InsertRecordsFromFilesRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.
         /// A set of string constants for the parameter <see cref="options"
@@ -1107,12 +1128,15 @@ namespace kinetica
             /// created with columns in that order.  If
             /// the target table exists, the column names must match the source
             /// data field names for a name-mapping
-            /// to be successful.</summary>
+            /// to be successful.
+            /// <br />
+            /// Mutually exclusive with <i>columns_to_skip</i>.</summary>
             public const string COLUMNS_TO_LOAD = "columns_to_load";
 
             /// <summary>Specifies a comma-delimited list of columns from the
             /// source data to
-            /// skip.  Mutually exclusive to columns_to_load. </summary>
+            /// skip.  Mutually exclusive with
+            /// <i>columns_to_load</i>.</summary>
             public const string COLUMNS_TO_SKIP = "columns_to_skip";
 
             /// <summary>Name of an existing external data source from which
@@ -1607,6 +1631,22 @@ namespace kinetica
             /// <summary>picks the widest possible column types so that 'all'
             /// values will fit with minimum data scanned</summary>
             public const string SPEED = "speed";
+
+            /// <summary>
+            /// Supported values:
+            /// <list type="bullet">
+            ///     <item>
+            ///         <term><see
+            /// cref="InsertRecordsFromFilesRequest.Options.TRUE">TRUE</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="InsertRecordsFromFilesRequest.Options.FALSE">FALSE</see></term>
+            ///     </item>
+            /// </list>
+            /// The default value is <see
+            /// cref="InsertRecordsFromFilesRequest.Options.FALSE">FALSE</see>.</summary>
+            public const string UPDATE_ON_EXISTING_PK = "update_on_existing_pk";
         } // end struct Options
 
 
@@ -1964,14 +2004,17 @@ namespace kinetica
         /// with columns in that order.  If
         /// the target table exists, the column names must match the source
         /// data field names for a name-mapping
-        /// to be successful.</description>
+        /// to be successful.
+        /// <br />
+        /// Mutually exclusive with <i>columns_to_skip</i>.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="InsertRecordsFromFilesRequest.Options.COLUMNS_TO_SKIP">COLUMNS_TO_SKIP</see>:</term>
         ///         <description>Specifies a comma-delimited list of columns
         /// from the source data to
-        /// skip.  Mutually exclusive to columns_to_load. </description>
+        /// skip.  Mutually exclusive with
+        /// <i>columns_to_load</i>.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -2422,6 +2465,24 @@ namespace kinetica
         /// </list>
         /// The default value is <see
         /// cref="InsertRecordsFromFilesRequest.Options.SPEED">SPEED</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromFilesRequest.Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>:</term>
+        ///         <description>
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromFilesRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromFilesRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="InsertRecordsFromFilesRequest.Options.FALSE">FALSE</see>.</description>
         ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.</summary>
@@ -2777,14 +2838,16 @@ namespace kinetica
         /// with columns in that order.  If
         /// the target table exists, the column names must match the source
         /// data field names for a name-mapping
-        /// to be successful.</description>
+        /// to be successful.
+        /// Mutually exclusive with <i>columns_to_skip</i>.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="InsertRecordsFromFilesRequest.Options.COLUMNS_TO_SKIP">COLUMNS_TO_SKIP</see>:</term>
         ///         <description>Specifies a comma-delimited list of columns
         /// from the source data to
-        /// skip.  Mutually exclusive to columns_to_load. </description>
+        /// skip.  Mutually exclusive with
+        /// <i>columns_to_load</i>.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -3219,6 +3282,24 @@ namespace kinetica
         /// </list>
         /// The default value is <see
         /// cref="InsertRecordsFromFilesRequest.Options.SPEED">SPEED</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromFilesRequest.Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>:</term>
+        ///         <description>
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromFilesRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromFilesRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="InsertRecordsFromFilesRequest.Options.FALSE">FALSE</see>.</description>
         ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.</param>

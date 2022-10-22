@@ -220,6 +220,14 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
+        /// cref="MatchGraphRequest.Options.MAX_SUPPLY_COMBINATIONS">MAX_SUPPLY_COMBINATIONS</see>:</term>
+        ///         <description>For the <i>match_supply_demand</i> solver
+        /// only. This is the cutoff for the number of generated combinations
+        /// for sequencing the supply locations if/when 'permute_supplies' is
+        /// true.  The default value is '10000'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="MatchGraphRequest.Options.LEFT_TURN_PENALTY">LEFT_TURN_PENALTY</see>:</term>
         ///         <description>This will add an additonal weight over the
         /// edges labelled as 'left turn' if the 'add_turn' option parameter of
@@ -368,6 +376,70 @@ namespace kinetica
         /// is unlimited. If 'enable_truck_reuse' is on, this condition will be
         /// applied separately at each round trip use of the same truck.  The
         /// default value is '0'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="MatchGraphRequest.Options.TRUCK_SERVICE_RADIUS">TRUCK_SERVICE_RADIUS</see>:</term>
+        ///         <description>For the <i>match_supply_demand</i> solver
+        /// only. If specified (greater than zero), it filters the demands
+        /// outside this radius centered around the truck's originating
+        /// location (distance or time).  The default value is
+        /// '0.0'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="MatchGraphRequest.Options.BATCH_TSM_MODE">BATCH_TSM_MODE</see>:</term>
+        ///         <description>For the <i>match_supply_demand</i> solver
+        /// only. When enabled, it sets the number of visits on each demand
+        /// location by a single salesman at each trip is considered to be
+        /// (one) 1, otherwise there is no bound.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="MatchGraphRequest.Options.TRUE">TRUE</see>:</term>
+        ///         <description>Sets only one visit per demand location by a
+        /// salesman (tsm mode)</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="MatchGraphRequest.Options.FALSE">FALSE</see>:</term>
+        ///         <description>No preset limit (usual msdo
+        /// mode)</description>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="MatchGraphRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="MatchGraphRequest.Options.RESTRICTED_TRUCK_TYPE">RESTRICTED_TRUCK_TYPE</see>:</term>
+        ///         <description>For the <i>match_supply_demand</i> solver
+        /// only. Optimization is performed by restricting routes labeled by
+        /// 'MSDO_ODDEVEN_RESTRICTED' only for this truck type
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="MatchGraphRequest.Options.ODD">ODD</see>:</term>
+        ///         <description>Applies odd/even rule restrictions to odd
+        /// tagged vehicles.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="MatchGraphRequest.Options.EVEN">EVEN</see>:</term>
+        ///         <description>Applies odd/even rule restrictions to even
+        /// tagged vehicles.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="MatchGraphRequest.Options.NONE">NONE</see>:</term>
+        ///         <description>Does not apply odd/even rule restrictions to
+        /// any vehicles.</description>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="MatchGraphRequest.Options.NONE">NONE</see>.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -529,6 +601,12 @@ namespace kinetica
             /// The default value is '10000'.</summary>
             public const string MAX_COMBINATIONS = "max_combinations";
 
+            /// <summary>For the <i>match_supply_demand</i> solver only. This
+            /// is the cutoff for the number of generated combinations for
+            /// sequencing the supply locations if/when 'permute_supplies' is
+            /// true.  The default value is '10000'.</summary>
+            public const string MAX_SUPPLY_COMBINATIONS = "max_supply_combinations";
+
             /// <summary>This will add an additonal weight over the edges
             /// labelled as 'left turn' if the 'add_turn' option parameter of
             /// the <see
@@ -662,6 +740,75 @@ namespace kinetica
             /// will be applied separately at each round trip use of the same
             /// truck.  The default value is '0'.</summary>
             public const string MAX_TRUCK_STOPS = "max_truck_stops";
+
+            /// <summary>For the <i>match_supply_demand</i> solver only. If
+            /// specified (greater than zero), it filters the demands outside
+            /// this radius centered around the truck's originating location
+            /// (distance or time).  The default value is '0.0'.</summary>
+            public const string TRUCK_SERVICE_RADIUS = "truck_service_radius";
+
+            /// <summary>For the <i>match_supply_demand</i> solver only. When
+            /// enabled, it sets the number of visits on each demand location
+            /// by a single salesman at each trip is considered to be (one) 1,
+            /// otherwise there is no bound.
+            /// Supported values:
+            /// <list type="bullet">
+            ///     <item>
+            ///         <term><see
+            /// cref="MatchGraphRequest.Options.TRUE">TRUE</see>:</term>
+            ///         <description>Sets only one visit per demand location by
+            /// a salesman (tsm mode)</description>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="MatchGraphRequest.Options.FALSE">FALSE</see>:</term>
+            ///         <description>No preset limit (usual msdo
+            /// mode)</description>
+            ///     </item>
+            /// </list>
+            /// The default value is <see
+            /// cref="MatchGraphRequest.Options.FALSE">FALSE</see>.</summary>
+            public const string BATCH_TSM_MODE = "batch_tsm_mode";
+
+            /// <summary>For the <i>match_supply_demand</i> solver only.
+            /// Optimization is performed by restricting routes labeled by
+            /// 'MSDO_ODDEVEN_RESTRICTED' only for this truck type
+            /// Supported values:
+            /// <list type="bullet">
+            ///     <item>
+            ///         <term><see
+            /// cref="MatchGraphRequest.Options.ODD">ODD</see>:</term>
+            ///         <description>Applies odd/even rule restrictions to odd
+            /// tagged vehicles.</description>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="MatchGraphRequest.Options.EVEN">EVEN</see>:</term>
+            ///         <description>Applies odd/even rule restrictions to even
+            /// tagged vehicles.</description>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="MatchGraphRequest.Options.NONE">NONE</see>:</term>
+            ///         <description>Does not apply odd/even rule restrictions
+            /// to any vehicles.</description>
+            ///     </item>
+            /// </list>
+            /// The default value is <see
+            /// cref="MatchGraphRequest.Options.NONE">NONE</see>.</summary>
+            public const string RESTRICTED_TRUCK_TYPE = "restricted_truck_type";
+
+            /// <summary>Applies odd/even rule restrictions to odd tagged
+            /// vehicles.</summary>
+            public const string ODD = "odd";
+
+            /// <summary>Applies odd/even rule restrictions to even tagged
+            /// vehicles.</summary>
+            public const string EVEN = "even";
+
+            /// <summary>Does not apply odd/even rule restrictions to any
+            /// vehicles.</summary>
+            public const string NONE = "none";
 
             /// <summary>Indicates which graph server(s) to send the request
             /// to. Default is to send to the server, amongst those containing
@@ -819,7 +966,7 @@ namespace kinetica
         /// target="_top">name resolution rules</a> and meeting <a
         /// href="../../../concepts/tables/#table-naming-criteria"
         /// target="_top">table naming criteria</a>.  This table contains a <a
-        /// href="../../../geospatial/geo_objects/#geospatial-tracks"
+        /// href="../../../location_intelligence/geo_objects/#geospatial-tracks"
         /// target="_top">track</a> of geospatial points for the matched
         /// portion of the graph, a track ID, and a score value. Also outputs a
         /// details table containing a trip ID (that matches the track ID), the
@@ -910,6 +1057,14 @@ namespace kinetica
         /// only. This is the cutoff for the number of generated combinations
         /// for sequencing the demand locations - can increase this up to 2M.
         /// The default value is '10000'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="MatchGraphRequest.Options.MAX_SUPPLY_COMBINATIONS">MAX_SUPPLY_COMBINATIONS</see>:</term>
+        ///         <description>For the <i>match_supply_demand</i> solver
+        /// only. This is the cutoff for the number of generated combinations
+        /// for sequencing the supply locations if/when 'permute_supplies' is
+        /// true.  The default value is '10000'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -1061,6 +1216,70 @@ namespace kinetica
         /// is unlimited. If 'enable_truck_reuse' is on, this condition will be
         /// applied separately at each round trip use of the same truck.  The
         /// default value is '0'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="MatchGraphRequest.Options.TRUCK_SERVICE_RADIUS">TRUCK_SERVICE_RADIUS</see>:</term>
+        ///         <description>For the <i>match_supply_demand</i> solver
+        /// only. If specified (greater than zero), it filters the demands
+        /// outside this radius centered around the truck's originating
+        /// location (distance or time).  The default value is
+        /// '0.0'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="MatchGraphRequest.Options.BATCH_TSM_MODE">BATCH_TSM_MODE</see>:</term>
+        ///         <description>For the <i>match_supply_demand</i> solver
+        /// only. When enabled, it sets the number of visits on each demand
+        /// location by a single salesman at each trip is considered to be
+        /// (one) 1, otherwise there is no bound.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="MatchGraphRequest.Options.TRUE">TRUE</see>:</term>
+        ///         <description>Sets only one visit per demand location by a
+        /// salesman (tsm mode)</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="MatchGraphRequest.Options.FALSE">FALSE</see>:</term>
+        ///         <description>No preset limit (usual msdo
+        /// mode)</description>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="MatchGraphRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="MatchGraphRequest.Options.RESTRICTED_TRUCK_TYPE">RESTRICTED_TRUCK_TYPE</see>:</term>
+        ///         <description>For the <i>match_supply_demand</i> solver
+        /// only. Optimization is performed by restricting routes labeled by
+        /// 'MSDO_ODDEVEN_RESTRICTED' only for this truck type
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="MatchGraphRequest.Options.ODD">ODD</see>:</term>
+        ///         <description>Applies odd/even rule restrictions to odd
+        /// tagged vehicles.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="MatchGraphRequest.Options.EVEN">EVEN</see>:</term>
+        ///         <description>Applies odd/even rule restrictions to even
+        /// tagged vehicles.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="MatchGraphRequest.Options.NONE">NONE</see>:</term>
+        ///         <description>Does not apply odd/even rule restrictions to
+        /// any vehicles.</description>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="MatchGraphRequest.Options.NONE">NONE</see>.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -1242,7 +1461,7 @@ namespace kinetica
         /// target="_top">name resolution rules</a> and meeting <a
         /// href="../../../concepts/tables/#table-naming-criteria"
         /// target="_top">table naming criteria</a>.  This table contains a <a
-        /// href="../../../geospatial/geo_objects/#geospatial-tracks"
+        /// href="../../../location_intelligence/geo_objects/#geospatial-tracks"
         /// target="_top">track</a> of geospatial points for the matched
         /// portion of the graph, a track ID, and a score value. Also outputs a
         /// details table containing a trip ID (that matches the track ID), the
@@ -1331,6 +1550,14 @@ namespace kinetica
         /// only. This is the cutoff for the number of generated combinations
         /// for sequencing the demand locations - can increase this up to 2M.
         /// The default value is '10000'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="MatchGraphRequest.Options.MAX_SUPPLY_COMBINATIONS">MAX_SUPPLY_COMBINATIONS</see>:</term>
+        ///         <description>For the <i>match_supply_demand</i> solver
+        /// only. This is the cutoff for the number of generated combinations
+        /// for sequencing the supply locations if/when 'permute_supplies' is
+        /// true.  The default value is '10000'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -1482,6 +1709,70 @@ namespace kinetica
         /// is unlimited. If 'enable_truck_reuse' is on, this condition will be
         /// applied separately at each round trip use of the same truck.  The
         /// default value is '0'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="MatchGraphRequest.Options.TRUCK_SERVICE_RADIUS">TRUCK_SERVICE_RADIUS</see>:</term>
+        ///         <description>For the <i>match_supply_demand</i> solver
+        /// only. If specified (greater than zero), it filters the demands
+        /// outside this radius centered around the truck's originating
+        /// location (distance or time).  The default value is
+        /// '0.0'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="MatchGraphRequest.Options.BATCH_TSM_MODE">BATCH_TSM_MODE</see>:</term>
+        ///         <description>For the <i>match_supply_demand</i> solver
+        /// only. When enabled, it sets the number of visits on each demand
+        /// location by a single salesman at each trip is considered to be
+        /// (one) 1, otherwise there is no bound.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="MatchGraphRequest.Options.TRUE">TRUE</see>:</term>
+        ///         <description>Sets only one visit per demand location by a
+        /// salesman (tsm mode)</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="MatchGraphRequest.Options.FALSE">FALSE</see>:</term>
+        ///         <description>No preset limit (usual msdo
+        /// mode)</description>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="MatchGraphRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="MatchGraphRequest.Options.RESTRICTED_TRUCK_TYPE">RESTRICTED_TRUCK_TYPE</see>:</term>
+        ///         <description>For the <i>match_supply_demand</i> solver
+        /// only. Optimization is performed by restricting routes labeled by
+        /// 'MSDO_ODDEVEN_RESTRICTED' only for this truck type
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="MatchGraphRequest.Options.ODD">ODD</see>:</term>
+        ///         <description>Applies odd/even rule restrictions to odd
+        /// tagged vehicles.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="MatchGraphRequest.Options.EVEN">EVEN</see>:</term>
+        ///         <description>Applies odd/even rule restrictions to even
+        /// tagged vehicles.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="MatchGraphRequest.Options.NONE">NONE</see>:</term>
+        ///         <description>Does not apply odd/even rule restrictions to
+        /// any vehicles.</description>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="MatchGraphRequest.Options.NONE">NONE</see>.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
