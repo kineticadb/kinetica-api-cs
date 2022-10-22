@@ -60,19 +60,19 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AlterCredentialRequest.CredentialUpdatesMap.HDFS">HDFS</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterCredentialRequest.CredentialUpdatesMap.KAFKA">KAFKA</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
         /// cref="AlterCredentialRequest.CredentialUpdatesMap.GCS_SERVICE_ACCOUNT_ID">GCS_SERVICE_ACCOUNT_ID</see></term>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="AlterCredentialRequest.CredentialUpdatesMap.GCS_SERVICE_ACCOUNT_KEYS">GCS_SERVICE_ACCOUNT_KEYS</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterCredentialRequest.CredentialUpdatesMap.HDFS">HDFS</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterCredentialRequest.CredentialUpdatesMap.KAFKA">KAFKA</see></term>
         ///     </item>
         /// </list></description>
         ///     </item>
@@ -135,19 +135,19 @@ namespace kinetica
             ///     </item>
             ///     <item>
             ///         <term><see
-            /// cref="AlterCredentialRequest.CredentialUpdatesMap.HDFS">HDFS</see></term>
-            ///     </item>
-            ///     <item>
-            ///         <term><see
-            /// cref="AlterCredentialRequest.CredentialUpdatesMap.KAFKA">KAFKA</see></term>
-            ///     </item>
-            ///     <item>
-            ///         <term><see
             /// cref="AlterCredentialRequest.CredentialUpdatesMap.GCS_SERVICE_ACCOUNT_ID">GCS_SERVICE_ACCOUNT_ID</see></term>
             ///     </item>
             ///     <item>
             ///         <term><see
             /// cref="AlterCredentialRequest.CredentialUpdatesMap.GCS_SERVICE_ACCOUNT_KEYS">GCS_SERVICE_ACCOUNT_KEYS</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="AlterCredentialRequest.CredentialUpdatesMap.HDFS">HDFS</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="AlterCredentialRequest.CredentialUpdatesMap.KAFKA">KAFKA</see></term>
             ///     </item>
             /// </list></summary>
             public const string TYPE = "type";
@@ -158,10 +158,10 @@ namespace kinetica
             public const string AZURE_SAS = "azure_sas";
             public const string AZURE_STORAGE_KEY = "azure_storage_key";
             public const string DOCKER = "docker";
-            public const string HDFS = "hdfs";
-            public const string KAFKA = "kafka";
             public const string GCS_SERVICE_ACCOUNT_ID = "gcs_service_account_id";
             public const string GCS_SERVICE_ACCOUNT_KEYS = "gcs_service_account_keys";
+            public const string HDFS = "hdfs";
+            public const string KAFKA = "kafka";
 
             /// <summary>New user for the credential</summary>
             public const string IDENTITY = "identity";
@@ -220,19 +220,19 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AlterCredentialRequest.CredentialUpdatesMap.HDFS">HDFS</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterCredentialRequest.CredentialUpdatesMap.KAFKA">KAFKA</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
         /// cref="AlterCredentialRequest.CredentialUpdatesMap.GCS_SERVICE_ACCOUNT_ID">GCS_SERVICE_ACCOUNT_ID</see></term>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="AlterCredentialRequest.CredentialUpdatesMap.GCS_SERVICE_ACCOUNT_KEYS">GCS_SERVICE_ACCOUNT_KEYS</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterCredentialRequest.CredentialUpdatesMap.HDFS">HDFS</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterCredentialRequest.CredentialUpdatesMap.KAFKA">KAFKA</see></term>
         ///     </item>
         /// </list></description>
         ///     </item>
@@ -311,19 +311,19 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AlterCredentialRequest.CredentialUpdatesMap.HDFS">HDFS</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterCredentialRequest.CredentialUpdatesMap.KAFKA">KAFKA</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
         /// cref="AlterCredentialRequest.CredentialUpdatesMap.GCS_SERVICE_ACCOUNT_ID">GCS_SERVICE_ACCOUNT_ID</see></term>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="AlterCredentialRequest.CredentialUpdatesMap.GCS_SERVICE_ACCOUNT_KEYS">GCS_SERVICE_ACCOUNT_KEYS</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterCredentialRequest.CredentialUpdatesMap.HDFS">HDFS</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterCredentialRequest.CredentialUpdatesMap.KAFKA">KAFKA</see></term>
         ///     </item>
         /// </list></description>
         ///     </item>

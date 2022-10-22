@@ -36,6 +36,13 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
+        /// cref="CreateDirectoryRequest.Options.DATA_LIMIT">DATA_LIMIT</see>:</term>
+        ///         <description>The maximum capacity, in bytes, to apply to
+        /// the created directory. Set to -1 to indicate no upper limit. If
+        /// empty, the system default limit is applied.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="CreateDirectoryRequest.Options.NO_ERROR_IF_EXISTS">NO_ERROR_IF_EXISTS</see>:</term>
         ///         <description>If <i>true</i>, does not return an error if
         /// the directory already exists
@@ -65,6 +72,11 @@ namespace kinetica
             /// must be an empty string in this case. The user must
             /// exist.</summary>
             public const string CREATE_HOME_DIRECTORY = "create_home_directory";
+
+            /// <summary>The maximum capacity, in bytes, to apply to the
+            /// created directory. Set to -1 to indicate no upper limit. If
+            /// empty, the system default limit is applied.</summary>
+            public const string DATA_LIMIT = "data_limit";
 
             /// <summary>If <i>true</i>, does not return an error if the
             /// directory already exists
@@ -99,6 +111,13 @@ namespace kinetica
         /// user name provided in the value. The <paramref
         /// cref="CreateDirectoryRequest.directory_name" /> must be an empty
         /// string in this case. The user must exist.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateDirectoryRequest.Options.DATA_LIMIT">DATA_LIMIT</see>:</term>
+        ///         <description>The maximum capacity, in bytes, to apply to
+        /// the created directory. Set to -1 to indicate no upper limit. If
+        /// empty, the system default limit is applied.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -142,6 +161,13 @@ namespace kinetica
         /// user name provided in the value. The <paramref
         /// cref="CreateDirectoryRequest.directory_name" /> must be an empty
         /// string in this case. The user must exist.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateDirectoryRequest.Options.DATA_LIMIT">DATA_LIMIT</see>:</term>
+        ///         <description>The maximum capacity, in bytes, to apply to
+        /// the created directory. Set to -1 to indicate no upper limit. If
+        /// empty, the system default limit is applied.</description>
         ///     </item>
         ///     <item>
         ///         <term><see

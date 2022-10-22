@@ -31,14 +31,14 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="CreateUserInternalRequest.Options.DEFAULT_SCHEMA">DEFAULT_SCHEMA</see>:</term>
-        ///         <description>default schema associate with this
+        ///         <description>Default schema to associate with this
         /// user</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="CreateUserInternalRequest.Options.CREATE_HOME_DIRECTORY">CREATE_HOME_DIRECTORY</see>:</term>
-        ///         <description>when true, a home directory in KiFS is created
-        /// for this user
+        ///         <description>When <i>true</i>, a home directory in KiFS is
+        /// created for this user
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -53,6 +53,14 @@ namespace kinetica
         /// The default value is <see
         /// cref="CreateUserInternalRequest.Options.TRUE">TRUE</see>.</description>
         ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateUserInternalRequest.Options.DIRECTORY_DATA_LIMIT">DIRECTORY_DATA_LIMIT</see>:</term>
+        ///         <description>The maximum capacity to apply to the created
+        /// directory if <i>create_home_directory</i> is <i>true</i>. Set to -1
+        /// to indicate no upper limit. If empty, the system default limit is
+        /// applied.</description>
+        ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.
         /// A set of string constants for the parameter <see cref="options"
@@ -64,11 +72,11 @@ namespace kinetica
             /// this user</summary>
             public const string RESOURCE_GROUP = "resource_group";
 
-            /// <summary>default schema associate with this user</summary>
+            /// <summary>Default schema to associate with this user</summary>
             public const string DEFAULT_SCHEMA = "default_schema";
 
-            /// <summary>when true, a home directory in KiFS is created for
-            /// this user
+            /// <summary>When <i>true</i>, a home directory in KiFS is created
+            /// for this user
             /// Supported values:
             /// <list type="bullet">
             ///     <item>
@@ -85,6 +93,12 @@ namespace kinetica
             public const string CREATE_HOME_DIRECTORY = "create_home_directory";
             public const string TRUE = "true";
             public const string FALSE = "false";
+
+            /// <summary>The maximum capacity to apply to the created directory
+            /// if <i>create_home_directory</i> is <i>true</i>. Set to -1 to
+            /// indicate no upper limit. If empty, the system default limit is
+            /// applied.</summary>
+            public const string DIRECTORY_DATA_LIMIT = "directory_data_limit";
         } // end struct Options
 
 
@@ -109,14 +123,14 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="CreateUserInternalRequest.Options.DEFAULT_SCHEMA">DEFAULT_SCHEMA</see>:</term>
-        ///         <description>default schema associate with this
+        ///         <description>Default schema to associate with this
         /// user</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="CreateUserInternalRequest.Options.CREATE_HOME_DIRECTORY">CREATE_HOME_DIRECTORY</see>:</term>
-        ///         <description>when true, a home directory in KiFS is created
-        /// for this user
+        ///         <description>When <i>true</i>, a home directory in KiFS is
+        /// created for this user
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -130,6 +144,14 @@ namespace kinetica
         /// </list>
         /// The default value is <see
         /// cref="CreateUserInternalRequest.Options.TRUE">TRUE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateUserInternalRequest.Options.DIRECTORY_DATA_LIMIT">DIRECTORY_DATA_LIMIT</see>:</term>
+        ///         <description>The maximum capacity to apply to the created
+        /// directory if <i>create_home_directory</i> is <i>true</i>. Set to -1
+        /// to indicate no upper limit. If empty, the system default limit is
+        /// applied.</description>
         ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.</summary>
@@ -160,14 +182,14 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="CreateUserInternalRequest.Options.DEFAULT_SCHEMA">DEFAULT_SCHEMA</see>:</term>
-        ///         <description>default schema associate with this
+        ///         <description>Default schema to associate with this
         /// user</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="CreateUserInternalRequest.Options.CREATE_HOME_DIRECTORY">CREATE_HOME_DIRECTORY</see>:</term>
-        ///         <description>when true, a home directory in KiFS is created
-        /// for this user
+        ///         <description>When <i>true</i>, a home directory in KiFS is
+        /// created for this user
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -181,6 +203,14 @@ namespace kinetica
         /// </list>
         /// The default value is <see
         /// cref="CreateUserInternalRequest.Options.TRUE">TRUE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateUserInternalRequest.Options.DIRECTORY_DATA_LIMIT">DIRECTORY_DATA_LIMIT</see>:</term>
+        ///         <description>The maximum capacity to apply to the created
+        /// directory if <i>create_home_directory</i> is <i>true</i>. Set to -1
+        /// to indicate no upper limit. If empty, the system default limit is
+        /// applied.</description>
         ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.</param>

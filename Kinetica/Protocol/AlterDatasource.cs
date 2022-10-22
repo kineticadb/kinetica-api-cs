@@ -103,9 +103,21 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
+        /// cref="AlterDatasourceRequest.DatasourceUpdatesMap.S3_ENCRYPTION_CUSTOMER_ALGORITHM">S3_ENCRYPTION_CUSTOMER_ALGORITHM</see>:</term>
+        ///         <description>Customer encryption algorithm used encrypting
+        /// data</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterDatasourceRequest.DatasourceUpdatesMap.S3_ENCRYPTION_CUSTOMER_KEY">S3_ENCRYPTION_CUSTOMER_KEY</see>:</term>
+        ///         <description>Customer encryption key to encrypt or decrypt
+        /// data</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="AlterDatasourceRequest.DatasourceUpdatesMap.HDFS_KERBEROS_KEYTAB">HDFS_KERBEROS_KEYTAB</see>:</term>
         ///         <description>Kerberos keytab file location for the given
-        /// HDFS user</description>
+        /// HDFS user.  This may be a KIFS file.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -192,6 +204,17 @@ namespace kinetica
         /// cref="AlterDatasourceRequest.DatasourceUpdatesMap.KAFKA_TOPIC_NAME">KAFKA_TOPIC_NAME</see>:</term>
         ///         <description>Name of the Kafka topic to use as the data
         /// source</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterDatasourceRequest.DatasourceUpdatesMap.JDBC_DRIVER_JAR_PATH">JDBC_DRIVER_JAR_PATH</see>:</term>
+        ///         <description>JDBC driver jar file location.  This may be a
+        /// KIFS file.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterDatasourceRequest.DatasourceUpdatesMap.JDBC_DRIVER_CLASS_NAME">JDBC_DRIVER_CLASS_NAME</see>:</term>
+        ///         <description>Name of the JDBC driver class</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -325,8 +348,16 @@ namespace kinetica
             /// that can be assumed for the given S3 IAM user</summary>
             public const string S3_AWS_ROLE_ARN = "s3_aws_role_arn";
 
-            /// <summary>Kerberos keytab file location for the given HDFS
-            /// user</summary>
+            /// <summary>Customer encryption algorithm used encrypting
+            /// data</summary>
+            public const string S3_ENCRYPTION_CUSTOMER_ALGORITHM = "s3_encryption_customer_algorithm";
+
+            /// <summary>Customer encryption key to encrypt or decrypt
+            /// data</summary>
+            public const string S3_ENCRYPTION_CUSTOMER_KEY = "s3_encryption_customer_key";
+
+            /// <summary>Kerberos keytab file location for the given HDFS user.
+            /// This may be a KIFS file.</summary>
             public const string HDFS_KERBEROS_KEYTAB = "hdfs_kerberos_keytab";
 
             /// <summary>Delegation token for the given HDFS user</summary>
@@ -386,6 +417,13 @@ namespace kinetica
             /// <summary>Name of the Kafka topic to use as the data
             /// source</summary>
             public const string KAFKA_TOPIC_NAME = "kafka_topic_name";
+
+            /// <summary>JDBC driver jar file location.  This may be a KIFS
+            /// file.</summary>
+            public const string JDBC_DRIVER_JAR_PATH = "jdbc_driver_jar_path";
+
+            /// <summary>Name of the JDBC driver class</summary>
+            public const string JDBC_DRIVER_CLASS_NAME = "jdbc_driver_class_name";
 
             /// <summary>Create an anonymous connection to the storage
             /// provider--DEPRECATED: this is now the default.  Specify
@@ -534,9 +572,21 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
+        /// cref="AlterDatasourceRequest.DatasourceUpdatesMap.S3_ENCRYPTION_CUSTOMER_ALGORITHM">S3_ENCRYPTION_CUSTOMER_ALGORITHM</see>:</term>
+        ///         <description>Customer encryption algorithm used encrypting
+        /// data</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterDatasourceRequest.DatasourceUpdatesMap.S3_ENCRYPTION_CUSTOMER_KEY">S3_ENCRYPTION_CUSTOMER_KEY</see>:</term>
+        ///         <description>Customer encryption key to encrypt or decrypt
+        /// data</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="AlterDatasourceRequest.DatasourceUpdatesMap.HDFS_KERBEROS_KEYTAB">HDFS_KERBEROS_KEYTAB</see>:</term>
         ///         <description>Kerberos keytab file location for the given
-        /// HDFS user</description>
+        /// HDFS user.  This may be a KIFS file.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -623,6 +673,17 @@ namespace kinetica
         /// cref="AlterDatasourceRequest.DatasourceUpdatesMap.KAFKA_TOPIC_NAME">KAFKA_TOPIC_NAME</see>:</term>
         ///         <description>Name of the Kafka topic to use as the data
         /// source</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterDatasourceRequest.DatasourceUpdatesMap.JDBC_DRIVER_JAR_PATH">JDBC_DRIVER_JAR_PATH</see>:</term>
+        ///         <description>JDBC driver jar file location.  This may be a
+        /// KIFS file.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterDatasourceRequest.DatasourceUpdatesMap.JDBC_DRIVER_CLASS_NAME">JDBC_DRIVER_CLASS_NAME</see>:</term>
+        ///         <description>Name of the JDBC driver class</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -790,9 +851,21 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
+        /// cref="AlterDatasourceRequest.DatasourceUpdatesMap.S3_ENCRYPTION_CUSTOMER_ALGORITHM">S3_ENCRYPTION_CUSTOMER_ALGORITHM</see>:</term>
+        ///         <description>Customer encryption algorithm used encrypting
+        /// data</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterDatasourceRequest.DatasourceUpdatesMap.S3_ENCRYPTION_CUSTOMER_KEY">S3_ENCRYPTION_CUSTOMER_KEY</see>:</term>
+        ///         <description>Customer encryption key to encrypt or decrypt
+        /// data</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="AlterDatasourceRequest.DatasourceUpdatesMap.HDFS_KERBEROS_KEYTAB">HDFS_KERBEROS_KEYTAB</see>:</term>
         ///         <description>Kerberos keytab file location for the given
-        /// HDFS user</description>
+        /// HDFS user.  This may be a KIFS file.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -879,6 +952,17 @@ namespace kinetica
         /// cref="AlterDatasourceRequest.DatasourceUpdatesMap.KAFKA_TOPIC_NAME">KAFKA_TOPIC_NAME</see>:</term>
         ///         <description>Name of the Kafka topic to use as the data
         /// source</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterDatasourceRequest.DatasourceUpdatesMap.JDBC_DRIVER_JAR_PATH">JDBC_DRIVER_JAR_PATH</see>:</term>
+        ///         <description>JDBC driver jar file location.  This may be a
+        /// KIFS file.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterDatasourceRequest.DatasourceUpdatesMap.JDBC_DRIVER_CLASS_NAME">JDBC_DRIVER_CLASS_NAME</see>:</term>
+        ///         <description>Name of the JDBC driver class</description>
         ///     </item>
         ///     <item>
         ///         <term><see

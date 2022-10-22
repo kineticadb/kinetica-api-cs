@@ -229,6 +229,13 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
+        /// cref="CreateTypeRequest.Properties.BOOLEAN">BOOLEAN</see>:</term>
+        ///         <description>This property provides optimized memory and
+        /// query performance for int columns. Ints with this property must be
+        /// between 0 and 1(inclusive)</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="CreateTypeRequest.Properties.INT8">INT8</see>:</term>
         ///         <description>This property provides optimized memory and
         /// query performance for int columns. Ints with this property must be
@@ -449,6 +456,11 @@ namespace kinetica
             /// query performance for string columns. Strings with this
             /// property must be no longer than 256 characters.</summary>
             public const string CHAR256 = "char256";
+
+            /// <summary>This property provides optimized memory and query
+            /// performance for int columns. Ints with this property must be
+            /// between 0 and 1(inclusive)</summary>
+            public const string BOOLEAN = "boolean";
 
             /// <summary>This property provides optimized memory and query
             /// performance for int columns. Ints with this property must be
@@ -697,6 +709,13 @@ namespace kinetica
         ///         <description>This property provides optimized memory, disk
         /// and query performance for string columns. Strings with this
         /// property must be no longer than 256 characters.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTypeRequest.Properties.BOOLEAN">BOOLEAN</see>:</term>
+        ///         <description>This property provides optimized memory and
+        /// query performance for int columns. Ints with this property must be
+        /// between 0 and 1(inclusive)</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -974,6 +993,13 @@ namespace kinetica
         ///         <description>This property provides optimized memory, disk
         /// and query performance for string columns. Strings with this
         /// property must be no longer than 256 characters.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTypeRequest.Properties.BOOLEAN">BOOLEAN</see>:</term>
+        ///         <description>This property provides optimized memory and
+        /// query performance for int columns. Ints with this property must be
+        /// between 0 and 1(inclusive)</description>
         ///     </item>
         ///     <item>
         ///         <term><see

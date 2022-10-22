@@ -25,7 +25,8 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="AdminVerifyDbRequest.Options.REBUILD_ON_ERROR">REBUILD_ON_ERROR</see>:</term>
-        ///         <description>
+        ///         <description>[DEPRECATED -- Use the Rebuild DB feature of
+        /// GAdmin instead.]
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -43,8 +44,8 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="AdminVerifyDbRequest.Options.VERIFY_NULLS">VERIFY_NULLS</see>:</term>
-        ///         <description>When enabled, verifies that null values are
-        /// set to zero
+        ///         <description>When <i>true</i>, verifies that null values
+        /// are set to zero
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -62,7 +63,8 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="AdminVerifyDbRequest.Options.VERIFY_PERSIST">VERIFY_PERSIST</see>:</term>
-        ///         <description>
+        ///         <description>When <i>true</i>, persistent objects will be
+        /// compared against their state in memory.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -80,9 +82,9 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="AdminVerifyDbRequest.Options.CONCURRENT_SAFE">CONCURRENT_SAFE</see>:</term>
-        ///         <description>When enabled, allows this endpoint to be run
-        /// safely with other concurrent database operations. Other operations
-        /// may be slower while this is running.
+        ///         <description>When <i>true</i>, allows this endpoint to be
+        /// run safely with other concurrent database operations. Other
+        /// operations may be slower while this is running.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -100,8 +102,29 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="AdminVerifyDbRequest.Options.VERIFY_RANK0">VERIFY_RANK0</see>:</term>
-        ///         <description>When enabled, compares rank0 table meta-data
-        /// against workers meta-data
+        ///         <description>If <i>true</i>, compare rank0 table metadata
+        /// against workers' metadata
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="AdminVerifyDbRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AdminVerifyDbRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="AdminVerifyDbRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AdminVerifyDbRequest.Options.DELETE_ORPHANED_TABLES">DELETE_ORPHANED_TABLES</see>:</term>
+        ///         <description>If <i>true</i>, orphaned table directories
+        /// found on workers for which there is no corresponding metadata will
+        /// be deleted. Must set <i>verify_persist</i> in <paramref
+        /// cref="AdminVerifyDbRequest.options" /> to <i>true</i>
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -123,7 +146,8 @@ namespace kinetica
         public struct Options
         {
 
-            /// <summary>
+            /// <summary>[DEPRECATED -- Use the Rebuild DB feature of GAdmin
+            /// instead.]
             /// Supported values:
             /// <list type="bullet">
             ///     <item>
@@ -141,7 +165,7 @@ namespace kinetica
             public const string TRUE = "true";
             public const string FALSE = "false";
 
-            /// <summary>When enabled, verifies that null values are set to
+            /// <summary>When <i>true</i>, verifies that null values are set to
             /// zero
             /// Supported values:
             /// <list type="bullet">
@@ -158,7 +182,8 @@ namespace kinetica
             /// cref="AdminVerifyDbRequest.Options.FALSE">FALSE</see>.</summary>
             public const string VERIFY_NULLS = "verify_nulls";
 
-            /// <summary>
+            /// <summary>When <i>true</i>, persistent objects will be compared
+            /// against their state in memory.
             /// Supported values:
             /// <list type="bullet">
             ///     <item>
@@ -174,9 +199,9 @@ namespace kinetica
             /// cref="AdminVerifyDbRequest.Options.FALSE">FALSE</see>.</summary>
             public const string VERIFY_PERSIST = "verify_persist";
 
-            /// <summary>When enabled, allows this endpoint to be run safely
-            /// with other concurrent database operations. Other operations may
-            /// be slower while this is running.
+            /// <summary>When <i>true</i>, allows this endpoint to be run
+            /// safely with other concurrent database operations. Other
+            /// operations may be slower while this is running.
             /// Supported values:
             /// <list type="bullet">
             ///     <item>
@@ -192,8 +217,8 @@ namespace kinetica
             /// cref="AdminVerifyDbRequest.Options.TRUE">TRUE</see>.</summary>
             public const string CONCURRENT_SAFE = "concurrent_safe";
 
-            /// <summary>When enabled, compares rank0 table meta-data against
-            /// workers meta-data
+            /// <summary>If <i>true</i>, compare rank0 table metadata against
+            /// workers' metadata
             /// Supported values:
             /// <list type="bullet">
             ///     <item>
@@ -208,6 +233,25 @@ namespace kinetica
             /// The default value is <see
             /// cref="AdminVerifyDbRequest.Options.FALSE">FALSE</see>.</summary>
             public const string VERIFY_RANK0 = "verify_rank0";
+
+            /// <summary>If <i>true</i>, orphaned table directories found on
+            /// workers for which there is no corresponding metadata will be
+            /// deleted. Must set <i>verify_persist</i> in <see cref="options"
+            /// /> to <i>true</i>
+            /// Supported values:
+            /// <list type="bullet">
+            ///     <item>
+            ///         <term><see
+            /// cref="AdminVerifyDbRequest.Options.TRUE">TRUE</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="AdminVerifyDbRequest.Options.FALSE">FALSE</see></term>
+            ///     </item>
+            /// </list>
+            /// The default value is <see
+            /// cref="AdminVerifyDbRequest.Options.FALSE">FALSE</see>.</summary>
+            public const string DELETE_ORPHANED_TABLES = "delete_orphaned_tables";
         } // end struct Options
 
 
@@ -216,7 +260,8 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="AdminVerifyDbRequest.Options.REBUILD_ON_ERROR">REBUILD_ON_ERROR</see>:</term>
-        ///         <description>
+        ///         <description>[DEPRECATED -- Use the Rebuild DB feature of
+        /// GAdmin instead.]
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -234,8 +279,8 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="AdminVerifyDbRequest.Options.VERIFY_NULLS">VERIFY_NULLS</see>:</term>
-        ///         <description>When enabled, verifies that null values are
-        /// set to zero
+        ///         <description>When <i>true</i>, verifies that null values
+        /// are set to zero
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -253,7 +298,8 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="AdminVerifyDbRequest.Options.VERIFY_PERSIST">VERIFY_PERSIST</see>:</term>
-        ///         <description>
+        ///         <description>When <i>true</i>, persistent objects will be
+        /// compared against their state in memory.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -271,9 +317,9 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="AdminVerifyDbRequest.Options.CONCURRENT_SAFE">CONCURRENT_SAFE</see>:</term>
-        ///         <description>When enabled, allows this endpoint to be run
-        /// safely with other concurrent database operations. Other operations
-        /// may be slower while this is running.
+        ///         <description>When <i>true</i>, allows this endpoint to be
+        /// run safely with other concurrent database operations. Other
+        /// operations may be slower while this is running.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -291,8 +337,29 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="AdminVerifyDbRequest.Options.VERIFY_RANK0">VERIFY_RANK0</see>:</term>
-        ///         <description>When enabled, compares rank0 table meta-data
-        /// against workers meta-data
+        ///         <description>If <i>true</i>, compare rank0 table metadata
+        /// against workers' metadata
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="AdminVerifyDbRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AdminVerifyDbRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="AdminVerifyDbRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AdminVerifyDbRequest.Options.DELETE_ORPHANED_TABLES">DELETE_ORPHANED_TABLES</see>:</term>
+        ///         <description>If <i>true</i>, orphaned table directories
+        /// found on workers for which there is no corresponding metadata will
+        /// be deleted. Must set <i>verify_persist</i> in <paramref
+        /// cref="AdminVerifyDbRequest.options" /> to <i>true</i>
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -324,7 +391,8 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="AdminVerifyDbRequest.Options.REBUILD_ON_ERROR">REBUILD_ON_ERROR</see>:</term>
-        ///         <description>
+        ///         <description>[DEPRECATED -- Use the Rebuild DB feature of
+        /// GAdmin instead.]
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -342,8 +410,8 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="AdminVerifyDbRequest.Options.VERIFY_NULLS">VERIFY_NULLS</see>:</term>
-        ///         <description>When enabled, verifies that null values are
-        /// set to zero
+        ///         <description>When <i>true</i>, verifies that null values
+        /// are set to zero
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -361,7 +429,8 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="AdminVerifyDbRequest.Options.VERIFY_PERSIST">VERIFY_PERSIST</see>:</term>
-        ///         <description>
+        ///         <description>When <i>true</i>, persistent objects will be
+        /// compared against their state in memory.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -379,9 +448,9 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="AdminVerifyDbRequest.Options.CONCURRENT_SAFE">CONCURRENT_SAFE</see>:</term>
-        ///         <description>When enabled, allows this endpoint to be run
-        /// safely with other concurrent database operations. Other operations
-        /// may be slower while this is running.
+        ///         <description>When <i>true</i>, allows this endpoint to be
+        /// run safely with other concurrent database operations. Other
+        /// operations may be slower while this is running.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -399,8 +468,29 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="AdminVerifyDbRequest.Options.VERIFY_RANK0">VERIFY_RANK0</see>:</term>
-        ///         <description>When enabled, compares rank0 table meta-data
-        /// against workers meta-data
+        ///         <description>If <i>true</i>, compare rank0 table metadata
+        /// against workers' metadata
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="AdminVerifyDbRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AdminVerifyDbRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="AdminVerifyDbRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AdminVerifyDbRequest.Options.DELETE_ORPHANED_TABLES">DELETE_ORPHANED_TABLES</see>:</term>
+        ///         <description>If <i>true</i>, orphaned table directories
+        /// found on workers for which there is no corresponding metadata will
+        /// be deleted. Must set <i>verify_persist</i> in <paramref
+        /// cref="AdminVerifyDbRequest.options" /> to <i>true</i>
         /// Supported values:
         /// <list type="bullet">
         ///     <item>

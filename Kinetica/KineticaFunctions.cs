@@ -16,7 +16,7 @@ namespace kinetica
     {
 
         // Kinetica Version
-        public const string API_VERSION = "7.1.7.0";
+        public const string API_VERSION = "7.1.8.0";
 
 
 
@@ -1372,7 +1372,8 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="AdminVerifyDbRequest.Options.REBUILD_ON_ERROR">REBUILD_ON_ERROR</see>:</term>
-        ///         <description>
+        ///         <description>[DEPRECATED -- Use the Rebuild DB feature of
+        /// GAdmin instead.]
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -1390,8 +1391,8 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="AdminVerifyDbRequest.Options.VERIFY_NULLS">VERIFY_NULLS</see>:</term>
-        ///         <description>When enabled, verifies that null values are
-        /// set to zero
+        ///         <description>When <i>true</i>, verifies that null values
+        /// are set to zero
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -1409,7 +1410,8 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="AdminVerifyDbRequest.Options.VERIFY_PERSIST">VERIFY_PERSIST</see>:</term>
-        ///         <description>
+        ///         <description>When <i>true</i>, persistent objects will be
+        /// compared against their state in memory.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -1427,9 +1429,9 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="AdminVerifyDbRequest.Options.CONCURRENT_SAFE">CONCURRENT_SAFE</see>:</term>
-        ///         <description>When enabled, allows this endpoint to be run
-        /// safely with other concurrent database operations. Other operations
-        /// may be slower while this is running.
+        ///         <description>When <i>true</i>, allows this endpoint to be
+        /// run safely with other concurrent database operations. Other
+        /// operations may be slower while this is running.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -1447,8 +1449,29 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="AdminVerifyDbRequest.Options.VERIFY_RANK0">VERIFY_RANK0</see>:</term>
-        ///         <description>When enabled, compares rank0 table meta-data
-        /// against workers meta-data
+        ///         <description>If <i>true</i>, compare rank0 table metadata
+        /// against workers' metadata
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="AdminVerifyDbRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AdminVerifyDbRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="AdminVerifyDbRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AdminVerifyDbRequest.Options.DELETE_ORPHANED_TABLES">DELETE_ORPHANED_TABLES</see>:</term>
+        ///         <description>If <i>true</i>, orphaned table directories
+        /// found on workers for which there is no corresponding metadata will
+        /// be deleted. Must set <i>verify_persist</i> in <paramref
+        /// cref="AdminVerifyDbRequest.options" /> to <i>true</i>
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -3401,19 +3424,19 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AlterCredentialRequest.CredentialUpdatesMap.HDFS">HDFS</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterCredentialRequest.CredentialUpdatesMap.KAFKA">KAFKA</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
         /// cref="AlterCredentialRequest.CredentialUpdatesMap.GCS_SERVICE_ACCOUNT_ID">GCS_SERVICE_ACCOUNT_ID</see></term>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="AlterCredentialRequest.CredentialUpdatesMap.GCS_SERVICE_ACCOUNT_KEYS">GCS_SERVICE_ACCOUNT_KEYS</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterCredentialRequest.CredentialUpdatesMap.HDFS">HDFS</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterCredentialRequest.CredentialUpdatesMap.KAFKA">KAFKA</see></term>
         ///     </item>
         /// </list></description>
         ///     </item>
@@ -3509,9 +3532,173 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
+        /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.S3_BUCKET_NAME">S3_BUCKET_NAME</see>:</term>
+        ///         <description>Name of the Amazon S3 bucket to use as the
+        /// data sink</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.S3_REGION">S3_REGION</see>:</term>
+        ///         <description>Name of the Amazon S3 region where the given
+        /// bucket is located</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.S3_AWS_ROLE_ARN">S3_AWS_ROLE_ARN</see>:</term>
+        ///         <description>Amazon IAM Role ARN which has required S3
+        /// permissions that can be assumed for the given S3 IAM
+        /// user</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.HDFS_KERBEROS_KEYTAB">HDFS_KERBEROS_KEYTAB</see>:</term>
+        ///         <description>Kerberos keytab file location for the given
+        /// HDFS user.  This may be a KIFS file.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.HDFS_DELEGATION_TOKEN">HDFS_DELEGATION_TOKEN</see>:</term>
+        ///         <description>Delegation token for the given HDFS
+        /// user</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.HDFS_USE_KERBEROS">HDFS_USE_KERBEROS</see>:</term>
+        ///         <description>Use kerberos authentication for the given HDFS
+        /// cluster
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.AZURE_STORAGE_ACCOUNT_NAME">AZURE_STORAGE_ACCOUNT_NAME</see>:</term>
+        ///         <description>Name of the Azure storage account to use as
+        /// the data sink, this is valid only if tenant_id is
+        /// specified</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.AZURE_CONTAINER_NAME">AZURE_CONTAINER_NAME</see>:</term>
+        ///         <description>Name of the Azure storage container to use as
+        /// the data sink</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.AZURE_TENANT_ID">AZURE_TENANT_ID</see>:</term>
+        ///         <description>Active Directory tenant ID (or directory
+        /// ID)</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.AZURE_SAS_TOKEN">AZURE_SAS_TOKEN</see>:</term>
+        ///         <description>Shared access signature token for Azure
+        /// storage account to use as the data sink</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.AZURE_OAUTH_TOKEN">AZURE_OAUTH_TOKEN</see>:</term>
+        ///         <description>Oauth token to access given storage
+        /// container</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.GCS_BUCKET_NAME">GCS_BUCKET_NAME</see>:</term>
+        ///         <description>Name of the Google Cloud Storage bucket to use
+        /// as the data sink</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.GCS_PROJECT_ID">GCS_PROJECT_ID</see>:</term>
+        ///         <description>Name of the Google Cloud project to use as the
+        /// data sink</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.GCS_SERVICE_ACCOUNT_KEYS">GCS_SERVICE_ACCOUNT_KEYS</see>:</term>
+        ///         <description>Google Cloud service account keys to use for
+        /// authenticating the data sink</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.KAFKA_URL">KAFKA_URL</see>:</term>
+        ///         <description>The publicly-accessible full path URL to the
+        /// kafka broker, e.g., 'http://172.123.45.67:9300'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.KAFKA_TOPIC_NAME">KAFKA_TOPIC_NAME</see>:</term>
         ///         <description>Name of the Kafka topic to use for this data
         /// sink, if it references a Kafka broker</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.ANONYMOUS">ANONYMOUS</see>:</term>
+        ///         <description>Create an anonymous connection to the storage
+        /// provider--DEPRECATED: this is now the default.  Specify
+        /// use_managed_credentials for non-anonymous connection
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.TRUE">TRUE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.USE_MANAGED_CREDENTIALS">USE_MANAGED_CREDENTIALS</see>:</term>
+        ///         <description>When no credentials are supplied, we use
+        /// anonymous access by default.  If this is set, we will use cloud
+        /// provider user settings.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.USE_HTTPS">USE_HTTPS</see>:</term>
+        ///         <description>Use https to connect to datasink if true,
+        /// otherwise use http
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="AlterDatasinkRequest.DatasinkUpdatesMap.TRUE">TRUE</see>.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -3695,9 +3882,21 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
+        /// cref="AlterDatasourceRequest.DatasourceUpdatesMap.S3_ENCRYPTION_CUSTOMER_ALGORITHM">S3_ENCRYPTION_CUSTOMER_ALGORITHM</see>:</term>
+        ///         <description>Customer encryption algorithm used encrypting
+        /// data</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterDatasourceRequest.DatasourceUpdatesMap.S3_ENCRYPTION_CUSTOMER_KEY">S3_ENCRYPTION_CUSTOMER_KEY</see>:</term>
+        ///         <description>Customer encryption key to encrypt or decrypt
+        /// data</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="AlterDatasourceRequest.DatasourceUpdatesMap.HDFS_KERBEROS_KEYTAB">HDFS_KERBEROS_KEYTAB</see>:</term>
         ///         <description>Kerberos keytab file location for the given
-        /// HDFS user</description>
+        /// HDFS user.  This may be a KIFS file.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -3787,6 +3986,17 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
+        /// cref="AlterDatasourceRequest.DatasourceUpdatesMap.JDBC_DRIVER_JAR_PATH">JDBC_DRIVER_JAR_PATH</see>:</term>
+        ///         <description>JDBC driver jar file location.  This may be a
+        /// KIFS file.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterDatasourceRequest.DatasourceUpdatesMap.JDBC_DRIVER_CLASS_NAME">JDBC_DRIVER_CLASS_NAME</see>:</term>
+        ///         <description>Name of the JDBC driver class</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="AlterDatasourceRequest.DatasourceUpdatesMap.ANONYMOUS">ANONYMOUS</see>:</term>
         ///         <description>Create an anonymous connection to the storage
         /// provider--DEPRECATED: this is now the default.  Specify
@@ -3867,6 +4077,54 @@ namespace kinetica
             return alterDatasource( new AlterDatasourceRequest( name,
                                                                 datasource_updates_map,
                                                                 options ) );
+        }
+
+
+        /// <summary>Alters an existing directory in <a
+        /// href="../../../tools/kifs/" target="_top">KiFS</a>.</summary>
+        /// 
+        /// <param name="request_">Request object containing the parameters for
+        /// the operation.</param>
+        /// 
+        /// <returns>Response object containing the result of the
+        /// operation.</returns>
+        /// 
+        public AlterDirectoryResponse alterDirectory( AlterDirectoryRequest request_ )
+        {
+            AlterDirectoryResponse actualResponse_ = SubmitRequest<AlterDirectoryResponse>("/alter/directory", request_, false);
+
+            return actualResponse_;
+        }
+
+
+        /// <summary>Alters an existing directory in <a
+        /// href="../../../tools/kifs/" target="_top">KiFS</a>.</summary>
+        /// 
+        /// <param name="directory_name">Name of the directory in KiFS to be
+        /// altered.  </param>
+        /// <param name="directory_updates_map">Map containing the properties
+        /// of the directory to be altered. Error if empty.
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterDirectoryRequest.DirectoryUpdatesMap.DATA_LIMIT">DATA_LIMIT</see>:</term>
+        ///         <description>The maximum capacity, in bytes, to apply to
+        /// the directory. Set to -1 to indicate no upper limit.</description>
+        ///     </item>
+        /// </list>
+        ///   </param>
+        /// <param name="options">Optional parameters.  </param>
+        /// 
+        /// <returns>Response object containing the result of the
+        /// operation.</returns>
+        /// 
+        public AlterDirectoryResponse alterDirectory( string directory_name,
+                                                      IDictionary<string, string> directory_updates_map,
+                                                      IDictionary<string, string> options )
+        {
+            return alterDirectory( new AlterDirectoryRequest( directory_name,
+                                                              directory_updates_map,
+                                                              options ) );
         }
 
         /// @cond NO_DOCS
@@ -4532,6 +4790,31 @@ namespace kinetica
         ///         <description>Number of seconds after which kakfa poll will
         /// timeout if datasource has no records.  The default value is
         /// '5'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.EGRESS_SINGLE_FILE_MAX_SIZE">EGRESS_SINGLE_FILE_MAX_SIZE</see>:</term>
+        ///         <description>Max file size (in MB) to allow saving to a
+        /// single file. May be overridden by target limitations.  The default
+        /// value is '100'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.MAX_CONCURRENT_KERNELS">MAX_CONCURRENT_KERNELS</see>:</term>
+        ///         <description>Sets the max_concurrent_kernels value of the
+        /// conf.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.TCS_PER_TOM">TCS_PER_TOM</see>:</term>
+        ///         <description>Sets the tcs_per_tom value of the
+        /// conf.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.TPS_PER_TOM">TPS_PER_TOM</see>:</term>
+        ///         <description>Sets the tps_per_tom value of the
+        /// conf.</description>
         ///     </item>
         /// </list>
         ///   </param>
@@ -6184,9 +6467,9 @@ namespace kinetica
         /// 
         /// <param name="name">Name of the data sink to be created.  </param>
         /// <param name="destination">Destination for the output data in format
-        /// 'destination_type://path[:port]'.
-        /// Supported destination types are 'http', 'https' and 'kafka'.
-        /// </param>
+        /// 'storage_provider_type://path[:port]'.
+        /// Supported storage provider types are 'azure', 'gcs', 'hdfs',
+        /// 'http', 'https', 'jdbc', 'kafka' and 's3'.  </param>
         /// <param name="options">Optional parameters.
         /// <list type="bullet">
         ///     <item>
@@ -6207,6 +6490,127 @@ namespace kinetica
         ///         <description>Name of the <a
         /// href="../../../concepts/credentials/" target="_top">credential</a>
         /// object to be used in this data sink</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateDatasinkRequest.Options.S3_BUCKET_NAME">S3_BUCKET_NAME</see>:</term>
+        ///         <description>Name of the Amazon S3 bucket to use as the
+        /// data sink</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateDatasinkRequest.Options.S3_REGION">S3_REGION</see>:</term>
+        ///         <description>Name of the Amazon S3 region where the given
+        /// bucket is located</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateDatasinkRequest.Options.S3_AWS_ROLE_ARN">S3_AWS_ROLE_ARN</see>:</term>
+        ///         <description>Amazon IAM Role ARN which has required S3
+        /// permissions that can be assumed for the given S3 IAM
+        /// user</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateDatasinkRequest.Options.S3_ENCRYPTION_CUSTOMER_ALGORITHM">S3_ENCRYPTION_CUSTOMER_ALGORITHM</see>:</term>
+        ///         <description>Customer encryption algorithm used encrypting
+        /// data</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateDatasinkRequest.Options.S3_ENCRYPTION_CUSTOMER_KEY">S3_ENCRYPTION_CUSTOMER_KEY</see>:</term>
+        ///         <description>Customer encryption key to encrypt or decrypt
+        /// data</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateDatasinkRequest.Options.HDFS_KERBEROS_KEYTAB">HDFS_KERBEROS_KEYTAB</see>:</term>
+        ///         <description>Kerberos keytab file location for the given
+        /// HDFS user.  This may be a KIFS file.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateDatasinkRequest.Options.HDFS_DELEGATION_TOKEN">HDFS_DELEGATION_TOKEN</see>:</term>
+        ///         <description>Delegation token for the given HDFS
+        /// user</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateDatasinkRequest.Options.HDFS_USE_KERBEROS">HDFS_USE_KERBEROS</see>:</term>
+        ///         <description>Use kerberos authentication for the given HDFS
+        /// cluster
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateDatasinkRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateDatasinkRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="CreateDatasinkRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateDatasinkRequest.Options.AZURE_STORAGE_ACCOUNT_NAME">AZURE_STORAGE_ACCOUNT_NAME</see>:</term>
+        ///         <description>Name of the Azure storage account to use as
+        /// the data sink, this is valid only if tenant_id is
+        /// specified</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateDatasinkRequest.Options.AZURE_CONTAINER_NAME">AZURE_CONTAINER_NAME</see>:</term>
+        ///         <description>Name of the Azure storage container to use as
+        /// the data sink</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateDatasinkRequest.Options.AZURE_TENANT_ID">AZURE_TENANT_ID</see>:</term>
+        ///         <description>Active Directory tenant ID (or directory
+        /// ID)</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateDatasinkRequest.Options.AZURE_SAS_TOKEN">AZURE_SAS_TOKEN</see>:</term>
+        ///         <description>Shared access signature token for Azure
+        /// storage account to use as the data sink</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateDatasinkRequest.Options.AZURE_OAUTH_TOKEN">AZURE_OAUTH_TOKEN</see>:</term>
+        ///         <description>Oauth token to access given storage
+        /// container</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateDatasinkRequest.Options.GCS_BUCKET_NAME">GCS_BUCKET_NAME</see>:</term>
+        ///         <description>Name of the Google Cloud Storage bucket to use
+        /// as the data sink</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateDatasinkRequest.Options.GCS_PROJECT_ID">GCS_PROJECT_ID</see>:</term>
+        ///         <description>Name of the Google Cloud project to use as the
+        /// data sink</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateDatasinkRequest.Options.GCS_SERVICE_ACCOUNT_KEYS">GCS_SERVICE_ACCOUNT_KEYS</see>:</term>
+        ///         <description>Google Cloud service account keys to use for
+        /// authenticating the data sink</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateDatasinkRequest.Options.JDBC_DRIVER_JAR_PATH">JDBC_DRIVER_JAR_PATH</see>:</term>
+        ///         <description>JDBC driver jar file location</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateDatasinkRequest.Options.JDBC_DRIVER_CLASS_NAME">JDBC_DRIVER_CLASS_NAME</see>:</term>
+        ///         <description>Name of the JDBC driver class</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -6250,13 +6654,42 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="CreateDatasinkRequest.Options.JDBC_DRIVER_JAR_PATH">JDBC_DRIVER_JAR_PATH</see>:</term>
-        ///         <description>JDBC driver jar file location</description>
+        /// cref="CreateDatasinkRequest.Options.USE_MANAGED_CREDENTIALS">USE_MANAGED_CREDENTIALS</see>:</term>
+        ///         <description>When no credentials are supplied, we use
+        /// anonymous access by default.  If this is set, we will use cloud
+        /// provider user settings.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateDatasinkRequest.Options.TRUE">TRUE</see></term>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="CreateDatasinkRequest.Options.JDBC_DRIVER_CLASS_NAME">JDBC_DRIVER_CLASS_NAME</see>:</term>
-        ///         <description>Name of the JDBC driver class</description>
+        /// cref="CreateDatasinkRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="CreateDatasinkRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateDatasinkRequest.Options.USE_HTTPS">USE_HTTPS</see>:</term>
+        ///         <description>Use https to connect to datasink if true,
+        /// otherwise use http
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateDatasinkRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateDatasinkRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="CreateDatasinkRequest.Options.TRUE">TRUE</see>.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -6398,7 +6831,7 @@ namespace kinetica
         ///         <term><see
         /// cref="CreateDatasourceRequest.Options.HDFS_KERBEROS_KEYTAB">HDFS_KERBEROS_KEYTAB</see>:</term>
         ///         <description>Kerberos keytab file location for the given
-        /// HDFS user</description>
+        /// HDFS user.  This may be a KIFS file.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -6502,7 +6935,8 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="CreateDatasourceRequest.Options.JDBC_DRIVER_JAR_PATH">JDBC_DRIVER_JAR_PATH</see>:</term>
-        ///         <description>JDBC driver jar file location</description>
+        ///         <description>JDBC driver jar file location.  This may be a
+        /// KIFS file.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -6661,6 +7095,13 @@ namespace kinetica
         /// user name provided in the value. The <paramref
         /// cref="CreateDirectoryRequest.directory_name" /> must be an empty
         /// string in this case. The user must exist.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateDirectoryRequest.Options.DATA_LIMIT">DATA_LIMIT</see>:</term>
+        ///         <description>The maximum capacity, in bytes, to apply to
+        /// the created directory. Set to -1 to indicate no upper limit. If
+        /// empty, the system default limit is applied.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -7843,6 +8284,98 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
+        /// cref="CreateProjectionRequest.Options.PARTITION_TYPE">PARTITION_TYPE</see>:</term>
+        ///         <description><a
+        /// href="../../../concepts/tables/#partitioning"
+        /// target="_top">Partitioning</a> scheme to use.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateProjectionRequest.Options.RANGE">RANGE</see>:</term>
+        ///         <description>Use <a
+        /// href="../../../concepts/tables/#partitioning-by-range"
+        /// target="_top">range partitioning</a>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateProjectionRequest.Options.INTERVAL">INTERVAL</see>:</term>
+        ///         <description>Use <a
+        /// href="../../../concepts/tables/#partitioning-by-interval"
+        /// target="_top">interval partitioning</a>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateProjectionRequest.Options.LIST">LIST</see>:</term>
+        ///         <description>Use <a
+        /// href="../../../concepts/tables/#partitioning-by-list"
+        /// target="_top">list partitioning</a>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateProjectionRequest.Options.HASH">HASH</see>:</term>
+        ///         <description>Use <a
+        /// href="../../../concepts/tables/#partitioning-by-hash"
+        /// target="_top">hash partitioning</a>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateProjectionRequest.Options.SERIES">SERIES</see>:</term>
+        ///         <description>Use <a
+        /// href="../../../concepts/tables/#partitioning-by-series"
+        /// target="_top">series partitioning</a>.</description>
+        ///     </item>
+        /// </list></description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateProjectionRequest.Options.PARTITION_KEYS">PARTITION_KEYS</see>:</term>
+        ///         <description>Comma-separated list of partition keys, which
+        /// are the columns or column expressions by which records will be
+        /// assigned to partitions defined by
+        /// <i>partition_definitions</i>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateProjectionRequest.Options.PARTITION_DEFINITIONS">PARTITION_DEFINITIONS</see>:</term>
+        ///         <description>Comma-separated list of partition definitions,
+        /// whose format depends on the choice of <i>partition_type</i>.  See
+        /// <a href="../../../concepts/tables/#partitioning-by-range"
+        /// target="_top">range partitioning</a>, <a
+        /// href="../../../concepts/tables/#partitioning-by-interval"
+        /// target="_top">interval partitioning</a>, <a
+        /// href="../../../concepts/tables/#partitioning-by-list"
+        /// target="_top">list partitioning</a>, <a
+        /// href="../../../concepts/tables/#partitioning-by-hash"
+        /// target="_top">hash partitioning</a>, or <a
+        /// href="../../../concepts/tables/#partitioning-by-series"
+        /// target="_top">series partitioning</a> for example
+        /// formats.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateProjectionRequest.Options.IS_AUTOMATIC_PARTITION">IS_AUTOMATIC_PARTITION</see>:</term>
+        ///         <description>If <i>true</i>, a new partition will be
+        /// created for values which don't fall into an existing partition.
+        /// Currently only supported for <a
+        /// href="../../../concepts/tables/#partitioning-by-list"
+        /// target="_top">list partitions</a>.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateProjectionRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateProjectionRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="CreateProjectionRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="CreateProjectionRequest.Options.VIEW_ID">VIEW_ID</see>:</term>
         ///         <description>ID of view of which this projection is a
         /// member.  The default value is ''.</description>
@@ -8867,14 +9400,16 @@ namespace kinetica
         /// with columns in that order.  If
         /// the target table exists, the column names must match the source
         /// data field names for a name-mapping
-        /// to be successful.</description>
+        /// to be successful.
+        /// Mutually exclusive with <i>columns_to_skip</i>.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="CreateTableExternalRequest.Options.COLUMNS_TO_SKIP">COLUMNS_TO_SKIP</see>:</term>
         ///         <description>Specifies a comma-delimited list of columns
         /// from the source data to
-        /// skip.  Mutually exclusive to columns_to_load. </description>
+        /// skip.  Mutually exclusive with
+        /// <i>columns_to_load</i>.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -9040,6 +9575,12 @@ namespace kinetica
         /// </list>
         /// The default value is <see
         /// cref="CreateTableExternalRequest.Options.FULL">FULL</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableExternalRequest.Options.JDBC_FETCH_SIZE">JDBC_FETCH_SIZE</see>:</term>
+        ///         <description>The JDBC fetch size, which determines how many
+        /// rows to fetch per round trip.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -9368,8 +9909,32 @@ namespace kinetica
         ///         <term><see
         /// cref="CreateTableExternalRequest.Options.REMOTE_QUERY_FILTER_COLUMN">REMOTE_QUERY_FILTER_COLUMN</see>:</term>
         ///         <description>Name of column to be used for splitting the
-        /// query into multiple sub-queries.  The default value is
-        /// ''.</description>
+        /// query into multiple sub-queries using the data distribution of
+        /// given column.  The default value is ''.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableExternalRequest.Options.REMOTE_QUERY_PARTITION_COLUMN">REMOTE_QUERY_PARTITION_COLUMN</see>:</term>
+        ///         <description>Alias name for remote_query_filter_column.
+        /// The default value is ''.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableExternalRequest.Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>:</term>
+        ///         <description>
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableExternalRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableExternalRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="CreateTableExternalRequest.Options.FALSE">FALSE</see>.</description>
         ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.</param>
@@ -10071,6 +10636,13 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
+        /// cref="CreateTypeRequest.Properties.BOOLEAN">BOOLEAN</see>:</term>
+        ///         <description>This property provides optimized memory and
+        /// query performance for int columns. Ints with this property must be
+        /// between 0 and 1(inclusive)</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="CreateTypeRequest.Properties.INT8">INT8</see>:</term>
         ///         <description>This property provides optimized memory and
         /// query performance for int columns. Ints with this property must be
@@ -10496,9 +11068,21 @@ namespace kinetica
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
+        /// cref="CreateUserExternalRequest.Options.RESOURCE_GROUP">RESOURCE_GROUP</see>:</term>
+        ///         <description>Name of an existing resource group to
+        /// associate with this user</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateUserExternalRequest.Options.DEFAULT_SCHEMA">DEFAULT_SCHEMA</see>:</term>
+        ///         <description>Default schema to associate with this
+        /// user</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="CreateUserExternalRequest.Options.CREATE_HOME_DIRECTORY">CREATE_HOME_DIRECTORY</see>:</term>
-        ///         <description>when true, a home directory in KiFS is created
-        /// for this user
+        ///         <description>When <i>true</i>, a home directory in KiFS is
+        /// created for this user
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -10512,6 +11096,14 @@ namespace kinetica
         /// </list>
         /// The default value is <see
         /// cref="CreateUserExternalRequest.Options.TRUE">TRUE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateUserExternalRequest.Options.DIRECTORY_DATA_LIMIT">DIRECTORY_DATA_LIMIT</see>:</term>
+        ///         <description>The maximum capacity to apply to the created
+        /// directory if <i>create_home_directory</i> is <i>true</i>. Set to -1
+        /// to indicate no upper limit. If empty, the system default limit is
+        /// applied.</description>
         ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.</param>
@@ -10563,14 +11155,14 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="CreateUserInternalRequest.Options.DEFAULT_SCHEMA">DEFAULT_SCHEMA</see>:</term>
-        ///         <description>default schema associate with this
+        ///         <description>Default schema to associate with this
         /// user</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="CreateUserInternalRequest.Options.CREATE_HOME_DIRECTORY">CREATE_HOME_DIRECTORY</see>:</term>
-        ///         <description>when true, a home directory in KiFS is created
-        /// for this user
+        ///         <description>When <i>true</i>, a home directory in KiFS is
+        /// created for this user
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -10584,6 +11176,14 @@ namespace kinetica
         /// </list>
         /// The default value is <see
         /// cref="CreateUserInternalRequest.Options.TRUE">TRUE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateUserInternalRequest.Options.DIRECTORY_DATA_LIMIT">DIRECTORY_DATA_LIMIT</see>:</term>
+        ///         <description>The maximum capacity to apply to the created
+        /// directory if <i>create_home_directory</i> is <i>true</i>. Set to -1
+        /// to indicate no upper limit. If empty, the system default limit is
+        /// applied.</description>
         ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.</param>
@@ -12147,6 +12747,306 @@ namespace kinetica
         {
             return executeSql( new ExecuteSqlRequest( statement, offset, limit,
                                                       request_schema_str, data, options ) );
+        }
+
+
+        /// <summary>Export records from a table to files. All tables can be
+        /// exported, in full or partial
+        /// (see <i>columns_to_export</i> and <i>columns_to_skip</i>).
+        /// Additional filtering can be applied when using export table with
+        /// expression through SQL.
+        /// Default destination is KIFS, though other storage types (Azure, S3,
+        /// GCS, and HDFS) are supported
+        /// through <i>datasink_name</i>; see <see
+        /// cref="Kinetica.createDatasink(string,string,IDictionary{string, string})"
+        /// />.
+        /// <br />
+        /// Server's local file system is not supported.  Default file format
+        /// is delimited text. See options for
+        /// different file types and different options for each file type.
+        /// Table is saved to a single file if
+        /// within max file size limits (may vary depending on datasink type).
+        /// If not, then table is split into
+        /// multiple files; these may be smaller than the max size limit.
+        /// <br />
+        /// All filenames created are returned in the response.</summary>
+        /// 
+        /// <param name="request_">Request object containing the parameters for
+        /// the operation.</param>
+        /// 
+        /// <returns>Response object containing the result of the
+        /// operation.</returns>
+        /// 
+        public ExportRecordsToFilesResponse exportRecordsToFiles( ExportRecordsToFilesRequest request_ )
+        {
+            ExportRecordsToFilesResponse actualResponse_ = SubmitRequest<ExportRecordsToFilesResponse>("/export/records/tofiles", request_, false);
+
+            return actualResponse_;
+        }
+
+
+        /// <summary>Export records from a table to files. All tables can be
+        /// exported, in full or partial
+        /// (see <i>columns_to_export</i> and <i>columns_to_skip</i>).
+        /// Additional filtering can be applied when using export table with
+        /// expression through SQL.
+        /// Default destination is KIFS, though other storage types (Azure, S3,
+        /// GCS, and HDFS) are supported
+        /// through <i>datasink_name</i>; see <see
+        /// cref="Kinetica.createDatasink(string,string,IDictionary{string, string})"
+        /// />.
+        /// <br />
+        /// Server's local file system is not supported.  Default file format
+        /// is delimited text. See options for
+        /// different file types and different options for each file type.
+        /// Table is saved to a single file if
+        /// within max file size limits (may vary depending on datasink type).
+        /// If not, then table is split into
+        /// multiple files; these may be smaller than the max size limit.
+        /// <br />
+        /// All filenames created are returned in the response.</summary>
+        /// 
+        /// <param name="table_name"></param>
+        /// <param name="filepath">Path to data export target.  If <paramref
+        /// cref="ExportRecordsToFilesRequest.filepath" /> has a file
+        /// extension, it is
+        /// read as the name of a file. If <paramref
+        /// cref="ExportRecordsToFilesRequest.filepath" /> is a directory, then
+        /// the source table name with a
+        /// random UUID appended will be used as the name of each exported
+        /// file, all written to that directory.
+        /// If filepath is a filename, then all exported files will have a
+        /// random UUID appended to the given
+        /// name.  In either case, the target directory specified or implied
+        /// must exist.  The names of all
+        /// exported files are returned in the response.  </param>
+        /// <param name="options">Optional parameters.
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="ExportRecordsToFilesRequest.Options.BATCH_SIZE">BATCH_SIZE</see>:</term>
+        ///         <description>Number of records to be exported as a batch.
+        /// The default value is '1000000'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ExportRecordsToFilesRequest.Options.COLUMN_FORMATS">COLUMN_FORMATS</see>:</term>
+        ///         <description>For each source column specified, applies the
+        /// column-property-bound
+        /// format.  Currently supported column properties include date, time,
+        /// & datetime. The parameter value
+        /// must be formatted as a JSON string of maps of column names to maps
+        /// of column properties to their
+        /// corresponding column formats, e.g.,
+        /// '{ "order_date" : { "date" : "%Y.%m.%d" }, "order_time" : { "time"
+        /// : "%H:%M:%S" } }'.
+        /// See <i>default_column_formats</i> for valid format
+        /// syntax.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ExportRecordsToFilesRequest.Options.COLUMNS_TO_EXPORT">COLUMNS_TO_EXPORT</see>:</term>
+        ///         <description>Specifies a comma-delimited list of columns
+        /// from the source table to
+        /// export, written to the output file in the order they are given.
+        /// Column names can be provided, in which case the target file will
+        /// use those names as the column
+        /// headers as well.
+        /// Alternatively, column numbers can be specified--discretely or as a
+        /// range.  For example, a value of
+        /// '5,7,1..3' will write values from the fifth column in the source
+        /// table into the first column in the
+        /// target file, from the seventh column in the source table into the
+        /// second column in the target file,
+        /// and from the first through third columns in the source table into
+        /// the third through fifth columns in
+        /// the target file.
+        /// Mutually exclusive with <i>columns_to_skip</i>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ExportRecordsToFilesRequest.Options.COLUMNS_TO_SKIP">COLUMNS_TO_SKIP</see>:</term>
+        ///         <description>Comma-separated list of column names or column
+        /// numbers to not
+        /// export.  All columns in the source table not specified will be
+        /// written to the target file in the
+        /// order they appear in the table definition.  Mutually exclusive with
+        /// <i>columns_to_export</i>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ExportRecordsToFilesRequest.Options.DATASINK_NAME">DATASINK_NAME</see>:</term>
+        ///         <description>Datasink name, created using
+        /// /create/datasink.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ExportRecordsToFilesRequest.Options.DEFAULT_COLUMN_FORMATS">DEFAULT_COLUMN_FORMATS</see>:</term>
+        ///         <description>Specifies the default format to use to write
+        /// data.  Currently
+        /// supported column properties include date, time, & datetime.  This
+        /// default column-property-bound
+        /// format can be overridden by specifying a column property & format
+        /// for a given source column in
+        /// <i>column_formats</i>. For each specified annotation, the format
+        /// will apply to all
+        /// columns with that annotation unless custom <i>column_formats</i>
+        /// for that
+        /// annotation are specified.
+        /// The parameter value must be formatted as a JSON string that is a
+        /// map of column properties to their
+        /// respective column formats, e.g., '{ "date" : "%Y.%m.%d", "time" :
+        /// "%H:%M:%S" }'.  Column
+        /// formats are specified as a string of control characters and plain
+        /// text. The supported control
+        /// characters are 'Y', 'm', 'd', 'H', 'M', 'S', and 's', which follow
+        /// the Linux 'strptime()'
+        /// specification, as well as 's', which specifies seconds and
+        /// fractional seconds (though the fractional
+        /// component will be truncated past milliseconds).
+        /// Formats for the 'date' annotation must include the 'Y', 'm', and
+        /// 'd' control characters. Formats for
+        /// the 'time' annotation must include the 'H', 'M', and either 'S' or
+        /// 's' (but not both) control
+        /// characters. Formats for the 'datetime' annotation meet both the
+        /// 'date' and 'time' control character
+        /// requirements. For example, '{"datetime" : "%m/%d/%Y %H:%M:%S" }'
+        /// would be used to write text
+        /// as "05/04/2000 12:12:11"</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ExportRecordsToFilesRequest.Options.EXPORT_DDL">EXPORT_DDL</see>:</term>
+        ///         <description>Save DDL to a separate file.  The default
+        /// value is 'false'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ExportRecordsToFilesRequest.Options.FILE_EXTENTION">FILE_EXTENTION</see>:</term>
+        ///         <description>Extension to give the export file.  The
+        /// default value is '.csv'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ExportRecordsToFilesRequest.Options.FILE_TYPE">FILE_TYPE</see>:</term>
+        ///         <description>Specifies the file format to use when
+        /// exporting data.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="ExportRecordsToFilesRequest.Options.DELIMITED_TEXT">DELIMITED_TEXT</see>:</term>
+        ///         <description>Delimited text file format; e.g., CSV, TSV,
+        /// PSV, etc.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ExportRecordsToFilesRequest.Options.PARQUET">PARQUET</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="ExportRecordsToFilesRequest.Options.DELIMITED_TEXT">DELIMITED_TEXT</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ExportRecordsToFilesRequest.Options.KINETICA_HEADER">KINETICA_HEADER</see>:</term>
+        ///         <description>Whether to include a Kinetica proprietary
+        /// header. Will not be
+        /// written if <i>text_has_header</i> is
+        /// <i>false</i>.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="ExportRecordsToFilesRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ExportRecordsToFilesRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="ExportRecordsToFilesRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ExportRecordsToFilesRequest.Options.KINETICA_HEADER_DELIMITER">KINETICA_HEADER_DELIMITER</see>:</term>
+        ///         <description>If a Kinetica proprietary header is included,
+        /// then specify a
+        /// property separator. Different from column delimiter.  The default
+        /// value is '|'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ExportRecordsToFilesRequest.Options.SINGLE_FILE">SINGLE_FILE</see>:</term>
+        ///         <description>Save records to a single file. This option may
+        /// be ignored if file
+        /// size exceeds internal file size limits (this limit will differ on
+        /// different targets).
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="ExportRecordsToFilesRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ExportRecordsToFilesRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="ExportRecordsToFilesRequest.Options.TRUE">TRUE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ExportRecordsToFilesRequest.Options.TEXT_DELIMITER">TEXT_DELIMITER</see>:</term>
+        ///         <description>Specifies the character to write out to
+        /// delimit field values and
+        /// field names in the header (if present).
+        /// For <i>delimited_text</i> <i>file_type</i> only.  The default value
+        /// is ','.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ExportRecordsToFilesRequest.Options.TEXT_HAS_HEADER">TEXT_HAS_HEADER</see>:</term>
+        ///         <description>Indicates whether to write out a header row.
+        /// For <i>delimited_text</i> <i>file_type</i> only.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="ExportRecordsToFilesRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ExportRecordsToFilesRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="ExportRecordsToFilesRequest.Options.TRUE">TRUE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ExportRecordsToFilesRequest.Options.TEXT_NULL_STRING">TEXT_NULL_STRING</see>:</term>
+        ///         <description>Specifies the character string that should be
+        /// written out for the null
+        /// value in the data.
+        /// For <i>delimited_text</i> <i>file_type</i> only.  The default value
+        /// is '\\N'.</description>
+        ///     </item>
+        /// </list>
+        /// The default value is an empty {@link Dictionary}.</param>
+        /// 
+        /// <returns>Response object containing the result of the
+        /// operation.</returns>
+        /// 
+        public ExportRecordsToFilesResponse exportRecordsToFiles( string table_name,
+                                                                  string filepath,
+                                                                  IDictionary<string, string> options = null )
+        {
+            return exportRecordsToFiles( new ExportRecordsToFilesRequest( table_name,
+                                                                          filepath,
+                                                                          options ) );
         }
 
 
@@ -16629,14 +17529,16 @@ namespace kinetica
         /// with columns in that order.  If
         /// the target table exists, the column names must match the source
         /// data field names for a name-mapping
-        /// to be successful.</description>
+        /// to be successful.
+        /// Mutually exclusive with <i>columns_to_skip</i>.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="InsertRecordsFromFilesRequest.Options.COLUMNS_TO_SKIP">COLUMNS_TO_SKIP</see>:</term>
         ///         <description>Specifies a comma-delimited list of columns
         /// from the source data to
-        /// skip.  Mutually exclusive to columns_to_load. </description>
+        /// skip.  Mutually exclusive with
+        /// <i>columns_to_load</i>.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -17072,6 +17974,24 @@ namespace kinetica
         /// The default value is <see
         /// cref="InsertRecordsFromFilesRequest.Options.SPEED">SPEED</see>.</description>
         ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromFilesRequest.Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>:</term>
+        ///         <description>
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromFilesRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromFilesRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="InsertRecordsFromFilesRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.</param>
         /// 
@@ -17438,14 +18358,16 @@ namespace kinetica
         /// with columns in that order.  If
         /// the target table exists, the column names must match the source
         /// data field names for a name-mapping
-        /// to be successful.</description>
+        /// to be successful.
+        /// Mutually exclusive with <i>columns_to_skip</i>.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="InsertRecordsFromPayloadRequest.Options.COLUMNS_TO_SKIP">COLUMNS_TO_SKIP</see>:</term>
         ///         <description>Specifies a comma-delimited list of columns
         /// from the source data to
-        /// skip.  Mutually exclusive to columns_to_load. </description>
+        /// skip.  Mutually exclusive with
+        /// <i>columns_to_load</i>.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -17866,6 +18788,24 @@ namespace kinetica
         /// The default value is <see
         /// cref="InsertRecordsFromPayloadRequest.Options.SPEED">SPEED</see>.</description>
         ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromPayloadRequest.Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>:</term>
+        ///         <description>
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromPayloadRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromPayloadRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="InsertRecordsFromPayloadRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.</param>
         /// 
@@ -17917,7 +18857,7 @@ namespace kinetica
         /// If the table does not exist, the table will be created using either
         /// an existing
         /// <i>type_id</i> or the type inferred from the
-        /// file, and the new table name will have to meet standard
+        /// remote query, and the new table name will have to meet standard
         /// <a href="../../../concepts/tables/#table-naming-criteria"
         /// target="_top">table naming criteria</a>.  </param>
         /// <param name="remote_query">Query for which result data needs to be
@@ -18151,7 +19091,8 @@ namespace kinetica
         ///         <description>Optional name of a table to which records that
         /// were rejected are written.  The bad-record-table has the following
         /// columns: line_number (long), line_rejected (string), error_message
-        /// (string).</description>
+        /// (string). When error handling is Abort, bad records table is not
+        /// populated.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -18162,18 +19103,9 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="InsertRecordsFromQueryRequest.Options.BAD_RECORD_TABLE_LIMIT_PER_INPUT">BAD_RECORD_TABLE_LIMIT_PER_INPUT</see>:</term>
-        ///         <description>For subscriptions: A positive integer
-        /// indicating the maximum number of records that can be written to the
-        /// bad-record-table per file/payload. Default value will be
-        /// 'bad_record_table_limit' and total size of the table per rank is
-        /// limited to 'bad_record_table_limit'</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="InsertRecordsFromQueryRequest.Options.JDBC_FETCH_SIZE">JDBC_FETCH_SIZE</see>:</term>
-        ///         <description>The JDBC fetch size, which determines how many
-        /// rows to fetch per round trip.</description>
+        /// cref="InsertRecordsFromQueryRequest.Options.BATCH_SIZE">BATCH_SIZE</see>:</term>
+        ///         <description>Number of records per batch when inserting
+        /// data.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -18209,7 +19141,7 @@ namespace kinetica
         ///     </item>
         /// </list>
         /// The default value is <see
-        /// cref="InsertRecordsFromQueryRequest.Options.PERMISSIVE">PERMISSIVE</see>.</description>
+        /// cref="InsertRecordsFromQueryRequest.Options.ABORT">ABORT</see>.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -18244,59 +19176,15 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="InsertRecordsFromQueryRequest.Options.LOADING_MODE">LOADING_MODE</see>:</term>
-        ///         <description>Scheme for distributing the extraction and
-        /// loading of data from the source data file(s). This option applies
-        /// only when loading files that are local to the database
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="InsertRecordsFromQueryRequest.Options.HEAD">HEAD</see>:</term>
-        ///         <description>The head node loads all data. All files must
-        /// be available to the head node.</description>
+        /// cref="InsertRecordsFromQueryRequest.Options.JDBC_FETCH_SIZE">JDBC_FETCH_SIZE</see>:</term>
+        ///         <description>The JDBC fetch size, which determines how many
+        /// rows to fetch per round trip.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="InsertRecordsFromQueryRequest.Options.DISTRIBUTED_SHARED">DISTRIBUTED_SHARED</see>:</term>
-        ///         <description>The head node coordinates loading data by
-        /// worker
-        /// processes across all nodes from shared files available to all
-        /// workers.
-        /// NOTE:
-        /// Instead of existing on a shared source, the files can be duplicated
-        /// on a source local to each host
-        /// to improve performance, though the files must appear as the same
-        /// data set from the perspective of
-        /// all hosts performing the load.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="InsertRecordsFromQueryRequest.Options.DISTRIBUTED_LOCAL">DISTRIBUTED_LOCAL</see>:</term>
-        ///         <description>A single worker process on each node loads all
-        /// files
-        /// that are available to it. This option works best when each worker
-        /// loads files from its own file
-        /// system, to maximize performance. In order to avoid data
-        /// duplication, either each worker performing
-        /// the load needs to have visibility to a set of files unique to it
-        /// (no file is visible to more than
-        /// one node) or the target table needs to have a primary key (which
-        /// will allow the worker to
-        /// automatically deduplicate data).
-        /// NOTE:
-        /// If the target table doesn't exist, the table structure will be
-        /// determined by the head node. If the
-        /// head node has no files local to it, it will be unable to determine
-        /// the structure and the request
-        /// will fail.
-        /// If the head node is configured to have no worker processes, no data
-        /// strictly accessible to the head
-        /// node will be loaded.</description>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="InsertRecordsFromQueryRequest.Options.HEAD">HEAD</see>.</description>
+        /// cref="InsertRecordsFromQueryRequest.Options.NUM_TASKS_PER_RANK">NUM_TASKS_PER_RANK</see>:</term>
+        ///         <description>Optional: number of tasks for reading data per
+        /// rank. Default will be external_file_reader_num_tasks</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -18318,7 +19206,7 @@ namespace kinetica
         ///         <description>If set to <i>true</i>, truncates the table
         /// specified by <paramref
         /// cref="InsertRecordsFromQueryRequest.table_name" /> prior to loading
-        /// the file(s).
+        /// the data.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -18335,12 +19223,6 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="InsertRecordsFromQueryRequest.Options.NUM_TASKS_PER_RANK">NUM_TASKS_PER_RANK</see>:</term>
-        ///         <description>Optional: number of tasks for reading file per
-        /// rank. Default will be external_file_reader_num_tasks</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
         /// cref="InsertRecordsFromQueryRequest.Options.REMOTE_QUERY">REMOTE_QUERY</see>:</term>
         ///         <description>Remote SQL query from which data will be
         /// sourced</description>
@@ -18349,8 +19231,32 @@ namespace kinetica
         ///         <term><see
         /// cref="InsertRecordsFromQueryRequest.Options.REMOTE_QUERY_FILTER_COLUMN">REMOTE_QUERY_FILTER_COLUMN</see>:</term>
         ///         <description>Name of column to be used for splitting the
-        /// query into multiple sub-queries.  The default value is
-        /// ''.</description>
+        /// query into multiple sub-queries using the data distribution of
+        /// given column.  The default value is ''.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromQueryRequest.Options.REMOTE_QUERY_PARTITION_COLUMN">REMOTE_QUERY_PARTITION_COLUMN</see>:</term>
+        ///         <description>Alias name for remote_query_filter_column.
+        /// The default value is ''.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromQueryRequest.Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>:</term>
+        ///         <description>
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromQueryRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromQueryRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="InsertRecordsFromQueryRequest.Options.FALSE">FALSE</see>.</description>
         ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.</param>
@@ -19043,7 +19949,7 @@ namespace kinetica
         /// target="_top">name resolution rules</a> and meeting <a
         /// href="../../../concepts/tables/#table-naming-criteria"
         /// target="_top">table naming criteria</a>.  This table contains a <a
-        /// href="../../../geospatial/geo_objects/#geospatial-tracks"
+        /// href="../../../location_intelligence/geo_objects/#geospatial-tracks"
         /// target="_top">track</a> of geospatial points for the matched
         /// portion of the graph, a track ID, and a score value. Also outputs a
         /// details table containing a trip ID (that matches the track ID), the
@@ -19132,6 +20038,14 @@ namespace kinetica
         /// only. This is the cutoff for the number of generated combinations
         /// for sequencing the demand locations - can increase this up to 2M.
         /// The default value is '10000'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="MatchGraphRequest.Options.MAX_SUPPLY_COMBINATIONS">MAX_SUPPLY_COMBINATIONS</see>:</term>
+        ///         <description>For the <i>match_supply_demand</i> solver
+        /// only. This is the cutoff for the number of generated combinations
+        /// for sequencing the supply locations if/when 'permute_supplies' is
+        /// true.  The default value is '10000'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -19283,6 +20197,70 @@ namespace kinetica
         /// is unlimited. If 'enable_truck_reuse' is on, this condition will be
         /// applied separately at each round trip use of the same truck.  The
         /// default value is '0'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="MatchGraphRequest.Options.TRUCK_SERVICE_RADIUS">TRUCK_SERVICE_RADIUS</see>:</term>
+        ///         <description>For the <i>match_supply_demand</i> solver
+        /// only. If specified (greater than zero), it filters the demands
+        /// outside this radius centered around the truck's originating
+        /// location (distance or time).  The default value is
+        /// '0.0'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="MatchGraphRequest.Options.BATCH_TSM_MODE">BATCH_TSM_MODE</see>:</term>
+        ///         <description>For the <i>match_supply_demand</i> solver
+        /// only. When enabled, it sets the number of visits on each demand
+        /// location by a single salesman at each trip is considered to be
+        /// (one) 1, otherwise there is no bound.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="MatchGraphRequest.Options.TRUE">TRUE</see>:</term>
+        ///         <description>Sets only one visit per demand location by a
+        /// salesman (tsm mode)</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="MatchGraphRequest.Options.FALSE">FALSE</see>:</term>
+        ///         <description>No preset limit (usual msdo
+        /// mode)</description>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="MatchGraphRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="MatchGraphRequest.Options.RESTRICTED_TRUCK_TYPE">RESTRICTED_TRUCK_TYPE</see>:</term>
+        ///         <description>For the <i>match_supply_demand</i> solver
+        /// only. Optimization is performed by restricting routes labeled by
+        /// 'MSDO_ODDEVEN_RESTRICTED' only for this truck type
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="MatchGraphRequest.Options.ODD">ODD</see>:</term>
+        ///         <description>Applies odd/even rule restrictions to odd
+        /// tagged vehicles.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="MatchGraphRequest.Options.EVEN">EVEN</see>:</term>
+        ///         <description>Applies odd/even rule restrictions to even
+        /// tagged vehicles.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="MatchGraphRequest.Options.NONE">NONE</see>:</term>
+        ///         <description>Does not apply odd/even rule restrictions to
+        /// any vehicles.</description>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="MatchGraphRequest.Options.NONE">NONE</see>.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -23746,6 +24724,136 @@ namespace kinetica
             return uploadFilesFromurl( new UploadFilesFromurlRequest( file_names, urls,
                                                                       options ) );
         }
+
+        /// @cond NO_DOCS
+        /// 
+        /// <param name="request_">Request object containing the parameters for
+        /// the operation.</param>
+        /// 
+        /// <returns>Response object containing the result of the
+        /// operation.</returns>
+        /// 
+        public VisualizeGetFeatureInfoResponse visualizeGetFeatureInfo( VisualizeGetFeatureInfoRequest request_ )
+        {
+            VisualizeGetFeatureInfoResponse actualResponse_ = SubmitRequest<VisualizeGetFeatureInfoResponse>("/visualize/getfeatureinfo", request_, false);
+
+            return actualResponse_;
+        }
+        /// @endcond
+
+        /// @cond NO_DOCS
+        /// 
+        /// <param name="table_names"></param>
+        /// <param name="x_column_names"></param>
+        /// <param name="y_column_names"></param>
+        /// <param name="geometry_column_names"></param>
+        /// <param name="query_column_names"></param>
+        /// <param name="projection">
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeGetFeatureInfoRequest.Projection.PLATE_CARREE">PLATE_CARREE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeGetFeatureInfoRequest.Projection.WEB_MERCATOR">WEB_MERCATOR</see></term>
+        ///     </item>
+        /// </list></param>
+        /// <param name="min_x"></param>
+        /// <param name="max_x"></param>
+        /// <param name="min_y"></param>
+        /// <param name="max_y"></param>
+        /// <param name="width"></param>
+        /// <param name="height"></param>
+        /// <param name="x"></param>
+        /// <param name="y"></param>
+        /// <param name="radius"></param>
+        /// <param name="limit"></param>
+        /// <param name="encoding">
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeGetFeatureInfoRequest.Encoding.BINARY">BINARY</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeGetFeatureInfoRequest.Encoding.JSON">JSON</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeGetFeatureInfoRequest.Encoding.GEOJSON">GEOJSON</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeGetFeatureInfoRequest.Encoding.HTML">HTML</see></term>
+        ///     </item>
+        /// </list></param>
+        /// <param name="options">
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeGetFeatureInfoRequest.Options.AUTO_COLUMN_SELECTION">AUTO_COLUMN_SELECTION</see>:</term>
+        ///         <description>
+        /// Valid values are:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeGetFeatureInfoRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeGetFeatureInfoRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="VisualizeGetFeatureInfoRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        /// </list>
+        /// </param>
+        /// 
+        /// <returns>Response object containing the result of the
+        /// operation.</returns>
+        /// 
+        public VisualizeGetFeatureInfoResponse visualizeGetFeatureInfo( IList<string> table_names,
+                                                                        IList<string> x_column_names,
+                                                                        IList<string> y_column_names,
+                                                                        IList<string> geometry_column_names,
+                                                                        IList<IList<string>> query_column_names,
+                                                                        string projection,
+                                                                        double min_x,
+                                                                        double max_x,
+                                                                        double min_y,
+                                                                        double max_y,
+                                                                        int width,
+                                                                        int height,
+                                                                        int x,
+                                                                        int y,
+                                                                        int radius,
+                                                                        long limit,
+                                                                        string encoding,
+                                                                        IDictionary<string, string> options = null )
+        {
+            return visualizeGetFeatureInfo( new VisualizeGetFeatureInfoRequest(
+                                                                                table_names,
+                                                                                x_column_names,
+                                                                                y_column_names,
+                                                                                geometry_column_names,
+                                                                                query_column_names,
+                                                                                projection,
+                                                                                min_x,
+                                                                                max_x,
+                                                                                min_y,
+                                                                                max_y,
+                                                                                width,
+                                                                                height, x,
+                                                                                y, radius,
+                                                                                limit,
+                                                                                encoding,
+                                                                                options ) );
+        }
+        /// @endcond
 
         /// @cond NO_DOCS
         /// 

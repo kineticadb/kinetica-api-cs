@@ -71,6 +71,14 @@ namespace kinetica
         /// />  </summary>
         public IList<long> creation_times { get; set; } = new List<long>();
 
+        /// <summary>The data usage each directory in bytes, for the respective
+        /// directories in <member name="directories" />  </summary>
+        public IList<long> data_usages { get; set; } = new List<long>();
+
+        /// <summary>The data limit for each directory in bytes, for the
+        /// respective directories in <member name="directories" />  </summary>
+        public IList<long> data_limits { get; set; } = new List<long>();
+
         /// <summary>Highest level of permission the calling user has for the
         /// respective directories in <member name="directories" />.
         /// Will be empty if no permissions. If a user has been granted both

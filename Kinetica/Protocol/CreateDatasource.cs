@@ -96,7 +96,7 @@ namespace kinetica
         ///         <term><see
         /// cref="CreateDatasourceRequest.Options.HDFS_KERBEROS_KEYTAB">HDFS_KERBEROS_KEYTAB</see>:</term>
         ///         <description>Kerberos keytab file location for the given
-        /// HDFS user</description>
+        /// HDFS user.  This may be a KIFS file.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -200,7 +200,8 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="CreateDatasourceRequest.Options.JDBC_DRIVER_JAR_PATH">JDBC_DRIVER_JAR_PATH</see>:</term>
-        ///         <description>JDBC driver jar file location</description>
+        ///         <description>JDBC driver jar file location.  This may be a
+        /// KIFS file.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -323,8 +324,8 @@ namespace kinetica
             /// data</summary>
             public const string S3_ENCRYPTION_CUSTOMER_KEY = "s3_encryption_customer_key";
 
-            /// <summary>Kerberos keytab file location for the given HDFS
-            /// user</summary>
+            /// <summary>Kerberos keytab file location for the given HDFS user.
+            /// This may be a KIFS file.</summary>
             public const string HDFS_KERBEROS_KEYTAB = "hdfs_kerberos_keytab";
 
             /// <summary>Delegation token for the given HDFS user</summary>
@@ -397,7 +398,8 @@ namespace kinetica
             /// source</summary>
             public const string KAFKA_TOPIC_NAME = "kafka_topic_name";
 
-            /// <summary>JDBC driver jar file location</summary>
+            /// <summary>JDBC driver jar file location.  This may be a KIFS
+            /// file.</summary>
             public const string JDBC_DRIVER_JAR_PATH = "jdbc_driver_jar_path";
 
             /// <summary>Name of the JDBC driver class</summary>
@@ -550,7 +552,7 @@ namespace kinetica
         ///         <term><see
         /// cref="CreateDatasourceRequest.Options.HDFS_KERBEROS_KEYTAB">HDFS_KERBEROS_KEYTAB</see>:</term>
         ///         <description>Kerberos keytab file location for the given
-        /// HDFS user</description>
+        /// HDFS user.  This may be a KIFS file.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -654,7 +656,8 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="CreateDatasourceRequest.Options.JDBC_DRIVER_JAR_PATH">JDBC_DRIVER_JAR_PATH</see>:</term>
-        ///         <description>JDBC driver jar file location</description>
+        ///         <description>JDBC driver jar file location.  This may be a
+        /// KIFS file.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -815,7 +818,7 @@ namespace kinetica
         ///         <term><see
         /// cref="CreateDatasourceRequest.Options.HDFS_KERBEROS_KEYTAB">HDFS_KERBEROS_KEYTAB</see>:</term>
         ///         <description>Kerberos keytab file location for the given
-        /// HDFS user</description>
+        /// HDFS user.  This may be a KIFS file.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -919,7 +922,8 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="CreateDatasourceRequest.Options.JDBC_DRIVER_JAR_PATH">JDBC_DRIVER_JAR_PATH</see>:</term>
-        ///         <description>JDBC driver jar file location</description>
+        ///         <description>JDBC driver jar file location.  This may be a
+        /// KIFS file.</description>
         ///     </item>
         ///     <item>
         ///         <term><see

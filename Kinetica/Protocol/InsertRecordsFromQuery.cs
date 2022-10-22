@@ -468,7 +468,8 @@ namespace kinetica
         ///         <description>Optional name of a table to which records that
         /// were rejected are written.  The bad-record-table has the following
         /// columns: line_number (long), line_rejected (string), error_message
-        /// (string).</description>
+        /// (string). When error handling is Abort, bad records table is not
+        /// populated.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -479,18 +480,9 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="InsertRecordsFromQueryRequest.Options.BAD_RECORD_TABLE_LIMIT_PER_INPUT">BAD_RECORD_TABLE_LIMIT_PER_INPUT</see>:</term>
-        ///         <description>For subscriptions: A positive integer
-        /// indicating the maximum number of records that can be written to the
-        /// bad-record-table per file/payload. Default value will be
-        /// 'bad_record_table_limit' and total size of the table per rank is
-        /// limited to 'bad_record_table_limit'</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="InsertRecordsFromQueryRequest.Options.JDBC_FETCH_SIZE">JDBC_FETCH_SIZE</see>:</term>
-        ///         <description>The JDBC fetch size, which determines how many
-        /// rows to fetch per round trip.</description>
+        /// cref="InsertRecordsFromQueryRequest.Options.BATCH_SIZE">BATCH_SIZE</see>:</term>
+        ///         <description>Number of records per batch when inserting
+        /// data.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -526,7 +518,7 @@ namespace kinetica
         ///     </item>
         /// </list>
         /// The default value is <see
-        /// cref="InsertRecordsFromQueryRequest.Options.PERMISSIVE">PERMISSIVE</see>.</description>
+        /// cref="InsertRecordsFromQueryRequest.Options.ABORT">ABORT</see>.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -561,64 +553,15 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="InsertRecordsFromQueryRequest.Options.LOADING_MODE">LOADING_MODE</see>:</term>
-        ///         <description>Scheme for distributing the extraction and
-        /// loading of data from the source data file(s). This option applies
-        /// only when loading files that are local to the database
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="InsertRecordsFromQueryRequest.Options.HEAD">HEAD</see>:</term>
-        ///         <description>The head node loads all data. All files must
-        /// be available to the head node.</description>
+        /// cref="InsertRecordsFromQueryRequest.Options.JDBC_FETCH_SIZE">JDBC_FETCH_SIZE</see>:</term>
+        ///         <description>The JDBC fetch size, which determines how many
+        /// rows to fetch per round trip.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="InsertRecordsFromQueryRequest.Options.DISTRIBUTED_SHARED">DISTRIBUTED_SHARED</see>:</term>
-        ///         <description>The head node coordinates loading data by
-        /// worker
-        /// processes across all nodes from shared files available to all
-        /// workers.
-        /// <br />
-        /// NOTE:
-        /// <br />
-        /// Instead of existing on a shared source, the files can be duplicated
-        /// on a source local to each host
-        /// to improve performance, though the files must appear as the same
-        /// data set from the perspective of
-        /// all hosts performing the load.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="InsertRecordsFromQueryRequest.Options.DISTRIBUTED_LOCAL">DISTRIBUTED_LOCAL</see>:</term>
-        ///         <description>A single worker process on each node loads all
-        /// files
-        /// that are available to it. This option works best when each worker
-        /// loads files from its own file
-        /// system, to maximize performance. In order to avoid data
-        /// duplication, either each worker performing
-        /// the load needs to have visibility to a set of files unique to it
-        /// (no file is visible to more than
-        /// one node) or the target table needs to have a primary key (which
-        /// will allow the worker to
-        /// automatically deduplicate data).
-        /// <br />
-        /// NOTE:
-        /// <br />
-        /// If the target table doesn't exist, the table structure will be
-        /// determined by the head node. If the
-        /// head node has no files local to it, it will be unable to determine
-        /// the structure and the request
-        /// will fail.
-        /// <br />
-        /// If the head node is configured to have no worker processes, no data
-        /// strictly accessible to the head
-        /// node will be loaded.</description>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="InsertRecordsFromQueryRequest.Options.HEAD">HEAD</see>.</description>
+        /// cref="InsertRecordsFromQueryRequest.Options.NUM_TASKS_PER_RANK">NUM_TASKS_PER_RANK</see>:</term>
+        ///         <description>Optional: number of tasks for reading data per
+        /// rank. Default will be external_file_reader_num_tasks</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -640,7 +583,7 @@ namespace kinetica
         ///         <description>If set to <i>true</i>, truncates the table
         /// specified by <paramref
         /// cref="InsertRecordsFromQueryRequest.table_name" /> prior to loading
-        /// the file(s).
+        /// the data.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -657,12 +600,6 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="InsertRecordsFromQueryRequest.Options.NUM_TASKS_PER_RANK">NUM_TASKS_PER_RANK</see>:</term>
-        ///         <description>Optional: number of tasks for reading file per
-        /// rank. Default will be external_file_reader_num_tasks</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
         /// cref="InsertRecordsFromQueryRequest.Options.REMOTE_QUERY">REMOTE_QUERY</see>:</term>
         ///         <description>Remote SQL query from which data will be
         /// sourced</description>
@@ -671,8 +608,32 @@ namespace kinetica
         ///         <term><see
         /// cref="InsertRecordsFromQueryRequest.Options.REMOTE_QUERY_FILTER_COLUMN">REMOTE_QUERY_FILTER_COLUMN</see>:</term>
         ///         <description>Name of column to be used for splitting the
-        /// query into multiple sub-queries.  The default value is
-        /// ''.</description>
+        /// query into multiple sub-queries using the data distribution of
+        /// given column.  The default value is ''.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromQueryRequest.Options.REMOTE_QUERY_PARTITION_COLUMN">REMOTE_QUERY_PARTITION_COLUMN</see>:</term>
+        ///         <description>Alias name for remote_query_filter_column.
+        /// The default value is ''.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromQueryRequest.Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>:</term>
+        ///         <description>
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromQueryRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromQueryRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="InsertRecordsFromQueryRequest.Options.FALSE">FALSE</see>.</description>
         ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.
@@ -684,7 +645,8 @@ namespace kinetica
             /// <summary>Optional name of a table to which records that were
             /// rejected are written.  The bad-record-table has the following
             /// columns: line_number (long), line_rejected (string),
-            /// error_message (string).</summary>
+            /// error_message (string). When error handling is Abort, bad
+            /// records table is not populated.</summary>
             public const string BAD_RECORD_TABLE_NAME = "bad_record_table_name";
 
             /// <summary>A positive integer indicating the maximum number of
@@ -692,16 +654,9 @@ namespace kinetica
             /// value is 10000</summary>
             public const string BAD_RECORD_TABLE_LIMIT = "bad_record_table_limit";
 
-            /// <summary>For subscriptions: A positive integer indicating the
-            /// maximum number of records that can be written to the
-            /// bad-record-table per file/payload. Default value will be
-            /// 'bad_record_table_limit' and total size of the table per rank
-            /// is limited to 'bad_record_table_limit'</summary>
-            public const string BAD_RECORD_TABLE_LIMIT_PER_INPUT = "bad_record_table_limit_per_input";
-
-            /// <summary>The JDBC fetch size, which determines how many rows to
-            /// fetch per round trip.</summary>
-            public const string JDBC_FETCH_SIZE = "jdbc_fetch_size";
+            /// <summary>Number of records per batch when inserting
+            /// data.</summary>
+            public const string BATCH_SIZE = "batch_size";
 
             /// <summary>Name of an existing external data source from which
             /// table will be loaded</summary>
@@ -732,7 +687,7 @@ namespace kinetica
             ///     </item>
             /// </list>
             /// The default value is <see
-            /// cref="InsertRecordsFromQueryRequest.Options.PERMISSIVE">PERMISSIVE</see>.</summary>
+            /// cref="InsertRecordsFromQueryRequest.Options.ABORT">ABORT</see>.</summary>
             public const string ERROR_HANDLING = "error_handling";
 
             /// <summary>Records with missing columns are populated with nulls
@@ -792,105 +747,13 @@ namespace kinetica
             /// response.</summary>
             public const string TYPE_INFERENCE_ONLY = "type_inference_only";
 
-            /// <summary>Scheme for distributing the extraction and loading of
-            /// data from the source data file(s). This option applies only
-            /// when loading files that are local to the database
-            /// Supported values:
-            /// <list type="bullet">
-            ///     <item>
-            ///         <term><see
-            /// cref="InsertRecordsFromQueryRequest.Options.HEAD">HEAD</see>:</term>
-            ///         <description>The head node loads all data. All files
-            /// must be available to the head node.</description>
-            ///     </item>
-            ///     <item>
-            ///         <term><see
-            /// cref="InsertRecordsFromQueryRequest.Options.DISTRIBUTED_SHARED">DISTRIBUTED_SHARED</see>:</term>
-            ///         <description>The head node coordinates loading data by
-            /// worker
-            /// processes across all nodes from shared files available to all
-            /// workers.
-            /// <br />
-            /// NOTE:
-            /// <br />
-            /// Instead of existing on a shared source, the files can be
-            /// duplicated on a source local to each host
-            /// to improve performance, though the files must appear as the
-            /// same data set from the perspective of
-            /// all hosts performing the load.</description>
-            ///     </item>
-            ///     <item>
-            ///         <term><see
-            /// cref="InsertRecordsFromQueryRequest.Options.DISTRIBUTED_LOCAL">DISTRIBUTED_LOCAL</see>:</term>
-            ///         <description>A single worker process on each node loads
-            /// all files
-            /// that are available to it. This option works best when each
-            /// worker loads files from its own file
-            /// system, to maximize performance. In order to avoid data
-            /// duplication, either each worker performing
-            /// the load needs to have visibility to a set of files unique to
-            /// it (no file is visible to more than
-            /// one node) or the target table needs to have a primary key
-            /// (which will allow the worker to
-            /// automatically deduplicate data).
-            /// <br />
-            /// NOTE:
-            /// <br />
-            /// If the target table doesn't exist, the table structure will be
-            /// determined by the head node. If the
-            /// head node has no files local to it, it will be unable to
-            /// determine the structure and the request
-            /// will fail.
-            /// <br />
-            /// If the head node is configured to have no worker processes, no
-            /// data strictly accessible to the head
-            /// node will be loaded.</description>
-            ///     </item>
-            /// </list>
-            /// The default value is <see
-            /// cref="InsertRecordsFromQueryRequest.Options.HEAD">HEAD</see>.</summary>
-            public const string LOADING_MODE = "loading_mode";
+            /// <summary>The JDBC fetch size, which determines how many rows to
+            /// fetch per round trip.</summary>
+            public const string JDBC_FETCH_SIZE = "jdbc_fetch_size";
 
-            /// <summary>The head node loads all data. All files must be
-            /// available to the head node.</summary>
-            public const string HEAD = "head";
-
-            /// <summary>The head node coordinates loading data by worker
-            /// processes across all nodes from shared files available to all
-            /// workers.
-            /// <br />
-            /// NOTE:
-            /// <br />
-            /// Instead of existing on a shared source, the files can be
-            /// duplicated on a source local to each host
-            /// to improve performance, though the files must appear as the
-            /// same data set from the perspective of
-            /// all hosts performing the load.</summary>
-            public const string DISTRIBUTED_SHARED = "distributed_shared";
-
-            /// <summary>A single worker process on each node loads all files
-            /// that are available to it. This option works best when each
-            /// worker loads files from its own file
-            /// system, to maximize performance. In order to avoid data
-            /// duplication, either each worker performing
-            /// the load needs to have visibility to a set of files unique to
-            /// it (no file is visible to more than
-            /// one node) or the target table needs to have a primary key
-            /// (which will allow the worker to
-            /// automatically deduplicate data).
-            /// <br />
-            /// NOTE:
-            /// <br />
-            /// If the target table doesn't exist, the table structure will be
-            /// determined by the head node. If the
-            /// head node has no files local to it, it will be unable to
-            /// determine the structure and the request
-            /// will fail.
-            /// <br />
-            /// If the head node is configured to have no worker processes, no
-            /// data strictly accessible to the head
-            /// node will be loaded.</summary>
-            public const string DISTRIBUTED_LOCAL = "distributed_local";
+            /// <summary>Optional: number of tasks for reading data per rank.
+            /// Default will be external_file_reader_num_tasks</summary>
+            public const string NUM_TASKS_PER_RANK = "num_tasks_per_rank";
 
             /// <summary>Optional: comma separated list of column names, to set
             /// as primary keys, when not specified in the type.  The default
@@ -903,7 +766,7 @@ namespace kinetica
             public const string SHARD_KEYS = "shard_keys";
 
             /// <summary>If set to <i>true</i>, truncates the table specified
-            /// by <see cref="table_name" /> prior to loading the file(s).
+            /// by <see cref="table_name" /> prior to loading the data.
             /// Supported values:
             /// <list type="bullet">
             ///     <item>
@@ -921,17 +784,34 @@ namespace kinetica
             public const string TRUE = "true";
             public const string FALSE = "false";
 
-            /// <summary>Optional: number of tasks for reading file per rank.
-            /// Default will be external_file_reader_num_tasks</summary>
-            public const string NUM_TASKS_PER_RANK = "num_tasks_per_rank";
-
             /// <summary>Remote SQL query from which data will be
             /// sourced</summary>
             public const string REMOTE_QUERY = "remote_query";
 
             /// <summary>Name of column to be used for splitting the query into
-            /// multiple sub-queries.  The default value is ''.</summary>
+            /// multiple sub-queries using the data distribution of given
+            /// column.  The default value is ''.</summary>
             public const string REMOTE_QUERY_FILTER_COLUMN = "remote_query_filter_column";
+
+            /// <summary>Alias name for remote_query_filter_column.  The
+            /// default value is ''.</summary>
+            public const string REMOTE_QUERY_PARTITION_COLUMN = "remote_query_partition_column";
+
+            /// <summary>
+            /// Supported values:
+            /// <list type="bullet">
+            ///     <item>
+            ///         <term><see
+            /// cref="InsertRecordsFromQueryRequest.Options.TRUE">TRUE</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="InsertRecordsFromQueryRequest.Options.FALSE">FALSE</see></term>
+            ///     </item>
+            /// </list>
+            /// The default value is <see
+            /// cref="InsertRecordsFromQueryRequest.Options.FALSE">FALSE</see>.</summary>
+            public const string UPDATE_ON_EXISTING_PK = "update_on_existing_pk";
         } // end struct Options
 
 
@@ -942,7 +822,7 @@ namespace kinetica
         /// If the table does not exist, the table will be created using either
         /// an existing
         /// <i>type_id</i> or the type inferred from the
-        /// file, and the new table name will have to meet standard
+        /// remote query, and the new table name will have to meet standard
         /// <a href="../../../concepts/tables/#table-naming-criteria"
         /// target="_top">table naming criteria</a>.  </summary>
         public string table_name { get; set; }
@@ -1183,7 +1063,8 @@ namespace kinetica
         ///         <description>Optional name of a table to which records that
         /// were rejected are written.  The bad-record-table has the following
         /// columns: line_number (long), line_rejected (string), error_message
-        /// (string).</description>
+        /// (string). When error handling is Abort, bad records table is not
+        /// populated.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -1194,18 +1075,9 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="InsertRecordsFromQueryRequest.Options.BAD_RECORD_TABLE_LIMIT_PER_INPUT">BAD_RECORD_TABLE_LIMIT_PER_INPUT</see>:</term>
-        ///         <description>For subscriptions: A positive integer
-        /// indicating the maximum number of records that can be written to the
-        /// bad-record-table per file/payload. Default value will be
-        /// 'bad_record_table_limit' and total size of the table per rank is
-        /// limited to 'bad_record_table_limit'</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="InsertRecordsFromQueryRequest.Options.JDBC_FETCH_SIZE">JDBC_FETCH_SIZE</see>:</term>
-        ///         <description>The JDBC fetch size, which determines how many
-        /// rows to fetch per round trip.</description>
+        /// cref="InsertRecordsFromQueryRequest.Options.BATCH_SIZE">BATCH_SIZE</see>:</term>
+        ///         <description>Number of records per batch when inserting
+        /// data.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -1241,7 +1113,7 @@ namespace kinetica
         ///     </item>
         /// </list>
         /// The default value is <see
-        /// cref="InsertRecordsFromQueryRequest.Options.PERMISSIVE">PERMISSIVE</see>.</description>
+        /// cref="InsertRecordsFromQueryRequest.Options.ABORT">ABORT</see>.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -1276,64 +1148,15 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="InsertRecordsFromQueryRequest.Options.LOADING_MODE">LOADING_MODE</see>:</term>
-        ///         <description>Scheme for distributing the extraction and
-        /// loading of data from the source data file(s). This option applies
-        /// only when loading files that are local to the database
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="InsertRecordsFromQueryRequest.Options.HEAD">HEAD</see>:</term>
-        ///         <description>The head node loads all data. All files must
-        /// be available to the head node.</description>
+        /// cref="InsertRecordsFromQueryRequest.Options.JDBC_FETCH_SIZE">JDBC_FETCH_SIZE</see>:</term>
+        ///         <description>The JDBC fetch size, which determines how many
+        /// rows to fetch per round trip.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="InsertRecordsFromQueryRequest.Options.DISTRIBUTED_SHARED">DISTRIBUTED_SHARED</see>:</term>
-        ///         <description>The head node coordinates loading data by
-        /// worker
-        /// processes across all nodes from shared files available to all
-        /// workers.
-        /// <br />
-        /// NOTE:
-        /// <br />
-        /// Instead of existing on a shared source, the files can be duplicated
-        /// on a source local to each host
-        /// to improve performance, though the files must appear as the same
-        /// data set from the perspective of
-        /// all hosts performing the load.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="InsertRecordsFromQueryRequest.Options.DISTRIBUTED_LOCAL">DISTRIBUTED_LOCAL</see>:</term>
-        ///         <description>A single worker process on each node loads all
-        /// files
-        /// that are available to it. This option works best when each worker
-        /// loads files from its own file
-        /// system, to maximize performance. In order to avoid data
-        /// duplication, either each worker performing
-        /// the load needs to have visibility to a set of files unique to it
-        /// (no file is visible to more than
-        /// one node) or the target table needs to have a primary key (which
-        /// will allow the worker to
-        /// automatically deduplicate data).
-        /// <br />
-        /// NOTE:
-        /// <br />
-        /// If the target table doesn't exist, the table structure will be
-        /// determined by the head node. If the
-        /// head node has no files local to it, it will be unable to determine
-        /// the structure and the request
-        /// will fail.
-        /// <br />
-        /// If the head node is configured to have no worker processes, no data
-        /// strictly accessible to the head
-        /// node will be loaded.</description>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="InsertRecordsFromQueryRequest.Options.HEAD">HEAD</see>.</description>
+        /// cref="InsertRecordsFromQueryRequest.Options.NUM_TASKS_PER_RANK">NUM_TASKS_PER_RANK</see>:</term>
+        ///         <description>Optional: number of tasks for reading data per
+        /// rank. Default will be external_file_reader_num_tasks</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -1355,7 +1178,7 @@ namespace kinetica
         ///         <description>If set to <i>true</i>, truncates the table
         /// specified by <paramref
         /// cref="InsertRecordsFromQueryRequest.table_name" /> prior to loading
-        /// the file(s).
+        /// the data.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -1372,12 +1195,6 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="InsertRecordsFromQueryRequest.Options.NUM_TASKS_PER_RANK">NUM_TASKS_PER_RANK</see>:</term>
-        ///         <description>Optional: number of tasks for reading file per
-        /// rank. Default will be external_file_reader_num_tasks</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
         /// cref="InsertRecordsFromQueryRequest.Options.REMOTE_QUERY">REMOTE_QUERY</see>:</term>
         ///         <description>Remote SQL query from which data will be
         /// sourced</description>
@@ -1386,8 +1203,32 @@ namespace kinetica
         ///         <term><see
         /// cref="InsertRecordsFromQueryRequest.Options.REMOTE_QUERY_FILTER_COLUMN">REMOTE_QUERY_FILTER_COLUMN</see>:</term>
         ///         <description>Name of column to be used for splitting the
-        /// query into multiple sub-queries.  The default value is
-        /// ''.</description>
+        /// query into multiple sub-queries using the data distribution of
+        /// given column.  The default value is ''.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromQueryRequest.Options.REMOTE_QUERY_PARTITION_COLUMN">REMOTE_QUERY_PARTITION_COLUMN</see>:</term>
+        ///         <description>Alias name for remote_query_filter_column.
+        /// The default value is ''.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromQueryRequest.Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>:</term>
+        ///         <description>
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromQueryRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromQueryRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="InsertRecordsFromQueryRequest.Options.FALSE">FALSE</see>.</description>
         ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.</summary>
@@ -1409,7 +1250,7 @@ namespace kinetica
         /// If the table does not exist, the table will be created using either
         /// an existing
         /// <i>type_id</i> or the type inferred from the
-        /// file, and the new table name will have to meet standard
+        /// remote query, and the new table name will have to meet standard
         /// <a href="../../../concepts/tables/#table-naming-criteria"
         /// target="_top">table naming criteria</a>.  </param>
         /// <param name="remote_query">Query for which result data needs to be
@@ -1643,7 +1484,8 @@ namespace kinetica
         ///         <description>Optional name of a table to which records that
         /// were rejected are written.  The bad-record-table has the following
         /// columns: line_number (long), line_rejected (string), error_message
-        /// (string).</description>
+        /// (string). When error handling is Abort, bad records table is not
+        /// populated.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -1654,18 +1496,9 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="InsertRecordsFromQueryRequest.Options.BAD_RECORD_TABLE_LIMIT_PER_INPUT">BAD_RECORD_TABLE_LIMIT_PER_INPUT</see>:</term>
-        ///         <description>For subscriptions: A positive integer
-        /// indicating the maximum number of records that can be written to the
-        /// bad-record-table per file/payload. Default value will be
-        /// 'bad_record_table_limit' and total size of the table per rank is
-        /// limited to 'bad_record_table_limit'</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="InsertRecordsFromQueryRequest.Options.JDBC_FETCH_SIZE">JDBC_FETCH_SIZE</see>:</term>
-        ///         <description>The JDBC fetch size, which determines how many
-        /// rows to fetch per round trip.</description>
+        /// cref="InsertRecordsFromQueryRequest.Options.BATCH_SIZE">BATCH_SIZE</see>:</term>
+        ///         <description>Number of records per batch when inserting
+        /// data.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -1701,7 +1534,7 @@ namespace kinetica
         ///     </item>
         /// </list>
         /// The default value is <see
-        /// cref="InsertRecordsFromQueryRequest.Options.PERMISSIVE">PERMISSIVE</see>.</description>
+        /// cref="InsertRecordsFromQueryRequest.Options.ABORT">ABORT</see>.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -1736,59 +1569,15 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="InsertRecordsFromQueryRequest.Options.LOADING_MODE">LOADING_MODE</see>:</term>
-        ///         <description>Scheme for distributing the extraction and
-        /// loading of data from the source data file(s). This option applies
-        /// only when loading files that are local to the database
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="InsertRecordsFromQueryRequest.Options.HEAD">HEAD</see>:</term>
-        ///         <description>The head node loads all data. All files must
-        /// be available to the head node.</description>
+        /// cref="InsertRecordsFromQueryRequest.Options.JDBC_FETCH_SIZE">JDBC_FETCH_SIZE</see>:</term>
+        ///         <description>The JDBC fetch size, which determines how many
+        /// rows to fetch per round trip.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="InsertRecordsFromQueryRequest.Options.DISTRIBUTED_SHARED">DISTRIBUTED_SHARED</see>:</term>
-        ///         <description>The head node coordinates loading data by
-        /// worker
-        /// processes across all nodes from shared files available to all
-        /// workers.
-        /// NOTE:
-        /// Instead of existing on a shared source, the files can be duplicated
-        /// on a source local to each host
-        /// to improve performance, though the files must appear as the same
-        /// data set from the perspective of
-        /// all hosts performing the load.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="InsertRecordsFromQueryRequest.Options.DISTRIBUTED_LOCAL">DISTRIBUTED_LOCAL</see>:</term>
-        ///         <description>A single worker process on each node loads all
-        /// files
-        /// that are available to it. This option works best when each worker
-        /// loads files from its own file
-        /// system, to maximize performance. In order to avoid data
-        /// duplication, either each worker performing
-        /// the load needs to have visibility to a set of files unique to it
-        /// (no file is visible to more than
-        /// one node) or the target table needs to have a primary key (which
-        /// will allow the worker to
-        /// automatically deduplicate data).
-        /// NOTE:
-        /// If the target table doesn't exist, the table structure will be
-        /// determined by the head node. If the
-        /// head node has no files local to it, it will be unable to determine
-        /// the structure and the request
-        /// will fail.
-        /// If the head node is configured to have no worker processes, no data
-        /// strictly accessible to the head
-        /// node will be loaded.</description>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="InsertRecordsFromQueryRequest.Options.HEAD">HEAD</see>.</description>
+        /// cref="InsertRecordsFromQueryRequest.Options.NUM_TASKS_PER_RANK">NUM_TASKS_PER_RANK</see>:</term>
+        ///         <description>Optional: number of tasks for reading data per
+        /// rank. Default will be external_file_reader_num_tasks</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -1810,7 +1599,7 @@ namespace kinetica
         ///         <description>If set to <i>true</i>, truncates the table
         /// specified by <paramref
         /// cref="InsertRecordsFromQueryRequest.table_name" /> prior to loading
-        /// the file(s).
+        /// the data.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -1827,12 +1616,6 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="InsertRecordsFromQueryRequest.Options.NUM_TASKS_PER_RANK">NUM_TASKS_PER_RANK</see>:</term>
-        ///         <description>Optional: number of tasks for reading file per
-        /// rank. Default will be external_file_reader_num_tasks</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
         /// cref="InsertRecordsFromQueryRequest.Options.REMOTE_QUERY">REMOTE_QUERY</see>:</term>
         ///         <description>Remote SQL query from which data will be
         /// sourced</description>
@@ -1841,8 +1624,32 @@ namespace kinetica
         ///         <term><see
         /// cref="InsertRecordsFromQueryRequest.Options.REMOTE_QUERY_FILTER_COLUMN">REMOTE_QUERY_FILTER_COLUMN</see>:</term>
         ///         <description>Name of column to be used for splitting the
-        /// query into multiple sub-queries.  The default value is
-        /// ''.</description>
+        /// query into multiple sub-queries using the data distribution of
+        /// given column.  The default value is ''.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromQueryRequest.Options.REMOTE_QUERY_PARTITION_COLUMN">REMOTE_QUERY_PARTITION_COLUMN</see>:</term>
+        ///         <description>Alias name for remote_query_filter_column.
+        /// The default value is ''.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromQueryRequest.Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>:</term>
+        ///         <description>
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromQueryRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromQueryRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="InsertRecordsFromQueryRequest.Options.FALSE">FALSE</see>.</description>
         ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.</param>

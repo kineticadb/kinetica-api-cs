@@ -90,6 +90,7 @@
     <Compile Include="Protocol\AlterCredential.cs" />
     <Compile Include="Protocol\AlterDatasink.cs" />
     <Compile Include="Protocol\AlterDatasource.cs" />
+    <Compile Include="Protocol\AlterDirectory.cs" />
     <Compile Include="Protocol\AlterGraph.cs" />
     <Compile Include="Protocol\AlterModel.cs" />
     <Compile Include="Protocol\AlterResourceGroup.cs" />
@@ -153,6 +154,7 @@
     <Compile Include="Protocol\EvaluateModel.cs" />
     <Compile Include="Protocol\ExecuteProc.cs" />
     <Compile Include="Protocol\ExecuteSql.cs" />
+    <Compile Include="Protocol\ExportRecordsToFiles.cs" />
     <Compile Include="Protocol\ExportRecordsToTable.cs" />
     <Compile Include="Protocol\Filter.cs" />
     <Compile Include="Protocol\FilterByArea.cs" />
@@ -247,6 +249,7 @@
     <Compile Include="Protocol\UpdateRecordsBySeries.cs" />
     <Compile Include="Protocol\UploadFiles.cs" />
     <Compile Include="Protocol\UploadFilesFromurl.cs" />
+    <Compile Include="Protocol\VisualizeGetFeatureInfo.cs" />
     <Compile Include="Protocol\VisualizeImage.cs" />
     <Compile Include="Protocol\VisualizeImageChart.cs" />
     <Compile Include="Protocol\VisualizeImageClassbreak.cs" />
