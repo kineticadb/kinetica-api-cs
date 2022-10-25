@@ -15,8 +15,8 @@
 # Kinetica C# API
 
 -  [Overview](#overview)
--  [Building the API on Windows](#building-the-api-on-windows)
 -  [Requirements](#requirements)
+-  [Building the API on Windows](#building-the-api-on-windows)
 -  [Support](#support)
 -  [Contact Us](#contact-us)
  
@@ -37,17 +37,27 @@ changes to Kinetica functions, please refer to
 [CHANGELOG-FUNCTIONS.md](CHANGELOG-FUNCTIONS.md).
 
 
-## Building the API on Windows
-
-Please completely read this set of instructions thoroughly before starting.
-
-	Open NuGet Package Manager Console
-	Type "install-package Newtonsoft.Json"
-
-
 ## Requirements
 
-	Json.NET (https://www.newtonsoft.com/json)
+The C# API requires the Json.NET package:
+
+    https://www.newtonsoft.com/json
+
+
+## Building the API on Windows
+
+Building the API within Visual Studio is a simple process:
+
+Open the *NuGet Package Manager Console*, under
+*Tools > NuGet Package Manager > Package Manager Console*
+
+At the command prompt, install the Json.NET package:
+
+```
+install-package Newtonsoft.Json
+```
+
+Use Visual Studio to compile the API.
 
 
 ## Support
