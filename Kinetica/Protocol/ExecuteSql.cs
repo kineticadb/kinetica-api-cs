@@ -50,25 +50,6 @@ namespace kinetica
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
-        /// cref="ExecuteSqlRequest.Options.PARALLEL_EXECUTION">PARALLEL_EXECUTION</see>:</term>
-        ///         <description>If <i>false</i>, disables the parallel step
-        /// execution of the given query.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="ExecuteSqlRequest.Options.TRUE">TRUE</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="ExecuteSqlRequest.Options.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="ExecuteSqlRequest.Options.TRUE">TRUE</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
         /// cref="ExecuteSqlRequest.Options.COST_BASED_OPTIMIZATION">COST_BASED_OPTIMIZATION</see>:</term>
         ///         <description>If <i>false</i>, disables the cost-based
         /// optimization of the given query.
@@ -85,78 +66,6 @@ namespace kinetica
         /// </list>
         /// The default value is <see
         /// cref="ExecuteSqlRequest.Options.FALSE">FALSE</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="ExecuteSqlRequest.Options.PLAN_CACHE">PLAN_CACHE</see>:</term>
-        ///         <description>If <i>false</i>, disables plan caching for the
-        /// given query.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="ExecuteSqlRequest.Options.TRUE">TRUE</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="ExecuteSqlRequest.Options.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="ExecuteSqlRequest.Options.TRUE">TRUE</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="ExecuteSqlRequest.Options.RULE_BASED_OPTIMIZATION">RULE_BASED_OPTIMIZATION</see>:</term>
-        ///         <description>If <i>false</i>, disables rule-based rewrite
-        /// optimizations for the given query
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="ExecuteSqlRequest.Options.TRUE">TRUE</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="ExecuteSqlRequest.Options.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="ExecuteSqlRequest.Options.TRUE">TRUE</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="ExecuteSqlRequest.Options.RESULTS_CACHING">RESULTS_CACHING</see>:</term>
-        ///         <description>If <i>false</i>, disables caching of the
-        /// results of the given query
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="ExecuteSqlRequest.Options.TRUE">TRUE</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="ExecuteSqlRequest.Options.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="ExecuteSqlRequest.Options.TRUE">TRUE</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="ExecuteSqlRequest.Options.PAGING_TABLE">PAGING_TABLE</see>:</term>
-        ///         <description>When empty or the specified paging table not
-        /// exists, the system will create a paging table and return when query
-        /// output has more records than the user asked. If the paging table
-        /// exists in the system, the records from the paging table are
-        /// returned without evaluating the query.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="ExecuteSqlRequest.Options.PAGING_TABLE_TTL">PAGING_TABLE_TTL</see>:</term>
-        ///         <description>Sets the <a href="../../../concepts/ttl/"
-        /// target="_top">TTL</a> of the paging table.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -204,9 +113,10 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="ExecuteSqlRequest.Options.SSQ_OPTIMIZATION">SSQ_OPTIMIZATION</see>:</term>
-        ///         <description>If <i>false</i>, scalar subqueries will be
-        /// translated into joins
+        /// cref="ExecuteSqlRequest.Options.IGNORE_EXISTING_PK">IGNORE_EXISTING_PK</see>:</term>
+        ///         <description>Can be used to customize behavior when the
+        /// updated primary key value already exists as described in
+        /// /insert/records.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -219,7 +129,7 @@ namespace kinetica
         ///     </item>
         /// </list>
         /// The default value is <see
-        /// cref="ExecuteSqlRequest.Options.TRUE">TRUE</see>.</description>
+        /// cref="ExecuteSqlRequest.Options.FALSE">FALSE</see>.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -242,17 +152,63 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="ExecuteSqlRequest.Options.TTL">TTL</see>:</term>
-        ///         <description>Sets the <a href="../../../concepts/ttl/"
-        /// target="_top">TTL</a> of the intermediate result tables used in
-        /// query execution.</description>
+        /// cref="ExecuteSqlRequest.Options.PAGING_TABLE">PAGING_TABLE</see>:</term>
+        ///         <description>When empty or the specified paging table not
+        /// exists, the system will create a paging table and return when query
+        /// output has more records than the user asked. If the paging table
+        /// exists in the system, the records from the paging table are
+        /// returned without evaluating the query.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="ExecuteSqlRequest.Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>:</term>
-        ///         <description>Can be used to customize behavior when the
-        /// updated primary key value already exists as described in
-        /// /insert/records.
+        /// cref="ExecuteSqlRequest.Options.PAGING_TABLE_TTL">PAGING_TABLE_TTL</see>:</term>
+        ///         <description>Sets the <a href="../../../concepts/ttl/"
+        /// target="_top">TTL</a> of the paging table.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ExecuteSqlRequest.Options.PARALLEL_EXECUTION">PARALLEL_EXECUTION</see>:</term>
+        ///         <description>If <i>false</i>, disables the parallel step
+        /// execution of the given query.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="ExecuteSqlRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ExecuteSqlRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="ExecuteSqlRequest.Options.TRUE">TRUE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ExecuteSqlRequest.Options.PLAN_CACHE">PLAN_CACHE</see>:</term>
+        ///         <description>If <i>false</i>, disables plan caching for the
+        /// given query.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="ExecuteSqlRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ExecuteSqlRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="ExecuteSqlRequest.Options.TRUE">TRUE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ExecuteSqlRequest.Options.PREPARE_MODE">PREPARE_MODE</see>:</term>
+        ///         <description>If <i>true</i>, compiles a query into an
+        /// execution plan and saves it in query cache. Query execution is not
+        /// performed and an empty response will be returned to user
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -289,6 +245,98 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
+        /// cref="ExecuteSqlRequest.Options.QUERY_PARAMETERS">QUERY_PARAMETERS</see>:</term>
+        ///         <description>Query parameters in JSON array or arrays (for
+        /// inserting multiple rows).  This can be used instead of <paramref
+        /// cref="ExecuteSqlRequest.data" /> and <paramref
+        /// cref="ExecuteSqlRequest.request_schema_str" />.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ExecuteSqlRequest.Options.RESULTS_CACHING">RESULTS_CACHING</see>:</term>
+        ///         <description>If <i>false</i>, disables caching of the
+        /// results of the given query
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="ExecuteSqlRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ExecuteSqlRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="ExecuteSqlRequest.Options.TRUE">TRUE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ExecuteSqlRequest.Options.RULE_BASED_OPTIMIZATION">RULE_BASED_OPTIMIZATION</see>:</term>
+        ///         <description>If <i>false</i>, disables rule-based rewrite
+        /// optimizations for the given query
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="ExecuteSqlRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ExecuteSqlRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="ExecuteSqlRequest.Options.TRUE">TRUE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ExecuteSqlRequest.Options.SSQ_OPTIMIZATION">SSQ_OPTIMIZATION</see>:</term>
+        ///         <description>If <i>false</i>, scalar subqueries will be
+        /// translated into joins
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="ExecuteSqlRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ExecuteSqlRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="ExecuteSqlRequest.Options.TRUE">TRUE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ExecuteSqlRequest.Options.TTL">TTL</see>:</term>
+        ///         <description>Sets the <a href="../../../concepts/ttl/"
+        /// target="_top">TTL</a> of the intermediate result tables used in
+        /// query execution.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ExecuteSqlRequest.Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>:</term>
+        ///         <description>Can be used to customize behavior when the
+        /// updated primary key value already exists as described in
+        /// /insert/records.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="ExecuteSqlRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ExecuteSqlRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="ExecuteSqlRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="ExecuteSqlRequest.Options.VALIDATE_CHANGE_COLUMN">VALIDATE_CHANGE_COLUMN</see>:</term>
         ///         <description>When changing a column using alter table,
         /// validate the change before applying it. If <i>true</i>, then
@@ -309,51 +357,12 @@ namespace kinetica
         /// The default value is <see
         /// cref="ExecuteSqlRequest.Options.TRUE">TRUE</see>.</description>
         ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="ExecuteSqlRequest.Options.PREPARE_MODE">PREPARE_MODE</see>:</term>
-        ///         <description>If <i>true</i>, compiles a query into an
-        /// execution plan and saves it in query cache. Query execution is not
-        /// performed and an empty response will be returned to user
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="ExecuteSqlRequest.Options.TRUE">TRUE</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="ExecuteSqlRequest.Options.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="ExecuteSqlRequest.Options.FALSE">FALSE</see>.</description>
-        ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.
         /// A set of string constants for the parameter <see cref="options"
         /// />.</summary>
         public struct Options
         {
-
-            /// <summary>If <i>false</i>, disables the parallel step execution
-            /// of the given query.
-            /// Supported values:
-            /// <list type="bullet">
-            ///     <item>
-            ///         <term><see
-            /// cref="ExecuteSqlRequest.Options.TRUE">TRUE</see></term>
-            ///     </item>
-            ///     <item>
-            ///         <term><see
-            /// cref="ExecuteSqlRequest.Options.FALSE">FALSE</see></term>
-            ///     </item>
-            /// </list>
-            /// The default value is <see
-            /// cref="ExecuteSqlRequest.Options.TRUE">TRUE</see>.</summary>
-            public const string PARALLEL_EXECUTION = "parallel_execution";
-            public const string TRUE = "true";
-            public const string FALSE = "false";
 
             /// <summary>If <i>false</i>, disables the cost-based optimization
             /// of the given query.
@@ -371,68 +380,8 @@ namespace kinetica
             /// The default value is <see
             /// cref="ExecuteSqlRequest.Options.FALSE">FALSE</see>.</summary>
             public const string COST_BASED_OPTIMIZATION = "cost_based_optimization";
-
-            /// <summary>If <i>false</i>, disables plan caching for the given
-            /// query.
-            /// Supported values:
-            /// <list type="bullet">
-            ///     <item>
-            ///         <term><see
-            /// cref="ExecuteSqlRequest.Options.TRUE">TRUE</see></term>
-            ///     </item>
-            ///     <item>
-            ///         <term><see
-            /// cref="ExecuteSqlRequest.Options.FALSE">FALSE</see></term>
-            ///     </item>
-            /// </list>
-            /// The default value is <see
-            /// cref="ExecuteSqlRequest.Options.TRUE">TRUE</see>.</summary>
-            public const string PLAN_CACHE = "plan_cache";
-
-            /// <summary>If <i>false</i>, disables rule-based rewrite
-            /// optimizations for the given query
-            /// Supported values:
-            /// <list type="bullet">
-            ///     <item>
-            ///         <term><see
-            /// cref="ExecuteSqlRequest.Options.TRUE">TRUE</see></term>
-            ///     </item>
-            ///     <item>
-            ///         <term><see
-            /// cref="ExecuteSqlRequest.Options.FALSE">FALSE</see></term>
-            ///     </item>
-            /// </list>
-            /// The default value is <see
-            /// cref="ExecuteSqlRequest.Options.TRUE">TRUE</see>.</summary>
-            public const string RULE_BASED_OPTIMIZATION = "rule_based_optimization";
-
-            /// <summary>If <i>false</i>, disables caching of the results of
-            /// the given query
-            /// Supported values:
-            /// <list type="bullet">
-            ///     <item>
-            ///         <term><see
-            /// cref="ExecuteSqlRequest.Options.TRUE">TRUE</see></term>
-            ///     </item>
-            ///     <item>
-            ///         <term><see
-            /// cref="ExecuteSqlRequest.Options.FALSE">FALSE</see></term>
-            ///     </item>
-            /// </list>
-            /// The default value is <see
-            /// cref="ExecuteSqlRequest.Options.TRUE">TRUE</see>.</summary>
-            public const string RESULTS_CACHING = "results_caching";
-
-            /// <summary>When empty or the specified paging table not exists,
-            /// the system will create a paging table and return when query
-            /// output has more records than the user asked. If the paging
-            /// table exists in the system, the records from the paging table
-            /// are returned without evaluating the query.</summary>
-            public const string PAGING_TABLE = "paging_table";
-
-            /// <summary>Sets the <a href="../../../concepts/ttl/"
-            /// target="_top">TTL</a> of the paging table.</summary>
-            public const string PAGING_TABLE_TTL = "paging_table_ttl";
+            public const string TRUE = "true";
+            public const string FALSE = "false";
 
             /// <summary>If <i>true</i>, enables the use of distributed joins
             /// in servicing the given query.  Any query requiring a
@@ -474,8 +423,10 @@ namespace kinetica
             /// cref="ExecuteSqlRequest.Options.FALSE">FALSE</see>.</summary>
             public const string DISTRIBUTED_OPERATIONS = "distributed_operations";
 
-            /// <summary>If <i>false</i>, scalar subqueries will be translated
-            /// into joins
+            /// <summary>Can be used to customize behavior when the updated
+            /// primary key value already exists as described in <see
+            /// cref="Kinetica.insertRecords{T}(string,IList{T},IDictionary{string, string})"
+            /// />.
             /// Supported values:
             /// <list type="bullet">
             ///     <item>
@@ -488,8 +439,8 @@ namespace kinetica
             ///     </item>
             /// </list>
             /// The default value is <see
-            /// cref="ExecuteSqlRequest.Options.TRUE">TRUE</see>.</summary>
-            public const string SSQ_OPTIMIZATION = "ssq_optimization";
+            /// cref="ExecuteSqlRequest.Options.FALSE">FALSE</see>.</summary>
+            public const string IGNORE_EXISTING_PK = "ignore_existing_pk";
 
             /// <summary>If <i>true</i>, Joins/Filters results  will always be
             /// materialized ( saved to result tables format)
@@ -507,6 +458,142 @@ namespace kinetica
             /// The default value is <see
             /// cref="ExecuteSqlRequest.Options.FALSE">FALSE</see>.</summary>
             public const string LATE_MATERIALIZATION = "late_materialization";
+
+            /// <summary>When empty or the specified paging table not exists,
+            /// the system will create a paging table and return when query
+            /// output has more records than the user asked. If the paging
+            /// table exists in the system, the records from the paging table
+            /// are returned without evaluating the query.</summary>
+            public const string PAGING_TABLE = "paging_table";
+
+            /// <summary>Sets the <a href="../../../concepts/ttl/"
+            /// target="_top">TTL</a> of the paging table.</summary>
+            public const string PAGING_TABLE_TTL = "paging_table_ttl";
+
+            /// <summary>If <i>false</i>, disables the parallel step execution
+            /// of the given query.
+            /// Supported values:
+            /// <list type="bullet">
+            ///     <item>
+            ///         <term><see
+            /// cref="ExecuteSqlRequest.Options.TRUE">TRUE</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="ExecuteSqlRequest.Options.FALSE">FALSE</see></term>
+            ///     </item>
+            /// </list>
+            /// The default value is <see
+            /// cref="ExecuteSqlRequest.Options.TRUE">TRUE</see>.</summary>
+            public const string PARALLEL_EXECUTION = "parallel_execution";
+
+            /// <summary>If <i>false</i>, disables plan caching for the given
+            /// query.
+            /// Supported values:
+            /// <list type="bullet">
+            ///     <item>
+            ///         <term><see
+            /// cref="ExecuteSqlRequest.Options.TRUE">TRUE</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="ExecuteSqlRequest.Options.FALSE">FALSE</see></term>
+            ///     </item>
+            /// </list>
+            /// The default value is <see
+            /// cref="ExecuteSqlRequest.Options.TRUE">TRUE</see>.</summary>
+            public const string PLAN_CACHE = "plan_cache";
+
+            /// <summary>If <i>true</i>, compiles a query into an execution
+            /// plan and saves it in query cache. Query execution is not
+            /// performed and an empty response will be returned to user
+            /// Supported values:
+            /// <list type="bullet">
+            ///     <item>
+            ///         <term><see
+            /// cref="ExecuteSqlRequest.Options.TRUE">TRUE</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="ExecuteSqlRequest.Options.FALSE">FALSE</see></term>
+            ///     </item>
+            /// </list>
+            /// The default value is <see
+            /// cref="ExecuteSqlRequest.Options.FALSE">FALSE</see>.</summary>
+            public const string PREPARE_MODE = "prepare_mode";
+
+            /// <summary>If <i>true</i>, then columns that were dict encoded in
+            /// the source table will be dict encoded in the projection table.
+            /// Supported values:
+            /// <list type="bullet">
+            ///     <item>
+            ///         <term><see
+            /// cref="ExecuteSqlRequest.Options.TRUE">TRUE</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="ExecuteSqlRequest.Options.FALSE">FALSE</see></term>
+            ///     </item>
+            /// </list>
+            /// The default value is <see
+            /// cref="ExecuteSqlRequest.Options.TRUE">TRUE</see>.</summary>
+            public const string PRESERVE_DICT_ENCODING = "preserve_dict_encoding";
+
+            /// <summary>Query parameters in JSON array or arrays (for
+            /// inserting multiple rows).  This can be used instead of <see
+            /// cref="data" /> and <see cref="request_schema_str" />.</summary>
+            public const string QUERY_PARAMETERS = "query_parameters";
+
+            /// <summary>If <i>false</i>, disables caching of the results of
+            /// the given query
+            /// Supported values:
+            /// <list type="bullet">
+            ///     <item>
+            ///         <term><see
+            /// cref="ExecuteSqlRequest.Options.TRUE">TRUE</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="ExecuteSqlRequest.Options.FALSE">FALSE</see></term>
+            ///     </item>
+            /// </list>
+            /// The default value is <see
+            /// cref="ExecuteSqlRequest.Options.TRUE">TRUE</see>.</summary>
+            public const string RESULTS_CACHING = "results_caching";
+
+            /// <summary>If <i>false</i>, disables rule-based rewrite
+            /// optimizations for the given query
+            /// Supported values:
+            /// <list type="bullet">
+            ///     <item>
+            ///         <term><see
+            /// cref="ExecuteSqlRequest.Options.TRUE">TRUE</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="ExecuteSqlRequest.Options.FALSE">FALSE</see></term>
+            ///     </item>
+            /// </list>
+            /// The default value is <see
+            /// cref="ExecuteSqlRequest.Options.TRUE">TRUE</see>.</summary>
+            public const string RULE_BASED_OPTIMIZATION = "rule_based_optimization";
+
+            /// <summary>If <i>false</i>, scalar subqueries will be translated
+            /// into joins
+            /// Supported values:
+            /// <list type="bullet">
+            ///     <item>
+            ///         <term><see
+            /// cref="ExecuteSqlRequest.Options.TRUE">TRUE</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="ExecuteSqlRequest.Options.FALSE">FALSE</see></term>
+            ///     </item>
+            /// </list>
+            /// The default value is <see
+            /// cref="ExecuteSqlRequest.Options.TRUE">TRUE</see>.</summary>
+            public const string SSQ_OPTIMIZATION = "ssq_optimization";
 
             /// <summary>Sets the <a href="../../../concepts/ttl/"
             /// target="_top">TTL</a> of the intermediate result tables used in
@@ -532,23 +619,6 @@ namespace kinetica
             /// cref="ExecuteSqlRequest.Options.FALSE">FALSE</see>.</summary>
             public const string UPDATE_ON_EXISTING_PK = "update_on_existing_pk";
 
-            /// <summary>If <i>true</i>, then columns that were dict encoded in
-            /// the source table will be dict encoded in the projection table.
-            /// Supported values:
-            /// <list type="bullet">
-            ///     <item>
-            ///         <term><see
-            /// cref="ExecuteSqlRequest.Options.TRUE">TRUE</see></term>
-            ///     </item>
-            ///     <item>
-            ///         <term><see
-            /// cref="ExecuteSqlRequest.Options.FALSE">FALSE</see></term>
-            ///     </item>
-            /// </list>
-            /// The default value is <see
-            /// cref="ExecuteSqlRequest.Options.TRUE">TRUE</see>.</summary>
-            public const string PRESERVE_DICT_ENCODING = "preserve_dict_encoding";
-
             /// <summary>When changing a column using alter table, validate the
             /// change before applying it. If <i>true</i>, then validate all
             /// values. A value too large (or too long) for the new type will
@@ -568,24 +638,6 @@ namespace kinetica
             /// The default value is <see
             /// cref="ExecuteSqlRequest.Options.TRUE">TRUE</see>.</summary>
             public const string VALIDATE_CHANGE_COLUMN = "validate_change_column";
-
-            /// <summary>If <i>true</i>, compiles a query into an execution
-            /// plan and saves it in query cache. Query execution is not
-            /// performed and an empty response will be returned to user
-            /// Supported values:
-            /// <list type="bullet">
-            ///     <item>
-            ///         <term><see
-            /// cref="ExecuteSqlRequest.Options.TRUE">TRUE</see></term>
-            ///     </item>
-            ///     <item>
-            ///         <term><see
-            /// cref="ExecuteSqlRequest.Options.FALSE">FALSE</see></term>
-            ///     </item>
-            /// </list>
-            /// The default value is <see
-            /// cref="ExecuteSqlRequest.Options.FALSE">FALSE</see>.</summary>
-            public const string PREPARE_MODE = "prepare_mode";
         } // end struct Options
 
 
@@ -637,31 +689,13 @@ namespace kinetica
         public string request_schema_str { get; set; } = "";
 
         /// <summary>An array of binary-encoded data for the records to be
-        /// binded to the SQL query.  The default value is an empty {@link
+        /// binded to the SQL query.  Or use <i>query_parameters</i> to pass
+        /// the data in JSON format.  The default value is an empty {@link
         /// List}.</summary>
         public IList<byte[]> data { get; set; } = new List<byte[]>();
 
         /// <summary>Optional parameters.
         /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="ExecuteSqlRequest.Options.PARALLEL_EXECUTION">PARALLEL_EXECUTION</see>:</term>
-        ///         <description>If <i>false</i>, disables the parallel step
-        /// execution of the given query.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="ExecuteSqlRequest.Options.TRUE">TRUE</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="ExecuteSqlRequest.Options.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="ExecuteSqlRequest.Options.TRUE">TRUE</see>.</description>
-        ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="ExecuteSqlRequest.Options.COST_BASED_OPTIMIZATION">COST_BASED_OPTIMIZATION</see>:</term>
@@ -680,78 +714,6 @@ namespace kinetica
         /// </list>
         /// The default value is <see
         /// cref="ExecuteSqlRequest.Options.FALSE">FALSE</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="ExecuteSqlRequest.Options.PLAN_CACHE">PLAN_CACHE</see>:</term>
-        ///         <description>If <i>false</i>, disables plan caching for the
-        /// given query.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="ExecuteSqlRequest.Options.TRUE">TRUE</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="ExecuteSqlRequest.Options.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="ExecuteSqlRequest.Options.TRUE">TRUE</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="ExecuteSqlRequest.Options.RULE_BASED_OPTIMIZATION">RULE_BASED_OPTIMIZATION</see>:</term>
-        ///         <description>If <i>false</i>, disables rule-based rewrite
-        /// optimizations for the given query
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="ExecuteSqlRequest.Options.TRUE">TRUE</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="ExecuteSqlRequest.Options.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="ExecuteSqlRequest.Options.TRUE">TRUE</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="ExecuteSqlRequest.Options.RESULTS_CACHING">RESULTS_CACHING</see>:</term>
-        ///         <description>If <i>false</i>, disables caching of the
-        /// results of the given query
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="ExecuteSqlRequest.Options.TRUE">TRUE</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="ExecuteSqlRequest.Options.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="ExecuteSqlRequest.Options.TRUE">TRUE</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="ExecuteSqlRequest.Options.PAGING_TABLE">PAGING_TABLE</see>:</term>
-        ///         <description>When empty or the specified paging table not
-        /// exists, the system will create a paging table and return when query
-        /// output has more records than the user asked. If the paging table
-        /// exists in the system, the records from the paging table are
-        /// returned without evaluating the query.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="ExecuteSqlRequest.Options.PAGING_TABLE_TTL">PAGING_TABLE_TTL</see>:</term>
-        ///         <description>Sets the <a href="../../../concepts/ttl/"
-        /// target="_top">TTL</a> of the paging table.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -799,9 +761,10 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="ExecuteSqlRequest.Options.SSQ_OPTIMIZATION">SSQ_OPTIMIZATION</see>:</term>
-        ///         <description>If <i>false</i>, scalar subqueries will be
-        /// translated into joins
+        /// cref="ExecuteSqlRequest.Options.IGNORE_EXISTING_PK">IGNORE_EXISTING_PK</see>:</term>
+        ///         <description>Can be used to customize behavior when the
+        /// updated primary key value already exists as described in
+        /// /insert/records.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -814,7 +777,7 @@ namespace kinetica
         ///     </item>
         /// </list>
         /// The default value is <see
-        /// cref="ExecuteSqlRequest.Options.TRUE">TRUE</see>.</description>
+        /// cref="ExecuteSqlRequest.Options.FALSE">FALSE</see>.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -837,17 +800,63 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="ExecuteSqlRequest.Options.TTL">TTL</see>:</term>
-        ///         <description>Sets the <a href="../../../concepts/ttl/"
-        /// target="_top">TTL</a> of the intermediate result tables used in
-        /// query execution.</description>
+        /// cref="ExecuteSqlRequest.Options.PAGING_TABLE">PAGING_TABLE</see>:</term>
+        ///         <description>When empty or the specified paging table not
+        /// exists, the system will create a paging table and return when query
+        /// output has more records than the user asked. If the paging table
+        /// exists in the system, the records from the paging table are
+        /// returned without evaluating the query.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="ExecuteSqlRequest.Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>:</term>
-        ///         <description>Can be used to customize behavior when the
-        /// updated primary key value already exists as described in
-        /// /insert/records.
+        /// cref="ExecuteSqlRequest.Options.PAGING_TABLE_TTL">PAGING_TABLE_TTL</see>:</term>
+        ///         <description>Sets the <a href="../../../concepts/ttl/"
+        /// target="_top">TTL</a> of the paging table.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ExecuteSqlRequest.Options.PARALLEL_EXECUTION">PARALLEL_EXECUTION</see>:</term>
+        ///         <description>If <i>false</i>, disables the parallel step
+        /// execution of the given query.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="ExecuteSqlRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ExecuteSqlRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="ExecuteSqlRequest.Options.TRUE">TRUE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ExecuteSqlRequest.Options.PLAN_CACHE">PLAN_CACHE</see>:</term>
+        ///         <description>If <i>false</i>, disables plan caching for the
+        /// given query.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="ExecuteSqlRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ExecuteSqlRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="ExecuteSqlRequest.Options.TRUE">TRUE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ExecuteSqlRequest.Options.PREPARE_MODE">PREPARE_MODE</see>:</term>
+        ///         <description>If <i>true</i>, compiles a query into an
+        /// execution plan and saves it in query cache. Query execution is not
+        /// performed and an empty response will be returned to user
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -884,6 +893,98 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
+        /// cref="ExecuteSqlRequest.Options.QUERY_PARAMETERS">QUERY_PARAMETERS</see>:</term>
+        ///         <description>Query parameters in JSON array or arrays (for
+        /// inserting multiple rows).  This can be used instead of <paramref
+        /// cref="ExecuteSqlRequest.data" /> and <paramref
+        /// cref="ExecuteSqlRequest.request_schema_str" />.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ExecuteSqlRequest.Options.RESULTS_CACHING">RESULTS_CACHING</see>:</term>
+        ///         <description>If <i>false</i>, disables caching of the
+        /// results of the given query
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="ExecuteSqlRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ExecuteSqlRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="ExecuteSqlRequest.Options.TRUE">TRUE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ExecuteSqlRequest.Options.RULE_BASED_OPTIMIZATION">RULE_BASED_OPTIMIZATION</see>:</term>
+        ///         <description>If <i>false</i>, disables rule-based rewrite
+        /// optimizations for the given query
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="ExecuteSqlRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ExecuteSqlRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="ExecuteSqlRequest.Options.TRUE">TRUE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ExecuteSqlRequest.Options.SSQ_OPTIMIZATION">SSQ_OPTIMIZATION</see>:</term>
+        ///         <description>If <i>false</i>, scalar subqueries will be
+        /// translated into joins
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="ExecuteSqlRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ExecuteSqlRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="ExecuteSqlRequest.Options.TRUE">TRUE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ExecuteSqlRequest.Options.TTL">TTL</see>:</term>
+        ///         <description>Sets the <a href="../../../concepts/ttl/"
+        /// target="_top">TTL</a> of the intermediate result tables used in
+        /// query execution.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ExecuteSqlRequest.Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>:</term>
+        ///         <description>Can be used to customize behavior when the
+        /// updated primary key value already exists as described in
+        /// /insert/records.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="ExecuteSqlRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ExecuteSqlRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="ExecuteSqlRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="ExecuteSqlRequest.Options.VALIDATE_CHANGE_COLUMN">VALIDATE_CHANGE_COLUMN</see>:</term>
         ///         <description>When changing a column using alter table,
         /// validate the change before applying it. If <i>true</i>, then
@@ -903,26 +1004,6 @@ namespace kinetica
         /// </list>
         /// The default value is <see
         /// cref="ExecuteSqlRequest.Options.TRUE">TRUE</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="ExecuteSqlRequest.Options.PREPARE_MODE">PREPARE_MODE</see>:</term>
-        ///         <description>If <i>true</i>, compiles a query into an
-        /// execution plan and saves it in query cache. Query execution is not
-        /// performed and an empty response will be returned to user
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="ExecuteSqlRequest.Options.TRUE">TRUE</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="ExecuteSqlRequest.Options.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="ExecuteSqlRequest.Options.FALSE">FALSE</see>.</description>
         ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.</summary>
@@ -959,29 +1040,11 @@ namespace kinetica
         /// <param name="request_schema_str">Avro schema of <paramref
         /// cref="ExecuteSqlRequest.data" />.  The default value is ''.</param>
         /// <param name="data">An array of binary-encoded data for the records
-        /// to be binded to the SQL query.  The default value is an empty
-        /// {@link List}.</param>
+        /// to be binded to the SQL query.  Or use <i>query_parameters</i> to
+        /// pass the data in JSON format.  The default value is an empty {@link
+        /// List}.</param>
         /// <param name="options">Optional parameters.
         /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="ExecuteSqlRequest.Options.PARALLEL_EXECUTION">PARALLEL_EXECUTION</see>:</term>
-        ///         <description>If <i>false</i>, disables the parallel step
-        /// execution of the given query.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="ExecuteSqlRequest.Options.TRUE">TRUE</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="ExecuteSqlRequest.Options.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="ExecuteSqlRequest.Options.TRUE">TRUE</see>.</description>
-        ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="ExecuteSqlRequest.Options.COST_BASED_OPTIMIZATION">COST_BASED_OPTIMIZATION</see>:</term>
@@ -1000,78 +1063,6 @@ namespace kinetica
         /// </list>
         /// The default value is <see
         /// cref="ExecuteSqlRequest.Options.FALSE">FALSE</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="ExecuteSqlRequest.Options.PLAN_CACHE">PLAN_CACHE</see>:</term>
-        ///         <description>If <i>false</i>, disables plan caching for the
-        /// given query.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="ExecuteSqlRequest.Options.TRUE">TRUE</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="ExecuteSqlRequest.Options.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="ExecuteSqlRequest.Options.TRUE">TRUE</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="ExecuteSqlRequest.Options.RULE_BASED_OPTIMIZATION">RULE_BASED_OPTIMIZATION</see>:</term>
-        ///         <description>If <i>false</i>, disables rule-based rewrite
-        /// optimizations for the given query
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="ExecuteSqlRequest.Options.TRUE">TRUE</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="ExecuteSqlRequest.Options.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="ExecuteSqlRequest.Options.TRUE">TRUE</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="ExecuteSqlRequest.Options.RESULTS_CACHING">RESULTS_CACHING</see>:</term>
-        ///         <description>If <i>false</i>, disables caching of the
-        /// results of the given query
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="ExecuteSqlRequest.Options.TRUE">TRUE</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="ExecuteSqlRequest.Options.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="ExecuteSqlRequest.Options.TRUE">TRUE</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="ExecuteSqlRequest.Options.PAGING_TABLE">PAGING_TABLE</see>:</term>
-        ///         <description>When empty or the specified paging table not
-        /// exists, the system will create a paging table and return when query
-        /// output has more records than the user asked. If the paging table
-        /// exists in the system, the records from the paging table are
-        /// returned without evaluating the query.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="ExecuteSqlRequest.Options.PAGING_TABLE_TTL">PAGING_TABLE_TTL</see>:</term>
-        ///         <description>Sets the <a href="../../../concepts/ttl/"
-        /// target="_top">TTL</a> of the paging table.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -1119,9 +1110,10 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="ExecuteSqlRequest.Options.SSQ_OPTIMIZATION">SSQ_OPTIMIZATION</see>:</term>
-        ///         <description>If <i>false</i>, scalar subqueries will be
-        /// translated into joins
+        /// cref="ExecuteSqlRequest.Options.IGNORE_EXISTING_PK">IGNORE_EXISTING_PK</see>:</term>
+        ///         <description>Can be used to customize behavior when the
+        /// updated primary key value already exists as described in
+        /// /insert/records.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -1134,7 +1126,7 @@ namespace kinetica
         ///     </item>
         /// </list>
         /// The default value is <see
-        /// cref="ExecuteSqlRequest.Options.TRUE">TRUE</see>.</description>
+        /// cref="ExecuteSqlRequest.Options.FALSE">FALSE</see>.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -1157,17 +1149,63 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="ExecuteSqlRequest.Options.TTL">TTL</see>:</term>
-        ///         <description>Sets the <a href="../../../concepts/ttl/"
-        /// target="_top">TTL</a> of the intermediate result tables used in
-        /// query execution.</description>
+        /// cref="ExecuteSqlRequest.Options.PAGING_TABLE">PAGING_TABLE</see>:</term>
+        ///         <description>When empty or the specified paging table not
+        /// exists, the system will create a paging table and return when query
+        /// output has more records than the user asked. If the paging table
+        /// exists in the system, the records from the paging table are
+        /// returned without evaluating the query.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="ExecuteSqlRequest.Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>:</term>
-        ///         <description>Can be used to customize behavior when the
-        /// updated primary key value already exists as described in
-        /// /insert/records.
+        /// cref="ExecuteSqlRequest.Options.PAGING_TABLE_TTL">PAGING_TABLE_TTL</see>:</term>
+        ///         <description>Sets the <a href="../../../concepts/ttl/"
+        /// target="_top">TTL</a> of the paging table.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ExecuteSqlRequest.Options.PARALLEL_EXECUTION">PARALLEL_EXECUTION</see>:</term>
+        ///         <description>If <i>false</i>, disables the parallel step
+        /// execution of the given query.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="ExecuteSqlRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ExecuteSqlRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="ExecuteSqlRequest.Options.TRUE">TRUE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ExecuteSqlRequest.Options.PLAN_CACHE">PLAN_CACHE</see>:</term>
+        ///         <description>If <i>false</i>, disables plan caching for the
+        /// given query.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="ExecuteSqlRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ExecuteSqlRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="ExecuteSqlRequest.Options.TRUE">TRUE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ExecuteSqlRequest.Options.PREPARE_MODE">PREPARE_MODE</see>:</term>
+        ///         <description>If <i>true</i>, compiles a query into an
+        /// execution plan and saves it in query cache. Query execution is not
+        /// performed and an empty response will be returned to user
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -1204,6 +1242,98 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
+        /// cref="ExecuteSqlRequest.Options.QUERY_PARAMETERS">QUERY_PARAMETERS</see>:</term>
+        ///         <description>Query parameters in JSON array or arrays (for
+        /// inserting multiple rows).  This can be used instead of <paramref
+        /// cref="ExecuteSqlRequest.data" /> and <paramref
+        /// cref="ExecuteSqlRequest.request_schema_str" />.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ExecuteSqlRequest.Options.RESULTS_CACHING">RESULTS_CACHING</see>:</term>
+        ///         <description>If <i>false</i>, disables caching of the
+        /// results of the given query
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="ExecuteSqlRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ExecuteSqlRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="ExecuteSqlRequest.Options.TRUE">TRUE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ExecuteSqlRequest.Options.RULE_BASED_OPTIMIZATION">RULE_BASED_OPTIMIZATION</see>:</term>
+        ///         <description>If <i>false</i>, disables rule-based rewrite
+        /// optimizations for the given query
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="ExecuteSqlRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ExecuteSqlRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="ExecuteSqlRequest.Options.TRUE">TRUE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ExecuteSqlRequest.Options.SSQ_OPTIMIZATION">SSQ_OPTIMIZATION</see>:</term>
+        ///         <description>If <i>false</i>, scalar subqueries will be
+        /// translated into joins
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="ExecuteSqlRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ExecuteSqlRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="ExecuteSqlRequest.Options.TRUE">TRUE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ExecuteSqlRequest.Options.TTL">TTL</see>:</term>
+        ///         <description>Sets the <a href="../../../concepts/ttl/"
+        /// target="_top">TTL</a> of the intermediate result tables used in
+        /// query execution.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ExecuteSqlRequest.Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>:</term>
+        ///         <description>Can be used to customize behavior when the
+        /// updated primary key value already exists as described in
+        /// /insert/records.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="ExecuteSqlRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ExecuteSqlRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="ExecuteSqlRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="ExecuteSqlRequest.Options.VALIDATE_CHANGE_COLUMN">VALIDATE_CHANGE_COLUMN</see>:</term>
         ///         <description>When changing a column using alter table,
         /// validate the change before applying it. If <i>true</i>, then
@@ -1223,26 +1353,6 @@ namespace kinetica
         /// </list>
         /// The default value is <see
         /// cref="ExecuteSqlRequest.Options.TRUE">TRUE</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="ExecuteSqlRequest.Options.PREPARE_MODE">PREPARE_MODE</see>:</term>
-        ///         <description>If <i>true</i>, compiles a query into an
-        /// execution plan and saves it in query cache. Query execution is not
-        /// performed and an empty response will be returned to user
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="ExecuteSqlRequest.Options.TRUE">TRUE</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="ExecuteSqlRequest.Options.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="ExecuteSqlRequest.Options.FALSE">FALSE</see>.</description>
         ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.</param>
@@ -1305,29 +1415,11 @@ namespace kinetica
         /// <param name="request_schema_str">Avro schema of <paramref
         /// cref="ExecuteSqlRequest.data" />.  The default value is ''.</param>
         /// <param name="data">An array of binary-encoded data for the records
-        /// to be binded to the SQL query.  The default value is an empty
-        /// {@link List}.</param>
+        /// to be binded to the SQL query.  Or use <i>query_parameters</i> to
+        /// pass the data in JSON format.  The default value is an empty {@link
+        /// List}.</param>
         /// <param name="options">Optional parameters.
         /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="ExecuteSqlRequest.Options.PARALLEL_EXECUTION">PARALLEL_EXECUTION</see>:</term>
-        ///         <description>If <i>false</i>, disables the parallel step
-        /// execution of the given query.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="ExecuteSqlRequest.Options.TRUE">TRUE</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="ExecuteSqlRequest.Options.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="ExecuteSqlRequest.Options.TRUE">TRUE</see>.</description>
-        ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="ExecuteSqlRequest.Options.COST_BASED_OPTIMIZATION">COST_BASED_OPTIMIZATION</see>:</term>
@@ -1346,78 +1438,6 @@ namespace kinetica
         /// </list>
         /// The default value is <see
         /// cref="ExecuteSqlRequest.Options.FALSE">FALSE</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="ExecuteSqlRequest.Options.PLAN_CACHE">PLAN_CACHE</see>:</term>
-        ///         <description>If <i>false</i>, disables plan caching for the
-        /// given query.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="ExecuteSqlRequest.Options.TRUE">TRUE</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="ExecuteSqlRequest.Options.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="ExecuteSqlRequest.Options.TRUE">TRUE</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="ExecuteSqlRequest.Options.RULE_BASED_OPTIMIZATION">RULE_BASED_OPTIMIZATION</see>:</term>
-        ///         <description>If <i>false</i>, disables rule-based rewrite
-        /// optimizations for the given query
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="ExecuteSqlRequest.Options.TRUE">TRUE</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="ExecuteSqlRequest.Options.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="ExecuteSqlRequest.Options.TRUE">TRUE</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="ExecuteSqlRequest.Options.RESULTS_CACHING">RESULTS_CACHING</see>:</term>
-        ///         <description>If <i>false</i>, disables caching of the
-        /// results of the given query
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="ExecuteSqlRequest.Options.TRUE">TRUE</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="ExecuteSqlRequest.Options.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="ExecuteSqlRequest.Options.TRUE">TRUE</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="ExecuteSqlRequest.Options.PAGING_TABLE">PAGING_TABLE</see>:</term>
-        ///         <description>When empty or the specified paging table not
-        /// exists, the system will create a paging table and return when query
-        /// output has more records than the user asked. If the paging table
-        /// exists in the system, the records from the paging table are
-        /// returned without evaluating the query.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="ExecuteSqlRequest.Options.PAGING_TABLE_TTL">PAGING_TABLE_TTL</see>:</term>
-        ///         <description>Sets the <a href="../../../concepts/ttl/"
-        /// target="_top">TTL</a> of the paging table.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -1465,9 +1485,10 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="ExecuteSqlRequest.Options.SSQ_OPTIMIZATION">SSQ_OPTIMIZATION</see>:</term>
-        ///         <description>If <i>false</i>, scalar subqueries will be
-        /// translated into joins
+        /// cref="ExecuteSqlRequest.Options.IGNORE_EXISTING_PK">IGNORE_EXISTING_PK</see>:</term>
+        ///         <description>Can be used to customize behavior when the
+        /// updated primary key value already exists as described in
+        /// /insert/records.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -1480,7 +1501,7 @@ namespace kinetica
         ///     </item>
         /// </list>
         /// The default value is <see
-        /// cref="ExecuteSqlRequest.Options.TRUE">TRUE</see>.</description>
+        /// cref="ExecuteSqlRequest.Options.FALSE">FALSE</see>.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -1503,17 +1524,63 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="ExecuteSqlRequest.Options.TTL">TTL</see>:</term>
-        ///         <description>Sets the <a href="../../../concepts/ttl/"
-        /// target="_top">TTL</a> of the intermediate result tables used in
-        /// query execution.</description>
+        /// cref="ExecuteSqlRequest.Options.PAGING_TABLE">PAGING_TABLE</see>:</term>
+        ///         <description>When empty or the specified paging table not
+        /// exists, the system will create a paging table and return when query
+        /// output has more records than the user asked. If the paging table
+        /// exists in the system, the records from the paging table are
+        /// returned without evaluating the query.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="ExecuteSqlRequest.Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>:</term>
-        ///         <description>Can be used to customize behavior when the
-        /// updated primary key value already exists as described in
-        /// /insert/records.
+        /// cref="ExecuteSqlRequest.Options.PAGING_TABLE_TTL">PAGING_TABLE_TTL</see>:</term>
+        ///         <description>Sets the <a href="../../../concepts/ttl/"
+        /// target="_top">TTL</a> of the paging table.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ExecuteSqlRequest.Options.PARALLEL_EXECUTION">PARALLEL_EXECUTION</see>:</term>
+        ///         <description>If <i>false</i>, disables the parallel step
+        /// execution of the given query.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="ExecuteSqlRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ExecuteSqlRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="ExecuteSqlRequest.Options.TRUE">TRUE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ExecuteSqlRequest.Options.PLAN_CACHE">PLAN_CACHE</see>:</term>
+        ///         <description>If <i>false</i>, disables plan caching for the
+        /// given query.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="ExecuteSqlRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ExecuteSqlRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="ExecuteSqlRequest.Options.TRUE">TRUE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ExecuteSqlRequest.Options.PREPARE_MODE">PREPARE_MODE</see>:</term>
+        ///         <description>If <i>true</i>, compiles a query into an
+        /// execution plan and saves it in query cache. Query execution is not
+        /// performed and an empty response will be returned to user
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -1550,6 +1617,98 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
+        /// cref="ExecuteSqlRequest.Options.QUERY_PARAMETERS">QUERY_PARAMETERS</see>:</term>
+        ///         <description>Query parameters in JSON array or arrays (for
+        /// inserting multiple rows).  This can be used instead of <paramref
+        /// cref="ExecuteSqlRequest.data" /> and <paramref
+        /// cref="ExecuteSqlRequest.request_schema_str" />.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ExecuteSqlRequest.Options.RESULTS_CACHING">RESULTS_CACHING</see>:</term>
+        ///         <description>If <i>false</i>, disables caching of the
+        /// results of the given query
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="ExecuteSqlRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ExecuteSqlRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="ExecuteSqlRequest.Options.TRUE">TRUE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ExecuteSqlRequest.Options.RULE_BASED_OPTIMIZATION">RULE_BASED_OPTIMIZATION</see>:</term>
+        ///         <description>If <i>false</i>, disables rule-based rewrite
+        /// optimizations for the given query
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="ExecuteSqlRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ExecuteSqlRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="ExecuteSqlRequest.Options.TRUE">TRUE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ExecuteSqlRequest.Options.SSQ_OPTIMIZATION">SSQ_OPTIMIZATION</see>:</term>
+        ///         <description>If <i>false</i>, scalar subqueries will be
+        /// translated into joins
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="ExecuteSqlRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ExecuteSqlRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="ExecuteSqlRequest.Options.TRUE">TRUE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ExecuteSqlRequest.Options.TTL">TTL</see>:</term>
+        ///         <description>Sets the <a href="../../../concepts/ttl/"
+        /// target="_top">TTL</a> of the intermediate result tables used in
+        /// query execution.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ExecuteSqlRequest.Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>:</term>
+        ///         <description>Can be used to customize behavior when the
+        /// updated primary key value already exists as described in
+        /// /insert/records.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="ExecuteSqlRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ExecuteSqlRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="ExecuteSqlRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="ExecuteSqlRequest.Options.VALIDATE_CHANGE_COLUMN">VALIDATE_CHANGE_COLUMN</see>:</term>
         ///         <description>When changing a column using alter table,
         /// validate the change before applying it. If <i>true</i>, then
@@ -1569,26 +1728,6 @@ namespace kinetica
         /// </list>
         /// The default value is <see
         /// cref="ExecuteSqlRequest.Options.TRUE">TRUE</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="ExecuteSqlRequest.Options.PREPARE_MODE">PREPARE_MODE</see>:</term>
-        ///         <description>If <i>true</i>, compiles a query into an
-        /// execution plan and saves it in query cache. Query execution is not
-        /// performed and an empty response will be returned to user
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="ExecuteSqlRequest.Options.TRUE">TRUE</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="ExecuteSqlRequest.Options.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="ExecuteSqlRequest.Options.FALSE">FALSE</see>.</description>
         ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.</param>

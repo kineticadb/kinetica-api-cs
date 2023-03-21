@@ -164,17 +164,21 @@ namespace kinetica
         public struct AdditionalInfo
         {
 
-            /// <summary>The initial date/time that periodic execution began.
-            /// The default value is ''.</summary>
-            public const string EXECUTE_START_TIME = "execute_start_time";
+            /// <summary>The periodic execution impersonate user.  The default
+            /// value is ''.</summary>
+            public const string EXECUTE_AS = "execute_as";
 
             /// <summary>The periodic execution interval in seconds.  The
             /// default value is ''.</summary>
             public const string EXECUTE_INTERVAL = "execute_interval";
 
-            /// <summary>The periodic execution impersonate user.  The default
-            /// value is ''.</summary>
-            public const string EXECUTE_AS = "execute_as";
+            /// <summary>The initial date/time that periodic execution began.
+            /// The default value is ''.</summary>
+            public const string EXECUTE_START_TIME = "execute_start_time";
+
+            /// <summary>Time at which the periodic execution stops.  The
+            /// default value is ''.</summary>
+            public const string EXECUTE_STOP_TIME = "execute_stop_time";
         } // end struct AdditionalInfo
 
 

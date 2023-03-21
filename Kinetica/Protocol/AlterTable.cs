@@ -280,12 +280,27 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
+        /// cref="AlterTableRequest.Action.SET_REFRESH_STOP_TIME">SET_REFRESH_STOP_TIME</see>:</term>
+        ///         <description>Sets the time to stop periodic refreshes of
+        /// this <a href="../../../concepts/materialized_views/"
+        /// target="_top">materialized view</a> to the datetime string
+        /// specified in <paramref cref="AlterTableRequest._value" /> with
+        /// format 'YYYY-MM-DD HH:MM:SS'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="AlterTableRequest.Action.SET_REFRESH_PERIOD">SET_REFRESH_PERIOD</see>:</term>
         ///         <description>Sets the time interval in seconds at which to
         /// refresh this <a href="../../../concepts/materialized_views/"
         /// target="_top">materialized view</a> to the value specified in
         /// <paramref cref="AlterTableRequest._value" />.  Also, sets the
         /// refresh method to periodic if not already set.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterTableRequest.Action.SET_REFRESH_SPAN">SET_REFRESH_SPAN</see>:</term>
+        ///         <description>Sets the future time-offset(in seconds) for
+        /// the view refresh to stop.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -501,12 +516,23 @@ namespace kinetica
             /// N * the refresh period.</summary>
             public const string SET_REFRESH_START_TIME = "set_refresh_start_time";
 
+            /// <summary>Sets the time to stop periodic refreshes of this <a
+            /// href="../../../concepts/materialized_views/"
+            /// target="_top">materialized view</a> to the datetime string
+            /// specified in <see cref="_value" /> with format 'YYYY-MM-DD
+            /// HH:MM:SS'.</summary>
+            public const string SET_REFRESH_STOP_TIME = "set_refresh_stop_time";
+
             /// <summary>Sets the time interval in seconds at which to refresh
             /// this <a href="../../../concepts/materialized_views/"
             /// target="_top">materialized view</a> to the value specified in
             /// <see cref="_value" />.  Also, sets the refresh method to
             /// periodic if not already set.</summary>
             public const string SET_REFRESH_PERIOD = "set_refresh_period";
+
+            /// <summary>Sets the future time-offset(in seconds) for the view
+            /// refresh to stop.</summary>
+            public const string SET_REFRESH_SPAN = "set_refresh_span";
 
             /// <summary>Sets the user name to refresh this <a
             /// href="../../../concepts/materialized_views/"
@@ -1111,12 +1137,27 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
+        /// cref="AlterTableRequest.Action.SET_REFRESH_STOP_TIME">SET_REFRESH_STOP_TIME</see>:</term>
+        ///         <description>Sets the time to stop periodic refreshes of
+        /// this <a href="../../../concepts/materialized_views/"
+        /// target="_top">materialized view</a> to the datetime string
+        /// specified in <paramref cref="AlterTableRequest._value" /> with
+        /// format 'YYYY-MM-DD HH:MM:SS'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="AlterTableRequest.Action.SET_REFRESH_PERIOD">SET_REFRESH_PERIOD</see>:</term>
         ///         <description>Sets the time interval in seconds at which to
         /// refresh this <a href="../../../concepts/materialized_views/"
         /// target="_top">materialized view</a> to the value specified in
         /// <paramref cref="AlterTableRequest._value" />.  Also, sets the
         /// refresh method to periodic if not already set.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterTableRequest.Action.SET_REFRESH_SPAN">SET_REFRESH_SPAN</see>:</term>
+        ///         <description>Sets the future time-offset(in seconds) for
+        /// the view refresh to stop.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -1587,12 +1628,27 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
+        /// cref="AlterTableRequest.Action.SET_REFRESH_STOP_TIME">SET_REFRESH_STOP_TIME</see>:</term>
+        ///         <description>Sets the time to stop periodic refreshes of
+        /// this <a href="../../../concepts/materialized_views/"
+        /// target="_top">materialized view</a> to the datetime string
+        /// specified in <paramref cref="AlterTableRequest._value" /> with
+        /// format 'YYYY-MM-DD HH:MM:SS'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="AlterTableRequest.Action.SET_REFRESH_PERIOD">SET_REFRESH_PERIOD</see>:</term>
         ///         <description>Sets the time interval in seconds at which to
         /// refresh this <a href="../../../concepts/materialized_views/"
         /// target="_top">materialized view</a> to the value specified in
         /// <paramref cref="AlterTableRequest._value" />.  Also, sets the
         /// refresh method to periodic if not already set.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterTableRequest.Action.SET_REFRESH_SPAN">SET_REFRESH_SPAN</see>:</term>
+        ///         <description>Sets the future time-offset(in seconds) for
+        /// the view refresh to stop.</description>
         ///     </item>
         ///     <item>
         ///         <term><see

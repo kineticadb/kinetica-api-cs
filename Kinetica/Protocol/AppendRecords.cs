@@ -77,8 +77,36 @@ namespace kinetica
         /// <i>false</i>, any existing target table record with primary key
         /// values that match those of a source table record being inserted
         /// will remain unchanged and the new record discarded.  If the
-        /// specified table does not have a primary key, then this option is
-        /// ignored.
+        /// specified table does not have a primary key, then this option has
+        /// no effect.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="AppendRecordsRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AppendRecordsRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="AppendRecordsRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AppendRecordsRequest.Options.IGNORE_EXISTING_PK">IGNORE_EXISTING_PK</see>:</term>
+        ///         <description>Specifies the record collision policy for
+        /// inserting the source table records (specified by <paramref
+        /// cref="AppendRecordsRequest.source_table_name" />) into the target
+        /// table (specified by <paramref
+        /// cref="AppendRecordsRequest.table_name" />) table with a <a
+        /// href="../../../concepts/tables/#primary-keys" target="_top">primary
+        /// key</a>.  If set to <i>true</i>, any source table records being
+        /// inserted with primary key values that match those of an existing
+        /// target table record will be ignored with no error generated.  If
+        /// the specified table does not have a primary key, then this option
+        /// has no affect.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -157,7 +185,7 @@ namespace kinetica
             /// target table record with primary key values that match those of
             /// a source table record being inserted will remain unchanged and
             /// the new record discarded.  If the specified table does not have
-            /// a primary key, then this option is ignored.
+            /// a primary key, then this option has no effect.
             /// Supported values:
             /// <list type="bullet">
             ///     <item>
@@ -174,6 +202,31 @@ namespace kinetica
             public const string UPDATE_ON_EXISTING_PK = "update_on_existing_pk";
             public const string TRUE = "true";
             public const string FALSE = "false";
+
+            /// <summary>Specifies the record collision policy for inserting
+            /// the source table records (specified by <see
+            /// cref="source_table_name" />) into the target table (specified
+            /// by <see cref="table_name" />) table with a <a
+            /// href="../../../concepts/tables/#primary-keys"
+            /// target="_top">primary key</a>.  If set to <i>true</i>, any
+            /// source table records being inserted with primary key values
+            /// that match those of an existing target table record will be
+            /// ignored with no error generated.  If the specified table does
+            /// not have a primary key, then this option has no affect.
+            /// Supported values:
+            /// <list type="bullet">
+            ///     <item>
+            ///         <term><see
+            /// cref="AppendRecordsRequest.Options.TRUE">TRUE</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="AppendRecordsRequest.Options.FALSE">FALSE</see></term>
+            ///     </item>
+            /// </list>
+            /// The default value is <see
+            /// cref="AppendRecordsRequest.Options.FALSE">FALSE</see>.</summary>
+            public const string IGNORE_EXISTING_PK = "ignore_existing_pk";
 
             /// <summary>If set to <i>true</i>, it allows inserting longer
             /// strings into smaller charN string columns by truncating the
@@ -272,8 +325,36 @@ namespace kinetica
         /// <i>false</i>, any existing target table record with primary key
         /// values that match those of a source table record being inserted
         /// will remain unchanged and the new record discarded.  If the
-        /// specified table does not have a primary key, then this option is
-        /// ignored.
+        /// specified table does not have a primary key, then this option has
+        /// no effect.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="AppendRecordsRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AppendRecordsRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="AppendRecordsRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AppendRecordsRequest.Options.IGNORE_EXISTING_PK">IGNORE_EXISTING_PK</see>:</term>
+        ///         <description>Specifies the record collision policy for
+        /// inserting the source table records (specified by <paramref
+        /// cref="AppendRecordsRequest.source_table_name" />) into the target
+        /// table (specified by <paramref
+        /// cref="AppendRecordsRequest.table_name" />) table with a <a
+        /// href="../../../concepts/tables/#primary-keys" target="_top">primary
+        /// key</a>.  If set to <i>true</i>, any source table records being
+        /// inserted with primary key values that match those of an existing
+        /// target table record will be ignored with no error generated.  If
+        /// the specified table does not have a primary key, then this option
+        /// has no affect.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -392,8 +473,36 @@ namespace kinetica
         /// <i>false</i>, any existing target table record with primary key
         /// values that match those of a source table record being inserted
         /// will remain unchanged and the new record discarded.  If the
-        /// specified table does not have a primary key, then this option is
-        /// ignored.
+        /// specified table does not have a primary key, then this option has
+        /// no effect.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="AppendRecordsRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AppendRecordsRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="AppendRecordsRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AppendRecordsRequest.Options.IGNORE_EXISTING_PK">IGNORE_EXISTING_PK</see>:</term>
+        ///         <description>Specifies the record collision policy for
+        /// inserting the source table records (specified by <paramref
+        /// cref="AppendRecordsRequest.source_table_name" />) into the target
+        /// table (specified by <paramref
+        /// cref="AppendRecordsRequest.table_name" />) table with a <a
+        /// href="../../../concepts/tables/#primary-keys" target="_top">primary
+        /// key</a>.  If set to <i>true</i>, any source table records being
+        /// inserted with primary key values that match those of an existing
+        /// target table record will be ignored with no error generated.  If
+        /// the specified table does not have a primary key, then this option
+        /// has no affect.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>

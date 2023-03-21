@@ -126,25 +126,6 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.SET_MESSAGE_TIMERS_ENABLED">SET_MESSAGE_TIMERS_ENABLED</see>:</term>
-        ///         <description>Enables the communicator test to collect
-        /// additional timing statistics when the value string is <i>true</i>.
-        /// Disables collecting statistics when the value string is
-        /// <i>false</i>
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.TRUE">TRUE</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list></description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
         /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.NETWORK_SPEED">NETWORK_SPEED</see>:</term>
         ///         <description>Invoke the network speed test and report
         /// timing results. Value string is a semicolon-separated list of
@@ -228,22 +209,21 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.KAFKA_BATCH_SIZE">KAFKA_BATCH_SIZE</see>:</term>
-        ///         <description>Maximum number of records to be read in a
-        /// single kafka batched request.  The default value is
-        /// '1000'.</description>
+        ///         <description>Maximum number of records to be ingested in a
+        /// single batch.  The default value is '1000'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.KAFKA_POLL_TIMEOUT">KAFKA_POLL_TIMEOUT</see>:</term>
+        ///         <description>Maximum time (milliseconds) for each poll to
+        /// get records from kafka.  The default value is '0'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.KAFKA_WAIT_TIME">KAFKA_WAIT_TIME</see>:</term>
-        ///         <description>Maximum number of seconds to wait in a single
-        /// kafka batched request.  The default value is '30'.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.KAFKA_TIMEOUT">KAFKA_TIMEOUT</see>:</term>
-        ///         <description>Number of seconds after which kakfa poll will
-        /// timeout if datasource has no records.  The default value is
-        /// '5'.</description>
+        ///         <description>Maximum time (seconds) to buffer records
+        /// received from kafka before ingestion.  The default value is
+        /// '30'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -354,23 +334,6 @@ namespace kinetica
             /// the messages received are verified.</summary>
             public const string COMMUNICATOR_TEST = "communicator_test";
 
-            /// <summary>Enables the communicator test to collect additional
-            /// timing statistics when the value string is <i>true</i>.
-            /// Disables collecting statistics when the value string is
-            /// <i>false</i>
-            /// Supported values:
-            /// <list type="bullet">
-            ///     <item>
-            ///         <term><see
-            /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.TRUE">TRUE</see></term>
-            ///     </item>
-            ///     <item>
-            ///         <term><see
-            /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.FALSE">FALSE</see></term>
-            ///     </item>
-            /// </list></summary>
-            public const string SET_MESSAGE_TIMERS_ENABLED = "set_message_timers_enabled";
-
             /// <summary>Invoke the network speed test and report timing
             /// results. Value string is a semicolon-separated list of
             /// [key]=[value] expressions.  Valid expressions are:
@@ -430,18 +393,17 @@ namespace kinetica
             /// is 'true'.</summary>
             public const string ENABLE_OVERLAPPED_EQUI_JOIN = "enable_overlapped_equi_join";
 
-            /// <summary>Maximum number of records to be read in a single kafka
-            /// batched request.  The default value is '1000'.</summary>
+            /// <summary>Maximum number of records to be ingested in a single
+            /// batch.  The default value is '1000'.</summary>
             public const string KAFKA_BATCH_SIZE = "kafka_batch_size";
 
-            /// <summary>Maximum number of seconds to wait in a single kafka
-            /// batched request.  The default value is '30'.</summary>
-            public const string KAFKA_WAIT_TIME = "kafka_wait_time";
+            /// <summary>Maximum time (milliseconds) for each poll to get
+            /// records from kafka.  The default value is '0'.</summary>
+            public const string KAFKA_POLL_TIMEOUT = "kafka_poll_timeout";
 
-            /// <summary>Number of seconds after which kakfa poll will timeout
-            /// if datasource has no records.  The default value is
-            /// '5'.</summary>
-            public const string KAFKA_TIMEOUT = "kafka_timeout";
+            /// <summary>Maximum time (seconds) to buffer records received from
+            /// kafka before ingestion.  The default value is '30'.</summary>
+            public const string KAFKA_WAIT_TIME = "kafka_wait_time";
 
             /// <summary>Max file size (in MB) to allow saving to a single
             /// file. May be overridden by target limitations.  The default
@@ -614,25 +576,6 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.SET_MESSAGE_TIMERS_ENABLED">SET_MESSAGE_TIMERS_ENABLED</see>:</term>
-        ///         <description>Enables the communicator test to collect
-        /// additional timing statistics when the value string is <i>true</i>.
-        /// Disables collecting statistics when the value string is
-        /// <i>false</i>
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.TRUE">TRUE</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list></description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
         /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.NETWORK_SPEED">NETWORK_SPEED</see>:</term>
         ///         <description>Invoke the network speed test and report
         /// timing results. Value string is a semicolon-separated list of
@@ -716,22 +659,21 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.KAFKA_BATCH_SIZE">KAFKA_BATCH_SIZE</see>:</term>
-        ///         <description>Maximum number of records to be read in a
-        /// single kafka batched request.  The default value is
-        /// '1000'.</description>
+        ///         <description>Maximum number of records to be ingested in a
+        /// single batch.  The default value is '1000'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.KAFKA_POLL_TIMEOUT">KAFKA_POLL_TIMEOUT</see>:</term>
+        ///         <description>Maximum time (milliseconds) for each poll to
+        /// get records from kafka.  The default value is '0'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.KAFKA_WAIT_TIME">KAFKA_WAIT_TIME</see>:</term>
-        ///         <description>Maximum number of seconds to wait in a single
-        /// kafka batched request.  The default value is '30'.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.KAFKA_TIMEOUT">KAFKA_TIMEOUT</see>:</term>
-        ///         <description>Number of seconds after which kakfa poll will
-        /// timeout if datasource has no records.  The default value is
-        /// '5'.</description>
+        ///         <description>Maximum time (seconds) to buffer records
+        /// received from kafka before ingestion.  The default value is
+        /// '30'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -898,25 +840,6 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.SET_MESSAGE_TIMERS_ENABLED">SET_MESSAGE_TIMERS_ENABLED</see>:</term>
-        ///         <description>Enables the communicator test to collect
-        /// additional timing statistics when the value string is <i>true</i>.
-        /// Disables collecting statistics when the value string is
-        /// <i>false</i>
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.TRUE">TRUE</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list></description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
         /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.NETWORK_SPEED">NETWORK_SPEED</see>:</term>
         ///         <description>Invoke the network speed test and report
         /// timing results. Value string is a semicolon-separated list of
@@ -1000,22 +923,21 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.KAFKA_BATCH_SIZE">KAFKA_BATCH_SIZE</see>:</term>
-        ///         <description>Maximum number of records to be read in a
-        /// single kafka batched request.  The default value is
-        /// '1000'.</description>
+        ///         <description>Maximum number of records to be ingested in a
+        /// single batch.  The default value is '1000'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.KAFKA_POLL_TIMEOUT">KAFKA_POLL_TIMEOUT</see>:</term>
+        ///         <description>Maximum time (milliseconds) for each poll to
+        /// get records from kafka.  The default value is '0'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.KAFKA_WAIT_TIME">KAFKA_WAIT_TIME</see>:</term>
-        ///         <description>Maximum number of seconds to wait in a single
-        /// kafka batched request.  The default value is '30'.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.KAFKA_TIMEOUT">KAFKA_TIMEOUT</see>:</term>
-        ///         <description>Number of seconds after which kakfa poll will
-        /// timeout if datasource has no records.  The default value is
-        /// '5'.</description>
+        ///         <description>Maximum time (seconds) to buffer records
+        /// received from kafka before ingestion.  The default value is
+        /// '30'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -1087,7 +1009,7 @@ namespace kinetica
     public class AlterSystemPropertiesResponse : KineticaData
     {
 
-        /// <summary>map of values updated, For speed tests a map of values
+        /// <summary>Map of values updated; for speed tests, a map of values
         /// measured to the measurement  </summary>
         public IDictionary<string, string> updated_properties_map { get; set; } = new Dictionary<string, string>();
 

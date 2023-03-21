@@ -853,6 +853,10 @@ namespace kinetica
             /// The default value is ''.</summary>
             public const string REFRESH_START_TIME = "refresh_start_time";
 
+            /// <summary>Time at which the periodic view refresh stops.  The
+            /// default value is ''.</summary>
+            public const string REFRESH_STOP_TIME = "refresh_stop_time";
+
             /// <summary>For materialized view with periodic refresh_method the
             /// current refresh period in seconds.  The default value is
             /// ''.</summary>

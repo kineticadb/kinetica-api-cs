@@ -494,6 +494,19 @@ namespace kinetica
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
+        /// cref="CreateTableExternalRequest.Options.AVRO_NUM_RECORDS">AVRO_NUM_RECORDS</see>:</term>
+        ///         <description>Optional number of avro records, if data
+        /// includes only records.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableExternalRequest.Options.AVRO_SCHEMA">AVRO_SCHEMA</see>:</term>
+        ///         <description>Optional string representing avro schema, for
+        /// insert records in avro format, that does not include is
+        /// schema.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="CreateTableExternalRequest.Options.BAD_RECORD_TABLE_NAME">BAD_RECORD_TABLE_NAME</see>:</term>
         ///         <description>Optional name of a table to which records that
         /// were rejected are written.  The bad-record-table has the following
@@ -584,6 +597,37 @@ namespace kinetica
         /// from the source data to
         /// skip.  Mutually exclusive with
         /// <i>columns_to_load</i>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableExternalRequest.Options.COMPRESSION_TYPE">COMPRESSION_TYPE</see>:</term>
+        ///         <description>Optional: compression type
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableExternalRequest.Options.NONE">NONE</see>:</term>
+        ///         <description>Uncompressed</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableExternalRequest.Options.AUTO">AUTO</see>:</term>
+        ///         <description>Default. Auto detect compression
+        /// type</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableExternalRequest.Options.GZIP">GZIP</see>:</term>
+        ///         <description>gzip file compression.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableExternalRequest.Options.BZIP2">BZIP2</see>:</term>
+        ///         <description>bzip2 file compression.</description>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="CreateTableExternalRequest.Options.AUTO">AUTO</see>.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -767,6 +811,31 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
+        /// cref="CreateTableExternalRequest.Options.KAFKA_OFFSET_RESET_POLICY">KAFKA_OFFSET_RESET_POLICY</see>:</term>
+        ///         <description>Policy to determine whether the data
+        /// consumption starts either at earliest offset or latest offset.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableExternalRequest.Options.EARLIEST">EARLIEST</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableExternalRequest.Options.LATEST">LATEST</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="CreateTableExternalRequest.Options.EARLIEST">EARLIEST</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableExternalRequest.Options.KAFKA_SUBSCRIPTION_CANCEL_AFTER">KAFKA_SUBSCRIPTION_CANCEL_AFTER</see>:</term>
+        ///         <description>Sets the subscription lifespan (in minutes).
+        /// Expired subscription will be cancelled automatically.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="CreateTableExternalRequest.Options.LOADING_MODE">LOADING_MODE</see>:</term>
         ///         <description>Scheme for distributing the extraction and
         /// loading of data from the source data file(s). This option applies
@@ -830,6 +899,15 @@ namespace kinetica
         ///         <term><see
         /// cref="CreateTableExternalRequest.Options.LOCAL_TIME_OFFSET">LOCAL_TIME_OFFSET</see>:</term>
         ///         <description>For Avro local timestamp columns</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableExternalRequest.Options.MAX_RECORDS_TO_LOAD">MAX_RECORDS_TO_LOAD</see>:</term>
+        ///         <description>Limit the number of records to load in this
+        /// request: If this number is larger than a batch_size, then the
+        /// number of records loaded will be limited to the next whole number
+        /// of batch_size (per working thread).  The default value is
+        /// ''.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -1049,6 +1127,25 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
+        /// cref="CreateTableExternalRequest.Options.TRUNCATE_STRINGS">TRUNCATE_STRINGS</see>:</term>
+        ///         <description>If set to <i>true</i>, truncate string values
+        /// that are longer than the column's type size.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableExternalRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableExternalRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="CreateTableExternalRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="CreateTableExternalRequest.Options.TRUNCATE_TABLE">TRUNCATE_TABLE</see>:</term>
         ///         <description>If set to <i>true</i>, truncates the table
         /// specified by <paramref cref="CreateTableExternalRequest.table_name"
@@ -1104,6 +1201,13 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
+        /// cref="CreateTableExternalRequest.Options.REMOTE_QUERY_INCREASING_COLUMN">REMOTE_QUERY_INCREASING_COLUMN</see>:</term>
+        ///         <description>Column on subscribed remote query result that
+        /// will increase for new records (e.g., TIMESTAMP).  The default value
+        /// is ''.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="CreateTableExternalRequest.Options.REMOTE_QUERY_PARTITION_COLUMN">REMOTE_QUERY_PARTITION_COLUMN</see>:</term>
         ///         <description>Alias name for remote_query_filter_column.
         /// The default value is ''.</description>
@@ -1126,12 +1230,39 @@ namespace kinetica
         /// The default value is <see
         /// cref="CreateTableExternalRequest.Options.FALSE">FALSE</see>.</description>
         ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableExternalRequest.Options.IGNORE_EXISTING_PK">IGNORE_EXISTING_PK</see>:</term>
+        ///         <description>
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableExternalRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableExternalRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="CreateTableExternalRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.
         /// A set of string constants for the parameter <see cref="options"
         /// />.</summary>
         public struct Options
         {
+
+            /// <summary>Optional number of avro records, if data includes only
+            /// records.</summary>
+            public const string AVRO_NUM_RECORDS = "avro_num_records";
+
+            /// <summary>Optional string representing avro schema, for insert
+            /// records in avro format, that does not include is
+            /// schema.</summary>
+            public const string AVRO_SCHEMA = "avro_schema";
 
             /// <summary>Optional name of a table to which records that were
             /// rejected are written.  The bad-record-table has the following
@@ -1211,6 +1342,47 @@ namespace kinetica
             /// skip.  Mutually exclusive with
             /// <i>columns_to_load</i>.</summary>
             public const string COLUMNS_TO_SKIP = "columns_to_skip";
+
+            /// <summary>Optional: compression type
+            /// Supported values:
+            /// <list type="bullet">
+            ///     <item>
+            ///         <term><see
+            /// cref="CreateTableExternalRequest.Options.NONE">NONE</see>:</term>
+            ///         <description>Uncompressed</description>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="CreateTableExternalRequest.Options.AUTO">AUTO</see>:</term>
+            ///         <description>Default. Auto detect compression
+            /// type</description>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="CreateTableExternalRequest.Options.GZIP">GZIP</see>:</term>
+            ///         <description>gzip file compression.</description>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="CreateTableExternalRequest.Options.BZIP2">BZIP2</see>:</term>
+            ///         <description>bzip2 file compression.</description>
+            ///     </item>
+            /// </list>
+            /// The default value is <see
+            /// cref="CreateTableExternalRequest.Options.AUTO">AUTO</see>.</summary>
+            public const string COMPRESSION_TYPE = "compression_type";
+
+            /// <summary>Uncompressed</summary>
+            public const string NONE = "none";
+
+            /// <summary>Default. Auto detect compression type</summary>
+            public const string AUTO = "auto";
+
+            /// <summary>gzip file compression.</summary>
+            public const string GZIP = "gzip";
+
+            /// <summary>bzip2 file compression.</summary>
+            public const string BZIP2 = "bzip2";
 
             /// <summary>Name of an existing external data source from which
             /// data file(s) specified in <see cref="filepaths" /> will be
@@ -1428,6 +1600,29 @@ namespace kinetica
             /// subscriptions).</summary>
             public const string KAFKA_GROUP_ID = "kafka_group_id";
 
+            /// <summary>Policy to determine whether the data consumption
+            /// starts either at earliest offset or latest offset.
+            /// Supported values:
+            /// <list type="bullet">
+            ///     <item>
+            ///         <term><see
+            /// cref="CreateTableExternalRequest.Options.EARLIEST">EARLIEST</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="CreateTableExternalRequest.Options.LATEST">LATEST</see></term>
+            ///     </item>
+            /// </list>
+            /// The default value is <see
+            /// cref="CreateTableExternalRequest.Options.EARLIEST">EARLIEST</see>.</summary>
+            public const string KAFKA_OFFSET_RESET_POLICY = "kafka_offset_reset_policy";
+            public const string EARLIEST = "earliest";
+            public const string LATEST = "latest";
+
+            /// <summary>Sets the subscription lifespan (in minutes). Expired
+            /// subscription will be cancelled automatically.</summary>
+            public const string KAFKA_SUBSCRIPTION_CANCEL_AFTER = "kafka_subscription_cancel_after";
+
             /// <summary>Scheme for distributing the extraction and loading of
             /// data from the source data file(s). This option applies only
             /// when loading files that are local to the database
@@ -1530,6 +1725,13 @@ namespace kinetica
 
             /// <summary>For Avro local timestamp columns</summary>
             public const string LOCAL_TIME_OFFSET = "local_time_offset";
+
+            /// <summary>Limit the number of records to load in this request:
+            /// If this number is larger than a batch_size, then the number of
+            /// records loaded will be limited to the next whole number of
+            /// batch_size (per working thread).  The default value is
+            /// ''.</summary>
+            public const string MAX_RECORDS_TO_LOAD = "max_records_to_load";
 
             /// <summary>Optional: number of tasks for reading file per rank.
             /// Default will be external_file_reader_num_tasks</summary>
@@ -1731,6 +1933,23 @@ namespace kinetica
             /// 'text_search_columns' has a value.</summary>
             public const string TEXT_SEARCH_MIN_COLUMN_LENGTH = "text_search_min_column_length";
 
+            /// <summary>If set to <i>true</i>, truncate string values that are
+            /// longer than the column's type size.
+            /// Supported values:
+            /// <list type="bullet">
+            ///     <item>
+            ///         <term><see
+            /// cref="CreateTableExternalRequest.Options.TRUE">TRUE</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="CreateTableExternalRequest.Options.FALSE">FALSE</see></term>
+            ///     </item>
+            /// </list>
+            /// The default value is <see
+            /// cref="CreateTableExternalRequest.Options.FALSE">FALSE</see>.</summary>
+            public const string TRUNCATE_STRINGS = "truncate_strings";
+
             /// <summary>If set to <i>true</i>, truncates the table specified
             /// by <see cref="table_name" /> prior to loading the file(s).
             /// Supported values:
@@ -1786,6 +2005,11 @@ namespace kinetica
             /// column.  The default value is ''.</summary>
             public const string REMOTE_QUERY_FILTER_COLUMN = "remote_query_filter_column";
 
+            /// <summary>Column on subscribed remote query result that will
+            /// increase for new records (e.g., TIMESTAMP).  The default value
+            /// is ''.</summary>
+            public const string REMOTE_QUERY_INCREASING_COLUMN = "remote_query_increasing_column";
+
             /// <summary>Alias name for remote_query_filter_column.  The
             /// default value is ''.</summary>
             public const string REMOTE_QUERY_PARTITION_COLUMN = "remote_query_partition_column";
@@ -1805,6 +2029,22 @@ namespace kinetica
             /// The default value is <see
             /// cref="CreateTableExternalRequest.Options.FALSE">FALSE</see>.</summary>
             public const string UPDATE_ON_EXISTING_PK = "update_on_existing_pk";
+
+            /// <summary>
+            /// Supported values:
+            /// <list type="bullet">
+            ///     <item>
+            ///         <term><see
+            /// cref="CreateTableExternalRequest.Options.TRUE">TRUE</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="CreateTableExternalRequest.Options.FALSE">FALSE</see></term>
+            ///     </item>
+            /// </list>
+            /// The default value is <see
+            /// cref="CreateTableExternalRequest.Options.FALSE">FALSE</see>.</summary>
+            public const string IGNORE_EXISTING_PK = "ignore_existing_pk";
         } // end struct Options
 
 
@@ -2085,6 +2325,19 @@ namespace kinetica
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
+        /// cref="CreateTableExternalRequest.Options.AVRO_NUM_RECORDS">AVRO_NUM_RECORDS</see>:</term>
+        ///         <description>Optional number of avro records, if data
+        /// includes only records.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableExternalRequest.Options.AVRO_SCHEMA">AVRO_SCHEMA</see>:</term>
+        ///         <description>Optional string representing avro schema, for
+        /// insert records in avro format, that does not include is
+        /// schema.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="CreateTableExternalRequest.Options.BAD_RECORD_TABLE_NAME">BAD_RECORD_TABLE_NAME</see>:</term>
         ///         <description>Optional name of a table to which records that
         /// were rejected are written.  The bad-record-table has the following
@@ -2175,6 +2428,37 @@ namespace kinetica
         /// from the source data to
         /// skip.  Mutually exclusive with
         /// <i>columns_to_load</i>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableExternalRequest.Options.COMPRESSION_TYPE">COMPRESSION_TYPE</see>:</term>
+        ///         <description>Optional: compression type
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableExternalRequest.Options.NONE">NONE</see>:</term>
+        ///         <description>Uncompressed</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableExternalRequest.Options.AUTO">AUTO</see>:</term>
+        ///         <description>Default. Auto detect compression
+        /// type</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableExternalRequest.Options.GZIP">GZIP</see>:</term>
+        ///         <description>gzip file compression.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableExternalRequest.Options.BZIP2">BZIP2</see>:</term>
+        ///         <description>bzip2 file compression.</description>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="CreateTableExternalRequest.Options.AUTO">AUTO</see>.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -2358,6 +2642,31 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
+        /// cref="CreateTableExternalRequest.Options.KAFKA_OFFSET_RESET_POLICY">KAFKA_OFFSET_RESET_POLICY</see>:</term>
+        ///         <description>Policy to determine whether the data
+        /// consumption starts either at earliest offset or latest offset.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableExternalRequest.Options.EARLIEST">EARLIEST</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableExternalRequest.Options.LATEST">LATEST</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="CreateTableExternalRequest.Options.EARLIEST">EARLIEST</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableExternalRequest.Options.KAFKA_SUBSCRIPTION_CANCEL_AFTER">KAFKA_SUBSCRIPTION_CANCEL_AFTER</see>:</term>
+        ///         <description>Sets the subscription lifespan (in minutes).
+        /// Expired subscription will be cancelled automatically.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="CreateTableExternalRequest.Options.LOADING_MODE">LOADING_MODE</see>:</term>
         ///         <description>Scheme for distributing the extraction and
         /// loading of data from the source data file(s). This option applies
@@ -2421,6 +2730,15 @@ namespace kinetica
         ///         <term><see
         /// cref="CreateTableExternalRequest.Options.LOCAL_TIME_OFFSET">LOCAL_TIME_OFFSET</see>:</term>
         ///         <description>For Avro local timestamp columns</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableExternalRequest.Options.MAX_RECORDS_TO_LOAD">MAX_RECORDS_TO_LOAD</see>:</term>
+        ///         <description>Limit the number of records to load in this
+        /// request: If this number is larger than a batch_size, then the
+        /// number of records loaded will be limited to the next whole number
+        /// of batch_size (per working thread).  The default value is
+        /// ''.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -2640,6 +2958,25 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
+        /// cref="CreateTableExternalRequest.Options.TRUNCATE_STRINGS">TRUNCATE_STRINGS</see>:</term>
+        ///         <description>If set to <i>true</i>, truncate string values
+        /// that are longer than the column's type size.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableExternalRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableExternalRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="CreateTableExternalRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="CreateTableExternalRequest.Options.TRUNCATE_TABLE">TRUNCATE_TABLE</see>:</term>
         ///         <description>If set to <i>true</i>, truncates the table
         /// specified by <paramref cref="CreateTableExternalRequest.table_name"
@@ -2695,6 +3032,13 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
+        /// cref="CreateTableExternalRequest.Options.REMOTE_QUERY_INCREASING_COLUMN">REMOTE_QUERY_INCREASING_COLUMN</see>:</term>
+        ///         <description>Column on subscribed remote query result that
+        /// will increase for new records (e.g., TIMESTAMP).  The default value
+        /// is ''.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="CreateTableExternalRequest.Options.REMOTE_QUERY_PARTITION_COLUMN">REMOTE_QUERY_PARTITION_COLUMN</see>:</term>
         ///         <description>Alias name for remote_query_filter_column.
         /// The default value is ''.</description>
@@ -2702,6 +3046,24 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="CreateTableExternalRequest.Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>:</term>
+        ///         <description>
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableExternalRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableExternalRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="CreateTableExternalRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableExternalRequest.Options.IGNORE_EXISTING_PK">IGNORE_EXISTING_PK</see>:</term>
         ///         <description>
         /// Supported values:
         /// <list type="bullet">
@@ -2995,6 +3357,19 @@ namespace kinetica
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
+        /// cref="CreateTableExternalRequest.Options.AVRO_NUM_RECORDS">AVRO_NUM_RECORDS</see>:</term>
+        ///         <description>Optional number of avro records, if data
+        /// includes only records.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableExternalRequest.Options.AVRO_SCHEMA">AVRO_SCHEMA</see>:</term>
+        ///         <description>Optional string representing avro schema, for
+        /// insert records in avro format, that does not include is
+        /// schema.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="CreateTableExternalRequest.Options.BAD_RECORD_TABLE_NAME">BAD_RECORD_TABLE_NAME</see>:</term>
         ///         <description>Optional name of a table to which records that
         /// were rejected are written.  The bad-record-table has the following
@@ -3081,6 +3456,37 @@ namespace kinetica
         /// from the source data to
         /// skip.  Mutually exclusive with
         /// <i>columns_to_load</i>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableExternalRequest.Options.COMPRESSION_TYPE">COMPRESSION_TYPE</see>:</term>
+        ///         <description>Optional: compression type
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableExternalRequest.Options.NONE">NONE</see>:</term>
+        ///         <description>Uncompressed</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableExternalRequest.Options.AUTO">AUTO</see>:</term>
+        ///         <description>Default. Auto detect compression
+        /// type</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableExternalRequest.Options.GZIP">GZIP</see>:</term>
+        ///         <description>gzip file compression.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableExternalRequest.Options.BZIP2">BZIP2</see>:</term>
+        ///         <description>bzip2 file compression.</description>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="CreateTableExternalRequest.Options.AUTO">AUTO</see>.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -3262,6 +3668,31 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
+        /// cref="CreateTableExternalRequest.Options.KAFKA_OFFSET_RESET_POLICY">KAFKA_OFFSET_RESET_POLICY</see>:</term>
+        ///         <description>Policy to determine whether the data
+        /// consumption starts either at earliest offset or latest offset.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableExternalRequest.Options.EARLIEST">EARLIEST</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableExternalRequest.Options.LATEST">LATEST</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="CreateTableExternalRequest.Options.EARLIEST">EARLIEST</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableExternalRequest.Options.KAFKA_SUBSCRIPTION_CANCEL_AFTER">KAFKA_SUBSCRIPTION_CANCEL_AFTER</see>:</term>
+        ///         <description>Sets the subscription lifespan (in minutes).
+        /// Expired subscription will be cancelled automatically.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="CreateTableExternalRequest.Options.LOADING_MODE">LOADING_MODE</see>:</term>
         ///         <description>Scheme for distributing the extraction and
         /// loading of data from the source data file(s). This option applies
@@ -3320,6 +3751,15 @@ namespace kinetica
         ///         <term><see
         /// cref="CreateTableExternalRequest.Options.LOCAL_TIME_OFFSET">LOCAL_TIME_OFFSET</see>:</term>
         ///         <description>For Avro local timestamp columns</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableExternalRequest.Options.MAX_RECORDS_TO_LOAD">MAX_RECORDS_TO_LOAD</see>:</term>
+        ///         <description>Limit the number of records to load in this
+        /// request: If this number is larger than a batch_size, then the
+        /// number of records loaded will be limited to the next whole number
+        /// of batch_size (per working thread).  The default value is
+        /// ''.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -3530,6 +3970,25 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
+        /// cref="CreateTableExternalRequest.Options.TRUNCATE_STRINGS">TRUNCATE_STRINGS</see>:</term>
+        ///         <description>If set to <i>true</i>, truncate string values
+        /// that are longer than the column's type size.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableExternalRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableExternalRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="CreateTableExternalRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="CreateTableExternalRequest.Options.TRUNCATE_TABLE">TRUNCATE_TABLE</see>:</term>
         ///         <description>If set to <i>true</i>, truncates the table
         /// specified by <paramref cref="CreateTableExternalRequest.table_name"
@@ -3585,6 +4044,13 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
+        /// cref="CreateTableExternalRequest.Options.REMOTE_QUERY_INCREASING_COLUMN">REMOTE_QUERY_INCREASING_COLUMN</see>:</term>
+        ///         <description>Column on subscribed remote query result that
+        /// will increase for new records (e.g., TIMESTAMP).  The default value
+        /// is ''.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="CreateTableExternalRequest.Options.REMOTE_QUERY_PARTITION_COLUMN">REMOTE_QUERY_PARTITION_COLUMN</see>:</term>
         ///         <description>Alias name for remote_query_filter_column.
         /// The default value is ''.</description>
@@ -3592,6 +4058,24 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="CreateTableExternalRequest.Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>:</term>
+        ///         <description>
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableExternalRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableExternalRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="CreateTableExternalRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableExternalRequest.Options.IGNORE_EXISTING_PK">IGNORE_EXISTING_PK</see>:</term>
         ///         <description>
         /// Supported values:
         /// <list type="bullet">

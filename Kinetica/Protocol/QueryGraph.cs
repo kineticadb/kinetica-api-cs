@@ -105,7 +105,7 @@ namespace kinetica
         ///     </item>
         /// </list>
         /// The default value is <see
-        /// cref="QueryGraphRequest.Options.TRUE">TRUE</see>.</description>
+        /// cref="QueryGraphRequest.Options.FALSE">FALSE</see>.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -186,7 +186,7 @@ namespace kinetica
             ///     </item>
             /// </list>
             /// The default value is <see
-            /// cref="QueryGraphRequest.Options.TRUE">TRUE</see>.</summary>
+            /// cref="QueryGraphRequest.Options.FALSE">FALSE</see>.</summary>
             public const string OUTPUT_WKT_PATH = "output_wkt_path";
 
             /// <summary>If set to <i>true</i>, the result of the query has
@@ -326,7 +326,7 @@ namespace kinetica
         ///     </item>
         /// </list>
         /// The default value is <see
-        /// cref="QueryGraphRequest.Options.TRUE">TRUE</see>.</description>
+        /// cref="QueryGraphRequest.Options.FALSE">FALSE</see>.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -472,7 +472,7 @@ namespace kinetica
         ///     </item>
         /// </list>
         /// The default value is <see
-        /// cref="QueryGraphRequest.Options.TRUE">TRUE</see>.</description>
+        /// cref="QueryGraphRequest.Options.FALSE">FALSE</see>.</description>
         ///     </item>
         ///     <item>
         ///         <term><see

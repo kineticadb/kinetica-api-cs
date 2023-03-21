@@ -46,10 +46,9 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="CreateMaterializedViewRequest.Options.TTL">TTL</see>:</term>
-        ///         <description>Sets the <a href="../../../concepts/ttl/"
-        /// target="_top">TTL</a> of the table specified in <paramref
-        /// cref="CreateMaterializedViewRequest.table_name" />.</description>
+        /// cref="CreateMaterializedViewRequest.Options.EXECUTE_AS">EXECUTE_AS</see>:</term>
+        ///         <description>User name to use to run the refresh
+        /// job</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -73,6 +72,20 @@ namespace kinetica
         /// </list>
         /// The default value is <see
         /// cref="CreateMaterializedViewRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateMaterializedViewRequest.Options.REFRESH_SPAN">REFRESH_SPAN</see>:</term>
+        ///         <description>Sets the future time-offset(in seconds) at
+        /// which periodic refresh stops</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateMaterializedViewRequest.Options.REFRESH_STOP_TIME">REFRESH_STOP_TIME</see>:</term>
+        ///         <description>When <i>refresh_method</i> is <i>periodic</i>,
+        /// specifies the time at which a periodic refresh is stopped.  Value
+        /// is a datetime string with format 'YYYY-MM-DD
+        /// HH:MM:SS'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -128,9 +141,10 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="CreateMaterializedViewRequest.Options.EXECUTE_AS">EXECUTE_AS</see>:</term>
-        ///         <description>User name to use to run the refresh
-        /// job</description>
+        /// cref="CreateMaterializedViewRequest.Options.TTL">TTL</see>:</term>
+        ///         <description>Sets the <a href="../../../concepts/ttl/"
+        /// target="_top">TTL</a> of the table specified in <paramref
+        /// cref="CreateMaterializedViewRequest.table_name" />.</description>
         ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.
@@ -149,10 +163,8 @@ namespace kinetica
             /// created.</summary>
             public const string COLLECTION_NAME = "collection_name";
 
-            /// <summary>Sets the <a href="../../../concepts/ttl/"
-            /// target="_top">TTL</a> of the table specified in <see
-            /// cref="table_name" />.</summary>
-            public const string TTL = "ttl";
+            /// <summary>User name to use to run the refresh job</summary>
+            public const string EXECUTE_AS = "execute_as";
 
             /// <summary>If <i>true</i>, then the materialized view specified
             /// in <see cref="table_name" /> will be persisted and will not
@@ -175,6 +187,16 @@ namespace kinetica
             public const string PERSIST = "persist";
             public const string TRUE = "true";
             public const string FALSE = "false";
+
+            /// <summary>Sets the future time-offset(in seconds) at which
+            /// periodic refresh stops</summary>
+            public const string REFRESH_SPAN = "refresh_span";
+
+            /// <summary>When <i>refresh_method</i> is <i>periodic</i>,
+            /// specifies the time at which a periodic refresh is stopped.
+            /// Value is a datetime string with format 'YYYY-MM-DD
+            /// HH:MM:SS'.</summary>
+            public const string REFRESH_STOP_TIME = "refresh_stop_time";
 
             /// <summary>Method by which the join can be refreshed when the
             /// data in underlying member tables have changed.
@@ -243,8 +265,10 @@ namespace kinetica
             /// HH:MM:SS'.</summary>
             public const string REFRESH_START_TIME = "refresh_start_time";
 
-            /// <summary>User name to use to run the refresh job</summary>
-            public const string EXECUTE_AS = "execute_as";
+            /// <summary>Sets the <a href="../../../concepts/ttl/"
+            /// target="_top">TTL</a> of the table specified in <see
+            /// cref="table_name" />.</summary>
+            public const string TTL = "ttl";
         } // end struct Options
 
 
@@ -272,10 +296,9 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="CreateMaterializedViewRequest.Options.TTL">TTL</see>:</term>
-        ///         <description>Sets the <a href="../../../concepts/ttl/"
-        /// target="_top">TTL</a> of the table specified in <paramref
-        /// cref="CreateMaterializedViewRequest.table_name" />.</description>
+        /// cref="CreateMaterializedViewRequest.Options.EXECUTE_AS">EXECUTE_AS</see>:</term>
+        ///         <description>User name to use to run the refresh
+        /// job</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -299,6 +322,20 @@ namespace kinetica
         /// </list>
         /// The default value is <see
         /// cref="CreateMaterializedViewRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateMaterializedViewRequest.Options.REFRESH_SPAN">REFRESH_SPAN</see>:</term>
+        ///         <description>Sets the future time-offset(in seconds) at
+        /// which periodic refresh stops</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateMaterializedViewRequest.Options.REFRESH_STOP_TIME">REFRESH_STOP_TIME</see>:</term>
+        ///         <description>When <i>refresh_method</i> is <i>periodic</i>,
+        /// specifies the time at which a periodic refresh is stopped.  Value
+        /// is a datetime string with format 'YYYY-MM-DD
+        /// HH:MM:SS'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -354,9 +391,10 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="CreateMaterializedViewRequest.Options.EXECUTE_AS">EXECUTE_AS</see>:</term>
-        ///         <description>User name to use to run the refresh
-        /// job</description>
+        /// cref="CreateMaterializedViewRequest.Options.TTL">TTL</see>:</term>
+        ///         <description>Sets the <a href="../../../concepts/ttl/"
+        /// target="_top">TTL</a> of the table specified in <paramref
+        /// cref="CreateMaterializedViewRequest.table_name" />.</description>
         ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.</summary>
@@ -392,10 +430,9 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="CreateMaterializedViewRequest.Options.TTL">TTL</see>:</term>
-        ///         <description>Sets the <a href="../../../concepts/ttl/"
-        /// target="_top">TTL</a> of the table specified in <paramref
-        /// cref="CreateMaterializedViewRequest.table_name" />.</description>
+        /// cref="CreateMaterializedViewRequest.Options.EXECUTE_AS">EXECUTE_AS</see>:</term>
+        ///         <description>User name to use to run the refresh
+        /// job</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -419,6 +456,20 @@ namespace kinetica
         /// </list>
         /// The default value is <see
         /// cref="CreateMaterializedViewRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateMaterializedViewRequest.Options.REFRESH_SPAN">REFRESH_SPAN</see>:</term>
+        ///         <description>Sets the future time-offset(in seconds) at
+        /// which periodic refresh stops</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateMaterializedViewRequest.Options.REFRESH_STOP_TIME">REFRESH_STOP_TIME</see>:</term>
+        ///         <description>When <i>refresh_method</i> is <i>periodic</i>,
+        /// specifies the time at which a periodic refresh is stopped.  Value
+        /// is a datetime string with format 'YYYY-MM-DD
+        /// HH:MM:SS'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -474,9 +525,10 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="CreateMaterializedViewRequest.Options.EXECUTE_AS">EXECUTE_AS</see>:</term>
-        ///         <description>User name to use to run the refresh
-        /// job</description>
+        /// cref="CreateMaterializedViewRequest.Options.TTL">TTL</see>:</term>
+        ///         <description>Sets the <a href="../../../concepts/ttl/"
+        /// target="_top">TTL</a> of the table specified in <paramref
+        /// cref="CreateMaterializedViewRequest.table_name" />.</description>
         ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.</param>

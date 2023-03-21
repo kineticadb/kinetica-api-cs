@@ -16,7 +16,7 @@ namespace kinetica
     {
 
         // Kinetica Version
-        public const string API_VERSION = "7.1.8.0";
+        public const string API_VERSION = "7.1.9.0";
 
 
 
@@ -1411,7 +1411,11 @@ namespace kinetica
         ///         <term><see
         /// cref="AdminVerifyDbRequest.Options.VERIFY_PERSIST">VERIFY_PERSIST</see>:</term>
         ///         <description>When <i>true</i>, persistent objects will be
-        /// compared against their state in memory.
+        /// compared against their state in memory and workers will be checked
+        /// for orphaned table data in persist. To check for orphaned worker
+        /// data, either set <i>concurrent_safe</i> in <paramref
+        /// cref="AdminVerifyDbRequest.options" /> to <i>true</i> or place the
+        /// database offline.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -1471,6 +1475,9 @@ namespace kinetica
         ///         <description>If <i>true</i>, orphaned table directories
         /// found on workers for which there is no corresponding metadata will
         /// be deleted. Must set <i>verify_persist</i> in <paramref
+        /// cref="AdminVerifyDbRequest.options" /> to <i>true</i>. It is
+        /// recommended to run this while the database is offline OR set
+        /// <i>concurrent_safe</i> in <paramref
         /// cref="AdminVerifyDbRequest.options" /> to <i>true</i>
         /// Supported values:
         /// <list type="bullet">
@@ -4113,14 +4120,15 @@ namespace kinetica
         ///     </item>
         /// </list>
         ///   </param>
-        /// <param name="options">Optional parameters.  </param>
+        /// <param name="options">Optional parameters.  The default value is an
+        /// empty {@link Dictionary}.</param>
         /// 
         /// <returns>Response object containing the result of the
         /// operation.</returns>
         /// 
         public AlterDirectoryResponse alterDirectory( string directory_name,
                                                       IDictionary<string, string> directory_updates_map,
-                                                      IDictionary<string, string> options )
+                                                      IDictionary<string, string> options = null )
         {
             return alterDirectory( new AlterDirectoryRequest( directory_name,
                                                               directory_updates_map,
@@ -4672,25 +4680,6 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.SET_MESSAGE_TIMERS_ENABLED">SET_MESSAGE_TIMERS_ENABLED</see>:</term>
-        ///         <description>Enables the communicator test to collect
-        /// additional timing statistics when the value string is <i>true</i>.
-        /// Disables collecting statistics when the value string is
-        /// <i>false</i>
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.TRUE">TRUE</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list></description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
         /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.NETWORK_SPEED">NETWORK_SPEED</see>:</term>
         ///         <description>Invoke the network speed test and report
         /// timing results. Value string is a semicolon-separated list of
@@ -4774,22 +4763,21 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.KAFKA_BATCH_SIZE">KAFKA_BATCH_SIZE</see>:</term>
-        ///         <description>Maximum number of records to be read in a
-        /// single kafka batched request.  The default value is
-        /// '1000'.</description>
+        ///         <description>Maximum number of records to be ingested in a
+        /// single batch.  The default value is '1000'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.KAFKA_POLL_TIMEOUT">KAFKA_POLL_TIMEOUT</see>:</term>
+        ///         <description>Maximum time (milliseconds) for each poll to
+        /// get records from kafka.  The default value is '0'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.KAFKA_WAIT_TIME">KAFKA_WAIT_TIME</see>:</term>
-        ///         <description>Maximum number of seconds to wait in a single
-        /// kafka batched request.  The default value is '30'.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.KAFKA_TIMEOUT">KAFKA_TIMEOUT</see>:</term>
-        ///         <description>Number of seconds after which kakfa poll will
-        /// timeout if datasource has no records.  The default value is
-        /// '5'.</description>
+        ///         <description>Maximum time (seconds) to buffer records
+        /// received from kafka before ingestion.  The default value is
+        /// '30'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -5195,12 +5183,27 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
+        /// cref="AlterTableRequest.Action.SET_REFRESH_STOP_TIME">SET_REFRESH_STOP_TIME</see>:</term>
+        ///         <description>Sets the time to stop periodic refreshes of
+        /// this <a href="../../../concepts/materialized_views/"
+        /// target="_top">materialized view</a> to the datetime string
+        /// specified in <paramref cref="AlterTableRequest._value" /> with
+        /// format 'YYYY-MM-DD HH:MM:SS'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="AlterTableRequest.Action.SET_REFRESH_PERIOD">SET_REFRESH_PERIOD</see>:</term>
         ///         <description>Sets the time interval in seconds at which to
         /// refresh this <a href="../../../concepts/materialized_views/"
         /// target="_top">materialized view</a> to the value specified in
         /// <paramref cref="AlterTableRequest._value" />.  Also, sets the
         /// refresh method to periodic if not already set.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterTableRequest.Action.SET_REFRESH_SPAN">SET_REFRESH_SPAN</see>:</term>
+        ///         <description>Sets the future time-offset(in seconds) for
+        /// the view refresh to stop.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -5729,6 +5732,12 @@ namespace kinetica
         /// The default value is <see
         /// cref="AlterTierRequest.Options.TRUE">TRUE</see>.</description>
         ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterTierRequest.Options.RANK">RANK</see>:</term>
+        ///         <description>Apply the requested change only to a specific
+        /// rank.</description>
+        ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.</param>
         /// 
@@ -5949,8 +5958,36 @@ namespace kinetica
         /// <i>false</i>, any existing target table record with primary key
         /// values that match those of a source table record being inserted
         /// will remain unchanged and the new record discarded.  If the
-        /// specified table does not have a primary key, then this option is
-        /// ignored.
+        /// specified table does not have a primary key, then this option has
+        /// no effect.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="AppendRecordsRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AppendRecordsRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="AppendRecordsRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AppendRecordsRequest.Options.IGNORE_EXISTING_PK">IGNORE_EXISTING_PK</see>:</term>
+        ///         <description>Specifies the record collision policy for
+        /// inserting the source table records (specified by <paramref
+        /// cref="AppendRecordsRequest.source_table_name" />) into the target
+        /// table (specified by <paramref
+        /// cref="AppendRecordsRequest.table_name" />) table with a <a
+        /// href="../../../concepts/tables/#primary-keys" target="_top">primary
+        /// key</a>.  If set to <i>true</i>, any source table records being
+        /// inserted with primary key values that match those of an existing
+        /// target table record will be ignored with no error generated.  If
+        /// the specified table does not have a primary key, then this option
+        /// has no affect.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -7786,10 +7823,9 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="CreateMaterializedViewRequest.Options.TTL">TTL</see>:</term>
-        ///         <description>Sets the <a href="../../../concepts/ttl/"
-        /// target="_top">TTL</a> of the table specified in <paramref
-        /// cref="CreateMaterializedViewRequest.table_name" />.</description>
+        /// cref="CreateMaterializedViewRequest.Options.EXECUTE_AS">EXECUTE_AS</see>:</term>
+        ///         <description>User name to use to run the refresh
+        /// job</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -7813,6 +7849,20 @@ namespace kinetica
         /// </list>
         /// The default value is <see
         /// cref="CreateMaterializedViewRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateMaterializedViewRequest.Options.REFRESH_SPAN">REFRESH_SPAN</see>:</term>
+        ///         <description>Sets the future time-offset(in seconds) at
+        /// which periodic refresh stops</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateMaterializedViewRequest.Options.REFRESH_STOP_TIME">REFRESH_STOP_TIME</see>:</term>
+        ///         <description>When <i>refresh_method</i> is <i>periodic</i>,
+        /// specifies the time at which a periodic refresh is stopped.  Value
+        /// is a datetime string with format 'YYYY-MM-DD
+        /// HH:MM:SS'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -7868,9 +7918,10 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="CreateMaterializedViewRequest.Options.EXECUTE_AS">EXECUTE_AS</see>:</term>
-        ///         <description>User name to use to run the refresh
-        /// job</description>
+        /// cref="CreateMaterializedViewRequest.Options.TTL">TTL</see>:</term>
+        ///         <description>Sets the <a href="../../../concepts/ttl/"
+        /// target="_top">TTL</a> of the table specified in <paramref
+        /// cref="CreateMaterializedViewRequest.table_name" />.</description>
         ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.</param>
@@ -8176,9 +8227,16 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
+        /// cref="CreateProjectionRequest.Options.OFFSET">OFFSET</see>:</term>
+        ///         <description>The number of initial results to skip (this
+        /// can be useful for paging through the results).  The default value
+        /// is '0'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="CreateProjectionRequest.Options.LIMIT">LIMIT</see>:</term>
         ///         <description>The number of records to keep.  The default
-        /// value is ''.</description>
+        /// value is '-9999'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -9324,6 +9382,19 @@ namespace kinetica
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
+        /// cref="CreateTableExternalRequest.Options.AVRO_NUM_RECORDS">AVRO_NUM_RECORDS</see>:</term>
+        ///         <description>Optional number of avro records, if data
+        /// includes only records.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableExternalRequest.Options.AVRO_SCHEMA">AVRO_SCHEMA</see>:</term>
+        ///         <description>Optional string representing avro schema, for
+        /// insert records in avro format, that does not include is
+        /// schema.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="CreateTableExternalRequest.Options.BAD_RECORD_TABLE_NAME">BAD_RECORD_TABLE_NAME</see>:</term>
         ///         <description>Optional name of a table to which records that
         /// were rejected are written.  The bad-record-table has the following
@@ -9410,6 +9481,37 @@ namespace kinetica
         /// from the source data to
         /// skip.  Mutually exclusive with
         /// <i>columns_to_load</i>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableExternalRequest.Options.COMPRESSION_TYPE">COMPRESSION_TYPE</see>:</term>
+        ///         <description>Optional: compression type
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableExternalRequest.Options.NONE">NONE</see>:</term>
+        ///         <description>Uncompressed</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableExternalRequest.Options.AUTO">AUTO</see>:</term>
+        ///         <description>Default. Auto detect compression
+        /// type</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableExternalRequest.Options.GZIP">GZIP</see>:</term>
+        ///         <description>gzip file compression.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableExternalRequest.Options.BZIP2">BZIP2</see>:</term>
+        ///         <description>bzip2 file compression.</description>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="CreateTableExternalRequest.Options.AUTO">AUTO</see>.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -9591,6 +9693,31 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
+        /// cref="CreateTableExternalRequest.Options.KAFKA_OFFSET_RESET_POLICY">KAFKA_OFFSET_RESET_POLICY</see>:</term>
+        ///         <description>Policy to determine whether the data
+        /// consumption starts either at earliest offset or latest offset.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableExternalRequest.Options.EARLIEST">EARLIEST</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableExternalRequest.Options.LATEST">LATEST</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="CreateTableExternalRequest.Options.EARLIEST">EARLIEST</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableExternalRequest.Options.KAFKA_SUBSCRIPTION_CANCEL_AFTER">KAFKA_SUBSCRIPTION_CANCEL_AFTER</see>:</term>
+        ///         <description>Sets the subscription lifespan (in minutes).
+        /// Expired subscription will be cancelled automatically.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="CreateTableExternalRequest.Options.LOADING_MODE">LOADING_MODE</see>:</term>
         ///         <description>Scheme for distributing the extraction and
         /// loading of data from the source data file(s). This option applies
@@ -9649,6 +9776,15 @@ namespace kinetica
         ///         <term><see
         /// cref="CreateTableExternalRequest.Options.LOCAL_TIME_OFFSET">LOCAL_TIME_OFFSET</see>:</term>
         ///         <description>For Avro local timestamp columns</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableExternalRequest.Options.MAX_RECORDS_TO_LOAD">MAX_RECORDS_TO_LOAD</see>:</term>
+        ///         <description>Limit the number of records to load in this
+        /// request: If this number is larger than a batch_size, then the
+        /// number of records loaded will be limited to the next whole number
+        /// of batch_size (per working thread).  The default value is
+        /// ''.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -9859,6 +9995,25 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
+        /// cref="CreateTableExternalRequest.Options.TRUNCATE_STRINGS">TRUNCATE_STRINGS</see>:</term>
+        ///         <description>If set to <i>true</i>, truncate string values
+        /// that are longer than the column's type size.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableExternalRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableExternalRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="CreateTableExternalRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="CreateTableExternalRequest.Options.TRUNCATE_TABLE">TRUNCATE_TABLE</see>:</term>
         ///         <description>If set to <i>true</i>, truncates the table
         /// specified by <paramref cref="CreateTableExternalRequest.table_name"
@@ -9914,6 +10069,13 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
+        /// cref="CreateTableExternalRequest.Options.REMOTE_QUERY_INCREASING_COLUMN">REMOTE_QUERY_INCREASING_COLUMN</see>:</term>
+        ///         <description>Column on subscribed remote query result that
+        /// will increase for new records (e.g., TIMESTAMP).  The default value
+        /// is ''.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="CreateTableExternalRequest.Options.REMOTE_QUERY_PARTITION_COLUMN">REMOTE_QUERY_PARTITION_COLUMN</see>:</term>
         ///         <description>Alias name for remote_query_filter_column.
         /// The default value is ''.</description>
@@ -9921,6 +10083,24 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="CreateTableExternalRequest.Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>:</term>
+        ///         <description>
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableExternalRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableExternalRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="CreateTableExternalRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableExternalRequest.Options.IGNORE_EXISTING_PK">IGNORE_EXISTING_PK</see>:</term>
         ///         <description>
         /// Supported values:
         /// <list type="bullet">
@@ -12447,29 +12627,11 @@ namespace kinetica
         /// <param name="request_schema_str">Avro schema of <paramref
         /// cref="ExecuteSqlRequest.data" />.  The default value is ''.</param>
         /// <param name="data">An array of binary-encoded data for the records
-        /// to be binded to the SQL query.  The default value is an empty
-        /// {@link List}.</param>
+        /// to be binded to the SQL query.  Or use <i>query_parameters</i> to
+        /// pass the data in JSON format.  The default value is an empty {@link
+        /// List}.</param>
         /// <param name="options">Optional parameters.
         /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="ExecuteSqlRequest.Options.PARALLEL_EXECUTION">PARALLEL_EXECUTION</see>:</term>
-        ///         <description>If <i>false</i>, disables the parallel step
-        /// execution of the given query.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="ExecuteSqlRequest.Options.TRUE">TRUE</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="ExecuteSqlRequest.Options.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="ExecuteSqlRequest.Options.TRUE">TRUE</see>.</description>
-        ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="ExecuteSqlRequest.Options.COST_BASED_OPTIMIZATION">COST_BASED_OPTIMIZATION</see>:</term>
@@ -12488,78 +12650,6 @@ namespace kinetica
         /// </list>
         /// The default value is <see
         /// cref="ExecuteSqlRequest.Options.FALSE">FALSE</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="ExecuteSqlRequest.Options.PLAN_CACHE">PLAN_CACHE</see>:</term>
-        ///         <description>If <i>false</i>, disables plan caching for the
-        /// given query.
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="ExecuteSqlRequest.Options.TRUE">TRUE</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="ExecuteSqlRequest.Options.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="ExecuteSqlRequest.Options.TRUE">TRUE</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="ExecuteSqlRequest.Options.RULE_BASED_OPTIMIZATION">RULE_BASED_OPTIMIZATION</see>:</term>
-        ///         <description>If <i>false</i>, disables rule-based rewrite
-        /// optimizations for the given query
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="ExecuteSqlRequest.Options.TRUE">TRUE</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="ExecuteSqlRequest.Options.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="ExecuteSqlRequest.Options.TRUE">TRUE</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="ExecuteSqlRequest.Options.RESULTS_CACHING">RESULTS_CACHING</see>:</term>
-        ///         <description>If <i>false</i>, disables caching of the
-        /// results of the given query
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="ExecuteSqlRequest.Options.TRUE">TRUE</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="ExecuteSqlRequest.Options.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="ExecuteSqlRequest.Options.TRUE">TRUE</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="ExecuteSqlRequest.Options.PAGING_TABLE">PAGING_TABLE</see>:</term>
-        ///         <description>When empty or the specified paging table not
-        /// exists, the system will create a paging table and return when query
-        /// output has more records than the user asked. If the paging table
-        /// exists in the system, the records from the paging table are
-        /// returned without evaluating the query.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="ExecuteSqlRequest.Options.PAGING_TABLE_TTL">PAGING_TABLE_TTL</see>:</term>
-        ///         <description>Sets the <a href="../../../concepts/ttl/"
-        /// target="_top">TTL</a> of the paging table.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -12607,9 +12697,10 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="ExecuteSqlRequest.Options.SSQ_OPTIMIZATION">SSQ_OPTIMIZATION</see>:</term>
-        ///         <description>If <i>false</i>, scalar subqueries will be
-        /// translated into joins
+        /// cref="ExecuteSqlRequest.Options.IGNORE_EXISTING_PK">IGNORE_EXISTING_PK</see>:</term>
+        ///         <description>Can be used to customize behavior when the
+        /// updated primary key value already exists as described in
+        /// /insert/records.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -12622,7 +12713,7 @@ namespace kinetica
         ///     </item>
         /// </list>
         /// The default value is <see
-        /// cref="ExecuteSqlRequest.Options.TRUE">TRUE</see>.</description>
+        /// cref="ExecuteSqlRequest.Options.FALSE">FALSE</see>.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -12645,17 +12736,63 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="ExecuteSqlRequest.Options.TTL">TTL</see>:</term>
-        ///         <description>Sets the <a href="../../../concepts/ttl/"
-        /// target="_top">TTL</a> of the intermediate result tables used in
-        /// query execution.</description>
+        /// cref="ExecuteSqlRequest.Options.PAGING_TABLE">PAGING_TABLE</see>:</term>
+        ///         <description>When empty or the specified paging table not
+        /// exists, the system will create a paging table and return when query
+        /// output has more records than the user asked. If the paging table
+        /// exists in the system, the records from the paging table are
+        /// returned without evaluating the query.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="ExecuteSqlRequest.Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>:</term>
-        ///         <description>Can be used to customize behavior when the
-        /// updated primary key value already exists as described in
-        /// /insert/records.
+        /// cref="ExecuteSqlRequest.Options.PAGING_TABLE_TTL">PAGING_TABLE_TTL</see>:</term>
+        ///         <description>Sets the <a href="../../../concepts/ttl/"
+        /// target="_top">TTL</a> of the paging table.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ExecuteSqlRequest.Options.PARALLEL_EXECUTION">PARALLEL_EXECUTION</see>:</term>
+        ///         <description>If <i>false</i>, disables the parallel step
+        /// execution of the given query.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="ExecuteSqlRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ExecuteSqlRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="ExecuteSqlRequest.Options.TRUE">TRUE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ExecuteSqlRequest.Options.PLAN_CACHE">PLAN_CACHE</see>:</term>
+        ///         <description>If <i>false</i>, disables plan caching for the
+        /// given query.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="ExecuteSqlRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ExecuteSqlRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="ExecuteSqlRequest.Options.TRUE">TRUE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ExecuteSqlRequest.Options.PREPARE_MODE">PREPARE_MODE</see>:</term>
+        ///         <description>If <i>true</i>, compiles a query into an
+        /// execution plan and saves it in query cache. Query execution is not
+        /// performed and an empty response will be returned to user
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -12692,6 +12829,98 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
+        /// cref="ExecuteSqlRequest.Options.QUERY_PARAMETERS">QUERY_PARAMETERS</see>:</term>
+        ///         <description>Query parameters in JSON array or arrays (for
+        /// inserting multiple rows).  This can be used instead of <paramref
+        /// cref="ExecuteSqlRequest.data" /> and <paramref
+        /// cref="ExecuteSqlRequest.request_schema_str" />.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ExecuteSqlRequest.Options.RESULTS_CACHING">RESULTS_CACHING</see>:</term>
+        ///         <description>If <i>false</i>, disables caching of the
+        /// results of the given query
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="ExecuteSqlRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ExecuteSqlRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="ExecuteSqlRequest.Options.TRUE">TRUE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ExecuteSqlRequest.Options.RULE_BASED_OPTIMIZATION">RULE_BASED_OPTIMIZATION</see>:</term>
+        ///         <description>If <i>false</i>, disables rule-based rewrite
+        /// optimizations for the given query
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="ExecuteSqlRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ExecuteSqlRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="ExecuteSqlRequest.Options.TRUE">TRUE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ExecuteSqlRequest.Options.SSQ_OPTIMIZATION">SSQ_OPTIMIZATION</see>:</term>
+        ///         <description>If <i>false</i>, scalar subqueries will be
+        /// translated into joins
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="ExecuteSqlRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ExecuteSqlRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="ExecuteSqlRequest.Options.TRUE">TRUE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ExecuteSqlRequest.Options.TTL">TTL</see>:</term>
+        ///         <description>Sets the <a href="../../../concepts/ttl/"
+        /// target="_top">TTL</a> of the intermediate result tables used in
+        /// query execution.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ExecuteSqlRequest.Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>:</term>
+        ///         <description>Can be used to customize behavior when the
+        /// updated primary key value already exists as described in
+        /// /insert/records.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="ExecuteSqlRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ExecuteSqlRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="ExecuteSqlRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="ExecuteSqlRequest.Options.VALIDATE_CHANGE_COLUMN">VALIDATE_CHANGE_COLUMN</see>:</term>
         ///         <description>When changing a column using alter table,
         /// validate the change before applying it. If <i>true</i>, then
@@ -12711,26 +12940,6 @@ namespace kinetica
         /// </list>
         /// The default value is <see
         /// cref="ExecuteSqlRequest.Options.TRUE">TRUE</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="ExecuteSqlRequest.Options.PREPARE_MODE">PREPARE_MODE</see>:</term>
-        ///         <description>If <i>true</i>, compiles a query into an
-        /// execution plan and saves it in query cache. Query execution is not
-        /// performed and an empty response will be returned to user
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="ExecuteSqlRequest.Options.TRUE">TRUE</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="ExecuteSqlRequest.Options.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="ExecuteSqlRequest.Options.FALSE">FALSE</see>.</description>
         ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.</param>
@@ -12922,7 +13131,7 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="ExportRecordsToFilesRequest.Options.FILE_EXTENTION">FILE_EXTENTION</see>:</term>
+        /// cref="ExportRecordsToFilesRequest.Options.FILE_EXTENSION">FILE_EXTENSION</see>:</term>
         ///         <description>Extension to give the export file.  The
         /// default value is '.csv'.</description>
         ///     </item>
@@ -13076,7 +13285,8 @@ namespace kinetica
         /// <a href="../../../concepts/tables/#table-name-resolution"
         /// target="_top">name resolution rules</a>.  </param>
         /// <param name="remote_query">Parameterized insert query to export
-        /// gpudb table data into remote database  </param>
+        /// gpudb table data into remote database.  The default value is
+        /// ''.</param>
         /// <param name="options">Optional parameters.
         /// <list type="bullet">
         ///     <item>
@@ -13093,6 +13303,63 @@ namespace kinetica
         /// cref="ExportRecordsToTableRequest.table_name" /> will be
         /// exported</description>
         ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ExportRecordsToTableRequest.Options.JDBC_SESSION_INIT_STATEMENT">JDBC_SESSION_INIT_STATEMENT</see>:</term>
+        ///         <description>Executes the statement per each jdbc session
+        /// before doing actual load.  The default value is ''.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ExportRecordsToTableRequest.Options.JDBC_CONNECTION_INIT_STATEMENT">JDBC_CONNECTION_INIT_STATEMENT</see>:</term>
+        ///         <description>Executes the statement once before doing
+        /// actual load.  The default value is ''.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ExportRecordsToTableRequest.Options.REMOTE_TABLE">REMOTE_TABLE</see>:</term>
+        ///         <description>Name of the target table to which source table
+        /// is exported. When this option is specified remote_query cannot be
+        /// specified.  The default value is ''.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ExportRecordsToTableRequest.Options.USE_ST_GEOMFROM_CASTS">USE_ST_GEOMFROM_CASTS</see>:</term>
+        ///         <description>Wraps parametrized variables with
+        /// st_geomfromtext or st_geomfromwkb based on source column type
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="ExportRecordsToTableRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ExportRecordsToTableRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="ExportRecordsToTableRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ExportRecordsToTableRequest.Options.USE_INDEXED_PARAMETERS">USE_INDEXED_PARAMETERS</see>:</term>
+        ///         <description>Uses $n style syntax when generating insert
+        /// query for remote_table option
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="ExportRecordsToTableRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ExportRecordsToTableRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="ExportRecordsToTableRequest.Options.TRUE">TRUE</see>.</description>
+        ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.</param>
         /// 
@@ -13100,7 +13367,7 @@ namespace kinetica
         /// operation.</returns>
         /// 
         public ExportRecordsToTableResponse exportRecordsToTable( string table_name,
-                                                                  string remote_query,
+                                                                  string remote_query = "",
                                                                   IDictionary<string, string> options = null )
         {
             return exportRecordsToTable( new ExportRecordsToTableRequest( table_name,
@@ -16973,7 +17240,31 @@ namespace kinetica
         /// existing table record with primary key values that match those of a
         /// record being inserted will remain unchanged and the new record
         /// discarded.  If the specified table does not have a primary key,
-        /// then this option is ignored.
+        /// then this option has no affect.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="RawInsertRecordsRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="RawInsertRecordsRequest.Options.IGNORE_EXISTING_PK">IGNORE_EXISTING_PK</see>:</term>
+        ///         <description>Specifies the record collision policy for
+        /// inserting into a table with a <a
+        /// href="../../../concepts/tables/#primary-keys" target="_top">primary
+        /// key</a>.  If set to <i>true</i>, any record being inserted with
+        /// primary key values that match those of an existing table record
+        /// will be ignored with no error generated.  If the specified table
+        /// does not have a primary key, then this option has no affect.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -17452,6 +17743,18 @@ namespace kinetica
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
+        /// cref="InsertRecordsFromFilesRequest.Options.AVRO_NUM_RECORDS">AVRO_NUM_RECORDS</see>:</term>
+        ///         <description>Optional number of avro records, if data
+        /// includes only records.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromFilesRequest.Options.AVRO_SCHEMA">AVRO_SCHEMA</see>:</term>
+        ///         <description>Optional string representing avro schema, if
+        /// data includes only records.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="InsertRecordsFromFilesRequest.Options.BAD_RECORD_TABLE_NAME">BAD_RECORD_TABLE_NAME</see>:</term>
         ///         <description>Optional name of a table to which records that
         /// were rejected are written.  The bad-record-table has the following
@@ -17539,6 +17842,37 @@ namespace kinetica
         /// from the source data to
         /// skip.  Mutually exclusive with
         /// <i>columns_to_load</i>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromFilesRequest.Options.COMPRESSION_TYPE">COMPRESSION_TYPE</see>:</term>
+        ///         <description>Optional: compression type
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromFilesRequest.Options.NONE">NONE</see>:</term>
+        ///         <description>Uncompressed file</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromFilesRequest.Options.AUTO">AUTO</see>:</term>
+        ///         <description>Default. Auto detect compression
+        /// type</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromFilesRequest.Options.GZIP">GZIP</see>:</term>
+        ///         <description>gzip file compression.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromFilesRequest.Options.BZIP2">BZIP2</see>:</term>
+        ///         <description>bzip2 file compression.</description>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="InsertRecordsFromFilesRequest.Options.AUTO">AUTO</see>.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -17690,6 +18024,31 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
+        /// cref="InsertRecordsFromFilesRequest.Options.KAFKA_OFFSET_RESET_POLICY">KAFKA_OFFSET_RESET_POLICY</see>:</term>
+        ///         <description>Policy to determine whether the data
+        /// consumption starts either at earliest offset or latest offset.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromFilesRequest.Options.EARLIEST">EARLIEST</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromFilesRequest.Options.LATEST">LATEST</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="InsertRecordsFromFilesRequest.Options.EARLIEST">EARLIEST</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromFilesRequest.Options.KAFKA_SUBSCRIPTION_CANCEL_AFTER">KAFKA_SUBSCRIPTION_CANCEL_AFTER</see>:</term>
+        ///         <description>Sets the subscription lifespan (in minutes).
+        /// Expired subscription will be cancelled automatically.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="InsertRecordsFromFilesRequest.Options.LOADING_MODE">LOADING_MODE</see>:</term>
         ///         <description>Scheme for distributing the extraction and
         /// loading of data from the source data file(s). This option applies
@@ -17748,6 +18107,15 @@ namespace kinetica
         ///         <term><see
         /// cref="InsertRecordsFromFilesRequest.Options.LOCAL_TIME_OFFSET">LOCAL_TIME_OFFSET</see>:</term>
         ///         <description>For Avro local timestamp columns</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromFilesRequest.Options.MAX_RECORDS_TO_LOAD">MAX_RECORDS_TO_LOAD</see>:</term>
+        ///         <description>Limit the number of records to load in this
+        /// request: If this number is larger than a batch_size, then the
+        /// number of records loaded will be limited to the next whole number
+        /// of batch_size (per working thread).  The default value is
+        /// ''.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -17933,6 +18301,25 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
+        /// cref="InsertRecordsFromFilesRequest.Options.TRUNCATE_STRINGS">TRUNCATE_STRINGS</see>:</term>
+        ///         <description>If set to <i>true</i>, truncate string values
+        /// that are longer than the column's type size.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromFilesRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromFilesRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="InsertRecordsFromFilesRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="InsertRecordsFromFilesRequest.Options.TRUNCATE_TABLE">TRUNCATE_TABLE</see>:</term>
         ///         <description>If set to <i>true</i>, truncates the table
         /// specified by <paramref
@@ -17977,6 +18364,24 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="InsertRecordsFromFilesRequest.Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>:</term>
+        ///         <description>
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromFilesRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromFilesRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="InsertRecordsFromFilesRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromFilesRequest.Options.IGNORE_EXISTING_PK">IGNORE_EXISTING_PK</see>:</term>
         ///         <description>
         /// Supported values:
         /// <list type="bullet">
@@ -18282,6 +18687,19 @@ namespace kinetica
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
+        /// cref="InsertRecordsFromPayloadRequest.Options.AVRO_NUM_RECORDS">AVRO_NUM_RECORDS</see>:</term>
+        ///         <description>Optional number of avro records, if data
+        /// includes only records.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromPayloadRequest.Options.AVRO_SCHEMA">AVRO_SCHEMA</see>:</term>
+        ///         <description>Optional string representing avro schema, for
+        /// insert records in avro format, that does not include is
+        /// schema.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="InsertRecordsFromPayloadRequest.Options.BAD_RECORD_TABLE_NAME">BAD_RECORD_TABLE_NAME</see>:</term>
         ///         <description>Optional name of a table to which records that
         /// were rejected are written.  The bad-record-table has the following
@@ -18368,6 +18786,37 @@ namespace kinetica
         /// from the source data to
         /// skip.  Mutually exclusive with
         /// <i>columns_to_load</i>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromPayloadRequest.Options.COMPRESSION_TYPE">COMPRESSION_TYPE</see>:</term>
+        ///         <description>Optional: payload compression type
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromPayloadRequest.Options.NONE">NONE</see>:</term>
+        ///         <description>Uncompressed</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromPayloadRequest.Options.AUTO">AUTO</see>:</term>
+        ///         <description>Default. Auto detect compression
+        /// type</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromPayloadRequest.Options.GZIP">GZIP</see>:</term>
+        ///         <description>gzip file compression.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromPayloadRequest.Options.BZIP2">BZIP2</see>:</term>
+        ///         <description>bzip2 file compression.</description>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="InsertRecordsFromPayloadRequest.Options.AUTO">AUTO</see>.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -18565,6 +19014,15 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
+        /// cref="InsertRecordsFromPayloadRequest.Options.MAX_RECORDS_TO_LOAD">MAX_RECORDS_TO_LOAD</see>:</term>
+        ///         <description>Limit the number of records to load in this
+        /// request: If this number is larger than a batch_size, then the
+        /// number of records loaded will be limited to the next whole number
+        /// of batch_size (per working thread).  The default value is
+        /// ''.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="InsertRecordsFromPayloadRequest.Options.NUM_TASKS_PER_RANK">NUM_TASKS_PER_RANK</see>:</term>
         ///         <description>Optional: number of tasks for reading file per
         /// rank. Default will be external_file_reader_num_tasks</description>
@@ -18747,6 +19205,25 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
+        /// cref="InsertRecordsFromPayloadRequest.Options.TRUNCATE_STRINGS">TRUNCATE_STRINGS</see>:</term>
+        ///         <description>If set to <i>true</i>, truncate string values
+        /// that are longer than the column's type size.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromPayloadRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromPayloadRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="InsertRecordsFromPayloadRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="InsertRecordsFromPayloadRequest.Options.TRUNCATE_TABLE">TRUNCATE_TABLE</see>:</term>
         ///         <description>If set to <i>true</i>, truncates the table
         /// specified by <paramref
@@ -18791,6 +19268,24 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="InsertRecordsFromPayloadRequest.Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>:</term>
+        ///         <description>
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromPayloadRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromPayloadRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="InsertRecordsFromPayloadRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromPayloadRequest.Options.IGNORE_EXISTING_PK">IGNORE_EXISTING_PK</see>:</term>
         ///         <description>
         /// Supported values:
         /// <list type="bullet">
@@ -19182,6 +19677,19 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
+        /// cref="InsertRecordsFromQueryRequest.Options.JDBC_SESSION_INIT_STATEMENT">JDBC_SESSION_INIT_STATEMENT</see>:</term>
+        ///         <description>Executes the statement per each jdbc session
+        /// before doing actual load.  The default value is ''.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromQueryRequest.Options.NUM_SPLITS_PER_RANK">NUM_SPLITS_PER_RANK</see>:</term>
+        ///         <description>Optional: number of splits for reading data
+        /// per rank. Default will be external_file_reader_num_tasks.  The
+        /// default value is ''.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="InsertRecordsFromQueryRequest.Options.NUM_TASKS_PER_RANK">NUM_TASKS_PER_RANK</see>:</term>
         ///         <description>Optional: number of tasks for reading data per
         /// rank. Default will be external_file_reader_num_tasks</description>
@@ -19199,6 +19707,25 @@ namespace kinetica
         ///         <description>Optional: comma separated list of column
         /// names, to set as primary keys, when not specified in the type.  The
         /// default value is ''.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromQueryRequest.Options.SUBSCRIBE">SUBSCRIBE</see>:</term>
+        ///         <description>Continuously poll the data source to check for
+        /// new data and load it into the table.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromQueryRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromQueryRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="InsertRecordsFromQueryRequest.Options.FALSE">FALSE</see>.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -19229,10 +19756,24 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
+        /// cref="InsertRecordsFromQueryRequest.Options.REMOTE_QUERY_ORDER_BY">REMOTE_QUERY_ORDER_BY</see>:</term>
+        ///         <description>Name of column to be used for splitting the
+        /// query into multiple sub-queries using ordering of given column.
+        /// The default value is ''.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="InsertRecordsFromQueryRequest.Options.REMOTE_QUERY_FILTER_COLUMN">REMOTE_QUERY_FILTER_COLUMN</see>:</term>
         ///         <description>Name of column to be used for splitting the
         /// query into multiple sub-queries using the data distribution of
         /// given column.  The default value is ''.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromQueryRequest.Options.REMOTE_QUERY_INCREASING_COLUMN">REMOTE_QUERY_INCREASING_COLUMN</see>:</term>
+        ///         <description>Column on subscribed remote query result that
+        /// will increase for new records (e.g., TIMESTAMP).  The default value
+        /// is ''.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -19243,6 +19784,24 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="InsertRecordsFromQueryRequest.Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>:</term>
+        ///         <description>
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromQueryRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromQueryRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="InsertRecordsFromQueryRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromQueryRequest.Options.IGNORE_EXISTING_PK">IGNORE_EXISTING_PK</see>:</term>
         ///         <description>
         /// Supported values:
         /// <list type="bullet">
@@ -19939,6 +20498,24 @@ namespace kinetica
         /// ev-charging stations between source and target
         /// locations.</description>
         ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="MatchGraphRequest.SolveMethod.MATCH_SIMILARITY">MATCH_SIMILARITY</see>:</term>
+        ///         <description>Matches the intersection set(s) by computing
+        /// the Jaccard similarity score between node pairs.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="MatchGraphRequest.SolveMethod.MATCH_PICKUP_DROPOFF">MATCH_PICKUP_DROPOFF</see>:</term>
+        ///         <description>Matches the pickups and dropoffs by optimizing
+        /// the total trip costs</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="MatchGraphRequest.SolveMethod.MATCH_CLUSTERS">MATCH_CLUSTERS</see>:</term>
+        ///         <description>Matches the graph nodes with a cluster index
+        /// using Louvain clustering algorithm</description>
+        ///     </item>
         /// </list>
         /// The default value is <see
         /// cref="MatchGraphRequest.SolveMethod.MARKOV_CHAIN">MARKOV_CHAIN</see>.
@@ -20103,12 +20680,13 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="MatchGraphRequest.Options.MAX_TRIP_COST">MAX_TRIP_COST</see>:</term>
-        ///         <description>For the <i>match_supply_demand</i> solver
-        /// only. If this constraint is greater than zero (default) then the
-        /// trucks will skip travelling from one demand location to another if
-        /// the cost between them is greater than this number (distance or
-        /// time). Zero (default) value means no check is performed.  The
-        /// default value is '0.0'.</description>
+        ///         <description>For the <i>match_supply_demand</i> and
+        /// <i>match_pickup_dropoff</i> solvers only. If this constraint is
+        /// greater than zero (default) then the trucks/rides will skip
+        /// travelling from one demand/pick location to another if the cost
+        /// between them is greater than this number (distance or time). Zero
+        /// (default) value means no check is performed.  The default value is
+        /// '0.0'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -20157,32 +20735,32 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="MatchGraphRequest.Options.TRUCK_SERVICE_LIMIT">TRUCK_SERVICE_LIMIT</see>:</term>
+        /// cref="MatchGraphRequest.Options.SERVICE_LIMIT">SERVICE_LIMIT</see>:</term>
         ///         <description>For the <i>match_supply_demand</i> solver
-        /// only. If specified (greater than zero), any truck's total service
-        /// cost (distance or time) will be limited by the specified value
-        /// including multiple rounds (if set).  The default value is
+        /// only. If specified (greater than zero), any supply actor's total
+        /// service cost (distance or time) will be limited by the specified
+        /// value including multiple rounds (if set).  The default value is
         /// '0.0'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="MatchGraphRequest.Options.ENABLE_TRUCK_REUSE">ENABLE_TRUCK_REUSE</see>:</term>
+        /// cref="MatchGraphRequest.Options.ENABLE_REUSE">ENABLE_REUSE</see>:</term>
         ///         <description>For the <i>match_supply_demand</i> solver
-        /// only. If specified (true), all trucks can be scheduled for second
-        /// rounds from their originating depots.
+        /// only. If specified (true), all supply actors can be scheduled for
+        /// second rounds from their originating depots.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
         /// cref="MatchGraphRequest.Options.TRUE">TRUE</see>:</term>
-        ///         <description>Allows reusing trucks for scheduling
-        /// again.</description>
+        ///         <description>Allows reusing supply actors (trucks, e.g.)
+        /// for scheduling again.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="MatchGraphRequest.Options.FALSE">FALSE</see>:</term>
-        ///         <description>Trucks are scheduled only once from their
-        /// depots.</description>
+        ///         <description>Supply actors are scheduled only once from
+        /// their depots.</description>
         ///     </item>
         /// </list>
         /// The default value is <see
@@ -20190,22 +20768,51 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="MatchGraphRequest.Options.MAX_TRUCK_STOPS">MAX_TRUCK_STOPS</see>:</term>
+        /// cref="MatchGraphRequest.Options.MAX_STOPS">MAX_STOPS</see>:</term>
         ///         <description>For the <i>match_supply_demand</i> solver
-        /// only. If specified (greater than zero), a truck can at most have
-        /// this many stops (demand locations) in one round trip. Otherwise, it
-        /// is unlimited. If 'enable_truck_reuse' is on, this condition will be
-        /// applied separately at each round trip use of the same truck.  The
-        /// default value is '0'.</description>
+        /// only. If specified (greater than zero), a supply actor (truck) can
+        /// at most have this many stops (demand locations) in one round trip.
+        /// Otherwise, it is unlimited. If 'enable_truck_reuse' is on, this
+        /// condition will be applied separately at each round trip use of the
+        /// same truck.  The default value is '0'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="MatchGraphRequest.Options.TRUCK_SERVICE_RADIUS">TRUCK_SERVICE_RADIUS</see>:</term>
+        /// cref="MatchGraphRequest.Options.SERVICE_RADIUS">SERVICE_RADIUS</see>:</term>
+        ///         <description>For the <i>match_supply_demand</i> and
+        /// <i>match_pickup_dropoff</i> solvers only. If specified (greater
+        /// than zero), it filters the demands/picks outside this radius
+        /// centered around the supply actor/ride's originating location
+        /// (distance or time).  The default value is '0.0'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="MatchGraphRequest.Options.PERMUTE_SUPPLIES">PERMUTE_SUPPLIES</see>:</term>
         ///         <description>For the <i>match_supply_demand</i> solver
-        /// only. If specified (greater than zero), it filters the demands
-        /// outside this radius centered around the truck's originating
-        /// location (distance or time).  The default value is
-        /// '0.0'.</description>
+        /// only. If specified (true), supply side actors are permuted for the
+        /// demand combinations during msdo optimization - note that this
+        /// option increases optimization time significantly - use of
+        /// 'max_combinations' option is recommended to prevent prohibitively
+        /// long runs
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="MatchGraphRequest.Options.TRUE">TRUE</see>:</term>
+        ///         <description>Generates sequences over supply side
+        /// permutations if total supply is less than twice the total
+        /// demand</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="MatchGraphRequest.Options.FALSE">FALSE</see>:</term>
+        ///         <description>Permutations are not performed, rather a
+        /// specific order of supplies based on capacity is
+        /// computed</description>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="MatchGraphRequest.Options.TRUE">TRUE</see>.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -20234,10 +20841,84 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="MatchGraphRequest.Options.RESTRICTED_TRUCK_TYPE">RESTRICTED_TRUCK_TYPE</see>:</term>
+        /// cref="MatchGraphRequest.Options.ROUND_TRIP">ROUND_TRIP</see>:</term>
+        ///         <description>For the <i>match_supply_demand</i> solver
+        /// only. When enabled, the supply will have to return back to the
+        /// origination location.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="MatchGraphRequest.Options.TRUE">TRUE</see>:</term>
+        ///         <description>The optimization is done for trips in round
+        /// trip manner always returning to originating locations</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="MatchGraphRequest.Options.FALSE">FALSE</see>:</term>
+        ///         <description>Supplies do not have to come back to their
+        /// originating locations in their routes. The routes are considered
+        /// finished at the final dropoff.</description>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="MatchGraphRequest.Options.TRUE">TRUE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="MatchGraphRequest.Options.NUM_CYCLES">NUM_CYCLES</see>:</term>
+        ///         <description>For the <i>match_clusters</i> solver only.
+        /// Terminates the cluster exchange iterations across 2-step-cycles
+        /// (outer loop) when quality does not improve during iterations.  The
+        /// default value is '10'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="MatchGraphRequest.Options.NUM_LOOPS_PER_CYCLE">NUM_LOOPS_PER_CYCLE</see>:</term>
+        ///         <description>For the <i>match_clusters</i> solver only.
+        /// Terminates the cluster exchanges within the first step iterations
+        /// of a cycle (inner loop) unless convergence is reached.  The default
+        /// value is '10'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="MatchGraphRequest.Options.NUM_OUTPUT_CLUSTERS">NUM_OUTPUT_CLUSTERS</see>:</term>
+        ///         <description>For the <i>match_clusters</i> solver only.
+        /// Limits the output to the top 'num_output_clusters' clusters based
+        /// on density. Default value of zero outputs all clusters.  The
+        /// default value is '0'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="MatchGraphRequest.Options.MAX_NUM_CLUSTERS">MAX_NUM_CLUSTERS</see>:</term>
+        ///         <description>For the <i>match_clusters</i> solver only. If
+        /// set (value greater than zero), it terminates when the number of
+        /// clusters goes below than this number.  The default value is
+        /// '0'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="MatchGraphRequest.Options.CLUSTER_QUALITY_METRIC">CLUSTER_QUALITY_METRIC</see>:</term>
+        ///         <description>For the <i>match_clusters</i> solver only. The
+        /// quality metric for Louvain modularity optimization solver.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="MatchGraphRequest.Options.GIRWAN">GIRWAN</see>:</term>
+        ///         <description>Uses the Newman Girwan quality metric for
+        /// cluster solver</description>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="MatchGraphRequest.Options.GIRWAN">GIRWAN</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="MatchGraphRequest.Options.RESTRICTED_TYPE">RESTRICTED_TYPE</see>:</term>
         ///         <description>For the <i>match_supply_demand</i> solver
         /// only. Optimization is performed by restricting routes labeled by
-        /// 'MSDO_ODDEVEN_RESTRICTED' only for this truck type
+        /// 'MSDO_ODDEVEN_RESTRICTED' only for this supply actor (truck) type
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -20345,6 +21026,42 @@ namespace kinetica
         ///         <description>For the <i>match_charging_stations</i> solver
         /// only. This is the penalty for full charging.  The default value is
         /// '30000.0'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="MatchGraphRequest.Options.MAX_HOPS">MAX_HOPS</see>:</term>
+        ///         <description>For the <i>match_similarity</i> solver only.
+        /// Searches within this maximum hops for source and target node pairs
+        /// to compute the Jaccard scores.  The default value is
+        /// '3'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="MatchGraphRequest.Options.TRAVERSAL_NODE_LIMIT">TRAVERSAL_NODE_LIMIT</see>:</term>
+        ///         <description>For the <i>match_similarity</i> solver only.
+        /// Limits the traversal depth if it reaches this many number of nodes.
+        /// The default value is '1000'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="MatchGraphRequest.Options.PAIRED_SIMILARITY">PAIRED_SIMILARITY</see>:</term>
+        ///         <description>For the <i>match_similarity</i> solver only.
+        /// If true, it computes Jaccard score between each pair, otherwise it
+        /// will compute Jaccard from the intersection set between the source
+        /// and target nodes
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="MatchGraphRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="MatchGraphRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="MatchGraphRequest.Options.TRUE">TRUE</see>.</description>
         ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.</param>
@@ -21085,7 +21802,7 @@ namespace kinetica
         ///     </item>
         /// </list>
         /// The default value is <see
-        /// cref="QueryGraphRequest.Options.TRUE">TRUE</see>.</description>
+        /// cref="QueryGraphRequest.Options.FALSE">FALSE</see>.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -24221,6 +24938,32 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
+        /// cref="RawUpdateRecordsRequest.Options.IGNORE_EXISTING_PK">IGNORE_EXISTING_PK</see>:</term>
+        ///         <description>Specifies the record collision policy for
+        /// tables with a <a href="../../../concepts/tables/#primary-keys"
+        /// target="_top">primary key</a> when updating columns of the <a
+        /// href="../../../concepts/tables/#primary-keys" target="_top">primary
+        /// key</a> or inserting new records.  If set to <i>true</i>, any
+        /// record being updated or inserted with primary key values that match
+        /// those of an existing record will be ignored with no error
+        /// generated.  If the specified table does not have a primary key,
+        /// then this option has no affect.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="RawUpdateRecordsRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="RawUpdateRecordsRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="RawUpdateRecordsRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="RawUpdateRecordsRequest.Options.UPDATE_PARTITION">UPDATE_PARTITION</see>:</term>
         ///         <description>Force qualifying records to be deleted and
         /// reinserted so their partition membership will be reevaluated.
@@ -24630,6 +25373,31 @@ namespace kinetica
         /// multipart upload. Part numbers start at 1, increment by 1, and must
         /// be uploaded
         /// sequentially</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="UploadFilesRequest.Options.DELETE_IF_EXISTS">DELETE_IF_EXISTS</see>:</term>
+        ///         <description>If <i>true</i>,
+        /// any existing files specified in <paramref
+        /// cref="UploadFilesRequest.file_names" /> will be deleted prior to
+        /// start of upload.
+        /// Otherwise the file is replaced once the upload completes.  Rollback
+        /// of the original file is
+        /// no longer possible if the upload is cancelled, aborted or fails if
+        /// the file was deleted beforehand.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="UploadFilesRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="UploadFilesRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="UploadFilesRequest.Options.FALSE">FALSE</see>.</description>
         ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.</param>
@@ -25248,6 +26016,16 @@ namespace kinetica
         /// </param>
         /// <param name="options">
         /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageRequest.Options.POINTCOLOR_ATTR">POINTCOLOR_ATTR</see>:</term>
+        ///         <description></description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageRequest.Options.SHAPEFILLCOLOR_ATTR">SHAPEFILLCOLOR_ATTR</see>:</term>
+        ///         <description></description>
+        ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="VisualizeImageRequest.Options.TRACK_ID_COLUMN_NAME">TRACK_ID_COLUMN_NAME</see>:</term>

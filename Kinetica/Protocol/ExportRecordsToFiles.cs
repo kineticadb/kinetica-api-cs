@@ -146,7 +146,7 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="ExportRecordsToFilesRequest.Options.FILE_EXTENTION">FILE_EXTENTION</see>:</term>
+        /// cref="ExportRecordsToFilesRequest.Options.FILE_EXTENSION">FILE_EXTENSION</see>:</term>
         ///         <description>Extension to give the export file.  The
         /// default value is '.csv'.</description>
         ///     </item>
@@ -362,7 +362,7 @@ namespace kinetica
 
             /// <summary>Extension to give the export file.  The default value
             /// is '.csv'.</summary>
-            public const string FILE_EXTENTION = "file_extention";
+            public const string FILE_EXTENSION = "file_extension";
 
             /// <summary>Specifies the file format to use when exporting data.
             /// Supported values:
@@ -593,7 +593,7 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="ExportRecordsToFilesRequest.Options.FILE_EXTENTION">FILE_EXTENTION</see>:</term>
+        /// cref="ExportRecordsToFilesRequest.Options.FILE_EXTENSION">FILE_EXTENSION</see>:</term>
         ///         <description>Extension to give the export file.  The
         /// default value is '.csv'.</description>
         ///     </item>
@@ -836,7 +836,7 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="ExportRecordsToFilesRequest.Options.FILE_EXTENTION">FILE_EXTENTION</see>:</term>
+        /// cref="ExportRecordsToFilesRequest.Options.FILE_EXTENSION">FILE_EXTENSION</see>:</term>
         ///         <description>Extension to give the export file.  The
         /// default value is '.csv'.</description>
         ///     </item>

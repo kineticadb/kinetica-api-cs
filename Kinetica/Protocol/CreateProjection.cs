@@ -121,9 +121,16 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
+        /// cref="CreateProjectionRequest.Options.OFFSET">OFFSET</see>:</term>
+        ///         <description>The number of initial results to skip (this
+        /// can be useful for paging through the results).  The default value
+        /// is '0'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="CreateProjectionRequest.Options.LIMIT">LIMIT</see>:</term>
         ///         <description>The number of records to keep.  The default
-        /// value is ''.</description>
+        /// value is '-9999'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -387,8 +394,13 @@ namespace kinetica
             /// cref="CreateProjectionRequest.Options.FALSE">FALSE</see>.</summary>
             public const string IS_REPLICATED = "is_replicated";
 
+            /// <summary>The number of initial results to skip (this can be
+            /// useful for paging through the results).  The default value is
+            /// '0'.</summary>
+            public const string OFFSET = "offset";
+
             /// <summary>The number of records to keep.  The default value is
-            /// ''.</summary>
+            /// '-9999'.</summary>
             public const string LIMIT = "limit";
 
             /// <summary>Comma-separated list of the columns to be sorted by;
@@ -676,9 +688,16 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
+        /// cref="CreateProjectionRequest.Options.OFFSET">OFFSET</see>:</term>
+        ///         <description>The number of initial results to skip (this
+        /// can be useful for paging through the results).  The default value
+        /// is '0'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="CreateProjectionRequest.Options.LIMIT">LIMIT</see>:</term>
         ///         <description>The number of records to keep.  The default
-        /// value is ''.</description>
+        /// value is '-9999'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -974,9 +993,16 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
+        /// cref="CreateProjectionRequest.Options.OFFSET">OFFSET</see>:</term>
+        ///         <description>The number of initial results to skip (this
+        /// can be useful for paging through the results).  The default value
+        /// is '0'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="CreateProjectionRequest.Options.LIMIT">LIMIT</see>:</term>
         ///         <description>The number of records to keep.  The default
-        /// value is ''.</description>
+        /// value is '-9999'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
