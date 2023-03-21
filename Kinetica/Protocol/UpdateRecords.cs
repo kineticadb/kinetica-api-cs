@@ -150,6 +150,32 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
+        /// cref="RawUpdateRecordsRequest.Options.IGNORE_EXISTING_PK">IGNORE_EXISTING_PK</see>:</term>
+        ///         <description>Specifies the record collision policy for
+        /// tables with a <a href="../../../concepts/tables/#primary-keys"
+        /// target="_top">primary key</a> when updating columns of the <a
+        /// href="../../../concepts/tables/#primary-keys" target="_top">primary
+        /// key</a> or inserting new records.  If set to <i>true</i>, any
+        /// record being updated or inserted with primary key values that match
+        /// those of an existing record will be ignored with no error
+        /// generated.  If the specified table does not have a primary key,
+        /// then this option has no affect.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="RawUpdateRecordsRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="RawUpdateRecordsRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="RawUpdateRecordsRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="RawUpdateRecordsRequest.Options.UPDATE_PARTITION">UPDATE_PARTITION</see>:</term>
         ///         <description>Force qualifying records to be deleted and
         /// reinserted so their partition membership will be reevaluated.
@@ -284,6 +310,30 @@ namespace kinetica
             /// The default value is <see
             /// cref="RawUpdateRecordsRequest.Options.FALSE">FALSE</see>.</summary>
             public const string UPDATE_ON_EXISTING_PK = "update_on_existing_pk";
+
+            /// <summary>Specifies the record collision policy for tables with
+            /// a <a href="../../../concepts/tables/#primary-keys"
+            /// target="_top">primary key</a> when updating columns of the <a
+            /// href="../../../concepts/tables/#primary-keys"
+            /// target="_top">primary key</a> or inserting new records.  If set
+            /// to <i>true</i>, any record being updated or inserted with
+            /// primary key values that match those of an existing record will
+            /// be ignored with no error generated.  If the specified table
+            /// does not have a primary key, then this option has no affect.
+            /// Supported values:
+            /// <list type="bullet">
+            ///     <item>
+            ///         <term><see
+            /// cref="RawUpdateRecordsRequest.Options.TRUE">TRUE</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="RawUpdateRecordsRequest.Options.FALSE">FALSE</see></term>
+            ///     </item>
+            /// </list>
+            /// The default value is <see
+            /// cref="RawUpdateRecordsRequest.Options.FALSE">FALSE</see>.</summary>
+            public const string IGNORE_EXISTING_PK = "ignore_existing_pk";
 
             /// <summary>Force qualifying records to be deleted and reinserted
             /// so their partition membership will be reevaluated.
@@ -471,6 +521,32 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
+        /// cref="RawUpdateRecordsRequest.Options.IGNORE_EXISTING_PK">IGNORE_EXISTING_PK</see>:</term>
+        ///         <description>Specifies the record collision policy for
+        /// tables with a <a href="../../../concepts/tables/#primary-keys"
+        /// target="_top">primary key</a> when updating columns of the <a
+        /// href="../../../concepts/tables/#primary-keys" target="_top">primary
+        /// key</a> or inserting new records.  If set to <i>true</i>, any
+        /// record being updated or inserted with primary key values that match
+        /// those of an existing record will be ignored with no error
+        /// generated.  If the specified table does not have a primary key,
+        /// then this option has no affect.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="RawUpdateRecordsRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="RawUpdateRecordsRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="RawUpdateRecordsRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="RawUpdateRecordsRequest.Options.UPDATE_PARTITION">UPDATE_PARTITION</see>:</term>
         ///         <description>Force qualifying records to be deleted and
         /// reinserted so their partition membership will be reevaluated.
@@ -631,6 +707,32 @@ namespace kinetica
         /// cref="RawUpdateRecordsRequest.Options.FALSE">FALSE</see>:</term>
         ///         <description>Discard updated and inserted records when the
         /// same primary keys already exist</description>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="RawUpdateRecordsRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="RawUpdateRecordsRequest.Options.IGNORE_EXISTING_PK">IGNORE_EXISTING_PK</see>:</term>
+        ///         <description>Specifies the record collision policy for
+        /// tables with a <a href="../../../concepts/tables/#primary-keys"
+        /// target="_top">primary key</a> when updating columns of the <a
+        /// href="../../../concepts/tables/#primary-keys" target="_top">primary
+        /// key</a> or inserting new records.  If set to <i>true</i>, any
+        /// record being updated or inserted with primary key values that match
+        /// those of an existing record will be ignored with no error
+        /// generated.  If the specified table does not have a primary key,
+        /// then this option has no affect.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="RawUpdateRecordsRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="RawUpdateRecordsRequest.Options.FALSE">FALSE</see></term>
         ///     </item>
         /// </list>
         /// The default value is <see
@@ -830,6 +932,32 @@ namespace kinetica
         /// cref="RawUpdateRecordsRequest.Options.FALSE">FALSE</see>:</term>
         ///         <description>Discard updated and inserted records when the
         /// same primary keys already exist</description>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="RawUpdateRecordsRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="RawUpdateRecordsRequest.Options.IGNORE_EXISTING_PK">IGNORE_EXISTING_PK</see>:</term>
+        ///         <description>Specifies the record collision policy for
+        /// tables with a <a href="../../../concepts/tables/#primary-keys"
+        /// target="_top">primary key</a> when updating columns of the <a
+        /// href="../../../concepts/tables/#primary-keys" target="_top">primary
+        /// key</a> or inserting new records.  If set to <i>true</i>, any
+        /// record being updated or inserted with primary key values that match
+        /// those of an existing record will be ignored with no error
+        /// generated.  If the specified table does not have a primary key,
+        /// then this option has no affect.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="RawUpdateRecordsRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="RawUpdateRecordsRequest.Options.FALSE">FALSE</see></term>
         ///     </item>
         /// </list>
         /// The default value is <see
@@ -1044,6 +1172,32 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
+        /// cref="RawUpdateRecordsRequest.Options.IGNORE_EXISTING_PK">IGNORE_EXISTING_PK</see>:</term>
+        ///         <description>Specifies the record collision policy for
+        /// tables with a <a href="../../../concepts/tables/#primary-keys"
+        /// target="_top">primary key</a> when updating columns of the <a
+        /// href="../../../concepts/tables/#primary-keys" target="_top">primary
+        /// key</a> or inserting new records.  If set to <i>true</i>, any
+        /// record being updated or inserted with primary key values that match
+        /// those of an existing record will be ignored with no error
+        /// generated.  If the specified table does not have a primary key,
+        /// then this option has no affect.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="RawUpdateRecordsRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="RawUpdateRecordsRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="RawUpdateRecordsRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="RawUpdateRecordsRequest.Options.UPDATE_PARTITION">UPDATE_PARTITION</see>:</term>
         ///         <description>Force qualifying records to be deleted and
         /// reinserted so their partition membership will be reevaluated.
@@ -1178,6 +1332,30 @@ namespace kinetica
             /// The default value is <see
             /// cref="RawUpdateRecordsRequest.Options.FALSE">FALSE</see>.</summary>
             public const string UPDATE_ON_EXISTING_PK = "update_on_existing_pk";
+
+            /// <summary>Specifies the record collision policy for tables with
+            /// a <a href="../../../concepts/tables/#primary-keys"
+            /// target="_top">primary key</a> when updating columns of the <a
+            /// href="../../../concepts/tables/#primary-keys"
+            /// target="_top">primary key</a> or inserting new records.  If set
+            /// to <i>true</i>, any record being updated or inserted with
+            /// primary key values that match those of an existing record will
+            /// be ignored with no error generated.  If the specified table
+            /// does not have a primary key, then this option has no affect.
+            /// Supported values:
+            /// <list type="bullet">
+            ///     <item>
+            ///         <term><see
+            /// cref="RawUpdateRecordsRequest.Options.TRUE">TRUE</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="RawUpdateRecordsRequest.Options.FALSE">FALSE</see></term>
+            ///     </item>
+            /// </list>
+            /// The default value is <see
+            /// cref="RawUpdateRecordsRequest.Options.FALSE">FALSE</see>.</summary>
+            public const string IGNORE_EXISTING_PK = "ignore_existing_pk";
 
             /// <summary>Force qualifying records to be deleted and reinserted
             /// so their partition membership will be reevaluated.
@@ -1333,6 +1511,32 @@ namespace kinetica
         /// cref="RawUpdateRecordsRequest.Options.FALSE">FALSE</see>:</term>
         ///         <description>Discard updated and inserted records when the
         /// same primary keys already exist</description>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="RawUpdateRecordsRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="RawUpdateRecordsRequest.Options.IGNORE_EXISTING_PK">IGNORE_EXISTING_PK</see>:</term>
+        ///         <description>Specifies the record collision policy for
+        /// tables with a <a href="../../../concepts/tables/#primary-keys"
+        /// target="_top">primary key</a> when updating columns of the <a
+        /// href="../../../concepts/tables/#primary-keys" target="_top">primary
+        /// key</a> or inserting new records.  If set to <i>true</i>, any
+        /// record being updated or inserted with primary key values that match
+        /// those of an existing record will be ignored with no error
+        /// generated.  If the specified table does not have a primary key,
+        /// then this option has no affect.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="RawUpdateRecordsRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="RawUpdateRecordsRequest.Options.FALSE">FALSE</see></term>
         ///     </item>
         /// </list>
         /// The default value is <see
@@ -1500,6 +1704,32 @@ namespace kinetica
         /// cref="RawUpdateRecordsRequest.Options.FALSE">FALSE</see>:</term>
         ///         <description>Discard updated and inserted records when the
         /// same primary keys already exist</description>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="RawUpdateRecordsRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="RawUpdateRecordsRequest.Options.IGNORE_EXISTING_PK">IGNORE_EXISTING_PK</see>:</term>
+        ///         <description>Specifies the record collision policy for
+        /// tables with a <a href="../../../concepts/tables/#primary-keys"
+        /// target="_top">primary key</a> when updating columns of the <a
+        /// href="../../../concepts/tables/#primary-keys" target="_top">primary
+        /// key</a> or inserting new records.  If set to <i>true</i>, any
+        /// record being updated or inserted with primary key values that match
+        /// those of an existing record will be ignored with no error
+        /// generated.  If the specified table does not have a primary key,
+        /// then this option has no affect.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="RawUpdateRecordsRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="RawUpdateRecordsRequest.Options.FALSE">FALSE</see></term>
         ///     </item>
         /// </list>
         /// The default value is <see

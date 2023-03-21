@@ -88,6 +88,24 @@ namespace kinetica
         /// ev-charging stations between source and target
         /// locations.</description>
         ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="MatchGraphRequest.SolveMethod.MATCH_SIMILARITY">MATCH_SIMILARITY</see>:</term>
+        ///         <description>Matches the intersection set(s) by computing
+        /// the Jaccard similarity score between node pairs.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="MatchGraphRequest.SolveMethod.MATCH_PICKUP_DROPOFF">MATCH_PICKUP_DROPOFF</see>:</term>
+        ///         <description>Matches the pickups and dropoffs by optimizing
+        /// the total trip costs</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="MatchGraphRequest.SolveMethod.MATCH_CLUSTERS">MATCH_CLUSTERS</see>:</term>
+        ///         <description>Matches the graph nodes with a cluster index
+        /// using Louvain clustering algorithm</description>
+        ///     </item>
         /// </list>
         /// The default value is <see
         /// cref="MatchGraphRequest.SolveMethod.MARKOV_CHAIN">MARKOV_CHAIN</see>.
@@ -133,6 +151,18 @@ namespace kinetica
             /// <summary>Matches an optimal path across a number of ev-charging
             /// stations between source and target locations.</summary>
             public const string MATCH_CHARGING_STATIONS = "match_charging_stations";
+
+            /// <summary>Matches the intersection set(s) by computing the
+            /// Jaccard similarity score between node pairs.</summary>
+            public const string MATCH_SIMILARITY = "match_similarity";
+
+            /// <summary>Matches the pickups and dropoffs by optimizing the
+            /// total trip costs</summary>
+            public const string MATCH_PICKUP_DROPOFF = "match_pickup_dropoff";
+
+            /// <summary>Matches the graph nodes with a cluster index using
+            /// Louvain clustering algorithm</summary>
+            public const string MATCH_CLUSTERS = "match_clusters";
         } // end struct SolveMethod
 
 
@@ -282,12 +312,13 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="MatchGraphRequest.Options.MAX_TRIP_COST">MAX_TRIP_COST</see>:</term>
-        ///         <description>For the <i>match_supply_demand</i> solver
-        /// only. If this constraint is greater than zero (default) then the
-        /// trucks will skip travelling from one demand location to another if
-        /// the cost between them is greater than this number (distance or
-        /// time). Zero (default) value means no check is performed.  The
-        /// default value is '0.0'.</description>
+        ///         <description>For the <i>match_supply_demand</i> and
+        /// <i>match_pickup_dropoff</i> solvers only. If this constraint is
+        /// greater than zero (default) then the trucks/rides will skip
+        /// travelling from one demand/pick location to another if the cost
+        /// between them is greater than this number (distance or time). Zero
+        /// (default) value means no check is performed.  The default value is
+        /// '0.0'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -336,32 +367,32 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="MatchGraphRequest.Options.TRUCK_SERVICE_LIMIT">TRUCK_SERVICE_LIMIT</see>:</term>
+        /// cref="MatchGraphRequest.Options.SERVICE_LIMIT">SERVICE_LIMIT</see>:</term>
         ///         <description>For the <i>match_supply_demand</i> solver
-        /// only. If specified (greater than zero), any truck's total service
-        /// cost (distance or time) will be limited by the specified value
-        /// including multiple rounds (if set).  The default value is
+        /// only. If specified (greater than zero), any supply actor's total
+        /// service cost (distance or time) will be limited by the specified
+        /// value including multiple rounds (if set).  The default value is
         /// '0.0'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="MatchGraphRequest.Options.ENABLE_TRUCK_REUSE">ENABLE_TRUCK_REUSE</see>:</term>
+        /// cref="MatchGraphRequest.Options.ENABLE_REUSE">ENABLE_REUSE</see>:</term>
         ///         <description>For the <i>match_supply_demand</i> solver
-        /// only. If specified (true), all trucks can be scheduled for second
-        /// rounds from their originating depots.
+        /// only. If specified (true), all supply actors can be scheduled for
+        /// second rounds from their originating depots.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
         /// cref="MatchGraphRequest.Options.TRUE">TRUE</see>:</term>
-        ///         <description>Allows reusing trucks for scheduling
-        /// again.</description>
+        ///         <description>Allows reusing supply actors (trucks, e.g.)
+        /// for scheduling again.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="MatchGraphRequest.Options.FALSE">FALSE</see>:</term>
-        ///         <description>Trucks are scheduled only once from their
-        /// depots.</description>
+        ///         <description>Supply actors are scheduled only once from
+        /// their depots.</description>
         ///     </item>
         /// </list>
         /// The default value is <see
@@ -369,22 +400,51 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="MatchGraphRequest.Options.MAX_TRUCK_STOPS">MAX_TRUCK_STOPS</see>:</term>
+        /// cref="MatchGraphRequest.Options.MAX_STOPS">MAX_STOPS</see>:</term>
         ///         <description>For the <i>match_supply_demand</i> solver
-        /// only. If specified (greater than zero), a truck can at most have
-        /// this many stops (demand locations) in one round trip. Otherwise, it
-        /// is unlimited. If 'enable_truck_reuse' is on, this condition will be
-        /// applied separately at each round trip use of the same truck.  The
-        /// default value is '0'.</description>
+        /// only. If specified (greater than zero), a supply actor (truck) can
+        /// at most have this many stops (demand locations) in one round trip.
+        /// Otherwise, it is unlimited. If 'enable_truck_reuse' is on, this
+        /// condition will be applied separately at each round trip use of the
+        /// same truck.  The default value is '0'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="MatchGraphRequest.Options.TRUCK_SERVICE_RADIUS">TRUCK_SERVICE_RADIUS</see>:</term>
+        /// cref="MatchGraphRequest.Options.SERVICE_RADIUS">SERVICE_RADIUS</see>:</term>
+        ///         <description>For the <i>match_supply_demand</i> and
+        /// <i>match_pickup_dropoff</i> solvers only. If specified (greater
+        /// than zero), it filters the demands/picks outside this radius
+        /// centered around the supply actor/ride's originating location
+        /// (distance or time).  The default value is '0.0'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="MatchGraphRequest.Options.PERMUTE_SUPPLIES">PERMUTE_SUPPLIES</see>:</term>
         ///         <description>For the <i>match_supply_demand</i> solver
-        /// only. If specified (greater than zero), it filters the demands
-        /// outside this radius centered around the truck's originating
-        /// location (distance or time).  The default value is
-        /// '0.0'.</description>
+        /// only. If specified (true), supply side actors are permuted for the
+        /// demand combinations during msdo optimization - note that this
+        /// option increases optimization time significantly - use of
+        /// 'max_combinations' option is recommended to prevent prohibitively
+        /// long runs
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="MatchGraphRequest.Options.TRUE">TRUE</see>:</term>
+        ///         <description>Generates sequences over supply side
+        /// permutations if total supply is less than twice the total
+        /// demand</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="MatchGraphRequest.Options.FALSE">FALSE</see>:</term>
+        ///         <description>Permutations are not performed, rather a
+        /// specific order of supplies based on capacity is
+        /// computed</description>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="MatchGraphRequest.Options.TRUE">TRUE</see>.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -413,10 +473,84 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="MatchGraphRequest.Options.RESTRICTED_TRUCK_TYPE">RESTRICTED_TRUCK_TYPE</see>:</term>
+        /// cref="MatchGraphRequest.Options.ROUND_TRIP">ROUND_TRIP</see>:</term>
+        ///         <description>For the <i>match_supply_demand</i> solver
+        /// only. When enabled, the supply will have to return back to the
+        /// origination location.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="MatchGraphRequest.Options.TRUE">TRUE</see>:</term>
+        ///         <description>The optimization is done for trips in round
+        /// trip manner always returning to originating locations</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="MatchGraphRequest.Options.FALSE">FALSE</see>:</term>
+        ///         <description>Supplies do not have to come back to their
+        /// originating locations in their routes. The routes are considered
+        /// finished at the final dropoff.</description>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="MatchGraphRequest.Options.TRUE">TRUE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="MatchGraphRequest.Options.NUM_CYCLES">NUM_CYCLES</see>:</term>
+        ///         <description>For the <i>match_clusters</i> solver only.
+        /// Terminates the cluster exchange iterations across 2-step-cycles
+        /// (outer loop) when quality does not improve during iterations.  The
+        /// default value is '10'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="MatchGraphRequest.Options.NUM_LOOPS_PER_CYCLE">NUM_LOOPS_PER_CYCLE</see>:</term>
+        ///         <description>For the <i>match_clusters</i> solver only.
+        /// Terminates the cluster exchanges within the first step iterations
+        /// of a cycle (inner loop) unless convergence is reached.  The default
+        /// value is '10'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="MatchGraphRequest.Options.NUM_OUTPUT_CLUSTERS">NUM_OUTPUT_CLUSTERS</see>:</term>
+        ///         <description>For the <i>match_clusters</i> solver only.
+        /// Limits the output to the top 'num_output_clusters' clusters based
+        /// on density. Default value of zero outputs all clusters.  The
+        /// default value is '0'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="MatchGraphRequest.Options.MAX_NUM_CLUSTERS">MAX_NUM_CLUSTERS</see>:</term>
+        ///         <description>For the <i>match_clusters</i> solver only. If
+        /// set (value greater than zero), it terminates when the number of
+        /// clusters goes below than this number.  The default value is
+        /// '0'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="MatchGraphRequest.Options.CLUSTER_QUALITY_METRIC">CLUSTER_QUALITY_METRIC</see>:</term>
+        ///         <description>For the <i>match_clusters</i> solver only. The
+        /// quality metric for Louvain modularity optimization solver.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="MatchGraphRequest.Options.GIRWAN">GIRWAN</see>:</term>
+        ///         <description>Uses the Newman Girwan quality metric for
+        /// cluster solver</description>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="MatchGraphRequest.Options.GIRWAN">GIRWAN</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="MatchGraphRequest.Options.RESTRICTED_TYPE">RESTRICTED_TYPE</see>:</term>
         ///         <description>For the <i>match_supply_demand</i> solver
         /// only. Optimization is performed by restricting routes labeled by
-        /// 'MSDO_ODDEVEN_RESTRICTED' only for this truck type
+        /// 'MSDO_ODDEVEN_RESTRICTED' only for this supply actor (truck) type
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -525,6 +659,42 @@ namespace kinetica
         /// only. This is the penalty for full charging.  The default value is
         /// '30000.0'.</description>
         ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="MatchGraphRequest.Options.MAX_HOPS">MAX_HOPS</see>:</term>
+        ///         <description>For the <i>match_similarity</i> solver only.
+        /// Searches within this maximum hops for source and target node pairs
+        /// to compute the Jaccard scores.  The default value is
+        /// '3'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="MatchGraphRequest.Options.TRAVERSAL_NODE_LIMIT">TRAVERSAL_NODE_LIMIT</see>:</term>
+        ///         <description>For the <i>match_similarity</i> solver only.
+        /// Limits the traversal depth if it reaches this many number of nodes.
+        /// The default value is '1000'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="MatchGraphRequest.Options.PAIRED_SIMILARITY">PAIRED_SIMILARITY</see>:</term>
+        ///         <description>For the <i>match_similarity</i> solver only.
+        /// If true, it computes Jaccard score between each pair, otherwise it
+        /// will compute Jaccard from the intersection set between the source
+        /// and target nodes
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="MatchGraphRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="MatchGraphRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="MatchGraphRequest.Options.TRUE">TRUE</see>.</description>
+        ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.
         /// A set of string constants for the parameter <see cref="options"
@@ -588,11 +758,7 @@ namespace kinetica
             /// The default value is <see
             /// cref="MatchGraphRequest.Options.TRUE">TRUE</see>.</summary>
             public const string PARTIAL_LOADING = "partial_loading";
-
-            /// <summary>Solves using inverse shortest path solver.</summary>
             public const string TRUE = "true";
-
-            /// <summary>Solves using direct shortest path solver.</summary>
             public const string FALSE = "false";
 
             /// <summary>For the <i>match_supply_demand</i> solver only. This
@@ -657,12 +823,13 @@ namespace kinetica
             /// 'false'.</summary>
             public const string OUTPUT_TRACKS = "output_tracks";
 
-            /// <summary>For the <i>match_supply_demand</i> solver only. If
-            /// this constraint is greater than zero (default) then the trucks
-            /// will skip travelling from one demand location to another if the
-            /// cost between them is greater than this number (distance or
-            /// time). Zero (default) value means no check is performed.  The
-            /// default value is '0.0'.</summary>
+            /// <summary>For the <i>match_supply_demand</i> and
+            /// <i>match_pickup_dropoff</i> solvers only. If this constraint is
+            /// greater than zero (default) then the trucks/rides will skip
+            /// travelling from one demand/pick location to another if the cost
+            /// between them is greater than this number (distance or time).
+            /// Zero (default) value means no check is performed.  The default
+            /// value is '0.0'.</summary>
             public const string MAX_TRIP_COST = "max_trip_cost";
 
             /// <summary>For the <i>markov_chain</i> solver only. When true
@@ -705,47 +872,75 @@ namespace kinetica
             public const string MAX_NUM_THREADS = "max_num_threads";
 
             /// <summary>For the <i>match_supply_demand</i> solver only. If
-            /// specified (greater than zero), any truck's total service cost
-            /// (distance or time) will be limited by the specified value
+            /// specified (greater than zero), any supply actor's total service
+            /// cost (distance or time) will be limited by the specified value
             /// including multiple rounds (if set).  The default value is
             /// '0.0'.</summary>
-            public const string TRUCK_SERVICE_LIMIT = "truck_service_limit";
+            public const string SERVICE_LIMIT = "service_limit";
 
             /// <summary>For the <i>match_supply_demand</i> solver only. If
-            /// specified (true), all trucks can be scheduled for second rounds
-            /// from their originating depots.
+            /// specified (true), all supply actors can be scheduled for second
+            /// rounds from their originating depots.
             /// Supported values:
             /// <list type="bullet">
             ///     <item>
             ///         <term><see
             /// cref="MatchGraphRequest.Options.TRUE">TRUE</see>:</term>
-            ///         <description>Allows reusing trucks for scheduling
-            /// again.</description>
+            ///         <description>Allows reusing supply actors (trucks,
+            /// e.g.) for scheduling again.</description>
             ///     </item>
             ///     <item>
             ///         <term><see
             /// cref="MatchGraphRequest.Options.FALSE">FALSE</see>:</term>
-            ///         <description>Trucks are scheduled only once from their
-            /// depots.</description>
+            ///         <description>Supply actors are scheduled only once from
+            /// their depots.</description>
             ///     </item>
             /// </list>
             /// The default value is <see
             /// cref="MatchGraphRequest.Options.FALSE">FALSE</see>.</summary>
-            public const string ENABLE_TRUCK_REUSE = "enable_truck_reuse";
+            public const string ENABLE_REUSE = "enable_reuse";
 
             /// <summary>For the <i>match_supply_demand</i> solver only. If
-            /// specified (greater than zero), a truck can at most have this
-            /// many stops (demand locations) in one round trip. Otherwise, it
-            /// is unlimited. If 'enable_truck_reuse' is on, this condition
-            /// will be applied separately at each round trip use of the same
-            /// truck.  The default value is '0'.</summary>
-            public const string MAX_TRUCK_STOPS = "max_truck_stops";
+            /// specified (greater than zero), a supply actor (truck) can at
+            /// most have this many stops (demand locations) in one round trip.
+            /// Otherwise, it is unlimited. If 'enable_truck_reuse' is on, this
+            /// condition will be applied separately at each round trip use of
+            /// the same truck.  The default value is '0'.</summary>
+            public const string MAX_STOPS = "max_stops";
 
-            /// <summary>For the <i>match_supply_demand</i> solver only. If
-            /// specified (greater than zero), it filters the demands outside
-            /// this radius centered around the truck's originating location
+            /// <summary>For the <i>match_supply_demand</i> and
+            /// <i>match_pickup_dropoff</i> solvers only. If specified (greater
+            /// than zero), it filters the demands/picks outside this radius
+            /// centered around the supply actor/ride's originating location
             /// (distance or time).  The default value is '0.0'.</summary>
-            public const string TRUCK_SERVICE_RADIUS = "truck_service_radius";
+            public const string SERVICE_RADIUS = "service_radius";
+
+            /// <summary>For the <i>match_supply_demand</i> solver only. If
+            /// specified (true), supply side actors are permuted for the
+            /// demand combinations during msdo optimization - note that this
+            /// option increases optimization time significantly - use of
+            /// 'max_combinations' option is recommended to prevent
+            /// prohibitively long runs
+            /// Supported values:
+            /// <list type="bullet">
+            ///     <item>
+            ///         <term><see
+            /// cref="MatchGraphRequest.Options.TRUE">TRUE</see>:</term>
+            ///         <description>Generates sequences over supply side
+            /// permutations if total supply is less than twice the total
+            /// demand</description>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="MatchGraphRequest.Options.FALSE">FALSE</see>:</term>
+            ///         <description>Permutations are not performed, rather a
+            /// specific order of supplies based on capacity is
+            /// computed</description>
+            ///     </item>
+            /// </list>
+            /// The default value is <see
+            /// cref="MatchGraphRequest.Options.TRUE">TRUE</see>.</summary>
+            public const string PERMUTE_SUPPLIES = "permute_supplies";
 
             /// <summary>For the <i>match_supply_demand</i> solver only. When
             /// enabled, it sets the number of visits on each demand location
@@ -770,9 +965,77 @@ namespace kinetica
             /// cref="MatchGraphRequest.Options.FALSE">FALSE</see>.</summary>
             public const string BATCH_TSM_MODE = "batch_tsm_mode";
 
+            /// <summary>For the <i>match_supply_demand</i> solver only. When
+            /// enabled, the supply will have to return back to the origination
+            /// location.
+            /// Supported values:
+            /// <list type="bullet">
+            ///     <item>
+            ///         <term><see
+            /// cref="MatchGraphRequest.Options.TRUE">TRUE</see>:</term>
+            ///         <description>The optimization is done for trips in
+            /// round trip manner always returning to originating
+            /// locations</description>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="MatchGraphRequest.Options.FALSE">FALSE</see>:</term>
+            ///         <description>Supplies do not have to come back to their
+            /// originating locations in their routes. The routes are
+            /// considered finished at the final dropoff.</description>
+            ///     </item>
+            /// </list>
+            /// The default value is <see
+            /// cref="MatchGraphRequest.Options.TRUE">TRUE</see>.</summary>
+            public const string ROUND_TRIP = "round_trip";
+
+            /// <summary>For the <i>match_clusters</i> solver only. Terminates
+            /// the cluster exchange iterations across 2-step-cycles (outer
+            /// loop) when quality does not improve during iterations.  The
+            /// default value is '10'.</summary>
+            public const string NUM_CYCLES = "num_cycles";
+
+            /// <summary>For the <i>match_clusters</i> solver only. Terminates
+            /// the cluster exchanges within the first step iterations of a
+            /// cycle (inner loop) unless convergence is reached.  The default
+            /// value is '10'.</summary>
+            public const string NUM_LOOPS_PER_CYCLE = "num_loops_per_cycle";
+
+            /// <summary>For the <i>match_clusters</i> solver only.  Limits the
+            /// output to the top 'num_output_clusters' clusters based on
+            /// density. Default value of zero outputs all clusters.  The
+            /// default value is '0'.</summary>
+            public const string NUM_OUTPUT_CLUSTERS = "num_output_clusters";
+
+            /// <summary>For the <i>match_clusters</i> solver only. If set
+            /// (value greater than zero), it terminates when the number of
+            /// clusters goes below than this number.  The default value is
+            /// '0'.</summary>
+            public const string MAX_NUM_CLUSTERS = "max_num_clusters";
+
+            /// <summary>For the <i>match_clusters</i> solver only. The quality
+            /// metric for Louvain modularity optimization solver.
+            /// Supported values:
+            /// <list type="bullet">
+            ///     <item>
+            ///         <term><see
+            /// cref="MatchGraphRequest.Options.GIRWAN">GIRWAN</see>:</term>
+            ///         <description>Uses the Newman Girwan quality metric for
+            /// cluster solver</description>
+            ///     </item>
+            /// </list>
+            /// The default value is <see
+            /// cref="MatchGraphRequest.Options.GIRWAN">GIRWAN</see>.</summary>
+            public const string CLUSTER_QUALITY_METRIC = "cluster_quality_metric";
+
+            /// <summary>Uses the Newman Girwan quality metric for cluster
+            /// solver</summary>
+            public const string GIRWAN = "girwan";
+
             /// <summary>For the <i>match_supply_demand</i> solver only.
             /// Optimization is performed by restricting routes labeled by
-            /// 'MSDO_ODDEVEN_RESTRICTED' only for this truck type
+            /// 'MSDO_ODDEVEN_RESTRICTED' only for this supply actor (truck)
+            /// type
             /// Supported values:
             /// <list type="bullet">
             ///     <item>
@@ -796,7 +1059,7 @@ namespace kinetica
             /// </list>
             /// The default value is <see
             /// cref="MatchGraphRequest.Options.NONE">NONE</see>.</summary>
-            public const string RESTRICTED_TRUCK_TYPE = "restricted_truck_type";
+            public const string RESTRICTED_TYPE = "restricted_type";
 
             /// <summary>Applies odd/even rule restrictions to odd tagged
             /// vehicles.</summary>
@@ -875,6 +1138,36 @@ namespace kinetica
             /// This is the penalty for full charging.  The default value is
             /// '30000.0'.</summary>
             public const string CHARGING_PENALTY = "charging_penalty";
+
+            /// <summary>For the <i>match_similarity</i> solver only. Searches
+            /// within this maximum hops for source and target node pairs to
+            /// compute the Jaccard scores.  The default value is
+            /// '3'.</summary>
+            public const string MAX_HOPS = "max_hops";
+
+            /// <summary>For the <i>match_similarity</i> solver only. Limits
+            /// the traversal depth if it reaches this many number of nodes.
+            /// The default value is '1000'.</summary>
+            public const string TRAVERSAL_NODE_LIMIT = "traversal_node_limit";
+
+            /// <summary>For the <i>match_similarity</i> solver only. If true,
+            /// it computes Jaccard score between each pair, otherwise it will
+            /// compute Jaccard from the intersection set between the source
+            /// and target nodes
+            /// Supported values:
+            /// <list type="bullet">
+            ///     <item>
+            ///         <term><see
+            /// cref="MatchGraphRequest.Options.TRUE">TRUE</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="MatchGraphRequest.Options.FALSE">FALSE</see></term>
+            ///     </item>
+            /// </list>
+            /// The default value is <see
+            /// cref="MatchGraphRequest.Options.TRUE">TRUE</see>.</summary>
+            public const string PAIRED_SIMILARITY = "paired_similarity";
         } // end struct Options
 
 
@@ -953,6 +1246,24 @@ namespace kinetica
         ///         <description>Matches an optimal path across a number of
         /// ev-charging stations between source and target
         /// locations.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="MatchGraphRequest.SolveMethod.MATCH_SIMILARITY">MATCH_SIMILARITY</see>:</term>
+        ///         <description>Matches the intersection set(s) by computing
+        /// the Jaccard similarity score between node pairs.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="MatchGraphRequest.SolveMethod.MATCH_PICKUP_DROPOFF">MATCH_PICKUP_DROPOFF</see>:</term>
+        ///         <description>Matches the pickups and dropoffs by optimizing
+        /// the total trip costs</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="MatchGraphRequest.SolveMethod.MATCH_CLUSTERS">MATCH_CLUSTERS</see>:</term>
+        ///         <description>Matches the graph nodes with a cluster index
+        /// using Louvain clustering algorithm</description>
         ///     </item>
         /// </list>
         /// The default value is <see
@@ -1122,12 +1433,13 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="MatchGraphRequest.Options.MAX_TRIP_COST">MAX_TRIP_COST</see>:</term>
-        ///         <description>For the <i>match_supply_demand</i> solver
-        /// only. If this constraint is greater than zero (default) then the
-        /// trucks will skip travelling from one demand location to another if
-        /// the cost between them is greater than this number (distance or
-        /// time). Zero (default) value means no check is performed.  The
-        /// default value is '0.0'.</description>
+        ///         <description>For the <i>match_supply_demand</i> and
+        /// <i>match_pickup_dropoff</i> solvers only. If this constraint is
+        /// greater than zero (default) then the trucks/rides will skip
+        /// travelling from one demand/pick location to another if the cost
+        /// between them is greater than this number (distance or time). Zero
+        /// (default) value means no check is performed.  The default value is
+        /// '0.0'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -1176,32 +1488,32 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="MatchGraphRequest.Options.TRUCK_SERVICE_LIMIT">TRUCK_SERVICE_LIMIT</see>:</term>
+        /// cref="MatchGraphRequest.Options.SERVICE_LIMIT">SERVICE_LIMIT</see>:</term>
         ///         <description>For the <i>match_supply_demand</i> solver
-        /// only. If specified (greater than zero), any truck's total service
-        /// cost (distance or time) will be limited by the specified value
-        /// including multiple rounds (if set).  The default value is
+        /// only. If specified (greater than zero), any supply actor's total
+        /// service cost (distance or time) will be limited by the specified
+        /// value including multiple rounds (if set).  The default value is
         /// '0.0'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="MatchGraphRequest.Options.ENABLE_TRUCK_REUSE">ENABLE_TRUCK_REUSE</see>:</term>
+        /// cref="MatchGraphRequest.Options.ENABLE_REUSE">ENABLE_REUSE</see>:</term>
         ///         <description>For the <i>match_supply_demand</i> solver
-        /// only. If specified (true), all trucks can be scheduled for second
-        /// rounds from their originating depots.
+        /// only. If specified (true), all supply actors can be scheduled for
+        /// second rounds from their originating depots.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
         /// cref="MatchGraphRequest.Options.TRUE">TRUE</see>:</term>
-        ///         <description>Allows reusing trucks for scheduling
-        /// again.</description>
+        ///         <description>Allows reusing supply actors (trucks, e.g.)
+        /// for scheduling again.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="MatchGraphRequest.Options.FALSE">FALSE</see>:</term>
-        ///         <description>Trucks are scheduled only once from their
-        /// depots.</description>
+        ///         <description>Supply actors are scheduled only once from
+        /// their depots.</description>
         ///     </item>
         /// </list>
         /// The default value is <see
@@ -1209,22 +1521,51 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="MatchGraphRequest.Options.MAX_TRUCK_STOPS">MAX_TRUCK_STOPS</see>:</term>
+        /// cref="MatchGraphRequest.Options.MAX_STOPS">MAX_STOPS</see>:</term>
         ///         <description>For the <i>match_supply_demand</i> solver
-        /// only. If specified (greater than zero), a truck can at most have
-        /// this many stops (demand locations) in one round trip. Otherwise, it
-        /// is unlimited. If 'enable_truck_reuse' is on, this condition will be
-        /// applied separately at each round trip use of the same truck.  The
-        /// default value is '0'.</description>
+        /// only. If specified (greater than zero), a supply actor (truck) can
+        /// at most have this many stops (demand locations) in one round trip.
+        /// Otherwise, it is unlimited. If 'enable_truck_reuse' is on, this
+        /// condition will be applied separately at each round trip use of the
+        /// same truck.  The default value is '0'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="MatchGraphRequest.Options.TRUCK_SERVICE_RADIUS">TRUCK_SERVICE_RADIUS</see>:</term>
+        /// cref="MatchGraphRequest.Options.SERVICE_RADIUS">SERVICE_RADIUS</see>:</term>
+        ///         <description>For the <i>match_supply_demand</i> and
+        /// <i>match_pickup_dropoff</i> solvers only. If specified (greater
+        /// than zero), it filters the demands/picks outside this radius
+        /// centered around the supply actor/ride's originating location
+        /// (distance or time).  The default value is '0.0'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="MatchGraphRequest.Options.PERMUTE_SUPPLIES">PERMUTE_SUPPLIES</see>:</term>
         ///         <description>For the <i>match_supply_demand</i> solver
-        /// only. If specified (greater than zero), it filters the demands
-        /// outside this radius centered around the truck's originating
-        /// location (distance or time).  The default value is
-        /// '0.0'.</description>
+        /// only. If specified (true), supply side actors are permuted for the
+        /// demand combinations during msdo optimization - note that this
+        /// option increases optimization time significantly - use of
+        /// 'max_combinations' option is recommended to prevent prohibitively
+        /// long runs
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="MatchGraphRequest.Options.TRUE">TRUE</see>:</term>
+        ///         <description>Generates sequences over supply side
+        /// permutations if total supply is less than twice the total
+        /// demand</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="MatchGraphRequest.Options.FALSE">FALSE</see>:</term>
+        ///         <description>Permutations are not performed, rather a
+        /// specific order of supplies based on capacity is
+        /// computed</description>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="MatchGraphRequest.Options.TRUE">TRUE</see>.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -1253,10 +1594,84 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="MatchGraphRequest.Options.RESTRICTED_TRUCK_TYPE">RESTRICTED_TRUCK_TYPE</see>:</term>
+        /// cref="MatchGraphRequest.Options.ROUND_TRIP">ROUND_TRIP</see>:</term>
+        ///         <description>For the <i>match_supply_demand</i> solver
+        /// only. When enabled, the supply will have to return back to the
+        /// origination location.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="MatchGraphRequest.Options.TRUE">TRUE</see>:</term>
+        ///         <description>The optimization is done for trips in round
+        /// trip manner always returning to originating locations</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="MatchGraphRequest.Options.FALSE">FALSE</see>:</term>
+        ///         <description>Supplies do not have to come back to their
+        /// originating locations in their routes. The routes are considered
+        /// finished at the final dropoff.</description>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="MatchGraphRequest.Options.TRUE">TRUE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="MatchGraphRequest.Options.NUM_CYCLES">NUM_CYCLES</see>:</term>
+        ///         <description>For the <i>match_clusters</i> solver only.
+        /// Terminates the cluster exchange iterations across 2-step-cycles
+        /// (outer loop) when quality does not improve during iterations.  The
+        /// default value is '10'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="MatchGraphRequest.Options.NUM_LOOPS_PER_CYCLE">NUM_LOOPS_PER_CYCLE</see>:</term>
+        ///         <description>For the <i>match_clusters</i> solver only.
+        /// Terminates the cluster exchanges within the first step iterations
+        /// of a cycle (inner loop) unless convergence is reached.  The default
+        /// value is '10'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="MatchGraphRequest.Options.NUM_OUTPUT_CLUSTERS">NUM_OUTPUT_CLUSTERS</see>:</term>
+        ///         <description>For the <i>match_clusters</i> solver only.
+        /// Limits the output to the top 'num_output_clusters' clusters based
+        /// on density. Default value of zero outputs all clusters.  The
+        /// default value is '0'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="MatchGraphRequest.Options.MAX_NUM_CLUSTERS">MAX_NUM_CLUSTERS</see>:</term>
+        ///         <description>For the <i>match_clusters</i> solver only. If
+        /// set (value greater than zero), it terminates when the number of
+        /// clusters goes below than this number.  The default value is
+        /// '0'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="MatchGraphRequest.Options.CLUSTER_QUALITY_METRIC">CLUSTER_QUALITY_METRIC</see>:</term>
+        ///         <description>For the <i>match_clusters</i> solver only. The
+        /// quality metric for Louvain modularity optimization solver.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="MatchGraphRequest.Options.GIRWAN">GIRWAN</see>:</term>
+        ///         <description>Uses the Newman Girwan quality metric for
+        /// cluster solver</description>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="MatchGraphRequest.Options.GIRWAN">GIRWAN</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="MatchGraphRequest.Options.RESTRICTED_TYPE">RESTRICTED_TYPE</see>:</term>
         ///         <description>For the <i>match_supply_demand</i> solver
         /// only. Optimization is performed by restricting routes labeled by
-        /// 'MSDO_ODDEVEN_RESTRICTED' only for this truck type
+        /// 'MSDO_ODDEVEN_RESTRICTED' only for this supply actor (truck) type
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -1365,6 +1780,42 @@ namespace kinetica
         /// only. This is the penalty for full charging.  The default value is
         /// '30000.0'.</description>
         ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="MatchGraphRequest.Options.MAX_HOPS">MAX_HOPS</see>:</term>
+        ///         <description>For the <i>match_similarity</i> solver only.
+        /// Searches within this maximum hops for source and target node pairs
+        /// to compute the Jaccard scores.  The default value is
+        /// '3'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="MatchGraphRequest.Options.TRAVERSAL_NODE_LIMIT">TRAVERSAL_NODE_LIMIT</see>:</term>
+        ///         <description>For the <i>match_similarity</i> solver only.
+        /// Limits the traversal depth if it reaches this many number of nodes.
+        /// The default value is '1000'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="MatchGraphRequest.Options.PAIRED_SIMILARITY">PAIRED_SIMILARITY</see>:</term>
+        ///         <description>For the <i>match_similarity</i> solver only.
+        /// If true, it computes Jaccard score between each pair, otherwise it
+        /// will compute Jaccard from the intersection set between the source
+        /// and target nodes
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="MatchGraphRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="MatchGraphRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="MatchGraphRequest.Options.TRUE">TRUE</see>.</description>
+        ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.</summary>
         public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
@@ -1450,6 +1901,24 @@ namespace kinetica
         ///         <description>Matches an optimal path across a number of
         /// ev-charging stations between source and target
         /// locations.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="MatchGraphRequest.SolveMethod.MATCH_SIMILARITY">MATCH_SIMILARITY</see>:</term>
+        ///         <description>Matches the intersection set(s) by computing
+        /// the Jaccard similarity score between node pairs.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="MatchGraphRequest.SolveMethod.MATCH_PICKUP_DROPOFF">MATCH_PICKUP_DROPOFF</see>:</term>
+        ///         <description>Matches the pickups and dropoffs by optimizing
+        /// the total trip costs</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="MatchGraphRequest.SolveMethod.MATCH_CLUSTERS">MATCH_CLUSTERS</see>:</term>
+        ///         <description>Matches the graph nodes with a cluster index
+        /// using Louvain clustering algorithm</description>
         ///     </item>
         /// </list>
         /// The default value is <see
@@ -1615,12 +2084,13 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="MatchGraphRequest.Options.MAX_TRIP_COST">MAX_TRIP_COST</see>:</term>
-        ///         <description>For the <i>match_supply_demand</i> solver
-        /// only. If this constraint is greater than zero (default) then the
-        /// trucks will skip travelling from one demand location to another if
-        /// the cost between them is greater than this number (distance or
-        /// time). Zero (default) value means no check is performed.  The
-        /// default value is '0.0'.</description>
+        ///         <description>For the <i>match_supply_demand</i> and
+        /// <i>match_pickup_dropoff</i> solvers only. If this constraint is
+        /// greater than zero (default) then the trucks/rides will skip
+        /// travelling from one demand/pick location to another if the cost
+        /// between them is greater than this number (distance or time). Zero
+        /// (default) value means no check is performed.  The default value is
+        /// '0.0'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -1669,32 +2139,32 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="MatchGraphRequest.Options.TRUCK_SERVICE_LIMIT">TRUCK_SERVICE_LIMIT</see>:</term>
+        /// cref="MatchGraphRequest.Options.SERVICE_LIMIT">SERVICE_LIMIT</see>:</term>
         ///         <description>For the <i>match_supply_demand</i> solver
-        /// only. If specified (greater than zero), any truck's total service
-        /// cost (distance or time) will be limited by the specified value
-        /// including multiple rounds (if set).  The default value is
+        /// only. If specified (greater than zero), any supply actor's total
+        /// service cost (distance or time) will be limited by the specified
+        /// value including multiple rounds (if set).  The default value is
         /// '0.0'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="MatchGraphRequest.Options.ENABLE_TRUCK_REUSE">ENABLE_TRUCK_REUSE</see>:</term>
+        /// cref="MatchGraphRequest.Options.ENABLE_REUSE">ENABLE_REUSE</see>:</term>
         ///         <description>For the <i>match_supply_demand</i> solver
-        /// only. If specified (true), all trucks can be scheduled for second
-        /// rounds from their originating depots.
+        /// only. If specified (true), all supply actors can be scheduled for
+        /// second rounds from their originating depots.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
         /// cref="MatchGraphRequest.Options.TRUE">TRUE</see>:</term>
-        ///         <description>Allows reusing trucks for scheduling
-        /// again.</description>
+        ///         <description>Allows reusing supply actors (trucks, e.g.)
+        /// for scheduling again.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="MatchGraphRequest.Options.FALSE">FALSE</see>:</term>
-        ///         <description>Trucks are scheduled only once from their
-        /// depots.</description>
+        ///         <description>Supply actors are scheduled only once from
+        /// their depots.</description>
         ///     </item>
         /// </list>
         /// The default value is <see
@@ -1702,22 +2172,51 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="MatchGraphRequest.Options.MAX_TRUCK_STOPS">MAX_TRUCK_STOPS</see>:</term>
+        /// cref="MatchGraphRequest.Options.MAX_STOPS">MAX_STOPS</see>:</term>
         ///         <description>For the <i>match_supply_demand</i> solver
-        /// only. If specified (greater than zero), a truck can at most have
-        /// this many stops (demand locations) in one round trip. Otherwise, it
-        /// is unlimited. If 'enable_truck_reuse' is on, this condition will be
-        /// applied separately at each round trip use of the same truck.  The
-        /// default value is '0'.</description>
+        /// only. If specified (greater than zero), a supply actor (truck) can
+        /// at most have this many stops (demand locations) in one round trip.
+        /// Otherwise, it is unlimited. If 'enable_truck_reuse' is on, this
+        /// condition will be applied separately at each round trip use of the
+        /// same truck.  The default value is '0'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="MatchGraphRequest.Options.TRUCK_SERVICE_RADIUS">TRUCK_SERVICE_RADIUS</see>:</term>
+        /// cref="MatchGraphRequest.Options.SERVICE_RADIUS">SERVICE_RADIUS</see>:</term>
+        ///         <description>For the <i>match_supply_demand</i> and
+        /// <i>match_pickup_dropoff</i> solvers only. If specified (greater
+        /// than zero), it filters the demands/picks outside this radius
+        /// centered around the supply actor/ride's originating location
+        /// (distance or time).  The default value is '0.0'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="MatchGraphRequest.Options.PERMUTE_SUPPLIES">PERMUTE_SUPPLIES</see>:</term>
         ///         <description>For the <i>match_supply_demand</i> solver
-        /// only. If specified (greater than zero), it filters the demands
-        /// outside this radius centered around the truck's originating
-        /// location (distance or time).  The default value is
-        /// '0.0'.</description>
+        /// only. If specified (true), supply side actors are permuted for the
+        /// demand combinations during msdo optimization - note that this
+        /// option increases optimization time significantly - use of
+        /// 'max_combinations' option is recommended to prevent prohibitively
+        /// long runs
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="MatchGraphRequest.Options.TRUE">TRUE</see>:</term>
+        ///         <description>Generates sequences over supply side
+        /// permutations if total supply is less than twice the total
+        /// demand</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="MatchGraphRequest.Options.FALSE">FALSE</see>:</term>
+        ///         <description>Permutations are not performed, rather a
+        /// specific order of supplies based on capacity is
+        /// computed</description>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="MatchGraphRequest.Options.TRUE">TRUE</see>.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -1746,10 +2245,84 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="MatchGraphRequest.Options.RESTRICTED_TRUCK_TYPE">RESTRICTED_TRUCK_TYPE</see>:</term>
+        /// cref="MatchGraphRequest.Options.ROUND_TRIP">ROUND_TRIP</see>:</term>
+        ///         <description>For the <i>match_supply_demand</i> solver
+        /// only. When enabled, the supply will have to return back to the
+        /// origination location.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="MatchGraphRequest.Options.TRUE">TRUE</see>:</term>
+        ///         <description>The optimization is done for trips in round
+        /// trip manner always returning to originating locations</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="MatchGraphRequest.Options.FALSE">FALSE</see>:</term>
+        ///         <description>Supplies do not have to come back to their
+        /// originating locations in their routes. The routes are considered
+        /// finished at the final dropoff.</description>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="MatchGraphRequest.Options.TRUE">TRUE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="MatchGraphRequest.Options.NUM_CYCLES">NUM_CYCLES</see>:</term>
+        ///         <description>For the <i>match_clusters</i> solver only.
+        /// Terminates the cluster exchange iterations across 2-step-cycles
+        /// (outer loop) when quality does not improve during iterations.  The
+        /// default value is '10'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="MatchGraphRequest.Options.NUM_LOOPS_PER_CYCLE">NUM_LOOPS_PER_CYCLE</see>:</term>
+        ///         <description>For the <i>match_clusters</i> solver only.
+        /// Terminates the cluster exchanges within the first step iterations
+        /// of a cycle (inner loop) unless convergence is reached.  The default
+        /// value is '10'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="MatchGraphRequest.Options.NUM_OUTPUT_CLUSTERS">NUM_OUTPUT_CLUSTERS</see>:</term>
+        ///         <description>For the <i>match_clusters</i> solver only.
+        /// Limits the output to the top 'num_output_clusters' clusters based
+        /// on density. Default value of zero outputs all clusters.  The
+        /// default value is '0'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="MatchGraphRequest.Options.MAX_NUM_CLUSTERS">MAX_NUM_CLUSTERS</see>:</term>
+        ///         <description>For the <i>match_clusters</i> solver only. If
+        /// set (value greater than zero), it terminates when the number of
+        /// clusters goes below than this number.  The default value is
+        /// '0'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="MatchGraphRequest.Options.CLUSTER_QUALITY_METRIC">CLUSTER_QUALITY_METRIC</see>:</term>
+        ///         <description>For the <i>match_clusters</i> solver only. The
+        /// quality metric for Louvain modularity optimization solver.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="MatchGraphRequest.Options.GIRWAN">GIRWAN</see>:</term>
+        ///         <description>Uses the Newman Girwan quality metric for
+        /// cluster solver</description>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="MatchGraphRequest.Options.GIRWAN">GIRWAN</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="MatchGraphRequest.Options.RESTRICTED_TYPE">RESTRICTED_TYPE</see>:</term>
         ///         <description>For the <i>match_supply_demand</i> solver
         /// only. Optimization is performed by restricting routes labeled by
-        /// 'MSDO_ODDEVEN_RESTRICTED' only for this truck type
+        /// 'MSDO_ODDEVEN_RESTRICTED' only for this supply actor (truck) type
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -1857,6 +2430,42 @@ namespace kinetica
         ///         <description>For the <i>match_charging_stations</i> solver
         /// only. This is the penalty for full charging.  The default value is
         /// '30000.0'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="MatchGraphRequest.Options.MAX_HOPS">MAX_HOPS</see>:</term>
+        ///         <description>For the <i>match_similarity</i> solver only.
+        /// Searches within this maximum hops for source and target node pairs
+        /// to compute the Jaccard scores.  The default value is
+        /// '3'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="MatchGraphRequest.Options.TRAVERSAL_NODE_LIMIT">TRAVERSAL_NODE_LIMIT</see>:</term>
+        ///         <description>For the <i>match_similarity</i> solver only.
+        /// Limits the traversal depth if it reaches this many number of nodes.
+        /// The default value is '1000'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="MatchGraphRequest.Options.PAIRED_SIMILARITY">PAIRED_SIMILARITY</see>:</term>
+        ///         <description>For the <i>match_similarity</i> solver only.
+        /// If true, it computes Jaccard score between each pair, otherwise it
+        /// will compute Jaccard from the intersection set between the source
+        /// and target nodes
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="MatchGraphRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="MatchGraphRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="MatchGraphRequest.Options.TRUE">TRUE</see>.</description>
         ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.</param>

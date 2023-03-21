@@ -64,7 +64,11 @@ namespace kinetica
         ///         <term><see
         /// cref="AdminVerifyDbRequest.Options.VERIFY_PERSIST">VERIFY_PERSIST</see>:</term>
         ///         <description>When <i>true</i>, persistent objects will be
-        /// compared against their state in memory.
+        /// compared against their state in memory and workers will be checked
+        /// for orphaned table data in persist. To check for orphaned worker
+        /// data, either set <i>concurrent_safe</i> in <paramref
+        /// cref="AdminVerifyDbRequest.options" /> to <i>true</i> or place the
+        /// database offline.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -124,6 +128,9 @@ namespace kinetica
         ///         <description>If <i>true</i>, orphaned table directories
         /// found on workers for which there is no corresponding metadata will
         /// be deleted. Must set <i>verify_persist</i> in <paramref
+        /// cref="AdminVerifyDbRequest.options" /> to <i>true</i>. It is
+        /// recommended to run this while the database is offline OR set
+        /// <i>concurrent_safe</i> in <paramref
         /// cref="AdminVerifyDbRequest.options" /> to <i>true</i>
         /// Supported values:
         /// <list type="bullet">
@@ -183,7 +190,10 @@ namespace kinetica
             public const string VERIFY_NULLS = "verify_nulls";
 
             /// <summary>When <i>true</i>, persistent objects will be compared
-            /// against their state in memory.
+            /// against their state in memory and workers will be checked for
+            /// orphaned table data in persist. To check for orphaned worker
+            /// data, either set <i>concurrent_safe</i> in <see cref="options"
+            /// /> to <i>true</i> or place the database offline.
             /// Supported values:
             /// <list type="bullet">
             ///     <item>
@@ -237,7 +247,9 @@ namespace kinetica
             /// <summary>If <i>true</i>, orphaned table directories found on
             /// workers for which there is no corresponding metadata will be
             /// deleted. Must set <i>verify_persist</i> in <see cref="options"
-            /// /> to <i>true</i>
+            /// /> to <i>true</i>. It is recommended to run this while the
+            /// database is offline OR set <i>concurrent_safe</i> in <see
+            /// cref="options" /> to <i>true</i>
             /// Supported values:
             /// <list type="bullet">
             ///     <item>
@@ -299,7 +311,11 @@ namespace kinetica
         ///         <term><see
         /// cref="AdminVerifyDbRequest.Options.VERIFY_PERSIST">VERIFY_PERSIST</see>:</term>
         ///         <description>When <i>true</i>, persistent objects will be
-        /// compared against their state in memory.
+        /// compared against their state in memory and workers will be checked
+        /// for orphaned table data in persist. To check for orphaned worker
+        /// data, either set <i>concurrent_safe</i> in <paramref
+        /// cref="AdminVerifyDbRequest.options" /> to <i>true</i> or place the
+        /// database offline.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -359,6 +375,9 @@ namespace kinetica
         ///         <description>If <i>true</i>, orphaned table directories
         /// found on workers for which there is no corresponding metadata will
         /// be deleted. Must set <i>verify_persist</i> in <paramref
+        /// cref="AdminVerifyDbRequest.options" /> to <i>true</i>. It is
+        /// recommended to run this while the database is offline OR set
+        /// <i>concurrent_safe</i> in <paramref
         /// cref="AdminVerifyDbRequest.options" /> to <i>true</i>
         /// Supported values:
         /// <list type="bullet">
@@ -430,7 +449,11 @@ namespace kinetica
         ///         <term><see
         /// cref="AdminVerifyDbRequest.Options.VERIFY_PERSIST">VERIFY_PERSIST</see>:</term>
         ///         <description>When <i>true</i>, persistent objects will be
-        /// compared against their state in memory.
+        /// compared against their state in memory and workers will be checked
+        /// for orphaned table data in persist. To check for orphaned worker
+        /// data, either set <i>concurrent_safe</i> in <paramref
+        /// cref="AdminVerifyDbRequest.options" /> to <i>true</i> or place the
+        /// database offline.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -490,6 +513,9 @@ namespace kinetica
         ///         <description>If <i>true</i>, orphaned table directories
         /// found on workers for which there is no corresponding metadata will
         /// be deleted. Must set <i>verify_persist</i> in <paramref
+        /// cref="AdminVerifyDbRequest.options" /> to <i>true</i>. It is
+        /// recommended to run this while the database is offline OR set
+        /// <i>concurrent_safe</i> in <paramref
         /// cref="AdminVerifyDbRequest.options" /> to <i>true</i>
         /// Supported values:
         /// <list type="bullet">

@@ -58,7 +58,8 @@ namespace kinetica
         ///   </summary>
         public IDictionary<string, string> directory_updates_map { get; set; } = new Dictionary<string, string>();
 
-        /// <summary>Optional parameters.  </summary>
+        /// <summary>Optional parameters.  The default value is an empty {@link
+        /// Dictionary}.</summary>
         public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
 
 
@@ -82,11 +83,12 @@ namespace kinetica
         ///     </item>
         /// </list>
         ///   </param>
-        /// <param name="options">Optional parameters.  </param>
+        /// <param name="options">Optional parameters.  The default value is an
+        /// empty {@link Dictionary}.</param>
         /// 
         public AlterDirectoryRequest( string directory_name,
                                       IDictionary<string, string> directory_updates_map,
-                                      IDictionary<string, string> options)
+                                      IDictionary<string, string> options = null)
         {
             this.directory_name = directory_name ?? "";
             this.directory_updates_map = directory_updates_map ?? new Dictionary<string, string>();

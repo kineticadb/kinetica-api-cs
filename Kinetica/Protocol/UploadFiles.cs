@@ -170,6 +170,31 @@ namespace kinetica
         /// be uploaded
         /// sequentially</description>
         ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="UploadFilesRequest.Options.DELETE_IF_EXISTS">DELETE_IF_EXISTS</see>:</term>
+        ///         <description>If <i>true</i>,
+        /// any existing files specified in <paramref
+        /// cref="UploadFilesRequest.file_names" /> will be deleted prior to
+        /// start of upload.
+        /// Otherwise the file is replaced once the upload completes.  Rollback
+        /// of the original file is
+        /// no longer possible if the upload is cancelled, aborted or fails if
+        /// the file was deleted beforehand.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="UploadFilesRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="UploadFilesRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="UploadFilesRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.
         /// A set of string constants for the parameter <see cref="options"
@@ -268,6 +293,30 @@ namespace kinetica
             /// must be uploaded
             /// sequentially</summary>
             public const string MULTIPART_UPLOAD_PART_NUMBER = "multipart_upload_part_number";
+
+            /// <summary>If <i>true</i>,
+            /// any existing files specified in <see cref="file_names" /> will
+            /// be deleted prior to start of upload.
+            /// Otherwise the file is replaced once the upload completes.
+            /// Rollback of the original file is
+            /// no longer possible if the upload is cancelled, aborted or fails
+            /// if the file was deleted beforehand.
+            /// Supported values:
+            /// <list type="bullet">
+            ///     <item>
+            ///         <term><see
+            /// cref="UploadFilesRequest.Options.TRUE">TRUE</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="UploadFilesRequest.Options.FALSE">FALSE</see></term>
+            ///     </item>
+            /// </list>
+            /// The default value is <see
+            /// cref="UploadFilesRequest.Options.FALSE">FALSE</see>.</summary>
+            public const string DELETE_IF_EXISTS = "delete_if_exists";
+            public const string TRUE = "true";
+            public const string FALSE = "false";
         } // end struct Options
 
 
@@ -367,6 +416,31 @@ namespace kinetica
         /// multipart upload. Part numbers start at 1, increment by 1, and must
         /// be uploaded
         /// sequentially</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="UploadFilesRequest.Options.DELETE_IF_EXISTS">DELETE_IF_EXISTS</see>:</term>
+        ///         <description>If <i>true</i>,
+        /// any existing files specified in <paramref
+        /// cref="UploadFilesRequest.file_names" /> will be deleted prior to
+        /// start of upload.
+        /// Otherwise the file is replaced once the upload completes.  Rollback
+        /// of the original file is
+        /// no longer possible if the upload is cancelled, aborted or fails if
+        /// the file was deleted beforehand.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="UploadFilesRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="UploadFilesRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="UploadFilesRequest.Options.FALSE">FALSE</see>.</description>
         ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.</summary>
@@ -473,6 +547,31 @@ namespace kinetica
         /// multipart upload. Part numbers start at 1, increment by 1, and must
         /// be uploaded
         /// sequentially</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="UploadFilesRequest.Options.DELETE_IF_EXISTS">DELETE_IF_EXISTS</see>:</term>
+        ///         <description>If <i>true</i>,
+        /// any existing files specified in <paramref
+        /// cref="UploadFilesRequest.file_names" /> will be deleted prior to
+        /// start of upload.
+        /// Otherwise the file is replaced once the upload completes.  Rollback
+        /// of the original file is
+        /// no longer possible if the upload is cancelled, aborted or fails if
+        /// the file was deleted beforehand.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="UploadFilesRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="UploadFilesRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="UploadFilesRequest.Options.FALSE">FALSE</see>.</description>
         ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.</param>

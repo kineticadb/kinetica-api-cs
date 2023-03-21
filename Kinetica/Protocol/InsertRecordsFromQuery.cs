@@ -559,6 +559,19 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
+        /// cref="InsertRecordsFromQueryRequest.Options.JDBC_SESSION_INIT_STATEMENT">JDBC_SESSION_INIT_STATEMENT</see>:</term>
+        ///         <description>Executes the statement per each jdbc session
+        /// before doing actual load.  The default value is ''.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromQueryRequest.Options.NUM_SPLITS_PER_RANK">NUM_SPLITS_PER_RANK</see>:</term>
+        ///         <description>Optional: number of splits for reading data
+        /// per rank. Default will be external_file_reader_num_tasks.  The
+        /// default value is ''.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="InsertRecordsFromQueryRequest.Options.NUM_TASKS_PER_RANK">NUM_TASKS_PER_RANK</see>:</term>
         ///         <description>Optional: number of tasks for reading data per
         /// rank. Default will be external_file_reader_num_tasks</description>
@@ -576,6 +589,25 @@ namespace kinetica
         ///         <description>Optional: comma separated list of column
         /// names, to set as primary keys, when not specified in the type.  The
         /// default value is ''.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromQueryRequest.Options.SUBSCRIBE">SUBSCRIBE</see>:</term>
+        ///         <description>Continuously poll the data source to check for
+        /// new data and load it into the table.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromQueryRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromQueryRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="InsertRecordsFromQueryRequest.Options.FALSE">FALSE</see>.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -606,10 +638,24 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
+        /// cref="InsertRecordsFromQueryRequest.Options.REMOTE_QUERY_ORDER_BY">REMOTE_QUERY_ORDER_BY</see>:</term>
+        ///         <description>Name of column to be used for splitting the
+        /// query into multiple sub-queries using ordering of given column.
+        /// The default value is ''.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="InsertRecordsFromQueryRequest.Options.REMOTE_QUERY_FILTER_COLUMN">REMOTE_QUERY_FILTER_COLUMN</see>:</term>
         ///         <description>Name of column to be used for splitting the
         /// query into multiple sub-queries using the data distribution of
         /// given column.  The default value is ''.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromQueryRequest.Options.REMOTE_QUERY_INCREASING_COLUMN">REMOTE_QUERY_INCREASING_COLUMN</see>:</term>
+        ///         <description>Column on subscribed remote query result that
+        /// will increase for new records (e.g., TIMESTAMP).  The default value
+        /// is ''.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -620,6 +666,24 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="InsertRecordsFromQueryRequest.Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>:</term>
+        ///         <description>
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromQueryRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromQueryRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="InsertRecordsFromQueryRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromQueryRequest.Options.IGNORE_EXISTING_PK">IGNORE_EXISTING_PK</see>:</term>
         ///         <description>
         /// Supported values:
         /// <list type="bullet">
@@ -751,6 +815,15 @@ namespace kinetica
             /// fetch per round trip.</summary>
             public const string JDBC_FETCH_SIZE = "jdbc_fetch_size";
 
+            /// <summary>Executes the statement per each jdbc session before
+            /// doing actual load.  The default value is ''.</summary>
+            public const string JDBC_SESSION_INIT_STATEMENT = "jdbc_session_init_statement";
+
+            /// <summary>Optional: number of splits for reading data per rank.
+            /// Default will be external_file_reader_num_tasks.  The default
+            /// value is ''.</summary>
+            public const string NUM_SPLITS_PER_RANK = "num_splits_per_rank";
+
             /// <summary>Optional: number of tasks for reading data per rank.
             /// Default will be external_file_reader_num_tasks</summary>
             public const string NUM_TASKS_PER_RANK = "num_tasks_per_rank";
@@ -764,6 +837,25 @@ namespace kinetica
             /// as primary keys, when not specified in the type.  The default
             /// value is ''.</summary>
             public const string SHARD_KEYS = "shard_keys";
+
+            /// <summary>Continuously poll the data source to check for new
+            /// data and load it into the table.
+            /// Supported values:
+            /// <list type="bullet">
+            ///     <item>
+            ///         <term><see
+            /// cref="InsertRecordsFromQueryRequest.Options.TRUE">TRUE</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="InsertRecordsFromQueryRequest.Options.FALSE">FALSE</see></term>
+            ///     </item>
+            /// </list>
+            /// The default value is <see
+            /// cref="InsertRecordsFromQueryRequest.Options.FALSE">FALSE</see>.</summary>
+            public const string SUBSCRIBE = "subscribe";
+            public const string TRUE = "true";
+            public const string FALSE = "false";
 
             /// <summary>If set to <i>true</i>, truncates the table specified
             /// by <see cref="table_name" /> prior to loading the data.
@@ -781,17 +873,25 @@ namespace kinetica
             /// The default value is <see
             /// cref="InsertRecordsFromQueryRequest.Options.FALSE">FALSE</see>.</summary>
             public const string TRUNCATE_TABLE = "truncate_table";
-            public const string TRUE = "true";
-            public const string FALSE = "false";
 
             /// <summary>Remote SQL query from which data will be
             /// sourced</summary>
             public const string REMOTE_QUERY = "remote_query";
 
             /// <summary>Name of column to be used for splitting the query into
+            /// multiple sub-queries using ordering of given column.  The
+            /// default value is ''.</summary>
+            public const string REMOTE_QUERY_ORDER_BY = "remote_query_order_by";
+
+            /// <summary>Name of column to be used for splitting the query into
             /// multiple sub-queries using the data distribution of given
             /// column.  The default value is ''.</summary>
             public const string REMOTE_QUERY_FILTER_COLUMN = "remote_query_filter_column";
+
+            /// <summary>Column on subscribed remote query result that will
+            /// increase for new records (e.g., TIMESTAMP).  The default value
+            /// is ''.</summary>
+            public const string REMOTE_QUERY_INCREASING_COLUMN = "remote_query_increasing_column";
 
             /// <summary>Alias name for remote_query_filter_column.  The
             /// default value is ''.</summary>
@@ -812,6 +912,22 @@ namespace kinetica
             /// The default value is <see
             /// cref="InsertRecordsFromQueryRequest.Options.FALSE">FALSE</see>.</summary>
             public const string UPDATE_ON_EXISTING_PK = "update_on_existing_pk";
+
+            /// <summary>
+            /// Supported values:
+            /// <list type="bullet">
+            ///     <item>
+            ///         <term><see
+            /// cref="InsertRecordsFromQueryRequest.Options.TRUE">TRUE</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="InsertRecordsFromQueryRequest.Options.FALSE">FALSE</see></term>
+            ///     </item>
+            /// </list>
+            /// The default value is <see
+            /// cref="InsertRecordsFromQueryRequest.Options.FALSE">FALSE</see>.</summary>
+            public const string IGNORE_EXISTING_PK = "ignore_existing_pk";
         } // end struct Options
 
 
@@ -1154,6 +1270,19 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
+        /// cref="InsertRecordsFromQueryRequest.Options.JDBC_SESSION_INIT_STATEMENT">JDBC_SESSION_INIT_STATEMENT</see>:</term>
+        ///         <description>Executes the statement per each jdbc session
+        /// before doing actual load.  The default value is ''.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromQueryRequest.Options.NUM_SPLITS_PER_RANK">NUM_SPLITS_PER_RANK</see>:</term>
+        ///         <description>Optional: number of splits for reading data
+        /// per rank. Default will be external_file_reader_num_tasks.  The
+        /// default value is ''.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="InsertRecordsFromQueryRequest.Options.NUM_TASKS_PER_RANK">NUM_TASKS_PER_RANK</see>:</term>
         ///         <description>Optional: number of tasks for reading data per
         /// rank. Default will be external_file_reader_num_tasks</description>
@@ -1171,6 +1300,25 @@ namespace kinetica
         ///         <description>Optional: comma separated list of column
         /// names, to set as primary keys, when not specified in the type.  The
         /// default value is ''.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromQueryRequest.Options.SUBSCRIBE">SUBSCRIBE</see>:</term>
+        ///         <description>Continuously poll the data source to check for
+        /// new data and load it into the table.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromQueryRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromQueryRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="InsertRecordsFromQueryRequest.Options.FALSE">FALSE</see>.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -1201,10 +1349,24 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
+        /// cref="InsertRecordsFromQueryRequest.Options.REMOTE_QUERY_ORDER_BY">REMOTE_QUERY_ORDER_BY</see>:</term>
+        ///         <description>Name of column to be used for splitting the
+        /// query into multiple sub-queries using ordering of given column.
+        /// The default value is ''.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="InsertRecordsFromQueryRequest.Options.REMOTE_QUERY_FILTER_COLUMN">REMOTE_QUERY_FILTER_COLUMN</see>:</term>
         ///         <description>Name of column to be used for splitting the
         /// query into multiple sub-queries using the data distribution of
         /// given column.  The default value is ''.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromQueryRequest.Options.REMOTE_QUERY_INCREASING_COLUMN">REMOTE_QUERY_INCREASING_COLUMN</see>:</term>
+        ///         <description>Column on subscribed remote query result that
+        /// will increase for new records (e.g., TIMESTAMP).  The default value
+        /// is ''.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -1215,6 +1377,24 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="InsertRecordsFromQueryRequest.Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>:</term>
+        ///         <description>
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromQueryRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromQueryRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="InsertRecordsFromQueryRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromQueryRequest.Options.IGNORE_EXISTING_PK">IGNORE_EXISTING_PK</see>:</term>
         ///         <description>
         /// Supported values:
         /// <list type="bullet">
@@ -1575,6 +1755,19 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
+        /// cref="InsertRecordsFromQueryRequest.Options.JDBC_SESSION_INIT_STATEMENT">JDBC_SESSION_INIT_STATEMENT</see>:</term>
+        ///         <description>Executes the statement per each jdbc session
+        /// before doing actual load.  The default value is ''.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromQueryRequest.Options.NUM_SPLITS_PER_RANK">NUM_SPLITS_PER_RANK</see>:</term>
+        ///         <description>Optional: number of splits for reading data
+        /// per rank. Default will be external_file_reader_num_tasks.  The
+        /// default value is ''.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="InsertRecordsFromQueryRequest.Options.NUM_TASKS_PER_RANK">NUM_TASKS_PER_RANK</see>:</term>
         ///         <description>Optional: number of tasks for reading data per
         /// rank. Default will be external_file_reader_num_tasks</description>
@@ -1592,6 +1785,25 @@ namespace kinetica
         ///         <description>Optional: comma separated list of column
         /// names, to set as primary keys, when not specified in the type.  The
         /// default value is ''.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromQueryRequest.Options.SUBSCRIBE">SUBSCRIBE</see>:</term>
+        ///         <description>Continuously poll the data source to check for
+        /// new data and load it into the table.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromQueryRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromQueryRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="InsertRecordsFromQueryRequest.Options.FALSE">FALSE</see>.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -1622,10 +1834,24 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
+        /// cref="InsertRecordsFromQueryRequest.Options.REMOTE_QUERY_ORDER_BY">REMOTE_QUERY_ORDER_BY</see>:</term>
+        ///         <description>Name of column to be used for splitting the
+        /// query into multiple sub-queries using ordering of given column.
+        /// The default value is ''.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="InsertRecordsFromQueryRequest.Options.REMOTE_QUERY_FILTER_COLUMN">REMOTE_QUERY_FILTER_COLUMN</see>:</term>
         ///         <description>Name of column to be used for splitting the
         /// query into multiple sub-queries using the data distribution of
         /// given column.  The default value is ''.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromQueryRequest.Options.REMOTE_QUERY_INCREASING_COLUMN">REMOTE_QUERY_INCREASING_COLUMN</see>:</term>
+        ///         <description>Column on subscribed remote query result that
+        /// will increase for new records (e.g., TIMESTAMP).  The default value
+        /// is ''.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -1636,6 +1862,24 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="InsertRecordsFromQueryRequest.Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>:</term>
+        ///         <description>
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromQueryRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromQueryRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="InsertRecordsFromQueryRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromQueryRequest.Options.IGNORE_EXISTING_PK">IGNORE_EXISTING_PK</see>:</term>
         ///         <description>
         /// Supported values:
         /// <list type="bullet">

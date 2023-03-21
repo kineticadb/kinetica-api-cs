@@ -671,6 +671,16 @@ namespace kinetica
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
+        /// cref="VisualizeImageRequest.Options.POINTCOLOR_ATTR">POINTCOLOR_ATTR</see>:</term>
+        ///         <description></description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageRequest.Options.SHAPEFILLCOLOR_ATTR">SHAPEFILLCOLOR_ATTR</see>:</term>
+        ///         <description></description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="VisualizeImageRequest.Options.TRACK_ID_COLUMN_NAME">TRACK_ID_COLUMN_NAME</see>:</term>
         ///         <description></description>
         ///     </item>
@@ -685,6 +695,8 @@ namespace kinetica
         /// />.</summary>
         public struct Options
         {
+            public const string POINTCOLOR_ATTR = "pointcolor_attr";
+            public const string SHAPEFILLCOLOR_ATTR = "shapefillcolor_attr";
             public const string TRACK_ID_COLUMN_NAME = "track_id_column_name";
             public const string TRACK_ORDER_COLUMN_NAME = "track_order_column_name";
         } // end struct Options
@@ -1069,6 +1081,16 @@ namespace kinetica
 
         /// <summary>
         /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageRequest.Options.POINTCOLOR_ATTR">POINTCOLOR_ATTR</see>:</term>
+        ///         <description></description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageRequest.Options.SHAPEFILLCOLOR_ATTR">SHAPEFILLCOLOR_ATTR</see>:</term>
+        ///         <description></description>
+        ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="VisualizeImageRequest.Options.TRACK_ID_COLUMN_NAME">TRACK_ID_COLUMN_NAME</see>:</term>
@@ -1466,6 +1488,16 @@ namespace kinetica
         /// </param>
         /// <param name="options">
         /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageRequest.Options.POINTCOLOR_ATTR">POINTCOLOR_ATTR</see>:</term>
+        ///         <description></description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="VisualizeImageRequest.Options.SHAPEFILLCOLOR_ATTR">SHAPEFILLCOLOR_ATTR</see>:</term>
+        ///         <description></description>
+        ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="VisualizeImageRequest.Options.TRACK_ID_COLUMN_NAME">TRACK_ID_COLUMN_NAME</see>:</term>

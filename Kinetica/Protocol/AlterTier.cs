@@ -70,6 +70,12 @@ namespace kinetica
         /// The default value is <see
         /// cref="AlterTierRequest.Options.TRUE">TRUE</see>.</description>
         ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterTierRequest.Options.RANK">RANK</see>:</term>
+        ///         <description>Apply the requested change only to a specific
+        /// rank.</description>
+        ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.
         /// A set of string constants for the parameter <see cref="options"
@@ -111,6 +117,10 @@ namespace kinetica
             public const string PERSIST = "persist";
             public const string TRUE = "true";
             public const string FALSE = "false";
+
+            /// <summary>Apply the requested change only to a specific
+            /// rank.</summary>
+            public const string RANK = "rank";
         } // end struct Options
 
 
@@ -160,6 +170,12 @@ namespace kinetica
         /// </list>
         /// The default value is <see
         /// cref="AlterTierRequest.Options.TRUE">TRUE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterTierRequest.Options.RANK">RANK</see>:</term>
+        ///         <description>Apply the requested change only to a specific
+        /// rank.</description>
         ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.</summary>
@@ -217,6 +233,12 @@ namespace kinetica
         /// </list>
         /// The default value is <see
         /// cref="AlterTierRequest.Options.TRUE">TRUE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterTierRequest.Options.RANK">RANK</see>:</term>
+        ///         <description>Apply the requested change only to a specific
+        /// rank.</description>
         ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.</param>

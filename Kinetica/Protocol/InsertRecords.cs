@@ -77,7 +77,31 @@ namespace kinetica
         /// existing table record with primary key values that match those of a
         /// record being inserted will remain unchanged and the new record
         /// discarded.  If the specified table does not have a primary key,
-        /// then this option is ignored.
+        /// then this option has no affect.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="RawInsertRecordsRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="RawInsertRecordsRequest.Options.IGNORE_EXISTING_PK">IGNORE_EXISTING_PK</see>:</term>
+        ///         <description>Specifies the record collision policy for
+        /// inserting into a table with a <a
+        /// href="../../../concepts/tables/#primary-keys" target="_top">primary
+        /// key</a>.  If set to <i>true</i>, any record being inserted with
+        /// primary key values that match those of an existing table record
+        /// will be ignored with no error generated.  If the specified table
+        /// does not have a primary key, then this option has no affect.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -211,7 +235,7 @@ namespace kinetica
             /// key values that match those of a record being inserted will
             /// remain unchanged and the new record discarded.  If the
             /// specified table does not have a primary key, then this option
-            /// is ignored.
+            /// has no affect.
             /// Supported values:
             /// <list type="bullet">
             ///     <item>
@@ -228,6 +252,29 @@ namespace kinetica
             public const string UPDATE_ON_EXISTING_PK = "update_on_existing_pk";
             public const string TRUE = "true";
             public const string FALSE = "false";
+
+            /// <summary>Specifies the record collision policy for inserting
+            /// into a table with a <a
+            /// href="../../../concepts/tables/#primary-keys"
+            /// target="_top">primary key</a>.  If set to <i>true</i>, any
+            /// record being inserted with primary key values that match those
+            /// of an existing table record will be ignored with no error
+            /// generated.  If the specified table does not have a primary key,
+            /// then this option has no affect.
+            /// Supported values:
+            /// <list type="bullet">
+            ///     <item>
+            ///         <term><see
+            /// cref="RawInsertRecordsRequest.Options.TRUE">TRUE</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see></term>
+            ///     </item>
+            /// </list>
+            /// The default value is <see
+            /// cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see>.</summary>
+            public const string IGNORE_EXISTING_PK = "ignore_existing_pk";
 
             /// <summary>If <i>true</i> then return the internal record id
             /// along for each inserted record.
@@ -373,7 +420,31 @@ namespace kinetica
         /// existing table record with primary key values that match those of a
         /// record being inserted will remain unchanged and the new record
         /// discarded.  If the specified table does not have a primary key,
-        /// then this option is ignored.
+        /// then this option has no affect.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="RawInsertRecordsRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="RawInsertRecordsRequest.Options.IGNORE_EXISTING_PK">IGNORE_EXISTING_PK</see>:</term>
+        ///         <description>Specifies the record collision policy for
+        /// inserting into a table with a <a
+        /// href="../../../concepts/tables/#primary-keys" target="_top">primary
+        /// key</a>.  If set to <i>true</i>, any record being inserted with
+        /// primary key values that match those of an existing table record
+        /// will be ignored with no error generated.  If the specified table
+        /// does not have a primary key, then this option has no affect.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -526,7 +597,31 @@ namespace kinetica
         /// existing table record with primary key values that match those of a
         /// record being inserted will remain unchanged and the new record
         /// discarded.  If the specified table does not have a primary key,
-        /// then this option is ignored.
+        /// then this option has no affect.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="RawInsertRecordsRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="RawInsertRecordsRequest.Options.IGNORE_EXISTING_PK">IGNORE_EXISTING_PK</see>:</term>
+        ///         <description>Specifies the record collision policy for
+        /// inserting into a table with a <a
+        /// href="../../../concepts/tables/#primary-keys" target="_top">primary
+        /// key</a>.  If set to <i>true</i>, any record being inserted with
+        /// primary key values that match those of an existing table record
+        /// will be ignored with no error generated.  If the specified table
+        /// does not have a primary key, then this option has no affect.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -706,7 +801,31 @@ namespace kinetica
         /// existing table record with primary key values that match those of a
         /// record being inserted will remain unchanged and the new record
         /// discarded.  If the specified table does not have a primary key,
-        /// then this option is ignored.
+        /// then this option has no affect.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="RawInsertRecordsRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="RawInsertRecordsRequest.Options.IGNORE_EXISTING_PK">IGNORE_EXISTING_PK</see>:</term>
+        ///         <description>Specifies the record collision policy for
+        /// inserting into a table with a <a
+        /// href="../../../concepts/tables/#primary-keys" target="_top">primary
+        /// key</a>.  If set to <i>true</i>, any record being inserted with
+        /// primary key values that match those of an existing table record
+        /// will be ignored with no error generated.  If the specified table
+        /// does not have a primary key, then this option has no affect.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -889,7 +1008,31 @@ namespace kinetica
         /// existing table record with primary key values that match those of a
         /// record being inserted will remain unchanged and the new record
         /// discarded.  If the specified table does not have a primary key,
-        /// then this option is ignored.
+        /// then this option has no affect.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="RawInsertRecordsRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="RawInsertRecordsRequest.Options.IGNORE_EXISTING_PK">IGNORE_EXISTING_PK</see>:</term>
+        ///         <description>Specifies the record collision policy for
+        /// inserting into a table with a <a
+        /// href="../../../concepts/tables/#primary-keys" target="_top">primary
+        /// key</a>.  If set to <i>true</i>, any record being inserted with
+        /// primary key values that match those of an existing table record
+        /// will be ignored with no error generated.  If the specified table
+        /// does not have a primary key, then this option has no affect.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -1023,7 +1166,7 @@ namespace kinetica
             /// key values that match those of a record being inserted will
             /// remain unchanged and the new record discarded.  If the
             /// specified table does not have a primary key, then this option
-            /// is ignored.
+            /// has no affect.
             /// Supported values:
             /// <list type="bullet">
             ///     <item>
@@ -1040,6 +1183,29 @@ namespace kinetica
             public const string UPDATE_ON_EXISTING_PK = "update_on_existing_pk";
             public const string TRUE = "true";
             public const string FALSE = "false";
+
+            /// <summary>Specifies the record collision policy for inserting
+            /// into a table with a <a
+            /// href="../../../concepts/tables/#primary-keys"
+            /// target="_top">primary key</a>.  If set to <i>true</i>, any
+            /// record being inserted with primary key values that match those
+            /// of an existing table record will be ignored with no error
+            /// generated.  If the specified table does not have a primary key,
+            /// then this option has no affect.
+            /// Supported values:
+            /// <list type="bullet">
+            ///     <item>
+            ///         <term><see
+            /// cref="RawInsertRecordsRequest.Options.TRUE">TRUE</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see></term>
+            ///     </item>
+            /// </list>
+            /// The default value is <see
+            /// cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see>.</summary>
+            public const string IGNORE_EXISTING_PK = "ignore_existing_pk";
 
             /// <summary>If <i>true</i> then return the internal record id
             /// along for each inserted record.
@@ -1162,7 +1328,31 @@ namespace kinetica
         /// existing table record with primary key values that match those of a
         /// record being inserted will remain unchanged and the new record
         /// discarded.  If the specified table does not have a primary key,
-        /// then this option is ignored.
+        /// then this option has no affect.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="RawInsertRecordsRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="RawInsertRecordsRequest.Options.IGNORE_EXISTING_PK">IGNORE_EXISTING_PK</see>:</term>
+        ///         <description>Specifies the record collision policy for
+        /// inserting into a table with a <a
+        /// href="../../../concepts/tables/#primary-keys" target="_top">primary
+        /// key</a>.  If set to <i>true</i>, any record being inserted with
+        /// primary key values that match those of an existing table record
+        /// will be ignored with no error generated.  If the specified table
+        /// does not have a primary key, then this option has no affect.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -1315,7 +1505,31 @@ namespace kinetica
         /// existing table record with primary key values that match those of a
         /// record being inserted will remain unchanged and the new record
         /// discarded.  If the specified table does not have a primary key,
-        /// then this option is ignored.
+        /// then this option has no affect.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="RawInsertRecordsRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="RawInsertRecordsRequest.Options.IGNORE_EXISTING_PK">IGNORE_EXISTING_PK</see>:</term>
+        ///         <description>Specifies the record collision policy for
+        /// inserting into a table with a <a
+        /// href="../../../concepts/tables/#primary-keys" target="_top">primary
+        /// key</a>.  If set to <i>true</i>, any record being inserted with
+        /// primary key values that match those of an existing table record
+        /// will be ignored with no error generated.  If the specified table
+        /// does not have a primary key, then this option has no affect.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
