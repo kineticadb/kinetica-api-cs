@@ -85,8 +85,13 @@ namespace kinetica
         } // end struct Options
 
 
-        /// <summary>An array of the file names to download from KiFS. The full
-        /// path must be provided.  </summary>
+        /// <summary>An array of the file names to download from KiFS. File
+        /// paths may contain wildcard characters after the KiFS directory
+        /// delimeter.
+        /// <br />
+        /// Accepted wildcard characters are asterisk (*) to represent any
+        /// string of zero or more characters, and question mark (?) to
+        /// indicate a single character.  </summary>
         public IList<string> file_names { get; set; } = new List<string>();
 
         /// <summary>An array of starting byte offsets from which to read each
@@ -146,7 +151,11 @@ namespace kinetica
         /// specified parameters.</summary>
         /// 
         /// <param name="file_names">An array of the file names to download
-        /// from KiFS. The full path must be provided.  </param>
+        /// from KiFS. File paths may contain wildcard characters after the
+        /// KiFS directory delimeter.
+        /// Accepted wildcard characters are asterisk (*) to represent any
+        /// string of zero or more characters, and question mark (?) to
+        /// indicate a single character.  </param>
         /// <param name="read_offsets">An array of starting byte offsets from
         /// which to read each
         /// respective file in <paramref cref="DownloadFilesRequest.file_names"

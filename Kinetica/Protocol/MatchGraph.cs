@@ -537,13 +537,19 @@ namespace kinetica
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
-        /// cref="MatchGraphRequest.Options.GIRWAN">GIRWAN</see>:</term>
-        ///         <description>Uses the Newman Girwan quality metric for
+        /// cref="MatchGraphRequest.Options.GIRVAN">GIRVAN</see>:</term>
+        ///         <description>Uses the Newman Girvan quality metric for
         /// cluster solver</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="MatchGraphRequest.Options.SPECTRAL">SPECTRAL</see>:</term>
+        ///         <description>Applies recursive spectral bisection (RSB)
+        /// partitioning solver</description>
         ///     </item>
         /// </list>
         /// The default value is <see
-        /// cref="MatchGraphRequest.Options.GIRWAN">GIRWAN</see>.</description>
+        /// cref="MatchGraphRequest.Options.GIRVAN">GIRVAN</see>.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -1019,18 +1025,28 @@ namespace kinetica
             /// <list type="bullet">
             ///     <item>
             ///         <term><see
-            /// cref="MatchGraphRequest.Options.GIRWAN">GIRWAN</see>:</term>
-            ///         <description>Uses the Newman Girwan quality metric for
+            /// cref="MatchGraphRequest.Options.GIRVAN">GIRVAN</see>:</term>
+            ///         <description>Uses the Newman Girvan quality metric for
             /// cluster solver</description>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="MatchGraphRequest.Options.SPECTRAL">SPECTRAL</see>:</term>
+            ///         <description>Applies recursive spectral bisection (RSB)
+            /// partitioning solver</description>
             ///     </item>
             /// </list>
             /// The default value is <see
-            /// cref="MatchGraphRequest.Options.GIRWAN">GIRWAN</see>.</summary>
+            /// cref="MatchGraphRequest.Options.GIRVAN">GIRVAN</see>.</summary>
             public const string CLUSTER_QUALITY_METRIC = "cluster_quality_metric";
 
-            /// <summary>Uses the Newman Girwan quality metric for cluster
+            /// <summary>Uses the Newman Girvan quality metric for cluster
             /// solver</summary>
-            public const string GIRWAN = "girwan";
+            public const string GIRVAN = "girvan";
+
+            /// <summary>Applies recursive spectral bisection (RSB)
+            /// partitioning solver</summary>
+            public const string SPECTRAL = "spectral";
 
             /// <summary>For the <i>match_supply_demand</i> solver only.
             /// Optimization is performed by restricting routes labeled by
@@ -1658,13 +1674,19 @@ namespace kinetica
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
-        /// cref="MatchGraphRequest.Options.GIRWAN">GIRWAN</see>:</term>
-        ///         <description>Uses the Newman Girwan quality metric for
+        /// cref="MatchGraphRequest.Options.GIRVAN">GIRVAN</see>:</term>
+        ///         <description>Uses the Newman Girvan quality metric for
         /// cluster solver</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="MatchGraphRequest.Options.SPECTRAL">SPECTRAL</see>:</term>
+        ///         <description>Applies recursive spectral bisection (RSB)
+        /// partitioning solver</description>
         ///     </item>
         /// </list>
         /// The default value is <see
-        /// cref="MatchGraphRequest.Options.GIRWAN">GIRWAN</see>.</description>
+        /// cref="MatchGraphRequest.Options.GIRVAN">GIRVAN</see>.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -2309,13 +2331,19 @@ namespace kinetica
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
-        /// cref="MatchGraphRequest.Options.GIRWAN">GIRWAN</see>:</term>
-        ///         <description>Uses the Newman Girwan quality metric for
+        /// cref="MatchGraphRequest.Options.GIRVAN">GIRVAN</see>:</term>
+        ///         <description>Uses the Newman Girvan quality metric for
         /// cluster solver</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="MatchGraphRequest.Options.SPECTRAL">SPECTRAL</see>:</term>
+        ///         <description>Applies recursive spectral bisection (RSB)
+        /// partitioning solver</description>
         ///     </item>
         /// </list>
         /// The default value is <see
-        /// cref="MatchGraphRequest.Options.GIRWAN">GIRWAN</see>.</description>
+        /// cref="MatchGraphRequest.Options.GIRVAN">GIRVAN</see>.</description>
         ///     </item>
         ///     <item>
         ///         <term><see

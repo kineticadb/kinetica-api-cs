@@ -23,8 +23,7 @@ namespace kinetica
     /// graph. See
     /// <a href="../../../graph_solver/network_graph_solver/"
     /// target="_top">Network Graphs & Solvers</a>
-    /// for more information on graphs.
-    /// .</summary>
+    /// for more information on graphs.</summary>
     public class VisualizeIsochroneRequest : KineticaData
     {
 

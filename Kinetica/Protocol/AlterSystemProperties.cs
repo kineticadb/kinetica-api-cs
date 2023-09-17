@@ -227,6 +227,28 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
+        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.EGRESS_PARQUET_COMPRESSION">EGRESS_PARQUET_COMPRESSION</see>:</term>
+        ///         <description>Parquet file compression type
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.UNCOMPRESSED">UNCOMPRESSED</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.SNAPPY">SNAPPY</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.GZIP">GZIP</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.SNAPPY">SNAPPY</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.EGRESS_SINGLE_FILE_MAX_SIZE">EGRESS_SINGLE_FILE_MAX_SIZE</see>:</term>
         ///         <description>Max file size (in MB) to allow saving to a
         /// single file. May be overridden by target limitations.  The default
@@ -405,6 +427,29 @@ namespace kinetica
             /// kafka before ingestion.  The default value is '30'.</summary>
             public const string KAFKA_WAIT_TIME = "kafka_wait_time";
 
+            /// <summary>Parquet file compression type
+            /// Supported values:
+            /// <list type="bullet">
+            ///     <item>
+            ///         <term><see
+            /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.UNCOMPRESSED">UNCOMPRESSED</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.SNAPPY">SNAPPY</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.GZIP">GZIP</see></term>
+            ///     </item>
+            /// </list>
+            /// The default value is <see
+            /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.SNAPPY">SNAPPY</see>.</summary>
+            public const string EGRESS_PARQUET_COMPRESSION = "egress_parquet_compression";
+            public const string UNCOMPRESSED = "uncompressed";
+            public const string SNAPPY = "snappy";
+            public const string GZIP = "gzip";
+
             /// <summary>Max file size (in MB) to allow saving to a single
             /// file. May be overridden by target limitations.  The default
             /// value is '100'.</summary>
@@ -424,6 +469,24 @@ namespace kinetica
 
         /// <summary>Optional parameters.
         /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterSystemPropertiesRequest.Options.EVICT_TO_COLD">EVICT_TO_COLD</see>:</term>
+        ///         <description>If <i>true</i> and evict_columns is specified,
+        /// the given objects will be evicted to cold storage (if such a tier
+        /// exists).
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterSystemPropertiesRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterSystemPropertiesRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list></description>
+        ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="AlterSystemPropertiesRequest.Options.PERSIST">PERSIST</see>:</term>
@@ -452,6 +515,24 @@ namespace kinetica
         public struct Options
         {
 
+            /// <summary>If <i>true</i> and evict_columns is specified, the
+            /// given objects will be evicted to cold storage (if such a tier
+            /// exists).
+            /// Supported values:
+            /// <list type="bullet">
+            ///     <item>
+            ///         <term><see
+            /// cref="AlterSystemPropertiesRequest.Options.TRUE">TRUE</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="AlterSystemPropertiesRequest.Options.FALSE">FALSE</see></term>
+            ///     </item>
+            /// </list></summary>
+            public const string EVICT_TO_COLD = "evict_to_cold";
+            public const string TRUE = "true";
+            public const string FALSE = "false";
+
             /// <summary>If <i>true</i> the system configuration will be
             /// written to disk upon successful application of this request.
             /// This will commit the changes from this request and any
@@ -470,8 +551,6 @@ namespace kinetica
             /// The default value is <see
             /// cref="AlterSystemPropertiesRequest.Options.TRUE">TRUE</see>.</summary>
             public const string PERSIST = "persist";
-            public const string TRUE = "true";
-            public const string FALSE = "false";
         } // end struct Options
 
 
@@ -677,6 +756,28 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
+        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.EGRESS_PARQUET_COMPRESSION">EGRESS_PARQUET_COMPRESSION</see>:</term>
+        ///         <description>Parquet file compression type
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.UNCOMPRESSED">UNCOMPRESSED</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.SNAPPY">SNAPPY</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.GZIP">GZIP</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.SNAPPY">SNAPPY</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.EGRESS_SINGLE_FILE_MAX_SIZE">EGRESS_SINGLE_FILE_MAX_SIZE</see>:</term>
         ///         <description>Max file size (in MB) to allow saving to a
         /// single file. May be overridden by target limitations.  The default
@@ -706,6 +807,24 @@ namespace kinetica
 
         /// <summary>Optional parameters.
         /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterSystemPropertiesRequest.Options.EVICT_TO_COLD">EVICT_TO_COLD</see>:</term>
+        ///         <description>If <i>true</i> and evict_columns is specified,
+        /// the given objects will be evicted to cold storage (if such a tier
+        /// exists).
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterSystemPropertiesRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterSystemPropertiesRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list></description>
+        ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="AlterSystemPropertiesRequest.Options.PERSIST">PERSIST</see>:</term>
@@ -941,6 +1060,28 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
+        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.EGRESS_PARQUET_COMPRESSION">EGRESS_PARQUET_COMPRESSION</see>:</term>
+        ///         <description>Parquet file compression type
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.UNCOMPRESSED">UNCOMPRESSED</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.SNAPPY">SNAPPY</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.GZIP">GZIP</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.SNAPPY">SNAPPY</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.EGRESS_SINGLE_FILE_MAX_SIZE">EGRESS_SINGLE_FILE_MAX_SIZE</see>:</term>
         ///         <description>Max file size (in MB) to allow saving to a
         /// single file. May be overridden by target limitations.  The default
@@ -968,6 +1109,24 @@ namespace kinetica
         ///   </param>
         /// <param name="options">Optional parameters.
         /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterSystemPropertiesRequest.Options.EVICT_TO_COLD">EVICT_TO_COLD</see>:</term>
+        ///         <description>If <i>true</i> and evict_columns is specified,
+        /// the given objects will be evicted to cold storage (if such a tier
+        /// exists).
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterSystemPropertiesRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterSystemPropertiesRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list></description>
+        ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="AlterSystemPropertiesRequest.Options.PERSIST">PERSIST</see>:</term>

@@ -202,6 +202,28 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
+        /// cref="ExportRecordsToFilesRequest.Options.COMPRESSION_TYPE">COMPRESSION_TYPE</see>:</term>
+        ///         <description>File compression type. GZip can be applied to
+        /// text and Parquet files.  Snappy can only be applied to Parquet
+        /// files, and is the default compression for them.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="ExportRecordsToFilesRequest.Options.UNCOMPRESSED">UNCOMPRESSED</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ExportRecordsToFilesRequest.Options.SNAPPY">SNAPPY</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ExportRecordsToFilesRequest.Options.GZIP">GZIP</see></term>
+        ///     </item>
+        /// </list></description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="ExportRecordsToFilesRequest.Options.SINGLE_FILE">SINGLE_FILE</see>:</term>
         ///         <description>Save records to a single file. This option may
         /// be ignored if file
@@ -216,6 +238,10 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="ExportRecordsToFilesRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ExportRecordsToFilesRequest.Options.OVERWRITE">OVERWRITE</see></term>
         ///     </item>
         /// </list>
         /// The default value is <see
@@ -414,6 +440,29 @@ namespace kinetica
             /// default value is '|'.</summary>
             public const string KINETICA_HEADER_DELIMITER = "kinetica_header_delimiter";
 
+            /// <summary>File compression type. GZip can be applied to text and
+            /// Parquet files.  Snappy can only be applied to Parquet files,
+            /// and is the default compression for them.
+            /// Supported values:
+            /// <list type="bullet">
+            ///     <item>
+            ///         <term><see
+            /// cref="ExportRecordsToFilesRequest.Options.UNCOMPRESSED">UNCOMPRESSED</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="ExportRecordsToFilesRequest.Options.SNAPPY">SNAPPY</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="ExportRecordsToFilesRequest.Options.GZIP">GZIP</see></term>
+            ///     </item>
+            /// </list></summary>
+            public const string COMPRESSION_TYPE = "compression_type";
+            public const string UNCOMPRESSED = "uncompressed";
+            public const string SNAPPY = "snappy";
+            public const string GZIP = "gzip";
+
             /// <summary>Save records to a single file. This option may be
             /// ignored if file
             /// size exceeds internal file size limits (this limit will differ
@@ -428,10 +477,15 @@ namespace kinetica
             ///         <term><see
             /// cref="ExportRecordsToFilesRequest.Options.FALSE">FALSE</see></term>
             ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="ExportRecordsToFilesRequest.Options.OVERWRITE">OVERWRITE</see></term>
+            ///     </item>
             /// </list>
             /// The default value is <see
             /// cref="ExportRecordsToFilesRequest.Options.TRUE">TRUE</see>.</summary>
             public const string SINGLE_FILE = "single_file";
+            public const string OVERWRITE = "overwrite";
 
             /// <summary>Specifies the character to write out to delimit field
             /// values and
@@ -649,6 +703,28 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
+        /// cref="ExportRecordsToFilesRequest.Options.COMPRESSION_TYPE">COMPRESSION_TYPE</see>:</term>
+        ///         <description>File compression type. GZip can be applied to
+        /// text and Parquet files.  Snappy can only be applied to Parquet
+        /// files, and is the default compression for them.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="ExportRecordsToFilesRequest.Options.UNCOMPRESSED">UNCOMPRESSED</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ExportRecordsToFilesRequest.Options.SNAPPY">SNAPPY</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ExportRecordsToFilesRequest.Options.GZIP">GZIP</see></term>
+        ///     </item>
+        /// </list></description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="ExportRecordsToFilesRequest.Options.SINGLE_FILE">SINGLE_FILE</see>:</term>
         ///         <description>Save records to a single file. This option may
         /// be ignored if file
@@ -663,6 +739,10 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="ExportRecordsToFilesRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ExportRecordsToFilesRequest.Options.OVERWRITE">OVERWRITE</see></term>
         ///     </item>
         /// </list>
         /// The default value is <see
@@ -892,6 +972,28 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
+        /// cref="ExportRecordsToFilesRequest.Options.COMPRESSION_TYPE">COMPRESSION_TYPE</see>:</term>
+        ///         <description>File compression type. GZip can be applied to
+        /// text and Parquet files.  Snappy can only be applied to Parquet
+        /// files, and is the default compression for them.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="ExportRecordsToFilesRequest.Options.UNCOMPRESSED">UNCOMPRESSED</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ExportRecordsToFilesRequest.Options.SNAPPY">SNAPPY</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ExportRecordsToFilesRequest.Options.GZIP">GZIP</see></term>
+        ///     </item>
+        /// </list></description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="ExportRecordsToFilesRequest.Options.SINGLE_FILE">SINGLE_FILE</see>:</term>
         ///         <description>Save records to a single file. This option may
         /// be ignored if file
@@ -906,6 +1008,10 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="ExportRecordsToFilesRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ExportRecordsToFilesRequest.Options.OVERWRITE">OVERWRITE</see></term>
         ///     </item>
         /// </list>
         /// The default value is <see

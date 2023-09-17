@@ -51,6 +51,12 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
+        /// cref="AlterTierRequest.Options.WAIT_TIMEOUT">WAIT_TIMEOUT</see>:</term>
+        ///         <description>Timeout in seconds for reading from or writing
+        /// to this resource. Applies to cold storage tiers only.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="AlterTierRequest.Options.PERSIST">PERSIST</see>:</term>
         ///         <description>If <i>true</i> the system configuration will
         /// be written to disk upon successful application of this request.
@@ -96,6 +102,10 @@ namespace kinetica
             /// after crossing the <i>high_watermark</i>, will cease
             /// watermark-based eviction from this tier.</summary>
             public const string LOW_WATERMARK = "low_watermark";
+
+            /// <summary>Timeout in seconds for reading from or writing to this
+            /// resource. Applies to cold storage tiers only.</summary>
+            public const string WAIT_TIMEOUT = "wait_timeout";
 
             /// <summary>If <i>true</i> the system configuration will be
             /// written to disk upon successful application of this request.
@@ -149,6 +159,12 @@ namespace kinetica
         ///         <description>Threshold of resource usage that once fallen
         /// below after crossing the <i>high_watermark</i>, will cease
         /// watermark-based eviction from this tier.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterTierRequest.Options.WAIT_TIMEOUT">WAIT_TIMEOUT</see>:</term>
+        ///         <description>Timeout in seconds for reading from or writing
+        /// to this resource. Applies to cold storage tiers only.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -212,6 +228,12 @@ namespace kinetica
         ///         <description>Threshold of resource usage that once fallen
         /// below after crossing the <i>high_watermark</i>, will cease
         /// watermark-based eviction from this tier.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterTierRequest.Options.WAIT_TIMEOUT">WAIT_TIMEOUT</see>:</term>
+        ///         <description>Timeout in seconds for reading from or writing
+        /// to this resource. Applies to cold storage tiers only.</description>
         ///     </item>
         ///     <item>
         ///         <term><see

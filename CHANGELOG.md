@@ -3,6 +3,12 @@
 
 ## Version 7.1
 
+### Version 7.1.9.1 - 2023-09-17
+
+#### Changed
+-   Converted to .NET Core project
+
+
 ### Version 7.1.9.0 - 2023-03-19
 
 #### Notes

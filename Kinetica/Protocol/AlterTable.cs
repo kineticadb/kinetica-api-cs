@@ -319,6 +319,14 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
+        /// cref="AlterTableRequest.Action.REMOVE_SHARD_KEYS">REMOVE_SHARD_KEYS</see>:</term>
+        ///         <description>Removes the shard key property from all
+        /// columns, so that the table will be considered randomly sharded.
+        /// The data is not moved.  The <paramref
+        /// cref="AlterTableRequest._value" /> is ignored.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="AlterTableRequest.Action.SET_STRATEGY_DEFINITION">SET_STRATEGY_DEFINITION</see>:</term>
         ///         <description>Sets the <a
         /// href="../../../rm/concepts/#tier-strategies" target="_top">tier
@@ -544,6 +552,11 @@ namespace kinetica
             /// target="_top">text search</a> attribute from all
             /// columns.</summary>
             public const string REMOVE_TEXT_SEARCH_ATTRIBUTES = "remove_text_search_attributes";
+
+            /// <summary>Removes the shard key property from all columns, so
+            /// that the table will be considered randomly sharded.  The data
+            /// is not moved.  The <see cref="_value" /> is ignored.</summary>
+            public const string REMOVE_SHARD_KEYS = "remove_shard_keys";
 
             /// <summary>Sets the <a
             /// href="../../../rm/concepts/#tier-strategies" target="_top">tier
@@ -1176,6 +1189,14 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
+        /// cref="AlterTableRequest.Action.REMOVE_SHARD_KEYS">REMOVE_SHARD_KEYS</see>:</term>
+        ///         <description>Removes the shard key property from all
+        /// columns, so that the table will be considered randomly sharded.
+        /// The data is not moved.  The <paramref
+        /// cref="AlterTableRequest._value" /> is ignored.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="AlterTableRequest.Action.SET_STRATEGY_DEFINITION">SET_STRATEGY_DEFINITION</see>:</term>
         ///         <description>Sets the <a
         /// href="../../../rm/concepts/#tier-strategies" target="_top">tier
@@ -1664,6 +1685,14 @@ namespace kinetica
         ///         <description>Removes <a
         /// href="../../../concepts/full_text_search/" target="_top">text
         /// search</a> attribute from all columns.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterTableRequest.Action.REMOVE_SHARD_KEYS">REMOVE_SHARD_KEYS</see>:</term>
+        ///         <description>Removes the shard key property from all
+        /// columns, so that the table will be considered randomly sharded.
+        /// The data is not moved.  The <paramref
+        /// cref="AlterTableRequest._value" /> is ignored.</description>
         ///     </item>
         ///     <item>
         ///         <term><see

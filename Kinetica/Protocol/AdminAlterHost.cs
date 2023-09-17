@@ -28,8 +28,7 @@ namespace kinetica
         /// cref="AdminAlterHostRequest.Options.ACCEPTS_FAILOVER">ACCEPTS_FAILOVER</see>:</term>
         ///         <description>If set to <i>true</i>, the host will accept
         /// processes (ranks, graph server, etc.) in the event of a failover on
-        /// another node in the cluster. See <a href="../../../n_plus_1/"
-        /// target="_top">Cluster Resilience</a> for more information.
+        /// another node in the cluster.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -53,8 +52,7 @@ namespace kinetica
 
             /// <summary>If set to <i>true</i>, the host will accept processes
             /// (ranks, graph server, etc.) in the event of a failover on
-            /// another node in the cluster. See <a href="../../../n_plus_1/"
-            /// target="_top">Cluster Resilience</a> for more information.
+            /// another node in the cluster.
             /// Supported values:
             /// <list type="bullet">
             ///     <item>
@@ -86,8 +84,7 @@ namespace kinetica
         /// cref="AdminAlterHostRequest.Options.ACCEPTS_FAILOVER">ACCEPTS_FAILOVER</see>:</term>
         ///         <description>If set to <i>true</i>, the host will accept
         /// processes (ranks, graph server, etc.) in the event of a failover on
-        /// another node in the cluster. See <a href="../../../n_plus_1/"
-        /// target="_top">Cluster Resilience</a> for more information.
+        /// another node in the cluster.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -124,8 +121,7 @@ namespace kinetica
         /// cref="AdminAlterHostRequest.Options.ACCEPTS_FAILOVER">ACCEPTS_FAILOVER</see>:</term>
         ///         <description>If set to <i>true</i>, the host will accept
         /// processes (ranks, graph server, etc.) in the event of a failover on
-        /// another node in the cluster. See <a href="../../../n_plus_1/"
-        /// target="_top">Cluster Resilience</a> for more information.
+        /// another node in the cluster.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>

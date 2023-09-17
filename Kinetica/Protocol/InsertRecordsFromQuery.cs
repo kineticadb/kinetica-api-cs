@@ -522,6 +522,46 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
+        /// cref="InsertRecordsFromQueryRequest.Options.IGNORE_EXISTING_PK">IGNORE_EXISTING_PK</see>:</term>
+        ///         <description>Specifies the record collision
+        /// error-suppression policy for
+        /// inserting into a table with a <a
+        /// href="../../../concepts/tables/#primary-keys" target="_top">primary
+        /// key</a>, only used when
+        /// not in upsert mode (upsert mode is disabled when
+        /// <i>update_on_existing_pk</i> is
+        /// <i>false</i>).  If set to
+        /// <i>true</i>, any record being inserted that is rejected
+        /// for having primary key values that match those of an existing table
+        /// record will be ignored with no
+        /// error generated.  If <i>false</i>, the rejection of any
+        /// record for having primary key values matching an existing record
+        /// will result in an error being
+        /// reported, as determined by <i>error_handling</i>.  If the specified
+        /// table does not
+        /// have a primary key or if upsert mode is in effect
+        /// (<i>update_on_existing_pk</i> is
+        /// <i>true</i>), then this option has no effect.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromQueryRequest.Options.TRUE">TRUE</see>:</term>
+        ///         <description>Ignore new records whose primary key values
+        /// collide with those of existing records</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromQueryRequest.Options.FALSE">FALSE</see>:</term>
+        ///         <description>Treat as errors any new records whose primary
+        /// key values collide with those of existing records</description>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="InsertRecordsFromQueryRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="InsertRecordsFromQueryRequest.Options.INGESTION_MODE">INGESTION_MODE</see>:</term>
         ///         <description>Whether to do a full load, dry run, or perform
         /// a type inference on the source data.
@@ -666,34 +706,34 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="InsertRecordsFromQueryRequest.Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>:</term>
-        ///         <description>
+        ///         <description>Specifies the record collision policy for
+        /// inserting into a table
+        /// with a <a href="../../../concepts/tables/#primary-keys"
+        /// target="_top">primary key</a>. If set to
+        /// <i>true</i>, any existing table record with primary
+        /// key values that match those of a record being inserted will be
+        /// replaced by that new record (the new
+        /// data will be "upserted"). If set to <i>false</i>,
+        /// any existing table record with primary key values that match those
+        /// of a record being inserted will
+        /// remain unchanged, while the new record will be rejected and the
+        /// error handled as determined by
+        /// <i>ignore_existing_pk</i> & <i>error_handling</i>.  If the
+        /// specified table does not have a primary key, then this option has
+        /// no effect.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
-        /// cref="InsertRecordsFromQueryRequest.Options.TRUE">TRUE</see></term>
+        /// cref="InsertRecordsFromQueryRequest.Options.TRUE">TRUE</see>:</term>
+        ///         <description>Upsert new records when primary keys match
+        /// existing records</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="InsertRecordsFromQueryRequest.Options.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="InsertRecordsFromQueryRequest.Options.FALSE">FALSE</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="InsertRecordsFromQueryRequest.Options.IGNORE_EXISTING_PK">IGNORE_EXISTING_PK</see>:</term>
-        ///         <description>
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="InsertRecordsFromQueryRequest.Options.TRUE">TRUE</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="InsertRecordsFromQueryRequest.Options.FALSE">FALSE</see></term>
+        /// cref="InsertRecordsFromQueryRequest.Options.FALSE">FALSE</see>:</term>
+        ///         <description>Reject new records when primary keys match
+        /// existing records</description>
         ///     </item>
         /// </list>
         /// The default value is <see
@@ -766,6 +806,53 @@ namespace kinetica
             /// when an error is encountered.  Primary key collisions are
             /// considered abortable errors in this mode.</summary>
             public const string ABORT = "abort";
+
+            /// <summary>Specifies the record collision error-suppression
+            /// policy for
+            /// inserting into a table with a <a
+            /// href="../../../concepts/tables/#primary-keys"
+            /// target="_top">primary key</a>, only used when
+            /// not in upsert mode (upsert mode is disabled when
+            /// <i>update_on_existing_pk</i> is
+            /// <i>false</i>).  If set to
+            /// <i>true</i>, any record being inserted that is rejected
+            /// for having primary key values that match those of an existing
+            /// table record will be ignored with no
+            /// error generated.  If <i>false</i>, the rejection of any
+            /// record for having primary key values matching an existing
+            /// record will result in an error being
+            /// reported, as determined by <i>error_handling</i>.  If the
+            /// specified table does not
+            /// have a primary key or if upsert mode is in effect
+            /// (<i>update_on_existing_pk</i> is
+            /// <i>true</i>), then this option has no effect.
+            /// Supported values:
+            /// <list type="bullet">
+            ///     <item>
+            ///         <term><see
+            /// cref="InsertRecordsFromQueryRequest.Options.TRUE">TRUE</see>:</term>
+            ///         <description>Ignore new records whose primary key
+            /// values collide with those of existing records</description>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="InsertRecordsFromQueryRequest.Options.FALSE">FALSE</see>:</term>
+            ///         <description>Treat as errors any new records whose
+            /// primary key values collide with those of existing
+            /// records</description>
+            ///     </item>
+            /// </list>
+            /// The default value is <see
+            /// cref="InsertRecordsFromQueryRequest.Options.FALSE">FALSE</see>.</summary>
+            public const string IGNORE_EXISTING_PK = "ignore_existing_pk";
+
+            /// <summary>Upsert new records when primary keys match existing
+            /// records</summary>
+            public const string TRUE = "true";
+
+            /// <summary>Reject new records when primary keys match existing
+            /// records</summary>
+            public const string FALSE = "false";
 
             /// <summary>Whether to do a full load, dry run, or perform a type
             /// inference on the source data.
@@ -854,8 +941,6 @@ namespace kinetica
             /// The default value is <see
             /// cref="InsertRecordsFromQueryRequest.Options.FALSE">FALSE</see>.</summary>
             public const string SUBSCRIBE = "subscribe";
-            public const string TRUE = "true";
-            public const string FALSE = "false";
 
             /// <summary>If set to <i>true</i>, truncates the table specified
             /// by <see cref="table_name" /> prior to loading the data.
@@ -897,37 +982,39 @@ namespace kinetica
             /// default value is ''.</summary>
             public const string REMOTE_QUERY_PARTITION_COLUMN = "remote_query_partition_column";
 
-            /// <summary>
+            /// <summary>Specifies the record collision policy for inserting
+            /// into a table
+            /// with a <a href="../../../concepts/tables/#primary-keys"
+            /// target="_top">primary key</a>. If set to
+            /// <i>true</i>, any existing table record with primary
+            /// key values that match those of a record being inserted will be
+            /// replaced by that new record (the new
+            /// data will be "upserted"). If set to <i>false</i>,
+            /// any existing table record with primary key values that match
+            /// those of a record being inserted will
+            /// remain unchanged, while the new record will be rejected and the
+            /// error handled as determined by
+            /// <i>ignore_existing_pk</i> & <i>error_handling</i>.  If the
+            /// specified table does not have a primary key, then this option
+            /// has no effect.
             /// Supported values:
             /// <list type="bullet">
             ///     <item>
             ///         <term><see
-            /// cref="InsertRecordsFromQueryRequest.Options.TRUE">TRUE</see></term>
+            /// cref="InsertRecordsFromQueryRequest.Options.TRUE">TRUE</see>:</term>
+            ///         <description>Upsert new records when primary keys match
+            /// existing records</description>
             ///     </item>
             ///     <item>
             ///         <term><see
-            /// cref="InsertRecordsFromQueryRequest.Options.FALSE">FALSE</see></term>
+            /// cref="InsertRecordsFromQueryRequest.Options.FALSE">FALSE</see>:</term>
+            ///         <description>Reject new records when primary keys match
+            /// existing records</description>
             ///     </item>
             /// </list>
             /// The default value is <see
             /// cref="InsertRecordsFromQueryRequest.Options.FALSE">FALSE</see>.</summary>
             public const string UPDATE_ON_EXISTING_PK = "update_on_existing_pk";
-
-            /// <summary>
-            /// Supported values:
-            /// <list type="bullet">
-            ///     <item>
-            ///         <term><see
-            /// cref="InsertRecordsFromQueryRequest.Options.TRUE">TRUE</see></term>
-            ///     </item>
-            ///     <item>
-            ///         <term><see
-            /// cref="InsertRecordsFromQueryRequest.Options.FALSE">FALSE</see></term>
-            ///     </item>
-            /// </list>
-            /// The default value is <see
-            /// cref="InsertRecordsFromQueryRequest.Options.FALSE">FALSE</see>.</summary>
-            public const string IGNORE_EXISTING_PK = "ignore_existing_pk";
         } // end struct Options
 
 
@@ -1233,6 +1320,46 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
+        /// cref="InsertRecordsFromQueryRequest.Options.IGNORE_EXISTING_PK">IGNORE_EXISTING_PK</see>:</term>
+        ///         <description>Specifies the record collision
+        /// error-suppression policy for
+        /// inserting into a table with a <a
+        /// href="../../../concepts/tables/#primary-keys" target="_top">primary
+        /// key</a>, only used when
+        /// not in upsert mode (upsert mode is disabled when
+        /// <i>update_on_existing_pk</i> is
+        /// <i>false</i>).  If set to
+        /// <i>true</i>, any record being inserted that is rejected
+        /// for having primary key values that match those of an existing table
+        /// record will be ignored with no
+        /// error generated.  If <i>false</i>, the rejection of any
+        /// record for having primary key values matching an existing record
+        /// will result in an error being
+        /// reported, as determined by <i>error_handling</i>.  If the specified
+        /// table does not
+        /// have a primary key or if upsert mode is in effect
+        /// (<i>update_on_existing_pk</i> is
+        /// <i>true</i>), then this option has no effect.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromQueryRequest.Options.TRUE">TRUE</see>:</term>
+        ///         <description>Ignore new records whose primary key values
+        /// collide with those of existing records</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromQueryRequest.Options.FALSE">FALSE</see>:</term>
+        ///         <description>Treat as errors any new records whose primary
+        /// key values collide with those of existing records</description>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="InsertRecordsFromQueryRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="InsertRecordsFromQueryRequest.Options.INGESTION_MODE">INGESTION_MODE</see>:</term>
         ///         <description>Whether to do a full load, dry run, or perform
         /// a type inference on the source data.
@@ -1377,34 +1504,34 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="InsertRecordsFromQueryRequest.Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>:</term>
-        ///         <description>
+        ///         <description>Specifies the record collision policy for
+        /// inserting into a table
+        /// with a <a href="../../../concepts/tables/#primary-keys"
+        /// target="_top">primary key</a>. If set to
+        /// <i>true</i>, any existing table record with primary
+        /// key values that match those of a record being inserted will be
+        /// replaced by that new record (the new
+        /// data will be "upserted"). If set to <i>false</i>,
+        /// any existing table record with primary key values that match those
+        /// of a record being inserted will
+        /// remain unchanged, while the new record will be rejected and the
+        /// error handled as determined by
+        /// <i>ignore_existing_pk</i> & <i>error_handling</i>.  If the
+        /// specified table does not have a primary key, then this option has
+        /// no effect.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
-        /// cref="InsertRecordsFromQueryRequest.Options.TRUE">TRUE</see></term>
+        /// cref="InsertRecordsFromQueryRequest.Options.TRUE">TRUE</see>:</term>
+        ///         <description>Upsert new records when primary keys match
+        /// existing records</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="InsertRecordsFromQueryRequest.Options.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="InsertRecordsFromQueryRequest.Options.FALSE">FALSE</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="InsertRecordsFromQueryRequest.Options.IGNORE_EXISTING_PK">IGNORE_EXISTING_PK</see>:</term>
-        ///         <description>
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="InsertRecordsFromQueryRequest.Options.TRUE">TRUE</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="InsertRecordsFromQueryRequest.Options.FALSE">FALSE</see></term>
+        /// cref="InsertRecordsFromQueryRequest.Options.FALSE">FALSE</see>:</term>
+        ///         <description>Reject new records when primary keys match
+        /// existing records</description>
         ///     </item>
         /// </list>
         /// The default value is <see
@@ -1718,6 +1845,46 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
+        /// cref="InsertRecordsFromQueryRequest.Options.IGNORE_EXISTING_PK">IGNORE_EXISTING_PK</see>:</term>
+        ///         <description>Specifies the record collision
+        /// error-suppression policy for
+        /// inserting into a table with a <a
+        /// href="../../../concepts/tables/#primary-keys" target="_top">primary
+        /// key</a>, only used when
+        /// not in upsert mode (upsert mode is disabled when
+        /// <i>update_on_existing_pk</i> is
+        /// <i>false</i>).  If set to
+        /// <i>true</i>, any record being inserted that is rejected
+        /// for having primary key values that match those of an existing table
+        /// record will be ignored with no
+        /// error generated.  If <i>false</i>, the rejection of any
+        /// record for having primary key values matching an existing record
+        /// will result in an error being
+        /// reported, as determined by <i>error_handling</i>.  If the specified
+        /// table does not
+        /// have a primary key or if upsert mode is in effect
+        /// (<i>update_on_existing_pk</i> is
+        /// <i>true</i>), then this option has no effect.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromQueryRequest.Options.TRUE">TRUE</see>:</term>
+        ///         <description>Ignore new records whose primary key values
+        /// collide with those of existing records</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromQueryRequest.Options.FALSE">FALSE</see>:</term>
+        ///         <description>Treat as errors any new records whose primary
+        /// key values collide with those of existing records</description>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="InsertRecordsFromQueryRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="InsertRecordsFromQueryRequest.Options.INGESTION_MODE">INGESTION_MODE</see>:</term>
         ///         <description>Whether to do a full load, dry run, or perform
         /// a type inference on the source data.
@@ -1862,34 +2029,34 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="InsertRecordsFromQueryRequest.Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>:</term>
-        ///         <description>
+        ///         <description>Specifies the record collision policy for
+        /// inserting into a table
+        /// with a <a href="../../../concepts/tables/#primary-keys"
+        /// target="_top">primary key</a>. If set to
+        /// <i>true</i>, any existing table record with primary
+        /// key values that match those of a record being inserted will be
+        /// replaced by that new record (the new
+        /// data will be "upserted"). If set to <i>false</i>,
+        /// any existing table record with primary key values that match those
+        /// of a record being inserted will
+        /// remain unchanged, while the new record will be rejected and the
+        /// error handled as determined by
+        /// <i>ignore_existing_pk</i> & <i>error_handling</i>.  If the
+        /// specified table does not have a primary key, then this option has
+        /// no effect.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
-        /// cref="InsertRecordsFromQueryRequest.Options.TRUE">TRUE</see></term>
+        /// cref="InsertRecordsFromQueryRequest.Options.TRUE">TRUE</see>:</term>
+        ///         <description>Upsert new records when primary keys match
+        /// existing records</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="InsertRecordsFromQueryRequest.Options.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="InsertRecordsFromQueryRequest.Options.FALSE">FALSE</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="InsertRecordsFromQueryRequest.Options.IGNORE_EXISTING_PK">IGNORE_EXISTING_PK</see>:</term>
-        ///         <description>
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="InsertRecordsFromQueryRequest.Options.TRUE">TRUE</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="InsertRecordsFromQueryRequest.Options.FALSE">FALSE</see></term>
+        /// cref="InsertRecordsFromQueryRequest.Options.FALSE">FALSE</see>:</term>
+        ///         <description>Reject new records when primary keys match
+        /// existing records</description>
         ///     </item>
         /// </list>
         /// The default value is <see
