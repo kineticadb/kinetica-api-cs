@@ -66,28 +66,38 @@ namespace kinetica
         ///         <term><see
         /// cref="AppendRecordsRequest.Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>:</term>
         ///         <description>Specifies the record collision policy for
-        /// inserting the source table records (specified by <paramref
-        /// cref="AppendRecordsRequest.source_table_name" />) into the target
-        /// table (specified by <paramref
-        /// cref="AppendRecordsRequest.table_name" />) table with a <a
-        /// href="../../../concepts/tables/#primary-keys" target="_top">primary
-        /// key</a>.  If set to <i>true</i>, any existing target table record
-        /// with primary key values that match those of a source table record
-        /// being inserted will be replaced by that new record.  If set to
-        /// <i>false</i>, any existing target table record with primary key
-        /// values that match those of a source table record being inserted
-        /// will remain unchanged and the new record discarded.  If the
-        /// specified table does not have a primary key, then this option has
-        /// no effect.
+        /// inserting source table
+        /// records (specified by <paramref
+        /// cref="AppendRecordsRequest.source_table_name" />) into a target
+        /// table
+        /// (specified by <paramref cref="AppendRecordsRequest.table_name" />)
+        /// with a <a href="../../../concepts/tables/#primary-keys"
+        /// target="_top">primary key</a>. If
+        /// set to <i>true</i>, any existing table record with
+        /// primary key values that match those of a source table record being
+        /// inserted will be replaced by that
+        /// new record (the new data will be "upserted"). If set to
+        /// <i>false</i>, any existing table record with primary
+        /// key values that match those of a source table record being inserted
+        /// will remain unchanged, while the
+        /// source record will be rejected and an error handled as determined
+        /// by
+        /// <i>ignore_existing_pk</i>.  If the specified table does not have a
+        /// primary key,
+        /// then this option has no effect.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
-        /// cref="AppendRecordsRequest.Options.TRUE">TRUE</see></term>
+        /// cref="AppendRecordsRequest.Options.TRUE">TRUE</see>:</term>
+        ///         <description>Upsert new records when primary keys match
+        /// existing records</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AppendRecordsRequest.Options.FALSE">FALSE</see></term>
+        /// cref="AppendRecordsRequest.Options.FALSE">FALSE</see>:</term>
+        ///         <description>Reject new records when primary keys match
+        /// existing records</description>
         ///     </item>
         /// </list>
         /// The default value is <see
@@ -96,26 +106,41 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="AppendRecordsRequest.Options.IGNORE_EXISTING_PK">IGNORE_EXISTING_PK</see>:</term>
-        ///         <description>Specifies the record collision policy for
-        /// inserting the source table records (specified by <paramref
-        /// cref="AppendRecordsRequest.source_table_name" />) into the target
-        /// table (specified by <paramref
-        /// cref="AppendRecordsRequest.table_name" />) table with a <a
-        /// href="../../../concepts/tables/#primary-keys" target="_top">primary
-        /// key</a>.  If set to <i>true</i>, any source table records being
-        /// inserted with primary key values that match those of an existing
-        /// target table record will be ignored with no error generated.  If
-        /// the specified table does not have a primary key, then this option
-        /// has no affect.
+        ///         <description>Specifies the record collision
+        /// error-suppression policy for
+        /// inserting source table records (specified by <paramref
+        /// cref="AppendRecordsRequest.source_table_name" />) into a target
+        /// table
+        /// (specified by <paramref cref="AppendRecordsRequest.table_name" />)
+        /// with a <a href="../../../concepts/tables/#primary-keys"
+        /// target="_top">primary key</a>, only
+        /// used when not in upsert mode (upsert mode is disabled when
+        /// <i>update_on_existing_pk</i> is
+        /// <i>false</i>).  If set to
+        /// <i>true</i>, any source table record being inserted that
+        /// is rejected for having primary key values that match those of an
+        /// existing target table record will
+        /// be ignored with no error generated.  If <i>false</i>,
+        /// the rejection of any source table record for having primary key
+        /// values matching an existing target
+        /// table record will result in an error being raised.  If the
+        /// specified table does not have a primary
+        /// key or if upsert mode is in effect (<i>update_on_existing_pk</i> is
+        /// <i>true</i>), then this option has no effect.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
-        /// cref="AppendRecordsRequest.Options.TRUE">TRUE</see></term>
+        /// cref="AppendRecordsRequest.Options.TRUE">TRUE</see>:</term>
+        ///         <description>Ignore source table records whose primary key
+        /// values collide with those of target table records</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AppendRecordsRequest.Options.FALSE">FALSE</see></term>
+        /// cref="AppendRecordsRequest.Options.FALSE">FALSE</see>:</term>
+        ///         <description>Raise an error for any source table record
+        /// whose primary key values collide with those of a target table
+        /// record</description>
         ///     </item>
         /// </list>
         /// The default value is <see
@@ -174,27 +199,37 @@ namespace kinetica
             public const string ORDER_BY = "order_by";
 
             /// <summary>Specifies the record collision policy for inserting
-            /// the source table records (specified by <see
-            /// cref="source_table_name" />) into the target table (specified
-            /// by <see cref="table_name" />) table with a <a
+            /// source table
+            /// records (specified by <see cref="source_table_name" />) into a
+            /// target table
+            /// (specified by <see cref="table_name" />) with a <a
             /// href="../../../concepts/tables/#primary-keys"
-            /// target="_top">primary key</a>.  If set to <i>true</i>, any
-            /// existing target table record with primary key values that match
-            /// those of a source table record being inserted will be replaced
-            /// by that new record.  If set to <i>false</i>, any existing
-            /// target table record with primary key values that match those of
-            /// a source table record being inserted will remain unchanged and
-            /// the new record discarded.  If the specified table does not have
-            /// a primary key, then this option has no effect.
+            /// target="_top">primary key</a>. If
+            /// set to <i>true</i>, any existing table record with
+            /// primary key values that match those of a source table record
+            /// being inserted will be replaced by that
+            /// new record (the new data will be "upserted"). If set to
+            /// <i>false</i>, any existing table record with primary
+            /// key values that match those of a source table record being
+            /// inserted will remain unchanged, while the
+            /// source record will be rejected and an error handled as
+            /// determined by
+            /// <i>ignore_existing_pk</i>.  If the specified table does not
+            /// have a primary key,
+            /// then this option has no effect.
             /// Supported values:
             /// <list type="bullet">
             ///     <item>
             ///         <term><see
-            /// cref="AppendRecordsRequest.Options.TRUE">TRUE</see></term>
+            /// cref="AppendRecordsRequest.Options.TRUE">TRUE</see>:</term>
+            ///         <description>Upsert new records when primary keys match
+            /// existing records</description>
             ///     </item>
             ///     <item>
             ///         <term><see
-            /// cref="AppendRecordsRequest.Options.FALSE">FALSE</see></term>
+            /// cref="AppendRecordsRequest.Options.FALSE">FALSE</see>:</term>
+            ///         <description>Reject new records when primary keys match
+            /// existing records</description>
             ///     </item>
             /// </list>
             /// The default value is <see
@@ -203,25 +238,42 @@ namespace kinetica
             public const string TRUE = "true";
             public const string FALSE = "false";
 
-            /// <summary>Specifies the record collision policy for inserting
-            /// the source table records (specified by <see
-            /// cref="source_table_name" />) into the target table (specified
-            /// by <see cref="table_name" />) table with a <a
+            /// <summary>Specifies the record collision error-suppression
+            /// policy for
+            /// inserting source table records (specified by <see
+            /// cref="source_table_name" />) into a target table
+            /// (specified by <see cref="table_name" />) with a <a
             /// href="../../../concepts/tables/#primary-keys"
-            /// target="_top">primary key</a>.  If set to <i>true</i>, any
-            /// source table records being inserted with primary key values
-            /// that match those of an existing target table record will be
-            /// ignored with no error generated.  If the specified table does
-            /// not have a primary key, then this option has no affect.
+            /// target="_top">primary key</a>, only
+            /// used when not in upsert mode (upsert mode is disabled when
+            /// <i>update_on_existing_pk</i> is
+            /// <i>false</i>).  If set to
+            /// <i>true</i>, any source table record being inserted that
+            /// is rejected for having primary key values that match those of
+            /// an existing target table record will
+            /// be ignored with no error generated.  If <i>false</i>,
+            /// the rejection of any source table record for having primary key
+            /// values matching an existing target
+            /// table record will result in an error being raised.  If the
+            /// specified table does not have a primary
+            /// key or if upsert mode is in effect
+            /// (<i>update_on_existing_pk</i> is
+            /// <i>true</i>), then this option has no effect.
             /// Supported values:
             /// <list type="bullet">
             ///     <item>
             ///         <term><see
-            /// cref="AppendRecordsRequest.Options.TRUE">TRUE</see></term>
+            /// cref="AppendRecordsRequest.Options.TRUE">TRUE</see>:</term>
+            ///         <description>Ignore source table records whose primary
+            /// key values collide with those of target table
+            /// records</description>
             ///     </item>
             ///     <item>
             ///         <term><see
-            /// cref="AppendRecordsRequest.Options.FALSE">FALSE</see></term>
+            /// cref="AppendRecordsRequest.Options.FALSE">FALSE</see>:</term>
+            ///         <description>Raise an error for any source table record
+            /// whose primary key values collide with those of a target table
+            /// record</description>
             ///     </item>
             /// </list>
             /// The default value is <see
@@ -314,28 +366,38 @@ namespace kinetica
         ///         <term><see
         /// cref="AppendRecordsRequest.Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>:</term>
         ///         <description>Specifies the record collision policy for
-        /// inserting the source table records (specified by <paramref
-        /// cref="AppendRecordsRequest.source_table_name" />) into the target
-        /// table (specified by <paramref
-        /// cref="AppendRecordsRequest.table_name" />) table with a <a
-        /// href="../../../concepts/tables/#primary-keys" target="_top">primary
-        /// key</a>.  If set to <i>true</i>, any existing target table record
-        /// with primary key values that match those of a source table record
-        /// being inserted will be replaced by that new record.  If set to
-        /// <i>false</i>, any existing target table record with primary key
-        /// values that match those of a source table record being inserted
-        /// will remain unchanged and the new record discarded.  If the
-        /// specified table does not have a primary key, then this option has
-        /// no effect.
+        /// inserting source table
+        /// records (specified by <paramref
+        /// cref="AppendRecordsRequest.source_table_name" />) into a target
+        /// table
+        /// (specified by <paramref cref="AppendRecordsRequest.table_name" />)
+        /// with a <a href="../../../concepts/tables/#primary-keys"
+        /// target="_top">primary key</a>. If
+        /// set to <i>true</i>, any existing table record with
+        /// primary key values that match those of a source table record being
+        /// inserted will be replaced by that
+        /// new record (the new data will be "upserted"). If set to
+        /// <i>false</i>, any existing table record with primary
+        /// key values that match those of a source table record being inserted
+        /// will remain unchanged, while the
+        /// source record will be rejected and an error handled as determined
+        /// by
+        /// <i>ignore_existing_pk</i>.  If the specified table does not have a
+        /// primary key,
+        /// then this option has no effect.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
-        /// cref="AppendRecordsRequest.Options.TRUE">TRUE</see></term>
+        /// cref="AppendRecordsRequest.Options.TRUE">TRUE</see>:</term>
+        ///         <description>Upsert new records when primary keys match
+        /// existing records</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AppendRecordsRequest.Options.FALSE">FALSE</see></term>
+        /// cref="AppendRecordsRequest.Options.FALSE">FALSE</see>:</term>
+        ///         <description>Reject new records when primary keys match
+        /// existing records</description>
         ///     </item>
         /// </list>
         /// The default value is <see
@@ -344,26 +406,41 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="AppendRecordsRequest.Options.IGNORE_EXISTING_PK">IGNORE_EXISTING_PK</see>:</term>
-        ///         <description>Specifies the record collision policy for
-        /// inserting the source table records (specified by <paramref
-        /// cref="AppendRecordsRequest.source_table_name" />) into the target
-        /// table (specified by <paramref
-        /// cref="AppendRecordsRequest.table_name" />) table with a <a
-        /// href="../../../concepts/tables/#primary-keys" target="_top">primary
-        /// key</a>.  If set to <i>true</i>, any source table records being
-        /// inserted with primary key values that match those of an existing
-        /// target table record will be ignored with no error generated.  If
-        /// the specified table does not have a primary key, then this option
-        /// has no affect.
+        ///         <description>Specifies the record collision
+        /// error-suppression policy for
+        /// inserting source table records (specified by <paramref
+        /// cref="AppendRecordsRequest.source_table_name" />) into a target
+        /// table
+        /// (specified by <paramref cref="AppendRecordsRequest.table_name" />)
+        /// with a <a href="../../../concepts/tables/#primary-keys"
+        /// target="_top">primary key</a>, only
+        /// used when not in upsert mode (upsert mode is disabled when
+        /// <i>update_on_existing_pk</i> is
+        /// <i>false</i>).  If set to
+        /// <i>true</i>, any source table record being inserted that
+        /// is rejected for having primary key values that match those of an
+        /// existing target table record will
+        /// be ignored with no error generated.  If <i>false</i>,
+        /// the rejection of any source table record for having primary key
+        /// values matching an existing target
+        /// table record will result in an error being raised.  If the
+        /// specified table does not have a primary
+        /// key or if upsert mode is in effect (<i>update_on_existing_pk</i> is
+        /// <i>true</i>), then this option has no effect.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
-        /// cref="AppendRecordsRequest.Options.TRUE">TRUE</see></term>
+        /// cref="AppendRecordsRequest.Options.TRUE">TRUE</see>:</term>
+        ///         <description>Ignore source table records whose primary key
+        /// values collide with those of target table records</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AppendRecordsRequest.Options.FALSE">FALSE</see></term>
+        /// cref="AppendRecordsRequest.Options.FALSE">FALSE</see>:</term>
+        ///         <description>Raise an error for any source table record
+        /// whose primary key values collide with those of a target table
+        /// record</description>
         ///     </item>
         /// </list>
         /// The default value is <see
@@ -462,28 +539,38 @@ namespace kinetica
         ///         <term><see
         /// cref="AppendRecordsRequest.Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>:</term>
         ///         <description>Specifies the record collision policy for
-        /// inserting the source table records (specified by <paramref
-        /// cref="AppendRecordsRequest.source_table_name" />) into the target
-        /// table (specified by <paramref
-        /// cref="AppendRecordsRequest.table_name" />) table with a <a
-        /// href="../../../concepts/tables/#primary-keys" target="_top">primary
-        /// key</a>.  If set to <i>true</i>, any existing target table record
-        /// with primary key values that match those of a source table record
-        /// being inserted will be replaced by that new record.  If set to
-        /// <i>false</i>, any existing target table record with primary key
-        /// values that match those of a source table record being inserted
-        /// will remain unchanged and the new record discarded.  If the
-        /// specified table does not have a primary key, then this option has
-        /// no effect.
+        /// inserting source table
+        /// records (specified by <paramref
+        /// cref="AppendRecordsRequest.source_table_name" />) into a target
+        /// table
+        /// (specified by <paramref cref="AppendRecordsRequest.table_name" />)
+        /// with a <a href="../../../concepts/tables/#primary-keys"
+        /// target="_top">primary key</a>. If
+        /// set to <i>true</i>, any existing table record with
+        /// primary key values that match those of a source table record being
+        /// inserted will be replaced by that
+        /// new record (the new data will be "upserted"). If set to
+        /// <i>false</i>, any existing table record with primary
+        /// key values that match those of a source table record being inserted
+        /// will remain unchanged, while the
+        /// source record will be rejected and an error handled as determined
+        /// by
+        /// <i>ignore_existing_pk</i>.  If the specified table does not have a
+        /// primary key,
+        /// then this option has no effect.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
-        /// cref="AppendRecordsRequest.Options.TRUE">TRUE</see></term>
+        /// cref="AppendRecordsRequest.Options.TRUE">TRUE</see>:</term>
+        ///         <description>Upsert new records when primary keys match
+        /// existing records</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AppendRecordsRequest.Options.FALSE">FALSE</see></term>
+        /// cref="AppendRecordsRequest.Options.FALSE">FALSE</see>:</term>
+        ///         <description>Reject new records when primary keys match
+        /// existing records</description>
         ///     </item>
         /// </list>
         /// The default value is <see
@@ -492,26 +579,41 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="AppendRecordsRequest.Options.IGNORE_EXISTING_PK">IGNORE_EXISTING_PK</see>:</term>
-        ///         <description>Specifies the record collision policy for
-        /// inserting the source table records (specified by <paramref
-        /// cref="AppendRecordsRequest.source_table_name" />) into the target
-        /// table (specified by <paramref
-        /// cref="AppendRecordsRequest.table_name" />) table with a <a
-        /// href="../../../concepts/tables/#primary-keys" target="_top">primary
-        /// key</a>.  If set to <i>true</i>, any source table records being
-        /// inserted with primary key values that match those of an existing
-        /// target table record will be ignored with no error generated.  If
-        /// the specified table does not have a primary key, then this option
-        /// has no affect.
+        ///         <description>Specifies the record collision
+        /// error-suppression policy for
+        /// inserting source table records (specified by <paramref
+        /// cref="AppendRecordsRequest.source_table_name" />) into a target
+        /// table
+        /// (specified by <paramref cref="AppendRecordsRequest.table_name" />)
+        /// with a <a href="../../../concepts/tables/#primary-keys"
+        /// target="_top">primary key</a>, only
+        /// used when not in upsert mode (upsert mode is disabled when
+        /// <i>update_on_existing_pk</i> is
+        /// <i>false</i>).  If set to
+        /// <i>true</i>, any source table record being inserted that
+        /// is rejected for having primary key values that match those of an
+        /// existing target table record will
+        /// be ignored with no error generated.  If <i>false</i>,
+        /// the rejection of any source table record for having primary key
+        /// values matching an existing target
+        /// table record will result in an error being raised.  If the
+        /// specified table does not have a primary
+        /// key or if upsert mode is in effect (<i>update_on_existing_pk</i> is
+        /// <i>true</i>), then this option has no effect.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
-        /// cref="AppendRecordsRequest.Options.TRUE">TRUE</see></term>
+        /// cref="AppendRecordsRequest.Options.TRUE">TRUE</see>:</term>
+        ///         <description>Ignore source table records whose primary key
+        /// values collide with those of target table records</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AppendRecordsRequest.Options.FALSE">FALSE</see></term>
+        /// cref="AppendRecordsRequest.Options.FALSE">FALSE</see>:</term>
+        ///         <description>Raise an error for any source table record
+        /// whose primary key values collide with those of a target table
+        /// record</description>
         ///     </item>
         /// </list>
         /// The default value is <see
@@ -562,7 +664,8 @@ namespace kinetica
     {
         public string table_name { get; set; }
 
-        /// <summary>Additional information.  </summary>
+        /// <summary>Additional information.  The default value is an empty
+        /// {@link Dictionary}.</summary>
         public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
 
     } // end class AppendRecordsResponse

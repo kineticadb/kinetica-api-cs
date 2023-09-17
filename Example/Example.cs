@@ -41,10 +41,15 @@ namespace Example
                 Console.WriteLine( "URL: {0}", server_url );
                 Console.WriteLine();
 
+                Kinetica.Options _ServerOptions = new Kinetica.Options();
+                _ServerOptions.Username = args[1];
+                _ServerOptions.Password = args[2];
+
+
                 // Run the various example functions
-                run_example( server_url );
-                run_series_example( server_url );
-                run_multihead_ingest_example( server_url );
+                run_example( server_url, _ServerOptions );
+                run_series_example( server_url, _ServerOptions );
+                run_multihead_ingest_example( server_url, _ServerOptions );
             }
             catch (Exception ex)
             {
@@ -64,10 +69,10 @@ namespace Example
         /// Example with a record type with nullable columns, primary keys and shard keys.
         /// </summary>
         /// <param name="server_url">The URL for the Kinetica server.</param>
-        private static void run_example( string server_url )
+        private static void run_example( string server_url, Kinetica.Options _ServerOptions )
         {
             // Establish a connection with Kinetica
-            Kinetica kdb = new Kinetica( server_url );
+            Kinetica kdb = new Kinetica( server_url, _ServerOptions );
 
             Console.WriteLine( "Example with a Record Type with Nullable Columns, Primary Keys and Shard Keys" );
             Console.WriteLine( "=============================================================================" );
@@ -217,10 +222,10 @@ namespace Example
         /// Example showcasing a record with a series type column.
         /// </summary>
         /// <param name="server_url">The URL for the Kinetica server.</param>
-        private static void run_series_example( string server_url )
+        private static void run_series_example( string server_url, Kinetica.Options _ServerOptions )
         {
             // Establish a connection with Kinetica
-            Kinetica kdb = new Kinetica( server_url );
+            Kinetica kdb = new Kinetica( server_url, _ServerOptions );
 
             Console.WriteLine( "Example showcasing a record with a series type column" );
             Console.WriteLine( "======================================================" );
@@ -308,10 +313,10 @@ namespace Example
         /// of Kinetica.
         /// </summary>
         /// <param name="server_url">The URL for the Kinetica server.</param>
-        private static void run_multihead_ingest_example( string server_url )
+        private static void run_multihead_ingest_example( string server_url, Kinetica.Options _ServerOptions )
         {
             // Establish a connection with Kinetica
-            Kinetica kdb = new Kinetica( server_url );
+            Kinetica kdb = new Kinetica( server_url, _ServerOptions );
 
             Console.WriteLine( "\n\n" );
             Console.WriteLine( "Example showcasing multihead ingestion(one shard key, two primary keys)" );

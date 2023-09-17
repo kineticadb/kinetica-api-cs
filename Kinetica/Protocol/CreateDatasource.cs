@@ -75,6 +75,28 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
+        /// cref="CreateDatasourceRequest.Options.S3_USE_VIRTUAL_ADDRESSING">S3_USE_VIRTUAL_ADDRESSING</see>:</term>
+        ///         <description>When true (default), the requests URI should
+        /// be specified in virtual-hosted-style format where the bucket name
+        /// is part of the domain name in the URL.
+        /// <br />
+        /// Otherwise set to false to use path-style URI for requests.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateDatasourceRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateDatasourceRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="CreateDatasourceRequest.Options.TRUE">TRUE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="CreateDatasourceRequest.Options.S3_AWS_ROLE_ARN">S3_AWS_ROLE_ARN</see>:</term>
         ///         <description>Amazon IAM Role ARN which has required S3
         /// permissions that can be assumed for the given S3 IAM
@@ -312,6 +334,26 @@ namespace kinetica
             /// located</summary>
             public const string S3_REGION = "s3_region";
 
+            /// <summary>When true (default), the requests URI should be
+            /// specified in virtual-hosted-style format where the bucket name
+            /// is part of the domain name in the URL.
+            /// <br />
+            /// Otherwise set to false to use path-style URI for requests.
+            /// Supported values:
+            /// <list type="bullet">
+            ///     <item>
+            ///         <term><see
+            /// cref="CreateDatasourceRequest.Options.TRUE">TRUE</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="CreateDatasourceRequest.Options.FALSE">FALSE</see></term>
+            ///     </item>
+            /// </list>
+            /// The default value is <see
+            /// cref="CreateDatasourceRequest.Options.TRUE">TRUE</see>.</summary>
+            public const string S3_USE_VIRTUAL_ADDRESSING = "s3_use_virtual_addressing";
+
             /// <summary>Amazon IAM Role ARN which has required S3 permissions
             /// that can be assumed for the given S3 IAM user</summary>
             public const string S3_AWS_ROLE_ARN = "s3_aws_role_arn";
@@ -528,6 +570,28 @@ namespace kinetica
         /// cref="CreateDatasourceRequest.Options.S3_REGION">S3_REGION</see>:</term>
         ///         <description>Name of the Amazon S3 region where the given
         /// bucket is located</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateDatasourceRequest.Options.S3_USE_VIRTUAL_ADDRESSING">S3_USE_VIRTUAL_ADDRESSING</see>:</term>
+        ///         <description>When true (default), the requests URI should
+        /// be specified in virtual-hosted-style format where the bucket name
+        /// is part of the domain name in the URL.
+        /// <br />
+        /// Otherwise set to false to use path-style URI for requests.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateDatasourceRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateDatasourceRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="CreateDatasourceRequest.Options.TRUE">TRUE</see>.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -794,6 +858,27 @@ namespace kinetica
         /// cref="CreateDatasourceRequest.Options.S3_REGION">S3_REGION</see>:</term>
         ///         <description>Name of the Amazon S3 region where the given
         /// bucket is located</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateDatasourceRequest.Options.S3_USE_VIRTUAL_ADDRESSING">S3_USE_VIRTUAL_ADDRESSING</see>:</term>
+        ///         <description>When true (default), the requests URI should
+        /// be specified in virtual-hosted-style format where the bucket name
+        /// is part of the domain name in the URL.
+        /// Otherwise set to false to use path-style URI for requests.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateDatasourceRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateDatasourceRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="CreateDatasourceRequest.Options.TRUE">TRUE</see>.</description>
         ///     </item>
         ///     <item>
         ///         <term><see

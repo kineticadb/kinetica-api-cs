@@ -494,6 +494,12 @@ namespace kinetica
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
+        /// cref="CreateTableExternalRequest.Options.AVRO_HEADER_BYTES">AVRO_HEADER_BYTES</see>:</term>
+        ///         <description>Optional number of bytes to skip when reading
+        /// an avro record.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="CreateTableExternalRequest.Options.AVRO_NUM_RECORDS">AVRO_NUM_RECORDS</see>:</term>
         ///         <description>Optional number of avro records, if data
         /// includes only records.</description>
@@ -504,6 +510,24 @@ namespace kinetica
         ///         <description>Optional string representing avro schema, for
         /// insert records in avro format, that does not include is
         /// schema.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableExternalRequest.Options.AVRO_SCHEMALESS">AVRO_SCHEMALESS</see>:</term>
+        ///         <description>When user provides 'avro_schema', avro data is
+        /// assumed to be schemaless, unless specified. Default is 'true' when
+        /// given avro_schema. Igonred when avro_schema is not given.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableExternalRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableExternalRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list></description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -764,6 +788,46 @@ namespace kinetica
         /// </list>
         /// The default value is <see
         /// cref="CreateTableExternalRequest.Options.DELIMITED_TEXT">DELIMITED_TEXT</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableExternalRequest.Options.IGNORE_EXISTING_PK">IGNORE_EXISTING_PK</see>:</term>
+        ///         <description>Specifies the record collision
+        /// error-suppression policy for
+        /// inserting into a table with a <a
+        /// href="../../../concepts/tables/#primary-keys" target="_top">primary
+        /// key</a>, only used when
+        /// not in upsert mode (upsert mode is disabled when
+        /// <i>update_on_existing_pk</i> is
+        /// <i>false</i>).  If set to
+        /// <i>true</i>, any record being inserted that is rejected
+        /// for having primary key values that match those of an existing table
+        /// record will be ignored with no
+        /// error generated.  If <i>false</i>, the rejection of any
+        /// record for having primary key values matching an existing record
+        /// will result in an error being
+        /// reported, as determined by <i>error_handling</i>.  If the specified
+        /// table does not
+        /// have a primary key or if upsert mode is in effect
+        /// (<i>update_on_existing_pk</i> is
+        /// <i>true</i>), then this option has no effect.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableExternalRequest.Options.TRUE">TRUE</see>:</term>
+        ///         <description>Ignore new records whose primary key values
+        /// collide with those of existing records</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableExternalRequest.Options.FALSE">FALSE</see>:</term>
+        ///         <description>Treat as errors any new records whose primary
+        /// key values collide with those of existing records</description>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="CreateTableExternalRequest.Options.FALSE">FALSE</see>.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -1173,14 +1237,15 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="CreateTableExternalRequest.Options.ACCURACY">ACCURACY</see>:</term>
-        ///         <description>scans all data to get exactly-typed & sized
-        /// columns for all data present</description>
+        ///         <description>Scans data to get exactly-typed & sized
+        /// columns for all data scanned. </description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="CreateTableExternalRequest.Options.SPEED">SPEED</see>:</term>
-        ///         <description>picks the widest possible column types so that
-        /// 'all' values will fit with minimum data scanned</description>
+        ///         <description>Scans data and picks the widest possible
+        /// column types so that 'all' values will fit with minimum data
+        /// scanned</description>
         ///     </item>
         /// </list>
         /// The default value is <see
@@ -1215,34 +1280,34 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="CreateTableExternalRequest.Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>:</term>
-        ///         <description>
+        ///         <description>Specifies the record collision policy for
+        /// inserting into a table
+        /// with a <a href="../../../concepts/tables/#primary-keys"
+        /// target="_top">primary key</a>. If set to
+        /// <i>true</i>, any existing table record with primary
+        /// key values that match those of a record being inserted will be
+        /// replaced by that new record (the new
+        /// data will be "upserted"). If set to <i>false</i>,
+        /// any existing table record with primary key values that match those
+        /// of a record being inserted will
+        /// remain unchanged, while the new record will be rejected and the
+        /// error handled as determined by
+        /// <i>ignore_existing_pk</i> & <i>error_handling</i>.  If the
+        /// specified table does not have a primary key, then this option has
+        /// no effect.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
-        /// cref="CreateTableExternalRequest.Options.TRUE">TRUE</see></term>
+        /// cref="CreateTableExternalRequest.Options.TRUE">TRUE</see>:</term>
+        ///         <description>Upsert new records when primary keys match
+        /// existing records</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="CreateTableExternalRequest.Options.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="CreateTableExternalRequest.Options.FALSE">FALSE</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateTableExternalRequest.Options.IGNORE_EXISTING_PK">IGNORE_EXISTING_PK</see>:</term>
-        ///         <description>
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateTableExternalRequest.Options.TRUE">TRUE</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateTableExternalRequest.Options.FALSE">FALSE</see></term>
+        /// cref="CreateTableExternalRequest.Options.FALSE">FALSE</see>:</term>
+        ///         <description>Reject new records when primary keys match
+        /// existing records</description>
         ///     </item>
         /// </list>
         /// The default value is <see
@@ -1255,6 +1320,10 @@ namespace kinetica
         public struct Options
         {
 
+            /// <summary>Optional number of bytes to skip when reading an avro
+            /// record.</summary>
+            public const string AVRO_HEADER_BYTES = "avro_header_bytes";
+
             /// <summary>Optional number of avro records, if data includes only
             /// records.</summary>
             public const string AVRO_NUM_RECORDS = "avro_num_records";
@@ -1263,6 +1332,30 @@ namespace kinetica
             /// records in avro format, that does not include is
             /// schema.</summary>
             public const string AVRO_SCHEMA = "avro_schema";
+
+            /// <summary>When user provides 'avro_schema', avro data is assumed
+            /// to be schemaless, unless specified. Default is 'true' when
+            /// given avro_schema. Igonred when avro_schema is not given.
+            /// Supported values:
+            /// <list type="bullet">
+            ///     <item>
+            ///         <term><see
+            /// cref="CreateTableExternalRequest.Options.TRUE">TRUE</see></term>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="CreateTableExternalRequest.Options.FALSE">FALSE</see></term>
+            ///     </item>
+            /// </list></summary>
+            public const string AVRO_SCHEMALESS = "avro_schemaless";
+
+            /// <summary>Upsert new records when primary keys match existing
+            /// records</summary>
+            public const string TRUE = "true";
+
+            /// <summary>Reject new records when primary keys match existing
+            /// records</summary>
+            public const string FALSE = "false";
 
             /// <summary>Optional name of a table to which records that were
             /// rejected are written.  The bad-record-table has the following
@@ -1547,6 +1640,45 @@ namespace kinetica
             /// <summary>ShapeFile file format</summary>
             public const string SHAPEFILE = "shapefile";
 
+            /// <summary>Specifies the record collision error-suppression
+            /// policy for
+            /// inserting into a table with a <a
+            /// href="../../../concepts/tables/#primary-keys"
+            /// target="_top">primary key</a>, only used when
+            /// not in upsert mode (upsert mode is disabled when
+            /// <i>update_on_existing_pk</i> is
+            /// <i>false</i>).  If set to
+            /// <i>true</i>, any record being inserted that is rejected
+            /// for having primary key values that match those of an existing
+            /// table record will be ignored with no
+            /// error generated.  If <i>false</i>, the rejection of any
+            /// record for having primary key values matching an existing
+            /// record will result in an error being
+            /// reported, as determined by <i>error_handling</i>.  If the
+            /// specified table does not
+            /// have a primary key or if upsert mode is in effect
+            /// (<i>update_on_existing_pk</i> is
+            /// <i>true</i>), then this option has no effect.
+            /// Supported values:
+            /// <list type="bullet">
+            ///     <item>
+            ///         <term><see
+            /// cref="CreateTableExternalRequest.Options.TRUE">TRUE</see>:</term>
+            ///         <description>Ignore new records whose primary key
+            /// values collide with those of existing records</description>
+            ///     </item>
+            ///     <item>
+            ///         <term><see
+            /// cref="CreateTableExternalRequest.Options.FALSE">FALSE</see>:</term>
+            ///         <description>Treat as errors any new records whose
+            /// primary key values collide with those of existing
+            /// records</description>
+            ///     </item>
+            /// </list>
+            /// The default value is <see
+            /// cref="CreateTableExternalRequest.Options.FALSE">FALSE</see>.</summary>
+            public const string IGNORE_EXISTING_PK = "ignore_existing_pk";
+
             /// <summary>Whether to do a full load, dry run, or perform a type
             /// inference on the source data.
             /// Supported values:
@@ -1810,8 +1942,6 @@ namespace kinetica
             /// The default value is <see
             /// cref="CreateTableExternalRequest.Options.FALSE">FALSE</see>.</summary>
             public const string SUBSCRIBE = "subscribe";
-            public const string TRUE = "true";
-            public const string FALSE = "false";
 
             /// <summary>Optional: table_insert_mode. When inserting records
             /// from multiple files: if table_per_file then insert from each
@@ -1973,14 +2103,14 @@ namespace kinetica
             ///     <item>
             ///         <term><see
             /// cref="CreateTableExternalRequest.Options.ACCURACY">ACCURACY</see>:</term>
-            ///         <description>scans all data to get exactly-typed &
-            /// sized columns for all data present</description>
+            ///         <description>Scans data to get exactly-typed & sized
+            /// columns for all data scanned. </description>
             ///     </item>
             ///     <item>
             ///         <term><see
             /// cref="CreateTableExternalRequest.Options.SPEED">SPEED</see>:</term>
-            ///         <description>picks the widest possible column types so
-            /// that 'all' values will fit with minimum data
+            ///         <description>Scans data and picks the widest possible
+            /// column types so that 'all' values will fit with minimum data
             /// scanned</description>
             ///     </item>
             /// </list>
@@ -1988,12 +2118,13 @@ namespace kinetica
             /// cref="CreateTableExternalRequest.Options.SPEED">SPEED</see>.</summary>
             public const string TYPE_INFERENCE_MODE = "type_inference_mode";
 
-            /// <summary>scans all data to get exactly-typed & sized columns
-            /// for all data present</summary>
+            /// <summary>Scans data to get exactly-typed & sized columns for
+            /// all data scanned. </summary>
             public const string ACCURACY = "accuracy";
 
-            /// <summary>picks the widest possible column types so that 'all'
-            /// values will fit with minimum data scanned</summary>
+            /// <summary>Scans data and picks the widest possible column types
+            /// so that 'all' values will fit with minimum data
+            /// scanned</summary>
             public const string SPEED = "speed";
 
             /// <summary>Remote SQL query from which data will be
@@ -2014,37 +2145,39 @@ namespace kinetica
             /// default value is ''.</summary>
             public const string REMOTE_QUERY_PARTITION_COLUMN = "remote_query_partition_column";
 
-            /// <summary>
+            /// <summary>Specifies the record collision policy for inserting
+            /// into a table
+            /// with a <a href="../../../concepts/tables/#primary-keys"
+            /// target="_top">primary key</a>. If set to
+            /// <i>true</i>, any existing table record with primary
+            /// key values that match those of a record being inserted will be
+            /// replaced by that new record (the new
+            /// data will be "upserted"). If set to <i>false</i>,
+            /// any existing table record with primary key values that match
+            /// those of a record being inserted will
+            /// remain unchanged, while the new record will be rejected and the
+            /// error handled as determined by
+            /// <i>ignore_existing_pk</i> & <i>error_handling</i>.  If the
+            /// specified table does not have a primary key, then this option
+            /// has no effect.
             /// Supported values:
             /// <list type="bullet">
             ///     <item>
             ///         <term><see
-            /// cref="CreateTableExternalRequest.Options.TRUE">TRUE</see></term>
+            /// cref="CreateTableExternalRequest.Options.TRUE">TRUE</see>:</term>
+            ///         <description>Upsert new records when primary keys match
+            /// existing records</description>
             ///     </item>
             ///     <item>
             ///         <term><see
-            /// cref="CreateTableExternalRequest.Options.FALSE">FALSE</see></term>
+            /// cref="CreateTableExternalRequest.Options.FALSE">FALSE</see>:</term>
+            ///         <description>Reject new records when primary keys match
+            /// existing records</description>
             ///     </item>
             /// </list>
             /// The default value is <see
             /// cref="CreateTableExternalRequest.Options.FALSE">FALSE</see>.</summary>
             public const string UPDATE_ON_EXISTING_PK = "update_on_existing_pk";
-
-            /// <summary>
-            /// Supported values:
-            /// <list type="bullet">
-            ///     <item>
-            ///         <term><see
-            /// cref="CreateTableExternalRequest.Options.TRUE">TRUE</see></term>
-            ///     </item>
-            ///     <item>
-            ///         <term><see
-            /// cref="CreateTableExternalRequest.Options.FALSE">FALSE</see></term>
-            ///     </item>
-            /// </list>
-            /// The default value is <see
-            /// cref="CreateTableExternalRequest.Options.FALSE">FALSE</see>.</summary>
-            public const string IGNORE_EXISTING_PK = "ignore_existing_pk";
         } // end struct Options
 
 
@@ -2325,6 +2458,12 @@ namespace kinetica
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
+        /// cref="CreateTableExternalRequest.Options.AVRO_HEADER_BYTES">AVRO_HEADER_BYTES</see>:</term>
+        ///         <description>Optional number of bytes to skip when reading
+        /// an avro record.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="CreateTableExternalRequest.Options.AVRO_NUM_RECORDS">AVRO_NUM_RECORDS</see>:</term>
         ///         <description>Optional number of avro records, if data
         /// includes only records.</description>
@@ -2335,6 +2474,24 @@ namespace kinetica
         ///         <description>Optional string representing avro schema, for
         /// insert records in avro format, that does not include is
         /// schema.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableExternalRequest.Options.AVRO_SCHEMALESS">AVRO_SCHEMALESS</see>:</term>
+        ///         <description>When user provides 'avro_schema', avro data is
+        /// assumed to be schemaless, unless specified. Default is 'true' when
+        /// given avro_schema. Igonred when avro_schema is not given.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableExternalRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableExternalRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list></description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -2595,6 +2752,46 @@ namespace kinetica
         /// </list>
         /// The default value is <see
         /// cref="CreateTableExternalRequest.Options.DELIMITED_TEXT">DELIMITED_TEXT</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableExternalRequest.Options.IGNORE_EXISTING_PK">IGNORE_EXISTING_PK</see>:</term>
+        ///         <description>Specifies the record collision
+        /// error-suppression policy for
+        /// inserting into a table with a <a
+        /// href="../../../concepts/tables/#primary-keys" target="_top">primary
+        /// key</a>, only used when
+        /// not in upsert mode (upsert mode is disabled when
+        /// <i>update_on_existing_pk</i> is
+        /// <i>false</i>).  If set to
+        /// <i>true</i>, any record being inserted that is rejected
+        /// for having primary key values that match those of an existing table
+        /// record will be ignored with no
+        /// error generated.  If <i>false</i>, the rejection of any
+        /// record for having primary key values matching an existing record
+        /// will result in an error being
+        /// reported, as determined by <i>error_handling</i>.  If the specified
+        /// table does not
+        /// have a primary key or if upsert mode is in effect
+        /// (<i>update_on_existing_pk</i> is
+        /// <i>true</i>), then this option has no effect.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableExternalRequest.Options.TRUE">TRUE</see>:</term>
+        ///         <description>Ignore new records whose primary key values
+        /// collide with those of existing records</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableExternalRequest.Options.FALSE">FALSE</see>:</term>
+        ///         <description>Treat as errors any new records whose primary
+        /// key values collide with those of existing records</description>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="CreateTableExternalRequest.Options.FALSE">FALSE</see>.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -3004,14 +3201,15 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="CreateTableExternalRequest.Options.ACCURACY">ACCURACY</see>:</term>
-        ///         <description>scans all data to get exactly-typed & sized
-        /// columns for all data present</description>
+        ///         <description>Scans data to get exactly-typed & sized
+        /// columns for all data scanned. </description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="CreateTableExternalRequest.Options.SPEED">SPEED</see>:</term>
-        ///         <description>picks the widest possible column types so that
-        /// 'all' values will fit with minimum data scanned</description>
+        ///         <description>Scans data and picks the widest possible
+        /// column types so that 'all' values will fit with minimum data
+        /// scanned</description>
         ///     </item>
         /// </list>
         /// The default value is <see
@@ -3046,34 +3244,34 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="CreateTableExternalRequest.Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>:</term>
-        ///         <description>
+        ///         <description>Specifies the record collision policy for
+        /// inserting into a table
+        /// with a <a href="../../../concepts/tables/#primary-keys"
+        /// target="_top">primary key</a>. If set to
+        /// <i>true</i>, any existing table record with primary
+        /// key values that match those of a record being inserted will be
+        /// replaced by that new record (the new
+        /// data will be "upserted"). If set to <i>false</i>,
+        /// any existing table record with primary key values that match those
+        /// of a record being inserted will
+        /// remain unchanged, while the new record will be rejected and the
+        /// error handled as determined by
+        /// <i>ignore_existing_pk</i> & <i>error_handling</i>.  If the
+        /// specified table does not have a primary key, then this option has
+        /// no effect.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
-        /// cref="CreateTableExternalRequest.Options.TRUE">TRUE</see></term>
+        /// cref="CreateTableExternalRequest.Options.TRUE">TRUE</see>:</term>
+        ///         <description>Upsert new records when primary keys match
+        /// existing records</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="CreateTableExternalRequest.Options.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="CreateTableExternalRequest.Options.FALSE">FALSE</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateTableExternalRequest.Options.IGNORE_EXISTING_PK">IGNORE_EXISTING_PK</see>:</term>
-        ///         <description>
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateTableExternalRequest.Options.TRUE">TRUE</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateTableExternalRequest.Options.FALSE">FALSE</see></term>
+        /// cref="CreateTableExternalRequest.Options.FALSE">FALSE</see>:</term>
+        ///         <description>Reject new records when primary keys match
+        /// existing records</description>
         ///     </item>
         /// </list>
         /// The default value is <see
@@ -3357,6 +3555,12 @@ namespace kinetica
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
+        /// cref="CreateTableExternalRequest.Options.AVRO_HEADER_BYTES">AVRO_HEADER_BYTES</see>:</term>
+        ///         <description>Optional number of bytes to skip when reading
+        /// an avro record.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="CreateTableExternalRequest.Options.AVRO_NUM_RECORDS">AVRO_NUM_RECORDS</see>:</term>
         ///         <description>Optional number of avro records, if data
         /// includes only records.</description>
@@ -3367,6 +3571,24 @@ namespace kinetica
         ///         <description>Optional string representing avro schema, for
         /// insert records in avro format, that does not include is
         /// schema.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableExternalRequest.Options.AVRO_SCHEMALESS">AVRO_SCHEMALESS</see>:</term>
+        ///         <description>When user provides 'avro_schema', avro data is
+        /// assumed to be schemaless, unless specified. Default is 'true' when
+        /// given avro_schema. Igonred when avro_schema is not given.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableExternalRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableExternalRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list></description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -3621,6 +3843,46 @@ namespace kinetica
         /// </list>
         /// The default value is <see
         /// cref="CreateTableExternalRequest.Options.DELIMITED_TEXT">DELIMITED_TEXT</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableExternalRequest.Options.IGNORE_EXISTING_PK">IGNORE_EXISTING_PK</see>:</term>
+        ///         <description>Specifies the record collision
+        /// error-suppression policy for
+        /// inserting into a table with a <a
+        /// href="../../../concepts/tables/#primary-keys" target="_top">primary
+        /// key</a>, only used when
+        /// not in upsert mode (upsert mode is disabled when
+        /// <i>update_on_existing_pk</i> is
+        /// <i>false</i>).  If set to
+        /// <i>true</i>, any record being inserted that is rejected
+        /// for having primary key values that match those of an existing table
+        /// record will be ignored with no
+        /// error generated.  If <i>false</i>, the rejection of any
+        /// record for having primary key values matching an existing record
+        /// will result in an error being
+        /// reported, as determined by <i>error_handling</i>.  If the specified
+        /// table does not
+        /// have a primary key or if upsert mode is in effect
+        /// (<i>update_on_existing_pk</i> is
+        /// <i>true</i>), then this option has no effect.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableExternalRequest.Options.TRUE">TRUE</see>:</term>
+        ///         <description>Ignore new records whose primary key values
+        /// collide with those of existing records</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableExternalRequest.Options.FALSE">FALSE</see>:</term>
+        ///         <description>Treat as errors any new records whose primary
+        /// key values collide with those of existing records</description>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="CreateTableExternalRequest.Options.FALSE">FALSE</see>.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -4016,14 +4278,15 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="CreateTableExternalRequest.Options.ACCURACY">ACCURACY</see>:</term>
-        ///         <description>scans all data to get exactly-typed & sized
-        /// columns for all data present</description>
+        ///         <description>Scans data to get exactly-typed & sized
+        /// columns for all data scanned. </description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="CreateTableExternalRequest.Options.SPEED">SPEED</see>:</term>
-        ///         <description>picks the widest possible column types so that
-        /// 'all' values will fit with minimum data scanned</description>
+        ///         <description>Scans data and picks the widest possible
+        /// column types so that 'all' values will fit with minimum data
+        /// scanned</description>
         ///     </item>
         /// </list>
         /// The default value is <see
@@ -4058,34 +4321,34 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="CreateTableExternalRequest.Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>:</term>
-        ///         <description>
+        ///         <description>Specifies the record collision policy for
+        /// inserting into a table
+        /// with a <a href="../../../concepts/tables/#primary-keys"
+        /// target="_top">primary key</a>. If set to
+        /// <i>true</i>, any existing table record with primary
+        /// key values that match those of a record being inserted will be
+        /// replaced by that new record (the new
+        /// data will be "upserted"). If set to <i>false</i>,
+        /// any existing table record with primary key values that match those
+        /// of a record being inserted will
+        /// remain unchanged, while the new record will be rejected and the
+        /// error handled as determined by
+        /// <i>ignore_existing_pk</i> & <i>error_handling</i>.  If the
+        /// specified table does not have a primary key, then this option has
+        /// no effect.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
-        /// cref="CreateTableExternalRequest.Options.TRUE">TRUE</see></term>
+        /// cref="CreateTableExternalRequest.Options.TRUE">TRUE</see>:</term>
+        ///         <description>Upsert new records when primary keys match
+        /// existing records</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="CreateTableExternalRequest.Options.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="CreateTableExternalRequest.Options.FALSE">FALSE</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateTableExternalRequest.Options.IGNORE_EXISTING_PK">IGNORE_EXISTING_PK</see>:</term>
-        ///         <description>
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateTableExternalRequest.Options.TRUE">TRUE</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateTableExternalRequest.Options.FALSE">FALSE</see></term>
+        /// cref="CreateTableExternalRequest.Options.FALSE">FALSE</see>:</term>
+        ///         <description>Reject new records when primary keys match
+        /// existing records</description>
         ///     </item>
         /// </list>
         /// The default value is <see

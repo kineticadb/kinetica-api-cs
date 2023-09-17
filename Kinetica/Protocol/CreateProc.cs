@@ -87,6 +87,13 @@ namespace kinetica
         /// the proc that will be executed per node. 0 allows unlimited
         /// concurrency.  The default value is '0'.</description>
         ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateProcRequest.Options.SET_ENVIRONMENT">SET_ENVIRONMENT</see>:</term>
+        ///         <description>A python environment to use when executing the
+        /// proc. Must be an existing environment, else an error will be
+        /// returned.  The default value is ''.</description>
+        ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.
         /// A set of string constants for the parameter <see cref="options"
@@ -98,6 +105,11 @@ namespace kinetica
             /// that will be executed per node. 0 allows unlimited concurrency.
             /// The default value is '0'.</summary>
             public const string MAX_CONCURRENCY_PER_NODE = "max_concurrency_per_node";
+
+            /// <summary>A python environment to use when executing the proc.
+            /// Must be an existing environment, else an error will be
+            /// returned.  The default value is ''.</summary>
+            public const string SET_ENVIRONMENT = "set_environment";
         } // end struct Options
 
 
@@ -182,6 +194,13 @@ namespace kinetica
         /// the proc that will be executed per node. 0 allows unlimited
         /// concurrency.  The default value is '0'.</description>
         ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateProcRequest.Options.SET_ENVIRONMENT">SET_ENVIRONMENT</see>:</term>
+        ///         <description>A python environment to use when executing the
+        /// proc. Must be an existing environment, else an error will be
+        /// returned.  The default value is ''.</description>
+        ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.</summary>
         public IDictionary<string, string> options { get; set; } = new Dictionary<string, string>();
@@ -265,6 +284,13 @@ namespace kinetica
         ///         <description>The maximum number of concurrent instances of
         /// the proc that will be executed per node. 0 allows unlimited
         /// concurrency.  The default value is '0'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateProcRequest.Options.SET_ENVIRONMENT">SET_ENVIRONMENT</see>:</term>
+        ///         <description>A python environment to use when executing the
+        /// proc. Must be an existing environment, else an error will be
+        /// returned.  The default value is ''.</description>
         ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.</param>

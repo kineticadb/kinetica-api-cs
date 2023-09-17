@@ -83,10 +83,9 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="QueryGraphRequest.Options.LIMIT">LIMIT</see>:</term>
-        ///         <description>When specified, limits the number of query
-        /// results. The size of the nodes table will be limited by the
-        /// <i>limit</i> value.  The default value is an empty {@link
-        /// Dictionary}.</description>
+        ///         <description>When specified (>0), limits the number of
+        /// query results. The size of the nodes table will be limited by the
+        /// <i>limit</i> value.  The default value is '0'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -166,10 +165,9 @@ namespace kinetica
             public const string TRUE = "true";
             public const string FALSE = "false";
 
-            /// <summary>When specified, limits the number of query results.
-            /// The size of the nodes table will be limited by the <i>limit</i>
-            /// value.  The default value is an empty {@link
-            /// Dictionary}.</summary>
+            /// <summary>When specified (>0), limits the number of query
+            /// results. The size of the nodes table will be limited by the
+            /// <i>limit</i> value.  The default value is '0'.</summary>
             public const string LIMIT = "limit";
 
             /// <summary>If true then concatenated wkt line segments will be
@@ -304,10 +302,9 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="QueryGraphRequest.Options.LIMIT">LIMIT</see>:</term>
-        ///         <description>When specified, limits the number of query
-        /// results. The size of the nodes table will be limited by the
-        /// <i>limit</i> value.  The default value is an empty {@link
-        /// Dictionary}.</description>
+        ///         <description>When specified (>0), limits the number of
+        /// query results. The size of the nodes table will be limited by the
+        /// <i>limit</i> value.  The default value is '0'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -450,10 +447,9 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="QueryGraphRequest.Options.LIMIT">LIMIT</see>:</term>
-        ///         <description>When specified, limits the number of query
-        /// results. The size of the nodes table will be limited by the
-        /// <i>limit</i> value.  The default value is an empty {@link
-        /// Dictionary}.</description>
+        ///         <description>When specified (>0), limits the number of
+        /// query results. The size of the nodes table will be limited by the
+        /// <i>limit</i> value.  The default value is '0'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see

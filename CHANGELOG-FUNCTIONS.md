@@ -21,7 +21,20 @@
     -  ``/insert/records/fromfiles``
     -  ``/insert/records/frompayload``
 -   Added options``remote_query_increasing_column`` & ``subscribe`` for remote table/query subscriptions via JDBC data sources
+-   Added 'file_names' to response for endpoint ``/delete/files``. Added wildcard support to KiFS endpoints:
+    -  ``/show/files``
+    -  ``/download/files``
+    -  ``/delete/files``
+-   Added ``/admin/ha/refresh``
+-   Added ``evict_to_cold`` option to ``/alter/system/properties``
 
+#### Added
+-   Added new endpoints to support UDF python environment management:
+    -   ``/alter/environment``
+    -   ``/create/environment``
+    -   ``/drop/environment``
+    -   ``/show/environment``
+-   Added option ``set_environment`` to ``/create/proc`` endpoint
 
 ### Version 7.1.8.7
 

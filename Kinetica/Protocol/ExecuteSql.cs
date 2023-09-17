@@ -114,18 +114,37 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="ExecuteSqlRequest.Options.IGNORE_EXISTING_PK">IGNORE_EXISTING_PK</see>:</term>
-        ///         <description>Can be used to customize behavior when the
-        /// updated primary key value already exists as described in
-        /// /insert/records.
+        ///         <description>Specifies the record collision
+        /// error-suppression policy for
+        /// inserting into or updating a table with a <a
+        /// href="../../../concepts/tables/#primary-keys" target="_top">primary
+        /// key</a>, only
+        /// used when primary key record collisions are rejected
+        /// (<i>update_on_existing_pk</i>
+        /// is <i>false</i>).  If set to
+        /// <i>true</i>, any record insert/update that is rejected
+        /// for resulting in a primary key collision with an existing table
+        /// record will be ignored with no error
+        /// generated.  If <i>false</i>, the rejection of any
+        /// insert/update for resulting in a primary key collision will cause
+        /// an error to be reported.  If the
+        /// specified table does not have a primary key or if
+        /// <i>update_on_existing_pk</i> is
+        /// <i>true</i>, then this option has no effect.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
-        /// cref="ExecuteSqlRequest.Options.TRUE">TRUE</see></term>
+        /// cref="ExecuteSqlRequest.Options.TRUE">TRUE</see>:</term>
+        ///         <description>Ignore inserts/updates that result in primary
+        /// key collisions with existing records</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="ExecuteSqlRequest.Options.FALSE">FALSE</see></term>
+        /// cref="ExecuteSqlRequest.Options.FALSE">FALSE</see>:</term>
+        ///         <description>Treat as errors any inserts/updates that
+        /// result in primary key collisions with existing
+        /// records</description>
         ///     </item>
         /// </list>
         /// The default value is <see
@@ -318,18 +337,33 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="ExecuteSqlRequest.Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>:</term>
-        ///         <description>Can be used to customize behavior when the
-        /// updated primary key value already exists as described in
-        /// /insert/records.
+        ///         <description>Specifies the record collision policy for
+        /// inserting into or updating
+        /// a table with a <a href="../../../concepts/tables/#primary-keys"
+        /// target="_top">primary key</a>. If set to
+        /// <i>true</i>, any existing table record with primary
+        /// key values that match those of a record being inserted or updated
+        /// will be replaced by that record.
+        /// If set to <i>false</i>, any such primary key
+        /// collision will result in the insert/update being rejected and the
+        /// error handled as determined by
+        /// <i>ignore_existing_pk</i>.  If the specified table does not have a
+        /// primary key,
+        /// then this option has no effect.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
-        /// cref="ExecuteSqlRequest.Options.TRUE">TRUE</see></term>
+        /// cref="ExecuteSqlRequest.Options.TRUE">TRUE</see>:</term>
+        ///         <description>Replace the collided-into record with the
+        /// record inserted or updated when a new/modified record causes a
+        /// primary key collision with an existing record</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="ExecuteSqlRequest.Options.FALSE">FALSE</see></term>
+        /// cref="ExecuteSqlRequest.Options.FALSE">FALSE</see>:</term>
+        ///         <description>Reject the insert or update when it results in
+        /// a primary key collision with an existing record</description>
         ///     </item>
         /// </list>
         /// The default value is <see
@@ -356,6 +390,14 @@ namespace kinetica
         /// </list>
         /// The default value is <see
         /// cref="ExecuteSqlRequest.Options.TRUE">TRUE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ExecuteSqlRequest.Options.CURRENT_SCHEMA">CURRENT_SCHEMA</see>:</term>
+        ///         <description>Use the supplied value as the <a
+        /// href="../../../concepts/schemas/#default-schema"
+        /// target="_top">default schema</a> when processing this SQL
+        /// command.</description>
         ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.
@@ -423,19 +465,37 @@ namespace kinetica
             /// cref="ExecuteSqlRequest.Options.FALSE">FALSE</see>.</summary>
             public const string DISTRIBUTED_OPERATIONS = "distributed_operations";
 
-            /// <summary>Can be used to customize behavior when the updated
-            /// primary key value already exists as described in <see
-            /// cref="Kinetica.insertRecords{T}(string,IList{T},IDictionary{string, string})"
-            /// />.
+            /// <summary>Specifies the record collision error-suppression
+            /// policy for
+            /// inserting into or updating a table with a <a
+            /// href="../../../concepts/tables/#primary-keys"
+            /// target="_top">primary key</a>, only
+            /// used when primary key record collisions are rejected
+            /// (<i>update_on_existing_pk</i>
+            /// is <i>false</i>).  If set to
+            /// <i>true</i>, any record insert/update that is rejected
+            /// for resulting in a primary key collision with an existing table
+            /// record will be ignored with no error
+            /// generated.  If <i>false</i>, the rejection of any
+            /// insert/update for resulting in a primary key collision will
+            /// cause an error to be reported.  If the
+            /// specified table does not have a primary key or if
+            /// <i>update_on_existing_pk</i> is
+            /// <i>true</i>, then this option has no effect.
             /// Supported values:
             /// <list type="bullet">
             ///     <item>
             ///         <term><see
-            /// cref="ExecuteSqlRequest.Options.TRUE">TRUE</see></term>
+            /// cref="ExecuteSqlRequest.Options.TRUE">TRUE</see>:</term>
+            ///         <description>Ignore inserts/updates that result in
+            /// primary key collisions with existing records</description>
             ///     </item>
             ///     <item>
             ///         <term><see
-            /// cref="ExecuteSqlRequest.Options.FALSE">FALSE</see></term>
+            /// cref="ExecuteSqlRequest.Options.FALSE">FALSE</see>:</term>
+            ///         <description>Treat as errors any inserts/updates that
+            /// result in primary key collisions with existing
+            /// records</description>
             ///     </item>
             /// </list>
             /// The default value is <see
@@ -600,19 +660,34 @@ namespace kinetica
             /// query execution.</summary>
             public const string TTL = "ttl";
 
-            /// <summary>Can be used to customize behavior when the updated
-            /// primary key value already exists as described in <see
-            /// cref="Kinetica.insertRecords{T}(string,IList{T},IDictionary{string, string})"
-            /// />.
+            /// <summary>Specifies the record collision policy for inserting
+            /// into or updating
+            /// a table with a <a href="../../../concepts/tables/#primary-keys"
+            /// target="_top">primary key</a>. If set to
+            /// <i>true</i>, any existing table record with primary
+            /// key values that match those of a record being inserted or
+            /// updated will be replaced by that record.
+            /// If set to <i>false</i>, any such primary key
+            /// collision will result in the insert/update being rejected and
+            /// the error handled as determined by
+            /// <i>ignore_existing_pk</i>.  If the specified table does not
+            /// have a primary key,
+            /// then this option has no effect.
             /// Supported values:
             /// <list type="bullet">
             ///     <item>
             ///         <term><see
-            /// cref="ExecuteSqlRequest.Options.TRUE">TRUE</see></term>
+            /// cref="ExecuteSqlRequest.Options.TRUE">TRUE</see>:</term>
+            ///         <description>Replace the collided-into record with the
+            /// record inserted or updated when a new/modified record causes a
+            /// primary key collision with an existing record</description>
             ///     </item>
             ///     <item>
             ///         <term><see
-            /// cref="ExecuteSqlRequest.Options.FALSE">FALSE</see></term>
+            /// cref="ExecuteSqlRequest.Options.FALSE">FALSE</see>:</term>
+            ///         <description>Reject the insert or update when it
+            /// results in a primary key collision with an existing
+            /// record</description>
             ///     </item>
             /// </list>
             /// The default value is <see
@@ -638,6 +713,12 @@ namespace kinetica
             /// The default value is <see
             /// cref="ExecuteSqlRequest.Options.TRUE">TRUE</see>.</summary>
             public const string VALIDATE_CHANGE_COLUMN = "validate_change_column";
+
+            /// <summary>Use the supplied value as the <a
+            /// href="../../../concepts/schemas/#default-schema"
+            /// target="_top">default schema</a> when processing this SQL
+            /// command.</summary>
+            public const string CURRENT_SCHEMA = "current_schema";
         } // end struct Options
 
 
@@ -762,18 +843,37 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="ExecuteSqlRequest.Options.IGNORE_EXISTING_PK">IGNORE_EXISTING_PK</see>:</term>
-        ///         <description>Can be used to customize behavior when the
-        /// updated primary key value already exists as described in
-        /// /insert/records.
+        ///         <description>Specifies the record collision
+        /// error-suppression policy for
+        /// inserting into or updating a table with a <a
+        /// href="../../../concepts/tables/#primary-keys" target="_top">primary
+        /// key</a>, only
+        /// used when primary key record collisions are rejected
+        /// (<i>update_on_existing_pk</i>
+        /// is <i>false</i>).  If set to
+        /// <i>true</i>, any record insert/update that is rejected
+        /// for resulting in a primary key collision with an existing table
+        /// record will be ignored with no error
+        /// generated.  If <i>false</i>, the rejection of any
+        /// insert/update for resulting in a primary key collision will cause
+        /// an error to be reported.  If the
+        /// specified table does not have a primary key or if
+        /// <i>update_on_existing_pk</i> is
+        /// <i>true</i>, then this option has no effect.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
-        /// cref="ExecuteSqlRequest.Options.TRUE">TRUE</see></term>
+        /// cref="ExecuteSqlRequest.Options.TRUE">TRUE</see>:</term>
+        ///         <description>Ignore inserts/updates that result in primary
+        /// key collisions with existing records</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="ExecuteSqlRequest.Options.FALSE">FALSE</see></term>
+        /// cref="ExecuteSqlRequest.Options.FALSE">FALSE</see>:</term>
+        ///         <description>Treat as errors any inserts/updates that
+        /// result in primary key collisions with existing
+        /// records</description>
         ///     </item>
         /// </list>
         /// The default value is <see
@@ -966,18 +1066,33 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="ExecuteSqlRequest.Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>:</term>
-        ///         <description>Can be used to customize behavior when the
-        /// updated primary key value already exists as described in
-        /// /insert/records.
+        ///         <description>Specifies the record collision policy for
+        /// inserting into or updating
+        /// a table with a <a href="../../../concepts/tables/#primary-keys"
+        /// target="_top">primary key</a>. If set to
+        /// <i>true</i>, any existing table record with primary
+        /// key values that match those of a record being inserted or updated
+        /// will be replaced by that record.
+        /// If set to <i>false</i>, any such primary key
+        /// collision will result in the insert/update being rejected and the
+        /// error handled as determined by
+        /// <i>ignore_existing_pk</i>.  If the specified table does not have a
+        /// primary key,
+        /// then this option has no effect.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
-        /// cref="ExecuteSqlRequest.Options.TRUE">TRUE</see></term>
+        /// cref="ExecuteSqlRequest.Options.TRUE">TRUE</see>:</term>
+        ///         <description>Replace the collided-into record with the
+        /// record inserted or updated when a new/modified record causes a
+        /// primary key collision with an existing record</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="ExecuteSqlRequest.Options.FALSE">FALSE</see></term>
+        /// cref="ExecuteSqlRequest.Options.FALSE">FALSE</see>:</term>
+        ///         <description>Reject the insert or update when it results in
+        /// a primary key collision with an existing record</description>
         ///     </item>
         /// </list>
         /// The default value is <see
@@ -1004,6 +1119,14 @@ namespace kinetica
         /// </list>
         /// The default value is <see
         /// cref="ExecuteSqlRequest.Options.TRUE">TRUE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ExecuteSqlRequest.Options.CURRENT_SCHEMA">CURRENT_SCHEMA</see>:</term>
+        ///         <description>Use the supplied value as the <a
+        /// href="../../../concepts/schemas/#default-schema"
+        /// target="_top">default schema</a> when processing this SQL
+        /// command.</description>
         ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.</summary>
@@ -1111,18 +1234,37 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="ExecuteSqlRequest.Options.IGNORE_EXISTING_PK">IGNORE_EXISTING_PK</see>:</term>
-        ///         <description>Can be used to customize behavior when the
-        /// updated primary key value already exists as described in
-        /// /insert/records.
+        ///         <description>Specifies the record collision
+        /// error-suppression policy for
+        /// inserting into or updating a table with a <a
+        /// href="../../../concepts/tables/#primary-keys" target="_top">primary
+        /// key</a>, only
+        /// used when primary key record collisions are rejected
+        /// (<i>update_on_existing_pk</i>
+        /// is <i>false</i>).  If set to
+        /// <i>true</i>, any record insert/update that is rejected
+        /// for resulting in a primary key collision with an existing table
+        /// record will be ignored with no error
+        /// generated.  If <i>false</i>, the rejection of any
+        /// insert/update for resulting in a primary key collision will cause
+        /// an error to be reported.  If the
+        /// specified table does not have a primary key or if
+        /// <i>update_on_existing_pk</i> is
+        /// <i>true</i>, then this option has no effect.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
-        /// cref="ExecuteSqlRequest.Options.TRUE">TRUE</see></term>
+        /// cref="ExecuteSqlRequest.Options.TRUE">TRUE</see>:</term>
+        ///         <description>Ignore inserts/updates that result in primary
+        /// key collisions with existing records</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="ExecuteSqlRequest.Options.FALSE">FALSE</see></term>
+        /// cref="ExecuteSqlRequest.Options.FALSE">FALSE</see>:</term>
+        ///         <description>Treat as errors any inserts/updates that
+        /// result in primary key collisions with existing
+        /// records</description>
         ///     </item>
         /// </list>
         /// The default value is <see
@@ -1315,18 +1457,33 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="ExecuteSqlRequest.Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>:</term>
-        ///         <description>Can be used to customize behavior when the
-        /// updated primary key value already exists as described in
-        /// /insert/records.
+        ///         <description>Specifies the record collision policy for
+        /// inserting into or updating
+        /// a table with a <a href="../../../concepts/tables/#primary-keys"
+        /// target="_top">primary key</a>. If set to
+        /// <i>true</i>, any existing table record with primary
+        /// key values that match those of a record being inserted or updated
+        /// will be replaced by that record.
+        /// If set to <i>false</i>, any such primary key
+        /// collision will result in the insert/update being rejected and the
+        /// error handled as determined by
+        /// <i>ignore_existing_pk</i>.  If the specified table does not have a
+        /// primary key,
+        /// then this option has no effect.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
-        /// cref="ExecuteSqlRequest.Options.TRUE">TRUE</see></term>
+        /// cref="ExecuteSqlRequest.Options.TRUE">TRUE</see>:</term>
+        ///         <description>Replace the collided-into record with the
+        /// record inserted or updated when a new/modified record causes a
+        /// primary key collision with an existing record</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="ExecuteSqlRequest.Options.FALSE">FALSE</see></term>
+        /// cref="ExecuteSqlRequest.Options.FALSE">FALSE</see>:</term>
+        ///         <description>Reject the insert or update when it results in
+        /// a primary key collision with an existing record</description>
         ///     </item>
         /// </list>
         /// The default value is <see
@@ -1353,6 +1510,14 @@ namespace kinetica
         /// </list>
         /// The default value is <see
         /// cref="ExecuteSqlRequest.Options.TRUE">TRUE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ExecuteSqlRequest.Options.CURRENT_SCHEMA">CURRENT_SCHEMA</see>:</term>
+        ///         <description>Use the supplied value as the <a
+        /// href="../../../concepts/schemas/#default-schema"
+        /// target="_top">default schema</a> when processing this SQL
+        /// command.</description>
         ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.</param>
@@ -1486,18 +1651,37 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="ExecuteSqlRequest.Options.IGNORE_EXISTING_PK">IGNORE_EXISTING_PK</see>:</term>
-        ///         <description>Can be used to customize behavior when the
-        /// updated primary key value already exists as described in
-        /// /insert/records.
+        ///         <description>Specifies the record collision
+        /// error-suppression policy for
+        /// inserting into or updating a table with a <a
+        /// href="../../../concepts/tables/#primary-keys" target="_top">primary
+        /// key</a>, only
+        /// used when primary key record collisions are rejected
+        /// (<i>update_on_existing_pk</i>
+        /// is <i>false</i>).  If set to
+        /// <i>true</i>, any record insert/update that is rejected
+        /// for resulting in a primary key collision with an existing table
+        /// record will be ignored with no error
+        /// generated.  If <i>false</i>, the rejection of any
+        /// insert/update for resulting in a primary key collision will cause
+        /// an error to be reported.  If the
+        /// specified table does not have a primary key or if
+        /// <i>update_on_existing_pk</i> is
+        /// <i>true</i>, then this option has no effect.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
-        /// cref="ExecuteSqlRequest.Options.TRUE">TRUE</see></term>
+        /// cref="ExecuteSqlRequest.Options.TRUE">TRUE</see>:</term>
+        ///         <description>Ignore inserts/updates that result in primary
+        /// key collisions with existing records</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="ExecuteSqlRequest.Options.FALSE">FALSE</see></term>
+        /// cref="ExecuteSqlRequest.Options.FALSE">FALSE</see>:</term>
+        ///         <description>Treat as errors any inserts/updates that
+        /// result in primary key collisions with existing
+        /// records</description>
         ///     </item>
         /// </list>
         /// The default value is <see
@@ -1690,18 +1874,33 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="ExecuteSqlRequest.Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>:</term>
-        ///         <description>Can be used to customize behavior when the
-        /// updated primary key value already exists as described in
-        /// /insert/records.
+        ///         <description>Specifies the record collision policy for
+        /// inserting into or updating
+        /// a table with a <a href="../../../concepts/tables/#primary-keys"
+        /// target="_top">primary key</a>. If set to
+        /// <i>true</i>, any existing table record with primary
+        /// key values that match those of a record being inserted or updated
+        /// will be replaced by that record.
+        /// If set to <i>false</i>, any such primary key
+        /// collision will result in the insert/update being rejected and the
+        /// error handled as determined by
+        /// <i>ignore_existing_pk</i>.  If the specified table does not have a
+        /// primary key,
+        /// then this option has no effect.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
-        /// cref="ExecuteSqlRequest.Options.TRUE">TRUE</see></term>
+        /// cref="ExecuteSqlRequest.Options.TRUE">TRUE</see>:</term>
+        ///         <description>Replace the collided-into record with the
+        /// record inserted or updated when a new/modified record causes a
+        /// primary key collision with an existing record</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="ExecuteSqlRequest.Options.FALSE">FALSE</see></term>
+        /// cref="ExecuteSqlRequest.Options.FALSE">FALSE</see>:</term>
+        ///         <description>Reject the insert or update when it results in
+        /// a primary key collision with an existing record</description>
         ///     </item>
         /// </list>
         /// The default value is <see
@@ -1728,6 +1927,14 @@ namespace kinetica
         /// </list>
         /// The default value is <see
         /// cref="ExecuteSqlRequest.Options.TRUE">TRUE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ExecuteSqlRequest.Options.CURRENT_SCHEMA">CURRENT_SCHEMA</see>:</term>
+        ///         <description>Use the supplied value as the <a
+        /// href="../../../concepts/schemas/#default-schema"
+        /// target="_top">default schema</a> when processing this SQL
+        /// command.</description>
         ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.</param>

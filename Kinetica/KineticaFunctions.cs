@@ -16,7 +16,7 @@ namespace kinetica
     {
 
         // Kinetica Version
-        public const string API_VERSION = "7.1.9.0";
+        public const string API_VERSION = "7.1.9.1";
 
 
 
@@ -72,8 +72,7 @@ namespace kinetica
         /// cref="AdminAddHostRequest.Options.ACCEPTS_FAILOVER">ACCEPTS_FAILOVER</see>:</term>
         ///         <description>If set to <i>true</i>, the host will accept
         /// processes (ranks, graph server, etc.) in the event of a failover on
-        /// another node in the cluster. See <a href="../../../n_plus_1/"
-        /// target="_top">Cluster Resilience</a> for more information.
+        /// another node in the cluster.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -335,8 +334,7 @@ namespace kinetica
         /// cref="AdminAlterHostRequest.Options.ACCEPTS_FAILOVER">ACCEPTS_FAILOVER</see>:</term>
         ///         <description>If set to <i>true</i>, the host will accept
         /// processes (ranks, graph server, etc.) in the event of a failover on
-        /// another node in the cluster. See <a href="../../../n_plus_1/"
-        /// target="_top">Cluster Resilience</a> for more information.
+        /// another node in the cluster.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -503,6 +501,40 @@ namespace kinetica
         public AdminBackupEndResponse adminBackupEnd( IDictionary<string, string> options = null )
         {
             return adminBackupEnd( new AdminBackupEndRequest( options ) );
+        }
+
+
+        /// <summary>Restarts the HA processing on the given cluster as a
+        /// mechanism of accepting breaking HA conf changes. Additionally the
+        /// cluster is put into read-only while HA is restarting.</summary>
+        /// 
+        /// <param name="request_">Request object containing the parameters for
+        /// the operation.</param>
+        /// 
+        /// <returns>Response object containing the result of the
+        /// operation.</returns>
+        /// 
+        public AdminHaRefreshResponse adminHaRefresh( AdminHaRefreshRequest request_ )
+        {
+            AdminHaRefreshResponse actualResponse_ = SubmitRequest<AdminHaRefreshResponse>("/admin/ha/refresh", request_, false);
+
+            return actualResponse_;
+        }
+
+
+        /// <summary>Restarts the HA processing on the given cluster as a
+        /// mechanism of accepting breaking HA conf changes. Additionally the
+        /// cluster is put into read-only while HA is restarting.</summary>
+        /// 
+        /// <param name="options">Optional parameters.  The default value is an
+        /// empty {@link Dictionary}.</param>
+        /// 
+        /// <returns>Response object containing the result of the
+        /// operation.</returns>
+        /// 
+        public AdminHaRefreshResponse adminHaRefresh( IDictionary<string, string> options = null )
+        {
+            return adminHaRefresh( new AdminHaRefreshRequest( options ) );
         }
 
 
@@ -4135,6 +4167,100 @@ namespace kinetica
                                                               options ) );
         }
 
+
+        /// <summary>Alters an existing environment which can be referenced by
+        /// a <a href="../../../concepts/udf/" target="_top">user-defined
+        /// function</a> (UDF).</summary>
+        /// 
+        /// <param name="request_">Request object containing the parameters for
+        /// the operation.</param>
+        /// 
+        /// <returns>Response object containing the result of the
+        /// operation.</returns>
+        /// 
+        public AlterEnvironmentResponse alterEnvironment( AlterEnvironmentRequest request_ )
+        {
+            AlterEnvironmentResponse actualResponse_ = SubmitRequest<AlterEnvironmentResponse>("/alter/environment", request_, false);
+
+            return actualResponse_;
+        }
+
+
+        /// <summary>Alters an existing environment which can be referenced by
+        /// a <a href="../../../concepts/udf/" target="_top">user-defined
+        /// function</a> (UDF).</summary>
+        /// 
+        /// <param name="environment_name">Name of the environment to be
+        /// altered.  </param>
+        /// <param name="action">Modification operation to be applied
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterEnvironmentRequest.Action.INSTALL_PACKAGE">INSTALL_PACKAGE</see>:</term>
+        ///         <description>Install a python package</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterEnvironmentRequest.Action.INSTALL_REQUIREMENTS">INSTALL_REQUIREMENTS</see>:</term>
+        ///         <description>Install packages from a requirements
+        /// file</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterEnvironmentRequest.Action.UNINSTALL_PACKAGE">UNINSTALL_PACKAGE</see>:</term>
+        ///         <description>Uninstall a python package.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterEnvironmentRequest.Action.UNINSTALL_REQUIREMENTS">UNINSTALL_REQUIREMENTS</see>:</term>
+        ///         <description>Uninstall packages from a requirements
+        /// file</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterEnvironmentRequest.Action.RESET">RESET</see>:</term>
+        ///         <description>Uninstalls all packages in the environment and
+        /// resets it to the original state at time of creation</description>
+        ///     </item>
+        /// </list>  </param>
+        /// <param name="_value">The value of the modification, depending on
+        /// <paramref cref="AlterEnvironmentRequest.action" />.  For example,
+        /// if <paramref cref="AlterEnvironmentRequest.action" /> is
+        /// <i>install_package</i>, this would be the python package name.
+        /// If <paramref cref="AlterEnvironmentRequest.action" /> is
+        /// <i>install_requirements</i>, this would be the path of a
+        /// requirements file from which to install packages.
+        /// If an external data source is specified in <i>datasource_name</i>,
+        /// this can be the path to a wheel file or source archive.
+        /// Alternatively, if installing from a file (wheel or source archive),
+        /// the value may be a reference to a file in <a
+        /// href="../../../tools/kifs/" target="_top">KiFS</a>.  </param>
+        /// <param name="options">Optional parameters.
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterEnvironmentRequest.Options.DATASOURCE_NAME">DATASOURCE_NAME</see>:</term>
+        ///         <description>Name of an existing external data source from
+        /// which packages specified in <paramref
+        /// cref="AlterEnvironmentRequest._value" /> can be
+        /// loaded</description>
+        ///     </item>
+        /// </list>
+        /// The default value is an empty {@link Dictionary}.</param>
+        /// 
+        /// <returns>Response object containing the result of the
+        /// operation.</returns>
+        /// 
+        public AlterEnvironmentResponse alterEnvironment( string environment_name,
+                                                          string action,
+                                                          string _value,
+                                                          IDictionary<string, string> options = null )
+        {
+            return alterEnvironment( new AlterEnvironmentRequest( environment_name,
+                                                                  action, _value, options ) );
+        }
+
         /// @cond NO_DOCS
         /// 
         /// <param name="request_">Request object containing the parameters for
@@ -4781,6 +4907,28 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
+        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.EGRESS_PARQUET_COMPRESSION">EGRESS_PARQUET_COMPRESSION</see>:</term>
+        ///         <description>Parquet file compression type
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.UNCOMPRESSED">UNCOMPRESSED</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.SNAPPY">SNAPPY</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.GZIP">GZIP</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.SNAPPY">SNAPPY</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="AlterSystemPropertiesRequest.PropertyUpdatesMap.EGRESS_SINGLE_FILE_MAX_SIZE">EGRESS_SINGLE_FILE_MAX_SIZE</see>:</term>
         ///         <description>Max file size (in MB) to allow saving to a
         /// single file. May be overridden by target limitations.  The default
@@ -4808,6 +4956,24 @@ namespace kinetica
         ///   </param>
         /// <param name="options">Optional parameters.
         /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterSystemPropertiesRequest.Options.EVICT_TO_COLD">EVICT_TO_COLD</see>:</term>
+        ///         <description>If <i>true</i> and evict_columns is specified,
+        /// the given objects will be evicted to cold storage (if such a tier
+        /// exists).
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterSystemPropertiesRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterSystemPropertiesRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list></description>
+        ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="AlterSystemPropertiesRequest.Options.PERSIST">PERSIST</see>:</term>
@@ -5219,6 +5385,14 @@ namespace kinetica
         ///         <description>Removes <a
         /// href="../../../concepts/full_text_search/" target="_top">text
         /// search</a> attribute from all columns.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="AlterTableRequest.Action.REMOVE_SHARD_KEYS">REMOVE_SHARD_KEYS</see>:</term>
+        ///         <description>Removes the shard key property from all
+        /// columns, so that the table will be considered randomly sharded.
+        /// The data is not moved.  The <paramref
+        /// cref="AlterTableRequest._value" /> is ignored.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -5713,6 +5887,12 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
+        /// cref="AlterTierRequest.Options.WAIT_TIMEOUT">WAIT_TIMEOUT</see>:</term>
+        ///         <description>Timeout in seconds for reading from or writing
+        /// to this resource. Applies to cold storage tiers only.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="AlterTierRequest.Options.PERSIST">PERSIST</see>:</term>
         ///         <description>If <i>true</i> the system configuration will
         /// be written to disk upon successful application of this request.
@@ -5947,28 +6127,38 @@ namespace kinetica
         ///         <term><see
         /// cref="AppendRecordsRequest.Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>:</term>
         ///         <description>Specifies the record collision policy for
-        /// inserting the source table records (specified by <paramref
-        /// cref="AppendRecordsRequest.source_table_name" />) into the target
-        /// table (specified by <paramref
-        /// cref="AppendRecordsRequest.table_name" />) table with a <a
-        /// href="../../../concepts/tables/#primary-keys" target="_top">primary
-        /// key</a>.  If set to <i>true</i>, any existing target table record
-        /// with primary key values that match those of a source table record
-        /// being inserted will be replaced by that new record.  If set to
-        /// <i>false</i>, any existing target table record with primary key
-        /// values that match those of a source table record being inserted
-        /// will remain unchanged and the new record discarded.  If the
-        /// specified table does not have a primary key, then this option has
-        /// no effect.
+        /// inserting source table
+        /// records (specified by <paramref
+        /// cref="AppendRecordsRequest.source_table_name" />) into a target
+        /// table
+        /// (specified by <paramref cref="AppendRecordsRequest.table_name" />)
+        /// with a <a href="../../../concepts/tables/#primary-keys"
+        /// target="_top">primary key</a>. If
+        /// set to <i>true</i>, any existing table record with
+        /// primary key values that match those of a source table record being
+        /// inserted will be replaced by that
+        /// new record (the new data will be "upserted"). If set to
+        /// <i>false</i>, any existing table record with primary
+        /// key values that match those of a source table record being inserted
+        /// will remain unchanged, while the
+        /// source record will be rejected and an error handled as determined
+        /// by
+        /// <i>ignore_existing_pk</i>.  If the specified table does not have a
+        /// primary key,
+        /// then this option has no effect.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
-        /// cref="AppendRecordsRequest.Options.TRUE">TRUE</see></term>
+        /// cref="AppendRecordsRequest.Options.TRUE">TRUE</see>:</term>
+        ///         <description>Upsert new records when primary keys match
+        /// existing records</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AppendRecordsRequest.Options.FALSE">FALSE</see></term>
+        /// cref="AppendRecordsRequest.Options.FALSE">FALSE</see>:</term>
+        ///         <description>Reject new records when primary keys match
+        /// existing records</description>
         ///     </item>
         /// </list>
         /// The default value is <see
@@ -5977,26 +6167,41 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="AppendRecordsRequest.Options.IGNORE_EXISTING_PK">IGNORE_EXISTING_PK</see>:</term>
-        ///         <description>Specifies the record collision policy for
-        /// inserting the source table records (specified by <paramref
-        /// cref="AppendRecordsRequest.source_table_name" />) into the target
-        /// table (specified by <paramref
-        /// cref="AppendRecordsRequest.table_name" />) table with a <a
-        /// href="../../../concepts/tables/#primary-keys" target="_top">primary
-        /// key</a>.  If set to <i>true</i>, any source table records being
-        /// inserted with primary key values that match those of an existing
-        /// target table record will be ignored with no error generated.  If
-        /// the specified table does not have a primary key, then this option
-        /// has no affect.
+        ///         <description>Specifies the record collision
+        /// error-suppression policy for
+        /// inserting source table records (specified by <paramref
+        /// cref="AppendRecordsRequest.source_table_name" />) into a target
+        /// table
+        /// (specified by <paramref cref="AppendRecordsRequest.table_name" />)
+        /// with a <a href="../../../concepts/tables/#primary-keys"
+        /// target="_top">primary key</a>, only
+        /// used when not in upsert mode (upsert mode is disabled when
+        /// <i>update_on_existing_pk</i> is
+        /// <i>false</i>).  If set to
+        /// <i>true</i>, any source table record being inserted that
+        /// is rejected for having primary key values that match those of an
+        /// existing target table record will
+        /// be ignored with no error generated.  If <i>false</i>,
+        /// the rejection of any source table record for having primary key
+        /// values matching an existing target
+        /// table record will result in an error being raised.  If the
+        /// specified table does not have a primary
+        /// key or if upsert mode is in effect (<i>update_on_existing_pk</i> is
+        /// <i>true</i>), then this option has no effect.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
-        /// cref="AppendRecordsRequest.Options.TRUE">TRUE</see></term>
+        /// cref="AppendRecordsRequest.Options.TRUE">TRUE</see>:</term>
+        ///         <description>Ignore source table records whose primary key
+        /// values collide with those of target table records</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="AppendRecordsRequest.Options.FALSE">FALSE</see></term>
+        /// cref="AppendRecordsRequest.Options.FALSE">FALSE</see>:</term>
+        ///         <description>Raise an error for any source table record
+        /// whose primary key values collide with those of a target table
+        /// record</description>
         ///     </item>
         /// </list>
         /// The default value is <see
@@ -6542,6 +6747,27 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
+        /// cref="CreateDatasinkRequest.Options.S3_USE_VIRTUAL_ADDRESSING">S3_USE_VIRTUAL_ADDRESSING</see>:</term>
+        ///         <description>When true (default), the requests URI should
+        /// be specified in virtual-hosted-style format where the bucket name
+        /// is part of the domain name in the URL.
+        /// Otherwise set to false to use path-style URI for requests.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateDatasinkRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateDatasinkRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="CreateDatasinkRequest.Options.TRUE">TRUE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="CreateDatasinkRequest.Options.S3_AWS_ROLE_ARN">S3_AWS_ROLE_ARN</see>:</term>
         ///         <description>Amazon IAM Role ARN which has required S3
         /// permissions that can be assumed for the given S3 IAM
@@ -6844,6 +7070,27 @@ namespace kinetica
         /// cref="CreateDatasourceRequest.Options.S3_REGION">S3_REGION</see>:</term>
         ///         <description>Name of the Amazon S3 region where the given
         /// bucket is located</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateDatasourceRequest.Options.S3_USE_VIRTUAL_ADDRESSING">S3_USE_VIRTUAL_ADDRESSING</see>:</term>
+        ///         <description>When true (default), the requests URI should
+        /// be specified in virtual-hosted-style format where the bucket name
+        /// is part of the domain name in the URL.
+        /// Otherwise set to false to use path-style URI for requests.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateDatasourceRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateDatasourceRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="CreateDatasourceRequest.Options.TRUE">TRUE</see>.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -7169,6 +7416,44 @@ namespace kinetica
                                                         IDictionary<string, string> options = null )
         {
             return createDirectory( new CreateDirectoryRequest( directory_name, options ) );
+        }
+
+
+        /// <summary>Creates a new environment which can be used by <a
+        /// href="../../../concepts/udf/" target="_top">user-defined
+        /// functions</a> (UDF).</summary>
+        /// 
+        /// <param name="request_">Request object containing the parameters for
+        /// the operation.</param>
+        /// 
+        /// <returns>Response object containing the result of the
+        /// operation.</returns>
+        /// 
+        public CreateEnvironmentResponse createEnvironment( CreateEnvironmentRequest request_ )
+        {
+            CreateEnvironmentResponse actualResponse_ = SubmitRequest<CreateEnvironmentResponse>("/create/environment", request_, false);
+
+            return actualResponse_;
+        }
+
+
+        /// <summary>Creates a new environment which can be used by <a
+        /// href="../../../concepts/udf/" target="_top">user-defined
+        /// functions</a> (UDF).</summary>
+        /// 
+        /// <param name="environment_name">Name of the environment to be
+        /// created.  </param>
+        /// <param name="options">Optional parameters.  The default value is an
+        /// empty {@link Dictionary}.</param>
+        /// 
+        /// <returns>Response object containing the result of the
+        /// operation.</returns>
+        /// 
+        public CreateEnvironmentResponse createEnvironment( string environment_name,
+                                                            IDictionary<string, string> options = null )
+        {
+            return createEnvironment( new CreateEnvironmentRequest( environment_name,
+                                                                    options ) );
         }
 
 
@@ -8034,6 +8319,13 @@ namespace kinetica
         ///         <description>The maximum number of concurrent instances of
         /// the proc that will be executed per node. 0 allows unlimited
         /// concurrency.  The default value is '0'.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateProcRequest.Options.SET_ENVIRONMENT">SET_ENVIRONMENT</see>:</term>
+        ///         <description>A python environment to use when executing the
+        /// proc. Must be an existing environment, else an error will be
+        /// returned.  The default value is ''.</description>
         ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.</param>
@@ -9382,6 +9674,12 @@ namespace kinetica
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
+        /// cref="CreateTableExternalRequest.Options.AVRO_HEADER_BYTES">AVRO_HEADER_BYTES</see>:</term>
+        ///         <description>Optional number of bytes to skip when reading
+        /// an avro record.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="CreateTableExternalRequest.Options.AVRO_NUM_RECORDS">AVRO_NUM_RECORDS</see>:</term>
         ///         <description>Optional number of avro records, if data
         /// includes only records.</description>
@@ -9392,6 +9690,24 @@ namespace kinetica
         ///         <description>Optional string representing avro schema, for
         /// insert records in avro format, that does not include is
         /// schema.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableExternalRequest.Options.AVRO_SCHEMALESS">AVRO_SCHEMALESS</see>:</term>
+        ///         <description>When user provides 'avro_schema', avro data is
+        /// assumed to be schemaless, unless specified. Default is 'true' when
+        /// given avro_schema. Igonred when avro_schema is not given.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableExternalRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableExternalRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list></description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -9646,6 +9962,46 @@ namespace kinetica
         /// </list>
         /// The default value is <see
         /// cref="CreateTableExternalRequest.Options.DELIMITED_TEXT">DELIMITED_TEXT</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableExternalRequest.Options.IGNORE_EXISTING_PK">IGNORE_EXISTING_PK</see>:</term>
+        ///         <description>Specifies the record collision
+        /// error-suppression policy for
+        /// inserting into a table with a <a
+        /// href="../../../concepts/tables/#primary-keys" target="_top">primary
+        /// key</a>, only used when
+        /// not in upsert mode (upsert mode is disabled when
+        /// <i>update_on_existing_pk</i> is
+        /// <i>false</i>).  If set to
+        /// <i>true</i>, any record being inserted that is rejected
+        /// for having primary key values that match those of an existing table
+        /// record will be ignored with no
+        /// error generated.  If <i>false</i>, the rejection of any
+        /// record for having primary key values matching an existing record
+        /// will result in an error being
+        /// reported, as determined by <i>error_handling</i>.  If the specified
+        /// table does not
+        /// have a primary key or if upsert mode is in effect
+        /// (<i>update_on_existing_pk</i> is
+        /// <i>true</i>), then this option has no effect.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableExternalRequest.Options.TRUE">TRUE</see>:</term>
+        ///         <description>Ignore new records whose primary key values
+        /// collide with those of existing records</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="CreateTableExternalRequest.Options.FALSE">FALSE</see>:</term>
+        ///         <description>Treat as errors any new records whose primary
+        /// key values collide with those of existing records</description>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="CreateTableExternalRequest.Options.FALSE">FALSE</see>.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -10041,14 +10397,15 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="CreateTableExternalRequest.Options.ACCURACY">ACCURACY</see>:</term>
-        ///         <description>scans all data to get exactly-typed & sized
-        /// columns for all data present</description>
+        ///         <description>Scans data to get exactly-typed & sized
+        /// columns for all data scanned. </description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="CreateTableExternalRequest.Options.SPEED">SPEED</see>:</term>
-        ///         <description>picks the widest possible column types so that
-        /// 'all' values will fit with minimum data scanned</description>
+        ///         <description>Scans data and picks the widest possible
+        /// column types so that 'all' values will fit with minimum data
+        /// scanned</description>
         ///     </item>
         /// </list>
         /// The default value is <see
@@ -10083,34 +10440,34 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="CreateTableExternalRequest.Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>:</term>
-        ///         <description>
+        ///         <description>Specifies the record collision policy for
+        /// inserting into a table
+        /// with a <a href="../../../concepts/tables/#primary-keys"
+        /// target="_top">primary key</a>. If set to
+        /// <i>true</i>, any existing table record with primary
+        /// key values that match those of a record being inserted will be
+        /// replaced by that new record (the new
+        /// data will be "upserted"). If set to <i>false</i>,
+        /// any existing table record with primary key values that match those
+        /// of a record being inserted will
+        /// remain unchanged, while the new record will be rejected and the
+        /// error handled as determined by
+        /// <i>ignore_existing_pk</i> & <i>error_handling</i>.  If the
+        /// specified table does not have a primary key, then this option has
+        /// no effect.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
-        /// cref="CreateTableExternalRequest.Options.TRUE">TRUE</see></term>
+        /// cref="CreateTableExternalRequest.Options.TRUE">TRUE</see>:</term>
+        ///         <description>Upsert new records when primary keys match
+        /// existing records</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="CreateTableExternalRequest.Options.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="CreateTableExternalRequest.Options.FALSE">FALSE</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateTableExternalRequest.Options.IGNORE_EXISTING_PK">IGNORE_EXISTING_PK</see>:</term>
-        ///         <description>
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateTableExternalRequest.Options.TRUE">TRUE</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="CreateTableExternalRequest.Options.FALSE">FALSE</see></term>
+        /// cref="CreateTableExternalRequest.Options.FALSE">FALSE</see>:</term>
+        ///         <description>Reject new records when primary keys match
+        /// existing records</description>
         ///     </item>
         /// </list>
         /// The default value is <see
@@ -11633,7 +11990,11 @@ namespace kinetica
         /// href="../../../tools/kifs/" target="_top">KiFS</a>.</summary>
         /// 
         /// <param name="file_names">An array of names of files to be deleted.
-        /// </param>
+        /// File paths may contain wildcard characters after the KiFS directory
+        /// delimeter.
+        /// Accepted wildcard characters are asterisk (*) to represent any
+        /// string of zero or more characters, and question mark (?) to
+        /// indicate a single character.  </param>
         /// <param name="options">Optional parameters.
         /// <list type="bullet">
         ///     <item>
@@ -12020,7 +12381,11 @@ namespace kinetica
         /// href="../../../tools/kifs/" target="_top">KiFS</a>.</summary>
         /// 
         /// <param name="file_names">An array of the file names to download
-        /// from KiFS. The full path must be provided.  </param>
+        /// from KiFS. File paths may contain wildcard characters after the
+        /// KiFS directory delimeter.
+        /// Accepted wildcard characters are asterisk (*) to represent any
+        /// string of zero or more characters, and question mark (?) to
+        /// indicate a single character.  </param>
         /// <param name="read_offsets">An array of starting byte offsets from
         /// which to read each
         /// respective file in <paramref cref="DownloadFilesRequest.file_names"
@@ -12253,6 +12618,69 @@ namespace kinetica
                                                       IDictionary<string, string> options = null )
         {
             return dropDatasource( new DropDatasourceRequest( name, options ) );
+        }
+
+
+        /// <summary>Drop an existing <a href="../../../concepts/udf/"
+        /// target="_top">user-defined function</a> (UDF)
+        /// environment.</summary>
+        /// 
+        /// <param name="request_">Request object containing the parameters for
+        /// the operation.</param>
+        /// 
+        /// <returns>Response object containing the result of the
+        /// operation.</returns>
+        /// 
+        public DropEnvironmentResponse dropEnvironment( DropEnvironmentRequest request_ )
+        {
+            DropEnvironmentResponse actualResponse_ = SubmitRequest<DropEnvironmentResponse>("/drop/environment", request_, false);
+
+            return actualResponse_;
+        }
+
+
+        /// <summary>Drop an existing <a href="../../../concepts/udf/"
+        /// target="_top">user-defined function</a> (UDF)
+        /// environment.</summary>
+        /// 
+        /// <param name="environment_name">Name of the environment to be
+        /// dropped. Must be an existing environment.  </param>
+        /// <param name="options">Optional parameters.
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="DropEnvironmentRequest.Options.NO_ERROR_IF_NOT_EXISTS">NO_ERROR_IF_NOT_EXISTS</see>:</term>
+        ///         <description>If <i>true</i> and if the environment
+        /// specified in <paramref
+        /// cref="DropEnvironmentRequest.environment_name" /> does not exist,
+        /// no error is returned. If <i>false</i> and if the environment
+        /// specified in <paramref
+        /// cref="DropEnvironmentRequest.environment_name" /> does not exist,
+        /// then an error is returned.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="DropEnvironmentRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="DropEnvironmentRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="DropEnvironmentRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        /// </list>
+        /// The default value is an empty {@link Dictionary}.</param>
+        /// 
+        /// <returns>Response object containing the result of the
+        /// operation.</returns>
+        /// 
+        public DropEnvironmentResponse dropEnvironment( string environment_name,
+                                                        IDictionary<string, string> options = null )
+        {
+            return dropEnvironment( new DropEnvironmentRequest( environment_name, options ) );
         }
 
         /// @cond NO_DOCS
@@ -12698,18 +13126,37 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="ExecuteSqlRequest.Options.IGNORE_EXISTING_PK">IGNORE_EXISTING_PK</see>:</term>
-        ///         <description>Can be used to customize behavior when the
-        /// updated primary key value already exists as described in
-        /// /insert/records.
+        ///         <description>Specifies the record collision
+        /// error-suppression policy for
+        /// inserting into or updating a table with a <a
+        /// href="../../../concepts/tables/#primary-keys" target="_top">primary
+        /// key</a>, only
+        /// used when primary key record collisions are rejected
+        /// (<i>update_on_existing_pk</i>
+        /// is <i>false</i>).  If set to
+        /// <i>true</i>, any record insert/update that is rejected
+        /// for resulting in a primary key collision with an existing table
+        /// record will be ignored with no error
+        /// generated.  If <i>false</i>, the rejection of any
+        /// insert/update for resulting in a primary key collision will cause
+        /// an error to be reported.  If the
+        /// specified table does not have a primary key or if
+        /// <i>update_on_existing_pk</i> is
+        /// <i>true</i>, then this option has no effect.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
-        /// cref="ExecuteSqlRequest.Options.TRUE">TRUE</see></term>
+        /// cref="ExecuteSqlRequest.Options.TRUE">TRUE</see>:</term>
+        ///         <description>Ignore inserts/updates that result in primary
+        /// key collisions with existing records</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="ExecuteSqlRequest.Options.FALSE">FALSE</see></term>
+        /// cref="ExecuteSqlRequest.Options.FALSE">FALSE</see>:</term>
+        ///         <description>Treat as errors any inserts/updates that
+        /// result in primary key collisions with existing
+        /// records</description>
         ///     </item>
         /// </list>
         /// The default value is <see
@@ -12902,18 +13349,33 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="ExecuteSqlRequest.Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>:</term>
-        ///         <description>Can be used to customize behavior when the
-        /// updated primary key value already exists as described in
-        /// /insert/records.
+        ///         <description>Specifies the record collision policy for
+        /// inserting into or updating
+        /// a table with a <a href="../../../concepts/tables/#primary-keys"
+        /// target="_top">primary key</a>. If set to
+        /// <i>true</i>, any existing table record with primary
+        /// key values that match those of a record being inserted or updated
+        /// will be replaced by that record.
+        /// If set to <i>false</i>, any such primary key
+        /// collision will result in the insert/update being rejected and the
+        /// error handled as determined by
+        /// <i>ignore_existing_pk</i>.  If the specified table does not have a
+        /// primary key,
+        /// then this option has no effect.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
-        /// cref="ExecuteSqlRequest.Options.TRUE">TRUE</see></term>
+        /// cref="ExecuteSqlRequest.Options.TRUE">TRUE</see>:</term>
+        ///         <description>Replace the collided-into record with the
+        /// record inserted or updated when a new/modified record causes a
+        /// primary key collision with an existing record</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="ExecuteSqlRequest.Options.FALSE">FALSE</see></term>
+        /// cref="ExecuteSqlRequest.Options.FALSE">FALSE</see>:</term>
+        ///         <description>Reject the insert or update when it results in
+        /// a primary key collision with an existing record</description>
         ///     </item>
         /// </list>
         /// The default value is <see
@@ -12940,6 +13402,14 @@ namespace kinetica
         /// </list>
         /// The default value is <see
         /// cref="ExecuteSqlRequest.Options.TRUE">TRUE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ExecuteSqlRequest.Options.CURRENT_SCHEMA">CURRENT_SCHEMA</see>:</term>
+        ///         <description>Use the supplied value as the <a
+        /// href="../../../concepts/schemas/#default-schema"
+        /// target="_top">default schema</a> when processing this SQL
+        /// command.</description>
         ///     </item>
         /// </list>
         /// The default value is an empty {@link Dictionary}.</param>
@@ -13187,6 +13657,28 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
+        /// cref="ExportRecordsToFilesRequest.Options.COMPRESSION_TYPE">COMPRESSION_TYPE</see>:</term>
+        ///         <description>File compression type. GZip can be applied to
+        /// text and Parquet files.  Snappy can only be applied to Parquet
+        /// files, and is the default compression for them.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="ExportRecordsToFilesRequest.Options.UNCOMPRESSED">UNCOMPRESSED</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ExportRecordsToFilesRequest.Options.SNAPPY">SNAPPY</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ExportRecordsToFilesRequest.Options.GZIP">GZIP</see></term>
+        ///     </item>
+        /// </list></description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="ExportRecordsToFilesRequest.Options.SINGLE_FILE">SINGLE_FILE</see>:</term>
         ///         <description>Save records to a single file. This option may
         /// be ignored if file
@@ -13201,6 +13693,10 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="ExportRecordsToFilesRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ExportRecordsToFilesRequest.Options.OVERWRITE">OVERWRITE</see></term>
         ///     </item>
         /// </list>
         /// The default value is <see
@@ -17232,24 +17728,34 @@ namespace kinetica
         ///         <term><see
         /// cref="RawInsertRecordsRequest.Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>:</term>
         ///         <description>Specifies the record collision policy for
-        /// inserting into a table with a <a
-        /// href="../../../concepts/tables/#primary-keys" target="_top">primary
-        /// key</a>.  If set to <i>true</i>, any existing table record with
-        /// primary key values that match those of a record being inserted will
-        /// be replaced by that new record.  If set to <i>false</i>, any
-        /// existing table record with primary key values that match those of a
-        /// record being inserted will remain unchanged and the new record
-        /// discarded.  If the specified table does not have a primary key,
-        /// then this option has no affect.
+        /// inserting into a table
+        /// with a <a href="../../../concepts/tables/#primary-keys"
+        /// target="_top">primary key</a>. If set to
+        /// <i>true</i>, any existing table record with primary
+        /// key values that match those of a record being inserted will be
+        /// replaced by that new record (the new
+        /// data will be "upserted"). If set to <i>false</i>,
+        /// any existing table record with primary key values that match those
+        /// of a record being inserted will
+        /// remain unchanged, while the new record will be rejected and the
+        /// error handled as determined by
+        /// <i>ignore_existing_pk</i>, <i>allow_partial_batch</i>, &
+        /// <i>return_individual_errors</i>.  If the specified table does not
+        /// have a primary
+        /// key, then this option has no effect.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
-        /// cref="RawInsertRecordsRequest.Options.TRUE">TRUE</see></term>
+        /// cref="RawInsertRecordsRequest.Options.TRUE">TRUE</see>:</term>
+        ///         <description>Upsert new records when primary keys match
+        /// existing records</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see></term>
+        /// cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see>:</term>
+        ///         <description>Reject new records when primary keys match
+        /// existing records</description>
         ///     </item>
         /// </list>
         /// The default value is <see
@@ -17258,22 +17764,38 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="RawInsertRecordsRequest.Options.IGNORE_EXISTING_PK">IGNORE_EXISTING_PK</see>:</term>
-        ///         <description>Specifies the record collision policy for
+        ///         <description>Specifies the record collision
+        /// error-suppression policy for
         /// inserting into a table with a <a
         /// href="../../../concepts/tables/#primary-keys" target="_top">primary
-        /// key</a>.  If set to <i>true</i>, any record being inserted with
-        /// primary key values that match those of an existing table record
-        /// will be ignored with no error generated.  If the specified table
-        /// does not have a primary key, then this option has no affect.
+        /// key</a>, only used when
+        /// not in upsert mode (upsert mode is disabled when
+        /// <i>update_on_existing_pk</i> is
+        /// <i>false</i>).  If set to
+        /// <i>true</i>, any record being inserted that is rejected
+        /// for having primary key values that match those of an existing table
+        /// record will be ignored with no
+        /// error generated.  If <i>false</i>, the rejection of any
+        /// record for having primary key values matching an existing record
+        /// will result in an error being
+        /// reported, as determined by <i>allow_partial_batch</i> &
+        /// <i>return_individual_errors</i>.  If the specified table does not
+        /// have a primary key or if upsert mode is in effect
+        /// (<i>update_on_existing_pk</i> is
+        /// <i>true</i>), then this option has no effect.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
-        /// cref="RawInsertRecordsRequest.Options.TRUE">TRUE</see></term>
+        /// cref="RawInsertRecordsRequest.Options.TRUE">TRUE</see>:</term>
+        ///         <description>Ignore new records whose primary key values
+        /// collide with those of existing records</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see></term>
+        /// cref="RawInsertRecordsRequest.Options.FALSE">FALSE</see>:</term>
+        ///         <description>Treat as errors any new records whose primary
+        /// key values collide with those of existing records</description>
         ///     </item>
         /// </list>
         /// The default value is <see
@@ -17743,6 +18265,12 @@ namespace kinetica
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
+        /// cref="InsertRecordsFromFilesRequest.Options.AVRO_HEADER_BYTES">AVRO_HEADER_BYTES</see>:</term>
+        ///         <description>Optional number of bytes to skip when reading
+        /// an avro record.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="InsertRecordsFromFilesRequest.Options.AVRO_NUM_RECORDS">AVRO_NUM_RECORDS</see>:</term>
         ///         <description>Optional number of avro records, if data
         /// includes only records.</description>
@@ -17752,6 +18280,24 @@ namespace kinetica
         /// cref="InsertRecordsFromFilesRequest.Options.AVRO_SCHEMA">AVRO_SCHEMA</see>:</term>
         ///         <description>Optional string representing avro schema, if
         /// data includes only records.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromFilesRequest.Options.AVRO_SCHEMALESS">AVRO_SCHEMALESS</see>:</term>
+        ///         <description>When user provides 'avro_schema', avro data is
+        /// assumed to be schemaless, unless specified. Default is 'true' when
+        /// given avro_schema. Igonred when avro_schema is not given.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromFilesRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromFilesRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list></description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -17983,6 +18529,46 @@ namespace kinetica
         /// </list>
         /// The default value is <see
         /// cref="InsertRecordsFromFilesRequest.Options.DELIMITED_TEXT">DELIMITED_TEXT</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromFilesRequest.Options.IGNORE_EXISTING_PK">IGNORE_EXISTING_PK</see>:</term>
+        ///         <description>Specifies the record collision
+        /// error-suppression policy for
+        /// inserting into a table with a <a
+        /// href="../../../concepts/tables/#primary-keys" target="_top">primary
+        /// key</a>, only used when
+        /// not in upsert mode (upsert mode is disabled when
+        /// <i>update_on_existing_pk</i> is
+        /// <i>false</i>).  If set to
+        /// <i>true</i>, any record being inserted that is rejected
+        /// for having primary key values that match those of an existing table
+        /// record will be ignored with no
+        /// error generated.  If <i>false</i>, the rejection of any
+        /// record for having primary key values matching an existing record
+        /// will result in an error being
+        /// reported, as determined by <i>error_handling</i>.  If the specified
+        /// table does not
+        /// have a primary key or if upsert mode is in effect
+        /// (<i>update_on_existing_pk</i> is
+        /// <i>true</i>), then this option has no effect.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromFilesRequest.Options.TRUE">TRUE</see>:</term>
+        ///         <description>Ignore new records whose primary key values
+        /// collide with those of existing records</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromFilesRequest.Options.FALSE">FALSE</see>:</term>
+        ///         <description>Treat as errors any new records whose primary
+        /// key values collide with those of existing records</description>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="InsertRecordsFromFilesRequest.Options.FALSE">FALSE</see>.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -18348,14 +18934,15 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="InsertRecordsFromFilesRequest.Options.ACCURACY">ACCURACY</see>:</term>
-        ///         <description>scans all data to get exactly-typed & sized
-        /// columns for all data present</description>
+        ///         <description>Scans data to get exactly-typed & sized
+        /// columns for all data scanned. </description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="InsertRecordsFromFilesRequest.Options.SPEED">SPEED</see>:</term>
-        ///         <description>picks the widest possible column types so that
-        /// 'all' values will fit with minimum data scanned</description>
+        ///         <description>Scans data and picks the widest possible
+        /// column types so that 'all' values will fit with minimum data
+        /// scanned</description>
         ///     </item>
         /// </list>
         /// The default value is <see
@@ -18364,34 +18951,34 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="InsertRecordsFromFilesRequest.Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>:</term>
-        ///         <description>
+        ///         <description>Specifies the record collision policy for
+        /// inserting into a table
+        /// with a <a href="../../../concepts/tables/#primary-keys"
+        /// target="_top">primary key</a>. If set to
+        /// <i>true</i>, any existing table record with primary
+        /// key values that match those of a record being inserted will be
+        /// replaced by that new record (the new
+        /// data will be "upserted"). If set to <i>false</i>,
+        /// any existing table record with primary key values that match those
+        /// of a record being inserted will
+        /// remain unchanged, while the new record will be rejected and the
+        /// error handled as determined by
+        /// <i>ignore_existing_pk</i> & <i>error_handling</i>.  If the
+        /// specified table does not have a primary key, then this option has
+        /// no effect.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
-        /// cref="InsertRecordsFromFilesRequest.Options.TRUE">TRUE</see></term>
+        /// cref="InsertRecordsFromFilesRequest.Options.TRUE">TRUE</see>:</term>
+        ///         <description>Upsert new records when primary keys match
+        /// existing records</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="InsertRecordsFromFilesRequest.Options.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="InsertRecordsFromFilesRequest.Options.FALSE">FALSE</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="InsertRecordsFromFilesRequest.Options.IGNORE_EXISTING_PK">IGNORE_EXISTING_PK</see>:</term>
-        ///         <description>
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="InsertRecordsFromFilesRequest.Options.TRUE">TRUE</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="InsertRecordsFromFilesRequest.Options.FALSE">FALSE</see></term>
+        /// cref="InsertRecordsFromFilesRequest.Options.FALSE">FALSE</see>:</term>
+        ///         <description>Reject new records when primary keys match
+        /// existing records</description>
         ///     </item>
         /// </list>
         /// The default value is <see
@@ -18687,6 +19274,12 @@ namespace kinetica
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
+        /// cref="InsertRecordsFromPayloadRequest.Options.AVRO_HEADER_BYTES">AVRO_HEADER_BYTES</see>:</term>
+        ///         <description>Optional number of bytes to skip when reading
+        /// an avro record.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="InsertRecordsFromPayloadRequest.Options.AVRO_NUM_RECORDS">AVRO_NUM_RECORDS</see>:</term>
         ///         <description>Optional number of avro records, if data
         /// includes only records.</description>
@@ -18697,6 +19290,24 @@ namespace kinetica
         ///         <description>Optional string representing avro schema, for
         /// insert records in avro format, that does not include is
         /// schema.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromPayloadRequest.Options.AVRO_SCHEMALESS">AVRO_SCHEMALESS</see>:</term>
+        ///         <description>When user provides 'avro_schema', avro data is
+        /// assumed to be schemaless, unless specified. Default is 'true' when
+        /// given avro_schema. Igonred when avro_schema is not given.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromPayloadRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromPayloadRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list></description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -18919,6 +19530,46 @@ namespace kinetica
         /// </list>
         /// The default value is <see
         /// cref="InsertRecordsFromPayloadRequest.Options.DELIMITED_TEXT">DELIMITED_TEXT</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromPayloadRequest.Options.IGNORE_EXISTING_PK">IGNORE_EXISTING_PK</see>:</term>
+        ///         <description>Specifies the record collision
+        /// error-suppression policy for
+        /// inserting into a table with a <a
+        /// href="../../../concepts/tables/#primary-keys" target="_top">primary
+        /// key</a>, only used when
+        /// not in upsert mode (upsert mode is disabled when
+        /// <i>update_on_existing_pk</i> is
+        /// <i>false</i>).  If set to
+        /// <i>true</i>, any record being inserted that is rejected
+        /// for having primary key values that match those of an existing table
+        /// record will be ignored with no
+        /// error generated.  If <i>false</i>, the rejection of any
+        /// record for having primary key values matching an existing record
+        /// will result in an error being
+        /// reported, as determined by <i>error_handling</i>.  If the specified
+        /// table does not
+        /// have a primary key or if upsert mode is in effect
+        /// (<i>update_on_existing_pk</i> is
+        /// <i>true</i>), then this option has no effect.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromPayloadRequest.Options.TRUE">TRUE</see>:</term>
+        ///         <description>Ignore new records whose primary key values
+        /// collide with those of existing records</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromPayloadRequest.Options.FALSE">FALSE</see>:</term>
+        ///         <description>Treat as errors any new records whose primary
+        /// key values collide with those of existing records</description>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="InsertRecordsFromPayloadRequest.Options.FALSE">FALSE</see>.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -19252,14 +19903,15 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="InsertRecordsFromPayloadRequest.Options.ACCURACY">ACCURACY</see>:</term>
-        ///         <description>scans all data to get exactly-typed & sized
-        /// columns for all data present</description>
+        ///         <description>Scans data to get exactly-typed & sized
+        /// columns for all data scanned. </description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="InsertRecordsFromPayloadRequest.Options.SPEED">SPEED</see>:</term>
-        ///         <description>picks the widest possible column types so that
-        /// 'all' values will fit with minimum data scanned</description>
+        ///         <description>Scans data and picks the widest possible
+        /// column types so that 'all' values will fit with minimum data
+        /// scanned</description>
         ///     </item>
         /// </list>
         /// The default value is <see
@@ -19268,34 +19920,34 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="InsertRecordsFromPayloadRequest.Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>:</term>
-        ///         <description>
+        ///         <description>Specifies the record collision policy for
+        /// inserting into a table
+        /// with a <a href="../../../concepts/tables/#primary-keys"
+        /// target="_top">primary key</a>. If set to
+        /// <i>true</i>, any existing table record with primary
+        /// key values that match those of a record being inserted will be
+        /// replaced by that new record (the new
+        /// data will be "upserted"). If set to <i>false</i>,
+        /// any existing table record with primary key values that match those
+        /// of a record being inserted will
+        /// remain unchanged, while the new record will be rejected and the
+        /// error handled as determined by
+        /// <i>ignore_existing_pk</i> & <i>error_handling</i>.  If the
+        /// specified table does not have a primary key, then this option has
+        /// no effect.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
-        /// cref="InsertRecordsFromPayloadRequest.Options.TRUE">TRUE</see></term>
+        /// cref="InsertRecordsFromPayloadRequest.Options.TRUE">TRUE</see>:</term>
+        ///         <description>Upsert new records when primary keys match
+        /// existing records</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="InsertRecordsFromPayloadRequest.Options.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="InsertRecordsFromPayloadRequest.Options.FALSE">FALSE</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="InsertRecordsFromPayloadRequest.Options.IGNORE_EXISTING_PK">IGNORE_EXISTING_PK</see>:</term>
-        ///         <description>
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="InsertRecordsFromPayloadRequest.Options.TRUE">TRUE</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="InsertRecordsFromPayloadRequest.Options.FALSE">FALSE</see></term>
+        /// cref="InsertRecordsFromPayloadRequest.Options.FALSE">FALSE</see>:</term>
+        ///         <description>Reject new records when primary keys match
+        /// existing records</description>
         ///     </item>
         /// </list>
         /// The default value is <see
@@ -19640,6 +20292,46 @@ namespace kinetica
         ///     </item>
         ///     <item>
         ///         <term><see
+        /// cref="InsertRecordsFromQueryRequest.Options.IGNORE_EXISTING_PK">IGNORE_EXISTING_PK</see>:</term>
+        ///         <description>Specifies the record collision
+        /// error-suppression policy for
+        /// inserting into a table with a <a
+        /// href="../../../concepts/tables/#primary-keys" target="_top">primary
+        /// key</a>, only used when
+        /// not in upsert mode (upsert mode is disabled when
+        /// <i>update_on_existing_pk</i> is
+        /// <i>false</i>).  If set to
+        /// <i>true</i>, any record being inserted that is rejected
+        /// for having primary key values that match those of an existing table
+        /// record will be ignored with no
+        /// error generated.  If <i>false</i>, the rejection of any
+        /// record for having primary key values matching an existing record
+        /// will result in an error being
+        /// reported, as determined by <i>error_handling</i>.  If the specified
+        /// table does not
+        /// have a primary key or if upsert mode is in effect
+        /// (<i>update_on_existing_pk</i> is
+        /// <i>true</i>), then this option has no effect.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromQueryRequest.Options.TRUE">TRUE</see>:</term>
+        ///         <description>Ignore new records whose primary key values
+        /// collide with those of existing records</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="InsertRecordsFromQueryRequest.Options.FALSE">FALSE</see>:</term>
+        ///         <description>Treat as errors any new records whose primary
+        /// key values collide with those of existing records</description>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="InsertRecordsFromQueryRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
         /// cref="InsertRecordsFromQueryRequest.Options.INGESTION_MODE">INGESTION_MODE</see>:</term>
         ///         <description>Whether to do a full load, dry run, or perform
         /// a type inference on the source data.
@@ -19784,34 +20476,34 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="InsertRecordsFromQueryRequest.Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>:</term>
-        ///         <description>
+        ///         <description>Specifies the record collision policy for
+        /// inserting into a table
+        /// with a <a href="../../../concepts/tables/#primary-keys"
+        /// target="_top">primary key</a>. If set to
+        /// <i>true</i>, any existing table record with primary
+        /// key values that match those of a record being inserted will be
+        /// replaced by that new record (the new
+        /// data will be "upserted"). If set to <i>false</i>,
+        /// any existing table record with primary key values that match those
+        /// of a record being inserted will
+        /// remain unchanged, while the new record will be rejected and the
+        /// error handled as determined by
+        /// <i>ignore_existing_pk</i> & <i>error_handling</i>.  If the
+        /// specified table does not have a primary key, then this option has
+        /// no effect.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
-        /// cref="InsertRecordsFromQueryRequest.Options.TRUE">TRUE</see></term>
+        /// cref="InsertRecordsFromQueryRequest.Options.TRUE">TRUE</see>:</term>
+        ///         <description>Upsert new records when primary keys match
+        /// existing records</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="InsertRecordsFromQueryRequest.Options.FALSE">FALSE</see></term>
-        ///     </item>
-        /// </list>
-        /// The default value is <see
-        /// cref="InsertRecordsFromQueryRequest.Options.FALSE">FALSE</see>.</description>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="InsertRecordsFromQueryRequest.Options.IGNORE_EXISTING_PK">IGNORE_EXISTING_PK</see>:</term>
-        ///         <description>
-        /// Supported values:
-        /// <list type="bullet">
-        ///     <item>
-        ///         <term><see
-        /// cref="InsertRecordsFromQueryRequest.Options.TRUE">TRUE</see></term>
-        ///     </item>
-        ///     <item>
-        ///         <term><see
-        /// cref="InsertRecordsFromQueryRequest.Options.FALSE">FALSE</see></term>
+        /// cref="InsertRecordsFromQueryRequest.Options.FALSE">FALSE</see>:</term>
+        ///         <description>Reject new records when primary keys match
+        /// existing records</description>
         ///     </item>
         /// </list>
         /// The default value is <see
@@ -20905,13 +21597,19 @@ namespace kinetica
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
-        /// cref="MatchGraphRequest.Options.GIRWAN">GIRWAN</see>:</term>
-        ///         <description>Uses the Newman Girwan quality metric for
+        /// cref="MatchGraphRequest.Options.GIRVAN">GIRVAN</see>:</term>
+        ///         <description>Uses the Newman Girvan quality metric for
         /// cluster solver</description>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="MatchGraphRequest.Options.SPECTRAL">SPECTRAL</see>:</term>
+        ///         <description>Applies recursive spectral bisection (RSB)
+        /// partitioning solver</description>
         ///     </item>
         /// </list>
         /// The default value is <see
-        /// cref="MatchGraphRequest.Options.GIRWAN">GIRWAN</see>.</description>
+        /// cref="MatchGraphRequest.Options.GIRVAN">GIRVAN</see>.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -21780,10 +22478,9 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="QueryGraphRequest.Options.LIMIT">LIMIT</see>:</term>
-        ///         <description>When specified, limits the number of query
-        /// results. The size of the nodes table will be limited by the
-        /// <i>limit</i> value.  The default value is an empty {@link
-        /// Dictionary}.</description>
+        ///         <description>When specified (>0), limits the number of
+        /// query results. The size of the nodes table will be limited by the
+        /// <i>limit</i> value.  The default value is '0'.</description>
         ///     </item>
         ///     <item>
         ///         <term><see
@@ -22788,6 +23485,73 @@ namespace kinetica
         }
 
 
+        /// <summary>Shows information about a specified <a
+        /// href="../../../concepts/udf/" target="_top">user-defined
+        /// function</a> (UDF) environment or all environments.
+        /// Returns detailed information about existing environments.</summary>
+        /// 
+        /// <param name="request_">Request object containing the parameters for
+        /// the operation.</param>
+        /// 
+        /// <returns>Response object containing the result of the
+        /// operation.</returns>
+        /// 
+        public ShowEnvironmentResponse showEnvironment( ShowEnvironmentRequest request_ )
+        {
+            ShowEnvironmentResponse actualResponse_ = SubmitRequest<ShowEnvironmentResponse>("/show/environment", request_, false);
+
+            return actualResponse_;
+        }
+
+
+        /// <summary>Shows information about a specified <a
+        /// href="../../../concepts/udf/" target="_top">user-defined
+        /// function</a> (UDF) environment or all environments.
+        /// Returns detailed information about existing environments.</summary>
+        /// 
+        /// <param name="environment_name">Name of the environment on which to
+        /// retrieve information. The name must refer to a currently existing
+        /// environment. If '*' or an empty value is specified, information
+        /// about all environments will be returned.  </param>
+        /// <param name="options">Optional parameters.
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="ShowEnvironmentRequest.Options.NO_ERROR_IF_NOT_EXISTS">NO_ERROR_IF_NOT_EXISTS</see>:</term>
+        ///         <description>If <i>true</i> and if the environment
+        /// specified in <paramref
+        /// cref="ShowEnvironmentRequest.environment_name" /> does not exist,
+        /// no error is returned. If <i>false</i> and if the environment
+        /// specified in <paramref
+        /// cref="ShowEnvironmentRequest.environment_name" /> does not exist,
+        /// then an error is returned.
+        /// Supported values:
+        /// <list type="bullet">
+        ///     <item>
+        ///         <term><see
+        /// cref="ShowEnvironmentRequest.Options.TRUE">TRUE</see></term>
+        ///     </item>
+        ///     <item>
+        ///         <term><see
+        /// cref="ShowEnvironmentRequest.Options.FALSE">FALSE</see></term>
+        ///     </item>
+        /// </list>
+        /// The default value is <see
+        /// cref="ShowEnvironmentRequest.Options.FALSE">FALSE</see>.</description>
+        ///     </item>
+        /// </list>
+        /// The default value is an empty {@link Dictionary}.</param>
+        /// 
+        /// <returns>Response object containing the result of the
+        /// operation.</returns>
+        /// 
+        public ShowEnvironmentResponse showEnvironment( string environment_name,
+                                                        IDictionary<string, string> options = null )
+        {
+            return showEnvironment( new ShowEnvironmentRequest( environment_name, options ) );
+        }
+
+
         /// <summary>Shows information about files in <a
         /// href="../../../tools/kifs/" target="_top">KiFS</a>. Can be used for
         /// individual files, or to show all files in a given
@@ -22813,7 +23577,11 @@ namespace kinetica
         /// directory.</summary>
         /// 
         /// <param name="paths">File paths to show. Each path can be a KiFS
-        /// directory name, or a full path to a KiFS file.  </param>
+        /// directory name, or a full path to a KiFS file. File paths may
+        /// contain wildcard characters after the KiFS directory delimeter.
+        /// Accepted wildcard characters are asterisk (*) to represent any
+        /// string of zero or more characters, and question mark (?) to
+        /// indicate a single character.  </param>
         /// <param name="options">Optional parameters.  The default value is an
         /// empty {@link Dictionary}.</param>
         /// 
@@ -24726,10 +25494,15 @@ namespace kinetica
         /// <paramref cref="RawUpdateRecordsRequest.options" />.
         /// <br />
         /// The <i>update_on_existing_pk</i> option specifies the record
-        /// collision policy for tables with a <a
+        /// primary key collision
+        /// policy for tables with a <a
         /// href="../../../concepts/tables/#primary-keys" target="_top">primary
-        /// key</a>, and
-        /// is ignored on tables with no primary key.</summary>
+        /// key</a>, while
+        /// <i>ignore_existing_pk</i> specifies the record primary key
+        /// collision
+        /// error-suppression policy when those collisions result in the update
+        /// being rejected.  Both are
+        /// ignored on tables with no primary key.</summary>
         /// 
         /// <param name="request_">Request object containing the parameters for
         /// the operation.</param>
@@ -24781,10 +25554,15 @@ namespace kinetica
         /// <paramref cref="RawUpdateRecordsRequest.options" />.
         /// <br />
         /// The <i>update_on_existing_pk</i> option specifies the record
-        /// collision policy for tables with a <a
+        /// primary key collision
+        /// policy for tables with a <a
         /// href="../../../concepts/tables/#primary-keys" target="_top">primary
-        /// key</a>, and
-        /// is ignored on tables with no primary key.</summary>
+        /// key</a>, while
+        /// <i>ignore_existing_pk</i> specifies the record primary key
+        /// collision
+        /// error-suppression policy when those collisions result in the update
+        /// being rejected.  Both are
+        /// ignored on tables with no primary key.</summary>
         /// 
         /// <typeparam name="T">The type of object being added.</typeparam>
         /// 
@@ -24843,32 +25621,39 @@ namespace kinetica
         /// <paramref name="options" />.
         /// <br />
         /// The <i>update_on_existing_pk</i> option specifies the record
-        /// collision policy for tables with a <a
+        /// primary key collision
+        /// policy for tables with a <a
         /// href="../../../concepts/tables/#primary-keys" target="_top">primary
-        /// key</a>, and
-        /// is ignored on tables with no primary key.</summary>
+        /// key</a>, while
+        /// <i>ignore_existing_pk</i> specifies the record primary key
+        /// collision
+        /// error-suppression policy when those collisions result in the update
+        /// being rejected.  Both are
+        /// ignored on tables with no primary key.</summary>
         /// 
         /// <typeparam name="T">The type of object being added.</typeparam>
         /// 
         /// <param name="table_name">Name of table to be updated, in
-        /// [schema_name.]table_name format, using standard <a
-        /// href="../../../concepts/tables/#table-name-resolution"
+        /// [schema_name.]table_name format, using standard
+        /// <a href="../../../concepts/tables/#table-name-resolution"
         /// target="_top">name resolution rules</a>.  Must be a currently
         /// existing table and not a view.  </param>
         /// <param name="expressions">A list of the actual predicates, one for
         /// each update; format should follow the guidelines /filter.  </param>
         /// <param name="new_values_maps">List of new values for the matching
-        /// records.  Each element is a map with (key, value) pairs where the
-        /// keys are the names of the columns whose values are to be updated;
-        /// the values are the new values.  The number of elements in the list
+        /// records.  Each element is a map with
+        /// (key, value) pairs where the keys are the names of the columns
+        /// whose values are to be updated; the
+        /// values are the new values.  The number of elements in the list
         /// should match the length of <paramref
         /// cref="RawUpdateRecordsRequest.expressions" />.  </param>
         /// <param name="data">An *optional* list of new binary-avro encoded
-        /// records to insert, one for each update.  If one of <paramref
+        /// records to insert, one for each
+        /// update.  If one of <paramref
         /// cref="RawUpdateRecordsRequest.expressions" /> does not yield a
-        /// matching record to be updated, then the corresponding element from
-        /// this list will be added to the table.  The default value is an
-        /// empty {@link List}.</param>
+        /// matching record to be updated, then the
+        /// corresponding element from this list will be added to the table.
+        /// The default value is an empty {@link List}.</param>
         /// <param name="options">Optional parameters.
         /// <list type="bullet">
         ///     <item>
@@ -24882,13 +25667,15 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="RawUpdateRecordsRequest.Options.BYPASS_SAFETY_CHECKS">BYPASS_SAFETY_CHECKS</see>:</term>
-        ///         <description>When set to <i>true</i>, all predicates are
-        /// available for primary key updates.  Keep in mind that it is
-        /// possible to destroy data in this case, since a single predicate may
-        /// match multiple objects (potentially all of records of a table), and
-        /// then updating all of those records to have the same primary key
-        /// will, due to the primary key uniqueness constraints, effectively
-        /// delete all but one of those updated records.
+        ///         <description>When set to <i>true</i>,
+        /// all predicates are available for primary key updates.  Keep in mind
+        /// that it is possible to destroy
+        /// data in this case, since a single predicate may match multiple
+        /// objects (potentially all of records
+        /// of a table), and then updating all of those records to have the
+        /// same primary key will, due to the
+        /// primary key uniqueness constraints, effectively delete all but one
+        /// of those updated records.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -24907,30 +25694,59 @@ namespace kinetica
         ///         <term><see
         /// cref="RawUpdateRecordsRequest.Options.UPDATE_ON_EXISTING_PK">UPDATE_ON_EXISTING_PK</see>:</term>
         ///         <description>Specifies the record collision policy for
-        /// tables with a <a href="../../../concepts/tables/#primary-keys"
-        /// target="_top">primary key</a> when updating columns of the <a
-        /// href="../../../concepts/tables/#primary-keys" target="_top">primary
-        /// key</a> or inserting new records.  If <i>true</i>, existing records
-        /// with primary key values that match those of a record being updated
-        /// or inserted will be replaced by the updated and new records.  If
-        /// <i>false</i>, existing records with matching primary key values
-        /// will remain unchanged, and the updated or new records with primary
-        /// key values that match those of existing records will be discarded.
-        /// If the specified table does not have a primary key, then this
-        /// option has no effect.
+        /// updating a table with a
+        /// <a href="../../../concepts/tables/#primary-keys"
+        /// target="_top">primary key</a>.  There are two ways that a record
+        /// collision can
+        /// occur.
+        /// The first is an "update collision", which happens when the update
+        /// changes the value of the updated
+        /// record's primary key, and that new primary key already exists as
+        /// the primary key of another record
+        /// in the table.
+        /// The second is an "insert collision", which occurs when a given
+        /// filter in <paramref cref="RawUpdateRecordsRequest.expressions" />
+        /// finds no records to update, and the alternate insert record given
+        /// in <paramref cref="RawUpdateRecordsRequest.records_to_insert" />
+        /// (or
+        /// <paramref cref="RawUpdateRecordsRequest.records_to_insert_str" />)
+        /// contains a primary key matching that of an existing record in the
+        /// table.
+        /// If <i>update_on_existing_pk</i> is set to
+        /// <i>true</i>, "update collisions" will result in the
+        /// existing record collided into being removed and the record updated
+        /// with values specified in
+        /// <paramref cref="RawUpdateRecordsRequest.new_values_maps" /> taking
+        /// its place; "insert collisions" will result in the collided-into
+        /// record being updated with the values in <paramref
+        /// cref="RawUpdateRecordsRequest.records_to_insert" />/<paramref
+        /// cref="RawUpdateRecordsRequest.records_to_insert_str" />
+        /// (if given).
+        /// If set to <i>false</i>, the existing collided-into
+        /// record will remain unchanged, while the update will be rejected and
+        /// the error handled as determined
+        /// by <i>ignore_existing_pk</i>.  If the specified table does not have
+        /// a primary key,
+        /// then this option has no effect.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
         /// cref="RawUpdateRecordsRequest.Options.TRUE">TRUE</see>:</term>
-        ///         <description>Overwrite existing records when updated and
-        /// inserted records have the same primary keys</description>
+        ///         <description>Overwrite the collided-into record when
+        /// updating a
+        /// record's primary key or inserting an alternate record causes a
+        /// primary key collision between the
+        /// record being updated/inserted and another existing record in the
+        /// table</description>
         ///     </item>
         ///     <item>
         ///         <term><see
         /// cref="RawUpdateRecordsRequest.Options.FALSE">FALSE</see>:</term>
-        ///         <description>Discard updated and inserted records when the
-        /// same primary keys already exist</description>
+        ///         <description>Reject updates which cause primary key
+        /// collisions
+        /// between the record being updated/inserted and an existing record in
+        /// the table</description>
         ///     </item>
         /// </list>
         /// The default value is <see
@@ -24939,24 +25755,34 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="RawUpdateRecordsRequest.Options.IGNORE_EXISTING_PK">IGNORE_EXISTING_PK</see>:</term>
-        ///         <description>Specifies the record collision policy for
-        /// tables with a <a href="../../../concepts/tables/#primary-keys"
-        /// target="_top">primary key</a> when updating columns of the <a
+        ///         <description>Specifies the record collision
+        /// error-suppression policy for
+        /// updating a table with a <a
         /// href="../../../concepts/tables/#primary-keys" target="_top">primary
-        /// key</a> or inserting new records.  If set to <i>true</i>, any
-        /// record being updated or inserted with primary key values that match
-        /// those of an existing record will be ignored with no error
-        /// generated.  If the specified table does not have a primary key,
-        /// then this option has no affect.
+        /// key</a>, only used when primary
+        /// key record collisions are rejected (<i>update_on_existing_pk</i> is
+        /// <i>false</i>).  If set to
+        /// <i>true</i>, any record update that is rejected for
+        /// resulting in a primary key collision with an existing table record
+        /// will be ignored with no error
+        /// generated.  If <i>false</i>, the rejection of any update
+        /// for resulting in a primary key collision will cause an error to be
+        /// reported.  If the specified table
+        /// does not have a primary key or if <i>update_on_existing_pk</i> is
+        /// <i>true</i>, then this option has no effect.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
         ///         <term><see
-        /// cref="RawUpdateRecordsRequest.Options.TRUE">TRUE</see></term>
+        /// cref="RawUpdateRecordsRequest.Options.TRUE">TRUE</see>:</term>
+        ///         <description>Ignore updates that result in primary key
+        /// collisions with existing records</description>
         ///     </item>
         ///     <item>
         ///         <term><see
-        /// cref="RawUpdateRecordsRequest.Options.FALSE">FALSE</see></term>
+        /// cref="RawUpdateRecordsRequest.Options.FALSE">FALSE</see>:</term>
+        ///         <description>Treat as errors any updates that result in
+        /// primary key collisions with existing records</description>
         ///     </item>
         /// </list>
         /// The default value is <see
@@ -25003,13 +25829,15 @@ namespace kinetica
         ///     <item>
         ///         <term><see
         /// cref="RawUpdateRecordsRequest.Options.USE_EXPRESSIONS_IN_NEW_VALUES_MAPS">USE_EXPRESSIONS_IN_NEW_VALUES_MAPS</see>:</term>
-        ///         <description>When set to <i>true</i>, all new values in
+        ///         <description>When set to <i>true</i>,
+        /// all new values in <paramref
+        /// cref="RawUpdateRecordsRequest.new_values_maps" /> are considered as
+        /// expression values. When set to
+        /// <i>false</i>, all new values in
         /// <paramref cref="RawUpdateRecordsRequest.new_values_maps" /> are
-        /// considered as expression values. When set to <i>false</i>, all new
-        /// values in <paramref cref="RawUpdateRecordsRequest.new_values_maps"
-        /// /> are considered as constants.  NOTE:  When <i>true</i>, string
-        /// constants will need to be quoted to avoid being evaluated as
-        /// expressions.
+        /// considered as constants.  NOTE:  When
+        /// <i>true</i>, string constants will need
+        /// to be quoted to avoid being evaluated as expressions.
         /// Supported values:
         /// <list type="bullet">
         ///     <item>
@@ -28045,8 +28873,7 @@ namespace kinetica
         /// graph. See
         /// <a href="../../../graph_solver/network_graph_solver/"
         /// target="_top">Network Graphs & Solvers</a>
-        /// for more information on graphs.
-        /// .</summary>
+        /// for more information on graphs.</summary>
         /// 
         /// <param name="request_">Request object containing the parameters for
         /// the operation.</param>
@@ -28071,8 +28898,7 @@ namespace kinetica
         /// graph. See
         /// <a href="../../../graph_solver/network_graph_solver/"
         /// target="_top">Network Graphs & Solvers</a>
-        /// for more information on graphs.
-        /// .</summary>
+        /// for more information on graphs.</summary>
         /// 
         /// <param name="graph_name">Name of the graph on which the isochrone
         /// is to be computed.  </param>

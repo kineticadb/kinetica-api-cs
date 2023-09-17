@@ -22,7 +22,12 @@ namespace kinetica
     {
 
         /// <summary>File paths to show. Each path can be a KiFS directory
-        /// name, or a full path to a KiFS file.  </summary>
+        /// name, or a full path to a KiFS file. File paths may contain
+        /// wildcard characters after the KiFS directory delimeter.
+        /// <br />
+        /// Accepted wildcard characters are asterisk (*) to represent any
+        /// string of zero or more characters, and question mark (?) to
+        /// indicate a single character.  </summary>
         public IList<string> paths { get; set; } = new List<string>();
 
         /// <summary>Optional parameters.  The default value is an empty {@link
@@ -38,7 +43,11 @@ namespace kinetica
         /// parameters.</summary>
         /// 
         /// <param name="paths">File paths to show. Each path can be a KiFS
-        /// directory name, or a full path to a KiFS file.  </param>
+        /// directory name, or a full path to a KiFS file. File paths may
+        /// contain wildcard characters after the KiFS directory delimeter.
+        /// Accepted wildcard characters are asterisk (*) to represent any
+        /// string of zero or more characters, and question mark (?) to
+        /// indicate a single character.  </param>
         /// <param name="options">Optional parameters.  The default value is an
         /// empty {@link Dictionary}.</param>
         /// 

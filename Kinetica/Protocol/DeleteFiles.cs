@@ -69,7 +69,12 @@ namespace kinetica
         } // end struct Options
 
 
-        /// <summary>An array of names of files to be deleted.  </summary>
+        /// <summary>An array of names of files to be deleted. File paths may
+        /// contain wildcard characters after the KiFS directory delimeter.
+        /// <br />
+        /// Accepted wildcard characters are asterisk (*) to represent any
+        /// string of zero or more characters, and question mark (?) to
+        /// indicate a single character.  </summary>
         public IList<string> file_names { get; set; } = new List<string>();
 
         /// <summary>Optional parameters.
@@ -106,7 +111,11 @@ namespace kinetica
         /// parameters.</summary>
         /// 
         /// <param name="file_names">An array of names of files to be deleted.
-        /// </param>
+        /// File paths may contain wildcard characters after the KiFS directory
+        /// delimeter.
+        /// Accepted wildcard characters are asterisk (*) to represent any
+        /// string of zero or more characters, and question mark (?) to
+        /// indicate a single character.  </param>
         /// <param name="options">Optional parameters.
         /// <list type="bullet">
         ///     <item>
@@ -147,6 +156,9 @@ namespace kinetica
     /// />.</summary>
     public class DeleteFilesResponse : KineticaData
     {
+
+        /// <summary>Names of the files deleted from KiFS  </summary>
+        public IList<string> file_names { get; set; } = new List<string>();
 
         /// <summary>Additional information.  </summary>
         public IDictionary<string, string> info { get; set; } = new Dictionary<string, string>();
